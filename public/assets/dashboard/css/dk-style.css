@@ -3075,8 +3075,9 @@ button.btn:focus {
 .view_img_gallery img {
     width: 140px;
     height: 120px;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 6px;
+    border: 1px solid var(--blue--text);
 }
 
 
@@ -3086,16 +3087,111 @@ button.btn:focus {
     height: 100%;
 }
 
+.nav-tabs.view_img_tab li {
+    margin-bottom: 0px;
+}
+
+.nav-tabs.view_img_tab li a {
+    color: var(--blue--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nav-tabs.view_img_tab li a.active {
+    color: #fff;
+}
+
+.nav-tabs.view_img_tab li a:hover {
+    background-color: var(--blue--text);
+    color: #fff;
+}
+
+.banner_img,
+.pinup_img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.banner_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pinup_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 /* Center 6 Images Grid */
 
 .view_img_gallery .other_images {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 10px;
-    height: 400px;
+    gap: 20px;
+    min-height: 120px;
+    max-height: 400px;
     overflow: auto;
+}
+
+.verify_icon_wrapper {
+    position: relative;
+}
+
+.verify_icon_wrapper .verify_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 1px;
+    top: 0px;
+    border: none;
+    background: var(--blue--text);
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.verify_icon_wrapper .verify_icon img {
+    width: 18px;
+    height: 18px;
+    border: none;
+    object-fit: cover;
+}
+
+.verify_icon_wrapper .verify_icon:hover .mc_media_tooltip {
+    display: block;
+}
+
+.mc_media_tooltip {
+    position: absolute;
+    left: 30px;
+    top: 1px;
+    z-index: 999;
+    width: max-content;
+    background: var(--peach);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+}
+
+.mc_media_tooltip::after {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    content: '';
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+    transform: rotate(90deg) translate(-50%, 100%);
 }
 
 
@@ -3121,7 +3217,7 @@ button.btn:focus {
 .verification img {
     height: 400px;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .verify_ing_masseurs table td {
@@ -4454,7 +4550,9 @@ ol.custom--substyle li:before {
 
 .fa-ellipsis,
 .fa-ellipsis-v {
-    transform: rotate(90deg)
+    transform: rotate(90deg);
+    color: #333 !important;
+    font-weight: 600 !important;
 }
 
 
@@ -6895,10 +6993,11 @@ margin-left: 10px;
     text-transform: capitalize;
 }
 
-.modal-dialog {
+
+/* .modal-dialog {
     max-width: 642px;
     margin: auto;
-}
+} */
 
 .modal-apointment-details {
     width: 500px !important;
@@ -6974,7 +7073,7 @@ ul#accordionSidebar {
     font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 500 !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     line-height: 1.5 !important;
     color: var(--blue--text);
 }
@@ -6983,9 +7082,20 @@ ul#accordionSidebar {
     font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 500 !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     line-height: 1.5 !important;
     color: var(--blue--text);
+}
+
+.custom_modal_text {
+    font-family: Poppins !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+    color: var(--blue--text);
+    padding: 15px 0px;
+    text-align: center;
 }
 
 .modal-image-first {
@@ -10559,6 +10669,13 @@ border-top: 5px solid var(--peach);
 .tour_icon {
     color: white;
     background-color: #C2A68C;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
+.upgrade_icon {
+    color: white;
+    background-color: var(--deactivated--status);
     border-radius: 15%;
     padding: 0 5px;
 }

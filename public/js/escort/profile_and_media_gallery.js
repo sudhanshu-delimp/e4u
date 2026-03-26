@@ -164,6 +164,13 @@ function preview_image(event)
         $('#pageItem_0').addClass('active');
     });
 
+    $(document).on('click', '#escort_profile_media_filter_type .nav-link', function(e) {
+        e.preventDefault();
+        $('#escort_profile_media_filter_type .nav-link').removeClass('active');
+        $(this).addClass('active');
+        getAccountMediaGallery();
+    });
+
     function readImageURL(input) {
         if (input.files && input.files[0]) {
             var $img = $(input).siblings('img');
@@ -309,8 +316,10 @@ function preview_image(event)
 
     var getAccountMediaGallery = function() {
         let activeGalleryTab = $(".js_gallery_category .nav-link.active").attr('data-type');
+        let activeStatusTab = $("#escort_profile_media_filter_type .nav-link.active").attr('data-filter-type');
+
         return $.ajax({
-            url: `/escort-dashboard/get-account-media-gallery/${activeGalleryTab}`,
+            url: `/escort-dashboard/get-account-media-gallery/${activeGalleryTab}/${activeStatusTab}`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {

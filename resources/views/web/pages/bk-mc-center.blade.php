@@ -548,11 +548,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
-                            <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please
+                        <h5 class="custom_modal_text" style="text-align: center;">
+                            <span id="Lname">My Legbox is only available to Viewers. Please
                                 log in
                                 or Register to access your Legbox.</span>
-                        </h1>
+                        </h5>
                     </div>
                     <div class="modal-footer my_legbox_footer" style="justify-content: center;">
                         <a href="{{ route('viewer.login') }}" type="button"

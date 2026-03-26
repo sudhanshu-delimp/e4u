@@ -49,7 +49,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table-responsive">
-                    <table class="table table-hover" id="supportTicketsTable">
+                    <table class="table" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                             <tr>
                                 <th>Ticket ID </th>
@@ -77,8 +77,8 @@
 
     <div class="modal fade upload-modal" id="conversation_modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document"> {{-- NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only --}}
-            <div class="modal-content" style="width: 900px;position: absolute; top:50px;">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered" role="document"> {{-- NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only --}}
+            <div class="modal-content">
                 {{-- {{ route('escort.upload.gallery') }} --}}
                 <div class="modal-content border-0">
                     <div class="modal-header">

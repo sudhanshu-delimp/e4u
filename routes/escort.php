@@ -231,6 +231,7 @@ Route::get('archive-tour-profiles',function(){
 // Route::get('archive-tour-view-profiles',function(){
 //     return view('escort.dashboard.archives.archive-tour-view-profiles');
 // });
+Route::post('/escort/media-verification/upload',[EscortGalleryController::class, 'mediaVerificationUpload'])->name('escort.media.verification.upload');
 Route::get('archive-medias',function(){
     return view('escort.dashboard.archives.archive-medias');
 })->name('archive-medias');
@@ -250,7 +251,7 @@ Route::post('merge-chunks', [EscortGalleryController::class, 'mergeChunks'])->na
 //     return view('escort.dashboard.archives.archive-view-photos');
 // });
 Route::get('archive-view-videos',[EscortGalleryController ::class, 'videoGalleries'])->name('escort.archive-view-videos');
-Route::get('get-account-media-gallery/{category?}',[EscortGalleryController ::class, 'getAccountMediaGallery'])->name('escort.account.gallery');
+Route::get('get-account-media-gallery/{category?}/{status?}', [EscortGalleryController::class, 'getAccountMediaGallery'])->name('escort.account.gallery');
 Route::get('get-account-video-gallery',[EscortGalleryController ::class, 'getAccountVideoGallery'])->name('escort.account.video_gallery');
 // Route::get('archive-view-videos',function(){
 //     return view('escort.dashboard.archives.archive-view-videos');
@@ -303,9 +304,6 @@ Route::get('criticalinformation',function(){
 
 Route::get('my-bank-account',function(){
     return view('escort.dashboard.Bookkeeping.my-bank-account');
-});
-Route::get('transaction-history',function(){
-    return view('escort.dashboard.Bookkeeping.transaction-history');
 });
 Route::get('transaction-summary',function(){
     return view('escort.dashboard.Bookkeeping.transaction-summary');

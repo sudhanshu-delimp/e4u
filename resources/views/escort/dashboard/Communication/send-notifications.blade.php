@@ -187,7 +187,7 @@
     {{-- Send Notification Popup --}}
     <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="new-ban"><img src="/assets/app/img/paper-plane-send.png"
@@ -201,25 +201,26 @@
                     <form>
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <select class="form-control rounded-0">
+                                <select class="form-control rounded-0 mb-3">
                                     <option>Select Home State</option>
                                 </select>
+                                 <label class="form-check-label" for="exampleCheck1" style="color: #323C47; display:none">You are
+                                    about to send notification to all viewers located in Home State. </label>
+
+                                <!-- if only one selected -->
+
+                                <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are
+                                    about to send notification to <span>Viewers name</span> and viewers located in
+                                    <span>Location</span>. </label>
                             </div>
+                            
                             <div class="col-12 mb-3">
-                                <div class="form-group text-left"
-                                    style="border: 2px dashed #e3e6f0;padding: 15px 10px 35px 10px;">
-                                    {{-- in not selected any --}}
-    <label class="form-check-label" for="exampleCheck1" style="color: #323C47; display:none">You are
-        about to send notification to all viewers located in Home State. </label>
-
-    <!-- if only one selected -->
-
-    <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are
-        about to send notification to <span>Viewers name</span> and viewers located in
-        <span>Location</span>. </label>
+                                <div class="form-group text-left">
+                                    {{-- in not selected any --}} <hr style="background-color: #0C223D" class="mt-4">
+   
     <div class="card-body px-0">
-        <h4 class="NotesHeader"><b>Notes:</b> </h4>
-        <ol>
+       <p class="mb-1"><b>Notes:</b></p>
+       <ol class="pl-4 text-justify">
             <li>The Viewer will only receive this Notification if they have the feature
                 enabled.</li>
             <li>The Notification will identify you by your Membership ID and Stage Name.

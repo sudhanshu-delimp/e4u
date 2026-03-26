@@ -34,11 +34,36 @@
                         <div class="manage_tag_style">
                             <ul id="selected_service_one">
                                
+                                @foreach ($massage_profile->massage_services()->where('category_id', 1)->get() as $value)
+                                        <li class="mb-2" id="hideenclassOne_{{$value->service_id}}">
+                                            <div class='my_service_anal hideenclassOne{{$value->id}}'>
+                                                <span class="dollar-sign">
+                                                {{config('escorts.profile.massage-services')[$value->service_id]  }}
+                                                </span>
+                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->price}}" min=0 step=10 max=200>
+                                                <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
+                                                <input type='hidden' name='category_id[]' value='1'>
+                                                <span id="span_id" data-id="{{$value->id}}">
+                                                <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.massage-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+                                @endforeach
+
                             </ul>
                             
                         </div>
                     </div>
                 </div>
+
+
+                
+
+
+
+
+
+
             </div>
             <div class="pt-2 pb-2">
                 <div class="row">
@@ -60,8 +85,23 @@
                 <div class="row">
                     <div class="col">
                         <div class="manage_tag_style">
-                            
                             <ul id="selected_service_two">
+
+                                @foreach ($massage_profile->massage_services()->where('category_id', 2)->get() as $value)
+                                        <li class="mb-2" id="hideenclassTwo_{{$value->service_id}}">
+                                            <div class='my_service_anal hideenclassTwo{{$value->id}}'>
+                                                <span class="dollar-sign">
+                                                {{config('escorts.profile.other-services')[$value->service_id]  }}
+                                                </span>
+                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->price}}" min=0 step=10 max=200>
+                                                <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
+                                                <input type='hidden' name='category_id[]' value='2'>
+                                                <span id="span_id" data-id="{{$value->id}}">
+                                                <i class='fas fa-times-circle akh2' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.other-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+                                @endforeach
                                
                             </ul>
                         </div>

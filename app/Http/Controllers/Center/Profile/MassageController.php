@@ -39,7 +39,7 @@ use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
-use App\Repositories\Message\MassageMediaInterface;
+
 use App\Repositories\Message\MessageMediaInterface;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
@@ -47,6 +47,10 @@ use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
+
+// use App\Repositories\MassageProfile\MassageMediaInterface;
+use App\Repositories\Message\MassageMediaInterface;
+use App\Repositories\MassageProfile\MassageMediaInterface as MassageMedia;
 
 //use Illuminate\Http\Request;
 
@@ -63,7 +67,7 @@ class MassageController extends Controller
     
 
 
-    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
+    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MassageMedia $massage_media, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -71,7 +75,7 @@ class MassageController extends Controller
         $this->duration = $duration;
         $this->media = $media;
         $this->massage_profile = $massage_profile;
-        //$this->massage_media = $massage_media;
+        $this->massage_media = $massage_media;
     }
 
    
@@ -83,17 +87,16 @@ class MassageController extends Controller
     public function  get_all_massager_list(Request $request)
     {
 
-            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->where('default_setting','=',0)->get();
+            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
             $countries = getCountryList();
 
             $data = $masseurs->map(function ($row) use ($countries) {
 
-                if($row->enabled==1)
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>';   
-                 else
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
-               
                 $status = "";
+                if($row->enabled==0)
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+               
+                //$status = "";
                
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -111,7 +114,7 @@ class MassageController extends Controller
                 //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
                 return [
-                   
+                    'id' => $row->id,
                     'profile_name' => $row->profile_name,
                     'business_name' => $row->business_name,
                     'business_no' => $row->business_no,
@@ -205,21 +208,25 @@ class MassageController extends Controller
             $escort = $this->massage_profile->make();
         }
         $massage_profile = $escort;
+        $defaultServiceIds = $escort->services()->pluck('service_id')->toArray();
+
+        
 
         
         $massage_durations = (isset($escort->durations) && count($escort->durations)>0) ? $escort->durations->toArray() : [];
+        $availability = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : [];
+
 
         // echo '<pre>';
         // print_r($massage_durations);
         // exit;
 
-        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
-        $path = $this->media;
+        $media = $this->massage_media->with_Or_withoutPosition(auth()->user()->id, []);
+        $path = $this->massage_media;
         $durations = $this->duration->all();
 
         $masseurs  = Masseur::all();
-
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs'));
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user','availability'));
     }
 
     public function getProfile(Request $request, $id)
@@ -249,7 +256,7 @@ class MassageController extends Controller
             $user = auth()->user();
             list($service_one, $service_two, $service_three) = $this->service->findByCategory([1, 2, 3]);
             $durations = $this->duration->all();
-            $availability = $escort->availability ? json_decode($escort->availability->availability_time, true) : [];
+            $massage_availability = $escort->availability ? json_decode($escort->availability->availability_time, true) : [];
             $service = $this->service;
             $path = $this->media;
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [], $id);
@@ -258,16 +265,13 @@ class MassageController extends Controller
            
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
             $edit_mode = true;
-
-           
-
-            
+    
             $social_links = $escort->social_links;
+            $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
 
-            
             
             //dd($escort->imagePosition(9));
-            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default','social_links'));
+            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default','social_links','massage_availability'));
         }
         
     }
@@ -359,17 +363,21 @@ class MassageController extends Controller
 
     public function createProfile(Request $request)
     {
-        
        
-       
+
         try 
         {
-
+            
             DB::beginTransaction();
             $user = auth()->user();
-            $request_data = $request->all();
-            $availability     = $this->makeAvailability($request_data);
+            $request_data = $request->all(); 
+            $availability     = make_time_availability($request_data);
             $availabilityJson = json_encode($availability);
+
+            $massage_profile = MassageProfile::where('user_id', auth()->user()->id)
+            ->where('default_setting', '!=', 1)
+            ->where('enabled', '=', 1)
+            ->first();
 
             /* ================== Massage Profile ================== */
             $massage = new MassageProfile();
@@ -401,6 +409,12 @@ class MassageController extends Controller
             $massage->social_links    = $social_links;
 
             $massage->contact         = $request->filled('contact') ? $request->contact : null;
+
+            if($massage_profile)
+            $massage->enabled  = 0; 
+            else
+            $massage->enabled  = 1;     
+
 
             $massage->save();
 
@@ -555,6 +569,7 @@ class MassageController extends Controller
             $message = 'Business information updated successfully.';
             if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
+            massage_profile_complete_status($request->massage_id);
         }
         ######### End Update profile  #####################
 
@@ -580,6 +595,7 @@ class MassageController extends Controller
             $message = 'Updated successfully.';
             if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
+            massage_profile_complete_status($request->massage_id);
         }
         ######### End Update Abous us #####################
 
@@ -737,6 +753,7 @@ class MassageController extends Controller
                         MassageService::insert($services);
                     }
                     
+                    massage_profile_complete_status($request->massage_id);
                 }
 
 
@@ -777,7 +794,39 @@ class MassageController extends Controller
                         {
                             MassageRate::where(['massage_profile_id'=> $massage_profile_id])->delete();
                             MassageRate::insert($rates);
-                        }
+
+                            $default_duration = find_massage_default_duration(auth()->user()->id);
+                            $serviceMap = [
+                                'massage' => $default_duration['massage_price'] ?? [],
+                                '2_hand'  => $default_duration['incall_price'] ?? [],
+                                '4_hand'  => $default_duration['outcall_price'] ?? [],
+                            ];
+
+                            $validServices = [];
+                            foreach ($serviceMap as $service => $prices) {
+                                if (isPriceValid($prices)) {
+                                    $validServices[] = $service;
+                                }
+                            }
+
+                            
+                            $masseurs = DB::table('masseurs as m')
+                                ->leftJoin('massager_masseurs as mm', 'm.id', '=', 'mm.masseur_profile_id')
+                                ->whereNull('mm.masseur_profile_id')
+                                ->select('m.*')
+                                ->get();
+
+                            $masseurIds = $masseurs->pluck('id')->toArray();
+
+                            Log::info($masseurIds);
+
+                            Masseur::whereIn('id', $masseurIds)
+                                ->update([
+                                    'service' => json_encode($validServices)
+                                ]);
+                            }
+                      
+                    massage_profile_complete_status($request->massage_id);    
                 }
 
 
@@ -798,7 +847,7 @@ class MassageController extends Controller
             try 
             {
                 $request_data = $request->all();
-                $availability     = $this->makeAvailability($request_data);
+                $availability     = make_time_availability($request_data);
 
                 Log::info($availability);
                 if(!empty($availability))
@@ -842,6 +891,7 @@ class MassageController extends Controller
                 $profile->default_setting = 1;
                 $profile->social_links = $request->social_links;
                 $profile->save();
+                massage_profile_complete_status($request->massage_id);
             }
 
             $error = false;
@@ -853,6 +903,21 @@ class MassageController extends Controller
         {
             if (!empty($request->masseur_ids)) 
             {
+               
+                $default_duration = find_massage_default_duration(auth()->user()->id);
+                $messure_service = [];
+
+                if(isset($default_duration['massage_price']) && (empty($default_duration['massage_price'])))
+                $messure_service[] = 'massage';
+                
+                if(isset($default_duration['incall_price']) && (empty($default_duration['incall_price'])))
+                $messure_service[] = '2_hand'; 
+
+                if(isset($default_duration['outcall_price']) && (empty($default_duration['outcall_price'])))
+                $messure_service[] = '4_hand'; 
+
+               
+
                 $massage_profile_id = $request->massage_id;
                 $masseurIds = $request->masseur_ids;
                 if (is_string($masseurIds)) {
@@ -864,12 +929,12 @@ class MassageController extends Controller
                 {
                     foreach ($masseurIds as $key => $value) 
                     {
-                            $masseur[] = [  
-                                            'masseur_profile_id'    => $value,
-                                            'massage_profile_id'    => $massage_profile_id,
-                                            'created_at'            => now(),
-                                            'updated_at'            => now(),
-                                        ];
+                        $masseur[] = [  
+                                        'masseur_profile_id'    => $value,
+                                        'massage_profile_id'    => $massage_profile_id,
+                                        'created_at'            => now(),
+                                        'updated_at'            => now(),
+                                    ];
                     }   
                 }
 
@@ -877,6 +942,19 @@ class MassageController extends Controller
                 {
                     MassagerMasseur::where(['massage_profile_id'=> $massage_profile_id])->delete();
                     MassagerMasseur::insert($masseur);
+                    $messures =  Masseur::whereIn('id', $masseurIds)->get();
+                    if($messures->isNotEmpty())
+                    {
+                        foreach($messures as $messure)
+                        {
+                            if(!empty($messure->service))
+                            {
+                                $newService = array_values(array_diff($messure->service, $messure_service));
+                                $messure->service = !empty($newService) ? $newService : null;
+                                $messure->save();
+                            }
+                        }
+                    }
 
                 }
                
@@ -904,6 +982,51 @@ class MassageController extends Controller
                                 ])->get();
 
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
+    }
+
+
+
+    public function action_massage_profile(Request $request)
+    {
+        DB::beginTransaction();
+
+        try 
+        {
+            $userId = auth()->user()->id;
+            $massage  = MassageProfile::where(['user_id' => $userId,'id'=>$request->profile_id])->first();
+
+            if (!$massage) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Profile not found.'
+                ]);
+            }
+
+            MassageProfile::where('user_id', $userId)
+            ->where('default_setting', '!=', 1)
+            ->where('enabled', '=', 1)
+            ->update(['enabled'=> 0]);
+
+            $massage->enabled = 1;  
+            $mess = 'Profile activated successfully.'; 
+            $massage->save();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => $mess
+            ]);
+
+        } 
+        catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+            ]);
+        }
+        
     }
 
 

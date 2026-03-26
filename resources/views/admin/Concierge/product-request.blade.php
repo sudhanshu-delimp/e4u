@@ -160,7 +160,7 @@
 
 <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content basic-modal">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="active_req"><img src="{{ asset('assets/dashboard/img/order-tracking.png')}}" alt="alert" class="custompopicon"> Tracking Details
       </h5>
@@ -173,13 +173,13 @@
                <div class="row">
                   
                   <div class="col-12 mb-3">
-                     <label for="Traking ID" class="label">Traking ID</label>
+                     <label for="Traking ID">Traking ID</label>
                      <input type="text" class="form-control rounded-0" placeholder="Enter traking id ">
                   </div>
                </div>
             </form>
          </div>
-         <div class="modal-footer pb-4 mb-2">
+         <div class="modal-footer">
             <button type="submit" class="btn-success-modal">save</button>
          </div>
       </div>
@@ -189,7 +189,7 @@
 {{-- confirm_popup --}}
 <div class="modal fade upload-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content custome_modal_max_width">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Completed
       </h5>
@@ -198,7 +198,7 @@
       </button>
    </div>
       <div class="modal-body pb-0">
-            <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+            <h5 class="popu_heading_style my-4" style="text-align: center;">
                The order has been completed.
            </h5>
          </div>

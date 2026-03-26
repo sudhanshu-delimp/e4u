@@ -57,6 +57,7 @@ class EscortController extends BaseController
     protected $user;
     protected $attemptlogin;
     protected $walletService;
+    protected $account;
 
     public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, WalletService $walletService)
     {
@@ -65,6 +66,11 @@ class EscortController extends BaseController
         $this->user = $user;
         $this->attemptlogin = $attemptlogin;
         $this->walletService = $walletService;
+
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
     public function index()
@@ -140,11 +146,34 @@ class EscortController extends BaseController
     // function listing_checkout(UpdateEscortRequest $request) {
     function listing_checkout(Request $request)
     {
-        $escort_ids = $request->input('escort_id');
-        $start_dates = $request->input('start_date');
-        $end_dates = $request->input('end_date');
-        $memberships = $request->input('membership');
+        $checkout_type = !empty($request->checkout_type)?$request->checkout_type:null;
+        $refundAmount = 0.00;
+            switch ($request->checkout_type) {
+                case 'upgrade':{
+                    $escort_id = $request->input('escort_id');
+                    $newMembership = $request->input('membership');
+                    $escortDetail = getEscortDetail($escort_id);
+                    $today = Carbon::today($escortDetail->time_zone);
 
+                    $oldPurchase = $escortDetail->mainPurchase;
+                    $start_date = $today->copy()->addDay()->format('d-m-Y');
+                    $end_date = $oldPurchase->end_date;
+                    $oldMembership = $oldPurchase->membership;
+
+                    $escort_ids = [$escort_id];
+                    $start_dates = [$start_date];
+                    $end_dates = [$end_date];
+                    $memberships = [$newMembership];
+
+                    $refundAmount = getListingRefundAmount($escortDetail);
+                } break;
+                default:{
+                    $escort_ids = $request->input('escort_id');
+                    $start_dates = $request->input('start_date');
+                    $end_dates = $request->input('end_date');
+                    $memberships = $request->input('membership');
+                } break;
+            }
         $data = array_map(function ($escort_id, $start_date, $end_date, $membership) {
             return [
                 'escort_id' => $escort_id,
@@ -166,31 +195,13 @@ class EscortController extends BaseController
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
         //save here in session to retrieve later
         session()->put('checkout', $checkoutData);
-        return view('escort.dashboard.checkoutPage', compact('data', 'escorts'));
+        return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type', 'refundAmount'));
     }
 
 
     function listings($type)
     {
         $relatedEscorts = null;
-        /*$relatedEscorts = Escort::with(['purchase' => function ($query) use ($type) {
-                if($type == 'past') {
-                    $query->where('end_date', '<', date('Y-m-d'));
-                } else {
-                    $query->where('end_date', '>=', date('Y-m-d'));
-                }
-                $query->orderBy('start_date', 'ASC');
-            }])
-            ->whereHas('purchase')
-            ->with([
-                'Brb' => function($query){
-                    $query->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-                }
-            ])
-            ->where('user_id', auth()->user()->id)
-            ->orderBy('name', 'ASC')
-            ->get()->toArray();*/
-
         return view('escort.dashboard.listings', compact('type', 'relatedEscorts'));
     }
 
@@ -258,6 +269,7 @@ class EscortController extends BaseController
         $conditions = [];
         if ($type == 'current') {
             $conditions[] = ['end_date', '>=', date('Y-m-d')];
+            $conditions[] = ['status','listed'];
         } elseif ($type == 'past') {
             $conditions[] = ['end_date', '<', date('Y-m-d')];
         }
@@ -836,11 +848,11 @@ class EscortController extends BaseController
     public function getUpgradeAmount(Request $request)
     {
         try {
-            $profileId = $request->profieId;
+            $profileId = $request->escortId;
             $membershipId = $request->membershipId;
             $profileDetail = getEscortDetail($profileId);
             $refundAmount = getListingRefundAmount($profileDetail);
-            list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->days_left);
+            list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
             $net_paid_amount = number_format($newAmount-$refundAmount,2);
 
             return response()->json([
@@ -861,7 +873,7 @@ class EscortController extends BaseController
 
     public function upgradeList(Request $request){
         try {
-            $profileId = $request->profile_id;
+            $profileId = $request->escort_id;
             $membershipId = $request->membership;
             
             DB::transaction(function () use ($profileId, $membershipId){
@@ -872,8 +884,8 @@ class EscortController extends BaseController
 
                 $refundAmount = getListingRefundAmount($profileDetail);
 
-                list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days));
-                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->days_left);
+                list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days), $this->account);
+                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
 
                 $today = Carbon::today($profileDetail->TimeZone);
                 $startOfToady = $today->copy()->startOfDay()->setTimezone('UTC');
@@ -891,7 +903,7 @@ class EscortController extends BaseController
                 $newPurchase->utc_start_time =  $startOfToady;
                 $newPurchase->rate = $unitAmount;
                 $newPurchase->discount_rate = $unitDiscount;
-                $newPurchase->total_rate = $profileDetail->days_left*$unitAmount;
+                $newPurchase->total_rate = $profileDetail->left_listing_days*$unitAmount;
                 $newPurchase->paid_rate = $amount;
                 $newPurchase->save();
 
@@ -899,11 +911,15 @@ class EscortController extends BaseController
                 $profileDetail->membership = $membershipId;
                 $profileDetail->save();
             });
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Listing has been upgraded.',
-            ]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Listing has been upgraded.',
+                ]);
+            }
+            else{
+                return redirect()->route('escort.list', 'current');
+            }
 
         } catch (Exception $e) {
             return response()->json([

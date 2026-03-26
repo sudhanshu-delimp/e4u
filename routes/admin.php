@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\PublicationAlertController;
 use App\Http\Controllers\Admin\PublicationBlogController;
+use App\Http\Controllers\Admin\MediaVerificationController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\Admin\ReportingController;
 use App\Http\Controllers\Admin\ShareholderNotificationController;
@@ -94,6 +95,10 @@ Route::post('/check-otp/{id}', 'AttemptLoginController@checkOTP')->name('admin.c
 Route::get('/management/set-fees', [SetFeesVariablesUsers::class, 'setFees'])->name('admin.set-fees');
 Route::get('Analytics/consoles', [ConsolesController::class, 'consoles'])->name('consoles');
 Route::get('consoles-list-all-users', [ConsolesController::class, 'allUserDatatable'])->name('admin.Analytics.consolesDataTable');
+
+Route::get('management/fee-discount', function(){
+    return view('admin.management.fee-discount');
+})->name('fee-discount');
 
 Route::get('global-monitoring', function () {
     return view('admin.global-monitoring');
@@ -279,9 +284,12 @@ Route::get('/management/statistics/num', function () {
     return view('admin.management.statistics.num');
 })->name('admin.num');
 
-Route::get('/reports/media-verification', function () {
-    return view('admin.reports.media-verification.index');
-})->name('admin.media-verification');
+
+route::get('/reports/media-verification', [MediaVerificationController::class, 'index'])->name('admin.media-verification');
+route::get('/reports/media-verification-list', [MediaVerificationController::class, 'mediaVerificationLList'])->name('admin.media-verification-list');
+route::get('/reports/media-verification-image', [MediaVerificationController::class, 'mediaVerificationImage'])->name('admin.media-verification-image');
+route::post('/reports/update-media-verification', [MediaVerificationController::class, 'updateMediaVerification'])->name('admin.update-media-verification');
+route::get('/gallery-pdf/{id}/{user_id}', [MediaVerificationController::class, 'galleryPdf'])->name('admin.gallery-pdf');
 
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');
@@ -697,7 +705,7 @@ Route::get('/management/logs-staff', function () {
 })->name('admin.manage-influencers');
 
  Route::get('/management/manage-shareholders',function(){
-    return view('admin.management.manage-shareholders');
+    return view('admin.management.manage-shareholders.add-shareholder');
 })->name('admin.manage-shareholders');
 
  Route::get('/management/dashboard',function(){

@@ -36,12 +36,11 @@ $contactTypesText = implode(", ", $contactTypesArray);
 
 $countries = config('operator.country');
 $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
-
-
+$agreement_file = isset($operator->operator_detail->agreement_file) ? $operator->operator_detail->agreement_file : '';
 @endphp
 <div class="row">
-    <div class="col-12 custom-merchant-modal">
-        <div class="card mb-3 p-3">
+    <div class="col-sm-12">
+        {{-- <div class="card mb-3 p-3"> --}}
             <!-- Avatar + Name -->
             <div class="d-flex align-items-center mb-3">
                 <img src="{{ asset('assets/img/default_user.png') }}" alt="Avatar" class="rounded-circle mr-3"
@@ -116,6 +115,12 @@ $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$op
                     <th>Fees</th>
                     <td>{{ $operator->operator_detail->fee }}</td>
                 </tr>
+                 @if(!empty($agreement_file))
+                <tr>
+                    <th>Agreement File</th>
+                    <td><a href="{{ asset('storage') }}/{{$agreement_file}}" target="_blank" title="Click here to dowload or view agreement file." download>View Agreement</a></td>
+                </tr>
+                @endif
             </table>
             <!-- Commission -->
             <h6 class=" text-blue-primary">Commission</h6>
@@ -129,7 +134,7 @@ $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$op
                     <td>{{ $operator->operator_detail->commission_massage_centre_percent }}</td>
                 </tr>
             </table>
-        </div>
+        {{-- </div> --}}
     </div>
     <div class="col-lg-12">
         <!-- Footer Buttons -->

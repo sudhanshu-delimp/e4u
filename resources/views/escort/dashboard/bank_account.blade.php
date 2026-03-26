@@ -247,7 +247,7 @@
 </div>
 
 <div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true" style="display: none">
-   <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
             <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon" alt="cross"> <span class="commission_report_title">Add New Account</span> </h5>
@@ -314,10 +314,10 @@
 
 @include('modal.two-step-verification')
 
-<div class="modal programmatic" id="delete_bank" style="display: none">
+<div class="modal programmatic fade upload-modal" id="delete_bank" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
+      <div class="modal-content">
+         <div class="modal-header">
 
             <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/remove-bank-account.png')}}" class="custompopicon" alt="cross"> Delete Bank Account</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -333,8 +333,8 @@
             <h5 class="mb-2 mt-3"><span id="Lname"></span> </h5>
             <h3 class="mb-4 mt-2"><span id="log"></span> </h3>
             <div class="modal-footer justify-content-center">
-               <button type="button" class="btn-success-modal" data-dismiss="modal" value="close" id="close_change">Close</button>
-               <button type="button" class="btn-cancel-modal" id="save_change">Delete</button>
+               <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close" id="close_change">No</button>
+               <button type="button" class="btn-success-modal" id="save_change">Yes</button>
             </div>
          </div>
       </div>
@@ -709,9 +709,9 @@
 
 {{-- SEND PAYMENT RECEIPT CONFIRM MODAL--}}
 
-<div class="modal fade programmatic" id="paymentReceiptConfirm" style="display: none">
+<div class="modal fade upload-modal programmatic" id="paymentReceiptConfirm" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
+      <div class="modal-content">
          <div class="modal-header main_bg_color border-0">
 
             <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/remove-bank-account.png')}}" class="custompopicon" alt="cross"> Confirmation</h5>
@@ -723,7 +723,7 @@
          </div>
 
          <div class="modal-body text-center">
-            <h5 class="mb-2 mt-3"><span id="Lname">Are you sure you want to send the payment receipt?</span> </h5>
+            <h5 class="custom_modal_text my-4"><span id="Lname">Are you sure you want to send the payment receipt?</span> </h5>
             <div class="modal-footer justify-content-center">
                <button type="button" class="btn-cancel-modal" id="sendBankPaymentReceiptBtn">Send</button>
             </div>

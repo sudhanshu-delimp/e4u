@@ -185,6 +185,26 @@
             } 
 
         }
+       
+
+
+.ui-draggable-dragging{
+    display:block !important;
+    opacity:1 !important;
+    z-index:999999 !important;
+    pointer-events:none;
+}
+
+.carousel,.grid-container{
+    overflow:visible !important;
+}
+
+
+.time-field {
+    width: 95px;
+}
+
+
     </style>
 @stop
 @section('content')
@@ -336,21 +356,20 @@
                                             <label class="label">Services</label>
                                             <div class="d-flex justify-content-start gap-10">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="service[]" value="massage"
-                                                        value="1" required data-label="Vaccination">
+                                                    <input class="form-check-input" type="checkbox"  required data-label="Vaccination" {{ !isPriceValid($default_duration['massage_price']) ? 'disabled' : '' }} name="service[]" value="massage" >
                                                     <label class="form-check-label">
                                                         Massage
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
+                                                    <input class="form-check-input" type="checkbox" {{ !isPriceValid($default_duration['incall_price']) ? 'disabled' : '' }}   name="service[]" value="2_hand"
                                                         value="2">
                                                     <label class="form-check-label">
                                                         +2 Hands
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="service[]"  value="4_hand"
+                                                    <input class="form-check-input" type="checkbox" {{ !isPriceValid($default_duration['outcall_price']) ? 'disabled' : '' }} name="service[]"  value="4_hand"
                                                         value="3">
                                                     <label class="form-check-label">
                                                         +4 Hands.
@@ -394,41 +413,46 @@
                                                         <div class="col-sm-12 masseur_upl_img">
                                                             <div class="thumnail_img">
                                                                 <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                                <div class="plate">
+                                                                <div class="plate dvDest">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
+
+                                                                        
                                                                         <img class="w-100 gal-thumb-first upld-img profile-gallery"
                                                                             id="img1"
                                                                             src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}"
-                                                                            onclick="positionToUpdate(1)">
+                                                                            data-position=1
+                                                                            onclick="positionToUpdate(1)" data-type="gallery">
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                             <div class="gal_img">
                                                                 <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                                 <div class="masseur_gallery">
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
-                                                                                id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(2)">
+                                                                                id="img2" data-position=2  src="{{ asset('assets/app/img/frame-main-thum.png') }}"
+                                                                                onclick="positionToUpdate(2)" data-type="gallery">
                                                                         </label>
                                                                     </div>
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(3)">
+                                                                                data-position=3
+                                                                                onclick="positionToUpdate(3)" data-type="gallery">
                                                                         </label>
                                                                     </div>
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(4)">
+                                                                                data-position=4
+                                                                                onclick="positionToUpdate(4)" data-type="gallery">
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -502,13 +526,14 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div id="pagination-container"></div>
+                                                            
                                                             <div id="carouselExampleIndicators" class="carousel slide"
                                                                 data-bs-wrap="false" data-bs-ride="carousel">
 
                                                                 <ul class="pagination ml-2 pl-1">
-                                                                    <!-- Declare the item in the group -->
+                                                                   
                                                                     <li class="page-item preview">
-                                                                        <!-- Declare the link of the item -->
+                                                                      
                                                                         <a class="page-link"
                                                                             href="#carouselExampleIndicators"
                                                                             id="preId">‹‹</a>
@@ -526,9 +551,12 @@
                                                                     <div class="carousel-inner" id="view_all">
 
                                                                     </div>
-                                                                    <!--.Carousel-->
+                                                                   
                                                                 </div>
                                                             </div>
+
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -550,107 +578,163 @@
                                     <div class="mcc-form-tab">
 
                                         <h2>My Availability</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div
-                                                    class="padding_20_all_side my-availability-mon profile_time_availibility">
+                                        
 
-                                                    @php
-                                                        $days = [
-                                                            'monday' => 'Monday',
-                                                            'tuesday' => 'Tuesday',
-                                                            'wednesday' => 'Wednesday',
-                                                            'thursday' => 'Thursday',
-                                                            'friday' => 'Friday',
-                                                            'saturday' => 'Saturday',
-                                                            'sunday' => 'Sunday',
-                                                        ];
-                                                    @endphp
+                                        @php
+                                        $days = [
+                                            'monday' => 'Monday',
+                                            'tuesday' => 'Tuesday',
+                                            'wednesday' => 'Wednesday',
+                                            'thursday' => 'Thursday',
+                                            'friday' => 'Friday',
+                                            'saturday' => 'Saturday',
+                                            'sunday' => 'Sunday',
+                                        ];
 
-                                                    @foreach ($days as $dayKey => $dayLabel)
-                                                        <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row"
-                                                            data-day="{{ $dayKey }}">
+                                        // 🔹 Generate 24-hour AM/PM time options
+                                        function generateTimes($start, $end, $selected = '', $minTime = null) {
 
-                                                            <label
-                                                                style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                            $startTime = strtotime($start);
+                                            $endTime   = strtotime($end);
 
-                                                            <!-- FROM -->
-                                                            <select name="time[{{ $dayKey }}][hh_from]"
-                                                                class="time-field">
-                                                                <option value="">H:M</option>
-                                                                @for ($i = 1; $i <= 12; $i++)
-                                                                    <option value="{{ sprintf('%02d', $i) }}:00">
-                                                                        {{ sprintf('%02d', $i) }}:00</option>
-                                                                    <option value="{{ sprintf('%02d', $i) }}:30">
-                                                                        {{ sprintf('%02d', $i) }}:30</option>
-                                                                @endfor
-                                                            </select>
+                                            
+                                            if ($end == '12:00 AM') {
+                                                $endTime = strtotime('tomorrow 12:00 AM');
+                                            }
 
-                                                            <select name="time[{{ $dayKey }}][ampm_from]"
-                                                                class="time-field">
-                                                                <option value="">--</option>
-                                                                <option value="AM">AM</option>
-                                                                <option value="PM">PM</option>
-                                                            </select>
+                                            // fallback safety
+                                            if ($endTime <= $startTime) {
+                                                $endTime = strtotime('+1 day', $endTime);
+                                            }
 
-                                                            <span class="mx-2">To</span>
+                                            $output = '';
 
-                                                            <!-- TO -->
-                                                            <select name="time[{{ $dayKey }}][hh_to]"
-                                                                class="time-field">
-                                                                <option value="">H:M</option>
-                                                                @for ($i = 1; $i <= 12; $i++)
-                                                                    <option value="{{ sprintf('%02d', $i) }}:00">
-                                                                        {{ sprintf('%02d', $i) }}:00</option>
-                                                                    <option value="{{ sprintf('%02d', $i) }}:30">
-                                                                        {{ sprintf('%02d', $i) }}:30</option>
-                                                                @endfor
-                                                            </select>
+                                            for ($time = $startTime; $time <= $endTime; $time += 1800) {
 
-                                                            <select name="time[{{ $dayKey }}][ampm_to]"
-                                                                class="time-field">
-                                                                <option value="">--</option>
-                                                                <option value="AM">AM</option>
-                                                                <option value="PM">PM</option>
-                                                            </select>
+                                                $formatted = date('h:i A', $time);
 
-                                                            <!-- DEFAULT STATUS -->
-                                                            <input type="hidden"
-                                                                name="availability_time[{{ $dayKey }}]"
-                                                                value="custom">
+                                                // skip invalid TO values
+                                                if ($minTime && strtotime($formatted) <= strtotime($minTime)) {
+                                                    continue;
+                                                }
 
-                                                            <!-- STATUS RADIOS -->
-                                                            <label class="ms-3">
-                                                                <input type="radio"
-                                                                    name="availability_time[{{ $dayKey }}]"
-                                                                    value="til_late">
-                                                                … Till late
-                                                            </label>
+                                                $selectedAttr = ($formatted == $selected) ? 'selected' : '';
+                                                $output .= "<option value=\"$formatted\" $selectedAttr>$formatted</option>";
+                                            }
 
-                                                            <label class="ms-2" style="display: none;">
-                                                                <input type="radio"
-                                                                    name="availability_time[{{ $dayKey }}]"
-                                                                    value="24_hours">
-                                                                Open 24 Hours
-                                                            </label>
-
-                                                            <label class="ms-2">
-                                                                <input type="radio"
-                                                                    name="availability_time[{{ $dayKey }}]"
-                                                                    value="closed">
-                                                                Not Available
-                                                            </label>
+                                            return $output;
+                                        }
+                                        @endphp
 
 
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="padding_20_all_side profile_time_availibility">
 
-                                                            <div class="resetdays-icon"> <input type="button"
-                                                                    value="Reset" class="resetdays"> </div>
-                                                        </div>
-                                                    @endforeach
+                                        @foreach ($days as $dayKey => $dayLabel)
 
+                                            @php
+                                                $dayData = $availability[$dayKey] ?? [];
+
+                                                $status = $dayData['status'] ?? 'custom';
+                                                $from   = $dayData['from'] ?? '';
+                                                $to     = $dayData['to'] ?? '';
+
+                                                $disabled = ($status == 'closed') ? 'disabled' : '';
+
+                                                // 🔹 DEFAULT full day
+                                                $fromStart = '12:00 AM';
+                                                $fromEnd   = '12:00 AM';
+
+                                                $toStart   = '12:00 AM';
+                                                $toEnd     = '12:00 AM';
+
+                                                // 🔹 TILL LATE
+                                            if ($status == 'til_late' && $from) {
+
+                                                $fromStart = $from;
+                                                $fromEnd   = '11:30 PM';
+
+                                                $toStart = date('h:i A', strtotime($from . ' +30 minutes'));
+                                                $toEnd   = '12:00 AM'; // must be this
+                                            }
+
+                                                // 🔹 CUSTOM
+                                                if ($status == 'custom' && $from && $to) {
+
+                                                    $fromStart = $from;
+                                                    $fromEnd   = date('h:i A', strtotime($to . ' -30 minutes'));
+
+                                                    $toStart   = date('h:i A', strtotime($from . ' +30 minutes'));
+                                                    $toEnd     = $to;
+                                                }
+
+                                            @endphp
+
+
+                                            <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row">
+
+                                                <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                                <!-- FROM -->
+                                                <select name="time[{{ $dayKey }}][hh_from]"
+                                                        class="time-field hh_from from"
+                                                        {{ $disabled }}>
+
+                                                    <option value="">Select</option>
+
+                                                    {!! generateTimes($fromStart, $fromEnd, $from) !!}
+
+                                                </select>
+
+                                                <span class="mx-2">To</span>
+
+                                                <!-- TO -->
+                                                <select name="time[{{ $dayKey }}][hh_to]"
+                                                        class="time-field hh_to to"
+                                                        {{ $disabled }}>
+
+                                                    <option value="">Select</option>
+
+                                                @if($status == 'til_late')
+                                                    {!! generateTimes($toStart, $toEnd, $to, $from) !!}
+                                                    <option value="12:00 AM" {{ $to == '12:00 AM' ? 'selected' : '' }}>12:00 AM</option>
+                                                @else
+                                                    {!! generateTimes($toStart, $toEnd, $to, $from) !!}
+                                                @endif
+
+                                                </select>
+
+                                                <!-- STATUS -->
+                                                <label class="ms-3" style="display: none;">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="custom" {{ $status=='custom'?'checked':'' }} {{ $disabled }}> Custom
+                                                </label>
+
+                                                <label class="ms-2">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="til_late" {{ $status=='til_late'?'checked':'' }} {{ $disabled }}> Til Late
+                                                </label>
+
+                                                <label class="ms-2">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="closed" {{ $status=='closed'?'checked':'' }}> Not Available
+                                                </label>
+
+                                                @if($status!='closed')
+                                                <div class="resetdays-icon">
+                                                        <input type="button" value="Reset" class="resetdays">
                                                 </div>
+                                                @endif
+
                                             </div>
-                                        </div>
+
+                                @endforeach
+
+                                </div>
+                                </div>
+                                </div>
+
+
 
                                     </div>
                                     <!-- End My Availability -->
@@ -658,6 +742,7 @@
 
 
                                     <div class="d-flex justify-content-end py-3">
+                                        <input type="hidden" id="make_default" name="make_default" value="0">
                                         <input type="hidden" name="page_token" id="page_token"
                                             value="{{ $page_token }}">
                                         <button type="button" id="submitMasseur" class="btn-common">Create
@@ -798,8 +883,8 @@
 
     <div class="modal fade upload-modal" id="add_photo_mcc" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 900px;position: absolute;">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
                 <form id="mulitiImage" method="POST" action="{{ route('center.massuers-media-upload-gallery') }}"
                     enctype="multipart/form-data">
                     @csrf
@@ -848,14 +933,14 @@
     </div>
 
 
-    <div class="modal" id="photo_gallery" style="display: none">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" style="color: white;"><img
+    <div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><img
                             src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
                     </h5>
-                    <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
+                    <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 300px;">
                         <button type="button" data-toggle="modal" data-target="#add_photo_mcc"
                             class="btn-cancel-modal select-Photo" style=" padding: 5px 10px;">Upload from device</button>
                     </div>
@@ -867,8 +952,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="gallery_modal_container" class="grid-container modalPopup"
-                        style="max-height: 500px; overflow-y:scroll;">
+                    <div id="gallery_modal_container" class="grid-container modalPopup">
 
                         <!-- @foreach ($media as $keyId => $image)
                                 @if (!in_array($image->position, [9, 10]))
@@ -889,11 +973,11 @@
 
 
 
-    <div class="modal programmatic" id="update_info" style="display: none">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
+    <div class="modal fade upload-modal programmatic" id="update_info" style="display: none">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> <img
                             src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My
                         Information</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -942,44 +1026,51 @@
 
 
     <script>
-        ////////////// For Our Open Times ///////////////// 
 
-        function validateAvailability() {
+        var is_profile_complete = Number("{{ $massage_default->is_profile_complete ?? 0 }}");
+
+
+
+        /////////////// For Our Open Times ///////////////// 
+        
+        function validateAvailability() 
+        {
 
             let isFormValid = true;
-
-            $('.profile_time_availibility .parent-row').each(function() {
+            $('.profile_time_availibility .parent-row').each(function () {
 
                 let row = $(this);
-
-                let status = row.find('input[type="radio"]:checked').val() || '';
-
-                let fromHH = row.find('select[name*="[hh_from]"]').val();
-                let fromAMPM = row.find('select[name*="[ampm_from]"]').val();
-                let toHH = row.find('select[name*="[hh_to]"]').val();
-                let toAMPM = row.find('select[name*="[ampm_to]"]').val();
-
+                let status   = row.find('input[type="radio"]:checked').val() || '';
+                let fromHH   = row.find('select[name*="[hh_from]"]').val();
+                let toHH     = row.find('select[name*="[hh_to]"]').val();
+            
                 row.removeClass('border border-danger');
 
-                let hasFrom = fromHH && fromAMPM;
-                let hasTo = toHH && toAMPM;
+                let hasFrom = fromHH;
+                let hasTo   = toHH;
 
-
+                
                 if (!status && !hasFrom && !hasTo) {
                     isFormValid = false;
                     row.addClass('border border-danger');
                     return;
                 }
 
-
+                
                 if (status === 'til_late' && !hasFrom) {
                     isFormValid = false;
                     row.addClass('border border-danger');
                     return;
                 }
 
-
+                
                 if (!status && hasFrom && !hasTo) {
+                    isFormValid = false;
+                    row.addClass('border border-danger');
+                    return;
+                }
+
+                if ((!hasFrom || !hasTo) && status === 'custom') {
                     isFormValid = false;
                     row.addClass('border border-danger');
                     return;
@@ -992,79 +1083,82 @@
 
             console.log('isFormValid', isFormValid);
             if (!isFormValid) {
-                return true;
+            return true;
             }
+
             return false;
-
         }
 
-        function getRow(row) {
-            return {
-                from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
-                to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
-                radios: row.find('input[type="radio"]')
-            };
-        }
+        document.addEventListener('DOMContentLoaded', function () {
 
+            document.querySelectorAll('.parent-row').forEach(row => {
 
-        $('.profile_time_availibility').on('change', 'input[type="radio"]', function() {
+                const radios = row.querySelectorAll('input[type="radio"]');
+                const fromDropdown = row.querySelector('.hh_from');
+                const toDropdown = row.querySelector('.hh_to');
+                const resetBtn = row.querySelector('.resetdays');
 
-            let row = $(this).closest('.parent-row');
-            let val = $(this).val();
-            let {
-                from,
-                to
-            } = getRow(row);
+                function updateState() {
+                    const selected = row.querySelector('input[type="radio"]:checked');
+                    if (!selected) return;
 
-            if (val === 'til_late') {
-                from.prop('disabled', false);
-                to.val('').prop('disabled', true);
-            } else {
-                from.val('').prop('disabled', true);
-                to.val('').prop('disabled', true);
-            }
+                    if (selected.value === 'closed') {
+                        fromDropdown.setAttribute('disabled', 'disabled');
+                        toDropdown.setAttribute('disabled', 'disabled');
+                    }
+                    else if (selected.value === 'til_late') {
+                        fromDropdown.removeAttribute('disabled');
+                        toDropdown.setAttribute('disabled', 'disabled');
+                    }
+                    else {
+                        fromDropdown.removeAttribute('disabled');
+                        toDropdown.removeAttribute('disabled');
+                    }
+                }
+
+                function setCustomIfTimeSelected() {
+
+                    const selected = row.querySelector('input[type="radio"]:checked');
+                    if (selected && selected.value === 'closed') return;
+
+                    if (fromDropdown.value || toDropdown.value) {
+                        const customRadio = row.querySelector('input[value="custom"]');
+                        if (customRadio) {
+                            customRadio.checked = true;
+                        }
+                    } 
+                    else {
+                        radios.forEach(r => r.checked = false);
+                    }
+
+                    updateState();
+                }
+
+                fromDropdown.addEventListener('change', setCustomIfTimeSelected);
+                toDropdown.addEventListener('change', setCustomIfTimeSelected);
+
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', function () {
+                        fromDropdown.removeAttribute('disabled');
+                        toDropdown.removeAttribute('disabled');
+
+                        fromDropdown.value = '';
+                        toDropdown.value = '';
+                        radios.forEach(radio => radio.checked = false);
+                    });
+                }
+
+                updateState();
+
+                radios.forEach(radio => {
+                    radio.addEventListener('change', updateState);
+                });
+
+            });
+
         });
-
-
-        // $('.profile_time_availibility').on(
-        //     'change',
-        //     'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
-        //     function () {
-
-        //         let row = $(this).closest('.parent-row');
-        //         let { from, to, radios } = getRow(row);
-
-        //         radios.prop('checked', false);   // uncheck radios
-        //         from.prop('disabled', false);
-        //         to.prop('disabled', false);
-        //     }
-        // );
-
-        $('.profile_time_availibility .parent-row').each(function() {
-
-            let row = $(this);
-            let checked = row.find('input[type="radio"]:checked').val();
-            let {
-                from,
-                to
-            } = getRow(row);
-
-            if (checked === 'til_late') {
-                from.prop('disabled', false);
-                to.prop('disabled', true);
-            } else {
-                //from.prop('disabled', true);
-                //to.prop('disabled', true);
-            }
-
-        });
-
-
-
-
 
         ////////////// End For Our Open Times ///////////////// 
-
 
         $(function(e) {
 
@@ -1080,8 +1174,7 @@
                 var current_feild = $(this).attr('id');
 
                 var current_old_input = 'profile_' + current_feild;
-                var old_value = $(this).closest('.service_rate_dolor_symbol').find('.' + current_old_input)
-                    .val();
+                var old_value = $(this).closest('.service_rate_dolor_symbol').find('.' + current_old_input).val();
 
 
 
@@ -1138,18 +1231,16 @@
 
             //// ----------- Update Single Data ------------ ///////
 
+            // $('.resetdays').on('click', function() {
+            //     let row = $(this).closest('.parent-row');
+            //     row.find('select').val('').prop('disabled', false);
+            //     row.find('input[type="radio"]').prop('checked', false);
+
+            // });
 
 
-            $('.resetdays').on('click', function() {
-                let row = $(this).closest('.parent-row');
-                row.find('select').val('').prop('disabled', false);
-                row.find('input[type="radio"]').prop('checked', false);
-
-            });
-
-
-
-            function checkRates() {
+            function checkRates() 
+            {
                 const selectors = [
                     'input[name="massage_price[]"]',
                     'input[name="incall_price[]"]',
@@ -1268,14 +1359,8 @@
 
                 });
 
-
-                    
-
                 return isValid;
             }
-
-            
-
 
             function checkProfileDynamicMedia() 
             {
@@ -1309,23 +1394,18 @@
             }
 
 
-            $('#submitMasseur').on('click', function(e) {
+            $('#submitMasseur').on('click', async function(e) {
                 e.preventDefault();
-
-               
-
                 // let existRates = checkRates();
                 // if (!existRates) 
                 // {
                 //      swal_error_warning('Rate','You must complete at least one rate value to proceed.')
                 //      return false;
                 // }
-                
-
-
-                if (!checkProfileDynamicMedia()) {
-                    return false;
-                }
+            
+                // if (!checkProfileDynamicMedia()) {
+                //     return false;
+                // }
 
                 var hasError = validateAvailability();
               
@@ -1342,8 +1422,31 @@
 
              
 
+                let mess_data = {
+                    'title' : 'NA',
+                    'text' : 'Do you want to add this as the default masseur Listing?',
+                    'action' : 'make',
+                    'cancelText': 'No'
+                }
 
-                swal_waiting_popup({
+                if(await isConfirm(mess_data))
+                {
+                    $('#make_default').val(1);
+                    submit_messaure_form();
+                }
+                else
+                {
+                    submit_messaure_form();
+                }
+
+            });
+
+        });
+
+
+        function submit_messaure_form()
+        {
+            swal_waiting_popup({
                     'title': 'Creating new masseur.'
                 });
                 let form = $('form[name="masseur_frm"]');
@@ -1361,8 +1464,7 @@
                             swal_success_popup(response.message ??
                                 'Profile created successfully');
                             setTimeout(function() {
-                                window.location = 'update-masseur/' + response
-                                    .masseur_profile_id;
+                                window.location = 'update-masseur/' + response.masseur_profile_id;
                             }, 2000); // 2 seconds
 
                         } else {
@@ -1379,20 +1481,11 @@
                         swal_error_popup(message);
                     }
                 });
-
-            });
-
-
-
-
-
-
-        });
+            
+        }
 
 
         // ########## Image Upload Script ##########
-
-
         const CHUNK_SIZE = 1024 * 1024;
         let currentPageUrl = window.location.href;
         var bannerDefaultImage;
@@ -1439,13 +1532,8 @@
 
 
         $("body").on('submit', '#mulitiImage', function(e) {
-
-
             console.log('mulitiImage===============');
             e.preventDefault();
-
-            //return false;
-
             let selectedImagesCount = parseInt(countSelectedImages());
             let page_token = $('#page_token').val();
             let existingImagesCount = parseInt($("input[name='media_count']").val());
@@ -1501,6 +1589,12 @@
                 success: function(data) {
                     if (data.status == 200) {
                         resetAddPhotoFrom(form);
+                        setTimeout(function(){
+                            initDragDrop();
+                        },200);
+
+
+
                     } else if (data.status == 405) {
                         swal.fire('Media',
                             "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>",
@@ -1605,63 +1699,7 @@
         }
 
 
-        function initDragDrop() {
-            $("#dvSource img").draggable({
-                revert: "invalid",
-                helper: 'clone',
-                appendTo: ".upload-banner",
-                refreshPositions: false,
-                start: function(event, ui) {
-                    ui.helper.css({
-                        width: "82px", // shrink preview
-                        height: "auto",
-                        "z-index": 9999
-                    });
-                    ui.helper.find("img").css({
-                        width: "100%",
-                        height: "auto"
-                    });
-                },
-                drag: function(event, ui) {
-
-                },
-                stop: function(event, ui) {}
-            });
-
-            $(".dvDest").droppable({
-                drop: function(event, ui) {
-                    let dropSlot = $(this);
-                    let dragSlot = ui.draggable;
-                    let dropSlotType = dropSlot.find('img').data('type');
-                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
-                    if (dropSlotType != dragSlotType) {
-                        let message = (dragSlotType == 'gallery') ?
-                            `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
-                            `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
-                        swal.fire('Media', message, 'error');
-                        return false;
-                    } else {
-                        $(this).trigger('click');
-                        let meidaId = dragSlot.data('id');
-                        let target;
-                        switch (dragSlotType) {
-                            case 'gallery': {
-                                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(
-                                    ".item4");
-                            }
-                            break;
-                            case 'banner': {
-                                target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(
-                                    ".item2");
-                            }
-                            break;
-                        }
-                        target.trigger('click');
-                    }
-
-                }
-            });
-        }
+   
 
         function positionToUpdate(position) {
             updatePosition = position;
@@ -1711,18 +1749,6 @@
                 $("#mediaId" + updatePosition).val(mediaId);
 
                 console.log('profile_selected_images.length', profile_selected_images.length);
-
-                // if (profile_selected_images.length > 0) {
-                //     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
-                //     let textNode = [...modalTitle.childNodes].find(
-                //         node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
-                //     );
-                //     if (textNode) {
-                //         textNode.textContent = default_image_icons.includes(targetImageName) ?
-                //             'Save to Default Media or Repository' : 'Replace Media';
-                //     }
-                //     $("#setAsDefaultForMainAccount").modal('show');
-                // }
             }
             $("#photo_gallery").modal("hide");
             $("#photo_gallery_banner").modal("hide");
@@ -1755,7 +1781,6 @@
 
                     };
                 } else {
-                    //alert("file size in MB = "+imgMB);
                     $('.comman_msg').html("Can't upload more than 2 MB size");
                     $("#comman_modal").modal('show');
                 }
@@ -1778,34 +1803,6 @@
             })
 
         }
-
-
-        //     function updateDefaultImage(position, meidaId, img_target, media_src) {
-        //        var url = "{{ route('center.masseur.default.images') }} ";
-        //        $.ajax({
-        //            type: 'POST',
-        //            url: url,
-        //            data: {
-        //                position: position,
-        //                meidaId: meidaId
-        //            },
-        //            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //            success : function (data) {
-        //                if(data.error == true) {
-        //                    img_target.attr('data-id', meidaId);
-        //                    img_target.attr('src', media_src);
-        //                } else {
-        //                    swal.fire('', "<p>"+data.msg+"</p>", 'error');
-
-        //                    $('#comman_modal').on('hidden.bs.modal', function () {
-
-        //                    });
-        //                }
-        //            }
-        //        });
-        //    }
-
-
 
         $('.select-Photo').on('click', function(e) {
             $("#photo_gallery").modal('hide');
@@ -1881,76 +1878,124 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-
-
-
-
-
-        //     $(document).on('click','.modalPopup .item2,.modalPopup .item4', function(e) {
-        //        let imageSrc = $(this).find('img').attr('src');
-        //        let mediaId = $(this).find('img').data('id');
-        //        let img_target = $("#img"+updatePosition);
-        //        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
-        //        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
-        //    });
-
-
-        // $(document).on('click', '.modalPopup .item4, .modalPopup .item2', function(e) {
-
-        //         let imageSrc = $(this).find('img').attr('src');
-        //         let mediaId = $(this).find('img').data('id');
-        //         let img_target = $("#img" + updatePosition);
-        //         let targetImageSrc = img_target.attr('src');
-        //         let targetImageName = targetImageSrc.split("/").pop();
-        //         /**
-        //          * Get existing profile image data to check duplicates
-        //          */
-        //         let srcArray = $(".upld-img").map(function() {
-        //             return $(this).attr("src"); // Get the 'src' attribute of each <img>
-        //         }).get();
-
-        //         let newObject = {
-        //             imageSrc: imageSrc,
-        //             mediaId: mediaId,
-        //             img_target: img_target,
-        //             updatePosition: updatePosition
-        //         };
-
-        //         let duplicateImage = srcArray.findIndex(item => item === imageSrc);
-        //         if (duplicateImage !== -1) {
-        //             swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
-        //         } else {
-        //             let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
-        //             if (index !== -1) {
-        //                 profile_selected_images[index] = {
-        //                     ...profile_selected_images[index],
-        //                     ...newObject
-        //                 };
-        //             } else {
-        //                 profile_selected_images.push(newObject);
-        //             }
-        //             $("#blah" + updatePosition).attr('src', imageSrc);
-        //             $("#img" + updatePosition).attr('src', imageSrc);
-        //             $("#mediaId" + updatePosition).val(mediaId);
-
-        //             console.log('profile_selected_images.length',profile_selected_images.length);
-
-        //             // if (profile_selected_images.length > 0) {
-        //             //     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
-        //             //     let textNode = [...modalTitle.childNodes].find(
-        //             //         node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
-        //             //     );
-        //             //     if (textNode) {
-        //             //         textNode.textContent = default_image_icons.includes(targetImageName) ?
-        //             //             'Save to Default Media or Repository' : 'Replace Media';
-        //             //     }
-        //             //     $("#setAsDefaultForMainAccount").modal('show');
-        //             // }
-        //         }
-        //         $("#photo_gallery").modal("hide");
-        //         $("#photo_gallery_banner").modal("hide");
-        //     });
-
         // ########## Image Upload Script ##########
-    </script>
+
+$(document).ready(function () {
+    initDragDrop();
+
+   
+
+    if (!is_profile_complete) {
+
+    console.log('is_profile_complete',is_profile_complete)
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Profile',
+            text: 'Please update your profile information.',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{{ url('center-dashboard/profile-informations') }}";
+            }
+
+        });
+
+    }
+
+});
+
+
+function initDragDrop()
+{
+
+    console.log("initDragDrop");
+    //$(".grid-container .defult-image.ui-draggable").draggable("destroy");
+
+   
+    $(".grid-container .defult-image").draggable({
+        revert: "invalid",
+        appendTo: "body",
+        cursor: "move",
+        zIndex: 999999,
+
+        helper: function(){
+
+            let src = $(this).attr("src");
+            let mediaId = $(this).data('id');
+
+            console.log('mediaId',mediaId);
+           
+
+            return $("<img>")
+                .attr("src", src)
+                .css({
+                    width: "90px",
+                    height: "auto",
+                    borderRadius: "6px",
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
+                });
+
+        }
+    });
+
+   
+    $(".dvDest").droppable({
+
+        hoverClass: "drop-hover",
+
+        drop: function(event, ui){
+
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+
+            let dropSlotType = dropSlot.find("img").attr("data-type");
+            let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+
+            let imgSrc = dragSlot.attr("src");
+            let imgId  = dragSlot.attr("data-id");
+            let position  = dragSlot.attr("data-position");
+            let dropPosition = dropSlot.find("img").data("position");
+            if(dropSlotType === dragSlotType){
+
+              
+                let alreadyUsed = false;
+
+                $(".dvDest img").each(function(){
+                    if($(this).attr("data-id") == imgId){
+                        alreadyUsed = true;
+                    }
+                });
+
+                if(alreadyUsed){
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Duplicate Image",
+                        text: "This image is already used."
+                    });
+                    return;
+                }
+
+                console.log('position',dropPosition)
+                
+                dropSlot.find("img")
+                    .attr("src", imgSrc)
+                    .attr("data-id", imgId);
+
+                $('#mediaId'+dropPosition).val(imgId);
+
+
+                    
+
+            }
+
+        }
+
+    });
+
+}
+
+
+
+</script>
 @endpush

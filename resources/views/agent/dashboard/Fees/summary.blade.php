@@ -845,8 +845,8 @@
     {{-- For Escort Report --}}
     <div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog"
         aria-labelledby="CompetitorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px !important;">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="commission-report"> <img
                             src="{{ asset('assets/dashboard/img/statement-report.png') }}" class="custompopicon"> Escort
@@ -1157,10 +1157,11 @@
 
     <div class="modal fade upload-modal" id="message-report" tabindex="-1" role="dialog"
         aria-labelledby="CompetitorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px !important;">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="message-report">Massage Centre Report: Lin’s Massage (Member ID: M612465)
+                    <h5 class="modal-title" id="message-report"><img
+                            src="{{ asset('assets/dashboard/img/statement-report.png') }}" class="custompopicon"> Massage Centre Report: Lin’s Massage (Member ID: M612465)
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"

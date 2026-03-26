@@ -100,6 +100,7 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
+    
 </style>
 @endsection
 @section('content')
@@ -267,15 +268,15 @@
                 <div class="photo-header custom-photo-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <ul class="nav nav-tabs border-0">
+                            <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="menu_all"  href="#home">All</a>
+                                    <a class="nav-link active" data-filter-type="all" id="menu_all"  href="#home">All</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="menu_varified"  href="#menu1">Verified</a>
+                                    <a class="nav-link" data-filter-type="verified" id="menu_varified"  href="#menu1">Verified</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="menu_unverified"  href="#menu2">Unverified</a>
+                                    <a class="nav-link" data-filter-type="unverified" id="menu_unverified"  href="#menu2">Unverified</a>
                                 </li>
                             </ul>
                         </div>
@@ -373,10 +374,11 @@
     </div>
 
 </div>
-<div class="modal delete" id="pesrmissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade upload-modal delete" id="pesrmissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header main_bg_color border-0">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"> <span aria-hidden="true">
                 </span>
                 </button>
@@ -394,13 +396,14 @@
         </div>
     </div>
 </div>
+
 @include('escort.dashboard.modal.upload_gallery_image')
 
-<div class="modal" id="photo_gallery" style="display: none">
-   <div class="modal-dialog modal-dialog-centered">
-       <div class="modal-content custome_modal_max_width">
-           <div class="modal-header main_bg_color border-0">
-               <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
+<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -408,7 +411,7 @@
                </button>
            </div>
            <div class="modal-body">
-               <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
+               <div id="gallery_modal_container" class="grid-container modalPopup">
                    @foreach($media  as $keyId => $image)
                        @if(!in_array($image->position, [9, 10])/*$image->position != 8*/)
                            <div class="item4">
@@ -421,10 +424,14 @@
        </div>
    </div>
 </div>
-<div class="modal" id="photo_gallery_banner" style="display: none">
-   <div class="modal-dialog modal-dialog-centered">
-       <div class="modal-content custome_modal_max_width">
-           <div class="modal-header main_bg_color border-0">
+
+
+
+
+<div class="modal fade upload-modal" id="photo_gallery_banner" style="display: none">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+       <div class="modal-content">
+           <div class="modal-header">
                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
               
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -448,7 +455,7 @@
                 </a>
                 </li>
             </ul>
-               <div class="modalPopup" style="max-height: 350px; overflow:auto;">
+               <div class="modalPopup">
                     
                     <div class="tab-content mt-3">
                         <!-- Tab panes -->
@@ -485,7 +492,7 @@
                             </div>
                         </div> --}}
 
-                         {{-- Issko remove nahi karna hai Bhai Log --}}
+                         {{-- Don't Remove This  --}} 
                                 <!-- Templates Tab -->
                                     <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
 
@@ -600,10 +607,14 @@
        </div>
    </div>
 </div>
-<div class="modal" id="photo_gallery_pinup" style="display: none">
-   <div class="modal-dialog modal-dialog-centered">
-       <div class="modal-content custome_modal_max_width">
-           <div class="modal-header main_bg_color border-0">
+
+
+
+
+<div class="modal fade upload-modal" id="photo_gallery_pinup" style="display: none">
+   <div class="modal-dialog modal-dialog-centered modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Pin Up</h5>
               
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -627,10 +638,11 @@
        </div>
    </div>
 </div>
-<div class="modal" id="comman_modal" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
+
+<div class="modal fade upload-modal" id="comman_modal" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -661,6 +673,7 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
+<script src="{{ asset('js/escort/media-varification.js') }}"></script>
 <script>
     var updatePosition = 0;
     $("body").on('click','.cropEdit',function(){
@@ -784,5 +797,6 @@
        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
    });
+   
 </script>
 @endpush

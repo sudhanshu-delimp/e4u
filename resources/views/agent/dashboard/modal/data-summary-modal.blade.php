@@ -17,27 +17,27 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <th width="30%">Status</th>
+                                <th><b>Status</b></th>
                                 <td>Active</td>
                             </tr>
                             <tr>
-                                <th>Uploaded </th>
+                                <th><b>Uploaded</b></th>
                                 <td>27-02-2026</td>
                             </tr>
                             <tr>
-                                <th>Territory</th>
+                                <th><b>Territory</b></th>
                                 <td>Western Australia</td>
                             </tr>
                             <tr>
-                                <th>Centres</th>
+                                <th><b>Centres</b></th>
                                 <td>625</td>
                             </tr>
                             <tr>
-                                <th>Mobiles</th>
+                                <th><b>Mobiles</b></th>
                                 <td>450</td>
                             </tr>
                             <tr>
-                                <th>Landlines</th>
+                                <th><b>Landlines</b></th>
                                 <td>225</td>
                             </tr>
                         </tbody>

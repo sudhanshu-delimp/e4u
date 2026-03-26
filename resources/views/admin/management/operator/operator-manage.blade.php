@@ -81,8 +81,8 @@
     <!-- Add New Operator popup form -->
     <div class="modal fade upload-modal" id="addOperator" tabindex="-1" role="dialog" aria-labelledby="addOperatorLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addOperatorTitle"> <img
                             src="{{ asset('assets/dashboard/img/operators.png') }}" class="custompopicon"> Add New Operator
@@ -93,7 +93,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="add_operator" id="add_operator" method="POST" action="{{ route('admin.add.operator') }}">
+                    <form name="add_operator" id="add_operator" method="POST" action="{{ route('admin.add.operator') }}" enctype="multipart/form-data">
                         <div class="row">
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
@@ -213,6 +213,17 @@
                             </div>
                         </div>
                         <div class="row">
+                              <div class="col-12 my-2">
+                                <h6 class="border-bottom pb-1 text-blue-primary">Upload Agreement</h6>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <input type="file" name="agreement_file" id="agreement_file">
+                                 <span class="text-danger error-agreement_file"></span>
+                            </div>
+
+                            <div class="col-6 mb-3 my-auto text-right" id="file_preview"></div>
+                        </div>
+                        <div class="row">
 
                             <!-- Commission -->
                             <div class="col-12 my-2">
@@ -250,8 +261,8 @@
     <!-- Edit Operator popupform -->
     <div class="modal fade upload-modal" id="editOperatorModel" tabindex="-1" role="dialog"
         aria-labelledby="editOperatorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editOperatorTitle">
                         <img src="{{ asset('assets/dashboard/img/operators.png') }}" class="custompopicon">
@@ -274,8 +285,8 @@
     <!-- View Operator popupform -->
     <div class="modal fade upload-modal" id="viewOperatorPopUpModel" tabindex="-1" role="dialog"
         aria-labelledby="viewOperatorNewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewOperatorTitle">
                         <img src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Account
@@ -296,7 +307,7 @@
     <!-- Account Suspended -->
     <div class="modal fade upload-modal" id="SuspendedOperator" tabindex="-1" role="dialog"
         aria-labelledby="viewOperatorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
                 <!-- Header -->

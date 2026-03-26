@@ -77,7 +77,7 @@
         
            <!-- Save Button -->
            <div class="text-right">
-             <button type="submit" class="btn btn-primary create-tour-sec dctour m-0">Add</button>
+             <button type="submit" class="btn-success-modal create-tour-sec dctour m-0">Add</button>
            </div>
 
          </form>

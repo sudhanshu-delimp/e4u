@@ -9,11 +9,15 @@ use App\Models\AlertNotic;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Escort;
+use App\Models\Purchase;
 use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
+use App\Models\MassageAvailability;
 use App\Models\MassageMedia;
 use App\Models\MassageProfile;
+use App\Models\MassageRate;
+use App\Models\MassageService;
 use App\Models\MassageStatistics;
 use App\Models\MasseurMedia;
 use App\Models\State;
@@ -81,8 +85,11 @@ if (!function_exists('old_calculateTotalFee')) {
 
 
 if (!function_exists('calculateTotalFee')) {
-    function calculateTotalFee($membership_id, $days, $purchaseObject = null)
+    function calculateTotalFee($membership_id, $days, $userObject = null, $purchaseObject = null)
     {
+        if(!empty($userObject)){
+            
+        }
         $discount_day = 21;
         if(!empty($purchaseObject)){  /* To manage price changes done by Admin , to use same price at the time of purchase */
             $normalRate   = $purchaseObject->rate;
@@ -161,7 +168,7 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return '$' . $formatted . '.' . $decimalPart;
+        return 'AU$' . $formatted . '.' . $decimalPart;
     }
 }
 
@@ -1241,7 +1248,7 @@ if (!function_exists('getStatusBadgeClass')) {
             'In-progress'       => 'badge_inProgress',
             'Upcoming'          => 'badge_upcoming',
             'Withdrawn'         => 'badge_withdraw',
-            'Approved'          => 'badge_accepted',
+            'Verified'          => 'badge_accepted',
             'Current'          => 'badge_current',
             
         ];
@@ -1304,7 +1311,7 @@ if (!function_exists('getListingRefundAmount')) {
             $total_days = $purchase->days_number;
             $remaining_days = $purchase->left_listing_days;
             //$remaining_days = $escortDetail->left_listing_days;
-            list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days), $purchase);
+            list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days), $escortDetail->user, $purchase);
             $refundAmount = $purchase->paid_rate-$usedAmount;
         }
         return number_format($refundAmount, 2, '.', '');
@@ -1322,8 +1329,8 @@ if (!function_exists('getSuspendRefundAmount')) {
             $dayBeforeSuspendStart = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($startDate));
             $dayTillSuspendEnd = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($endDate))+1;
             /* In calculateTotalFee third param is optional , to ignore later paln price updates */
-            [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $purchase);
-            [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $purchase);
+            [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $profileDetail->user, $purchase);
+            [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $profileDetail->user, $purchase);
 
             $netAmount = number_format($costTillSuspendEnd-$costBeforeSuspendStart, 2, '.', '');
             $refundAmount = min($piadAmount,$netAmount);
@@ -1577,6 +1584,105 @@ function getStateIdByCityId($states, $cityId)
 }
 
 
+if (!function_exists('massage_profile_complete_status')) {
+  function massage_profile_complete_status($massage_id)
+  {
+    
+       try
+       {
+            $massage = MassageProfile::where([
+                'id' => $massage_id,
+                'default_setting' => '1'
+            ])->first();
+
+            if (!$massage) {
+                return false;
+            }
+
+            $fields = [
+                $massage->ambiance,
+                $massage->parking,
+                $massage->entry,
+                $massage->building,
+                $massage->furniture_types,
+                $massage->shower,
+                $massage->security,
+                $massage->payment,
+                $massage->loyalty,
+                $massage->language,
+                $massage->social_links
+            ];
+
+            $is_complete = 1;
+
+            foreach ($fields as $field) {
+                if (empty($field)) {
+                    $is_complete = 0;
+                    break;
+                }
+            }
+
+          
+            $rate_count = MassageRate::where('massage_profile_id', $massage_id)->count();
+            $services_count =  MassageService::where('massage_profile_id', $massage_id)->count();
+            $availability_count =  MassageAvailability::where('massage_profile_id', $massage_id)->count();
+
+            if ($rate_count < 6   || !$services_count || !$availability_count ) {
+                Log::info('$is_complete======='.$is_complete);
+                $is_complete = 0;
+            }
+
+            $massage->is_profile_complete = $is_complete;
+            $massage->save();
+
+       } catch (Exception $e) {
+            return false;
+       }
+        
+  }
+}
+
+if (!function_exists('getUserTypeById')) {
+        function getUserTypeById($value)
+        {
+            switch ($value) {
+                case 0:
+                    return 'User';
+                    break;
+
+                case 1:
+                    return "Admin";
+                    break;
+
+                case 2:
+                    return "Sub-Admin";
+                    break;
+
+                case 3:
+                    return "Escort";
+                    break;
+
+                case 4:
+                    return "Massage-Center";
+                    break;
+
+                case 5:
+                    return "Agents";
+                    break;
+                case 6:
+                    return "Staff";
+                    break;
+                case 7:
+                    return "Operator";
+                    break;
+                case 9:
+                    return "Operator-Staff";
+                    break;
+            }
+        }
+    }
+
+
 if (!function_exists('get_social_links')) {
   function get_social_links($user_id)
   {
@@ -1591,3 +1697,112 @@ if (!function_exists('get_social_links')) {
   }
 }
 
+
+if (!function_exists('find_massage_default_duration')) {
+function find_massage_default_duration($massage_id)
+{
+
+        $massage = MassageProfile::where('user_id', $massage_id)
+            ->where('default_setting', 1)
+            ->first();
+
+        $durations = optional($massage)->durations ?? collect();
+
+        $result = [
+            'massage_price' => $durations->map(function ($item) {
+                return data_get($item, 'pivot.massage_price');
+            })->filter()->values()->toArray(),
+
+            'incall_price' => $durations->map(function ($item) {
+                return data_get($item, 'pivot.incall_price');
+            })->filter()->values()->toArray(),
+
+            'outcall_price' => $durations->map(function ($item) {
+                return data_get($item, 'pivot.outcall_price');
+            })->filter()->values()->toArray(),
+        ];
+
+        return $result;
+		
+}
+}
+
+if (!function_exists('isPriceValid')) {
+function isPriceValid($array)
+{
+    // check empty array
+    if (empty($array)) {
+        return false;
+    }
+
+    foreach ($array as $value) {
+        if ($value === 0 || $value === null) {
+            return false;
+        }
+    }
+
+    return true;
+}
+}
+
+if (!function_exists('getPurchaseNetAmount')) {
+    function getPurchaseNetAmount($id, &$total = 0)
+    {
+        $purchase = Purchase::find($id);
+
+        if (!$purchase) return;
+
+        $total += $purchase->paid_rate;
+
+        if ($purchase->parent_id) {
+            getPurchaseNetAmount($purchase->parent_id, $total);
+        }
+
+         return formatCurrency($total);
+        }
+    }
+
+
+if (!function_exists('make_time_availability')) {
+    function make_time_availability($request_data)
+    {
+
+        $time = $request_data['time'] ?? [];
+        $availability = $request_data['availability_time'] ?? [];
+
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+
+        $result = [];
+
+        foreach ($days as $day) {
+
+            $status = $availability[$day] ?? 'closed';
+
+            $from = $time[$day]['hh_from'] ?? null;
+            $to   = $time[$day]['hh_to'] ?? null;
+
+
+            if ($status === 'closed') {
+                $from = null;
+                $to   = null;
+            }
+
+            if ($status === 'til_late') {
+                $to = null;
+            }
+
+            if ($status === 'custom') {
+                $from = $from ?: null;
+                $to   = $to ?: null;
+            }
+
+            $result[$day] = [
+                'status' => $status,
+                'from'   => $from,
+                'to'     => $to,
+            ];
+        }
+
+        return $result;
+    }  
+}

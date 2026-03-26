@@ -107,9 +107,9 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
          </section>
       </section>
 </div>
-    <div class="modal" id="resetPassword_modal" style="display: none">
+    <div class="modal upload-modal fade" id="resetPassword_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
+                <div class="modal-content ">
                     <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title text-white"> <img src="{{asset('assets/dashboard/img/save-setting.png')}}" class="custompopicon" alt="logo">Password Updated</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -124,8 +124,8 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                         <span class="comman_msg"></span>
                         
                     </div>
-                    <div class="modal-footer" style="justify-content: center;">
-                        <a href="{{ route('viewer.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
+                    <div class="modal-footer justify-content-center pt-0">
+                        <a href="{{ route('viewer.login')}}" class="btn-success-modal">Click Hear To Login</a>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
 
 <div class="modal fade upload-modal" id="userNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true" >
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+            <div class="modal-content">
                 <div class="modal-header border-0">
                     <input type="hidden" id="status_data_id" value="334">
                     <input type="hidden" id="status_data_value" value="7">

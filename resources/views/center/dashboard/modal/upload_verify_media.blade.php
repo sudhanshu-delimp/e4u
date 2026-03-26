@@ -1,9 +1,8 @@
 <div class="modal fade upload-modal" id="veryfy_media" tabindex="-1" role="dialog" aria-labelledby="veryfy_mediaLongTitle"
     data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 900px;position: absolute;">
-            <form id="mulitiImage" method="POST" action="{{ route('center.upload.gallery') }}"
-                enctype="multipart/form-data">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="mediaVerification" method="POST" action="{{ route('center.media.verification.upload') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content border-0">
                     <div class="modal-header">
@@ -21,11 +20,11 @@
                                 <label class="newbtn rm">
 
                                     <img id="blah" class="item px-2"
-                                        src="{{ asset('assets/app/img/upload-media.png') }}"
-                                        style="width: 400px;object-fit: cover; height:250px">
+                                        src="{{ $imageUrl ?? asset('assets/app/img/upload-media.png') }}"
+                                        style="width: 400px;object-fit: contain; height:250px">
 
-                                    <input name="img[]" id="upload_file" class="pis"
-                                        onchange="preview_image(event);" type="file" multiple accept="image/*">
+                                        <input name="image" id="upload_varification_img" class="pis galleryMedia" onchange="readVarificationImageURL(this);" type="file" accept="image/*" >
+
                                 </label>
                             </div>
                         </div>

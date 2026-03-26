@@ -48,10 +48,6 @@
             padding-left: 0px;
         }
         /* Wider modal for appointment forms */
-        .upload-modal .modal-dialog {
-            max-width: 960px;
-            width: 95%;
-        }
         /* Slot grid styles */
         
         #slotGrid {
@@ -140,9 +136,7 @@
             border-color: #e0e0e0;
             cursor: not-allowed;
         }
-        .modal-dialog .appointment_madal{
-            width: 900px !important;
-        }
+      
     </style>
 @endsection
 @section('content')
@@ -242,7 +236,7 @@
     <!-- New appointment Popup -->
     <div class="modal fade upload-modal" id="new_appointment_model" tabindex="-1" role="dialog"
         aria-labelledby="new_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog appointment_madal modal-dialog-centered" role="document">
+        <div class="modal-dialog appointment_madal modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/new-appointment.png') }}"
@@ -362,7 +356,7 @@
     <!-- Reschedule Appointment Popup -->
     <div class="modal fade upload-modal" id="reschedule_appointment" tabindex="-1" role="dialog"
         aria-labelledby="reschedule_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/rescheduling-appoint.png') }}"
@@ -430,10 +424,10 @@
                     <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
-                                <h4 id="task_desc">Are you sure you want to mark selected appointment as completed?</h4>
+                                <h4 id="task_desc" class="custom_modal_text">Are you sure you want to mark selected appointment as completed?</h4>
 
                                 <div class="form-group">
-                                    <div class="d-flex align-items-center justify-content-end">
+                                    <div class="d-flex align-items-center justify-content-center">
                                         <input type="hidden" name="complete_advertiser_id" id="complete_advertiser_id" value="">
 
                                         <div>
@@ -459,7 +453,7 @@
     <!-- Edit appointment Popup -->
     <div class="modal fade upload-modal" id="edit_appointment" tabindex="-1" role="dialog"
         aria-labelledby="edit_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/edit-appointment.png') }}"
@@ -472,15 +466,14 @@
                 <div class="modal-body pb-0 agent-tour">
                     <form method="post" action="#" id="editAppointmentForm" data-parsley-validate>
                         <div class="row" id="task_form_button">
-                            <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
-                                <div class="col-md-12 card shadow-sm rounded-3">
+                            <div class="task-form-wrapper mb-4 col-md-12" style="cursor:pointer;">
                                     {{-- <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10"
                                         style="background:#C2CFE0;">
                                         <h6 class="mb-0 text-dark">Edit Appointment</h6>
                                         <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>
                                     </div> --}}
 
-                                    <div class="task-form-body p-2" style="display: block;  overflow:auto;">
+                                    <div class="task-form-body">
                                         <!-- Hidden Task ID -->
 
                                         <!-- Advertiser -->
@@ -577,7 +570,6 @@
                                         </div>
 
                                     </div>
-                                </div>
                             </div>
 
                             <div class="col-md-12">
@@ -603,7 +595,7 @@
     <!-- View Appointment Popup -->
     <div class="modal fade upload-modal" id="view_appointment" tabindex="-1" role="dialog"
         aria-labelledby="view_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/view-ppointment.png') }}"
@@ -616,15 +608,15 @@
                 <div class="modal-body pb-0 agent-tour">
                     <form method="post" action="#" >
                         <div class="row" id="task_form_button">
-                            <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
-                                <div class="col-md-12 card shadow-sm rounded-3">
+                            <div class="task-form-wrapper mx-auto mb-4 col-md-12" style="cursor:pointer;">
+                                
                                     {{-- <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10"
                                         style="background:#C2CFE0;">
                                         <h6 class="mb-0 text-dark">View Appointment</h6>
                                         <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>
                                     </div> --}}
 
-                                    <div class="task-form-body p-2" style="display: block; ">
+                                    <div class="task-form-body" style="display: block; ">
                                         <!-- Hidden Task ID -->
                                         <input name="task_id" value="31" type="hidden">
 
@@ -712,7 +704,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
 
                             <div class="col-md-12">
@@ -738,7 +729,7 @@
     <!-- open success popup -->
     <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog"
         aria-labelledby="successModallabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -751,7 +742,7 @@
                 </div>
                 <div class="modal-body pb-0 agent-tour">
                     <div class="py-4 text-center" id="success_form_html">
-                        <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
+                        <h5 id="success_msg" class="custom_modal_text">Are you sure you want to mark this Appointment as completed?</h5>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
                             aria-label="Close">OK</button>
                     </div>
@@ -765,7 +756,7 @@
     <!-- map view popup -->
     <div class="modal fade upload-modal" id="openMapmodal" tabindex="-1" aria-labelledby="openMapLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
 
                 <!-- Modal Header -->

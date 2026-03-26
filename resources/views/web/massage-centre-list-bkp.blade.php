@@ -432,11 +432,11 @@
 
         </div>
         </div>
-        <div class="modal hh" id="add_wishlist" style="display: none">
+        <div class="modal fade upload-modal hh" id="add_wishlist" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}"
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}"
                             class="custompopicon"> Add To Shortlist</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
@@ -446,10 +446,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                        <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
                             <span id="Lname"></span>
                             <span class="class_msg"></span>
-                        </h1>
+                        </h5>
                     </div>
                     <div class="modal-footer" style="justify-content: center;">
                         <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"

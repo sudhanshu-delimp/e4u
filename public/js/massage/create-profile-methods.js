@@ -593,127 +593,125 @@ function initDragDrop() {
         }
 
 
-           ////////////// For Our Open Times ///////////////// 
-            function validateAvailability() 
-            {
+           
 
-                let isFormValid = true;
+           
+            // function validateAvailability() 
+            // {
 
-                $('.profile_time_availibility .parent-row').each(function () {
+            //     let isFormValid = true;
 
-                    let row = $(this);
+            //     $('.profile_time_availibility .parent-row').each(function () {
 
-                    let status = row.find('input[type="radio"]:checked').val() || '';
+            //         let row = $(this);
 
-                    let fromHH   = row.find('select[name*="[hh_from]"]').val();
-                    let fromAMPM = row.find('select[name*="[ampm_from]"]').val();
-                    let toHH     = row.find('select[name*="[hh_to]"]').val();
-                    let toAMPM   = row.find('select[name*="[ampm_to]"]').val();
+            //         let status = row.find('input[type="radio"]:checked').val() || '';
 
-                    row.removeClass('border border-danger');
+            //         let fromHH   = row.find('select[name*="[hh_from]"]').val();
+            //         let fromAMPM = row.find('select[name*="[ampm_from]"]').val();
+            //         let toHH     = row.find('select[name*="[hh_to]"]').val();
+            //         let toAMPM   = row.find('select[name*="[ampm_to]"]').val();
 
-                    let hasFrom = fromHH && fromAMPM;
-                    let hasTo   = toHH && toAMPM;
+            //         row.removeClass('border border-danger');
+
+            //         let hasFrom = fromHH && fromAMPM;
+            //         let hasTo   = toHH && toAMPM;
 
                    
-                    if (!status && !hasFrom && !hasTo) {
-                        isFormValid = false;
-                        row.addClass('border border-danger');
-                        return;
-                    }
+            //         if (!status && !hasFrom && !hasTo) {
+            //             isFormValid = false;
+            //             row.addClass('border border-danger');
+            //             return;
+            //         }
 
                     
-                    if (status === 'til_late' && !hasFrom) {
-                        isFormValid = false;
-                        row.addClass('border border-danger');
-                        return;
-                    }
+            //         if (status === 'til_late' && !hasFrom) {
+            //             isFormValid = false;
+            //             row.addClass('border border-danger');
+            //             return;
+            //         }
 
                     
-                    if (!status && hasFrom && !hasTo) {
-                        isFormValid = false;
-                        row.addClass('border border-danger');
-                        return;
-                    }
+            //         if (!status && hasFrom && !hasTo) {
+            //             isFormValid = false;
+            //             row.addClass('border border-danger');
+            //             return;
+            //         }
 
-                    if (status === '24_hours' || status === 'closed') {
-                        return;
-                    }
-                });
+            //         if (status === '24_hours' || status === 'closed') {
+            //             return;
+            //         }
+            //     });
 
-                console.log('isFormValid', isFormValid);
-                if (!isFormValid) {
-                            return true;
-                            }
-                 return false;
+            //     console.log('isFormValid', isFormValid);
+            //     if (!isFormValid) {
+            //                 return true;
+            //                 }
+            //      return false;
 
-            }
+            // }
 
-            function getRow(row) {
-                    return {
-                        from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
-                        to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
-                        radios: row.find('input[type="radio"]')
-                    };
-            }
-
-
+            // function getRow(row) {
+            //         return {
+            //             from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
+            //             to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
+            //             radios: row.find('input[type="radio"]')
+            //         };
+            // }
 
 
-            $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
-
-                let row = $(this).closest('.parent-row');
-                let val = $(this).val();
-                let { from, to } = getRow(row);
-
-                if (val === 'til_late') {
-                    from.prop('disabled', false);
-                    to.val('').prop('disabled', true);
-                } else {
-                    from.val('').prop('disabled', true);
-                    to.val('').prop('disabled', true);
-                }
-            });
 
 
-                $('.profile_time_availibility').on(
-                    'change',
-                    'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
-                    function () {
+            // $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
 
-                        let row = $(this).closest('.parent-row');
-                        let { from, to, radios } = getRow(row);
+            //     let row = $(this).closest('.parent-row');
+            //     let val = $(this).val();
+            //     let { from, to } = getRow(row);
 
-                        radios.prop('checked', false);   // uncheck radios
-                        from.prop('disabled', false);
-                        to.prop('disabled', false);
-                    }
-                );
+            //     if (val === 'til_late') {
+            //         from.prop('disabled', false);
+            //         to.val('').prop('disabled', true);
+            //     } else {
+            //         from.val('').prop('disabled', true);
+            //         to.val('').prop('disabled', true);
+            //     }
+            // });
+
+
+                // $('.profile_time_availibility').on(
+                //     'change',
+                //     'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
+                //     function () {
+
+                //         let row = $(this).closest('.parent-row');
+                //         let { from, to, radios } = getRow(row);
+
+                //         radios.prop('checked', false);   // uncheck radios
+                //         from.prop('disabled', false);
+                //         to.prop('disabled', false);
+                //     }
+                // );
 
 
                 
-                if(!edit_mode)  
-                {
-                        $('.profile_time_availibility .parent-row').each(function () {
+                // if(!edit_mode)  
+                // {
+                //         $('.profile_time_availibility .parent-row').each(function () {
 
-                        let row = $(this);
-                        let checked = row.find('input[type="radio"]:checked').val();
-                        let { from, to } = getRow(row);
+                //         let row = $(this);
+                //         let checked = row.find('input[type="radio"]:checked').val();
+                //         let { from, to } = getRow(row);
 
-                        if (checked === 'til_late') {
-                            from.prop('disabled', false);
-                            to.prop('disabled', true);
-                        } else {
-                            from.prop('disabled', true);
-                            to.prop('disabled', true);
-                        }
-                        });
+                //         if (checked === 'til_late') {
+                //             from.prop('disabled', false);
+                //             to.prop('disabled', true);
+                //         } else {
+                //             from.prop('disabled', true);
+                //             to.prop('disabled', true);
+                //         }
+                //         });
 
-
-
-                   
-
-                }
+                // }
                 
             
            
@@ -721,14 +719,14 @@ function initDragDrop() {
             ////////////// End For Our Open Times ///////////////// 
 
        
-    $(function(e) {
+            $(function(e) {
 
-            $('.resetdays').on('click', function () {
-                let row = $(this).closest('.parent-row');
-                row.find('select').val('').prop('disabled', false);
-                row.find('input[type="radio"]').prop('checked', false);
+            // $('.resetdays').on('click', function () {
+            //     let row = $(this).closest('.parent-row');
+            //     row.find('select').val('').prop('disabled', false);
+            //     row.find('input[type="radio"]').prop('checked', false);
 
-            });
+            // });
 
 
             //////////// For Our Service (Tags)  /////////////////////

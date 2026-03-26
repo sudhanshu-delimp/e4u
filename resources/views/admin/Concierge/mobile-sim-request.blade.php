@@ -153,7 +153,7 @@
 
 <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content basic-modal">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="active_req"><img src="{{ asset('assets/dashboard/img/order-tracking.png')}}" alt="alert" class="custompopicon"> Tracking Details
       </h5>
@@ -166,13 +166,13 @@
                <div class="row">
                   
                   <div class="col-12 mb-3">
-                     <label for="Traking ID" class="label">Traking ID</label>
+                     <label for="Traking ID">Traking ID</label>
                      <input type="text" class="form-control rounded-0" placeholder="Enter traking id ">
                   </div>
                </div>
             </form>
          </div>
-         <div class="modal-footer pb-4 mb-2">
+         <div class="modal-footer">
             <button type="submit" class="btn-success-modal">save</button>
          </div>
       </div>
@@ -182,7 +182,7 @@
 {{-- confirm_popup --}}
 <div class="modal fade upload-modal" id=" " tabindex="-1" aria-labelledby="confirm_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content custome_modal_max_width">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Confirmation
       </h5>
@@ -191,11 +191,11 @@
       </button>
    </div>
       <div class="modal-body pb-0">
-            <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+            <h5 class="custom_modal_text">
                The order has been completed.
            </h5>
          </div>
-         <div class="modal-footer pb-4 mb-2 justify-content-center">
+         <div class="modal-footer justify-content-center">
             <button type="button" class="btn-success-modal" data-dismiss="modal">Yes</button>
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">No</button>
          </div>
@@ -207,24 +207,24 @@
 {{-- reject_popup --}}
 <div class="modal fade upload-modal" id="reject_popup" tabindex="-1" aria-labelledby="reject_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content custome_modal_max_width">
-   <div class="modal-header">
-      <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Deactivate SIM Account
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
-            <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+     <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Deactivate SIM Account
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
+            <h5 class="custom_modal_text">
                Are you sure you want to deactivate account?
            </h5>
          </div>
-         <div class="modal-footer pb-4 mb-2 justify-content-center">
+         <div class="modal-footer justify-content-center">
             <button type="button" class="btn-success-modal" data-dismiss="modal">Confirm</button>
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
          </div>
-      </div>
+      </div>      
    </div>
 </div>
 {{-- end --}}

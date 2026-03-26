@@ -1,7 +1,7 @@
   {{-- Modal: View database Centre --}}
     {{-- <div class="modal fade upload-modal" id="upload_data_file" tabindex="-1" aria-labelledby="upload_data_fileLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">

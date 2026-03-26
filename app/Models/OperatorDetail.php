@@ -19,6 +19,7 @@ class OperatorDetail extends Model
         'fee',
         'commission_advertising_percent',
         'commission_massage_centre_percent',
+        'agreement_file',
         'created_at',
         'updated_at',
     ];

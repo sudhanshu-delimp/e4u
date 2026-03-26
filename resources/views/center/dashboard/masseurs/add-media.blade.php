@@ -322,8 +322,8 @@ textarea {
 {{-- upload photo popup --}}
 
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-scrollable" role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-       <div class="modal-content" style="width: 900px;position: absolute;">
+   <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered" role="document">
+       <div class="modal-content">
            {{-- {{ route('escort.upload.gallery') }} --}}
            <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
                @csrf
@@ -397,9 +397,9 @@ textarea {
 
 
 <div class="modal fade upload-modal" id="photoGallery" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content custome_modal_max_width">
-           <div class="modal-header main_bg_color border-0">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
                <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -408,7 +408,7 @@ textarea {
                </button>
            </div>
            <div class="modal-body">
-               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
+               <div class="grid-container modalPopup">
                    {{-- @foreach($media  as $keyId => $image)
                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
                            <div class="item4">

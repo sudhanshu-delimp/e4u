@@ -558,7 +558,7 @@
                         'operator-templates',
                         'shareholder-templates',
                         'viewer-templates',
-                        'set-fees',
+                        'set-fees','fee-discount',
                         'manage-user',
                         'memberships','product','sim',
                         'legbox-report',
@@ -1049,7 +1049,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/settings.png') }}">
                             <span>Settings</span>
                         </a>
-                        <div id="SettingsMenu" class="collapse @if (in_array(request()->segment(3), ['All-user', 'set-fees'])) show @endif"
+                        <div id="SettingsMenu" class="collapse @if (in_array(request()->segment(3), ['All-user', 'set-fees', 'fee-discount'])) show @endif"
                             data-parent="#Management">
 
 
@@ -1058,6 +1058,14 @@
                                 <span style="{{ request()->segment(3) == 'set-fees' ? 'color: #FF3C5F;' : '' }}">Fees
                                     & Variables</span>
                             </a>
+                            
+
+                            <a class="collapse-item" href="{{ route('fee-discount') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/fee.png') }}">
+                                <span style="{{ request()->segment(3) == 'fee-discount' ? 'color: #FF3C5F;' : '' }}">Fee Discounts</span>
+                            </a>
+
+                            
                             <a class="collapse-item" href="{{ route('admin.management.allUser') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/security-and-access.png') }}">
                                 <span

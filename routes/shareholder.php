@@ -8,7 +8,8 @@ Route::get('/', [ShareholderController::class, 'index'])->name('shareholder.inde
 Route::get('/edit-my-account', [ShareholderController::class, 'editMyaccount'])->name('shareholder.edit-my-account');
 Route::get('/change-password', [ShareholderController::class, 'changePassword'])->name('shareholder.change-password');
 Route::get('/upload-my-avatar', [ShareholderController::class, 'uploadAvatar'])->name('shareholder.upload-my-avatar');
-Route::get('/notifications', [ShareholderController::class, 'notifications'])->name('shareholder.notifications');
+// Route::get('/notifications', [ShareholderController::class, 'notifications'])->name('shareholder.notifications');
+Route::get('/my-shareholding', [ShareholderController::class, 'myShareholding'])->name('shareholder.my-shareholding');
 
 // Blackbox tech pvt. ltd.
 Route::get('/annual-report', [ShareholderController::class, 'annualReport'])->name('shareholder.annualreport');

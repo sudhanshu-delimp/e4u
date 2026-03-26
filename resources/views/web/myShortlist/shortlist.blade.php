@@ -703,10 +703,10 @@
         </div>
     </section> -->
     <!-- <div class="modal show sds" id="add_wishlist" style="display: block;"> -->
-    <div class="modal hh" id="my_legbox" style="display: none">
+    <div class="modal fade upload-modal hh" id="my_legbox" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> <img
                             src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
                             class=" popup_modal_title_new">My Legbox</span></h5>
@@ -718,25 +718,25 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                    <h1 class="my-4 custom_modal_text">
                         <span id="Lname">Please log in or Register to access your Legbox</span>
                     </h1>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
-                    <a href="{{ route('viewer.login') }}" type="button" class="btn main_bg_color site_btn_primary"
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <a href="{{ route('viewer.login') }}" type="button" class="btn-cancel-modal"
                         id="loginUrl">Login</a>
-                    <a href="{{ route('register') }}" type="button" class="btn main_bg_color site_btn_primary"
+                    <a href="{{ route('register') }}" type="button" class="btn-success-modal"
                         id="regUrl" style="width: 26%;">Register</a>
                 </div>
 
             </div>
         </div>
     </div>
-    <div class="modal hh" id="add_wishlist" style="display: none">
+    <div class="modal fade upload-modal hh" id="add_wishlist" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
                         <img src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
                             class="model_hd_title">Add To Shortlist</span>
                     </h5>
@@ -748,13 +748,13 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                    <h1 class="my-4 custom_modal_text">
                         <span id="Lname"></span>
                         <span class="class_msg"></span>
                     </h1>
                 </div>
                 <div class="modal-footer" style="justify-content: center;">
-                    <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                    <button type="submit" class="btn-success-modal" data-dismiss="modal"
                         id="close">Ok</button>
                 </div>
             </div>

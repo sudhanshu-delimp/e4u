@@ -79,6 +79,49 @@ class MasseurController extends AppController
          
     }   
 
+    public function make_masseur_availability($request_data)
+    {
+
+        $time = $request_data['time'] ?? [];
+        $availability = $request_data['availability_time'] ?? [];
+
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+
+        $result = [];
+
+        foreach ($days as $day) {
+
+            $status = $availability[$day] ?? 'closed';
+
+            $from = $time[$day]['hh_from'] ?? null;
+            $to   = $time[$day]['hh_to'] ?? null;
+
+
+            if ($status === 'closed') {
+                $from = null;
+                $to   = null;
+            }
+
+            if ($status === 'til_late') {
+                $to = null;
+            }
+
+            if ($status === 'custom') {
+                $from = $from ?: null;
+                $to   = $to ?: null;
+            }
+
+            $result[$day] = [
+                'status' => $status,
+                'from'   => $from,
+                'to'     => $to,
+            ];
+        }
+
+        return $result;
+    }
+
+
     public function makeAvailability($request_data)
     {
         $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
@@ -134,7 +177,6 @@ class MasseurController extends AppController
     public function index(Request $request)
     {
         $page_token = bin2hex(random_bytes(32));
-
         $durations = $this->duration->all();
         $user = auth()->user();
 
@@ -150,13 +192,28 @@ class MasseurController extends AppController
         // $path = $this->media;
         // $defaultImages = $this->media->findDefaultMedia($user->id, 0);
         // //$escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
-        
 
-        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media'));
+        $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
+        $default_duration = find_massage_default_duration($user->id);
+
+       // dd($availability );
+
+      
+  
+        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media','default_duration','availability'));
     }
+
+
+    public function count_default_masseur($user_id)
+    {
+       return  Masseur::where(['user_id'=>$user_id,'is_default'=>'1'])->count();
+    }
+
+
 
     public function add_masseur(Request $request)
     {
+
         try 
         {
 
@@ -167,10 +224,31 @@ class MasseurController extends AppController
             // Log::info('$request_data');
             // Log::info($request_data);
 
-            $availability     = $this->makeAvailability($request_data);
+            $availability     = $this->make_masseur_availability($request_data);
             $availabilityJson = json_encode($availability);
 
             // Log::info($availabilityJson);
+
+            $make_defailt = false;
+            $message = 'Profile created successfully';
+
+            if(isset($request->make_default) && $request->make_default=='1')
+            {
+                $count = $this->count_default_masseur($user->id); 
+
+                Log::info('count');
+                Log::info($count);
+
+                if($count<8) 
+                {
+                    $make_defailt = true;
+                }
+                else
+                {
+                    $message = 'You have reached the limit of 8 default Listings.<br>Profile created successfully.';
+                }
+                
+            }
 
             /* ================== Masseur Profile ================== */
             $masseur = new Masseur();
@@ -193,7 +271,7 @@ class MasseurController extends AppController
             $masseur->availability          = $availabilityJson;
 
             $masseur->service = $request->filled('service') ? $request->service : [];
-
+            $masseur->is_default = $make_defailt ? '1' : '0';
                         
             $masseur->save();
             $masseur_profile_id = $masseur->id;
@@ -241,10 +319,12 @@ class MasseurController extends AppController
             }
 
            
+
             DB::commit();
 
             return response()->json([
                 'success'   => true,
+                'message' => $message,
                 'masseur_profile_id' => $masseur_profile_id,
             ]);
 
@@ -274,10 +354,17 @@ class MasseurController extends AppController
         return redirect()->route('center.create-new-masseur');
         }
 
-        $availability = $masseur ? json_decode($masseur->availability, true) : [];
+        $masseur_availability = $masseur ? json_decode($masseur->availability, true) : [];
         
         $durations = $this->duration->all();
         $user = auth()->user();
+
+        // $exists = DB::table('massager_masseurs')
+        // ->where('masseur_profile_id', $id)
+        // ->exists();
+        $exists = false;
+
+        $default_duration = find_massage_default_duration($user->id);
 
         ########## default profile data ############
         $massage_default = $this->massage_profile->findDefault($user->id,1);
@@ -290,9 +377,11 @@ class MasseurController extends AppController
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
         $services = $masseur->service ?? [];
 
-        
+        $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur','media','services'));
+        //dd($masseur_availability);
+
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists'));
     }
 
     public function update_masseur(Request $request)
@@ -425,7 +514,7 @@ class MasseurController extends AppController
                         {
                             $user = auth()->user();
                             $request_data     = $request->all();
-                            $availability     = $this->makeAvailability($request_data);
+                            $availability     = $this->make_masseur_availability($request_data);
                             $availabilityJson = json_encode($availability);
                             $masseur = Masseur::where(['id'=> $request->masseur_id])->first();
                             $masseur->availability          = $availabilityJson;
@@ -560,7 +649,7 @@ class MasseurController extends AppController
 
 
 
-    public function getAccountMediaGallery(Request $request, $category=null,$page_token,)
+    public function getAccountMediaGallery(Request $request, $category=null,$page_token, $status = null)
     {
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id,$page_token, []);
@@ -960,7 +1049,7 @@ class MasseurController extends AppController
                 'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
                 'nationality' => $countries[$row->nationality] ?? 'NA',
                 'created_at' => date('d M Y', strtotime($row->created_at)),
-                'status' => ($row->status==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactive</span>',
+                'status' => ($row->status==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactived</span>',
                 'default_profile' => ($row->is_default==1) ? 'Yes' : 'No',
                 'action' => $action
 
@@ -1007,8 +1096,21 @@ class MasseurController extends AppController
 
             else if($request->action == 'row_default')
             {
-                 $masseurs->is_default = '1';  
-                 $mess = 'Profile set as default successfully.'; 
+                 $count = $this->count_default_masseur(auth()->user()->id); 
+                if($count<8) 
+                {
+                    $make_defailt = '1';
+                    $message = 'Profile set as default successfully';
+                   
+                }
+                else
+                {
+                    $make_defailt = '0';
+                    $message = 'You have reached the limit of 8 default Listings.';
+                }
+                
+                 $masseurs->is_default = $make_defailt;  
+                 $mess = $message; 
             }
 
             else if($request->action == 'row_undefault')

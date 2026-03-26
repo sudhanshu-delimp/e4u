@@ -728,10 +728,10 @@
             {{-- 
         <div class="modal defult-modal" id="forhelp">
             --}}
-            <div class="modal fade" id="forhelp">
+            <div class="modal fade upload-modal" id="forhelp">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content rounded-0 custome_modal_max_width">
-                        <div class="modal-header bg-first rounded-0">
+                    <div class="modal-content">
+                        <div class="modal-header">
                             <h4 class="modal-title"><img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}"
                                     class="custompopicon">Managing your Short List</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -762,11 +762,11 @@
             <!--5 items column start here -->
         </div>
         </div>
-        <div class="modal hh" id="my_legbox" style="display: none">
+        <div class="modal fade upload-modal hh" id="my_legbox" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"><img
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><img
                                 src="{{ asset('assets/app/img/my-legbox.png') }}" class="img-fluid"> My Legbox</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
@@ -776,7 +776,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                        <h1 class="my-4 custom_modal_text" style="text-align: center;">
                             <span id="Lname">Please log in or Register to access your Legbox</span>
                         </h1>
                     </div>
@@ -790,11 +790,11 @@
                 </div>
             </div>
         </div>
-        <div class="modal hh" id="add_wishlist" style="display: none">
+        <div class="modal fade upload-modal hh" id="add_wishlist" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"><img
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><img
                                 src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">
                             Add To Shortlist</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -819,36 +819,7 @@
             </div>
         </div>
     </section>
-    <!-- ================       service provider end here        ========================= -->
-    <!-- ==============        pagination start here            ====================-->
-    {{-- 
-<section class="padding_ninty_btm_ninty_px">
-    <div class="container">
-        <div class="space_between_row">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item change_pagination_style">
-                        <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item change_pagination_style">
-                        <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</section>
---}}
-    <!-- =============       pagination end here            ====================-->
+    
 @endsection
 @push('scripts')
 

@@ -33,6 +33,7 @@ use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageMediaInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
+use App\Models\MediaVerification;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 
 //use Illuminate\Http\Request;
@@ -90,11 +91,13 @@ class CenterProfileInformationController extends BaseController
         
         $user = auth()->user()->id;
 
-       
+     
 
         if(!$massage_profile = $this->massage_profile->findDefault($user,1)) {
             $massage_profile = $this->massage_profile->make();
         }
+
+      
         //dd($massage_profile);
         list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
         $durations = $this->duration->all();
@@ -482,7 +485,11 @@ class CenterProfileInformationController extends BaseController
          $path = $this->media;
          //dd($path->findByposition(auth()->user()->id,9)['path']);
          //dd($path->findByposition(auth()->user()->id,9, 0)['path']);
-         return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
+        $verification = MediaVerification::where('user_id', auth()->id())->where('status' , '0')->first();
+        $imageUrl = $verification && $verification->image_path
+            ? asset('escorts/' . $verification->image_path)
+            : asset('assets/app/img/upload-media.png');
+         return view('center.dashboard.archives.archive-view-photos',compact('path','media','imageUrl'));
     }
     public function defaultImages(Request $request)
     {

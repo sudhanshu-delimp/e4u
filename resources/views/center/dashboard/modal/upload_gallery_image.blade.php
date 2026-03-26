@@ -1,6 +1,6 @@
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 900px;position: absolute;">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
             <form id="mulitiImage" method="POST" action="{{route('center.upload.gallery')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content border-0">
@@ -15,7 +15,7 @@
                             <div class="col-lg-6">
                                  <label class="newbtn rm">
                                     
-                                            <img id="blah" class="item" src="{{ asset('assets/app/img/add-images.png')}}">
+                                            <img id="blah" class="item" src="{{ asset('assets/app/img/add-images.png')}}" style="width:100%; height: 200px;">
                                             
                                             <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
                                         </label>
@@ -23,7 +23,7 @@
                             <div class="col-lg-6">
                                 <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-12':'col-lg-12'}}">
                                                     <div class="plate"><label class="newbtn">
-                                                        <img id="blah9" class="img-fluid   js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/add-banner22.png')}}" >
+                                                        <img id="blah9" class="img-fluid   js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/add-banner22.png')}}" style="width:100%; height: 200px;">
                                                         <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
                                                         <input type="hidden" name="position[]" id="mediaBanner">
                                                         </label>

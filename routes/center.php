@@ -139,6 +139,7 @@ Route::get('create-check-messure-profile', [MasseurController::class, 'count_mes
 Route::post('all-masseur-list', [MasseurController ::class, 'get_all_masseur_list'])->name('center.all-masseur-list');
 Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'])->name('center.archives-listing');
 
+
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
 Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
 
@@ -266,6 +267,8 @@ Route::get('archives-listing', function()
 	return view('center.dashboard.masseurs.archives-listing');
 })->name('center.archives-listing');
 
+Route::post('action-massage-profile', [MassageController::class, 'action_massage_profile'])->name('center.action-massage-profile');
+
 
 Route::get('masseurs/add-media', function()
 {
@@ -363,7 +366,7 @@ Route::post('/update-password', [AgentAccountController::class, 'changePassword'
 // Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
 
 Route::get('archive-view-videos',[MassageGalleryController ::class, 'videoGalleries'])->name('center.archive-view-videos');
-Route::get('get-account-media-gallery/{category?}',[MassageGalleryController ::class, 'getAccountMediaGallery'])->name('center.account.gallery');
+Route::get('get-account-media-gallery/{category?}/{status?}',[MassageGalleryController ::class, 'getAccountMediaGallery'])->name('center.account.gallery');
 Route::post('upload-galleries',[MassageGalleryController::class,'uploadGallery'])->name('center.upload.gallery');
 Route::post('upload-videos-galleries',[MassageGalleryController::class,'uploadVideosGaller'])->name('center.upload.videos.gallery');
 Route::post('default_photos', [MassageGalleryController ::class, 'defaultImages'])->name('center.default.images');
@@ -373,6 +376,8 @@ Route::post('get-default-photos', [MassageGalleryController ::class, 'getDefault
 Route::post('delete-photos/{id}', [MassageGalleryController ::class, 'ImagesDelete'])->name('center.delete.gallery');
 Route::post('delete-videos/{id}', [MassageGalleryController ::class, 'videosDelete'])->name('center.delete.vedio.gallery');
 Route::get('get-account-video-gallery',[MassageGalleryController ::class, 'getAccountVideoGallery'])->name('center.account.video_gallery');
+Route::post('/media-verification/upload',[MassageGalleryController::class, 'mediaVerificationUpload'])->name('center.media.verification.upload');
+
 
 
  Route::get('pricing', [CenterController ::class, 'pricing'])->name('center.dashboard.Community.pricing');

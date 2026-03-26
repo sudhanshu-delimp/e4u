@@ -86,10 +86,10 @@
 
  <!-- Modal: Create Notification -->
  <div class="modal fade upload-modal" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title"> <img src="{{asset('assets/dashboard/img/enable_notification.png')}}" style="width:40px; margin-right:10px;" alt=" Create Notification"> Create Notification</h5>
+          <h5 class="modal-title"> <img src="{{asset('assets/dashboard/img/enable_notification.png')}}" class="custompopicon" alt=" Create Notification"> Create Notification</h5>
           <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></button>
         </div>
         <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">

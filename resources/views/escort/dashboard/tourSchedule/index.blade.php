@@ -123,7 +123,7 @@
          { data: 'end_date', name: 'end_date' , searchable: false },
          { data: 'days_number', name: 'days_number' , searchable: false },
          { data: 'status', name: 'status' , orderable: false, searchable: false},
-         { data: 'action', name: 'Action', orderable: false, searchable: false },
+         { data: 'action', name: 'Action', orderable: false, searchable: false, class: 'text-center' },
       ],
       order: [3,'asc'],
    });

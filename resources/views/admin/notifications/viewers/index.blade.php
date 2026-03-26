@@ -95,7 +95,7 @@
     @if ($addAccessEnabled)
         <div class="modal fade upload-modal" id="createNotification" tabindex="-1" role="dialog"
             aria-labelledby="createNotification" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                 <div class="modal-content basic-modal">
                     <div class="modal-header">
                         <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon">
@@ -322,7 +322,8 @@
                                 </div>
 
                             </div>
-                            <div class="modal-footer pr-3">
+                            <div class="modal-footer px-0">
+                            <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                                 <button type="submit" id="createNotificationSubmit"
                                     class="btn-success-modal">Save</button>
                             </div>
@@ -337,7 +338,7 @@
 
     <div class="modal fade upload-modal " id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="view-listingLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="view-listings"><img
@@ -387,9 +388,9 @@
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body pb-0 agent-tour">
-                    <div class="py-4 text-center" id="success_form_html">
-                        <h4 id="success_msg"></h4>
+                <div class="modal-body agent-tour">
+                    <div id="success_form_html">
+                        <h5 id="success_msg" class="custom_modal_text"></h5>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
                             aria-label="Close">OK</button>
                     </div>
@@ -746,9 +747,9 @@
                                 let msg = response.message ? response.message : 'Saved successfully';
                                 $("#image_icon").attr("src", endpoint.success_image);
                                 $('#success_task_title').text('Success');
-                                $('#success_form_html').html('<h4>' + (msg ||
+                                $('#success_form_html').html('<h5 class="custom_modal_text">' + (msg ||
                                         'Status updated successfully') +
-                                    '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                    '</h5><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                                 );
                                 form[0].reset();
                                 $('#successModal').modal('show');
@@ -785,9 +786,9 @@
                             $("#image_icon").attr("src", endpoint.error_image);
                             $('#success_task_title').text('Error');
                             //$('#success_msg').text(msg);
-                            $('#success_form_html').html('<h4>' + (msg ||
+                            $('#success_form_html').html('<h5 class="custom_modal_text">' + (msg ||
                                     'Status updated successfully') +
-                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                '</h5><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                             );
                             $('#successModal').modal('show');
                         }
@@ -931,7 +932,7 @@
                     $('#success_task_title').text('Confirmation');
                     img.attr('src', endpoint.error_image);
                     body.html(
-                        `<h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
+                        `<h5 class="custom_modal_text">${confirmMsg}</h5><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
                     );
                     modal.modal('show');
                     body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {

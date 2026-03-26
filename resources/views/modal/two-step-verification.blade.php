@@ -1,11 +1,11 @@
 
-<div class="modal" id="sendOtp_modal" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
+<div class="modal fade upload-modal" id="sendOtp_modal" style="display: none">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                <div class="modal-content">
                     <form id="SendOtp" method="post" action="" >
                         @csrf
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
                                 <img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification">  2FA Verification</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
@@ -72,7 +72,7 @@
                         </div>
 
                         
-                        <div class="modal-footer forgot_pass pt-0 pb-4">
+                        <div class="modal-footer forgot_pass pt-0 pb-4 justify-content-center">
 
                                     <p id="otpTimerMsg" class="pt-2 text-muted" style="color:brown !important"></p>
                                     <p id="resendLine" class="pt-2" style="display: none;">
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#sendOtp_modal').on('shown.bs.modal', focusFirstOtpInput);
     
 
-    let seconds = 120; 
+    let seconds = '{{config("common.otp_resend_seconds")}}'; 
 
     function startOtpTimer() {
         resendEl.style.display = "none";
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("resendOtpSubmit").addEventListener("click", function (e) {
         e.preventDefault();
         $('#resendLine').css({'display':'none'});
-        seconds = 120;
+        seconds = '{{config("common.otp_resend_seconds")}}';
         startOtpTimer();
 
         focusFirstOtpInput();
