@@ -167,18 +167,18 @@ class MediaVerificationController extends Controller
             </a>
             ';
 
-            if ($item->user->type == '4') {
-                $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
-                    href="javascript:void(0)" data-toggle="modal" data-target="#view_tag" data-id="' . $item->id . '">
-                    <i class="fa fa-eye"></i> View Tag
-                </a>
-                <div class="dropdown-divider"></div>';
+            // if ($item->user->type == '4') {
+            //     $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
+            //         href="javascript:void(0)" data-toggle="modal" data-target="#view_tag" data-id="' . $item->id . '">
+            //         <i class="fa fa-eye"></i> View Tag
+            //     </a>
+            //     <div class="dropdown-divider"></div>';
 
-                $view_centre = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-centre-btn"
-                    href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $item->id . '">
-                    <i class="fa fa-eye"></i> View Centre
-                </a>';
-            }
+            //     $view_centre = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-centre-btn"
+            //         href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $item->id . '">
+            //         <i class="fa fa-eye"></i> View Centre
+            //     </a>';
+            // }
 
             $dropdown = '<div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">

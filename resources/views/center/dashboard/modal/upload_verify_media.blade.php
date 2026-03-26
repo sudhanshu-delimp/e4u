@@ -2,7 +2,7 @@
     data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form id="mediaVerification" method="POST" action="{{ route('massage.media.verification.upload') }}" enctype="multipart/form-data">
+            <form id="mediaVerification" method="POST" action="{{ route('center.media.verification.upload') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content border-0">
                     <div class="modal-header">
