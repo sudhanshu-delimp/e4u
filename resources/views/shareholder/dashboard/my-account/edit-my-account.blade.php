@@ -62,7 +62,7 @@
                                             <label class="my-agent">Shareholder</label>
                                             <input type="text" class="form-control rounded-0"
                                                 name="shareholder" id="shareholder"
-                                                value="123 Main Street">
+                                                value="Waykar Pty Ltd">
                                             <span class="text-danger error-shareholder"></span>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                             <label class="my-agent">Contact</label>
                                             <input type="text" class="form-control rounded-0"
                                                 name="contact" id="contact"
-                                                value="9876543210">
+                                                value="Wayne Primrose">
                                             <span class="text-danger error-contact"></span>
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@
                                             <label class="my-agent">Mobile</label>
                                             <input type="text" class="form-control rounded-0"
                                                 name="phone" id="phone"
-                                                value="9876543210">
+                                                value="0438 028 728">
                                             <span class="text-danger error-phone"></span>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                             <label class="my-agent">Email</label>
                                             <input type="text" class="form-control rounded-0"
                                                 name="email" id="email"
-                                                value="9876543210">
+                                                value="wayne@waykar.com.au">
                                             <span class="text-danger error-email"></span>
                                         </div>
                                     </div>
