@@ -231,56 +231,89 @@
 
     <script>
         var table = $("#ManageSupplierTable").DataTable({
-            language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Merchant ID"
-            },
-            info: true,
-            paging: true,
-            lengthChange: true,
-            searching: true,
-            bStateSave: true,
-            order: [
-                [1, 'desc']
-            ],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10,
-            columns: [{
-                    data: 'merchant_id',
-                    name: 'merchant_id'
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by Operator ID",
                 },
-                {
-                    data: 'merchant',
-                    name: 'merchant'
-                },
-                {
-                    data: 'location',
-                    name: 'location'
-                },
-                {
-                    data: 'mobile',
-                    name: 'mobile'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    class: 'text-center'
-                }
-            ]
-        });
 
+                processing: true,
+                serverSide: true,
+                lengthChange: true,
+                searchable: false,
+                bStateSave: false,
+
+                ajax: {
+                    url: "{{ route('admin.supplier_list_data_table') }}",
+                    data: function(d) {
+                        d.type = 'player';
+                    }
+                },
+
+
+                columns: [{
+                        data: 'member_id',
+                        name: 'member_id',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'business_name',
+                        name: 'business_name',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'location',
+                        name: 'location',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    
+
+                    {
+                        data: 'status_name',
+                        name: 'status_name',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'action',
+                        name: 'edit',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        class: 'text-center'
+                    },
+
+
+                ],
+                order: [
+                    [1, 'desc']
+                ],
+                lengthMenu: [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+                pageLength: 10,
+            });
                     $(document).on('submit', 'form[name="add_supplier"]', function(e) {
                 e.preventDefault();
                 let form = $(this);

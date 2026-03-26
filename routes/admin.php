@@ -368,7 +368,7 @@ Route::get('reports/transaction-summary', function () {
 /** Manage Suppliers */
 Route::get('/management/manage-suppliers', [SupplierController::class, 'supplierList'])->name('admin.manage-suppliers');
 Route::post('/management/add-supplier', [SupplierController::class, 'addSupplier'])->name('admin.add.supplier');
-Route::get('operator_list_data_table', [SupplierController::class, 'supplierDataList'])->name('admin.supplier_list_data_table');
+Route::get('supplier_list_data_table', [SupplierController::class, 'supplierDataList'])->name('admin.supplier_list_data_table');
 Route::get('/edit-supplier/{id}', [SupplierController::class, 'editSupplier'])->name('admin.edit-supplier');
 Route::post('/store-supplier', [SupplierController::class, 'updateSupplier'])->name('admin.store-supplier');
 Route::get('/view-supplier/{id}', [SupplierController::class, 'viewSupplier'])->name('admin.view-supplier');

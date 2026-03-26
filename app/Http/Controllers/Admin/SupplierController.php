@@ -144,8 +144,8 @@ class SupplierController extends BaseController
      */
     public function supplierDataPagination($start, $limit, $order_key, $dir)
     {
-        $supplier = User::with('country', 'supplier_detail', 'account_setting', 'LoginStatus')
-            ->where('type', '7');
+        $supplier = Supplier::with('state', 'supplier_detail')
+            ->where('type', '10');
 
         $search = request()->input('search.value');
 
@@ -156,7 +156,7 @@ class SupplierController extends BaseController
                     ->orWhere('phone', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
                     ->orWhere('name', 'like', "%{$search}%")
-                    ->orWhereHas('country', function ($q) use ($search) {
+                    ->orWhereHas('state', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
                     });
             });
@@ -181,32 +181,27 @@ class SupplierController extends BaseController
         $suppliers = $supplier->offset($start)->limit($limit)->get();
         $i = 1;
         foreach ($suppliers as $key => $item) {
-            $logAndStatus = $item->LoginStatus;
-            $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login != NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
-            $item->login_count = (isset($logAndStatus->login_count) && $logAndStatus->login_count > 0) ? $logAndStatus->login_count : 0;
+           
             $item->supplier_id = $item->id;
             $item->member_id = isset($item->member_id) ? $item->member_id : 'NA';
-            $item->territory = isset($item->country->name) ? $item->country->name : 'NA';
+            $item->location = isset($item->state->name) ? $item->state->name : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
             $item->totalAgents = 0;
-            $item->company_name = isset($item->name) ? $item->name : 'NA';
-            $item->point_of_contact = 'NA';
-             $item->point_of_contact = isset($item->supplier_detail->point_of_contact) ?$item->supplier_detail->point_of_contact : 'NA';
-
+            $item->business_name = isset($item->business_name) ? $item->business_name : 'NA';
+        
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
             $edit = "";
 
-            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center viewSupplierBtn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-eye"></i> View Account</a>';
+            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center viewSupplierdata" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-eye"></i> View Account</a>';
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
 
-
             if ($this->editAccessEnabled) {
                 if (auth()->user()->member_id != $item->member_id) {
-                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-supplier-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center editSupplierModel" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
             }
 

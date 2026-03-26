@@ -74,17 +74,17 @@ class SupplierRepository extends BaseRepository implements SupplierInterface
     {
         return  DB::transaction(function () use ($data) {
             try {
-                $contactType = $data['contact_type'];
+                $contactType = isset($data['contact_type']) ? $data['contact_type'] : "";
                 $supplierData  =  [
                     //'name' => $data['company_name'] ?? null,
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
-                    'country_id' => $data['country_id'] ?? null,
+                    'state_id' => $data['location'] ?? null,
                     'business_name' => $data['business_name'] ?? null,
                     'business_number' => $data['business_number'] ?? null,
                     'abn' => $data['abn'] ?? null,
                     'business_address' => $data['business_address'] ?? null,
-                    'contact_type' => isset($data['contact_type'])  ? json_encode($contactType) : null,
+                   // 'contact_type' => isset($contactType)  ? json_encode($contactType) : null,
                 ];
 
                 if (isset($data['user_id']) && (!empty($data['user_id']))) {
@@ -99,32 +99,32 @@ class SupplierRepository extends BaseRepository implements SupplierInterface
                 } else {
                     $supplierData['enabled'] = 1;
                     $supplierData['status'] = 2;
-                    $supplierData['type'] = '7';
+                    $supplierData['type'] = '10';
                     $message = 'New supplier added successfully.';
-                    $user = User::create($supplierData);
+                    $user = Supplier::create($supplierData);
                     if ($user) {
-                        $supplier = $this->supplie->where('id', $user->id)->first();
-                        $supplier->update(['contact_type' => $contactType]);
+                        $supplier = $this->supplier->where('id', $user->id)->first();
+                        //$supplier->update(['contact_type' => $contactType]);
                         $this->setting->create_account_setting($user);
                     }
                 }
 
                 /// Update supplier detail
-               
-                $supplier = $user->supplier_detail ?? $user->supplier_detail()->create(['user_id' => $user->id]);
-                if (!empty($data['agreement_file'])) {
+                $agrement_file = "";
+                $supplierDetail = $user->supplier_detail ?? $user->supplier_detail()->create(['user_id' => $user->id]);
+                /* if (!empty($data['agreement_file'])) {
                    
                     $file = $data['agreement_file'];
                     $filename = time().'.'.$file->getClientOriginalExtension();
                     $file_path = 'supplier_files/' . $filename; 
                     $file->storeAs('public/supplier_files', $filename);
-                    $supplier->update(['agreement_file' => $file_path]);
+                    $supplierDetail->update(['agreement_file' => $file_path]);
                     $agrement_file = $file_path;
                 } else {
-                    $agrement_file  = $supplier->agreement_file;
-                }
+                    $agrement_file  = $supplierDetail->agreement_file;
+                } */
 
-                $supplier->update([
+                $supplierDetail->update([
                     'date_appointed' => !empty($data['date_appointed'])
                         ? Carbon::parse($data['date_appointed'])->format('Y-m-d')
                         : null,
@@ -135,10 +135,21 @@ class SupplierRepository extends BaseRepository implements SupplierInterface
 
                     'term' => $data['term'] ?? null,
                     'fee' => $data['fee'] ?? null,
-                    'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
-                    'commission_massage_centre_percent' => $data['commission_massage_centre_percent'] ?? null,
+                    /* 'commission_advertising' => $data['commission_advertising'] ?? 0.00,
+                    'commission_advertising_type' => $data['commission_advertising_type'] ?? 'fixed',
+                    'commission_massage_centre' => $data['commission_massage_centre'] ?? 0.00,
+                    'commission_massage_centre_type' => $data['commission_massage_centre_type'] ?? 'fixed', */
                     'agreement_file' => $agrement_file,
 
+                ]);
+
+                 $supplierBankDetail = $user->supplier_bank_detail ?? $user->supplier_bank_detail()->create(['user_id' => $user->id]);
+
+                 $supplierBankDetail->update([
+                    'bank_name' => $data['bank_name'] ?? null,
+                    'account_name' => $data['account_name'] ?? null,
+                    'bsb' => $data['bsb'] ?? null,
+                    'account_number' => $data['account_number'] ?? null,
                 ]);
 
                 $supplierSetting = \App\Models\SupplierSetting::firstOrNew(['user_id' => $user->id]);

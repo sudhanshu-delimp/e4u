@@ -1,11 +1,13 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\SupplierDetail;
+use App\Models\SupplierBankDetail;
 use App\Models\SupplierSetting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+
 //use Illuminate\Support\Facades\DB;
 
 class Supplier extends Model
@@ -20,17 +22,118 @@ class Supplier extends Model
 
     public function supplier_detail()
     {
-        return $this->belongsTo(SupplierDetail::class,  'id', 'user_id');
+        return $this->hasOne(SupplierDetail::class, 'user_id' ,'id');
     }
     public function supplier_setting()
     {
-        return $this->belongsTo(SupplierSetting::class, 'id', 'user_id');
+        return $this->hasOne(SupplierSetting::class, 'user_id' ,'id');
+    }
+    public function supplier_bank_detail()
+    {
+        return $this->hasOne(SupplierBankDetail::class, 'user_id' ,'id');
     }
 
     public function setting()
     {
         return $this->hasOne('App\Models\SupplierSetting', 'staff_id');
     }
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City', 'city_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo('App\Models\State', 'state_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_id');
+    }
+
+    /**
+     * Indicates if the model should have created_by and updated_by fields.
+     *
+     * @var bool
+     */
+    public $createdUpdatedBy = true;
+
+    /**
+     * Get the created by that owns the details.
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    /**
+     * Get the updated by that owns the details.
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
+    }
+
+    public function getStatusAttribute($value)
+    {
+        $map = [
+            '1' => 'Active',
+            '2' => 'Pending',
+            '3' => 'Suspended',
+            '4' => 'Blocked',
+            '5' => 'Registered',
+            '6' => 'On Hold',
+            '7' => 'Rejected',
+            '8' => 'Cancelled',
+        ];
+
+        return $map[$value] ?? 'Unknown';
+    }
+
+    public function setMemberIdAttribute($value)
+    {
+        // If value is provided, use it, otherwise generate based on type and state
+        if (empty($value)) {
+            $memberId = $this->generateMemberId();
+            $this->attributes['member_id'] = $memberId;
+        } else {
+            $this->attributes['member_id'] = $value;
+        }
+    }
+
+    public function getTypeAttribute($value)
+    {
+        return (int) $value;
+    }
+
+    public function generateMemberId()
+    {
+       //Supplier
+        if ($this->type == 10) {
+            return 'P' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+        }
+    }
+
+    /**
+     * Boot method to automatically set member_id when user is created
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function ($user) {
+            // Only set member_id if it's not already set
+            if (empty($user->member_id)) {
+                if ($user->generateMemberId()) {
+                    $user->member_id = $user->generateMemberId();
+                    //$user->created_by = Auth::id();
+                    $user->save();
+                }
+            }
+        });
+        return null;
+    }
+
 
     public function getPhoneAttribute($value)
     {
@@ -63,18 +166,6 @@ class Supplier extends Model
     {
         $clean = removeSpaceFromString($value);
         $this->attributes['abn'] = $clean;
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::created(function ($supplier) {
-            \App\Models\SupplierSetting::create([
-                'user_id' => $supplier->id, // operator_detail.id
-                'idle_preference_time' => '30',
-                'twofa' => '2',
-            ]);
-        });
     }
 
     /**

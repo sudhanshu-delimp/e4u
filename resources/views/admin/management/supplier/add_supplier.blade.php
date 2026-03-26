@@ -54,8 +54,8 @@
              <label for="location">Location</label>
              <select class="form-control rounded-0" name="location" id="location">
                  <option value="">Select Location</option>
-                 @foreach (config('escorts.profile.cities') as $skey => $city)
-                     <option value="{{ $skey }}">{{ $city }}</option>
+                 @foreach (config('escorts.profile.states') as $skey => $state)
+                     <option value="{{ $skey }}">{{ $state['stateName'] }}</option>
                  @endforeach
              </select>
              <span class="text-danger error-location"></span>
@@ -76,7 +76,7 @@
          </div>
          <div class="col-6 mb-3">
              <label for="agreement_date">Agreement Date</label>
-             <input type="date" class="form-control rounded-0" name="agreement_date" id="agreement_date">
+             <input type="text" class="form-control rounded-0 js_datepicker" name="agreement_date" id="agreement_date">
              <span class="text-danger error-agreement_date"></span>
          </div>
          <div class="col-6 mb-3">
