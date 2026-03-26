@@ -278,6 +278,7 @@
             memberId = $(this).data('member-id');
             status = $(this).data('status');
             userType = $(this).data('user_type');
+            let category = $(".verification-img-popup .nav-link.active").attr('data-type');
             if(userType == '4'){
                 $('#pinups-tab').hide();
             }else{
@@ -295,7 +296,7 @@
             
             $('#media-images').html('Loading...');
 
-            getMediaVerificationImage(userId,mediaVerificationId, category = "gallery",memberId);
+            getMediaVerificationImage(userId,mediaVerificationId, category  ,memberId);
         }); 
 
         function checkPrintBtn() {
@@ -426,6 +427,13 @@
             getMediaVerificationImage(userId,mediaVerificationId, activeGalleryTab ,memberId); 
         }); 
 
+    });
+
+    $('#view_image').on('hidden.bs.modal', function () {
+        $('#myTab .nav-link').removeClass('active').attr('aria-selected', 'false');
+        $('#gallery-tab').addClass('active').attr('aria-selected', 'true');
+        $('.tab-pane').removeClass('active show');
+        $('#gallery').addClass('active show');
     });
 
 </script>

@@ -251,11 +251,9 @@ class MediaVerificationController extends Controller
         $pinupImage =  [];
         $mediaImages = [];
         foreach ($escort_medias as $escort_media) {
-              if($escort_media->varified == "2" ){
-                $verification_icon = '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span></span>';
-             }else{
-                $verification_icon = '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span></span>';
-             }
+            $verification_icon = ($escort_media->varified == "2")
+                ? '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span>'
+                : '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span>';
             switch ($escort_media->position) {
                 case 9:
                     $bannerImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
