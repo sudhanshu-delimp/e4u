@@ -20,10 +20,12 @@ class CreateMassageExcelsTable extends Migration
             $table->integer('post_code')->nullable();
             $table->string('state_abbr');
             $table->integer('state_id');
+            $table->string('territory_name')->nullable()->comment('state full name');
             $table->string('mobile_number')->nullable();
             $table->string('business_number')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            //$table->enum('status', ['Published', 'Suspended','Pending'])->default('Pending');
             $table->timestamps();
         });
     }

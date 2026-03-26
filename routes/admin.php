@@ -1,41 +1,42 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\TaskController;
-use App\Http\Controllers\Admin\AgentController;
-use App\Http\Controllers\Admin\StaffController;
-use App\Http\Controllers\Admin\OperatorstaffController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Admin\VisitorController;
-use App\Http\Controllers\Admin\OperatorController;
+use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\AdminNumsController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ReportingController;
-use App\Http\Controllers\Admin\PostOfficeController;
-use App\Http\Controllers\Admin\PDF\AgentPdfController;
-use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\Admin\CommunicationController;
-use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
-use App\Http\Controllers\Admin\PublicationBlogController;
-use App\Http\Controllers\Admin\GlobalMonitoringController;
-use App\Http\Controllers\Admin\PublicationAlertController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
+use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\AgentExcelDataManageController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\CenterNotificationController;
+use App\Http\Controllers\Admin\CommunicationController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EscortNotificationController;
-use App\Http\Controllers\Admin\GlobalNotificationController;
-use App\Http\Controllers\Admin\ViewerNotificationController;
-use App\Http\Controllers\Admin\AdminMakeNotificationController;
-use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
-use App\Http\Controllers\Admin\ShareholderNotificationController;
-use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
+use App\Http\Controllers\Admin\GlobalNotificationController;
+use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
+use App\Http\Controllers\Admin\OperatorController;
+use App\Http\Controllers\Admin\OperatorstaffController;
+use App\Http\Controllers\Admin\PDF\AgentPdfController;
+use App\Http\Controllers\Admin\PostOfficeController;
+use App\Http\Controllers\Admin\PublicationAlertController;
+use App\Http\Controllers\Admin\PublicationBlogController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
+use App\Http\Controllers\Admin\ReportingController;
+use App\Http\Controllers\Admin\ShareholderNotificationController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\SupportTicketsController;
+use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\Admin\ViewerNotificationController;
+use App\Http\Controllers\Admin\VisitorController;
+use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\User\Dashboard\UserController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -513,7 +514,8 @@ Route::get('/reports/communication/{id}/show',[CommunicationController::class, '
 
 
 //Management Agent Date List
-//Route::get('management/agent-data/data-list', [AgentExcelDataManageController::class, 'dataList'])->name('admin.dashboard.agent.data-list');
+Route::get('management/agent-data/data-list', [AgentExcelDataManageController::class, 'dataList'])->name('admin.dashboard.agent.data-list');
+Route::post('management/agent-date/import-excel', [AgentExcelDataManageController::class, 'massageCenterInport'])->name('admin.dashboard.agent.import-excel');
 
 
 
