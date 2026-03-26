@@ -1763,4 +1763,46 @@ if (!function_exists('getPurchaseNetAmount')) {
     }
 
 
+if (!function_exists('make_time_availability')) {
+    function make_time_availability($request_data)
+    {
 
+        $time = $request_data['time'] ?? [];
+        $availability = $request_data['availability_time'] ?? [];
+
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+
+        $result = [];
+
+        foreach ($days as $day) {
+
+            $status = $availability[$day] ?? 'closed';
+
+            $from = $time[$day]['hh_from'] ?? null;
+            $to   = $time[$day]['hh_to'] ?? null;
+
+
+            if ($status === 'closed') {
+                $from = null;
+                $to   = null;
+            }
+
+            if ($status === 'til_late') {
+                $to = null;
+            }
+
+            if ($status === 'custom') {
+                $from = $from ?: null;
+                $to   = $to ?: null;
+            }
+
+            $result[$day] = [
+                'status' => $status,
+                'from'   => $from,
+                'to'     => $to,
+            ];
+        }
+
+        return $result;
+    }  
+}

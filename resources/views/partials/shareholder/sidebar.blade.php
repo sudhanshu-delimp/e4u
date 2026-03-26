@@ -27,7 +27,7 @@
             </a>
             <div id="collapseOne" class="collapse @if (request()->segment(2) == 'edit-my-account' ||
                     request()->segment(2) == 'change-password' ||
-                    request()->segment(2) == 'notifications' ||
+                    request()->segment(2) == 'my-shareholding' ||
                     request()->segment(2) == 'upload-my-avatar') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
@@ -46,11 +46,11 @@
                             password</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('shareholder.notifications') }}">
+                     <a class="collapse-item" href="{{ route('shareholder.my-shareholding') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/profit.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'notifications' ? 'color: #ff3c5f;' : '' }}">Notifications</span>
+                            style="{{ request()->segment(2) == 'my-shareholding' ? 'color: #ff3c5f;' : '' }}">My Shareholding</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.upload-my-avatar') }}">
                         <img 

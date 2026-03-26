@@ -214,23 +214,19 @@ class MassageController extends Controller
 
         
         $massage_durations = (isset($escort->durations) && count($escort->durations)>0) ? $escort->durations->toArray() : [];
+        $availability = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : [];
 
 
         // echo '<pre>';
         // print_r($massage_durations);
         // exit;
 
-        
-
         $media = $this->massage_media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->massage_media;
         $durations = $this->duration->all();
 
         $masseurs  = Masseur::all();
-
-
-      
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user','defaultServiceIds'));
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user','availability'));
     }
 
     public function getProfile(Request $request, $id)
@@ -260,7 +256,7 @@ class MassageController extends Controller
             $user = auth()->user();
             list($service_one, $service_two, $service_three) = $this->service->findByCategory([1, 2, 3]);
             $durations = $this->duration->all();
-            $availability = $escort->availability ? json_decode($escort->availability->availability_time, true) : [];
+            $massage_availability = $escort->availability ? json_decode($escort->availability->availability_time, true) : [];
             $service = $this->service;
             $path = $this->media;
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [], $id);
@@ -269,16 +265,13 @@ class MassageController extends Controller
            
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
             $edit_mode = true;
-
-           
-
-            
+    
             $social_links = $escort->social_links;
+            $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
 
-            
             
             //dd($escort->imagePosition(9));
-            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default','social_links'));
+            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default','social_links','massage_availability'));
         }
         
     }
@@ -370,14 +363,15 @@ class MassageController extends Controller
 
     public function createProfile(Request $request)
     {
-        
+       
+
         try 
         {
-
+            
             DB::beginTransaction();
             $user = auth()->user();
-            $request_data = $request->all();
-            $availability     = $this->makeAvailability($request_data);
+            $request_data = $request->all(); 
+            $availability     = make_time_availability($request_data);
             $availabilityJson = json_encode($availability);
 
             $massage_profile = MassageProfile::where('user_id', auth()->user()->id)
@@ -853,7 +847,7 @@ class MassageController extends Controller
             try 
             {
                 $request_data = $request->all();
-                $availability     = $this->makeAvailability($request_data);
+                $availability     = make_time_availability($request_data);
 
                 Log::info($availability);
                 if(!empty($availability))
