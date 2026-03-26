@@ -167,18 +167,18 @@ class MediaVerificationController extends Controller
             </a>
             ';
 
-            if ($item->user->type == '4') {
-                $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
-                    href="javascript:void(0)" data-toggle="modal" data-target="#view_tag" data-id="' . $item->id . '">
-                    <i class="fa fa-eye"></i> View Tag
-                </a>
-                <div class="dropdown-divider"></div>';
+            // if ($item->user->type == '4') {
+            //     $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
+            //         href="javascript:void(0)" data-toggle="modal" data-target="#view_tag" data-id="' . $item->id . '">
+            //         <i class="fa fa-eye"></i> View Tag
+            //     </a>
+            //     <div class="dropdown-divider"></div>';
 
-                $view_centre = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-centre-btn"
-                    href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $item->id . '">
-                    <i class="fa fa-eye"></i> View Centre
-                </a>';
-            }
+            //     $view_centre = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-centre-btn"
+            //         href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $item->id . '">
+            //         <i class="fa fa-eye"></i> View Centre
+            //     </a>';
+            // }
 
             $dropdown = '<div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -246,31 +246,27 @@ class MediaVerificationController extends Controller
         }
 
         $escort_medias = $query->get();
-        
         $media_verification_image = asset('escorts/' . $media_verification->image_path);
         $bannerImage = [];
         $pinupImage =  [];
         $mediaImages = [];
-        foreach ($escort_medias as $escort_media) { 
+        foreach ($escort_medias as $escort_media) {
+            $verification_icon = ($escort_media->varified == "2")
+                ? '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span>'
+                : '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span>';
             switch ($escort_media->position) {
                 case 9:
                     $bannerImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
-                                            <img src="'.asset('assets/app/img/verify/unverified_icon.png').'" />
-                                            <span class="mc_media_tooltip">Media Unverified</span>
-                                        </span></div>';  
+                                            '.$verification_icon.'</div>';  
                     break;
                 case 10:
                     $pinupImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
-                                            <img src="'.asset('assets/app/img/verify/unverified_icon.png').'" />
-                                            <span class="mc_media_tooltip">Media Unverified</span>
-                                        </span></div>';
+                                            '.$verification_icon.'</div>';
                     break;
 
                 default:
                     $mediaImages[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
-                                            <img src="'.asset('assets/app/img/verify/verified_icon.png').'" />
-                                            <span class="mc_media_tooltip">Media Verified</span>
-                                        </span></div>';
+                                           '.$verification_icon.'</div>';
                     break;
             }
         }
