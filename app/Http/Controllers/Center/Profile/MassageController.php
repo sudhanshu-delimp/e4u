@@ -1031,7 +1031,7 @@ class MassageController extends Controller
 
 
 
-    public function add_listing_user(Request $request)
+    public function calculate_listed_user(Request $request)
     {
         dd($request->all());
 
