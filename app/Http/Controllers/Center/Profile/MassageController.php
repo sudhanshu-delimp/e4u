@@ -363,10 +363,11 @@ class MassageController extends Controller
 
     public function createProfile(Request $request)
     {
-        
+       
+
         try 
         {
-
+            
             DB::beginTransaction();
             $user = auth()->user();
             $request_data = $request->all(); 
