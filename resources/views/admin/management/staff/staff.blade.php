@@ -75,6 +75,7 @@
                     </div>
                 </div>
             </div>
+            
             <!--middle content end here-->
         </div>
         <!-- Footer -->
