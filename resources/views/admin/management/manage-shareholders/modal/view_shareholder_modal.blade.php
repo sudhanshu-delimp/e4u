@@ -65,15 +65,15 @@
              </div>
              
             <div class="d-flex justify-content-end modal-footer">
-            <!-- Print Button -->
+                <!-- Print Button -->
 
-            <button class="btn-success-modal d-block btn-print" data-agent='${safeData}'>
-                    <i class="fa fa-print text-white"></i> Print
-            </button>
+                <button class="btn-success-modal d-block btn-print" data-agent='${safeData}'>
+                        <i class="fa fa-print text-white"></i> Print
+                </button>
 
-        
-            <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
-        </div>
+            
+                <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
+            </div>
          </div>
      </div>
  </div>

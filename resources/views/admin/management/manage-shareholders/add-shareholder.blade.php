@@ -81,7 +81,7 @@
                                                             <div class="dropdown-divider"></div>
 
                                                             <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                                data-target="#payAgentreport" href=""> <i
+                                                                data-target="#suspendAccount" href=""> <i
                                                                     class="fa fa-ban" aria-hidden="true"></i>
                                                                 Suspend</a>
                                                             <div class="dropdown-divider"></div>
@@ -95,6 +95,52 @@
                                                 </div>
                                             </td>
                                         </tr>
+
+                                         <tr>
+                                            <td>B60258</td>
+                                            <td>Andrew Stephen </td>
+                                            <td>Andrew Stephen</td>
+                                            <td>0401 071 478</td>
+                                            <td>andrew@blackboxtech.com.au</td>
+                                            <td>235</td>
+                                            <td>02-03-2025 12:57 pm</td>
+                                            <td>
+                                                <div class="dropdown no-arrow">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i
+                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                    </a>
+                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                        aria-labelledby="dropdownMenuLink">
+                                                        <div class="custom-tooltip-container"><a
+                                                                class="dropdown-item align-item-custom toggle-massage-notification"
+                                                                href="#" title="Click to disable notification">
+                                                            </a>
+                                                            <a class="dropdown-item align-item-custom" href="#"
+                                                                data-toggle="modal" data-target="#editShareholder"> <i
+                                                                    class="fa fa-pen" aria-hidden="true"></i>
+                                                                Edit</a>
+
+                                                            <div class="dropdown-divider"></div>
+
+                                                            <a class="dropdown-item align-item-custom" data-toggle="modal"
+                                                                data-target="#suspendAccount" href=""> <i
+                                                                    class="fa fa-ban" aria-hidden="true"></i>
+                                                                Suspend</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item align-item-custom" href="#"
+                                                                data-toggle="modal" data-target="#viewShareholder"> <i
+                                                                    class="fa fa-eye" aria-hidden="true"></i>
+                                                                View Account</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -107,6 +153,7 @@
     @include('admin.management.manage-shareholders.modal.add_shareholder_modal')
     @include('admin.management.manage-shareholders.modal.edit_shareholder_modal')
     @include('admin.management.manage-shareholders.modal.view_shareholder_modal')
+    @include('admin.management.manage-shareholders.modal.suspended_modal')
 
 
 @endsection
