@@ -7,7 +7,7 @@
                 <div class="modal-content ">
 
                     <div class="modal-header">
-                        <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/operator/logout.png') }}" class="custompopicon"> Logout</h5>
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/logout.png') }}" class="custompopicon"> Logout</h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
                         </a>
