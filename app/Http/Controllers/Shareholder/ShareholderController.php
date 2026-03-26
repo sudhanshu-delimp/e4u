@@ -74,9 +74,9 @@ class ShareholderController extends Controller
     {
         return view('shareholder.dashboard.my-account.upload-my-avatar');
     }
-    public function notifications()
+    public function myShareholding()
     {
-        return view('shareholder.dashboard.my-account.notifications');
+        return view('shareholder.dashboard.my-account.my-shareholding');
     }
 
     // Blackbox Tech Pty Ltd
