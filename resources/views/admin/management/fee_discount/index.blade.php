@@ -124,10 +124,12 @@
 </div>
 
 @include('admin/management/fee_discount/modal/discount_history_modal')
-@include('admin/management/.fee_discount/modal/advertiser_discount_modal')
+@include('admin/management/fee_discount/modal/advertiser_discount_modal')
 @include('admin/management/fee_discount/modal/renew_discount_modal')
 @include('admin/management/fee_discount/modal/confirm_modal')
+
 @endsection
+
 @prepend('script')
 <script>
     var table = $("#discountFeetable").DataTable({

@@ -73,7 +73,7 @@
                             </div>
                             </div>
                              <div class="modal-footer d-flex justify-content-end pr-0">
-                                <input type="hidden" id="advertiser_id">
+                                <input type="hidden" name="advertiser_id">
                                 <button type="submit" class="btn-success-modal">Apply</button>
                                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                             </div>
@@ -108,31 +108,32 @@ $(document).on('submit', '#advertiserForm', function (e) {
             });
         },
 
-        success: function (res) {
+        success: function (res, textStatus, xhr) {
             Swal.close();
+            let option = getStatusOption(xhr);
             if (res.status) {
                 $('#advertiser_name').text(res.data.name);
                 $('#agent_member_id').text(res.data.my_agent.member_id);
                 $('#advertiser_state').text(res.data.state.name);
-                $("#advertiser_id").val(res.data.id);
+                $("input[name='advertiser_id']").val(res.data.id);
             } else {
                 Swal.fire({
-                    icon: 'warning',
-                    title: 'Warning',
-                    text: res.message
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message
                 });
             }
         },
 
         error: function (xhr) {
             Swal.close();
-
             let res = xhr.responseJSON;
-
+            let message = res?.message || 'Something went wrong';
+            let option = getStatusOption(xhr);
             Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: res?.message || 'Something went wrong'
+                icon: option.icon,
+                title: option.title,
+                text: option.message
             });
 
             $('.advertiserDetail td').text('N/A');
@@ -161,29 +162,27 @@ $(document).on('submit', '#apply_fee_discount', function (e) {
             });
         },
 
-        success: function (res) {
+        success: function (res, textStatus, xhr) {
             Swal.close();
-            console.log(res.data);
+            let option = getStatusOption(xhr);
             if (res.status) {
                 
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Warning',
-                    text: res.message
-                });
             }
+
+            Swal.fire({
+                icon: option.icon,
+                title: option.title,
+                text: option.message
+            });
         },
 
         error: function (xhr) {
             Swal.close();
-
-            let res = xhr.responseJSON;
-
+            let option = getStatusOption(xhr);
             Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: res?.message || 'Something went wrong'
+                icon: option.icon,
+                title: option.title,
+                text: option.message
             });
 
             $('.advertiserDetail td').text('N/A');
