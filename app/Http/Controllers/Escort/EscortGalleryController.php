@@ -107,7 +107,7 @@ class EscortGalleryController extends AppController
                         'user_id' => $userId,
                         'type' => $type,
                         'path' => 'escorts/'.$destination_path,
-                        'varified' => '2',
+                        'varified' => '0',
                     ];
                     $response['status'] = 200;
                     $media = $this->media->store($data);
@@ -146,7 +146,7 @@ class EscortGalleryController extends AppController
                     'type' => $type,
                     'position' => $key,
                     'path' => 'escorts/'.$destination_path,
-                    'varified' => '2',
+                    'varified' => '0',
                 ];
                 $media = $this->media->store($data);
                 $response['status'] = 200;
@@ -186,7 +186,7 @@ class EscortGalleryController extends AppController
                     'type' => $type,
                     'position' => $key,
                     'path' => 'escorts/'.$destination_path,
-                    'varified' => '2',
+                    'varified' => '0',
                 ];
                 $media = $this->media->store($data);
                 $response['status'] = 200;
@@ -482,6 +482,7 @@ class EscortGalleryController extends AppController
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);   
             $statusMap = [
+                'pending'   => '0',
                 'verified'   => '1',
                 'unverified' => '2',
             ];
@@ -654,7 +655,7 @@ class EscortGalleryController extends AppController
         $user = auth()->user();
         $image = $request->file('image');
         $media = EscortMedia::where('user_id', $user->id)
-        ->where('varified', '2')
+        ->where('varified', '0')
         ->whereNull('media_verification_id')
         ->count();
    

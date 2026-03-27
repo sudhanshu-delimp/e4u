@@ -241,7 +241,7 @@ class MediaVerificationController extends Controller
             case '0': // Pending
             default:
                 $query->whereNull('media_verification_id')
-                    ->where('varified', '2');
+                    ->where('varified', '0');
                 break;
         }
 
@@ -251,10 +251,15 @@ class MediaVerificationController extends Controller
         $pinupImage =  [];
         $mediaImages = [];
         foreach ($escort_medias as $escort_media) {
-            $verification_icon = ($escort_media->varified == "2")
-                ? '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span>'
-                : '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span>';
-            switch ($escort_media->position) {
+            if ($escort_media->varified == "0") {
+                    $verification_icon = '<img src="'.asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png').'" /><span class="mc_media_tooltip">Media Pending</span>';
+                } elseif ($escort_media->varified == "2") {
+                    $verification_icon = '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span>';
+                } else {
+                    $verification_icon = '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span>';
+                }
+            
+                switch ($escort_media->position) {
                 case 9:
                     $bannerImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
                                             '.$verification_icon.'</div>';  
@@ -308,7 +313,7 @@ class MediaVerificationController extends Controller
 
         $model = $request->user_type == '3' ? EscortMedia::class : MassageMedia::class;
         $model::where('user_id', $media_verification->user_id)
-            ->where('varified', 2)
+            ->where('varified', '0')
             ->where('type', 0)
             ->whereNull('media_verification_id')
             ->update([
