@@ -211,13 +211,14 @@
       </div>
 </div>
 
-@include('admin/modal/discount_history_modal')
-@include('admin/modal/advertiser_discount_modal')
-@include('admin/modal/renew_discount_modal')
-@include('admin/modal/confirm_modal')
-@endsection
-@push('script')
+@include('admin/management/fee_discount/modal/discount_history_modal')
+@include('admin/management/fee_discount/modal/advertiser_discount_modal')
+@include('admin/management/fee_discount/modal/renew_discount_modal')
+@include('admin/management/fee_discount/modal/confirm_modal')
 
+@endsection
+
+@prepend('script')
 <script>
     var table = $("#discountFeetable").DataTable({
         language: {
@@ -250,4 +251,5 @@
            ],
     });
 </script>
-@endpush
+@endprepend
+

@@ -95,7 +95,8 @@ Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_l
 
 
 Route::get('listing/add-listing', [MassageController::class, 'add_listing_page'])->name('center.add-listing');
-Route::post('listing/add-listing', [MassageController::class, 'add_listing_user'])->name('center.add-listing');
+Route::post('listing/add-listing', [MassageController::class, 'calculate_listed_user'])->name('center.add-listing');
+
 
 // Route::get('listing/add-listing', function()
 // {

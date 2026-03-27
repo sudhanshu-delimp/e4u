@@ -74,23 +74,33 @@
                 if ($inputs.length > 0) {
                     $inputs.attr('placeholder', 'DD-MM-YYYY');
                     $inputs.attr('autocomplete', 'off');
-                    $inputs.datepicker({
-                        dateFormat: "dd-mm-yy",
-                        changeMonth: true,
-                        changeYear: true,
-                        showAnim: "slideDown",
-                        onSelect: function(dateText) {
-                            $(this).trigger('change');
-                        }
+                    $inputs.each(function() {
+                        let options = {
+                            dateFormat: "dd-mm-yy",
+                            changeMonth: true,
+                            changeYear: true,
+                            showAnim: "slideDown",
+                            onSelect: function(dateText) {
+                                $(this).trigger('change');
+                            }
+                        };
+                    // Start from today
+                    if ($(this).hasClass('min_today')) {
+                        options.minDate = 0;
+                    }
+                        $(this).datepicker(options);
                     });
                 }
             }
 
+            $(document).on('input', '.only_digits', function () {
+             this.value = this.value.replace(/\D/g, '');
+            });
+
             $(document).ready(function() {
                 initJsDatePicker();
             });
-        </script>
-        <script>
+
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
@@ -131,8 +141,7 @@
                 }
                 $(".ui-datepicker-trigger").removeAttr("title");
             }
-        </script>
-          <script>
+        
        var initJsDatePickerEdit = function() {
                 var $inputs = $(".js_datepicker_edit");
                 if ($inputs.length > 0) {
@@ -149,9 +158,66 @@
                     });
                 }
             }
+
+        var getStatusOption = (xhr)=>{
+            let icon,title;
+            let res = xhr.responseJSON;
+            let message = res?.message || 'Something went wrong';
+            switch (xhr.status) {
+                case 200:
+                icon = 'success';
+                title = title? title:'Success';
+                break;
+
+                case 400:
+                icon = 'warning';
+                title = 'Bad Request';
+                break;
+
+                case 401:
+                icon = 'warning';
+                title = 'Unauthorized';
+                message = 'Your session has expired. Please login again.';
+                break;
+
+                case 403:
+                icon = 'warning';
+                title = 'Forbidden';
+                break;
+
+                case 404:
+                icon = 'info';
+                title = 'Not Found';
+                break;
+
+                case 419:
+                icon = 'warning';
+                title = 'Unauthorized';
+                break;
+
+                case 422:
+                icon = 'warning';
+                title = 'Validation Error';
+
+                // Show validation errors if exist
+                if (res?.errors) {
+                    message = Object.values(res.errors).flat().join('\n');
+                }
+                break;
+
+                case 500:
+                icon = 'error';
+                title = 'Server Error';
+                break;
+
+                default:
+                icon = 'error';
+                title = 'Error';
+            }
+            return {icon, title, message};
+        }
+
   </script>
-        @section('script')
-        @show
-        @stack('script')
+  @stack('script')
         </body>
         </html>
