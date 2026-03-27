@@ -51,7 +51,7 @@
                                  <h6 class="border-bottom pb-1 text-blue-primary">Method of Contact:</h6>
                                     <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
                                       
-                                    <div class="form-check form-check-inline">
+                                    <div class="form-check form-check-inline ml-0">
                                           <input class="form-check-input" type="checkbox" id="text" name="contact_type[]" value="2">
                                           <label class="form-check-label" for="text">Text</label>
                                     </div>
@@ -71,7 +71,7 @@
                                     <div class="form-group">
                                         <h6 class="border-bottom pb-1 text-blue-primary">Idle Time Preference</h6>
 
-                                        <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline ml-0">
                                             <input class="form-check-input" type="radio" name="idle_preference_time"
                                                 id="idle_preference_time_15" value="15">
                                             <label class="form-check-label" for="idle_preference_time_15">15
@@ -103,7 +103,7 @@
                                     <div class="form-group">
                                         <h6 class="border-bottom pb-1 text-blue-primary">2FA Authentication</h6>
 
-                                        <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline ml-0">
                                             <input class="form-check-input" type="radio" name="twofa" id="twofa_1"
                                                 value="1">
                                             <label class="form-check-label" for="twofa_1">Email</label>
