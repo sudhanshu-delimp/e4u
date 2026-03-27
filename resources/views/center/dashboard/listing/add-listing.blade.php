@@ -164,9 +164,9 @@ background:#16385f;
                 <form id="socials_link" action="#" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <!-- Header -->
-                    <div class="listing-header" style="text-align:right; margin-bottom:15px;">
+                    <!-- <div class="listing-header" style="text-align:right; margin-bottom:15px;">
                         <button type="button" class="nex_sterp_btn" id="add_listing" disabled>Add Listing</button>
-                    </div>
+                    </div> -->
             
                     <!-- Listings Area -->
                     <div class="listing_area">
@@ -367,44 +367,44 @@ $(document).ready(function () {
     });
 
  
-    $("#add_listing").click(function () {
+    // $("#add_listing").click(function () {
 
        
-        let lastRow = $(".eachListing").last();
-        let lastEndDate = lastRow.find(".profile_end").val();
-        let newRow = lastRow.clone();
-        newRow.find("select").val('');
-        newRow.find("input").val('');
-        newRow.find(".date-error").text('');
-        newRow.find(".js_datepicker").removeClass("hasDatepicker").removeAttr("id");
+    //     let lastRow = $(".eachListing").last();
+    //     let lastEndDate = lastRow.find(".profile_end").val();
+    //     let newRow = lastRow.clone();
+    //     newRow.find("select").val('');
+    //     newRow.find("input").val('');
+    //     newRow.find(".date-error").text('');
+    //     newRow.find(".js_datepicker").removeClass("hasDatepicker").removeAttr("id");
 
-        $(".eachListing").last().after(newRow);
-         updateProfileOptions();  
+    //     $(".eachListing").last().after(newRow);
+    //      updateProfileOptions();  
 
-        let minStartDate = 0;
+    //     let minStartDate = 0;
 
-        if (lastEndDate) {
-            let nextDay = new Date(lastEndDate);
-            nextDay.setDate(nextDay.getDate() + 1);
-            minStartDate = nextDay;
-        }
+    //     if (lastEndDate) {
+    //         let nextDay = new Date(lastEndDate);
+    //         nextDay.setDate(nextDay.getDate() + 1);
+    //         minStartDate = nextDay;
+    //     }
 
-        // start date picker
-        newRow.find(".profile_start").datepicker({
-            dateFormat: "yy-mm-dd",
-            minDate: minStartDate
-        });
+    //     // start date picker
+    //     newRow.find(".profile_start").datepicker({
+    //         dateFormat: "yy-mm-dd",
+    //         minDate: minStartDate
+    //     });
 
-        // end date picker
-        newRow.find(".profile_end").datepicker({
-            dateFormat: "yy-mm-dd",
-            minDate: minStartDate
-        });
+    //     // end date picker
+    //     newRow.find(".profile_end").datepicker({
+    //         dateFormat: "yy-mm-dd",
+    //         minDate: minStartDate
+    //     });
 
-        $("#add_listing").prop("disabled", true);
-         toggleRemoveButton();
+    //     $("#add_listing").prop("disabled", true);
+    //      toggleRemoveButton();
 
-    });
+    // });
 
     
     $(document).on("click", ".removeCross", function () {
@@ -527,56 +527,107 @@ $(".js_datepicker").datepicker({
 
 $(".save_profile_btn").click(function(){
 
-let html = '';
-let total = 0;
-let i = 1;
+    let html = '';
+    let total = 0;
 
-$(".eachListing").each(function(){
+    let row = $(".eachListing"); 
 
-let profile = $(this).find('select[name="massage_id[]"] option:selected').text();
-let start = $(this).find('.profile_start').val();
-let end = $(this).find('.profile_end').val();
+    let profile = row.find('select[name="massage_id[]"] option:selected').text();
+    let start = row.find('.profile_start').val();
+    let end = row.find('.profile_end').val();
 
-let startDate = new Date(start);
-let endDate = new Date(end);
+    // safety check
+    if (!start || !end) {
+        alert("Please select start and end date");
+        return;
+    }
 
-let days = Math.ceil((endDate - startDate) / (1000*60*60*24)) + 1;
+    let startDate = new Date(start);
+    let endDate = new Date(end);
 
-let rate = 10; // testing
-let fullFee = rate * days;
-let discount = 0;
-let finalFee = fullFee - discount;
+    let days = Math.ceil((endDate - startDate) / (1000*60*60*24)) + 1;
+    let membership_id = 5;
 
-total += finalFee;
+     let formData = {
+            days: days,
+            membership_id: 5,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        };
 
-html += `
-<tr>
-<td>${i}</td>
-<td>${profile}</td>
-<td>${start}</td>
-<td>${end}</td>
-<td>${days}</td>
-<td>$ ${rate.toFixed(2)}</td>
-<td>$ ${fullFee.toFixed(2)}</td>
-<td>$ ${discount.toFixed(2)}</td>
-<td>$ ${finalFee.toFixed(2)}</td>
-</tr>
-`;
+     $.ajax({
+            url: "{{route('center.add-listing)}}",
+            type: "POST",
+            data: formData,
+            success: function (response) {
 
-i++;
+                const data = {
+                    locationText: $('#state option:selected').text(),
+                    startFormatted: response.start_formatted,
+                    endFormatted: response.end_formatted,
+                    membershipName: response.membership_name,
+                    members: $('#cal_members').val(),
+                    fee: response.fee,
+                    days: response.days,
+                    locationValue: $('#state').val()
+                };
 
-});
+                // Remove blank row
+                $('#reckoner tbody tr.blank-row').remove();
 
-html += `
-<tr>
-<td colspan="7"></td>
-<td><strong>Total Fees</strong></td>
-<td><strong>$ ${total.toFixed(2)}</strong></td>
-</tr>
-`;
+                // Add new row
+                $('#reckoner tbody').append(buildDataRow(data));
 
-$("#summaryBody").html(html);
-$("#summaryModal").css("display","flex").hide().fadeIn();
+                // Update total footer
+                updateTotal();
+
+                // Reset modal form
+                $('#membershipModal form')[0].reset();
+
+                // Close modal
+                $('#membershipModal .close').trigger('click');
+            },
+            error: function (xhr) {
+                console.log(xhr.responseJSON || xhr);
+                alert("Validation Error");
+            }
+        });
+    });
+
+
+
+
+    let rate = 10; // testing
+    let fullFee = rate * days;
+    let discount = 0;
+    let finalFee = fullFee - discount;
+
+    total = finalFee;
+
+    html += `
+    <tr>
+        <td>1</td>
+        <td>${profile}</td>
+        <td>${start}</td>
+        <td>${end}</td>
+        <td>${days}</td>
+        <td>$ ${rate.toFixed(2)}</td>
+        <td>$ ${fullFee.toFixed(2)}</td>
+        <td>$ ${discount.toFixed(2)}</td>
+        <td>$ ${finalFee.toFixed(2)}</td>
+    </tr>
+    `;
+
+    // total row
+    html += `
+    <tr>
+        <td colspan="7"></td>
+        <td><strong>Total Fees</strong></td>
+        <td><strong>$ ${total.toFixed(2)}</strong></td>
+    </tr>
+    `;
+
+    $("#summaryBody").html(html);
+    $("#summaryModal").css("display","flex").hide().fadeIn();
 });
 
 $(document).on("click",".close-btn",function(){
