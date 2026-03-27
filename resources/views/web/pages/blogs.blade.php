@@ -102,7 +102,7 @@
                         {{-- Our Blogs --}}
                         <div class="col-lg-8 col-sm-12">
                             <div class="single-blog-item">
-                                <h2 class="blog_head">Our Latest Bolgs</h2>
+                                <h2 class="blog_head">Our Latest Blogs</h2>
                                 <div class="our_latest_blog">
                                     {{-- blog card --}}
                                     <div class="card-content">
