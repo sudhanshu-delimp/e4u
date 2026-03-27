@@ -220,6 +220,9 @@
                                                 src="{{ asset($path->findByposition(auth()->user()->id, 1, 0)['path']) }}"
                                                 style="object-fit: cover;width: 167px;height: 172px;">
                                             <input type="hidden" id="pos_1" name="position[1]" value="">
+                                            <div class="verify_icon">
+                                                <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
@@ -240,6 +243,9 @@
                                                         src="{{ asset($path->findByposition(auth()->user()->id, 2, 0)['path']) }}">
                                                     <input type="hidden" id="pos_2" name="position[2]"
                                                         value="">
+                                                        <div class="verify_icon">
+                                                            <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                                        </div>
                                                 </label>
                                             </div>
                                         </div>
@@ -254,6 +260,9 @@
                                                         src="{{ asset($path->findByposition(auth()->user()->id, 3, 0)['path']) }}">
                                                     <input type="hidden" id="pos_3" name="position[3]"
                                                         value="">
+                                                        <div class="verify_icon">
+                                                            <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                                        </div>
                                                 </label>
                                             </div>
                                         </div>
@@ -268,6 +277,9 @@
                                                         src="{{ asset($path->findByposition(auth()->user()->id, 4, 0)['path']) }}">
                                                     <input type="hidden" id="pos_4" name="position[4]"
                                                         value="">
+                                                        <div class="verify_icon">
+                                                            <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                                        </div>
                                                 </label>
                                             </div>
                                         </div>
@@ -284,6 +296,9 @@
                                                         src="{{ asset($path->findByposition(auth()->user()->id, 5, 0)['path']) }}">
                                                     <input type="hidden" id="pos_5" name="position[5]"
                                                         value="">
+                                                        <div class="verify_icon">
+                                                            <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                                        </div>
                                                 </label>
                                             </div>
                                         </div>
@@ -298,6 +313,9 @@
                                                         src="{{ asset($path->findByposition(auth()->user()->id, 6, 0)['path']) }}">
                                                     <input type="hidden" id="pos_6" name="position[6]"
                                                         value="">
+                                                        <div class="verify_icon">
+                                                            <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                                        </div>
                                                 </label>
                                             </div>
                                         </div>
@@ -312,6 +330,9 @@
                                                         src="{{ asset($path->findByposition(auth()->user()->id, 7, 0)['path']) }}">
                                                     <input type="hidden" id="pos_7" name="position[7]"
                                                         value="">
+                                                        <div class="verify_icon">
+                                                            <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                                        </div>
                                                 </label>
                                             </div>
                                         </div>
