@@ -3148,8 +3148,8 @@ button.btn:focus {
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 1px;
-    top: 0px;
+    right: 1px;
+    bottom: 0px;
     border: none;
     background: var(--blue--text);
     padding: 4px;
@@ -3199,8 +3199,8 @@ button.btn:focus {
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 1px;
-    top: 1px;
+    right: 1px;
+    bottom: 1px;
     border: none;
     background: var(--blue--text);
     padding: 4px;
