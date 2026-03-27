@@ -29,7 +29,7 @@
         $operatorName = isset($staff->operator->name) ? $staff->operator->name." (".$staff->operator->member_id.")" : '';
     @endphp
     <div class="col-12 view_staff_details">
-         <div class="row" style="max-height: 600px; overflow:auto;">
+         <div class="row">
             <!-- Section: Personal Details -->
             <div class="col-12 my-2">
                  <table class="table table-bordered">

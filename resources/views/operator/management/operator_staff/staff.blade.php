@@ -1,10 +1,5 @@
 @extends('layouts.operator')
 @section('style')
-    <style>
-        .modal-dialog {
-            max-width: 700px !important;
-        }
-    </style>
 @stop
 @section('content')
 @php
@@ -540,7 +535,8 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
                         name: 'action',
                         searchable: false,
                         orderable: false,
-                        defaultContent: 'NA'
+                        defaultContent: 'NA',
+                        class: 'text-center'
                     },
                 ],
 
