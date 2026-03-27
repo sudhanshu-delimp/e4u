@@ -84,9 +84,35 @@
                                     @default
                                         <span class="badge badge-red">Gallery</span>
                                 @endswitch
-                                <div class="verify_icon">
-                                    <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png"><span class="mc_media_tooltip">Media Unverified</span>
-                                </div>
+                                @switch($image->varified)
+                                    @case(0) {{-- Pending --}}
+                                        <div class="verify_icon">
+                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                            <span class="mc_media_tooltip">Media Pending</span>
+                                        </div>
+                                        @break
+
+                                    @case(1) {{-- Verified --}}
+                                        <div class="verify_icon">
+                                            <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                            <span class="mc_media_tooltip">Media Verified</span>
+                                        </div>
+                                        @break
+
+                                    @case(2) {{-- Unverified --}}
+                                        <div class="verify_icon">
+                                            <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                        </div>
+                                        @break
+
+                                    @default
+                                        <div class="verify_icon">
+                                            <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                        </div>
+
+                                @endswitch
                             </div>
                         @endif    
                         @endforeach   
