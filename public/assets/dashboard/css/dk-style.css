@@ -3194,6 +3194,30 @@ button.btn:focus {
     transform: rotate(90deg) translate(-50%, 100%);
 }
 
+.item4 .verify_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    border: none;
+    background: var(--blue--text);
+    padding: 4px;
+    border-radius: 0px;
+}
+
+.item4 .verify_icon img {
+    width: 18px;
+    height: 18px;
+    border: none;
+    object-fit: cover;
+}
+
+.item4 .verify_icon:hover .mc_media_tooltip {
+    display: block;
+}
+
 
 /* Right Verification */
 

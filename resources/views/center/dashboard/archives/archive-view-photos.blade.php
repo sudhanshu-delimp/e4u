@@ -469,7 +469,9 @@
                                                                     @default
                                                                         <span class="badge badge-red">Gallery</span>
                                                                 @endswitch
-
+                                                                <div class="verify_icon">
+                                                                    <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                </div>
                                                             </div>
                                                         @endif
                                                     @endforeach
