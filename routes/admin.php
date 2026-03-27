@@ -699,7 +699,7 @@ Route::get('/management/logs-staff', function () {
 })->name('admin.manage-influencers');
 
  Route::get('/management/manage-shareholders',function(){
-    return view('admin.management.manage-shareholders');
+    return view('admin.management.manage-shareholders.add-shareholder');
 })->name('admin.manage-shareholders');
 
  Route::get('/management/dashboard',function(){
