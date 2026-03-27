@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\MediaVerificationController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Admin\FeeDiscountController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -95,9 +96,10 @@ Route::get('/management/set-fees', [SetFeesVariablesUsers::class, 'setFees'])->n
 Route::get('Analytics/consoles', [ConsolesController::class, 'consoles'])->name('consoles');
 Route::get('consoles-list-all-users', [ConsolesController::class, 'allUserDatatable'])->name('admin.Analytics.consolesDataTable');
 
-Route::get('management/fee-discount', function(){
-    return view('admin.management.fee-discount');
-})->name('fee-discount');
+
+Route::get('management/fee-discount', [FeeDiscountController::class,'index'])->name('fee-discount');
+Route::post('management/get-advertiser-detail', [FeeDiscountController::class,'getAdvertiserDetail'])->name('advertiser.detail');
+Route::post('management/apply-fee-discount', [FeeDiscountController::class,'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
 
 Route::get('global-monitoring', function () {
     return view('admin.global-monitoring');
