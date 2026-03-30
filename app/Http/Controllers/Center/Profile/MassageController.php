@@ -1041,6 +1041,7 @@ class MassageController extends Controller
                 'membership_id' => 'required',
                 'members' => 'required|integer|min:1'
             ]);
+            
 
             $start = Carbon::parse($request->start_date);
             $end   = Carbon::parse($request->end_date);
@@ -1108,11 +1109,28 @@ class MassageController extends Controller
     {
             $data = $request->validated();
 
+            $start_date = $request->listing_start_date;
+            $end_date = $request->listing_end_date;
+
+            $home_state = auth()->user()->state_id;
+        
+
+            $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+
+        
+          
+            $localStartDateTime = Carbon::parse($start_date, $profileTimezone)->startOfDay();
+            $localEndDateTime   = Carbon::parse($end_date, $profileTimezone)->endOfDay();
+
+            $utc_start_time = $localStartDateTime->clone()->utc();
+            $utc_end_time   = $localEndDateTime->clone()->utc();
+
+
 
             $parent_id          = 0;
             $membership_id      = $request->membership_id;
             $massage_centre_id  = $request->massage_centre_id;
-            $massage_profile_id = $request->massage_profile_id ?? 0;
+            $massage_profile_id =  auth()->user()->id ?? 0;
 
             $start_date         = $request->listing_start_date;
             $end_date           = $request->listing_end_date;
@@ -1148,6 +1166,50 @@ class MassageController extends Controller
                 'success' => true,
                 'message' => 'Transaction completed successfully.'
             ]);
+    }
+
+
+
+    public function  massager_listing(Request $request)
+    {
+            $today = Carbon::today();
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            ->whereIn('status', ['pending', 'listed'])
+            // ->whereDate('start_date', '<=', $today)
+            // ->whereDate('end_date', '>=', $today)
+            ->get();
+
+         
+           
+
+            $data = $massagers->map(function ($row) use ($today) {
+
+    
+                $start = Carbon::parse($row->start_date);
+                $end   = Carbon::parse($row->end_date);
+                $days = $start->diffInDays($end) + 1;
+
+
+                return [
+                    'id' => $row->id,
+                    'profile_name' => $row->massageprofile->profile_name,
+                    'address' => $row->massageprofile->address,
+                    'business_name' => $row->massageprofile->business_name,
+                    'start_date' => $row->start_date,
+                    'end_date' =>  $row->end_date,
+                    'days' => $days,
+                    'membership' => 'Massage Centre',
+                    'fee_paid' => '$ '.$row->paid_rate,
+
+                ];
+            });  
+
+
+            return response()->json([
+                'data' => $data
+            ]);
+
+ 
     }
 
 }

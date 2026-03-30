@@ -652,7 +652,8 @@ e.preventDefault();
                     data: formData,
                     success: function(response) {
                         Swal.close();
-                        swal_success_popup(response.message);
+                        let redirect = {'time': 2000, 'url' : 'current'}
+                        swal_success_popup(response.message,redirect);
                     },
                     error: function(xhr) {
                         Swal.close();
