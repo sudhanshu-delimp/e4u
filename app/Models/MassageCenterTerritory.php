@@ -11,7 +11,7 @@ class MassageCenterTerritory extends Model
 
     protected $table = 'massage_center_territories';
 
-    protected $fillable = ['id', 'territory_name', 'status'];
+    protected $fillable = ['id', 'territory_name', 'state_id', 'status'];
 
     public function centres()
     {

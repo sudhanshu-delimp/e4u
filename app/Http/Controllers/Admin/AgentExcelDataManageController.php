@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\MassageExcelImport;
 use App\Models\MassageCenterTerritory;
 use App\Models\MassageExcel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -49,7 +50,7 @@ class AgentExcelDataManageController extends Controller
 
     public function dataList(Request $request)
     {
-        if ($request->ajax()) { 
+        if ($request->ajax()) {
             $query = MassageExcel::query()
                 ->from('massage_excels as m')
                 ->join('massage_center_territories as t', 'm.territory_name', '=', 't.territory_name')
@@ -58,10 +59,11 @@ class AgentExcelDataManageController extends Controller
                         m.territory_name,
                         COUNT(*) as centres,
                         t.status,
-                        t.id as id
+                        t.id as id,
+                        t.state_id as state_id
                         ')
                 ->groupBy('m.territory_name', 't.status')
-                ->orderByRaw("FIELD(t.status, 'Pending', 'Suspended', 'Active')"); 
+                ->orderByRaw("FIELD(t.status, 'Pending', 'Suspended', 'Active')");
 
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -87,6 +89,7 @@ class AgentExcelDataManageController extends Controller
                         if ($this->editAccessEnabled) {
                             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-ban"></i> Suspend</a>';
                             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-pending" data-id="' . $row->id . '"><i class="fa fa-clock"></i> Pending</a>';
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-summary" data-territory-name="' . $row->territory_name . '" data-id="' . $row->state_id . '"><i class="fa fa-eye"></i> Summary</a>';
                         }
                     }
 
@@ -100,15 +103,12 @@ class AgentExcelDataManageController extends Controller
 
                     //If pending -> offer Active And Suspended
 
-                    if($status == 'Pending'){
-                        if($this->editAccessEnabled){
+                    if ($status == 'Pending') {
+                        if ($this->editAccessEnabled) {
                             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-active" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Activate</a>';
                             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-ban"></i> Suspend</a>';
                         }
                     }
-
-                    // Common actions
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-summary" data-id="' . $row->id . '"><i class="fa fa-eye"></i> Summary</a>';
 
 
                     $dropdown = '<div class="dropdown no-arrow">'
@@ -122,7 +122,7 @@ class AgentExcelDataManageController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['status', 'action','date','territory_name'])
+                ->rawColumns(['status', 'action', 'date', 'territory_name'])
                 ->make(true);
         }
         return view('admin.management.data-list-centres.index');
@@ -158,6 +158,65 @@ class AgentExcelDataManageController extends Controller
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             DB::rollBack();
             return error_response($e->getMessage(), 500, null, []);
+        }
+    }
+
+    public function dataListStatus(Request $request, $id)
+    {
+        try {
+            $massCentTerr = MassageCenterTerritory::findOrFail($id);
+            $status = $request->input('status');
+            $allowedStatuses = ['Active', 'Suspended', 'Pending'];
+
+            if (!in_array($status, $allowedStatuses)) {
+                return error_response('Invalid status', 422);
+            }
+
+
+            $massCentTerr->update(['status' => $status]);
+            return success_response(
+                ['id' => $massCentTerr->id, 'status' => $status],
+                'Status updated successfully.'
+            );
+        } catch (\Exception $e) {
+            return error_response('Failed to update status: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function dataListEdit($stateId)
+    {
+        try {
+            //get Trritory wise Agent list
+
+            $agents = User::query()
+                ->from('users as u')
+                ->join('massage_center_territories as t', 'u.state_id', '=', 't.state_id')
+                ->where('u.state_id', $stateId)
+                ->where('u.type', '5')
+                ->select('u.id', 'u.business_name', 'u.member_id', 'u.status', 't.created_at')->get();
+
+            $data =  view('admin.management.data-list-centres.table', ['agents' => $agents])->render();
+            return success_response($data, 'OK', 200);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function dataListPrint($id)
+    {
+        try {
+            $decodedId = (int) base64_decode($id);
+            $printPdfs = User::query()
+                ->from('users as u')
+                ->join('massage_center_territories as t', 'u.state_id', '=', 't.state_id')
+                ->where('u.state_id', $decodedId)
+                ->where('u.type', '5')
+                ->select('u.id', 'u.business_name', 'u.member_id', 'u.status', 't.created_at')->get();
+
+
+            return view('admin.management.data-list-centres.print', compact('printPdfs'));
+        } catch (\Throwable $e) {
+            abort(404);
         }
     }
 }

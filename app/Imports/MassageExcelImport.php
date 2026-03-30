@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\MassageCenterTerritory;
 use App\Models\MassageExcel;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
@@ -23,15 +24,40 @@ class MassageExcelImport implements ToCollection
             return !is_null($value);
         })->count() > 0;
     }
+
+    public function getStateIdByName($stateName, $stateConfig = null)
+    {
+        $stateConfig = $stateConfig ?? config('escorts.profile.states');
+
+        foreach ($stateConfig as $stateId => $stateData) {
+            if (strtoupper($stateData['stateName']) === strtoupper($stateName)) {
+                return $stateId;
+            }
+        }
+
+        return null;
+    }
+
+    public function getStateNameByAbbr($stateAbbr, $stateConfig = null)
+    {
+        $stateConfig = $stateConfig ?? config('escorts.profile.states');
+
+        foreach ($stateConfig as $stateData) {
+            if (strtoupper($stateData['stateAbbr'] ?? '') === strtoupper(trim($stateAbbr))) {
+                return $stateData['stateName'] ?? null;
+            }
+        }
+
+        return null;
+    }
+
     public function collection(Collection $rows)
     {
         $stateConfig = config('escorts.profile.states');
         $stateAbbrToId = [];
-        $stateName = [];
 
         foreach ($stateConfig as $stateId => $data) {
             $stateAbbrToId[strtoupper($data['stateAbbr'])] = $stateId;
-            $stateName[$stateId] = $data['stateName'];
         }
 
 
@@ -39,18 +65,20 @@ class MassageExcelImport implements ToCollection
         foreach ($rows as $index => $row) {
             if ($index == 0) continue;
             if (!$this->checkArray($row)) continue;
-            $stateId = $stateAbbrToId[strtoupper($row[3])];
+            $stateAbbr = strtoupper(trim($row[3] ?? ''));
+            $stateId = $stateAbbrToId[$stateAbbr] ?? null;
 
             if (!$stateId) continue;
             $now = now();
+            $territoryName = $this->getStateNameByAbbr($stateAbbr, $stateConfig);
 
             $dataInsert[] = [
                 'bussiness_name' => $row[0],
                 'address' => $row[1],
                 'post_code' => $row[2],
-                'state_abbr' => strtoupper($row[3]),
+                'state_abbr' => $stateAbbr,
                 'state_id' => $stateId,
-                'territory_name' => $stateName[$stateId] ?? null,
+                'territory_name' => $territoryName,
                 'mobile_number' => str_replace(' ', '', $row[4]) ?? '',
                 'business_number' => str_replace(' ', '', $row[5]) ?? '',
                 'email' => $row[6] ?? '',
@@ -66,7 +94,10 @@ class MassageExcelImport implements ToCollection
         foreach ($territories as $territory) {
             MassageCenterTerritory::updateOrCreate(
                 ['territory_name' => $territory],
-                ['status' => 'Pending']
+                [
+                    'status' => 'Pending',
+                    'state_id' => $this->getStateIdByName($territory, $stateConfig),
+                ]
             );
         }
 
@@ -74,7 +105,7 @@ class MassageExcelImport implements ToCollection
             try {
                 MassageExcel::insert($chunk);
             } catch (\Exception $e) {
-                \Log::error('Error inserting chunk: ' . $e->getMessage());
+                Log::error('Error inserting chunk: ' . $e->getMessage());
             }
         }
     }

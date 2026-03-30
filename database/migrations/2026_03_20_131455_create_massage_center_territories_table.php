@@ -17,6 +17,7 @@ class CreateMassageCenterTerritoriesTable extends Migration
             $table->id();
             $table->string('territory_name')->unique();
             $table->enum('status', ['Pending', 'Active', 'Suspended'])->default('Pending');
+            $table->integer('state_id')->nullable();
             $table->timestamps();
         });
     }

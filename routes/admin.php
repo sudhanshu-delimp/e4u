@@ -525,6 +525,9 @@ Route::get('/reports/communication/{id}/show',[CommunicationController::class, '
 //Management Agent Date List
 Route::get('management/agent-data/data-list', [AgentExcelDataManageController::class, 'dataList'])->name('admin.dashboard.agent.data-list');
 Route::post('management/agent-date/import-excel', [AgentExcelDataManageController::class, 'massageCenterInport'])->name('admin.dashboard.agent.import-excel');
+Route::post('management/agent-data/{id}/data-list-status', [AgentExcelDataManageController::class, 'dataListStatus'])->name('admin.dashboard.agent.data.list.status');
+Route::get('management/agent-date/{id}/data-list-edit', [AgentExcelDataManageController::class, 'dataListEdit'])->name('admin.dashboard.agent.data.list.edit');
+Route::get('management/agent-data/{id}/data-list-print', [AgentExcelDataManageController::class, 'dataListPrint'])->name('admin.dashboard.agent.data.list.print');
 
 
 
