@@ -247,12 +247,29 @@ background:#16385f;
                     <tbody id="summaryBody"></tbody>
         </table>
 
-        <div class="pay-area">
-        <button class="close-btn">Close</button>
-        <button class="pay-btn">Pay</button>
-        </div>
-     </div>
 
+        <form name="purchase_listing" id="purchase_listing" method="post">
+            <div class="pay-area">
+                <input type="hidden" name="no_of_days" id="no_of_days">
+                <input type="hidden" name="total_discount" id="total_discount">
+                <input type="hidden" name="total_fee" id="total_fee">
+                <input type="hidden" name="listing_start_date" id="listing_start_date">
+                <input type="hidden" name="listing_end_date" id="listing_end_date">
+                <input type="hidden" name="membership_id" id="membership_id">
+                <input type="hidden" name="massage_centre_id" id="massage_centre_id">
+                <input type="hidden" name="rate" id="rate">
+                <input type="hidden" name="total_rate" id="total_rate">
+                <input type="hidden" name="discountRate" id="discountRate">
+                
+              
+                
+                <button type="button" class="close-btn">Close</button>
+                <button type="button" class="pay-btn">Pay</button>
+            </div>
+        </form>
+
+
+     </div>
 </div>
 
 @endsection
@@ -367,46 +384,7 @@ $(document).ready(function () {
     });
 
  
-    // $("#add_listing").click(function () {
-
-       
-    //     let lastRow = $(".eachListing").last();
-    //     let lastEndDate = lastRow.find(".profile_end").val();
-    //     let newRow = lastRow.clone();
-    //     newRow.find("select").val('');
-    //     newRow.find("input").val('');
-    //     newRow.find(".date-error").text('');
-    //     newRow.find(".js_datepicker").removeClass("hasDatepicker").removeAttr("id");
-
-    //     $(".eachListing").last().after(newRow);
-    //      updateProfileOptions();  
-
-    //     let minStartDate = 0;
-
-    //     if (lastEndDate) {
-    //         let nextDay = new Date(lastEndDate);
-    //         nextDay.setDate(nextDay.getDate() + 1);
-    //         minStartDate = nextDay;
-    //     }
-
-    //     // start date picker
-    //     newRow.find(".profile_start").datepicker({
-    //         dateFormat: "yy-mm-dd",
-    //         minDate: minStartDate
-    //     });
-
-    //     // end date picker
-    //     newRow.find(".profile_end").datepicker({
-    //         dateFormat: "yy-mm-dd",
-    //         minDate: minStartDate
-    //     });
-
-    //     $("#add_listing").prop("disabled", true);
-    //      toggleRemoveButton();
-
-    // });
-
-    
+   
     $(document).on("click", ".removeCross", function () {
         if ($(".eachListing").length > 1) {
             $(this).closest(".eachListing").remove();
@@ -415,7 +393,7 @@ $(document).ready(function () {
 
     });
 
-     toggleRemoveButton();
+    toggleRemoveButton();
     checkAllRows();
     checkDateOverlap();
 
@@ -525,7 +503,26 @@ $(".js_datepicker").datepicker({
 
 ///////// Proceed To Payment //////////////////////
 
+function clear_prev_listing()
+{
+
+
+    $('#rate').val('');
+    $('#total_rate').val('');
+    $('#no_of_days').val('');
+    $('#total_discount').val('');
+    $('#total_fee').val('finalFee');
+    $('#listing_start_date').val('');
+    $('#listing_end_date').val('');
+    $('#membership_id').val('');
+    $('#massage_centre_id').val('');
+
+    
+}
+
 $(".save_profile_btn").click(function(){
+
+    clear_prev_listing();
 
     let html = '';
     let total = 0;
@@ -533,6 +530,7 @@ $(".save_profile_btn").click(function(){
     let row = $(".eachListing"); 
 
     let profile = row.find('select[name="massage_id[]"] option:selected').text();
+    let profile_val = row.find('select[name="massage_id[]"] option:selected').val();
     let start = row.find('.profile_start').val();
     let end = row.find('.profile_end').val();
 
@@ -551,86 +549,128 @@ $(".save_profile_btn").click(function(){
      let formData = {
             days: days,
             membership_id: 5,
-            _token: $('meta[name="csrf-token"]').attr('content')
+            _token: $('meta[name="csrf-token"]').attr('content'),
         };
 
      $.ajax({
-            url: "{{route('center.add-listing)}}",
+            url: "{{route('center.add-listing')}}",
             type: "POST",
             data: formData,
             success: function (response) {
 
                 const data = {
-                    locationText: $('#state option:selected').text(),
-                    startFormatted: response.start_formatted,
-                    endFormatted: response.end_formatted,
-                    membershipName: response.membership_name,
-                    members: $('#cal_members').val(),
-                    fee: response.fee,
-                    days: response.days,
-                    locationValue: $('#state').val()
-                };
+                membershipName: response.membership_name,
+                normalRate: response.normalRate,
+                days: response.days,
+                total_discount:response.total_discount,
+                total_rate:response.total_rate,
+                discountRate : response.discountRate
+            };
 
-                // Remove blank row
-                $('#reckoner tbody tr.blank-row').remove();
+            console.log(data);
 
-                // Add new row
-                $('#reckoner tbody').append(buildDataRow(data));
 
-                // Update total footer
-                updateTotal();
+            let rate = data.normalRate;
+            let fullFee = data.normalRate * days;
+            let discount = data.total_discount;
+            let finalFee = fullFee - discount;
+            let total_rate = data.total_rate;
+            let discountRate = data.discountRate;
+           
 
-                // Reset modal form
-                $('#membershipModal form')[0].reset();
+            $('#rate').val(rate);
+            $('#total_rate').val(total_rate);
+            $('#no_of_days').val(days);
+            $('#total_discount').val(discount);
+            $('#total_fee').val(finalFee);
+            $('#listing_start_date').val(start);
+            $('#listing_end_date').val(end);
+            $('#membership_id').val(membership_id);
+            $('#massage_centre_id').val(profile_val);
+            $('#discountRate').val(discountRate);
 
-                // Close modal
-                $('#membershipModal .close').trigger('click');
+            html += `
+            <tr>
+                <td>1</td>
+                <td>${profile}</td>
+                <td>${start}</td>
+                <td>${end}</td>
+                <td>${days}</td>
+                <td>$ ${rate}</td>
+                <td>$ ${fullFee.toFixed(2)}</td>
+                <td>$ ${discount.toFixed(2)}</td>
+                <td>$ ${finalFee.toFixed(2)}</td>
+            </tr>
+            `;
+
+          
+            html += `
+            <tr>
+                <td colspan="7"></td>
+                <td><strong>Total Fees</strong></td>
+                <td><strong>$ ${total.toFixed(2)}</strong></td>
+            </tr>`;
+
+            $("#summaryBody").html(html);
+            $("#summaryModal").css("display","flex").hide().fadeIn();
+
             },
             error: function (xhr) {
                 console.log(xhr.responseJSON || xhr);
                 alert("Validation Error");
             }
         });
-    });
 
-
-
-
-    let rate = 10; // testing
-    let fullFee = rate * days;
-    let discount = 0;
-    let finalFee = fullFee - discount;
-
-    total = finalFee;
-
-    html += `
-    <tr>
-        <td>1</td>
-        <td>${profile}</td>
-        <td>${start}</td>
-        <td>${end}</td>
-        <td>${days}</td>
-        <td>$ ${rate.toFixed(2)}</td>
-        <td>$ ${fullFee.toFixed(2)}</td>
-        <td>$ ${discount.toFixed(2)}</td>
-        <td>$ ${finalFee.toFixed(2)}</td>
-    </tr>
-    `;
-
-    // total row
-    html += `
-    <tr>
-        <td colspan="7"></td>
-        <td><strong>Total Fees</strong></td>
-        <td><strong>$ ${total.toFixed(2)}</strong></td>
-    </tr>
-    `;
-
-    $("#summaryBody").html(html);
-    $("#summaryModal").css("display","flex").hide().fadeIn();
 });
 
-$(document).on("click",".close-btn",function(){
+
+// ########## Listing Payment ################ //
+$(document).on("click",".pay-btn",async function(e){
+e.preventDefault();
+
+    let no_of_days = $("#no_of_days").val();
+    let total_fee = $("#total_fee").val();
+    let listing_start_date = $("#listing_start_date").val();
+    let listing_end_date = $("#listing_end_date").val();
+    let membership_id = $("#membership_id").val();
+    let massage_centre_id = $("#massage_centre_id").val();
+
+    if (!no_of_days || !total_fee || !listing_start_date || !listing_end_date || !membership_id || !massage_centre_id) {
+        return;
+    }
+
+    $("#summaryModal").hide();
+
+    if (await isConfirm({'action': 'Proceed','text': ''})) {
+        swal_waiting_popup({'title': 'Payment in progress'});
+        let formData = $("#purchase_listing").serialize();
+
+         $.ajax({
+                    url: "{{route('center.listing-payment')}}",
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        Swal.close();
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        console.log(xhr);
+                        if (xhr.status === 422) {
+                           swal_error_popup('Error occured while adding listing.');
+                        } else {
+                            swal_error_popup(xhr.responseJSON.message ||'Something went wrong.');
+                        }
+                    }
+        });
+
+    }
+});
+// ########## End Listing Payment ################ //
+
+
+$(document).on("click",".close-btn",function(e){
+e.preventDefault();
 $("#summaryModal").hide();
 });
 
