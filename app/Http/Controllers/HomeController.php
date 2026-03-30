@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\PinUps;
-use Illuminate\Http\Request;
+use App\Models\Pricing;
 use App\Repositories\State\StateInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -54,6 +55,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         Session::put('session_state_id', $request->query('location_state'));
+        $pricing = Pricing::all()->toArray();
 
         if($stateId = $request->query('location_state')) {
             $lastMonday = date('Y-m-d', strtotime('last monday', strtotime('next monday')));;
@@ -62,7 +64,7 @@ class HomeController extends Controller
                 ->where('payment_status', 'Success')->get()->toArray();
         }
         $state = $this->state->allByCountryId();
-        return view('home',compact('state'));
+        return view('home',compact('state','pricing'));
     }
     // public function ipTrack(Request $request)
     // {

@@ -354,6 +354,7 @@ class MasseurController extends AppController
         return redirect()->route('center.create-new-masseur');
         }
 
+        //$isMasseurUsed = MassagerMasseur::where('masseur_profile_id', $masseur->id)->exists();
         $masseur_availability = $masseur ? json_decode($masseur->availability, true) : [];
         
         $durations = $this->duration->all();
@@ -377,6 +378,8 @@ class MasseurController extends AppController
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
         $services = $masseur->service ?? [];
 
+
+        
         $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
 
         //dd($masseur_availability);

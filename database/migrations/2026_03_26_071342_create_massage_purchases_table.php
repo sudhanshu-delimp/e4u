@@ -13,15 +13,17 @@ class CreateMassagePurchasesTable extends Migration
      */
     public function up()
     {
+
+       Schema::dropIfExists('massage_purchases');
+
        Schema::create('massage_purchases', function (Blueprint $table) {
 
             $table->id();
 
             $table->unsignedBigInteger('parent_id')->default(0);
+            $table->unsignedBigInteger('membership_id')->default(0);
            
-
-          
-            $table->unsignedBigInteger('massage_id');
+            $table->unsignedBigInteger('massage_centre_id');
             $table->unsignedBigInteger('massage_profile_id');
 
         
