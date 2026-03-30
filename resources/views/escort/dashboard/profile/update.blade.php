@@ -1292,6 +1292,12 @@ $loginAccount = auth()->user();
                         return false;
                    }
 
+                   let step = $(this).attr('step'); /* Check step attribute validation before any operation */
+                   if (step && !this.checkValidity()) {
+                        $(this).focus();
+                        this.reportValidity();
+                        return false;
+                   }
                   
 
                     var Current = $(this).val();
@@ -1687,6 +1693,7 @@ $loginAccount = auth()->user();
 
         $("body").on('click', '.nex_sterp_btn', function(e) {
             var id = $(this).attr('id');
+            var activatedTab = $(this).parents('.tab-pane');
             $(this).removeClass('active');
             $(".nav-link").removeClass('active');
             $("#" + id).addClass('active');
@@ -1708,7 +1715,23 @@ $loginAccount = auth()->user();
                             'warning');
                         return false;
                     }
+                    
+                    if(!editMode){
+                        let isValidStep = true;
+                        $(`#${activatedTab.attr('id')} input[step]`).each(function () {
+                            if (!this.checkValidity()) {
+                                e.preventDefault();
+                                $(this).focus();
+                                this.reportValidity();
+                                isValidStep = false;
+                                return false;
+                            }
+                        });
+                        return isValidStep;
+                    }
+
                 } break;
+
                 case 'playmates-tab':{
                     let checkAvailability = validateAvailability();
                     if(checkAvailability){

@@ -1248,8 +1248,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="text-center"> NO </td>
-                                <td class="text-center"> <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>500</div> </td>
+                                <td class="text-center"> @if($escort->incall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->incall_amount}}</div> @else NO @endif</td>
+                                <td class="text-center"> @if($escort->outcall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->outcall_amount}}</div> @else NO @endif</td>
                             </tr>
                         </tbody>
                     </table>

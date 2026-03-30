@@ -170,6 +170,10 @@ class UpdateController extends AppController
             'payment_type' => $request->payment_type ?: $escortDefault->getRawOriginal('payment_type'),
             'covidreport' => $request->covidreport ?: $escortDefault->getRawOriginal('covidreport'),
             'nationality_id' => $request->nationality_id ?: $escortDefault->getRawOriginal('nationality_id'),
+            'incall_enabled' => $request->incall_enabled ? $request->incall_enabled : $escortDefault->incall_enabled,
+            'outcall_enabled' => $request->outcall_enabled ? $request->outcall_enabled : $escortDefault->outcall_enabled,
+            'incall_amount' => $request->has('incall_amount') ? $request->incall_amount : $escortDefault->incall_amount,
+            'outcall_amount' => $request->has('outcall_amount') ? $request->outcall_amount : $escortDefault->outcall_amount,
         ];
         $escortId = $escortDefault->id;
         if ($cityId > 0) {
@@ -402,6 +406,10 @@ class UpdateController extends AppController
             'default_setting' => 0,
             'about' => $request->about ? $request->about : ($escortDefault->about ?: null),
             'about_title' => $request->about_title ? $request->about_title : ($escortDefault->about_title ?: null),
+            'incall_enabled' => $request->incall_enabled,
+            'outcall_enabled' => $request->outcall_enabled,
+            'incall_amount' => $request->incall_amount?: null,
+            'outcall_amount' => $request->outcall_amount?: null,
         ];
         //        $errors = [];
         $errors = '';
@@ -1367,6 +1375,11 @@ class UpdateController extends AppController
     public function storeRates(StoreRateRequest $request, $id)
     {
         $escort = $this->escort->find($id);
+        $escort->incall_enabled = $request->incall_enabled;
+        $escort->outcall_enabled = $request->outcall_enabled;
+        $escort->incall_amount = $request->incall_amount;
+        $escort->outcall_amount = $request->outcall_amount;
+        $escort->save();
         $arr = [];
         foreach ($request->duration_id as $key => $value) {
             $arr  += [

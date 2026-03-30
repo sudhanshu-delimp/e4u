@@ -286,19 +286,19 @@
                             <label style="width:100px">Incall :</label>
 
                             <label>
-                                <input type="radio" name="incall_deposit" value="no" checked onclick="toggleDeposit('incall', false)"> No
+                                <input class="change_default" type="radio" name="incall_enabled" value="0" {{$escort->incall_enabled==0?'checked':''}} onclick="toggleDeposit('incall', false)"> No
                             </label>
 
                             <label>
-                                <input type="radio" name="incall_deposit" value="yes" onclick="toggleDeposit('incall', true)"> Yes
+                                <input class="change_default" type="radio" name="incall_enabled" value="1" {{$escort->incall_enabled==1?'checked':''}} onclick="toggleDeposit('incall', true)"> Yes
                             </label>
 
                           
                             
-                            <span id="incall_input" style="display:none;">
+                            <span id="incall_input" style="display:{{$escort->incall_enabled==0?'none':'block'}};">
                                 <div class="d-flex justify-content-start gap-10 align-items-center">
                                 <span>$</span>
-                               <input type="number" class="form-control" placeholder="0" onblur="saveDeposit('incall', this.value)" style="padding-right: 0px !important; width:100px;">
+                               <input type="number" name="incall_amount" step="50" min="0" value="{{$escort->incall_amount}}" class="form-control change_default" placeholder="0" style="padding-right: 0px !important; width:100px;">
                                 </div>
                             </span>
                         </div>
@@ -308,16 +308,16 @@
                             <label style="width:100px">Outcall: </label>
 
                             <label>
-                                <input type="radio" name="outcall_deposit" value="no" checked onclick="toggleDeposit('outcall', false)"> No
+                                <input class="change_default" type="radio" name="outcall_enabled" value="0" {{$escort->outcall_enabled==0?'checked':''}} onclick="toggleDeposit('outcall', false)"> No
                             </label>
 
                             <label>
-                                <input type="radio" name="outcall_deposit" value="yes" onclick="toggleDeposit('outcall', true)"> Yes
+                                <input class="change_default" type="radio" name="outcall_enabled" value="1" {{$escort->outcall_enabled==1?'checked':''}} onclick="toggleDeposit('outcall', true)"> Yes
                             </label>
-                            <span id="outcall_input" style="display:none;">
+                            <span id="outcall_input" style="display:{{$escort->outcall_enabled==0?'none':'block'}}">
                                 <div class="d-flex justify-content-start gap-10 align-items-center">
                                 <span>$</span>
-                                <input type="number" class="form-control" placeholder="0" onblur="saveDeposit('outcall', this.value)" style="padding-right: 0px !important; width:100px;">
+                                <input type="number" name="outcall_amount" step="50" min="0" value="{{$escort->outcall_amount}}" class="form-control change_default" placeholder="0" style="padding-right: 0px !important; width:100px;">
                                 </div>
                             </span>
                         </div>
