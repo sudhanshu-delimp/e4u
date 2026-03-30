@@ -63,7 +63,7 @@
                 </div>
                 <div class="d-flex justify-content-between seven_column_fonts">
                     <span>Price:</span>
-                    <span>From $ {{number_format((float)$escort->lowest_rate_price)}} / hr</span>
+                    @if($escort->lowest_rate_price)<span>From $ {{number_format((float)$escort->lowest_rate_price)}} / hr</span> @else <span>N/A</span>@endif
                 </div>
                 <div class="d-flex justify-content-between seven_column_fonts custom-available-time-icon">
                     <span>Services:</span>
