@@ -73,7 +73,7 @@ class AgentExcelDataManageController extends Controller
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->filterColumn('territory_name', function ($query, $keyword) {
-                    $query->where('territory_name', 'like', "%{$keyword}%");
+                    $query->where('t.territory_name', 'like', "%{$keyword}%");
                 })
 
                 ->filterColumn('status', function ($query, $keyword) {
