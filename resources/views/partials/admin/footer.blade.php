@@ -218,6 +218,9 @@
         }
 
   </script>
-  @stack('script')
+  
+        @section('script')
+        @show
+        @stack('script')
         </body>
         </html>
