@@ -2,55 +2,55 @@
 
 namespace App\Http\Controllers\Center\Profile;
 
-use Exception;
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Masseur;
-use App\Models\Service;
+use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Escort\StoreAvailabilityRequest;
+use App\Http\Requests\Escort\StoreRateRequest;
+use App\Http\Requests\Escort\StoreRequest;
+use App\Http\Requests\Escort\StoreServiceRequest;
+use App\Http\Requests\Escort\UpdateRequestAbout;
+use App\Http\Requests\Escort\UpdateRequestPolicy;
+use App\Http\Requests\Escort\UpdateRequestReadMore;
+use App\Http\Requests\MassageProfile\PurchaseListingRequest;
+use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
+use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
+use App\Http\Requests\UpdateEscortRequest;
 use App\Models\Duration;
-use App\Models\MassageRate;
-use App\Traits\ResizeImage;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use App\Models\EscortCovidReport;
+use App\Models\MassageAvailability;
 use App\Models\MassageGallery;
 use App\Models\MassageProfile;
+use App\Models\MassagePurchase;
+use App\Models\MassageRate;
+use App\Models\MassagerMasseur;
 use App\Models\MassageService;
 use App\Models\MassageSetting;
-use App\Models\MassagerMasseur;
-use App\Models\EscortCovidReport;
-use Illuminate\Support\Facades\DB;
-use App\Models\MassageAvailability;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\BaseController;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\Escort\StoreRequest;
-use App\Http\Requests\UpdateEscortRequest;
-use App\Repositories\Escort\EscortInterface;
-use App\Http\Requests\Escort\StoreRateRequest;
-use App\Repositories\Message\MessageInterface;
-use App\Repositories\Service\ServiceInterface;
-use App\Http\Requests\Escort\UpdateRequestAbout;
+use App\Models\Masseur;
+use App\Models\Pricing;
+use App\Models\Service;
+use App\Models\User;
 use App\Repositories\Duration\MassageDurationInterface;
-use App\Http\Requests\Escort\StoreServiceRequest;
-use App\Http\Requests\Escort\UpdateRequestPolicy;
-use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
-use App\Repositories\Thumbnail\ThumbnailInterface;
-use App\Http\Requests\Escort\UpdateRequestReadMore;
-
-use App\Repositories\Message\MessageMediaInterface;
-use App\Http\Requests\Escort\StoreAvailabilityRequest;
-use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
-use App\Repositories\MassageProfile\MassageProfileInterface;
-use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
+use App\Repositories\Escort\EscortInterface;
+use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
-use Illuminate\Pagination\LengthAwarePaginator;
-
-// use App\Repositories\MassageProfile\MassageMediaInterface;
-use App\Repositories\Message\MassageMediaInterface;
 use App\Repositories\MassageProfile\MassageMediaInterface as MassageMedia;
+use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Repositories\Message\MassageMediaInterface;
+use App\Repositories\Message\MessageInterface;
+use App\Repositories\Message\MessageMediaInterface;
+use App\Repositories\Service\ServiceInterface;
+use App\Repositories\Thumbnail\ThumbnailInterface;
+use App\Repositories\User\UserInterface;
+use App\Traits\ResizeImage;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 //use Illuminate\Http\Request;
 
@@ -64,6 +64,7 @@ class MassageController extends Controller
     protected $media;
     protected $massage_media;
     protected $massage_profile;
+     protected $account;
     
 
 
@@ -76,6 +77,7 @@ class MassageController extends Controller
         $this->media = $media;
         $this->massage_profile = $massage_profile;
         $this->massage_media = $massage_media;
+        $this->account = auth()->user();
     }
 
    
@@ -1030,15 +1032,122 @@ class MassageController extends Controller
     }
 
 
+     public function calculate(Request $request)
+        {
+            $request->validate([
+                'location' => 'required',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'membership_id' => 'required',
+                'members' => 'required|integer|min:1'
+            ]);
+
+            $start = Carbon::parse($request->start_date);
+            $end   = Carbon::parse($request->end_date);
+
+          
+            $days = $start->diffInDays($end) + 1;
+
+        
+            $ad = Pricing::where('membership_id', $request->membership_id)
+                    ->with('memberships')
+                    ->first();
+
+            if (!$ad) {
+                return response()->json(['error' => 'Membership not found'], 422);
+            }
+
+           
+            list($total_discount, $total_rate, $single_fee) =
+                calculateTotalFee($request->membership_id, $days, $this->account);
+
+           
+            $fee = $single_fee * $request->members;
+
+            return response()->json([
+                'days' => $days,
+                'fee' => number_format($fee, 2),
+                'membership_name' => $ad->memberships->name ?? 'N/A',
+                'start_formatted' => $start->format('d-m-Y'),
+                'end_formatted' => $end->format('d-m-Y'),
+            ]);
+        }
+
 
     public function calculate_listed_user(Request $request)
     {
-        dd($request->all());
+        
+         $days = $request->days;
+         $ad = Pricing::where('membership_id', $request->membership_id)
+                    ->with('memberships')
+                    ->first();
 
+            if (!$ad) {
+                return response()->json(['error' => 'Membership not found'], 422);
+        }
+
+
+        list($total_discount, $total_rate, $normalRate, $discountRate) =
+                calculateTotalFee($request->membership_id, $days, $this->account);
+
+
+       
+
+      return response()->json([
+                'total_rate' => $total_rate,
+                'normalRate' => $normalRate,
+                'discountRate' => $discountRate,
+                'days' => $days,
+                'membership_name' => $ad->memberships->name ?? 'N/A',
+                'total_discount' => $total_discount,
+            ]); 
     }
 
 
-    
+    public function listing_payment(PurchaseListingRequest $request)
+    {
+            $data = $request->validated();
 
+
+            $parent_id          = 0;
+            $membership_id      = $request->membership_id;
+            $massage_centre_id  = $request->massage_centre_id;
+            $massage_profile_id = $request->massage_profile_id ?? 0;
+
+            $start_date         = $request->listing_start_date;
+            $end_date           = $request->listing_end_date;
+
+            $utc_start_time     = Carbon::parse($start_date);
+            $utc_end_time       = Carbon::parse($end_date);
+
+            $status             = 'pending';
+
+            $rate               = $request->rate ?? 0;
+            $discount_rate      = $request->discountRate ?? 0;
+            $total_rate         = $request->total_fee;
+            $paid_rate          = $request->total_rate ?? 0;
+
+            $purchase = MassagePurchase::create([
+                'parent_id'          => $parent_id,
+                'membership_id'      => $membership_id,
+                'massage_centre_id'  => $massage_centre_id,
+                'massage_profile_id' => $massage_profile_id,
+                'start_date'         => $start_date,
+                'end_date'           => $end_date,
+                'utc_start_time'     => $utc_start_time,
+                'utc_end_time'       => $utc_end_time,
+                'status'             => $status,
+                'rate'               => $rate,
+                'discount_rate'      => $discount_rate,
+                'total_rate'         => $total_rate,
+                'paid_rate'          => $paid_rate,
+            ]);
+
+
+             return response()->json([
+                'success' => true,
+                'message' => 'Transaction completed successfully.'
+            ]);
+    }
 
 }

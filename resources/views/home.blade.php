@@ -89,8 +89,19 @@
                 <p class="text-white">Advertisers set out a detailed and informative Profile, where they propose their time and companionship, enabling Viewers to make direct contact. The only platform where a Massage Centre has its own unique Profile designed to bring detailed Profile information about their business premises, Masseurs and their services directly to you.</p>
             </div>
             <div class="welcome_msg_peratwo">
+                <h5 class="text-white font-weight-bold fs-3">
+
+                    
+
+
+                    Escort Platinum listing pay only  {{ isset($pricing[0]['price']) ? '$'.$pricing[0]['price'] : 'NA'}} per day and Massage Centre pay only {{ isset($pricing[4]['price']) ? '$'.$pricing[4]['price'] : 'NA'}} per day.
+                </h5>
+            </div>
+            <br>
+            <div class="welcome_msg_peratwo">
                 <p class="welcome_text_color">Absolutely no banner advertising, third party marketing or spam!</p>
             </div>
+           
         </div>
     </div>
 </section>
