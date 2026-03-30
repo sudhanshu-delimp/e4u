@@ -139,7 +139,8 @@
                 },
                 columns: [{
                         data: 'date',
-                        name: 'date'
+                        name: 'date',
+                        searchable: false
                     },
                     {
                         data: 'territory_name',
@@ -149,18 +150,21 @@
                     },
                     {
                         data: 'centres',
-                        name: 'centres'
+                        name: 'centres',
+                        searchable: false
                     },
                     {
                         data: 'status',
-                        name: 'status'
+                        name: 'status',
+                        searchable: false
                     },
                     {
                         data: 'action',
                         name: 'action',
                         orderable: false,
                         searchable: false,
-                        className: 'text-center'
+                        className: 'text-center',
+                        searchable: false
                     },
                 ],
                 order: [],
