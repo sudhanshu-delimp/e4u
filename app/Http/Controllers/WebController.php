@@ -321,25 +321,6 @@ class WebController extends Controller
             $paramData['gender'] = null;  
         }
 
-
-       
-        // if($userInterest && $userInterest->interests){
-        //     //$cityParameterExist = request()->has('city');
-        //     $genderParameterExist = request()->has('gender');
-        //     $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
-        //     $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
-        //     $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
-            
-        //     $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
-        //     $userLocation['state'] = $user_type->state_id;
-            
-        // }else{
-        //     $paramData['interest'] = null;
-        //     $paramData['city_id'] = null;
-        //     $paramData['gender'] = null;
-        //    // session(['radio_location_filter' => false]);
-        // }
-
         $params = $str  = [
             'string' => request()->get('name'),
             'city_id' => request()->get('city') ? request()->get('city') : ($userLocation ? $userLocation['city'] : null),
@@ -368,9 +349,7 @@ class WebController extends Controller
             $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
         }
 
-        // echo '<pre>';
-        // print_r($str);
-        // echo '</pre>';
+       
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
         session(['is_shortlisted_profile' => false]);
@@ -382,9 +361,7 @@ class WebController extends Controller
         }
 
         $services = $this->services->all();
-        //dd($escorts->shortListed);
-        //$addToList = Add_to_list::all();,'addToList'
-        //dd($escorts);
+       
         $escortId = [];
         if(session('cart') && session('is_shortlisted_profile')) {
             foreach(session('cart') as $id => $vlaue) {
@@ -448,20 +425,20 @@ class WebController extends Controller
 
                 
 
-                $lowest_massage_price = $item->durations()->where('duration_id','!=',1)->min('massage_price') ? $item->durations()->where('duration_id','!=',1)->min('massage_price') : null;
-                $lowest_incall_price = $item->durations()->where('duration_id','!=',1)->min('incall_price') ? $item->durations()->where('duration_id','!=',1)->min('incall_price') : null;
-                $lowest_outcall_price = $item->durations()->where('duration_id','!=',1)->min('outcall_price') ? $item->durations()->where('duration_id','!=',1)->min('outcall_price') : null;
+               // $lowest_massage_price = $item->durations()->where('duration_id','!=',1)->min('massage_price') ? $item->durations()->where('duration_id','!=',1)->min('massage_price') : null;
+               // $lowest_incall_price = $item->durations()->where('duration_id','!=',1)->min('incall_price') ? $item->durations()->where('duration_id','!=',1)->min('incall_price') : null;
+               // $lowest_outcall_price = $item->durations()->where('duration_id','!=',1)->min('outcall_price') ? $item->durations()->where('duration_id','!=',1)->min('outcall_price') : null;
 
                $lowestPriceArray = [];
 
-                if ($lowest_massage_price !== null) {
-                    $lowestPriceArray[] = (float) $lowest_massage_price;
+                if ($item->massage_price  !== null) {
+                    $lowestPriceArray[] = (float) $item->massage_price;
                 }
-                if ($lowest_incall_price !== null) {
-                    $lowestPriceArray[] = (float) $lowest_incall_price;
+                if ($item->incall_price !== null) {
+                    $lowestPriceArray[] = (float) $item->incall_price;
                 }
-                if ($lowest_outcall_price !== null) {
-                    $lowestPriceArray[] = (float) $lowest_outcall_price;
+                if ($item->outcall_price !== null) {
+                    $lowestPriceArray[] = (float) $item->outcall_price;
                 }
 
                 $lowest = !empty($lowestPriceArray) ? min($lowestPriceArray) : '';

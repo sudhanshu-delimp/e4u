@@ -192,9 +192,15 @@ class ProfileInformationController extends Controller
     }
     public function storeRates(StoreRateRequest $request)
     {
+
         $user = auth()->user()->id;
         $escort = $this->escort->findDefault($user,1);
-        //dd($escort);
+        $escort->incall_enabled = $request->incall_enabled;
+        $escort->outcall_enabled = $request->outcall_enabled;
+        $escort->incall_amount = $request->incall_amount;
+        $escort->outcall_amount = $request->outcall_amount;
+        $escort->save();
+
         $arr = [];
         foreach($request->duration_id as $key =>$value)
         {

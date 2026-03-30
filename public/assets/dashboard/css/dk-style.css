@@ -3148,8 +3148,8 @@ button.btn:focus {
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 1px;
-    top: 0px;
+    right: 1px;
+    bottom: 0px;
     border: none;
     background: var(--blue--text);
     padding: 4px;
@@ -3192,6 +3192,58 @@ button.btn:focus {
     border-style: solid;
     border-color: var(--peach) transparent transparent transparent;
     transform: rotate(90deg) translate(-50%, 100%);
+}
+
+.item4 .verify_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    border: none;
+    background: var(--blue--text);
+    padding: 4px;
+    border-radius: 0px;
+    width: 25px;
+    height: 25px;
+}
+
+.newbtn .verify_icon img {
+    width: 20px;
+    height: 20px;
+    border: none;
+    object-fit: cover;
+}
+
+.newbtn .verify_icon:hover .mc_media_tooltip {
+    display: block;
+}
+
+.newbtn .verify_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 1px;
+    bottom: 9px;
+    border: none;
+    background: var(--blue--text);
+    padding: 4px;
+    border-radius: 0px;
+    width: 25px;
+    height: 25px;
+}
+
+.item4 .verify_icon img {
+    width: 20px;
+    border: none;
+    object-fit: cover;
+    height: 20px;
+}
+
+.item4 .verify_icon:hover .mc_media_tooltip {
+    display: block;
 }
 
 
@@ -6122,7 +6174,7 @@ padding-bottom:80px;
     position: absolute;
     z-index: 1;
     left: 5px;
-    bottom: 10px;
+    bottom: 5px;
     font-size: 10px !important;
     padding: 5px;
     font-weight: 500;

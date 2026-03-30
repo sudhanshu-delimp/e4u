@@ -959,10 +959,15 @@
                 <!-- video crousal start -->
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12 px-0">
+                        <div class="col-12 px-0 profile_verify_icon">
+                                
                             <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
+                                    <div class="verify_icon">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                        <span class="common_shield_tooltip">Media Pending</span>
+                                    </div>
                                 <div class="carousel-inner">
-
+                                    
                             @if($escort->gallary->isNotEmpty())
                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
@@ -1018,13 +1023,20 @@
 
                                                             <div class="gallery__item gallery__item--lg">
                                                                 <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                                                
+                                                                <div class="verify_icon">
+                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                                                   
+                                                                </div>
                                                             </div>
                                                             <div class="small-images">
                                                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
                                                             
                                                                 <div class="gallery__item">
                                                                     <img src="{{ asset($media->path) }}" alt="">
+                                                                    <div class="verify_icon_sm">
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
+                                                                         <span class="mc_media_tooltip">Media Unverified</span>
+                                                                    </div>
                                                                 </div>
 
                                                             @endforeach
@@ -1223,13 +1235,39 @@
     <div class="accordion-container-new">
         <div class="set">
             <a class="pb-1 pt-1">
+            Deposit
+            <i class="fa fa-angle-down"></i>
+            </a>
+            <div class="content">
+              
+                <div class="accodien_manage_padding_content">
+                      <p></p>
+                    <table class="table text-center table-bordered">
+                        <thead class="table-bg">
+                            <tr>
+                                <th>Incall</th>
+                                <th>Outcall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center w-50"> @if($escort->incall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->incall_amount}}</div> @else NO @endif</td>
+                                <td class="text-center w-50"> @if($escort->outcall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->outcall_amount}}</div> @else NO @endif</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="set">
+            <a class="pb-1 pt-1">
             My Pricing Policy
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
                     <p class="text-justify">
-                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location.
+                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and may require a Deposit.
                     </p>
                 </div>
             </div>
