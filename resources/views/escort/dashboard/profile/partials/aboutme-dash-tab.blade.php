@@ -617,6 +617,20 @@
                                                                                     <span
                                                                                         class="badge badge-red">Gallery</span>
                                                                             @endswitch
+
+                                                                            
+                                                                            @php $status = $image->varified ?? "2"; @endphp
+
+                                                                            <div class="verify_icon">
+                                                                                @if($status == "0")
+                                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                                                @elseif($status == "1")
+                                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                                @else
+                                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                                @endif
+                                                                            </div>
+
                                                                         </div>
                                                                     @endif
                                                                 @endforeach

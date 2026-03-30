@@ -61,11 +61,12 @@ class EscortGalleryController extends AppController
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
         $verification = MediaVerification::where('user_id', auth()->id())->where('status' , '0')->first();
+        $mediaByPosition = $media->keyBy('position');
 
         $imageUrl = $verification && $verification->image_path
             ? asset('escorts/' . $verification->image_path)
             : asset('assets/app/img/upload-media.png');
-        return view('escort.dashboard.archives.archive-view-photos',compact('media','path','imageUrl'));
+        return view('escort.dashboard.archives.archive-view-photos',compact('media','path','imageUrl','mediaByPosition'));
     }
 
     public function videoGalleries()
@@ -280,7 +281,7 @@ class EscortGalleryController extends AppController
     {
         $error = false;
         $msg = '';
-
+        $media_data = [];
         $media = $this->media->find($request->meidaId);
 
         $labels = [
@@ -309,10 +310,11 @@ class EscortGalleryController extends AppController
                 $media->position = $request->position;
                 $media->default = 1;
                 $media->save();
+                $media_data['media_data'] =  $media;
             }
             $error = true;
         }
-        return response()->json(compact('error','msg'));
+        return response()->json(compact('error','msg','media_data'));
     }
     public function defaultVideos(Request $request)
     {
