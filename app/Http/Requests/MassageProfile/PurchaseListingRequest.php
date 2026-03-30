@@ -25,6 +25,7 @@ class PurchaseListingRequest extends FormRequest
     {
          return [
             'rate' => 'required|numeric|min:0',
+            'total_rate' => 'required|numeric|min:0',
             'no_of_days' => 'required|integer|min:1',
             'total_fee' => 'required|numeric|min:0',
             'listing_start_date' => 'required|date',

@@ -682,7 +682,7 @@ class PricingsummariesController extends BaseController
             }
 
            
-            list($total_discount, $total_rate, $single_fee) =
+            list($total_discount, $single_fee) =
                 calculateTotalFee($request->membership_id, $days, $this->account);
 
            

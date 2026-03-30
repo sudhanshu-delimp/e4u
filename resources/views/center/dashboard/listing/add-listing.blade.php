@@ -576,6 +576,7 @@ $(".save_profile_btn").click(function(){
             let finalFee = fullFee - discount;
             let total_rate = data.total_rate;
             let discountRate = data.discountRate;
+            total = finalFee;
            
 
             $('#rate').val(rate);
