@@ -1171,6 +1171,7 @@
                                 data-interval="false">
                                 <div class="verify_icon">
                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                        <span class="common_shield_tooltip">Media Pending</span>
                                     </div>
                                 <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
                                 <div class="carousel-inner">

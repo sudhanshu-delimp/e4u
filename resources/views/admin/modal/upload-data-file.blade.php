@@ -39,7 +39,7 @@
 
   {{-- Modal: View database Centre --}}
 <div class="modal fade upload-modal" id="upload_data_file">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -61,6 +61,18 @@
                         <input type="file" class="form-control-file d-none" id="excelFile" name="excelFile" accept=".xlsx,.xls,.csv" >
                         <p id="fileName" class="upl_file_name mt-2">No file selected</p>
                     </div>
+                    <hr style="background-color: #0C223D" class="mt-4">
+                    <div class="form-group row">
+                    <div class="col-lg-12">
+                      <p class="mb-1"><b>Notes:</b></p>
+                      <ol class="pl-4 text-justify">
+                        <li>Please ensure that the Excel file is uploaded in the same provided format.</li>
+                        <li>You can download the <a href="https://e4u.local/admin-dashboard/management/agent-data/MzkwOQ==/data-list-print" download class="custom_links_design">sample/template</a> file and fill in the data accordingly.</li>
+                        <li>Only Excel files (.xls / .xlsx / .csv) are allowed for upload.</li>
+                        
+                      </ol>
+                    </div>
+                  </div>
                     <div class="modal-footer d-flex justify-content-end">
                         <button type="submit" class="btn btn-success btn-success-modal" id="uploadBtn">
                             Upload

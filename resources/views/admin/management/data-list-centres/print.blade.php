@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Data List (Centres)</title>
     <style>
+        .print-sheet{
+            width:850px;max-width:100%;background:#fff;border-radius:6px;box-shadow:0 0px 4px rgba(0,0,0,0.25);overflow:hidden;transform:scale(0.98)
+        }
         @media print {
             .no-print {
                 display: none !important;
@@ -21,8 +24,7 @@
 <body style="font-family: Arial, Helvetica, sans-serif; background:#f3f4f6; margin:0;">
 
     <div class="overlay" style="display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div class="print-sheet" role="dialog" aria-modal="true"
-            style="width:210mm;max-width:100%;background:#fff;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,0.25);overflow:hidden;transform:scale(0.98)">
+        <div class="print-sheet" role="dialog" aria-modal="true">
 
             <div
                 style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #e6e6e6;background:#fafafa;">
@@ -42,23 +44,23 @@
 
 
                 <div class="modal-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-hover text-center" style="width:100%;border-collapse:collapse; border:1px solid #ddd;">
 
-                        <thead class="table-bg">
+                        <thead style="border: 1px solid #ddd; background:#f9f9f9;">
                             <tr>
-                                <th>Deployed</th>
-                                <th>Agent</th>
-                                <th>Agent ID</th>
-                                <th>Agent Status</th>
+                                <th style="text-align: left; padding: 12px;">Deployed</th>
+                                <th style="text-align: left; padding: 12px;">Agent</th>
+                                <th style="text-align: left; padding: 12px;">Agent ID</th>
+                                <th style="text-align: center; padding: 12px;">Agent Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($printPdfs as $pdf)
                                 <tr>
-                                    <td>{{ basicDateFormat($pdf['created_at']) }}</td>
-                                    <td>{{ $pdf['business_name'] ?? '' }}</td>
-                                    <td>{{ $pdf['member_id'] ?? '' }}</td>
-                                    <td><span
+                                    <td style="padding: 12px; border: 1px solid #ddd;">{{ basicDateFormat($pdf['created_at']) }}</td>
+                                    <td style="padding: 12px; border: 1px solid #ddd;">{{ $pdf['business_name'] ?? '' }}</td>
+                                    <td style="padding: 12px; border: 1px solid #ddd;">{{ $pdf['member_id'] ?? '' }}</td>
+                                    <td style="padding: 12px; border: 1px solid #ddd; text-align: center;"><span
                                             class="custom_badge {{ getStatusBadgeClass($pdf['status']) }}">{{ $pdf['status'] }}</span>
                                     </td>
                                 </tr>
