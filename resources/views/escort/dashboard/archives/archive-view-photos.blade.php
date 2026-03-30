@@ -168,7 +168,11 @@
                                     <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec" id="dvDest">
                                     <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
                                     <input type="hidden" id="pos_1" name="position[1]" value="">
+                                     <div class="verify_icon">
+                                        <img src="https://e4u.local/assets/app/img/pending_icon/e4u_pending-icon_REV.png">
+                                     </div>
                                     </label>
+                                   
                                 </div>
                             </div>
                             <div class="col-8">
@@ -183,6 +187,9 @@
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="2" data-html="true" data-placement="top" title="" data-boundary="window" id="img2" src="{{ asset($path->findByposition(auth()->user()->id,2, 1)['path'])}}">
                                             <input type="hidden" id="pos_2" name="position[2]" value="">
+                                            <div class="verify_icon">
+                                        <img src="https://e4u.local/assets/app/img/pending_icon/e4u_pending-icon_REV.png">
+                                     </div>
                                             </label>
                                         </div>
                                     </div>
@@ -191,6 +198,9 @@
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="3" data-html="true" data-placement="top" title="" data-boundary="window"  id="img3" src="{{ asset($path->findByposition(auth()->user()->id,3, 1)['path'])}}">
                                             <input type="hidden" id="pos_3" name="position[3]" value="">
+                                            <div class="verify_icon">
+                                                <img src="https://e4u.local/assets/app/img/pending_icon/e4u_pending-icon_REV.png">
+                                            </div>
                                             </label>
                                         </div>
                                     </div>
@@ -199,6 +209,9 @@
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="4" data-html="true" data-placement="top" title="" data-boundary="window"  id="img4" src="{{ asset($path->findByposition(auth()->user()->id,4, 1)['path'])}}">
                                             <input type="hidden" id="pos_4" name="position[4]" value="">
+                                            <div class="verify_icon">
+                                                <img src="https://e4u.local/assets/app/img/pending_icon/e4u_pending-icon_REV.png">
+                                            </div>
                                             </label>
                                         </div>
                                     </div>
@@ -209,6 +222,9 @@
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="5" data-html="true" data-placement="top" title="" data-boundary="window"  id="img5" src="{{ asset($path->findByposition(auth()->user()->id,5, 1)['path'])}}">
                                             <input type="hidden" id="pos_5" name="position[5]" value="">
+                                            <div class="verify_icon">
+                                                <img src="https://e4u.local/assets/app/img/pending_icon/e4u_pending-icon_REV.png">
+                                            </div>
                                             </label>
                                         </div>
                                     </div>
@@ -217,6 +233,9 @@
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="6" data-html="true" data-placement="top" title="" data-boundary="window"  id="img6" src="{{ asset($path->findByposition(auth()->user()->id,6, 1)['path'])}}">
                                             <input type="hidden" id="pos_6" name="position[6]" value="">
+                                            <div class="verify_icon">
+                                                <img src="https://e4u.local/assets/app/img/pending_icon/e4u_pending-icon_REV.png">
+                                            </div>
                                             </label>
                                         </div>
                                     </div>
@@ -225,6 +244,9 @@
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="7" data-html="true" data-placement="top" title="" data-boundary="window"  id="img7" src="{{ asset($path->findByposition(auth()->user()->id,7, 1)['path'])}}">
                                             <input type="hidden" id="pos_7" name="position[7]" value="">
+                                            <div class="verify_icon">
+                                                <img src="https://e4u.local/assets/app/img/pending_icon/e4u_pending-icon_REV.png">
+                                            </div>
                                             </label>
                                         </div>
                                     </div>

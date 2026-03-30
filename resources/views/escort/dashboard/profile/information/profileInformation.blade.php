@@ -751,6 +751,7 @@
            processData: false,
            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
            success: function (data) {
+            console.log(data);
                if(!data.error){
                    var msg = "Saved";
                        $('.comman_msg').text(msg);
