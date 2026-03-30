@@ -29,6 +29,7 @@
                             </a>
                             <div class="verify-image-custom">
                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                 <span class="common_shield_tooltip">Media Pending</span>
                             </div>
                             <div class="siliver_logo_icon"><img src="{{ asset('images/gold_membership.png') }}"></div>
                             <div class="add_to_fab_list_view_each_sec">

@@ -962,8 +962,9 @@
                         <div class="col-12 px-0 profile_verify_icon">
                                 
                             <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
-                                <div class="verify_icon">
+                                    <div class="verify_icon">
                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                        <span class="common_shield_tooltip">Media Pending</span>
                                     </div>
                                 <div class="carousel-inner">
                                     
