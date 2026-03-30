@@ -1238,7 +1238,9 @@
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
+              
                 <div class="accodien_manage_padding_content">
+                      <p></p>
                     <table class="table text-center table-bordered">
                         <thead class="table-bg">
                             <tr>
@@ -1248,8 +1250,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="text-center"> @if($escort->incall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->incall_amount}}</div> @else NO @endif</td>
-                                <td class="text-center"> @if($escort->outcall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->outcall_amount}}</div> @else NO @endif</td>
+                                <td class="text-center w-50"> @if($escort->incall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->incall_amount}}</div> @else NO @endif</td>
+                                <td class="text-center w-50"> @if($escort->outcall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->outcall_amount}}</div> @else NO @endif</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1264,7 +1266,7 @@
             <div class="content">
                 <div class="accodien_manage_padding_content">
                     <p class="text-justify">
-                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location.
+                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and may require a Deposit.
                     </p>
                 </div>
             </div>
