@@ -1090,12 +1090,6 @@ class MassageController extends Controller
         list($total_discount, $total_rate, $normalRate, $discountRate) =
                 calculateTotalFee($request->membership_id, $days, $this->account);
 
-    
-    //   if($total_discount>0)
-    //     $discountRate =  $discountRate;
-    //   else
-    //    $discountRate =  $normalRate; 
-
 
        
 
@@ -1129,7 +1123,7 @@ class MassageController extends Controller
             $status             = 'pending';
 
             $rate               = $request->rate ?? 0;
-            $discount_rate      = $request->total_discount ?? 0;
+            $discount_rate      = $request->discountRate ?? 0;
             $total_rate         = $request->total_fee;
             $paid_rate          = $request->total_rate ?? 0;
 

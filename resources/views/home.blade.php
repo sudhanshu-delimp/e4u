@@ -90,7 +90,11 @@
             </div>
             <div class="welcome_msg_peratwo">
                 <h5 class="text-white font-weight-bold fs-3">
-                    Escort Platinum listing pay only $10.00 per day and Massage Centre pay only $30.00 per day.
+
+                    
+
+
+                    Escort Platinum listing pay only  {{ isset($pricing[0]['price']) ? '$'.$pricing[0]['price'] : 'NA'}} per day and Massage Centre pay only {{ isset($pricing[4]['price']) ? '$'.$pricing[4]['price'] : 'NA'}} per day.
                 </h5>
             </div>
             <br>
