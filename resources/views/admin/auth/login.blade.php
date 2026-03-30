@@ -189,7 +189,7 @@
 </section>
                     
 @endsection
-@section('script')
+@push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -507,4 +507,4 @@ $(document).ready(function() {
 
 
 </script>
-@endsection
+@endpush

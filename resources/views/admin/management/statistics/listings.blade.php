@@ -952,7 +952,7 @@
    <!--right side bar end-->
 </div>
 @endsection
-@section('script')
+@push('script')
 <script>
   $(document).ready(function() {
             let isHidden = false;
@@ -995,4 +995,4 @@
         });
 </script>
 
-@endsection
+@endpush

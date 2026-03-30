@@ -2,7 +2,7 @@
 @section('content')
 assss
 @endsection
-@section('script')
+@push('script')
 <script>
     
 </script>

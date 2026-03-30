@@ -963,7 +963,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-@section('script')
+@push('script')
 <script>
   $(document).ready(function () {
     let isHidden = false;
@@ -986,4 +986,4 @@
   });
 </script>
 
-@endsection
+@endpush

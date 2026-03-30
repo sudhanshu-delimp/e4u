@@ -287,7 +287,7 @@
 
     </div>
 @endsection
-@section('script')
+@push('script')
 
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
@@ -659,4 +659,4 @@
 
 
 
-@endsection
+@endpush

@@ -496,7 +496,13 @@
       </div>
    </div>
 </div>
+@endsection
 
+@push('script')
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <script>
    CKEDITOR.replace('editor1', {
@@ -524,16 +530,6 @@
       $("#hide-btn1").hide();
    }
 </script>
-@endsection
-
-
-
-@section('script')
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-
 <script>
    var table = $("#emailManagementTable").DataTable({
     language: {
@@ -552,4 +548,4 @@
 
  </script>
 
-@endsection
+@endpush

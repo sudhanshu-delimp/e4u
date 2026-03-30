@@ -171,8 +171,8 @@
 </div>
 @include('modal.console-expiry-password')
 @endsection
-@section('script')
+@push('script')
 <script>
     
 </script>
-@endsection
+@endpush

@@ -174,7 +174,7 @@
     @include('admin.reports.modal.view_centre')
     @include('admin.reports.modal.verify_masseur_images')
 @endsection
-@section('script')
+@push('script')
 
 <script>
     $(document).ready(function() {
@@ -437,4 +437,4 @@
     });
 
 </script>
-@endsection
+@endpush
