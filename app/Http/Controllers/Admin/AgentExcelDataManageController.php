@@ -52,9 +52,6 @@ class AgentExcelDataManageController extends Controller
     {
 
 
-
-
-
         if ($request->ajax()) {
 
             $query = MassageCenterTerritory::from('massage_center_territories as t')

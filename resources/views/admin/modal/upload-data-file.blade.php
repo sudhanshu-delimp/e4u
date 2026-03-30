@@ -67,8 +67,10 @@
                       <p class="mb-1"><b>Notes:</b></p>
                       <ol class="pl-4 text-justify">
                         <li>Please ensure that the Excel file is uploaded in the same provided format.</li>
-                        <li>You can download the <a href="https://e4u.local/admin-dashboard/management/agent-data/MzkwOQ==/data-list-print" download class="custom_links_design">sample/template</a> file and fill in the data accordingly.</li>
+                        <li>You can download the <a href="{{ asset('admin/demo-excel-file/Massage Centres.csv') }}" download class="custom_links_design">sample/template</a> file and fill in the data accordingly.</li>
                         <li>Only Excel files (.xls / .xlsx / .csv) are allowed for upload.</li>
+                        <li>Do not modify the header row in the Excel file.</li>
+                        <li>Location always use short codes. ex: WA, NSW, VIC</li>
                         
                       </ol>
                     </div>
