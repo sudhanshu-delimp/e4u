@@ -22,7 +22,7 @@
                 <div class="display_inline_block nine_column_top_font_size"><span>{{$escort->city ? $escort->city->name : ''}} {{ $escort->age ? " - ".$escort->age : "" }}</span></div>
                 <div class="d-flex justify-content-between nine_column_top_font_size">
                     <span>Price:</span>
-                    <span>From $ {{$escort->durations()->where('name','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price : ''}} / hr</span>
+                    @if($escort->lowest_rate_price)<span>From $ {{number_format((float)$escort->lowest_rate_price)}} / hr</span> @else <span>N/A</span>@endif
                 </div>
                 <div class="nine_column_top_font_size d-flex justify-content-between">
                     <span>Services:</span>
