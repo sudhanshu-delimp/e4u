@@ -50,32 +50,39 @@ class AgentExcelDataManageController extends Controller
 
     public function dataList(Request $request)
     {
+
+
+
+
+
         if ($request->ajax()) {
-            $query = MassageExcel::query()
-                ->from('massage_excels as m')
-                ->join('massage_center_territories as t', 'm.territory_name', '=', 't.territory_name')
+
+            $query = MassageCenterTerritory::from('massage_center_territories as t')
+                ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
                 ->selectRaw('
-                        MAX(DATE(t.created_at)) as date,
-                        m.territory_name,
-                        COUNT(*) as centres,
-                        t.status,
-                        t.id as id,
-                        t.state_id as state_id
-                        ')
-                ->groupBy('m.territory_name', 't.status')
+                    DATE(t.created_at) as date,
+                    t.territory_name,
+                    COUNT(m.id) as centres,
+                    t.status,
+                    t.id,
+                    t.state_id
+                ')
+                ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
                 ->orderByRaw("FIELD(t.status, 'Pending', 'Suspended', 'Active')");
 
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->filterColumn('territory_name', function ($query, $keyword) {
-                    $query->where('m.territory_name', 'like', "%{$keyword}%");
+                    $query->where('territory_name', 'like', "%{$keyword}%");
                 })
-                ->filterColumn('status', function ($query, $keyword) {})
-                ->filterColumn('centres', function ($query, $keyword) {})
-                ->filterColumn('date', function ($query, $keyword) {})
-                ->addColumn('date', function ($row) {
+
+                ->filterColumn('status', function ($query, $keyword) {
+                    $query->where('status', 'like', "%{$keyword}%");
+                })
+                 ->editColumn('date', function ($row) {
                     return $row->date ? basicDateFormat($row->date) : 'NA';
                 })
+
                 ->editColumn('status', function ($row) {
                     $statusText = $row->status;
                     $badgeClass = getStatusBadgeClass($statusText);
@@ -122,7 +129,7 @@ class AgentExcelDataManageController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['status', 'action', 'date', 'territory_name'])
+                ->rawColumns(['status', 'action'])
                 ->make(true);
         }
         return view('admin.management.data-list-centres.index');
