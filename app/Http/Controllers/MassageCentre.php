@@ -345,7 +345,7 @@ class MassageCentre extends Controller
 
     public function massage_description(Request $request, $id)
     {
-        if(!$id)
+        if(!$id || !$request->ids)
         {
             return redirect(route('find.massage.centre'));
         }
@@ -353,6 +353,16 @@ class MassageCentre extends Controller
          $listing = MassageProfile::where('id',$id)->with(['reviews' => function($q){
             $q->where('status','published');
         },'reviews.user'])->first();
+        
+
+        $ids = $request->ids ? json_decode($request->ids, true) : [];
+       
+
+        $currentIndex = array_search($id, $ids);
+        $prevId = $ids[$currentIndex - 1] ?? null;
+        $nextId = $ids[$currentIndex + 1] ?? null;
+
+    
 
          //$listing = MassageProfile::where('id','=',$id)->first();
          $reviews = $listing->reviews;
@@ -389,7 +399,7 @@ class MassageCentre extends Controller
             $dp = 0;
         }
 
-        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews','spamReportAdvertiser','lp','dp','massageLike'));
+        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews','spamReportAdvertiser','lp','dp','massageLike','nextId','prevId','ids'));
     }
 
 

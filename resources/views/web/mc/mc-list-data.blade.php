@@ -1,4 +1,9 @@
- @foreach($listings as $listing)
+@php
+    $ids = $listings->pluck('id')->toArray();
+@endphp
+
+
+@foreach($listings as $listing)
 
 
  @php
@@ -35,7 +40,14 @@ $twitter_link = "https://x.com/NMugs32853";
      <!-- Left Image -->
 
      <div class="mc_list_img">
-         <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
+         <a 
+
+         href="{{ route('web.massage-description', [
+                'id' => $listing->id,
+                'ids' => json_encode($ids)
+            ]) }}"
+            
+         class="mc_card_link">
              <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">

@@ -1,10 +1,13 @@
 
+@php
+    $ids = $listings->pluck('id')->toArray();
+@endphp
 
-
- @foreach($listings as $listing)
+@foreach($listings as $index => $listing)
 
         @php 
 
+       
 
         $relativePath   =  $listing->imagePosition(1);
         $currentImage   = asset($relativePath);
@@ -40,11 +43,14 @@
                     <span class="mc_legbox_tooltip">Add to My Legbox</span>
                 </span>
             </div>
-            <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
+
+            <a href="{{ route('web.massage-description', [
+                'id' => $listing->id,
+                'ids' => json_encode($ids)
+            ]) }}" class="mc_card_link">
+        
+
                 <div class="mc_profile_img">
-
-                
-
                 <img src="{{ $massage_thumb  }}" alt="Massage Centre 1"
                         class="mc_card_image">
                  

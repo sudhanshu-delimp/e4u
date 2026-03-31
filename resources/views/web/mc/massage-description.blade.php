@@ -76,6 +76,11 @@
     cursor: not-allowed;
     pointer-events: none;
 }
+.previousDisableButtonCss {
+  background: gray;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 </style>
     @stop
     @section('content')
@@ -215,14 +220,22 @@
 
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
-                <a href="" class="text-decoration-none d-flex">
+            <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
+                <a  href="{{ $prevId ? route('web.massage-description', [
+                                    'id' => $prevId,
+                                    'ids' => json_encode($ids)
+                                ]) : 'javascript:void(0)' }}" class="text-decoration-none d-flex">
                     <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
             <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss">
-                <a href="" class="text-decoration-none">
+                                <a href="{{ $nextId ? route('web.massage-description', [
+                                    'id' => $nextId,
+                                    'ids' => json_encode($ids)
+                                ]) : 'javascript:void(0)' }}"
+                                
+                                class="text-decoration-none">
                     <span class="previous_text remove_in_sm">Next</span>
                     <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>
@@ -1219,7 +1232,7 @@
                                 </div>
 
                                 <!-- Carousel Controls -->
-                                <a class="carousel-control-prev" href="#carouselExampleInterval" role="button"
+                                <a  class="carousel-control-prev" href="#carouselExampleInterval" role="button"
                                     data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Previous</span>
