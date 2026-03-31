@@ -418,9 +418,27 @@
                                                 <img class="img-fluid upld-img profile-gallery" data-type="gallery"
                                                     id="img1" src="{{ asset($escort->imagePosition(1)) }}"
                                                     style="object-fit: cover;width: 167px;height: 172px;">
-                                                    <div class="lg_verify_icon">
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
-                                                    </div>
+                                                    @php
+                                                        $imageData = $path->findByposition(auth()->user()->id, 1, 1);
+                                                        if(!empty($imageData['id'])){
+                                                            $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                            $status =  $media_details->varified;
+                                                        }
+                                                    @endphp
+
+                                                <div class="lg_verify_icon" id="verify_icon_1"
+                                                    style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                    @if(!empty($imageData['id']))
+                                                        @if($status == "0")
+                                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                        @elseif($status == "1")
+                                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                        @else
+                                                            <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                                
                                             </label>
                                         </div>
                                     </div>
@@ -435,9 +453,24 @@
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img2"
                                                             src="{{ asset($escort->imagePosition(2)) }}">
-                                                            <div class="verify_icon">
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                    </div>
+                                                             @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 2, 1);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                            <div class="verify_icon" id="verify_icon_2" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                    @endif
+                                                                @endif
+                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -447,8 +480,23 @@
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img3"
                                                             src="{{ asset($escort->imagePosition(3)) }}">
-                                                            <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 3, 1);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                            <div class="verify_icon" id="verify_icon_3" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -459,8 +507,23 @@
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img4"
                                                             src="{{ asset($escort->imagePosition(4)) }}">
-                                                            <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 4, 1);
+                                                                    if(!empty($imageData['id'])){
+                                                                        $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                        $status =  $media_details->varified;
+                                                                    }
+                                                            @endphp
+                                                            <div class="verify_icon" id="verify_icon_4" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -473,8 +536,23 @@
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img5"
                                                             src="{{ asset($escort->imagePosition(5)) }}">
-                                                            <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 5, 1);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                            <div class="verify_icon" id="verify_icon_5" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -485,8 +563,23 @@
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img6"
                                                             src="{{ asset($escort->imagePosition(6)) }}">
-                                                            <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 6, 1);
+                                                                 if(!empty($imageData['id'])){
+                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                            <div class="verify_icon" id="verify_icon_6" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -497,8 +590,23 @@
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img7"
                                                             src="{{ asset($escort->imagePosition(7)) }}">
-                                                            <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 6, 1);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                            <div class="verify_icon"  id="verify_icon_7" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -514,9 +622,27 @@
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                 src="{{ asset($escort->imagePosition(9)) }}"
                                                 style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                                                <div class="lg_verify_icon">
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
-                                                    </div>
+                                                @php
+                                                    $imageData = $path->findByposition(auth()->user()->id, 9, 1);
+                                                    if(!empty($imageData['id'])){
+                                                        $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                        $status =  $media_details->varified;
+                                                    }
+                                                    
+                                                @endphp
+
+                                                <div class="lg_verify_icon" id="verify_icon_9"
+                                                    style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                    @if(!empty($imageData['id']))
+                                                        @if($status == "0")
+                                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                        @elseif($status == "1")
+                                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                        @else
+                                                            <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                        @endif
+                                                    @endif
+                                                </div>
                                         </label>
                                     </div>
                                 </div>
@@ -2269,9 +2395,36 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    if (data.error == true) {
+                     if(data.error == true) {
                         img_target.attr('data-id', meidaId);
                         img_target.attr('src', media_src);
+                        let resp = data.media_data;
+                        let status = resp.media_data.varified;
+                        let iconPath = '';
+                        
+                        if (position == 1 || position == 9 || position == 10) {
+
+                            if (status == "0") {
+                                iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.svg';
+                            } else if (status == "1") {
+                                iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                            } else {
+                                iconPath = '/assets/app/img/verify/unverified_light.png';
+                            }
+
+                        } else {
+                            if (status == "0") {
+                                iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                            } else if (status == "1") {
+                                iconPath = '/assets/app/img/verify/verified_icon.png';
+                            } else {
+                                iconPath = '/assets/app/img/verify/unverified_icon.png';
+                            }
+                        }
+
+                        let iconBox = $('#verify_icon_' + position);
+                        iconBox.html(`<img src="${iconPath}">`);
+                        iconBox.show('');
                     } else {
                         swal.fire('', "<p>" + data.msg + "</p>", 'error');
                         // $('.comman_msg').html();

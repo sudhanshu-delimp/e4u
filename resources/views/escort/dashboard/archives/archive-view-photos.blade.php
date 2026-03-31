@@ -168,14 +168,16 @@
                                     <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal" data-target="#upload-sec" id="dvDest">
                                     <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
                                     <input type="hidden" id="pos_1" name="position[1]" value="">
-                                       @php
-                                            $status = $mediaByPosition[1]->varified ?? "2";
+                                        @php
                                             $imageData = $path->findByposition(auth()->user()->id, 1, 1);
+                                            if(!empty($imageData['id'])){
+                                                $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                $status =  $media_details->varified;
+                                            }
                                         @endphp
 
                                         <div class="lg_verify_icon" id="verify_icon_1"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-
                                             @if(!empty($imageData['id']))
                                                 @if($status == "0")
                                                     <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
@@ -203,8 +205,11 @@
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="2" data-html="true" data-placement="top" title="" data-boundary="window" id="img2" src="{{ asset($path->findByposition(auth()->user()->id,2, 1)['path'])}}">
                                             <input type="hidden" id="pos_2" name="position[2]" value="">
                                             @php
-                                                $status = $mediaByPosition[2]->varified ?? "2";
                                                 $imageData = $path->findByposition(auth()->user()->id, 2, 1);
+                                                if(!empty($imageData['id'])){
+                                                $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                $status =  $media_details->varified;
+                                            }
                                             @endphp
 
                                             <div class="verify_icon" id="verify_icon_2"
@@ -229,8 +234,11 @@
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="3" data-html="true" data-placement="top" title="" data-boundary="window"  id="img3" src="{{ asset($path->findByposition(auth()->user()->id,3, 1)['path'])}}">
                                             <input type="hidden" id="pos_3" name="position[3]" value="">
                                             @php
-                                                $status = $mediaByPosition[3]->varified ?? "2";
                                                 $imageData = $path->findByposition(auth()->user()->id, 3, 1);
+                                                if(!empty($imageData['id'])){
+                                                $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                $status =  $media_details->varified;
+                                            }
                                             @endphp
 
                                             <div class="verify_icon" id="verify_icon_3"
@@ -255,8 +263,11 @@
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="4" data-html="true" data-placement="top" title="" data-boundary="window"  id="img4" src="{{ asset($path->findByposition(auth()->user()->id,4, 1)['path'])}}">
                                             <input type="hidden" id="pos_4" name="position[4]" value="">
                                             @php
-                                                $status = $mediaByPosition[4]->varified ?? "2";
                                                 $imageData = $path->findByposition(auth()->user()->id, 4, 1);
+                                                if(!empty($imageData['id'])){
+                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                    $status =  $media_details->varified;
+                                                }
                                             @endphp
 
                                             <div class="verify_icon" id="verify_icon_4"
@@ -283,8 +294,11 @@
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="5" data-html="true" data-placement="top" title="" data-boundary="window"  id="img5" src="{{ asset($path->findByposition(auth()->user()->id,5, 1)['path'])}}">
                                             <input type="hidden" id="pos_5" name="position[5]" value="">
                                             @php
-                                                $status = $mediaByPosition[5]->varified ?? "2";
                                                 $imageData = $path->findByposition(auth()->user()->id, 5, 1);
+                                                if(!empty($imageData['id'])){
+                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                    $status =  $media_details->varified;
+                                                }
                                             @endphp
 
                                             <div class="verify_icon" id="verify_icon_5"
@@ -309,8 +323,11 @@
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="6" data-html="true" data-placement="top" title="" data-boundary="window"  id="img6" src="{{ asset($path->findByposition(auth()->user()->id,6, 1)['path'])}}">
                                             <input type="hidden" id="pos_6" name="position[6]" value="">
                                             @php
-                                                $status = $mediaByPosition[6]->varified ?? "2";
                                                 $imageData = $path->findByposition(auth()->user()->id, 6, 1);
+                                                if(!empty($imageData['id'])){
+                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                    $status =  $media_details->varified;
+                                                }
                                             @endphp
 
                                             <div class="verify_icon" id="verify_icon_6"
@@ -335,8 +352,11 @@
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="7" data-html="true" data-placement="top" title="" data-boundary="window"  id="img7" src="{{ asset($path->findByposition(auth()->user()->id,7, 1)['path'])}}">
                                             <input type="hidden" id="pos_7" name="position[7]" value="">
                                             @php
-                                                $status = $mediaByPosition[7]->varified ?? "2";
                                                 $imageData = $path->findByposition(auth()->user()->id, 7, 1);
+                                                if(!empty($imageData['id'])){
+                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                    $status =  $media_details->varified;
+                                                }
                                             @endphp
 
                                             <div class="verify_icon" id="verify_icon_7"
@@ -366,9 +386,24 @@
                                         <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal" data-target="#upload-sec-banner">
                                         <img class="img-fluid common-img" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
                                         <input  type="hidden"  id="pos_9" name="position[9]" value="">
-                                        <div class="lg_verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
-                                    </div>
+                                            @php
+                                                $imageData = $path->findByposition(auth()->user()->id, 9, 1);
+                                                if(!empty($imageData['id'])){
+                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                    $status =  $media_details->varified;
+                                                }
+                                            @endphp
+                                            <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                            @if(!empty($imageData['id']))   
+                                                @if($status == "0")
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                    @elseif($status == "1")
+                                                        <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                    @else
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                @endif
+                                            @endif
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
@@ -380,9 +415,25 @@
                                         <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal" data-target="#upload-sec-banner">
                                         <img class="img-fluid common-img" id="img10" data-position-id="10" src="{{ asset($path->findByposition(auth()->user()->id,10, 1)['path'])}}" >
                                         <input  type="hidden"  id="pos_10" name="position[10]" value="">
-                                        <div class="lg_verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
-                                    </div>
+                                        @php
+                                            $imageData = $path->findByposition(auth()->user()->id, 10, 1);
+                                            if(!empty($imageData['id'])){
+                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                    $status =  $media_details->varified;
+                                                }
+                                        @endphp
+                                            <div class="lg_verify_icon" id="verify_icon_10" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                            @if(!empty($imageData['id'])) 
+                                                @if($status == "0")
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                @elseif($status == "1")
+                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                @else
+                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                @endif
+                                            @endif
+                                            </div>
+                                           
                                         </label>
                                     </div>
                                 </div>
@@ -894,18 +945,27 @@
                 let resp = data.media_data;
                 let status = resp.media_data.varified;
                 let iconPath = '';
-                let tooltipText = '';
                 
-                if (status == "0") {
-                    iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
-                    tooltipText = 'Media Pending';
-                } else if (status == "1") {
-                    iconPath = '/assets/app/img/verify/verified_icon.png';
-                    tooltipText = 'Media Verified';
+                if (position == 1 || position == 9 || position == 10) {
+
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.svg';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_light.png';
+                    }
+
                 } else {
-                    iconPath = '/assets/app/img/verify/unverified_icon.png';
-                    tooltipText = 'Media Unverified';
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/verified_icon.png';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_icon.png';
+                    }
                 }
+
                 let iconBox = $('#verify_icon_' + position);
                 iconBox.html(`<img src="${iconPath}">`);
                 iconBox.show('');

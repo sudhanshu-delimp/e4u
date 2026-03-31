@@ -1806,3 +1806,10 @@ if (!function_exists('make_time_availability')) {
         return $result;
     }  
 }
+
+if (!function_exists('get_escorts_media_details_by_id')) {
+    function get_escorts_media_details_by_id($media_id)
+    {
+        return EscortMedia::find($media_id);
+    }
+}
