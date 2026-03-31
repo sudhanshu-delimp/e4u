@@ -1183,7 +1183,7 @@ class MassageController extends Controller
 
 
 
-    public function  massager_listing(Request $request)
+    public function  massager_current_listing(Request $request)
     {
             $today = Carbon::today();
             $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
@@ -1202,14 +1202,17 @@ class MassageController extends Controller
                 $end   = Carbon::parse($row->end_date);
                 $days = $start->diffInDays($end) + 1;
 
+                $start_date = date('d M Y', strtotime($row->start_date));
+                $end_date = date('d M Y', strtotime($row->end_date));
+
 
                 return [
                     'id' => $row->id,
                     'profile_name' => $row->massageprofile->profile_name,
                     'address' => $row->massageprofile->address,
                     'business_name' => $row->massageprofile->business_name,
-                    'start_date' => $row->start_date,
-                    'end_date' =>  $row->end_date,
+                    'start_date' => $start_date,
+                    'end_date' =>  $end_date,
                     'days' => $days,
                     'membership' => 'Massage Centre',
                     'fee_paid' => '$ '.$row->paid_rate,
@@ -1225,4 +1228,44 @@ class MassageController extends Controller
  
     }
 
+
+    public function  massager_past_listing(Request $request)
+    {
+            $today = Carbon::today();
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            ->whereIn('status', ['expire'])
+            ->get();
+
+        
+            $data = $massagers->map(function ($row) use ($today) {
+
+                $start = Carbon::parse($row->start_date);
+                $end   = Carbon::parse($row->end_date);
+                $days = $start->diffInDays($end) + 1;
+
+                $start_date = date('d M Y', strtotime($row->start_date));
+                $end_date = date('d M Y', strtotime($row->end_date));
+
+
+                return [
+                    'id' => $row->id,
+                    'profile_name' => $row->massageprofile->profile_name,
+                    'address' => $row->massageprofile->address,
+                    'business_name' => $row->massageprofile->business_name,
+                    'start_date' => $start_date,
+                    'end_date' =>  $end_date,
+                    'days' => $days,
+                    'membership' => 'Massage Centre',
+                    'fee_paid' => '$ '.$row->paid_rate,
+
+                ];
+            });  
+
+
+            return response()->json([
+                'data' => $data
+            ]);
+
+ 
+    }
 }

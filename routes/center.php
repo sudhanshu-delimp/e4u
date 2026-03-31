@@ -99,13 +99,12 @@ Route::post('listing/add-listing', [MassageController::class, 'calculate_listed_
 Route::post('listing/listing-payment', [MassageController::class, 'listing_payment'])->name('center.listing-payment');
 
 Route::get('listing/current', function(){return view('center.dashboard.listing.current');})->name('center.current');
-Route::post('listing/current-listing', [MassageController::class, 'massager_listing'])->name('center.current-listing');
+Route::get('listing/past', function(){return view('center.dashboard.listing.past');})->name('center.past');
+
+Route::post('listing/current-listing', [MassageController::class, 'massager_current_listing'])->name('center.current-listing');
+Route::post('listing/past-listing', [MassageController::class, 'massager_past_listing'])->name('center.past-listing');
 
 
-Route::get('listing/past', function()
-{
-	return view('center.dashboard.listing.past');
-})->name('center.past');
 
 
 
