@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\MassageProfile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +27,12 @@ class MassagePurchase extends Model
         'paid_rate',
     ];
 
+
+    public function massageprofile()
+    {
+        return $this->hasOne(MassageProfile::class, 'id', 'massage_centre_id');
+    }
+    
     
 
 

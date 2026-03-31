@@ -165,7 +165,7 @@
                                 
                                 <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                 <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
-                                    <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec" id="dvDest">
+                                    <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal" data-target="#upload-sec" id="dvDest">
                                     <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
                                     <input type="hidden" id="pos_1" name="position[1]" value="">
                                        @php
@@ -173,16 +173,16 @@
                                             $imageData = $path->findByposition(auth()->user()->id, 1, 1);
                                         @endphp
 
-                                        <div class="verify_icon" id="verify_icon_1"
+                                        <div class="lg_verify_icon" id="verify_icon_1"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                             @if(!empty($imageData['id']))
                                                 @if($status == "0")
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
                                                 @elseif($status == "1")
-                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
                                                 @else
-                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
                                         </div>
@@ -363,9 +363,12 @@
                                     <h2 class="banner-sub-heading my-1">Banner Image</h2>
                                    
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
+                                        <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal" data-target="#upload-sec-banner">
                                         <img class="img-fluid common-img" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
                                         <input  type="hidden"  id="pos_9" name="position[9]" value="">
+                                        <div class="lg_verify_icon">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
+                                    </div>
                                         </label>
                                     </div>
                                 </div>
@@ -374,9 +377,12 @@
                                 <div class="col-lg-6">
                                     <h2 class="banner-sub-heading my-1">Pin Up Image</h2>
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_pinup" onclick="positionToUpdate(10)">
-                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
+                                        <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal" data-target="#upload-sec-banner">
                                         <img class="img-fluid common-img" id="img10" data-position-id="10" src="{{ asset($path->findByposition(auth()->user()->id,10, 1)['path'])}}" >
                                         <input  type="hidden"  id="pos_10" name="position[10]" value="">
+                                        <div class="lg_verify_icon">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
+                                    </div>
                                         </label>
                                     </div>
                                 </div>

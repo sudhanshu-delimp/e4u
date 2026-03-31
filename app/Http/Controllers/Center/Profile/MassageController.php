@@ -976,13 +976,24 @@ class MassageController extends Controller
     ######################### Listing Profile ###########################
     public function add_listing_page(Request $request)
     {
-    
-        $profiles  = MassageProfile::where([
-                                ['user_id', '=', auth()->user()->id],
-                                ['default_setting', '!=', 1],
-                                ['enabled', '=', 1],
-                                ])->get();
 
+        $profileIds = MassageProfile::where([
+            ['user_id', '=', auth()->user()->id],
+            ['default_setting', '!=', 1],
+            ['enabled', '=', 1],
+        ])->pluck('id');  
+        
+        $massageIds = MassagePurchase::where([
+            ['massage_profile_id', '=', auth()->user()->id],
+            ['status', '=', 'expire']])->pluck('massage_centre_id');   
+
+
+        $uniqueIds = $profileIds
+        ->merge($massageIds)
+        ->unique()
+        ->values(); 
+        
+        $profiles = MassageProfile::whereIn('id',$uniqueIds)->get();
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
     }
 
@@ -1041,6 +1052,7 @@ class MassageController extends Controller
                 'membership_id' => 'required',
                 'members' => 'required|integer|min:1'
             ]);
+            
 
             $start = Carbon::parse($request->start_date);
             $end   = Carbon::parse($request->end_date);
@@ -1106,19 +1118,38 @@ class MassageController extends Controller
 
     public function listing_payment(PurchaseListingRequest $request)
     {
+
             $data = $request->validated();
+            $payload_start_date = $request->listing_start_date;
+            $payload_end_date = $request->listing_end_date;
+
+            $home_state = auth()->user()->state_id;
+    
+            $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
 
 
+            $start_date = Carbon::createFromFormat('Y-m-d', $payload_start_date)->format('Y-m-d').' 00:00:00';
+            $end_date = Carbon::createFromFormat('Y-m-d', $payload_end_date )->format('Y-m-d').' 23:59:59';
+            
+
+            $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
+            $utc_start_time = $localStartDateTime->copy()->setTimezone('UTC');
+
+            $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);
+            $utc_end_time = $localEndDateTime->copy()->setTimezone('UTC');
+
+
+        
             $parent_id          = 0;
             $membership_id      = $request->membership_id;
             $massage_centre_id  = $request->massage_centre_id;
-            $massage_profile_id = $request->massage_profile_id ?? 0;
+            $massage_profile_id =  auth()->user()->id ?? 0;
 
             $start_date         = $request->listing_start_date;
             $end_date           = $request->listing_end_date;
 
-            $utc_start_time     = Carbon::parse($start_date);
-            $utc_end_time       = Carbon::parse($end_date);
+            $utc_start_time     = $utc_start_time;
+            $utc_end_time       = $utc_end_time ;
 
             $status             = 'pending';
 
@@ -1150,4 +1181,91 @@ class MassageController extends Controller
             ]);
     }
 
+
+
+    public function  massager_current_listing(Request $request)
+    {
+            $today = Carbon::today();
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            ->whereIn('status', ['pending', 'listed'])
+            // ->whereDate('start_date', '<=', $today)
+            // ->whereDate('end_date', '>=', $today)
+            ->get();
+
+         
+           
+
+            $data = $massagers->map(function ($row) use ($today) {
+
+    
+                $start = Carbon::parse($row->start_date);
+                $end   = Carbon::parse($row->end_date);
+                $days = $start->diffInDays($end) + 1;
+
+                $start_date = date('d M Y', strtotime($row->start_date));
+                $end_date = date('d M Y', strtotime($row->end_date));
+
+
+                return [
+                    'id' => $row->id,
+                    'profile_name' => $row->massageprofile->profile_name,
+                    'address' => $row->massageprofile->address,
+                    'business_name' => $row->massageprofile->business_name,
+                    'start_date' => $start_date,
+                    'end_date' =>  $end_date,
+                    'days' => $days,
+                    'membership' => 'Massage Centre',
+                    'fee_paid' => '$ '.$row->paid_rate,
+
+                ];
+            });  
+
+
+            return response()->json([
+                'data' => $data
+            ]);
+
+ 
+    }
+
+
+    public function  massager_past_listing(Request $request)
+    {
+            $today = Carbon::today();
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            ->whereIn('status', ['expire'])
+            ->get();
+
+        
+            $data = $massagers->map(function ($row) use ($today) {
+
+                $start = Carbon::parse($row->start_date);
+                $end   = Carbon::parse($row->end_date);
+                $days = $start->diffInDays($end) + 1;
+
+                $start_date = date('d M Y', strtotime($row->start_date));
+                $end_date = date('d M Y', strtotime($row->end_date));
+
+
+                return [
+                    'id' => $row->id,
+                    'profile_name' => $row->massageprofile->profile_name,
+                    'address' => $row->massageprofile->address,
+                    'business_name' => $row->massageprofile->business_name,
+                    'start_date' => $start_date,
+                    'end_date' =>  $end_date,
+                    'days' => $days,
+                    'membership' => 'Massage Centre',
+                    'fee_paid' => '$ '.$row->paid_rate,
+
+                ];
+            });  
+
+
+            return response()->json([
+                'data' => $data
+            ]);
+
+ 
+    }
 }

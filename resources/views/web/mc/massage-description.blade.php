@@ -61,6 +61,21 @@
 .masseurs_modals{
     max-width: 1000px !important;
 }
+
+.masseur-modal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.masseur-modal.show {
+    opacity: 1;
+}
+
+.btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 </style>
     @stop
     @section('content')
@@ -548,8 +563,7 @@
 
                         <div class="row">
                             @if($listing->massagerMasseurs->count()>0)
-                             @foreach($listing->massagerMasseurs as $masseur)
-
+                            @foreach($listing->massagerMasseurs as $index => $masseur)
                             @php
 
                                 $masseur_services = $masseur->service ?? [];
@@ -580,7 +594,7 @@
 
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
-                                    data-toggle="modal" data-target="#product_view_{{$masseur->id}}">
+                                    data-toggle="modal" data-target="#product_view_{{$masseur->id}}" >
                                     <div><img src="{{ $profile_img }}" width="50" height="50"  class="profile_img"></div>
                                     <p class="mb-0 text_truncate">{{ $masseur->name}}</p>
                                 </div>
@@ -588,7 +602,7 @@
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal" id="product_view_{{$masseur->id}}">
+                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
@@ -596,7 +610,7 @@
                                             
                                             <div class="navigation_button">
                                                 <button class="btn-prev"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
-                                                <button class="btn-prev">Next <i class="fa fa-chevron-right text-white"></i> </button>
+                                                <button class="btn-next">Next <i class="fa fa-chevron-right text-white"></i> </button>
                                             </div>
                                             <button type="button" class="close_btn" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
@@ -624,9 +638,15 @@
 
                                                         @foreach ($messure_validImages as $index => $image)
                                                             @if(!$loop->first)
-                                                            <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                            <div class="extra_img_wrapper">
+                                                                <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                                <div class="veryfy_img">
+                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                                </div>
+                                                            </div>
                                                             @endif
                                                         @endforeach
+                                                        
                                                 </div>
 
                                                 <div class="masseur_content" style="">
@@ -1944,7 +1964,7 @@
                                             <div class="gallery__item">
                                                 <img src="{{ $image }}" alt="gallery image">
                                                  <div class="verify_icon_sm">
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg')}}">
                                                 </div>
                                             </div>
 
@@ -2410,7 +2430,108 @@ $(document).on('click', '.open_review_box', function (e) {
     });
 
    
+   
 
+
+
+$(document).ready(function () {
+
+    function showModal(currentModal, nextIndex) {
+
+        let modals = $('.masseur-modal');
+        let total = modals.length;
+
+        if (nextIndex < 0 || nextIndex >= modals.length) return;
+
+        let nextModal = $(modals[nextIndex]);
+
+        currentModal.removeClass('show');
+
+        setTimeout(function () {
+
+            currentModal.hide();
+
+        
+            nextModal.show();
+
+            setTimeout(function () {
+                nextModal.addClass('show');
+                updateNavButtons(nextModal, nextIndex, total);
+            }, 10);
+
+
+            $('body').addClass('modal-open');
+
+        }, 300);
+    }
+
+    
+
+    
+    $(document).on('click', '.btn-next', function () {
+        let currentModal = $(this).closest('.masseur-modal');
+        let index = parseInt(currentModal.data('index'));
+
+        showModal(currentModal, index + 1);
+    });
+
+    
+    $(document).on('click', '.btn-prev', function () {
+        let currentModal = $(this).closest('.masseur-modal');
+        let index = parseInt(currentModal.data('index'));
+
+        showModal(currentModal, index - 1);
+    });
+
+});
+
+$(document).on('click', '.close_btn', function () {
+    let currentModal = $(this).closest('.masseur-modal');
+    currentModal.removeClass('show');
+
+    setTimeout(function () {
+        currentModal.hide();
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
+    }, 300);
+});
+
+$(document).on('shown.bs.modal', '.masseur-modal', function () {
+
+    let modal = $(this);
+    let index = parseInt(modal.data('index'));
+    let total = $('.masseur-modal').length;
+
+    updateNavButtons(modal, index, total);
+});
+
+function updateNavButtons(modal, index, total) {
+
+    let prevBtn = modal.find('.btn-prev');
+    let nextBtn = modal.find('.btn-next');
+
+    // PREV button
+    if (index === 0) {
+        prevBtn.addClass('btn-disabled');
+    } else {
+        prevBtn.removeClass('btn-disabled');
+    }
+
+    // NEXT button
+    if (index === total - 1) {
+        nextBtn.addClass('btn-disabled');
+    } else {
+        nextBtn.removeClass('btn-disabled');
+    }
+}
+
+$(document).on('click', '.btn-prev, .btn-next', function (e) {
+    if ($(this).hasClass('btn-disabled')) {
+        e.preventDefault();
+        return false;
+    }
+});
 
 </script>
 @endpush

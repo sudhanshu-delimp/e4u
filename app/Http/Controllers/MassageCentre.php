@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AttemptLogin;
 use App\Models\MassageLike;
 use App\Models\MassageProfile;
+use App\Models\MassagePurchase;
 use App\Models\MassageReviews;
 use App\Models\MassagerMasseur;
 use App\Models\MassageService;
@@ -112,11 +113,11 @@ class MassageCentre extends Controller
     public function mcAjaxList(Request $request)
     {
         $per_page = 25;
-        $massage_centers_ids = [];
+        $massage_centers_ids  = MassagePurchase::where('status','listed')->pluck('massage_centre_id');
 
         
         //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
-        $mc_live_list = [];
+        $mc_live_list = $massage_centers_ids;
         $mc_user_id = [];
         if(!empty($mc_live_list))
         $mc_user_id   = MassageProfile::whereIn('id',$mc_live_list)->distinct()->pluck('user_id')->toArray();
