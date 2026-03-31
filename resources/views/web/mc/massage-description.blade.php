@@ -624,9 +624,15 @@
 
                                                         @foreach ($messure_validImages as $index => $image)
                                                             @if(!$loop->first)
-                                                            <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                            <div class="extra_img_wrapper">
+                                                                <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                                <div class="veryfy_img">
+                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                                </div>
+                                                            </div>
                                                             @endif
                                                         @endforeach
+                                                        
                                                 </div>
 
                                                 <div class="masseur_content" style="">
@@ -1944,7 +1950,7 @@
                                             <div class="gallery__item">
                                                 <img src="{{ $image }}" alt="gallery image">
                                                  <div class="verify_icon_sm">
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg')}}">
                                                 </div>
                                             </div>
 

@@ -286,11 +286,14 @@ img#blah8 {
                                 <div class="row p-3">
                                     <div class="col-4">
                                         <h2 class="banner-sub-heading my-2">Thumbnail</h2>
-                                        <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
+                                        <div class="plate"><label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal"
                                                 data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                                 <img class="img-fluid upld-img profile-gallery" data-type="gallery"
                                                     id="img1" src="{{ asset($path->findByposition(auth()->user()->id, 1, 0)['path']) }}"
                                                     style="object-fit: cover;width: 167px;height: 172px;">
+                                                     <div class="lg_verify_icon">
+                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
+                                            </div>
                                             </label>
                                         </div>
                                     </div>
@@ -299,59 +302,77 @@ img#blah8 {
                                             <div class="col-lg-12">
                                                 <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                                             </div>
-                                            <div class="col">
+                                            <div class="col pr-0">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
                                                         data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img2"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 2, 0)['path']) }}">
+                                                             <div class="verify_icon">
+                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="col pr-0">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
                                                         data-target="#photo_gallery" onclick="positionToUpdate(3)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img3"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 3, 0)['path']) }}">
+                                                             <div class="verify_icon">
+                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="col pr-0">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
                                                         data-target="#photo_gallery" onclick="positionToUpdate(4)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img4"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 4, 0)['path']) }}">
+                                                             <div class="verify_icon">
+                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row" style="">
-                                            <div class="col">
+                                            <div class="col pr-0">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
                                                         data-target="#photo_gallery" onclick="positionToUpdate(5)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img5"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 5, 0)['path']) }}">
+                                                             <div class="verify_icon">
+                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="col pr-0">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
                                                         data-target="#photo_gallery" onclick="positionToUpdate(6)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img6"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 6, 0)['path']) }}">
+                                                             <div class="verify_icon">
+                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="col pr-0">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
                                                         data-target="#photo_gallery" onclick="positionToUpdate(7)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img7"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 7, 0)['path']) }}">
+                                                             <div class="verify_icon">
+                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -361,11 +382,14 @@ img#blah8 {
                                 <div class="row px-3 pb-2">
                                     <div class="col-lg-12">
                                         <h2 class="banner-sub-heading my-2">Banner Image</h2>
-                                        <label class="newbtn dvDest" data-toggle="modal"
+                                        <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal"
                                             data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                 src="{{ asset($path->findByposition(auth()->user()->id, 9, 0)['path']) }}"
                                                 style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                                                 <div class="lg_verify_icon">
+                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
@@ -488,6 +512,9 @@ img#blah8 {
                                                                                     <span
                                                                                         class="badge badge-red">Gallery</span>
                                                                             @endswitch
+                                                                             <div class="verify_icon">
+                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                            </div>
                                                                         </div>
                                                                     @endif
                                                                 @endforeach

@@ -5,6 +5,72 @@
     #FormsTable td{
         vertical-align: middle !important;
     }
+    .custom-wrapper {
+      background: #fff;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .pdf-viewer {
+      height: 700px;
+      width: 100%;
+      border: none;
+      background: #0C223D;
+    }
+
+    .pdf-area {
+      background: #fff;
+      min-height: 700px;
+    }
+
+    .tab-sidebar {
+      background: #fff
+      border-left: 1px solid #dee2e6;
+      height: 100%;
+    }
+
+    .nav-pills .nav-link {
+      border-radius: 0;
+      padding: 18px 20px;
+      font-weight: 600;
+      color: #0C223D;
+      border-bottom: 1px solid #e9ecef;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .nav-pills .nav-link:hover {
+      background: #eef4ff;
+      color: #0C223D;
+    }
+
+    .nav-pills .nav-link.active {
+      background: #0C223D;
+      color: #fff;
+    }
+
+    .pdf-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: #0c223d;
+    padding: 18px 20px;
+    }
+
+    @media (max-width: 767px) {
+      .pdf-viewer {
+        height: 500px;
+      }
+
+      .pdf-area {
+        min-height: auto;
+      }
+
+      .tab-sidebar {
+        border-left: none;
+        border-top: 1px solid #dee2e6;
+      }
+    }
 </style>
 @endsection
 
@@ -22,14 +88,63 @@
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                     <ol>
                         <li>All of the Company’s financial statements are available here.</li>
-                        <li>Click the financial report you are looking for and it will download as a .pdf file for you to
-view.</li>
+                        <li>Click the financial report you are looking for and it will download as a .pdf file for you to view.</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
-    
+
+        <div class="row mb-4">
+            <div class="col-lg-12">
+                <div class="custom-wrapper">
+    <div class="row no-gutters">
+
+      <!-- Left Side PDF Viewer -->
+      <div class="col-md-9">
+        <div class="pdf-area">
+          <div class="pdf-title" id="pdfTitle"> Balance Sheet (30-06-2025)</div>
+          <iframe id="pdfViewer" class="pdf-viewer" src="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2025.pdf') }}"></iframe>
+        </div>
+      </div>
+
+      <!-- Right Side Tabs -->
+      <div class="col-md-3">
+        <div class="nav flex-column nav-pills tab-sidebar h-100 p-0" id="pdfTabs">
+
+          <a href="javascript:void(0)" class="nav-link active" 
+             data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2025.pdf') }}" 
+             data-title=" Balance Sheet (30-06-2025)">
+            Balance Sheet (30-06-2025)
+          </a>
+
+          <a href="javascript:void(0)" class="nav-link" 
+             data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2024-to-30-06-2025.pdf') }}" 
+             data-title="Profit and Loss (30-06-2025)">
+             Profit and Loss (30-06-2025)
+          </a>
+
+          <a href="javascript:void(0)" class="nav-link" 
+             data-pdf="sample3.pdf" 
+             data-title="Document 3">
+             Document 3
+          </a>
+
+          <a href="javascript:void(0)" class="nav-link" 
+             data-pdf="sample4.pdf" 
+             data-title="Document 4">
+             Document 4
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+            </div>
+         </div>
+
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="table-responsive">
@@ -190,5 +305,20 @@ view.</li>
         searching: true,
         bStateSave: true
     });
+
+  $(document).ready(function () {
+    $('#pdfTabs .nav-link').click(function () {
+      var pdfFile = $(this).data('pdf');
+      var pdfTitle = $(this).data('title');
+
+      // Active tab change
+      $('#pdfTabs .nav-link').removeClass('active');
+      $(this).addClass('active');
+
+      // Change PDF and title
+      $('#pdfViewer').attr('src', pdfFile);
+      $('#pdfTitle').text(pdfTitle);
+    });
+  });
 </script>
 @endsection
