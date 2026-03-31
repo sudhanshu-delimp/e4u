@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                                  <div class="d-flex justify-content-center mt-4">
-                                    <button type="submit" class="btn-success-modal" id="save_button">Merge</button>
+                                    <button type="button" data-toggle="modal" data-target="#view_list" class="btn-success-modal" id="save_button">Merge</button>
                                  </div>
                             </div>
                         </div>

@@ -3128,6 +3128,28 @@ button.btn:focus {
 
 /* Center 6 Images Grid */
 
+.lg_icon_wrapper {
+    position: relative;
+}
+
+.lg_icon_wrapper .lg_verify_icon {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background: var(--blue--text);
+    width: 75px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.lg_icon_wrapper .lg_verify_icon img {
+    width: 100%;
+    object-fit: contain;
+}
+
 .view_img_gallery .other_images {
     display: flex;
     justify-content: flex-start;
@@ -3202,18 +3224,17 @@ button.btn:focus {
     right: 1px;
     bottom: 1px;
     border: none;
-    background: var(--blue--text);
+    background: #0c223dd6;
     padding: 4px;
     border-radius: 0px;
-    width: 25px;
-    height: 25px;
+    width: 23px;
+    height: 23px;
 }
 
 .newbtn .verify_icon img {
-    width: 20px;
-    height: 20px;
+    width: 15px;
     border: none;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .newbtn .verify_icon:hover .mc_media_tooltip {
@@ -3225,21 +3246,20 @@ button.btn:focus {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 1px;
-    bottom: 9px;
+    right: 0px;
+    bottom: 8px;
     border: none;
-    background: var(--blue--text);
+    background: #0c223dd6;
     padding: 4px;
     border-radius: 0px;
-    width: 25px;
-    height: 25px;
+    width: 23px;
+    height: 23px;
 }
 
 .item4 .verify_icon img {
-    width: 20px;
+    width: 15px;
     border: none;
-    object-fit: cover;
-    height: 20px;
+    object-fit: contain;
 }
 
 .item4 .verify_icon:hover .mc_media_tooltip {

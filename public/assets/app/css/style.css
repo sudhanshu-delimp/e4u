@@ -5802,7 +5802,7 @@ i.fa.fa-heart-o{
                     object-fit: contain;
                     bottom: 0px;
                     right: 0px;
-                    background: var(--blue--text);
+                    background: #0c223de6;
                     padding: 5px;
                     display: flex;
                     justify-content: center;
@@ -5810,12 +5810,13 @@ i.fa.fa-heart-o{
                 }
                 
                 .extra_img_wrapper .veryfy_img img {
+                    max-width: 18px;
                     width: 100%;
                 }
                 
                 .mc_profile_img .veryfy_img {
                     position: absolute;
-                    width: 100px;
+                    width: 90px;
                     object-fit: contain;
                     bottom: 0px;
                     right: 0px;
@@ -7633,9 +7634,9 @@ i.fa.fa-heart-o{
                 }
                 
                 .profile_verify_icon .verify_icon {
-                    width: 100px;
+                    width: 90px;
                     background: #0c223d;
-                    padding: 6px;
+                    padding: 4px 10px;
                     position: absolute;
                     z-index: 3;
                     bottom: 21px;
@@ -7698,9 +7699,9 @@ i.fa.fa-heart-o{
                 }
                 
                 .gallery__item.gallery__item--lg .verify_icon {
-                    width: 100px;
-                    background: #0c223d;
-                    padding: 6px;
+                    width: 90px;
+                    background: #0c223dc7;
+                    padding: 4px 10px;
                     position: absolute;
                     z-index: 1;
                     bottom: 21px;
@@ -7717,10 +7718,8 @@ i.fa.fa-heart-o{
                     position: absolute;
                     bottom: 1px;
                     right: 0px;
-                    width: 31px;
-                    height: 31px;
-                    background: #0c223d;
-                    padding: 3px;
+                    background: #0c223dc7;
+                    padding: 1px 5px;
                     text-align: center;
                     border-radius: 5px;
                 }
@@ -7729,7 +7728,8 @@ i.fa.fa-heart-o{
                 } */
                 
                 .gallery .gallery__item .verify_icon_sm img {
-                    width: 20px;
+                    width: 15px;
+                    height: 19px;
                 }
                 
                 .custom--service-tag .grid_list_icon_box:hover span {

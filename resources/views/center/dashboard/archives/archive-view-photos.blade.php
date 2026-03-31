@@ -212,7 +212,7 @@
                                     <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                     <div class="plate" data-toggle="modal" data-target="#photo_gallery"
                                         onclick="positionToUpdate(1)">
-                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec"
+                                        <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal" data-target="#upload-sec"
                                             id="dvDest">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"
                                                 data-html="true" data-placement="top" title="" data-boundary="window"
@@ -220,8 +220,8 @@
                                                 src="{{ asset($path->findByposition(auth()->user()->id, 1, 0)['path']) }}"
                                                 style="object-fit: cover;width: 167px;height: 172px;">
                                             <input type="hidden" id="pos_1" name="position[1]" value="">
-                                            <div class="verify_icon">
-                                                <img src="https://e4u.local/assets/app/img/verify/unverified_icon.png">
+                                            <div class="lg_verify_icon">
+                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
                                             </div>
                                         </label>
                                     </div>
@@ -345,11 +345,15 @@
 
                                         <div class="about_me_drop_down_info pt-2" data-toggle="modal"
                                             data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                            <label class="newbtn dvDest" data-toggle="modal"
+                                            <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal"
                                                 data-target="#upload-sec-banner">
                                                 <img class="img-fluid common-img" id="img9" data-position-id="9"
                                                     src="{{ asset($path->findByposition(auth()->user()->id, 9, 0)['path']) }}">
                                                 <input type="hidden" id="pos_9" name="position[9]" value="">
+
+                                                <div class="lg_verify_icon">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
+                                                </div>
                                             </label>
                                         </div>
                                     </div>
