@@ -5790,8 +5790,27 @@ i.fa.fa-heart-o{
                     text-align: center;
                 }
                 
-                .mc_profile_img {
+                .mc_profile_img,
+                .extra_img_wrapper {
                     position: relative;
+                }
+                
+                .extra_img_wrapper .veryfy_img {
+                    position: absolute;
+                    width: 25px;
+                    height: 25px;
+                    object-fit: contain;
+                    bottom: 0px;
+                    right: 0px;
+                    background: var(--blue--text);
+                    padding: 5px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .extra_img_wrapper .veryfy_img img {
+                    width: 100%;
                 }
                 
                 .mc_profile_img .veryfy_img {
