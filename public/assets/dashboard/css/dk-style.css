@@ -1611,15 +1611,21 @@ button.btn:focus {
 .search_by_year {
     width: 100%;
     background: #0c223d;
-    padding: 10px;
+    padding: 2px;
     border-left: 1px solid #fff;
+    border-bottom: 1px solid#fff;
 }
 
 .search_by_year input {
     width: 100%;
-    padding: 8px;
+    padding: 14px;
     border: 1px solid #fff;
-    border-radius: 5px;
+}
+
+.search_by_year input:focus {
+    outline: none;
+    border: 1px solid #fff;
+    box-shadow: none;
 }
 
 @media (max-width: 767px) {
