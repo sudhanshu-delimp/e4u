@@ -3,11 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Mail\MediaVerificationAdvertiserMail;
+use App\Mail\SystemMediaUnverifiedDueToNoVerificationMail;
 use Illuminate\Console\Command;
 use App\Models\EscortMedia;
 use App\Models\MediaVerification;
 use App\Models\User;
 use Carbon\Carbon;
+use Mail;
 
 class EscortsMediaExpireCron extends Command
 {
@@ -50,12 +52,24 @@ class EscortsMediaExpireCron extends Command
 
             // if verification uploaded or not 
             if (!$hasVerification) {
-
+                
                 EscortMedia::where('user_id', $userId)
                     ->where('varified', '0')
                     ->update(['varified' => '2']);
+                $user = User::select('name', 'member_id', 'email')
+                ->where('id', $userId)
+                ->first();
+                $body = [
+                    'name' => $user->name ?? $user->email,
+                    'email' => $user->email,
+                    'member_id' => $user->member_id,
+                    // 'agent_id' => $user->my_agent->member_id ?? null,
+                ];
 
-                \Log::info("Media expired (no verification) for user_id: " . $userId);
+                    \Mail::to($body['email'])
+                        ->queue(new SystemMediaUnverifiedDueToNoVerificationMail($body));
+
+                    \Log::info("Media expired (no verification) for user_id: " . $userId);
             }
         }
 

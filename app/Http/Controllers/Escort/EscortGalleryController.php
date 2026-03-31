@@ -657,10 +657,10 @@ class EscortGalleryController extends AppController
         $user = auth()->user();
         $image = $request->file('image');
         $media = EscortMedia::where('user_id', $user->id)
-        ->where('varified', '0')
+            ->whereIn('varified', ['0', '2'])
         ->whereNull('media_verification_id')
         ->count();
-   
+      
         if ($media  <= 0) {
             return response()->json([
                 'success' => false,
@@ -693,6 +693,12 @@ class EscortGalleryController extends AppController
                 'status' => MediaVerification::STATUS_PENDING,
                 'submited_by' => $user->id,
             ]);
+            EscortMedia::where('user_id', $user->id)
+                ->whereIn('varified', ['0', '2'])
+                ->whereNull('media_verification_id')
+                ->update([
+                    'varified' => '0'
+                ]);
         }
 
         return response()->json([

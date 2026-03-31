@@ -623,11 +623,11 @@
 
                                                                             <div class="verify_icon">
                                                                                 @if($status == "0")
-                                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}"><span class="mc_media_tooltip">Media Pending</span>
                                                                                 @elseif($status == "1")
-                                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
                                                                                 @else
-                                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                                                 @endif
                                                                             </div>
 
@@ -2096,7 +2096,13 @@
                     let dropSlot = $(this);
                     let dragSlot = ui.draggable;
                     let dropSlotType = dropSlot.find('img').data('type');
-                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+                    // let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+                    let dragSlotType = dragSlot
+                        .closest(".item4")
+                        .find("span.badge")
+                        .text()
+                        .trim()
+                        .toLowerCase();
                     if (dropSlotType != dragSlotType) {
                         let message = (dragSlotType == 'gallery') ?
                             `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
