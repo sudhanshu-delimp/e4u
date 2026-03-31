@@ -976,13 +976,24 @@ class MassageController extends Controller
     ######################### Listing Profile ###########################
     public function add_listing_page(Request $request)
     {
-    
-        $profiles  = MassageProfile::where([
-                                ['user_id', '=', auth()->user()->id],
-                                ['default_setting', '!=', 1],
-                                ['enabled', '=', 1],
-                                ])->get();
 
+        $profileIds = MassageProfile::where([
+            ['user_id', '=', auth()->user()->id],
+            ['default_setting', '!=', 1],
+            ['enabled', '=', 1],
+        ])->pluck('id');  
+        
+        $massageIds = MassagePurchase::where([
+            ['massage_profile_id', '=', auth()->user()->id],
+            ['status', '=', 'expire']])->pluck('massage_centre_id');   
+
+
+        $uniqueIds = $profileIds
+        ->merge($massageIds)
+        ->unique()
+        ->values(); 
+        
+        $profiles = MassageProfile::whereIn('id',$uniqueIds)->get();
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
     }
 
@@ -1107,26 +1118,28 @@ class MassageController extends Controller
 
     public function listing_payment(PurchaseListingRequest $request)
     {
-            $data = $request->validated();
 
-            $start_date = $request->listing_start_date;
-            $end_date = $request->listing_end_date;
+            $data = $request->validated();
+            $payload_start_date = $request->listing_start_date;
+            $payload_end_date = $request->listing_end_date;
 
             $home_state = auth()->user()->state_id;
-        
-
+    
             $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
 
+
+            $start_date = Carbon::createFromFormat('Y-m-d', $payload_start_date)->format('Y-m-d').' 00:00:00';
+            $end_date = Carbon::createFromFormat('Y-m-d', $payload_end_date )->format('Y-m-d').' 23:59:59';
+            
+
+            $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
+            $utc_start_time = $localStartDateTime->copy()->setTimezone('UTC');
+
+            $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);
+            $utc_end_time = $localEndDateTime->copy()->setTimezone('UTC');
+
+
         
-          
-            $localStartDateTime = Carbon::parse($start_date, $profileTimezone)->startOfDay();
-            $localEndDateTime   = Carbon::parse($end_date, $profileTimezone)->endOfDay();
-
-            $utc_start_time = $localStartDateTime->clone()->utc();
-            $utc_end_time   = $localEndDateTime->clone()->utc();
-
-
-
             $parent_id          = 0;
             $membership_id      = $request->membership_id;
             $massage_centre_id  = $request->massage_centre_id;
@@ -1135,8 +1148,8 @@ class MassageController extends Controller
             $start_date         = $request->listing_start_date;
             $end_date           = $request->listing_end_date;
 
-            $utc_start_time     = Carbon::parse($start_date);
-            $utc_end_time       = Carbon::parse($end_date);
+            $utc_start_time     = $utc_start_time;
+            $utc_end_time       = $utc_end_time ;
 
             $status             = 'pending';
 
