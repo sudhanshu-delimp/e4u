@@ -28,7 +28,7 @@
                                 database is updated, usually with a new file. Previous files will remain in the list as
                                 historical</li>
                             <li>You can create a working report by undertaking a search, via the <a
-                                    href="{{ route('marketing.agencreate-prospect') }}"
+                                    href="{{ route('agent.marketing.prospect.list') }}"
                                     class="custom_links_design">Prospects List</a> page:</li>
                             <ol class="level-2">
                                 <li>according to your preference; and</li>

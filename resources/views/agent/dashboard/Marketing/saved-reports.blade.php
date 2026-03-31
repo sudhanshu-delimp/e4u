@@ -40,7 +40,7 @@
                <div class="card-body">
                   <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                   <ol>
-                     <li>Reports generated from <a href="{{ route('marketing.agencreate-prospect') }}" class="custom_links_design">Prospects List</a> are saved here.</li>
+                     <li>Reports generated from <a href="{{ route('agent.marketing.prospect.list') }}" class="custom_links_design">Prospects List</a> are saved here.</li>
                      <li>Use these Lists to:
                         <ol>
                           <li>merge into any of the marketing material provided.</li>
