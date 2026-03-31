@@ -117,7 +117,7 @@ class MassageCentre extends Controller
 
         
         //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
-        $mc_live_list = [];
+        $mc_live_list = $massage_centers_ids;
         $mc_user_id = [];
         if(!empty($mc_live_list))
         $mc_user_id   = MassageProfile::whereIn('id',$mc_live_list)->distinct()->pluck('user_id')->toArray();
