@@ -6133,12 +6133,12 @@ i.fa.fa-heart-o{
                     width: max-content;
                     background: rgba(12, 34, 61);
                     z-index: 10;
-                    width: 100px;
+                    width: 90px;
                     padding: 5px;
                 }
                 
                 .mc_list_card .verify_icon img {
-                    width: 100%;
+                    width: 90%;
                 }
                 
                 .mc_list_content {
