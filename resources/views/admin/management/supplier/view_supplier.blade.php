@@ -56,7 +56,7 @@
                   </tr>
                   <tr>
                       <th>Private Email</th>
-                      <td>{{ $supplier->email }}/td>
+                      <td>{{ $supplier->email }}</td>
                   </tr>
                   <tr>
                       <th>Location</th>
