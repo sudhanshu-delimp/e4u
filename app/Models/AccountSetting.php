@@ -31,7 +31,7 @@ class AccountSetting extends Model
          self::create([
                'user_id'  => $user->id,
                'password_updated_date' => date('Y-m-d H:i:s'),
-               'password_expiry_days'   => $user->type == '7' ? 'never': '30',
+               'password_expiry_days'   => $user->type == '7' || $user->type == '10' ? 'never': '30',
                'is_text_notificaion_on' => '0',
                'is_email_notificaion_on' => '1',
                'is_first_login' => '1',

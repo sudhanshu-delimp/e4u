@@ -39,7 +39,7 @@ use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Admin\FeeDiscountController;
 use App\Http\Controllers\Admin\AgentExcelDataManageController;
-
+use App\Http\Controllers\Admin\SupplierController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -310,12 +310,6 @@ Route::get('agent_operator_fees', [PricingsummariesController::class, 'agent_ope
 Route::get('commision_playbox_fees', [PricingsummariesController::class, 'commision_playbox_fees_datatable'])->name('admin.commision_playbox_fees');
 
 
-
-Route::get('management/manage-suppliers', function () {
-    return view('admin.management.manage-suppliers');
-})->name('admin.manage-suppliers');
-
-
 Route::get('database/manage-email', function () {
     return view('admin.database.manage-email');
 })->name('manage-email');
@@ -374,6 +368,20 @@ Route::get('reports-num-email', [AdminNumsController::class, 'viewReport'])->nam
 Route::get('reports/transaction-summary', function () {
     return view('admin.reports.transaction-summary');
 })->name('admin.transaction-summary');
+
+/** Manage Suppliers */
+Route::get('/management/manage-suppliers', [SupplierController::class, 'supplierList'])->name('admin.manage-suppliers');
+Route::post('/management/add-supplier', [SupplierController::class, 'addSupplier'])->name('admin.add.supplier');
+Route::get('supplier_list_data_table', [SupplierController::class, 'supplierDataList'])->name('admin.supplier_list_data_table');
+Route::get('/get_supplier/{id}', [SupplierController::class, 'getSupplier'])->name('admin.get.supplier');
+Route::get('/edit-supplier/{id}', [SupplierController::class, 'editSupplier'])->name('admin.edit-supplier');
+Route::post('/store-supplier', [SupplierController::class, 'updateSupplier'])->name('admin.store-supplier');
+Route::get('/view-supplier/{id}', [SupplierController::class, 'viewSupplier'])->name('admin.view-supplier');
+Route::post('/print-supplier', [SupplierController::class, 'printSupplierDetails'])->name('admin.print_supplier');
+Route::post('/suspend-supplier', [SupplierController::class, 'suspendSupplier'])->name('admin.suspend-supplier');
+Route::post('/active-supplier-account', [SupplierController::class, 'activateUser'])->name('admin.active-supplier-account');
+Route::post('/approve-supplier-account', [SupplierController::class, 'approveSupplierAccount'])->name('admin.approve_supplier_account');
+
 
 // Route::get('reports/advertiser-suspensions',function(){
 //     return view('admin.reports.advertiser-suspensions');

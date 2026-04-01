@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Account Activate - Operator</title>
+  <title>Confirmation of Registration</title>
 </head>
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
@@ -10,6 +10,7 @@
       <td align="center">
         <!-- Main container -->
         <table width="700" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
+
           <!-- Header with background and logo -->
           <tr>
             <td style="background-color:#0c223d; padding: 20px;">
@@ -19,36 +20,50 @@
                     <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Account Activate - Operator <br>
-                    <span style="font-size: 13px; color: #cccccc;">
-                      Operator ID: {{$operator['member_id'] ?? ''}}</span>
+                    Confirmation of Registration - Supplier <br>
+                    <span style="font-size: 13px; color: #cccccc;">Supplier ID: {{$supplier['member_id']}}</span>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
+
           <!-- Content Padding -->
           <tr>
             <td style="padding: 30px;">
-              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$operator['business_name']}},</p>
-                <p style="font-size: 16px; margin: 20px 0 15px 0;">We are please to advise you that your account which was recently Suspended has now been activated.</p>
-                <!-- Details Table -->
-                <p style="font-size: 15px; margin-top: 20px;">
-                    Regards,<br>
-                    <b>E4U - Operations Centre</b>
-                </p>
+              
+              <!-- Greeting -->
+              <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear {{$supplier['name'] ?? ''}},</b></p>
+
+              <!-- Main Message -->
+              <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">We are please to confirm your Registration has been received. One of our team members
+                will be in touch with you within the next 24 hours to discuss your application for Membership
+                as an Supplier.</p>
+
+              <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">Please don't hesitate to get in touch if you need to. You can reach the E4U Help Desk by
+                forwarding a message from the 'Contact Us' page located in the Website footer.</p>
+
+              <!-- Closing -->
+              <p style="font-size: 15px; margin-top: 20px;">
+                Regards,<br>
+                <b>E4U - Operations Centre</b>
+              </p>
+
             </td>
           </tr>
+
         </table>
+
         <!-- Footer -->
         <table width="700" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
           <tr>
             <td style="line-height: 21px; text-align:center;">
               <em>This is an automatically generated email by the Escorts4U Operations Centre.<br>
-                &copy; Copyright {{date('Y');}} Blackbox Tech Pty Ltd. All rights reserved.</em>
+                &copy; Copyright {{date('Y')}} Blackbox Tech Pty Ltd. All rights reserved.</em>
             </td>
           </tr>
         </table>
+
       </td>
     </tr>
   </table>

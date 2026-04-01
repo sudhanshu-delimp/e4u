@@ -188,6 +188,9 @@ class User extends Authenticatable
             case 'Operator-Staff':
                 $type = 9;
                 break;
+            case 'Supplier':
+                $type = 10;
+                break;    
             default:
                 $type = 0;
                 break;
@@ -233,38 +236,34 @@ class User extends Authenticatable
             case (9):
                 return "Operator-Staff";
                 break;
+            case (10):
+                return "Supplier";
+                break;    
         }
     }
     public function getUserTypeAttribute()
     {
-
         switch ($this->type) {
-
             case (0):
-                return 'V';
+                return 'V';//User/Viewer
                 break;
-
             case (1):
-                return "S";
+                return "S";//Admin
                 break;
-
             case (2):
-                return "SU";
+                return "SU";//Sub-Admin
                 break;
-
             case (3):
-                return "E";
+                return "E";//Escort
                 break;
-
             case (4):
-                return "M";
+                return "M";//Massage-Center
                 break;
-
             case (5):
-                return "A";
+                return "A";//Agent
                 break;
             case (6):
-                return "ST";
+                return "ST"; //Staff
                 break;
             case (7)://operator
                 return "O";
@@ -272,6 +271,9 @@ class User extends Authenticatable
             case (9): // Operator's staff
                 return "OS";
                 break;
+             case (10): // Supplier
+                return "P";
+                break;    
         }
     }
     public function getLevelTypeAttribute()
@@ -313,6 +315,9 @@ class User extends Authenticatable
             case (0):
                 return 4;
                 break;
+            case (9):
+                return 9;
+                break;    
         }
     }
     public function agentBankDetail()
@@ -485,8 +490,9 @@ class User extends Authenticatable
         if ($this->type == 4) {
             return 'M' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
+        //Supplier
         if ($this->type == 10) {
-            return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            return 'P' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
         // Operator
         if ($this->type == 7) {
@@ -765,6 +771,8 @@ class User extends Authenticatable
                 return config('constants.operator_default_icon');
             case 9: //for Operator staff
                 return config('constants.operator_staff_default_icon');
+             case 10: //for Supplier
+                return config('constants.supplier_default_icon');    
             case 0: // For Viewers
                 return config('constants.viewer_default_icon');
             default:
