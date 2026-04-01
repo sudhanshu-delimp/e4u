@@ -43,7 +43,7 @@
                     <div class="col-md-3">
                         <div class="search_by_year">
                             <form>
-                                <input type="search" name="search" placeholder="Seaech by year">
+                                <input type="search" name="search" placeholder="Search by year">
                             </form>
                         </div>
 
