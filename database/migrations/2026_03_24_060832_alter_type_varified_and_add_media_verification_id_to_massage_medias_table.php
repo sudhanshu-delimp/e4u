@@ -19,9 +19,9 @@ class AlterTypeVarifiedAndAddMediaVerificationIdToMassageMediasTable extends Mig
         Schema::table('massage_medias', function (Blueprint $table) {
 
             // Add new varified column
-            $table->enum('varified', ['1', '2'])
+            $table->enum('varified', ['0','1', '2'])
                   ->nullable()
-                  ->comment('1=>verified, 2=>unverified')
+                   ->comment('0=>pending,1=>verified,2=>unverified')
                   ->after('default');
 
             // Add media_verification_id column

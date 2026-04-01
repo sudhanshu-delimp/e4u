@@ -1813,3 +1813,10 @@ if (!function_exists('get_escorts_media_details_by_id')) {
         return EscortMedia::find($media_id);
     }
 }
+
+if (!function_exists('get_centers_media_details_by_id')) {
+    function get_centers_media_details_by_id($media_id)
+    {
+        return MassageMedia::find($media_id);
+    }
+}

@@ -61,12 +61,10 @@ class EscortGalleryController extends AppController
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
         $verification = MediaVerification::where('user_id', auth()->id())->where('status' , '0')->first();
-        $mediaByPosition = $media->keyBy('position');
-
         $imageUrl = $verification && $verification->image_path
             ? asset('escorts/' . $verification->image_path)
             : asset('assets/app/img/upload-media.png');
-        return view('escort.dashboard.archives.archive-view-photos',compact('media','path','imageUrl','mediaByPosition'));
+        return view('escort.dashboard.archives.archive-view-photos',compact('media','path','imageUrl'));
     }
 
     public function videoGalleries()

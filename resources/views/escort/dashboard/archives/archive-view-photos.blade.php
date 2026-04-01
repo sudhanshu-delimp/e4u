@@ -180,7 +180,7 @@
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                             @if(!empty($imageData['id']))
                                                 @if($status == "0")
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                 @elseif($status == "1")
                                                     <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
                                                 @else
@@ -217,11 +217,11 @@
 
                                                 @if(!empty($imageData['id']))
                                                     @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                     @elseif($status == "1")
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
                                                     @else
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
                                             </div>
@@ -246,11 +246,11 @@
 
                                                 @if(!empty($imageData['id']))
                                                     @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                     @elseif($status == "1")
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
                                                     @else
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
                                             </div>
@@ -275,11 +275,11 @@
 
                                                 @if(!empty($imageData['id']))
                                                     @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                     @elseif($status == "1")
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
                                                     @else
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
                                             </div>
@@ -306,11 +306,11 @@
 
                                                 @if(!empty($imageData['id']))
                                                     @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                     @elseif($status == "1")
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
                                                     @else
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
                                             </div>
@@ -335,11 +335,11 @@
 
                                                 @if(!empty($imageData['id']))
                                                     @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                     @elseif($status == "1")
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
                                                     @else
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
                                             </div>
@@ -364,11 +364,11 @@
 
                                                 @if(!empty($imageData['id']))
                                                     @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                     @elseif($status == "1")
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
                                                     @else
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
                                             </div>
@@ -396,7 +396,7 @@
                                             <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                             @if(!empty($imageData['id']))   
                                                 @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                     @elseif($status == "1")
                                                         <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
                                                     @else
@@ -425,7 +425,7 @@
                                             <div class="lg_verify_icon" id="verify_icon_10" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                             @if(!empty($imageData['id'])) 
                                                 @if($status == "0")
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                 @elseif($status == "1")
                                                     <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
                                                 @else
@@ -543,7 +543,7 @@
                                         @switch($image->varified)
                                             @case(0) {{-- Pending --}}
                                                 <div class="verify_icon">
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
                                                     <span class="mc_media_tooltip">Media Pending</span>
                                                 </div>
                                                 @break
@@ -945,11 +945,12 @@
                 let resp = data.media_data;
                 let status = resp.media_data.varified;
                 let iconPath = '';
+                let iconText = '';
                 
                 if (position == 1 || position == 9 || position == 10) {
 
                     if (status == "0") {
-                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.svg';
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
                     } else if (status == "1") {
                         iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
                     } else {
@@ -959,15 +960,18 @@
                 } else {
                     if (status == "0") {
                         iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                        iconText =  '<span class="mc_media_tooltip">Media Pending</span>';
                     } else if (status == "1") {
                         iconPath = '/assets/app/img/verify/verified_icon.png';
+                        iconText =  '<span class="mc_media_tooltip">Media Verified</span>';
                     } else {
                         iconPath = '/assets/app/img/verify/unverified_icon.png';
+                        iconText =  '<span class="mc_media_tooltip">Media Unverified</span>';
                     }
                 }
 
                 let iconBox = $('#verify_icon_' + position);
-                iconBox.html(`<img src="${iconPath}">`);
+                iconBox.html(`<img src="${iconPath}">${iconText}`);
                 iconBox.show('');
 
                } else {

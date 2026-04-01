@@ -87,7 +87,7 @@
                                 @switch($image->varified)
                                     @case(0) {{-- Pending --}}
                                         <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
                                             <span class="mc_media_tooltip">Media Pending</span>
                                         </div>
                                         @break
