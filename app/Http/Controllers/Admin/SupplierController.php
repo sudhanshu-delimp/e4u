@@ -274,6 +274,39 @@ class SupplierController extends BaseController
         }
         return [$suppliers, $total_suppliers];
     }
+
+    /**
+     *  Approve the supplier
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function approveSupplierAccount(Request $request)
+    {
+
+        $data = $request->all();
+        $resposne = $this->supplierRepo->change_user_status($data);
+        if ($resposne['status'])
+            return $this->successResponse($resposne['message']);
+        else
+            return $this->validationError($resposne['message']);
+    }
+
+    /**
+     *  Acivate the supplier
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function activateUser(Request $request)
+    {
+
+        $data = $request->all();
+        $resposne = $this->supplierRepo->activate_user($data);
+        if ($resposne['status'])
+            return $this->successResponse($resposne['message']);
+        else
+            return $this->validationError($resposne['message']);
+    }
+
     /**
      *  Suspent the access of supplier dashboard
      * 

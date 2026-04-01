@@ -231,6 +231,7 @@
     </script>
 
     <script>
+         $(document).ready(function() {
         var table = $("#ManageSupplierTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -429,5 +430,101 @@
                     }
                 });
             });
+
+            /*** Suspend supplier */
+            $(document).on('click', '.account-suspend-btn', async function(e) {
+                if (await isConfirm({
+                        'action': 'Suspend',
+                        'text': 'Are you sure you want to suspend this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Suspending Account'
+                    });
+                    ajaxRequest({
+                        url: "{{ route('admin.suspend-supplier') }}",
+                        method: 'POST',
+                        data: {
+                            id: $(this).data('id'),
+                            request_type: 'suspend'
+                        },
+                        success: function(response) {
+                            console.log(response)
+                            if (response.status) {
+                                swal_success_popup(response.message);
+                                table.ajax.reload(null, false);
+                            } else {
+                                swal_error_popup(response.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            swal_error_popup('Error occured whiile making request');
+                        }
+                    });
+                }
+            });
+
+            /* Approve supplier */
+            $(document).on('click', '.approve_account', async function(e) {
+                if (await isConfirm({
+                        'action': 'Approve',
+                        'text': 'Are you sure you want to approve this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Approving Account'
+                    });
+                    $.ajax({
+                        url: "{{ route('admin.approve_supplier_account') }}",
+                        method: 'POST',
+                        data: {
+                            'user_id': $(this).attr('data-id'),
+                            'status': '1'
+                        },
+                        success: function(response) {
+                            table.ajax.reload(null, false);
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_success_popup(response.message);
+                        },
+                        error: function(xhr) {
+
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_error_popup(xhr.responseJSON.message);
+                        }
+                    });
+                }
+            });
+
+            /*** Activate supplier Account */
+            $(document).on('click', '.active-account-btn', async function(e) {
+                if (await isConfirm({
+                        'action': 'Activate',
+                        'text': 'Are you sure you want to activate this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Activating Account'
+                    });
+                    $.ajax({
+                        url: "{{ route('admin.active-supplier-account') }}",
+                        method: 'POST',
+                        data: {
+                            'user_id': $(this).attr('data-id'),
+                            'status': '1'
+                        },
+                        success: function(response) {
+                            table.ajax.reload(null, false);
+                            Swal.close();
+                            swal_success_popup(response.message);
+                        },
+                        error: function(xhr) {
+                            Swal.close();
+                            swal_error_popup(xhr.responseJSON.message);
+                        }
+                    });
+                }
+            })
+      });       
     </script>
 @endpush

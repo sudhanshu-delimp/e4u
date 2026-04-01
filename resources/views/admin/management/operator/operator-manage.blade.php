@@ -566,7 +566,7 @@
                         }
                     });
                 }
-            })
+            });
 
             /* Approve operator */
             $(document).on('click', '.approve_account', async function(e) {

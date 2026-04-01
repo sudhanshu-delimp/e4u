@@ -76,7 +76,7 @@ class SupplierRepository extends BaseRepository implements SupplierInterface
             try {
                 $contactType = isset($data['contact_type']) ? $data['contact_type'] : "";
                 $supplierData  =  [
-                    //'name' => $data['company_name'] ?? null,
+                    'name' => $data['business_name'] ?? null,
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
                     'state_id' => $data['location'] ?? null,

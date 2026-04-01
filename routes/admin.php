@@ -375,8 +375,8 @@ Route::post('/store-supplier', [SupplierController::class, 'updateSupplier'])->n
 Route::get('/view-supplier/{id}', [SupplierController::class, 'viewSupplier'])->name('admin.view-supplier');
 Route::post('/print-supplier', [SupplierController::class, 'printSupplierDetails'])->name('admin.print_supplier');
 Route::post('/suspend-supplier', [SupplierController::class, 'suspendSupplier'])->name('admin.suspend-supplier');
-Route::post('/active-supplier-account', [SupplierController::class, 'activate_user'])->name('admin.active-supplier-account');
-Route::post('/approve-supplier-account', [SupplierController::class, 'approve_supplier_account'])->name('admin.approve_supplier_account');
+Route::post('/active-supplier-account', [SupplierController::class, 'activateUser'])->name('admin.active-supplier-account');
+Route::post('/approve-supplier-account', [SupplierController::class, 'approveSupplierAccount'])->name('admin.approve_supplier_account');
 
 
 // Route::get('reports/advertiser-suspensions',function(){

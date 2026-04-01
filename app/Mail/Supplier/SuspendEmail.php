@@ -23,7 +23,7 @@ class SuspendEmail extends Mailable
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
                 ->subject('Supplier Suspension Notification') 
-                ->markdown('emails.operator.suspend_email')
+                ->markdown('emails.supplier.suspend_email')
                 ->with('supplier', $this->body);
     }
 }
