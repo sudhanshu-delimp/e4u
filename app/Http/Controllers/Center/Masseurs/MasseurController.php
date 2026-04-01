@@ -960,7 +960,7 @@ class MasseurController extends AppController
 
     public function  get_masseur_option_list(Request $request)
     {
-            $masseur  = MassagerMasseur::with('masseur')->where(['massage_profile_id'=>$request->massage_profile_id])->get();
+            $masseur  = MassagerMasseur::with('masseur')->where(['massage_profile_id'=>$request->massage_profile_id,'status'=>'1'])->get();
             $masseurs = $masseur->pluck('masseur')->filter();
             $countries = getCountryList();
 
