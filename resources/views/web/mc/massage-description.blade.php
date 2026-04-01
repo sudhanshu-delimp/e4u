@@ -150,7 +150,7 @@
             background-repeat: no-repeat;">
 
         <div class="container-fluid back_to_search_btn pt-2">
-            <a href="#" class="back--search">
+            <a href="../massage-centres-list" class="back--search">
                 Back to Search
                 <span class="previous_icon">
                     <i class="fa fa-chevron-up text-white" aria-hidden="true"></i>
@@ -220,11 +220,11 @@
 
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
+            <div class="previous_btn_profile next_previous_btn_pogision preview-dk">
                 <a  href="{{ $prevId ? route('web.massage-description', [
                                     'id' => $prevId,
                                     'ids' => json_encode($ids)
-                                ]) : 'javascript:void(0)' }}" class="text-decoration-none d-flex">
+                                ]) : 'massage-centres-list' }}" class="text-decoration-none d-flex">
                     <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
