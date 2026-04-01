@@ -41,7 +41,7 @@ $twitter_link = "https://x.com/NMugs32853";
          <span class="verify_icon">
              {{-- <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt=""> --}}
              {{-- <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}" alt=""> --}}
-              <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" alt="pending">
+              <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}" alt="pending">
               <span class="common_shield_tooltip">Media Pending</span>
          </span>
          <div class="mc_list_legbox">

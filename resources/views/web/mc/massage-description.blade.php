@@ -630,7 +630,7 @@
                                                             @endforeach
 
                                                     <div class="veryfy_img">
-                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                     </div>
                                                 </div>
 
@@ -641,7 +641,7 @@
                                                             <div class="extra_img_wrapper">
                                                                 <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
                                                                 <div class="veryfy_img">
-                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
                                                                 </div>
                                                             </div>
                                                             @endif
@@ -1190,7 +1190,7 @@
                             <div id="carouselExampleInterval" class="carousel slide mc_view_media" data-ride="carousel"
                                 data-interval="false">
                                 <div class="verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
                                         <span class="common_shield_tooltip">Media Pending</span>
                                     </div>
                                 <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
@@ -1949,7 +1949,7 @@
                                     <div class="gallery__item gallery__item--lg">
                                         <img src="{{  $image }}" alt="main">
                                          <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
                                         </div>
                                     </div>
                                     @endif    
@@ -1964,7 +1964,7 @@
                                             <div class="gallery__item">
                                                 <img src="{{ $image }}" alt="gallery image">
                                                  <div class="verify_icon_sm">
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg')}}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
                                                 </div>
                                             </div>
 
