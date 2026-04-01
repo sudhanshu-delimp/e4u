@@ -108,7 +108,7 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                                
+
                                             </table>
                                         </div>
                                     </div>
@@ -117,12 +117,12 @@
                         </div>
                     </div>
                     <!-- <div class="col-sm-12 col-md-12 col-lg-12">
-                       <div class="timer_section">
-                          <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
-                          <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                          <p>Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></p>
-                       </div>
-                    </div> -->
+                                           <div class="timer_section">
+                                              <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
+                                              <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
+                                              <p>Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></p>
+                                           </div>
+                                        </div> -->
                 </div>
             </div>
             <!--middle content end here-->
@@ -192,7 +192,7 @@
     {{-- view merchant modal popup --}}
 
     <!-- View Merchant popupform -->
-    <div class="modal fade upload-modal" id="viewSupplierdata" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="viewSupplierPopUpModel" tabindex="-1" role="dialog"
         aria-labelledby="view_merchant_dataLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -213,7 +213,8 @@
                 </div>
                 <!-- Body -->
                 <div class="modal-body pb-0">
-                    @include('admin.management.supplier.view_supplier', ['supplier' => []])
+                     <div class="modal-content" id="modalViewSupplierContent"></div>
+                    {{-- @include('admin.management.supplier.view_supplier', ['supplier' => []]) --}}
                 </div>
 
             </div>
@@ -231,129 +232,200 @@
 
     <script>
         var table = $("#ManageSupplierTable").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Operator ID",
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Merchant ID",
+            },
+
+            processing: true,
+            serverSide: true,
+            lengthChange: true,
+            searchable: false,
+            bStateSave: false,
+
+            ajax: {
+                url: "{{ route('admin.supplier_list_data_table') }}",
+                data: function(d) {
+                    d.type = 'player';
+                }
+            },
+
+
+            columns: [{
+                    data: 'member_id',
+                    name: 'member_id',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'business_name',
+                    name: 'business_name',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'location',
+                    name: 'location',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'phone',
+                    name: 'phone',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'email',
+                    name: 'email',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
                 },
 
-                processing: true,
-                serverSide: true,
-                lengthChange: true,
-                searchable: false,
-                bStateSave: false,
 
-                ajax: {
-                    url: "{{ route('admin.supplier_list_data_table') }}",
-                    data: function(d) {
-                        d.type = 'player';
+                {
+                    data: 'status_name',
+                    name: 'status_name',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'action',
+                    name: 'edit',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA',
+                    class: 'text-center'
+                },
+
+
+            ],
+            order: [
+                [1, 'desc']
+            ],
+            lengthMenu: [
+                [10, 25, 50, 100],
+                [10, 25, 50, 100]
+            ],
+            pageLength: 10,
+        });
+
+        /*** Edit the supplier */
+        $(document).on('click', '#getSupplier', function() {
+            let id = $(this).data('id');
+            $.ajax({
+                url: BASE_URL + "/admin-dashboard/get_supplier/" + id,
+                type: 'GET',
+                success: function(response) {
+                    if ($.trim(response) === "") {
+                        swal_error_popup("Supplier data not found.");
+                    } else {
+                        let supplier = response.data; // assuming {data: {...}}
+
+                        // ===== MAIN USER DATA =====
+                        $('#user_id_edit').val(supplier.id);
+                        $('#merchant_id_edit').val(supplier.member_id);
+                        $('#business_name_edit').val(supplier.business_name);
+                        $('#abn_edit').val(supplier.abn);
+                        $('#business_address_edit').val(supplier.business_address);
+                        $('#business_number_edit').val(supplier.business_number);
+                        $('#phone_edit').val(supplier.phone);
+                        $('#email_edit').val(supplier.email);
+
+                        // ===== LOCATION (state_id) =====
+                        $('#location_edit').val(supplier.state_id).trigger('change');
+
+                        // ===== SUPPLIER DETAIL =====
+                        let detail = supplier.supplier_detail || {};
+
+                        $('#date_appointed_edit').val(detail.date_appointed);
+                        $('#point_of_contact_edit').val(detail.point_of_contact);
+                        $('#concierge_service_edit').val(detail.concierge_service).trigger('change');
+                        $('#agreement_date_edit').val(detail.agreement_date);
+                        $('#term_edit').val(detail.term);
+
+                        // ===== BANK DETAIL =====
+                        let bank = supplier.supplier_bank_detail || {};
+
+                        $('#bank_name_edit').val(bank.bank_name);
+                        $('#account_name_edit').val(bank.account_name);
+                        $('#bsb_edit').val(bank.bsb);
+                        $('#account_number_edit').val(bank.account_number);
+
+                        $('#editSupplierModel').modal('show');
                     }
                 },
-
-
-                columns: [{
-                        data: 'member_id',
-                        name: 'member_id',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'business_name',
-                        name: 'business_name',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'location',
-                        name: 'location',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'phone',
-                        name: 'phone',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    
-
-                    {
-                        data: 'status_name',
-                        name: 'status_name',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'action',
-                        name: 'edit',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA',
-                        class: 'text-center'
-                    },
-
-
-                ],
-                order: [
-                    [1, 'desc']
-                ],
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10,
+                error: function() {
+                    alert("Error loading form");
+                }
             });
-                    $(document).on('submit', 'form[name="add_supplier"]', function(e) {
-                e.preventDefault();
-                let form = $(this);
-                let formData = new FormData(this);
-                $('span.text-danger').text('');
+        });
+        $(document).on('submit', 'form[name="add_supplier"]', function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let formData = new FormData(this);
+            $('span.text-danger').text('');
 
-                swal_waiting_popup({
-                    'title': 'Saving Supplier Details'
-                });
-                //  return false
+            swal_waiting_popup({
+                'title': 'Saving Supplier Details'
+            });
+            //  return false
 
-                $.ajax({
-                    url: "{{ route('admin.add.supplier') }}",
-                    method: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        table.ajax.reload(null, false);
-                        Swal.close();
+            $.ajax({
+                url: "{{ route('admin.add.supplier') }}",
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    table.ajax.reload(null, false);
+                    Swal.close();
+                    $('span.text-danger').text('');
+                    $('#addNewSupplier').modal('hide');
+                    $('#editSupplierModel').modal('hide');
+                    $('#add_supplier')[0].reset();
+                    swal_success_popup(response.message);
+                },
+                error: function(xhr) {
+
+                    Swal.close();
+                    console.log(xhr);
+                    if (xhr.status === 422) {
                         $('span.text-danger').text('');
-                        $('#addNewSupplier').modal('hide');
-                        $('#editSupplierModel').modal('hide');
-                        $('#add_supplier')[0].reset();
-                        swal_success_popup(response.message);
-                    },
-                    error: function(xhr) {
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(field, messages) {
+                            $('.error-' + field).text(messages[0]);
+                        });
+                    } else {
+                        swal_error_popup(xhr.responseJSON.message ||
+                            'Something went wrong');
+                    }
+                }
+            });
+        });
 
-                        Swal.close();
-                        console.log(xhr);
-                        if (xhr.status === 422) {
-                            $('span.text-danger').text('');
-                            let errors = xhr.responseJSON.errors;
-                            $.each(errors, function(field, messages) {
-                                $('.error-' + field).text(messages[0]);
-                            });
+        /*** View the Supplier */
+            $(document).on('click', '#viewSupplierBtn', function() {
+                let id = $(this).data('id');
+                $.ajax({
+                    url: BASE_URL + "/admin-dashboard/view-supplier/" + id,
+                    type: 'GET',
+                    success: function(response) {
+                        if ($.trim(response) === "") {
+                            swal_error_popup("Supplier data not found");
                         } else {
-                            swal_error_popup(xhr.responseJSON.message ||
-                                'Something went wrong');
+                            $('#modalViewSupplierContent').html(response);
+                            $('#viewSupplierPopUpModel').modal('show');
                         }
+                    },
+                    error: function() {
+                        alert("Error loading form");
                     }
                 });
             });

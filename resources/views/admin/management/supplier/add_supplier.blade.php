@@ -90,8 +90,8 @@
          </div>
          <div class="col-6 mb-3">
              <label for="bank">Bank</label>
-             <input type="text" class="form-control rounded-0" name="bank" id="bank">
-             <span class="text-danger error-bank"></span>
+             <input type="text" class="form-control rounded-0" name="bank_name" id="bank_name">
+             <span class="text-danger error-bank_name"></span>
          </div>
          <div class="col-6 mb-3">
              <label for="account_name">Account Name</label>

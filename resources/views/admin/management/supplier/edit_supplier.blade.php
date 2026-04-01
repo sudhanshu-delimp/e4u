@@ -1,115 +1,141 @@
-<form>
+<form name="add_supplier" id="add_supplier" method="POST" action="{{ route('admin.add.supplier') }}"
+    enctype="multipart/form-data">
+    @csrf
+
     <div class="row">
         <!-- Section: Personal Details -->
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
         </div>
+
         <div class="col-6 mb-3">
+            <input type="hidden" name="user_id" id="user_id_edit">
             <label for="merchant_id">Merchant ID</label>
-            <input type="text" class="form-control rounded-0" name="merchant_id" id="merchant_id" readonly>
+            <input type="text" class="form-control rounded-0" name="merchant_id" id="merchant_id_edit" readonly>
             <span class="text-danger error-merchant_id"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="date_appointed">Date Appointed</label>
-            <input type="text" class="form-control rounded-0" name="date_appointed" id="date_appointed" readonly>
+            <input type="text" class="form-control rounded-0 js_datepicker" name="date_appointed" id="date_appointed_edit" />
             <span class="text-danger error-date_appointed"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="business_name">Business Name</label>
-            <input type="text" class="form-control rounded-0" name="business_name" id="business_name" required>
+            <input type="text" class="form-control rounded-0" name="business_name" id="business_name_edit"/>
             <span class="text-danger error-business_name"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="abn">ABN</label>
-            <input type="text" class="form-control rounded-0" name="abn" id="abn" required>
+            <input type="text" class="form-control rounded-0" name="abn" id="abn_edit" />
             <span class="text-danger error-abn"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="business_address">Business Address</label>
-            <input type="text" class="form-control rounded-0" name="business_address" id="business_address" required>
+            <input type="text" class="form-control rounded-0" name="business_address" id="business_address_edit" />
             <span class="text-danger error-business_address"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="business_number">Business Number</label>
-            <input type="text" class="form-control rounded-0" name="business_number" id="business_number" required>
+            <input type="text" class="form-control rounded-0" name="business_number" id="business_number_edit" />
             <span class="text-danger error-business_number"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="point_of_contact">Point of Contact</label>
-            <input type="text" class="form-control rounded-0" name="point_of_contact" id="point_of_contact" required>
+            <input type="text" class="form-control rounded-0" name="point_of_contact" id="point_of_contact_edit" />
             <span class="text-danger error-point_of_contact"></span>
         </div>
+
         <div class="col-6 mb-3">
-            <label for="mobile">Mobile</label>
-            <input type="text" class="form-control rounded-0" name="mobile" id="mobile" required>
-            <span class="text-danger error-mobile"></span>
+            <label for="phone">Mobile</label>
+            <input type="text" class="form-control rounded-0" name="phone" id="phone_edit" />
+            <span class="text-danger error-phone"></span>
         </div>
+
         <div class="col-6 mb-3">
-            <label for="private_email">Private Email</label>
-            <input type="email" class="form-control rounded-0" name="private_email" id="private_email" required>
-            <span class="text-danger error-private_email"></span>
+            <label for="email">Private Email</label>
+            <input type="email" class="form-control rounded-0" name="email" id="email_edit">
+            <span class="text-danger error-email"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="location">Location</label>
-            <select class="form-control rounded-0" name="location" id="location" required>
+            <select class="form-control rounded-0" name="location" id="location_edit">
                 <option value="">Select Location</option>
-                <option value="north">North</option>
-                <option value="south">South</option>
-                <option value="east">East</option>
-                <option value="west">West</option>
+                @foreach (config('escorts.profile.states') as $skey => $state)
+                    <option value="{{ $skey }}">
+                        {{ $state['stateName'] }}
+                    </option>
+                @endforeach
             </select>
             <span class="text-danger error-location"></span>
         </div>
+
         <div class="col-12 mb-3">
             <label for="concierge_service">Concierge Service</label>
-            <select class="form-control rounded-0" name="concierge_service" id="concierge_service" required>
+            <select class="form-control rounded-0" name="concierge_service" id="concierge_service_edit">
                 <option value="">Select Service</option>
-                <option value="email">Email</option>
-                <option value="product">Product</option>
-                <option value="sim">SIM</option>
+               <option value="">Select Service</option>
+                 <option value="email">Email</option>
+                 <option value="product">Product</option>
+                 <option value="sim">SIM</option>
             </select>
             <span class="text-danger error-concierge_service"></span>
         </div>
+
         <!-- Section: Agreement Details -->
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
         </div>
+
         <div class="col-6 mb-3">
             <label for="agreement_date">Agreement Date</label>
-            <input type="date" class="form-control rounded-0" name="agreement_date" id="agreement_date" required>
+            <input type="text" class="form-control rounded-0 js_datepicker" name="agreement_date" id="agreement_date_edit">
             <span class="text-danger error-agreement_date"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="term">Term</label>
-            <input type="text" class="form-control rounded-0" name="term" id="term" required>
+            <input type="text" class="form-control rounded-0" name="term" id="term_edit">
             <span class="text-danger error-term"></span>
         </div>
+
         <!-- Section: Bank Account -->
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Bank Account</h6>
         </div>
+
         <div class="col-6 mb-3">
             <label for="bank">Bank</label>
-            <input type="text" class="form-control rounded-0" name="bank" id="bank" required>
-            <span class="text-danger error-bank"></span>
+            <input type="text" class="form-control rounded-0" name="bank_name" id="bank_name_edit">
+            <span class="text-danger error-bank_name"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="account_name">Account Name</label>
-            <input type="text" class="form-control rounded-0" name="account_name" id="account_name" required>
+            <input type="text" class="form-control rounded-0" name="account_name" id="account_name_edit">
             <span class="text-danger error-account_name"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="bsb">BSB</label>
-            <input type="text" class="form-control rounded-0" name="bsb" id="bsb" required>
+            <input type="text" class="form-control rounded-0" name="bsb" id="bsb_edit">
             <span class="text-danger error-bsb"></span>
         </div>
+
         <div class="col-6 mb-3">
             <label for="account_number">Account Number</label>
-            <input type="text" class="form-control rounded-0" name="account_number" id="account_number" required>
+            <input type="text" class="form-control rounded-0" name="account_number" id="account_number_edit">
             <span class="text-danger error-account_number"></span>
         </div>
     </div>
+
     <div class="modal-footer px-0">
-        <button type="submit" class="btn-success-modal">Update</button>
+        <button type="submit" class="btn-success-modal">Save</button>
     </div>
 </form>

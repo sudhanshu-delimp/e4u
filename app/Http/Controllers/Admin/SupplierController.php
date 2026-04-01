@@ -8,7 +8,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Supplier\AddNewSupplier;
 use App\Models\Supplier;
 use App\Repositories\Supplier\SupplierInterface;
-//use PDF;
+use PDF;
 class SupplierController extends BaseController
 {
     protected $current_date_time;
@@ -62,6 +62,26 @@ class SupplierController extends BaseController
     }
 
     /**
+     * Get supplier data by Id
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function getSupplier($id)
+    {
+        $supplier = Supplier::with('supplier_detail', 'supplier_setting', 'supplier_bank_detail', 'state')->where("id", $id)->first();
+        if ($supplier && $supplier->supplier_detail) {
+            $supplier->supplier_detail->date_appointed =
+                showDateWithFormat($supplier->supplier_detail->date_appointed, 'd-m-Y');
+
+            $supplier->supplier_detail->agreement_date =
+                showDateWithFormat($supplier->supplier_detail->agreement_date, 'd-m-Y');
+        }
+        return response()->json([
+            'data' => $supplier
+        ]);
+    }
+
+    /**
      * Edit supplier
      * 
      * @param integer $id
@@ -70,7 +90,7 @@ class SupplierController extends BaseController
     {
         $supplier = Supplier::with('supplier_detail', 'supplier_setting')->where("id", $id)->first();
         if ($supplier) {
-            
+
             return view('admin.management.Supplier.edit', compact('supplier'));
         } else {
             return "";
@@ -98,9 +118,9 @@ class SupplierController extends BaseController
      */
     public function viewSupplier($id)
     {
-        $Supplier = Supplier::with('supplier_detail')->where("id", $id)->first();
-        if ($Supplier) {
-            return view('admin.management.supplier.view', compact('supplier'));
+        $supplier = Supplier::with('supplier_detail', 'supplier_setting', 'supplier_bank_detail', 'state')->where("id", $id)->first();
+        if ($supplier) {
+            return view('admin.management.supplier.view_supplier', compact('supplier'));
         } else {
             return "";
         }
@@ -110,7 +130,7 @@ class SupplierController extends BaseController
      */
     public function supplierList()
     {
-       return view('admin.management.supplier.manage-suppliers');
+        return view('admin.management.supplier.manage-suppliers');
     }
 
     /**
@@ -177,37 +197,37 @@ class SupplierController extends BaseController
                 break;
         }
 
-       $total_suppliers = $supplier->count();
+        $total_suppliers = $supplier->count();
         $suppliers = $supplier->offset($start)->limit($limit)->get();
         $i = 1;
         foreach ($suppliers as $key => $item) {
-           
+
             $item->supplier_id = $item->id;
             $item->member_id = isset($item->member_id) ? $item->member_id : 'NA';
             $item->location = isset($item->state->name) ? $item->state->name : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
             $item->totalAgents = 0;
             $item->business_name = isset($item->business_name) ? $item->business_name : 'NA';
-        
+
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
             $edit = "";
 
-            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center viewSupplierdata" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-eye"></i> View Account</a>';
+            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="viewSupplierBtn" > <i class="fa fa-eye"></i> View Account</a>';
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
 
             if ($this->editAccessEnabled) {
                 if (auth()->user()->member_id != $item->member_id) {
-                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center editSupplierModel" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="getSupplier"> <i class="fa fa-pen"></i> Edit </a>';
                 }
             }
 
             if ($item->status == 'Pending') {
                 $dropdownsub .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center approve_account" href="javascript:void(0)" data-id=' . $item->id . '> <i class="fa fa-check"></i>Approve</a><div class="dropdown-divider"></div>';
-    
+
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
                 } else {
@@ -247,7 +267,7 @@ class SupplierController extends BaseController
             }
 
             $dropdown .= '</div></div>';
-            $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
+            $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($item->status) . '">' . $item->status . ' </span>';
 
             $item->action = $dropdown;
             $i++;
@@ -279,5 +299,21 @@ class SupplierController extends BaseController
         }
     }
 
-
+    public function printSupplierDetails(Request $request)
+    {
+        if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+            return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+        }
+        $userId  = $request->user_id;
+       $supplier = Supplier::with('supplier_detail', 'supplier_setting', 'supplier_bank_detail', 'state')->where("id", $userId)->first();
+        if ($supplier) {
+            $pdf = PDF::loadView(
+                'admin.management.supplier.print_supplier_pdf',
+                ['supplier' => $supplier]
+            )->setOption(['isRemoteEnabled' => true]);
+            return $pdf->stream('supplier_report.pdf');
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Supplier ID is required.'], 400);
+        }
+    }
 }

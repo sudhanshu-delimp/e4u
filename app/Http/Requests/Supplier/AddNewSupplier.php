@@ -4,7 +4,7 @@ namespace App\Http\Requests\Supplier;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+//use Illuminate\Validation\Rule;
 
 class AddNewSupplier extends FormRequest
 {
@@ -48,7 +48,7 @@ class AddNewSupplier extends FormRequest
             'date_appointed' => 'nullable|date|date_format:d-m-Y',
             'term' => 'required|string|max:255',
             //'fee' => 'required',
-            'bank' => 'bail|required|string|max:50',
+            'bank_name' => 'bail|required|string|max:50',
             'account_name' => 'bail|required|string|max:50',
             'bsb' => 'bail|required|string|max:20',
             'account_number' => 'bail|required|string|max:20',

@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Models;
 
 use App\Models\SupplierDetail;
 use App\Models\SupplierBankDetail;
 use App\Models\SupplierSetting;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,15 +22,15 @@ class Supplier extends Model
 
     public function supplier_detail()
     {
-        return $this->hasOne(SupplierDetail::class, 'user_id' ,'id');
+        return $this->hasOne(SupplierDetail::class, 'user_id', 'id');
     }
     public function supplier_setting()
     {
-        return $this->hasOne(SupplierSetting::class, 'user_id' ,'id');
+        return $this->hasOne(SupplierSetting::class, 'user_id', 'id');
     }
     public function supplier_bank_detail()
     {
-        return $this->hasOne(SupplierBankDetail::class, 'user_id' ,'id');
+        return $this->hasOne(SupplierBankDetail::class, 'user_id', 'id');
     }
 
     public function setting()
@@ -52,29 +52,19 @@ class Supplier extends Model
         return $this->belongsTo('App\Models\Country', 'country_id');
     }
 
-    /**
-     * Indicates if the model should have created_by and updated_by fields.
-     *
-     * @var bool
-     */
-    public $createdUpdatedBy = true;
 
-    /**
-     * Get the created by that owns the details.
-     */
-    public function createdBy()
+
+    public function createddBy()
     {
-        return $this->belongsTo('App\Models\User', 'created_by');
+        return $this->belongsTo(User::class, 'created_by')
+            ->select('id', 'member_id', 'name', 'business_name');
     }
 
-    /**
-     * Get the updated by that owns the details.
-     */
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User', 'updated_by');
+        return $this->belongsTo(User::class, 'updated_by')
+            ->select('id', 'member_id', 'name', 'business_name');
     }
-
     public function getStatusAttribute($value)
     {
         $map = [
@@ -109,7 +99,7 @@ class Supplier extends Model
 
     public function generateMemberId()
     {
-       //Supplier
+        //Supplier
         if ($this->type == 10) {
             return 'P' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
@@ -126,12 +116,27 @@ class Supplier extends Model
             if (empty($user->member_id)) {
                 if ($user->generateMemberId()) {
                     $user->member_id = $user->generateMemberId();
-                    //$user->created_by = Auth::id();
+                    $user->created_by = Auth::id();
+
                     $user->save();
                 }
             }
         });
         return null;
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            if (auth()->check()) {
+                $model->updated_by = Auth::id();
+            }
+        });
     }
 
 
@@ -199,5 +204,4 @@ class Supplier extends Model
         $suppliers = $this->getList($status, ['id', 'business_name', 'name'])->pluck('name', 'id');
         return $suppliers;
     }
-
 }
