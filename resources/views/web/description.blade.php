@@ -1025,7 +1025,7 @@
                                                                 <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
                                                                 <div class="verify_icon">
                                                                     <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                                   
+                                                                   <span class="common_shield_tooltip">Media Pending</span>
                                                                 </div>
                                                             </div>
                                                             <div class="small-images">
@@ -1035,7 +1035,7 @@
                                                                     <img src="{{ asset($media->path) }}" alt="">
                                                                     <div class="verify_icon_sm">
                                                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
-                                                                         <span class="mc_media_tooltip">Media Unverified</span>
+                                                                         <h6 class="gallery_shield_tooltip">Media Pending</h6>
                                                                     </div>
                                                                 </div>
 
