@@ -133,7 +133,13 @@ $twitter_link = "https://x.com/NMugs32853";
                 
                      {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
 
-                     <a href="{{ route('web.massage-description',$listing->id) }}" class="read-more-link">Read More</a>
+                     <a 
+                     href="{{ route('web.massage-description', [
+                            'id' => $listing->id,
+                            'ids' => json_encode($ids)
+                        ]) }}"
+                     
+                     class="read-more-link">Read More</a>
                  </p>
 
 

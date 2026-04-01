@@ -1,5 +1,8 @@
 @if(count($listings)>0) 
  
+@php
+    $ids = $listings->pluck('id')->toArray();
+@endphp
  
  @foreach($listings as $listing)
 
@@ -31,7 +34,15 @@ $social_links = $listing->social_links;
      <!-- Left Image -->
 
      <div class="mc_list_img">
-         <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
+
+
+         <a  href="{{ route('web.massage-description', [
+                'id' => $listing->id,
+                'ids' => json_encode($ids)
+            ]) }}"
+            
+         class="mc_card_link">
+
              <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">
@@ -115,7 +126,13 @@ $social_links = $listing->social_links;
                 
                      {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
 
-                     <a href="{{ route('web.massage-description',$listing->id) }}" class="read-more-link">Read More</a>
+                     <a 
+                        href="{{ route('web.massage-description', [
+                            'id' => $listing->id,
+                            'ids' => json_encode($ids)
+                        ]) }}"
+                     
+                     class="read-more-link">Read More</a>
                  </p>
 
 
