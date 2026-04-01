@@ -229,7 +229,7 @@
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
-            <div class="next_btn_profile next_previous_btn_pogision next-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
+            <div class="next_btn_profile next_previous_btn_pogision next-dk {{ $nextId ? '' : 'previousDisableButtonCss' }}">
                                 <a href="{{ $nextId ? route('web.massage-description', [
                                     'id' => $nextId,
                                     'ids' => json_encode($ids)
