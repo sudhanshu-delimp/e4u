@@ -204,6 +204,10 @@ $contactMsg = session('success');
                         Policy</a> for
                         information regarding legal process.
                      </li>
+
+                     <li>Any personal information submitted to this Website will be handled in accordance with
+E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Policy </a> and <a href="{{'privacy-collection-notice'}}" target="_blank">Privacy Collection Notice</a>, both available on the Website.
+                     </li>
                   </ul>
                   <p>For anything else, contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>, or by any of
                      the alternative means below. Whichever

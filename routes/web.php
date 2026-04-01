@@ -390,6 +390,7 @@ Route::get('/covid-19-statement', function() {  return view('web.pages.covid-19-
 Route::get('/disclaimer-statement', function() { return view('web.pages.disclaimer-statement'); });
 Route::get('/law-enforcement', function() { return view('web.pages.law-enforcement'); });
 Route::get('/privacy-policy', function() { return view('web.pages.privacy-policy'); });
+Route::get('/privacy-collection-notice', function() { return view('web.pages.privacy-collection-notice'); });
 Route::get('/refund-policy', function() { return view('web.pages.refund-policy'); });
 Route::get('/spam-policy', function() { return view('web.pages.spam-policy'); });
 Route::get('/terms-conditions', function() { return view('web.pages.terms-conditions'); })->name('pages.terms-conditions');
