@@ -42,7 +42,7 @@
                                                     </div>
 
                                                     <div class="d-flex align-items-start">
-                                                        <input type="radio" name="locationByRadio" value="australia" checked="checked
+                                                        <input type="radio" name="locationByRadio" value="australia" checked="checked"
                                                             id="australia">
                                                         <label for="australia"
                                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">

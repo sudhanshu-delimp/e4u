@@ -31,19 +31,16 @@
                 </div>
             </div>
         </div>
-        <!-- Bootstrap core JavaScript-->
+      <!-- Bootstrap core JavaScript-->
         <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- Core plugin JavaScript-->
         <script src="{{ asset('assets/dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-        <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
-        <!-- Custom scripts for all pages-->
-        <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
-        
-
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
-
+   
         <script>
         $(document).ready(function(){
              $.ajaxSetup({
@@ -51,30 +48,27 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-        })
-        
-        </script>
-
-        <script>
-                
-                 var initJsDatePicker = function(){
-                    $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
-                    $(".js_datepicker").attr('autocomplete','off');
-                    $(".js_datepicker").datepicker({
+        });
+        initJsDatePicker();
+        var initJsDatePicker = function() {
+                var $inputs = $(".js_datepicker");
+                if ($inputs.length > 0) {
+                    $inputs.attr('placeholder', 'DD-MM-YYYY');
+                    $inputs.attr('autocomplete', 'off');
+                    $inputs.datepicker({
                         dateFormat: "dd-mm-yy",
                         changeMonth: true,
                         changeYear: true,
                         showAnim: "slideDown",
-                        constrainInput: false,
                         onSelect: function(dateText) {
-                            const event = new Event('change', { bubbles: true });
-                            this.dispatchEvent(event); // 👈 manually trigger change event
+                            $(this).trigger('change');
                         }
                     });
                 }
-                initJsDatePicker();
-            </script> 
-        <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+            }
+        
+        </script>
+
 
         @section('script')
         @show

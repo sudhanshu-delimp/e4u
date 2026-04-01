@@ -55,7 +55,7 @@
             <ul>
                 <li><p class="mb-0">Disclaimer</p></li>
                 <p>Escorts4U provides this Website on which Advertisers may publish material and
-                    information. Escorts4U does not assume a duty of care to Users and make no
+                    information. Escorts4U does not assume a duty of care to Users and makes no
                     warranty, guarantee or representation about the accuracy, reliability or timeliness or
                     otherwise of the information or content contained on the Website or liked sites on the
                     Internet.</p>

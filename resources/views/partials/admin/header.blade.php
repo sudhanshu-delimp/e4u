@@ -62,4 +62,7 @@
 
     @section('style')
     @show
+    <script>
+     var BASE_URL = "{{ url('/') }}";
+    </script>
 </head>

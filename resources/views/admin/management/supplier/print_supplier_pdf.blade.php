@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operator Report</title>
+    <title>Supplier Report</title>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,114 +103,85 @@
 
 <body style="margin:0;width:100%">
     <div class="container1">
-        @php
-            $appointedDate = '';
-            $agreementDate = '';
-            $contactTypesText = '';
-            $contactTypesArray = [];
-            if (!empty($operator->operator_detail->date_appointed)) {
-                $appointedDate = showDateWithFormat($operator->operator_detail->date_appointed, 'd-m-Y');
-            }
 
-            if (!empty($operator->operator_detail->agreement_date)) {
-                $agreementDate = showDateWithFormat($operator->operator_detail->agreement_date, 'd-m-Y');
-            }
-
-            if (is_array($operator->contact_type)) {
-                $contactType = $operator->contact_type;
-            } elseif (!empty($operator->contact_type)) {
-                $contactType = json_decode($operator->contact_type, true) ?? [];
-            } else {
-                $contactType = [];
-            }
-            if (count($contactType) > 0) {
-                if (in_array('1', $contactType)) {
-                    $contactTypesArray[] = 'Messaging';
-                }
-                if (in_array('2', $contactType)) {
-                    $contactTypesArray[] = 'Text';
-                }
-                if (in_array('3', $contactType)) {
-                    $contactTypesArray[] = 'Email';
-                }
-                if (in_array('4', $contactType)) {
-                    $contactTypesArray[] = 'Call Us';
-                }
-            }
-            $contactTypesText = implode(', ', $contactTypesArray);
-
-        $countries = config('operator.country');
-        $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
-        @endphp
         <div class="col-md-12 ">
             <div class="card mb-3 p-3">
                 <div class="my-account-card">
                     <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
-                        <h2>Operator Report</h2>
+                        <h2>Supplier Report</h2>
                     </div>
                     <!-- Avatar + Name -->
-                    <div style="margin-left:-10px;">
+                    @php
+                        $appointedDate = '';
+                        $agreementDate = '';
+
+                        $detail = $supplier->supplier_detail;
+                        $bankDetail = $supplier->supplier_bank_detail;
+
+                        if (!empty($detail->date_appointed)) {
+                            $appointedDate = showDateWithFormat($detail->date_appointed, 'd-m-Y');
+                        }
+
+                        if (!empty($detail->agreement_date)) {
+                            $agreementDate = showDateWithFormat($detail->agreement_date, 'd-m-Y');
+                        }
+                    @endphp
+
+                     <!-- Avatar + Name -->
+                    <div style="margin-left:-10px;margin-bottom:10px;">
                         <img src="{{ asset('assets/img/default_user.png') }}" alt="Avatar"
                             style="vertical-align:middle; border-radius:50%; margin-right:10px;" width="50"
                             height="50">
 
                         <h6 style="display:inline-block; vertical-align:middle; margin:0;">
-                            {{ $operator->name }}
+                           {{ $supplier->business_name }}
                         </h6>
                     </div>
-
-                    <h6 class=" text-blue-primary">Operator Details</h6>
+                    <!-- Merchant Details -->
+                    <h6 class=" text-blue-primary">Merchant Details</h6>
                     <table class="table table-bordered mb-3">
+
                         <tr>
-                            <th width="40%">Operator ID</th>
-                            <td width="60%">{{ $operator->member_id }}</td>
+                            <th width="40%">Merchant ID</th>
+                            <td width="60%">{{ $supplier->member_id }}</td>
                         </tr>
                         <tr>
                             <th>Date Appointed</th>
                             <td>{{ $appointedDate }}</td>
                         </tr>
                         <tr>
-                            <th>Company Name</th>
-                            <td>{{ $operator->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Business Name</th>
-                            <td>{{ $operator->business_name }}</td>
-                        </tr>
-                        <tr>
                             <th>ABN</th>
-                            <td>{{ $operator->abn }}</td>
+                            <td>{{ $supplier->abn }}</td>
                         </tr>
                         <tr>
                             <th>Business Address</th>
-                            <td>{{ $operator->business_address }}</td>
+                            <td>{{ $supplier->business_address }}</td>
                         </tr>
                         <tr>
                             <th>Business Number</th>
-                            <td>{{ $operator->business_number }}</td>
+                            <td>{{ $supplier->business_number }}</td>
                         </tr>
                         <tr>
                             <th>Point of Contact</th>
-                            <td>{{ $operator->operator_detail->point_of_contact }}</td>
+                            <td>{{ $detail->point_of_contact }}</td>
                         </tr>
                         <tr>
                             <th>Mobile</th>
-                            <td>{{ $operator->phone }}</td>
+                            <td>{{ $supplier->phone }}</td>
                         </tr>
                         <tr>
-                            <th>Email</th>
-                            <td>{{ $operator->email }}</td>
+                            <th>Private Email</th>
+                            <td>{{ $supplier->email }}</td>
                         </tr>
                         <tr>
-                            <th>Territory</th>
-                            <td>{{ $countryName }}</td>
+                            <th>Location</th>
+                            <td>{{ $supplier->state->name }}</td>
                         </tr>
                         <tr>
-                            <th>Method of Contact</th>
-                            <td>{{ $contactTypesText }}</td>
+                            <th>Concierge Service</th>
+                            <td>{{ $detail->concierge_service }}</td>
                         </tr>
                     </table>
-
                     <!-- Agreement Details -->
                     <h6 class=" text-blue-primary">Agreement Details</h6>
                     <table class="table table-bordered mb-3">
@@ -220,25 +191,33 @@
                         </tr>
                         <tr>
                             <th>Term</th>
-                            <td>{{ $operator->operator_detail->term }}</td>
-                        </tr>
-                        <tr>
-                            <th>Fees</th>
-                            <td>{{ $operator->operator_detail->fee }}</td>
+                            <td>{{ $detail->term }}</td>
                         </tr>
                     </table>
-                    <!-- Commission -->
-                    <h6 class=" text-blue-primary">Commission</h6>
+                    <!-- Bank Account -->
+                    <h6 class=" text-blue-primary">Bank Account</h6>
                     <table class="table table-bordered mb-3">
                         <tr>
-                            <th width="40%">Advertising</th>
-                            <td width="60%">{{ $operator->operator_detail->commission_advertising_percent }}</td>
+                            <th width="40%">Bank</th>
+                            <td width="60%">{{ $bankDetail->bank_name }}</td>
                         </tr>
                         <tr>
-                            <th>Massage Centre (Registrations)</th>
-                            <td>{{ $operator->operator_detail->commission_massage_centre_percent }}</td>
+                            <th>Account Name</th>
+                            <td>{{ $bankDetail->account_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>BSB</th>
+                            <td>{{ $bankDetail->bsb }}</td>
+                        </tr>
+                        <tr>
+                            <th>Account Number</th>
+                            <td>{{ $bankDetail->account_number }}</td>
                         </tr>
                     </table>
+
+
+
+
                 </div>
             </div>
         </div>

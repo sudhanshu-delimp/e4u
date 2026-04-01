@@ -70,7 +70,7 @@
                  </p>
             <p>
                 You can also use the settings in your browser to control how your browser deals with
-                cookies. However, in doing so, you may be unable to access certain pages or content on
+                cookies. However, in doing so, you may be unable to access certain pages or content or the functionality on
                 the Website.
             </p>
 

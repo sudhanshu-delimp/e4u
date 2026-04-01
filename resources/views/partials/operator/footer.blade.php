@@ -39,8 +39,6 @@
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
-        <script src="{{ asset('assets/js/common.js') }}"></script>
-
         <script>
         $(document).ready(function(){
              $.ajaxSetup({

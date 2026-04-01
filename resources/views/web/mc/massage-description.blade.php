@@ -76,6 +76,11 @@
     cursor: not-allowed;
     pointer-events: none;
 }
+.previousDisableButtonCss {
+  background: gray;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 </style>
     @stop
     @section('content')
@@ -145,7 +150,7 @@
             background-repeat: no-repeat;">
 
         <div class="container-fluid back_to_search_btn pt-2">
-            <a href="#" class="back--search">
+            <a href="../massage-centres-list" class="back--search">
                 Back to Search
                 <span class="previous_icon">
                     <i class="fa fa-chevron-up text-white" aria-hidden="true"></i>
@@ -215,14 +220,22 @@
 
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
-                <a href="" class="text-decoration-none d-flex">
+            <div class="previous_btn_profile next_previous_btn_pogision preview-dk">
+                <a  href="{{ $prevId ? route('web.massage-description', [
+                                    'id' => $prevId,
+                                    'ids' => json_encode($ids)
+                                ]) : 'massage-centres-list' }}" class="text-decoration-none d-flex">
                     <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
-            <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss">
-                <a href="" class="text-decoration-none">
+            <div class="next_btn_profile next_previous_btn_pogision next-dk {{ $nextId ? '' : 'previousDisableButtonCss' }}">
+                                <a href="{{ $nextId ? route('web.massage-description', [
+                                    'id' => $nextId,
+                                    'ids' => json_encode($ids)
+                                ]) : 'javascript:void(0)' }}"
+                                
+                                class="text-decoration-none">
                     <span class="previous_text remove_in_sm">Next</span>
                     <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>
@@ -630,7 +643,8 @@
                                                             @endforeach
 
                                                     <div class="veryfy_img">
-                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                        <span class="common_shield_tooltip">Media Pending</span>
                                                     </div>
                                                 </div>
 
@@ -641,7 +655,9 @@
                                                             <div class="extra_img_wrapper">
                                                                 <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
                                                                 <div class="veryfy_img">
-                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                     <h6 class="gallery_shield_tooltip">Media Pending</h6>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             @endif
@@ -1189,9 +1205,10 @@
                         <div class="col-12 px-0 profile_verify_icon">
                             <div id="carouselExampleInterval" class="carousel slide mc_view_media" data-ride="carousel"
                                 data-interval="false">
-                                <div class="verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                    <div class="verify_icon">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
                                         <span class="common_shield_tooltip">Media Pending</span>
+                                       
                                     </div>
                                 <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
                                 <div class="carousel-inner">
@@ -1219,7 +1236,7 @@
                                 </div>
 
                                 <!-- Carousel Controls -->
-                                <a class="carousel-control-prev" href="#carouselExampleInterval" role="button"
+                                <a  class="carousel-control-prev" href="#carouselExampleInterval" role="button"
                                     data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Previous</span>
@@ -1949,7 +1966,8 @@
                                     <div class="gallery__item gallery__item--lg">
                                         <img src="{{  $image }}" alt="main">
                                          <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                             <span class="common_shield_tooltip">Media Pending</span>
                                         </div>
                                     </div>
                                     @endif    
@@ -1964,7 +1982,8 @@
                                             <div class="gallery__item">
                                                 <img src="{{ $image }}" alt="gallery image">
                                                  <div class="verify_icon_sm">
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg')}}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
+                                                    <h6 class="gallery_shield_tooltip">Media Pending</h6>
                                                 </div>
                                             </div>
 

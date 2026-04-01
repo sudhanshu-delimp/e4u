@@ -36,6 +36,7 @@
 
                                     <div class="verify-image-custom">
                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                        <span class="common_shield_tooltip">Media Pending</span>
                                     </div>
                                     <div class="siliver_logo_icon"><img src="{{ $imagePath }}">
                                     </div>
