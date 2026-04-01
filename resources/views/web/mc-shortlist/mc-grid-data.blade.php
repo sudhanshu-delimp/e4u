@@ -27,7 +27,7 @@
 
             <div class="mc_card_header">
                 <span class="verify_icon">
-                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}" alt="">
+                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" alt="">
                     <span class="mc_media_tooltip">Media Pending</span>
                 </span>
                 <span class="mc_title">{{$listing->profile_name}}</span>

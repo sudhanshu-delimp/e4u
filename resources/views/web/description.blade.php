@@ -963,7 +963,7 @@
                                 
                             <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
                                     <div class="verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
                                         <span class="common_shield_tooltip">Media Pending</span>
                                     </div>
                                 <div class="carousel-inner">
@@ -1024,7 +1024,7 @@
                                                             <div class="gallery__item gallery__item--lg">
                                                                 <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
                                                                 <div class="verify_icon">
-                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
                                                                    
                                                                 </div>
                                                             </div>
