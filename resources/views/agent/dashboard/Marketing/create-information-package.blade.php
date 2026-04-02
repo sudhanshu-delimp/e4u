@@ -24,7 +24,7 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                  <li>All lists are created according to a post code (<b>List</b>). Go to <a href="{{ route('marketing.agencreate-prospect') }}" class="custom_links_design">Prospect Lists </a> to create a List.</li>
+                  <li>All lists are created according to a post code (<b>List</b>). Go to <a href="{{ route('agent.marketing.prospect.list') }}" class="custom_links_design">Prospect Lists </a> to create a List.</li>
                   <li>If you merged a List it will be saved here.</li>
                   <li>You can manage your merged Lists by:
                      <ol class="level-2">
