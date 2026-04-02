@@ -90,7 +90,7 @@
                                             <li>
                                                 <h5 class="policy_sub_headings"><u>Your general responsibilities</u>
                                                 </h5>
-                                                <p class="padding_left_five_px">The Services enable you to advertise
+                                                <p class="padding_left_five_px">The Services enable you to advertise private 
                                                     escort and massage centre services, in the form of a Profile and to
                                                     undertake a search for information. Generally, Escorts4U will not
                                                     actively monitor, censor, or directly control any use that is made
@@ -193,7 +193,7 @@
                                                             result in a criminal referral or the commencement of civil
                                                             proceedings. Escorts4U may, at its sole discretion,
                                                             investigate incidents involving such violations which may
-                                                            include the co operation with any law enforcement agency if
+                                                            include the co-operation with any law enforcement agency if
                                                             a criminal act is suspected. Examples of server, system or
                                                             network security violations include, without limitation, the
                                                             following:

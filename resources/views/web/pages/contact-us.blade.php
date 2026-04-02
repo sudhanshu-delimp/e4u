@@ -266,13 +266,16 @@ $contactMsg = session('success');
             </a>
             <div class="content">
                <div class="accodien_manage_padding_content">
-                  <p>You can contact us through either of the following methods:</p>
+                  <p>You can contact us through either of the following methods:</p><br>
                   <p>Blackbox Tech<br>
                      GPO Box T1756<br>
                      Perth WA 6845
-                  </p>
-                  <p>T: +61 418 812 228</p>
-                  <p><a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
+                  </p><br>
+                  <p>Business Hours:</P>
+                  <p>Monday to Friday:&nbsp; &nbsp;7:00am to 7:00pm (WST)</p>
+                  <p>Saturday & Sunday:&nbsp; &nbsp;10:00am to 4:00pm (WST)</p><br>
+                  <p>T:&nbsp; &nbsp;+61 1300 700 444</p>
+                  <p>E:&nbsp; &nbsp;<a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
                </div>
             </div>
          </div>
