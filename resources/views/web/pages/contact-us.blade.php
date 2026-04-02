@@ -176,7 +176,7 @@ $contactMsg = session('success');
             </div> -->
          <div class="set">
             <a>
-            Some general information
+            Some General Information
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -203,6 +203,10 @@ $contactMsg = session('success');
                      <li>A law enforcement agency, Court or an attorney, go to our <a class="c-red" href="{{'law-enforcement'}}">Law Enforcement
                         Policy</a> for
                         information regarding legal process.
+                     </li>
+
+                     <li>Any personal information submitted to this Website will be handled in accordance with
+E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Policy </a> and <a href="{{'privacy-collection-notice'}}" target="_blank">Privacy Collection Notice</a>, both available on the Website.
                      </li>
                   </ul>
                   <p>For anything else, contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>, or by any of
@@ -248,7 +252,7 @@ $contactMsg = session('success');
          </div>
          <div class="set">
             <a>
-            After hours contact
+            After Hours Contact
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -261,7 +265,7 @@ $contactMsg = session('success');
          </div>
          <div class="set">
             <a>
-            Our business details
+            Our Business Details
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -281,7 +285,7 @@ $contactMsg = session('success');
          </div>
          <div class="set">
             <a>
-            Support tickets
+            Support Tickets
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
