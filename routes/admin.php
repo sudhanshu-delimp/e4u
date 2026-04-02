@@ -541,9 +541,54 @@ Route::get('management/agent-data/{id}/data-list-print', [AgentExcelDataManageCo
 
 
 
-// Route::get('/notifications/shareholders',function(){
-//     return view('admin.notifications.shareholders.index');
-// })->name('admin.shareholders');
+Route::get('/e4u-policies/code-of-conduct',function(){
+    return view('admin.e4u-policies.code-of-conduct');
+})->name('code-of-conduct');
+
+
+Route::get('/e4u-policies/data-breach-plan',function(){
+    return view('admin.e4u-policies.data-breach-plan');
+})->name('data-breach-plan');
+
+Route::get('/e4u-policies/discipline-and-termination',function(){
+    return view('admin.e4u-policies.discipline-and-termination');
+})->name('discipline-and-termination');
+
+Route::get('/e4u-policies/fitness-for-work',function(){
+    return view('admin.e4u-policies.fitness-for-work');
+})->name('fitness-for-work');
+
+Route::get('/e4u-policies/grievance',function(){
+    return view('admin.e4u-policies.grievance');
+})->name('grievance');
+
+Route::get('/e4u-policies/health-and-safety',function(){
+    return view('admin.e4u-policies.health-and-safety');
+})->name('health-and-safety');
+
+Route::get('/e4u-policies/information-use',function(){
+    return view('admin.e4u-policies.information-use');
+})->name('information-use');
+
+Route::get('/e4u-policies/leave',function(){
+    return view('admin.e4u-policies.leave');
+})->name('leave');
+
+Route::get('/e4u-policies/personal-telephone-use',function(){
+    return view('admin.e4u-policies.personal-telephone-use');
+})->name('personal-telephone-use');
+
+Route::get('/e4u-policies/position-descriptions',function(){
+    return view('admin.e4u-policies.position-descriptions');
+})->name('position-descriptions');
+
+Route::get('/e4u-policies/smoking',function(){
+    return view('admin.e4u-policies.smoking');
+})->name('smoking');
+
+Route::get('/e4u-policies/social-media',function(){
+    return view('admin.e4u-policies.social-media');
+})->name('admin.social-media');
 
 // Route::get('/admin-dashboard/notifications/global',function(){
 //     return view('admin.notifications.global');
