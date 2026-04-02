@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddMassageCentre;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\Escort\StoreRequest;
 use App\Http\Requests\Escort\StoreRequestRates;
@@ -33,6 +34,7 @@ use App\Repositories\Service\ServiceInterface;
 use App\Repositories\User\UserInterface;
 use Auth;
 use Carbon\Carbon;
+use Exception;
 use FFMpeg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -368,10 +370,27 @@ class CenterController extends Controller
         $fees_concierge_services = FeesConciergeService::all();
         $fees_support_services = FeesSupportService::all();
         $variablLoyaltyProgram = VariablLoyaltyProgram::all();
-        
-
-
+    
         return view('center.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
+    }
+
+
+
+    public function add_sub_account(AddMassageCentre $request)
+    {
+        $data = $request->all();
+        try
+        {
+            $data = $request->all();
+            $resposne = $this->user->add_subuser_account($data);
+            if($resposne['status'])
+            return  Success_response([],$resposne['message'],200);
+            else
+            return  Success_response([],$resposne['message'],200);   
+        } 
+        catch(Exception $e){
+          return  Success_response([],'Failed to add new centre',200);    
+        }
     }
 
 

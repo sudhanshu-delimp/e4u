@@ -46,6 +46,8 @@ Route::post('remove-avatar',[CenterController::class,'removeMyAvatar'])->name('c
 Route::get('/update-account', [CenterController::class, 'edit'])->name('center.account.edit');
 Route::post('/update-account', [CenterController::class, 'update'])->name('center.account.update');
 
+Route::post('add-sub-account', [CenterController::class, 'add_sub_account'])->name('center.add-sub-account');
+
 //Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 //Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
 // Route::get('/my-account/change-password', function()
