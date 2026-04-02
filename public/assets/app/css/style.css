@@ -8541,6 +8541,10 @@ i.fa.fa-heart-o{
                     /* position: relative; */
                 }
                 
+                .border_color {
+                    border-color: #5d6d7e !important;
+                }
+                
                 .vrf-tooltip {
                     visibility: hidden;
                     opacity: 0;
