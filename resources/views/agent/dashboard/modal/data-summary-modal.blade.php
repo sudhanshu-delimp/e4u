@@ -14,8 +14,20 @@
                     </button>
                 </div>
                 <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                        {{-- Loader --}}
+                <div id="modal_loader" class="text-center py-5" style="display: none;">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Loading data, please wait...</p>
+                </div>
+
+                {{-- Error Message --}}
+                <div id="modal_error" class="text-center py-4" style="display: none;">
+                    <p class="text-danger"><i class="fas fa-exclamation-circle"></i> Failed to load details.</p>
+                </div>
                     <table class="table table-bordered">
-                        <tbody>
+                        <tbody id="viewSummeryData">
                             <tr>
                                 <th><b>Status</b></th>
                                 <td>Active</td>

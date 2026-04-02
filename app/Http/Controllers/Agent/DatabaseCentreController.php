@@ -9,11 +9,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DatabaseCentreController extends Controller
 {
-    public function databaseCentres(Request $request){
+    public function databaseCentres(Request $request)
+    {
 
         if ($request->ajax()) {
 
-        $query = MassageCenterTerritory::from('massage_center_territories as t')
+            $query = MassageCenterTerritory::from('massage_center_territories as t')
                 ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
                 ->selectRaw('
                     DATE(t.created_at) as date,
@@ -37,7 +38,7 @@ class DatabaseCentreController extends Controller
                 ->filterColumn('status', function ($query, $keyword) {
                     $query->where('status', 'like', "%{$keyword}%");
                 })
-                 ->editColumn('date', function ($row) {
+                ->editColumn('date', function ($row) {
                     return $row->date ? basicDateFormat($row->date) : 'NA';
                 })
 
@@ -52,16 +53,14 @@ class DatabaseCentreController extends Controller
 
                     // If Active
                     if ($status === 'Active') {
-                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-download"></i> Download</a>';
-                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-pending" data-id="' . $row->id . '"><i class="fa fa-eye"></i> Summary</a>';
-                        
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-download" data-id="' . $row->id . '"><i class="fa fa-download"></i> Download</a>';
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-summary" data-id="' . $row->id . '"><i class="fa fa-eye"></i> Summary</a>';
                     }
 
                     // If suspended -> offer Activate and Pending
                     if ($status === 'Suspended') {
-                            $actions[] = '<span class="dropdown-item d-flex align-items-center justify-content-start gap-10 text-muted" style="pointer-events:none;opacity:.6;"><i class="fa fa-download"></i> Download</span>';
-                            $actions[] = '<span class="dropdown-item d-flex align-items-center justify-content-start gap-10 text-muted" style="pointer-events:none;opacity:.6;"><i class="fa fa-eye"></i> Summary</span>';
-                        
+                        $actions[] = '<span class="dropdown-item d-flex align-items-center justify-content-start gap-10 text-muted" style="pointer-events:none;opacity:.6;"><i class="fa fa-download"></i> Download</span>';
+                        $actions[] = '<span class="dropdown-item d-flex align-items-center justify-content-start gap-10 text-muted" style="pointer-events:none;opacity:.6;"><i class="fa fa-eye"></i> Summary</span>';
                     }
 
                     $dropdown = '<div class="dropdown no-arrow">'
@@ -78,6 +77,37 @@ class DatabaseCentreController extends Controller
                 ->rawColumns(['status', 'action'])
                 ->make(true);
         }
-       return view('agent.dashboard.Marketing.database-centers');
+        return view('agent.dashboard.Marketing.database-centers');
+    }
+
+    public function viewDataSummery($id)
+    {
+
+        try {
+           $view = MassageCenterTerritory::from('massage_center_territories as t')
+                ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
+                ->selectRaw('
+                    DATE(t.created_at) as date,
+                    t.territory_name,
+                    COUNT(m.id) as centres,
+                    COUNT(NULLIF(TRIM(m.mobile_number), "")) as mobile_numbers,
+                    t.status,
+                    t.id,
+                    t.state_id
+                ')
+                ->where('t.id', $id)
+                ->whereIn('t.status', ['Active', 'Suspended'])
+                ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
+                ->first();
+            return success_response([
+                'Status' => $view->status,
+                'Uploaded' => basicDateFormat($view->date),
+                'Territory' => $view->territory_name,
+                'Centres' => $view->centres,
+                'Mobiles' => $view->mobile_numbers,
+            ]);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch database (centres): ' . $e->getMessage(), 500);
+        }
     }
 }

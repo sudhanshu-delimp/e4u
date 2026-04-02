@@ -113,6 +113,7 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
 
     //Marketing Database (Centres)
     Route::get('marketing/database-centres', [DatabaseCentreController::class, 'databaseCentres'])->name('agent.marketing.database.centres');
+    Route::get('marketing/view-database-centre/{id}', [DatabaseCentreController::class, 'viewDataSummery'])->name('agent.marketing.database.view');
 
      
      
