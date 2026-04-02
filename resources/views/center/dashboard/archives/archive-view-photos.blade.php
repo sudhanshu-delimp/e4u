@@ -223,7 +223,7 @@
                                             @php
                                                 $imageData = $path->findByposition(auth()->user()->id, 1, 0);
                                                 if(!empty($imageData['id'])){
-                                                    $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                    $media_details =  get_media_by_id($imageData['id'],'center');
                                                     $status =  $media_details->varified;
                                                 }
                                             @endphp
@@ -262,7 +262,7 @@
                                                         @php
                                                             $imageData = $path->findByposition(auth()->user()->id, 2, 0);
                                                             if(!empty($imageData['id'])){
-                                                                $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                                $media_details =  get_media_by_id($imageData['id'],'center');
                                                                 $status =  $media_details->varified;
                                                             }
                                                         @endphp
@@ -294,7 +294,7 @@
                                                         @php
                                                             $imageData = $path->findByposition(auth()->user()->id, 3, 0);
                                                             if(!empty($imageData['id'])){
-                                                                $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                                $media_details =  get_media_by_id($imageData['id'],'center');
                                                                 $status =  $media_details->varified;
                                                             }
                                                         @endphp
@@ -326,7 +326,7 @@
                                                         @php
                                                             $imageData = $path->findByposition(auth()->user()->id, 4, 0);
                                                             if(!empty($imageData['id'])){
-                                                                $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                                $media_details =  get_media_by_id($imageData['id'],'center');
                                                                 $status =  $media_details->varified;
                                                             }
                                                         @endphp
@@ -360,7 +360,7 @@
                                                         @php
                                                             $imageData = $path->findByposition(auth()->user()->id, 5, 0);
                                                             if(!empty($imageData['id'])){
-                                                                $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                                $media_details =  get_media_by_id($imageData['id'],'center');
                                                                 $status =  $media_details->varified;
                                                             }
                                                         @endphp
@@ -392,7 +392,7 @@
                                                        @php
                                                             $imageData = $path->findByposition(auth()->user()->id, 6, 0);
                                                             if(!empty($imageData['id'])){
-                                                                $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                                $media_details =  get_media_by_id($imageData['id'],'center');
                                                                 $status =  $media_details->varified;
                                                             }
                                                         @endphp
@@ -424,7 +424,7 @@
                                                        @php
                                                             $imageData = $path->findByposition(auth()->user()->id, 7, 0);
                                                             if(!empty($imageData['id'])){
-                                                                $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                                $media_details =  get_media_by_id($imageData['id'],'center');
                                                                 $status =  $media_details->varified;
                                                             }
                                                         @endphp
@@ -459,7 +459,7 @@
                                                 @php
                                                     $imageData = $path->findByposition(auth()->user()->id, 9, 0);
                                                     if(!empty($imageData['id'])){
-                                                        $media_details =  get_centers_media_details_by_id($imageData['id']);
+                                                        $media_details =  get_media_by_id($imageData['id'],'center');
                                                         $status =  $media_details->varified;
                                                     }
                                                 @endphp

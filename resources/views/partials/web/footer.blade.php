@@ -145,6 +145,7 @@
                             <ul class="list-group footer_list_style_none">
                                 <li><a href="{{ url('law-enforcement') }} ">Law Enforcement</a></li>
                                 <li><a href="{{ url('privacy-policy') }} ">Privacy Policy</a></li>
+                                <li><a href="{{ url('privacy-collection-notice') }} ">Privacy Collection Notice</a></li>
                                 <li><a href="{{ url('refund-policy') }} ">Refund Policy</a></li>
                                 <li><a href="{{ url('spam-policy') }} ">Spam Policy</a></li>
                                 <li><a href="{{ url('terms-conditions') }} ">Terms & Conditions</a></li>

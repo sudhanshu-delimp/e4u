@@ -23,6 +23,8 @@ use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Escort\EscortController as DataTableController;
+use App\Http\Controllers\Agent\ProspectListController;
+use App\Http\Controllers\Agent\DatabaseCentreController;
 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
@@ -105,14 +107,20 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
 
      Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
 
-     
+    //Prospect List
+    Route::get('marketing/prospect-list', [ProspectListController::class, 'prospectList'])->name('agent.marketing.prospect.list');
+
+
+    //Marketing Database (Centres)
+    Route::get('marketing/database-centres', [DatabaseCentreController::class, 'databaseCentres'])->name('agent.marketing.database.centres');
+
      
      
      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');
      })->name('agent.advertiser-list');
      
-     Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
+        Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
      
 
@@ -133,9 +141,9 @@ Route::get('toursummary',function(){
 })->name('agent.toursummary');
 
 
-    Route::get('Marketing/create-prospect',function(){
-    return view('agent.dashboard.Marketing.create-prospect');
-})->name('marketing.agencreate-prospect');
+//     Route::get('Marketing/create-prospect',function(){
+//     return view('agent.dashboard.Marketing.create-prospect');
+// })->name('marketing.agencreate-prospect');
 
 
 
@@ -191,9 +199,9 @@ Route::get('advertisers',function(){
 
 
 
-Route::get('Marketing/database-centers',function(){
-    return view('agent.dashboard.Marketing.database-centers');
-})->name('agent.database-centers');
+// Route::get('Marketing/database-centers',function(){
+//     return view('agent.dashboard.Marketing.database-centers');
+// })->name('agent.database-centers');
 
 Route::get('Marketing/saved-reports',function(){
     return view('agent.dashboard.Marketing.saved-reports');

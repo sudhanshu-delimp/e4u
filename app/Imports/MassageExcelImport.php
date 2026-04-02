@@ -95,7 +95,7 @@ class MassageExcelImport implements ToCollection
             MassageCenterTerritory::updateOrCreate(
                 ['territory_name' => $territory],
                 [
-                    'status' => 'Pending',
+                    'status' => 'Active',
                     'state_id' => $this->getStateIdByName($territory, $stateConfig),
                 ]
             );

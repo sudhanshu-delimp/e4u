@@ -1807,16 +1807,19 @@ if (!function_exists('make_time_availability')) {
     }  
 }
 
-if (!function_exists('get_escorts_media_details_by_id')) {
-    function get_escorts_media_details_by_id($media_id)
-    {
-        return EscortMedia::find($media_id);
-    }
-}
 
-if (!function_exists('get_centers_media_details_by_id')) {
-    function get_centers_media_details_by_id($media_id)
+if (!function_exists('get_media_by_id')) {
+    function get_media_by_id($media_id, $type = 'escort')
     {
-        return MassageMedia::find($media_id);
+        $models = [
+            'escort' => \App\Models\EscortMedia::class,
+            'center' => \App\Models\MassageMedia::class,
+        ];
+
+        if (!isset($models[$type])) {
+            return null;
+        }
+
+        return $models[$type]::find($media_id);
     }
 }

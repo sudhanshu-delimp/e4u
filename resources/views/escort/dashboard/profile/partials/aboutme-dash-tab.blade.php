@@ -421,7 +421,7 @@
                                                     @php
                                                         $imageData = $path->findByposition(auth()->user()->id, 1, 1);
                                                         if(!empty($imageData['id'])){
-                                                            $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                            $media_details =  get_media_by_id($imageData['id'],'escort');
                                                             $status =  $media_details->varified;
                                                         }
                                                     @endphp
@@ -456,7 +456,7 @@
                                                              @php
                                                                 $imageData = $path->findByposition(auth()->user()->id, 2, 1);
                                                                 if(!empty($imageData['id'])){
-                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $media_details =  get_media_by_id($imageData['id'],'escort');
                                                                     $status =  $media_details->varified;
                                                                 }
                                                             @endphp
@@ -483,7 +483,7 @@
                                                             @php
                                                                 $imageData = $path->findByposition(auth()->user()->id, 3, 1);
                                                                 if(!empty($imageData['id'])){
-                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $media_details =  get_media_by_id($imageData['id'],'escort');
                                                                     $status =  $media_details->varified;
                                                                 }
                                                             @endphp
@@ -510,7 +510,7 @@
                                                             @php
                                                                 $imageData = $path->findByposition(auth()->user()->id, 4, 1);
                                                                     if(!empty($imageData['id'])){
-                                                                        $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                        $media_details =  get_media_by_id($imageData['id'],'escort');
                                                                         $status =  $media_details->varified;
                                                                     }
                                                             @endphp
@@ -539,7 +539,7 @@
                                                             @php
                                                                 $imageData = $path->findByposition(auth()->user()->id, 5, 1);
                                                                 if(!empty($imageData['id'])){
-                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $media_details =  get_media_by_id($imageData['id'],'escort');
                                                                     $status =  $media_details->varified;
                                                                 }
                                                             @endphp
@@ -566,7 +566,7 @@
                                                             @php
                                                                 $imageData = $path->findByposition(auth()->user()->id, 6, 1);
                                                                  if(!empty($imageData['id'])){
-                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $media_details =  get_media_by_id($imageData['id'],'escort');
                                                                     $status =  $media_details->varified;
                                                                 }
                                                             @endphp
@@ -593,7 +593,7 @@
                                                             @php
                                                                 $imageData = $path->findByposition(auth()->user()->id, 7, 1);
                                                                 if(!empty($imageData['id'])){
-                                                                    $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                                    $media_details =  get_media_by_id($imageData['id'],'escort');
                                                                     $status =  $media_details->varified;
                                                                 }
                                                             @endphp
@@ -625,7 +625,7 @@
                                                 @php
                                                     $imageData = $path->findByposition(auth()->user()->id, 9, 1);
                                                     if(!empty($imageData['id'])){
-                                                        $media_details =  get_escorts_media_details_by_id($imageData['id']);
+                                                        $media_details =  get_media_by_id($imageData['id'],'escort');
                                                         $status =  $media_details->varified;
                                                     }
                                                     
