@@ -153,11 +153,16 @@
                                 </div>
                                 
                             </div>
-                            <small>
+                           <div class="border p-1 border_color text-justify">
+                                <small>
                                     Any personal information submitted to this Website will be handled in accordance with
-                                    E4U's <a class="termsandconditions_text_color" href="{{'privacy-policy'}}" target="_blank" style="font-size: 13px;">Privacy Policy</a> and 
-                                    <a href="{{'privacy-collection-notice'}}" class="termsandconditions_text_color" target="_blank" style="font-size: 13px;">Privacy Collection Notice</a>, both available on the Website.
+                                    E4U's <a class="termsandconditions_text_color" href="{{ 'privacy-policy' }}"
+                                        target="_blank" style="font-size: 13px;">Privacy Policy</a> and
+                                    <a href="{{ 'privacy-collection-notice' }}" class="termsandconditions_text_color"
+                                        target="_blank" style="font-size: 13px;">Privacy Collection Notice</a>, both
+                                    available on the Website.
                                 </small>
+                            </div>
                         </form>
                     </div>
                 </div>
