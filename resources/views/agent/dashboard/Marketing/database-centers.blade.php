@@ -57,104 +57,13 @@
                                 <th>Territory</th>
                                 <th>Centres</th>
                                 <th>Mobile</th>
-                                <th>Landline</th>
+                                {{-- <th>Landline</th> --}}
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
 
-                                <td>27-02-2026</td>
-                                <td>Western Australia</td>
-                                <td>625</td>
-                                <td>450</td>
-                                <td>225</td>
-                                <td> <span class="custom_badge badge_active">Active</span> </td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" x-placement="bottom-end">
-
-                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                href="#" download="data_file.xlsx"> <i class="fa fa-download"></i>
-                                                Download</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                href="#" data-target="#view_data_center" data-toggle="modal"> <i
-                                                    class="fa fa-eye"></i>
-                                                Summary</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                             <tr>
-
-                                <td>30-01-2026</td>
-                                <td>Western Australia</td>
-                                <td>620</td>
-                                <td>421</td>
-                                <td>219</td>
-                                <td> <span class="custom_badge badge_deactivated">Deactivated</span> </td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" x-placement="bottom-end">
-
-                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                href="#" download="data_file.xlsx"> <i class="fa fa-download"></i>
-                                                Download</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                href="#" data-target="#view_data_center" data-toggle="modal"> <i
-                                                    class="fa fa-eye"></i>
-                                                Summary</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                             <tr>
-
-                                <td>27-02-2026</td>
-                                <td>Western Australia</td>
-                                <td>589</td>
-                                <td>390</td>
-                                <td>239</td>
-                                <td> <span class="custom_badge badge_inactive">Inactive</span> </td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" x-placement="bottom-end">
-
-                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                href="#" download="data_file.xlsx"> <i class="fa fa-download"></i>
-                                                Download</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                href="#" data-target="#view_data_center" data-toggle="modal"> <i
-                                                    class="fa fa-eye"></i>
-                                                Summary</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -162,83 +71,84 @@
         </div>
     </div>
 
+    <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
+        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+        data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
+        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+        data-marketing-database-centres="{{ route('agent.marketing.database.centres') }}">
 
-  @include('agent.dashboard.modal.data-summary-modal')
-@endsection
-@push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
-    <script>
-        var table = $("#databaseCentreTable").DataTable({
-            language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Territory"
-            },
-            info: true,
-            paging: true,
-            lengthChange: true,
-            searching: true,
-            bStateSave: true,
-            order: [
-                [1, 'desc']
-            ],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10,
+        @include('agent.dashboard.modal.data-summary-modal')
+    @endsection
+    @push('script')
+        <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+        </script>
+        <script>
+            const mmRoot = $('#manage-route');
+            const endpoint = {
+                csrf_token: mmRoot.data('csrf-token'),
+                success_image: mmRoot.data('success-image'),
+                error_image: mmRoot.data('error-image'),
+                marketing_database_centres: mmRoot.data('marketing-database-centres'),
 
-            columns: [{
-                    data: 'upload',
-                    name: 'upload',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'territory',
-                    name: 'territory',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'centres',
-                    name: 'centres',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'mobile',
-                    name: 'mobile',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'landline',
-                    name: 'landline',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'status',
-                    name: 'status',
-                    searchable: false,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'action',
-                    name: 'edit',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA',
-                    class: 'text-center'
-                },
-            ],
-        });
-    </script>
-@endpush
+            };
+
+   
+
+            $(document).ready(function() {
+
+                var table = $("#databaseCentreTable").DataTable({
+                    language: {
+                        search: "Search: _INPUT_",
+                        searchPlaceholder: "Search by Territory"
+                    },
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: endpoint.marketing_database_centres,
+                        type: 'GET'
+                    },
+                    columns: [{
+                            data: 'date',
+                            name: 'date',
+                            searchable: false,
+                        },
+                        {
+                            data: 'territory_name',
+                            name: 'territory_name',
+                            searchable: true,
+                        },
+                        {
+                            data: 'centres',
+                            name: 'centres',
+                            searchable: false
+                        },
+                        {
+                            data: 'mobile_numbers',
+                            name: 'mobile_numbers',
+                            searchable: false
+                        },
+                        {
+                            data: 'status',
+                            name: 'status',
+                            searchable: false
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false,
+                            className: 'text-center',
+                            searchable: false
+                        },
+                    ],
+                    order: [],
+                    lengthMenu: [
+                        [10, 25, 50, 100],
+                        [10, 25, 50, 100]
+                    ],
+                    pageLength: 10
+                });
+
+            });
+        </script>
+    @endpush

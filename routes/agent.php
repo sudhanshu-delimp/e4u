@@ -24,6 +24,7 @@ use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Escort\EscortController as DataTableController;
 use App\Http\Controllers\Agent\ProspectListController;
+use App\Http\Controllers\Agent\DatabaseCentreController;
 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
@@ -108,6 +109,11 @@ use App\Http\Controllers\Agent\ProspectListController;
 
     //Prospect List
     Route::get('marketing/prospect-list', [ProspectListController::class, 'prospectList'])->name('agent.marketing.prospect.list');
+
+
+    //Marketing Database (Centres)
+    Route::get('marketing/database-centres', [DatabaseCentreController::class, 'databaseCentres'])->name('agent.marketing.database.centres');
+
      
      
      Route::get('advertiser-list',function(){
@@ -193,9 +199,9 @@ Route::get('advertisers',function(){
 
 
 
-Route::get('Marketing/database-centers',function(){
-    return view('agent.dashboard.Marketing.database-centers');
-})->name('agent.database-centers');
+// Route::get('Marketing/database-centers',function(){
+//     return view('agent.dashboard.Marketing.database-centers');
+// })->name('agent.database-centers');
 
 Route::get('Marketing/saved-reports',function(){
     return view('agent.dashboard.Marketing.saved-reports');
