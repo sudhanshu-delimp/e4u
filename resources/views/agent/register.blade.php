@@ -115,14 +115,20 @@
                         <div class="termsandconditions_text_color">
                             <!-- error sms here -->
                         </div>
-                        <div class="form-row pt-3">
+                        <div class="form-row py-3">
                             <div class="col">
                                <button type="submit" id="submit_button" class="btn site_btn_primary">Register</button>
                             </div>
                             <div class="col geo-font">
                              <label class="form-check-label"><sup>(*)</sup>Geolocation in use.</label>
                             </div>
-                          </div>
+                        </div>
+                        
+                            <small>
+                                Any personal information submitted to this Website will be handled in accordance with
+                                E4U's <a class="termsandconditions_text_color" href="{{'privacy-policy'}}" target="_blank" style="font-size: 13px;">Privacy Policy</a> and 
+                                <a href="{{'privacy-collection-notice'}}" class="termsandconditions_text_color" target="_blank" style="font-size: 13px;">Privacy Collection Notice</a>, both available on the Website.
+                            </small>
                     </form>
                 </div>
             </div>

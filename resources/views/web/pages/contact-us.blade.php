@@ -176,7 +176,7 @@ $contactMsg = session('success');
             </div> -->
          <div class="set">
             <a>
-            Some general information
+            Some General Information
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -252,7 +252,7 @@ E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Poli
          </div>
          <div class="set">
             <a>
-            After hours contact
+            After Hours Contact
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -265,7 +265,7 @@ E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Poli
          </div>
          <div class="set">
             <a>
-            Our business details
+            Our Business Details
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -285,7 +285,7 @@ E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Poli
          </div>
          <div class="set">
             <a>
-            Support tickets
+            Support Tickets
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">

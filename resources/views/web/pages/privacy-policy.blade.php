@@ -200,7 +200,7 @@
 
                 <div class="set">
                     <a>
-                        Data collection
+                        Data Collection
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <div class="content">
