@@ -794,6 +794,7 @@ Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
 Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])->name('web.review-massage');
 Route::post('/clear-short-list', [MassageCentre::class,'clearShortList'])->name('web.clear-short-list');
+Route::get('get-user-location', [MassageCentre::class, 'get_user_location'])->name('web.user_location');
 
 
 

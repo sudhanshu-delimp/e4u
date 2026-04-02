@@ -92,9 +92,9 @@
                 </div>
 
 
-                <div id="page_loader">
+                <!-- <div id="page_loader">
                     <div class="loader"></div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -267,30 +267,47 @@ $(document).ready(function () {
     async function initPage() {
     try 
     {
-        if ($('input[name="locationByRadio"]:checked').val() !== 'australia') 
-        {
-            const position = await getCurrentLocation();
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
+       
+         var locationData = "";
+         const { latitude, longitude } = await getSafeLocation();
+         if (latitude && longitude) 
+         {
             $("#set_lat").val(latitude);
             $("#set_lng").val(longitude);
-            console.log(longitude, latitude, 'rizk-onload');
-        }
-       
-       
-        let filter_by_feild = {};
-        let filter_by_location = {
-            locationByRadio: $('input[name="locationByRadio"]:checked').val(),
-            by_name_member: $('#by_name_member').val(),
-            set_lat: $('#set_lat').val(),
-            set_lng: $('#set_lng').val(),
-            per_page: $('#per_page').val()
-        };
+            locationData = await fetchLocationFromServer(latitude, longitude); 
+         }
 
-        await loadData(1,filter_by_location,filter_by_feild); 
+         if (locationData?.city) {
+             $('#profile_city').val(locationData.city).trigger('change');
+         }
+
+        $('button.lower_filter').trigger('click')
+       
+        console.log('$locationCityId');
         } catch (error) {
         console.error("Location error:", error);
-        await loadData(null, null);
+        //await loadData(null, null);
+        }
+    }
+
+    async function fetchLocationFromServer(lat, lng) {
+        try {
+            const data = await $.ajax({
+                url: "{{route('web.user_location')}}",
+                type: "GET",
+                data: {
+                    latitude: lat,
+                    longitude: lng
+                }
+            });
+            return data;
+
+        } catch (error) {
+            console.error(error);
+            return {
+                state: null,
+                city: null
+            };
         }
     }
 
@@ -478,6 +495,8 @@ $(document).ready(function () {
     $(document).on('click', '.lower_filter', async function(e){
         e.preventDefault();
 
+        console.log('lower_filter--------cliked');
+
         let filter_by_location = {};
         let filter_by_feild = {
             profile_state: $('#profile_state').val(),
@@ -540,14 +559,37 @@ $(document).ready(function () {
 
 
 
-    function getCurrentLocation() {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-                position => resolve(position),
-                error => reject(error)
-            );
-        });
-    }
+        function getCurrentLocation() {
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    position => resolve(position),
+                    error => reject(error),
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            });
+        }
+
+        async function getSafeLocation() {
+            try {
+                const position = await getCurrentLocation();
+                return {
+                    latitude: position?.coords?.latitude ?? null,
+                    longitude: position?.coords?.longitude ?? null
+                };
+
+            } catch (error) {
+
+                console.log('error=======');
+                return {
+                    latitude: null,
+                    longitude: null
+                };
+            }
+        }
 
      function getParameterByName(name, url) {
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -566,12 +608,11 @@ $(document).ready(function () {
         selectedLocation.location = $(this).attr('id');
         if (selectedLocation.location == 'yourLocation') 
         {
-                const position = await getCurrentLocation();
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-
+                const { latitude, longitude } = await getSafeLocation();
+                if (latitude && longitude) {
                 $("#set_lat").val(latitude);
                 $("#set_lng").val(longitude);
+                }
                 console.log(longitude, latitude, ' rizk==change');
         } 
         else 
