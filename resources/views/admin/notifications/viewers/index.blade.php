@@ -389,7 +389,7 @@
                     </button>
                 </div>
                 <div class="modal-body agent-tour">
-                    <div id="success_form_html">
+                    <div class="py-4 text-center" id="success_form_html">
                         <h5 id="success_msg" class="custom_modal_text"></h5>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
                             aria-label="Close">OK</button>
