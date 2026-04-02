@@ -251,7 +251,7 @@
                                     <label class="form-check-label"><sup>(*)</sup>Geolocation in use.</label>
                                 </div>
                             </div>
-                            <div class="border p-1 border_color text-justify">
+                            <div class="border p-1 border_color rounded text-justify">
                                 <small>
                                     Any personal information submitted to this Website will be handled in accordance with
                                     E4U's <a class="termsandconditions_text_color" href="{{ 'privacy-policy' }}"
