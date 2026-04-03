@@ -4787,16 +4787,22 @@ i.fa.fa-heart-o{
                     flex-direction: row;
                 }
                 
+                .gap-7 {
+                    gap: 7px;
+                }
+                
                 .footer_mange_padding .row .col:nth-child(2) {
-                    max-width: 13%;
+                    max-width: 12%;
                 }
                 
                 .footer_mange_padding .row .col.dk-right {
-                    max-width: 250px;
+                    max-width: 185px;
+                    padding-left: 7px;
+                    padding-right: 0px !important;
                 }
                 
                 .footer_mange_padding .row .col:nth-child(3) {
-                    max-width: 22%;
+                    max-width: 28%;
                 }
                 
                 .footer_mange_padding .row .col:nth-child(4) {
@@ -4818,21 +4824,28 @@ i.fa.fa-heart-o{
                 }
                 
                 .footer_mange_padding .container-fluid>.row>.col:first-child {
-                    padding-right: 2% !important;
+                    padding-right: 5px !important;
                 }
                 
                 .footer_mange_padding .row .col:nth-child(4) .row>div:first-child,
                 .footer_mange_padding .row .col:nth-child(3) .row>div:first-child,
                 .footer_mange_padding .row .col:nth-child(2) .row>div:first-child {
-                    padding-right: 30px;
+                    padding-right: 7px;
+                    padding-left: 7px;
+                }
+                
+                footer ul {
+                    text-align: left !important;
                 }
                 
                 .footer_mange_padding .container-fluid .row:nth-child(2) .col:not(:last-child) {
-                    padding-right: 30px;
+                    padding-right: 7px;
+                    padding-left: 7px;
                 }
                 
                 .footer_mange_padding .container-fluid .row:nth-child(2) .col:not(:last-child) .d-flex>div:first-child {
-                    padding-right: 15px;
+                    padding-right: 7px;
+                    padding-left: 7px;
                 }
                 
                 .myblog-design .heading h4 {
