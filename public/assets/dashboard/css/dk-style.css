@@ -45,6 +45,21 @@
     text-align: center;
 }
 
+.content_wrapper .content_details {
+    margin-bottom: 35px;
+    text-align: justify;
+}
+
+.content_wrapper .content_details ul,
+ol {
+    padding-left: 20px;
+}
+
+.content_wrapper .content_details ul li,
+.content_wrapper .content_details ol li {
+    padding-left: 10px;
+}
+
 .badge_active {
     background-color: var(--active--status);
 }
