@@ -1,6 +1,5 @@
 <div class="modal fade upload-modal" id="upload_video_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
                 <div class="modal-content border-0">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle"><img src="/assets/dashboard/img/upload-videos.png" class="custompopicon" alt="cross"> Upload Videos</h5>
@@ -28,7 +27,6 @@
                         
                     </div>
                 </div>
-        </div>
     </div>
 
 </div>
