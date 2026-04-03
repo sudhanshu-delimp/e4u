@@ -83,7 +83,9 @@ class MassageController extends Controller
    
     public function massager_list(Request $request)
     {
-        return view('center.dashboard.list');
+
+        $active_profile = get_massage_listed_profile();
+        return view('center.dashboard.list',compact('active_profile'));
     }
 
     public function  get_all_massager_list(Request $request)
@@ -108,10 +110,9 @@ class MassageController extends Controller
                                                    
                                                   
                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                   '.$status.
-                                                  
-                                                   
+                                                   '.$status. 
                             '</div>';
+
                  //  <div class="dropdown-divider"></div>           
                 //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 

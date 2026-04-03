@@ -606,6 +606,7 @@ class UserRepository extends BaseRepository implements UserInterface
             $user->parent_massage_center = auth()->user()->id;
             $user->type = '4';
             $user->state_id = auth()->user()->state_id;
+            $user->password =  Hash::make($data['confirm_password']);
             if($user->save())
             {
                  if (!MassageProfile::where('user_id', $user->id)->exists()) {

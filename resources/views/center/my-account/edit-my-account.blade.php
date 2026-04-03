@@ -5,6 +5,14 @@
         .swal-button {
             background-color: #242a2c;
         }
+.toggle-password {
+    position: absolute;
+    top: 40px;
+    right: 22px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+}
     </style>
 @stop
 @section('content')
@@ -702,7 +710,33 @@
                                     </div>
                                 </div>
 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <!-- Business No. -->
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+                                    <span class="toggle-password" toggle="#password"><i class="fa fa-eye"></i></span>
+                                    <span class="text-danger error-password"></span> 
+                                </div>
                             </div>
+                            <div class="col-lg-6">
+                                <!-- Mobile No. -->
+                                <div class="form-group">
+                                    <label>Confirm Password </label>
+                                    <input type="password" name="confirm_password" id="confirm_password"  class="form-control" placeholder="Re-type password">
+                                    <span class="toggle-password" toggle="#confirm_password"><i class="fa fa-eye"></i></span>
+                                    <span class="text-danger error-confirm_password"></span> 
+                                </div>
+                            </div>
+                        </div>
+
+                    
+
+
+                        
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-end">
                                     <!-- Submit -->
@@ -967,9 +1001,9 @@
 @endsection
 @push('script')
     
-    <!-- <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script> -->
 
@@ -979,8 +1013,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
-    </script>
-    <script>
+   
+<script>
     var table = $("#other_centre_table").DataTable({
         language: {
             search: "Search: _INPUT_",
@@ -1237,7 +1271,7 @@
 
 
     $(document).on('submit', 'form[name="add_center_frm"]', function(e) 
-      {
+    {
          e.preventDefault(); 
          let form = $(this);
          let formData = new FormData(this);
@@ -1281,14 +1315,24 @@
                      }
                }
          });
-      });
+    });
 
+    document.querySelectorAll('.toggle-password').forEach(function(el) 
+    {
+        el.addEventListener('click', function() {
+            var input = document.querySelector(this.getAttribute('toggle'));
+            var icon = this.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    });
 
-
-
-
-
-    
-
-    </script>
+</script>
 @endpush

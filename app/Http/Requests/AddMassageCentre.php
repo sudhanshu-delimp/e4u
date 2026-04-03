@@ -31,8 +31,10 @@ class AddMassageCentre extends FormRequest
             'business_address'  => 'required|string|max:255',
             'business_number'   => 'required|digits_between:10,15',
             'phone'             => 'required|min:10|max:14|unique:users,phone',
-            'contact_type'   => 'nullable|array',
-            'contact_type.*' => 'in:1,2,3,4',
+            'contact_type'      => 'nullable|array',
+            'contact_type.*'    => 'in:1,2,3,4',
+            'password'          => ['required','string','min:8','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
+            'confirm_password' => 'required|same:password',
            
         ];
     }
@@ -41,10 +43,12 @@ class AddMassageCentre extends FormRequest
     public function messages()
     {
         return [
+            'phone.required' => 'phone number is required',
             'name.required' => 'display name is required',
-            'business_number.required'  => 'business number field is required.',
+            'business_number.required'  => 'business number is required.',
             'business_address.required'  => 'address is required.',
             'phone.required'  => 'mobile number is required.',
+            'password.regex' => 'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.',
            
         ];
     }

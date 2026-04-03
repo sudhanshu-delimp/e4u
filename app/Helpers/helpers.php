@@ -9,17 +9,18 @@ use App\Models\AlertNotic;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Escort;
-use App\Models\Purchase;
 use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
 use App\Models\MassageAvailability;
 use App\Models\MassageMedia;
 use App\Models\MassageProfile;
+use App\Models\MassagePurchase;
 use App\Models\MassageRate;
 use App\Models\MassageService;
 use App\Models\MassageStatistics;
 use App\Models\MasseurMedia;
+use App\Models\Purchase;
 use App\Models\State;
 use App\Models\User;
 use App\Sms\SendSms;
@@ -1806,3 +1807,22 @@ if (!function_exists('make_time_availability')) {
         return $result;
     }  
 }
+
+
+
+if (!function_exists('get_massage_listed_profile')) 
+{
+    function get_massage_listed_profile()
+    {
+        $massage_live_ids  = MassagePurchase::where('status','listed')->where('massage_profile_id', auth()->user()->id)->pluck('massage_centre_id');
+        if(!empty($massage_live_ids))
+        {
+            $profile = MassageProfile::with('state')->whereIn('id',  $massage_live_ids)->get();
+            if($profile->isNotEmpty())
+            return $profile;
+            else
+            return false;    
+            
+        }
+    }
+}   

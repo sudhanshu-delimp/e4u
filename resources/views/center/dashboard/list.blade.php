@@ -53,6 +53,9 @@
 .checkboxes label:hover {
   background-color: #f1f1f1;
 }
+.action_buttons {
+   margin-bottom:10px;
+}
 </style>
 @stop
 @section('content')
@@ -90,6 +93,23 @@
             <div class="col-md-12">
                <div class="panel with-nav-tabs panel-warning">
                   <div class="panel-body">
+
+                           @if($active_profile)
+                           <div class="action_buttons">
+                                <div class="add--list listingActionButtons">
+                                <div class="">
+                                <button class="btn brb-btn" data-toggle="modal"
+                                    data-target="#add_brb" id="btn_add_brb">Add BRB</button>
+                                <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+                                <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
+                                <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
+                                    
+                            </div>
+                            @endif
+
+
+
                      <div class="tab-content">
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
@@ -150,6 +170,10 @@
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
 </a>
+
+    @if($active_profile)
+    @include('center.dashboard.modal.listing_action_popup.index')
+    @endif
 
 
 @endsection
@@ -277,7 +301,47 @@ $(document).on('click', '.massage_action', async function () {
 })
 
 
- </script>
+
+
+//////////////  BRB Form Submit ///////////////////
+         $("#brb_form").on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var profileId = $("#profile_id").val();
+            var url = "{{ route('escort.brb.add') }}";
+            var data = new FormData(form[0]);
+            var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
+
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.response.success) {
+                        Swal.fire({
+                            icon: "success",
+                            text: data.response.message
+                        });
+                        $("#brb_form")[0].reset();
+                        $('#add_brb').modal('hide');
+                        table.draw();
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            text: data.response.message
+                        });
+                    }
+                },
+
+            });
+   });
+////////////// End  BRB Form Submit ///////////////////
+</script>
 
 
 @endpush
