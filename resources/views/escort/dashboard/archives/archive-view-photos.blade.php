@@ -54,7 +54,7 @@
     }
     img.img-thumbnail.defult-image {
         width: 100%;
-        height: 100%;
+        height: 180px;
         object-fit: cover;
     }
     img.img-thumbnail.defult-image-3 {
