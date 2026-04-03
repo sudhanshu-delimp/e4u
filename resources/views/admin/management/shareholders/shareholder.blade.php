@@ -77,18 +77,11 @@
                                                             </a>
                                                             <a class="dropdown-item align-item-custom" href="#"
                                                                 data-toggle="modal" data-target="#editShareholder"> <i
-                                                                    class="fa fa-pen" aria-hidden="true"></i>
-                                                                Edit</a>
-
-                                                            <div class="dropdown-divider"></div>
-
-                                                            <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                                data-target="#suspendAccount" href=""> <i
-                                                                    class="fa fa-ban" aria-hidden="true"></i>
-                                                                Suspend</a>
+                                                                    class="fa fa-print" aria-hidden="true"></i>
+                                                                Print</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item align-item-custom" href="#"
-                                                                data-toggle="modal" data-target="#viewShareholder"> <i
+                                                                data-toggle="modal" data-target="#viewShareholding"> <i
                                                                     class="fa fa-eye" aria-hidden="true"></i>
                                                                 View Account</a>
                                                         </div>
@@ -98,7 +91,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>B60123</td>
+                                            <td>B60258</td>
                                             <td>Andrew Stephen  </td>
                                             <td>06-04-2023</td>
                                             <td>Ordinary</td>
@@ -122,18 +115,11 @@
                                                             </a>
                                                             <a class="dropdown-item align-item-custom" href="#"
                                                                 data-toggle="modal" data-target="#editShareholder"> <i
-                                                                    class="fa fa-pen" aria-hidden="true"></i>
-                                                                Edit</a>
-
-                                                            <div class="dropdown-divider"></div>
-
-                                                            <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                                data-target="#suspendAccount" href=""> <i
-                                                                    class="fa fa-ban" aria-hidden="true"></i>
-                                                                Suspend</a>
+                                                                    class="fa fa-print" aria-hidden="true"></i>
+                                                                Print</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item align-item-custom" href="#"
-                                                                data-toggle="modal" data-target="#viewShareholder"> <i
+                                                                data-toggle="modal" data-target="#viewShareholding"> <i
                                                                     class="fa fa-eye" aria-hidden="true"></i>
                                                                 View Account</a>
                                                         </div>
@@ -151,15 +137,55 @@
             </div>
         </div>
     </div>
-    @include('admin.management.manage-shareholders.modal.add_shareholder_modal')
-    @include('admin.management.manage-shareholders.modal.edit_shareholder_modal')
-    @include('admin.management.manage-shareholders.modal.view_shareholder_modal')
-    @include('admin.management.manage-shareholders.modal.suspended_modal')
+    @include('admin.management.shareholders.modal.add_shareholding_modal')
+    @include('admin.management.shareholders.modal.view_shareholding_modal')
+    @include('admin.management.shareholders.modal.trust_deed_modal')
 
 
 @endsection
 @push('script')
+
     <script>
+    $(document).ready(function () {
+
+        // Auto-fill shareholder name and member ID from dropdown
+        $('#shareholder_id').on('change', function () {
+            let selected = $(this).find(':selected');
+            let name = selected.data('name') || '';
+            let memberId = selected.data('memberid') || '';
+
+            $('#name').val(name);
+            $('#member_id').val(memberId);
+        });
+
+        // Show / Hide Trust Fields
+        $('input[name="held_on_trust"]').on('change', function () {
+            if ($(this).val() === 'Yes') {
+                $('.trust-fields').removeClass('d-none');
+                $('#trustee').prop('disabled', false);
+                $('#trust_deed').prop('disabled', false);
+            } else {
+                $('.trust-fields').addClass('d-none');
+                $('#trustee').prop('disabled', true).val('');
+                $('#trust_deed').prop('disabled', true).val('');
+            }
+        });
+
+        // Initialize hidden state on load
+        if ($('input[name="held_on_trust"]:checked').val() === 'No') {
+            $('.trust-fields').addClass('d-none');
+            $('#trustee').prop('disabled', true);
+            $('#trust_deed').prop('disabled', true);
+        }
+    });
+
+
+
+
+
+
+
+
         var table = $("#manage_shareholder_table").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -194,39 +220,47 @@
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'contact',
-                    name: 'contact',
+                    data: 'date',
+                    name: 'date',
                     searchable: true,
                     orderable: false,
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'mobile',
-                    name: 'mobile',
+                    data: 'type',
+                    name: 'type',
                     searchable: true,
                     orderable: true,
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'email',
-                    name: 'email',
+                    data: 'share',
+                    name: 'share',
                     searchable: true,
                     orderable: true,
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'total_logins',
-                    name: 'total_logins',
+                    data: 'shareholding',
+                    name: 'shareholding',
                     searchable: false,
                     orderable: true,
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'last_login',
-                    name: 'last_login',
+                    data: 'threshold',
+                    name: 'threshold',
                     searchable: true,
                     orderable: true,
                     defaultContent: 'NA'
+                },
+                {
+                    data: 'beneficially',
+                    name: 'beneficially',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA',
+                    class: 'text-center'
                 },
                 {
                     data: 'action',

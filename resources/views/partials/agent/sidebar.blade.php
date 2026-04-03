@@ -99,8 +99,8 @@
                     'submit_ticket',
                     'my-income',
                     'create-information-package',
-                    'create-prospect',
-                    'database-centers',
+                    'prospect-list',
+                    'database-centres',
                     'saved-reports',
                 ])) show @endif"
             data-parent="#accordionSidebar">
@@ -199,22 +199,22 @@
                     </div>
                 </div>
                 {{-- end --}}
-
                 {{-- Marketing --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#marketing">
                     <img src="{{ asset('assets/app/img/folded-booklet.png') }}">
                     <span>Marketing</span>
                 </a>
+                
                 <div id="marketing" class=" collapse  @if (request()->segment(3) == 'create-information-package' ||
-                        request()->segment(3) == 'create-prospect' ||
-                        request()->segment(3) == 'database-centers' ||
+                        request()->segment(3) == 'prospect-list' ||
+                        request()->segment(3) == 'database-centres' ||
                         request()->segment(3) == 'saved-reports') show @endif;"
                     data-parent="#Management">
                     <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item" href="{{ route('agent.database-centers') }}">
+                        <a class="collapse-item" href="{{ route('agent.marketing.database.centres') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/data-center.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'database-centers' ? 'color: #e5365a;' : '' }}">Database
+                                style="{{ request()->segment(3) == 'database-centres' ? 'color: #e5365a;' : '' }}">Database
                                 (Centres)</span>
                         </a>
                         <a class="collapse-item" href="{{ route('marketing.create-information-package') }}">
@@ -224,10 +224,10 @@
                                 Packages</span>
                         </a>
                         <a class="collapse-item"
-                            href="{{ route('marketing.agencreate-prospect') }}">
+                            href="{{ route('agent.marketing.prospect.list') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : '' }}">Prospect
+                                style="{{ request()->segment(3) == 'prospect-list' ? 'color: #e5365a;' : '' }}">Prospect
                                 Lists</span>
                         </a>
                         <a class="collapse-item" href="{{ route('agent.saved-reports') }}">
@@ -243,6 +243,7 @@
             </div>
         </div>
     </li>
+
     {{-- end --}}
 
     {{-- devider --}}
