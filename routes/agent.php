@@ -114,6 +114,9 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     //Marketing Database (Centres)
     Route::get('marketing/database-centres', [DatabaseCentreController::class, 'databaseCentres'])->name('agent.marketing.database.centres');
     Route::get('marketing/view-database-centre/{id}', [DatabaseCentreController::class, 'viewDataSummery'])->name('agent.marketing.database.view');
+    Route::get('marketing/download-database-centre/{id}', [DatabaseCentreController::class, 'downloadExcel'])->name('agent.marketing.database.download');
+    Route::get('marketing/count-active-post-code', [DatabaseCentreController::class, 'countActivePostCode'])->name('agent.marketing.database.active.count');
+    Route::get('marketing/database-download-pdf/{id}', [DatabaseCentreController::class, 'downloadPdf'])->name('agent.marketing.database.download.pdf');
 
      
      

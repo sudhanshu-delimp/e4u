@@ -56,7 +56,7 @@
                     </table>
                 </div>
                 <div class="modal-footer d-flex justify-content-end">
-                    <button type="button" class="btn-success-modal">Print</button>
+                    <button type="button" class="btn-success-modal js-pdf" data-pdf-id="">Print</button>
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>

@@ -45,7 +45,7 @@
             <div class="col-md-12 d-flex align-items-center justify-content-end flex-wrap gap-10 my-3">
                 <div class="total_listing">
                     <div><span>Active Post Codes : </span></div>
-                    <div><span class="totalInprogressTask">12</span></div>
+                    <div><span class="totalInprogressTask">0</span></div>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -77,6 +77,9 @@
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-marketing-database-centres="{{ route('agent.marketing.database.centres') }}"
         data-marketing-view-database-center="{{route('agent.marketing.database.view', ['id' => '__ID__'])}}"
+        data-marketing-download-database-center="{{route('agent.marketing.database.download', ['id' => '__ID__'])}}"
+        data-count-active-post-code="{{route('agent.marketing.database.active.count')}}"
+        data-download-pdf="{{route('agent.marketing.database.download.pdf',  ['id' => '__ID__'])}}"
         >
 
         @include('agent.dashboard.modal.data-summary-modal')

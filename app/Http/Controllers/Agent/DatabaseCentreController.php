@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\MassageCenterTerritory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MassageExcelExport;
+use App\Models\MassageExcel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DatabaseCentreController extends Controller
 {
     public function databaseCentres(Request $request)
     {
-
         if ($request->ajax()) {
 
             $query = MassageCenterTerritory::from('massage_center_territories as t')
@@ -25,6 +28,7 @@ class DatabaseCentreController extends Controller
                     t.id,
                     t.state_id
                 ')
+                ->where('t.state_id', auth()->user()->state_id) // Filter by the agent's state_id
                 ->whereIn('t.status', ['Active', 'Suspended'])
                 ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
                 ->orderByRaw("FIELD(t.status, 'Pending', 'Suspended', 'Active')");
@@ -53,7 +57,7 @@ class DatabaseCentreController extends Controller
 
                     // If Active
                     if ($status === 'Active') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-download" data-id="' . $row->id . '"><i class="fa fa-download"></i> Download</a>';
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-download" data-id="' . $row->state_id . '"><i class="fa fa-download"></i> Download</a>';
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-summary" data-id="' . $row->id . '"><i class="fa fa-eye"></i> Summary</a>';
                     }
 
@@ -84,21 +88,7 @@ class DatabaseCentreController extends Controller
     {
 
         try {
-           $view = MassageCenterTerritory::from('massage_center_territories as t')
-                ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
-                ->selectRaw('
-                    DATE(t.created_at) as date,
-                    t.territory_name,
-                    COUNT(m.id) as centres,
-                    COUNT(NULLIF(TRIM(m.mobile_number), "")) as mobile_numbers,
-                    t.status,
-                    t.id,
-                    t.state_id
-                ')
-                ->where('t.id', $id)
-                ->whereIn('t.status', ['Active', 'Suspended'])
-                ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
-                ->first();
+            $view = $this->querydata($id);
             return success_response([
                 'Status' => $view->status,
                 'Uploaded' => basicDateFormat($view->date),
@@ -109,5 +99,61 @@ class DatabaseCentreController extends Controller
         } catch (\Exception $e) {
             return error_response('Failed to fetch database (centres): ' . $e->getMessage(), 500);
         }
+    }
+
+
+    public function downloadExcel($id)
+    {
+        return Excel::download(new MassageExcelExport($id), 'massage_centres.xlsx');
+    }
+
+    public function countActivePostCode()
+    {
+        try {
+            $data = MassageExcel::where('state_id', auth()->user()->state_id)->whereHas('territory', function ($query) {
+                $query->where('status', 'Active');
+            })->count();
+            return success_response($data, "Ok", 200, []);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch database (centres): ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function downloadPdf($id)
+    {
+
+        $id = base64_decode($id);
+
+        try {
+            $queryData = $this->querydata($id);
+            if ($queryData) {
+                $pdf = PDF::loadView(
+                    'agent.dashboard.Marketing.pdf-generate',
+                    ['data' => $queryData]
+                )->setOption(['isRemoteEnabled' => true]);
+                return $pdf->stream('database_Centres.pdf');
+            }
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch database (centres): ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function querydata($id)
+    {
+        return MassageCenterTerritory::from('massage_center_territories as t')
+            ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
+            ->selectRaw('
+                DATE(t.created_at) as date,
+                t.territory_name,
+                COUNT(m.id) as centres,
+                COUNT(NULLIF(TRIM(m.mobile_number), "")) as mobile_numbers,
+                t.status,
+                t.id,
+                t.state_id
+            ')
+            ->where('t.id', $id)
+            ->whereIn('t.status', ['Active', 'Suspended'])
+            ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
+            ->first();
     }
 }

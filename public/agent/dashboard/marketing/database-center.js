@@ -5,6 +5,9 @@ const endpoint = {
     error_image: mmRoot.data('error-image'),
     marketing_database_centres: mmRoot.data('marketing-database-centres'),
     marketing_view_database_center: mmRoot.data('marketing-view-database-center'),
+    marketing_download_database_center: mmRoot.data('marketing-download-database-center'),
+    count_active_post_code : mmRoot.data('count-active-post-code'),
+    download_pdf: mmRoot.data('download-pdf')
 
 };
 
@@ -73,6 +76,8 @@ $(document).ready(function () {
         $('#modal_error').hide();
         $('#viewSummeryData').empty();
         $('#modal_loader').show();
+        $('.js-pdf').attr('data-pdf-id', id);
+        
         $.ajax({
             url: endpoint.marketing_view_database_center.replace('__ID__', id),
             type: 'GET',
@@ -108,7 +113,41 @@ $(document).ready(function () {
                 $('#modal_error').show();
             }
         });
-    })
+    });
+
+    // for Download
+    $(document).on('click', '.js-download', function(e){
+        e.preventDefault();
+        const id = $(this).data('id');
+        window.location.href = endpoint.marketing_download_database_center.replace('__ID__', id);
+    });
+
+    // for generate PDf
+
+    $(document).on('click', '.js-pdf', function(e){
+        e.preventDefault();
+       let id = $(this).data('pdf-id');
+       let decordId = btoa(id);
+      window.open(endpoint.download_pdf.replace('__ID__', decordId), '_blank');
+    });
+
+    countActivePostCode();
+    function countActivePostCode(){
+        $.ajax({
+            url: endpoint.count_active_post_code,
+            method: "GET",
+            success : function(response){
+                if(response.status === true){
+                    $('.totalInprogressTask').html(response.data);
+                }
+            }
+
+        });
+    }
+
+
+
+
 
 
 
