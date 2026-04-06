@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supplier Report</title>
+    <title>Shareholder Report</title>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,11 +89,11 @@
 
 
         table td {
-            padding: .15rem .75rem .35rem .75rem !important;
+            padding: .75rem .75rem .75rem  .75rem !important;
         }
 
         table th {
-            padding: .15rem .75rem .35rem .75rem !important;
+            padding: .75rem  .75rem .75rem .75rem !important;
             font-weight: 500;
             vertical-align: middle;
 
@@ -108,116 +108,97 @@
             <div class="card mb-3 p-3">
                 <div class="my-account-card">
                     <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
-                        <h2>Supplier Report</h2>
+                        <h2>Shareholder Report</h2>
                     </div>
                     <!-- Avatar + Name -->
                     @php
-                        $appointedDate = '';
-                        $agreementDate = '';
-
-                        $detail = $supplier->supplier_detail;
-                        $bankDetail = $supplier->supplier_bank_detail;
-
-                        if (!empty($detail->date_appointed)) {
-                            $appointedDate = showDateWithFormat($detail->date_appointed, 'd-m-Y');
+                        $setting = $shareholder->shareholder_setting ?? null;
+                        $idle_preference_times = config('staff.idle_preference_time');
+                        $idle_preference_time = '';
+                        $twofa = '';
+                        if (isset($setting) && isset($setting->idle_preference_time)) {
+                            $idle_preference_time = isset(
+                                $idle_preference_times[(string) $setting->idle_preference_time],
+                            )
+                                ? $idle_preference_times[$setting->idle_preference_time]
+                                : '';
+                        }
+                        $twofas = config('staff.twofa');
+                        if (isset($setting) && isset($setting->twofa)) {
+                            $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : '';
                         }
 
-                        if (!empty($detail->agreement_date)) {
-                            $agreementDate = showDateWithFormat($detail->agreement_date, 'd-m-Y');
+                        $contactTypesText = '';
+                        $contactTypesArray = [];
+                        if (is_array($shareholder->contact_type)) {
+                            $contactType = $shareholder->contact_type;
+                        } elseif (!empty($shareholder->contact_type)) {
+                            $contactType = json_decode($shareholder->contact_type, true) ?? [];
+                        } else {
+                            $contactType = [];
                         }
+                        if (count($contactType) > 0) {
+                            if (in_array('1', $contactType)) {
+                                $contactTypesArray[] = 'Messaging';
+                            }
+                            if (in_array('2', $contactType)) {
+                                $contactTypesArray[] = 'Text';
+                            }
+                            if (in_array('3', $contactType)) {
+                                $contactTypesArray[] = 'Email';
+                            }
+                            if (in_array('4', $contactType)) {
+                                $contactTypesArray[] = 'Call Us';
+                            }
+                        }
+                        $contactTypesText = implode(', ', $contactTypesArray);
                     @endphp
 
-                     <!-- Avatar + Name -->
+                    <!-- Avatar + Name -->
                     <div style="margin-left:-10px;margin-bottom:10px;">
                         <img src="{{ asset('assets/img/default_user.png') }}" alt="Avatar"
                             style="vertical-align:middle; border-radius:50%; margin-right:10px;" width="50"
                             height="50">
 
                         <h6 style="display:inline-block; vertical-align:middle; margin:0;">
-                           {{ $supplier->business_name }}
+                            {{ $shareholder->contact_person }}
                         </h6>
                     </div>
                     <!-- Merchant Details -->
-                    <h6 class=" text-blue-primary">Merchant Details</h6>
                     <table class="table table-bordered mb-3">
-
                         <tr>
-                            <th width="40%">Merchant ID</th>
-                            <td width="60%">{{ $supplier->member_id }}</td>
+                            <th>Shareholder</th>
+                            <td>{{ $shareholder->business_name }}</td>
                         </tr>
                         <tr>
-                            <th>Date Appointed</th>
-                            <td>{{ $appointedDate }}</td>
+                            <th>Address</th>
+                            <td>{{ $shareholder->business_address }}</td>
                         </tr>
                         <tr>
-                            <th>ABN</th>
-                            <td>{{ $supplier->abn }}</td>
-                        </tr>
-                        <tr>
-                            <th>Business Address</th>
-                            <td>{{ $supplier->business_address }}</td>
-                        </tr>
-                        <tr>
-                            <th>Business Number</th>
-                            <td>{{ $supplier->business_number }}</td>
-                        </tr>
-                        <tr>
-                            <th>Point of Contact</th>
-                            <td>{{ $detail->point_of_contact }}</td>
+                            <th>Contact</th>
+                            <td>{{ $shareholder->contact_person }}</td>
                         </tr>
                         <tr>
                             <th>Mobile</th>
-                            <td>{{ $supplier->phone }}</td>
+                            <td>{{ $shareholder->phone }}</td>
                         </tr>
                         <tr>
-                            <th>Private Email</th>
-                            <td>{{ $supplier->email }}</td>
+                            <th>Email</th>
+                            <td>{{ $shareholder->email }}</td>
                         </tr>
                         <tr>
-                            <th>Location</th>
-                            <td>{{ $supplier->state->name }}</td>
+                            <th>Method of Contact</th>
+                            <td>{{ $contactTypesText }}</td>
                         </tr>
                         <tr>
-                            <th>Concierge Service</th>
-                            <td>{{ $detail->concierge_service }}</td>
+                            <th>Idle Time Preference</th>
+                            <td>{{ $idle_preference_time }}</td>
+                        </tr>
+                        <tr>
+                            <th>2FA Authentication</th>
+                            <td>{{ $twofa }}</td>
                         </tr>
                     </table>
-                    <!-- Agreement Details -->
-                    <h6 class=" text-blue-primary">Agreement Details</h6>
-                    <table class="table table-bordered mb-3">
-                        <tr>
-                            <th width="40%">Agreement Date</th>
-                            <td width="60%">{{ $agreementDate }}</td>
-                        </tr>
-                        <tr>
-                            <th>Term</th>
-                            <td>{{ $detail->term }}</td>
-                        </tr>
-                    </table>
-                    <!-- Bank Account -->
-                    <h6 class=" text-blue-primary">Bank Account</h6>
-                    <table class="table table-bordered mb-3">
-                        <tr>
-                            <th width="40%">Bank</th>
-                            <td width="60%">{{ $bankDetail->bank_name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Account Name</th>
-                            <td>{{ $bankDetail->account_name }}</td>
-                        </tr>
-                        <tr>
-                            <th>BSB</th>
-                            <td>{{ $bankDetail->bsb }}</td>
-                        </tr>
-                        <tr>
-                            <th>Account Number</th>
-                            <td>{{ $bankDetail->account_number }}</td>
-                        </tr>
-                    </table>
-
-
-
-
                 </div>
             </div>
         </div>

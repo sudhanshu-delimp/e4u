@@ -31,7 +31,7 @@ class AddNewShareholder extends FormRequest
         }
 
         return [
-            'name' => 'bail|required|string|max:100',
+            'contact_person' => 'bail|required|string|max:100',
             'business_name' => 'bail|required|string|max:100',
             'business_address' => 'bail|required|string|max:255',
             'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
@@ -52,6 +52,8 @@ class AddNewShareholder extends FormRequest
     public function messages()
     {
         return [
+             'business_name.required' => 'The shareholder name field is required.',
+             'business_name.max' => 'The business name must not be greater than 100 characters.',
             'contact_type.required' => 'The method of Contact field is required.',
             'phone.required' => 'The mobile number field is required.',
             'point_of_contact.required' => 'The point of contact field is required.',

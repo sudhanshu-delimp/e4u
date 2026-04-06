@@ -156,8 +156,8 @@ class ShareholderController extends BaseController
      */
     public function ShareholderDataPagination($start, $limit, $order_key, $dir)
     {
-        $shareholder = Shareholder::with('state')
-            ->where('type', '10');
+        $shareholder = Shareholder::with('shareholder_setting', 'state')
+            ->where('type', '8');
 
         $search = request()->input('search.value');
 
@@ -200,20 +200,21 @@ class ShareholderController extends BaseController
             $item->email = isset($item->email) ? $item->email : 'NA';
             $item->totalAgents = 0;
             $item->business_name = isset($item->business_name) ? $item->business_name : 'NA';
+            $item->name = isset($item->name) ? $item->name : 'NA';
 
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
             $edit = "";
 
-            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="viewShareholderBtn" > <i class="fa fa-eye"></i> View Account</a>';
+            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="viewShareholderBtn" > <i class="fa fa-eye"></i>View Account</a>';
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
 
             if ($this->editAccessEnabled) {
                 if (auth()->user()->member_id != $item->member_id) {
-                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="getShareholder"> <i class="fa fa-pen"></i> Edit </a>';
+                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="getShareholder"> <i class="fa fa-pen"></i>Edit</a>';
                 }
             }
 
@@ -232,7 +233,7 @@ class ShareholderController extends BaseController
             }
 
             if ($item->status == 'Active') {
-                $dropdownsub = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i>Suspend</a>';
+                $dropdownsub = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '><i class="fa fa-ban"></i>Suspend</a>';
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
                 } else {
@@ -245,7 +246,7 @@ class ShareholderController extends BaseController
             }
 
             if ($item->status == 'Suspended') {
-                $dropdownsub = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i>Activate</a><div class="dropdown-divider"></div>';
+                $dropdownsub = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '><i class="fa fa-check"></i>Activate</a><div class="dropdown-divider"></div>';
 
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
@@ -309,14 +310,14 @@ class ShareholderController extends BaseController
         if ($request->id && $request->request_type && $request->request_type == 'suspend') {
             $user = Shareholder::where('id', $request->id)->first();
             if ($user->status && $user->status == 'Suspended') {
-                return $this->successResponse('This Account Already Suspended.');
+                return $this->successResponse('Shareholder\'s Already Suspended.');
             }
             $user->status = '3';
             $response = $user->save();
 
             if ($response) {
                 $resposne = $this->shareholderRepo->sendSuspendEmail($user);
-                return $this->successResponse('Account Suspended Successfully.');
+                return $this->successResponse(' Shareholder\'s Account has been suspended.');
             } else
                 return $this->successResponse('Error Occurred while Account Suspending.');
         } else {
