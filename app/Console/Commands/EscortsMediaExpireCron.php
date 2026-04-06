@@ -21,7 +21,7 @@ class EscortsMediaExpireCron extends Command
         $now = now();
 
         // TESTING
-        $expireMinutes = 2;
+        $expireMinutes = 5;
 
         // LIVE
         // $expireMinutes = 60 * 48;

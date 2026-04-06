@@ -656,9 +656,10 @@ class EscortGalleryController extends AppController
         $image = $request->file('image');
         $media = EscortMedia::where('user_id', $user->id)
             ->whereIn('varified', ['0', '2'])
-        ->whereNull('media_verification_id')
-        ->count();
-      
+            ->whereNull('media_verification_id')
+            ->where('type' , '0')
+            ->count();
+    
         if ($media  <= 0) {
             return response()->json([
                 'success' => false,
