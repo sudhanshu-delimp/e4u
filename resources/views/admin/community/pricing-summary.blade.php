@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
                             <div class="card">
                                 <div class="card-header">

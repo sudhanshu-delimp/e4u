@@ -15,19 +15,22 @@
                                 <b>Help?</b>
                             </span>
                         </div>
-                        <div class="card collapse col-lg-12  mb-4" id="notes">
-                            <div class="card-body">
-                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                                <ol>
-                                    <li>These community information pages are a complete summary of all the terms
-                                        and
-                                        icons use in the Website.
-                                    </li>
-                                    <li>Industry terms are also included to assist with Service Tags.
-                                    </li>
-                                </ol>
+                        <div class="col-lg-12">
+                             <div class="card collapse   mb-4" id="notes">
+                                <div class="card-body">
+                                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                    <ol>
+                                        <li>These community information pages are a complete summary of all the terms
+                                            and
+                                            icons use in the Website.
+                                        </li>
+                                        <li>Industry terms are also included to assist with Service Tags.
+                                        </li>
+                                    </ol>
+                                </div>
                             </div>
                         </div>
+                       
                     </div>
                     <div class="row">
                         <div class="col-md-12">
