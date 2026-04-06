@@ -3,6 +3,7 @@
 namespace App\Models;
 //use App\Models\State;
 
+use App\Models\MassageBrb;
 use App\Models\MassageLike;
 use App\Models\Reviews;
 use Carbon\Carbon;
@@ -433,4 +434,21 @@ class MassageProfile extends Model
         }
         return $ipaddress;
     }
+
+
+
+    public function brb()
+    {
+        return $this->hasMany('App\Models\MassageBrb', 'profile_id');
+    }
+
+    public function latest_active_brb()
+    {
+        return $this->hasOne(MassageBrb::class, 'profile_id', 'id')
+            ->where('brb_time', '>', Carbon::now('UTC'))
+            ->where('active', 'Y')
+            ->orderBy('brb_time', 'desc');
+    }
+
+    
 }

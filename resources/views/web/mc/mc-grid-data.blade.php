@@ -28,6 +28,15 @@
          @endphp   
         <div class="mc_card">
 
+        @if($listing->latest_active_brb)
+            <div class="brb--content">
+                <div class="brb--wrappr">
+                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
+                </div>
+            </div>
+        @endif
+
+
             <div class="mc_card_header">
                 {{-- <span class="verify_icon">
                     <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}" alt="">
@@ -49,6 +58,7 @@
                 'ids' => json_encode($ids)
             ]) }}" class="mc_card_link">
         
+                
 
                 <div class="mc_profile_img">
                 <img src="{{ $massage_thumb  }}" alt="Massage Centre 1"

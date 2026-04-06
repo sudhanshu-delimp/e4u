@@ -97,15 +97,17 @@
                            @if($active_profile)
                            <div class="action_buttons">
                                 <div class="add--list listingActionButtons">
-                                <div class="">
-                                <button class="btn brb-btn" data-toggle="modal"
-                                    data-target="#add_brb" id="btn_add_brb">Add BRB</button>
-                                <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
-                                <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
-                                <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
-                                    
-                            </div>
+                                    <div class="">
+                                          <button class="btn brb-btn" data-toggle="modal"
+                                                data-target="#add_brb" id="btn_add_brb">Add BRB</button>
+                                          <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+                                          <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
+                                          <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
+                                                
+                                       </div>
+                                </div> 
+                           </div>  
                             @endif
 
 
@@ -304,43 +306,86 @@ $(document).on('click', '.massage_action', async function () {
 
 
 //////////////  BRB Form Submit ///////////////////
-         $("#brb_form").on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            var profileId = $("#profile_id").val();
-            var url = "{{ route('escort.brb.add') }}";
-            var data = new FormData(form[0]);
-            var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
+$('#brb_form').parsley({});
 
-            $.ajax({
-                method: 'POST',
-                url: url,
-                data: data,
-                contentType: false,
-                processData: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (data.response.success) {
-                        Swal.fire({
-                            icon: "success",
-                            text: data.response.message
-                        });
-                        $("#brb_form")[0].reset();
-                        $('#add_brb').modal('hide');
-                        table.draw();
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            text: data.response.message
-                        });
-                    }
-                },
+$("#brb_form").on('submit', function(e) 
+{
+   e.preventDefault();
+   var form = $(this);
+   var profileId = $("#profile_id").val();
+   var url = "{{ route('massage.brb.add') }}";
+   var data = new FormData(form[0]);
+   var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
 
-            });
+   $.ajax({
+         method: 'POST',
+         url: url,
+         data: data,
+         contentType: false,
+         processData: false,
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         success: function(data) {
+            if (data.response.success) {
+               Swal.fire({
+                     icon: "success",
+                     text: data.response.message
+               });
+               $("#brb_form")[0].reset();
+               $('#add_brb').modal('hide');
+               table.draw();
+            } else {
+               Swal.fire({
+                     icon: "error",
+                     text: data.response.message
+               });
+            }
+         },
+
    });
+});
+
+
+window.Parsley.addValidator('time', {
+validateString: function(value) {
+      // Regex to validate time in HH:MM format (24-hour)
+      return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value);
+},
+messages: {
+      en: 'Please enter a valid time (HH:MM).'
+}
+});
 ////////////// End  BRB Form Submit ///////////////////
+
+
+$(document).ready(function () {
+
+    let suspendStartDateObject = $('#suspendStartDate');
+    let suspendEndDateObject   = $('#suspendEndDate');
+
+    
+    suspendStartDateObject.datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: 1,
+        onSelect: function () {
+            suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
+            suspendEndDateObject.datepicker('setDate', $(this).val());
+        }
+    });
+
+    suspendEndDateObject.datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: 1,
+        onSelect: function () {
+            suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
+        }
+    });
+
+    
+    suspendStartDateObject.datepicker('setDate', +1);
+});
+
 </script>
 
 

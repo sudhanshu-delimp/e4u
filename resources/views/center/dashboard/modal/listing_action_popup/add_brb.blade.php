@@ -57,15 +57,19 @@
                                             <textarea class="form-control" name="brb_note" id="brb_note" required></textarea>
                                         </div>
                                         
-                                    </div>                                    
+                                    </div>  
+                                    
+                                    
+                                    <div class="modal-footer" style="text-align: right; display: block;">
+                                        <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="text-align: right; display: block;">
-                    <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
-                </div>
+                
             </div>
     </div>
 </div>

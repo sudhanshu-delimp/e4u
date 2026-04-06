@@ -52,21 +52,35 @@
         }
     }
 
-    .page-link-custom {
-        background: #0C223d;
-        color: #fff;
-        padding: 6px 12px;
-        display: inline-block;
-        border-radius: 4px;
-        text-decoration: none;
-    }
+.page-link-custom {
+background: #0C223d;
+color: #fff;
+padding: 6px 12px;
+display: inline-block;
+border-radius: 4px;
+text-decoration: none;
+}
 
-    .page-link-custom.active-page {
-        background: #F2F2F2;
-        color: #ff3c5f;
-        font-weight: bold;
-    }
+.page-link-custom.active-page {
+background: #F2F2F2;
+color: #ff3c5f;
+font-weight: bold;
+}
 
+
+.brb--content {
+  background: #ff3c5f85;
+  position: absolute;
+  top: 9rem;
+  padding: 10px;
+  width: 100%;
+  z-index: 2;
+}
+.brb--wrappr {
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+}
 </style>
 @endsection
 

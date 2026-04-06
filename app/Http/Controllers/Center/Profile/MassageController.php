@@ -91,10 +91,28 @@ class MassageController extends Controller
     public function  get_all_massager_list(Request $request)
     {
 
-            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
+            $masseurs  = MassageProfile::with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },
+            ])->where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
             $countries = getCountryList();
 
+          
             $data = $masseurs->map(function ($row) use ($countries) {
+
+
+            $brb = [];
+            if(isset($row->brb) && (count($row->brb)>0))
+            $brb = json_decode(json_encode($row->brb),true);   
+
+            if(!empty($brb))
+            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+            else
+            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.'</span>';     
+
+            //$profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <pre>'.json_encode($brb, JSON_PRETTY_PRINT).'</pre></span>'; 
+
 
                 $status = "";
                 if($row->enabled==0)
@@ -118,7 +136,7 @@ class MassageController extends Controller
 
                 return [
                     'id' => $row->id,
-                    'profile_name' => $row->profile_name,
+                    'profile_name' => $profile_name,
                     'business_name' => $row->business_name,
                     'business_no' => $row->business_no,
                     'phone' => $row->phone,

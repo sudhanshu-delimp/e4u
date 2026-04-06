@@ -142,7 +142,7 @@ class MassageCentre extends Controller
          $massage_users = $massage_users->whereIn('id',$mc_user_id);
             
 
-         $massage = MassageProfile::query();
+         $massage = MassageProfile::with('latest_active_brb');
          if(!empty($mc_live_list))
          $massage = $massage->whereIn('id',$mc_live_list);
 
@@ -363,11 +363,18 @@ class MassageCentre extends Controller
         ######### End Upper Filter ##################### 
 
      
+        // $massage->setCollection(
+        //     $massage->getCollection()->sortByDesc(function ($item) {
+        //         return !is_null($item->latest_active_brb);
+        //     })->values()
+        // );
 
        $listings = $massage;
        $media = $this->media;
       
-                
+            
+       Log::info( $listings);
+
         return response()->json([
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
