@@ -1009,8 +1009,7 @@ class MassageController extends Controller
         ])
         ->whereNotIn('id', $excludeIds)
         ->distinct()
-        ->pluck('id');
-
+        ->get();
 
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
     }
