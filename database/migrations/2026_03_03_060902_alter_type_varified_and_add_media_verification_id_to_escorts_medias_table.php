@@ -21,9 +21,9 @@ class AlterTypeVarifiedAndAddMediaVerificationIdToEscortsMediasTable extends Mig
 
         Schema::table('escorts_medias', function (Blueprint $table) {
 
-            $table->enum('varified', ['0','1', '2'])
+            $table->enum('varified', ['1', '2'])
                   ->nullable()
-                  ->comment('0=>pending,1=>varified,2=>unvarified')
+                  ->comment('1=>varified,2=>unvarified')
                   ->after('default');
 
             // Add media_verification_id column
