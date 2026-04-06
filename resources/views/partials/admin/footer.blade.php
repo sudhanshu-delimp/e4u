@@ -35,6 +35,7 @@
         </div>
         <!-- Bootstrap core JavaScript-->
         <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
+        
         <script src="{{ asset('assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- Core plugin JavaScript-->
         <script src="{{ asset('assets/dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
@@ -49,6 +50,7 @@
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
+        
         <!-- <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script>
           <script>
               const socket_url = "{{ config('constants.socket_url') }}";

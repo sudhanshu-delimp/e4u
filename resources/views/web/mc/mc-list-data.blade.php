@@ -37,9 +37,23 @@ $twitter_link = "https://x.com/NMugs32853";
 
  <div class="mc_list_card">
 
+
+         
+
+
+
      <!-- Left Image -->
 
      <div class="mc_list_img">
+
+        @if($listing->latest_active_brb)
+            <div class="brb--content">
+                <div class="brb--wrappr">
+                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
+                </div>
+            </div>
+        @endif
+
          <a 
 
          href="{{ route('web.massage-description', [

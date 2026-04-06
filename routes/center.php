@@ -1,25 +1,26 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Center\MediaController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Center\CenterController;
-use App\Http\Controllers\Escort\EscortController;
-use App\Http\Controllers\Center\CenterNumController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\Center\PolyPaymentController;
-use App\Http\Controllers\Escort\EscortGalleryController;
-use App\Http\Controllers\Center\MassageGalleryController;
-use App\Http\Controllers\Center\Profile\CreateController;
-use App\Http\Controllers\Center\Profile\UpdateController;
-use App\Http\Controllers\Center\Profile\MassageController;
-use App\Http\Controllers\Center\Masseurs\MasseurController;
-use App\Http\Controllers\Center\MassageCenterAccountController;
-use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\Center\CenterController;
+use App\Http\Controllers\Center\CenterNumController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
+use App\Http\Controllers\Center\MassageCenterAccountController;
+use App\Http\Controllers\Center\MassageGalleryController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
+use App\Http\Controllers\Center\Masseurs\MasseurController;
+use App\Http\Controllers\Center\MediaController;
+use App\Http\Controllers\Center\PolyPaymentController;
+use App\Http\Controllers\Center\Profile\CreateController;
+use App\Http\Controllers\Center\Profile\MassageController;
+use App\Http\Controllers\Center\Profile\MassageProfileActionController;
+use App\Http\Controllers\Center\Profile\UpdateController;
+use App\Http\Controllers\Escort\EscortController;
+use App\Http\Controllers\Escort\EscortGalleryController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\NotificationController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
@@ -45,6 +46,8 @@ Route::post('upload-avatar/{id}',[CenterController::class,'storeMyAvatar'])->nam
 Route::post('remove-avatar',[CenterController::class,'removeMyAvatar'])->name('center.avatar.remove');
 Route::get('/update-account', [CenterController::class, 'edit'])->name('center.account.edit');
 Route::post('/update-account', [CenterController::class, 'update'])->name('center.account.update');
+
+Route::post('add-sub-account', [CenterController::class, 'add_sub_account'])->name('center.add-sub-account');
 
 //Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 //Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
@@ -94,6 +97,7 @@ Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_l
 
 
 
+
 Route::get('listing/add-listing', [MassageController::class, 'add_listing_page'])->name('center.add-listing');
 Route::post('listing/add-listing', [MassageController::class, 'calculate_listed_user'])->name('center.add-listing');
 Route::post('listing/listing-payment', [MassageController::class, 'listing_payment'])->name('center.listing-payment');
@@ -105,7 +109,9 @@ Route::post('listing/current-listing', [MassageController::class, 'massager_curr
 Route::post('listing/past-listing', [MassageController::class, 'massager_past_listing'])->name('center.past-listing');
 
 
-
+Route::post('massage-brb/add', [MassageProfileActionController::class, 'add'])->name('massage.brb.add');
+Route::post('massage-brb/inactive/{id}', [MassageProfileActionController::class, 'inactive'])->name('massage.brb.inactive');
+Route::post('massage-suspend-credit', [MassageProfileActionController::class, 'suspendProfileCredit'])->name('center.massage-suspend-credit');
 
 
 

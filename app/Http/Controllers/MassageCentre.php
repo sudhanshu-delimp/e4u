@@ -124,7 +124,8 @@ class MassageCentre extends Controller
     public function mcAjaxList(Request $request)
     {
         $per_page = 25;
-        $massage_live_ids  = MassagePurchase::where('status','listed')->pluck('massage_centre_id');
+        $massage_live_ids  = MassagePurchase::where('status','listed')->pluck('massage_profile_id');
+        
 
         
         //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
@@ -142,7 +143,7 @@ class MassageCentre extends Controller
          $massage_users = $massage_users->whereIn('id',$mc_user_id);
             
 
-         $massage = MassageProfile::query();
+         $massage = MassageProfile::with('latest_active_brb');
          if(!empty($mc_live_list))
          $massage = $massage->whereIn('id',$mc_live_list);
 
@@ -363,11 +364,18 @@ class MassageCentre extends Controller
         ######### End Upper Filter ##################### 
 
      
+        // $massage->setCollection(
+        //     $massage->getCollection()->sortByDesc(function ($item) {
+        //         return !is_null($item->latest_active_brb);
+        //     })->values()
+        // );
 
        $listings = $massage;
        $media = $this->media;
       
-                
+            
+       Log::info( $listings);
+
         return response()->json([
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),

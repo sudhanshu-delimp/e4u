@@ -75,8 +75,7 @@
                                                                 class="dropdown-item align-item-custom toggle-massage-notification"
                                                                 href="#" title="Click to disable notification">
                                                             </a>
-                                                            <a class="dropdown-item align-item-custom" href="#"
-                                                                data-toggle="modal" data-target="#editShareholder"> <i
+                                                            <a class="dropdown-item align-item-custom" href="#" onclick="window.print()"> <i
                                                                     class="fa fa-print" aria-hidden="true"></i>
                                                                 Print</a>
                                                             <div class="dropdown-divider"></div>
@@ -113,8 +112,7 @@
                                                                 class="dropdown-item align-item-custom toggle-massage-notification"
                                                                 href="#" title="Click to disable notification">
                                                             </a>
-                                                            <a class="dropdown-item align-item-custom" href="#"
-                                                                data-toggle="modal" data-target="#editShareholder"> <i
+                                                            <a class="dropdown-item align-item-custom" href="#" onclick="window.print()"> <i
                                                                     class="fa fa-print" aria-hidden="true"></i>
                                                                 Print</a>
                                                             <div class="dropdown-divider"></div>

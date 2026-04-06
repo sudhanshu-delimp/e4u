@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\MassagePurchase;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class SyncMassageProfile extends Command
 {
@@ -29,6 +30,13 @@ class SyncMassageProfile extends Command
             $this->info('Records are found.');
             foreach ($listedPurchases as $key=>$purchase) {
                 $purchase->update(['status' => 'expire']);
+
+                $massageprofile = $purchase->massageprofile;
+                if($massageprofile)
+                {
+                    $massageprofile->purchase_id = null;
+                    $massageprofile->save();
+                }
             }
             $this->info('All expired listed purchases processed.');
         }
@@ -44,6 +52,17 @@ class SyncMassageProfile extends Command
             foreach ($pendingPurchases as $key=>$purchase) 
             {
                 $purchase->update(['status'=>'listed']);
+
+                $massageprofile = $purchase->massageprofile;
+                if($massageprofile)
+                {
+                    Log::info('massageprofile');
+                    Log::info($massageprofile);
+
+                    $massageprofile->purchase_id = $purchase->id;
+                    $massageprofile->save();
+                }
+
                 $this->info("=============== $key ===============");
                 $this->info("Enabled Escort ID {$purchase->massage_centre_id} (related to pending Purchase ID {$purchase->id})");
                

@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Models;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class MassageSuspendProfile extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'massage_profile_id',
+        'user_id',
+        'start_date',
+        'end_date',
+        'credit',
+        'utc_start_date',
+        'utc_end_date',
+        'note',
+        'status',
+    ];
+
+    public function massage_profile()
+    {
+        return $this->belongsTo(MassageProfile::class,'massage_profile_id','id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function scopeOverlapping($query, $start, $end)
+    {
+        $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
+        $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
+
+        return $query->where('start_date', '<=', $formatted_end)->where('end_date', '>=', $formatted_start);
+    }
+
+    public function transactions()
+    {
+        return $this->morphMany(CreditTransaction::class, 'transactionable');
+    }
+}

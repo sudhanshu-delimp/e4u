@@ -30,8 +30,9 @@ class MassagePurchase extends Model
 
     public function massageprofile()
     {
-        return $this->hasOne(MassageProfile::class, 'id', 'massage_centre_id');
+        return $this->hasOne(MassageProfile::class, 'id', 'massage_profile_id');
     }
+    
     
     
 

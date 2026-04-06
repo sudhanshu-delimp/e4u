@@ -83,16 +83,37 @@ class MassageController extends Controller
    
     public function massager_list(Request $request)
     {
-        return view('center.dashboard.list');
+
+        $active_profile = get_massage_listed_profile();
+        $active_profile = [];
+        return view('center.dashboard.list',compact('active_profile'));
     }
 
     public function  get_all_massager_list(Request $request)
     {
 
-            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
+            $masseurs  = MassageProfile::with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },
+            ])->where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
             $countries = getCountryList();
 
+          
             $data = $masseurs->map(function ($row) use ($countries) {
+
+
+            $brb = [];
+            if(isset($row->brb) && (count($row->brb)>0))
+            $brb = json_decode(json_encode($row->brb),true);   
+
+            if(!empty($brb))
+            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+            else
+            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.'</span>';     
+
+            //$profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <pre>'.json_encode($brb, JSON_PRETTY_PRINT).'</pre></span>'; 
+
 
                 $status = "";
                 if($row->enabled==0)
@@ -108,16 +129,15 @@ class MassageController extends Controller
                                                    
                                                   
                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                   '.$status.
-                                                  
-                                                   
+                                                   '.$status. 
                             '</div>';
+
                  //  <div class="dropdown-divider"></div>           
                 //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
                 return [
                     'id' => $row->id,
-                    'profile_name' => $row->profile_name,
+                    'profile_name' => $profile_name,
                     'business_name' => $row->business_name,
                     'business_no' => $row->business_no,
                     'phone' => $row->phone,
@@ -976,24 +996,22 @@ class MassageController extends Controller
     ######################### Listing Profile ###########################
     public function add_listing_page(Request $request)
     {
+ 
+            
+        $excludeIds = MassagePurchase::where('massage_centre_id',auth()->user()->id)
+                        ->whereIn('status',['listed','pending'])
+                        ->pluck('massage_profile_id'); 
 
-        $profileIds = MassageProfile::where([
+        $profiles = MassageProfile::where([
             ['user_id', '=', auth()->user()->id],
             ['default_setting', '!=', 1],
             ['enabled', '=', 1],
-        ])->pluck('id');  
-        
-        $massageIds = MassagePurchase::where([
-            ['massage_profile_id', '=', auth()->user()->id],
-            ['status', '=', 'expire']])->pluck('massage_centre_id');   
+        ])
+        ->whereNotIn('id', $excludeIds)
+        ->distinct()
+        ->pluck('id');
 
 
-        $uniqueIds = $profileIds
-        ->merge($massageIds)
-        ->unique()
-        ->values(); 
-        
-        $profiles = MassageProfile::whereIn('id',$uniqueIds)->get();
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
     }
 
@@ -1142,8 +1160,8 @@ class MassageController extends Controller
         
             $parent_id          = 0;
             $membership_id      = $request->membership_id;
-            $massage_centre_id  = $request->massage_centre_id;
-            $massage_profile_id =  auth()->user()->id ?? 0;
+            $massage_profile_id  = $request->massage_profile_id;
+            $massage_centre_id   =  auth()->user()->id ?? 0;
 
             $start_date         = $request->listing_start_date;
             $end_date           = $request->listing_end_date;
@@ -1186,7 +1204,7 @@ class MassageController extends Controller
     public function  massager_current_listing(Request $request)
     {
             $today = Carbon::today();
-            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['pending', 'listed'])
             // ->whereDate('start_date', '<=', $today)
             // ->whereDate('end_date', '>=', $today)
@@ -1231,8 +1249,10 @@ class MassageController extends Controller
 
     public function  massager_past_listing(Request $request)
     {
+
+
             $today = Carbon::today();
-            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['expire'])
             ->get();
 

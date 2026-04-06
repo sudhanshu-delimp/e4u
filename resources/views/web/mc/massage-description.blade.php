@@ -81,6 +81,32 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+
+.overlay { 
+  height: 101%;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  border-radius: 20px;
+  text-align: center;
+}
+.custom--overlay .overlay {
+  background-color: transparent;
+  width: 100%;
+  position: unset;
+  margin: unset; 
+}
+.brb_details {
+  color: #fff;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--peach);
+}
+.brb_details h1 {
+  font-size: 30px !important;
+}
 </style>
     @stop
     @section('content')
@@ -144,12 +170,26 @@
     @endphp
 
 
-   <div class="container profile_description_banner custom--profile custommassage--profile--page"
+   <div class="container p-0 profile_description_banner custom--profile custommassage--profile--page"
      style="background-image: url('{{ $massage_banner }}');
             background-position: center;
             background-repeat: no-repeat;">
 
-        <div class="container-fluid back_to_search_btn pt-2">
+        
+
+        <div class="container">
+
+            <div class="row">
+                <div class="overlay">
+                    @if($listing->latest_active_brb)
+                        <div class="brb_details">
+                            <h1>BRB at {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
+                            <h3>{{$listing->latest_active_brb->brb_note}}</h3>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="container-fluid back_to_search_btn pt-2">
             <a href="../massage-centres-list" class="back--search">
                 Back to Search
                 <span class="previous_icon">
@@ -158,7 +198,7 @@
             </a>
         </div>
 
-        <div class="container">
+
             <div class="profile_page_title">
                 <h2 class="display_inline_block p-0">{{ $listing->profile_name ?? 'N/A' }}</h2>
             </div>
@@ -216,6 +256,7 @@
                 </ul>
             </div>
         </div>
+        
     </div>
 
     <div class="container-fluid px-0 next-preview-fixed">

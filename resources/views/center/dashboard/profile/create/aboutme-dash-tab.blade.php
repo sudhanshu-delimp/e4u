@@ -291,9 +291,25 @@ img#blah8 {
                                                 <img class="img-fluid upld-img profile-gallery" data-type="gallery"
                                                     id="img1" src="{{ asset($path->findByposition(auth()->user()->id, 1, 0)['path']) }}"
                                                     style="object-fit: cover;width: 167px;height: 172px;">
-                                                     <div class="lg_verify_icon">
-                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
-                                            </div>
+                                                     @php
+                                                        $imageData = $path->findByposition(auth()->user()->id, 1, 0);
+                                                        if(!empty($imageData['id'])){
+                                                            $media_details =  get_media_by_id($imageData['id'],'center');
+                                                            $status =  $media_details->varified;
+                                                        }
+                                                    @endphp
+                                                    <div class="lg_verify_icon" id="verify_icon_1"
+                                                        style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                        @if(!empty($imageData['id']))
+                                                            @if($status == "0")
+                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                            @elseif($status == "1")
+                                                                <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                            @else
+                                                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                            @endif
+                                                        @endif
+                                                    </div>
                                             </label>
                                         </div>
                                     </div>
@@ -308,9 +324,24 @@ img#blah8 {
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img2"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 2, 0)['path']) }}">
-                                                             <div class="verify_icon">
-                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                            </div>
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 2, 0);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_media_by_id($imageData['id'],'center');
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                             <div class="verify_icon" id="verify_icon_2" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                    @endif
+                                                                @endif
+                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -320,8 +351,23 @@ img#blah8 {
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img3"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 3, 0)['path']) }}">
-                                                             <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                             @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 3, 0);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_media_by_id($imageData['id'],'center');
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                             <div class="verify_icon" id="verify_icon_3" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -332,8 +378,23 @@ img#blah8 {
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img4"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 4, 0)['path']) }}">
-                                                             <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                             @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 4, 0);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_media_by_id($imageData['id'],'center');
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                             <div class="verify_icon" id="verify_icon_4" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -346,8 +407,23 @@ img#blah8 {
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img5"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 5, 0)['path']) }}">
-                                                             <div class="verify_icon">
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 5, 0);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_media_by_id($imageData['id'],'center');
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                             <div class="verify_icon" id="verify_icon_5" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                     </label>
                                                 </div>
@@ -358,9 +434,24 @@ img#blah8 {
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img6"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 6, 0)['path']) }}">
-                                                             <div class="verify_icon">
-                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                            </div>
+                                                             @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 6, 0);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_media_by_id($imageData['id'],'center');
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                             <div class="verify_icon" id="verify_icon_6" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                    @endif
+                                                                @endif
+                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -370,9 +461,24 @@ img#blah8 {
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img7"
                                                             src="{{ asset($path->findByposition(auth()->user()->id, 7, 0)['path']) }}">
-                                                             <div class="verify_icon">
-                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                            </div>
+                                                            @php
+                                                                $imageData = $path->findByposition(auth()->user()->id, 7, 0);
+                                                                if(!empty($imageData['id'])){
+                                                                    $media_details =  get_media_by_id($imageData['id'],'center');
+                                                                    $status =  $media_details->varified;
+                                                                }
+                                                            @endphp
+                                                             <div class="verify_icon" id="verify_icon_7" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                                @if(!empty($imageData['id']))
+                                                                    @if($status == "0")
+                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                    @elseif($status == "1")
+                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                    @else
+                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                    @endif
+                                                                @endif
+                                                            </div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -387,9 +493,24 @@ img#blah8 {
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                 src="{{ asset($path->findByposition(auth()->user()->id, 9, 0)['path']) }}"
                                                 style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                                                 <div class="lg_verify_icon">
-                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" >
-                                            </div>
+                                                @php
+                                                    $imageData = $path->findByposition(auth()->user()->id, 9, 0);
+                                                    if(!empty($imageData['id'])){
+                                                        $media_details =  get_media_by_id($imageData['id'],'center');
+                                                        $status =  $media_details->varified;
+                                                    }
+                                                @endphp
+                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                    @if(!empty($imageData['id']))
+                                                        @if($status == "0")
+                                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                        @elseif($status == "1")
+                                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                        @else
+                                                            <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                        @endif
+                                                    @endif
+                                                </div>
                                         </label>
                                     </div>
                                 </div>
@@ -512,8 +633,16 @@ img#blah8 {
                                                                                     <span
                                                                                         class="badge badge-red">Gallery</span>
                                                                             @endswitch
-                                                                             <div class="verify_icon">
-                                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                             @php $status = $image->varified ?? "2"; @endphp
+
+                                                                            <div class="verify_icon">
+                                                                                @if($status == "0")
+                                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                                @elseif($status == "1")
+                                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                                @else
+                                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     @endif

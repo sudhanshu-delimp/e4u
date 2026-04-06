@@ -101,7 +101,7 @@ class MassageGalleryController extends AppController
                     'user_id' => $userId,
                     'type' => $type,
                     'path' => 'escorts/'.$destination_path,
-                    'varified' => '2'
+                    'varified' => '0'
                     ];
                     $response['status'] = 200;
                     $media = $this->media->store($data);
@@ -140,7 +140,7 @@ class MassageGalleryController extends AppController
                 'type' => $type,
                 'position' => $key,
                 'path' => 'escorts/'.$destination_path,
-                 'varified' => '2'
+                 'varified' => '0'
                 ];
                 $media = $this->media->store($data);
                 $response['status'] = 200;
@@ -276,7 +276,7 @@ class MassageGalleryController extends AppController
     {
         $error = false;
         $msg = '';
-
+        $media_data = [];
         $media = $this->media->find($request->meidaId);
 
         
@@ -307,10 +307,12 @@ class MassageGalleryController extends AppController
                 $media->position = $request->position;
                 $media->default = 1;
                 $media->save();
+                $media_data['media_data'] =  $media;
+
             }
             $error = true;
         }
-        return response()->json(compact('error','msg'));
+        return response()->json(compact('error','msg','media_data'));
     }
     public function defaultVideos(Request $request)
     {
@@ -654,8 +656,9 @@ class MassageGalleryController extends AppController
         $user = auth()->user();
         $image = $request->file('image');
         $media = MassageMedia::where('user_id', $user->id)
-        ->where('varified', '2')
+        ->whereIn('varified', ['0', '2'])
         ->whereNull('media_verification_id')
+        ->where('type' , '0')
         ->count();
         if ($media  <= 0) {
             return response()->json([
@@ -687,6 +690,13 @@ class MassageGalleryController extends AppController
                 'status' => MediaVerification::STATUS_PENDING,
                 'submited_by' => $user->id,
             ]);
+
+            MassageMedia::where('user_id', $user->id)
+                ->whereIn('varified', ['0', '2'])
+                ->whereNull('media_verification_id')
+                ->update([
+                    'varified' => '0'
+                ]);
         }
 
         return response()->json([

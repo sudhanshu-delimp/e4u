@@ -21,9 +21,9 @@ class Kernel extends ConsoleKernel
         Commands\SendPlaymateProfileDeactivationNotification::class,
         Commands\SendPasswordExpiryNotifications::class,
         Commands\DbBackEndProcess::class,
-        Commands\SyncMassageProfile::class
-
-        
+        Commands\SyncMassageProfile::class,
+        Commands\MassageMediaExpireCron::class, 
+        Commands\EscortsMediaExpireCron::class,  
     ];
 
     /**
@@ -40,7 +40,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('appointments:update-status')->everySixHours();
         $schedule->command('center-notification:expire-check')->dailyAt('00:00')->timezone('Australia/Perth');
         $schedule->command('db-backend-process:backend-process')->hourly()->timezone('Australia/Perth');
+        $schedule->command('media:expire')->everyMinute();
         $schedule->command('sync_massage')->everyMinute();
+        $schedule->command('massage_media:expire')->everyMinute();
     }
 
     /**
