@@ -1597,7 +1597,7 @@ textarea {
 
 
 
-<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+<div class="modal upload-modal" id="photo_gallery" style="display: none">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
