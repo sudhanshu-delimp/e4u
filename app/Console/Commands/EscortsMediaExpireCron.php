@@ -21,10 +21,10 @@ class EscortsMediaExpireCron extends Command
         $now = now();
 
         // TESTING
-        // $expireMinutes = 2;
+        $expireMinutes = 2;
 
         // LIVE
-        $expireMinutes = 60 * 48;
+        // $expireMinutes = 60 * 48;
 
         // Step 1: users with pending media
         $userIds = EscortMedia::where('varified', '0')
