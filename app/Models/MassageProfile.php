@@ -450,5 +450,21 @@ class MassageProfile extends Model
             ->orderBy('brb_time', 'desc');
     }
 
+
+     public function suspendProfile()
+    {
+        return $this->hasMany(MassageSuspendProfile::class, 'massage_profile_id');
+    }
+
+    public function purchase()
+    {
+        return $this->hasMany(MassagePurchase::class, 'massage_profile_id','id');
+    }
+
+     public function mainPurchase()
+    {
+        return $this->belongsTo(MassagePurchase::class, 'purchase_id');
+    }
+
     
 }

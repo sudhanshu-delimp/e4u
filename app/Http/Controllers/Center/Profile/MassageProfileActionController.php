@@ -22,6 +22,8 @@ class MassageProfileActionController extends BaseController
     }
 
 
+
+    ################## Add Brb ###########################
     public function add(Request $request)
     {
 
@@ -72,20 +74,19 @@ class MassageProfileActionController extends BaseController
         }
         return response()->json(compact('response'));
     }
-
+    ################## End Add Brb ########################
 
 
     ################## Suspend Profile #####################
-
     public function suspendProfileCredit(Request $request)
     {
         try {
             $profileId = $request->profile_id;
-            $escortProfile = getEscortDetail($profileId);
+            $massageProfile = getMassageDetail($profileId);
             $startDate = $request->start_date;
             $endDate = $request->end_date;
-            $refund = getSuspendRefundAmount($escortProfile, $startDate, $endDate);
-            $existSuspendedDate = $escortProfile->suspendProfile()->overlapping($startDate, $endDate)->exists();
+            $refund = getMassageSuspendRefundAmount($massageProfile, $startDate, $endDate);
+            $existSuspendedDate = $massageProfile->suspendProfile()->overlapping($startDate, $endDate)->exists();
             if ($existSuspendedDate) {
                 return response()->json([
                     'success' => false,
@@ -105,13 +106,13 @@ class MassageProfileActionController extends BaseController
     function suspendProfile(Request $request)
     {
         $user = auth()->user();
-        $escortProfile = getEscortDetail($request->suspend_profile_id);
-        $escortTimezone = $escortProfile->time_zone;
+        $massageProfile = getMassageDetail($request->suspend_profile_id);
+        $escortTimezone = $massageProfile->time_zone;
         $requestStartDate = Carbon::parse($request->start_date)->startOfDay();
         $requestEndDate = Carbon::parse($request->end_date)->endOfDay();
 
         # If suspended periods already exists then add future date
-        $existSuspendedDate = $escortProfile->suspendProfile()->overlapping($request->start_date, $request->end_date)->exists();
+        $existSuspendedDate = $massageProfile->suspendProfile()->overlapping($request->start_date, $request->end_date)->exists();
 
         if ($existSuspendedDate) {
             return response()->json([
@@ -121,7 +122,7 @@ class MassageProfileActionController extends BaseController
         }
 
         # calculate credit
-        $refundAmount = getSuspendRefundAmount($escortProfile, $request->start_date, $request->end_date);
+        $refundAmount = getMassageSuspendRefundAmount($massageProfile, $request->start_date, $request->end_date);
 
         $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $requestStartDate, $escortTimezone)->setTimezone('UTC');
         $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $requestEndDate, $escortTimezone)->setTimezone('UTC');
@@ -130,7 +131,7 @@ class MassageProfileActionController extends BaseController
         # Store suspend profile details
         $suspendProfile = MassageSuspendProfile::create(
             [
-                'escort_profile_id' => $request->suspend_profile_id,
+                'massage_profile_id' => $request->suspend_profile_id,
                 'user_id' => $user->id,
                 'start_date' => Carbon::parse($request->start_date),
                 'utc_start_date' => $utcStart,
@@ -149,7 +150,7 @@ class MassageProfileActionController extends BaseController
                 'Suspend Profile.',
                 [
                     'user_id' => $user->id,
-                    'escort_id' => $request->suspend_profile_id,
+                    'massage_profile_id' => $request->suspend_profile_id,
                     'start_date' => $requestStartDate,
                     'end_date' => $requestEndDate,
                 ]
@@ -174,4 +175,6 @@ class MassageProfileActionController extends BaseController
 
         return response()->json(compact('response'));
     }
+    ################## End Suspend Profile ##################
+
 }

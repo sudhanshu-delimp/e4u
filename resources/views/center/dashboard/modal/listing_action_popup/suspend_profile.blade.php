@@ -32,8 +32,14 @@
                                                     data-parsley-required-message="Select Profile">
                                                     <option value="">Select Profile</option>
                                                      @foreach ($active_profile as $profile)
-                                                    <option value="{{ $profile['id'] }}"
-                                                        profile_name="{{ $profile['profile_name'] }}">
+                                                    <option 
+                                                        value="{{ $profile['id'] }}"
+                                                        profile_name="{{ $profile['profile_name'] }}"
+                                                        data-start= "{{ $profile['start_date'] }}"
+                                                        data-end="{{ $profile['end_date'] }}"
+                                                        data-membership= "{{ $profile['membership_id'] }}"
+                                                        data-parsley-type="" 
+                                                        data-parsley-type-message="">
                                                         {{ $profile['id'] }} - {{ $profile['profile_name'] }} 
                                                         
                                                     </option>

@@ -85,6 +85,7 @@ class MassageController extends Controller
     {
 
         $active_profile = get_massage_listed_profile();
+        $active_profile = [];
         return view('center.dashboard.list',compact('active_profile'));
     }
 
@@ -995,24 +996,22 @@ class MassageController extends Controller
     ######################### Listing Profile ###########################
     public function add_listing_page(Request $request)
     {
+ 
+            
+        $excludeIds = MassagePurchase::where('massage_centre_id',auth()->user()->id)
+                        ->whereIn('status',['listed','pending'])
+                        ->pluck('massage_profile_id'); 
 
-        $profileIds = MassageProfile::where([
+        $profiles = MassageProfile::where([
             ['user_id', '=', auth()->user()->id],
             ['default_setting', '!=', 1],
             ['enabled', '=', 1],
-        ])->pluck('id');  
-        
-        $massageIds = MassagePurchase::where([
-            ['massage_profile_id', '=', auth()->user()->id],
-            ['status', '=', 'expire']])->pluck('massage_centre_id');   
+        ])
+        ->whereNotIn('id', $excludeIds)
+        ->distinct()
+        ->pluck('id');
 
 
-        $uniqueIds = $profileIds
-        ->merge($massageIds)
-        ->unique()
-        ->values(); 
-        
-        $profiles = MassageProfile::whereIn('id',$uniqueIds)->get();
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
     }
 
@@ -1161,8 +1160,8 @@ class MassageController extends Controller
         
             $parent_id          = 0;
             $membership_id      = $request->membership_id;
-            $massage_centre_id  = $request->massage_centre_id;
-            $massage_profile_id =  auth()->user()->id ?? 0;
+            $massage_profile_id  = $request->massage_profile_id;
+            $massage_centre_id   =  auth()->user()->id ?? 0;
 
             $start_date         = $request->listing_start_date;
             $end_date           = $request->listing_end_date;
@@ -1205,7 +1204,7 @@ class MassageController extends Controller
     public function  massager_current_listing(Request $request)
     {
             $today = Carbon::today();
-            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['pending', 'listed'])
             // ->whereDate('start_date', '<=', $today)
             // ->whereDate('end_date', '>=', $today)
@@ -1250,8 +1249,10 @@ class MassageController extends Controller
 
     public function  massager_past_listing(Request $request)
     {
+
+
             $today = Carbon::today();
-            $massagers = MassagePurchase::with('massageprofile')->where('massage_profile_id', auth()->user()->id)
+            $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['expire'])
             ->get();
 
