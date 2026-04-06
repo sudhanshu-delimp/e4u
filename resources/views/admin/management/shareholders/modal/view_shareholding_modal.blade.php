@@ -56,7 +56,7 @@
             <div class="d-flex justify-content-end modal-footer">
                 <!-- Print Button -->
 
-                <button class="btn-success-modal d-block btn-print" data-agent='${safeData}'>
+                <button class="btn-success-modal d-block btn-print">
                         <i class="fa fa-print text-white"></i> Print
                 </button>
 
