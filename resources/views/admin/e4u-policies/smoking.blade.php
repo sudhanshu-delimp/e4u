@@ -42,11 +42,8 @@
                             <p>This policy aims to guarantee all employees the right to work in areas free of tobacco and
                                 vape smoke.</p>
                             <p>
-                                We may change or modify this Policy in the future. We will note the date that revisions
-                                were last made at the bottom of this page. Any revision will take effect upon its posting.
-                                It is your responsibility to check this policy this Policy from time to time to review the
-                                most
-                                current version.
+                               Our values include being <i>Disciplined</i> and <i>Reliable</i> and therefore we act on our responsibilities
+to identify and remove potential and recognised risk to health and safety.
                             </p>
                         </div>
 
@@ -132,13 +129,6 @@
 
 
                             <p>Please contact your Manager if you require additional information in relation to this policy.
-                            </p>
-                            <p>
-                                We may change or modify this Policy in the future. We will note the date that revisions
-                                were last made at the bottom of this page. Any revision will take effect upon its posting.
-                                It is your responsibility to check this policy this Policy from time to time to review the
-                                most
-                                current version.
                             </p>
                         </div>
 
