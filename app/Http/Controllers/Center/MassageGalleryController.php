@@ -689,6 +689,13 @@ class MassageGalleryController extends AppController
                 'status' => MediaVerification::STATUS_PENDING,
                 'submited_by' => $user->id,
             ]);
+
+            MassageMedia::where('user_id', $user->id)
+                ->whereIn('varified', ['0', '2'])
+                ->whereNull('media_verification_id')
+                ->update([
+                    'varified' => '0'
+                ]);
         }
 
         return response()->json([
