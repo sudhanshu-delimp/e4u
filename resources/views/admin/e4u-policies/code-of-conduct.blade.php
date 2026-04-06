@@ -425,6 +425,20 @@
                                 your direct manager.</p>
 
                         </div>
+
+
+
+                        <div class="content_details green_box">
+                            <p>REMEMBER: No matter what your role is, you are expected to:</p>
+                            <ul>
+                                <li>demonstrate the behaviors of honesty, integrity, quality and trust at all times.</li>
+                                <li>set an example for others and recognise those around you who also demonstrate these behaviors.</li>
+                                <li>speak out when you feel that these behaviors are threatened or compromised.</li>
+                            </ul>
+                        </div>
+
+
+
                         <div class="content_details">
                             <h3><b>6&nbsp;&nbsp; Further Information</b></h3>
                             <p>Please contact your Manager if you require additional information in relation to this policy.
