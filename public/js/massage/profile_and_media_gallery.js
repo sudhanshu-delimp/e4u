@@ -755,7 +755,13 @@ function initDragDrop() {
                     let dropSlot = $(this);
                     let dragSlot = ui.draggable;
                     let dropSlotType = dropSlot.find('img').data('type');
-                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+                    // let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+                    let dragSlotType = dragSlot
+                        .closest(".item4")
+                        .find("span.badge")
+                        .text()
+                        .trim()
+                        .toLowerCase();
                     if (dropSlotType != dragSlotType) {
                         let message = (dragSlotType == 'gallery') ?
                             `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :

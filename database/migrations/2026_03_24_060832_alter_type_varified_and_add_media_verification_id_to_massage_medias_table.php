@@ -21,7 +21,7 @@ class AlterTypeVarifiedAndAddMediaVerificationIdToMassageMediasTable extends Mig
             // Add new varified column
             $table->enum('varified', ['1', '2'])
                   ->nullable()
-                  ->comment('1=>verified, 2=>unverified')
+                   ->comment('1=>verified,2=>unverified')
                   ->after('default');
 
             // Add media_verification_id column

@@ -1862,3 +1862,18 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
         return number_format($refundAmount, 2, '.', '');
     }
 }
+if (!function_exists('get_media_by_id')) {
+    function get_media_by_id($media_id, $type = 'escort')
+    {
+        $models = [
+            'escort' => \App\Models\EscortMedia::class,
+            'center' => \App\Models\MassageMedia::class,
+        ];
+
+        if (!isset($models[$type])) {
+            return null;
+        }
+
+        return $models[$type]::find($media_id);
+    }
+}
