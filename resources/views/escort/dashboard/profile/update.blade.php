@@ -54,7 +54,7 @@ $loginAccount = auth()->user();
     <div class="d-sm-flex align-items-center justify-content-between">
         <div class="custom-heading-wrapper">
              @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
-            <h1 class="h1">New Profile dd</h1>
+            <h1 class="h1">New Profile</h1>
             @else
             <h1 class="h1">Update Profile</h1>
             @endif

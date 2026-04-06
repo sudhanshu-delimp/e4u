@@ -214,28 +214,28 @@
                         <div class="py-0 collapse-inner rounded mb-2">
                             <a class="collapse-item" href="{{ route('admin.abbreviations') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                    src="{{ asset('assets/app/img/Abrieviations.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'abbreviations' ? 'color: #FF3C5F;' : '' }}">Abbreviations</span>
                             </a>
 
                             <a class="collapse-item" href="{{ route('admin.classification-laws') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                    src="{{ asset('assets/dashboard/img/menu-icon/law.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'classification-laws' ? 'color: #FF3C5F;' : '' }}">Classification Laws</span>
                             </a>
 
                             <a class="collapse-item" href="{{ route('admin.local-laws') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                    src="{{ asset('assets/app/img/gavel.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'local-laws' ? 'color: #FF3C5F;' : '' }}">Local Laws</span>
                             </a>
 
                             <a class="collapse-item" href="{{ route('admin.pricing-summary') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                    src="{{ asset('assets/dashboard/img/menu-icon/pricing-summary.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'pricing-summary' ? 'color: #FF3C5F;' : '' }}">Pricing Summary</span>
                             </a>
@@ -280,7 +280,7 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#E4UPolicies"
                         aria-expanded="false" aria-controls="E4UPolicies">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/admin-database.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/policy.png') }}">
                         <span>E4U Policies</span>
                     </a>
                     <div id="E4UPolicies" class="collapse @if (request()->segment(3) == 'code-of-conduct' || request()->segment(3) == 'data-breach-plan' || request()->segment(3) == 'discipline-and-termination' || request()->segment(3) == 'fitness-for-work' || request()->segment(3) == 'grievance' || request()->segment(3) == 'health-and-safety' || request()->segment(3) == 'information-use' || request()->segment(3) == 'leave' || request()->segment(3) == 'personal-telephone-use' || request()->segment(3) == 'position-descriptions' || request()->segment(3) == 'smoking' || request()->segment(3) == 'social-media')  show @endif;"

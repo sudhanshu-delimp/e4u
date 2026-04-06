@@ -131,7 +131,7 @@
                 </div>
                 <div class="col footer_text_color_white">
                     <h4>Legal</h4>
-                    <div class="d-flex">
+                    <div class="d-flex gap-7">
                         <div class="">
                             <ul class="list-group footer_list_style_none">
                                 <li><a href="{{ url('acceptable-usage-policy') }}">Acceptable Usage Policy</a></li>
