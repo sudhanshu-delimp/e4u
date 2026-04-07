@@ -85,7 +85,7 @@ class MassageController extends Controller
     {
 
         $active_profile = get_massage_listed_profile();
-        $active_profile = [];
+       
         return view('center.dashboard.list',compact('active_profile'));
     }
 

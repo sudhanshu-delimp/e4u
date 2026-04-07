@@ -112,6 +112,9 @@ Route::post('listing/past-listing', [MassageController::class, 'massager_past_li
 Route::post('massage-brb/add', [MassageProfileActionController::class, 'add'])->name('massage.brb.add');
 Route::post('massage-brb/inactive/{id}', [MassageProfileActionController::class, 'inactive'])->name('massage.brb.inactive');
 Route::post('massage-suspend-credit', [MassageProfileActionController::class, 'suspendProfileCredit'])->name('center.massage-suspend-credit');
+Route::post('suspend-massage-profile', [MassageProfileActionController::class, 'suspendProfile'])->name('center.suspend-massage-profile');
+
+
 
 
 

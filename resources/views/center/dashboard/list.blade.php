@@ -334,7 +334,11 @@ $("#brb_form").on('submit', function(e)
                });
                $("#brb_form")[0].reset();
                $('#add_brb').modal('hide');
-               table.draw();
+               // table.draw();
+               // setTimeout(function() {
+               //    window.location.href = "../center-dashboard/listing/current";
+               // }, 1000);
+
             } else {
                Swal.fire({
                      icon: "error",
@@ -438,6 +442,48 @@ $(document).ready(function () {
     
     suspendStartDateObject.datepicker('setDate', +1);
 });
+
+
+$("#suspend_form").on('submit', function(e) 
+{
+   e.preventDefault();
+   var form = $(this);
+   var url = "{{ route('center.suspend-massage-profile') }}";
+   var data = new FormData(form[0]);
+
+   $.ajax({
+         method: 'POST',
+         url: url,
+         data: data,
+         contentType: false,
+         processData: false,
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         beforeSend: function(){
+            $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+         },
+         success: function(data) {
+            if (data.response.success) {
+               Swal.fire({
+                     icon: "success",
+                     text: data.response.message
+               });
+
+               // set suspend icon to profile 
+               $('#suspend_profile').modal('hide');
+               table.draw();
+            } else {
+               Swal.fire({
+                     icon: "error",
+                     text: data.response.message
+               });
+            }
+            $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+         },
+
+   });
+   });
 
 </script>
 
