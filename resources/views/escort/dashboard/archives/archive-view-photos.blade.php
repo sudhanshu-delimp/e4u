@@ -482,8 +482,7 @@
                 </div>
                 <div class="custom-img-filter-header">
                     <div class="row">
-                        <ul class="nav nav-tabs border-0 js_gallery_category">
-                           
+                        <ul class="nav nav-tabs border-0 js_gallery_category">                           
                             <li class="nav-item">
                                 <a class="nav-link active" data-type="gallery" data-toggle="tab" href="#Gallery">Gallery</a>
                             </li>
@@ -492,8 +491,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-type="pinup" data-toggle="tab" href="#Pinup">Pinup</a>
-                            </li>
-                            
+                            </li>                            
                         </ul>
                     </div>
                 </div>
