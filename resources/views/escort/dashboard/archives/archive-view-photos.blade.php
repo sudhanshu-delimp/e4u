@@ -187,6 +187,7 @@
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                         </div>
                                     </label>
                                    
@@ -403,6 +404,7 @@
                                                         <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                             </div>
                                         </label>
                                     </div>
@@ -432,6 +434,7 @@
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                             </div>
                                            
                                         </label>
