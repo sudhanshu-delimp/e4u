@@ -869,7 +869,12 @@ class MassageController extends Controller
             try 
             {
                 $request_data = $request->all();
-                $availability     = make_time_availability($request_data);
+                
+
+                if(isset($request->profile_time_avail_update) && $request->profile_time_avail_update=='profile_time_avail_update')
+                $availability     = $this->makeAvailability($request_data);
+                else
+                $availability     = make_time_availability($request_data);;
 
                 Log::info($availability);
                 if(!empty($availability))
@@ -1287,4 +1292,9 @@ class MassageController extends Controller
 
  
     }
+
+
+    
+
+
 }
