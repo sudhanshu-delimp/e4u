@@ -369,6 +369,24 @@ textarea {
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                 src="{{ asset($escort->imagePosition(9)) }}"
                                                 style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                                                @php
+                                                    $imageId = get_massage_media_id_by_path($escort->imagePosition(9));
+                                                    if($imageId){
+                                                        $media_details =  get_media_by_id($imageId,'center');
+                                                        $status =  $media_details->varified;
+                                                    }
+                                                @endphp
+                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageId) ? '' : 'display:none;' }}">
+                                                    @if(!empty($imageId))
+                                                        @if($status == "0")
+                                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                        @elseif($status == "1")
+                                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                        @else
+                                                            <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                        @endif
+                                                    @endif
+                                                </div>
                                         </label>
                                     </div>
                                 </div>
@@ -494,6 +512,18 @@ textarea {
                                                                                     <span
                                                                                         class="badge badge-red">Gallery</span>
                                                                             @endswitch
+                                                                           
+                                                                             @php $status = $image->varified ?? "2"; @endphp
+
+                                                                            <div class="verify_icon">
+                                                                                @if($status == "0")
+                                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span class="mc_media_tooltip">Media Pending</span>
+                                                                                @elseif($status == "1")
+                                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
+                                                                                @else
+                                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
+                                                                                @endif
+                                                                            </div>
                                                                         </div>
                                                                     @endif
                                                                 @endforeach

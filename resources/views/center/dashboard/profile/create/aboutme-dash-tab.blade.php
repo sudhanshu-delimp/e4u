@@ -500,7 +500,7 @@ img#blah8 {
                                                         $status =  $media_details->varified;
                                                     }
                                                 @endphp
-                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
                                                     @if(!empty($imageData['id']))
                                                         @if($status == "0")
                                                             <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">

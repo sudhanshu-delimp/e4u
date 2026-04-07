@@ -436,19 +436,21 @@ function initDragDrop() {
                         img_target.attr('data-id', meidaId);
                         img_target.attr('src', media_src);
                         let resp = data.media_data;
-                        let status = resp.media_data.varified;
+                        let status = resp?.media_data?.varified ?? 'template';
                         let iconPath = '';
                         let iconText = '';
                         
                         if (position == 1 || position == 9 || position == 10) {
 
                             if (status == "0") {
-                                iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.svg';
-                                // iconText =  '<span class="mc_media_tooltip">Media Pending</span>'
+                                iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                                iconText ='<span class="common_shield_tooltip">Media Pending</span>';
                             } else if (status == "1") {
                                 iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                                iconText ='<span class="common_shield_tooltip">Media Verified</span>';
                             } else {
                                 iconPath = '/assets/app/img/verify/unverified_light.png';
+                                iconText ='<span class="common_shield_tooltip">Media Unverified</span>';
                             }
 
                         } else {
@@ -466,7 +468,11 @@ function initDragDrop() {
 
                         let iconBox = $('#verify_icon_' + position);
                         iconBox.html(`<img src="${iconPath}">${iconText}`);
-                        iconBox.show('');
+                         if(status ==  "template" && position == "9"){
+                            iconBox.hide(); 
+                        }else{
+                            iconBox.show('');
+                        }
 
                     } else {
                         swal.fire('', "<p>" + data.msg + "</p>", 'error');
