@@ -86,7 +86,14 @@
     .action_cus_width{
         width: 10%;
     }
-    
+
+#selected_service_one small[id="price[]-error"] {
+    display: none  !important;
+}
+#selected_service_two small[id="price[]-error"] {
+    display: none  !important;
+}
+
 </style>
 @endsection
 @section('content')
