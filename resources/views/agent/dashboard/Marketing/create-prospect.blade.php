@@ -202,263 +202,135 @@
 @endsection
 
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
-    <script>
-        $(document).ready(function() {
-            // Init DataTable
-            var table = $("#previewTable").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by ID or Post Code"
-                },
-                processing: false,
-                serverSide: false,
-                paging: true,
-                lengthChange: true,
-                searching: true,
-                bStateSave: true,
-                ordering: false,
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10,
-                columns: [{
-                        data: 'id',
-                        name: 'id',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'date_generated',
-                        name: 'date_generated',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'post_code',
-                        name: 'post_code',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'listings',
-                        name: 'listings',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'merged',
-                        name: 'merged',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA',
-                        class: 'text-center'
-                    },
-                ],
-            });
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{asset('agent/dashboard/marketing/prospect-lists/create-prospect.js')}}"></script>
 
-            var table = $("#reportsTable").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by ID or Post Code"
-                },
-                processing: false,
-                serverSide: false,
-                paging: true,
-                lengthChange: true,
-                searching: true,
-                bStateSave: true,
-                ordering: false,
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10,
-                columns: [{
-                        data: 'id',
-                        name: 'id',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'date_generated',
-                        name: 'date_generated',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'post_code',
-                        name: 'post_code',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'listings',
-                        name: 'listings',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'merged',
-                        name: 'merged',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'bussiness_no',
-                        name: 'bussiness_no',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA',
-                    },
-                ],
-            });
-        });
-    </script>
 
     <script>
-        $(function() {
-            const SAMPLE = [{
-                    id: 1,
-                    name: 'Body Heat Massage',
-                    address: '62 Gordon Rd East Osborne Park',
-                    postcode: '6000',
-                    mobile: '0456 665 012',
-                    business: '9236 2587'
-                },
-                {
-                    id: 2,
-                    name: 'Healthland',
-                    address: '510 Murray St Perth',
-                    postcode: '6001',
-                    mobile: '0426 610 881',
-                    business: ''
-                },
-                {
-                    id: 3,
-                    name: 'Esquire Spa',
-                    address: '11 Aberdeen St Perth',
-                    postcode: '6002',
-                    mobile: '',
-                    business: '9325 2011'
-                },
-            ];
+       // $(function() {
+            // const SAMPLE = [{
+            //         id: 1,
+            //         name: 'Body Heat Massage',
+            //         address: '62 Gordon Rd East Osborne Park',
+            //         postcode: '6000',
+            //         mobile: '0456 665 012',
+            //         business: '9236 2587'
+            //     },
+            //     {
+            //         id: 2,
+            //         name: 'Healthland',
+            //         address: '510 Murray St Perth',
+            //         postcode: '6001',
+            //         mobile: '0426 610 881',
+            //         business: ''
+            //     },
+            //     {
+            //         id: 3,
+            //         name: 'Esquire Spa',
+            //         address: '11 Aberdeen St Perth',
+            //         postcode: '6002',
+            //         mobile: '',
+            //         business: '9325 2011'
+            //     },
+            // ];
 
-            let reports = [];
+            // let reports = [];
 
-            function renderReports() {
-                let tbody = $('#reportsTable tbody').empty();
-                reports.forEach(rep => {
-                    tbody.append(`<tr>
-                    <td>${rep.id}</td>
-                    <td>${rep.date}</td>
-                    <td>${rep.postcode}</td>
-                    <td>${rep.listings.length}</td>
-                    <td>${rep.merged ? 'Yes' : 'No'}</td>
-                    <td class="text-center">
-                          <div class="dropdown no-arrow">
-                              <a class="dropdown-toggle" href="#" role="button"
-                                  id="dropdownMenuLink" data-toggle="dropdown"
-                                  aria-haspopup="true" aria-expanded="true">
-                                  <i
-                                      class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                              </a>
-                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                  aria-labelledby="dropdownMenuLink"
-                                  x-placement="bottom-end">
+            // function renderReports() {
+            //     let tbody = $('#reportsTable tbody').empty();
+            //     reports.forEach(rep => {
+            //         tbody.append(`<tr>
+            //         <td>${rep.id}</td>
+            //         <td>${rep.date}</td>
+            //         <td>${rep.postcode}</td>
+            //         <td>${rep.listings.length}</td>
+            //         <td>${rep.merged ? 'Yes' : 'No'}</td>
+            //         <td class="text-center">
+            //               <div class="dropdown no-arrow">
+            //                   <a class="dropdown-toggle" href="#" role="button"
+            //                       id="dropdownMenuLink" data-toggle="dropdown"
+            //                       aria-haspopup="true" aria-expanded="true">
+            //                       <i
+            //                           class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            //                   </a>
+            //                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+            //                       aria-labelledby="dropdownMenuLink"
+            //                       x-placement="bottom-end">
                                   
-                                  <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                      href="#" data-target="#mergeType" data-toggle="modal"> <i class="fa fa-bezier-curve"></i>
-                                      Merge</a>
-                                  <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                      href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
-                                      Print</a>
-                                        <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                      href="#" data-target="#view_list" data-toggle="modal"> <i class="fa fa-eye"></i>
-                                      View</a>
+            //                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+            //                           href="#" data-target="#mergeType" data-toggle="modal"> <i class="fa fa-bezier-curve"></i>
+            //                           Merge</a>
+            //                       <div class="dropdown-divider"></div>
+            //                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+            //                           href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
+            //                           Print</a>
+            //                             <div class="dropdown-divider"></div>
+            //                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+            //                           href="#" data-target="#view_list" data-toggle="modal"> <i class="fa fa-eye"></i>
+            //                           View</a>
 
-                              </div>
-                          </div>
-                      </td>
-                  </tr>`);
-                });
-            }
+            //                   </div>
+            //               </div>
+            //           </td>
+            //       </tr>`);
+            //     });
+            // }
 
-            function filterData(type, single, from, to) {
-                if (type === 'all') return SAMPLE;
-                if (type === 'single') return SAMPLE.filter(s => s.postcode === single);
-                const f = parseInt(from),
-                    t = parseInt(to);
-                return SAMPLE.filter(s => parseInt(s.postcode) >= f && parseInt(s.postcode) <= t);
-            }
+            // function filterData(type, single, from, to) {
+            //     if (type === 'all') return SAMPLE;
+            //     if (type === 'single') return SAMPLE.filter(s => s.postcode === single);
+            //     const f = parseInt(from),
+            //         t = parseInt(to);
+            //     return SAMPLE.filter(s => parseInt(s.postcode) >= f && parseInt(s.postcode) <= t);
+            // }
 
             // Postcode Type Toggle
-            $('input[name="postcodeType"]').change(function() {
-                const val = $(this).val();
-                $('#singlePostCodeField').toggleClass('d-none', val !== 'single');
-                $('#multiplePostCodeFields').toggleClass('d-none', val !== 'multiple');
-            });
+            // $('input[name="postcodeType"]').change(function() {
+            //     const val = $(this).val();
+            //     $('#singlePostCodeField').toggleClass('d-none', val !== 'single');
+            //     $('#multiplePostCodeFields').toggleClass('d-none', val !== 'multiple');
+            // });
 
             // Trial Run Toggle
-            $('input[name="trialRun"]').change(function() {
-                const val = $('input[name="trialRun"]:checked').val();
-                $('#showRecipients').prop('disabled', val !== 'on');
-            });
+            // $('input[name="trialRun"]').change(function() {
+            //     const val = $('input[name="trialRun"]:checked').val();
+            //     $('#showRecipients').prop('disabled', val !== 'on');
+            // });
 
             // Show Recipients
-            $('#showRecipients').click(function() {
-                const type = $('input[name="postcodeType"]:checked').val();
-                const data = filterData(type, $('#singlePostCode').val(), $('#fromPostCode').val(), $(
-                    '#toPostCode').val());
-                let tbody = $('#previewTable tbody').empty();
-                data.forEach(d => {
-                    tbody.append(`<tr>
-        <td>${d.id}</td>
-        <td>${d.name}</td><td>${d.address}</td><td>${d.postcode}</td><td>${d.mobile}</td><td>${d.business}</td>
-      </tr>`);
-                });
-                $('#previewCard').removeClass('d-none');
-            });
+    //         $('#showRecipients').click(function() {
+    //             const type = $('input[name="postcodeType"]:checked').val();
+    //             const data = filterData(type, $('#singlePostCode').val(), $('#fromPostCode').val(), $(
+    //                 '#toPostCode').val());
+    //             let tbody = $('#previewTable tbody').empty();
+    //             data.forEach(d => {
+    //                 tbody.append(`<tr>
+    //     <td>${d.id}</td>
+    //     <td>${d.name}</td><td>${d.address}</td><td>${d.postcode}</td><td>${d.mobile}</td><td>${d.business}</td>
+    //   </tr>`);
+    //             });
+    //             $('#previewCard').removeClass('d-none');
+    //         });
 
             // Proceed
-            $('#proceedBtn').click(function() {
-                const type = $('input[name="postcodeType"]:checked').val();
-                const data = filterData(type, $('#singlePostCode').val(), $('#fromPostCode').val(), $(
-                    '#toPostCode').val());
-                const report = {
-                    id: Math.floor(Math.random() * 1000),
-                    date: new Date().toLocaleDateString(),
-                    postcode: type,
-                    listings: data,
-                    merged: false
-                };
-                reports.unshift(report);
-                renderReports();
-                // alert('List generated and stored.');
-            });
+            // $('#proceedBtn').click(function() {
+            //     const type = $('input[name="postcodeType"]:checked').val();
+            //     const data = filterData(type, $('#singlePostCode').val(), $('#fromPostCode').val(), $(
+            //         '#toPostCode').val());
+            //     const report = {
+            //         id: Math.floor(Math.random() * 1000),
+            //         date: new Date().toLocaleDateString(),
+            //         postcode: type,
+            //         listings: data,
+            //         merged: false
+            //     };
+            //     reports.unshift(report);
+            //     renderReports();
+            //     // alert('List generated and stored.');
+            // });
 
             // Close preview
-            $('#closePreview').click(() => $('#previewCard').addClass('d-none'));
-        });
+           // $('#closePreview').click(() => $('#previewCard').addClass('d-none'));
+        //});
     </script>
 @endpush

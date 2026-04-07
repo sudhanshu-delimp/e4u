@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MassageExcelExport;
 use App\Models\MassageExcel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
 
 class DatabaseCentreController extends Controller
 {
@@ -156,4 +157,6 @@ class DatabaseCentreController extends Controller
             ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
             ->first();
     }
+
+
 }
