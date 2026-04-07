@@ -173,9 +173,8 @@
     @include('admin.reports.modal.view_tag')
     @include('admin.reports.modal.view_centre')
     @include('admin.reports.modal.verify_masseur_images')
-@endsection
-@section('script')
 
+<script type="text/javascript" src="{{asset('assets/plugins/ajax/libs/jquery/jquery.min.js')}}"></script>
 <script>
     $(document).ready(function() {
         var table = $("#mediaverifyTable").DataTable({

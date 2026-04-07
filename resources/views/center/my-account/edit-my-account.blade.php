@@ -5,6 +5,14 @@
         .swal-button {
             background-color: #242a2c;
         }
+.toggle-password {
+    position: absolute;
+    top: 40px;
+    right: 22px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+}
     </style>
 @stop
 @section('content')
@@ -279,6 +287,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#other_centre"
@@ -315,7 +324,7 @@
 
                                         </div>
                                         <div class="d-flex justify-content-end my-3">
-                                            <button type="button" class="btn-common" data-toggle="modal"
+                                            <button type="button" class="btn-common" data-toggle="modal"  data-backdrop="static" data-keyboard="false"
                                                 data-target="#add_center">Add Centre</button>
                                         </div>
                                         <div class="table-responsive">
@@ -541,179 +550,210 @@
     {{-- Modal: Add Centre --}}
     <div class="modal fade upload-modal" id="add_center" tabindex="-1" aria-labelledby="add_centerLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/add-center.png') }}"
-                            class="custompopicon" alt=" Add Centre"> Add Centre</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </button>
-                </div>
-                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-                    <form>
-                        <div class="row">
-                            <!-- Membership ID -->
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Membership ID</label>
-                                    <input type="text" class="form-control" placeholder="Auto-generated when saved"
-                                        readonly>
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scorllable">
+        <form name="add_center_frm" id="add_center_frm" method="POST" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/add-center.png') }}"
+                                class="custompopicon" alt=" Add Centre"> Add Centre</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </button>
+                    </div>
+                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                        <form>
+                            <div class="row">
+                                <!-- Membership ID -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Membership ID</label>
+                                        <input type="text" class="form-control" placeholder="Auto-generated when saved"
+                                            readonly>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Access Granted -->
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Access Granted</label>
-                                    <div class="mt-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="accessGranted"
-                                                id="accessYes" value="yes" checked>
-                                            <label class="form-check-label" for="accessYes">Yes</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="accessGranted"
-                                                id="accessNo" value="no">
-                                            <label class="form-check-label" for="accessNo">No</label>
+                                <!-- Access Granted -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Access Granted</label>
+                                        <div class="mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="accessGranted"
+                                                    id="accessYes" value="yes" checked>
+                                                <label class="form-check-label" for="accessYes">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="accessGranted"
+                                                    id="accessNo" value="no">
+                                                <label class="form-check-label" for="accessNo">No</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Subtle line -->
+                            <hr class="my-3" style="border-top: 1px solid #e0e0e0;">
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- Date Joined -->
+                                    <div class="form-group">
+                                        <label>Date Joined</label>
+                                        <input type="text" name="join_date" id="join_date" placeholder="mm/dd/ayyyy" class="form-control"
+                                           placeholder="DD-MM-YYYY" autocomplete="off" value="<?php echo date('d-m-Y');?>" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Display Name -->
+                                    <div class="form-group">
+                                        <label for="Display Name" class="common_help_icon common-tooltip">Display Name
+                                            <img class="delay_tooltip tooltip-icon"
+                                                src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                            <span class="tooltip-text">Insert here the trading /
+                                                business name of the Business.</span>
+
+                                        </label>
+
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter display name...">
+                                         <span class="text-danger error-name"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- Entity Name -->
+                                    <div class="form-group">
+                                        <label for="Entity Name" class="common_help_icon common-tooltip">Entity Name
+                                            <img class="delay_tooltip tooltip-icon"
+                                                src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                            <span class="tooltip-text">What is the name of the
+                                                corporate entity that owns the Business Name, like
+                                                ABC Pty Ltd</span>
+
+                                        </label>
+                                        <input type="text" class="form-control" name="entity_name"  id="entity_name" placeholder="Enter entity name...">
+                                         <span class="text-danger error-entity_name"></span>    
+                                   
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                        
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" name="email"  id="email" placeholder="Enter email address...">
+                                        <span class="text-danger error-email"></span>  
+                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                    <label>Address</label>    
+                                    <textarea class="form-control" rows="1" name="business_address"  id="business_address" placeholder="Enter address..."></textarea>
+                                    <span class="text-danger error-business_address"></span>  
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+
+                                <div class="col-lg-6">
+                                    <!-- Business No. -->
+                                    <div class="form-group">
+                                        <label>Business No.</label>
+                                        <input type="text" class="form-control" name="business_number"  id="business_number" placeholder="Enter business number...">
+                                         <span class="text-danger error-business_number"></span> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Mobile No. -->
+                                    <div class="form-group">
+                                        <label>Mobile No.</label>
+                                        <input type="tel" class="form-control" name="phone"  id="phone" placeholder="Enter mobile number...">
+                                        <span class="text-danger error-phone"></span> 
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="email">Method of contact:</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" checked type="checkbox" name="contact_type[]"
+                                                id="Method_Message" value="1">
+                                            <label class="form-check-label" for="Method_Message">Message (via Console)</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                id="Method_Text" value="2">
+                                            <label class="form-check-label" for="Method_Text">Text</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                id="Method_Email" value="3">
+                                            <label class="form-check-label" for="Method_Email">Email</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                id="Method_call_me" value="4">
+                                            <label class="form-check-label" for="Method_call_me">Call me</label>
+                                        </div>
+                                    </div>
+                                </div>
+
                         </div>
 
-                        <!-- Subtle line -->
-                        <hr class="my-3" style="border-top: 1px solid #e0e0e0;">
-
                         <div class="row">
-                            <div class="col-lg-6">
-                                <!-- Date Joined -->
-                                <div class="form-group">
-                                    <label>Date Joined</label>
-                                    <input type="text" placeholder="mm/dd/ayyyy" class="form-control"
-                                        onfocus="this.type='date'; this.placeholder='';">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Display Name -->
-                                <div class="form-group">
-                                    <label for="Display Name" class="common_help_icon common-tooltip">Display Name
-                                        <img class="delay_tooltip tooltip-icon"
-                                            src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
-                                        <span class="tooltip-text">Insert here the trading /
-                                            business name of the Business.</span>
-
-                                    </label>
-
-                                    <input type="text" class="form-control" placeholder="Enter display name...">
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <!-- Entity Name -->
-                                <div class="form-group">
-                                    <label for="Entity Name" class="common_help_icon common-tooltip">Entity Name
-                                        <img class="delay_tooltip tooltip-icon"
-                                            src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
-                                        <span class="tooltip-text">What is the name of the
-                                            corporate entity that owns the Business Name, like
-                                            ABC Pty Ltd</span>
-
-                                    </label>
-                                    <input type="text" class="form-control" placeholder="Enter entity name...">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Address -->
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <textarea class="form-control" rows="1" placeholder="Enter address..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-
-                                <!-- Point of Contact -->
-                                <div class="form-group">
-                                    <label>Point of Contact</label>
-                                    <input type="text" class="form-control" placeholder="Enter point of contact...">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Email -->
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" placeholder="Enter email address...">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-
-
                             <div class="col-lg-6">
                                 <!-- Business No. -->
                                 <div class="form-group">
-                                    <label>Business No.</label>
-                                    <input type="text" class="form-control" placeholder="Enter business number...">
+                                    <label>Password</label>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+                                    <span class="toggle-password" toggle="#password"><i class="fa fa-eye"></i></span>
+                                    <span class="text-danger error-password"></span> 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <!-- Mobile No. -->
                                 <div class="form-group">
-                                    <label>Mobile No.</label>
-                                    <input type="tel" class="form-control" placeholder="Enter mobile number...">
+                                    <label>Confirm Password </label>
+                                    <input type="password" name="confirm_password" id="confirm_password"  class="form-control" placeholder="Re-type password">
+                                    <span class="toggle-password" toggle="#confirm_password"><i class="fa fa-eye"></i></span>
+                                    <span class="text-danger error-confirm_password"></span> 
                                 </div>
                             </div>
                         </div>
 
+                    
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="email">Method of contact:</label><br>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" checked type="checkbox" name="contact_type[]"
-                                            id="Method_Message" value="1">
-                                        <label class="form-check-label" for="Method_Message">Message (via Console)</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                            id="Method_Text" value="2">
-                                        <label class="form-check-label" for="Method_Text">Text</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                            id="Method_Email" value="3">
-                                        <label class="form-check-label" for="Method_Email">Email</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                            id="Method_call_me" value="4">
-                                        <label class="form-check-label" for="Method_call_me">Call me</label>
-                                    </div>
+
+                        
+                            <div class="row">
+                                <div class="col-lg-12 d-flex justify-content-end">
+                                    <!-- Submit -->
+                                    <button type="submit" class="btn-success-modal">Save</button>
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 d-flex justify-content-end">
-                                <!-- Submit -->
-                                <button type="submit" class="btn-success-modal">Save</button>
-                            </div>
-                        </div>
 
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
+        </form>
+    </div>
     </div>
     {{-- end  --}}
+
+
 
     {{-- Modal: Edit Centre --}}
     <div class="modal fade upload-modal" id="edit_center" tabindex="-1" aria-labelledby="edit_centerLabel"
@@ -960,13 +1000,21 @@
 
 @endsection
 @push('script')
-<script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    
+<!-- <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    </script>
-    <script>
+<script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script> -->
+
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+   
+<script>
     var table = $("#other_centre_table").DataTable({
         language: {
             search: "Search: _INPUT_",
@@ -1064,10 +1112,12 @@
                 });
             }
         });
+
         $("#close").click(function() {
             $("#my_account_modal").hide();
             location.reload();
         });
+
         $('#city').select2({
             allowClear: true,
             placeholder: 'Select City',
@@ -1215,5 +1265,74 @@
             });
 
         });
-    </script>
+
+
+
+
+
+    $(document).on('submit', 'form[name="add_center_frm"]', function(e) 
+    {
+         e.preventDefault(); 
+         let form = $(this);
+         let formData = new FormData(this);
+         $('span.text-danger').text('');
+         swal_waiting_popup({'title':'Adding a New Centre'});
+         $.ajax({
+               url: "{{ route('center.add-sub-account') }}",
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     //table.ajax.reload(null, false); 
+                     Swal.close();
+                     $('span.text-danger').text('');
+                     $('#add_center').modal('hide');
+                     swal_success_popup(response.message);
+               },
+               error: function(xhr) 
+               {
+                     Swal.close();
+                     console.log(xhr);
+                     if (xhr.status === 422) 
+                     {
+                            $('span.text-danger').text('');
+                            response = xhr.responseJSON || JSON.parse(xhr.responseText);
+                            console.log('errors',response);
+                            if (xhr.status === 422 && response && response.errors) 
+                            {
+                                $.each(response.errors, function(field, messages) {
+                                    $('.error-' + field).text(messages[0]);
+                                });
+                            } 
+                            else 
+                            {
+                                swal_error_popup(response?.message || 'Something went wrong');
+                            } 
+                     }
+                     else {
+                     swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                     }
+               }
+         });
+    });
+
+    document.querySelectorAll('.toggle-password').forEach(function(el) 
+    {
+        el.addEventListener('click', function() {
+            var input = document.querySelector(this.getAttribute('toggle'));
+            var icon = this.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    });
+
+</script>
 @endpush

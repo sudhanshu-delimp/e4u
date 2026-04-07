@@ -2,15 +2,17 @@
 
 namespace App\Repositories\User;
 
-use Schema;
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Escort;
 use App\Models\AccountSetting;
+use App\Models\Escort;
 use App\Models\MassageProfile;
-use App\Traits\DataTablePagination;
+use App\Models\User;
 use App\Repositories\BaseRepository;
+use App\Traits\DataTablePagination;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Schema;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
@@ -580,6 +582,54 @@ class UserRepository extends BaseRepository implements UserInterface
         }
       
     }
+
+
+
+    public function add_subuser_account($data)
+    {
+        try 
+        {
+            $granted = '0';
+            if( isset($data['accessGranted']) && $data['accessGranted']=='yes')
+            $granted = '1';
+
+            $user = new User();
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+            $user->phone = $data['phone'];
+            $user->business_address = $data['business_address'];
+            $user->business_number = $data['business_number'];
+            $user->entity_name = $data['entity_name'];
+            $user->created_at =  date('Y-m-d H:i:s');
+            $user->contact_type =$data['contact_type'];
+            $user->is_access_granted = $granted;
+            $user->parent_massage_center = auth()->user()->id;
+            $user->type = '4';
+            $user->state_id = auth()->user()->state_id;
+            $user->password =  Hash::make($data['confirm_password']);
+            if($user->save())
+            {
+                 if (!MassageProfile::where('user_id', $user->id)->exists()) {
+                    $escort = new MassageProfile();
+                    $escort->user_id = $user->id;
+                    $escort->default_setting = 1;
+                    $escort->save();
+                    }
+            }
+            return [ 'status' => true, 'message' => 'New Centre addedd Successfully'];
+        } 
+        catch (Exception $e) {
+             Log::info($e->getMessage());
+             return [ 'status' => false, 'message' => 'Error occured while adding new Centre'];
+        }    
+    }
+
+     public function update_subuser_account($data)
+    {
+
+    }
+
+
 
 
 }

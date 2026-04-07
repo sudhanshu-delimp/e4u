@@ -1,5 +1,10 @@
 
+
 @if(count($listings)>0)
+
+@php
+    $ids = $listings->pluck('id')->toArray();
+@endphp
                
  @foreach($listings as $listing)
 
@@ -27,7 +32,7 @@
 
             <div class="mc_card_header">
                 <span class="verify_icon">
-                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}" alt="">
+                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" alt="">
                     <span class="mc_media_tooltip">Media Pending</span>
                 </span>
                 <span class="mc_title">{{$listing->profile_name}}</span>
@@ -36,7 +41,14 @@
                     <span class="mc_legbox_tooltip">Add to My Legbox</span>
                 </span>
             </div>
-            <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
+
+             <a href="{{ route('web.massage-description', [
+                'id' => $listing->id,
+                'ids' => json_encode($ids)
+            ]) }}" class="mc_card_link">
+
+
+            
                 <div class="mc_profile_img">
 
                 

@@ -57,7 +57,7 @@
             Regulations.</p>
          <p>
              E4U accepts no responsibility for the completeness or accuracy of any information
-             an Advertiser collects when complying with the Covid 19 Regulations.
+             an Advertiser collects or communicates when complying with the Covid 19 Regulations.
          </p>
          <p>E4U accepts no responsibility for your compliance with Covid 19 Regulations.</p>
          <p>To the extent permitted by law, all Users of the Website unconditionally and irrevocably release and discharge Escorts4U from any and all liability whether or

@@ -4787,16 +4787,22 @@ i.fa.fa-heart-o{
                     flex-direction: row;
                 }
                 
+                .gap-7 {
+                    gap: 7px;
+                }
+                
                 .footer_mange_padding .row .col:nth-child(2) {
-                    max-width: 13%;
+                    max-width: 12%;
                 }
                 
                 .footer_mange_padding .row .col.dk-right {
-                    max-width: 250px;
+                    max-width: 185px;
+                    padding-left: 7px;
+                    padding-right: 0px !important;
                 }
                 
                 .footer_mange_padding .row .col:nth-child(3) {
-                    max-width: 22%;
+                    max-width: 28%;
                 }
                 
                 .footer_mange_padding .row .col:nth-child(4) {
@@ -4818,21 +4824,28 @@ i.fa.fa-heart-o{
                 }
                 
                 .footer_mange_padding .container-fluid>.row>.col:first-child {
-                    padding-right: 2% !important;
+                    padding-right: 5px !important;
                 }
                 
                 .footer_mange_padding .row .col:nth-child(4) .row>div:first-child,
                 .footer_mange_padding .row .col:nth-child(3) .row>div:first-child,
                 .footer_mange_padding .row .col:nth-child(2) .row>div:first-child {
-                    padding-right: 30px;
+                    padding-right: 7px;
+                    padding-left: 7px;
+                }
+                
+                footer ul {
+                    text-align: left !important;
                 }
                 
                 .footer_mange_padding .container-fluid .row:nth-child(2) .col:not(:last-child) {
-                    padding-right: 30px;
+                    padding-right: 7px;
+                    padding-left: 7px;
                 }
                 
                 .footer_mange_padding .container-fluid .row:nth-child(2) .col:not(:last-child) .d-flex>div:first-child {
-                    padding-right: 15px;
+                    padding-right: 7px;
+                    padding-left: 7px;
                 }
                 
                 .myblog-design .heading h4 {
@@ -5821,7 +5834,7 @@ i.fa.fa-heart-o{
                     bottom: 0px;
                     right: 0px;
                     background: var(--blue--text);
-                    padding: 4px 10px;
+                    padding: 5px;
                 }
                 
                 .mc_profile_img .veryfy_img img {
@@ -6133,12 +6146,12 @@ i.fa.fa-heart-o{
                     width: max-content;
                     background: rgba(12, 34, 61);
                     z-index: 10;
-                    width: 100px;
+                    width: 90px;
                     padding: 5px;
                 }
                 
                 .mc_list_card .verify_icon img {
-                    width: 100%;
+                    width: 90%;
                 }
                 
                 .mc_list_content {
@@ -7636,7 +7649,7 @@ i.fa.fa-heart-o{
                 .profile_verify_icon .verify_icon {
                     width: 90px;
                     background: #0c223d;
-                    padding: 4px 10px;
+                    padding: 5px;
                     position: absolute;
                     z-index: 3;
                     bottom: 21px;
@@ -7645,6 +7658,46 @@ i.fa.fa-heart-o{
                 
                 .profile_verify_icon .verify_icon img {
                     width: 100%;
+                }
+                
+                .common_shield_tooltip {
+                    position: absolute !important;
+                }
+                
+                .mc_profile_img img:hover+.common_shield_tooltip {
+                    display: block;
+                }
+                
+                .verify_icon_sm:hover .gallery_shield_tooltip,
+                .veryfy_img:hover .gallery_shield_tooltip {
+                    display: block;
+                }
+                
+                .gallery_shield_tooltip {
+                    position: absolute;
+                    top: 2px;
+                    right: 35px;
+                    z-index: 999;
+                    width: max-content;
+                    background: #ff3c5f;
+                    color: #fff;
+                    font-size: 11px;
+                    font-weight: 500;
+                    padding: 5px;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    display: none;
+                }
+                
+                .gallery_shield_tooltip::after {
+                    position: absolute;
+                    left: 100%;
+                    top: 25%;
+                    content: '';
+                    border-width: 6px;
+                    border-style: solid;
+                    border-color: var(--peach) transparent transparent transparent;
+                    transform: rotate(270deg);
                 }
                 
                 .common_shield_tooltip {
@@ -7685,13 +7738,15 @@ i.fa.fa-heart-o{
                     right: 0px;
                     bottom: 0px;
                     width: 100px;
-                    height: 35px;
                     background: #0c223d;
-                    padding: 2px;
+                    padding: 5px;
+                    display: flex;
+                    align-content: center;
+                    justify-content: center;
                 }
                 
                 .verify-image-custom img {
-                    width: 100% !important;
+                    width: 90% !important;
                 }
                 
                 .gallery__item.gallery__item--lg {
@@ -7700,8 +7755,8 @@ i.fa.fa-heart-o{
                 
                 .gallery__item.gallery__item--lg .verify_icon {
                     width: 90px;
-                    background: #0c223dc7;
-                    padding: 4px 10px;
+                    background: #0c223d;
+                    padding: 5px;
                     position: absolute;
                     z-index: 1;
                     bottom: 21px;
@@ -7718,7 +7773,7 @@ i.fa.fa-heart-o{
                     position: absolute;
                     bottom: 1px;
                     right: 0px;
-                    background: #0c223dc7;
+                    background: #0c223d;
                     padding: 1px 5px;
                     text-align: center;
                     border-radius: 5px;
@@ -8499,6 +8554,10 @@ i.fa.fa-heart-o{
                     /* position: relative; */
                 }
                 
+                .border_color {
+                    border-color: #5d6d7e !important;
+                }
+                
                 .vrf-tooltip {
                     visibility: hidden;
                     opacity: 0;
@@ -8507,8 +8566,7 @@ i.fa.fa-heart-o{
                     text-align: center;
                     padding: 5px;
                     border-radius: 4px;
-                    font-size: 12px;
-                    line-height: 1.4;
+                    font-size: 11px;
                     white-space: nowrap;
                     position: absolute;
                     top: 5px;

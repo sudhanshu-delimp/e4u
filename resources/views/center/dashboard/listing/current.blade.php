@@ -43,29 +43,19 @@
                   <table id="currentListings" class="table  custom--common-table" width="100%">
                         <thead class="table-bg">
                            <tr>
-                              <th>ID</th>
+                              
                               <th>Profile Name</th>
                               <th>Location</th>
                               <th>Stage Name</th>
                               <th>Start Date</th>
                               <th>End Date</th>
                               <th>Days</th>
-                                 <th>Membership</th>
+                             
                               <th style="width:70px">Fee Paid</th>
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                                        <td>123</td>
-                                        <td>Waskovins</td>
-                                        <td>123, Hyd,22/34</td>
-                                        <td>WKS</td>
-                                        <td>11-11-2025</td>
-                                        <td>15-11-2025</td>
-                                        <td>5</td>
-                                        <td>Platinum</td>
-                                        <td><div class="num_value">$<span>10009</span></div></td>
-                                    </tr>
+                           
                         </tbody>
                   </table>
                </div>
@@ -82,20 +72,59 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
    <script>
+   // var table = $("#currentListings").DataTable({
+   //    language: {
+   //       search: "Search: _INPUT_",
+   //       searchPlaceholder: "Search by Profile Name"
+   //    },
+   //    info: true,
+   //    paging: true,
+   //    lengthChange: true,
+   //    searching: true,
+   //    bStateSave: true,
+   //    order: [[1, 'desc']], // default sort on 2nd column (index starts from 0)
+   //    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+   //    pageLength: 10
+   // });
+
+
    var table = $("#currentListings").DataTable({
-      language: {
-         search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Profile Name"
-      },
-      info: true,
-      paging: true,
-      lengthChange: true,
-      searching: true,
-      bStateSave: true,
-      order: [[1, 'desc']], // default sort on 2nd column (index starts from 0)
-      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
-   });
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: false,
+    order: [[0, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10,    
+
+    ajax: {
+        url: "{{ route('center.current-listing') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: function (d) {
+            d.type = 'player';
+            return JSON.stringify(d);
+        }
+    },
+
+    columns: [
+            { data: 'profile_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA' },
+            { data: 'address', name: 'address', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'business_name', name: 'business_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'start_date', name: 'start_date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'end_date', name: 'end_date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'days', name: 'days', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'fee_paid', name: 'fee_paid', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+    ],
+
+
+});
+
 
    
 </script>

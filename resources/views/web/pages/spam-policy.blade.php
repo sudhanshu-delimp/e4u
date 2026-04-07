@@ -30,7 +30,7 @@
         <div class="container">
            <h1 class="home_heading_first">Spam Policy</h1>
            <h2 class="primery_color normal_heading">Compliance</h2>
-           <p>Escorts4U complies with the Australian Spam Act 2003 as set out by the Australian
+           <p>Escorts4U complies with the Australian Spam Act 2003 which is enforced by the Australian
                Communications & Media Authority.
            </p>
      <p>We believe strongly in preventing unwanted email from entering our Users in boxes and
@@ -50,8 +50,7 @@
          that you have added to your Legbox than from Escorts4U.</p>
      <p>Communications from Advertisers are not communications from Escorts4U.</p>
      <p>Escorts4U will never sell your details to any other organisation or for use in 'promotional
-         lists'. Not only is this is a breach of the Privacy Act, we consider that conduct to be
-         unethical.</p>
+         lists'. We consider that conduct to be unethical.</p>
      <p>Should you have any concerns or queries about Escorts4U email marketing activities,
          please contact our Privacy Officer: <a class="termsandconditions_text_color" href="mailto:">privacy@escorts4U.com.au</a></p>
            <!-- <h2 class="primery_color normal_heading">Changes to this Policy</h2>
@@ -68,7 +67,7 @@
                 <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                         review the most current version.</p>
                 <p>Escorts4U archives all previous versions of this Policy.</p>
-                <p><b>This policy was last updated 25-05-2025</b></p>
+                <p><b>This policy was last updated 20-03-2026</b></p>
             </div>
 
         </div>

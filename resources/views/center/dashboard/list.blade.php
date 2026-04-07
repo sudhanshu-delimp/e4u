@@ -53,6 +53,9 @@
 .checkboxes label:hover {
   background-color: #f1f1f1;
 }
+.action_buttons {
+   margin-bottom:10px;
+}
 </style>
 @stop
 @section('content')
@@ -90,6 +93,25 @@
             <div class="col-md-12">
                <div class="panel with-nav-tabs panel-warning">
                   <div class="panel-body">
+
+                           @if($active_profile)
+                           <div class="action_buttons">
+                                <div class="add--list listingActionButtons">
+                                    <div class="">
+                                          <button class="btn brb-btn" data-toggle="modal"
+                                                data-target="#add_brb" id="btn_add_brb">Add BRB</button>
+                                          <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+                                          <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
+                                          <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
+                                                
+                                       </div>
+                                </div> 
+                           </div>  
+                            @endif
+
+
+
                      <div class="tab-content">
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
@@ -150,6 +172,10 @@
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
 </a>
+
+    @if($active_profile)
+    @include('center.dashboard.modal.listing_action_popup.index')
+    @endif
 
 
 @endsection
@@ -277,7 +303,143 @@ $(document).on('click', '.massage_action', async function () {
 })
 
 
- </script>
+
+
+//////////////  BRB Form Submit ///////////////////
+$('#brb_form').parsley({});
+
+$("#brb_form").on('submit', function(e) 
+{
+   e.preventDefault();
+   var form = $(this);
+   var profileId = $("#profile_id").val();
+   var url = "{{ route('massage.brb.add') }}";
+   var data = new FormData(form[0]);
+   var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
+
+   $.ajax({
+         method: 'POST',
+         url: url,
+         data: data,
+         contentType: false,
+         processData: false,
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         success: function(data) {
+            if (data.response.success) {
+               Swal.fire({
+                     icon: "success",
+                     text: data.response.message
+               });
+               $("#brb_form")[0].reset();
+               $('#add_brb').modal('hide');
+               table.draw();
+            } else {
+               Swal.fire({
+                     icon: "error",
+                     text: data.response.message
+               });
+            }
+         },
+
+   });
+});
+
+
+window.Parsley.addValidator('time', {
+validateString: function(value) {
+      // Regex to validate time in HH:MM format (24-hour)
+      return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value);
+},
+messages: {
+      en: 'Please enter a valid time (HH:MM).'
+}
+});
+////////////// End  BRB Form Submit ///////////////////
+
+
+$(document).ready(function () {
+
+    let suspendStartDateObject = $('#suspendStartDate');
+    let suspendEndDateObject   = $('#suspendEndDate');
+    let suspendProfileObject = $('#suspendProfileId');
+
+    
+    suspendStartDateObject.datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: 1,
+        onSelect: function () {
+            suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
+            suspendEndDateObject.datepicker('setDate', $(this).val());
+            calculateCredit();
+        }
+    });
+
+    suspendEndDateObject.datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: 1,
+        onSelect: function () {
+            suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
+            calculateCredit();
+        }
+    });
+
+
+
+    suspendProfileObject.on('change', function() {
+                let selectedOption = $(this).find(':selected');
+                let listingMembership = selectedOption.data('membership');
+                let listingStartDate = selectedOption.data('start');
+                let listingEndDate = selectedOption.data('end');
+                let profileId = selectedOption.val();
+
+                suspendStartDateObject.datepicker('setDate', +1);
+                suspendStartDateObject.datepicker('option', 'minDate', +1);
+                suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
+
+                suspendEndDateObject.datepicker('setDate', null);
+                suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
+                $("#creditCalculationLive").html('0.00');
+      });
+
+
+     function calculateCredit() {
+                let selectedOption = suspendProfileObject.find(':selected');
+                if(suspendEndDateObject.val() && suspendStartDateObject.val()){
+                    $.ajax({
+                    url: "{{ route('center.massage-suspend-credit') }}",
+                    method: 'POST',
+                    data: {
+                        start_date: suspendStartDateObject.val(),
+                        end_date: suspendEndDateObject.val(),
+                        profile_id: selectedOption.val(),
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $("#creditCalculationLive").html('0.00');
+                        if(response.success){
+                            $("#creditCalculationLive").html(response.refund_amount);
+                            $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                        }
+                        else {
+                            $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                            Swal.fire({
+                                icon: "error",
+                                text: response.message
+                            });
+                        }
+                    }
+                });
+                }
+            }
+
+
+    
+    suspendStartDateObject.datepicker('setDate', +1);
+});
+
+</script>
 
 
 @endpush

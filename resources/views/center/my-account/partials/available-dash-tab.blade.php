@@ -142,6 +142,7 @@
                                         <div class="col-md-12 text-right">
                                             <input type="hidden" name="type" id="type" value="availibility">
                                             <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
+                                            <input type="hidden" name="profile_time_avail_update" id="profile_time_avail_update" value="profile_time_avail_update">
                                             <button id="read-more" type="submit" class="save_profile_btn">Update</button>
                                         </div>
                                 </div>

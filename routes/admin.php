@@ -39,7 +39,7 @@ use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Admin\FeeDiscountController;
 use App\Http\Controllers\Admin\AgentExcelDataManageController;
-
+use App\Http\Controllers\Admin\SupplierController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -310,12 +310,6 @@ Route::get('agent_operator_fees', [PricingsummariesController::class, 'agent_ope
 Route::get('commision_playbox_fees', [PricingsummariesController::class, 'commision_playbox_fees_datatable'])->name('admin.commision_playbox_fees');
 
 
-
-Route::get('management/manage-suppliers', function () {
-    return view('admin.management.manage-suppliers');
-})->name('admin.manage-suppliers');
-
-
 Route::get('database/manage-email', function () {
     return view('admin.database.manage-email');
 })->name('manage-email');
@@ -374,6 +368,20 @@ Route::get('reports-num-email', [AdminNumsController::class, 'viewReport'])->nam
 Route::get('reports/transaction-summary', function () {
     return view('admin.reports.transaction-summary');
 })->name('admin.transaction-summary');
+
+/** Manage Suppliers */
+Route::get('/management/manage-suppliers', [SupplierController::class, 'supplierList'])->name('admin.manage-suppliers');
+Route::post('/management/add-supplier', [SupplierController::class, 'addSupplier'])->name('admin.add.supplier');
+Route::get('supplier_list_data_table', [SupplierController::class, 'supplierDataList'])->name('admin.supplier_list_data_table');
+Route::get('/get_supplier/{id}', [SupplierController::class, 'getSupplier'])->name('admin.get.supplier');
+Route::get('/edit-supplier/{id}', [SupplierController::class, 'editSupplier'])->name('admin.edit-supplier');
+Route::post('/store-supplier', [SupplierController::class, 'updateSupplier'])->name('admin.store-supplier');
+Route::get('/view-supplier/{id}', [SupplierController::class, 'viewSupplier'])->name('admin.view-supplier');
+Route::post('/print-supplier', [SupplierController::class, 'printSupplierDetails'])->name('admin.print_supplier');
+Route::post('/suspend-supplier', [SupplierController::class, 'suspendSupplier'])->name('admin.suspend-supplier');
+Route::post('/active-supplier-account', [SupplierController::class, 'activateUser'])->name('admin.active-supplier-account');
+Route::post('/approve-supplier-account', [SupplierController::class, 'approveSupplierAccount'])->name('admin.approve_supplier_account');
+
 
 // Route::get('reports/advertiser-suspensions',function(){
 //     return view('admin.reports.advertiser-suspensions');
@@ -533,9 +541,74 @@ Route::get('management/agent-data/{id}/data-list-print', [AgentExcelDataManageCo
 
 
 
-// Route::get('/notifications/shareholders',function(){
-//     return view('admin.notifications.shareholders.index');
-// })->name('admin.shareholders');
+Route::get('/e4u-policies/code-of-conduct',function(){
+    return view('admin.e4u-policies.code-of-conduct');
+})->name('admin.code-of-conduct');
+
+
+Route::get('/e4u-policies/data-breach-plan',function(){
+    return view('admin.e4u-policies.data-breach-plan');
+})->name('admin.data-breach-plan');
+
+Route::get('/e4u-policies/discipline-and-termination',function(){
+    return view('admin.e4u-policies.discipline-and-termination');
+})->name('admin.discipline-and-termination');
+
+Route::get('/e4u-policies/fitness-for-work',function(){
+    return view('admin.e4u-policies.fitness-for-work');
+})->name('admin.fitness-for-work');
+
+Route::get('/e4u-policies/grievance',function(){
+    return view('admin.e4u-policies.grievance');
+})->name('admin.grievance');
+
+Route::get('/e4u-policies/health-and-safety',function(){
+    return view('admin.e4u-policies.health-and-safety');
+})->name('admin.health-and-safety');
+
+Route::get('/e4u-policies/information-use',function(){
+    return view('admin.e4u-policies.information-use');
+})->name('admin.information-use');
+
+Route::get('/e4u-policies/leave',function(){
+    return view('admin.e4u-policies.leave');
+})->name('admin.leave');
+
+Route::get('/e4u-policies/personal-telephone-use',function(){
+    return view('admin.e4u-policies.personal-telephone-use');
+})->name('admin.personal-telephone-use');
+
+Route::get('/e4u-policies/position-descriptions',function(){
+    return view('admin.e4u-policies.position-descriptions');
+})->name('admin.position-descriptions');
+
+Route::get('/e4u-policies/smoking',function(){
+    return view('admin.e4u-policies.smoking');
+})->name('admin.smoking');
+
+Route::get('/e4u-policies/social-media',function(){
+    return view('admin.e4u-policies.social-media');
+})->name('admin.social-media');
+
+
+
+// Community
+
+Route::get('/community/abbreviations',function(){
+    return view('admin.community.abbreviations');
+})->name('admin.abbreviations');
+
+Route::get('/community/classification-laws',function(){
+    return view('admin.community.classification-laws');
+})->name('admin.classification-laws');
+
+Route::get('/community/local-laws',function(){
+    return view('admin.community.local-laws');
+})->name('admin.local-laws');
+
+Route::get('/community/pricing-summary',function(){
+    return view('admin.community.pricing-summary');
+})->name('admin.pricing-summary');
 
 // Route::get('/admin-dashboard/notifications/global',function(){
 //     return view('admin.notifications.global');

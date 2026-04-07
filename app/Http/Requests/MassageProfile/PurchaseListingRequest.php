@@ -31,7 +31,7 @@ class PurchaseListingRequest extends FormRequest
             'listing_start_date' => 'required|date',
             'listing_end_date' => 'required|date|after_or_equal:listing_start_date',
             'membership_id' => 'required|integer',
-            'massage_centre_id' => 'required|integer',
+            'massage_profile_id' => 'required|integer',
 
         ];
     }

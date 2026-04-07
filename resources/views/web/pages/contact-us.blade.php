@@ -176,7 +176,7 @@ $contactMsg = session('success');
             </div> -->
          <div class="set">
             <a>
-            Some general information
+            Some General Information
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -204,10 +204,16 @@ $contactMsg = session('success');
                         Policy</a> for
                         information regarding legal process.
                      </li>
+
                   </ul>
                   <p>For anything else, contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>, or by any of
                      the alternative means below. Whichever
                      method of communication you use we will get back to you within the next few days. 
+                  </p>
+                  <p>
+                     Any personal information submitted to this Website will be handled in accordance with
+E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Policy </a> and <a href="{{'privacy-collection-notice'}}" target="_blank">Privacy Collection Notice</a>, both available on the Website.
+                     
                   </p>
                   <form id="contactus" name="contactus" style="display: @if ($errors->any()) block; @else none; @endif" action="{{ route('contactus.send')}}" method="post">
                      @csrf
@@ -248,7 +254,7 @@ $contactMsg = session('success');
          </div>
          <div class="set">
             <a>
-            After hours contact
+            After Hours Contact
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
@@ -261,24 +267,27 @@ $contactMsg = session('success');
          </div>
          <div class="set">
             <a>
-            Our business details
+            Our Business Details
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
                <div class="accodien_manage_padding_content">
-                  <p>You can contact us through either of the following methods:</p>
+                  <p>You can contact us through either of the following methods:</p><br>
                   <p>Blackbox Tech<br>
                      GPO Box T1756<br>
                      Perth WA 6845
-                  </p>
-                  <p>T: +61 418 812 228</p>
-                  <p><a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
+                  </p><br>
+                  <p>Business Hours:</P>
+                  <p>Monday to Friday:&nbsp; &nbsp;7:00am to 7:00pm (WST)</p>
+                  <p>Saturday & Sunday:&nbsp; &nbsp;10:00am to 4:00pm (WST)</p><br>
+                  <p>T:&nbsp; &nbsp;+61 1300 700 444</p>
+                  <p>E:&nbsp; &nbsp;<a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
                </div>
             </div>
          </div>
          <div class="set">
             <a>
-            Support tickets
+            Support Tickets
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">

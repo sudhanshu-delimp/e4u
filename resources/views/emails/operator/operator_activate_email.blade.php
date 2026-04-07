@@ -31,7 +31,7 @@
           <tr>
             <td style="padding: 30px;">
               <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$operator['business_name']}},</p>
-                <p style="font-size: 16px; margin: 20px 0 15px 0;">We are please to advise you that your account which was recently Suspended has now been activated. You can now access the dashboard.</p>
+                <p style="font-size: 16px; margin: 20px 0 15px 0;">We are please to advise you that your account which was recently Suspended has now been activated.</p>
                 <!-- Details Table -->
                 <p style="font-size: 15px; margin-top: 20px;">
                     Regards,<br>

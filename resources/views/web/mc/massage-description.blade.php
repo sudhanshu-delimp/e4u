@@ -61,6 +61,52 @@
 .masseurs_modals{
     max-width: 1000px !important;
 }
+
+.masseur-modal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.masseur-modal.show {
+    opacity: 1;
+}
+
+.btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+.previousDisableButtonCss {
+  background: gray;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.overlay { 
+  height: 101%;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  border-radius: 20px;
+  text-align: center;
+}
+.custom--overlay .overlay {
+  background-color: transparent;
+  width: 100%;
+  position: unset;
+  margin: unset; 
+}
+.brb_details {
+  color: #fff;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--peach);
+}
+.brb_details h1 {
+  font-size: 30px !important;
+}
 </style>
     @stop
     @section('content')
@@ -124,13 +170,27 @@
     @endphp
 
 
-   <div class="container profile_description_banner custom--profile custommassage--profile--page"
+   <div class="container p-0 profile_description_banner custom--profile custommassage--profile--page"
      style="background-image: url('{{ $massage_banner }}');
             background-position: center;
             background-repeat: no-repeat;">
 
-        <div class="container-fluid back_to_search_btn pt-2">
-            <a href="#" class="back--search">
+        
+
+        <div class="container">
+
+            <div class="row">
+                <div class="overlay">
+                    @if($listing->latest_active_brb)
+                        <div class="brb_details">
+                            <h1>BRB at {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
+                            <h3>{{$listing->latest_active_brb->brb_note}}</h3>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="container-fluid back_to_search_btn pt-2">
+            <a href="../massage-centres-list" class="back--search">
                 Back to Search
                 <span class="previous_icon">
                     <i class="fa fa-chevron-up text-white" aria-hidden="true"></i>
@@ -138,7 +198,7 @@
             </a>
         </div>
 
-        <div class="container">
+
             <div class="profile_page_title">
                 <h2 class="display_inline_block p-0">{{ $listing->profile_name ?? 'N/A' }}</h2>
             </div>
@@ -196,18 +256,27 @@
                 </ul>
             </div>
         </div>
+        
     </div>
 
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
-                <a href="" class="text-decoration-none d-flex">
+            <div class="previous_btn_profile next_previous_btn_pogision preview-dk">
+                <a  href="{{ $prevId ? route('web.massage-description', [
+                                    'id' => $prevId,
+                                    'ids' => json_encode($ids)
+                                ]) : 'massage-centres-list' }}" class="text-decoration-none d-flex">
                     <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
-            <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss">
-                <a href="" class="text-decoration-none">
+            <div class="next_btn_profile next_previous_btn_pogision next-dk {{ $nextId ? '' : 'previousDisableButtonCss' }}">
+                                <a href="{{ $nextId ? route('web.massage-description', [
+                                    'id' => $nextId,
+                                    'ids' => json_encode($ids)
+                                ]) : 'javascript:void(0)' }}"
+                                
+                                class="text-decoration-none">
                     <span class="previous_text remove_in_sm">Next</span>
                     <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>
@@ -548,8 +617,7 @@
 
                         <div class="row">
                             @if($listing->massagerMasseurs->count()>0)
-                             @foreach($listing->massagerMasseurs as $masseur)
-
+                            @foreach($listing->massagerMasseurs as $index => $masseur)
                             @php
 
                                 $masseur_services = $masseur->service ?? [];
@@ -580,7 +648,7 @@
 
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
-                                    data-toggle="modal" data-target="#product_view_{{$masseur->id}}">
+                                    data-toggle="modal" data-target="#product_view_{{$masseur->id}}" >
                                     <div><img src="{{ $profile_img }}" width="50" height="50"  class="profile_img"></div>
                                     <p class="mb-0 text_truncate">{{ $masseur->name}}</p>
                                 </div>
@@ -588,7 +656,7 @@
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal" id="product_view_{{$masseur->id}}">
+                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
@@ -596,7 +664,7 @@
                                             
                                             <div class="navigation_button">
                                                 <button class="btn-prev"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
-                                                <button class="btn-prev">Next <i class="fa fa-chevron-right text-white"></i> </button>
+                                                <button class="btn-next">Next <i class="fa fa-chevron-right text-white"></i> </button>
                                             </div>
                                             <button type="button" class="close_btn" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
@@ -616,7 +684,8 @@
                                                             @endforeach
 
                                                     <div class="veryfy_img">
-                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                        <span class="common_shield_tooltip">Media Pending</span>
                                                     </div>
                                                 </div>
 
@@ -627,7 +696,9 @@
                                                             <div class="extra_img_wrapper">
                                                                 <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
                                                                 <div class="veryfy_img">
-                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}">
+                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                     <h6 class="gallery_shield_tooltip">Media Pending</h6>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             @endif
@@ -1175,9 +1246,10 @@
                         <div class="col-12 px-0 profile_verify_icon">
                             <div id="carouselExampleInterval" class="carousel slide mc_view_media" data-ride="carousel"
                                 data-interval="false">
-                                <div class="verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                    <div class="verify_icon">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
                                         <span class="common_shield_tooltip">Media Pending</span>
+                                       
                                     </div>
                                 <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
                                 <div class="carousel-inner">
@@ -1205,7 +1277,7 @@
                                 </div>
 
                                 <!-- Carousel Controls -->
-                                <a class="carousel-control-prev" href="#carouselExampleInterval" role="button"
+                                <a  class="carousel-control-prev" href="#carouselExampleInterval" role="button"
                                     data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Previous</span>
@@ -1935,7 +2007,8 @@
                                     <div class="gallery__item gallery__item--lg">
                                         <img src="{{  $image }}" alt="main">
                                          <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
+                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                             <span class="common_shield_tooltip">Media Pending</span>
                                         </div>
                                     </div>
                                     @endif    
@@ -1950,7 +2023,8 @@
                                             <div class="gallery__item">
                                                 <img src="{{ $image }}" alt="gallery image">
                                                  <div class="verify_icon_sm">
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg')}}">
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
+                                                    <h6 class="gallery_shield_tooltip">Media Pending</h6>
                                                 </div>
                                             </div>
 
@@ -2416,7 +2490,108 @@ $(document).on('click', '.open_review_box', function (e) {
     });
 
    
+   
 
+
+
+$(document).ready(function () {
+
+    function showModal(currentModal, nextIndex) {
+
+        let modals = $('.masseur-modal');
+        let total = modals.length;
+
+        if (nextIndex < 0 || nextIndex >= modals.length) return;
+
+        let nextModal = $(modals[nextIndex]);
+
+        currentModal.removeClass('show');
+
+        setTimeout(function () {
+
+            currentModal.hide();
+
+        
+            nextModal.show();
+
+            setTimeout(function () {
+                nextModal.addClass('show');
+                updateNavButtons(nextModal, nextIndex, total);
+            }, 10);
+
+
+            $('body').addClass('modal-open');
+
+        }, 300);
+    }
+
+    
+
+    
+    $(document).on('click', '.btn-next', function () {
+        let currentModal = $(this).closest('.masseur-modal');
+        let index = parseInt(currentModal.data('index'));
+
+        showModal(currentModal, index + 1);
+    });
+
+    
+    $(document).on('click', '.btn-prev', function () {
+        let currentModal = $(this).closest('.masseur-modal');
+        let index = parseInt(currentModal.data('index'));
+
+        showModal(currentModal, index - 1);
+    });
+
+});
+
+$(document).on('click', '.close_btn', function () {
+    let currentModal = $(this).closest('.masseur-modal');
+    currentModal.removeClass('show');
+
+    setTimeout(function () {
+        currentModal.hide();
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
+    }, 300);
+});
+
+$(document).on('shown.bs.modal', '.masseur-modal', function () {
+
+    let modal = $(this);
+    let index = parseInt(modal.data('index'));
+    let total = $('.masseur-modal').length;
+
+    updateNavButtons(modal, index, total);
+});
+
+function updateNavButtons(modal, index, total) {
+
+    let prevBtn = modal.find('.btn-prev');
+    let nextBtn = modal.find('.btn-next');
+
+    // PREV button
+    if (index === 0) {
+        prevBtn.addClass('btn-disabled');
+    } else {
+        prevBtn.removeClass('btn-disabled');
+    }
+
+    // NEXT button
+    if (index === total - 1) {
+        nextBtn.addClass('btn-disabled');
+    } else {
+        nextBtn.removeClass('btn-disabled');
+    }
+}
+
+$(document).on('click', '.btn-prev, .btn-next', function (e) {
+    if ($(this).hasClass('btn-disabled')) {
+        e.preventDefault();
+        return false;
+    }
+});
 
 </script>
 @endpush

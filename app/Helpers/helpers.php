@@ -9,17 +9,18 @@ use App\Models\AlertNotic;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Escort;
-use App\Models\Purchase;
 use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
 use App\Models\MassageAvailability;
 use App\Models\MassageMedia;
 use App\Models\MassageProfile;
+use App\Models\MassagePurchase;
 use App\Models\MassageRate;
 use App\Models\MassageService;
 use App\Models\MassageStatistics;
 use App\Models\MasseurMedia;
+use App\Models\Purchase;
 use App\Models\State;
 use App\Models\User;
 use App\Sms\SendSms;
@@ -1805,4 +1806,74 @@ if (!function_exists('make_time_availability')) {
 
         return $result;
     }  
+}
+
+
+
+if (!function_exists('get_massage_listed_profile')) 
+{
+    function get_massage_listed_profile()
+    {
+        $massage_live_ids  = MassagePurchase::where('status','listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
+        if(!empty($massage_live_ids))
+        {
+            $profile = MassageProfile::with('state')->whereIn('id',  $massage_live_ids)->get();
+            if($profile->isNotEmpty())
+            return $profile;
+            else
+            return false;    
+            
+        }
+    }
+}   
+
+
+if (!function_exists('getMassageDetail')) {
+    function getMassageDetail($id)
+    {
+        $massage = MassageProfile::where('id', $id)->first();
+        return $massage;
+    }
+}
+
+
+if (!function_exists('getMassageSuspendRefundAmount')) {
+    function getMassageSuspendRefundAmount($profile, $startDate=null, $endDate=null){
+        $refundAmount = 0.00;
+        if(!empty($startDate)  && !empty($endDate) ){
+            $profileDetail = is_object($profile) ? $profile : getMassageDetail($profile);
+            $purchase = $profileDetail->mainPurchase;
+
+            Log::info('purchase');
+            Log::info($purchase);
+
+
+            $piadAmount = $purchase->paid_rate;
+
+            $dayBeforeSuspendStart = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($startDate));
+            $dayTillSuspendEnd = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($endDate))+1;
+            /* In calculateTotalFee third param is optional , to ignore later paln price updates */
+            [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $profileDetail->user, $purchase);
+            [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $profileDetail->user, $purchase);
+
+            $netAmount = number_format($costTillSuspendEnd-$costBeforeSuspendStart, 2, '.', '');
+            $refundAmount = min($piadAmount,$netAmount);
+        }
+        return number_format($refundAmount, 2, '.', '');
+    }
+}
+if (!function_exists('get_media_by_id')) {
+    function get_media_by_id($media_id, $type = 'escort')
+    {
+        $models = [
+            'escort' => \App\Models\EscortMedia::class,
+            'center' => \App\Models\MassageMedia::class,
+        ];
+
+        if (!isset($models[$type])) {
+            return null;
+        }
+
+        return $models[$type]::find($media_id);
+    }
 }

@@ -1,10 +1,13 @@
 
+@php
+    $ids = $listings->pluck('id')->toArray();
+@endphp
 
-
- @foreach($listings as $listing)
+@foreach($listings as $index => $listing)
 
         @php 
 
+       
 
         $relativePath   =  $listing->imagePosition(1);
         $currentImage   = asset($relativePath);
@@ -25,13 +28,22 @@
          @endphp   
         <div class="mc_card">
 
+        @if($listing->latest_active_brb)
+            <div class="brb--content">
+                <div class="brb--wrappr">
+                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
+                </div>
+            </div>
+        @endif
+
+
             <div class="mc_card_header">
                 {{-- <span class="verify_icon">
                     <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}" alt="">
                     <span class="mc_media_tooltip">Media Unverified</span>
                 </span> --}}
                 <span class="verify_icon">
-                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}" alt="">
+                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" alt="">
                     <span class="mc_media_tooltip">Media Pending</span>
                 </span>
                 <span class="mc_title">{{$listing->profile_name}}</span>
@@ -40,11 +52,15 @@
                     <span class="mc_legbox_tooltip">Add to My Legbox</span>
                 </span>
             </div>
-            <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
-                <div class="mc_profile_img">
 
+            <a href="{{ route('web.massage-description', [
+                'id' => $listing->id,
+                'ids' => json_encode($ids)
+            ]) }}" class="mc_card_link">
+        
                 
 
+                <div class="mc_profile_img">
                 <img src="{{ $massage_thumb  }}" alt="Massage Centre 1"
                         class="mc_card_image">
                  

@@ -256,7 +256,7 @@ background:#16385f;
                 <input type="hidden" name="listing_start_date" id="listing_start_date">
                 <input type="hidden" name="listing_end_date" id="listing_end_date">
                 <input type="hidden" name="membership_id" id="membership_id">
-                <input type="hidden" name="massage_centre_id" id="massage_centre_id">
+                <input type="hidden" name="massage_profile_id" id="massage_profile_id">
                 <input type="hidden" name="rate" id="rate">
                 <input type="hidden" name="total_rate" id="total_rate">
                 <input type="hidden" name="discountRate" id="discountRate">
@@ -515,7 +515,7 @@ function clear_prev_listing()
     $('#listing_start_date').val('');
     $('#listing_end_date').val('');
     $('#membership_id').val('');
-    $('#massage_centre_id').val('');
+    $('#massage_profile_id').val('');
 
     
 }
@@ -587,7 +587,7 @@ $(".save_profile_btn").click(function(){
             $('#listing_start_date').val(start);
             $('#listing_end_date').val(end);
             $('#membership_id').val(membership_id);
-            $('#massage_centre_id').val(profile_val);
+            $('#massage_profile_id').val(profile_val);
             $('#discountRate').val(discountRate);
 
             html += `
@@ -636,7 +636,7 @@ e.preventDefault();
     let membership_id = $("#membership_id").val();
     let massage_centre_id = $("#massage_centre_id").val();
 
-    if (!no_of_days || !total_fee || !listing_start_date || !listing_end_date || !membership_id || !massage_centre_id) {
+    if (!no_of_days || !total_fee || !listing_start_date || !listing_end_date || !membership_id || !massage_profile_id) {
         return;
     }
 
@@ -652,7 +652,8 @@ e.preventDefault();
                     data: formData,
                     success: function(response) {
                         Swal.close();
-                        swal_success_popup(response.message);
+                        let redirect = {'time': 2000, 'url' : 'current'}
+                        swal_success_popup(response.message,redirect);
                     },
                     error: function(xhr) {
                         Swal.close();

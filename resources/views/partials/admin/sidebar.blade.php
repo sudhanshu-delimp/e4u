@@ -95,9 +95,9 @@
                     'mobile-sim-request',
                     'product-request',
                     'visa-migration-request',
-                    'manage-email',
-                    'manage-sim',
-                    'global',
+                    'manage-email','code-of-conduct','data-breach-plan','discipline-and-termination','fitness-for-work','grievance',
+                    'manage-sim','health-and-safety','information-use','leave','personal-telephone-use','position-descriptions',
+                    'global','social-media','smoking', 'abbreviations', 'classification-laws', 'local-laws', 'pricing-summary',
                     'agents',
                     'viewer',
                     'escort','shareholders',
@@ -200,6 +200,50 @@
                     </div>
                     {{-- end Concierge --}}
 
+
+
+                    {{-- Community --}}
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
+                        aria-expanded="false" aria-controls="Community">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/com.png') }}">
+                        <span>Community</span>
+                    </a>
+                    <div id="Community" class="collapse @if (request()->segment(3) == 'abbreviations' || request()->segment(3) == 'classification-laws' || request()->segment(3) == 'local-laws' || request()->segment(3) == 'pricing-summary') show @endif;"
+                        data-parent="#Administration">
+                        <div class="py-0 collapse-inner rounded mb-2">
+                            <a class="collapse-item" href="{{ route('admin.abbreviations') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/app/img/Abrieviations.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'abbreviations' ? 'color: #FF3C5F;' : '' }}">Abbreviations</span>
+                            </a>
+
+                            <a class="collapse-item" href="{{ route('admin.classification-laws') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/law.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'classification-laws' ? 'color: #FF3C5F;' : '' }}">Classification Laws</span>
+                            </a>
+
+                            <a class="collapse-item" href="{{ route('admin.local-laws') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/app/img/gavel.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'local-laws' ? 'color: #FF3C5F;' : '' }}">Local Laws</span>
+                            </a>
+
+                            <a class="collapse-item" href="{{ route('admin.pricing-summary') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/pricing-summary.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'pricing-summary' ? 'color: #FF3C5F;' : '' }}">Pricing Summary</span>
+                            </a>
+                        </div>
+                    </div>
+                    {{-- Community --}}
+
+
                     {{-- Database --}}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Database"
                         aria-expanded="false" aria-controls="Database">
@@ -228,6 +272,115 @@
                         </div>
                     </div>
                     {{-- Database --}}
+
+
+
+
+                    {{-- E4U Policies --}}
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#E4UPolicies"
+                        aria-expanded="false" aria-controls="E4UPolicies">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/policy.png') }}">
+                        <span>E4U Policies</span>
+                    </a>
+                    <div id="E4UPolicies" class="collapse @if (request()->segment(3) == 'code-of-conduct' || request()->segment(3) == 'data-breach-plan' || request()->segment(3) == 'discipline-and-termination' || request()->segment(3) == 'fitness-for-work' || request()->segment(3) == 'grievance' || request()->segment(3) == 'health-and-safety' || request()->segment(3) == 'information-use' || request()->segment(3) == 'leave' || request()->segment(3) == 'personal-telephone-use' || request()->segment(3) == 'position-descriptions' || request()->segment(3) == 'smoking' || request()->segment(3) == 'social-media')  show @endif;"
+                        data-parent="#Administration">
+                        <div class="py-0 collapse-inner rounded mb-2">
+                            <a class="collapse-item" href="{{ route('admin.code-of-conduct') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'code-of-conduct' ? 'color: #FF3C5F;' : '' }}">Code of Conduct</span>
+                            </a>
+
+                            <a class="collapse-item" href="{{ route('admin.data-breach-plan') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'data-breach-plan' ? 'color: #FF3C5F;' : '' }}">Data Breach Plan</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.discipline-and-termination') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'discipline-and-termination' ? 'color: #FF3C5F;' : '' }}">Discipline & Termination</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.fitness-for-work') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'fitness-for-work' ? 'color: #FF3C5F;' : '' }}">Fitness for Work</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.grievance') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'grievance' ? 'color: #FF3C5F;' : '' }}">Grievance</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.health-and-safety') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'health-and-safety' ? 'color: #FF3C5F;' : '' }}">Health & Safety</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.information-use') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'information-use' ? 'color: #FF3C5F;' : '' }}">Information Use</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.leave') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'leave' ? 'color: #FF3C5F;' : '' }}">Leave</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.personal-telephone-use') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'personal-telephone-use' ? 'color: #FF3C5F;' : '' }}">Personal Telephone Use</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.position-descriptions') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'position-descriptions' ? 'color: #FF3C5F;' : '' }}">Position Descriptions</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.social-media') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'social-media' ? 'color: #FF3C5F;' : '' }}">Social Media</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.smoking') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'smoking' ? 'color: #FF3C5F;' : '' }}">Smoking</span>
+                            </a>
+
+                        </div>
+                    </div>
+                    {{-- E4U Policies --}}
+
+
+
+
+
+
+
+
 
                     {{-- Guidelines --}}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Guidelines"

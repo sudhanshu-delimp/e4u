@@ -1,4 +1,9 @@
- @foreach($listings as $listing)
+@php
+    $ids = $listings->pluck('id')->toArray();
+@endphp
+
+
+@foreach($listings as $listing)
 
 
  @php
@@ -32,16 +37,37 @@ $twitter_link = "https://x.com/NMugs32853";
 
  <div class="mc_list_card">
 
+
+         
+
+
+
      <!-- Left Image -->
 
      <div class="mc_list_img">
-         <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
+
+        @if($listing->latest_active_brb)
+            <div class="brb--content">
+                <div class="brb--wrappr">
+                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
+                </div>
+            </div>
+        @endif
+
+         <a 
+
+         href="{{ route('web.massage-description', [
+                'id' => $listing->id,
+                'ids' => json_encode($ids)
+            ]) }}"
+            
+         class="mc_card_link">
              <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">
              {{-- <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt=""> --}}
              {{-- <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}" alt=""> --}}
-              <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" alt="pending">
+              <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}" alt="pending">
               <span class="common_shield_tooltip">Media Pending</span>
          </span>
          <div class="mc_list_legbox">
@@ -121,7 +147,13 @@ $twitter_link = "https://x.com/NMugs32853";
                 
                      {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
 
-                     <a href="{{ route('web.massage-description',$listing->id) }}" class="read-more-link">Read More</a>
+                     <a 
+                     href="{{ route('web.massage-description', [
+                            'id' => $listing->id,
+                            'ids' => json_encode($ids)
+                        ]) }}"
+                     
+                     class="read-more-link">Read More</a>
                  </p>
 
 

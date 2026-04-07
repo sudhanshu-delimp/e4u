@@ -22,14 +22,25 @@ function swal_fire(message) {
  Swal.fire(message);
 }
 
-function swal_success_popup(message) {
+function swal_success_popup(message,redirect = null) {
 
-      Swal.fire({
-      title: (message) ? message : 'Action Performed',
-      icon: "success",
-      draggable: true,
-      allowOutsideClick: false,
-        allowEscapeKey: false,
+     let config = {
+        title: message ? message : 'Action Performed',
+        icon: "success",
+        draggable: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    };
+
+    if (redirect && redirect.time) {
+        config.timer = redirect.time;
+        config.showConfirmButton = false;
+    }
+
+    Swal.fire(config).then(() => {
+        if (redirect && redirect.url) {
+            window.location.href = redirect.url;
+        }
     });
 }
 

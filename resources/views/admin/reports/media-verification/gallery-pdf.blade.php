@@ -44,57 +44,54 @@
             </thead>
             <tbody>
                    <!-- Gallery Images -->
-            <tr>
-                <td colspan="3" style="vertical-align:baseline;">
-                    <div><h2 style="margin-top: 0px;font-size: 18px;">Gallery Images</h2></div>
-                    <div id="galleryImages">
-                        @if($mediaImages)
+            @if($mediaImages)
+                <tr>
+                    <td colspan="3" style="vertical-align:baseline;">
+                        <div><h2 style="margin-top: 0px;font-size: 18px;">Gallery Images</h2></div>
+                        <div id="galleryImages">
                             @foreach($mediaImages as $gallery)
                                 {!! $gallery !!}
                             @endforeach
-                        @endif
-                    </div>
-                </td>
-                <td colspan="2" style="vertical-align:baseline;">
-                     <div><h2 style="margin-top: 0px;font-size: 18px;"> Verification Image </h2></div>
-                    <div>
-                        <img src="{{$media_verification_image ? $media_verification_image : ''}}" alt="Verification Image" style="width:340px; height:265px;object-fit: fill; border: 1px solid #ccc; padding:10px;">
-                    </div>
-                </td>
-            </tr>    
-             
+                        </div>
+                    </td>
+                    <td colspan="2" style="vertical-align:baseline;">
+                        <div><h2 style="margin-top: 0px;font-size: 18px;"> Verification Image </h2></div>
+                        <div>
+                            <img src="{{$media_verification_image ? $media_verification_image : ''}}" alt="Verification Image" style="width:340px; height:265px;object-fit: fill; border: 1px solid #ccc; padding:10px;">
+                        </div>
+                    </td>
+                </tr>    
+              @endif
             
-
-            <!-- Banner Images -->
-            <tr>
-                <td colspan="5">
-                    <div><h2 style="margin-top: 0px;font-size: 18px;">Banner Images</h2></div>
-                    <div id="bannerImages">     
-                        @if($bannerImage)
-                            @foreach($bannerImage as $banner_image)
-                                {!! $banner_image !!}
-                            @endforeach
-                        @endif
-                    </div>
-                </td>
-            </tr>
-           
-
-            <!-- Pinup Images -->
-            <tr>
-            @if($user_type == '3')
+            @if($bannerImage)
+                <!-- Banner Images -->
                 <tr>
                     <td colspan="5">
-                        <div><h2 style="margin-top: 0px;font-size: 18px;">Pinup Images</h2></div>
-                        <div id="pinupImages">
-                            @if($pinupImage )
-                                @foreach($pinupImage as $pinup_image)
-                                    {!! $pinup_image !!}
+                        <div><h2 style="margin-top: 0px;font-size: 18px;">Banner Images</h2></div>
+                        <div id="bannerImages">     
+                            
+                                @foreach($bannerImage as $banner_image)
+                                    {!! $banner_image !!}
                                 @endforeach
-                            @endif
                         </div>
                     </td>
                 </tr>
+            @endif
+            @if($pinupImage )
+                <!-- Pinup Images -->
+                <!-- <tr> -->
+                @if($user_type == '3')
+                    <tr>
+                        <td colspan="5">
+                            <div><h2 style="margin-top: 0px;font-size: 18px;">Pinup Images</h2></div>
+                            <div id="pinupImages">
+                                @foreach($pinupImage as $pinup_image)
+                                    {!! $pinup_image !!}
+                                @endforeach
+                            </div>
+                        </td>
+                    </tr>
+                @endif
             @endif
             </tbody>
 
