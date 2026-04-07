@@ -42,13 +42,13 @@
                     <!-- Right Side Tabs -->
                     <div class="col-md-3">
                         <div class="search_by_year">
-                            <form>
+                            <form method="GET" action="" id="searchForm">
                                 <input type="search" name="search" placeholder="Search by year">
                             </form>
                         </div>
 
                         <div class="nav flex-column nav-pills shareholder_tab_sidebar p-0" id="pdfTabs">
-                            <ul>
+                            <ul id="pdfList">
 
                                 <li>
                                     <a href="javascript:void(0)" class="nav-link active"
@@ -143,6 +143,7 @@
 
 
                             </ul>
+                            <p id="message"></p>
                         </div>
                     </div>
 
@@ -155,8 +156,6 @@
 </div>
 @endsection
 @section('script')
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-</script>
 <script>
     $(document).ready(function() {
         $('#pdfTabs .nav-link').click(function() {
@@ -171,6 +170,34 @@
             $('#pdfViewer').attr('src', pdfFile);
             $('#pdfTitle').text(pdfTitle);
         });
+
+
+        const searchInput = document.querySelector("#searchForm input[name='search']");
+        const pdfList = document.querySelectorAll("#pdfList li");
+        const message = document.getElementById('message');
+
+        searchInput.addEventListener("input", function(){
+           const searchTerm = this.value.toLowerCase();
+           let found = false;
+            pdfList.forEach(function(li){
+                const title = li.querySelector('a').textContent.toLowerCase();
+                if(title.includes(searchTerm)){
+                    li.style.display="";
+                    found = true;
+                }else{
+                    li.style.display="none";
+                   
+                }
+            })
+            if(!found){
+                 message.textContent="No Data Found!";
+                 message.style.color="red";
+                 message.classList = "text-center font-weight-bold";
+            }
+            else{
+                 message.textContent="";
+            }
+        })
     });
 </script>
 @endsection

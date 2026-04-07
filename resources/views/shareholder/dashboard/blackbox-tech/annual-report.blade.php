@@ -8,17 +8,148 @@
     <!-- Page Heading -->
     <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
-            <h1 class="h1">Annual Report</h1>
+            <h1 class="h1">Annual Report </h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                    <p></p>
+                   
                     <ol>
-                        
+                        <li>The Company’s Annual Reports (<b>Annual Report</b>) are available to all Shareholders.</li>
+                        <li>To access any Annual Report, simply select the year you are wanting from the search list.</li>
                     </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="shareholder_list_wrapper">
+                <div class="row no-gutters">
+
+                    <!-- Left Side PDF Viewer -->
+                    <div class="col-md-9">
+                        <div class="pdf-area">
+                            <div class="pdf-title" id="pdfTitle"> Balance Sheet (30-06-2025)</div>
+                            <iframe id="pdfViewer" class="pdf-viewer"
+                                src="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2025.pdf') }}"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Tabs -->
+                    <div class="col-md-3">
+                        <div class="search_by_year">
+                            <form action="" method="GET" id="searchForm">
+                                <input type="search" name="search" placeholder="Search by year">
+                            </form>
+                        </div>
+
+                        <div class="nav flex-column nav-pills shareholder_tab_sidebar p-0" id="pdfTabs">
+                            <ul id="pdfList">
+
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link active"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2025.pdf') }}"
+                                        data-title=" Balance Sheet (30-06-2025)">
+                                        Balance Sheet (30-06-2025)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2024-to-30-06-2025.pdf') }}"
+                                        data-title="Profit and Loss (30-06-2025)">
+                                        Profit and Loss (30-06-2025)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-31-12-2024.pdf') }}"
+                                        data-title=" Balance Sheet (31-12-2024)">
+
+                                        Balance Sheet (31-12-2024)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2024-to-31-12-2024.pdf') }}"
+                                        data-title="Profit and Loss (31-12-2024)">
+                                        Profit and Loss (31-12-2024)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2024.pdf') }}"
+                                        data-title="Balance Sheet (30-06-2024)">
+                                        Balance Sheet (30-06-2024)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2023-to-30-06-2024.pdf') }}"
+                                        data-title="Profit and Loss (30-06-2024)">
+                                        Profit and Loss (30-06-2024)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-31-12-2023.pdf') }}"
+                                        data-title="Balance Sheet (31-12-2023)">
+                                        Balance Sheet (31-12-2023)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2023-to-31-12-2023.pdf') }}"
+                                        data-title="Profit and Loss (31-12-2023)">
+                                        Profit and Loss (31-12-2023)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2023.pdf') }}"
+                                        data-title="Balance Sheet (30-06-2023)">
+                                        Balance Sheet (30-06-2023)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2022-to-30-06-2023.pdf') }}"
+                                        data-title="Profit and Loss (30-06-2023)">
+                                        Profit and Loss (30-06-2023)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-31-12-2022.pdf') }}"
+                                        data-title="Balance Sheet (31-12-2022)">
+                                        Balance Sheet (31-12-2022)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link"
+                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2022-to-31-12-2022.pdf') }}"
+                                        data-title="Profit and Loss (31-12-2022)">
+                                        Profit and Loss (31-12-2022)
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                            <div id="message"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -28,6 +159,46 @@
 @endsection
 @section('script')
 <script>
-    
+    $(document).ready(function() {
+        $('#pdfTabs .nav-link').click(function() {
+            var pdfFile = $(this).data('pdf');
+            var pdfTitle = $(this).data('title');
+
+            // Active tab change
+            $('#pdfTabs .nav-link').removeClass('active');
+            $(this).addClass('active');
+
+            // Change PDF and title
+            $('#pdfViewer').attr('src', pdfFile);
+            $('#pdfTitle').text(pdfTitle);
+        });
+
+        const searchInput = document.querySelector("#searchForm input[name='search']");
+        const pdfList = document.querySelectorAll("#pdfList li");
+        const message = document.getElementById("message")
+
+        searchInput.addEventListener("input", function(){
+            const searchTerm = this.value.toLowerCase();
+            let found = false;
+            pdfList.forEach(function(li){
+                const title = li.querySelector("a").textContent.toLowerCase();
+                if(title.includes(searchTerm)){
+                    li.style.display="";
+                    found = true;
+                }
+                else{
+                    li.style.display="none";
+                }
+            })
+
+            if(!found){
+                message.textContent = "No Data Found!";
+                message.style.color = "red";
+                message.classList = "text-center font-weight-bold"
+            }else{
+                message.textContent = "";
+            }
+        });
+    });
 </script>
 @endsection
