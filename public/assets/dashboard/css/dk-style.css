@@ -3358,6 +3358,38 @@ button.btn:focus {
     transform: rotate(90deg) translate(-50%, 100%);
 }
 
+.common_shield_tooltip {
+    position: absolute;
+    left: 50%;
+    top: -35px;
+    z-index: 999;
+    width: max-content;
+    background: #ff3c5f;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+    transform: translate(-50%, 0%);
+}
+
+.common_shield_tooltip::after {
+    position: absolute;
+    left: 50%;
+    top: 26px;
+    content: '';
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+    transform: rotate(0deg) translate(-50%);
+}
+
+.lg_verify_icon:hover .common_shield_tooltip {
+    display: block;
+}
+
 .item4 .verify_icon {
     display: flex;
     align-items: center;
