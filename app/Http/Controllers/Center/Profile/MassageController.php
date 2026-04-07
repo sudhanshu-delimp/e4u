@@ -83,9 +83,10 @@ class MassageController extends Controller
    
     public function massager_list(Request $request)
     {
+        // echo Carbon::now('UTC');
+        // exit;
 
         $active_profile = get_massage_listed_profile();
-       
         return view('center.dashboard.list',compact('active_profile'));
     }
 
@@ -1208,7 +1209,12 @@ class MassageController extends Controller
     public function  massager_current_listing(Request $request)
     {
             $today = Carbon::today();
-            $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
+            $massagers = MassagePurchase::with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },'massageprofile'
+
+            ])->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['pending', 'listed'])
             // ->whereDate('start_date', '<=', $today)
             // ->whereDate('end_date', '>=', $today)
@@ -1219,6 +1225,11 @@ class MassageController extends Controller
 
             $data = $massagers->map(function ($row) use ($today) {
 
+
+                $brb = [];
+                if(isset($row->brb) && (count($row->brb)>0))
+                $brb = json_decode(json_encode($row->brb),true);   
+
     
                 $start = Carbon::parse($row->start_date);
                 $end   = Carbon::parse($row->end_date);
@@ -1227,10 +1238,16 @@ class MassageController extends Controller
                 $start_date = date('d M Y', strtotime($row->start_date));
                 $end_date = date('d M Y', strtotime($row->end_date));
 
+                if(!empty($brb))
+                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+                else
+                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.'</span>';     
+
+
 
                 return [
                     'id' => $row->id,
-                    'profile_name' => $row->massageprofile->profile_name,
+                    'profile_name' => $profile_name,
                     'address' => $row->massageprofile->address,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,

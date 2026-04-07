@@ -334,10 +334,10 @@ $("#brb_form").on('submit', function(e)
                });
                $("#brb_form")[0].reset();
                $('#add_brb').modal('hide');
-               // table.draw();
-               // setTimeout(function() {
-               //    window.location.href = "../center-dashboard/listing/current";
-               // }, 1000);
+               table.draw();
+               setTimeout(function() {
+                  window.location.href = "../center-dashboard/listing/current";
+               }, 1000);
 
             } else {
                Swal.fire({
@@ -444,45 +444,50 @@ $(document).ready(function () {
 });
 
 
-$("#suspend_form").on('submit', function(e) 
+$("#suspend_form").on('submit', async function(e) 
 {
    e.preventDefault();
    var form = $(this);
    var url = "{{ route('center.suspend-massage-profile') }}";
    var data = new FormData(form[0]);
 
-   $.ajax({
-         method: 'POST',
-         url: url,
-         data: data,
-         contentType: false,
-         processData: false,
-         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         },
-         beforeSend: function(){
-            $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
-         },
-         success: function(data) {
-            if (data.response.success) {
-               Swal.fire({
-                     icon: "success",
-                     text: data.response.message
-               });
 
-               // set suspend icon to profile 
-               $('#suspend_profile').modal('hide');
-               table.draw();
-            } else {
-               Swal.fire({
-                     icon: "error",
-                     text: data.response.message
-               });
-            }
-            $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
-         },
+     let mess_data = {'title' : 'NA','text' : 'Do you want to suspend this Profile?',}
+   
+      if(await isConfirm(mess_data))
+      {
+            swal_waiting_popup({
+                'title': 'Suspending Profile.'
+            });
+           
 
-   });
+            $.ajax({
+               method: 'POST',
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               beforeSend: function(){
+                  $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+               },
+               success: function(data) {
+                  Swal.close();
+                  if (data.response.success) {
+                      swal_success_popup(data.response.message);
+                     $('#suspend_profile').modal('hide');
+                     table.draw();
+                  } else {
+                     swal_error_popup(data.response.message);
+                  }
+                  $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+               },
+            });
+
+      }
+
    });
 
 </script>

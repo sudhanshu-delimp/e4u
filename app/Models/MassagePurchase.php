@@ -34,7 +34,10 @@ class MassagePurchase extends Model
     }
     
     
-    
+    public function brb()
+    {
+        return $this->hasMany('App\Models\MassageBrb', 'profile_id','massage_profile_id');
+    }
 
 
 }
