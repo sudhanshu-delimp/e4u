@@ -7028,7 +7028,7 @@ li.parsley-required {
 }
 
 .modal .form-check-label {
-    color: #6e707e !important;
+    /* color: #6e707e !important; */
 }
 
 #parsley-id-multiple-type {
