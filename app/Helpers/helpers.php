@@ -1877,3 +1877,15 @@ if (!function_exists('get_media_by_id')) {
         return $models[$type]::find($media_id);
     }
 }
+
+if (!function_exists('is_domain_localhost')) 
+{
+     function is_domain_localhost()
+     {
+        if ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'e4u.local') 
+        return true;
+        else
+        return false;
+    
+     }
+}

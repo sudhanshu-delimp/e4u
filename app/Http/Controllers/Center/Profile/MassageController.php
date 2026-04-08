@@ -86,7 +86,10 @@ class MassageController extends Controller
         // echo Carbon::now('UTC');
         // exit;
 
+        if(is_domain_localhost())
         $active_profile = get_massage_listed_profile();
+        else
+        $active_profile = [];
         return view('center.dashboard.list',compact('active_profile'));
     }
 
