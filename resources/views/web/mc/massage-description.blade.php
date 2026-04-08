@@ -488,7 +488,7 @@
                             scrolling="no" 
                             marginheight="0"
                             marginwidth="0"
-                            src="https://maps.google.com/maps?q={{ urlencode('Perth, Western Australia') }}&hl=en&z=14&output=embed"
+                            src="https://maps.google.com/maps?q={{ $listing->address ? urlencode('4 Driver Ave, Moore Park NSW 2021, Australia') : urlencode('Perth, Western Australia') }}&hl=en&z=14&output=embed"
                             style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
                         </iframe>
                         

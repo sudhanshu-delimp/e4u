@@ -1889,3 +1889,44 @@ if (!function_exists('is_domain_localhost'))
     
      }
 }
+
+
+if (!function_exists('account_complete_status')) {
+  function account_complete_status()
+  {
+    
+       try
+       {
+            $user = User::where([
+                'id' => auth()->user()->id,
+            ])->first();
+
+            if (!$user) {
+                return false;
+            }
+
+            $fields = [
+                $user->name,
+                $user->business_address,
+                $user->business_number,
+                $user->phone,
+            ];
+
+            $is_complete = 1;
+
+            foreach ($fields as $field) {
+                if (empty($field)) {
+                    $is_complete = 0;
+                    break;
+                }
+            }
+
+            $user->is_account_completed = $is_complete;
+            $user->save();
+
+       } catch (Exception $e) {
+            return false;
+       }
+        
+  }
+}
