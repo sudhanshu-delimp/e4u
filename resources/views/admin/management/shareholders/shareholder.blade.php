@@ -9,7 +9,7 @@
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <div class="row">
                         <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Shareholders </h1>
+                            <h1 class="h1">Shareholders</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                         </div>
                         <div class="col-md-12 mb-5 collapse" id="notes">
@@ -75,8 +75,8 @@
                                                                 class="dropdown-item align-item-custom toggle-massage-notification"
                                                                 href="#" title="Click to disable notification">
                                                             </a>
-                                                            <a class="dropdown-item align-item-custom" href="#" onclick="window.print()"> <i
-                                                                    class="fa fa-print" aria-hidden="true"></i>
+                                                            <a class="dropdown-item align-item-custom" href="#" onclick="window.print()"> 
+                                                                <i class="fa fa-print" aria-hidden="true"></i>
                                                                 Print</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item align-item-custom" href="#"

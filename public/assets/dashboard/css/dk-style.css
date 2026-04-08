@@ -50,6 +50,11 @@
     text-align: justify;
 }
 
+.content_wrapper .content_details h3 {
+    font-size: 20px !important;
+    color: var(--blue--text);
+}
+
 .content_wrapper.tab_content h3 {
     font-size: 18px !important;
     font-weight: 600 !important;
@@ -3822,7 +3827,7 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
 }
 
 .custom--accordfee .myacording-design .card h3 {
-    font-size: 22px;
+    /* font-size: 22px; */
 }
 
 .custom-blow-wide .service_rate_dolor_symbol input,
@@ -7028,7 +7033,7 @@ li.parsley-required {
 }
 
 .modal .form-check-label {
-    color: #6e707e !important;
+    /* color: #6e707e !important; */
 }
 
 #parsley-id-multiple-type {
