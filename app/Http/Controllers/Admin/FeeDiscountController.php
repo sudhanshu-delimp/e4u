@@ -107,6 +107,7 @@ class FeeDiscountController extends Controller
                 'discount' => 'required',
                 'end_date' => 'required',
             ]);
+
             $advertiserDetail = $this->user->find($request->advertiser_id);
 
             if($advertiserDetail->activeFeeDiscount){
@@ -149,11 +150,87 @@ class FeeDiscountController extends Controller
         }
     }
 
+    public function renewFeeDiscount(Request $request){
+        try {
+            // Validate request
+            $request->validate([
+                'advertiser_id' => 'required',
+                'discount' => 'required',
+                'end_date' => 'required',
+            ]);
+            
+            $start_date = Carbon::today($this->local_timezone)->startOfDay()->setTimezone('UTC');
+            $end_date   = Carbon::parse($request->end_date,$this->local_timezone)->endOfDay()->setTimezone('UTC');
+            AdvertiserDiscount::where(['id'=>$request->discount_id])->update(['end_date'=>now(),'is_active'=>false]);
+            AdvertiserDiscount::create([
+                'user_id' => $request->advertiser_id,
+                'type' => 'percentage',
+                'value' => $request->discount,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'is_active' => true
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Discount has been renewed.'
+            ]);
+
+        } catch (Exception $e) {
+            $statusCode = $e->getCode() ?: 500;
+
+            if ($e instanceof \Illuminate\Validation\ValidationException) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors()
+                ], 422);
+            }
+
+            return response()->json([
+                'status' => false,
+                'message' => $statusCode === 500 ? 'Something went wrong' : $e->getMessage(),
+                'error' => $statusCode === 500 ? $e->getMessage() : null
+            ], $statusCode);
+        }
+    }
+
+    public function cancelFeeDiscount(Request $request){
+        try {
+            $request->validate([
+                'discount_id' => 'required',
+            ]);
+            AdvertiserDiscount::where(['id'=>$request->discount_id])->update(['end_date'=>now(),'cancelled_at'=>now()]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Discount has been cancelled.'
+            ]);
+
+        } catch (Exception $e) {
+            $statusCode = $e->getCode() ?: 500;
+
+            if ($e instanceof \Illuminate\Validation\ValidationException) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors()
+                ], 422);
+            }
+
+            return response()->json([
+                'status' => false,
+                'message' => $statusCode === 500 ? 'Something went wrong' : $e->getMessage(),
+                'error' => $statusCode === 500 ? $e->getMessage() : null
+            ], $statusCode);
+        }
+    }
+
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user = null)
     {
         $order_field = $columns[$order_key]['name'];
         $searchables = $this->getSearchableFieldsName($columns);
         $query = AdvertiserDiscount::query(); 
+        $query->where('is_active',1);
         if($search) {
             $query->where(function ($q) use ($searchables, $search) {
                 foreach ($searchables as $column) {
@@ -215,6 +292,32 @@ class FeeDiscountController extends Controller
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
             "other" => $other,
+            "data"            => $result
+        );
+        return response()->json($data);
+    }
+
+    public function getAdvertiserHistory(Request $request){
+
+        $start = $request->start;
+        $limit =  $request->length;
+        $advertiser_id =  $request->advertiser_id;
+        $query = AdvertiserDiscount::query()->where(['user_id'=>$advertiser_id])->where('end_date', '<', now('UTC'));
+        $count =  $query->count();
+        $query->orderBy('end_date', 'desc');
+        $mainQuery = $query->offset($start)->limit($limit);
+        $result = $mainQuery->get();
+
+        foreach($result as $key => $item) {
+            $item->discount_start_date = $item->start_date->setTimezone($this->local_timezone)->format('d-m-Y');
+            $item->days = $item->end_date->diffInDays($item->start_date)+1;
+            $item->rate = ($item->type=='percentage')?$item->value.'%':$item->value;
+            $item->spend = '<div class="num_value">$<span>'.$item->spend_amount.'</span></div>';
+        }
+        $data = array(
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
             "data"            => $result
         );
 
