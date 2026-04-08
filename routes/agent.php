@@ -118,7 +118,9 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     Route::get('marketing/count-active-post-code', [DatabaseCentreController::class, 'countActivePostCode'])->name('agent.marketing.database.active.count');
     Route::get('marketing/database-download-pdf/{id}', [DatabaseCentreController::class, 'downloadPdf'])->name('agent.marketing.database.download.pdf');
     //gettting postcodes data
-    Route::get('marketing/prospect-lists/postcodes', [DatabaseCentreController::class, 'postcodes'])->name('agent.marketing.database.postcodes');
+    Route::get('marketing/prospect-lists/postcodes', [ProspectListController::class, 'postcodes'])->name('agent.marketing.prospect.postcodes');
+    Route::get('marketing/prospect-lists/generate', [ProspectListController::class, 'generateList'])->name('agent.marketing.prospect.generate');
+    Route::get('marketing/prospect-lists/recipients', [ProspectListController::class, 'showRecipients'])->name('agent.marketing.prospect.recipients');
      
      
      Route::get('advertiser-list',function(){

@@ -22,12 +22,33 @@
         #mergeList .table .inner_details strong {
             width: 110px;
         }
-        #mergeList table td{
+
+        #mergeList table td {
             vertical-align: middle;
         }
-         #mergeList table th{
+
+        #mergeList table th {
             text-align: center;
-         }
+        }
+
+        #postcodeDropdown .dropdown-item {
+            cursor: pointer;
+            padding: 6px 12px;
+        }
+
+        #postcodeDropdown .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .range-error {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .range-success {
+            color: #28a745;
+            font-weight: 600;
+        }
     </style>
 @endsection
 
@@ -97,17 +118,34 @@
 
                         </div>
 
-                        <div class="form-group w-50" id="singlePostCodeField">
+                        <div class="form-group w-50 position-relative" id="singlePostCodeField">
                             <label>Enter Post Code</label>
-                            <input type="text" id="singlePostCode" class="form-control" placeholder="e.g. 6000">
+                            <input type="text" id="singlePostCode" class="form-control" placeholder="e.g. 6000"
+                                autocomplete="off">
+                            <div id="postcodeDropdown" class="dropdown-menu w-100"
+                                style="max-height:200px;overflow-y:auto;"></div>
                         </div>
 
                         <div class="form-group d-none w-50" id="multiplePostCodeFields">
                             <label>Enter Post Code Range</label>
                             <div class="d-flex gap-2">
-                                <input type="text" id="fromPostCode" class="form-control mr-2" placeholder="From">
-                                <input type="text" id="toPostCode" class="form-control" placeholder="To">
+                                <div class="position-relative flex-fill mr-2">
+                                    <input type="text" id="fromPostCode" class="form-control" placeholder="From" autocomplete="off">
+                                    <div id="fromPostcodeDropdown" class="dropdown-menu w-100" style="max-height:200px;overflow-y:auto;"></div>
+                                </div>
+                                <div class="position-relative flex-fill">
+                                    <input type="text" id="toPostCode" class="form-control" placeholder="To" autocomplete="off">
+                                    <div id="toPostcodeDropdown" class="dropdown-menu w-100" style="max-height:200px;overflow-y:auto;"></div>
+                                </div>
                             </div>
+                            <div id="rangeFeedback" class="mt-2" style="font-size:13px;"></div>
+                        </div>
+
+                        <div class="form-group d-none w-50" id="allPostCodeField">
+                            <label>State</label>
+                            <span class="badge badge-primary ml-2" id="stateBadge"
+                                style="font-size:14px;">{{ auth()->user()->state_abbr ?? 'N/A' }}</span>
+                            <small class="d-block text-muted mt-1">All postcodes for your state will be included.</small>
                         </div>
 
                         <h3>Options</h3>
@@ -193,144 +231,23 @@
     {{-- modal  --}}
 
 
-        @include('agent.dashboard.modal.merge-type-modal')
-        @include('agent.dashboard.modal.merge-list-modal')
-        @include('agent.dashboard.modal.view-list-modal')
-        
+    @include('agent.dashboard.modal.merge-type-modal')
+    @include('agent.dashboard.modal.merge-list-modal')
+    @include('agent.dashboard.modal.view-list-modal')
+
     {{-- end modals --}}
-   
+
+    <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
+        data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
+        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+        data-postcodes-url="{{ route('agent.marketing.prospect.postcodes') }}"
+        data-generate-url="{{ route('agent.marketing.prospect.generate') }}"
+        data-recipients-url="{{ route('agent.marketing.prospect.recipients') }}"
+        data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"></div>
 @endsection
 
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{asset('agent/dashboard/marketing/prospect-lists/create-prospect.js')}}"></script>
-
-
-    <script>
-       // $(function() {
-            // const SAMPLE = [{
-            //         id: 1,
-            //         name: 'Body Heat Massage',
-            //         address: '62 Gordon Rd East Osborne Park',
-            //         postcode: '6000',
-            //         mobile: '0456 665 012',
-            //         business: '9236 2587'
-            //     },
-            //     {
-            //         id: 2,
-            //         name: 'Healthland',
-            //         address: '510 Murray St Perth',
-            //         postcode: '6001',
-            //         mobile: '0426 610 881',
-            //         business: ''
-            //     },
-            //     {
-            //         id: 3,
-            //         name: 'Esquire Spa',
-            //         address: '11 Aberdeen St Perth',
-            //         postcode: '6002',
-            //         mobile: '',
-            //         business: '9325 2011'
-            //     },
-            // ];
-
-            // let reports = [];
-
-            // function renderReports() {
-            //     let tbody = $('#reportsTable tbody').empty();
-            //     reports.forEach(rep => {
-            //         tbody.append(`<tr>
-            //         <td>${rep.id}</td>
-            //         <td>${rep.date}</td>
-            //         <td>${rep.postcode}</td>
-            //         <td>${rep.listings.length}</td>
-            //         <td>${rep.merged ? 'Yes' : 'No'}</td>
-            //         <td class="text-center">
-            //               <div class="dropdown no-arrow">
-            //                   <a class="dropdown-toggle" href="#" role="button"
-            //                       id="dropdownMenuLink" data-toggle="dropdown"
-            //                       aria-haspopup="true" aria-expanded="true">
-            //                       <i
-            //                           class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-            //                   </a>
-            //                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-            //                       aria-labelledby="dropdownMenuLink"
-            //                       x-placement="bottom-end">
-                                  
-            //                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-            //                           href="#" data-target="#mergeType" data-toggle="modal"> <i class="fa fa-bezier-curve"></i>
-            //                           Merge</a>
-            //                       <div class="dropdown-divider"></div>
-            //                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-            //                           href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
-            //                           Print</a>
-            //                             <div class="dropdown-divider"></div>
-            //                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-            //                           href="#" data-target="#view_list" data-toggle="modal"> <i class="fa fa-eye"></i>
-            //                           View</a>
-
-            //                   </div>
-            //               </div>
-            //           </td>
-            //       </tr>`);
-            //     });
-            // }
-
-            // function filterData(type, single, from, to) {
-            //     if (type === 'all') return SAMPLE;
-            //     if (type === 'single') return SAMPLE.filter(s => s.postcode === single);
-            //     const f = parseInt(from),
-            //         t = parseInt(to);
-            //     return SAMPLE.filter(s => parseInt(s.postcode) >= f && parseInt(s.postcode) <= t);
-            // }
-
-            // Postcode Type Toggle
-            // $('input[name="postcodeType"]').change(function() {
-            //     const val = $(this).val();
-            //     $('#singlePostCodeField').toggleClass('d-none', val !== 'single');
-            //     $('#multiplePostCodeFields').toggleClass('d-none', val !== 'multiple');
-            // });
-
-            // Trial Run Toggle
-            // $('input[name="trialRun"]').change(function() {
-            //     const val = $('input[name="trialRun"]:checked').val();
-            //     $('#showRecipients').prop('disabled', val !== 'on');
-            // });
-
-            // Show Recipients
-    //         $('#showRecipients').click(function() {
-    //             const type = $('input[name="postcodeType"]:checked').val();
-    //             const data = filterData(type, $('#singlePostCode').val(), $('#fromPostCode').val(), $(
-    //                 '#toPostCode').val());
-    //             let tbody = $('#previewTable tbody').empty();
-    //             data.forEach(d => {
-    //                 tbody.append(`<tr>
-    //     <td>${d.id}</td>
-    //     <td>${d.name}</td><td>${d.address}</td><td>${d.postcode}</td><td>${d.mobile}</td><td>${d.business}</td>
-    //   </tr>`);
-    //             });
-    //             $('#previewCard').removeClass('d-none');
-    //         });
-
-            // Proceed
-            // $('#proceedBtn').click(function() {
-            //     const type = $('input[name="postcodeType"]:checked').val();
-            //     const data = filterData(type, $('#singlePostCode').val(), $('#fromPostCode').val(), $(
-            //         '#toPostCode').val());
-            //     const report = {
-            //         id: Math.floor(Math.random() * 1000),
-            //         date: new Date().toLocaleDateString(),
-            //         postcode: type,
-            //         listings: data,
-            //         merged: false
-            //     };
-            //     reports.unshift(report);
-            //     renderReports();
-            //     // alert('List generated and stored.');
-            // });
-
-            // Close preview
-           // $('#closePreview').click(() => $('#previewCard').addClass('d-none'));
-        //});
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
+    <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>
 @endpush
