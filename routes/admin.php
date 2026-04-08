@@ -100,10 +100,13 @@ Route::get('consoles-list-all-users', [ConsolesController::class, 'allUserDatata
 
 
 Route::get('management/fee-discount', [FeeDiscountController::class,'index'])->name('fee-discount');
-Route::post('management/get-advertiser-detail', [FeeDiscountController::class,'getAdvertiserDetail'])->name('advertiser.detail');
-Route::get('management/search-member', [FeeDiscountController::class,'searchMember'])->name('advertiser.search_member');
-Route::post('management/apply-fee-discount', [FeeDiscountController::class,'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
-Route::get('management/get-fee-discounts-listing', [FeeDiscountController::class,'getFeeDiscountListing'])->name('advertiser.get_fee_discounts_listing');
+Route::post('management/fee-discount/get-advertiser-detail', [FeeDiscountController::class,'getAdvertiserDetail'])->name('advertiser.detail');
+Route::get('management/fee-discount/search-member', [FeeDiscountController::class,'searchMember'])->name('advertiser.search_member');
+Route::post('management/fee-discount/apply', [FeeDiscountController::class,'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
+Route::post('management/fee-discount/renew', [FeeDiscountController::class,'renewFeeDiscount'])->name('advertiser.renew_fee_discount');
+Route::get('management/fee-discount/listing', [FeeDiscountController::class,'getFeeDiscountListing'])->name('advertiser.get_fee_discounts_listing');
+Route::post('management/fee-discount/cancel', [FeeDiscountController::class,'cancelFeeDiscount'])->name('advertiser.cancel_fee_discount');
+Route::get('management/fee-discount/advertiser-history', [FeeDiscountController::class,'getAdvertiserHistory'])->name('advertiser.get_advertiser_history');
 
 Route::get('global-monitoring', function () {
     return view('admin.global-monitoring');
