@@ -1,12 +1,12 @@
- {{-- view Modal --}}
-    <div class="modal fade upload-modal bd-example-modal-lg" id="view_list" tabindex="-1" role="dialog"
-        aria-labelledby="view_listLabel" aria-hidden="true">
+ {{-- single Modal --}}
+    <div class="modal fade upload-modal bd-example-modal-lg" id="single_list" tabindex="-1" role="dialog"
+        aria-labelledby="single_listLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="view_list"><img
+                    <h5 class="modal-title" id="single_list"><img
                             src="{{ asset('assets/dashboard/img/profile-report.png') }}" class="custompopicon">Massage
-                        Centre Report
+                        Centre Report (Single)
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -21,7 +21,6 @@
                                 style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
 
                                 <thead class="bg-first">
-                                    <!-- Table Headings -->
                                     <tr>
                                         <td>ID</td>
                                         <td>Business Name</td>
@@ -41,9 +40,8 @@
                                         <td>0456 665 012</td>
                                         <td>9236 2587</td>
                                         <td style="text-align: center;">
-                                            <input type="checkbox" />
+                                            <input type="checkbox" class="single-report-checkbox" value="369" />
                                         </td>
-
                                     </tr>
                                     <tr>
                                         <td>256</td>
@@ -53,9 +51,8 @@
                                         <td>0426 610 881</td>
                                         <td>9325 2011</td>
                                         <td style="text-align: center;">
-                                            <input type="checkbox" />
+                                            <input type="checkbox" class="single-report-checkbox" value="256" />
                                         </td>
-
                                     </tr>
                                     <tr>
                                         <td>147</td>
@@ -65,12 +62,10 @@
                                         <td></td>
                                         <td></td>
                                         <td style="text-align: center;">
-                                            <input type="checkbox" />
+                                            <input type="checkbox" class="single-report-checkbox" value="147" />
                                         </td>
-
                                     </tr>
                                 </tbody>
-
                             </table>
                         </div>
 

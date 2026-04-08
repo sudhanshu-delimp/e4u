@@ -1,12 +1,12 @@
- {{-- view Modal --}}
-    <div class="modal fade upload-modal bd-example-modal-lg" id="view_list" tabindex="-1" role="dialog"
-        aria-labelledby="view_listLabel" aria-hidden="true">
+ {{-- multiList Modal --}}
+    <div class="modal fade upload-modal bd-example-modal-lg" id="multi_list" tabindex="-1" role="dialog"
+        aria-labelledby="multi_listLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="view_list"><img
+                    <h5 class="modal-title" id="multi_list"><img
                             src="{{ asset('assets/dashboard/img/profile-report.png') }}" class="custompopicon">Massage
-                        Centre Report
+                        Centre Report (Multiple)
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
