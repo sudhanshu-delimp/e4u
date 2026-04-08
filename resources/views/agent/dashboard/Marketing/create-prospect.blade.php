@@ -194,8 +194,6 @@
 
         @include('agent.dashboard.modal.merge-type-modal')
         @include('agent.dashboard.modal.merge-list-modal')
-        @include('agent.dashboard.modal.view-singlelist-modal')
-        @include('agent.dashboard.modal.view-multilist-modal')
         @include('agent.dashboard.modal.view-list-modal')
         @include('agent.dashboard.modal.view-report-modal')
         
@@ -252,19 +250,10 @@
                 openReportModal(selectedValue);
             });
 
-            $('#singleList').on('click', function () {
+            $('#continue').on('click', function () {
                 $('#view_report').modal('hide');
-                $('#single_list').modal('show');
-            });
-
-            $('#multiList').on('click', function () {
-                $('#view_report').modal('hide');
-                $('#multi_list').modal('show');
-            });
-
-
-            $(document).on('change', '.single-report-checkbox', function () {
-                $('.single-report-checkbox').not(this).prop('checked', false);
+                
+                
             });
         });
 
