@@ -1892,7 +1892,7 @@ $(document).ready(function () {
         Swal.fire({
             icon: 'warning',
             title: 'Profile',
-            text: 'Please update your profile information.',
+            text: 'Please update your Profile information.',
             confirmButtonText: 'OK'
         }).then((result) => {
             if(result.isConfirmed){

@@ -1886,3 +1886,14 @@ if (!function_exists('get_massage_media_id_by_path')) {
         return $media->id ?? null;
     }
 }
+if (!function_exists('is_domain_localhost')) 
+{
+     function is_domain_localhost()
+     {
+        if ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1' || $_SERVER['SERVER_NAME'] == 'e4u.local') 
+        return true;
+        else
+        return false;
+    
+     }
+}

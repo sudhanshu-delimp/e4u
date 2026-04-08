@@ -802,7 +802,7 @@ function initDragDrop() {
                 
                 var getNameOne = $(this).children(":selected").attr("id");console.log(getNameOne);
                 if(selectedIdOne){
-                    $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value=0 min='0' oninput='this.value = Math.abs(this.value)' step=10 max=200><input type='hidden' name='category_id[]' value='1'><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
+                    $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border price-input' name='price[]' placeholder='0' value=0  step='10'><span class='error-msg' style='color:red; display:none;'></span><input type='hidden' name='category_id[]' value='1'><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
                     $("#service_id_one option[value="+ selectedIdOne +"]").attr('disabled','disabled');
                     $("#service_id_one option[value="+ selectedIdOne +"]").remove();
                     console.log('changewwwwww='+selectedIdOne);
@@ -815,7 +815,7 @@ function initDragDrop() {
                 var selectedIdTwo = $('#service_id_two').val();
                 var getNameTwo = $(this).children(":selected").attr("id");
                 if(selectedIdTwo){
-                    $("#selected_service_two").append(" <li id='hideenclassTwo_"+selectedIdTwo+"'><div class='my_service_anal hideenclassTwo"+selectedIdTwo+"'><span class='dollar-sign'>"+getNameTwo+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=200 value=0><input type='hidden' name='category_id[]' value='2'><input type='hidden' name='service_id[]' value="+ selectedIdTwo +"><span><i class='fas fa-times-circle akh2'  data-sname='"+getNameTwo+"' data-val="+ selectedIdTwo+"  id='id_"+ selectedIdTwo+"' value="+selectedIdTwo+"></i></span></div></li> ");
+                    $("#selected_service_two").append(" <li id='hideenclassTwo_"+selectedIdTwo+"'><div class='my_service_anal hideenclassTwo"+selectedIdTwo+"'><span class='dollar-sign'>"+getNameTwo+"</span><input type='number' class='dollar-before input_border price-input' name='price[]' placeholder='0'  value=0 step='10'><span class='error-msg' style='color:red; display:none;'></span><input type='hidden' name='category_id[]' value='2'><input type='hidden' name='service_id[]' value="+ selectedIdTwo +"><span><i class='fas fa-times-circle akh2'  data-sname='"+getNameTwo+"' data-val="+ selectedIdTwo+"  id='id_"+ selectedIdTwo+"' value="+selectedIdTwo+"></i></span></div></li> ");
                     $("#service_id_two option[value="+ selectedIdTwo +"]").attr('disabled','disabled');
                     $("#service_id_two option[value="+ selectedIdTwo +"]").remove();
                     console.log('change='+selectedIdTwo);
@@ -827,6 +827,31 @@ function initDragDrop() {
         $(document).on('input', '.allow_only_numeric', function () {
         this.value = this.value.replace(/[^0-9]/g, '');
         });
+
+
+
+        $(document).on('input', '.price-input', function () {
+            let val = parseInt($(this).val());
+            let error = $(this).siblings('.error-msg');
+          
+
+            if (isNaN(val) || val < 0 || val > 200 || val % 10 !== 0) {
+                error.text('Please enter a multiple of 10.').show();
+                $(this).addClass('text-danger');
+                
+            } else {
+                error.hide();
+                $(this).removeClass('text-danger');
+            }
+        });
+
+        // $(document).on('input', '.price-input', function () {
+        //     let val = $(this).val();
+
+        //     if (val !== '' && !isNaN(val)) {
+        //         this.value = Math.floor(val);
+        //     }
+        // });
 
 
  }); 

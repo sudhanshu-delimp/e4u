@@ -101,7 +101,9 @@ Route::get('consoles-list-all-users', [ConsolesController::class, 'allUserDatata
 
 Route::get('management/fee-discount', [FeeDiscountController::class,'index'])->name('fee-discount');
 Route::post('management/get-advertiser-detail', [FeeDiscountController::class,'getAdvertiserDetail'])->name('advertiser.detail');
+Route::get('management/search-member', [FeeDiscountController::class,'searchMember'])->name('advertiser.search_member');
 Route::post('management/apply-fee-discount', [FeeDiscountController::class,'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
+Route::get('management/get-fee-discounts-listing', [FeeDiscountController::class,'getFeeDiscountListing'])->name('advertiser.get_fee_discounts_listing');
 
 Route::get('global-monitoring', function () {
     return view('admin.global-monitoring');

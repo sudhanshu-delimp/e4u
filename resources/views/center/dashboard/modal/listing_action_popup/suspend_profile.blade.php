@@ -6,7 +6,7 @@
   
 
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <form id="suspend_form">
+            <form id="suspend_form" name="suspend_form" method="post">
                 <div class="modal-content">
                     <div class="modal-content">
                         <div class="modal-header">
