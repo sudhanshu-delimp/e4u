@@ -363,6 +363,7 @@ messages: {
 ////////////// End  BRB Form Submit ///////////////////
 
 
+/////////// Suspend Profile ////////////////////
 $(document).ready(function () {
 
     let suspendStartDateObject = $('#suspendStartDate');
@@ -440,7 +441,7 @@ $(document).ready(function () {
 
 
     
-    suspendStartDateObject.datepicker('setDate', +1);
+    //suspendStartDateObject.datepicker('setDate', +1);
 });
 
 
@@ -488,7 +489,51 @@ $("#suspend_form").on('submit', async function(e)
 
       }
 
-   });
+});
+////////////// End Suspend profile //////////////
+
+
+///////////// Extend Profile ////////////////////
+
+$(document).on('change','#extendProfileId', function () 
+{
+   let previousEndDateValue = $(this).find(':selected').data('end'); 
+   let membership = $(this).find(':selected').data('membership');
+   let $membershipField = $('#extendMembership');
+   let extendStartDateObject = $('#extendStartDate');
+   let extendEndDateObject = $('#extendEndDate');
+   let profileId = $(this).val();
+   if($.trim(profileId)!=""){
+         extendEndDateObject.removeAttr('disabled');
+         $("input[name='extend_days']").removeAttr('disabled');
+   }
+   else{
+         extendEndDateObject.attr('disabled','disabled');
+         $("input[name='extend_days']").attr('disabled','disabled');
+   }
+   switch(membership){
+         case 'Platinum':{
+            $membershipField.val(1);
+         }break;
+         case 'Gold':{
+            $membershipField.val(2);
+         }break;
+         case 'Silver':{
+            $membershipField.val(3);
+         }break;
+         case 'Free':{
+            $membershipField.val(4);
+         }
+   }
+   if (previousEndDateValue) {
+         extendStartDateObject.val(getDateAfter(previousEndDateValue,1));
+         extendEndDateObject.val(getDateAfter(previousEndDateValue,2));
+         extendEndDateObject.datepicker('option', 'minDate', extendStartDateObject.val());
+   } else {
+         extendEndDateObject.datepicker('option', 'minDate', null);
+         extendEndDateObject.val('');
+   }
+});
 
 </script>
 
