@@ -135,6 +135,7 @@
     </div>
 
     <div class="modal-footer px-0">
-        <button type="submit" class="btn-success-modal">Save</button>
+        <button type="submit" class="btn-success-modal m-0">Update</button>
+        <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Cancel">Close</button>
     </div>
 </form>
