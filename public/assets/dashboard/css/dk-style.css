@@ -3475,6 +3475,7 @@ button.btn:focus {
     font-size: 11px;
     line-height: 16px;
     font-weight: 500;
+    text-transform: none;
     padding: 8px 7px;
     border-radius: 3px;
     cursor: pointer;
