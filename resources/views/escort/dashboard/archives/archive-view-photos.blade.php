@@ -144,7 +144,7 @@
             <button type="button" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#mediaVerificationModal">
                 Media Verification
 
-                <span class="timer_tooltip">Adds single and multiple merge report views with improved UI Adds single and multiple merge report views with improved UI</span>
+                <span class="timer_tooltip">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
             </button>
         </div>
     </div>
