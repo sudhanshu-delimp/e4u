@@ -144,7 +144,7 @@
             <button type="button" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#mediaVerificationModal">
                 Media Verification
 
-                <span class="timer_tooltip">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+                <span class="timer_tooltip">You must provide your media verification within 48 hours.</span>
             </button>
         </div>
     </div>

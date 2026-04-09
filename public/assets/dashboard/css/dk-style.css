@@ -3468,7 +3468,7 @@ button.btn:focus {
     position: absolute;
     width: 200px;
     left: 50%;
-    bottom: 100%;
+    bottom: 50px;
     z-index: 999;
     background: #ff3c5f;
     color: #fff;
@@ -3485,7 +3485,7 @@ button.btn:focus {
 .verify_timer .timer_tooltip::after {
     position: absolute;
     left: 50%;
-    top: 99%;
+    top: 98%;
     content: '';
     border-width: 7px;
     border-style: solid;
