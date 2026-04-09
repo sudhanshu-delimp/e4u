@@ -246,11 +246,23 @@
                     alert('Please select a merge type.');
                     return;
                 }
-
+                if(selectedValue === 'single') {
+                    $('#multiple-continue').hide();
+                    $('#single-continue').show();
+                } else if(selectedValue === 'multiple') {
+                    $('#single-continue').hide();
+                    $('#multiple-continue').show();
+                }
                 openReportModal(selectedValue);
             });
 
-            $('#continue').on('click', function () {
+            $('#multiple-continue').on('click', function () {
+                $('#view_report').modal('hide');
+                
+                
+                
+            });
+            $('#single-continue').on('click', function () {
                 $('#view_report').modal('hide');
                 
                 

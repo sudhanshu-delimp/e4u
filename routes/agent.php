@@ -127,6 +127,9 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     return view('agent.dashboard.Marketing.merge-report');
 })->name('agent.merge-report');
 
+    Route::get('/single-merge-report',function(){
+    return view('agent.dashboard.Marketing.single-merge-report');
+})->name('agent.single-merge-report');
 
     Route::get('advertiser-profiles',function(){
     return view('agent.dashboard.Annalytics.advertiser-profiles');

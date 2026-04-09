@@ -98,7 +98,7 @@
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1">Multiple Merge Reports</h1>                   
+                    <h1 class="h1">Single Merge Reports</h1>                   
                 </div>
 
             </div>
@@ -110,43 +110,18 @@
                 <div class="card-box">
                     <div class="top-controls d-flex flex-wrap justify-content-between align-items-center gap-10 py-4">
 
-                        <!-- Left Side -->
+                       <!-- Left Side -->
                         <div>
-                            <h5 class="mb-0 font-weight-bold">Filter single or multiple reports</h5>
+                            <h5 class="mb-0 font-weight-bold">Single Reports</h5>
                         </div>
 
                         <!-- Right Side Controls -->
                         <div class="d-flex flex-wrap align-items-end gap-3">
-                            <!-- Post Code Range Filter -->
-                            <div class="d-flex align-items-center gap-10">
-                                <div class="d-flex align-items-center gap-10">
-                                    <label for="postcodeFrom" class="form-label mb-0">Post Code : </label>
-                                    <input type="text" id="postcodeFrom" class="form-control" placeholder="6000" style="width: 120px;">
-                                    <input type="text" id="postcodeTo" class="form-control" placeholder="6001" style="width: 120px;">
-                                </div>
-
-                                <button type="button" class="btn-filter" id="applyPostcodeFilter">Apply</button>
-
-                                <!-- Selection Mode -->
-                            <div class="selection-group d-flex align-items-center gap-10">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="selectionMode" id="singleMode" value="single" >
-                                    <label class="form-check-label" for="singleMode">Single</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="selectionMode" id="multipleMode" value="multiple" checked>
-                                    <label class="form-check-label" for="multipleMode">Multiple</label>
-                                </div>
-                            </div>
-
-                            </div>
-                            
+                           
                             
 
                             <!-- Action Buttons -->
                             <div class="btn-group-custom d-flex justify-content-between gap-10 ml-3">
-                                <button type="button" class="btn-filter" id="selectAllBtn">Select All</button>
                                 <button type="button" class="btn-filter" id="getSelectedBtn">Get Selected</button>
                                 <button type="button" class="btn-reset" id="clearSelectionBtn"><i class="fas fa-redo clear-icon"></i></button>
                             </div>
@@ -358,9 +333,9 @@
                     <div class="mt-4">
                         
                         <div id="selectedOutput">
-                            <div class="d-flex justify-content-between align-items-center gap-10">
+                            <div class="d-flex justify-content-between align-items-center mb-3 gap-10">
                                 <h5 class="mb-0 font-weight-bold">Filtered Data</h5>
-                                <div class="d-flex justify-content-between align-items-center gap-10">
+                                <div class="d-flex justify-content-between align-items-center mb-3 gap-10">
                                     <button type="button" class="btn-success-modal">Save</button>
                                     <button type="button" class="btn-success-modal">Print</button>
                                     </div>
@@ -453,10 +428,7 @@
             return false;
         });
 
-        // Apply Filter Button
-        $('#applyPostcodeFilter').on('click', function () {
-            table.draw();
-        });
+        
 
         // Clear Filter Button
         $('#clearPostcodeFilter').on('click', function () {
@@ -482,12 +454,7 @@
             $('#selected_records').val('');
             resetSelectedTable();
 
-            // Enable/disable Select All button
-            if (selectionMode === 'single') {
-                $('#selectAllBtn').prop('disabled', true);
-            } else {
-                $('#selectAllBtn').prop('disabled', false);
-            }
+            
         });
 
         // Trigger default mode setup
@@ -506,16 +473,6 @@
             updateSelectedRecords();
         });
 
-        // =========================
-        // SELECT ALL
-        // =========================
-        $('#selectAllBtn').on('click', function () {
-            if (selectionMode === 'multiple') {
-                $('.record-checkbox').prop('checked', true);
-                highlightSelectedRows();
-                updateSelectedRecords();
-            }
-        });
 
         // CLEAR SELECTION
        $('#clearSelectionBtn').on('click', function () {

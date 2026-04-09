@@ -23,7 +23,8 @@
                     <div class="d-flex justify-content-end gap-10">
                          <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
                             id="close_change">Close</button>
-                            <a href="{{ route('agent.merge-report') }}" target="_blank" class="btn-success-modal" id="continue">Continue</a>
+                            <a href="{{ route('agent.single-merge-report') }}" target="_blank" class="btn-success-modal" id="single-continue">Continue</a>
+                            <a href="{{ route('agent.merge-report') }}" target="_blank" class="btn-success-modal" id="multiple-continue">Continue</a>
                             
                     </div>
                 </div>
