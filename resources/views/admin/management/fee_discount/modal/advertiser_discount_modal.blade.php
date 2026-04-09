@@ -59,7 +59,7 @@
                                 <label for="discount">Discount</label>
                                 <div class="input-group">
                                     <input type="text" 
-                                        class="form-control rounded-0 only_digits" 
+                                        class="form-control rounded-0 only_digits_decimal" 
                                         placeholder="Discount"
                                         name="discount" 
                                         id="discount">
