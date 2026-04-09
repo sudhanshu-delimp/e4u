@@ -100,7 +100,6 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
-    
 </style>
 @endsection
 @section('content')
@@ -570,6 +569,9 @@
                                                 </div>
 
                                         @endswitch
+                                        <div class="upload_date">
+                                           Uploaded: <span>{{ \Carbon\Carbon::parse($image->created_at)->format('d M Y') }}</span>
+                                        </div>
                                     </div>
                                     @endif
                                     @endforeach
