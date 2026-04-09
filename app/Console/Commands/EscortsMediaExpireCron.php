@@ -21,7 +21,7 @@ class EscortsMediaExpireCron extends Command
         $now = now();
 
         // TESTING
-        $expireMinutes = 5;
+        $expireMinutes = 2;
 
         // LIVE
         // $expireMinutes = 60 * 48;
@@ -35,12 +35,13 @@ class EscortsMediaExpireCron extends Command
             // Step 2: first pending media time
             $firstPendingMediaTime = EscortMedia::where('user_id', $userId)
                 ->where('varified', '0')
+                ->where('type', 0)
+                ->where('template', '0')
                 ->min('created_at');
-
             if (!$firstPendingMediaTime) {
                 continue;
             }
-
+            
             // Step 3: 48 hr cross?
             if ($firstPendingMediaTime > $now->copy()->subMinutes($expireMinutes)) {
                 continue;
@@ -49,12 +50,14 @@ class EscortsMediaExpireCron extends Command
             // Step 4: check verification uploaded or not
             $hasVerification = MediaVerification::where('user_id', $userId)->where('status', '0')
                 ->exists();
-
+                    
             // if verification uploaded or not 
             if (!$hasVerification) {
                 
                 EscortMedia::where('user_id', $userId)
                     ->where('varified', '0')
+                    ->where('type', 0)
+                    ->where('template', '0')
                     ->update(['varified' => '2']);
                 $user = User::select('name', 'member_id', 'email')
                 ->where('id', $userId)

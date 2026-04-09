@@ -787,7 +787,9 @@
                                                                                     <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                                                 @endif
                                                                             </div>
-
+                                                                            <div class="upload_date">
+                                                                                Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                            </div>
                                                                         </div>
                                                                     @endif
                                                                 @endforeach

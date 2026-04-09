@@ -3445,6 +3445,28 @@ button.btn:focus {
     display: block;
 }
 
+.upload_date {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #ff3c5fa3;
+    color: #fff;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    padding: 10px 0px;
+    font-size: 11px;
+}
+
+.item4:hover .upload_date {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 
 /* Right Verification */
 

@@ -33,6 +33,8 @@ class MassageMediaExpireCron extends Command
             // Step 2: first pending media time
             $firstPendingMediaTime = MassageMedia::where('user_id', $userId)
                 ->where('varified', '0')
+                ->where('type', 0)
+                ->where('template', '0')
                 ->min('created_at');
 
             if (!$firstPendingMediaTime) {
@@ -54,6 +56,8 @@ class MassageMediaExpireCron extends Command
 
                 MassageMedia::where('user_id', $userId)
                     ->where('varified', '0')
+                    ->where('type', 0)
+                    ->where('template', '0')
                     ->update(['varified' => '2']);
 
                 $user = User::select('name', 'member_id', 'email')

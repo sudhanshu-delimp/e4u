@@ -326,7 +326,6 @@ function preview_image(event)
             if (response.success) {
                 let activePage = $("#carouselExampleIndicators .page-item.active").attr('id');
                 let activeContainer = $("#carouselExampleIndicators .carousel-item.active").attr('id');
-    
                 $("#js_profile_media_gallery").html(response.gallery_container_html);
                 $("#gallery_modal_container").html(response.gallery_modal_container_html);
                 $("#banner_modal_container").html(response.banner_modal_container_html);
@@ -344,6 +343,7 @@ function preview_image(event)
                     $(`#cItem_0`).addClass('active');
                 }
                 initDragDrop();
+                getMediaCount();
             }
         }).fail(function (xhr, status, error) {
             console.error("Error:", error);
@@ -610,3 +610,21 @@ async function initVideos() {
     });
 }
 initVideos();
+
+
+function getMediaCount(){
+    return $.ajax({
+        url: `/escort-dashboard/get-media-count`,
+        type: "GET",
+        dataType: "json"
+    }).done(function (response) {
+
+        if (response.success && response.media_count < 1) {
+            let btn = $('#mediaVerification');
+            btn.prop('disabled', true);
+        }
+
+    }).fail(function (xhr, status, error) {
+        console.error("Error:", error);
+    });
+}

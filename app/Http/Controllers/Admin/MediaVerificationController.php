@@ -100,14 +100,6 @@ class MediaVerificationController extends Controller
                     $dir
                 );
                 break;
-
-                // case 5: // agent_id (users.assigned_agent_id)
-                //     $media_verificatiion->orderBy(
-                //         User::select('assigned_agent_id')
-                //             ->whereColumn('users.id', 'media_verifications.user_id'),
-                //         $dir
-                //     );
-                //     break;
         }
 
 
@@ -228,13 +220,13 @@ class MediaVerificationController extends Controller
         }        
         
         if ($category == 9) {
-        $query->where('position', 9);
-
+            $query->where('position', 9);
+            $query->where('template', '0');
         } elseif ($category == 10) {
             $query->where('position', 10);
 
         } else {
-            // ✅ Gallery → NOT 9,10 + NULL include
+            // Gallery → NOT 9,10 + NULL include
             $query->where(function ($q) {
                 $q->whereNotIn('position', [9, 10])
                 ->orWhereNull('position');

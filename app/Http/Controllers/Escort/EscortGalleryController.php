@@ -654,18 +654,18 @@ class EscortGalleryController extends AppController
 
         $user = auth()->user();
         $image = $request->file('image');
-        $media = EscortMedia::where('user_id', $user->id)
-            ->whereIn('varified', ['0', '2'])
-            ->whereNull('media_verification_id')
-            ->where('type' , '0')
-            ->count();
+        // $media = EscortMedia::where('user_id', $user->id)
+        //     ->whereIn('varified', ['0', '2'])
+        //     ->whereNull('media_verification_id')
+        //     ->where('type' , '0')
+        //     ->count();
     
-        if ($media  <= 0) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Please upload your media before uploading the verification image.'
-            ], 400);
-        }
+        // if ($media  <= 0) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Please upload your media before uploading the verification image.'
+        //     ], 400);
+        // }
 
         $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
         $destination_path = $user->id . '/verifications/' . $fileName;
@@ -705,4 +705,19 @@ class EscortGalleryController extends AppController
             'message' => 'Verification uploaded successfully.',
         ]);
     }
+
+    public function getMediaCOunt(Request $request){
+        $media_count = EscortMedia::where('user_id', auth()->user()->id)
+            ->whereIn('varified', ['0', '2'])
+            ->where('template', '0')
+            ->whereNull('media_verification_id')
+            ->where('type' , '0')
+            ->count();
+            return response()->json([
+                'success' => true,
+                'media_count' => $media_count 
+            ]);
+            
+    }
+    
 }
