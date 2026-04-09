@@ -123,9 +123,9 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
         Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
      
-    Route::get('/merge-report',function(){
-    return view('agent.dashboard.Marketing.merge-report');
-})->name('agent.merge-report');
+    Route::get('/multi-merge-report',function(){
+    return view('agent.dashboard.Marketing.multi-merge-report');
+})->name('agent.multi-merge-report');
 
     Route::get('/single-merge-report',function(){
     return view('agent.dashboard.Marketing.single-merge-report');

@@ -1,95 +1,5 @@
 @extends('layouts.agent')
 @section('style')
-    <style>
-        .card-box{
-            border: 1px solid #e3e6f0;
-            border-radius: 8px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .table-success-custom {
-            background-color: #d1f7d6 !important;
-        }
-
-        .top-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .selection-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            margin-left: 8px;
-        }
-
-        .btn-group-custom {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        #selectedOutput {
-            background: #f1f3f5;
-            border-radius: 8px;
-            padding: 15px;
-            font-size: 14px;
-            white-space: pre-wrap;
-            min-height: 80px;
-            display: none
-        }
-
-        .btn-filter{
-            padding: 7px 10px !important;
-            background-color: #0c223d;
-            color: #fff;
-        }
-        .btn-filter:hover{
-            background-color: #ff3c5f;
-            color: #fff;
-        }
-         .btn-reset{
-            padding: 7px 10px !important;
-            background: #ff3c5f !important;
-            color: #fff !important;
-        }
-          .btn-reset i{
-            color: #fff !important;
-          }
-            .btn-reset:hover{
-            background-color: #ff3c5f !important;
-            opacity: .9;
-            
-        }
-
-
-  .clear-icon {
-        display: inline-block;
-    }
-
-    .rotate-icon {
-        animation: spinIcon 0.5s ease-in-out;
-    }
-
-    @keyframes spinIcon {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-    </style>
 @endsection
 
 @section('content')
@@ -365,7 +275,7 @@
                                     <button type="button" class="btn-success-modal">Print</button>
                                     </div>
                                 </div>
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered">
                                 <thead class="table-bg">
                                     <tr>
                                         <th>ID</th>
