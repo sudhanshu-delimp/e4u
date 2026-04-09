@@ -3460,6 +3460,43 @@ button.btn:focus {
     transform: rotate(90deg) translate(-50%, 100%);
 }
 
+.verify_timer {
+    position: relative;
+}
+
+.verify_timer .timer_tooltip {
+    position: absolute;
+    width: 200px;
+    left: 50%;
+    bottom: 100%;
+    z-index: 999;
+    background: #ff3c5f;
+    color: #fff;
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 500;
+    padding: 8px 7px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+    transform: translate(-50%, -15%);
+}
+
+.verify_timer .timer_tooltip::after {
+    position: absolute;
+    left: 50%;
+    top: 99%;
+    content: '';
+    border-width: 7px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+    transform: rotate(0deg) translate(-50%);
+}
+
+.verify_timer:hover .timer_tooltip {
+    display: block;
+}
+
 .common_shield_tooltip {
     position: absolute;
     left: 50%;
@@ -3540,6 +3577,28 @@ button.btn:focus {
 
 .item4 .verify_icon:hover .mc_media_tooltip {
     display: block;
+}
+
+.upload_date {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #ff3c5fa3;
+    color: #fff;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    padding: 10px 0px;
+    font-size: 12px;
+}
+
+.item4:hover .upload_date {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 

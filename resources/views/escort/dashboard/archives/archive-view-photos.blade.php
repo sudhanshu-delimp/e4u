@@ -100,7 +100,6 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
-    
 </style>
 @endsection
 @section('content')
@@ -142,7 +141,11 @@
         </div>
         <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
             <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#mediaVerificationModal">Media Verification</button>
+            <button type="button" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#mediaVerificationModal">
+                Media Verification
+
+                <span class="timer_tooltip">Adds single and multiple merge report views with improved UI Adds single and multiple merge report views with improved UI</span>
+            </button>
         </div>
     </div>
     <div class="row">
@@ -570,6 +573,9 @@
                                                 </div>
 
                                         @endswitch
+                                        <div class="upload_date">
+                                           Uploaded: <span>{{ \Carbon\Carbon::parse($image->created_at)->format('d M Y') }}</span>
+                                        </div>
                                     </div>
                                     @endif
                                     @endforeach
