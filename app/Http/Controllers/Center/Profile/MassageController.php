@@ -83,8 +83,12 @@ class MassageController extends Controller
    
     public function massager_list(Request $request)
     {
+        // echo Carbon::now('UTC');
+        // exit;
 
+        if(is_domain_localhost())
         $active_profile = get_massage_listed_profile();
+        else
         $active_profile = [];
         return view('center.dashboard.list',compact('active_profile'));
     }
@@ -96,16 +100,25 @@ class MassageController extends Controller
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
+                'user:id,status',
+                'activeUpcomingSuspend'
             ])->where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
             $countries = getCountryList();
 
-          
+           ///dd($masseurs->toArray());
+
             $data = $masseurs->map(function ($row) use ($countries) {
 
 
             $brb = [];
             if(isset($row->brb) && (count($row->brb)>0))
-            $brb = json_decode(json_encode($row->brb),true);   
+            $brb = json_decode(json_encode($row->brb),true);  
+        
+            $activeUpcomingSuspend = [];
+            if(isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
+            $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend),true); 
+
+
 
             if(!empty($brb))
             $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
@@ -113,6 +126,19 @@ class MassageController extends Controller
             $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.'</span>';     
 
             //$profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <pre>'.json_encode($brb, JSON_PRETTY_PRINT).'</pre></span>'; 
+
+            if(!empty($activeUpcomingSuspend) || $row->user->status == "Suspended")
+            {
+                if($row->user->status == "Suspended")
+                $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
+                </sup>';
+                else 
+                $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to ".date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])).'</small>
+                </sup>';
+            }
+
 
 
                 $status = "";
@@ -869,7 +895,12 @@ class MassageController extends Controller
             try 
             {
                 $request_data = $request->all();
-                $availability     = make_time_availability($request_data);
+                
+
+                if(isset($request->profile_time_avail_update) && $request->profile_time_avail_update=='profile_time_avail_update')
+                $availability     = $this->makeAvailability($request_data);
+                else
+                $availability     = make_time_availability($request_data);;
 
                 Log::info($availability);
                 if(!empty($availability))
@@ -1009,8 +1040,7 @@ class MassageController extends Controller
         ])
         ->whereNotIn('id', $excludeIds)
         ->distinct()
-        ->pluck('id');
-
+        ->get();
 
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
     }
@@ -1204,16 +1234,28 @@ class MassageController extends Controller
     public function  massager_current_listing(Request $request)
     {
             $today = Carbon::today();
-            $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
+            $massagers = MassagePurchase::with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },'massageprofile','user:id,status','activeUpcomingSuspend'
+
+            ])->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['pending', 'listed'])
             // ->whereDate('start_date', '<=', $today)
             // ->whereDate('end_date', '>=', $today)
             ->get();
 
-         
-           
-
+    
             $data = $massagers->map(function ($row) use ($today) {
+
+
+                $brb = [];
+                if(isset($row->brb) && (count($row->brb)>0))
+                $brb = json_decode(json_encode($row->brb),true);  
+            
+                $activeUpcomingSuspend = [];
+                if(isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
+                $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend),true);
 
     
                 $start = Carbon::parse($row->start_date);
@@ -1223,10 +1265,27 @@ class MassageController extends Controller
                 $start_date = date('d M Y', strtotime($row->start_date));
                 $end_date = date('d M Y', strtotime($row->end_date));
 
+                if(!empty($brb))
+                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+                else
+                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.'</span>';     
+
+                if(!empty($activeUpcomingSuspend) || $row->user->status == "Suspended")
+                {
+                    if($row->user->status == "Suspended")
+                    $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                    <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
+                    </sup>';
+                    else 
+                    $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                    <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to ".date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])).'</small>
+                    </sup>';
+                }
+
 
                 return [
                     'id' => $row->id,
-                    'profile_name' => $row->massageprofile->profile_name,
+                    'profile_name' => $profile_name,
                     'address' => $row->massageprofile->address,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
@@ -1288,4 +1347,9 @@ class MassageController extends Controller
 
  
     }
+
+
+    
+
+
 }

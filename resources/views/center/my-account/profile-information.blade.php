@@ -779,6 +779,44 @@
 $(document).on('input', '.allow_only_numeric', function () {
         this.value = this.value.replace(/[^0-9]/g, '');
 });
+
+
+ //////////// For Our Service (Tags)  /////////////////////
+$('body').on('click', '.akh1', function() {
+var id = $(this).attr('id');
+var val = $(this).data('val');
+var name = $(this).data('sname');
+$('#hideenclassOne_'+val).remove();
+
+$("#service_id_one").append("<option id='"+name+"' value='"+val+"'>"+name+"</option>"); 
+console.log("click "+name);
+});
+
+$('body').on('click', '.akh2', function() {
+var id = $(this).attr('id');
+var val = $(this).data('val');
+var name = $(this).data('sname');
+$('#hideenclassTwo_'+val).remove();
+
+$("#service_id_two").append("<option id='"+name+"' value='"+val+"'>"+name+"</option>"); 
+console.log("click "+name);
+console.log("id= "+id);
+console.log("val= "+val);
+});    
+
+$(document).on('change','#service_id_one', function(){
+var selectedIdOne = $('#service_id_one').val();
+
+var getNameOne = $(this).children(":selected").attr("id");console.log(getNameOne);
+if(selectedIdOne){
+$("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value=0 min='0' oninput='this.value = Math.abs(this.value)' step=10 max=200><input type='hidden' name='category_id[]' value='1'><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
+$("#service_id_one option[value="+ selectedIdOne +"]").attr('disabled','disabled');
+$("#service_id_one option[value="+ selectedIdOne +"]").remove();
+console.log('changewwwwww='+selectedIdOne);
+}
+});
+
+
 </script>
 
 

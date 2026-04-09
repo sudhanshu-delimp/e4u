@@ -461,10 +461,17 @@ class MassageProfile extends Model
         return $this->hasMany(MassagePurchase::class, 'massage_profile_id','id');
     }
 
-     public function mainPurchase()
+   
+
+
+    public function mainPurchase()
     {
         return $this->belongsTo(MassagePurchase::class, 'purchase_id');
     }
 
-    
+     public function activeUpcomingSuspend(){
+        return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id','id')
+        ->where('utc_end_date', '>=', Carbon::now('UTC'))
+        ->oldestOfMany('utc_start_date');
+    }
 }

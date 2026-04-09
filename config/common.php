@@ -34,4 +34,5 @@ return [
     'resend_2fa_verification_code_msg' => env('RESEND_2FA_VERIFICTION_CODE_MSG', 'Your verification code has been re-sent to your selected contact method (email or mobile).'),
 
     'otp_resend_seconds' => env('OTP_RESEND_SECONDS', 60),
+    'local_timezone' => env('LOCAL_TIMEZONE'),
 ];

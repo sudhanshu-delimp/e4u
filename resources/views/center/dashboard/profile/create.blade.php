@@ -86,7 +86,14 @@
     .action_cus_width{
         width: 10%;
     }
-    
+
+#selected_service_one small[id="price[]-error"] {
+    display: none  !important;
+}
+#selected_service_two small[id="price[]-error"] {
+    display: none  !important;
+}
+
 </style>
 @endsection
 @section('content')
@@ -315,6 +322,7 @@
     CKEDITOR.replace('about_us_box');
     var updatePosition = 0;
     var edit_mode = false;
+    var account_completd = "{{ $user->is_account_completed }}";
 </script>
 
 
@@ -866,35 +874,51 @@
    
 
 
-    $(document).ready(function() {
 
+    $(document).ready(function() 
+    {
+        // if(account_completd===0)
+        // {
+        // console.log('account_completd',account_completd)
+        //     Swal.fire({
+        //         icon: 'warning',
+        //         title: 'Profile',
+        //         text: 'Please update your Profile information.',
+        //         confirmButtonText: 'OK'
+        //     }).then((result) => {
+        //         if(result.isConfirmed){
+        //             window.location.href = "{{ url('center-dashboard/profile-informations') }}";
+        //         }
+
+        //     });
+        // }
 
         $.ajax({
-            url: "{{ route('center.check-messure-profile') }}",
-            type: 'GET',
-            processData: false,
-            contentType: false,
-            success: function(response) {
+                url: "{{ route('center.check-messure-profile') }}",
+                type: 'GET',
+                processData: false,
+                contentType: false,
+                success: function(response) {
 
-                if (response.messure_count < 1) {
-                    $('#create_messure').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
+                    if (response.messure_count < 1) {
+                        $('#create_messure').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                    }
+
+                },
+
+                error: function(xhr) {
+                    Swal.close();
+                    let message = 'Error while saving profile';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+                    swal_error_popup(message);
                 }
-
-            },
-
-            error: function(xhr) {
-                Swal.close();
-                let message = 'Error while saving profile';
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    message = xhr.responseJSON.message;
-                }
-                swal_error_popup(message);
-            }
         });
-
+       
     })
 
 

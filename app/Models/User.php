@@ -25,6 +25,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -332,6 +333,18 @@ class User extends Authenticatable
     public function playmateHistory()
     {
         return $this->hasMany(PlaymateHistory::class);
+    }
+
+    public function feeDiscounts()
+    {
+        return $this->hasMany(AdvertiserDiscount::class);
+    }
+
+    public function activeFeeDiscount()
+    {
+        return $this->hasOne(AdvertiserDiscount::class)
+            ->where('end_date', '>=', now())
+            ->latestOfMany('end_date');
     }
 
     public function getPlaymatesAttribute()

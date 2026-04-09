@@ -187,6 +187,7 @@
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                         </div>
                                     </label>
                                    
@@ -403,6 +404,7 @@
                                                         <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                             </div>
                                         </label>
                                     </div>
@@ -432,6 +434,7 @@
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                             </div>
                                            
                                         </label>
@@ -479,8 +482,7 @@
                 </div>
                 <div class="custom-img-filter-header">
                     <div class="row">
-                        <ul class="nav nav-tabs border-0 js_gallery_category">
-                           
+                        <ul class="nav nav-tabs border-0 js_gallery_category">                           
                             <li class="nav-item">
                                 <a class="nav-link active" data-type="gallery" data-toggle="tab" href="#Gallery">Gallery</a>
                             </li>
@@ -489,8 +491,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-type="pinup" data-toggle="tab" href="#Pinup">Pinup</a>
-                            </li>
-                            
+                            </li>                            
                         </ul>
                     </div>
                 </div>
