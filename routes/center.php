@@ -113,6 +113,7 @@ Route::post('massage-brb/add', [MassageProfileActionController::class, 'add'])->
 Route::post('massage-brb/inactive/{id}', [MassageProfileActionController::class, 'inactive'])->name('massage.brb.inactive');
 Route::post('massage-suspend-credit', [MassageProfileActionController::class, 'suspendProfileCredit'])->name('center.massage-suspend-credit');
 Route::post('suspend-massage-profile', [MassageProfileActionController::class, 'suspendProfile'])->name('center.suspend-massage-profile');
+Route::post('extend-profile-checkout', [MassageProfileActionController::class, 'extendProfileCheckout'])->name('center.extend-profile-checkout');
 
 
 

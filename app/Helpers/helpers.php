@@ -1817,7 +1817,7 @@ if (!function_exists('get_massage_listed_profile'))
         $massage_live_ids  = MassagePurchase::where('status','listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if(!empty($massage_live_ids))
         {
-            $profile = MassageProfile::with('state')->whereIn('id',  $massage_live_ids)->get();
+            $profile = MassageProfile::select('id','purchase_id','name','profile_name')->with('purchase','state')->whereIn('id',  $massage_live_ids)->get();
             if($profile->isNotEmpty())
             return $profile;
             else
@@ -1888,4 +1888,45 @@ if (!function_exists('is_domain_localhost'))
         return false;
     
      }
+}
+
+
+if (!function_exists('account_complete_status')) {
+  function account_complete_status()
+  {
+    
+       try
+       {
+            $user = User::where([
+                'id' => auth()->user()->id,
+            ])->first();
+
+            if (!$user) {
+                return false;
+            }
+
+            $fields = [
+                $user->name,
+                $user->business_address,
+                $user->business_number,
+                $user->phone,
+            ];
+
+            $is_complete = 1;
+
+            foreach ($fields as $field) {
+                if (empty($field)) {
+                    $is_complete = 0;
+                    break;
+                }
+            }
+
+            $user->is_account_completed = $is_complete;
+            $user->save();
+
+       } catch (Exception $e) {
+            return false;
+       }
+        
+  }
 }

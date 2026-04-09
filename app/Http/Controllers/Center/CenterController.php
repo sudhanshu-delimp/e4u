@@ -279,6 +279,8 @@ class CenterController extends Controller
         if ($this->user->store($data, auth()->user()->id)) {
             $error = false;
         }
+
+        account_complete_status();
         return response()->json(compact('error'));
     }
 
