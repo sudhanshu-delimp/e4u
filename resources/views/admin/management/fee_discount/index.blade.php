@@ -66,7 +66,8 @@
                            <th>Agent ID</th>
                            <th>Rate</th>
                            <th>Discount</th>
-                           <th>Granted</th>
+                           <th>Start Date</th>
+                           <th>End Date</th>
                            <th>Status</th>
                            <th>Action</th>
                         </tr>
@@ -94,6 +95,7 @@
     table = $('#discountFeetable').DataTable({
         serverSide: true,
         processing: true,
+        autoWidth: false,
         "language": {
                 "zeroRecords": "There is no record of the search criteria you entered.",
                 searchPlaceholder: "Search..."
@@ -116,17 +118,60 @@
             }
         },
         columns: [
-               { data: 'member_id', name: 'member_id', searchable: false, orderable:false ,defaultContent: 'NA'},
+               { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'advertiser_name', name: 'name', searchable: false, orderable:false ,defaultContent: 'NA'},
                { data: 'agent_id', name: 'agent_id', searchable: false, orderable:false ,defaultContent: 'NA'},
                { data: 'rate', name: 'rate', searchable: false, orderable:false ,defaultContent: 'NA'},
                { data: 'discount', name: 'discount', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'discount_start_date', name: 'start_date', searchable: false, orderable:false,defaultContent: 'NA' },
-               { data: 'status', name: 'end_date', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'discount_end_date', name: 'end_date', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
            ],
         order: [6,'desc'],
     });
+
+   $(document).on('click', '.cancel_discount', async function (e) {
+      e.preventDefault();
+      if (await isConfirm({'action': 'Cancel','text':' Cancel This Discount.'})) { 
+         let discount_id = $(this).data('discount_id');
+         $.ajax({
+                  url: "{{ route('advertiser.cancel_fee_discount') }}",
+                  type: 'POST',
+                  data: {discount_id},
+                  beforeSend: function () {
+                     Swal.fire({
+                        title: 'Please wait...',
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading()
+                     });
+                  },
+                  success: function (res, textStatus, xhr) {
+                     Swal.close();
+                     let option = getStatusOption(xhr);
+                     if (res.status) {
+                        table.draw();
+                     }
+
+                     Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message
+                     });
+
+                  },
+                  error: function (xhr) {
+                     Swal.close();
+                     let option = getStatusOption(xhr);
+                     Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message
+                     });
+                  }
+            });
+      }
+   });
 </script>
 @endprepend
 
