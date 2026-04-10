@@ -186,7 +186,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 
@@ -196,6 +195,7 @@
         @include('agent.dashboard.modal.merge-type-modal')
         @include('agent.dashboard.modal.merge-list-modal')
         @include('agent.dashboard.modal.view-list-modal')
+        @include('agent.dashboard.modal.view-report-modal')
         
     {{-- end modals --}}
    
@@ -205,6 +205,71 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
+        $(document).ready(function () {
+
+            const config = {
+                single: {
+                    pdf: "{{ asset('assets/dashboard/document/Agent_Console_Marketing_Document_1_(09-2025).pdf') }}",
+                    title: "Agent Console Marketing Document 1",
+                    showBtn: "#singleList",
+                    hideBtn: "#multiList"
+                },
+                multiple: {
+                    pdf: "{{ asset('assets/dashboard/document/Agent_Console_Marketing_Document_2_(09-2025).pdf') }}",
+                    title: "Agent Console Marketing Document 2",
+                    showBtn: "#multiList",
+                    hideBtn: "#singleList"
+                }
+            };
+
+            function openReportModal(type) {
+                const selectedConfig = config[type];
+
+                if (!selectedConfig) {
+                    alert('Invalid merge type selected.');
+                    return;
+                }
+
+                $('#pdfNo').attr('src', selectedConfig.pdf);
+                $('#modal_title span').text(selectedConfig.title);
+
+                $('#singleList, #multiList').hide();
+                $(selectedConfig.showBtn).show();
+
+                $('#view_report').modal('show');
+            }
+
+            $('#save_button').on('click', function () {
+                const selectedValue = $('input[name="mergeType"]:checked').val();
+
+                if (!selectedValue) {
+                    alert('Please select a merge type.');
+                    return;
+                }
+                if(selectedValue === 'single') {
+                    $('#multiple-continue').hide();
+                    $('#single-continue').show();
+                } else if(selectedValue === 'multiple') {
+                    $('#single-continue').hide();
+                    $('#multiple-continue').show();
+                }
+                openReportModal(selectedValue);
+            });
+
+            $('#multiple-continue').on('click', function () {
+                $('#view_report').modal('hide');
+                
+                
+                
+            });
+            $('#single-continue').on('click', function () {
+                $('#view_report').modal('hide');
+                
+                
+            });
+        });
+
+
         $(document).ready(function() {
             // Init DataTable
             var table = $("#previewTable").DataTable({
@@ -331,6 +396,7 @@
                     },
                 ],
             });
+
         });
     </script>
 
