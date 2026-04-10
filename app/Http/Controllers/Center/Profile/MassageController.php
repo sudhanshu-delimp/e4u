@@ -1432,16 +1432,43 @@ class MassageController extends Controller
                
                 }
 
-                $ids = DB::table('masseurs')->whereNotIn('id', function ($query) use($user) {
-                            $query->select('masseur_profile_id')
-                                ->from('massager_masseurs')->where('massage_profile_id',$user->id);
-                        })->where('user_id',$user->id)->pluck('id');
+                // $ids = DB::table('masseurs')->whereNotIn('id', function ($query) use($user) {
+                //             $query->select('masseur_profile_id')
+                //                 ->from('massager_masseurs')->where('massage_profile_id',$user->id);
+                //         })->where('user_id',$user->id)->pluck('id');
+
+
+                $masseurs = Masseur::where('user_id',$user->id)
+                            ->where('status','1')
+                            ->where('is_default','1')
+                            ->get();
 
             
-                $availabilityJson = json_encode($availability);
-                if ($massage_default->availability) {
-                    $massage_default->availability->availability_time = $availabilityJson;
-                    $massage_default->availability->save(); 
+                
+                if($masseurs->isNotEmpty())
+                {
+                   $new_availability = $availability;
+
+                   Log::info('$masseurs');
+                   Log::info($masseurs);
+
+                   foreach( $masseurs as  $masseur)
+                   {
+                        $masseur_availability = json_decode($masseur->availability, true);
+                        $old_availability = $this->update_availibility($new_availability, $masseur_availability);   
+                        $new_availability_Json = json_encode($old_availability);
+                        $masseur->availability = $new_availability_Json;
+                        $masseur->save();  
+                    }
+
+                }    
+
+
+             
+
+               
+
+
 
                 // if(!empty($ids))
                 // {
@@ -1463,7 +1490,7 @@ class MassageController extends Controller
 
                 // }
 
-            }
+            
 
 
             
@@ -1481,7 +1508,9 @@ class MassageController extends Controller
     {
         foreach ($inputAvailibility as $day => $newData) 
         {
-            
+            Log::info('day');
+            Log::info($day);
+
             $oldData = $old_availability[$day] ?? null;
             $oldFrom = $oldData['from'];
             $oldTo   = $oldData['to'];
@@ -1516,9 +1545,7 @@ class MassageController extends Controller
                 }
 
                 $old_availability[$day] = [
-                    'status' => 'til_late',
                     'from'   => $oldFrom,
-                    'to'     => null,
                 ];
                 continue;
             }
@@ -1531,6 +1558,7 @@ class MassageController extends Controller
                     $oldFrom = $newFrom;
                 }
 
+                Log::info($newToTime .'=========='. $oldToTime);
                
                 if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) {
                     $oldTo = $newTo;
