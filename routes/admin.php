@@ -40,6 +40,7 @@ use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Admin\FeeDiscountController;
 use App\Http\Controllers\Admin\AgentExcelDataManageController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\ShareholderController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -100,10 +101,13 @@ Route::get('consoles-list-all-users', [ConsolesController::class, 'allUserDatata
 
 
 Route::get('management/fee-discount', [FeeDiscountController::class,'index'])->name('fee-discount');
-Route::post('management/get-advertiser-detail', [FeeDiscountController::class,'getAdvertiserDetail'])->name('advertiser.detail');
-Route::get('management/search-member', [FeeDiscountController::class,'searchMember'])->name('advertiser.search_member');
-Route::post('management/apply-fee-discount', [FeeDiscountController::class,'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
-Route::get('management/get-fee-discounts-listing', [FeeDiscountController::class,'getFeeDiscountListing'])->name('advertiser.get_fee_discounts_listing');
+Route::post('management/fee-discount/get-advertiser-detail', [FeeDiscountController::class,'getAdvertiserDetail'])->name('advertiser.detail');
+Route::get('management/fee-discount/search-member', [FeeDiscountController::class,'searchMember'])->name('advertiser.search_member');
+Route::post('management/fee-discount/apply', [FeeDiscountController::class,'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
+Route::post('management/fee-discount/renew', [FeeDiscountController::class,'renewFeeDiscount'])->name('advertiser.renew_fee_discount');
+Route::get('management/fee-discount/listing', [FeeDiscountController::class,'getFeeDiscountListing'])->name('advertiser.get_fee_discounts_listing');
+Route::post('management/fee-discount/cancel', [FeeDiscountController::class,'cancelFeeDiscount'])->name('advertiser.cancel_fee_discount');
+Route::get('management/fee-discount/advertiser-history', [FeeDiscountController::class,'getAdvertiserHistory'])->name('advertiser.get_advertiser_history');
 
 Route::get('global-monitoring', function () {
     return view('admin.global-monitoring');
@@ -383,6 +387,19 @@ Route::post('/print-supplier', [SupplierController::class, 'printSupplierDetails
 Route::post('/suspend-supplier', [SupplierController::class, 'suspendSupplier'])->name('admin.suspend-supplier');
 Route::post('/active-supplier-account', [SupplierController::class, 'activateUser'])->name('admin.active-supplier-account');
 Route::post('/approve-supplier-account', [SupplierController::class, 'approveSupplierAccount'])->name('admin.approve_supplier_account');
+
+/** Manage shareholdes */
+Route::get('/management/manage-shareholders', [ShareholderController::class, 'shareholderList'])->name('admin.manage-shareholders');
+Route::post('/management/add-shareholder', [ShareholderController::class, 'addShareholder'])->name('admin.add.shareholder');
+Route::get('shareholder_list_data_table', [ShareholderController::class, 'shareholderDataList'])->name('admin.shareholder_list_data_table');
+Route::get('/get_shareholder/{id}', [ShareholderController::class, 'getShareholder'])->name('admin.get.shareholder');
+Route::get('/edit-shareholder/{id}', [ShareholderController::class, 'editShareholder'])->name('admin.edit-shareholder');
+Route::post('/store-shareholder', [ShareholderController::class, 'updateShareholder'])->name('admin.store-shareholder');
+Route::get('/view-shareholder/{id}', [ShareholderController::class, 'viewShareholder'])->name('admin.view-shareholder');
+Route::post('/print-shareholder', [ShareholderController::class, 'printShareholderDetails'])->name('admin.print_shareholder');
+Route::post('/suspend-shareholder', [ShareholderController::class, 'suspendShareholder'])->name('admin.suspend-shareholder');
+Route::post('/active-shareholder-account', [ShareholderController::class, 'activateUser'])->name('admin.active-shareholder-account');
+Route::post('/approve-shareholder-account', [ShareholderController::class, 'approveShareholderAccount'])->name('admin.approve_shareholder_account');
 
 
 // Route::get('reports/advertiser-suspensions',function(){
@@ -785,10 +802,10 @@ Route::get('/management/logs-staff', function () {
     return view('admin.management.influencer.manage-influencers');
 })->name('admin.manage-influencers');
 
- Route::get('/management/manage-shareholders',function(){
+/*  Route::get('/management/manage-shareholders',function(){
     return view('admin.management.manage-shareholders.add-shareholder');
 })->name('admin.manage-shareholders');
-
+ */
  Route::get('/management/dashboard',function(){
     return view('admin.management.dashboard');
 })->name('admin.dashboard');

@@ -53,7 +53,7 @@
 
     img.img-thumbnail.defult-image {
         width: 190px;
-        height: 135px;
+        height: 180px;
         object-fit: cover;
     }
 
