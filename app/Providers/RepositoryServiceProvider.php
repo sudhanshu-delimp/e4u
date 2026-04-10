@@ -193,9 +193,13 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\OperatorBank\OperatorBankDetailInterface',
             'App\Repositories\OperatorBank\OperatorBankDetailRepository'
         );
-         $this->app->bind(
+        $this->app->bind(
             'App\Repositories\Supplier\SupplierInterface',
             'App\Repositories\Supplier\SupplierRepository'
+        );
+        $this->app->bind(
+            'App\Repositories\Shareholder\ShareholderInterface',
+            'App\Repositories\Shareholder\ShareholderRepository'
         );
     }
 

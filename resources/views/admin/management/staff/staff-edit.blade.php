@@ -256,8 +256,9 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
                 : '';
     @endphp
     <div class="modal-footer p-0">
-        {!! $update_button !!}
-        <button type="submit" class="btn-success-modal mr-3">Save</button>
+        {{-- {!! $update_button !!} --}}
+        <button type="submit" class="btn-success-modal m-0">Update</button>
+        <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
     </div>
 </form>
 <script>
