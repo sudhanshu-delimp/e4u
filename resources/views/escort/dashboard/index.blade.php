@@ -537,8 +537,7 @@
 
 
 <!-- escort welcome popup page -->
-<div class="modal fade upload-modal" id="WelcomeEscortPopup" tabindex="-1" role="dialog"
-    aria-labelledby="RegisterEscortLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade upload-modal" id="WelcomeEscortPopup"  style="display: none;" tabindex="-1" role="dialog"aria-labelledby="RegisterEscortLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
 
