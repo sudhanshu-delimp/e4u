@@ -23,7 +23,7 @@
                                             <div class="">
                                                 <div class="plate">
                                                     <label class="newbtn" for="upload_varification_img">
-                                                        <div class="{{ $imageUrl ? 'has_img' : '' }} upload_varification_img_wrapper">
+                                                        <div class="has_img upload_varification_img_wrapper">
                                                             <img id="blah9"
                                                             class="img-fluid px-2   preview-image js_VerificationMedia"
                                                             src="{{ $imageUrl ?? asset('assets/app/img/upload-media.png') }}"
