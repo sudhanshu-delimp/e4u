@@ -17,14 +17,21 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12 text-center">
-                                <label class="newbtn rm">
-
-                                    <img id="blah" class="item px-2"
-                                        src="{{ $imageUrl ?? asset('assets/app/img/upload-media.png') }}"
-                                        style="width: 400px;object-fit: contain; height:250px">
-
-                                        <input name="image" id="upload_varification_img" class="pis galleryMedia" onchange="readVarificationImageURL(this);" type="file" accept="image/*" >
-
+                                <label class="newbtn rm ">
+                                    @php
+                                        $defaultPath = 'assets/app/img/upload-media.png';
+                                        $cleanPath = parse_url($imageUrl, PHP_URL_PATH);
+                                        $cleanPath = ltrim($cleanPath, '/');
+                                    @endphp
+                                    <div class="{{ ($imageUrl != '' && $cleanPath != $defaultPath) ? 'has_img ' : '' }}upload_varification_img_wrapper">            
+                                        <img id="blah" class="item px-2"
+                                            src="{{ $imageUrl ?? asset('assets/app/img/upload-media.png') }}" >
+                                            <input name="image" id="upload_varification_img" class="pis galleryMedia" onchange="readVarificationImageURL(this);" type="file" accept="image/*" >
+                                            <span class="img_alert" style="{{ ($imageUrl != '' && $cleanPath != $defaultPath) ? '' : 'display:none' }}">
+                                                <i class="fas fa-upload"></i>
+                                                <br><small>Upload Image</small>
+                                            </span>
+                                        </div>
                                 </label>
                             </div>
                         </div>

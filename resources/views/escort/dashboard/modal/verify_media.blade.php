@@ -23,7 +23,12 @@
                                             <div class="">
                                                 <div class="plate">
                                                     <label class="newbtn" for="upload_varification_img">
-                                                        <div style="width: 400px;object-fit: contain; height:250px" class="{{ $imageUrl ? 'has_img' : '' }}">
+                                                        @php
+                                                            $defaultPath = 'assets/app/img/upload-media.png';
+                                                            $cleanPath = parse_url($imageUrl, PHP_URL_PATH);
+                                                            $cleanPath = ltrim($cleanPath, '/');
+                                                        @endphp
+                                                        <div class="{{ ($imageUrl != '' && $cleanPath != $defaultPath) ? 'has_img' : '' }} upload_varification_img_wrapper">
                                                             <img id="blah9"
                                                             class="img-fluid px-2   preview-image js_VerificationMedia"
                                                             src="{{ $imageUrl ?? asset('assets/app/img/upload-media.png') }}"
@@ -32,11 +37,10 @@
                                                             class="pis galleryMedia"
                                                             onchange="readVarificationImageURL(this);" type="file"
                                                             accept="image/*">
-
-                                                            <span class="img_alert">
-                                                              <i class="fas fa-upload"></i>
-                                                               <br><small>Upload Image</small>
-                                                            </span>
+                                                                <span class="img_alert" style="{{ ($imageUrl != '' && $cleanPath != $defaultPath) ? '' : 'display:none' }}">
+                                                                <i class="fas fa-upload"></i>
+                                                                <br><small>Upload Image</small>
+                                                                </span>
                                                         </div>
                                                         
                                                     </label>

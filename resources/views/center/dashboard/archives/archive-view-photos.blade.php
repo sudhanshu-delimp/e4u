@@ -652,7 +652,7 @@
 
                                                             @endswitch
                                                             <div class="upload_date">
-                                                                Uploaded: <span></span>
+                                                                Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
                                                             </div>
                                                             </div>
                                                         @endif
