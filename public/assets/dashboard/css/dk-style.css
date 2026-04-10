@@ -3468,7 +3468,7 @@ button.btn:focus {
     position: absolute;
     width: 200px;
     left: 50%;
-    bottom: 100%;
+    bottom: 50px;
     z-index: 999;
     background: #ff3c5f;
     color: #fff;
@@ -6496,6 +6496,9 @@ padding-bottom:80px;
 
 .create-tour-sec:focus-visible {
     outline: none !important;
+}
+.create-tour-sec.disabled-img-btn:hover{
+    background-color: #ccc;
 }
 
 .left-photo-sec {

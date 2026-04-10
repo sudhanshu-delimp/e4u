@@ -651,6 +651,9 @@
                                                                     </div>
 
                                                             @endswitch
+                                                            <div class="upload_date">
+                                                                Uploaded: <span></span>
+                                                            </div>
                                                             </div>
                                                         @endif
                                                     @endforeach
