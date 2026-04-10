@@ -29,10 +29,10 @@
         color: #fff !important;
     }
 
-    /* .disabled-form-tab {
+    .disabled-form-tab {
         pointer-events: none;
         opacity: 0.5;
-    } */
+    }
 
 
 
@@ -581,18 +581,18 @@
             //console.log('logs====>', $('a.nav-link.active').parent().index());
 
 
-            // if (isFirstTab) {
+            if (isFirstTab) {
 
-            //     if (!checkProfileDynamicMedia()) {
-            //         return false;
-            //     }
-            // }
+                if (!checkProfileDynamicMedia()) {
+                    return false;
+                }
+            }
 
-            // if (isSecondTab) {
+            if (isSecondTab) {
 
-            //     if (!validateSecondTab())
-            //         return false;
-            // }
+                if (!validateSecondTab())
+                    return false;
+            }
 
             if (isThirdTab) {
 
