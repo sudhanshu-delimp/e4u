@@ -457,7 +457,7 @@
 
 {{-- end --}}
 @endsection
-@section('script')
+@push('script')
 <!-- opr_accordian_table JS -->
 <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
 
@@ -488,9 +488,9 @@
             if (!isOpen) toggle.querySelector('i').classList.add('rotated');
         });
     });
-</script>
 
-<script>
+
+
     var table = $("#AgentReportTable").DataTable({
         language: {
             search: "Search: _INPUT_",
@@ -522,4 +522,4 @@
            ],
     });
 </script>
-@endsection
+@endpush
