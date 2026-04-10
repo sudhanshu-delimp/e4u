@@ -27,8 +27,9 @@
                                                             $defaultPath = 'assets/app/img/upload-media.png';
                                                             $cleanPath = parse_url($imageUrl, PHP_URL_PATH);
                                                             $cleanPath = ltrim($cleanPath, '/');
+                                                            $imageUrl = $imageUrl ?? '';
                                                         @endphp
-                                                        <div class="{{ ($imageUrl != '' && $cleanPath != $defaultPath) ? 'has_img' : '' }} upload_varification_img_wrapper">
+                                                        <div class="{{ (isset($imageUrl) && !empty($imageUrl) && $cleanPath != $defaultPath) ? 'has_img' : '' }} upload_varification_img_wrapper">
                                                             <img id="blah9"
                                                             class="img-fluid px-2   preview-image js_VerificationMedia"
                                                             src="{{ $imageUrl ?? asset('assets/app/img/upload-media.png') }}"
