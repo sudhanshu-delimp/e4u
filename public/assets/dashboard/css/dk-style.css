@@ -3498,6 +3498,57 @@ button.btn:focus {
     display: block;
 }
 
+.has_img {
+    position: relative;
+    overflow: hidden;
+}
+
+.has_img .img_alert {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    background: #ff3c5f;
+    font-size: 23px;
+    border-radius: 2px;
+    width: 25px;
+    height: 25px;
+    visibility: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.6s ease-in-out;
+}
+
+.has_img .img_alert i {
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.has_img .img_alert small {
+    display: none;
+}
+
+.has_img:hover .img_alert {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    visibility: visible;
+    background: #0c223da1;
+    width: 35%;
+    height: 35%;
+}
+
+.has_img:hover .img_alert small {
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    width: max-content;
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
 .common_shield_tooltip {
     position: absolute;
     left: 50%;
@@ -7662,6 +7713,9 @@ ul#accordionSidebar {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .half_heght_pic {
