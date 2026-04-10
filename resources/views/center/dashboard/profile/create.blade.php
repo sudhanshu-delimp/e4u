@@ -29,10 +29,10 @@
         color: #fff !important;
     }
 
-    .disabled-form-tab {
+    /* .disabled-form-tab {
         pointer-events: none;
         opacity: 0.5;
-    }
+    } */
 
 
 
@@ -256,6 +256,43 @@
     </div>
 </div>
 
+<div class="modal fade upload-modal programmatic" id="update_open_time" style="display: none">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form name="frm_update_open_time" method="post" action="{{route('center.update-open-time')}}">
+                   
+                    <input type="hidden" name="post_json_open_time" id="post_json_open_time" value="">
+                    
+
+                    <h3 class=""><span id="Lname">
+                            <h5 class="custom_modal_text">Would you like to update <b>
+                                    <span id="open_time_field_name"></span>
+                                </b> in your 'Our Information' page for future Profiles?</h5>
+                        </span> </h3>
+                    <div class="modal-footer justify-content-center pt-0">
+                        <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
+                            value="close" id="close_change">No</button>
+                        <button type="button" class="btn-success-modal" id="yes_update_open_time">Yes</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade upload-modal create_messure" id="create_messure" style="display: none">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -333,26 +370,73 @@
 
 <script>
     var my_availability = [];
+    window.profile_languages_array = [];
+    let languageTimer;
+    let current_languages_array = []; 
 
     $("body").on("click", "#defaultImg", setDefaults);
 
+
+   
+    document.addEventListener("DOMContentLoaded", function () {
+        var inputs = document.querySelectorAll('#container_language input[name="language[]"]');
+        window.profile_languages_array = Array.from(inputs).map(input => input.value);
+        console.log('profile_languages_array', window.profile_languages_array);
+    });
+
+
+       /////////// Update language //////////////////////// 
+       $(document).on('change click', '.update_language_data, .remove-lang', function(e) {
+            clearTimeout(languageTimer);
+            languageTimer = setTimeout(function() {
+            var current_inputs = document.querySelectorAll('#container_language input[name="language[]"]');
+            current_languages_array = Array.from(current_inputs).map(input => input.value);
+
+            console.log('inside', current_languages_array);
+
+           let isDifferent = current_languages_array.length !== window.profile_languages_array.length ||
+                  current_languages_array.some(val => !window.profile_languages_array.includes(val));
+
+            if (isDifferent)
+            {
+                current_feild = 'language';
+                current_value = JSON.stringify(current_languages_array);
+                $('#post_field').val(current_feild);
+                $('#post_value').val(current_value);
+                $('#field_name').text('Language');
+                $('#update_info').modal('show');
+            } 
+             }, 500);
+
+             return false;
+        });
+        /////////// End Update language //////////////////////// 
+
+
     $(document).ready(function(e) {
-
-
         $('#language').change(function() {
+            console.log('===========');
             var languageValue = $('#language').val();
-            //$("#show_language").show();
+            $("#show_language").show();
             //$(".select_lang").hide();
             var selectedLanguage = $(this).children("option:selected", this).data("name");
-            $("#show_db_language").append(" <div class='selecated_languages select_lang'><span class='languages_choosed_from_drop_down'>" + selectedLanguage + " <small class='remove-lang'>×</small></span> </div> ");
+            $("#show_db_language").append(" <div class='selecated_languages select_lang' id="+languageValue+"><span class='languages_choosed_from_drop_down'>" + selectedLanguage + " <small class='remove-lang'>×</small></span> </div> ");
             $("#container_language").append("<input type='hidden' name='language[]' value=" + languageValue + ">");
             $("#language option[value='" + languageValue + "']").remove();
         });
 
         $(document).on('click', '.remove-lang , span.custom--help', function() {
+
+            let parent = $(this).closest('.selecated_languages');
+            let id = parent.attr('id');
+            $('#container_language input[name="language[]"][value="'+id+'"]').remove();
+
             $(this).closest('.selecated_languages').remove();
             $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
         });
+
+
+        
 
         //// ----------- Update Single Data ------------ ///////
         $('.update_profile_data').on('blur change', function() {
@@ -497,18 +581,18 @@
             //console.log('logs====>', $('a.nav-link.active').parent().index());
 
 
-            if (isFirstTab) {
+            // if (isFirstTab) {
 
-                if (!checkProfileDynamicMedia()) {
-                    return false;
-                }
-            }
+            //     if (!checkProfileDynamicMedia()) {
+            //         return false;
+            //     }
+            // }
 
-            if (isSecondTab) {
+            // if (isSecondTab) {
 
-                if (!validateSecondTab())
-                    return false;
-            }
+            //     if (!validateSecondTab())
+            //         return false;
+            // }
 
             if (isThirdTab) {
 
@@ -877,48 +961,51 @@
 
     $(document).ready(function() 
     {
-        // if(account_completd===0)
-        // {
-        // console.log('account_completd',account_completd)
-        //     Swal.fire({
-        //         icon: 'warning',
-        //         title: 'Profile',
-        //         text: 'Please update your Profile information.',
-        //         confirmButtonText: 'OK'
-        //     }).then((result) => {
-        //         if(result.isConfirmed){
-        //             window.location.href = "{{ url('center-dashboard/profile-informations') }}";
-        //         }
 
-        //     });
-        // }
-
-        $.ajax({
-                url: "{{ route('center.check-messure-profile') }}",
-                type: 'GET',
-                processData: false,
-                contentType: false,
-                success: function(response) {
-
-                    if (response.messure_count < 1) {
-                        $('#create_messure').modal({
-                            backdrop: 'static',
-                            keyboard: false
-                        });
-                    }
-
-                },
-
-                error: function(xhr) {
-                    Swal.close();
-                    let message = 'Error while saving profile';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        message = xhr.responseJSON.message;
-                    }
-                    swal_error_popup(message);
-                }
-        });
+    
+        if(account_completd==='0')
+        {
        
+            Swal.fire({
+                icon: 'warning',
+                title: 'Profile',
+                text: 'please complete your My Account information.',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location.href = "{{ url('center-dashboard/update-account') }}";
+                }
+
+            });
+        }
+        else
+        {
+            $.ajax({
+                    url: "{{ route('center.check-messure-profile') }}",
+                    type: 'GET',
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+
+                        if (response.messure_count < 1) {
+                            $('#create_messure').modal({
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                        }
+
+                    },
+
+                    error: function(xhr) {
+                        Swal.close();
+                        let message = 'Error while saving profile';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+                        swal_error_popup(message);
+                    }
+            });
+        }
     })
 
 
@@ -1107,5 +1194,86 @@
     $('#create_messure_profile').on('click', function() {
         window.location.href = 'create-new-masseur';
     });
+
+
+    /////////// Change Our Open Time /////////////////
+    $(document).on('change', '.hh_from', function() {
+        let input_day = $(this).attr('name');
+        let input_value = $(this).val();
+        let input_type = 'from';
+        let formData = {
+            input_day : input_day,
+            input_value : input_value,
+            input_type : input_type,
+        }
+
+         $('#post_json_open_time').val(JSON.stringify(formData));
+         $('#open_time_field_name').html('Our Open Time');
+         $('#update_open_time').modal('show');
+    });
+
+     $(document).on('change', '.hh_to', function() {
+        let input_day = $(this).attr('name');
+        let input_value = $(this).val();
+        let input_type = 'to';
+        let formData = {
+            input_day : input_day,
+            input_value : input_value,
+            input_type : input_type,
+        }
+
+         $('#post_json_open_time').val(JSON.stringify(formData));
+         $('#open_time_field_name').html('Our Open Time');
+         $('#update_open_time').modal('show');
+    });
+
+
+     $(document).on('click', '.check_tab', function() {
+        let input_day = $(this).attr('name');
+        let input_value = $(this).val();
+        let input_type = 'radio_button';
+        let formData = {
+            input_day : input_day,
+            input_value : input_value,
+            input_type : input_type,
+        }
+
+         $('#post_json_open_time').val(JSON.stringify(formData));
+         $('#open_time_field_name').html('Our Open Time');
+         $('#update_open_time').modal('show');
+    });
+
+
+    $('#yes_update_open_time').on('click', function(e) {
+            e.preventDefault();
+            swal_waiting_popup({
+                'title': 'Updating Data.'
+            });
+            let form = $('form[name="frm_update_open_time"]');
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.close();
+                    $('#update_open_time').modal('hide');
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    $('#update_open_time').modal('hide');
+                },
+                complete: function() {
+                    Swal.close();
+                    $('#update_open_time').modal('hide');
+                }
+            });
+        });
+    
+
+
 </script>
 @endpush

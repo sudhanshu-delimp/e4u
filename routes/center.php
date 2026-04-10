@@ -94,6 +94,7 @@ Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
 Route::get('/list', [MassageController::class, 'massager_list'])->name('center.list');
 Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_list'])->name('center.all-massager-list');
+Route::post('update-open-time',[MassageController::class,'update_open_time'])->name('center.update-open-time');
 
 
 

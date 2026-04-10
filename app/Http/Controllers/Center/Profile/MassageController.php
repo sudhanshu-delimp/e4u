@@ -382,7 +382,11 @@ class MassageController extends Controller
                             ->first();
                             
                     $field = $request->post_field;
-                    $value = $request->post_value;    
+
+                    if($field=='language')
+                    $value = json_decode($request->post_value); 
+                    else
+                    $value = $request->post_value; 
                     
                     $profile->update([
                         $field => $value
@@ -1349,7 +1353,201 @@ class MassageController extends Controller
     }
 
 
+    //"{"input_day":"time[tuesday][hh_from]","input_value":"03:00 AM","input_type":"from"}"
+
+    public function update_open_time(Request $request)
+    {
+        if($request->post_json_open_time!=="")
+        {
+            $user = auth()->user();
+            $post_json_open_time = json_decode($request->post_json_open_time, true);
+            $massage_default = $this->massage_profile->findDefault($user->id,1);
+            if(!$massage_default ) {
+                $massage_default = $this->massage_profile->make();
+            }
+
+            
+            
+             $input_type = $post_json_open_time['input_type'];
+             $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
+
+            if($input_type == 'from' || $input_type =='to')
+            {
+                     $input_day =  $post_json_open_time['input_day'];
+                     $input_value =  $post_json_open_time['input_value'];
+
+                    if(!empty($availability))
+                    {
+                        preg_match('/time\[(.*?)\]/', $input_day, $matches);
+                        $day = $matches[1];
+                        foreach ($availability as $key => &$value) {
+                            if ($key === $day) 
+                            {
+                                $availability[$day][$input_type] = $input_value;
+
+                                if($input_type =='to')
+                                $availability[$day]['status']= 'custom';
+                        
+                                break;
+                            }
+                        }
+
+                    }
+                    
+                    $availabilityJson = json_encode($availability);
+                    if ($massage_default->availability) {
+                        $massage_default->availability->availability_time = $availabilityJson;
+                        $massage_default->availability->save(); 
+                    }
+            }
+
+            if($input_type == 'radio_button')
+            {
+                
+                $input_day =  $post_json_open_time['input_day'];
+                $input_value =  $post_json_open_time['input_value'];
+                preg_match('/\[(.*?)\]/', $post_json_open_time['input_day'], $matches);
+                $day = $matches[1];
+                foreach ($availability as $key => &$value) 
+                {
+                    if ($key === $day) 
+                    {
+                        if($input_value == 'til_late')
+                        {
+                            $availability[$day]['status']= 'til_late';
+                            $availability[$day]['to']= null;
+                        }
+                        
+                        if($input_value == 'closed')
+                        {
+                            $availability[$day]['status']= 'closed';
+                            $availability[$day]['from']= null;
+                            $availability[$day]['to']= null;
+                        }
+                        break;
+                    }
+                }
+
+
+               
+                }
+
+                $ids = DB::table('masseurs')->whereNotIn('id', function ($query) use($user) {
+                            $query->select('masseur_profile_id')
+                                ->from('massager_masseurs')->where('massage_profile_id',$user->id);
+                        })->where('user_id',$user->id)->pluck('id');
+
+            
+                $availabilityJson = json_encode($availability);
+                if ($massage_default->availability) {
+                    $massage_default->availability->availability_time = $availabilityJson;
+                    $massage_default->availability->save(); 
+
+                // if(!empty($ids))
+                // {
+                //    $masseurs  = Masseur::where('user_id', $user->id)->whereIn('id', $ids)->get();
+                //    $new_availability = $availability;
+
+                //    Log::info('new_availability');
+                //    Log::info($new_availability);
+
+                //    foreach( $masseurs as  $masseur)
+                //    {
+                //         $masseur_availability = json_decode($masseur->availability, true);
+                //         $old_availability = $this->update_availibility($new_availability, $masseur_availability);   
+                //         $new_availability_Json = json_encode($old_availability);
+                //         $masseur->availability = $new_availability_Json;
+                //         $masseur->save();
+                        
+                //     }
+
+                // }
+
+            }
+
+
+            
+            return response()->json([
+                'success' => true,
+                'availibility' => $availability,
+                //'old_availability' => $old_availability,
+            ]);
+
+        }
+    }
+
+
+    public function update_availibility($inputAvailibility, $old_availability)
+    {
+        foreach ($inputAvailibility as $day => $newData) 
+        {
+            
+            $oldData = $old_availability[$day] ?? null;
+            $oldFrom = $oldData['from'];
+            $oldTo   = $oldData['to'];
+
+            $newFrom = $newData['from'];
+            $newTo   = $newData['to'];
+            $status  = $newData['status'];
+
+            
+            $oldFromTime = $oldFrom ? strtotime($oldFrom) : null;
+            $oldToTime   = $oldTo ? strtotime($oldTo) : null;
+            $newFromTime = $newFrom ? strtotime($newFrom) : null;
+            $newToTime   = $newTo ? strtotime($newTo) : null;
+
+           
+            if ($status === 'closed') 
+            {
+                $old_availability[$day] = [
+                    'status' => 'closed',
+                    'from'   => null,
+                    'to'     => null,
+                ];
+                continue;
+            }
+
+           
+            if ($status === 'til_late') 
+            {
+
+                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) {
+                    $oldFrom = $newFrom;
+                }
+
+                $old_availability[$day] = [
+                    'status' => 'til_late',
+                    'from'   => $oldFrom,
+                    'to'     => null,
+                ];
+                continue;
+            }
+
     
+            if ($status === 'custom') 
+            {
+                
+                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) {
+                    $oldFrom = $newFrom;
+                }
+
+               
+                if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) {
+                    $oldTo = $newTo;
+                }
+
+                $old_availability[$day] = [
+                    'status' => 'custom',
+                    'from'   => $oldFrom,
+                    'to'     => $oldTo,
+                ];
+            }
+
+        }
+        
+        return $old_availability;
+    }
+
 
 
 }
