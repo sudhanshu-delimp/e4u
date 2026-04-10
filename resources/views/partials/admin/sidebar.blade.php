@@ -1204,18 +1204,18 @@
                         </a>
                         <div id="SettingsMenu" class="collapse @if (in_array(request()->segment(3), ['All-user', 'set-fees', 'fee-discount'])) show @endif"
                             data-parent="#Management">
+                            
+
+                            <a class="collapse-item" href="{{ route('fee-discount') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/fee.png') }}">
+                                <span style="{{ request()->segment(3) == 'fee-discount' ? 'color: #FF3C5F;' : '' }}">Fee Discounts</span>
+                            </a>
 
 
                             <a class="collapse-item" href="{{ route('admin.set-fees') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/fee.png') }}">
                                 <span style="{{ request()->segment(3) == 'set-fees' ? 'color: #FF3C5F;' : '' }}">Fees
                                     & Variables</span>
-                            </a>
-                            
-
-                            <a class="collapse-item" href="{{ route('fee-discount') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/fee.png') }}">
-                                <span style="{{ request()->segment(3) == 'fee-discount' ? 'color: #FF3C5F;' : '' }}">Fee Discounts</span>
                             </a>
 
                             
