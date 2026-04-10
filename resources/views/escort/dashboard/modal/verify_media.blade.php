@@ -23,7 +23,16 @@
                                             <div class="">
                                                 <div class="plate">
                                                     <label class="newbtn" for="upload_varification_img">
-                                                        <div class="has_img upload_varification_img_wrapper">
+                                                       @php
+                                                            $imageUrl = $imageUrl ?? ''; 
+
+                                                            $defaultPath = 'assets/app/img/upload-media.png';
+
+                                                            $cleanPath = parse_url($imageUrl, PHP_URL_PATH);
+                                                            $cleanPath = ltrim($cleanPath ?? '', '/');
+                                                        @endphp
+
+                                                        <div class="{{ (!empty($imageUrl) && $cleanPath != $defaultPath) ? 'has_img' : '' }} upload_varification_img_wrapper">
                                                             <img id="blah9"
                                                             class="img-fluid px-2   preview-image js_VerificationMedia"
                                                             src="{{ $imageUrl ?? asset('assets/app/img/upload-media.png') }}"
@@ -33,7 +42,7 @@
                                                             onchange="readVarificationImageURL(this);" type="file"
                                                             accept="image/*">
 
-                                                            <span class="img_alert">
+                                                            <span class="img_alert" style="{{ (!empty($imageUrl) && $cleanPath != $defaultPath) ? '' : 'display:none' }}">
                                                               <i class="fas fa-upload"></i>
                                                                <br><small>Upload Image</small>
                                                             </span>

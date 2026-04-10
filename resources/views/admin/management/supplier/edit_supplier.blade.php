@@ -79,7 +79,6 @@
         <div class="col-12 mb-3">
             <label for="concierge_service">Concierge Service</label>
             <select class="form-control rounded-0" name="concierge_service" id="concierge_service_edit">
-                <option value="">Select Service</option>
                <option value="">Select Service</option>
                  <option value="email">Email</option>
                  <option value="product">Product</option>
@@ -136,6 +135,7 @@
     </div>
 
     <div class="modal-footer px-0">
-        <button type="submit" class="btn-success-modal">Save</button>
+        <button type="submit" class="btn-success-modal m-0">Update</button>
+        <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Cancel">Close</button>
     </div>
 </form>
