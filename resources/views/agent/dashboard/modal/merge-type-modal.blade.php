@@ -17,31 +17,33 @@
                 </div> 
                 <div class="modal-body pb-0 agent-tour">
                     <h4 class="custom_modal_text">Select the Marketing Information document to merge with</h4>
-                    <form method="" action="">
+                   <form method="get" action="" id="getMergeType">
                         <div class="row my-3">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-center gap-20">
+                                        
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="mergeType"
-                                                id="single" checked>
+                                                id="single" value="single" checked>
                                             <label class="form-check-label" for="single">Massage Centre (single)</label>
                                         </div>
+
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="mergeType"
-                                                id="multiple" value="massage">
-                                            <label class="form-check-label" for="multiple">Massage Centre
-                                                (Multiple)</label>
+                                                id="multiple" value="multiple">
+                                            <label class="form-check-label" for="multiple">Massage Centre (Multiple)</label>
                                         </div>
+
                                     </div>
                                 </div>
-                                 <div class="d-flex justify-content-center mt-4">
-                                    <button type="button" data-toggle="modal" data-target="#view_list" class="btn-success-modal" id="save_button">Merge</button>
-                                 </div>
+
+                                <div class="d-flex justify-content-center mt-4">
+                                    <button type="button" class="btn-success-modal" id="save_button">Merge</button>
+                                </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

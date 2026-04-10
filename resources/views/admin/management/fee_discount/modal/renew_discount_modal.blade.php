@@ -20,7 +20,7 @@
                                 <label for="discount">Discount</label>
                                 <div class="input-group">
                                     <input type="text" 
-                                        class="form-control rounded-0" 
+                                        class="form-control rounded-0 only_digits_decimal" 
                                         placeholder="Discount"
                                         name="discount">
                                     <span class="input-group-text">%</span>
@@ -56,14 +56,14 @@
         modal.find('input[name="advertiser_id"]').val(button.data('user_id'));
         });
 
-    $(document).on('submit', '#renew_discount_form', function (e) {
+    $(document).on('submit', '#renew_discount_form', async function (e) {
     e.preventDefault();
+    if (await isConfirm({'action': 'Renew','text':' Renew This Discount.'})) { 
+        let form = $(this);
+        let url = form.attr('action');   // GET URL FROM FORM
+        let formData = form.serialize(); // includes id + _token (if present)
 
-    let form = $(this);
-    let url = form.attr('action');   // ✅ GET URL FROM FORM
-    let formData = form.serialize(); // includes id + _token (if present)
-
-    $.ajax({
+        $.ajax({
         url: url,
         type: 'POST',
         data: formData,
@@ -101,7 +101,8 @@
                 text: option.message
             });
         }
-    });
+        });
+    }
 });
     </script>
     @endpush
