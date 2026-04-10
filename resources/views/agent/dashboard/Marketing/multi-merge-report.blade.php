@@ -22,7 +22,7 @@
 
                         <!-- Left Side -->
                         <div>
-                            <h5 class="mb-0 font-weight-bold">Filter single or multiple reports</h5>
+                            <h5 class="mb-0 font-weight-bold">Filter Merge Reports</h5>
                         </div>
 
                         <!-- Right Side Controls -->
@@ -35,14 +35,14 @@
                                     <input type="text" id="postcodeTo" class="form-control" placeholder="6001" style="width: 120px;">
                                 </div>
 
-                                <button type="button" class="btn-filter" id="applyPostcodeFilter">Apply</button>
+                                {{-- <button type="button" class="btn-filter" id="applyPostcodeFilter">Apply</button> --}}
 
                                 <!-- Selection Mode -->
                             <div class="selection-group d-flex align-items-center gap-10">
-                                <div class="form-check form-check-inline">
+                                {{-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="selectionMode" id="singleMode" value="single" >
                                     <label class="form-check-label" for="singleMode">Single</label>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="selectionMode" id="multipleMode" value="multiple" checked>
@@ -272,7 +272,7 @@
                                 <h5 class="mb-0 font-weight-bold">Filtered Data</h5>
                                 <div class="d-flex justify-content-between align-items-center gap-10">
                                     <button type="button" class="btn-success-modal">Save</button>
-                                    <button type="button" class="btn-success-modal">Print</button>
+                                    <button type="button" class="btn-success-modal" onclick="printDiv()">Print</button>
                                     </div>
                                 </div>
                             <table class="table table-bordered">
@@ -306,6 +306,21 @@
     </script>
 
    <script>
+
+ function printDiv() {
+        var content = document.getElementById("selectedOutput").innerHTML;
+        var originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = content;
+
+        window.onafterprint = function () {
+            document.body.innerHTML = originalContent;
+            window.location.reload();
+        };
+
+        window.print();
+    }
+
     $(document).ready(function () {
 
         // Initialize DataTable
@@ -429,26 +444,27 @@
 
         // CLEAR SELECTION
        $('#clearSelectionBtn').on('click', function () {
-    const $icon = $(this).find('.clear-icon');
+            const $icon = $(this).find('.clear-icon');
 
-    // icon animation trigger
-    $icon.addClass('rotate-icon');
+            // icon animation trigger
+            $icon.addClass('rotate-icon');
 
-    // clear selections
-    $('.record-checkbox').prop('checked', false);
-    highlightSelectedRows();
-    updateSelectedRecords();
-    resetSelectedTable();
+            // clear selections
+            $('.record-checkbox').prop('checked', false);
+            highlightSelectedRows();
+            updateSelectedRecords();
+            resetSelectedTable();
 
-    // postcode range bhi clear karna ho to
-    $('#postcodeRange').val('');
-    table.draw();
+            // postcode range bhi clear karna ho to
+            $('#postcodeFrom').val('');
+            $('#postcodeTo').val('');
+            table.draw();
 
-    // animation reset
-    setTimeout(() => {
-        $icon.removeClass('rotate-icon');
-    }, 500);
-});
+            // animation reset
+            setTimeout(() => {
+                $icon.removeClass('rotate-icon');
+            }, 500);
+        });
 
         // =========================
         // GET SELECTED DATA

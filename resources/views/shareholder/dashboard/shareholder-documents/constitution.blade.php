@@ -17,7 +17,7 @@
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                     
                     <ol>
-                        <li>The Company Constitution (Constitution) is available to all Shareholders.</li>
+                        <li>The Company Constitution (<b>Constitution</b>) is available to all Shareholders.</li>
                         <li>To access, simply select the section within the Constitution you are wanting. You can
                             also search by clause number or title.</li>
                         <li>Key information:
@@ -41,9 +41,9 @@
                     <!-- Left Side PDF Viewer -->
                     <div class="col-md-9">
                         <div class="pdf-area">
-                            <div class="pdf-title" id="pdfTitle"> Balance Sheet (30-06-2025)</div>
+                            <div class="pdf-title" id="pdfTitle"> Constitution of Blackbox Tech Pty Ltd (2023)</div>
                             <iframe id="pdfViewer" class="pdf-viewer"
-                                src="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2025.pdf') }}"></iframe>
+                                src="{{ asset('assets/dashboard/document/Blackbox_Tech_Pty_Ltd_Constitution_(2023).pdf') }}"></iframe>
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@
                     <div class="col-md-3">
                         <div class="search_by_year">
                             <form action="" method="GET" id="searchForm">
-                                <input type="search" name="search" placeholder="Search by year">
+                                <input type="search" name="search" placeholder="Search by Clause No. or Title">
                             </form>
                         </div>
 
@@ -60,92 +60,9 @@
 
                                 <li>
                                     <a href="javascript:void(0)" class="nav-link active"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2025.pdf') }}"
-                                        data-title=" Balance Sheet (30-06-2025)">
-                                        Balance Sheet (30-06-2025)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2024-to-30-06-2025.pdf') }}"
-                                        data-title="Profit and Loss (30-06-2025)">
-                                        Profit and Loss (30-06-2025)
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-31-12-2024.pdf') }}"
-                                        data-title=" Balance Sheet (31-12-2024)">
-
-                                        Balance Sheet (31-12-2024)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2024-to-31-12-2024.pdf') }}"
-                                        data-title="Profit and Loss (31-12-2024)">
-                                        Profit and Loss (31-12-2024)
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2024.pdf') }}"
-                                        data-title="Balance Sheet (30-06-2024)">
-                                        Balance Sheet (30-06-2024)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2023-to-30-06-2024.pdf') }}"
-                                        data-title="Profit and Loss (30-06-2024)">
-                                        Profit and Loss (30-06-2024)
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-31-12-2023.pdf') }}"
-                                        data-title="Balance Sheet (31-12-2023)">
-                                        Balance Sheet (31-12-2023)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2023-to-31-12-2023.pdf') }}"
-                                        data-title="Profit and Loss (31-12-2023)">
-                                        Profit and Loss (31-12-2023)
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-30-06-2023.pdf') }}"
-                                        data-title="Balance Sheet (30-06-2023)">
-                                        Balance Sheet (30-06-2023)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2022-to-30-06-2023.pdf') }}"
-                                        data-title="Profit and Loss (30-06-2023)">
-                                        Profit and Loss (30-06-2023)
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Balance-Sheet-as-at-31-12-2022.pdf') }}"
-                                        data-title="Balance Sheet (31-12-2022)">
-                                        Balance Sheet (31-12-2022)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="nav-link"
-                                        data-pdf="{{ asset('assets/dashboard/forms-pdf/financials/BBT-Pty-Ltd-Profit-and-Loss-01-07-2022-to-31-12-2022.pdf') }}"
-                                        data-title="Profit and Loss (31-12-2022)">
-                                        Profit and Loss (31-12-2022)
+                                        data-pdf="{{ asset('assets/dashboard/document/Blackbox_Tech_Pty_Ltd_Constitution_(2023).pdf') }}"
+                                        data-title=" Constitution of Blackbox Tech Pty Ltd (2023)">
+                                        Constitution of Blackbox Tech Pty Ltd (2023)
                                     </a>
                                 </li>
 

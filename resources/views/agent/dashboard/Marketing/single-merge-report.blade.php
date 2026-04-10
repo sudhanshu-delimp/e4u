@@ -247,7 +247,7 @@
                                 <h5 class="mb-0 font-weight-bold">Filtered Data</h5>
                                 <div class="d-flex justify-content-between align-items-center  gap-10">
                                     <button type="button" class="btn-success-modal">Save</button>
-                                    <button type="button" class="btn-success-modal" >Print</button>
+                                    <button type="button" class="btn-success-modal" onclick="printDiv()">Print</button>
                                     </div>
                                 </div>
                             <table class="table table-bordered">
@@ -281,6 +281,20 @@
     </script>
 
    <script>
+    function printDiv() {
+        var content = document.getElementById("selectedOutput").innerHTML;
+        var originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = content;
+
+        window.onafterprint = function () {
+            document.body.innerHTML = originalContent;
+            window.location.reload();
+        };
+
+        window.print();
+    }
+
     $(document).ready(function () {
 
         // Initialize DataTable
