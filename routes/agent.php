@@ -121,7 +121,14 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     Route::get('marketing/prospect-lists/postcodes', [ProspectListController::class, 'postcodes'])->name('agent.marketing.prospect.postcodes');
     Route::get('marketing/prospect-lists/generate', [ProspectListController::class, 'generateList'])->name('agent.marketing.prospect.generate');
     Route::get('marketing/prospect-lists/recipients', [ProspectListController::class, 'showRecipients'])->name('agent.marketing.prospect.recipients');
-     
+    Route::get('marketing/prospect-lists/reports', [ProspectListController::class, 'getReports'])->name('agent.marketing.prospect.reports');
+    Route::post('marketing/prospect-lists/store-report', [ProspectListController::class, 'storeReport'])->name('agent.marketing.prospect.store-report');
+    Route::post('marketing/prospect-lists/report-action', [ProspectListController::class, 'reportAction'])->name('agent.marketing.prospect.report-action');
+    Route::post('marketing/prospect-lists/clear-reports', [ProspectListController::class, 'clearReports'])->name('agent.marketing.prospect.clear-reports');
+    Route::get('marketing/prospect-list/save-report', [ProspectListController::class, 'saveReport'])->name('agent.marketing.prospect.save-report');
+
+    //Save Report
+    Route::get('marketing/save-report/list', [SaveReportController::class, 'saveReportList'])->name('agent.marketing.prospect.save.report.list');
      
      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');

@@ -6,13 +6,16 @@ const endpoint = {
     postcodes_url: mmRoot.data('postcodes-url'),
     generate_url: mmRoot.data('generate-url'),
     recipients_url: mmRoot.data('recipients-url'),
+    reports_url: mmRoot.data('reports-url'),
+    action_url: mmRoot.data('action-url'),
+    clear_reports_url: mmRoot.data('clear-reports-url'),
     agent_state: mmRoot.data('agent-state'),
+    save_report: mmRoot.data('save-report'),
 };
-
 
 $(document).ready(function() {
 
-    // ===================== DataTables =====================
+    // DataTables
     var previewTable = $("#previewTable").DataTable({
         language: {
             search: "Search: _INPUT_",
@@ -138,7 +141,15 @@ $(document).ready(function() {
         ],
     });
 
-    // ===================== Postcode Type Toggle =====================
+    //  Toggle Clear Button 
+    function toggleClearBtn() {
+        var hasData = reportsTable.rows().count() > 0;
+        $('#clearReports').prop('disabled', !hasData);
+        $('#saveReport').prop('disabled',!hasData);
+    }
+    toggleClearBtn();
+
+    //  Postcode Type Toggle 
     $('input[name="postcodeType"]').change(function() {
         var val = $(this).val();
         $('#singlePostCodeField').toggleClass('d-none', val !== 'single');
@@ -154,7 +165,7 @@ $(document).ready(function() {
         $('#rangeFeedback').empty();
     });
 
-    // ===================== Single Postcode Autocomplete =====================
+    //  Single Postcode Autocomplete 
     var searchTimeout = null;
     $('#singlePostCode').on('input', function() {
         var q = $(this).val().trim();
@@ -162,7 +173,7 @@ $(document).ready(function() {
 
         if (searchTimeout) clearTimeout(searchTimeout);
 
-        if (q.length < 2) {
+        if (q.length < 1) {
             dropdown.removeClass('show').empty();
             return;
         }
@@ -205,7 +216,7 @@ $(document).ready(function() {
         }, 200);
     });
 
-    // ===================== Multiple Range Autocomplete =====================
+    //  Multiple Range Autocomplete 
     var fromTimeout = null;
     var toTimeout = null;
 
@@ -220,7 +231,7 @@ $(document).ready(function() {
                 if (toTimeout) clearTimeout(toTimeout);
             }
 
-            if (q.length < 2) {
+            if (q.length < 1) {
                 dropdown.removeClass('show').empty();
                 validateRange();
                 return;
@@ -276,7 +287,7 @@ $(document).ready(function() {
         validateRange();
     });
 
-    // ===================== Multiple Range Validation =====================
+    // Multiple Range Validation
 
     function validateRange() {
         var from = $('#fromPostCode').val().trim();
@@ -305,13 +316,13 @@ $(document).ready(function() {
         feedback.html('<span class="range-success"><i class="fa fa-check-circle"></i> Range: ' + fromNum + ' to ' + toNum + ' &mdash; ' + steps + ' postcode steps</span>');
     }
 
-    // ===================== Trial Run Toggle =====================
+    //Trial Run Toggle
     $('input[name="trialRun"]').change(function() {
         var val = $('input[name="trialRun"]:checked').val();
         $('#showRecipients').prop('disabled', val !== 'on');
     });
 
-    // ===================== Show Recipients (Trial Run) =====================
+    // Show Recipients (Trial Run)
     $('#showRecipients').click(function() {
         var type = $('input[name="postcodeType"]:checked').val();
         var params = { type: type };
@@ -350,7 +361,7 @@ $(document).ready(function() {
         });
     });
 
-    // ===================== Proceed (Generate) =====================
+    //  Proceed (Generate)
     $('#proceedBtn').click(function() {
 
         var type = $('input[name="postcodeType"]:checked').val();
@@ -372,51 +383,30 @@ $(document).ready(function() {
 
         $.ajax({
             url: endpoint.generate_url,
-            data: params,
+            method: 'POST',
+            data: $.extend({ _token: endpoint.csrf_token }, params),
             beforeSend: function() {
                 $('#proceedBtn').prop('disabled', true).text('Generating...');
             },
             success: function(res) {
                 if (res.data) {
-                    var postCodeLabel = type;
-                    if (type === 'single') postCodeLabel = params.post_code;
-                    else if (type === 'multiple') postCodeLabel = params.from + ' - ' + params.to;
-                    else postCodeLabel = 'All (' + (endpoint.agent_state || 'State') + ')';
-
-                    var now = new Date();
-                    var dateStr = ('0' + now.getDate()).slice(-2) + '/' + ('0' + (now.getMonth() + 1)).slice(-2) + '/' + now.getFullYear();
-                    var reportId = Math.floor(Math.random() * 9000) + 1000;
-
-                    var reportRow = {
-                        id: reportId,
-                        date_generated: dateStr,
-                        post_code: postCodeLabel,
-                        listings: res.data.length,
-                        merged: 'No',
-                        action: '<div class="dropdown no-arrow">' +
-                            '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>' +
-                            '<div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">' +
-                            '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#mergeType" data-toggle="modal"><i class="fa fa-bezier-curve"></i> Merge</a>' +
-                            '<div class="dropdown-divider"></div>' +
-                            '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" target="_blank"> <i class="fa fa-print"></i>'+
-                                    'Print</a>' +
-                                    '<div class="dropdown-divider"></div>' +
-                            '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#view_list" data-toggle="modal"><i class="fa fa-eye"></i> View</a>' +
-                            '</div></div>'
-                    };
-
-                   reportsTable.row.add(reportRow).draw();
+                    reportsTable.row.add(res.data.report).draw();
+                    toggleClearBtn();
 
                     if (trialRun === 'on') {
-                        previewTable.clear().rows.add(res.data).draw();
+                        previewTable.clear().rows.add(res.data.preview).draw();
                         $('#previewCard').removeClass('d-none');
                     }
 
-                    showAlert('success', 'List generated successfully! ' + res.data.length + ' listings found.');
+                    showAlert('success', res.message);
                 }
             },
-            error: function() {
-                showAlert('error', 'Failed to generate list.');
+            error: function(xhr) {
+                var msg = 'Failed to generate list.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    msg = xhr.responseJSON.message;
+                }
+                showAlert('error', msg);
             },
             complete: function() {
                 $('#proceedBtn').prop('disabled', false).text('Proceed');
@@ -424,17 +414,184 @@ $(document).ready(function() {
         });
     });
 
-    // ===================== Close Preview =====================
+    // Close Preview
     $('#closePreview').click(function() {
         $('#previewCard').addClass('d-none');
     });
 
-    // ===================== Alert Helper =====================
+    //  Report Actions (Merge/Print/View) 
+    $(document).on('click', '.report-action', function(e) {
+        e.preventDefault();
+        var reportId = $(this).data('report-id');
+        var action = $(this).data('action');
+
+        // $.ajax({
+        //     url: endpoint.action_url,
+        //     method: 'POST',
+        //     data: {
+        //         _token: endpoint.csrf_token,
+        //         action: action,
+        //         report_id: reportId
+        //     },
+        //     success: function(res) {
+        //         if (res.data && res.data.html) {
+        //             if (action === 'view') {
+        //                 $('#view_list .modal-body').html(res.data.html);
+        //                 $('#view_list').modal('show');
+        //             } else if (action === 'merge') {
+        //                 $('#mergeType .modal-body').html(res.data.html);
+        //                 $('#mergeType').modal('show');
+        //             } else if (action === 'print') {
+        //                 var printWindow = window.open('', '_blank');
+        //                 printWindow.document.write(res.data.html);
+        //                 printWindow.document.close();
+        //                 printWindow.print();
+        //             }
+        //         }
+        //     },
+        //     error: function() {
+        //         showAlert('error', 'Failed to perform ' + action + '.');
+        //     }
+        // });
+    });
+
+    //  Clear Reports
+    $('#clearReports').click(function() {
+          confirmDialog({
+            title: 'Are you sure?',
+            text: 'All generated reports will be permanently deleted.',
+            confirmButtonText: 'Yes, clear all',
+            fallbackMessage: 'Are you sure you want to clear all generated reports?',
+            onConfirm: clearReportsAjax
+        });
+    });
+
+    // Save Report
+    $('#saveReport').click(function(){
+        confirmDialog({
+            title: 'Save Report',
+            text: 'Do you want to save this report? It will be available in your saved reports section.',
+            confirmButtonText: 'Yes, save it',
+            onConfirm: saveReportAjax
+
+        });
+    });
+
+    function saveReportAjax(){
+        console.log(reportsTable.rows().count(), 'count');
+        $.ajax({
+            url: endpoint.save_report,
+            method: 'GET',
+            beforeSend : function(){
+                $('#saveReport').prop('disabled', true).text('Saving...');
+            },
+            success: function(res){
+                reportsTable.clear().draw();
+                console.log(reportsTable.clear().draw());
+                //toggleClearBtn();
+                showAlert('success', res.message || 'All reports cleared.');
+            },
+            error: function() {
+                showAlert('error', 'Failed to clear reports.');
+            },
+            complete: function(){
+                $('#saveReport').text('Save Report');
+                $('#saveReport').prop('disabled', false);
+                toggleClearBtn();
+            }
+        });
+    }
+
+    function clearReportsAjax() {
+        $.ajax({
+            url: endpoint.clear_reports_url,
+            method: 'POST',
+            data: { _token: endpoint.csrf_token },
+            beforeSend: function() {
+                $('#clearReports').prop('disabled', true).text('Clearing...');
+            },
+            success: function(res) {
+                reportsTable.clear().draw();
+                toggleClearBtn();
+                showAlert('success', res.message || 'All reports cleared.');
+            },
+            error: function() {
+                showAlert('error', 'Failed to clear reports.');
+            },
+            complete: function() {
+                $('#clearReports').text('Clear');
+                toggleClearBtn();
+            }
+        });
+    }
+
+    // Load Reports on Page Load 
+    function loadReports() {
+        $.ajax({
+            url: endpoint.reports_url,
+            success: function(res) {
+                if (res.data && res.data.length) {
+                    reportsTable.clear().rows.add(res.data).draw();
+                }
+                toggleClearBtn();
+            }
+        });
+    }
+    loadReports();
+
+    // Alert Helper function
     function showAlert(type, message) {
         if (typeof Swal !== 'undefined') {
-            Swal.fire({ icon: type, title: message, timer: 2500, showConfirmButton: false });
+            Swal.fire({
+                icon: type,
+                //title: type === 'success' ? 'Success!' : type === 'error' ? 'Error!' : 'Warning!',
+                text: message,
+                timer: 2500,
+                showConfirmButton: false
+            });
         } else {
             alert(message);
+        }
+    }
+
+
+    function confirmDialog(options) {
+        const {
+            title,
+            text,
+            icon = 'warning',
+            confirmButtonText = 'Yes',
+            cancelButtonText = 'Cancel',
+            confirmButtonColor = '#d33',
+            cancelButtonColor = '#6c757d',
+            fallbackMessage,
+            onConfirm,
+            onCancel
+        } = options;
+
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                title,
+                text,
+                icon,
+                showCancelButton: true,
+                confirmButtonColor,
+                cancelButtonColor,
+                confirmButtonText,
+                cancelButtonText
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    onConfirm?.();
+                } else {
+                    onCancel?.();
+                }
+            });
+        } else {
+            if (confirm(fallbackMessage || text)) {
+                onConfirm?.();
+            } else {
+                onCancel?.();
+            }
         }
     }
 

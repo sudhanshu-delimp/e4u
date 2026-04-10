@@ -102,17 +102,20 @@
                             <label class="mb-0">Post Code</label>
                             <div class="radio-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="postcodeType" value="single"
-                                        checked>
-                                    <label class="form-check-label">Single</label>
+                                    <label class="form-check-label">
+                                         <input class="form-check-input" type="radio" name="postcodeType" value="single" checked>
+                                        Single</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="postcodeType" value="multiple">
-                                    <label class="form-check-label">Multiple</label>
+                                   
+                                    <label class="form-check-label">
+                                         <input class="form-check-input" type="radio" name="postcodeType" value="multiple">
+                                        Multiple</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="postcodeType" value="all">
-                                    <label class="form-check-label">All</label>
+                                    <label class="form-check-label">
+                                         <input class="form-check-input" type="radio" name="postcodeType" value="all">
+                                        All</label>
                                 </div>
                             </div>
 
@@ -143,8 +146,8 @@
 
                         <div class="form-group d-none w-50" id="allPostCodeField">
                             <label>State</label>
-                            <span class="badge badge-primary ml-2" id="stateBadge"
-                                style="font-size:14px;">{{ auth()->user()->state_abbr ?? 'N/A' }}</span>
+                            <span class="badge bg-first ml-2" id="stateBadge"
+                                style="font-size:14px;">{{auth()->user()->home_state ?? 'N/A' }}</span>
                             <small class="d-block text-muted mt-1">All postcodes for your state will be included.</small>
                         </div>
 
@@ -155,13 +158,15 @@
                                 <label class="mb-0">Trial Run Only</label>
                                 <div class="radio-group">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="trialRun" value="on">
-                                        <label class="form-check-label">On</label>
+                                        
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="trialRun" value="on">
+                                            On</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="trialRun" value="off"
-                                            checked>
-                                        <label class="form-check-label">Off</label>
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="trialRun" value="off" checked>
+                                            Off</label>
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +207,10 @@
                 <div class="prospect-list-table">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h2>Generated Report List</h2>
-                        <button class="btn-success-modal mr-0" id="closePreview">Save Report</button>
+                        <div>
+                            <button class="btn-success-modal mr-0" id="clearReports">Clear</button>
+                            <button class="btn-success-modal mr-0" id="saveReport">Save Report</button>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table" id="reportsTable">
@@ -241,9 +249,14 @@
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-postcodes-url="{{ route('agent.marketing.prospect.postcodes') }}"
-        data-generate-url="{{ route('agent.marketing.prospect.generate') }}"
+        data-generate-url="{{ route('agent.marketing.prospect.store-report') }}"
         data-recipients-url="{{ route('agent.marketing.prospect.recipients') }}"
-        data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"></div>
+        data-reports-url="{{ route('agent.marketing.prospect.reports') }}"
+        data-action-url="{{ route('agent.marketing.prospect.report-action') }}"
+        data-clear-reports-url="{{ route('agent.marketing.prospect.clear-reports') }}"
+        data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
+        data-save-report="{{route('agent.marketing.prospect.save-report')}}"
+        ></div>
 @endsection
 
 @push('script')
