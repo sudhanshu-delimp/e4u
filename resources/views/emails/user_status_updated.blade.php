@@ -32,7 +32,7 @@
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 22px;">E4U Registration - Placed {{$statusName}} </h1>
-                                        <h3style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
                                     </td>
                                 </tr>
                             </table>
@@ -55,9 +55,15 @@
                         </td>
                     </tr>
                 </table>
-                {{-- <x-email-footer /> --}}
-                    <x-email-footer />
-                {{-- <x-email-footer /> --}}
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    <tr>
+                         <td>
+                            <x-email-footer/>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -85,7 +91,7 @@
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 22px;">E4U Membership - Reinstated </h1>
-                                        <h3style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
                                     </td>
                                 </tr>
                             </table>
@@ -120,9 +126,15 @@
                         </td>
                     </tr>
                 </table>
-                {{-- <x-email-footer /> --}}
-                    <x-email-footer />
-                {{-- <x-email-footer /> --}}
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    <tr>
+                         <td>
+                            <x-email-footer/>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -150,7 +162,7 @@
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 22px;">Your Registration - Approved </h1>
-                                        <h3style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
                                     </td>
                                 </tr>
                             </table>
@@ -174,9 +186,15 @@
                         </td>
                     </tr>
                 </table>
-               {{-- <x-email-footer /> --}}
-                    <x-email-footer />
-                {{-- <x-email-footer /> --}}
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    <tr>
+                         <td>
+                            <x-email-footer/>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -227,9 +245,15 @@
                         </td>
                     </tr>
                 </table>
-                {{-- <x-email-footer /> --}}
-                    <x-email-footer />
-                {{-- <x-email-footer /> --}}
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    <tr>
+                         <td>
+                            <x-email-footer/>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -257,7 +281,7 @@
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 22px;">E4U Membership - {{$statusName}} </h1>
-                                        <h3style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
                                     </td>
                                 </tr>
                             </table>
@@ -289,9 +313,15 @@
                         </td>
                     </tr>
                 </table>
-                {{-- <x-email-footer /> --}}
-                    <x-email-footer />
-                {{-- <x-email-footer /> --}}
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    <tr>
+                         <td>
+                            <x-email-footer/>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -319,7 +349,7 @@
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 22px;">E4U Membership - {{$statusName}} </h1>
-                                        <h3style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
                                     </td>
                                 </tr>
                             </table>
@@ -341,9 +371,15 @@
                         </td>
                     </tr>
                 </table>
-                {{-- <x-email-footer /> --}}
-                    <x-email-footer />
-                {{-- <x-email-footer /> --}}
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    <tr>
+                         <td>
+                            <x-email-footer/>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>

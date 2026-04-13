@@ -122,7 +122,7 @@
 
                
                 <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#0c223d; padding: 15px 30px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
                         <td style="line-height: 21px;">
                             This is an automatically generated email by the Escorts4U Operations Centre.<br>
@@ -198,9 +198,15 @@
                         </td>
                     </tr>
                 </table>
-                {{-- <x-email-footer /> --}}
-                    <x-email-footer />
-                {{-- <x-email-footer /> --}}
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    <tr>
+                         <td>
+                            <x-email-footer/>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
