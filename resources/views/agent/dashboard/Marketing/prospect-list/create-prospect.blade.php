@@ -82,7 +82,7 @@
                                 </ol>
                             </li>
                             <li>A Massage Centre who becomes a Member will remain in the List.</li>
-                            <li>You can access your Lists anytime from <a href="{{ route('agent.saved-reports') }}"
+                            <li>You can access your Lists anytime from <a href="{{ route('agent.marketing.save.report.list') }}"
                                     class="custom_links_design">Saved Reports</a>.</li>
                         </ol>
                     </div>

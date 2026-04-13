@@ -25,6 +25,7 @@ class CreateMassageExcelsTable extends Migration
             $table->string('business_number')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            $table->enum('archive', ['true', 'false'])->default('false');
             //$table->enum('status', ['Published', 'Suspended','Pending'])->default('Pending');
             $table->timestamps();
         });

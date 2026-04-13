@@ -19,7 +19,10 @@ class DatabaseCentreController extends Controller
         if ($request->ajax()) {
 
             $query = MassageCenterTerritory::from('massage_center_territories as t')
-                ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
+                 ->leftJoin('massage_excels as m', function ($join) {
+                        $join->on('m.territory_name', '=', 't.territory_name')
+                            ->where('m.archive', 'false'); 
+                })
                 ->selectRaw('
                     DATE(t.created_at) as date,
                     t.territory_name,
@@ -112,7 +115,7 @@ class DatabaseCentreController extends Controller
     {
         try {
             $data = MassageExcel::where('state_id', auth()->user()->state_id)->whereHas('territory', function ($query) {
-                $query->where('status', 'Active');
+                $query->where('status', 'Active')->where('archive', 'false');
             })->count();
             return success_response($data, "Ok", 200, []);
         } catch (\Exception $e) {
@@ -142,7 +145,11 @@ class DatabaseCentreController extends Controller
     public function querydata($id)
     {
         return MassageCenterTerritory::from('massage_center_territories as t')
-            ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
+           // ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
+           ->leftJoin('massage_excels as m', function ($join) {
+                        $join->on('m.territory_name', '=', 't.territory_name')
+                            ->where('m.archive', 'false'); 
+                })
             ->selectRaw('
                 DATE(t.created_at) as date,
                 t.territory_name,

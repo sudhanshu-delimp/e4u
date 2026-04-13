@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\Controller;
 use App\Models\MassageExcel;
 use App\Models\ProspectReport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProspectListController extends Controller
 {
@@ -173,11 +175,12 @@ class ProspectListController extends Controller
         }
     }
 
-    public function saveReport(){
-        try{
+    public function saveReport()
+    {
+        try {
             ProspectReport::where('agent_id', auth()->id())->where('status_type', 'Unsave')->update(['status_type' => 'Save']);
             return success_response([], 'All reports saved successfully.', 200, []);
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return error_response('Failed to save report: ' . $e->getMessage(), 500);
         }
     }
@@ -188,7 +191,7 @@ class ProspectListController extends Controller
             $report = ProspectReport::where('id', $request->report_id)
                 ->where('agent_id', auth()->id())
                 ->firstOrFail();
-            
+
 
             $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
                 ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
@@ -206,5 +209,65 @@ class ProspectListController extends Controller
         } catch (\Exception $e) {
             return error_response('Failed to perform action: ' . $e->getMessage(), 500);
         }
+    }
+
+
+    //save report module for show
+    public function saveReportList(Request $request)
+    {
+
+         if ($request->ajax()) {
+            $query = ProspectReport::where('agent_id', auth()->id())->where('status_type', 'Save');
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->filterColumn('post_code_label', function ($query, $keyword) {
+                    $query->where('post_code_label', 'like', "%{$keyword}%");
+                })
+                ->editColumn('date', function ($row) {
+                    return $row->created_at ? basicDateFormat($row->created_at) : 'NA';
+                })
+
+                ->addColumn('action', function ($row) {
+                    $actions = [];
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-bezier-curve"></i> Merge</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-print"></i> Print</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+
+                    $dropdown = '<div class="dropdown no-arrow">'
+                        . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                        . '<i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>'
+                        . '</a>'
+                        . '<div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">'
+                        . implode('<div class="dropdown-divider"></div>', $actions)
+                        . '</div>'
+                        . '</div>';
+
+                    return $dropdown;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('agent.dashboard.Marketing.saved-reports');
+    }
+
+
+    public function demoPdf(){
+         return view('agent.dashboard.Marketing.demo-pdf');
+    }
+
+
+    public function pdfGenerate(Request $request)
+    {
+        $request->validate([
+            'html_content' => 'required|string',
+        ]);
+
+        // Take the raw HTML from the textarea and render it as PDF
+        $pdf = Pdf::loadHTML($request->input('html_content'));
+        $pdf->setPaper('A4', 'portrait');
+
+        // Opens directly in browser
+        return $pdf->stream('converted.pdf');
     }
 }
