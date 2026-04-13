@@ -42,13 +42,13 @@
                     <!-- Right Side Tabs -->
                     <div class="col-md-3">
                         <div class="search_by_year">
-                            <form>
+                            <form method="GET" action="" id="searchForm">
                                 <input type="search" name="search" placeholder="Search by year">
                             </form>
                         </div>
 
                         <div class="nav flex-column nav-pills shareholder_tab_sidebar p-0" id="pdfTabs">
-                            <ul>
+                            <ul id="pdfList">
 
                                 <li>
                                     <a href="javascript:void(0)" class="nav-link active"
@@ -143,6 +143,7 @@
 
 
                             </ul>
+                            <p id="message"></p>
                         </div>
                     </div>
 
@@ -155,22 +156,6 @@
 </div>
 @endsection
 @section('script')
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-</script>
-<script>
-    $(document).ready(function() {
-        $('#pdfTabs .nav-link').click(function() {
-            var pdfFile = $(this).data('pdf');
-            var pdfTitle = $(this).data('title');
 
-            // Active tab change
-            $('#pdfTabs .nav-link').removeClass('active');
-            $(this).addClass('active');
-
-            // Change PDF and title
-            $('#pdfViewer').attr('src', pdfFile);
-            $('#pdfTitle').text(pdfTitle);
-        });
-    });
-</script>
+    <script src="{{ asset('assets/js/shareholder-common.js') }}"></script>
 @endsection

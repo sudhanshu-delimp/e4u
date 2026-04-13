@@ -106,9 +106,9 @@ font-weight: bold;
                 </div>
 
 
-                <!-- <div id="page_loader">
+                <div id="page_loader">
                     <div class="loader"></div>
-                </div> -->
+                </div>
 
             </div>
 

@@ -124,10 +124,20 @@ class MassageCentre extends Controller
     public function mcAjaxList(Request $request)
     {
         $per_page = 25;
-        $massage_live_ids  = MassagePurchase::where('status','listed')->pluck('massage_profile_id');
-        
 
-        
+        // $massage_live_ids =   MassagePurchase::where('status', 'listed')
+        //     ->whereHas('user', function ($q) {
+        //         $q->where('status', 1);
+        //     })->pluck('massage_profile_id');
+
+            $massage_live_ids = MassagePurchase::where('status', 'listed')
+            ->whereHas('user', function ($q) {
+                $q->where('status', 1);
+            })
+            ->whereDoesntHave('activeSuspendProfile')
+            ->pluck('massage_profile_id');
+
+
         //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
         $mc_live_list = $massage_live_ids;
         $mc_user_id = [];

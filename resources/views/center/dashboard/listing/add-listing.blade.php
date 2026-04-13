@@ -291,7 +291,7 @@ $(document).ready(function () {
         Swal.fire({
             icon: 'warning',
             title: 'Listings',
-            text: 'You have no profile. Please create a profile first.',
+            text: 'You have no active Profile. Please create a Profile first.',
             confirmButtonText: 'OK'
         }).then((result) => {
 

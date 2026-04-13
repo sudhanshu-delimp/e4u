@@ -100,7 +100,6 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
-    
 </style>
 @endsection
 @section('content')
@@ -142,7 +141,11 @@
         </div>
         <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
             <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#mediaVerificationModal">Media Verification</button>
+            <button type="button" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#mediaVerificationModal">
+                Media Verification
+
+                <span class="timer_tooltip">You must provide your media verification within 48 hours.</span>
+            </button>
         </div>
     </div>
     <div class="row">
@@ -187,7 +190,7 @@
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
-                                            {{-- <span class="common_shield_tooltip">Media Pending</span> --}}
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                         </div>
                                     </label>
                                    
@@ -404,7 +407,7 @@
                                                         <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
-                                            {{-- <span class="common_shield_tooltip">Media Pending</span> --}}
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                             </div>
                                         </label>
                                     </div>
@@ -434,7 +437,7 @@
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                 @endif
                                             @endif
-                                            {{-- <span class="common_shield_tooltip">Media Pending</span> --}}
+                                            <span class="common_shield_tooltip">Media Pending</span>
                                             </div>
                                            
                                         </label>
@@ -482,8 +485,7 @@
                 </div>
                 <div class="custom-img-filter-header">
                     <div class="row">
-                        <ul class="nav nav-tabs border-0 js_gallery_category">
-                           
+                        <ul class="nav nav-tabs border-0 js_gallery_category">                           
                             <li class="nav-item">
                                 <a class="nav-link active" data-type="gallery" data-toggle="tab" href="#Gallery">Gallery</a>
                             </li>
@@ -492,8 +494,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-type="pinup" data-toggle="tab" href="#Pinup">Pinup</a>
-                            </li>
-                            
+                            </li>                            
                         </ul>
                     </div>
                 </div>
@@ -572,6 +573,9 @@
                                                 </div>
 
                                         @endswitch
+                                        <div class="upload_date">
+                                           Uploaded: <span>{{ \Carbon\Carbon::parse($image->created_at)->format('d M Y') }}</span>
+                                        </div>
                                     </div>
                                     @endif
                                     @endforeach

@@ -27,6 +27,7 @@
                                         <button class="btn-success-modal rounded-0" type="submit">
                                             Search
                                         </button>
+                                        <div id="memberDropdown" class="dropdown-menu w-75 overflow-auto" style="height: 35vh"></div>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +59,7 @@
                                 <label for="discount">Discount</label>
                                 <div class="input-group">
                                     <input type="text" 
-                                        class="form-control rounded-0 only_digits" 
+                                        class="form-control rounded-0 only_digits_decimal" 
                                         placeholder="Discount"
                                         name="discount" 
                                         id="discount">
@@ -79,14 +80,54 @@
                             </div>
                          </form>
                     </div>
-                   
-             
           </div>
       </div>
   </div>
   {{-- end --}}
   @push('script')
   <script>
+$(document).ready(function () {
+    $('input[name="keyword"]').on('keyup', function () {
+        let value = $(this).val().toUpperCase();
+
+        //must start with E or M
+        if (!value.match(/^[EM]/)) {
+            $('#memberDropdown').hide();
+            return;
+        }
+
+        if (value.length < 2) {
+            $('#memberDropdown').hide();
+            return;
+        }
+
+        $.ajax({
+            url: "{{route('advertiser.search_member')}}",
+            type: "GET",
+            data: { keyword: value },
+            success: function (res) {
+                let html = '';
+                if (res.length > 0) {
+                    res.forEach(member_id => {
+                        html += `<a href="#" class="dropdown-item member-item">${member_id}</a>`;
+                    });
+                    $('#memberDropdown').html(html).show();
+                } else {
+                    $('#memberDropdown').hide();
+                }
+            }
+        });
+    });
+
+    // Click from dropdown
+    $(document).on('click', '.member-item', function (e) {
+        e.preventDefault();
+        let value = $(this).text();
+        $('input[name="keyword"]').val(value);
+        $('#memberDropdown').hide();
+    });
+
+});
 
 $(document).on('submit', '#advertiserForm', function (e) {
     e.preventDefault();
@@ -113,8 +154,12 @@ $(document).on('submit', '#advertiserForm', function (e) {
             let option = getStatusOption(xhr);
             if (res.status) {
                 $('#advertiser_name').text(res.data.name);
-                $('#agent_member_id').text(res.data.my_agent.member_id);
-                $('#advertiser_state').text(res.data.state.name);
+                if(res.data.my_agent){
+                    $('#agent_member_id').text(res.data.my_agent.member_id);
+                }
+                if(res.data.state){
+                    $('#advertiser_state').text(res.data.state.name);
+                }
                 $("input[name='advertiser_id']").val(res.data.id);
             } else {
                 Swal.fire({
@@ -166,7 +211,9 @@ $(document).on('submit', '#apply_fee_discount', function (e) {
             Swal.close();
             let option = getStatusOption(xhr);
             if (res.status) {
-                
+                form[0].reset();
+                $("#advertiser_discount").modal('hide');
+                table.draw();
             }
 
             Swal.fire({
@@ -174,6 +221,7 @@ $(document).on('submit', '#apply_fee_discount', function (e) {
                 title: option.title,
                 text: option.message
             });
+            $('.advertiserDetail td').text('N/A');
         },
 
         error: function (xhr) {
@@ -184,9 +232,6 @@ $(document).on('submit', '#apply_fee_discount', function (e) {
                 title: option.title,
                 text: option.message
             });
-
-            $('.advertiserDetail td').text('N/A');
-           
         }
     });
 });

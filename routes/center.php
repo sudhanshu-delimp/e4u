@@ -94,6 +94,7 @@ Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
 Route::get('/list', [MassageController::class, 'massager_list'])->name('center.list');
 Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_list'])->name('center.all-massager-list');
+Route::post('update-open-time',[MassageController::class,'update_open_time'])->name('center.update-open-time');
 
 
 
@@ -112,6 +113,10 @@ Route::post('listing/past-listing', [MassageController::class, 'massager_past_li
 Route::post('massage-brb/add', [MassageProfileActionController::class, 'add'])->name('massage.brb.add');
 Route::post('massage-brb/inactive/{id}', [MassageProfileActionController::class, 'inactive'])->name('massage.brb.inactive');
 Route::post('massage-suspend-credit', [MassageProfileActionController::class, 'suspendProfileCredit'])->name('center.massage-suspend-credit');
+Route::post('suspend-massage-profile', [MassageProfileActionController::class, 'suspendProfile'])->name('center.suspend-massage-profile');
+Route::post('extend-profile-checkout', [MassageProfileActionController::class, 'extendProfileCheckout'])->name('center.extend-profile-checkout');
+
+
 
 
 

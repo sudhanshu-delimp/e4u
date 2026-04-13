@@ -68,6 +68,12 @@
         width: 10%;
     }    
 
+#selected_service_one small[id="price[]-error"] {
+    display: none  !important;
+}
+#selected_service_two small[id="price[]-error"] {
+    display: none  !important;
+}
 </style>
 @endsection
 @section('content')
@@ -187,7 +193,7 @@
 
 
 <div class="modal fade upload-modal programmatic" id="update_info" style="display: none">
-   <div class="modal-dialog" role="document">
+   <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
@@ -266,8 +272,47 @@ console.log('profileId',profileId);
 
 <script>
 
+     window.profile_languages_array = [];
+    let languageTimer;
+    let current_languages_array = []; 
 
     $("body").on("click", "#defaultImg", setDefaults);
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var inputs = document.querySelectorAll('#container_language input[name="language[]"]');
+            window.profile_languages_array = Array.from(inputs).map(input => input.value);
+            console.log('profile_languages_array', window.profile_languages_array);
+        });
+
+
+       /////////// Update language //////////////////////// 
+       $(document).on('change click', '.update_language_data, .remove-lang', function(e) {
+            clearTimeout(languageTimer);
+            languageTimer = setTimeout(function() {
+            var current_inputs = document.querySelectorAll('#container_language input[name="language[]"]');
+            current_languages_array = Array.from(current_inputs).map(input => input.value);
+
+            console.log('inside', current_languages_array);
+
+           let isDifferent = current_languages_array.length !== window.profile_languages_array.length ||
+                  current_languages_array.some(val => !window.profile_languages_array.includes(val));
+
+            if (isDifferent)
+            {
+                current_feild = 'language';
+                current_value = JSON.stringify(current_languages_array);
+                $('#post_field').val(current_feild);
+                $('#post_value').val(current_value);
+                $('#field_name').text('Language');
+                $('#update_info').modal('show');
+            } 
+             }, 500);
+
+             return false;
+        });
+        /////////// End Update language //////////////////////// 
+
    
     $ (document).ready(function(e) {
 
@@ -388,12 +433,17 @@ console.log('profileId',profileId);
             $("#show_language").show();
             $(".select_lang").hide();
             var selectedLanguage = $(this).children("option:selected", this).data("name");
-            $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" <small class='remove-lang'>×</small></span> </div> ");
+            $("#show_language").append("  <div class='selecated_languages' id='"+languageValue+"' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" <small class='remove-lang'>×</small></span> </div> ");
             $("#container_language").append("<input type='hidden' name='language[]' value="+ languageValue +">");
             $("#language option[value='"+languageValue+"']").remove();
         });
 
         $(document).on('click', '.remove-lang , span.custom--help', function () {
+
+            let parent = $(this).closest('.selecated_languages');
+            let id = parent.attr('id');
+            $('#container_language input[name="language[]"][value="'+id+'"]').remove();
+
             $(this).closest('.selecated_languages').remove();            
             $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
         });

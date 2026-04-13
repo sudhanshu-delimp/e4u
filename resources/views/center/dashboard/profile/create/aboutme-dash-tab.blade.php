@@ -52,7 +52,7 @@
 
 img.img-thumbnail.defult-image {
    width: 190px;
-   height: 135px;
+   height: 180px;
    object-fit: cover;
 }
 
@@ -309,6 +309,7 @@ img#blah8 {
                                                                 <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                             @endif
                                                         @endif
+                                                        <span class="common_shield_tooltip">Media Unverified</span>
                                                     </div>
                                             </label>
                                         </div>
@@ -510,6 +511,8 @@ img#blah8 {
                                                             <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                                         @endif
                                                     @endif
+                                                   
+                                                        <span class="common_shield_tooltip">Media Unverified</span>
                                                 </div>
                                         </label>
                                     </div>
@@ -1248,7 +1251,7 @@ img#blah8 {
                                     <label for="exampleFormControlSelect1">Languages
                                     </label>
                                     
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" name="languages" >
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_language_data" id="language" name="languages" >
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.languages') as $key =>$language)
                                        <option value="{{$key}}"  data-name="{{ $language }}">{{$language}}</option>
@@ -1256,18 +1259,21 @@ img#blah8 {
                                     </select>
 
 
-                                     @if(!empty($escort->language)) 
+                                    
                                         <div id="show_db_language" class="d-flex">
-                                                @foreach($escort->language as $language)
+
+                                                 @if(!empty($escort->language)) 
+                                                    @foreach($escort->language as $language)
                                                 
-                                                        <div class='selecated_languages select_lang'>
+                                                        <div class='selecated_languages select_lang' id="{{ $language }}">
                                                             <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
                                                             
                                                         </div>
                                             
-                                                @endforeach 
+                                                    @endforeach 
+                                                 @endif
                                         </div>
-                                        @endif
+                                       
 
 
                                     <div id="container_language"> 
@@ -1278,6 +1284,9 @@ img#blah8 {
                                         @endif
                                     </div>
                                     <div id="show_language" style="display:none"></div>
+
+                                     <div id="container_language"></div>
+                                            
                                    
                                  </div>
 

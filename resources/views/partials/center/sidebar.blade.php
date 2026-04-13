@@ -26,7 +26,7 @@
             aria-expanded="false" aria-controls="collapseTwo">
 
             <img src="{{ asset('assets/dashboard/img/menu-icon/my-account.png') }}" alt="">
-            <span>My Account</span>
+            <span>Our Account</span>
         </a>
         <div id="collapseTwo" class="collapse @if (request()->segment(2) == 'update-account' ||
                 request()->segment(2) == 'profile-informations' ||

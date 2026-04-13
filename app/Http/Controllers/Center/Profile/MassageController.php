@@ -83,8 +83,12 @@ class MassageController extends Controller
    
     public function massager_list(Request $request)
     {
+        // echo Carbon::now('UTC');
+        // exit;
 
+        if(is_domain_localhost())
         $active_profile = get_massage_listed_profile();
+        else
         $active_profile = [];
         return view('center.dashboard.list',compact('active_profile'));
     }
@@ -96,16 +100,25 @@ class MassageController extends Controller
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
+                'user:id,status',
+                'activeUpcomingSuspend'
             ])->where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
             $countries = getCountryList();
 
-          
+           ///dd($masseurs->toArray());
+
             $data = $masseurs->map(function ($row) use ($countries) {
 
 
             $brb = [];
             if(isset($row->brb) && (count($row->brb)>0))
-            $brb = json_decode(json_encode($row->brb),true);   
+            $brb = json_decode(json_encode($row->brb),true);  
+        
+            $activeUpcomingSuspend = [];
+            if(isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
+            $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend),true); 
+
+
 
             if(!empty($brb))
             $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
@@ -113,6 +126,19 @@ class MassageController extends Controller
             $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.'</span>';     
 
             //$profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <pre>'.json_encode($brb, JSON_PRETTY_PRINT).'</pre></span>'; 
+
+            if(!empty($activeUpcomingSuspend) || $row->user->status == "Suspended")
+            {
+                if($row->user->status == "Suspended")
+                $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
+                </sup>';
+                else 
+                $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to ".date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])).'</small>
+                </sup>';
+            }
+
 
 
                 $status = "";
@@ -356,11 +382,40 @@ class MassageController extends Controller
                             ->first();
                             
                     $field = $request->post_field;
-                    $value = $request->post_value;    
+
+                    if($field=='language')
+                    {
+                        $value = json_decode($request->post_value); 
+                        $profile->update([$field => $value]);
+                    }
+                    elseif($field=='service_id')
+                    {
+                        $service_data = json_decode($request->post_value,true); 
+
+                        $service_id = isset($service_data['service_id']) ? $service_data['service_id'] : "";
+                        $category_id = isset($service_data['category_id']) ? $service_data['category_id'] : "";
+                        $price = isset($service_data['price']) ? $service_data['price'] : "";
+                        
+                        $massage_service = MassageService::where(['massage_profile_id'=> $profile->id,'service_id'=>$service_id,'category_id'=>$category_id])->first();
+                        if($massage_service)
+                        {
+                             $massage_service->price = $price;
+                             $massage_service->save();
+                        }
+                        else
+                        {
+                               MassageService::create(['massage_profile_id'=> $profile->id,'service_id'=>$service_id,'category_id'=>$category_id,'price'=> $price]);
+                        }
+                       
+                    }
+
+                    else
+                    {
+                         $value = $request->post_value; 
+                         $profile->update([$field => $value]);
+                    }
                     
-                    $profile->update([
-                        $field => $value
-                    ]);
+                   
                 }
                   
             }
@@ -1208,16 +1263,28 @@ class MassageController extends Controller
     public function  massager_current_listing(Request $request)
     {
             $today = Carbon::today();
-            $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
+            $massagers = MassagePurchase::with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },'massageprofile','user:id,status','activeUpcomingSuspend'
+
+            ])->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['pending', 'listed'])
             // ->whereDate('start_date', '<=', $today)
             // ->whereDate('end_date', '>=', $today)
             ->get();
 
-         
-           
-
+    
             $data = $massagers->map(function ($row) use ($today) {
+
+
+                $brb = [];
+                if(isset($row->brb) && (count($row->brb)>0))
+                $brb = json_decode(json_encode($row->brb),true);  
+            
+                $activeUpcomingSuspend = [];
+                if(isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
+                $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend),true);
 
     
                 $start = Carbon::parse($row->start_date);
@@ -1227,10 +1294,27 @@ class MassageController extends Controller
                 $start_date = date('d M Y', strtotime($row->start_date));
                 $end_date = date('d M Y', strtotime($row->end_date));
 
+                if(!empty($brb))
+                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+                else
+                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.'</span>';     
+
+                if(!empty($activeUpcomingSuspend) || $row->user->status == "Suspended")
+                {
+                    if($row->user->status == "Suspended")
+                    $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                    <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
+                    </sup>';
+                    else 
+                    $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                    <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to ".date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])).'</small>
+                    </sup>';
+                }
+
 
                 return [
                     'id' => $row->id,
-                    'profile_name' => $row->massageprofile->profile_name,
+                    'profile_name' => $profile_name,
                     'address' => $row->massageprofile->address,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
@@ -1294,7 +1378,207 @@ class MassageController extends Controller
     }
 
 
+    //"{"input_day":"time[tuesday][hh_from]","input_value":"03:00 AM","input_type":"from"}"
+
+    public function update_open_time(Request $request)
+    {
+        if($request->post_json_open_time!=="")
+        {
+            $user = auth()->user();
+            $post_json_open_time = json_decode($request->post_json_open_time, true);
+            $massage_default = $this->massage_profile->findDefault($user->id,1);
+            if(!$massage_default ) {
+                $massage_default = $this->massage_profile->make();
+            }
+
+            
+            
+             $input_type = $post_json_open_time['input_type'];
+             $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
+
+            if($input_type == 'from' || $input_type =='to')
+            {
+                     $input_day =  $post_json_open_time['input_day'];
+                     $input_value =  $post_json_open_time['input_value'];
+
+                    if(!empty($availability))
+                    {
+                        preg_match('/time\[(.*?)\]/', $input_day, $matches);
+                        $day = $matches[1];
+                        foreach ($availability as $key => &$value) {
+                            if ($key === $day) 
+                            {
+                                $availability[$day][$input_type] = $input_value;
+
+                                if($input_type =='to')
+                                $availability[$day]['status']= 'custom';
+                        
+                                break;
+                            }
+                        }
+
+                    }
+                    
+                    $availabilityJson = json_encode($availability);
+                    if ($massage_default->availability) {
+                        $massage_default->availability->availability_time = $availabilityJson;
+                        $massage_default->availability->save(); 
+                    }
+            }
+
+            if($input_type == 'radio_button')
+            {
+                
+                    $input_day =  $post_json_open_time['input_day'];
+                    $input_value =  $post_json_open_time['input_value'];
+                    preg_match('/\[(.*?)\]/', $post_json_open_time['input_day'], $matches);
+                    $day = $matches[1];
+                    foreach ($availability as $key => &$value) 
+                    {
+                        if ($key === $day) 
+                        {
+                            if($input_value == 'til_late')
+                            {
+                                $availability[$day]['status']= 'til_late';
+                                $availability[$day]['to']= null;
+                            }
+                            
+                            if($input_value == 'closed')
+                            {
+                                $availability[$day]['status']= 'closed';
+                                $availability[$day]['from']= null;
+                                $availability[$day]['to']= null;
+                            }
+                        
+                        }
+                    }
+
+                    $availabilityJson = json_encode($availability);
+                    if ($massage_default->availability) {
+                        $massage_default->availability->availability_time = $availabilityJson;
+                        $massage_default->availability->save(); 
+                    }
+               
+                }
+
+                // $ids = DB::table('masseurs')->whereNotIn('id', function ($query) use($user) {
+                //             $query->select('masseur_profile_id')
+                //                 ->from('massager_masseurs')->where('massage_profile_id',$user->id);
+                //         })->where('user_id',$user->id)->pluck('id');
+
+
+                $masseurs = Masseur::where('user_id',$user->id)
+                            ->where('status','1')
+                            ->where('is_default','1')
+                            ->get();
+
+            
+                
+                if($masseurs->isNotEmpty())
+                {
+                   $new_availability = $availability;
+
+                   Log::info('$masseurs');
+                   Log::info($masseurs);
+
+                   foreach( $masseurs as  $masseur)
+                   {
+                        $masseur_availability = json_decode($masseur->availability, true);
+                        $old_availability = $this->update_availibility($new_availability, $masseur_availability);   
+                        $new_availability_Json = json_encode($old_availability);
+                        $masseur->availability = $new_availability_Json;
+                        $masseur->save();  
+                    }
+
+                }    
+
+            
+            return response()->json([
+                'success' => true,
+                'availibility' => $availability,
+                //'old_availability' => $old_availability,
+            ]);
+
+        }
+    }
+
+
+    public function update_availibility($inputAvailibility, $old_availability)
+    {
+        foreach ($inputAvailibility as $day => $newData) 
+        {
+            Log::info('day');
+            Log::info($day);
+
+            $oldData = $old_availability[$day] ?? null;
+            $oldFrom = $oldData['from'];
+            $oldTo   = $oldData['to'];
+
+            $newFrom = $newData['from'];
+            $newTo   = $newData['to'];
+            $status  = $newData['status'];
+
+            
+            $oldFromTime = $oldFrom ? strtotime($oldFrom) : null;
+            $oldToTime   = $oldTo ? strtotime($oldTo) : null;
+            $newFromTime = $newFrom ? strtotime($newFrom) : null;
+            $newToTime   = $newTo ? strtotime($newTo) : null;
+
+           
+            if ($status === 'closed') 
+            {
+                $old_availability[$day] = [
+                    'status' => 'closed',
+                    'from'   => null,
+                    'to'     => null,
+                ];
+                continue;
+            }
+
+           
+            if ($status === 'til_late') 
+            {
+
+                // if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) {
+                //     $oldFrom = $newFrom;
+                //     $old_availability[$day] = ['from'   => $oldFrom];
+                // }
+
+                // if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) {
+                //     $oldTo = $newTo;
+                //     $old_availability[$day] = ['to'   => $oldTo];
+                // }
+
+                // No changes 
+                continue;
+            }
+
     
+            if ($status === 'custom') 
+            {
+                
+                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) {
+                    $oldFrom = $newFrom;
+                }
+
+                Log::info($newToTime .'=========='. $oldToTime);
+               
+                if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) {
+                    $oldTo = $newTo;
+                }
+
+                $old_availability[$day] = [
+                    'status' => 'custom',
+                    'from'   => $oldFrom,
+                    'to'     => $oldTo,
+                ];
+            }
+
+        }
+        
+        return $old_availability;
+    }
+
 
 
 }

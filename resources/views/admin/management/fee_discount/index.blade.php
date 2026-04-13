@@ -39,12 +39,12 @@
                   <div class="d-flex justify-content-between gap-10">
                      <div class="total_listing">
                         <div><span>Escorts Discount : </span></div>
-                        <div><span class="totalInprogressTask">1</span></div>
+                        <div><span class="totalInprogressTask" id="active_escort_count">0</span></div>
                      </div>
                      
                      <div class="total_listing">
                            <div><span>Centres Discount : </span></div>
-                           <div><span class="totalInprogressTask">2</span></div>
+                           <div><span class="totalInprogressTask" id="active_message_center_count">0</span></div>
                      </div>
                   </div>
                   <button class="btn-success-modal" type="button" data-target="#advertiser_discount" data-toggle="modal">
@@ -66,143 +66,14 @@
                            <th>Agent ID</th>
                            <th>Rate</th>
                            <th>Discount</th>
-                           <th>Granted</th>
+                           <th>Start Date</th>
+                           <th>End Date</th>
                            <th>Status</th>
                            <th>Action</th>
                         </tr>
                            
                      </thead>
-                     <tbody>
-                        <tr>
-                           <td>M40156</td>
-                           <td>CBD Massage</td>
-                           <td>A40489</td>
-                           <td><div class="num_value">$<span>20.00</span></div></td>
-                           <td>33.0%</td>
-                           <td>31-03-2026</td>
-                           <td>Expires: 30-06-2026</td>
-                           <td>
-                              <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                aria-labelledby="dropdownMenuLink">
-                                                <div class="custom-tooltip-container"><a
-                                                        class="dropdown-item align-item-custom toggle-massage-notification"
-                                                        href="#" title="Click to disable notification">
-                                                    </a>
-                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                        data-target="#confirm" href=""> <i
-                                                            class="fa fa-times" aria-hidden="true"></i>
-                                                        Cancel</a>
-                                                    <div class="dropdown-divider"></div>
-                                                     <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#discount_history"> <i
-                                                            class="fa fa-history" aria-hidden="true"></i>
-                                                        History</a>
-                                                        <div class="dropdown-divider"></div>
-                                                     <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#renew_discount"> <i
-                                                            class="fa fa-sync" aria-hidden="true"></i>
-                                                        Renew</a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                           </td>
-                        </tr>
-
-                         <tr>
-                           <td>M60789</td>
-                           <td>Lin’s Massage Lounge</td>
-                           <td>-----</td>
-                           <td><div class="num_value">$<span>10.00</span></div></td>
-                           <td>66.0%</td>
-                           <td>1-03-2026</td>
-                           <td>Expired</td>
-                           <td>
-                              <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                aria-labelledby="dropdownMenuLink">
-                                                <div class="custom-tooltip-container"><a
-                                                        class="dropdown-item align-item-custom toggle-massage-notification"
-                                                        href="#" title="Click to disable notification">
-                                                    </a>
-                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                        data-target="#confirm" href=""> <i
-                                                            class="fa fa-times" aria-hidden="true"></i>
-                                                        Cancel</a>
-                                                    <div class="dropdown-divider"></div>
-                                                     <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#discount_history"> <i
-                                                            class="fa fa-history" aria-hidden="true"></i>
-                                                        History</a>
-                                                        <div class="dropdown-divider"></div>
-                                                     <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#renew_discount"> <i
-                                                            class="fa fa-sync" aria-hidden="true"></i>
-                                                        Renew</a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                           </td>
-                        </tr>
-
-                         <tr>
-                           <td>E60492</td>
-                           <td>Karlee</td>
-                           <td>----</td>
-                           <td>
-                              <div class="num_value">P:$<span>9.00</span></div>
-                              <div class="num_value">G:$<span>7.20</span></div>
-                              <div class="num_value">S:$<span>5.40</span></div>
-                           </td>
-                           <td>10.0%</td>
-                           <td>12-12-2025</td>
-                           <td>Expires: 31-03-2026</td>
-                           <td>
-                              <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                aria-labelledby="dropdownMenuLink">
-                                                <div class="custom-tooltip-container"><a
-                                                        class="dropdown-item align-item-custom toggle-massage-notification"
-                                                        href="#" title="Click to disable notification">
-                                                    </a>
-                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                        data-target="#confirm" href=""> <i
-                                                            class="fa fa-times" aria-hidden="true"></i>
-                                                        Cancel</a>
-                                                    <div class="dropdown-divider"></div>
-                                                     <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#discount_history"> <i
-                                                            class="fa fa-history" aria-hidden="true"></i>
-                                                        History</a>
-                                                        <div class="dropdown-divider"></div>
-                                                     <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#renew_discount"> <i
-                                                            class="fa fa-sync" aria-hidden="true"></i>
-                                                        Renew</a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                           </td>
-                        </tr>
-                     </tbody>
+                     <tbody></tbody>
                   </table>
                </div>
             </div>
@@ -220,36 +91,96 @@
 
 @prepend('script')
 <script>
-    var table = $("#discountFeetable").DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID"
+    var table;
+    table = $('#discountFeetable').DataTable({
+        serverSide: true,
+        processing: true,
+        autoWidth: false,
+        "language": {
+                "zeroRecords": "There is no record of the search criteria you entered.",
+                searchPlaceholder: "Search..."
+            },
+        initComplete: function() {
+            if ($('#returnToReportBtn').length === 0) {
+                $('.dataTables_filter').append(
+                    '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                );
+            }
+            $('#returnToReportBtn').on('click', function() {
+                table.search('').draw();
+            });
         },
-        info: true,
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [
-            [1, 'desc']
-        ],
-        lengthMenu: [
-            [10, 25, 50, 100],
-            [10, 25, 50, 100]
-        ],
-        pageLength: 10,
-
-           columns: [
-               { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'rate', name: 'rate', searchable: true, orderable:false ,defaultContent: 'NA'},
-               { data: 'discount', name: 'discount', searchable: true, orderable:false,defaultContent: 'NA' },
-               { data: 'granted', name: 'granted', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'status', name: 'status', searchable: true, orderable:true,defaultContent: 'NA' },
+                    
+        ajax: {
+            url: "{{ route('advertiser.get_fee_discounts_listing') }}",
+            data: function (d) {
+            
+            }
+        },
+         drawCallback: function(settings) {
+            let json = settings.json;
+            $('#active_escort_count').text(json.active_escort_count);
+            $('#active_message_center_count').text(json.active_message_center_count);
+         },
+        columns: [
+               { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'advertiser_name', name: 'name', searchable: false, orderable:false ,defaultContent: 'NA'},
+               { data: 'agent_id', name: 'agent_id', searchable: false, orderable:false ,defaultContent: 'NA'},
+               { data: 'rate', name: 'rate', searchable: false, orderable:false ,defaultContent: 'NA'},
+               { data: 'discount', name: 'discount', searchable: false, orderable:false,defaultContent: 'NA' },
+               { data: 'discount_start_date', name: 'start_date', searchable: false, orderable:false,defaultContent: 'NA' },
+               { data: 'discount_end_date', name: 'end_date', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
            ],
+        order: [6,'desc'],
     });
+
+      table.on('draw.dt', function () {
+         console.log('FINAL render complete');
+      });
+
+   $(document).on('click', '.cancel_discount', async function (e) {
+      e.preventDefault();
+      if (await isConfirm({'action': 'Cancel','text':' Cancel This Discount.'})) { 
+         let discount_id = $(this).data('discount_id');
+         $.ajax({
+                  url: "{{ route('advertiser.cancel_fee_discount') }}",
+                  type: 'POST',
+                  data: {discount_id},
+                  beforeSend: function () {
+                     Swal.fire({
+                        title: 'Please wait...',
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading()
+                     });
+                  },
+                  success: function (res, textStatus, xhr) {
+                     Swal.close();
+                     let option = getStatusOption(xhr);
+                     if (res.status) {
+                        table.draw();
+                     }
+
+                     Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message
+                     });
+
+                  },
+                  error: function (xhr) {
+                     Swal.close();
+                     let option = getStatusOption(xhr);
+                     Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message
+                     });
+                  }
+            });
+      }
+   });
 </script>
 @endprepend
 

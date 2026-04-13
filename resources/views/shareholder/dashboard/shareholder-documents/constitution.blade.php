@@ -15,10 +15,63 @@
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                    <p></p>
+                    
                     <ol>
-                        
+                        <li>The Company Constitution (<b>Constitution</b>) is available to all Shareholders.</li>
+                        <li>To access, simply select the section within the Constitution you are wanting. You can
+                            also search by clause number or title.</li>
+                        <li>Key information:
+                            <ol class="level-2">
+                                <li>The Constitution was adopted on the 11th January 2023.</li>
+                                <li>Only Ordinary Shares are on Issue.</li>
+                                <li>Threshold Shareholding is included in the Constitution (20%).</li>
+                            </ol>
+                        </li>
                     </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="shareholder_list_wrapper">
+                <div class="row no-gutters">
+
+                    <!-- Left Side PDF Viewer -->
+                    <div class="col-md-9">
+                        <div class="pdf-area">
+                            <div class="pdf-title" id="pdfTitle"> Constitution of Blackbox Tech Pty Ltd (2023)</div>
+                            <iframe id="pdfViewer" class="pdf-viewer"
+                                src="{{ asset('assets/dashboard/document/Blackbox_Tech_Pty_Ltd_Constitution_(2023).pdf') }}"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Tabs -->
+                    <div class="col-md-3">
+                        <div class="search_by_year">
+                            <form action="" method="GET" id="searchForm">
+                                <input type="search" name="search" placeholder="Search by Clause No. or Title">
+                            </form>
+                        </div>
+
+                        <div class="nav flex-column nav-pills shareholder_tab_sidebar p-0" id="pdfTabs">
+                            <ul id="pdfList">
+
+                                <li>
+                                    <a href="javascript:void(0)" class="nav-link active"
+                                        data-pdf="{{ asset('assets/dashboard/document/Blackbox_Tech_Pty_Ltd_Constitution_(2023).pdf') }}"
+                                        data-title=" Constitution of Blackbox Tech Pty Ltd (2023)">
+                                        Constitution of Blackbox Tech Pty Ltd (2023)
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                            <div id="message"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -27,7 +80,5 @@
 
 @endsection
 @section('script')
-<script>
-    
-</script>
+    <script src="{{ asset('assets/js/shareholder-common.js') }}"></script>
 @endsection
