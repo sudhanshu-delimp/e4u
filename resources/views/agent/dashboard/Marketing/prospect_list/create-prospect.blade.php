@@ -245,6 +245,9 @@
 
     {{-- end modals --}}
 
+
+    
+
     <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
