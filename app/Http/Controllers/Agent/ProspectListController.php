@@ -13,7 +13,7 @@ class ProspectListController extends Controller
 {
     public function prospectList()
     {
-        return view('agent.dashboard.marketing.prospect-list.create-prospect');
+        return view('agent.dashboard.marketing.prospect_list.create-prospect');
     }
 
     public function postcodes(Request $request)
@@ -78,7 +78,7 @@ class ProspectListController extends Controller
                         'post_code' => $report->post_code_label,
                         'listings' => $report->listings_count,
                         'merged' => $report->merged,
-                        'action' => view('agent.dashboard.Marketing.prospect-list.report-table-action', ['report' => $report])->render(),
+                        'action' => view('agent.dashboard.Marketing.prospect_list.report-table-action', ['report' => $report])->render(),
                     ];
                 });
 
@@ -142,7 +142,7 @@ class ProspectListController extends Controller
                 'listings' => count($centerIds),
                 'merged' => 'No',
                 'status_type' => 'Unsave',
-                'action' => view('agent.dashboard.Marketing.prospect-list.report-table-action', ['report' => $report])->render(),
+                'action' => view('agent.dashboard.Marketing.prospect_list.report-table-action', ['report' => $report])->render(),
             ];
 
             $previewData = $data->map(function ($item) {
@@ -185,31 +185,31 @@ class ProspectListController extends Controller
         }
     }
 
-    public function reportAction(Request $request)
-    {
-        try {
-            $report = ProspectReport::where('id', $request->report_id)
-                ->where('agent_id', auth()->id())
-                ->firstOrFail();
+    // public function reportAction(Request $request)
+    // {
+    //     try {
+    //         $report = ProspectReport::where('id', $request->report_id)
+    //             ->where('agent_id', auth()->id())
+    //             ->firstOrFail();
 
 
-            $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
-                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
-                ->get();
+    //         $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
+    //             ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+    //             ->get();
 
-            $action = $request->action;
+    //         $action = $request->action;
 
-            $html = view('agent.dashboard.Marketing.partials.report-centers', [
-                'centers' => $centers,
-                'report' => $report,
-                'action' => $action,
-            ])->render();
+    //         $html = view('agent.dashboard.Marketing.partials.report-centers', [
+    //             'centers' => $centers,
+    //             'report' => $report,
+    //             'action' => $action,
+    //         ])->render();
 
-            return success_response(['html' => $html], "Ok", 200, []);
-        } catch (\Exception $e) {
-            return error_response('Failed to perform action: ' . $e->getMessage(), 500);
-        }
-    }
+    //         return success_response(['html' => $html], "Ok", 200, []);
+    //     } catch (\Exception $e) {
+    //         return error_response('Failed to perform action: ' . $e->getMessage(), 500);
+    //     }
+    // }
 
 
     //save report module for show
