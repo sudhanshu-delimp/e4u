@@ -426,18 +426,9 @@
 
                                 </table>
 
-                                <!-- Footer -->
-                                <table width="100%" cellpadding="0" cellspacing="0"
-                                    style="background-color:#0C223D; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
-                                    {{-- footer from component --}}
-                                    <tr>
-                                        <td style="padding: 0px;">
-                                                 <x-email-footer />
-                                        </td>
-                                    </tr>
-                                    {{-- end --}}
-                                </table>
-
+                                {{-- <x-email-footer /> --}}
+                                    <x-email-footer />
+                                {{-- <x-email-footer /> --}}
                             </td>
                         </tr>
                     </table>
