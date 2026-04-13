@@ -1930,3 +1930,103 @@ if (!function_exists('account_complete_status')) {
         
   }
 }
+
+
+if (!function_exists('update_messure_for_active_listing')) {
+
+    function update_messure_for_active_listing()
+    {
+        try 
+        { 
+            $purchase  = MassagePurchase::where('status', 'listed')->first();
+            $massage  = MassageAvailability::where('massage_profile_id',$purchase->massage_profile_id)->first();
+            $massagers = $massage->availability ? json_decode($massage->availability->availability_time, true) : [];
+
+            $massures_data = DB::table('masseurs')->whereIn('id', function ($query) use($purchase)  {
+                                    $query->select('masseur_profile_id')->from('massager_masseurs')->where('massage_profile_id',$purchase->massage_profile_id);
+                        })->get();
+
+           
+            $massures = json_decode($massures_data->availability, true);
+            
+            foreach ($massagers as $day => $info) 
+            {
+
+                if ($info['status'] === 'closed') 
+                {
+
+                    foreach ($massures as $index => $schedule) {
+
+                        foreach ($schedule as $mDay => $mInfo) {
+
+                            // match day (case-insensitive)
+                            if (strtolower($mDay) === strtolower($day)) {
+
+                                $massures[$index][$mDay] = [
+                                    "status" => "closed",
+                                    "from" => null,
+                                    "to" => null
+                                ];
+                            }
+                        }
+                    }
+                }
+
+                if ($info['status'] === 'til_late') 
+                {
+
+                    foreach ($massures as $index => $schedule) {
+                        foreach ($schedule as $mDay => $mInfo) {
+                            if (strtolower($mDay) === strtolower($day)) 
+                            {
+                                if(isset($massures[$index][$mDay]['status']) && $massures[$index][$mDay]['status']!="closed")
+                                {
+                                    $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                                    $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
+
+                                        if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                                        $massures[$index][$mDay]['from'] = $info['from'];
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($info['status'] === 'custom') 
+                {
+                    foreach ($massures as $index => $schedule) {
+                        foreach ($schedule as $mDay => $mInfo) {
+                            if (strtolower($mDay) === strtolower($day)) 
+                            {
+                            
+                                $newfrom  = isset($info['from']) ? $info['from'] : "";
+                                $newto  = isset($info['to']) ? $info['to'] : "";
+
+                                $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                                $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
+
+                                $newToTime =  isset($info['to']) ? strtotime($info['to']) : "";
+                                $oldToTime =  isset($massures[$index][$mDay]['to']) ? strtotime($massures[$index][$mDay]['to']) : "";
+
+                                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                                $massures[$index][$mDay]['from'] = $newfrom;
+                                    
+                                if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) 
+                                $massures[$index][$mDay]['to'] = $newto;
+
+                            }
+                        }
+                    }
+                }
+
+            }
+        } 
+        catch (Exception $e) 
+        {
+           Log::info($e->getMessage());
+        }   
+
+    }
+
+}
