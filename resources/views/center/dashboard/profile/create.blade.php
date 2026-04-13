@@ -29,10 +29,10 @@
         color: #fff !important;
     }
 
-    .disabled-form-tab {
+    /* .disabled-form-tab {
         pointer-events: none;
         opacity: 0.5;
-    }
+    } */
 
 
 
@@ -234,6 +234,7 @@
                 <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
                     <input type="hidden" name="post_field" id="post_field" value="">
                     <input type="hidden" name="post_value" id="post_value" value="">
+                    <input type="hidden" name="post_other_value_array" id="post_other_value_array" value="">
 
                     <input type="hidden" name="post_json" id="post_json" value="">
                     <input type="hidden" name="post_type" id="post_type" value="">
@@ -249,8 +250,6 @@
                         <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
@@ -374,17 +373,19 @@
     let languageTimer;
     let current_languages_array = []; 
 
+   
+
     $("body").on("click", "#defaultImg", setDefaults);
 
 
    
-    document.addEventListener("DOMContentLoaded", function () {
-        var inputs = document.querySelectorAll('#container_language input[name="language[]"]');
-        window.profile_languages_array = Array.from(inputs).map(input => input.value);
-        console.log('profile_languages_array', window.profile_languages_array);
-    });
+        document.addEventListener("DOMContentLoaded", function () {
+            var inputs = document.querySelectorAll('#container_language input[name="language[]"]');
+            window.profile_languages_array = Array.from(inputs).map(input => input.value);
+            console.log('profile_languages_array', window.profile_languages_array);
+        });
 
-
+        
        /////////// Update language //////////////////////// 
        $(document).on('change click', '.update_language_data, .remove-lang', function(e) {
             clearTimeout(languageTimer);
@@ -411,6 +412,24 @@
              return false;
         });
         /////////// End Update language //////////////////////// 
+
+
+    // /////////// Update Massage Services  //////////////////////// 
+    //    $(document).on('blur', '.selected_service_one_input', function(e) {
+            
+    //         let current_value = parseFloat($(this).val()); 
+    //         let pre_current_value  = parseFloat($(this).closest('div').find('.pre_selected_service_one_input').val());
+    //         let current_service_id = $(this).closest('div') .find('input[name="service_id[]"]').val();
+    //         let current_category_id = $(this).closest('div') .find('input[name="category_id[]"]').val();
+    //         current_feild = 'service_id';
+    //         current_value = JSON.stringify({'service_id': current_service_id,'category_id' : current_category_id,'price': current_value});
+    //         $('#post_field').val(current_feild);
+    //         $('#post_value').val(current_value);
+    //         $('#field_name').text('Massage Services');
+    //         $('#update_info').modal('show');
+    //     });
+    //     /////////// End Update language //////////////////////// 
+
 
 
     $(document).ready(function(e) {
