@@ -94,7 +94,7 @@
 <div class="modal fade upload-modal" id="confirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static"></div>
 
  @endsection
-@section('script')
+@push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
@@ -389,4 +389,4 @@
             });
           </script> 
 
-@endsection
+@endpush

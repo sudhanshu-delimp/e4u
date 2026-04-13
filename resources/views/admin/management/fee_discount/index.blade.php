@@ -39,12 +39,12 @@
                   <div class="d-flex justify-content-between gap-10">
                      <div class="total_listing">
                         <div><span>Escorts Discount : </span></div>
-                        <div><span class="totalInprogressTask">1</span></div>
+                        <div><span class="totalInprogressTask" id="active_escort_count">0</span></div>
                      </div>
                      
                      <div class="total_listing">
                            <div><span>Centres Discount : </span></div>
-                           <div><span class="totalInprogressTask">2</span></div>
+                           <div><span class="totalInprogressTask" id="active_message_center_count">0</span></div>
                      </div>
                   </div>
                   <button class="btn-success-modal" type="button" data-target="#advertiser_discount" data-toggle="modal">
@@ -117,6 +117,11 @@
             
             }
         },
+         drawCallback: function(settings) {
+            let json = settings.json;
+            $('#active_escort_count').text(json.active_escort_count);
+            $('#active_message_center_count').text(json.active_message_center_count);
+         },
         columns: [
                { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'advertiser_name', name: 'name', searchable: false, orderable:false ,defaultContent: 'NA'},
@@ -130,6 +135,10 @@
            ],
         order: [6,'desc'],
     });
+
+      table.on('draw.dt', function () {
+         console.log('FINAL render complete');
+      });
 
    $(document).on('click', '.cancel_discount', async function (e) {
       e.preventDefault();
