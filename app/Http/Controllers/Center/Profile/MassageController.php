@@ -384,13 +384,38 @@ class MassageController extends Controller
                     $field = $request->post_field;
 
                     if($field=='language')
-                    $value = json_decode($request->post_value); 
+                    {
+                        $value = json_decode($request->post_value); 
+                        $profile->update([$field => $value]);
+                    }
+                    elseif($field=='service_id')
+                    {
+                        $service_data = json_decode($request->post_value,true); 
+
+                        $service_id = isset($service_data['service_id']) ? $service_data['service_id'] : "";
+                        $category_id = isset($service_data['category_id']) ? $service_data['category_id'] : "";
+                        $price = isset($service_data['price']) ? $service_data['price'] : "";
+                        
+                        $massage_service = MassageService::where(['massage_profile_id'=> $profile->id,'service_id'=>$service_id,'category_id'=>$category_id])->first();
+                        if($massage_service)
+                        {
+                             $massage_service->price = $price;
+                             $massage_service->save();
+                        }
+                        else
+                        {
+                               MassageService::create(['massage_profile_id'=> $profile->id,'service_id'=>$service_id,'category_id'=>$category_id,'price'=> $price]);
+                        }
+                       
+                    }
+
                     else
-                    $value = $request->post_value; 
+                    {
+                         $value = $request->post_value; 
+                         $profile->update([$field => $value]);
+                    }
                     
-                    $profile->update([
-                        $field => $value
-                    ]);
+                   
                 }
                   
             }
@@ -1404,31 +1429,35 @@ class MassageController extends Controller
             if($input_type == 'radio_button')
             {
                 
-                $input_day =  $post_json_open_time['input_day'];
-                $input_value =  $post_json_open_time['input_value'];
-                preg_match('/\[(.*?)\]/', $post_json_open_time['input_day'], $matches);
-                $day = $matches[1];
-                foreach ($availability as $key => &$value) 
-                {
-                    if ($key === $day) 
+                    $input_day =  $post_json_open_time['input_day'];
+                    $input_value =  $post_json_open_time['input_value'];
+                    preg_match('/\[(.*?)\]/', $post_json_open_time['input_day'], $matches);
+                    $day = $matches[1];
+                    foreach ($availability as $key => &$value) 
                     {
-                        if($input_value == 'til_late')
+                        if ($key === $day) 
                         {
-                            $availability[$day]['status']= 'til_late';
-                            $availability[$day]['to']= null;
-                        }
+                            if($input_value == 'til_late')
+                            {
+                                $availability[$day]['status']= 'til_late';
+                                $availability[$day]['to']= null;
+                            }
+                            
+                            if($input_value == 'closed')
+                            {
+                                $availability[$day]['status']= 'closed';
+                                $availability[$day]['from']= null;
+                                $availability[$day]['to']= null;
+                            }
                         
-                        if($input_value == 'closed')
-                        {
-                            $availability[$day]['status']= 'closed';
-                            $availability[$day]['from']= null;
-                            $availability[$day]['to']= null;
                         }
-                        break;
                     }
-                }
 
-
+                    $availabilityJson = json_encode($availability);
+                    if ($massage_default->availability) {
+                        $massage_default->availability->availability_time = $availabilityJson;
+                        $massage_default->availability->save(); 
+                    }
                
                 }
 
@@ -1462,36 +1491,6 @@ class MassageController extends Controller
                     }
 
                 }    
-
-
-             
-
-               
-
-
-
-                // if(!empty($ids))
-                // {
-                //    $masseurs  = Masseur::where('user_id', $user->id)->whereIn('id', $ids)->get();
-                //    $new_availability = $availability;
-
-                //    Log::info('new_availability');
-                //    Log::info($new_availability);
-
-                //    foreach( $masseurs as  $masseur)
-                //    {
-                //         $masseur_availability = json_decode($masseur->availability, true);
-                //         $old_availability = $this->update_availibility($new_availability, $masseur_availability);   
-                //         $new_availability_Json = json_encode($old_availability);
-                //         $masseur->availability = $new_availability_Json;
-                //         $masseur->save();
-                        
-                //     }
-
-                // }
-
-            
-
 
             
             return response()->json([
@@ -1540,13 +1539,17 @@ class MassageController extends Controller
             if ($status === 'til_late') 
             {
 
-                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) {
-                    $oldFrom = $newFrom;
-                }
+                // if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) {
+                //     $oldFrom = $newFrom;
+                //     $old_availability[$day] = ['from'   => $oldFrom];
+                // }
 
-                $old_availability[$day] = [
-                    'from'   => $oldFrom,
-                ];
+                // if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) {
+                //     $oldTo = $newTo;
+                //     $old_availability[$day] = ['to'   => $oldTo];
+                // }
+
+                // No changes 
                 continue;
             }
 
