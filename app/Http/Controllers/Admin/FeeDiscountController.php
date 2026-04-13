@@ -263,14 +263,12 @@ class FeeDiscountController extends Controller
             if($userDetail->type==ESCORT){
                 $index = ['P', 'G', 'S'];
                 foreach($existingRates as $key=>$amount){
-                    $discountAmount = ($item->type=='percentage')?($amount*$item->value)/100:$item->value;
-                    $item->rate .=  '<div class="num_value">'.$index[$key].':<span>$ '.number_format($amount-$discountAmount,2).'</span></div>';
+                    $item->rate .=  '<div class="num_value">'.$index[$key].':<span>$ '.number_format($item->discountAmount($amount),2).'</span></div>';
                 }
             }
             else{
                 foreach($existingRates as $key=>$amount){
-                    $discountAmount = ($item->type=='percentage')?($amount*$item->value)/100:$item->value;
-                    $item->rate .=  '<div class="num_value justify-content-end"><span>$ '.number_format($amount-$discountAmount,2).'</span></div>';
+                    $item->rate .=  '<div class="num_value justify-content-end"><span>$ '.number_format($item->discountAmount($amount),2).'</span></div>';
                 }
             }
             $item->discount = ($item->type=='percentage')?$item->value.'%':$item->value;
@@ -297,11 +295,17 @@ class FeeDiscountController extends Controller
             $this->user
         );
         $result = $this->modifyRecords($result);
+        $active_escort_count = AdvertiserDiscount::active()->whereUserType(ESCORT)->count();
+
+        $active_message_center_count = AdvertiserDiscount::active()->whereUserType(MESSAGE_CENTER)->count();
+
         $data = array(
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
             "other" => $other,
+            "active_escort_count" => $active_escort_count,
+            "active_message_center_count" => $active_message_center_count,
             "data"            => $result
         );
         return response()->json($data);
@@ -320,6 +324,7 @@ class FeeDiscountController extends Controller
 
         foreach($result as $key => $item) {
             $item->discount_start_date = $item->start_date->setTimezone($this->local_timezone)->format('d-m-Y');
+            $item->discount_end_date = $item->end_date->setTimezone($this->local_timezone)->format('d-m-Y');
             $item->days = $item->end_date->diffInDays($item->start_date)+1;
             $item->rate = ($item->type=='percentage')?$item->value.'%':$item->value;
             $item->spend = '<div class="num_value">$<span>'.$item->spend_amount.'</span></div>';

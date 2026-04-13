@@ -196,7 +196,7 @@ class MasseurController extends AppController
         $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
         $default_duration = find_massage_default_duration($user->id);
 
-       // dd($availability );
+       //dd($availability );
 
       
   

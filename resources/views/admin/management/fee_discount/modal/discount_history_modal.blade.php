@@ -14,33 +14,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered" id="discountHistoryTable">
+                    <table class="table table-bordered w-100" id="discountHistoryTable">
                         
                         <thead class="table-bg">
                             <tr>
-                                <th>Granted</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                                 <th>Days</th>
                                 <th>Rate</th>
                                 <th>Spend</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01-01-2026</td>
-                                <td>60</td>
-                                <td>5%</td>
-                                <td><div class="num_value">$<span>266.00</span></div></td>
-                            </tr>
-                             <tr>
-                                <td>01-10-2025</td>
-                                <td>30</td>
-                                <td>10%</td>
-                                <td><div class="num_value">$<span>216.00</span></div></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
-               
             </div>
         </div>
     </div>
@@ -68,6 +56,7 @@
         },
         columns: [
                { data: 'discount_start_date', searchable: false, orderable:false,defaultContent: 'NA' },
+               { data: 'discount_end_date', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'days', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'rate', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'spend', searchable: false, orderable:false,defaultContent: 'NA' },
