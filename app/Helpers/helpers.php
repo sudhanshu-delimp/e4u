@@ -91,7 +91,7 @@ if (!function_exists('calculateTotalFee')) {
         if(!empty($userObject)){
             $appiedDiscount = $userObject->activeFeeDiscount;
         }
-        $discount_day = 5;
+        $discount_day = 21;
         if(!empty($purchaseObject)){  /* To manage price changes done by Admin , to use same price at the time of purchase */
             $normalRate   = $purchaseObject->rate;
             $discountRate = $purchaseObject->discount_rate;
