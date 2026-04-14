@@ -362,10 +362,10 @@
                 id = mediaVerificationId;
             };
             Swal.fire({
-                text: "You want to approve this media verification.",
+                text: "You want to approve this Media Verification.",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, Approve it!',
+                confirmButtonText: 'Yes, approve it!',
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {

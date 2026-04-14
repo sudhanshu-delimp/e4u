@@ -787,8 +787,15 @@
                                                                                     <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                                                 @endif
                                                                             </div>
+                                                                            @php $status = $image->varified ?? "2"; @endphp
                                                                             <div class="upload_date">
-                                                                                Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                @if($status == "0")
+                                                                                    Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                @elseif($status == "1")
+                                                                                    Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                @else
+                                                                                    Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     @endif

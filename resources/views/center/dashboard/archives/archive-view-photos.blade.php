@@ -201,7 +201,7 @@
                         $tooltipMessage = 'No media available for verification.';
                     } else {
                         $isDisabled = false;
-                        $tooltipMessage = 'You must provide your media verification within 48 hours.';
+                        $tooltipMessage = 'You must provide your Media Verification within 48 hours.';
                     }
                 @endphp
                 <button type="button" id="mediaVerification" class="create-tour-sec dctour {{$disabledClass}} verify_timer"  data-toggle="modal" data-target="#veryfy_media" {{ $isDisabled ? 'disabled' : '' }}>Media
@@ -673,9 +673,16 @@
                                                                     </div>
 
                                                             @endswitch
-                                                            <div class="upload_date">
-                                                                Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
-                                                            </div>
+                                                             @php $status = $image->varified ?? "2"; @endphp
+                                                                <div class="upload_date">
+                                                                    @if($status == "0")
+                                                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                    @elseif($status == "1")
+                                                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                    @else
+                                                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         @endif
                                                     @endforeach
