@@ -1,7 +1,7 @@
  {{-- View Modal --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="view_report" tabindex="-1" role="dialog"
         aria-labelledby="view_reportLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal_title"><img
@@ -14,17 +14,92 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="table-responsive profile_summary">
-                       <iframe src="{{ asset('assets/dashboard/document/Agent_Console_Marketing_Document_1_(09-2025).pdf') }}" width="100%" height="600px" id="pdfNo">
-                       </iframe>
-                    </div>                    
+                        <div class="report_container">
+
+                            <div class="header">
+                                <h3>Merged Documents Ready</h3>
+                                <p>Document 2 (Multiple) — 5 personalized documents ready</p>
+                            </div>
+
+                            <!-- Select All -->
+                            <div class="select-all">
+                                <label style="cursor:pointer;">
+                                    <input type="checkbox" id="selectAll">
+                                    Select All
+                                </label>
+                                </div>
+
+                            <!-- List Items -->
+                            <div class="item">
+                                <div class="left">
+                                <input type="checkbox" class="itemCheckbox">
+                                <div>
+                                    <strong>Body Heat Massage</strong><br>
+                                    <small>62 Gordon Rd East Osborne Park</small>
+                                </div>
+                                </div>
+
+                                <div class="action_btn">
+                                <button>Print</button>
+                                <button>Save</button>
+                                <button>Email</button>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="left">
+                                <input type="checkbox" class="itemCheckbox">
+                                <div>
+                                    <strong>Healthland</strong><br>
+                                    <small>510 Murray St Perth</small>
+                                </div>
+                                </div>
+
+                                <div class="action_btn">
+                                <button>Print</button>
+                                <button>Save</button>
+                                <button>Email</button>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="left">
+                                <input type="checkbox" class="itemCheckbox">
+                                <div>
+                                    <strong>Zen Massage Centre</strong><br>
+                                    <small>88 William St Perth</small>
+                                </div>
+                                </div>
+
+                                <div class="action_btn">
+                                <button>Print</button>
+                                <button>Save</button>
+                                <button>Email</button>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="left">
+                                <input type="checkbox" class="itemCheckbox">
+                                <div>
+                                    <strong>Baba Ram Dev Centre</strong><br>
+                                    <small>88 William St Perth</small>
+                                </div>
+                                </div>
+
+                                <div class="action_btn">
+                                <button>Print</button>
+                                <button>Save</button>
+                                <button>Email</button>
+                                </div>
+                            </div>
+                        </div>           
                 </div>
                 <div class="modal-footer">
                     <div class="d-flex justify-content-end gap-10">
-                         <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
-                            id="close_change">Close</button>
-                            <a href="{{ route('agent.single-merge-report') }}" target="_blank" class="btn-success-modal" id="single-continue">Continue</a>
-                            <a href="{{ route('agent.multi-merge-report') }}" target="_blank" class="btn-success-modal" id="multiple-continue">Continue</a>
+                         <button type="button" class="btn-success-modal">Print</button>
+                         <button type="button" class="btn-success-modal">Save</button>
+                         <button type="button" class="btn-success-modal">Email</button>
                             
                     </div>
                 </div>

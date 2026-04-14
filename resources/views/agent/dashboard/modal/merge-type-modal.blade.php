@@ -39,7 +39,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center mt-4">
-                                    <button type="button" class="btn-success-modal" id="save_button">Merge</button>
+                                    <button type="button" class="btn-success-modal" data-toggle="modal" data-target="#view_report" >Merge</button>
                                 </div>
                             </div>
                         </div>
