@@ -71,7 +71,9 @@ $(document).on('submit', '#mediaVerification', function (e) {
                 text: response.message ?? 'Verification submitted successfully.'
             });
 
-             // form.reset();  // 
+             // form.reset();  //
+            $('.img_alert').show();
+            $('.upload_varification_img_wrapper').addClass('has_img');
             $('#veryfy_media').modal('hide');
         },
         error: function (xhr) {

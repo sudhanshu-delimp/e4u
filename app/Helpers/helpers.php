@@ -90,7 +90,7 @@ if (!function_exists('calculateTotalFee')) {
     function calculateTotalFee($membership_id, $days, $userObject = null, $purchaseObject = null)
     {
         if(!empty($userObject)){
-            
+            $appiedDiscount = $userObject->activeFeeDiscount;
         }
         $discount_day = 21;
         if(!empty($purchaseObject)){  /* To manage price changes done by Admin , to use same price at the time of purchase */
@@ -103,7 +103,13 @@ if (!function_exists('calculateTotalFee')) {
                 return [0, 0, 0, 0];
             }
             $normalRate   = $pricing->price;
-            $discountRate = $pricing->discount_amount ?: $normalRate;
+            if(!empty($appiedDiscount)){
+                $discountRate = number_format($appiedDiscount->discountAmount($normalRate),2);
+            }
+            else{
+                $discountRate = $pricing->discount_amount ?: $normalRate;
+            }
+            
         }
 
         if ($days <= $discount_day) {
@@ -128,8 +134,9 @@ if (!function_exists('calculateTotalFee')) {
         }
 
         $total_discount = $discountDays * ($normalRate - $discountRate);
+        $appiedDiscountAmount = ($discountDays * $discountRate);
 
-        return [$total_discount, $total_rate, $normalRate, $discountRate];
+        return [$total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount];
     }
 }
 
@@ -1879,6 +1886,14 @@ if (!function_exists('get_media_by_id')) {
     }
 }
 
+if (!function_exists('get_massage_media_id_by_path')) {
+
+    function get_massage_media_id_by_path($pathOrUrl)
+    {
+        $media = MassageMedia::where('path', $pathOrUrl)->first();
+        return $media->id ?? null;
+    }
+}
 if (!function_exists('is_domain_localhost')) 
 {
      function is_domain_localhost()

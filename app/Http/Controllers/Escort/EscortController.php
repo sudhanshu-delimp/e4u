@@ -42,6 +42,7 @@ use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\Purchase\PurchaseInterface;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 use App\Models\EscortNotification;
+use App\Models\AdvertiserDiscount;
 use App\Services\WalletService;
 
 class EscortController extends BaseController
@@ -798,15 +799,22 @@ class EscortController extends BaseController
         $membership_types = MembershipPlan::where('is_for_calculater', '1')->get()->toArray();
         $no_of_members = config('agent.no_of_members');
         $advertings = Pricing::with('memberships')->get()->toArray();
+        $discount = AdvertiserDiscount::getActiveForUser($this->account->id);
+        if($this->account->type == ESCORT && $discount){
+            $rows = array_map(function($item) use($discount){
+                if(in_array($item['membership_id'],['1','2','3'])){
+                    $item['percentage'] = $discount->value;
+                    $item['discount_amount'] = number_format($discount->discountAmount($item['price']),2);
+                }
+                return $item;
+            },$advertings);
+            $advertings = $rows;
+        }
         $pricing_log = PricingFeeUpdateLog::get()->toArray();
 
         $fees_concierge_services = FeesConciergeService::all();
         $fees_support_services = FeesSupportService::all();
         $variablLoyaltyProgram = VariablLoyaltyProgram::all();
-
-        // dd($pricing_log);
-
-
         return view('escort.dashboard.Community.pricing', compact('advertings', 'membership_types', 'states', 'no_of_members', 'fees_concierge_services', 'fees_support_services', 'variablLoyaltyProgram'));
     }
 

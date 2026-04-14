@@ -100,14 +100,6 @@ class MediaVerificationController extends Controller
                     $dir
                 );
                 break;
-
-                // case 5: // agent_id (users.assigned_agent_id)
-                //     $media_verificatiion->orderBy(
-                //         User::select('assigned_agent_id')
-                //             ->whereColumn('users.id', 'media_verifications.user_id'),
-                //         $dir
-                //     );
-                //     break;
         }
 
 
@@ -228,13 +220,13 @@ class MediaVerificationController extends Controller
         }        
         
         if ($category == 9) {
-        $query->where('position', 9);
-
+            $query->where('position', 9);
+            $query->where('template', '0');
         } elseif ($category == 10) {
             $query->where('position', 10);
 
         } else {
-            // ✅ Gallery → NOT 9,10 + NULL include
+            // Gallery → NOT 9,10 + NULL include
             $query->where(function ($q) {
                 $q->whereNotIn('position', [9, 10])
                 ->orWhereNull('position');
@@ -266,24 +258,27 @@ class MediaVerificationController extends Controller
         foreach ($escort_medias as $escort_media) {
             if ($escort_media->varified == "0") {
                     $verification_icon = '<img src="'.asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png').'" /><span class="mc_media_tooltip">Media Pending</span>';
+                    $uploaded_date ='<div class="upload_date">Uploaded: <span>'.showDateWithFormat($escort_media->created_at).'</span></div>';
                 } elseif ($escort_media->varified == "2") {
                     $verification_icon = '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span>';
+                    $uploaded_date ='<div class="upload_date">Rejected: <span>'.showDateWithFormat($escort_media->updated_at).'</span></div>';
                 } else {
                     $verification_icon = '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span>';
+                    $uploaded_date ='<div class="upload_date">Approved: <span>'.showDateWithFormat($escort_media->updated_at).'</span></div>';
                 }
                 $position = $escort_media->position ?? 0;
                 switch ($position) {
                 case 9:
-                    $bannerImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
+                    $bannerImage[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
                                             '.$verification_icon.'</div>';  
                     break;
                 case 10:
-                    $pinupImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
+                    $pinupImage[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
                                             '.$verification_icon.'</div>';
                     break;
 
                 default:
-                    $mediaImages[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
+                    $mediaImages[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
                                            '.$verification_icon.'</div>';
                     break;
             }
