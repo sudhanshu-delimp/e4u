@@ -45,7 +45,7 @@
             <div class="col-md-12 d-flex align-items-center justify-content-end flex-wrap gap-10 my-3">
                 <div class="total_listing">
                     <div><span>Active Post Codes : </span></div>
-                    <div><span class="totalInprogressTask">12</span></div>
+                    <div><span class="totalInprogressTask">0</span></div>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -75,80 +75,18 @@
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
-        data-marketing-database-centres="{{ route('agent.marketing.database.centres') }}">
+        data-marketing-database-centres="{{ route('agent.marketing.database.centres') }}"
+        data-marketing-view-database-center="{{route('agent.marketing.database.view', ['id' => '__ID__'])}}"
+        data-marketing-download-database-center="{{route('agent.marketing.database.download', ['id' => '__ID__'])}}"
+        data-count-active-post-code="{{route('agent.marketing.database.active.count')}}"
+        data-download-pdf="{{route('agent.marketing.database.download.pdf',  ['id' => '__ID__'])}}"
+        >
 
         @include('agent.dashboard.modal.data-summary-modal')
     @endsection
     @push('script')
         <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
         </script>
-        <script>
-            const mmRoot = $('#manage-route');
-            const endpoint = {
-                csrf_token: mmRoot.data('csrf-token'),
-                success_image: mmRoot.data('success-image'),
-                error_image: mmRoot.data('error-image'),
-                marketing_database_centres: mmRoot.data('marketing-database-centres'),
+        <script src="{{asset('agent/dashboard/marketing/database-center.js')}}"></script>
 
-            };
-
-   
-
-            $(document).ready(function() {
-
-                var table = $("#databaseCentreTable").DataTable({
-                    language: {
-                        search: "Search: _INPUT_",
-                        searchPlaceholder: "Search by Territory"
-                    },
-                    processing: true,
-                    serverSide: true,
-                    ajax: {
-                        url: endpoint.marketing_database_centres,
-                        type: 'GET'
-                    },
-                    columns: [{
-                            data: 'date',
-                            name: 'date',
-                            searchable: false,
-                        },
-                        {
-                            data: 'territory_name',
-                            name: 'territory_name',
-                            searchable: true,
-                        },
-                        {
-                            data: 'centres',
-                            name: 'centres',
-                            searchable: false
-                        },
-                        {
-                            data: 'mobile_numbers',
-                            name: 'mobile_numbers',
-                            searchable: false
-                        },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            searchable: false
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false,
-                            className: 'text-center',
-                            searchable: false
-                        },
-                    ],
-                    order: [],
-                    lengthMenu: [
-                        [10, 25, 50, 100],
-                        [10, 25, 50, 100]
-                    ],
-                    pageLength: 10
-                });
-
-            });
-        </script>
     @endpush
