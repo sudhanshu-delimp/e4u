@@ -1885,12 +1885,12 @@ if (!function_exists('get_media_by_id')) {
     }
 }
 
-if (!function_exists('get_massage_media_id_by_path')) {
+if (!function_exists('get_massage_media_by_path')) {
 
-    function get_massage_media_id_by_path($pathOrUrl)
+    function get_massage_media_by_path($pathOrUrl)
     {
         $media = MassageMedia::where('path', $pathOrUrl)->first();
-        return $media->id ?? null;
+        return $media ?? null;
     }
 }
 if (!function_exists('is_domain_localhost')) 
