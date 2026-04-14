@@ -132,7 +132,7 @@ class DatabaseCentreController extends Controller
             $queryData = $this->querydata($id);
             if ($queryData) {
                 $pdf = PDF::loadView(
-                    'agent.dashboard.Marketing.pdf-generate',
+                    'agent.dashboard.marketing.pdf-generate',
                     ['data' => $queryData]
                 )->setOption(['isRemoteEnabled' => true]);
                 return $pdf->stream('database_Centres.pdf');

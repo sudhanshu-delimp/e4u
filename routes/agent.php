@@ -142,11 +142,11 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
 
      
     Route::get('/multi-merge-report',function(){
-    return view('agent.dashboard.Marketing.multi-merge-report');
+    return view('agent.dashboard.marketing.multi-merge-report');
 })->name('agent.multi-merge-report');
 
     Route::get('/single-merge-report',function(){
-    return view('agent.dashboard.Marketing.single-merge-report');
+    return view('agent.dashboard.marketing.single-merge-report');
 })->name('agent.single-merge-report');
 
     Route::get('advertiser-profiles',function(){
@@ -167,13 +167,13 @@ Route::get('toursummary',function(){
 
 
 //     Route::get('Marketing/create-prospect',function(){
-//     return view('agent.dashboard.Marketing.create-prospect');
+//     return view('agent.dashboard.marketing.create-prospect');
 // })->name('marketing.agencreate-prospect');
 
 
 
 Route::get('Marketing/printreport',function(){
-    return view('agent.dashboard.Marketing.printreport');
+    return view('agent.dashboard.marketing.printreport');
 })->name('printreport');
 
 
@@ -194,7 +194,7 @@ Route::get('forms',function(){
 
 
     Route::get('Marketing/create-information-package',function(){
-    return view('agent.dashboard.Marketing.create-information-package');
+    return view('agent.dashboard.marketing.create-information-package');
 })->name('marketing.create-information-package');
 
     Route::get('Fees/monthly-report',function(){
@@ -225,11 +225,11 @@ Route::get('advertisers',function(){
 
 
 // Route::get('Marketing/database-centers',function(){
-//     return view('agent.dashboard.Marketing.database-centers');
+//     return view('agent.dashboard.marketing.database-centers');
 // })->name('agent.database-centers');
 
 // Route::get('Marketing/saved-reports',function(){
-//     return view('agent.dashboard.Marketing.saved-reports');
+//     return view('agent.dashboard.marketing.saved-reports');
 // })->name('agent.saved-reports');
 
 
