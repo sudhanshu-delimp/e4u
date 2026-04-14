@@ -463,7 +463,7 @@
 </div>
 {{-- end --}}
 @endsection
-@section('script')
+@push('script')
 <!-- opr_accordian_table JS -->
 <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
 
@@ -533,4 +533,4 @@ function removeSocialField(el) {
            ],
     });
 </script>
-@endsection
+@endpush

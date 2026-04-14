@@ -101,7 +101,7 @@
                     'create-information-package',
                     'prospect-list',
                     'database-centres',
-                    'saved-reports',
+                    'save-report',
                 ])) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
@@ -208,7 +208,7 @@
                 <div id="marketing" class=" collapse  @if (request()->segment(3) == 'create-information-package' ||
                         request()->segment(3) == 'prospect-list' ||
                         request()->segment(3) == 'database-centres' ||
-                        request()->segment(3) == 'saved-reports') show @endif;"
+                        request()->segment(3) == 'save-report') show @endif;"
                     data-parent="#Management">
                     <div class="py-0 collapse-inner rounded mb-2">
                         <a class="collapse-item" href="{{ route('agent.marketing.database.centres') }}">
@@ -230,10 +230,10 @@
                                 style="{{ request()->segment(3) == 'prospect-list' ? 'color: #e5365a;' : '' }}">Prospect
                                 Lists</span>
                         </a>
-                        <a class="collapse-item" href="{{ route('agent.saved-reports') }}">
+                        <a class="collapse-item" href="{{ route('agent.marketing.save.report.list') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/saved-reports.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'saved-reports' ? 'color: #e5365a;' : '' }}">Saved
+                                style="{{ request()->segment(3) == 'save-report' ? 'color: #e5365a;' : '' }}">Saved
                                 Reports</span>
                         </a>
 

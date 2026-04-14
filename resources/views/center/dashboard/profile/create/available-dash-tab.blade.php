@@ -153,12 +153,12 @@
                                                 </label>
 
                                                 <label class="ms-2">
-                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                <input type="radio" class="check_tab" name="availability_time[{{ $dayKey }}]"
                                                     value="til_late" {{ $status=='til_late'?'checked':'' }} {{ $disabled }}> Til Late
                                                 </label>
 
                                                 <label class="ms-2">
-                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                <input type="radio" class="check_tab" name="availability_time[{{ $dayKey }}]"
                                                     value="closed" {{ $status=='closed'?'checked':'' }}> Closed
                                                 </label>
 

@@ -1028,6 +1028,7 @@
     <script>
 
         var is_profile_complete = Number("{{ $massage_default->is_profile_complete ?? 0 }}");
+        var profile_open_times = {{ !empty($availability) ? 'true' : 'false' }};
 
 
 
@@ -1883,16 +1884,14 @@
 $(document).ready(function () {
     initDragDrop();
 
-   
-
-    if (!is_profile_complete) {
+    if (!profile_open_times) {
 
     console.log('is_profile_complete',is_profile_complete)
 
         Swal.fire({
             icon: 'warning',
-            title: 'Profile',
-            text: 'Please update your Profile information.',
+            title: 'Profile Information',
+            text: 'Please update your open times in the Profile Information section.',
             confirmButtonText: 'OK'
         }).then((result) => {
             if(result.isConfirmed){
