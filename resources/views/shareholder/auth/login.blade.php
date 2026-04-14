@@ -14,8 +14,7 @@
                   <h4 class="welcome_sub_login_heading text-uppercase"><strong>Shareholder Login</strong></h4>
                   <form id="admin_login" action="#" method="post">
                     @csrf
-                    <input type="hidden" name="type_admin" value="1">
-                    <input type="hidden" name="type_staff" value="2">
+                    <input type="hidden" name="type" value="8">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="email">Email Address</label>
 
@@ -52,7 +51,7 @@
                             <a href="#" id="forgotpassword"> Forgot Password?</a>
                            </div>
                            <div class="col-md-5 align-self-center text-left text-md-right">
-                                <button type="submit" id="submit_button" class="btn site_btn_primary" disabled>Login</button>       
+                                <button type="submit" id="submit_button" class="btn site_btn_primary" >Login</button>       
                            </div>
                        </div>
                         <p class="mb-0 mynote mt-4"><b>Note:</b> Login is undertaken with 2FA authentification.</p>
@@ -138,199 +137,318 @@
                     
 @endsection
 @section('script')
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script>
-    $(function() {
-        $('#admin_login').parsley({
-    
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(function() {
+            $('#admin_login').parsley({
+
+            });
         });
-    });
-    
-    $(function() {
-        $('#forgotPasswordSend').parsley({
 
+        $(function() {
+            $('#forgotPasswordSend').parsley({
+
+            });
         });
-    });
+    </script>
 
-</script>
-<script>
+    <script>
+        document.getElementById('email').focus();
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("body").on("click", "#forgotpassword", function(e) {
+                e.preventDefault();
+                $("#comman_modal").modal('show');
+                $("body").on("submit", "#forgotPasswordSend", function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+                    $('#forgot_password').val('1');
+                    send2FAotp($('.email-val').val());
+                });
 
-$(document).ready(function() {
-   $("body").on("click","#forgotpassword",function(e){
-            
-         e.preventDefault();
-         $("#comman_modal").modal('show');
+                function send2FAotp(email) {
+                    $('#email-error').html('');
+                    var token = $('input[name="_token"]').attr('value');
+                    $.ajax({
+                        url: "{{ route('send-otp-for-pin-change') }}",
+                        type: 'POST',
+                        data: {
+                            email: email
+                        },
+                        dataType: "JSON",
 
-         $("body").on("submit","#forgotPasswordSend",function(e){
-         e.preventDefault();
-         var form = $(this);
-         // var url = form.attr('action');
-         var url = "{{ route('web.sendMail.admin')}}";
-         var data = new FormData($('#forgotPasswordSend')[0]);
-         
-         console.log("url="+url);
-         var token = $('input[name="_token"]').attr('value');
-         
-            $.ajax({
-                  url: url,
-                  type: 'POST',
-                  data: data,
-                  dataType: "JSON",
-                  contentType: false,
-                  processData: false,
-                  headers: {
-                     'X-CSRF-Token': token
-                  },
-                  success: function(data) {
-                     console.log(data);
-                     if(data.error == true) {
-                        $('#sendSubmit').prop('disabled', true);
-                        $('#sendSubmit').html('<div class="spinner-border"></div>');
-                        $("#comman_modal").modal('hide');
-                        $("#hid").html("Reset Password");
-                        $("#comman_str").html("We sent a reset password link to </br>");
-                        $(".comman_msg").text(data.email);
-                        $("#recovery_modal").modal('show');
-                     }
-                     if(data.error == false) { 
-                        $("#errorNew ul").remove();
-                        $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
-                        $('#sendSubmit').prop('disabled', false);
-                        $('#sendSubmit').html('Save');
-                     }
-                  },
-                  error: function(data) {
+                        headers: {
+                            'X-CSRF-Token': token
+                        },
+                        success: function(data) {
+                            if (data.status == true) {
+                                $('#sendOtp_modal').modal('show');
+                                $('#comman_modal').modal('hide');
+                            } else {
+                                $('#email-error').html(data.message);
+                            }
+                        },
+                        error: function(data) {
+                            console.log("error otp: ", data.responseJSON.errors);
+                        }
+                    });
+                }
+            });
 
-                     console.log("error: ", data.responseJSON.errors);
-                     
-                  }
-               });  
-         
-      });
-          
-            
-   });
-   var loginFormViewer = $("#admin_login");
+            $("body").on("click", "#sendOtpSubmit", function(e) {
 
-    loginFormViewer.submit(function(e) {
-   
-      e.preventDefault();
-      swal_waiting_popup({});
+                console.log('submit otp');
+                e.preventDefault();
+                let form = $("#SendOtp")[0];
+                let data = new FormData(form);
+                var url = "{{ route('web.checkOTP') }}";
+                data.append('forget_password', $('#forgot_password').val());
+                data.append('email', $('.email-val').val());
+                var token = $('input[name="_token"]').attr('value');
 
-      var form = $(this);
-      var url = form.attr('action');
-      var formData = new FormData($("#admin_login")[0]);
-      console.log(formData);
-      var token = $('input[name="_token"]').attr('value');
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    dataType: "JSON",
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-Token': token
+                    },
+                    beforeSend: function() {
+                        $('#sendOtpSubmit').prop('disabled', true);
+                        $('#sendOtpSubmit').html('Verifying...');
+                    },
+                    success: function(data) {
+                        if (data.error == false) {
+                            var form = $(this);
+                            var url = "{{ route('web.sendMail.admin') }}";
+                            var data = new FormData($('#forgotPasswordSend')[0]);
+                            var token = $('input[name="_token"]').attr('value');
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                data: data,
+                                dataType: "JSON",
+                                contentType: false,
+                                processData: false,
+                                headers: {
+                                    'X-CSRF-Token': token
+                                },
+                                beforeSend: function() {
+                                    $('#sendSubmit').prop('disabled', true);
+                                    $('#sendSubmit').html(
+                                        '<div class="spinner-border spinner-border-sm"></div> Sending...'
+                                        );
+                                },
+                                success: function(data) {
+                                    if (data.error == true) {
+                                        $("#comman_modal").modal('hide');
+                                        $(".comman_msg").text(data.email);
+                                        $("#recovery_modal").modal('show');
+                                        $('#sendSubmit').prop('disabled', false);
+                                        $('#sendSubmit').html('Send');
+                                        $('.email-val').val('');
+                                        $('#sendOtp_modal').modal('hide');
+                                        $('#sendOtpSubmit').prop('disabled', false);
+                                        $('#sendOtpSubmit').html('Verify');
+                                        $('#otp').val('');
+                                    }
+                                    if (data.error == false) {
+                                        $("#errorNew ul").remove();
+                                        $("#errorNew").append(
+                                            "<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>"
+                                            );
+                                        $('#sendSubmit').prop('disabled', false);
+                                        $('#sendSubmit').html('Send');
+                                    }
+                                },
+                                error: function(data) {
+                                    console.log("error: ", data.responseJSON
+                                    .errors);
+                                }
+                            });
+                        } else if (data.error === true && !('type' in data)) {
+                            $('.otp-input').val('');
+                            $('.first_input').val('').focus().select();
+                            $("#senderror").html('');
+                            $("#senderror").append(
+                                "<ul class='parsley-errors-list filled'>" +
+                                "<li class='parsley-required'>Your have entered invalid otp.</li>" +
+                                "</ul>"
+                            );
 
-        $.ajax({
-         url: url,
-         type: 'POST',
-         data: formData,
-         dataType: "JSON",
-         contentType: false,
-         processData: false,
-         headers: {
-               'X-CSRF-Token': token
-         },
-            success: function(data) {
-                $('#formerror').html('');
-                 Swal.close();
-                console.log(data);
-                var ph = data.phone;
-                $("#phoneId").attr('value',ph);
-                if(data.error == 1) {
-                  $('body').on("click","#resendOtpSubmit",function(){
-                        $("#admin_login").submit();
-                        $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
-                     });
-                     
-                   
-                     setTimeout(() => {
-                     $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
-                     }, 300);
+                            $('#otp').val('');
+                            $('#sendOtpSubmit').prop('disabled', false);
+                            $('#sendOtpSubmit').html('Verify');
+                        } else {
+                            if (data.type == 8) {
+                                window.location.href = "{{ route('shareholder.index') }}";
+                            }
+                        }
+                    },
+                    error: function(data) {
 
-                     
-                    $("body").on("submit","#SendOtp",function(e){
-                        e.preventDefault();
-                        var form = $(this);
-                         $('#sendOtpSubmit').attr('disabled', true);
-                        $('.wait-loader').css({'display':'block'});
-                        console.log(ph);
-                        // var url = form.attr('action');
-                        var url = "{{ route('web.checkOTP')}}";
-                        
-                        var data = new FormData($('#SendOtp')[0]);
-                        var phone = data.phone;
-                        //data.append("phone",phone );
-                        console.log("url="+url);
-                        var token = $('input[name="_token"]').attr('value');
-                  
-                        $.ajax({
-                           url: url,
-                           type: 'POST',
-                           data: data,
-                           dataType: "JSON",
-                           contentType: false,
-                           processData: false,
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           success: function(data) {
-                              console.log(data);
-                              
-                              if(data.error == true) {
-                              //console.log(data); 
-                              window.location.href = "{{ route('admin.index') }}";
-                              }
-                           },
-                           error: function(data) {
-                              $('#sendOtpSubmit').attr('disabled', false);
-                              $('.wait-loader').css({'display':'none'});
-                              console.log("error v: ", data.responseJSON.errors);
-                              $.each(data.responseJSON.errors, function(key, value) {
-                              errorsHtml = '<div class="alert alert-danger"><ul>';
-                              errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                              });
+                        console.log("error otp: ", data.responseJSON.errors);
+                        $.each(data.responseJSON.errors, function(key, value) {
+                            errorsHtml = '<div class="alert alert-danger"><ul>';
+                            errorsHtml += '<li>' + value +
+                            '</li>'; //showing only the first error.
+                        });
+                        $('#sendOtpSubmit').prop('disabled', false);
+                        $('#sendOtpSubmit').html('Verify');
+                        errorsHtml += '</ul></di>';
+                        $('#senderror').html(errorsHtml);
+                        $('.otp-input').val('');
+                        $('.first_input').val('').focus().select();
+                    }
+                });
+            });
+            var loginFormViewer = $("#admin_login");
+            loginFormViewer.submit(function(e) {
+                e.preventDefault();
+                swal_waiting_popup({});
 
-                              errorsHtml += '</ul></di>';
-                              $('#senderror').html(errorsHtml);
-                           }
-                        });  
-               
-                  });
-                } 
-                
-         },
-         error: function(data) {
+                var form = $(this);
+                var url = form.attr('action');
+                var formData = new FormData($("#admin_login")[0]);
+                //console.log(formData);
+                var token = $('input[name="_token"]').attr('value');
 
-               console.log("error w: ", data.responseJSON.errors);
-                Swal.close();
-               $.each(data.responseJSON.errors, function(key, value) {
-                errorsHtml = '<div class="alert alert-danger"><ul>';
-                errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-               });
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    dataType: "JSON",
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-Token': token
+                    },
+                    success: function(data) {
+                       // console.log(data);
+                        $('#formerror').html('');
+                        Swal.close();
+                        var ph = data.phone;
+                        $("#phoneId").attr('value', ph);
+                        if (data.error == 1) {
+                            $('body').on("click","#resendOtpSubmit",function() {
+                             $("#admin_login").submit();
+                            /*$('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");*/
+                            var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
+                            $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
+                        });
+                            setTimeout(() => {
+                                $("#sendOtp_modal").modal({
+                                    backdrop: 'static',
+                                    keyboard: false
+                                });
+                            }, 300);
 
-               errorsHtml += '</ul></di>';
-               $('#formerror').html(errorsHtml);
-         }
-      });
-    });
-});
-</script>
+                            $("body").on("submit", "#SendOtp", function(e) {
+                                e.preventDefault();
+                                var form = $(this);
+                                $('#sendOtpSubmit').attr('disabled', true);
+                                $('.wait-loader').css({
+                                    'display': 'block'
+                                });
+                                var url = "{{ route('web.checkOTP') }}";
 
-<script>
-     document.addEventListener("DOMContentLoaded", function () {
-        const toggleIcon = document.querySelector(".toggle-password");
-        const passwordInput = document.querySelector("#exampleInputPassword1");
-        const eyeIcon = document.querySelector("#toggleEyeIcon");
-
-        toggleIcon.addEventListener("click", function () {
-            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-            passwordInput.setAttribute("type", type);
-            eyeIcon.classList.toggle("fa-eye");
-            eyeIcon.classList.toggle("fa-eye-slash");
+                                var data = new FormData($('#SendOtp')[0]);
+                                var phone = data.phone;
+                                //data.append("phone",phone );
+                                console.log("url=" + url);
+                                var token = $('input[name="_token"]').attr('value');
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    data: data,
+                                    dataType: "JSON",
+                                    contentType: false,
+                                    processData: false,
+                                    headers: {
+                                        'X-CSRF-Token': token
+                                    },
+                                    success: function(data) {
+                                        if (data.error == true) {
+                                            window.location.href =
+                                                "{{ route('shareholder.index') }}";
+                                        }
+                                    },
+                                    error: function(data) {
+                                        $('#sendOtpSubmit').attr('disabled',
+                                            false);
+                                        $('.wait-loader').css({
+                                            'display': 'none'
+                                        });
+                                        console.log("error v: ", data
+                                            .responseJSON.errors);
+                                        $.each(data.responseJSON.errors,
+                                            function(key, value) {
+                                                errorsHtml =
+                                                    '<div class="alert alert-danger"><ul>';
+                                                errorsHtml += '<li>' +
+                                                    value +
+                                                    '</li>'; //showing only the first error.
+                                            });
+                                        errorsHtml += '</ul></di>';
+                                        $('#senderror').html(errorsHtml);
+                                    }
+                                });
+                            });
+                        }
+                    },
+                    error: function(data) {
+                        swal({
+                            title: "Oops!",
+                            text: data.responseJSON.message,
+                            icon: "error",
+                            closeModal: true,
+                            buttons: {
+                                cancel: false,
+                                ok: true,
+                            },
+                        });
+                        console.log("error w: ", data.responseJSON.errors);
+                        Swal.close();
+                        $.each(data.responseJSON.errors, function(key, value) {
+                            errorsHtml = '<div class="alert alert-danger"><ul>';
+                            errorsHtml += '<li>' + value +
+                            '</li>'; //showing only the first error.
+                        });
+                        errorsHtml += '</ul></di>';
+                        $('#formerror').html(errorsHtml);
+                    }
+                });
+            });
         });
-    });
-</script>
+
+        $(document).off('click', '#resendOtpSubmit');
+        $(document).on('click', '#resendOtpSubmit', function() {
+            send2FAotp($('.email-val').val());
+        });
+
+        $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function() {
+            $('#forgot_password').val(0);
+            $("#senderror").html('');
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleIcon = document.querySelector(".toggle-password");
+            const passwordInput = document.querySelector("#exampleInputPassword1");
+            const eyeIcon = document.querySelector("#toggleEyeIcon");
+            toggleIcon.addEventListener("click", function() {
+                const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+                eyeIcon.classList.toggle("fa-eye");
+                eyeIcon.classList.toggle("fa-eye-slash");
+            });
+        });
+    </script>
 @endsection
