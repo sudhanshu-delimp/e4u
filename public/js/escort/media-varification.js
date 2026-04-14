@@ -83,6 +83,8 @@ $(document).on('submit', '#mediaVerification', function (e) {
             });
 
              // form.reset();  // 
+            $('.img_alert').show();
+            $('.upload_varification_img_wrapper').addClass('has_img');
             $('#mediaVerificationModal').modal('hide');
         },
         error: function (xhr) {

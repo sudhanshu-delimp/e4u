@@ -33,6 +33,7 @@ use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageMediaInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
+use App\Models\MassageMedia;
 use App\Models\MediaVerification;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 
@@ -486,10 +487,19 @@ class CenterProfileInformationController extends BaseController
          //dd($path->findByposition(auth()->user()->id,9)['path']);
          //dd($path->findByposition(auth()->user()->id,9, 0)['path']);
         $verification = MediaVerification::where('user_id', auth()->id())->where('status' , '0')->first();
+        $query = MassageMedia::where('user_id', auth()->user()->id)
+            ->where('template', '0')
+            ->where('type', '0');
+
+        $total_media_count = (clone $query)->count();
+        $media_count_for_verification = (clone $query)
+            ->whereIn('varified', ['0', '2'])
+            ->whereNull('media_verification_id')
+            ->count();
         $imageUrl = $verification && $verification->image_path
             ? asset('escorts/' . $verification->image_path)
             : asset('assets/app/img/upload-media.png');
-         return view('center.dashboard.archives.archive-view-photos',compact('path','media','imageUrl'));
+         return view('center.dashboard.archives.archive-view-photos',compact('path','media','imageUrl','media_count_for_verification','total_media_count'));
     }
     public function defaultImages(Request $request)
     {
@@ -745,4 +755,30 @@ class CenterProfileInformationController extends BaseController
 
         return $this->successResponse('Notification settings updated successfully!');
     }
+
+
+    public function getMediaCOunt(Request $request)
+    {
+        $userId = auth()->id();
+
+        $query = MassageMedia::where('user_id', $userId)
+            ->where('template', '0')
+            ->where('type', '0');
+
+        // Total media count
+        $total_media_count = (clone $query)->count();
+        // Media count for verification
+        $media_count_for_verification = (clone $query)
+            ->whereIn('varified', ['0', '2'])
+            ->whereNull('media_verification_id')
+            ->count();
+
+        return response()->json([
+            'success' => true,
+            'media_count_for_verification' => $media_count_for_verification,
+            'total_media_count' => $total_media_count
+        ]);
+    }
+    
 }
+
