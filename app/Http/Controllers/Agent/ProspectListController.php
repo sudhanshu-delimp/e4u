@@ -34,7 +34,7 @@ class ProspectListController extends Controller
     public function showRecipients(Request $request)
     {
         try {
-            $query = MassageExcel::where('state_id', auth()->user()->state_id)
+            $query = MassageExcel::where('state_id', auth()->user()->state_id)->where('archive', 'false')
                 ->whereHas('territory', function ($q) {
                     $q->where('status', 'Active');
                 });
@@ -78,7 +78,7 @@ class ProspectListController extends Controller
                         'post_code' => $report->post_code_label,
                         'listings' => $report->listings_count,
                         'merged' => $report->merged,
-                        'action' => view('agent.dashboard.Marketing.prospect_list.report-table-action', ['report' => $report])->render(),
+                        'action' => view('agent.dashboard.marketing.prospect_list.report-table-action', ['report' => $report])->render(),
                     ];
                 });
 
@@ -111,7 +111,7 @@ class ProspectListController extends Controller
             //     return error_response('Report for this filter already exists.', 409);
             // }
 
-            $query = MassageExcel::where('state_id', auth()->user()->state_id)
+            $query = MassageExcel::where('state_id', auth()->user()->state_id)->where('archive', 'false')
                 ->whereHas('territory', function ($q) {
                     $q->where('status', 'Active');
                 });
@@ -142,7 +142,7 @@ class ProspectListController extends Controller
                 'listings' => count($centerIds),
                 'merged' => 'No',
                 'status_type' => 'Unsave',
-                'action' => view('agent.dashboard.Marketing.prospect_list.report-table-action', ['report' => $report])->render(),
+                'action' => view('agent.dashboard.marketing.prospect_list.report-table-action', ['report' => $report])->render(),
             ];
 
             $previewData = $data->map(function ($item) {
@@ -199,7 +199,7 @@ class ProspectListController extends Controller
 
     //         $action = $request->action;
 
-    //         $html = view('agent.dashboard.Marketing.partials.report-centers', [
+    //         $html = view('agent.dashboard.marketing.partials.report-centers', [
     //             'centers' => $centers,
     //             'report' => $report,
     //             'action' => $action,
@@ -248,12 +248,12 @@ class ProspectListController extends Controller
                 ->make(true);
         }
 
-        return view('agent.dashboard.Marketing.saved-reports');
+        return view('agent.dashboard.marketing.saved-reports');
     }
 
 
     public function demoPdf(){
-         return view('agent.dashboard.Marketing.demo-pdf');
+         return view('agent.dashboard.marketing.demo-pdf');
     }
 
 
