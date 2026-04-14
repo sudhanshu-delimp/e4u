@@ -258,24 +258,27 @@ class MediaVerificationController extends Controller
         foreach ($escort_medias as $escort_media) {
             if ($escort_media->varified == "0") {
                     $verification_icon = '<img src="'.asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png').'" /><span class="mc_media_tooltip">Media Pending</span>';
+                    $uploaded_date ='<div class="upload_date">Uploaded: <span>'.showDateWithFormat($escort_media->created_at).'</span></div>';
                 } elseif ($escort_media->varified == "2") {
                     $verification_icon = '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span>';
+                    $uploaded_date ='<div class="upload_date">Rejected: <span>'.showDateWithFormat($escort_media->updated_at).'</span></div>';
                 } else {
                     $verification_icon = '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span>';
+                    $uploaded_date ='<div class="upload_date">Approved: <span>'.showDateWithFormat($escort_media->updated_at).'</span></div>';
                 }
                 $position = $escort_media->position ?? 0;
                 switch ($position) {
                 case 9:
-                    $bannerImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
+                    $bannerImage[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
                                             '.$verification_icon.'</div>';  
                     break;
                 case 10:
-                    $pinupImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
+                    $pinupImage[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
                                             '.$verification_icon.'</div>';
                     break;
 
                 default:
-                    $mediaImages[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
+                    $mediaImages[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
                                            '.$verification_icon.'</div>';
                     break;
             }

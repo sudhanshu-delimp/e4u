@@ -3662,6 +3662,12 @@ p.notes {
     font-size: 10px;
 }
 
+.verify_icon_wrapper:hover .upload_date {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 .item4:hover .upload_date {
     opacity: 1;
     visibility: visible;
