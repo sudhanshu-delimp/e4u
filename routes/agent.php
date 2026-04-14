@@ -113,8 +113,26 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
 
     //Marketing Database (Centres)
     Route::get('marketing/database-centres', [DatabaseCentreController::class, 'databaseCentres'])->name('agent.marketing.database.centres');
+    Route::get('marketing/view-database-centre/{id}', [DatabaseCentreController::class, 'viewDataSummery'])->name('agent.marketing.database.view');
+    Route::get('marketing/download-database-centre/{id}', [DatabaseCentreController::class, 'downloadExcel'])->name('agent.marketing.database.download');
+    Route::get('marketing/count-active-post-code', [DatabaseCentreController::class, 'countActivePostCode'])->name('agent.marketing.database.active.count');
+    Route::get('marketing/database-download-pdf/{id}', [DatabaseCentreController::class, 'downloadPdf'])->name('agent.marketing.database.download.pdf');
+    //gettting postcodes data
+    Route::get('marketing/prospect-lists/postcodes', [ProspectListController::class, 'postcodes'])->name('agent.marketing.prospect.postcodes');
+    Route::get('marketing/prospect-lists/generate', [ProspectListController::class, 'generateList'])->name('agent.marketing.prospect.generate');
+    Route::get('marketing/prospect-lists/recipients', [ProspectListController::class, 'showRecipients'])->name('agent.marketing.prospect.recipients');
+    Route::get('marketing/prospect-lists/reports', [ProspectListController::class, 'getReports'])->name('agent.marketing.prospect.reports');
+    Route::post('marketing/prospect-lists/store-report', [ProspectListController::class, 'storeReport'])->name('agent.marketing.prospect.store-report');
+    Route::post('marketing/prospect-lists/report-action', [ProspectListController::class, 'reportAction'])->name('agent.marketing.prospect.report-action');
+    Route::post('marketing/prospect-lists/clear-reports', [ProspectListController::class, 'clearReports'])->name('agent.marketing.prospect.clear-reports');
+    Route::get('marketing/prospect-list/save-report', [ProspectListController::class, 'saveReport'])->name('agent.marketing.prospect.save-report');
 
-     
+    //Testing generate PDF using HTML
+    Route::get('marketing/prospect-list/demo-pdf', [ProspectListController::class, 'demoPdf']);
+    Route::post('marketing/prospect-list/generate-pdf', [ProspectListController::class, 'pdfGenerate'])->name('pdf.generate');
+
+    //Save Report
+    Route::get('marketing/save-report', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');
      
      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');
@@ -210,9 +228,9 @@ Route::get('advertisers',function(){
 //     return view('agent.dashboard.Marketing.database-centers');
 // })->name('agent.database-centers');
 
-Route::get('Marketing/saved-reports',function(){
-    return view('agent.dashboard.Marketing.saved-reports');
-})->name('agent.saved-reports');
+// Route::get('Marketing/saved-reports',function(){
+//     return view('agent.dashboard.Marketing.saved-reports');
+// })->name('agent.saved-reports');
 
 
 // Route::get('notifications-and-features',function(){

@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\User\UserInterface;
 
+
 class AgentExcelDataManageController extends Controller
 {
 
@@ -55,17 +56,20 @@ class AgentExcelDataManageController extends Controller
         if ($request->ajax()) {
 
             $query = MassageCenterTerritory::from('massage_center_territories as t')
-                ->leftJoin('massage_excels as m', 'm.territory_name', '=', 't.territory_name')
-                ->selectRaw('
-                    DATE(t.created_at) as date,
-                    t.territory_name,
-                    COUNT(m.id) as centres,
-                    t.status,
-                    t.id,
-                    t.state_id
-                ')
-                ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
-                ->orderByRaw("FIELD(t.status, 'Pending', 'Suspended', 'Active')");
+                    ->leftJoin('massage_excels as m', function ($join) {
+                        $join->on('m.territory_name', '=', 't.territory_name')
+                            ->where('m.archive', 'false'); 
+                    })
+                    ->selectRaw('
+                        DATE(t.created_at) as date,
+                        t.territory_name,
+                        COUNT(m.id) as centres,
+                        t.status,
+                        t.id,
+                        t.state_id
+                    ')
+                    ->groupBy('t.id', 't.territory_name', 't.status', 't.state_id', 't.created_at')
+                    ->orderByRaw("FIELD(t.status, 'Pending', 'Suspended', 'Active')");
 
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -152,7 +156,9 @@ class AgentExcelDataManageController extends Controller
             DB::beginTransaction();
             //first delete all file
             if ($file) {
-                MassageExcel::query()->delete();
+               MassageExcel::query()
+                            ->where('archive', 'false')
+                            ->update(['archive' => 'true']);
                 MassageCenterTerritory::query()->delete();
             }
             Excel::import(new MassageExcelImport, $path);

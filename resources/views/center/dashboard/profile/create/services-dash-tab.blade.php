@@ -40,7 +40,8 @@
                                                 <span class="dollar-sign">
                                                 {{config('escorts.profile.massage-services')[$value->service_id]  }}
                                                 </span>
-                                                <input type='number' class='dollar-before input_border price-input' name='price[]' placeholder='0' value="{{ (int) $value->price}}"  step="10" >
+                                                <input type='number' class='dollar-before input_border price-input selected_service_one_input' name='price[]' placeholder='0' value="{{ (int) $value->price}}"  step="10" >
+                                                <input type='hidden' class='dollar-before input_border price-input pre_selected_service_one_input' name='price[]' placeholder='0' value="{{ (int) $value->price}}"  >
                                                 <span class='error-msg' style='color:red; display:none;'></span>
                                                 <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
                                                 <input type='hidden' name='category_id[]' value='1'>
@@ -94,7 +95,7 @@
                                                 <span class="dollar-sign">
                                                 {{config('escorts.profile.other-services')[$value->service_id]  }}
                                                 </span>
-                                                <input type='number' class='dollar-before input_border price-input' name='price[]' placeholder='0' value="{{ (int) $value->price}}"   step="10">
+                                                <input type='number' class='dollar-before input_border price-input selected_service_two_input' name='price[]' placeholder='0' value="{{ (int) $value->price}}"   step="10">
                                                 <span class='error-msg' style='color:red; display:none;'></span>
                                                 <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
                                                 <input type='hidden' name='category_id[]' value='2'>
