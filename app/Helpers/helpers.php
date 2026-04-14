@@ -102,7 +102,7 @@ if (!function_exists('calculateTotalFee')) {
                 return [0, 0, 0, 0];
             }
             $normalRate   = $pricing->price;
-            if($appiedDiscount){
+            if(!empty($appiedDiscount)){
                 $discountRate = number_format($appiedDiscount->discountAmount($normalRate),2);
             }
             else{
