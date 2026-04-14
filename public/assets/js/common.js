@@ -84,12 +84,27 @@ async function isConfirm(data = {}) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, " + (data.action ? data.action : 'do') + " it!",
-        cancelButtonText: data.cancelText ? data.cancelText : "Cancel"
+        cancelButtonText: data.cancelText ? data.cancelText : "Cancel",
+        showDenyButton: data.is_third_button ? true : false,
+         denyButtonText: data.is_third_button 
+            ? (data.third_button_text ? data.third_button_text : "Save it & add another ") 
+            : undefined,
+
+        denyButtonColor: data.is_third_button 
+            ? (data.third_button_color ? data.third_button_color : "#0c223d") 
+            : undefined,
+
+        
     });
 
     if (result.isConfirmed) {
         return true;
-    } else {
+    } 
+    else if (result.isDenied) 
+    {
+        return "redirect"; 
+    }
+    else {
         return false;
     }
 }

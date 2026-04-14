@@ -298,20 +298,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Masseur Profile</h5>
-                <!-- <button class="close" type="button" data-dismiss="modal" aria-label="Close"> 
+                <button class="close redirect_home" type="button" data-dismiss="modal" aria-label="Close"> 
             <span aria-hidden="true">
             <img src="{{ asset('assets/app/img/newcross.png') }}"
                class="img-fluid img_resize_in_smscreen">
             </span>
             </button>
-            -->
+           
             </div>
             <div class="modal-body">
 
                 <h4>
                     <div class="text-center">
-                        <p>You don’t have any masseur profiles yet.</p>
-                        <p>Please click the <strong>Create Masseur</strong> button below to add a masseur profiles.</p>
+                        <p>You don’t have any Masseur Profiles yet.</p>
+                        <p>Please click the <strong>Create Masseur</strong> button below to add a Masseur Profiles.</p>
 
                         <button type="button" class="btn-success-modal mt-3" id="create_messure_profile">
                             Create Masseur
@@ -988,7 +988,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Profile',
-                text: 'please complete your My Account information.',
+                text: 'please complete your My Account Information.',
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if(result.isConfirmed){
@@ -1214,6 +1214,12 @@
         window.location.href = 'create-new-masseur';
     });
 
+    $('.redirect_home').on('click', function() {
+        window.location.href = '../center-dashboard';
+    });
+
+
+        
 
     /////////// Change Our Open Time /////////////////
     $(document).on('change', '.hh_from', function() {
