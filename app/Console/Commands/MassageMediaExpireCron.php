@@ -18,10 +18,10 @@ class MassageMediaExpireCron extends Command
         $now = now();
 
         // TESTING
-        $expireMinutes = 5;
+        // $expireMinutes = 5;
 
         // LIVE
-        // $expireMinutes = 60 * 48;
+        $expireMinutes = 60 * 48;
 
         // Step 1: users with pending media
         $userIds = MassageMedia::where('varified', '0')

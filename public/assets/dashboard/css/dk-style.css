@@ -3659,7 +3659,7 @@ p.notes {
     opacity: 0;
     transition: all 0.4s ease-in-out;
     padding: 10px 0px;
-    font-size: 11px;
+    font-size: 10px;
 }
 
 .item4:hover .upload_date {

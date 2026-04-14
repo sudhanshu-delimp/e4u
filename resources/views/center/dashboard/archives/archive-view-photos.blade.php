@@ -186,8 +186,30 @@
             <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
                 <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add
                     Photos</button>
-                <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media
-                    Verification</button>
+                @php
+                    $isDisabled = false;
+                    $tooltipMessage = '';
+                    $disabledClass = '';
+                    
+                    if ($total_media_count < 1) {
+                        $isDisabled = true;
+                        $disabledClass = 'disabled-img-btn';
+                        $tooltipMessage = 'No media available.';
+                    } elseif ($media_count_for_verification < 1) {
+                        $isDisabled = true;
+                        $disabledClass = 'disabled-img-btn';
+                        $tooltipMessage = 'No media available for verification.';
+                    } else {
+                        $isDisabled = false;
+                        $tooltipMessage = 'You must provide your media verification within 48 hours.';
+                    }
+                @endphp
+                <button type="button" id="mediaVerification" class="create-tour-sec dctour {{$disabledClass}} verify_timer"  data-toggle="modal" data-target="#veryfy_media" {{ $isDisabled ? 'disabled' : '' }}>Media
+                    Verification
+                    <span class="timer_tooltip">
+                        {{ $tooltipMessage }}
+                    </span>
+                </button>
             </div>
         </div>
         <div class="row">

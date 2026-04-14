@@ -19,9 +19,10 @@
                             <div class="col-lg-12 text-center">
                                 <label class="newbtn rm ">
                                     @php
+                                        $imageUrl = $imageUrl ?? ''; 
                                         $defaultPath = 'assets/app/img/upload-media.png';
                                         $cleanPath = parse_url($imageUrl, PHP_URL_PATH);
-                                        $cleanPath = ltrim($cleanPath, '/');
+                                        $cleanPath = ltrim($cleanPath ?? '', '/');
                                     @endphp
                                     <div class="{{ ($imageUrl != '' && $cleanPath != $defaultPath) ? 'has_img ' : '' }}upload_varification_img_wrapper">            
                                         <img id="blah" class="item px-2"
