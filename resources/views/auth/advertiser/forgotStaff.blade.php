@@ -60,13 +60,13 @@
                      </button>
                  </div>
                  <div class="modal-body">
-                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;" id="hid"></h1>
+                     <h1 class="custom_modal_text" style="text-align: center;" id="hid"></h1>
                      <span id="comman_str"></span>
                      <span class="comman_msg"></span>
                      
                  </div>
                  <div class="modal-footer" style="justify-content: center;">
-                     <a href="{{route('staff.login')}}" class="btn-success-modal">Click Hear To Login</button>
+                     <a href="{{route('staff.login')}}" class="btn-success-modal text-decoration-none text-white">Click Hear To Login</button>
                  </div>
              </div>
          </div>

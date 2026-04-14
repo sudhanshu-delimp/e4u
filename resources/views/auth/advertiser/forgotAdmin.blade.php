@@ -11,9 +11,7 @@
         box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
     }
 
-    .modal-dialog {
-        max-width: 650px !important;
-    }
+   
     .alert {
     padding: 15px 20px;
     border-radius: 4px;
@@ -126,7 +124,7 @@
                     </button>
                 </div>
                     <div class="modal-body">
-                        <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;" id="hid"></h1>
+                        <h1 class="custom_modal_text" style="text-align: center;" id="hid"></h1>
                         <span id="comman_str"></span>
                         <span class="comman_msg"></span>
                         
@@ -135,7 +133,7 @@
                         <a href="{{ $user_info 
                                         ? ($user_info->type == 9 ? route('operator.login') : route('admin.login')) 
                                         : route('home') 
-                                }}" class="btn-success-modal">
+                                }}" class="btn-success-modal text-decoration-none">
                             Click Hear To Login
                         </a>
                     </div>
