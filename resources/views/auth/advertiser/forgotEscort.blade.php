@@ -10,9 +10,6 @@ top: 40px;
 .modal-content {
 box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
 }
-.modal-dialog {
-    max-width: 650px !important;
-}
 .alert {
     padding: 15px 20px;
     border-radius: 4px;
@@ -106,13 +103,13 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                 </button>
             </div>
                  <div class="modal-body">
-                     <h5 class="custom_modal_text my-4" style="text-align: center;" id="hid"></h5>
+                     <h5 class="custom_modal_text" style="text-align: center;" id="hid"></h5>
                      <span id="comman_str"></span>
                      <span class="comman_msg"></span>
                      
                  </div>
                  <div class="modal-footer justify-content-center pt-0">
-                     <a href="{{route('advertiser.login')}}" class="btn-success-modal">Click Hear To Login</a>
+                     <a href="{{route('advertiser.login')}}" class="btn-success-modal text-decoration-none text-white">Click Hear To Login</a>
                  </div>
              </div>
          </div>
