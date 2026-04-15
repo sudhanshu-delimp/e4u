@@ -310,8 +310,9 @@
 
                 <h4>
                     <div class="text-center">
-                        <p>You don’t have any Masseur Profiles yet.</p>
-                        <p>Please click the <strong>Create Masseur</strong> button below to add a Masseur Profiles.</p>
+                        <h5 class="custom_modal_text">You don’t have any Masseur Profiles yet. <br>
+                        Please click the <strong>Create Masseur</strong> button below to add a Masseur Profiles.
+                        </h5>
 
                         <button type="button" class="btn-success-modal mt-3" id="create_messure_profile">
                             Create Masseur

@@ -148,7 +148,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
         }
-
+ .newbtn .upld-img.pro_gallery{
+            height: 105.625px ;
+        }
         /* .gal-thumb{
         max-width: 200px;
         width: 100%;
@@ -425,7 +427,7 @@
                                                                 <div class="plate dvDest ui-droppable">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
-                                                                        <img class="upld-img"
+                                                                        <img class="upld-img pro_gallery"
                                                                             data-position=2
                                                                             id="img2" data-type="gallery" src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(2)">
@@ -434,7 +436,7 @@
                                                                 <div class="plate dvDest ui-droppable">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
-                                                                        <img class="upld-img"
+                                                                        <img class="upld-img pro_gallery"
                                                                             id="img3" data-position=3 data-type="gallery" src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(3)">
                                                                     </label>
@@ -442,7 +444,7 @@
                                                                 <div class="plate dvDest ui-droppable">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
-                                                                        <img class="upld-img"
+                                                                        <img class="upld-img pro_gallery"
                                                                             id="img4" data-position=4 data-type="gallery" src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(4)">
                                                                     </label>
