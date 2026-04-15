@@ -1885,11 +1885,16 @@ if (!function_exists('get_media_by_id')) {
     }
 }
 
-if (!function_exists('get_massage_media_by_path')) {
+if (!function_exists('get_media_by_path')) {
 
-    function get_massage_media_by_path($pathOrUrl)
+    function get_media_by_path($pathOrUrl, $type = 'center')
     {
-        $media = MassageMedia::where('path', $pathOrUrl)->first();
+        if($type == 'escort'){
+            $media = EscortMedia::where('path', $pathOrUrl)->first();
+        }else{
+            $media = MassageMedia::where('path', $pathOrUrl)->first();
+        }
+        
         return $media ?? null;
     }
 }

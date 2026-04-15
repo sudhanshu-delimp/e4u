@@ -278,8 +278,7 @@ class MassageController extends Controller
     }
 
     public function getProfile(Request $request, $id)
-    {
-       
+    { 
         $user = auth()->user();
 
         

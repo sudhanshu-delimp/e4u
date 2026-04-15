@@ -278,7 +278,7 @@ class MassageGalleryController extends AppController
         $msg = '';
         $media_data = [];
         $media = $this->media->find($request->meidaId);
-
+        $media_data['media_data'] =  $media;
         
         $labels = [
             9 => 'Banner',
@@ -307,9 +307,9 @@ class MassageGalleryController extends AppController
                 $media->position = $request->position;
                 $media->default = 1;
                 $media->save();
-                $media_data['media_data'] =  $media;
-
+                
             }
+            
             $error = true;
         }
         return response()->json(compact('error','msg','media_data'));

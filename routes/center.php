@@ -204,6 +204,8 @@ Route::post('settings-my-rates',[CenterProfileInformationController::class,'stor
 Route::post('settings-availability',[CenterProfileInformationController::class,'storeAvailability'])->name('center.settings.availability');
 Route::post('settings-services',[CenterProfileInformationController::class,'storeServices'])->name('center.settings.services');
 Route::post('settings-socials-link',[CenterProfileInformationController::class,'storeSocialsLink'])->name('center.settings.social');
+Route::post('get-image-info',[CenterProfileInformationController::class,'getImageInfo'])->name('center.get-image-info');
+
 
 //Route::post('settings-upload-avatar',[ProfileInformationController::class,'storeSocialsLink'])->name('settings.save.avatar');
 //////////////end settings

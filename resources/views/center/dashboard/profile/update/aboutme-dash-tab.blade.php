@@ -313,7 +313,7 @@
                                                         src="{{ asset($escort->imagePosition(1)) }}"
                                                         style="object-fit: cover;width: 167px;height: 172px;">
                                                         @php
-                                                            $imageData = get_massage_media_by_path($escort->imagePosition(1));
+                                                            $imageData = get_media_by_path($escort->imagePosition(1));
                                                         @endphp
                                                         <div class="lg_verify_icon" id="verify_icon_1" style="{{ $imageData ? '' : 'display:none;' }}">
                                                            @if(!empty($imageData))
@@ -350,7 +350,7 @@
                                                                 data-type="gallery" id="img2"
                                                                 src="{{ asset($escort->imagePosition(2)) }}">
                                                                 @php
-                                                                    $imageData = get_massage_media_by_path($escort->imagePosition(2));
+                                                                    $imageData = get_media_by_path($escort->imagePosition(2));
                                                                 @endphp
 
                                                             <div class="verify_icon" id="verify_icon_2" style="{{ $imageData ? '' : 'display:none;' }}">
@@ -378,7 +378,7 @@
                                                                 data-type="gallery" id="img3"
                                                                 src="{{ asset($escort->imagePosition(3)) }}">
                                                                 @php
-                                                                    $imageData = get_massage_media_by_path($escort->imagePosition(3));
+                                                                    $imageData = get_media_by_path($escort->imagePosition(3));
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_3" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                     @if(!empty($imageData))
@@ -405,7 +405,7 @@
                                                                 data-type="gallery" id="img4"
                                                                 src="{{ asset($escort->imagePosition(4)) }}">
                                                                @php
-                                                                    $imageData = get_massage_media_by_path($escort->imagePosition(4));
+                                                                    $imageData = get_media_by_path($escort->imagePosition(4));
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_4" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData))
@@ -434,7 +434,7 @@
                                                                 data-type="gallery" id="img5"
                                                                 src="{{ asset($escort->imagePosition(5)) }}">
                                                                 @php
-                                                                    $imageData = get_massage_media_by_path($escort->imagePosition(5));
+                                                                    $imageData = get_media_by_path($escort->imagePosition(5));
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_5" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                     @if(!empty($imageData))
@@ -461,7 +461,7 @@
                                                                 data-type="gallery" id="img6"
                                                                 src="{{ asset($escort->imagePosition(6)) }}">
                                                                 @php
-                                                                    $imageData = get_massage_media_by_path($escort->imagePosition(6));
+                                                                    $imageData = get_media_by_path($escort->imagePosition(6));
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_6" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData))
@@ -488,7 +488,7 @@
                                                                 data-type="gallery" id="img7"
                                                                 src="{{ asset($escort->imagePosition(7)) }}">
                                                                 @php
-                                                                    $imageData = get_massage_media_by_path($escort->imagePosition(7));
+                                                                    $imageData = get_media_by_path($escort->imagePosition(7));
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_7" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData))
@@ -519,7 +519,7 @@
                                                     id="img9" src="{{ asset($escort->imagePosition(9)) }}"
                                                     style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                                     @php
-                                                        $imageData = get_massage_media_by_path($escort->imagePosition(9));
+                                                        $imageData = get_media_by_path($escort->imagePosition(9));
                                                     @endphp
                                                 <div class="lg_verify_icon" id="verify_icon_9" style="{{ $imageData && $imageData->template != '1' ? '' : 'display:none;' }}">
                                                     @if(!empty($imageData))
@@ -676,8 +676,15 @@
                                                                                         <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                                                     @endif
                                                                                 </div>
+                                                                                
                                                                                 <div class="upload_date">
-                                                                                    Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                    @if($status == "0")
+                                                                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                    @elseif($status == "1")
+                                                                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @else
+                                                                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         @endif
@@ -970,6 +977,7 @@
                                                     <img class="img-thumbnail defult-image select_image"
                                                         src="{{ asset($image->path) }}" alt=" "
                                                         data-id="{{ $image->id }}"
+                                                        data-verified="{{ $image->varified }}"
                                                         data-position="{{ $image->position ? $image->position : '' }}">
                                                 </div>
                                             @endif

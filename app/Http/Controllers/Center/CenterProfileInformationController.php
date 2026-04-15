@@ -779,6 +779,22 @@ class CenterProfileInformationController extends BaseController
             'total_media_count' => $total_media_count
         ]);
     }
+
+    public function getImageInfo(Request $request){
+        $image = get_media_by_id($request->id,'center');
+        if (!$image) {
+            return response()->json([
+                'verified' => null,
+                'position' => null
+            ]);
+        }
+
+        return response()->json([
+            'verified' => $image->varified,
+            'position' => $image->position,
+            'template' => $image->template
+        ]);
+    }
     
 }
 
