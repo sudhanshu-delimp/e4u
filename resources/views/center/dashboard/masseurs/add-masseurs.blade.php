@@ -892,7 +892,7 @@ padding: 37px !important;
 
 
 
-
+                                    <input type="hidden" name="redirect_page" id="redirect_page" value="0" >
                             </form>
 
 
@@ -1426,6 +1426,9 @@ padding: 37px !important;
 
 
             $('#submitMasseur').on('click', async function(e) {
+
+                 $('#make_default').val(0);
+                 $('#redirect_page').val(0);
                 e.preventDefault();
                 // let existRates = checkRates();
                 // if (!existRates) 
@@ -1434,9 +1437,9 @@ padding: 37px !important;
                 //      return false;
                 // }
             
-                // if (!checkProfileDynamicMedia()) {
-                //     return false;
-                // }
+                if (!checkProfileDynamicMedia()) {
+                    return false;
+                }
 
                 var hasError = validateAvailability();
               
@@ -1472,8 +1475,11 @@ padding: 37px !important;
                     submit_messaure_form();
                 }
                  else if (response === "redirect") {
-
-                        alert('I am here');
+                    
+                       /// Redirect to same page //////// 
+                       $('#make_default').val(1);
+                       $('#redirect_page').val(1);
+                        submit_messaure_form();
                 }
                 else
                 {
@@ -1505,8 +1511,11 @@ padding: 37px !important;
                             swal_success_popup(response.message ??
                                 'Profile created successfully');
                             setTimeout(function() {
-                                window.location = 'update-masseur/' + response.masseur_profile_id;
-                            }, 2000); // 2 seconds
+                                if(response.redirect_same_page)
+                                window.location = './create-new-masseur';
+                                else
+                                window.location = './archives-listing';
+                            }, 2000); 
 
                         } else {
                             swal_error_popup('Something went wrong');
