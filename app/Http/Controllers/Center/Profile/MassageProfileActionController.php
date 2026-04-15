@@ -38,7 +38,7 @@ class MassageProfileActionController extends BaseController
                 $response = [
                     'success' => false,
                     'brbtime' => '',
-                    'message' => "Profile is suspended, You can't add brb."
+                    'message' => "Profile is suspended, You can't add to closed."
                 ];
 
                 return response()->json(compact('response'));
@@ -63,13 +63,13 @@ class MassageProfileActionController extends BaseController
             $response = [
                 'success' => true,
                 'brbtime' => $brbtime,
-                'message' => 'BRB has been added to your Profile.'
+                'message' => 'Closed has been added to your Profile.'
             ];
         } else {
             $response = [
                 'success' => false,
                 'brbtime' => '',
-                'message' => 'BRB add failed'
+                'message' => 'Closed add failed'
             ];
         }
         return response()->json(compact('response'));
