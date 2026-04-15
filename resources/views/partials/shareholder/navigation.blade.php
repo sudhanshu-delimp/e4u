@@ -1,3 +1,7 @@
+@php
+$name = isset(auth()->user()->contact_person) ? auth()->user()->contact_person : '';
+$businessName = isset(auth()->user()->business_name) ? auth()->user()->business_name : '';
+@endphp
 <!-- Topbar -->
 <nav
     class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar custom-navbar db-custom-topbar">
@@ -14,21 +18,20 @@
         <div class="d-user-info">
             <div class="common_top_menu">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">Wayne Primrose</span>
+                    <b>Welcome back : </b><span class="user-values">{{ $name }}</span>
                 </span>
                 <span>
                     <span class="separator">|</span>
-                    <b>Member ID : </b><span class="user-values"> S60658 </span>
+                    <b>Member ID : </b><span class="user-values"> {{ auth()->user()->member_id }} </span>
                 </span>
 
                 <span>
-                    <b>Shareholder : </b><span class="user-values resident_home_state">Waykar Pty
-                        Ltd</span>
+                    <b>Shareholder : </b><span class="user-values resident_home_state">{{ $businessName }}</span>
                 </span>
                 <span>
                     <span class="separator">|</span>
                     <b>Shareholding : </b><span
-                        class="user-values live_current_location">18,500</span>
+                        class="user-values live_current_location"></span>
                 </span>
 
             </div>
@@ -124,12 +127,16 @@
 
 
         <div class=" d-none d-sm-block"></div>
-
+         @php
+            $defaultImg = asset(config('constants.shareholder_default_icon'));
+            $path = auth()->user()->avatar_img;
+            $avtar = !empty(auth()->user()->avatar_img) ? 'avatars/' .$path : $defaultImg;
+        @endphp
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}"
+                <img src="{{ asset( $avtar) }}"
                     class="img-profile rounded-circle avatarName">
 
             </a>
@@ -138,12 +145,12 @@
                 aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    Membership ID : S60658
+                    Membership ID : {{ auth()->user()->member_id }}
                 </a>
 
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    Name : Wayne Primrose
+                    Name : {{ $name }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('shareholder.edit-my-account') }}">
