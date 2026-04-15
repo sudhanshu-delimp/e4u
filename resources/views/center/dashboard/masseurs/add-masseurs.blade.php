@@ -41,6 +41,8 @@
 
         .newbtn {
             cursor: pointer;
+            margin: 0px;
+            padding: 0px
         }
 
         .grid-container>div {
@@ -153,7 +155,7 @@
             justify-content: space-between;
             flex-direction: column;
             flex-wrap: wrap;
-            gap: 3px;
+            gap: 10px;
         }
         .masseur_upl_img .gal_img{
             flex: 1;
@@ -163,10 +165,10 @@
         }
         .gal-thumb-first {
             width: 100% !important;
-            height: 340px !important;
+            height: 338px !important;
         }
         .newbtn .upld-img.profile-gallery{
-            height: 105.625px ;
+            height: 106px;
         }
         @media(max-width:1024px){
             .masseur_upl_img {

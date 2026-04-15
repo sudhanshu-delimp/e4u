@@ -39,6 +39,8 @@
 
         .newbtn {
             cursor: pointer;
+    padding: 0px;
+    margin: 0px auto;
         }
 
         .grid-container>div {
@@ -134,7 +136,7 @@
         .masseur_gallery {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 3px;
+            gap: 10px;
         }
 
         .grid-container {
@@ -148,14 +150,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
         }
- .newbtn .upld-img.pro_gallery{
-            height: 105.625px ;
+        .newbtn .upld-img.pro_gallery{
+            height: 106px ;
         }
-        /* .gal-thumb{
-        max-width: 200px;
-        width: 100%;
-        height: 138px;
-    } */
 
         @media (min-width:600px) and (max-width: 1024px) {
             .grid-container {
@@ -172,7 +169,7 @@
 
         .gal-thumb-first {
             width: 100% !important;
-            height: 340px !important;
+            height: 338px !important;
         }
 
         .time-field {
