@@ -113,6 +113,9 @@
                                         </div>
 
                                 @endswitch
+                                <div class="upload_date">
+                                    Uploaded: <span>{{showDateWithFormat($image->created_at)}}</span>
+                                </div>
                             </div>
                         @endif    
                         @endforeach   

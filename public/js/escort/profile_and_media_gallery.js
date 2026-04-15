@@ -326,7 +326,6 @@ function preview_image(event)
             if (response.success) {
                 let activePage = $("#carouselExampleIndicators .page-item.active").attr('id');
                 let activeContainer = $("#carouselExampleIndicators .carousel-item.active").attr('id');
-    
                 $("#js_profile_media_gallery").html(response.gallery_container_html);
                 $("#gallery_modal_container").html(response.gallery_modal_container_html);
                 $("#banner_modal_container").html(response.banner_modal_container_html);
@@ -344,6 +343,7 @@ function preview_image(event)
                     $(`#cItem_0`).addClass('active');
                 }
                 initDragDrop();
+                getMediaCount();
             }
         }).fail(function (xhr, status, error) {
             console.error("Error:", error);
@@ -610,3 +610,33 @@ async function initVideos() {
     });
 }
 initVideos();
+
+
+function getMediaCount(){
+    return $.ajax({
+        url: `/escort-dashboard/get-media-count`,
+        type: "GET",
+        dataType: "json"
+    }).done(function (response) {
+        let btn = $('#mediaVerification');
+        let tooltip = btn.find('.timer_tooltip');
+        if (response.success && response.total_media_count < 1) {
+            btn.prop('disabled', true);
+            btn.addClass('disabled-img-btn')
+            tooltip.text('No any media.');
+        } 
+        else if (response.success && response.media_count_for_verification < 1){
+            btn.prop('disabled', true);
+            tooltip.text('No media available for verification.');
+            btn.addClass('disabled-img-btn');
+        } 
+        else {
+            btn.prop('disabled', false);
+            tooltip.text('You must provide your media verification within 48 hours.');
+            btn.removeClass('disabled-img-btn')
+        }
+
+    }).fail(function (xhr, status, error) {
+        console.error("Error:", error);
+    });
+}

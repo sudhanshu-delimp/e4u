@@ -41,6 +41,8 @@
 
         .newbtn {
             cursor: pointer;
+            margin: 0px;
+            padding: 0px
         }
 
         .grid-container>div {
@@ -153,7 +155,7 @@
             justify-content: space-between;
             flex-direction: column;
             flex-wrap: wrap;
-            gap: 3px;
+            gap: 10px;
         }
         .masseur_upl_img .gal_img{
             flex: 1;
@@ -163,7 +165,10 @@
         }
         .gal-thumb-first {
             width: 100% !important;
-            height: 340px !important;
+            height: 338px !important;
+        }
+        .newbtn .upld-img.profile-gallery{
+            height: 106px;
         }
         @media(max-width:1024px){
             .masseur_upl_img {
@@ -204,7 +209,11 @@
     width: 95px;
 }
 
-
+.swal2-popup
+{
+padding: 37px !important;
+}
+ 
     </style>
 @stop
 @section('content')
@@ -309,23 +318,26 @@
                                             <label class="label">Vaccination</label>
                                             <div class="d-flex justify-content-start gap-10">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
+                                                     <label class="form-check-label">
+                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
                                                         value="1" required data-label="Vaccination">
-                                                    <label class="form-check-label">
+                                                   
                                                         Vaccinated, not up to date
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
+                                                     <label class="form-check-label">
+                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
                                                         value="2">
-                                                    <label class="form-check-label">
+                                                   
                                                         Vaccinated, up to date
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
+                                                     <label class="form-check-label">
+                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
                                                         value="3">
-                                                    <label class="form-check-label">
+                                                   
                                                         Not Vaccinated
                                                     </label>
                                                 </div>
@@ -356,21 +368,39 @@
                                             <label class="label">Services</label>
                                             <div class="d-flex justify-content-start gap-10">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"  required data-label="Vaccination" {{ !isPriceValid($default_duration['massage_price']) ? 'disabled' : '' }} name="service[]" value="massage" >
+                                                    @if(!isPriceValid($default_duration['massage_price']))
+                                                    <input class="form-check-input" type="checkbox"  required data-label="Vaccination" disabled name="service[]" value="massage" >
+                                                    @else
+                                                    <input class="form-check-input" type="checkbox"  required data-label="Vaccination" checked name="service[]" value="massage" >
+                                                    @endif
+
                                                     <label class="form-check-label">
                                                         Massage
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" {{ !isPriceValid($default_duration['incall_price']) ? 'disabled' : '' }}   name="service[]" value="2_hand"
+
+                                                    @if(!isPriceValid($default_duration['incall_price']))
+                                                    <input class="form-check-input" type="checkbox" disabled  name="service[]" value="2_hand"
                                                         value="2">
+                                                    @else
+                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
+                                                        value="2" checked>
+                                                        @endif
+
                                                     <label class="form-check-label">
                                                         +2 Hands
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" {{ !isPriceValid($default_duration['outcall_price']) ? 'disabled' : '' }} name="service[]"  value="4_hand"
+                                                    @if(!isPriceValid($default_duration['outcall_price']))
+                                                    <input class="form-check-input" type="checkbox" disabled name="service[]"  value="4_hand"
                                                         value="3">
+                                                    @else
+                                                     <input class="form-check-input" type="checkbox"  name="service[]"  value="4_hand"
+                                                        value="3" checked>
+                                                    @endif    
+
                                                     <label class="form-check-label">
                                                         +4 Hands.
                                                     </label>
@@ -1425,15 +1455,25 @@
 
                 let mess_data = {
                     'title' : 'NA',
-                    'text' : 'Do you want to add this as the default masseur Listing?',
+                    'text' : 'Do you want to add this as the default Masseur Listing?',
                     'action' : 'make',
-                    'cancelText': 'No'
+                    'cancelText': 'No',
+                    'is_third_button': true ,
+                    'third_button_text' : 'Yes, make it and create another',
+                    
+
                 }
 
-                if(await isConfirm(mess_data))
+                let response = await isConfirm(mess_data);
+
+                if (response === true) 
                 {
                     $('#make_default').val(1);
                     submit_messaure_form();
+                }
+                 else if (response === "redirect") {
+
+                        alert('I am here');
                 }
                 else
                 {

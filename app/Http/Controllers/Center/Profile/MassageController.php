@@ -1474,23 +1474,23 @@ class MassageController extends Controller
 
             
                 
-                if($masseurs->isNotEmpty())
-                {
-                   $new_availability = $availability;
+                // if($masseurs->isNotEmpty())
+                // {
+                //    $new_availability = $availability;
 
-                   Log::info('$masseurs');
-                   Log::info($masseurs);
+                //    Log::info('$masseurs');
+                //    Log::info($masseurs);
 
-                   foreach( $masseurs as  $masseur)
-                   {
-                        $masseur_availability = json_decode($masseur->availability, true);
-                        $old_availability = $this->update_availibility($new_availability, $masseur_availability);   
-                        $new_availability_Json = json_encode($old_availability);
-                        $masseur->availability = $new_availability_Json;
-                        $masseur->save();  
-                    }
+                //    foreach( $masseurs as  $masseur)
+                //    {
+                //         $masseur_availability = json_decode($masseur->availability, true);
+                //         $old_availability = $this->update_availibility($new_availability, $masseur_availability);   
+                //         $new_availability_Json = json_encode($old_availability);
+                //         $masseur->availability = $new_availability_Json;
+                //         $masseur->save();  
+                //     }
 
-                }    
+                // }    
 
             
             return response()->json([
