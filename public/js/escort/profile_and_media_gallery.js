@@ -632,7 +632,7 @@ function getMediaCount(){
         } 
         else {
             btn.prop('disabled', false);
-            tooltip.text('You must provide your media verification within 48 hours.');
+            tooltip.text('You must provide your Media Verification within 48 hours.');
             btn.removeClass('disabled-img-btn')
         }
 
