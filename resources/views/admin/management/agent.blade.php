@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('style')
-
+<style>
+   form label{
+        margin-bottom: 0px;
+    }
+</style>
 @stop
 @section('content')
 <!-- Content Wrapper -->
@@ -312,32 +316,41 @@
                               </div>
 
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Business Name" name="business_name" id="business_name" value="${(rowData.business_name ? rowData.business_name : '')}">
+                                 <label for="business_name">Business Name</label>
+                                 <input type="text" class="form-control rounded-0"  name="business_name" id="business_name" value="${(rowData.business_name ? rowData.business_name : '')}">
                               </div>
                               <div class="col-6 mb-3">
+                                 <label for="abn">ABN</label>
                                  <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn" id="abn" value="${(rowData.abn ? rowData.abn : '')}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Business Address" name="business_address" id="business_address" value="${(rowData.business_address ? rowData.business_address : '')}">
+                                 <label for="business_address">Business Address</label>
+                                 <input type="text" class="form-control rounded-0"  name="business_address" id="business_address" value="${(rowData.business_address ? rowData.business_address : '')}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Business Number" name="business_number" id="business_number" value="${(rowData.business_number ? rowData.business_number : '')}">
+                                  <label for="business_number">Business Number</label>
+                                 <input type="text" class="form-control rounded-0"  name="business_number" id="business_number" value="${(rowData.business_number ? rowData.business_number : '')}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Contact Person" name="contact_person" id="contact_person" value="${(rowData.contact_person ? rowData.contact_person : '')}">
+                                 <label for="contact_person">Contact Person</label>
+                                 <input type="text" class="form-control rounded-0"  name="contact_person" id="contact_person" value="${(rowData.contact_person ? rowData.contact_person : '')}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone" value="${(rowData.	phone ? rowData.	phone : '')}">
+                                 <label for="mobile">Mobile</label>
+                                 <input type="text" class="form-control rounded-0"  name="phone" id="phone" value="${(rowData.	phone ? rowData.	phone : '')}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="email" class="form-control rounded-0" placeholder="Private Email"  name="email" id="email" value="${(rowData.email ? rowData.email : '')}">
+                                 <label for="Private_Email">Private Email</label>
+                                 <input type="email" class="form-control rounded-0" name="email" id="email" value="${(rowData.email ? rowData.email : '')}">
                                  <span class="text-danger error-email"></span>
                                  </div>
                               <div class="col-6 mb-3">
-                                 <input type="email" class="form-control rounded-0" placeholder="E4U Email" name="email2" id="email2" value="${(rowData.email2 ? rowData.	email2 : '')}">
+                                  <label for="E4U_Email">E4U Email</label>
+                                 <input type="email" class="form-control rounded-0" name="email2" id="email2" value="${(rowData.email2 ? rowData.	email2 : '')}">
                                  <span class="text-danger error-email2"></span>
                                  </div>
                               <div class="col-6 mb-3">
+                                  <label for="select_territory">Select Territory</label>
                                  <select class="form-control rounded-0" name="state_id" id="state_id">${optionsHtml}</select>
                                  
                               </div>
@@ -364,16 +377,20 @@
                                  <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
                               </div>
                               <div class="col-6 mb-3">
+                                 <label for="agreement_date">Agreement Date</label>
                                  <input type="date" class="form-control rounded-0"  name="agreement_date" id="agreement_date" value="${agent_details?.agreement_date ??  ''}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Term"  name="term" id="term" value="${agent_details?. term ?? ''}">
+                                 <label for="term">Term</label>
+                                 <input type="text" class="form-control rounded-0"  name="term" id="term" value="${agent_details?. term ?? ''}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Option Period"  name="option_peroid" id="option_peroid" value="${agent_details?. option_peroid ?? ''}">
+                                 <label for="option_period">Option Period</label>
+                                 <input type="text" class="form-control rounded-0"  name="option_peroid" id="option_peroid" value="${agent_details?. option_peroid ?? ''}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Option Exercised"  name="option_exercised" id="option_exercised" value="${agent_details ?. option_exercised ?? ''}">
+                                 <label for="option_exercised">Option Exercised</label>
+                                 <input type="text" class="form-control rounded-0" name="option_exercised" id="option_exercised" value="${agent_details ?. option_exercised ?? ''}">
                               </div>
 
                               <!-- Commission -->
@@ -381,17 +398,19 @@
                                  <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                               </div>
                               <div class="col-6 mb-3">
-                                 <input class="form-control rounded-0" placeholder="Advertising Commission %" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details ?. commission_advertising_percent ?? ''}">
+                                  <label for="advertising_commission">Advertising Commission %</label>
+                                 <input class="form-control rounded-0"  name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details ?. commission_advertising_percent ?? ''}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input  class="form-control rounded-0" placeholder="Massage Centre Commission %" name="commission_registration_amount" id="commission_registration_amount" value="${agent_details ?. commission_registration_amount ?? ''}">
+                                 <label for="massage_centre_commission">Massage Centre Commission %</label>
+                                 <input  class="form-control rounded-0" name="commission_registration_amount" id="commission_registration_amount" value="${agent_details ?. commission_registration_amount ?? ''}">
                               </div>
 
 
                                  <div class="col-6 mb-3">
-                              <h6 class=" pb-1 text-blue-primary">Agreement File</h6>
-                              <input type="file" name="agreement_file" id="agreement_file">
-                                 <div id="file_preview" class="mt-2"></div>
+                                    <h6 class=" pb-1 text-blue-primary">Agreement File</h6>
+                                    <input type="file" name="agreement_file" id="agreement_file">
+                                       <div id="file_preview" class="mt-2"></div>
                                  </div>
 
                                  <div class="col-6 mb-3 my-auto text-right">${agreement_file}</div>
@@ -550,37 +569,46 @@
             </div>
 
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Business Name" name="business_name" id="business_name">
+            <label for="business_name">Business Name</label>  
+            <input type="text" class="form-control rounded-0"  name="business_name" id="business_name">
             <span class="text-danger error-business_name"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn" id="abn">
+            <label for="abn">ABN</label>
+            <input type="text" class="form-control rounded-0"  name="abn" id="abn">
                <span class="text-danger error-abn"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Business Address" name="business_address" id="business_address">
+               <label for="business_address">Business Address</label>
+            <input type="text" class="form-control rounded-0"  name="business_address" id="business_address">
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Business Number" name="business_number" id="business_number">
+               <label for="business_number">Business Number</label>
+            <input type="text" class="form-control rounded-0"  name="business_number" id="business_number">
              <span class="text-danger error-business_number"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Contact Person" name="contact_person" id="contact_person">
+               <label for="contact_person">Contact Person</label>
+            <input type="text" class="form-control rounded-0"  name="contact_person" id="contact_person">
              <span class="text-danger error-contact_person"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone">
+               <label for="mobile">Mobile</label>
+            <input type="text" class="form-control rounded-0"  name="phone" id="phone">
              <span class="text-danger error-phone"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="email" class="form-control rounded-0" placeholder="Private Email"  name="email" id="email">
+               <label for="Private_Email">Private Email</label>
+            <input type="email" class="form-control rounded-0"   name="email" id="email">
             <span class="text-danger error-email"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="email" class="form-control rounded-0" placeholder="E4U Email" name="email2" id="email2">
+               <label for="E4U_Email">E4U Email</label>
+            <input type="email" class="form-control rounded-0"  name="email2" id="email2">
             <span class="text-danger error-email2"></span>
             </div>
             <div class="col-6 mb-3">
+               <label>Select Territory</label>
             <select class="form-control rounded-0" name="state_id" id="state_id">${optionsHtml}</select>
             <span class="text-danger error-state_id"></span>
             </div>
@@ -589,6 +617,7 @@
             <div class="col-12 mb-3 d-flex align-items-center justify-content-start gap-10 flex-wrap">
             <h6 class="mb-0 text-blue-primary">Method of Contact:</h6>
             <div class="form-check form-check-inline">
+               
             <input class="form-check-input" type="checkbox" id="viewer_contact_type_1" name="viewer_contact_type[]" value="1">
             <label class="form-check-label" for="contactText">Text</label>
             </div>
@@ -607,17 +636,21 @@
             <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
             </div>
             <div class="col-6 mb-3">
+               <label for="agreement_date">Agreement Date</label>
             <input type="date" class="form-control rounded-0"  name="agreement_date" id="agreement_date">
             <span class="text-danger error-agreement_date"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Term"  name="term" id="term" >
+               <label for="term">Term</label>
+            <input type="text" class="form-control rounded-0"   name="term" id="term" >
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Option Period"  name="option_peroid" id="option_peroid">
+               <label for="option_period">Option Period</label>
+            <input type="text" class="form-control rounded-0"   name="option_peroid" id="option_peroid">
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Option Exercised"  name="option_exercised" id="option_exercised">
+               <label for="option_exercised">Option Exercised</label>
+            <input type="text" class="form-control rounded-0"   name="option_exercised" id="option_exercised">
             </div>
 
             <!-- Commission -->
@@ -625,10 +658,12 @@
             <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
             </div>
             <div class="col-6 mb-3">
-            <input class="form-control rounded-0" placeholder="Advertising Commission %" name="commission_advertising_percent" id="commission_advertising_percent">
+               <label for="advertising_commission">Advertising Commission %</label>
+            <input class="form-control rounded-0"  name="commission_advertising_percent" id="commission_advertising_percent">
             </div>
             <div class="col-6 mb-3">
-            <input  class="form-control rounded-0" placeholder="Massage Centre Commission %" name="commission_registration_amount" id="commission_registration_amount" >
+               <label for="massage_centre_commission">Massage Centre Commission %</label>
+            <input  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" >
             </div>
 
 

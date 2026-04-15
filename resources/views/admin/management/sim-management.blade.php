@@ -266,7 +266,7 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <h5 class="popu_heading_style my-4 font">Are you sure you want to save this record?</h5>
+                    <h5 class="custom_modal_text">Are you sure you want to save this record?</h5>
                 </div>
                 <div class="modal-footer pt-0 justify-content-center">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>

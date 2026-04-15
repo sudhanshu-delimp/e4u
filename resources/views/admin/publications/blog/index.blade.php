@@ -115,6 +115,7 @@
                         <div class="row" style="max-height: 600px; overflow-y: auto;">
                             <!-- Blog Title -->
                             <div class="col-12 mb-3">
+                                <label for="title">Blog Title</label>
                                 <input type="text" class="form-control rounded-0 fw-bold" name="title" id="title"
                                     placeholder="Blog Title" />
                             </div>
@@ -145,12 +146,14 @@
 
                             <!-- SEO Meta Title -->
                             <div class="col-12 mb-3">
+                                <label for="title">SEO Meta Title</label>
                                 <input type="text" class="form-control rounded-0" name="meta_title" id="meta_title"
                                     placeholder="SEO Meta Title (optional)" />
                             </div>
 
                             <!-- SEO Meta Description -->
                             <div class="col-12 mb-3">
+                                <label for="title">Meta Description </label>
                                 <textarea class="form-control rounded-0" name="meta_description" id="meta_description" rows="2"
                                     placeholder="Meta Description (optional)"></textarea>
                             </div>
