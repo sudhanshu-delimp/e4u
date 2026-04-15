@@ -29,10 +29,10 @@
         color: #fff !important;
     }
 
-    /* .disabled-form-tab {
+    .disabled-form-tab {
         pointer-events: none;
         opacity: 0.5;
-    } */
+    }
 
 
 
