@@ -41,6 +41,8 @@
 
         .newbtn {
             cursor: pointer;
+            margin: 0px;
+            padding: 0px
         }
 
         .grid-container>div {
@@ -153,7 +155,7 @@
             justify-content: space-between;
             flex-direction: column;
             flex-wrap: wrap;
-            gap: 3px;
+            gap: 10px;
         }
         .masseur_upl_img .gal_img{
             flex: 1;
@@ -163,7 +165,10 @@
         }
         .gal-thumb-first {
             width: 100% !important;
-            height: 340px !important;
+            height: 338px !important;
+        }
+        .newbtn .upld-img.profile-gallery{
+            height: 106px;
         }
         @media(max-width:1024px){
             .masseur_upl_img {
@@ -313,23 +318,26 @@ padding: 37px !important;
                                             <label class="label">Vaccination</label>
                                             <div class="d-flex justify-content-start gap-10">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
+                                                     <label class="form-check-label">
+                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
                                                         value="1" required data-label="Vaccination">
-                                                    <label class="form-check-label">
+                                                   
                                                         Vaccinated, not up to date
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
+                                                     <label class="form-check-label">
+                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
                                                         value="2">
-                                                    <label class="form-check-label">
+                                                   
                                                         Vaccinated, up to date
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
+                                                     <label class="form-check-label">
+                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
                                                         value="3">
-                                                    <label class="form-check-label">
+                                                   
                                                         Not Vaccinated
                                                     </label>
                                                 </div>

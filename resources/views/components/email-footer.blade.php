@@ -1,9 +1,9 @@
 <div>
-    <p style="text-align: center; font-size:14px; border-bottom:1px solid #fff; padding:12px 10px; margin-bottom: 0px;">
+    <p style="text-align: center; font-size:14px; border-bottom:1px solid #fff; padding:12px 15px 15px 15px; margin-bottom: 0px;">
         This is an automatically generated email by the Escorts4U Operations Centre.<br>
         © Copyright {{ date('Y') }} Blackbox Tech Pty Ltd. All rights reserved.
     </p>
-    <div style="padding:10px;">
+    <div style="padding:10px 20px">
         <p style="font-size: 13px; font-style: italic; text-align:justify; margin-bottom: 5px;">This email and any attachments
             are confidential between Blackbox Tech Pty Ltd, and the addressee. If it has
             been sent to you in error, please immediately delete it and notify us.</p>
