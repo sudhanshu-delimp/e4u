@@ -224,6 +224,13 @@ class MasseurController extends AppController
             // Log::info('$request_data');
             // Log::info($request_data);
 
+            if($request->redirect_page)
+            $redirect_same_page = true ;
+            else
+            $redirect_same_page = false;     
+
+
+
             $availability     = $this->make_masseur_availability($request_data);
             $availabilityJson = json_encode($availability);
 
@@ -326,6 +333,7 @@ class MasseurController extends AppController
                 'success'   => true,
                 'message' => $message,
                 'masseur_profile_id' => $masseur_profile_id,
+                'redirect_same_page' => $redirect_same_page
             ]);
 
         } 
