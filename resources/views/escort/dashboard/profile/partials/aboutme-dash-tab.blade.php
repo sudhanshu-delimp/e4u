@@ -407,7 +407,7 @@
                                         <div class="custom-img-filter-header border-0">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <h3 class="gallery-head">Your Default Images</h3>
+                                                    <h3 class="gallery-head">imageData</h3>
                                                 </div>
                                             </div>
                                         </div>

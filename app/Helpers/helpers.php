@@ -1891,7 +1891,7 @@ if (!function_exists('get_massage_media_id_by_path')) {
     function get_massage_media_id_by_path($pathOrUrl)
     {
         $media = MassageMedia::where('path', $pathOrUrl)->first();
-        return $media->id ?? null;
+        return $media ?? null;
     }
 }
 
