@@ -422,24 +422,26 @@
                                                         id="img1" src="{{ asset($escort->imagePosition(1)) }}"
                                                         style="object-fit: cover;width: 167px;height: 172px;">
                                                         @php
-                                                            if($escort->profile_name === null) {
+                                                            if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
                                                                 $imageData = $path->findByposition(auth()->user()->id, 1, 1);
                                                                 if(!empty($imageData['id'])) {
-                                                                    $media_details = get_media_by_id($imageData['id'], 'escort');
-                                                                    $status = $media_details->varified;
+                                                                    $imageData = get_media_by_id($imageData['id'], 'escort');
+                                                                    
                                                                 } else {
                                                                     $imageData = get_escort_media_id_by_path($escort->imagePosition(1));
-                                                                    $status = $imageData->varified;
                                                                 }
                                                             } else {
                                                                 $imageData = get_escort_media_id_by_path($escort->imagePosition(1));
-                                                                $status = $imageData->varified;
+                                                                
                                                             }
                                                         @endphp
 
                                                     <div class="lg_verify_icon" id="verify_icon_1"
                                                         style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                         @if(!empty($imageData['id']))
+                                                        @php
+                                                            $status = $imageData->varified;
+                                                        @endphp
                                                         @if($status == "0")
                                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                         <span class="common_shield_tooltip">Media Pending</span>
@@ -468,22 +470,23 @@
                                                                 data-type="gallery" id="img2"
                                                                 src="{{ asset($escort->imagePosition(2)) }}">
                                                             @php
-                                                                    if($escort->profile_name === null) {
+                                                                    if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
                                                                         $imageData = $path->findByposition(auth()->user()->id, 2, 1);
                                                                         if(!empty($imageData['id'])) {
-                                                                            $media_details = get_media_by_id($imageData['id'], 'escort');
-                                                                            $status = $media_details->varified;
+                                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
                                                                         } else {
                                                                             $imageData = get_escort_media_id_by_path($escort->imagePosition(2));
-                                                                            $status = $imageData->varified;
                                                                         }
                                                                     } else {
                                                                         $imageData = get_escort_media_id_by_path($escort->imagePosition(2));
-                                                                        $status = $imageData->varified;
+        
                                                                     }
                                                                 @endphp
                                                             <div class="verify_icon" id="verify_icon_2" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData['id']))
+                                                                @php
+                                                                    $status = $imageData->varified;
+                                                                @endphp
                                                                 @if($status == "0")
                                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                 @elseif($status == "1")
@@ -503,22 +506,23 @@
                                                                 data-type="gallery" id="img3"
                                                                 src="{{ asset($escort->imagePosition(3)) }}">
                                                                 @php
-                                                                    if($escort->profile_name === null) {
+                                                                    if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
                                                                         $imageData = $path->findByposition(auth()->user()->id, 3, 1);
                                                                         if(!empty($imageData['id'])) {
-                                                                            $media_details = get_media_by_id($imageData['id'], 'escort');
-                                                                            $status = $media_details->varified;
+                                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
                                                                         } else {
                                                                             $imageData = get_escort_media_id_by_path($escort->imagePosition(3));
-                                                                            $status = $imageData->varified;
                                                                         }
                                                                     } else {
                                                                         $imageData = get_escort_media_id_by_path($escort->imagePosition(3));
-                                                                        $status = $imageData->varified;
+                                                                        
                                                                     }
                                                                 @endphp
                                                             <div class="verify_icon" id="verify_icon_3" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData['id']))
+                                                                @php
+                                                                    $status = $imageData->varified;
+                                                                @endphp
                                                                 @if($status == "0")
                                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                 @elseif($status == "1")
@@ -538,22 +542,22 @@
                                                                 data-type="gallery" id="img4"
                                                                 src="{{ asset($escort->imagePosition(4)) }}">
                                                             @php
-                                                                    if($escort->profile_name === null) {
+                                                                    if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
                                                                         $imageData = $path->findByposition(auth()->user()->id, 4, 1);
                                                                         if(!empty($imageData['id'])) {
-                                                                            $media_details = get_media_by_id($imageData['id'], 'escort');
-                                                                            $status = $media_details->varified;
+                                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
                                                                         } else {
                                                                             $imageData = get_escort_media_id_by_path($escort->imagePosition(4));
-                                                                            $status = $imageData->varified;
                                                                         }
                                                                     } else {
                                                                         $imageData = get_escort_media_id_by_path($escort->imagePosition(4));
-                                                                        $status = $imageData->varified;
                                                                     }
                                                                 @endphp
                                                             <div class="verify_icon" id="verify_icon_4" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData['id']))
+                                                                @php
+                                                                    $status = $imageData->varified;
+                                                                @endphp
                                                                 @if($status == "0")
                                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                 @elseif($status == "1")
@@ -575,22 +579,22 @@
                                                                 data-type="gallery" id="img5"
                                                                 src="{{ asset($escort->imagePosition(5)) }}">
                                                                 @php
-                                                                    if($escort->profile_name === null) {
+                                                                    if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
                                                                         $imageData = $path->findByposition(auth()->user()->id, 5, 1);
                                                                         if(!empty($imageData['id'])) {
-                                                                            $media_details = get_media_by_id($imageData['id'], 'escort');
-                                                                            $status = $media_details->varified;
+                                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
                                                                         } else {
                                                                             $imageData = get_escort_media_id_by_path($escort->imagePosition(5));
-                                                                            $status = $imageData->varified;
                                                                         }
                                                                     } else {
                                                                         $imageData = get_escort_media_id_by_path($escort->imagePosition(5));
-                                                                        $status = $imageData->varified;
                                                                     }
                                                                 @endphp
                                                             <div class="verify_icon" id="verify_icon_5" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData['id']))
+                                                                @php
+                                                                    $status = $imageData->varified;
+                                                                @endphp
                                                                 @if($status == "0")
                                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                 @elseif($status == "1")
@@ -610,22 +614,22 @@
                                                                 data-type="gallery" id="img6"
                                                                 src="{{ asset($escort->imagePosition(6)) }}">
                                                                 @php
-                                                                    if($escort->profile_name === null) {
+                                                                    if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
                                                                         $imageData = $path->findByposition(auth()->user()->id, 6, 1);
                                                                         if(!empty($imageData['id'])) {
-                                                                            $media_details = get_media_by_id($imageData['id'], 'escort');
-                                                                            $status = $media_details->varified;
+                                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
                                                                         } else {
                                                                             $imageData = get_escort_media_id_by_path($escort->imagePosition(6));
-                                                                            $status = $imageData->varified;
                                                                         }
                                                                     } else {
                                                                         $imageData = get_escort_media_id_by_path($escort->imagePosition(6));
-                                                                        $status = $imageData->varified;
                                                                     }
                                                                 @endphp
                                                             <div class="verify_icon" id="verify_icon_6" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData['id']))
+                                                                @php
+                                                                    $status = $imageData->varified;
+                                                                @endphp
                                                                 @if($status == "0")
                                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                 @elseif($status == "1")
@@ -645,22 +649,22 @@
                                                                 data-type="gallery" id="img7"
                                                                 src="{{ asset($escort->imagePosition(7)) }}">
                                                                 @php
-                                                                    if($escort->profile_name === null) {
+                                                                    if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
                                                                         $imageData = $path->findByposition(auth()->user()->id, 7, 1);
                                                                         if(!empty($imageData['id'])) {
-                                                                            $media_details = get_media_by_id($imageData['id'], 'escort');
-                                                                            $status = $media_details->varified;
+                                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
                                                                         } else {
                                                                             $imageData = get_escort_media_id_by_path($escort->imagePosition(7));
-                                                                            $status = $imageData->varified;
                                                                         }
                                                                     } else {
                                                                         $imageData = get_escort_media_id_by_path($escort->imagePosition(7));
-                                                                        $status = $imageData->varified;
                                                                     }
                                                                 @endphp
                                                             <div class="verify_icon" id="verify_icon_7" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                                 @if(!empty($imageData['id']))
+                                                                @php
+                                                                    $status = $imageData->varified;
+                                                                @endphp
                                                                 @if($status == "0")
                                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                 @elseif($status == "1")
@@ -684,18 +688,25 @@
                                                 <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                     src="{{ asset($escort->imagePosition(9)) }}"
                                                     style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                                                @php
-                                                $imageData = $path->findByposition(auth()->user()->id, 9, 1);
-                                                if(!empty($imageData['id'])){
-                                                $media_details = get_media_by_id($imageData['id'],'escort');
-                                                $status = $media_details->varified;
-                                                }
-
+                                               @php
+                                                    if (empty($escort->profile_name) || strtoupper($escort->profile_name) === 'NULL') {
+                                                        $imageData = $path->findByposition(auth()->user()->id, 9, 1);
+                                                        if(!empty($imageData['id'])) {
+                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
+                                                        } else {
+                                                            $imageData = get_escort_media_id_by_path($escort->imagePosition(9));
+                                                        }
+                                                    } else {
+                                                        $imageData = get_escort_media_id_by_path($escort->imagePosition(9));
+                                                    }
                                                 @endphp
 
                                                 <div class="lg_verify_icon" id="verify_icon_9"
-                                                    style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
+                                                    style="{{ !empty($imageData['id']) && $imageData->template != '1' ? '' : 'display:none;' }}">
                                                     @if(!empty($imageData['id']))
+                                                    @php
+                                                        $status = $imageData->varified;
+                                                    @endphp
                                                     @if($status == "0")
                                                     <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                     <span class="common_shield_tooltip">Media Pending</span>
