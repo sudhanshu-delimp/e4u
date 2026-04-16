@@ -121,7 +121,7 @@ class MassageController extends Controller
 
 
             if(!empty($brb))
-            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">Closed <small class="listing-tag-tooltip-desc">Closed  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
             else
             $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.'</span>';     
 
@@ -538,6 +538,7 @@ class MassageController extends Controller
                 }
 
                 MassageRate::insert($rates);
+                
             }
 
 
@@ -566,6 +567,7 @@ class MassageController extends Controller
 
                 if(!empty($masseur))
                 MassagerMasseur::insert($masseur);
+                update_profile_massure($massage_profile_id,$masseurIds);
             }
 
 
@@ -1039,7 +1041,8 @@ class MassageController extends Controller
                     }
 
                 }
-               
+
+                update_profile_massure($massage_profile_id,$masseurIds);
                 $message = 'Updated successfully.';
                 $error = false;
             }
@@ -1295,7 +1298,7 @@ class MassageController extends Controller
                 $end_date = date('d M Y', strtotime($row->end_date));
 
                 if(!empty($brb))
-                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.' <sup class="brb_icon listing-tag-tooltip">BRB <small class="listing-tag-tooltip-desc">Brb  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+                $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.' <sup class="brb_icon listing-tag-tooltip">Closed <small class="listing-tag-tooltip-desc">Closed  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
                 else
                 $profile_name = '<span id="brb_'.$row->massageprofile->id.'"> '.$row->massageprofile->profile_name.'</span>';     
 
@@ -1418,7 +1421,9 @@ class MassageController extends Controller
                         }
 
                     }
-                    
+
+
+                    $massagers_latest_open_time = $availability;
                     $availabilityJson = json_encode($availability);
                     if ($massage_default->availability) {
                         $massage_default->availability->availability_time = $availabilityJson;
@@ -1453,6 +1458,7 @@ class MassageController extends Controller
                         }
                     }
 
+                    $massagers_latest_open_time = $availability;
                     $availabilityJson = json_encode($availability);
                     if ($massage_default->availability) {
                         $massage_default->availability->availability_time = $availabilityJson;
@@ -1461,38 +1467,39 @@ class MassageController extends Controller
                
                 }
 
-                // $ids = DB::table('masseurs')->whereNotIn('id', function ($query) use($user) {
-                //             $query->select('masseur_profile_id')
-                //                 ->from('massager_masseurs')->where('massage_profile_id',$user->id);
-                //         })->where('user_id',$user->id)->pluck('id');
+                ########### Update All Profile Time ####################
+                $massage_profile = MassageProfile::where('user_id',$user->id)->get();
+                foreach($massage_profile as $profile)
+                {
+                    if ($profile->availability)
+                     {
+                         $profile->availability->availability_time = $availabilityJson;
+                         $profile->availability->save(); 
+                     }   
+                }
 
-
+                ########### Update all Masseur ##########################
                 $masseurs = Masseur::where('user_id',$user->id)
                             ->where('status','1')
                             ->where('is_default','1')
                             ->get();
-
-            
-                
-                if($masseurs->isNotEmpty())
+                 
+                foreach( $masseurs as  $masseur)
                 {
-                   $new_availability = $availability;
+                    $masseur_availability = json_decode($masseur->availability, true);
+                    if(!empty($masseur_availability))
+                    {
+                         $updated_avail = update_all_default_massures($massagers_latest_open_time,$masseur_availability);
+                         if(!empty($updated_avail))
+                         {
+                            $new_availability_Json = json_encode($updated_avail);
+                            $masseur->availability = $new_availability_Json;
+                            $masseur->save();   
+                         }
 
-                   Log::info('$masseurs');
-                   Log::info($masseurs);
-
-                   foreach( $masseurs as  $masseur)
-                   {
-                        $masseur_availability = json_decode($masseur->availability, true);
-                        $old_availability = $this->update_availibility($new_availability, $masseur_availability);   
-                        $new_availability_Json = json_encode($old_availability);
-                        $masseur->availability = $new_availability_Json;
-                        $masseur->save();  
                     }
+                }
 
-                }    
-
-            
             return response()->json([
                 'success' => true,
                 'availibility' => $availability,

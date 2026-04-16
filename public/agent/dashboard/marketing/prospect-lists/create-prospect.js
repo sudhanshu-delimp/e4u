@@ -13,7 +13,11 @@ const endpoint = {
     save_report: mmRoot.data('save-report'),
 };
 
+
+
+
 $(document).ready(function() {
+
 
     // DataTables
     var previewTable = $("#previewTable").DataTable({
@@ -453,6 +457,23 @@ $(document).ready(function() {
         //         showAlert('error', 'Failed to perform ' + action + '.');
         //     }
         // });
+    });
+
+    //Clieck On Action Button ex : Merge, Print, View
+    $(document).on('click', '.report-action', function(e){
+        e.preventDefault(); 
+
+        let reportId = $(this).data('report-id');
+        let actionType = $(this).data('report-action');
+
+        $.ajax({
+            url : endpoint.action_url,
+            
+        });
+
+
+
+   
     });
 
     //  Clear Reports

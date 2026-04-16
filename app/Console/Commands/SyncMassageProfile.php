@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\UpdateMeasureForActiveListing;
 use App\Models\MassagePurchase;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -56,16 +57,14 @@ class SyncMassageProfile extends Command
                 $massageprofile = $purchase->massageprofile;
                 if($massageprofile)
                 {
-                    Log::info('massageprofile');
-                    Log::info($massageprofile);
-
+                    
                     $massageprofile->purchase_id = $purchase->id;
                     $massageprofile->save();
                 }
 
                 $this->info("=============== $key ===============");
                 $this->info("Enabled Escort ID {$purchase->massage_centre_id} (related to pending Purchase ID {$purchase->id})");
-               
+                ////UpdateMeasureForActiveListing::dispatch($purchase->id);
             }
             $this->info('All pending listed purchases processed.');
         }

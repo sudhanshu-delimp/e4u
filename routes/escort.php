@@ -244,6 +244,7 @@ Route::get('get-default-videos/{id?}', [EscortGalleryController ::class, 'getDef
 Route::post('get-default-photos', [EscortGalleryController ::class, 'getDefaultImages'])->name('escort.get.default.images');
 Route::post('delete-photos/{id}', [EscortGalleryController ::class, 'ImagesDelete'])->name('escort.delete.gallery');
 Route::post('delete-videos/{id}', [EscortGalleryController ::class, 'videosDelete'])->name('escort.delete.vedio.gallery');
+Route::get('get-media-count', [EscortGalleryController ::class, 'getMediaCOunt'])->name('escort.get-media-count');
 
 Route::post('upload-chunk', [EscortGalleryController::class, 'uploadChunk'])->name('gallery.uploadChunk');
 Route::post('merge-chunks', [EscortGalleryController::class, 'mergeChunks'])->name('gallery.mergeChunks');

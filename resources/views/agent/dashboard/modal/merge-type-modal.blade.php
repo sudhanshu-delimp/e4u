@@ -17,13 +17,15 @@
                 </div> 
                 <div class="modal-body pb-0 agent-tour">
                     <h4 class="custom_modal_text">Select the Marketing Information document to merge with</h4>
-                   <form method="get" action="" id="getMergeType">
+                   <form method="POST" action="" id="getMergeType">
+                        @csrf
                         <div class="row my-3">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-center gap-20">
                                         
                                         <div class="form-check form-check-inline">
+                                            <input type="hidden" name="report_id" id="report_id" value="">
                                             <input class="form-check-input" type="radio" name="mergeType"
                                                 id="single" value="single" checked>
                                             <label class="form-check-label" for="single">Massage Centre (single)</label>
@@ -39,7 +41,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center mt-4">
-                                    <button type="button" class="btn-success-modal" id="save_button">Merge</button>
+                                    <button type="submit" class="btn-success-modal" >Merge</button>
                                 </div>
                             </div>
                         </div>

@@ -82,8 +82,9 @@
                                 </ol>
                             </li>
                             <li>A Massage Centre who becomes a Member will remain in the List.</li>
-                            <li>You can access your Lists anytime from <a href="{{ route('agent.marketing.save.report.list') }}"
-                                    class="custom_links_design">Saved Reports</a>.</li>
+                            <li>You can access your Lists anytime from <a
+                                    href="{{ route('agent.marketing.save.report.list') }}" class="custom_links_design">Saved
+                                    Reports</a>.</li>
                         </ol>
                     </div>
                 </div>
@@ -103,18 +104,19 @@
                             <div class="radio-group">
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
-                                         <input class="form-check-input" type="radio" name="postcodeType" value="single" checked>
+                                        <input class="form-check-input" type="radio" name="postcodeType" value="single"
+                                            checked>
                                         Single</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                   
+
                                     <label class="form-check-label">
-                                         <input class="form-check-input" type="radio" name="postcodeType" value="multiple">
+                                        <input class="form-check-input" type="radio" name="postcodeType" value="multiple">
                                         Multiple</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
-                                         <input class="form-check-input" type="radio" name="postcodeType" value="all">
+                                        <input class="form-check-input" type="radio" name="postcodeType" value="all">
                                         All</label>
                                 </div>
                             </div>
@@ -133,12 +135,16 @@
                             <label>Enter Post Code Range</label>
                             <div class="d-flex gap-2">
                                 <div class="position-relative flex-fill mr-2">
-                                    <input type="text" id="fromPostCode" class="form-control" placeholder="From" autocomplete="off">
-                                    <div id="fromPostcodeDropdown" class="dropdown-menu w-100" style="max-height:200px;overflow-y:auto;"></div>
+                                    <input type="text" id="fromPostCode" class="form-control" placeholder="From"
+                                        autocomplete="off">
+                                    <div id="fromPostcodeDropdown" class="dropdown-menu w-100"
+                                        style="max-height:200px;overflow-y:auto;"></div>
                                 </div>
                                 <div class="position-relative flex-fill">
-                                    <input type="text" id="toPostCode" class="form-control" placeholder="To" autocomplete="off">
-                                    <div id="toPostcodeDropdown" class="dropdown-menu w-100" style="max-height:200px;overflow-y:auto;"></div>
+                                    <input type="text" id="toPostCode" class="form-control" placeholder="To"
+                                        autocomplete="off">
+                                    <div id="toPostcodeDropdown" class="dropdown-menu w-100"
+                                        style="max-height:200px;overflow-y:auto;"></div>
                                 </div>
                             </div>
                             <div id="rangeFeedback" class="mt-2" style="font-size:13px;"></div>
@@ -147,7 +153,7 @@
                         <div class="form-group d-none w-50" id="allPostCodeField">
                             <label>State</label>
                             <span class="badge bg-first ml-2" id="stateBadge"
-                                style="font-size:14px;">{{auth()->user()->home_state ?? 'N/A' }}</span>
+                                style="font-size:14px;">{{ auth()->user()->home_state ?? 'N/A' }}</span>
                             <small class="d-block text-muted mt-1">All postcodes for your state will be included.</small>
                         </div>
 
@@ -158,14 +164,15 @@
                                 <label class="mb-0">Trial Run Only</label>
                                 <div class="radio-group">
                                     <div class="form-check form-check-inline">
-                                        
+
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="trialRun" value="on">
                                             On</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="trialRun" value="off" checked>
+                                            <input class="form-check-input" type="radio" name="trialRun"
+                                                value="off" checked>
                                             Off</label>
                                     </div>
                                 </div>
@@ -242,8 +249,12 @@
     @include('agent.dashboard.modal.merge-type-modal')
     @include('agent.dashboard.modal.merge-list-modal')
     @include('agent.dashboard.modal.view-list-modal')
+    @include('agent.dashboard.modal.view-report-modal')
 
     {{-- end modals --}}
+
+
+
 
     <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
@@ -255,12 +266,14 @@
         data-action-url="{{ route('agent.marketing.prospect.report-action') }}"
         data-clear-reports-url="{{ route('agent.marketing.prospect.clear-reports') }}"
         data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
-        data-save-report="{{route('agent.marketing.prospect.save-report')}}"
-        ></div>
+        data-save-report="{{ route('agent.marketing.prospect.save-report') }}"></div>
 @endsection
 
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>
+\
+
+
 @endpush

@@ -320,9 +320,9 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <h5 class="popu_heading_style mt-4 mb-0 font">Are you sure you want to save this record?</h5>
+                    <h5 class="custom_modal_text">Are you sure you want to save this record?</h5>
                 </div>
-                <div class="modal-footer justify-content-center">
+                <div class="modal-footer justify-content-center pt-0">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn-success-modal">Yes, Save</button>
                 </div>

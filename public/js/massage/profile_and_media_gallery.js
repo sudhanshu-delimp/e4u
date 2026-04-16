@@ -452,6 +452,7 @@ function preview_image(event)
                     $(`#cItem_0`).addClass('active');
                 }
                 initDragDrop();
+                getMediaCount();
             }
         }).fail(function (xhr, status, error) {
             console.error("Error:", error);
@@ -790,3 +791,33 @@ function initDragDrop() {
                 }
             });
         }
+
+
+function getMediaCount(){
+    return $.ajax({
+        url: `/center-dashboard/get-media-count`,
+        type: "GET",
+        dataType: "json"
+    }).done(function (response) {
+        let btn = $('#mediaVerification');
+        let tooltip = btn.find('.timer_tooltip');
+        if (response.success && response.total_media_count < 1) {
+            btn.prop('disabled', true);
+            btn.addClass('disabled-img-btn')
+            tooltip.text('No any media.');
+        } 
+        else if (response.success && response.media_count_for_verification < 1){
+            btn.prop('disabled', true);
+            tooltip.text('No media available for verification.');
+            btn.addClass('disabled-img-btn');
+        } 
+        else {
+            btn.prop('disabled', false);
+            tooltip.text('You must provide your Media Verification within 48 hours.');
+            btn.removeClass('disabled-img-btn')
+        }
+
+    }).fail(function (xhr, status, error) {
+        console.error("Error:", error);
+    });
+}

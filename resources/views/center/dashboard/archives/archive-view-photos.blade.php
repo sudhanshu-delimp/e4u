@@ -186,8 +186,30 @@
             <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
                 <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add
                     Photos</button>
-                <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media
-                    Verification</button>
+                @php
+                    $isDisabled = false;
+                    $tooltipMessage = '';
+                    $disabledClass = '';
+                    
+                    if ($total_media_count < 1) {
+                        $isDisabled = true;
+                        $disabledClass = 'disabled-img-btn';
+                        $tooltipMessage = 'No media available.';
+                    } elseif ($media_count_for_verification < 1) {
+                        $isDisabled = true;
+                        $disabledClass = 'disabled-img-btn';
+                        $tooltipMessage = 'No media available for verification.';
+                    } else {
+                        $isDisabled = false;
+                        $tooltipMessage = 'You must provide your Media Verification within 48 hours.';
+                    }
+                @endphp
+                <button type="button" id="mediaVerification" class="create-tour-sec dctour {{$disabledClass}} verify_timer"  data-toggle="modal" data-target="#veryfy_media" {{ $isDisabled ? 'disabled' : '' }}>Media
+                    Verification
+                    <span class="timer_tooltip">
+                        {{ $tooltipMessage }}
+                    </span>
+                </button>
             </div>
         </div>
         <div class="row">
@@ -232,10 +254,13 @@
                                                 @if(!empty($imageData['id']))
                                                     @if($status == "0")
                                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                        <span class="common_shield_tooltip">Media Pending</span>
                                                     @elseif($status == "1")
                                                         <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                        <span class="common_shield_tooltip">Media verified</span>
                                                     @else
                                                         <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                        <span class="common_shield_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
                                                 <span class="common_shield_tooltip">Media Unverified</span>
@@ -464,14 +489,17 @@
                                                         $status =  $media_details->varified;
                                                     }
                                                 @endphp
-                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
                                                     @if(!empty($imageData['id']))   
                                                         @if($status == "0")
                                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                                <span class="common_shield_tooltip">Media Pending</span>
                                                             @elseif($status == "1")
                                                                 <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                                <span class="common_shield_tooltip">Media verified</span>
                                                             @else
                                                                 <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                                <span class="common_shield_tooltip">Media Unverified</span>
                                                         @endif
                                                     @endif
                                                     <span class="common_shield_tooltip">Media Unverified</span>
@@ -645,6 +673,16 @@
                                                                     </div>
 
                                                             @endswitch
+                                                            @php $status = $image->varified ?? "2"; @endphp
+                                                                <div class="upload_date">
+                                                                    @if($status == "0")
+                                                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                    @elseif($status == "1")
+                                                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                    @else
+                                                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         @endif
                                                     @endforeach
@@ -1045,17 +1083,20 @@
                             img_target.attr('data-id', meidaId);
                             img_target.attr('src', media_src);
                             let resp = data.media_data;
-                            let status = resp.media_data.varified;
+                            let status = resp?.media_data?.varified ?? 'template';
                             let iconPath = '';
                             let iconText = '';
                             if (position == 1 || position == 9) {
 
                                 if (status == "0") {
-                                    iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.svg';
+                                    iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                                    iconText ='<span class="common_shield_tooltip">Media Pending</span>';
                                 } else if (status == "1") {
                                     iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                                    iconText ='<span class="common_shield_tooltip">Media Verified</span>';
                                 } else {
                                     iconPath = '/assets/app/img/verify/unverified_light.png';
+                                    iconText ='<span class="common_shield_tooltip">Media Unverified</span>';
                                 }
 
                             } else {
@@ -1073,7 +1114,11 @@
 
                             let iconBox = $('#verify_icon_' + position);
                             iconBox.html(`<img src="${iconPath}">${iconText}`);
-                            iconBox.show('');
+                            if(status ==  "template" && position == "9"){
+                                iconBox.hide(); 
+                            }else{
+                                iconBox.show('');
+                            }
 
                         } else {
                             swal.fire('', "<p>" + data.msg + "</p>", 'error');

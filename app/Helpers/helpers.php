@@ -19,6 +19,7 @@ use App\Models\MassagePurchase;
 use App\Models\MassageRate;
 use App\Models\MassageService;
 use App\Models\MassageStatistics;
+use App\Models\Masseur;
 use App\Models\MasseurMedia;
 use App\Models\Purchase;
 use App\Models\State;
@@ -91,7 +92,7 @@ if (!function_exists('calculateTotalFee')) {
         if(!empty($userObject)){
             $appiedDiscount = $userObject->activeFeeDiscount;
         }
-        $discount_day = 5;
+        $discount_day = 21;
         if(!empty($purchaseObject)){  /* To manage price changes done by Admin , to use same price at the time of purchase */
             $normalRate   = $purchaseObject->rate;
             $discountRate = $purchaseObject->discount_rate;
@@ -102,7 +103,7 @@ if (!function_exists('calculateTotalFee')) {
                 return [0, 0, 0, 0];
             }
             $normalRate   = $pricing->price;
-            if($appiedDiscount){
+            if(!empty($appiedDiscount)){
                 $discountRate = number_format($appiedDiscount->discountAmount($normalRate),2);
             }
             else{
@@ -1885,6 +1886,14 @@ if (!function_exists('get_media_by_id')) {
     }
 }
 
+if (!function_exists('get_massage_media_id_by_path')) {
+
+    function get_massage_media_id_by_path($pathOrUrl)
+    {
+        $media = MassageMedia::where('path', $pathOrUrl)->first();
+        return $media->id ?? null;
+    }
+}
 if (!function_exists('is_domain_localhost')) 
 {
      function is_domain_localhost()
@@ -1936,4 +1945,323 @@ if (!function_exists('account_complete_status')) {
        }
         
   }
+}
+
+
+if (!function_exists('update_messure_for_active_listing')) 
+{
+
+    function update_messure_for_active_listing($purchase_id)
+    {
+        try 
+        { 
+           
+            $purchase  = MassagePurchase::where('status', 'listed')->where('id',$purchase_id)->first();
+            $massage  = MassageProfile::where('id',$purchase->massage_profile_id)->first();
+            $massagers = $massage->availability->availability_time ? json_decode($massage->availability->availability_time, true) : [];
+
+            $massures_data = Masseur::whereIn('id', function ($query) use($purchase)  {
+                                    $query->select('masseur_profile_id')->from('massager_masseurs')->where('massage_profile_id',$purchase->massage_profile_id);
+                        })->get();
+
+
+                        $massures = [];
+                        foreach($massures_data as $mass )
+                            {   
+                                $massures[] = json_decode($mass->availability, true);
+                                $massures_id[] = $mass->id;
+                            }
+
+                             Log::info('input  massured');
+                            Log::info($massures);
+                           // exit;
+                   
+            if($massures_data->isNotEmpty())    
+            {
+                
+                    foreach ($massagers as $day => $info) 
+                    {
+                            
+                                if ($info['status'] === 'closed') 
+                                {
+
+                                    foreach ($massures as $index => $schedule) {
+
+                                        foreach ($schedule as $mDay => $mInfo) {
+
+                                            // match day (case-insensitive)
+                                            if (strtolower($mDay) === strtolower($day)) {
+
+                                                $massures[$index][$mDay] = [
+                                                    "status" => "closed",
+                                                    "from" => null,
+                                                    "to" => null
+                                                ];
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if ($info['status'] === 'til_late') 
+                                {
+
+                                    foreach ($massures as $index => $schedule) {
+                                        foreach ($schedule as $mDay => $mInfo) {
+                                            if (strtolower($mDay) === strtolower($day)) 
+                                            {
+                                                if(isset($massures[$index][$mDay]['status']) && $massures[$index][$mDay]['status']!="closed")
+                                                {
+                                                    $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                                                    $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
+
+                                                        if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                                                        $massures[$index][$mDay]['from'] = $info['from'];
+                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if ($info['status'] === 'custom') 
+                                {
+                                    foreach ($massures as $index => $schedule) {
+                                        foreach ($schedule as $mDay => $mInfo) {
+                                            if (strtolower($mDay) === strtolower($day)) 
+                                            {
+                                            
+                                                $newfrom  = isset($info['from']) ? $info['from'] : "";
+                                                $newto  = isset($info['to']) ? $info['to'] : "";
+
+                                                $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                                                $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
+
+                                                $newToTime =  isset($info['to']) ? strtotime($info['to']) : "";
+                                                $oldToTime =  isset($massures[$index][$mDay]['to']) ? strtotime($massures[$index][$mDay]['to']) : "";
+
+                                                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                                                $massures[$index][$mDay]['from'] = $newfrom;
+                                                    
+                                                if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) 
+                                                $massures[$index][$mDay]['to'] = $newto;
+
+                                            }
+                                        }
+                                    }
+                                }
+
+                    }
+
+                     Log::Info('updated massures');
+                     Log::Info($massures);
+                    //  $mass->availability  = json_encode($massures);
+                    //  $mass->save();
+
+                    for($i=0;$i<count($massures_id); $i++)
+                    {
+                        $availability  = json_encode($massures[$i]);
+                        Masseur::where('id',$massures_id[$i])->update(['availability'=>$availability]);     
+                    }
+            }
+
+                
+            
+            //  Log::info('massage========>');
+            //  Log::info($massage);
+
+
+            //  Log::info('massures========>');
+            //  Log::info($massures);
+
+            
+            // if(empty($massage) || (empty($massures))) 
+            // return false;
+
+            
+            // foreach ($massagers as $day => $info) 
+            // {
+
+            //     if ($info['status'] === 'closed') 
+            //     {
+
+            //         foreach ($massures as $index => $schedule) {
+
+            //             foreach ($schedule as $mDay => $mInfo) {
+
+            //                 // match day (case-insensitive)
+            //                 if (strtolower($mDay) === strtolower($day)) {
+
+            //                     $massures[$index][$mDay] = [
+            //                         "status" => "closed",
+            //                         "from" => null,
+            //                         "to" => null
+            //                     ];
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            //     if ($info['status'] === 'til_late') 
+            //     {
+
+            //         foreach ($massures as $index => $schedule) {
+            //             foreach ($schedule as $mDay => $mInfo) {
+            //                 if (strtolower($mDay) === strtolower($day)) 
+            //                 {
+            //                     if(isset($massures[$index][$mDay]['status']) && $massures[$index][$mDay]['status']!="closed")
+            //                     {
+            //                         $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+            //                         $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
+
+            //                             if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+            //                             $massures[$index][$mDay]['from'] = $info['from'];
+                                    
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            //     if ($info['status'] === 'custom') 
+            //     {
+            //         foreach ($massures as $index => $schedule) {
+            //             foreach ($schedule as $mDay => $mInfo) {
+            //                 if (strtolower($mDay) === strtolower($day)) 
+            //                 {
+                            
+            //                     $newfrom  = isset($info['from']) ? $info['from'] : "";
+            //                     $newto  = isset($info['to']) ? $info['to'] : "";
+
+            //                     $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+            //                     $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
+
+            //                     $newToTime =  isset($info['to']) ? strtotime($info['to']) : "";
+            //                     $oldToTime =  isset($massures[$index][$mDay]['to']) ? strtotime($massures[$index][$mDay]['to']) : "";
+
+            //                     if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+            //                     $massures[$index][$mDay]['from'] = $newfrom;
+                                    
+            //                     if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) 
+            //                     $massures[$index][$mDay]['to'] = $newto;
+
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            // }
+
+            Log::info('update_messure_for_active_listing_called');
+        } 
+        catch (Exception $e) 
+        {
+           Log::info($e->getMessage());
+        }   
+
+    }
+
+
+
+    function update_all_default_massures($massagers,$massures)
+    {
+
+        foreach ($massagers as $day => $info) 
+        {
+               
+            if ($info['status'] === 'closed') 
+            {
+                foreach ($massures as $mDay => $mInfo) 
+                {
+                        if (strtolower($mDay) === strtolower($day)) {
+                        $massures[$index][$mDay] = [
+                            "status" => "closed",
+                            "from" => null,
+                            "to" => null
+                        ];
+                    }
+                }     
+            }
+            
+
+            if ($info['status'] === 'til_late') 
+            {
+                foreach ($massures as $mDay => $mInfo) 
+                {
+                    if (strtolower($mDay) === strtolower($day)) 
+                    {
+                        if(isset($massures[$mDay]['status']) && $massures[$mDay]['status']!="closed")
+                        {
+                            $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                            $oldFromTime =  isset($massures[$mDay]['from']) ? strtotime($massures[$mDay]['from']) : "";
+
+                                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                                $massures[$mDay]['from'] = $info['from'];
+                            
+                        }
+                    }
+                }
+            }
+
+            if ($info['status'] === 'custom') 
+            {
+                
+                foreach ($massures as $mDay => $mInfo) 
+                {
+                    if (strtolower($mDay) === strtolower($day)) 
+                    {
+                    
+                        $newfrom  = isset($info['from']) ? $info['from'] : "";
+                        $newto  = isset($info['to']) ? $info['to'] : "";
+
+                        $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                        $oldFromTime =  isset($massures[$mDay]['from']) ? strtotime($massures[$mDay]['from']) : "";
+
+                        $newToTime =  isset($info['to']) ? strtotime($info['to']) : "";
+                        $oldToTime =  isset($massures[$mDay]['to']) ? strtotime($massures[$mDay]['to']) : "";
+
+                        if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                        $massures[$mDay]['from'] = $newfrom;
+                            
+                        if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) 
+                        $massures[$mDay]['to'] = $newto;
+
+                    }
+                }    
+            }
+            
+
+        }
+
+        return $massures;
+       
+    }
+    
+
+
+    function update_profile_massure($massage_profile_id,$masseurIds)
+    {
+
+        ################# Update All Massures ################
+        $massage_profile = MassageProfile::where('id',$massage_profile_id)->first();  
+        $massagers_open_time = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : []; 
+        $masseurs = Masseur::whereIn('id',$masseurIds)->get();
+        foreach( $masseurs as  $masseur)
+        {
+            $masseur_availability = json_decode($masseur->availability, true);
+            if(!empty($masseur_availability))
+            {
+                    $updated_avail = update_all_default_massures($massagers_open_time,$masseur_availability);
+                    if(!empty($updated_avail))
+                    {
+                    $new_availability_Json = json_encode($updated_avail);
+                    $masseur->availability = $new_availability_Json;
+                    $masseur->save();   
+                    }
+
+            }
+        }
+        ################## End Update All Massures ##################
+
+    }
+   
 }

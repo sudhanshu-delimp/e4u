@@ -501,7 +501,7 @@ img#blah8 {
                                                         $status =  $media_details->varified;
                                                     }
                                                 @endphp
-                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
                                                     @if(!empty($imageData['id']))
                                                         @if($status == "0")
                                                             <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
@@ -647,6 +647,15 @@ img#blah8 {
                                                                                     <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                                                 @endif
                                                                             </div>
+                                                                                <div class="upload_date">
+                                                                                    @if($status == "0")
+                                                                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                    @elseif($status == "1")
+                                                                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @else
+                                                                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @endif
+                                                                                </div>
                                                                         </div>
                                                                     @endif
                                                                 @endforeach

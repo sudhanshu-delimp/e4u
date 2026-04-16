@@ -291,14 +291,14 @@ table td,th{
                 </button>
             </div>
 
-            <div class="modal-body pb-0 teop-text text-center">
-                <h6 class="popu_heading_style mt-2">
+            <div class="modal-body teop-text text-center">
+                <h5 class="custom_modal_text">
                     <span id="Lname">Are you sure you want to perform this action.</span>
-                </h6>
+                </h5>
 
             </div>
 
-            <div class="modal-footer justify-content-center border-0 pb-4">
+            <div class="modal-footer justify-content-center pt-0">
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
                 <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Save</button>
             </div>

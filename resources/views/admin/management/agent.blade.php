@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('style')
-
+<style>
+   form label{
+        margin-bottom: 0px;
+    }
+</style>
 @stop
 @section('content')
     <!-- Content Wrapper -->
