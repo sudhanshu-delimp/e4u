@@ -270,4 +270,10 @@ class ProspectListController extends Controller
         // Opens directly in browser
         return $pdf->stream('converted.pdf');
     }
+
+    //Report List action 
+    public function reportAction(Request $request){
+      
+
+    }
 }

@@ -126,6 +126,8 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     Route::post('marketing/prospect-lists/report-action', [ProspectListController::class, 'reportAction'])->name('agent.marketing.prospect.report-action');
     Route::post('marketing/prospect-lists/clear-reports', [ProspectListController::class, 'clearReports'])->name('agent.marketing.prospect.clear-reports');
     Route::get('marketing/prospect-list/save-report', [ProspectListController::class, 'saveReport'])->name('agent.marketing.prospect.save-report');
+    //Report List action 
+    Route::post('marketing/prospect-list/report-action', [ProspectListController::class, 'reportAction'])->name('agent.marketing.prospect.report.action');
 
     //Testing generate PDF using HTML
     Route::get('marketing/prospect-list/demo-pdf', [ProspectListController::class, 'demoPdf']);

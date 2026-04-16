@@ -468,6 +468,20 @@ $(document).ready(function() {
 
         $.ajax({
             url : endpoint.action_url,
+            method: 'POST',
+            data: {
+              _token : endpoint.csrf_token,
+              report_id : reportId,
+              action_type : actionType
+            },
+            success : function(res){
+              if (actionHandlers[actionType]) {
+                actionHandlers[actionType](res);
+            } else {
+                console.warn('No handler for action:', actionType);
+            }
+
+            }
             
         });
 
@@ -475,6 +489,23 @@ $(document).ready(function() {
 
    
     });
+
+
+    const actionHandlers = {
+      Merge: function(res) {
+          console.log('Merge:', res);
+      },
+      Print: function(res) {
+          console.log('Print:', res);
+      },
+      View: function(res) {
+          console.log('View:', res);
+      }
+  };
+
+
+
+
 
     //  Clear Reports
     $('#clearReports').click(function() {

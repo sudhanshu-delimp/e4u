@@ -266,7 +266,10 @@
         data-action-url="{{ route('agent.marketing.prospect.report-action') }}"
         data-clear-reports-url="{{ route('agent.marketing.prospect.clear-reports') }}"
         data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
-        data-save-report="{{ route('agent.marketing.prospect.save-report') }}"></div>
+        data-save-report="{{ route('agent.marketing.prospect.save-report') }}"
+        data-report-list-action="{{route('agent.marketing.prospect.report.action')}}"
+        
+        ></div>
 @endsection
 
 @push('script')
