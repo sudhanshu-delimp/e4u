@@ -437,8 +437,8 @@ class GlobalMonitoringController extends Controller
                     $nestedData['escort_name'] = $item->escort->profile_name;
                     $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateName");;
                     $nestedData['profile_id'] = $item->escort->id;
-                    $nestedData['start_date'] = $item->start_date;
-                    $nestedData['end_date'] = $item->end_date;
+                    $nestedData['start_date'] = date('d-m-Y',strtotime($item->start_date));
+                    $nestedData['end_date'] =   date('d-m-Y',strtotime($item->end_date));  
                     $statusText = $item->status ?? 'NA';
                     $badgeClass = getStatusBadgeClass($statusText);
                     $nestedData['status'] = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
