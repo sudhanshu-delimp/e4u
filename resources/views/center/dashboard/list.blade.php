@@ -132,6 +132,7 @@
                               <table class="table mb-3" id="massage_list">
                                  <thead class="table-bg">
                                     <tr>
+                                    <th scope="col">Is Live</th>
                                     <th scope="col">ID</th>
                                     <th scope="col">Profile Name</th>
                                     <th scope="col">Business Name</th>
@@ -232,6 +233,7 @@ var table = $("#massage_list").DataTable({
     },
 
     columns: [
+            { data: 'is_live',  name: 'is_live', visible: false },
             { data: 'id', name: 'id', visible: false },
             { data: 'profile_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'business_name', name: 'business_name', searchable: true, orderable:true ,defaultContent: 'NA'},
