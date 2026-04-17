@@ -168,7 +168,7 @@ class MassageController extends Controller
                     'business_no' => $row->business_no,
                     'phone' => $row->phone,
                     'created_at' => date('d M Y', strtotime($row->created_at)),
-                    'status' => ($row->enabled==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactive</span>',
+                    'status' => ($row->enabled==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>',
                     'action' => $action
 
                 ];
@@ -487,10 +487,9 @@ class MassageController extends Controller
 
             $massage->contact         = $request->filled('contact') ? $request->contact : null;
 
-            if($massage_profile)
+           
             $massage->enabled  = 0; 
-            else
-            $massage->enabled  = 1;     
+               
 
 
             $massage->save();
@@ -1468,7 +1467,7 @@ class MassageController extends Controller
                 }
 
                 ########### Update All Profile Time ####################
-                $massage_profile = MassageProfile::where('user_id',$user->id)->get();
+                $massage_profile = MassageProfile::where('user_id',$user->id)->where('default_setting','!=',1)->get();
                 foreach($massage_profile as $profile)
                 {
                     if ($profile->availability)
