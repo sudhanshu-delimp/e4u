@@ -27,7 +27,7 @@ class AgentDashboardController extends Controller
                             ->distinct('users.email');
 
         $sameStateCount = (clone $basecQuery)->where('users.state_id', $currentState)->count();
-        $outsideStateCount  = (clone $basecQuery)->where('users.state_id', '!=', $currentState)->count();
+        $outsideStateCount  = (clone $basecQuery)->where('users.current_state_id', '!=', $currentState)->count();
        
         return view('agent.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'sameStateCount', 'outsideStateCount', 'getLastLoginTime')); 
     }
