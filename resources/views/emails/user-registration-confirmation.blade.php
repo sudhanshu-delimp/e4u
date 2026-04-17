@@ -55,9 +55,9 @@
                                 registration.</p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">If you need any help, please raise a Support Ticket from your dashboard.</p>
                             <!-- Closing -->
-                            {{-- email info --}}
+                            <!-- email info -->
                             <x-email-info/>
-                            {{-- end --}}
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
