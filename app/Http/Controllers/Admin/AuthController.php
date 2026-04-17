@@ -147,7 +147,7 @@ class AuthController extends Controller
 
             /**
              * 1 for Admin
-             * 2 for Sub Admin
+             * 8 for shareholder
              * 9 for Operator Staff
              */
             if ($user->type == 1 || $user->type == 8 || $user->type == 9) {
@@ -265,6 +265,10 @@ class AuthController extends Controller
         //Operator staff
         if (!empty($request->get('type_operator'))) {
             $input['type'] = 9;
+        }
+        //Shareholder
+        if (!empty($request->get('type_shareholder'))) {
+            $input['type'] = 8;
         }
 
 
