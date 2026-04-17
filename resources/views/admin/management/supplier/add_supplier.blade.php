@@ -32,17 +32,17 @@
          </div>
          <div class="col-6 mb-3">
              <label for="business_number">Business Number</label>
-             <input type="text" class="form-control rounded-0" name="business_number" id="business_number">
+             <input type="text" class="form-control rounded-0 formatMobile" name="business_number" id="business_number">
              <span class="text-danger error-business_number"></span>
          </div>
          <div class="col-6 mb-3">
              <label for="point_of_contact">Point of Contact</label>
              <input type="text" class="form-control rounded-0" name="point_of_contact" id="point_of_contact">
-             <span class="text-danger error-point_of_contact"></span>
+             <span class="text-danger error-point_of_contact" maxlength="12"></span>
          </div>
          <div class="col-6 mb-3">
              <label for="phone">Mobile</label>
-             <input type="text" class="form-control rounded-0" name="phone" id="phone">
+             <input type="text" class="form-control rounded-0 formatMobile" name="phone" id="phone" maxlength="12">
              <span class="text-danger error-phone"></span>
          </div>
          <div class="col-6 mb-3">

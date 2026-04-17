@@ -9,7 +9,7 @@
         <tr>
             <td align="center">
                 <!-- Main container -->
-                <table width="700" cellpadding="0" cellspacing="0"
+                <table width="600" cellpadding="0" cellspacing="0"
                     style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
                     <!-- Header -->
                     <tr>
@@ -19,7 +19,7 @@
                                     <td style="text-align: left;">
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
-                                    <td style="text-align: right; color: #ffffff;  vertical-align: middle;">
+                                    <td style="text-align: right; color: #ffffff; font-size:16px;  vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 16px; font-weight: bold; color:#ffffff;text-align: right;">Confirmation of Appointment - Massage Centre</h1>
                                         <div style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id ?? ''}}</div>
                                     </td>
@@ -40,7 +40,7 @@
                                 Account and Profiles.
                             </p>
 
-                            <h3 style="margin-top: 25px;">Logging in</h3>
+                            <h4 style="margin-top: 25px;">Logging in</h4>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 10px;">The following information will assist you when logging in:</p>
                             <ul style="padding-left: 20px; font-size: 15px; text-align: justify;">
                                 <li>Web address: <a href="http://www.e4u.com.au" target="_blank">www.e4u.com.au</a></li>
@@ -50,7 +50,7 @@
                             <p style="font-size: 13px; font-style: italic;">Note: Your logging in process is also subject to SMS 2FA verification. It is a good idea to bookmark
                                 the Website.</p>
 
-                            <h3 style="margin-top: 30px;">Your Massage Centre’s My Account</h3>
+                            <h4 style="margin-top: 30px;">Your Massage Centre’s My Account</h4>
                             <p style="font-size: 15px; line-height: 1.6;">
                                 Now that you have been appointed Agent, before you can create a Profile and Masseur
                                 Profiles, you should spend a little time setting up their Account information. This will make
@@ -91,6 +91,11 @@
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
+                                <br>
+                                <br>
+                               <span>
+                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
+                                </span>
                             </p>
                         </td>
                     </tr>
@@ -98,7 +103,7 @@
 
                 <!-- Footer -->
                 <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    style="background-color:#0c223d; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
                          <td>
                             <x-email-footer/>

@@ -404,12 +404,12 @@ class GlobalMonitoringController extends Controller
             $start  = intval($request->get('start'));
             $length = intval($request->get('length'));
             $search = $request->get('search')['value'] ?? '';
-            $orderColumnIndex = $request->get('order')[0]['column'] ?? 4;
+            $orderColumnIndex = $request->get('order')[0]['column'] ?? 0;
             $orderDirection   = $request->get('order')[0]['dir'] ?? 'desc';
 
             // Columns mapping (order index -> DB column)
             $columns = [4 => 'start_date', 5 => 'end_date'];
-            $orderColumn = $columns[$orderColumnIndex] ?? 'id';
+            $orderColumn = $columns[$orderColumnIndex] ?? 'start_date';
 
             $listing = EscortPinup::query();
             $listing->where('utc_end_time', '>=', Carbon::now('UTC'));
@@ -437,8 +437,8 @@ class GlobalMonitoringController extends Controller
                     $nestedData['escort_name'] = $item->escort->profile_name;
                     $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateName");;
                     $nestedData['profile_id'] = $item->escort->id;
-                    $nestedData['start_date'] = $item->start_date;
-                    $nestedData['end_date'] = $item->end_date;
+                    $nestedData['start_date'] = date('d-m-Y',strtotime($item->start_date));
+                    $nestedData['end_date'] =   date('d-m-Y',strtotime($item->end_date));  
                     $statusText = $item->status ?? 'NA';
                     $badgeClass = getStatusBadgeClass($statusText);
                     $nestedData['status'] = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";

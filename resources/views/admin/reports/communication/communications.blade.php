@@ -10,6 +10,11 @@
         }
         p.copyright {
             padding-top: 15px !important;
+            padding-bottom: 15px !important;
+        }
+        .copy_notes{
+            padding-left: 10px !important; 
+            padding-right: 10px !important; 
         }
 
     @media print {

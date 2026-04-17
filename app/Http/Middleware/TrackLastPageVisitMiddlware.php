@@ -131,6 +131,18 @@ class TrackLastPageVisitMiddlware
                 return redirect()->route('home')
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
+            } elseif(auth()->user()->type == 8) {
+                
+               if (auth()->check() && !request()->is('shareholder-dashboard*')) {
+                   return redirect()->route('shareholder.index');
+            }
+                $idle_preference_time = (auth()->user()->shareholder_settings && auth()->user()->shareholder_settings->idle_preference_time) ? auth()->user()->shareholder_settings->idle_preference_time : '60';
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                //Route: shareholder-login
+                return redirect()->route('home')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
             }
             
 
