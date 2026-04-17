@@ -94,7 +94,7 @@
                                 <br>
                                 <br>
                                <span>
-                                    Sent: {{ \Carbon\Carbon::now()->format('d-m-Y \a\t h:i A') }}.
+                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
                                 </span>
                             </p>
                         </td>
