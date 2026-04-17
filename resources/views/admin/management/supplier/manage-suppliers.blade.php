@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 @section('style')
+<style>
+    form label{
+        margin-bottom: 0px;
+    }
+</style>
 @stop
 @section('content')
     @php
@@ -54,7 +59,7 @@
                                             @endif
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table mb-3 w-100" id="ManageSupplierTable">
+                                            <table class="table w-100" id="ManageSupplierTable">
                                                 <thead class="table-bg">
                                                     <tr>
                                                         <th scope="col">Merchant ID</th>

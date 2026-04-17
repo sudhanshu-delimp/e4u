@@ -74,7 +74,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <div class="py-4 text-center" id="success_form_html">
+                    <div class="text-center" id="success_form_html">
                         <h4 id="success_msg"></h4>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
                             aria-label="Close">OK</button>
@@ -298,7 +298,7 @@
                 img.attr('src', endpoint.error_image);
                 body.html(
                     `
-                        <h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
+                        <h4 class="custom_modal_text">${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 my-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
                 );
                 modal.modal('show');
 
@@ -316,7 +316,7 @@
                             $('#image_icon').attr('src', endpoint.success_image);
                             $('#success_form_html').html('<h4>' + (response.message ||
                                     'Status updated successfully') +
-                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                '</h4><button type="button" class="btn-success-modal my-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                             );
                             table.ajax.reload(null, false);
                             steTimeout(function() {
@@ -331,7 +331,7 @@
                             $('#success_task_title').text('Error');
                             $('#image_icon').attr('src', endpoint.error_image);
                             $('#success_form_html').html('<h4>' + msg +
-                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                '</h4><button type="button" class="btn-success-modal my-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                             );
                         }
                     });

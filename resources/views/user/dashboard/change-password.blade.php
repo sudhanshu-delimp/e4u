@@ -119,24 +119,24 @@
                             <label for="confirm_password">Password Expiry </label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="never"
+                            <input class="" name="password_expiry_days" type="radio" value="never" id="never"
                                 @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="flexCheckDefault">Never</label>
+                            <label class="form-check-label" for="never">Never</label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="30"
+                            <input class="" name="password_expiry_days" type="radio" value="30" id="30days"
                                 @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
+                            <label class="form-check-label" for="30days">Renew every 30 days</label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="60"
+                            <input class="" name="password_expiry_days" type="radio" value="60" id="60days"
                                 @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
+                            <label class="form-check-label" for="60days">Renew every 60 days</label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="90"
+                            <input class="" name="password_expiry_days" type="radio" value="90" id="90days"
                                 @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
+                            <label class="form-check-label" for="90days">Renew every 90 days</label>
                         </div>
                         <div class="pt-1">
                             <i id="emailHelp">Unless you set your preferred Password Expiry, by default your password will
@@ -149,15 +149,15 @@
                         </div>
                         <div class="form-check m-0">
                             <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
-                                id="flexCheckDefault" value="1"
+                                id="n_text" value="1"
                                 @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="flexCheckDefault">Text</label>
+                            <label class="form-check-label" for="n_text">Text</label>
                         </div>
                         <div class="form-check m-0">
                             <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
-                                id="flexCheckDefault" value="1"
+                                id="n_email" value="1"
                                 @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="flexCheckDefault">Email</label>
+                            <label class="form-check-label" for="n_email">Email</label>
                         </div>
 
 

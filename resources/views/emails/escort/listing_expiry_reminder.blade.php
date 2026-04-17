@@ -20,9 +20,9 @@
                                     <td>
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
-                                    <td style="color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 22px; color:#ffffff; text-align: right;">Listing Expiry Reminder - Escort</h1>
-                                        <div style="font-weight: 500;">Member ID: {{$escort->user->member_id ?? ''}}</div>
+                                    <td style="vertical-align: middle; text-align: right;">
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Listing Expiry Reminder - Escort</h1>
+                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$escort->user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
                             </table>

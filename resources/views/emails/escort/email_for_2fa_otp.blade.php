@@ -22,8 +22,8 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
-                                    <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                         2FA Verification OTP<br>
+                                    <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;vertical-align: middle;">
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">2FA Verification OTP</h1>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
                                             {{ $body['member_id'] }}</span>
                                     </td>
