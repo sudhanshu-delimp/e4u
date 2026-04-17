@@ -35,7 +35,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        Mobile SIM Order<br>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;"> Mobile SIM Order</h1>
                                         <span style="font-size: 13px; color: #cccccc;">(Ref:
                                             {{ $body['order_ref'] }})</span><br>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
@@ -65,15 +65,9 @@
                                 Please quote the reference number: {{ $body['order_ref'] }}.
                             </p>
                             <!-- Closing -->
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                                <br>
-                                <br>
-                                <span>
-                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
-                                </span>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
