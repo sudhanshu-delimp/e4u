@@ -405,7 +405,7 @@ class GlobalMonitoringController extends Controller
             $length = intval($request->get('length'));
             $search = $request->get('search')['value'] ?? '';
             $orderColumnIndex = $request->get('order')[0]['column'] ?? 'start_date';
-            $orderDirection   = $request->get('order')[0]['dir'] ?? 'asc';
+            $orderDirection   = $request->get('order')[0]['dir'] ?? 'desc';
 
             // Columns mapping (order index -> DB column)
             $columns = [4 => 'start_date', 5 => 'end_date'];
