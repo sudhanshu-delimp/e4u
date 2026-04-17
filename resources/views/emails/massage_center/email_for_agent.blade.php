@@ -21,7 +21,7 @@
                                     </td>
                                     <td style="text-align: right; color: #ffffff;  vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 16px; font-weight: bold; color:#ffffff;text-align: right;">Confirmation of Appointment - Massage Centre</h1>
-                                        <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
+                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
                             </table>
