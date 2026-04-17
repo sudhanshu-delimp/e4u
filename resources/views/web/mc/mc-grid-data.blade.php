@@ -31,7 +31,7 @@
         @if($listing->latest_active_brb)
             <div class="brb--content">
                 <div class="brb--wrappr">
-                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
+                    <span class="brb-text">Closed</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
                 </div>
             </div>
         @endif
@@ -68,7 +68,7 @@
 
                 <div class="mc_card_content">
                     <div class="items">
-                        <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) .'--'.$listing->id }}</span>
+                        <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
                         <span class="mc_star">
                             <i class="fa fa-star-o"></i>
                             <i class="fa fa-star-o"></i>
