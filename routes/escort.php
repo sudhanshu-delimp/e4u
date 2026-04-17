@@ -232,6 +232,8 @@ Route::get('archive-tour-profiles',function(){
 //     return view('escort.dashboard.archives.archive-tour-view-profiles');
 // });
 Route::post('/escort/media-verification/upload',[EscortGalleryController::class, 'mediaVerificationUpload'])->name('escort.media.verification.upload');
+Route::post('get-image-info',[EscortGalleryController::class, 'getImageInfo'])->name('escort.get-image-info');
+
 Route::get('archive-medias',function(){
     return view('escort.dashboard.archives.archive-medias');
 })->name('archive-medias');

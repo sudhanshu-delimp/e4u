@@ -343,6 +343,7 @@ Route::get('/profile-info/edit-profile', function()
 Route::get('media-centre/videos', [MediaController::class, 'videoGalleries'])->name('center.videos');
 Route::post('upload-chunk', [MassageGalleryController::class, 'uploadChunk'])->name('gallery.uploadChunk');
 Route::post('merge-chunks', [MassageGalleryController::class, 'mergeChunks'])->name('gallery.mergeChunks');
+Route::post('get-image-info',[MassageGalleryController::class, 'getImageInfo'])->name('center.get-image-info');
 ############ End Media Videos ########################
 
 Route::get('notifications-and-features', [CenterProfileInformationController::class, 'massageSettings'])->name('centre.notifications-and-features');

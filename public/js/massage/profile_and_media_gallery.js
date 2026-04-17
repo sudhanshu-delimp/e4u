@@ -116,6 +116,7 @@ var bannerDefaultImage;
 var pinupDefaultImage;
 var allFiles = [];
 var MaxSize = 50;
+let isDropTriggered = false;
 
 let selectedVideoId = null;
 let selectedVideoPosition = null;
@@ -770,8 +771,23 @@ function initDragDrop() {
                         swal.fire('Media', message, 'error');
                         return false;
                     } else {
-                        $(this).trigger('click');
+                        // $(this).trigger('click');
                         let meidaId = dragSlot.data('id');
+                        let iconBox = dropSlot.find('.verify_icon, .lg_verify_icon');
+                        let position = iconBox.attr('id')?.split('_')[2];
+
+                        let draggedSrc = dragSlot.attr('src');
+                        let srcArray = $(".upld-img").map(function() {
+                            return $(this).attr("src");
+                        }).get();
+
+                        let duplicateFound = srcArray.filter(src => src === draggedSrc).length > 0;
+
+                        if (duplicateFound) {
+                            swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+                            return false;
+                        }
+
                         let target;
                         switch (dragSlotType) {
                             case 'gallery': {
@@ -785,12 +801,117 @@ function initDragDrop() {
                             }
                             break;
                         }
+                        $(this).trigger('click')
+                        isDropTriggered = true;
                         target.trigger('click');
+                        isDropTriggered = false;
+                        getMediaByIdAndStatusShow(meidaId, position);
                     }
 
                 }
             });
         }
+
+
+    let selectedImageId = null;
+    let selectedPosition = null;
+
+    $(document).on('click', '.dvDest', function () {
+        let iconBox = $(this).find('.verify_icon, .lg_verify_icon');
+        if (iconBox.length === 0) {
+            console.log("Position not found");
+            return;
+        }
+        let id = iconBox.attr('id');
+        if (!id) return;
+        selectedPosition = id.split('_')[2]; 
+    });
+
+    $(document).on('click', '.select_image', function () {
+        selectedImageId = $(this).data('id');
+        if (!selectedPosition) {
+            console.log("Position not set yet");
+            return;
+        }
+    });
+
+    $(document).on('click', '#close_change', function () {
+        if (!selectedImageId || !selectedPosition) {
+            console.log("Missing data");
+            return;
+        }
+        getMediaByIdAndStatusShow(selectedImageId, selectedPosition);
+        selectedImageId = null;
+        selectedPosition = null;
+    });
+
+
+
+    function getMediaByIdAndStatusShow(media_id, position) {
+        position = String(position).trim();
+        let iconBox = $('#verify_icon_' + position);
+
+        if (iconBox.length === 0) {
+            console.log("Icon box not found for position:", position);
+            return;
+        }
+
+        $.ajax({
+            url: '/center-dashboard/get-image-info',
+            type: 'POST',
+            data: {
+                media_id: media_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(res) {
+                let status = res.data.varified;
+                let template = res.data.template;
+
+                if (status === null || typeof status === "undefined") {
+                    iconBox.html('').hide();
+                    return;
+                }
+
+                let iconPath = '';
+                let iconText = '';
+
+                if (position == 1 || position == 9 || position == 10) {
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                        iconText = '<span class="common_shield_tooltip">Media Pending</span>';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                        iconText = '<span class="common_shield_tooltip">Media Verified</span>';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_light.png';
+                        iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
+                    }
+                } else {
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                        iconText = '<span class="mc_media_tooltip">Media Pending</span>';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/verified_icon.png';
+                        iconText = '<span class="mc_media_tooltip">Media Verified</span>';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_icon.png';
+                        iconText = '<span class="mc_media_tooltip">Media Unverified</span>';
+                    }
+                }
+
+                iconBox.html(`<img src="${iconPath}">${iconText}`);
+
+                if (template == "1" && position == "9") {
+                    iconBox.hide();
+                } else {
+                    iconBox.show();
+                }
+            },
+            error: function() {
+                iconBox.html('').hide();
+            }
+        });
+    }
 
 
 function getMediaCount(){

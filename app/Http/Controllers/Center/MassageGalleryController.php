@@ -705,5 +705,25 @@ class MassageGalleryController extends AppController
         ]);
     }
 
+
+    public function getImageInfo(Request $request)
+    {
+        $media_id = $request->media_id;
+        $type = $request->type ?? 'center';
+        $media = get_media_by_id($media_id, $type);
+        if (!$media) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Media not found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Media fetched successfully',
+            'data' => $media
+        ]);
+    }
+
     
 }
