@@ -41,7 +41,7 @@
                          </div>
                          <div class="col-6 mb-3">
                              <label class="form-check-label" for="phone">Mobile</label>
-                             <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0"
+                             <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0 formatMobile"
                                  name="phone" id="phone" oninput="this.value = this.value.replace(/\D/g,'');">
                              <span class="text-danger error-phone"></span>
                          </div>

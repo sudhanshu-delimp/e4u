@@ -2,12 +2,19 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Shareholder\ShareholderController;
+use App\Http\Controllers\User\Dashboard\UserController;
 
 Route::get('/', [ShareholderController::class, 'index'])->name('shareholder.index');
+
 // my account
 Route::get('/edit-my-account', [ShareholderController::class, 'editMyaccount'])->name('shareholder.edit-my-account');
+Route::post('/edit-my-account', [ShareholderController::class, 'update'])->name('shareholder.account.update');
 Route::get('/change-password', [ShareholderController::class, 'changePassword'])->name('shareholder.change-password');
+Route::post('/change-password', [UserController::class, 'updatePassword'])->name('shareholder.update.password');
+Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('shareholder.update.password.expiry');
 Route::get('/upload-my-avatar', [ShareholderController::class, 'uploadAvatar'])->name('shareholder.upload-my-avatar');
+Route::post('upload-avatar/{id}', [ShareholderController::class, 'storeMyAvatar'])->name('shareholder.save.avatar');
+Route::post('remove-avatar', [ShareholderController::class, 'removeMyAvatar'])->name('shareholder.avatar.remove');
 // Route::get('/notifications', [ShareholderController::class, 'notifications'])->name('shareholder.notifications');
 Route::get('/my-shareholding', [ShareholderController::class, 'myShareholding'])->name('shareholder.my-shareholding');
 

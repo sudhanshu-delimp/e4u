@@ -88,6 +88,7 @@ class Kernel extends HttpKernel
         'user' => \App\Http\Middleware\UserAuth::class,
         'HeaderInfo' => \App\Http\Middleware\HeaderInfo::class,
         'operator' => \App\Http\Middleware\OperatorAuth::class,
-        'staff' => \App\Http\Middleware\StaffAuth::class
+        'staff' => \App\Http\Middleware\StaffAuth::class,
+        'shareholder' => \App\Http\Middleware\ShareholderAuth::class,
     ];
 }
