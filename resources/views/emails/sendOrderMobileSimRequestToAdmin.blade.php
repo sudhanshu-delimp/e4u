@@ -130,7 +130,12 @@
         <!-- Closing -->
         <p style="font-size: 15px; margin-top: 30px;">
             Regards,<br>
-            <strong>E4U - Operations Centre</strong>
+            <b>E4U - Operations Centre</b>
+            <br>
+                                <br>
+                                <span>
+                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
+                                </span>
         </p>
     </td>
 </tr>
