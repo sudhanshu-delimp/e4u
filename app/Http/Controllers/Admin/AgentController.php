@@ -227,7 +227,7 @@ class AgentController extends BaseController
         return $this->validationError($resposne['message']);
     }
 
-    public function update_agent(Request $request)
+    public function update_agent(AddNewAgent $request)
     {
 
         $data = $request->all();

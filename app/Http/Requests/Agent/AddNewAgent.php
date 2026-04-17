@@ -21,18 +21,29 @@ class AddNewAgent extends FormRequest
      *
      * @return array
      */
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'business_number' => str_replace(' ', '', $this->business_number),
+        ]);
+    }
+
+
     public function rules()
     {
+        $agentId = $this->user_id ?? '';
+
         return [
             'business_name'   => 'required|string|max:255',
-            'business_number' => 'required|digits_between:10,15',
+            'business_number' => 'digits_between:10,15|unique:users,business_number,' . $agentId,
             'contact_person'  => 'required|string|max:255',
-            'phone'           => 'required|min:10|max:14|unique:users,phone',
-            'email'           => 'required|email|max:255|unique:users,email',
-            'email2'           => 'required|email|max:255|unique:users,email2',
+            'phone'           => 'required|min:10|max:14|unique:users,phone,' . $agentId,
+            'email'           => 'required|email|max:255|unique:users,email,' . $agentId,
+            'email2'          => 'required|email|max:255|unique:users,email2,' . $agentId,
             'state_id'        => 'required|exists:states,id',
             'agreement_date'  => 'required|date',
-            'abn'  =>   'nullable|digits_between:10,20',
+            'abn'             => 'nullable|digits_between:10,20',
         ];
     }
 
