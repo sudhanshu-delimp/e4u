@@ -9,7 +9,7 @@
             font-weight: 700 !important;
         }
         p.copyright {
-            padding-top: 15px !important;
+            padding-top: 0px !important;
             padding-bottom: 15px !important;
         }
         .copy_notes{
