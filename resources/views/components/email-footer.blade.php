@@ -3,7 +3,7 @@
         This is an automatically generated email by the Escorts4U Operations Centre.<br>
         © Copyright {{ date('Y') }} Blackbox Tech Pty Ltd. All rights reserved.
     </p>
-    <div class="copy_notes" style="padding-left: 20px; padding-right:20px; text-align:justify;">
+    <div class="copy_notes" style="padding-left: 20px; padding-right:20px;">
         <p style="font-size: 13px; margin-bottom: 10px; font-style: italic; text-align:justify;">This email and any attachments
             are confidential between Blackbox Tech Pty Ltd, and the addressee. If it has
             been sent to you in error, please immediately delete it and notify us.</p>

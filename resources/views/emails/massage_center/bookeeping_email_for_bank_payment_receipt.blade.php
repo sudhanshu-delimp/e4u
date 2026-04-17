@@ -23,7 +23,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        {{ $body['subject'] ?? 'N/A'}}<br>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">{{ $body['subject'] ?? 'N/A'}}</h1>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
                                             {{ $body['member_id'] ?? 'N/A'}}</span>
                                     </td>
@@ -68,6 +68,11 @@
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
+                                <br>
+                                <br>
+                               <span>
+                                    Sent: {{ \Carbon\Carbon::now()->format('d-m-Y \a\t h:i A') }}.
+                                </span>
                             </p>
                         </td>
                     </tr>
