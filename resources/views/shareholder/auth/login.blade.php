@@ -240,6 +240,7 @@
                 data.append('forget_password', $('#forgot_password').val());
                 data.append('email', $('.email-val').val());
                 var token = $('input[name="_token"]').attr('value');
+                var errorsHtml = "";
 
                 $.ajax({
                     url: url,
@@ -350,6 +351,7 @@
                 var formData = new FormData($("#admin_login")[0]);
                 //console.log(formData);
                 var token = $('input[name="_token"]').attr('value');
+                var errorsHtml = "";
 
                 $.ajax({
                     url: url,
