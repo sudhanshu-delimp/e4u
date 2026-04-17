@@ -16,7 +16,7 @@ const endpoint = {
 
 
 
-$(document).ready(function() {
+$(document).ready(function () {
 
 
     // DataTables
@@ -38,47 +38,47 @@ $(document).ready(function() {
         ],
         pageLength: 10,
         columns: [{
-                data: 'id',
-                name: 'id',
-                searchable: true,
-                orderable: true,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'bussiness_name',
-                name: 'bussiness_name',
-                searchable: true,
-                orderable: false,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'address',
-                name: 'address',
-                searchable: true,
-                orderable: false,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'post_code',
-                name: 'post_code',
-                searchable: true,
-                orderable: true,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'mobile_number',
-                name: 'mobile_number',
-                searchable: false,
-                orderable: false,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'business_number',
-                name: 'business_number',
-                searchable: false,
-                orderable: false,
-                defaultContent: 'NA'
-            },
+            data: 'id',
+            name: 'id',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'bussiness_name',
+            name: 'bussiness_name',
+            searchable: true,
+            orderable: false,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'address',
+            name: 'address',
+            searchable: true,
+            orderable: false,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'post_code',
+            name: 'post_code',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'mobile_number',
+            name: 'mobile_number',
+            searchable: false,
+            orderable: false,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'business_number',
+            name: 'business_number',
+            searchable: false,
+            orderable: false,
+            defaultContent: 'NA'
+        },
         ],
     });
 
@@ -100,48 +100,48 @@ $(document).ready(function() {
         ],
         pageLength: 10,
         columns: [{
-                data: 'id',
-                name: 'id',
-                searchable: true,
-                orderable: true,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'date_generated',
-                name: 'date_generated',
-                searchable: true,
-                orderable: false,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'post_code',
-                name: 'post_code',
-                searchable: true,
-                orderable: true,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'listings',
-                name: 'listings',
-                searchable: true,
-                orderable: true,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'merged',
-                name: 'merged',
-                searchable: true,
-                orderable: true,
-                defaultContent: 'NA'
-            },
-            {
-                data: 'action',
-                name: 'action',
-                searchable: false,
-                orderable: false,
-                defaultContent: 'NA',
-                class: 'text-center'
-            },
+            data: 'id',
+            name: 'id',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'date_generated',
+            name: 'date_generated',
+            searchable: true,
+            orderable: false,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'post_code',
+            name: 'post_code',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'listings',
+            name: 'listings',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'merged',
+            name: 'merged',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'action',
+            name: 'action',
+            searchable: false,
+            orderable: false,
+            defaultContent: 'NA',
+            class: 'text-center'
+        },
         ],
     });
 
@@ -149,12 +149,12 @@ $(document).ready(function() {
     function toggleClearBtn() {
         var hasData = reportsTable.rows().count() > 0;
         $('#clearReports').prop('disabled', !hasData);
-        $('#saveReport').prop('disabled',!hasData);
+        $('#saveReport').prop('disabled', !hasData);
     }
     toggleClearBtn();
 
     //  Postcode Type Toggle 
-    $('input[name="postcodeType"]').change(function() {
+    $('input[name="postcodeType"]').change(function () {
         var val = $(this).val();
         $('#singlePostCodeField').toggleClass('d-none', val !== 'single');
         $('#multiplePostCodeFields').toggleClass('d-none', val !== 'multiple');
@@ -171,7 +171,7 @@ $(document).ready(function() {
 
     //  Single Postcode Autocomplete 
     var searchTimeout = null;
-    $('#singlePostCode').on('input', function() {
+    $('#singlePostCode').on('input', function () {
         var q = $(this).val().trim();
         var dropdown = $('#postcodeDropdown');
 
@@ -182,14 +182,14 @@ $(document).ready(function() {
             return;
         }
 
-        searchTimeout = setTimeout(function() {
+        searchTimeout = setTimeout(function () {
             $.ajax({
                 url: endpoint.postcodes_url,
                 data: { q: q },
-                success: function(res) {
+                success: function (res) {
                     dropdown.empty();
                     if (res.data && res.data.length > 0) {
-                        res.data.forEach(function(item) {
+                        res.data.forEach(function (item) {
                             dropdown.append(
                                 '<a class="dropdown-item postcode-option" href="javascript:void(0)" data-value="' + item.post_code + '">' + item.post_code + '</a>'
                             );
@@ -199,7 +199,7 @@ $(document).ready(function() {
                         dropdown.removeClass('show');
                     }
                 },
-                error: function() {
+                error: function () {
                     dropdown.removeClass('show');
                 }
             });
@@ -207,15 +207,15 @@ $(document).ready(function() {
     });
 
     // Select from dropdown
-    $(document).on('click', '.postcode-option', function() {
+    $(document).on('click', '.postcode-option', function () {
         var val = $(this).data('value');
         $('#singlePostCode').val(val);
         $('#postcodeDropdown').removeClass('show').empty();
     });
 
     // Close dropdown on blur (with delay for click)
-    $('#singlePostCode').on('blur', function() {
-        setTimeout(function() {
+    $('#singlePostCode').on('blur', function () {
+        setTimeout(function () {
             $('#postcodeDropdown').removeClass('show');
         }, 200);
     });
@@ -225,7 +225,7 @@ $(document).ready(function() {
     var toTimeout = null;
 
     function setupRangeAutocomplete(inputId, dropdownId, timeoutRef) {
-        $('#' + inputId).on('input', function() {
+        $('#' + inputId).on('input', function () {
             var q = $(this).val().trim();
             var dropdown = $('#' + dropdownId);
 
@@ -241,14 +241,14 @@ $(document).ready(function() {
                 return;
             }
 
-            var timer = setTimeout(function() {
+            var timer = setTimeout(function () {
                 $.ajax({
                     url: endpoint.postcodes_url,
                     data: { q: q },
-                    success: function(res) {
+                    success: function (res) {
                         dropdown.empty();
                         if (res.data && res.data.length > 0) {
-                            res.data.forEach(function(item) {
+                            res.data.forEach(function (item) {
                                 dropdown.append(
                                     '<a class="dropdown-item range-postcode-option" href="javascript:void(0)" data-target="' + inputId + '" data-dropdown="' + dropdownId + '" data-value="' + item.post_code + '">' + item.post_code + '</a>'
                                 );
@@ -258,7 +258,7 @@ $(document).ready(function() {
                             dropdown.removeClass('show');
                         }
                     },
-                    error: function() {
+                    error: function () {
                         dropdown.removeClass('show');
                     }
                 });
@@ -270,8 +270,8 @@ $(document).ready(function() {
             validateRange();
         });
 
-        $('#' + inputId).on('blur', function() {
-            setTimeout(function() {
+        $('#' + inputId).on('blur', function () {
+            setTimeout(function () {
                 $('#' + dropdownId).removeClass('show');
             }, 200);
             validateRange();
@@ -282,7 +282,7 @@ $(document).ready(function() {
     setupRangeAutocomplete('toPostCode', 'toPostcodeDropdown', 'to');
 
     // Select from range dropdowns
-    $(document).on('click', '.range-postcode-option', function() {
+    $(document).on('click', '.range-postcode-option', function () {
         var val = $(this).data('value');
         var targetInput = $(this).data('target');
         var targetDropdown = $(this).data('dropdown');
@@ -321,13 +321,13 @@ $(document).ready(function() {
     }
 
     //Trial Run Toggle
-    $('input[name="trialRun"]').change(function() {
+    $('input[name="trialRun"]').change(function () {
         var val = $('input[name="trialRun"]:checked').val();
         $('#showRecipients').prop('disabled', val !== 'on');
     });
 
     // Show Recipients (Trial Run)
-    $('#showRecipients').click(function() {
+    $('#showRecipients').click(function () {
         var type = $('input[name="postcodeType"]:checked').val();
         var params = { type: type };
 
@@ -347,26 +347,26 @@ $(document).ready(function() {
         $.ajax({
             url: endpoint.recipients_url,
             data: params,
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#showRecipients').prop('disabled', true).text('Loading...');
             },
-            success: function(res) {
+            success: function (res) {
                 if (res.data) {
                     previewTable.clear().rows.add(res.data).draw();
                     $('#previewCard').removeClass('d-none');
                 }
             },
-            error: function() {
+            error: function () {
                 showAlert('error', 'Failed to load recipients.');
             },
-            complete: function() {
+            complete: function () {
                 $('#showRecipients').prop('disabled', false).text('Show Recipients');
             }
         });
     });
 
     //  Proceed (Generate)
-    $('#proceedBtn').click(function() {
+    $('#proceedBtn').click(function () {
 
         var type = $('input[name="postcodeType"]:checked').val();
         var trialRun = $('input[name="trialRun"]:checked').val();
@@ -389,10 +389,10 @@ $(document).ready(function() {
             url: endpoint.generate_url,
             method: 'POST',
             data: $.extend({ _token: endpoint.csrf_token }, params),
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#proceedBtn').prop('disabled', true).text('Generating...');
             },
-            success: function(res) {
+            success: function (res) {
                 if (res.data) {
                     reportsTable.row.add(res.data.report).draw();
                     toggleClearBtn();
@@ -405,111 +405,87 @@ $(document).ready(function() {
                     showAlert('success', res.message);
                 }
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 var msg = 'Failed to generate list.';
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     msg = xhr.responseJSON.message;
                 }
                 showAlert('error', msg);
             },
-            complete: function() {
+            complete: function () {
                 $('#proceedBtn').prop('disabled', false).text('Proceed');
             }
         });
     });
 
     // Close Preview
-    $('#closePreview').click(function() {
+    $('#closePreview').click(function () {
         $('#previewCard').addClass('d-none');
     });
 
-    //  Report Actions (Merge/Print/View) 
-    $(document).on('click', '.report-action', function(e) {
-        e.preventDefault();
-        var reportId = $(this).data('report-id');
-        var action = $(this).data('action');
-
-        // $.ajax({
-        //     url: endpoint.action_url,
-        //     method: 'POST',
-        //     data: {
-        //         _token: endpoint.csrf_token,
-        //         action: action,
-        //         report_id: reportId
-        //     },
-        //     success: function(res) {
-        //         if (res.data && res.data.html) {
-        //             if (action === 'view') {
-        //                 $('#view_list .modal-body').html(res.data.html);
-        //                 $('#view_list').modal('show');
-        //             } else if (action === 'merge') {
-        //                 $('#mergeType .modal-body').html(res.data.html);
-        //                 $('#mergeType').modal('show');
-        //             } else if (action === 'print') {
-        //                 var printWindow = window.open('', '_blank');
-        //                 printWindow.document.write(res.data.html);
-        //                 printWindow.document.close();
-        //                 printWindow.print();
-        //             }
-        //         }
-        //     },
-        //     error: function() {
-        //         showAlert('error', 'Failed to perform ' + action + '.');
-        //     }
-        // });
-    });
 
     //Clieck On Action Button ex : Merge, Print, View
-    $(document).on('click', '.report-action', function(e){
-        e.preventDefault(); 
+    $(document).on('click', '.report-action', function (e) {
+        e.preventDefault();
 
         let reportId = $(this).data('report-id');
         let actionType = $(this).data('report-action');
+        if (actionType === 'Merge') {
 
-        $.ajax({
-            url : endpoint.action_url,
-            method: 'POST',
-            data: {
-              _token : endpoint.csrf_token,
-              report_id : reportId,
-              action_type : actionType
-            },
-            success : function(res){
-              if (actionHandlers[actionType]) {
-                actionHandlers[actionType](res);
-            } else {
-                console.warn('No handler for action:', actionType);
-            }
+            $('#mergeType').modal('show');
+            //first store blacnk and then add value
+            $('#report_id').val('');
+            $('#report_id').val(reportId);
+        }
 
-            }
-            
-        });
-
-
-
-   
     });
 
+    $('#submitMergeTypeForm').submit(function (e) {
+        e.preventDefault();
+        let formData = $(this).serializeArray();
+        let reportId = $('#report_id').val();
+        let mergeType = $('input[name="mergeType"]:checked').val();
+
+        $.ajax({
+            url: endpoint.action_url,
+            method: 'POST',
+            data: {
+                _token: endpoint.csrf_token,
+                report_id: reportId,
+                action_type: actionType
+            },
+            success: function (res) {
+                if (actionHandlers[actionType]) {
+                    actionHandlers[actionType](res);
+                } else {
+                    console.warn('No handler for action:', actionType);
+                }
+
+            }
+
+        });
+
+    });
 
     const actionHandlers = {
-      Merge: function(res) {
-          console.log('Merge:', res);
-      },
-      Print: function(res) {
-          console.log('Print:', res);
-      },
-      View: function(res) {
-          console.log('View:', res);
-      }
-  };
+        Merge: function (res) {
+            console.log('Merge:', res);
+        },
+        Print: function (res) {
+            console.log('Print:', res);
+        },
+        View: function (res) {
+            console.log('View:', res);
+        }
+    };
 
 
 
 
 
     //  Clear Reports
-    $('#clearReports').click(function() {
-          confirmDialog({
+    $('#clearReports').click(function () {
+        confirmDialog({
             title: 'Are you sure?',
             text: 'All generated reports will be permanently deleted.',
             confirmButtonText: 'Yes, clear all',
@@ -519,7 +495,7 @@ $(document).ready(function() {
     });
 
     // Save Report
-    $('#saveReport').click(function(){
+    $('#saveReport').click(function () {
         confirmDialog({
             title: 'Save Report',
             text: 'Do you want to save this report? It will be available in your saved reports section.',
@@ -529,24 +505,24 @@ $(document).ready(function() {
         });
     });
 
-    function saveReportAjax(){
+    function saveReportAjax() {
         console.log(reportsTable.rows().count(), 'count');
         $.ajax({
             url: endpoint.save_report,
             method: 'GET',
-            beforeSend : function(){
+            beforeSend: function () {
                 $('#saveReport').prop('disabled', true).text('Saving...');
             },
-            success: function(res){
+            success: function (res) {
                 reportsTable.clear().draw();
                 console.log(reportsTable.clear().draw());
                 //toggleClearBtn();
                 showAlert('success', res.message || 'All reports cleared.');
             },
-            error: function() {
+            error: function () {
                 showAlert('error', 'Failed to clear reports.');
             },
-            complete: function(){
+            complete: function () {
                 $('#saveReport').text('Save Report');
                 $('#saveReport').prop('disabled', false);
                 toggleClearBtn();
@@ -559,18 +535,18 @@ $(document).ready(function() {
             url: endpoint.clear_reports_url,
             method: 'POST',
             data: { _token: endpoint.csrf_token },
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#clearReports').prop('disabled', true).text('Clearing...');
             },
-            success: function(res) {
+            success: function (res) {
                 reportsTable.clear().draw();
                 toggleClearBtn();
                 showAlert('success', res.message || 'All reports cleared.');
             },
-            error: function() {
+            error: function () {
                 showAlert('error', 'Failed to clear reports.');
             },
-            complete: function() {
+            complete: function () {
                 $('#clearReports').text('Clear');
                 toggleClearBtn();
             }
@@ -581,7 +557,7 @@ $(document).ready(function() {
     function loadReports() {
         $.ajax({
             url: endpoint.reports_url,
-            success: function(res) {
+            success: function (res) {
                 if (res.data && res.data.length) {
                     reportsTable.clear().rows.add(res.data).draw();
                 }

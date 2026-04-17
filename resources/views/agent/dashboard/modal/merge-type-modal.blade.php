@@ -1,7 +1,6 @@
 
     {{-- merge modal --}}
-    <div class="modal fade upload-modal" id="mergeType" tabindex="-1" role="dialog" aria-labelledby="mergeTypelabel"
-        aria-hidden="true" data-backdrop="static">
+    <div class="modal fade upload-modal" id="mergeType" tabindex="-1" role="dialog" aria-labelledby="mergeTypelabel"  aria-hidden="true" data-backdrop="static" >
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -17,7 +16,7 @@
                 </div> 
                 <div class="modal-body pb-0 agent-tour">
                     <h4 class="custom_modal_text">Select the Marketing Information document to merge with</h4>
-                   <form method="POST" action="" id="getMergeType">
+                   <form method="POST" action="" id="submitMergeTypeForm">
                         @csrf
                         <div class="row my-3">
                             <div class="col-md-12">
