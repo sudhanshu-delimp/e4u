@@ -647,6 +647,15 @@ img#blah8 {
                                                                                     <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                                                 @endif
                                                                             </div>
+                                                                                <div class="upload_date">
+                                                                                    @if($status == "0")
+                                                                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                    @elseif($status == "1")
+                                                                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @else
+                                                                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @endif
+                                                                                </div>
                                                                         </div>
                                                                     @endif
                                                                 @endforeach

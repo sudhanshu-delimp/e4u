@@ -136,6 +136,7 @@
                                                                 <label for="Business No.">Business No.</label>
                                                                 <input type="text" class="form-control form-back"
                                                                     placeholder=" " name="business number"
+                                                                    data-parsley-type="digits"
                                                                     aria-describedby="emailHelp"
                                                                     value="{{ $escort->getRawOriginal('business_number') }}">
 
@@ -149,6 +150,7 @@
                                                                 <label for="email">Mobile No.</label> 
                                                                  <input type="text" class="form-control form-back"
                                                                     placeholder=" " name="phone"
+                                                                    data-parsley-type="digits"
                                                                     aria-describedby="emailHelp"
                                                                     value="{{ $escort->getRawOriginal('phone') }}">
                                                             </div>

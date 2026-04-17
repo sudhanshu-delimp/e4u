@@ -45,33 +45,33 @@
         </div>
 
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="name">Full Name</label>
+            <label class="label" for="name">Full Name</label>
             <input type="hidden" name="user_id" value="{{ $staff->id }}">
             <input type="text" class="form-control rounded-0" name="name" id="name"
                 value="{{ $staff->name }}">
             <span class="text-danger error-name"></span>
         </div>
         <div class="col-6 mb-3">
-             <label class="form-check-label" for="address">Address</label>
+             <label class="label" for="address">Address</label>
             <input type="text" class="form-control rounded-0"  name="address" id="address"
                 value="{{ $staff->operator_staff_detail->address }}">
             <span class="text-danger error-address"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="phone">Phone</label>
+            <label class="label" for="phone">Phone</label>
             <input type="tel" maxlength="10" class="form-control rounded-0" name="phone"
                 id="phone" value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');"
                 autocomplete="off">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="email">Private Email</label>
+            <label class="label" for="email">Private Email</label>
             <input type="email" class="form-control rounded-0" name="email"
                 id="email" value="{{ $staff->email }}">
             <span class="text-danger error-email"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="gender">Gender</label>
+            <label class="label" for="gender">Gender</label>
             <select class="form-control" name="gender" id="gender">
                 <option value="">Select Gender</option>
                 @foreach (config('operator_staff.genders') as $key => $gender)
@@ -88,26 +88,26 @@
         </div>
 
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="kin_name">Name of Kin</label>
+            <label class="label" for="kin_name">Name of Kin</label>
             <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
                  value="{{ $staff_detail->kin_name }}">
             <span class="text-danger error-kin_name"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="kin_relationship">Relationship</label>
+            <label class="label" for="kin_relationship">Relationship</label>
             <input type="text" name="kin_relationship" id="kin_relationship" class="form-control rounded-0"
                 value="{{ $staff_detail->kin_relationship }}">
             <span class="text-danger error-kin_relationship"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="kin_mobile">Mobile</label>
+            <label class="label" for="kin_mobile">Mobile</label>
             <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0"
                  value="{{ $staff_detail->kin_mobile }}" autocomplete="off"
                 oninput="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-kin_mobile"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="kin_email">Email</label>
+            <label class="label" for="kin_email">Email</label>
             <input type="email" name="kin_email" class="form-control rounded-0" 
                 value="{{ $staff_detail->kin_email }}">
             <span class="text-danger error-kin_email"></span>
@@ -119,7 +119,7 @@
         </div>
 
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="security_level">Security Level</label>
+            <label class="label" for="security_level">Security Level</label>
             <select class="form-control rounded-0" name="security_level" id="security_level_edit">
                 <option value="">Security Level</option>
                 @foreach (config('operator_staff.security_level') as $seckey => $secLevel)
@@ -132,7 +132,7 @@
         </div>
 
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="position">Position</label>
+            <label class="label" for="position">Position</label>
             <select class="form-control rounded-0" name="position" id="position_edit" >
                 <option value="">Select Position</option>
                 @foreach (config('operator_staff.position') as $pkey => $position)
@@ -143,7 +143,7 @@
             <span class="text-danger error-position"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="country_id">Territory</label>
+            <label class="label" for="country_id">Territory</label>
             <select class="form-control rounded-0" name="country_id" id="edit_country_id" @if( $staffAddEditUnderSelectedOperatorycounty) disabled @endif>
                 <option value="">Select Territory</option>
                  @if( !$staffAddEditUnderSelectedOperatorycounty)
@@ -161,13 +161,13 @@
             <span class="text-danger error-country_id"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="commenced_date_edit">Commenced Date</label>
+            <label class="label" for="commenced_date_edit">Commenced Date</label>
             <input type="text" name="commenced_date" id="commenced_date_edit" class="form-control rounded-0 js_datepicker_edit"  value="{{showDateWithFormat( $staff_detail->commenced_date, 'd-m-Y') }}">
             <span class="text-danger error-commenced_date"></span>
 
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="employment_status">Employment Status</label>
+            <label class="label" for="employment_status">Employment Status</label>
             <select class="form-control rounded-0" name="employment_status" id="employment_status">
                 <option value="">Select Employment Status</option>
                 @foreach (config('operator_staff.employment_status') as $empkey => $empStatus)
@@ -179,7 +179,7 @@
             <span class="text-danger error-employment_status"></span>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="employment_agreement">Employment Agreement?</label>
+            <label class="label" for="employment_agreement">Employment Agreement?</label>
             <select class="form-control rounded-0" name="employment_agreement" id="employment_agreement">
                 <option value="">Employment Agreement?</option>
                 <option value="yes" {{ $staff_detail->employment_agreement == 'yes' ? 'selected' : '' }}>Yes
@@ -196,7 +196,7 @@
         </div>
 
         <div class="col-4 mb-3">
-            <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
+            <label class="label" for="building_access_code">Access Code Provided?</label>
             <select class="form-control rounded-0" name="building_access_code" id="building_access_code">
                 <option value="">Select Access Code Provided?</option>
                 <option value="yes" {{ $staff_detail->building_access_code == 'yes' ? 'selected' : '' }}>Yes
@@ -207,7 +207,7 @@
             <span class="text-danger error-building_access_code"></span>
         </div>
         <div class="col-4 mb-3">
-            <label class="form-check-label" for="keys_issued">Key Provided?</label>
+            <label class="label" for="keys_issued">Key Provided?</label>
             <select class="form-control rounded-0" name="keys_issued" id="keys_issued">
                 <option value="">Select Key Provided?</option>
                 <option value="yes" {{ $staff_detail->keys_issued == 'yes' ? 'selected' : '' }}>Yes</option>
@@ -216,7 +216,7 @@
             <span class="text-danger error-keys_issued"></span>
         </div>
         <div class="col-4 mb-3">
-            <label class="form-check-label" for="car_parking">Car Park?</label>
+            <label class="label" for="car_parking">Car Park?</label>
             <select class="form-control rounded-0" name="car_parking" id="car_parking">
                 <option value="">Select Car Park?</option>
                 <option value="yes" {{ $staff_detail->car_parking == 'yes' ? 'selected' : '' }}>Yes</option>

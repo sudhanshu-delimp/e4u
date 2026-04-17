@@ -64,7 +64,7 @@ class SyncMassageProfile extends Command
 
                 $this->info("=============== $key ===============");
                 $this->info("Enabled Escort ID {$purchase->massage_centre_id} (related to pending Purchase ID {$purchase->id})");
-                UpdateMeasureForActiveListing::dispatch($purchase->id);
+                ////UpdateMeasureForActiveListing::dispatch($purchase->id);
             }
             $this->info('All pending listed purchases processed.');
         }

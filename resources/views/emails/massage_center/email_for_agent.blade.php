@@ -9,7 +9,7 @@
         <tr>
             <td align="center">
                 <!-- Main container -->
-                <table width="600" cellpadding="0" cellspacing="0"
+                <table width="700" cellpadding="0" cellspacing="0"
                     style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
                     <!-- Header -->
                     <tr>
@@ -19,9 +19,9 @@
                                     <td style="text-align: left;">
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
-                                    <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px; color:#ffffff;text-align: right;">Confirmation of Appointment - Massage Centre</h1>
-                                        <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
+                                    <td style="text-align: right; color: #ffffff;  vertical-align: middle;">
+                                        <h1 style="margin: 0;font-size: 16px; font-weight: bold; color:#ffffff;text-align: right;">Confirmation of Appointment - Massage Centre</h1>
+                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
                             </table>

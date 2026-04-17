@@ -256,7 +256,7 @@
                 </h5>
 
             </div>
-            <div class="modal-footer justify-content-center border-0 pb-4">
+            <div class="modal-footer justify-content-center pt-0">
 
                 <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">No</button>
             </div>

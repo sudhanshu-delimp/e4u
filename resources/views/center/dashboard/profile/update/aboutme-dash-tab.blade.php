@@ -314,13 +314,12 @@
                                                         style="object-fit: cover;width: 167px;height: 172px;">
                                                         @php
                                                             $imageData = get_massage_media_id_by_path($escort->imagePosition(1));
-                                                            if($imageData){
-                                                                $media_details =  get_media_by_id($imageData,'center');
-                                                                $status =  $media_details->varified;
-                                                            }
                                                         @endphp
                                                         <div class="lg_verify_icon" id="verify_icon_1" style="{{ $imageData ? '' : 'display:none;' }}">
                                                            @if($imageData)
+                                                           @php 
+                                                                $status =  $imageData->varified;
+                                                            @endphp
                                                                 @if($status == "0")
                                                                     <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                                     <span class="common_shield_tooltip">Media Pending</span>
@@ -352,14 +351,13 @@
                                                                 src="{{ asset($escort->imagePosition(2)) }}">
                                                                  @php
                                                                     $imageData = get_massage_media_id_by_path($escort->imagePosition(2));
-                                                                    if($imageData){
-                                                                        $media_details =  get_media_by_id($imageData,'center');
-                                                                        $status =  $media_details->varified;
-                                                                    }
                                                                 @endphp
 
                                                             <div class="verify_icon" id="verify_icon_2" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                @if($imageData)
+                                                                @php 
+                                                                    $status =  $imageData->varified;
+                                                                @endphp
                                                                     @if($status == "0")
                                                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                     @elseif($status == "1")
@@ -379,15 +377,14 @@
                                                             <img class="img-fluid upld-img profile-gallery"
                                                                 data-type="gallery" id="img3"
                                                                 src="{{ asset($escort->imagePosition(3)) }}">
-                                                                @php
+                                                               @php
                                                                     $imageData = get_massage_media_id_by_path($escort->imagePosition(3));
-                                                                    if($imageData){
-                                                                        $media_details =  get_media_by_id($imageData,'center');
-                                                                        $status =  $media_details->varified;
-                                                                    }
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_3" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                     @if($imageData)
+                                                                     @php 
+                                                                        $status =  $imageData->varified;
+                                                                    @endphp
                                                                         @if($status == "0")
                                                                             <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                         @elseif($status == "1")
@@ -407,15 +404,14 @@
                                                             <img class="img-fluid upld-img profile-gallery"
                                                                 data-type="gallery" id="img4"
                                                                 src="{{ asset($escort->imagePosition(4)) }}">
-                                                                @php
+                                                               @php
                                                                     $imageData = get_massage_media_id_by_path($escort->imagePosition(4));
-                                                                    if($imageData){
-                                                                        $media_details =  get_media_by_id($imageData,'center');
-                                                                        $status =  $media_details->varified;
-                                                                    }
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_4" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                 @if($imageData)
+                                                                 @php 
+                                                                    $status =  $imageData->varified;
+                                                                @endphp
                                                                     @if($status == "0")
                                                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                     @elseif($status == "1")
@@ -439,13 +435,12 @@
                                                                 src="{{ asset($escort->imagePosition(5)) }}">
                                                                 @php
                                                                     $imageData = get_massage_media_id_by_path($escort->imagePosition(5));
-                                                                    if($imageData){
-                                                                        $media_details =  get_media_by_id($imageData,'center');
-                                                                        $status =  $media_details->varified;
-                                                                    }
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_5" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                     @if($imageData)
+                                                                     @php 
+                                                                        $status =  $imageData->varified;
+                                                                    @endphp
                                                                         @if($status == "0")
                                                                             <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                         @elseif($status == "1")
@@ -467,13 +462,12 @@
                                                                 src="{{ asset($escort->imagePosition(6)) }}">
                                                                 @php
                                                                     $imageData = get_massage_media_id_by_path($escort->imagePosition(6));
-                                                                    if($imageData){
-                                                                        $media_details =  get_media_by_id($imageData,'center');
-                                                                        $status =  $media_details->varified;
-                                                                    }
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_6" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                 @if($imageData)
+                                                                @php 
+                                                                    $status =  $imageData->varified;
+                                                                @endphp
                                                                     @if($status == "0")
                                                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                     @elseif($status == "1")
@@ -495,13 +489,12 @@
                                                                 src="{{ asset($escort->imagePosition(7)) }}">
                                                                 @php
                                                                     $imageData = get_massage_media_id_by_path($escort->imagePosition(7));
-                                                                    if($imageData){
-                                                                        $media_details =  get_media_by_id($imageData,'center');
-                                                                        $status =  $media_details->varified;
-                                                                    }
                                                                 @endphp
                                                                 <div class="verify_icon" id="verify_icon_7" style="{{ $imageData ? '' : 'display:none;' }}">
                                                                 @if($imageData)
+                                                                @php 
+                                                                    $status =  $imageData->varified;
+                                                                @endphp
                                                                     @if($status == "0")
                                                                         <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
                                                                     @elseif($status == "1")
@@ -527,13 +520,12 @@
                                                     style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                                      @php
                                                         $imageData = get_massage_media_id_by_path($escort->imagePosition(9));
-                                                        if($imageData){
-                                                            $media_details =  get_media_by_id($imageData,'center');
-                                                            $status =  $media_details->varified;
-                                                        }
                                                     @endphp
-                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ $imageData && $media_details->template != '1' ? '' : 'display:none;' }}">
+                                                <div class="lg_verify_icon" id="verify_icon_9" style="{{ $imageData && $imageData->template != '1' ? '' : 'display:none;' }}">
                                                    @if($imageData)
+                                                        @php 
+                                                            $status =  $imageData->varified;
+                                                        @endphp
                                                         @if($status == "0")
                                                             <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
                                                             <span class="common_shield_tooltip">Media Pending</span>
@@ -684,8 +676,15 @@
                                                                                         <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
                                                                                     @endif
                                                                                 </div>
+                                                                                
                                                                                 <div class="upload_date">
-                                                                                    Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                    @if($status == "0")
+                                                                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                                    @elseif($status == "1")
+                                                                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @else
+                                                                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         @endif

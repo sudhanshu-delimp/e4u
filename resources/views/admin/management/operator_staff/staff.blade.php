@@ -138,12 +138,12 @@
                             </div>
 
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="name">Full Name</label>
+                                <label class="label" for="name">Full Name</label>
                                 <input type="text" class="form-control rounded-0" name="name" id="name">
                                 <span class="text-danger error-name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="address">Address</label>
+                                <label class="label" for="address">Address</label>
                                 <input type="text" class="form-control rounded-0" name="address" id="address">
                                 <span class="text-danger error-address"></span>
                             </div>
@@ -154,12 +154,12 @@
                                 <span class="text-danger error-phone"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="email">Private Email</label>
+                                <label class="label" for="email">Private Email</label>
                                 <input type="email" class="form-control rounded-0" name="email" id="email">
                                 <span class="text-danger error-email"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="gender">Gender</label>
+                                <label class="label" for="gender">Gender</label>
                                 <select class="form-control" name="gender" id="gender">
                                     <option value="">Select Gender</option>
                                     @foreach (config('operator_staff.genders') as $key => $gender)
@@ -175,25 +175,25 @@
                             </div>
 
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="kin_name">Name of Kin</label>
+                                <label class="label" for="kin_name">Name of Kin</label>
                                 <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0">
                                 <span class="text-danger error-kin_name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="kin_relationship">Relationship</label>
+                                <label class="label" for="kin_relationship">Relationship</label>
                                 <input type="text" name="kin_relationship" id="kin_relationship"
                                     class="form-control rounded-0">
                                 <span class="text-danger error-kin_relationship"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="kin_mobile">Mobile</label>
+                                <label class="label" for="kin_mobile">Mobile</label>
                                 <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile"
                                     class="form-control rounded-0 no-arrow formatMobile" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-kin_mobile"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="kin_email">Email</label>
+                                <label class="label" for="kin_email">Email</label>
                                 <input type="email" name="kin_email" class="form-control rounded-0">
                                 <span class="text-danger error-kin_email"></span>
                             </div>
@@ -203,7 +203,7 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="security_level">Security Level</label>
+                                <label class="label" for="security_level">Security Level</label>
                                 <select class="form-control rounded-0" name="security_level" id="security_level">
                                     <option value="">Security Level</option>
                                     @foreach (config('operator_staff.security_level') as $seckey => $secLevel)
@@ -215,7 +215,7 @@
                                 <span class="text-danger error-security_level"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="position">Position</label>
+                                <label class="label" for="position">Position</label>
                                 <select class="form-control rounded-0" name="position" id="position" disabled>
                                     <option value="">Position</option>
                                     @foreach (config('operator_staff.position') as $pkey => $position)
@@ -237,7 +237,7 @@
                                 <span class="text-danger error-location"></span>
                             </div> --}}
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="country_id">Territory</label>
+                                <label class="label" for="country_id">Territory</label>
                                 <select class="form-control rounded-0" name="country_id" id="add_country_id" @if( $staffAddEditUnderSelectedOperatorycounty) disabled @endif>
                                     <option value="">Select Territory</option>
                                     @if( !$staffAddEditUnderSelectedOperatorycounty)
@@ -254,7 +254,7 @@
                                 <span class="text-danger error-country_id"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="commenced_date_edit">Commenced Date</label>
+                                <label class="label" for="commenced_date_edit">Commenced Date</label>
                                 <input type="text" name="commenced_date" id="commenced_date"
                                     class="form-control rounded-0 js_datepicker" onfocus="(this.type='date')"
                                     onblur="if(this.value==''){this.type='text'}">
@@ -263,7 +263,7 @@
                             </div>
 
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="employment_status">Employment Status</label>
+                                <label class="label" for="employment_status">Employment Status</label>
                                 <select class="form-control rounded-0" name="employment_status" id="employment_status">
                                     <option value="">Select Employment Status</option>
                                     @foreach (config('operator_staff.employment_status') as $key => $empStatus)
@@ -273,7 +273,7 @@
                                 <span class="text-danger error-employment_status"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="employment_agreement">Employment Agreement?</label>
+                                <label class="label" for="employment_agreement">Employment Agreement?</label>
                                 <select class="form-control rounded-0" name="employment_agreement"
                                     id="employment_agreement">
                                     <option value="">Select Employment Agreement?</option>
@@ -289,7 +289,7 @@
                             </div>
 
                             <div class="col-4 mb-3">
-                                <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
+                                <label class="label" for="building_access_code">Access Code Provided?</label>
                                 <select class="form-control rounded-0" name="building_access_code"
                                     id="building_access_code">
                                     <option value="">Select Access Code Provided?</option>
@@ -299,7 +299,7 @@
                                 <span class="text-danger error-building_access_code"></span>
                             </div>
                             <div class="col-4 mb-3">
-                                <label class="form-check-label" for="keys_issued">Key Provided?</label>
+                                <label class="label" for="keys_issued">Key Provided?</label>
                                 <select class="form-control rounded-0" name="keys_issued" id="keys_issued">
                                     <option value="">Select Key Provided?</option>
                                     <option value="yes">Yes</option>
@@ -308,7 +308,7 @@
                                 <span class="text-danger error-keys_issued"></span>
                             </div>
                             <div class="col-4 mb-3">
-                                <label class="form-check-label" for="car_parking">Car Park?</label>
+                                <label class="label" for="car_parking">Car Park?</label>
                                 <select class="form-control rounded-0" name="car_parking" id="car_parking">
                                     <option value="">Select Car Park?</option>
                                     <option value="yes">Yes</option>

@@ -26,6 +26,10 @@
      .setup-influencer .table th{
         border: 1px solid #e3e6f0;
      }
+     
+  form label{
+        margin-bottom: 0px;
+    }
 </style>
 @endsection
 
@@ -138,31 +142,38 @@
                 <div class="row">                   
 
                     <div class="col-6 mb-3">
-                        <input type="text" class="form-control rounded-0" placeholder="Member ID">
+                        <label for="member_id">Member ID</label>
+                        <input type="text" class="form-control rounded-0">
                     </div>
 
                     <div class="col-6 mb-3">
-                        <input type="text" class="form-control rounded-0" placeholder="Name" required>
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control rounded-0" placeholder="" required>
                     </div>
 
                     <div class="col-6 mb-3">
-                        <input type="text" class="form-control rounded-0" placeholder="Agent Name (if applicable)">
+                        <label for="agent_name">Agent Name (if applicable)</label>
+                        <input type="text" class="form-control rounded-0" placeholder="">
                     </div>
 
                     <div class="col-6 mb-3">
-                        <input type="text" class="form-control rounded-0" placeholder="Home State" required>
+                        <label for="home_state">Home State</label>
+                        <input type="text" class="form-control rounded-0" required>
                     </div>
 
                     <div class="col-6 mb-3">
-                        <input type="text" class="form-control rounded-0" placeholder="Mobile" required>
+                        <label for="mobile">Mobile</label>
+                        <input type="text" class="form-control rounded-0" required>
                     </div>
 
                     <div class="col-6 mb-3">
-                        <input type="email" class="form-control rounded-0" placeholder="Email" required>
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control rounded-0" required>
                     </div>
 
                     <div class="col-12 mb-3">
-                        <textarea class="form-control rounded-0" placeholder="Comments" rows="3"></textarea>
+                        <label for="comments">Comments</label>
+                        <textarea class="form-control rounded-0"  rows="3"></textarea>
                     </div>
 
                     <!-- Social Media -->
@@ -265,31 +276,38 @@
 
                 <!-- Read-only fields -->
                 <div class="col-6 mb-3">
-                    <input type="text" class="form-control rounded-0" placeholder="Member ID" readonly>
+                    <label for="member_id">Member ID</label>
+                    <input type="text" class="form-control rounded-0"  readonly>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <input type="text" class="form-control rounded-0" placeholder="Name" readonly>
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control rounded-0" readonly>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <input type="text" class="form-control rounded-0" placeholder="Agent Name (if applicable)" readonly>
+                    <label for="agent_name">Agent Name (if applicable)</label>
+                    <input type="text" class="form-control rounded-0" readonly>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <input type="text" class="form-control rounded-0" placeholder="Home State" readonly>
+                    <label for="home_state">Home State</label>
+                    <input type="text" class="form-control rounded-0"  readonly>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <input type="text" class="form-control rounded-0" placeholder="Mobile" readonly>
+                    <label for="mobile">Mobile</label>
+                    <input type="text" class="form-control rounded-0"  readonly>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Email" readonly>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control rounded-0"  readonly>
                 </div>
 
                 <div class="col-12 mb-3">
-                    <textarea class="form-control rounded-0" placeholder="Comments" rows="3" readonly></textarea>
+                     <label for="comments">Comments</label>
+                    <textarea class="form-control rounded-0"  rows="3" readonly></textarea>
                 </div>
 
                 <!-- Social Media (view only) -->

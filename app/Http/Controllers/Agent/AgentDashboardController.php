@@ -19,10 +19,12 @@ class AgentDashboardController extends Controller
         $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
         //Get Advertisers Online count
         $currentState = $user->state_id;
-        $basecQuery = User::select('users.id', 'users.state_id', 'users.email', 'login_attempts.user_id' , 'login_attempts.online', 'users.type')
-                        ->join('login_attempts', 'login_attempts.user_id', '=', 'users.id')
-                        ->where('login_attempts.online', 'yes')
-                        ->whereIn('users.type', ['3','4']);
+
+        $basecQuery = User::where('assigned_agent_id', auth()->user()->id)
+                            ->join('login_attempts', 'login_attempts.user_id', '=', 'users.id')
+                            ->where('login_attempts.online', 'yes')
+                            ->whereIn('users.type', ['3', '4'])
+                            ->distinct('users.email');
 
         $sameStateCount = (clone $basecQuery)->where('users.state_id', $currentState)->count();
         $outsideStateCount  = (clone $basecQuery)->where('users.state_id', '!=', $currentState)->count();

@@ -169,13 +169,13 @@
                     </button>
                 </div>
 
-                <div class="modal-body pb-0 teop-text text-center">
-                    <h5 class="popu_heading_style mt-2">
+                <div class="modal-body teop-text text-center">
+                    <h5 class="custom_modal_text">
                         Are you sure you want to perform this action.
                     </h5>
 
                 </div>
-                <div class="modal-footer justify-content-center border-0 pb-4">
+                <div class="modal-footer justify-content-center pt-0">
 
                     <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal"
                         aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal"
@@ -587,7 +587,7 @@ the Terms & Conditions of this website</label>
                                                 </div>
                                                 </div>
                                               </div>
-                                                <div class="d-flex justify-content-end  mt-2">
+                                                <div class="d-flex justify-content-center pt-0">
                                                    <!-- Print Button -->  
                                                  <button type="button" class="btn-success-modal mr-2 mt-3 confirm-reject-registration" data-toggle="modal">Save</button>
                                                 <button type="button" class="btn-cancel-modal mr-2 mt-3" data-dismiss="modal" aria-label="Close">Close</button>

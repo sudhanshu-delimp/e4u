@@ -1891,9 +1891,19 @@ if (!function_exists('get_massage_media_id_by_path')) {
     function get_massage_media_id_by_path($pathOrUrl)
     {
         $media = MassageMedia::where('path', $pathOrUrl)->first();
-        return $media->id ?? null;
+        return $media ?? null;
     }
 }
+
+if (!function_exists('get_escort_media_id_by_path')) {
+
+    function get_escort_media_id_by_path($pathOrUrl)
+    {
+        $media = EscortMedia::where('path', $pathOrUrl)->first();
+        return $media ?? null;
+    }
+}
+
 if (!function_exists('is_domain_localhost')) 
 {
      function is_domain_localhost()
@@ -2160,4 +2170,108 @@ if (!function_exists('update_messure_for_active_listing'))
 
     }
 
+
+
+    function update_all_default_massures($massagers,$massures)
+    {
+
+        foreach ($massagers as $day => $info) 
+        {
+               
+            if ($info['status'] === 'closed') 
+            {
+                foreach ($massures as $mDay => $mInfo) 
+                {
+                        if (strtolower($mDay) === strtolower($day)) {
+                        $massures[$index][$mDay] = [
+                            "status" => "closed",
+                            "from" => null,
+                            "to" => null
+                        ];
+                    }
+                }     
+            }
+            
+
+            if ($info['status'] === 'til_late') 
+            {
+                foreach ($massures as $mDay => $mInfo) 
+                {
+                    if (strtolower($mDay) === strtolower($day)) 
+                    {
+                        if(isset($massures[$mDay]['status']) && $massures[$mDay]['status']!="closed")
+                        {
+                            $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                            $oldFromTime =  isset($massures[$mDay]['from']) ? strtotime($massures[$mDay]['from']) : "";
+
+                                if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                                $massures[$mDay]['from'] = $info['from'];
+                            
+                        }
+                    }
+                }
+            }
+
+            if ($info['status'] === 'custom') 
+            {
+                
+                foreach ($massures as $mDay => $mInfo) 
+                {
+                    if (strtolower($mDay) === strtolower($day)) 
+                    {
+                    
+                        $newfrom  = isset($info['from']) ? $info['from'] : "";
+                        $newto  = isset($info['to']) ? $info['to'] : "";
+
+                        $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
+                        $oldFromTime =  isset($massures[$mDay]['from']) ? strtotime($massures[$mDay]['from']) : "";
+
+                        $newToTime =  isset($info['to']) ? strtotime($info['to']) : "";
+                        $oldToTime =  isset($massures[$mDay]['to']) ? strtotime($massures[$mDay]['to']) : "";
+
+                        if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime)) 
+                        $massures[$mDay]['from'] = $newfrom;
+                            
+                        if ($newToTime && (!$oldToTime || $newToTime < $oldToTime)) 
+                        $massures[$mDay]['to'] = $newto;
+
+                    }
+                }    
+            }
+            
+
+        }
+
+        return $massures;
+       
+    }
+    
+
+
+    function update_profile_massure($massage_profile_id,$masseurIds)
+    {
+
+        ################# Update All Massures ################
+        $massage_profile = MassageProfile::where('id',$massage_profile_id)->first();  
+        $massagers_open_time = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : []; 
+        $masseurs = Masseur::whereIn('id',$masseurIds)->get();
+        foreach( $masseurs as  $masseur)
+        {
+            $masseur_availability = json_decode($masseur->availability, true);
+            if(!empty($masseur_availability))
+            {
+                    $updated_avail = update_all_default_massures($massagers_open_time,$masseur_availability);
+                    if(!empty($updated_avail))
+                    {
+                    $new_availability_Json = json_encode($updated_avail);
+                    $masseur->availability = $new_availability_Json;
+                    $masseur->save();   
+                    }
+
+            }
+        }
+        ################## End Update All Massures ##################
+
+    }
+   
 }
