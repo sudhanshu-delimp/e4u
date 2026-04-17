@@ -569,7 +569,7 @@
              <span class="text-danger error-contact_person"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone">
+            <input type="text" class="form-control rounded-0 formatMobile" placeholder="Mobile" name="phone" id="phone">
              <span class="text-danger error-phone"></span>
             </div>
             <div class="col-6 mb-3">
