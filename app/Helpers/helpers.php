@@ -2183,7 +2183,7 @@ if (!function_exists('update_messure_for_active_listing'))
                 foreach ($massures as $mDay => $mInfo) 
                 {
                         if (strtolower($mDay) === strtolower($day)) {
-                        $massures[$index][$mDay] = [
+                        $massures[$mDay] = [
                             "status" => "closed",
                             "from" => null,
                             "to" => null

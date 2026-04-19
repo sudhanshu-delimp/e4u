@@ -728,7 +728,7 @@
                     if (response.success === true && response.massage_profile_id) {
                         swal_success_popup(response.message ?? 'Profile created successfully');
                         setTimeout(function() {
-                            window.location = 'update-profile/' + response.massage_profile_id;
+                            window.location = 'list';
                         }, 2000); // 2 seconds
 
                     } else {

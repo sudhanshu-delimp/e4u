@@ -282,18 +282,18 @@ $(document).ready(function () {
     try 
     {
        
-         var locationData = "";
-         const { latitude, longitude } = await getSafeLocation();
-         if (latitude && longitude) 
-         {
-            $("#set_lat").val(latitude);
-            $("#set_lng").val(longitude);
-            locationData = await fetchLocationFromServer(latitude, longitude); 
-         }
+        //  var locationData = "";
+        //  const { latitude, longitude } = await getSafeLocation();
+        //  if (latitude && longitude) 
+        //  {
+        //     $("#set_lat").val(latitude);
+        //     $("#set_lng").val(longitude);
+        //     locationData = await fetchLocationFromServer(latitude, longitude); 
+        //  }
 
-         if (locationData?.city) {
-             $('#profile_city').val(locationData.city).trigger('change');
-         }
+        //  if (locationData?.city) {
+        //      $('#profile_city').val(locationData.city).trigger('change');
+        //  }
 
         $('button.lower_filter').trigger('click')
        

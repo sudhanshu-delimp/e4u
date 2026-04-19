@@ -95,19 +95,32 @@ class MassageController extends Controller
 
     public function  get_all_massager_list(Request $request)
     {
-
-            $masseurs  = MassageProfile::with([
+             
+            $masseurs = MassageProfile::with([
+                'mainPurchase',
                 'brb' => function ($query) {
-                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
                 },
                 'user:id,status',
                 'activeUpcomingSuspend'
-            ])->where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
-            $countries = getCountryList();
+            ])
+            ->where('user_id', auth()->user()->id)
+            ->where('default_setting', 0)
+            ->withCount(['mainPurchase as is_active']) 
+            ->orderByDesc('is_active') 
+            ->orderBy('id', 'desc')   
+            ->get();
 
-           ///dd($masseurs->toArray());
 
-            $data = $masseurs->map(function ($row) use ($countries) {
+        
+            $data = $masseurs->map(function ($row)  {
+
+            if(!empty($row->is_active))
+            $is_live = true;
+            else
+            $is_live = false;        
 
 
             $brb = [];
@@ -162,17 +175,21 @@ class MassageController extends Controller
                 //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
                 return [
+                    'is_live' => $is_live ? 1 : 0,
                     'id' => $row->id,
                     'profile_name' => $profile_name,
                     'business_name' => $row->business_name,
                     'business_no' => $row->business_no,
                     'phone' => $row->phone,
                     'created_at' => date('d M Y', strtotime($row->created_at)),
-                    'status' => ($row->enabled==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactive</span>',
+                    'status' => ($is_live) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>',
                     'action' => $action
 
                 ];
             });  
+
+
+          
 
 
             return response()->json([
@@ -487,10 +504,9 @@ class MassageController extends Controller
 
             $massage->contact         = $request->filled('contact') ? $request->contact : null;
 
-            if($massage_profile)
+           
             $massage->enabled  = 0; 
-            else
-            $massage->enabled  = 1;     
+               
 
 
             $massage->save();
@@ -1061,20 +1077,17 @@ class MassageController extends Controller
     {
  
             
-        $excludeIds = MassagePurchase::where('massage_centre_id',auth()->user()->id)
+        $live_profiles = MassagePurchase::where('massage_centre_id',auth()->user()->id)
                         ->whereIn('status',['listed','pending'])
                         ->pluck('massage_profile_id'); 
 
         $profiles = MassageProfile::where([
             ['user_id', '=', auth()->user()->id],
             ['default_setting', '!=', 1],
-            ['enabled', '=', 1],
-        ])
-        ->whereNotIn('id', $excludeIds)
-        ->distinct()
-        ->get();
+            ['enabled', '=', 0],
+        ])->get();
 
-        return view('center.dashboard.listing.add-listing',compact('profiles'));     
+        return view('center.dashboard.listing.add-listing',compact('profiles','live_profiles'));     
     }
 
 
@@ -1468,7 +1481,7 @@ class MassageController extends Controller
                 }
 
                 ########### Update All Profile Time ####################
-                $massage_profile = MassageProfile::where('user_id',$user->id)->get();
+                $massage_profile = MassageProfile::where('user_id',$user->id)->where('default_setting','!=',1)->get();
                 foreach($massage_profile as $profile)
                 {
                     if ($profile->availability)
