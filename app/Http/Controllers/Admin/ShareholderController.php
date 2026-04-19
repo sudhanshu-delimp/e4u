@@ -156,7 +156,7 @@ class ShareholderController extends BaseController
      */
     public function ShareholderDataPagination($start, $limit, $order_key, $dir)
     {
-        $shareholder = Shareholder::with('shareholder_setting', 'state')
+        $shareholder = Shareholder::with('shareholder_setting', 'state', 'account_setting', 'LoginStatus')
             ->where('type', '8');
 
         $search = request()->input('search.value');
@@ -193,6 +193,10 @@ class ShareholderController extends BaseController
         $shareholders = $shareholder->offset($start)->limit($limit)->get();
         $i = 1;
         foreach ($shareholders as $key => $item) {
+
+            $logAndStatus = $item->LoginStatus;
+            $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login != NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
+            $item->login_count = (isset($logAndStatus->login_count) && $logAndStatus->login_count > 0) ? $logAndStatus->login_count : 0;
 
             $item->shareholder_id = $item->id;
             $item->member_id = isset($item->member_id) ? $item->member_id : 'NA';

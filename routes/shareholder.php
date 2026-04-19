@@ -12,6 +12,7 @@ Route::post('/edit-my-account', [ShareholderController::class, 'update'])->name(
 Route::get('/change-password', [ShareholderController::class, 'changePassword'])->name('shareholder.change-password');
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('shareholder.update.password');
 Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('shareholder.update.password.expiry');
+Route::post('/update-password-popup', [ShareholderController::class, 'updatePassword'])->name('shareholder.update.password-popup');
 Route::get('/upload-my-avatar', [ShareholderController::class, 'uploadAvatar'])->name('shareholder.upload-my-avatar');
 Route::post('upload-avatar/{id}', [ShareholderController::class, 'storeMyAvatar'])->name('shareholder.save.avatar');
 Route::post('remove-avatar', [ShareholderController::class, 'removeMyAvatar'])->name('shareholder.avatar.remove');

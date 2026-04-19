@@ -44,7 +44,15 @@ class Shareholder extends Model
         return $this->belongsTo('App\Models\Country', 'country_id');
     }
 
+    public function LoginStatus()
+    {
+        return $this->hasOne(LoginAttempt::class,  'user_id', 'id');
+    }
 
+    public function account_setting()
+    {
+        return $this->belongsTo(AccountSetting::class, 'id', 'user_id');
+    }
 
     public function createddBy()
     {

@@ -13,18 +13,18 @@ use App\Http\Requests\Shareholder\UpdateShareholderMyAccount;
 use App\Models\Shareholder;
 use App\Models\ShareholderSetting;
 use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Repositories\User\UserInterface;
 
 class ShareholderController extends Controller
 {
-
     protected $current_date_time;
-
     protected $user;
+    protected $mainuser;
 
-
-    public function __construct(Shareholder $user)
+    public function __construct(Shareholder $user, UserInterface $mainuser)
     {
         $this->user = $user;
+        $this->mainuser = $mainuser;
     }
     /**
      * Display a listing of the resource.
@@ -144,14 +144,15 @@ class ShareholderController extends Controller
         ]);
 
         $user = Auth::user();
-
+        //echo $request->current_password." <> " .$request->password;
         if (!Hash::check($request->current_password, $user->password)) {
             return response()->json(["status" => false, "message" => 'Your current password is incorrect.']);
         }
         //$user->password = Hash::make($request->new_password);
         //$user->save();
         $data = $request->all();
-        $this->user->changeUserPassword($data);
+        
+        $this->mainuser->changeUserPassword($data);
         return response()->json(["status" => true, "message" => 'Your password has been updated successfully!']);
     }
     public function uploadAvatar()
