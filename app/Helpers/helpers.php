@@ -102,7 +102,7 @@ if (!function_exists('calculateTotalFee')) {
         else{
             $pricing = \App\Models\Pricing::where('membership_id', $membership_id)->first();
             if (!$pricing) {
-                return [0, 0, 0, 0];
+                return [0, 0, 0, 0, 0];
             }
             $normalRate   = $pricing->price;
             if(!empty($appiedDiscount)){
