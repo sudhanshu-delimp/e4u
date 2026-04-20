@@ -134,9 +134,9 @@ if (!function_exists('calculateTotalFee')) {
         }
 
         $total_discount = $discountDays * ($normalRate - $discountRate);
-        $appiedDiscountAmount = ($discountDays * $discountRate);
+        $appliedDiscountAmount = ($discountDays * $discountRate);
 
-        return [$total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount];
+        return [$total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount];
     }
 }
 

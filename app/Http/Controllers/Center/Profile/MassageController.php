@@ -77,7 +77,10 @@ class MassageController extends Controller
         $this->media = $media;
         $this->massage_profile = $massage_profile;
         $this->massage_media = $massage_media;
-        $this->account = auth()->user();
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
    
@@ -1176,10 +1179,8 @@ class MassageController extends Controller
         }
 
 
-        list($total_discount, $total_rate, $normalRate, $discountRate) =
+        list($total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount) =
                 calculateTotalFee($request->membership_id, $days, $this->account);
-
-
        
 
       return response()->json([
@@ -1189,6 +1190,7 @@ class MassageController extends Controller
                 'days' => $days,
                 'membership_name' => $ad->memberships->name ?? 'N/A',
                 'total_discount' => $total_discount,
+                'applied_discount' => $appliedDiscountAmount
             ]); 
     }
 
@@ -1234,6 +1236,7 @@ class MassageController extends Controller
             $discount_rate      = $request->discountRate ?? 0;
             $total_rate         = $request->total_fee;
             $paid_rate          = $request->total_rate ?? 0;
+            $appliedDiscountAmount  = $request->applied_discount ?? 0;
 
             $purchase = MassagePurchase::create([
                 'parent_id'          => $parent_id,
@@ -1251,6 +1254,9 @@ class MassageController extends Controller
                 'paid_rate'          => $paid_rate,
             ]);
 
+            if($this->account->activeFeeDiscount){
+                $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
+            }
 
              return response()->json([
                 'success' => true,

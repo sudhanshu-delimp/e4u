@@ -260,6 +260,8 @@ background:#16385f;
                 <input type="hidden" name="rate" id="rate">
                 <input type="hidden" name="total_rate" id="total_rate">
                 <input type="hidden" name="discountRate" id="discountRate">
+                <input type="hidden" name="applied_discount" id="applied_discount">
+                
                 
               
                 
@@ -564,7 +566,8 @@ $(".save_profile_btn").click(function(){
                 days: response.days,
                 total_discount:response.total_discount,
                 total_rate:response.total_rate,
-                discountRate : response.discountRate
+                discountRate : response.discountRate,
+                applied_discount : response.applied_discount
             };
 
             console.log(data);
@@ -576,6 +579,7 @@ $(".save_profile_btn").click(function(){
             let finalFee = fullFee - discount;
             let total_rate = data.total_rate;
             let discountRate = data.discountRate;
+            let applied_discount = data.applied_discount;
             total = finalFee;
            
 
@@ -589,6 +593,7 @@ $(".save_profile_btn").click(function(){
             $('#membership_id').val(membership_id);
             $('#massage_profile_id').val(profile_val);
             $('#discountRate').val(discountRate);
+            $('#applied_discount').val(applied_discount);
 
             html += `
             <tr>
