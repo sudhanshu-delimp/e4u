@@ -1,6 +1,21 @@
 @extends('layouts.shareholder')
 @section('content')
 @section('style')
+<style>
+    #container {
+    display: flex;
+    flex: 1 1 0%;
+    overflow: hidden;
+    position: relative;
+    flex-direction: row-reverse;
+}
+    #container #icons {
+    display: flex;
+    flex-direction: column-reverse;
+    min-width: 64px;
+    justify-content: flex-end;
+}
+</style>
 @endsection
 
 
