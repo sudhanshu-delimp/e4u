@@ -200,15 +200,7 @@
 
             <div class="profile_page_title">
                 <h2 class="display_inline_block p-0">{{ $listing->business_name ?? 'N/A' }}</h2>
-                <span class="mc_list_rating" style="margin-left: 15px;">
-                    @for($i=1; $i<= 5; $i++)
-                        @if($star_rating && $star_rating > 0 && $i <= $star_rating)
-                            <i class="fa fa-star" aria-hidden="true" ></i>
-                        @else
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                        @endif
-                    @endfor
-                 </span>
+                
             </div>
 
             <div class="profile_page_name_and_phno">
