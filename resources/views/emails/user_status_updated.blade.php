@@ -31,8 +31,8 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px;">E4U Registration - Placed {{$statusName}} </h1>
-                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">E4U Registration - Placed {{$statusName}} </h1>
+                                        <span style="margin: 0; color:#ccc;">Member ID: {{$user->member_id}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -48,15 +48,9 @@
                                 We advise that your recent registration with Escorts4U has been placed {{$statusName}} pending
                                 an inquiry. We will be in touch as soon as the matter is resolved.
                             </p>
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                                <br>
-                                <br>
-                                <span>
-                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
-                                </span>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
@@ -95,8 +89,8 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px;">E4U Membership - Reinstated </h1>
-                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">E4U Membership - Reinstated </h1>
+                                        <span style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -124,10 +118,9 @@
                             </p>
 
 
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                            <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
@@ -166,8 +159,8 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px;">Your Registration - Approved </h1>
-                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Your Registration - Approved </h1>
+                                        <span style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -184,10 +177,9 @@
                                 been approved. You now have complete access to all the features on offer. Simply go to
                                 the <a href="{{route(getLoginRoute($user->type))}}">Log in</a> page to access the Website. Thank you for your patience.
                             </p>
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                           <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
@@ -226,8 +218,8 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px;">E4U Membership - {{$statusName}} </h1>
-                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">E4U Membership - {{$statusName}} </h1>
+                                        <span style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -243,10 +235,9 @@
                                 Please be advised that your Membership has been {{strtolower($statusName)}} due to a Report. We are
                                 looking into the Report. We will be in touch as soon as the matter is resolved.
                             </p>
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
@@ -285,8 +276,8 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px;">E4U Membership - {{$statusName}} </h1>
-                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">E4U Membership - {{$statusName}} </h1>
+                                        <span style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -311,10 +302,9 @@
                             </p>
                             @endif
 
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
@@ -353,8 +343,8 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px;">E4U Membership - {{$statusName}} </h1>
-                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">E4U Membership - {{$statusName}} </h1>
+                                        <span style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -369,10 +359,9 @@
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 We regret to advise you that due to your recent conduct you have been banned from the Website.
                             </p>
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                            <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>

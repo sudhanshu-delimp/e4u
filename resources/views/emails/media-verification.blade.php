@@ -24,7 +24,7 @@
                                     </td>
                                    
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                         Media Verification - {{$body['status'] == "1" ? 'Approved' : 'Rejected'}}<br>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;"> Media Verification - {{$body['status'] == "1" ? 'Approved' : 'Rejected'}}</h1>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
                                             {{ $body['member_id'] }}</span>
                                     </td>
@@ -49,15 +49,9 @@
                                     resubmit a fresh Verification Image for approval.
                                 </p>
                             @endif
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                                <br>
-                                <br>
-                                <span>
-                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
-                                </span>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
 
                             @if(!empty($body['agent_id']))
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
