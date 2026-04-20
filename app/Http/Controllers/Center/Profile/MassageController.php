@@ -1201,7 +1201,7 @@ class MassageController extends Controller
 
 
         list($total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount) =
-                calculateTotalFee($request->membership_id, $days, $this->account);
+                calculateTotalFee($request->membership_id, $days, $this->account,NULL);
        
 
       return response()->json([
