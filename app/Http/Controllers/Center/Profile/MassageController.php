@@ -1342,13 +1342,13 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $profile_name,
-                    'address' => $row->massageprofile->address,
+                    'address' => auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,
                     'days' => $days,
                     'membership' => 'Massage Centre',
-                    'fee_paid' => '$ '.$row->paid_rate,
+                    'fee_paid' => '$ '.formatIndianNumber($row->paid_rate),
                     'status' =>  '<span class="custom_badge badge_current">Current</span>'
 
                 ];
@@ -1386,7 +1386,7 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $row->massageprofile->profile_name,
-                    'address' => $row->massageprofile->address,
+                    'address' => auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,

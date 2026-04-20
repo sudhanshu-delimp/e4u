@@ -51,7 +51,7 @@
                               <th>End Date</th>
                               <th>Days</th>
                               <th>Status</th>
-                              <th style="width:70px">Fee Paid</th>
+                              <th style="width:120px">Fee Paid</th>
                            </tr>
                         </thead>
                         <tbody>

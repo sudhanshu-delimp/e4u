@@ -83,7 +83,7 @@ $twitter_link = "https://x.com/NMugs32853";
      <div class="mc_list_content">
          <div class="mc_list_content_inner w-100">
              <div class="mc_list_header">
-                 <span class="mc_list_title">{{$listing->profile_name}}</span>
+                 <span class="mc_list_title">{{$listing->business_name}}</span>
                  <span class="mc_list_rating">
                      <i class="fa fa-star-o"></i>
                      <i class="fa fa-star-o"></i>
@@ -236,7 +236,7 @@ $twitter_link = "https://x.com/NMugs32853";
                  </tr>
              </thead>
 
-             <tbody><?php echo get_weakly_availibility($listing); ?> </tbody>
+             <tbody style="text-align: left;"><?php echo get_weakly_availibility($listing); ?> </tbody>
 
          </table>
 

@@ -1427,7 +1427,7 @@ if (!function_exists('get_weakly_availibility')) {
                              $time = 'Closed';
                         }
 
-                    $avail .= '<tr> <td>' . ucfirst($day) . '</td><td class="text-right">' . $time  . '</td> </tr>';
+                    $avail .= '<tr> <td>' . ucfirst($day) . '</td><td>' . $time  . '</td> </tr>';
                 }
 
                 return $avail;
@@ -2169,15 +2169,17 @@ if (!function_exists('update_messure_for_active_listing'))
         }   
 
     }
+}
 
 
-
+if (!function_exists('update_all_default_massures')) 
+{
     function update_all_default_massures($massagers,$massures)
     {
 
         foreach ($massagers as $day => $info) 
         {
-               
+                
             if ($info['status'] === 'closed') 
             {
                 foreach ($massures as $mDay => $mInfo) 
@@ -2243,11 +2245,13 @@ if (!function_exists('update_messure_for_active_listing'))
         }
 
         return $massures;
-       
+        
     }
-    
+}
 
 
+if (!function_exists('update_profile_massure')) 
+{
     function update_profile_massure($massage_profile_id,$masseurIds)
     {
 
@@ -2273,5 +2277,35 @@ if (!function_exists('update_messure_for_active_listing'))
         ################## End Update All Massures ##################
 
     }
-   
 }
+
+
+if (!function_exists('formatIndianNumber')) 
+{
+    function formatIndianNumber($value) 
+    {
+        if (empty($value)) return '0.00';
+
+        $value = str_replace(',', '', (string)$value);
+
+        // Check if valid number
+        if (!is_numeric($value)) return $value;
+
+        $parts = explode('.', $value);
+        $integerPart = $parts[0];
+        $decimalPart = isset($parts[1]) ? '.' . $parts[1] : '';
+
+        // Last 3 digits
+        $lastThree = substr($integerPart, -3);
+        $otherNumbers = substr($integerPart, 0, -3);
+
+        if ($otherNumbers !== '') {
+            $lastThree = ',' . $lastThree;
+        }
+
+        $formatted = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $otherNumbers) . $lastThree;
+
+        return $formatted . $decimalPart;
+    }
+}
+   
