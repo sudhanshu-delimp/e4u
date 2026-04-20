@@ -9,10 +9,7 @@
          </td>
      </tr>
 
-     <!-- Spacer -->
-     <tr>
-         <td height="15" style="font-size:0; line-height:0;">&nbsp;</td>
-     </tr>
+    
 
      <!-- Body -->
      <tr>
@@ -21,7 +18,7 @@
              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
 
                  <tr>
-                     <td style="font-size:13px; font-style:italic; text-align:justify; padding-bottom:10px;">
+                     <td style="font-size:13px; font-style:italic; text-align:justify; padding-bottom:10px; padding-top:10px;">
                          This email and any attachments
                          are confidential between Blackbox Tech Pty Ltd, and the addressee. If it has
                          been sent to you in error, please immediately delete it and notify us.
