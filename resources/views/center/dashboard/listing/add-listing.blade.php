@@ -543,6 +543,33 @@ function formatDateToDDMMYYYY(dateStr) {
     return `${day}-${month}-${year}`;
 }
 
+
+function formatIndianNumber(value) {
+    if (!value) return '';
+
+    value = value.toString().replace(/,/g, '');
+
+    if (isNaN(value)) return value;
+
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+   
+    let lastThree = integerPart.slice(-3);
+    let otherNumbers = integerPart.slice(0, -3);
+
+    if (otherNumbers !== '') {
+        lastThree = ',' + lastThree;
+    }
+
+    let formatted =
+        otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+
+    return formatted + decimalPart;
+}
+
+
 $(".save_profile_btn").click(function(){
 
     clear_prev_listing();
@@ -621,9 +648,9 @@ $(".save_profile_btn").click(function(){
                 <td>${formatDateToDDMMYYYY(end)}</td>
                 <td>${days}</td>
                 <td>$ ${rate}</td>
-                <td>$ ${fullFee.toFixed(2)}</td>
-                <td>$ ${discount.toFixed(2)}</td>
-                <td>$ ${finalFee.toFixed(2)}</td>
+                <td>$ ${formatIndianNumber(fullFee.toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(discount.toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(finalFee.toFixed(2))}</td>
             </tr>
             `;
 
@@ -632,7 +659,7 @@ $(".save_profile_btn").click(function(){
             <tr>
                 <td colspan="7"></td>
                 <td><strong>Total Fees</strong></td>
-                <td><strong>$ ${total.toFixed(2)}</strong></td>
+                <td><strong>$ ${formatIndianNumber(total.toFixed(2))}</strong></td>
             </tr>`;
 
             $("#summaryBody").html(html);

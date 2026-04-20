@@ -46,7 +46,7 @@
                               
                               <th>Profile Name</th>
                               <th>Location</th>
-                              <th>Stage Name</th>
+                              <th>Business Name</th>
                               <th>Start Date</th>
                               <th>End Date</th>
                               <th>Days</th>
