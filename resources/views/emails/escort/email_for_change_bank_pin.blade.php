@@ -34,8 +34,8 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
-                                    <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        Change Pin<br>
+                                    <td style="text-align: right; font-size: 16px; font-weight: bold; color:#ffffff; vertical-align:middle;">
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Change Pin</h1>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
                                             {{ $body['member_id'] }}</span>
                                     </td>

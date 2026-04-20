@@ -266,80 +266,17 @@
         data-action-url="{{ route('agent.marketing.prospect.report-action') }}"
         data-clear-reports-url="{{ route('agent.marketing.prospect.clear-reports') }}"
         data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
-        data-save-report="{{ route('agent.marketing.prospect.save-report') }}"></div>
+        data-save-report="{{ route('agent.marketing.prospect.save-report') }}"
+        data-report-list-action="{{route('agent.marketing.prospect.report.action')}}"
+        
+        ></div>
 @endsection
 
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>
+\
 
 
-    <script>
-        const items = document.querySelectorAll(".item");
-        const selectAll = document.getElementById("selectAll");
-
-        // -----------------------------
-        // ITEM CLICK HANDLING
-        // -----------------------------
-        items.forEach(item => {
-            const checkbox = item.querySelector(".itemCheckbox");
-
-            // Click anywhere on item
-            item.addEventListener("click", function(e) {
-
-                // Ignore clicks from action buttons
-                if (e.target.closest(".action_btn")) return;
-
-                // Ignore checkbox direct click
-                if (e.target.tagName !== "INPUT") {
-                    checkbox.checked = !checkbox.checked;
-                }
-
-                toggleSelection(item, checkbox);
-                updateSelectAll();
-            });
-
-            // Checkbox click
-            checkbox.addEventListener("click", function(e) {
-                e.stopPropagation();
-                toggleSelection(item, checkbox);
-                updateSelectAll();
-            });
-        });
-
-        // -----------------------------
-        // SELECT ALL
-        // -----------------------------
-        selectAll.addEventListener("change", function() {
-            const checkboxes = document.querySelectorAll(".itemCheckbox");
-
-            checkboxes.forEach(cb => {
-                cb.checked = selectAll.checked;
-
-                const item = cb.closest(".item");
-                item.classList.toggle("selected", selectAll.checked);
-            });
-        });
-
-        // -----------------------------
-        // UPDATE SELECT ALL STATE
-        // -----------------------------
-        function updateSelectAll() {
-            const checkboxes = document.querySelectorAll(".itemCheckbox");
-
-            const total = checkboxes.length;
-            const checked = [...checkboxes].filter(cb => cb.checked).length;
-
-            // fully selected
-            selectAll.checked = (total === checked);
-        }
-
-        // -----------------------------
-        // TOGGLE UI STYLE
-        // -----------------------------
-        function toggleSelection(item, checkbox) {
-            item.classList.toggle("selected", checkbox.checked);
-        }
-    </script>
 @endpush

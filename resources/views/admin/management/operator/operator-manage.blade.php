@@ -147,7 +147,7 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="form-check-label" for="phone">Mobile</label>
-                                <input type="text" class="form-control rounded-0" name="phone" id="phone"
+                                <input type="text" class="form-control rounded-0 formatMobile" name="phone" id="phone"
                                     oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14">
                                 <span class="text-danger error-phone"></span>
                             </div>

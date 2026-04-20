@@ -474,4 +474,8 @@ class MassageProfile extends Model
         ->where('utc_end_date', '>=', Carbon::now('UTC'))
         ->oldestOfMany('utc_start_date');
     }
+
+
+   
+
 }

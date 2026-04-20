@@ -21,218 +21,326 @@ use App\Repositories\Agent\AgentInterface;
 
 class AgentRepository extends BaseRepository implements AgentInterface
 {
-    
+
     protected $agent;
     protected $setting;
     public $user_model;
     public $response = [];
 
-    
+
     public function __construct(Agent $agent, User $user_model,  AccountSetting $setting)
     {
         $this->agent = $agent;
         $this->setting = $setting;
         $this->user_model = $user_model;
-        $this->response = ['status' => false,'message' => ''];
-       
+        $this->response = ['status' => false, 'message' => ''];
     }
-    
+
 
     public function check_agent_email(array $data)
     {
 
         $errors = [];
-        if(isset($data['user_id']) && $data['user_id']!="")
-        {
+        if (isset($data['user_id']) && $data['user_id'] != "") {
+
+            if (isset($data['email'])  ||  empty($data['email'])) {
+                $errors['email'] = ['Email can not be blanck.'];
+                return $errors;
+            }
+
+
+            if (isset($data['email2'])  ||  empty($data['email2'])) {
+                $errors['email'] = ['Email can not be blanck.'];
+                return $errors;
+            }
+
+
             if (!empty($data['email'])) {
-                $existsEmail =$this->agent->where('email', $data['email'])->where('id', '!=', $data['user_id'])->exists();
+                $existsEmail = $this->agent->where('email', $data['email'])->where('id', '!=', $data['user_id'])->exists();
                 if ($existsEmail) {
                     $errors['email'] = ['This email is already taken.'];
                 }
             }
 
-       
+
             if (!empty($data['email2'])) {
-                $existsEmail2 =$this->agent->where('email2', $data['email2'])->where('id', '!=', $data['user_id'])->exists();
+                $existsEmail2 = $this->agent->where('email2', $data['email2'])->where('id', '!=', $data['user_id'])->exists();
 
                 if ($existsEmail2) {
                     $errors['email2'] = ['This email is already taken.'];
                 }
             }
+        } else {
 
-        }
-        else
-        {
+
+            if (isset($data['email'])  ||  empty($data['email'])) {
+                $errors['email'] = ['Email can not be blanck.'];
+                return $errors;
+            }
+
+
+            if (isset($data['email2'])  ||  empty($data['email2'])) {
+                $errors['email'] = ['Email can not be blanck.'];
+                return $errors;
+            }
+
+
             if (!empty($data['email'])) {
-                $existsEmail =$this->agent->where('email', $data['email'])->exists();
+                $existsEmail = $this->agent->where('email', $data['email'])->exists();
                 if ($existsEmail) {
                     $errors['email'] = ['This email is already taken.'];
                 }
             }
 
-       
+
             if (!empty($data['email2'])) {
-                $existsEmail2 =$this->agent->where('email2', $data['email2'])->exists();
+                $existsEmail2 = $this->agent->where('email2', $data['email2'])->exists();
 
                 if ($existsEmail2) {
                     $errors['email2'] = ['This email is already taken.'];
                 }
             }
-
         }
-       
+
         return $errors;
     }
 
 
+    // public function addUpdateAgent(array $data)
+    // {
+
+    //     return  DB::transaction(function () use ($data) {
+    //         try {
+    //             $agrement_file = null;
+    //             $signature_file = null;
+    //             $agentData  =  [
+    //                 'business_name'       => $data['business_name'] ?? null,
+    //                 'abn'                 => $data['abn'] ?? null,
+    //                 'business_address'    => $data['business_address'] ?? null,
+    //                 'business_number'     => $data['business_number'] ?? null,
+    //                 'contact_person'      => $data['contact_person'] ?? null,
+    //                 'phone'               => $data['phone'] ?? null,
+    //                 'email'               => $data['email'] ?? null,
+    //                 'email2'              => $data['email2'] ?? null,
+    //                 'state_id'            => $data['state_id'] ?? null,
+    //                 'viewer_contact_type' => isset($data['viewer_contact_type'])  ? json_encode($data['viewer_contact_type']) : null,
+    //             ];
+
+    //             if (isset($data['user_id']) && (!empty($data['user_id']))) {
+    //                 $user = $this->agent->where('id', $data['user_id'])->first();
+    //                 if ($user) {
+    //                     $user->update($agentData);
+    //                     $message = 'agent updated successfully';
+    //                 } else {
+    //                     $this->response = ['status' => false, 'message' => 'agent not found'];
+    //                     return $this->response;
+    //                 }
+    //             } else {
+    //                 $agentData['enabled'] = 1;
+    //                 $agentData['status'] = 2;
+    //                 $agentData['type'] = "5";
+    //                 $message = 'New agent added successfully';
+    //                 $user = User::create($agentData);
+    //                 //Log::info("Agent add/upd".json_encode( $user));
+
+    //                 $userDataForEvent = [
+    //                     'id' => $user->id,
+    //                     'name' => $user->name,
+    //                     'phone' => $user->phone,
+    //                     'email' => $data['email'],
+    //                     'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+    //                     'agent_id'  => $user->member_id,
+    //                     'create_at' => Carbon::now()->format('j F'),
+    //                 ];
+
+    //                 //event(new AgentRegistered($userDataForEvent));
+    //                 $this->setting->create_account_setting($user);
+    //             }
+
+
+    //             /// Update agent detail
+    //             $agent = $user->agent_detail ?? $user->agent_detail()->create(['agent_id' => $user->id]);
+    //             if (!empty($data['agreement_file'])) {
+    //                 $file = $data['agreement_file'];
+    //                 $filename = time() . '.' . $file->getClientOriginalExtension();
+    //                 $file_path = 'agent_files/' . $filename;
+    //                 $file->storeAs('public/agent_files', $filename);
+    //                 $agent->update(['agreement_file' => $file_path]);
+    //                 $agrement_file = $file_path;
+    //             }
+    //             //uploaded signature file
+    //             if (!empty($data['signature_file'])) {
+    //                 $file = $data['signature_file'];
+    //                 $filename = time() . '_signature.' . $file->getClientOriginalExtension();
+    //                 $file_path = 'agent_files/' . $filename;
+    //                 $file->storeAs('public/agent_files', $filename);
+    //                 $agent->update(['signature_file' => $file_path]);
+    //                 $signature_file = $file_path;
+    //             } else {
+    //                 $agrement_file  = $agent->agreement_file ?? null;
+    //                 $signature_file = $agent->signature_file ?? null;
+    //             }
+
+    //             $agent->update([
+    //                 'agreement_date' => !empty($data['agreement_date']) ? date('Y-m-d', strtotime($data['agreement_date'])) : null,
+    //                 'term' => $data['term'] ?? null,
+    //                 'option_peroid' => $data['option_peroid'] ?? null,
+    //                 'option_exercised' => $data['option_exercised'] ?? null,
+    //                 'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
+    //                 'commission_registration_amount' => $data['commission_registration_amount'] ?? null,
+    //                 'agreement_file' => $agrement_file,
+    //                 'signature_file' => $signature_file,
+    //             ]);
+
+
+    //             $this->response = ['status' => true, 'message' => $message];
+    //             return $this->response;
+    //         } catch (Exception $e) {
+    //             dd($e->getMessage());
+
+
+    //             Log::info($e->getMessage());
+    //             logErrorLocal($e);
+    //             $this->response = ['status' => false, 'message' => 'Error occured while making request...'];
+    //             return $this->response;
+    //         }
+    //     });
+    // }
+
+
     public function addUpdateAgent(array $data)
     {
-        
-      return  DB::transaction(function () use ($data) 
-        {
-            try 
-            {
-                $agentData  =  [
-                        'business_name'       => $data['business_name'] ?? null,
-                        'abn'                 => $data['abn'] ?? null,
-                        'business_address'    => $data['business_address'] ?? null,
-                        'business_number'     => $data['business_number'] ?? null,
-                        'contact_person'      => $data['contact_person'] ?? null,
-                        'phone'               => $data['phone'] ?? null,
-                        'email'               => $data['email'] ?? null,
-                        'email2'              => $data['email2'] ?? null,
-                        'state_id'            => $data['state_id'] ?? null,
-                        'viewer_contact_type' => isset($data['viewer_contact_type'])  ? json_encode($data['viewer_contact_type']): null,
-                    ];
+        return DB::transaction(function () use ($data) {
 
-                if (isset($data['user_id']) && (!empty($data['user_id']))) 
-                {
-                    $user = $this->agent->where('id', $data['user_id'])->first();
-                    if ($user) 
-                    {
-                        $user->update($agentData);
-                        $message = 'agent updated successfully';
-                    } 
-                    else 
-                    {
-                        $this->response = ['status' => false,'message' => 'agent not found'];
-                        return $this->response;
+            try {
+
+                // ================= USER DATA =================
+                $agentData = [
+                    'business_name'       => $data['business_name'] ?? null,
+                    'abn'                 => $data['abn'] ?? null,
+                    'business_address'    => $data['business_address'] ?? null,
+                    'business_number'     => $data['business_number'] ?? null,
+                    'contact_person'      => $data['contact_person'] ?? null,
+                    'phone'               => $data['phone'] ?? null,
+                    'email'               => $data['email'] ?? null,
+                    'email2'              => $data['email2'] ?? null,
+                    'state_id'            => $data['state_id'] ?? null,
+                    'viewer_contact_type' => isset($data['viewer_contact_type'])
+                        ? json_encode($data['viewer_contact_type'])
+                        : null,
+                ];
+
+                // ================= CREATE / UPDATE USER =================
+                if (!empty($data['user_id'])) {
+
+                    $user = $this->agent->find($data['user_id']);
+
+                    if (!$user) {
+                        return ['status' => false, 'message' => 'Agent not found'];
                     }
-                } 
-                else 
-                {
+
+                    $user->update($agentData);
+                    $message = 'Agent updated successfully';
+                } else {
+
                     $agentData['enabled'] = 1;
                     $agentData['status'] = 2;
                     $agentData['type'] = "5";
-                    $message = 'New agent added successfully';
-                    $user = User::create($agentData);
-                    //Log::info("Agent add/upd".json_encode( $user));
 
-                    $userDataForEvent = [
-                        'id' => $user->id,
-                        'name' => $user->name,
-                        'phone' => $user->phone,
-                        'email' => $data['email'],
-                        'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
-                        'agent_id'  => $user->member_id,
-                        'create_at' => Carbon::now()->format('j F'),
-                    ];
-       
-                    //event(new AgentRegistered($userDataForEvent));
+                    $user = User::create($agentData);
+                    $message = 'New agent added successfully';
+
                     $this->setting->create_account_setting($user);
-                  
                 }
 
-            
-                 /// Update agent detail
-                $agent = $user->agent_detail ?? $user->agent_detail()->create(['agent_id' =>$user->id]);
+                // ================= AGENT DETAIL =================
+                $agent = $user->agent_detail ?? $user->agent_detail()->create([
+                    'agent_id' => $user->id
+                ]);
+
+                // ================= FILE HANDLING =================
+                $agreement_file  = $agent->agreement_file;
+                $signature_file  = $agent->signature_file;
+
+                // Agreement file upload
                 if (!empty($data['agreement_file'])) {
                     $file = $data['agreement_file'];
-                    $filename = time().'.'.$file->getClientOriginalExtension();
-                    $file_path = 'agent_files/' . $filename; 
+                    $filename = time() . '_agreement.' . $file->getClientOriginalExtension();
+
                     $file->storeAs('public/agent_files', $filename);
-                    $agent->update(['agreement_file' => $file_path]);
-                    $agrement_file = $file_path;
+                    $agreement_file = 'agent_files/' . $filename;
                 }
 
-                else
-                {
-                    $agrement_file  = $agent->agreement_file;
+                // Signature file upload
+                if (!empty($data['signature_file'])) {
+                    $file = $data['signature_file'];
+                    $filename = time() . '_signature.' . $file->getClientOriginalExtension();
+
+                    $file->storeAs('public/agent_files', $filename);
+                    $signature_file = 'agent_files/' . $filename;
                 }
 
-          
+                // ================= FINAL UPDATE =================
                 $agent->update([
-                    'agreement_date' => !empty($data['agreement_date'])? date('Y-m-d', strtotime($data['agreement_date'])): null,
+                    'agreement_date' => !empty($data['agreement_date'])
+                        ? date('Y-m-d', strtotime($data['agreement_date']))
+                        : null,
+
                     'term' => $data['term'] ?? null,
                     'option_peroid' => $data['option_peroid'] ?? null,
                     'option_exercised' => $data['option_exercised'] ?? null,
                     'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
                     'commission_registration_amount' => $data['commission_registration_amount'] ?? null,
-                    'agreement_file' => $agrement_file,
+                    'agreement_file' => $agreement_file,
+                    'signature_file' => $signature_file,
                 ]);
 
+                return ['status' => true, 'message' => $message];
+            } catch (\Exception $e) {
 
-                 $this->response = ['status' => true,'message' => $message];
-                 return $this->response;
-            
-             } 
-                catch (Exception $e) {
-
-                Log::info($e->getMessage());
+                Log::error($e->getMessage());
                 logErrorLocal($e);
-                  $this->response = ['status' => false,'message' => 'Error occured while making request...'];
-                  return $this->response;
-            
-            }
 
+                return [
+                    'status' => false,
+                    'message' => 'Error occurred while processing request'
+                ];
+            }
         });
     }
 
 
     public function change_user_status(array $data)
     {
-         $user = $this->agent->where('id',$data['user_id'])->firstOrFail(); 
-         if($user && $data['status']!="")
-         {
-             $password  = random_string($type = 'alnum', $len = 8);
-             $user->update(['status' =>  $data['status'],'password'=> Hash::make($password)]);
-             $this->sendApprovalEmail($user,$password);
-             return $this->response = ['status' => true,'message' => 'Approved Successfully'];
-         }
-         else
-         {
-             return $this->response = ['status' => true,'message' => 'Error occured while approving the user'];
-         }
-
+        $user = $this->agent->where('id', $data['user_id'])->firstOrFail();
+        if ($user && $data['status'] != "") {
+            $password  = random_string($type = 'alnum', $len = 8);
+            $user->update(['status' =>  $data['status'], 'password' => Hash::make($password)]);
+            $this->sendApprovalEmail($user, $password);
+            return $this->response = ['status' => true, 'message' => 'Approved Successfully'];
+        } else {
+            return $this->response = ['status' => true, 'message' => 'Error occured while approving the user'];
+        }
     }
 
 
-     public function activate_user(array $data)
+    public function activate_user(array $data)
     {
-         $user = $this->agent->where('id',$data['user_id'])->firstOrFail(); 
-         if($user && $data['status']!="")
-         {
-             $user->update(['status' => '1']);
-             return $this->response = ['status' => true,'message' => 'Activated Successfully'];
-         }
-         else
-         {
-             return $this->response = ['status' => true,'message' => 'Error occured while activating the user'];
-         }
-
+        $user = $this->agent->where('id', $data['user_id'])->firstOrFail();
+        if ($user && $data['status'] != "") {
+            $user->update(['status' => '1']);
+            return $this->response = ['status' => true, 'message' => 'Activated Successfully'];
+        } else {
+            return $this->response = ['status' => true, 'message' => 'Error occured while activating the user'];
+        }
     }
 
 
-    public function sendApprovalEmail($user,$plainPassword)
+    public function sendApprovalEmail($user, $plainPassword)
     {
         $user['plainPassword'] = $plainPassword;
 
         logErrorLocal($user);
         Mail::to($user->email)->send(new agentApprovalEmail($user));
-        
     }
-
-
-
-
 }

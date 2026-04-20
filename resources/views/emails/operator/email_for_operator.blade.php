@@ -20,7 +20,7 @@
                     <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Confirmation of Registration - Support Agent <br>
+                     <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Confirmation of Registration - Support Agent </h1>
                     <span style="font-size: 13px; color: #cccccc;">Agent ID: {{$agent['agent_id']}}</span>
                   </td>
                 </tr>
@@ -44,10 +44,9 @@
                 forwarding a message from the ‘Contact Us’ page located in the Website footer.</p>
 
               <!-- Closing -->
-              <p style="font-size: 15px; margin-top: 20px;">
-                Regards,<br>
-                <b>E4U - Operations Centre</b>
-              </p>
+               <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
 
             </td>
           </tr>

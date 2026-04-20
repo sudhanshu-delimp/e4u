@@ -23,10 +23,10 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0; font-size: 22px; color: #ffffff; text-align: right;">
+                                        <h1 style="margin: 0; font-size: 16px; color: font-weight: bold; #ffffff; text-align: right;">
                                             New Registration - Massage Centre
                                         </h1>
-                                        <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
+                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
                             </table>
@@ -68,6 +68,11 @@
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
+                                <br>
+                                <br>
+                               <span>
+                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
+                                </span>
                             </p>
                         </td>
                     </tr>

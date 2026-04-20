@@ -3,7 +3,20 @@
 <style>
     .modal-body table td{
         border: none !important;
+        padding: 0px;
     }
+        .modal-body table td h4{
+            font-weight: 700 !important;
+        }
+        p.copyright {
+            padding-top: 15px !important;
+            padding-bottom: 15px !important;
+        }
+        .copy_notes{
+            padding-left: 10px !important; 
+            padding-right: 10px !important; 
+        }
+
     @media print {
         body {
             margin: 20px;

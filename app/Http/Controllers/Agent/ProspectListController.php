@@ -216,7 +216,7 @@ class ProspectListController extends Controller
     public function saveReportList(Request $request)
     {
 
-         if ($request->ajax()) {
+        if ($request->ajax()) {
             $query = ProspectReport::where('agent_id', auth()->id())->where('status_type', 'Save');
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -252,8 +252,9 @@ class ProspectListController extends Controller
     }
 
 
-    public function demoPdf(){
-         return view('agent.dashboard.marketing.demo-pdf');
+    public function demoPdf()
+    {
+        return view('agent.dashboard.marketing.demo-pdf');
     }
 
 
@@ -269,5 +270,57 @@ class ProspectListController extends Controller
 
         // Opens directly in browser
         return $pdf->stream('converted.pdf');
+    }
+
+    //Report List action 
+    public function reportAction(Request $request)
+    {
+        $report_id = $request->report_id;
+        $action_type = $request->action_type;
+
+        switch ($action_type) {
+            case 'Merge':
+                return $this->mergeReport($report_id);
+
+            case 'Print':
+                return $this->printReport($report_id);
+
+            case 'View':
+                return $this->viewReport($report_id);
+
+            default:
+                return response()->json(['error' => 'Invalid action'], 400);
+        }
+    }
+
+    private function mergeReport($id)
+    {
+
+        try {
+            $massageCenterIds = ProspectReport::where('id', $id)
+                ->where('agent_id', auth()->id())
+                ->value('center_ids');
+
+            if ($massageCenterIds) {
+                $view = view('agent.dashboard.marketing.merge-preview', ['centerIds' => $massageCenterIds])->render();
+                return success_response(['html' => $view], "Ok", 200, []);
+            }
+        } catch (\Exception $e) {
+            return error_response('Failed to perform action: ' . $e->getMessage(), 500);
+        }
+
+
+
+        dd($massageCenterIds);
+    }
+
+    private function printReport($id)
+    {
+        dd('for print repot data');
+    }
+
+    private function viewReport($id)
+    {
+        dd('for view report data');
     }
 }

@@ -226,7 +226,7 @@ background:#16385f;
 
         <div class="summary-container">
         <div class="summary-header">
-        <span>Summary</span>
+        <span>Transaction Summary</span>
         <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: E20118</span>
         </div>
 
@@ -283,26 +283,43 @@ background:#16385f;
 
 <script type="text/javascript">
 let profileCount = {{ count($profiles) }};
+let live_profiles = {{ count($live_profiles) }};
+
 
 $(document).ready(function () {
-    
-    if(profileCount === 0){
+
+
+
+    //////////// check if one profile is Live ///////////////
+    if(live_profiles > 0){
 
         Swal.fire({
             icon: 'warning',
             title: 'Listings',
-            text: 'You have no active Profile. Please create a Profile first.',
+            text: 'You already have a Profile Listed.  To change the Profile, cancel the Listed Profile, then List a new Profile.',
             confirmButtonText: 'OK'
         }).then((result) => {
-
             if(result.isConfirmed){
-                window.location.href = "{{ url('center-dashboard/create-profile') }}";
+                window.location.href = "{{ url('center-dashboard/list') }}";
             }
 
         });
-
     }
+    
 
+     //////////// check if no profile is exist ///////////////
+     if(profileCount === 0){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Listings',
+            text: 'You don’t have any Profiles yet.please create a Profile first, then list the Profiles.',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{{ url('center-dashboard/create-profile') }}";
+            }
+        });
+    }
 
     function checkAllRows() 
     {
@@ -520,6 +537,12 @@ function clear_prev_listing()
     
 }
 
+function formatDateToDDMMYYYY(dateStr) {
+
+    const [year, month, day] = dateStr.split('-');
+    return `${day}-${month}-${year}`;
+}
+
 $(".save_profile_btn").click(function(){
 
     clear_prev_listing();
@@ -594,8 +617,8 @@ $(".save_profile_btn").click(function(){
             <tr>
                 <td>1</td>
                 <td>${profile}</td>
-                <td>${start}</td>
-                <td>${end}</td>
+                <td>${formatDateToDDMMYYYY(start)}</td>
+                <td>${formatDateToDDMMYYYY(end)}</td>
                 <td>${days}</td>
                 <td>$ ${rate}</td>
                 <td>$ ${fullFee.toFixed(2)}</td>

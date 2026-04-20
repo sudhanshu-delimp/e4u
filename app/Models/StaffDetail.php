@@ -31,6 +31,17 @@ class StaffDetail extends Model
     ];
     protected $hidden = ['updated_at'];
 
+    public function getKinMobileAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setKinMobileAttribute($value)
+    {
+        $clean = removeSpaceFromString($value);
+        $this->attributes['kin_mobile'] = $clean;
+    }
+
     public function scopeSecurityLevel($query, $value)
     {
         switch ($value) {

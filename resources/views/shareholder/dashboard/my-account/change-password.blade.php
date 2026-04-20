@@ -6,7 +6,7 @@
             top: 28px;
             right: 15px;
             cursor: pointer;
-            z-index: 2; 
+            z-index: 2;
             color: #6c757d;
         }
 
@@ -44,8 +44,8 @@
                     <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
                 </div>
                 <div class="col-md-12">
-                    <form class="v-form-design" autocomplete="off" id="userProfile" action="{{ route('escort.update.password') }}"
-                        method="POST">
+                    <form class="v-form-design" autocomplete="off" id="userProfile"
+                        action="{{ route('shareholder.update.password') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -56,14 +56,14 @@
                                         <div class="form-group position-relative">
                                             <label for="current_password">Current password</label>
                                             <input type="password" class="form-control" name="password"
-                                                autocomplete="current-password"
-                                                id="current_password" placeholder="{{config('constants.current_password_placeholder')}}"
+                                                autocomplete="current-password" id="current_password"
+                                                placeholder="{{ config('constants.current_password_placeholder') }}"
                                                 data-parsley-required-message="Current password is required" required>
                                             <span class="toggle-password" toggle="#current_password">
                                                 <i class="fa fa-eye"></i>
                                             </span>
                                             <div class="pt-1">
-                                                <small><i>{{config('constants.current_password_notify')}}</i></small>
+                                                <small><i>{{ config('constants.current_password_notify') }}</i></small>
                                             </div>
                                         </div>
                                     </div>
@@ -75,13 +75,14 @@
                                             <input type="password" class="form-control" name="new_password"
                                                 id="new_password" placeholder="New password" required
                                                 autocomplete="new-password"
-                                                data-parsley-required-message="Current password is required"
+                                                data-parsley-required-message="New password is required"
                                                 data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
                                                 data-parsley-pattern-message="@lang('errors/validation/valid.password')">
                                             <span class="toggle-password" toggle="#new_password">
                                                 <i class="fa fa-eye"></i>
                                             </span>
                                             <div class="termsandconditions_text_color"></div>
+                                            <small class="form-text text-muted"></small>
                                             <div class="pt-1">
                                                 <small><i>Must be a minimum of eight (8) characters long</i></small>
                                             </div>
@@ -93,11 +94,10 @@
                                         <div class="form-group position-relative">
                                             <label for="confirm_password">Confirm password</label>
                                             <input type="password" class="form-control" placeholder="Confirm password"
-                                                autocomplete="confirm-password"
                                                 id="confirm_password" name="password_confirmation"
                                                 data-parsley-equalto="#new_password"
                                                 data-parsley-equalto-message="Confirm password should be the same password"
-                                                required autocomplete="new-password"
+                                                required autocomplete="confirm-password"
                                                 data-parsley-required-message="Confirm password is required">
                                             <span class="toggle-password" toggle="#confirm_password">
                                                 <i class="fa fa-eye"></i>
@@ -109,41 +109,42 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="submit" value="Save Password" class="btn btn-primary shadow-none" name="submit">
+                        <button type="submit" class="opr-common-btn" name="submit">Save Password</button>
                     </form>
+
                 </div>
 
-
-                <form class="v-form-design" id="passwordExpiry" action="{{-- {{ route('escort.update.password.expiry') }} --}}"
+                <form class="v-form-design" id="passwordExpiry" action="{{ route('shareholder.update.password.expiry') }}"
                     method="POST">
                     <div class="col-md-12 p-0 mt-4">
                         <div class="form-group mb-0">
                             <label for="confirm_password">Password Expiry </label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" id="radioNever" value="never"
-                                >
-                            <label class="form-check-label" for="radioNever">Never</label>
+                            <input class="" name="password_expiry_days" type="radio" value="never"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Never</label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" id="radio30" value="30"
-                                {{-- @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif --}} > 
-                            <label class="form-check-label" for="radio30">Renew every 30 days</label>
+                            <input class="" name="password_expiry_days" type="radio" value="30"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" id="radio60" value="60"
-                               {{-- @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif  --}}>
-                            <label class="form-check-label" for="radio60">Renew every 60 days</label>
+                            <input class="" name="password_expiry_days" type="radio" value="60"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
                         </div>
                         <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" id="radio90" value="90"
-                               {{-- @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif  --}}>
-                            <label class="form-check-label" for="radio90">Renew every 90 days</label>
+                            <input class="" name="password_expiry_days" type="radio" value="90"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
                         </div>
                         <div class="pt-1">
                             <i id="emailHelp">Unless you set your preferred Password Expiry, by default your password will
                                 renew every30 days.</i>
                         </div>
+
                     </div>
                     <div class="col-md-12 p-0 mt-4">
                         <div class="form-group mb-0">
@@ -152,24 +153,25 @@
                         <div class="form-check m-0">
                             <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
                                 id="flexCheckDefault" value="1"
-                               {{-- @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif  --}}>
+                                @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
                             <label class="form-check-label" for="flexCheckDefault">Text</label>
                         </div>
                         <div class="form-check m-0">
                             <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
-                                id="flexCheckDefaultEmail" value="1"
-                               {{-- @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif  --}}>
-                            <label class="form-check-label" for="flexCheckDefaultEmail">Email</label>
+                                id="flexCheckDefault" value="1"
+                                @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Email</label>
                         </div>
-
 
                         <div class="pt-1">
                             <i id="emailHelp">If you select to be notified of your impending password expiry by Text or
-                                Email, you will receive a notification 24 hours prior to expiry date.</i>
+                                Email, you will receive a notification 24 hours prior to expiry date.
+                            </i>
                         </div>
                     </div>
-                    <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">
+                    <button type="submit" class="opr-common-btn mt-4" name="submit">Save</button>
                 </form>
+
 
 
             </div>
@@ -181,14 +183,9 @@
 @endsection
 @push('script')
     <!-- file upload plugin start here -->
-
-
-
     <!-- file upload plugin end here -->
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
     <script>
         document.querySelectorAll('.toggle-password').forEach(function(el) {
             el.addEventListener('click', function() {
@@ -215,9 +212,14 @@
         $('#userProfile').parsley({
 
         });
+        var notes = $('#notes');
 
         function showGlobalAlert(message, type = 'success') {
             const alertBox = $('#globalAlert');
+            $('html, body').animate({
+                scrollTop: notes.offset()
+                    .top // Get the top offset of the target div
+            }, 500);
             alertBox
                 .removeClass('d-none alert-success alert-danger')
                 .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
@@ -252,15 +254,13 @@
                                 $(this).val('');
                             });
                             showGlobalAlert(data.message, "success");
-                            //swal_success_popup(data.message);
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            showGlobalAlert(data.message, "error");
-                           
+                            showGlobalAlert(data.message, "danger");
                         }
                     },
                     error: function(xhr) {
@@ -279,13 +279,22 @@
                                 // Not JSON, keep the generic message
                             }
                         }
+                        showGlobalAlert(errorMsg, "danger");
 
-                        swal_error_popup(errorMsg);
-                        showGlobalAlert(errorMsg, "error");
+                        // Show validation errors (e.g., Laravel validation)
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errorsHtml = '<ul>';
+                            $.each(xhr.responseJSON.errors, function(key, value) {
+                                errorsHtml += '<li>' + value + '</li>';
+                            });
+                            errorsHtml += '</ul>';
+                            showGlobalAlert(errorsHtml, "danger");
+                        }
                     }
                 });
             }
         });
+
 
         $('#passwordExpiry').on('submit', function(e) {
             e.preventDefault();
@@ -306,26 +315,31 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.status == true) {
-                            $('input[type=password]').each(function() {
-                                $(this).val('');
-                            });
+                        //  console.log(data.message, 'data');
+                        if (data.status === true) {
                             showGlobalAlert(data.message, "success");
-                           // swal_success_popup(data.message);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 3000);
-                        } else {
-                            swal_error_popup(data.message);
+                            $("#resetPasswordDate").modal('hide');
+                            $('#passwordExpiryText').html(data.data.text);
                         }
                     },
-                    error: function(data) {
-                        let errorsHtml = '<ul>';
-                        $.each(data.responseJSON.errors, function(key, value) {
-                            errorsHtml += '<li>' + value + '</li>';
-                        });
-                        errorsHtml += '</ul>';
-                        showGlobalAlert(errorsHtml, "danger");
+                    error: function(xhr) {
+                        var errorMsg = "Something went wrong.";
+                        // If the server sent a JSON response with a message
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        } else if (xhr.responseText) {
+                            // Try to parse manual JSON if server responded as plain text
+                            try {
+                                var res = JSON.parse(xhr.responseText);
+                                if (res.message) {
+                                    errorMsg = res.message;
+                                }
+                                showGlobalAlert(errorMsg, "danger");
+                            } catch (e) {
+                                // Not JSON, keep the generic message
+                            }
+                        }
+
                     }
                 });
             }

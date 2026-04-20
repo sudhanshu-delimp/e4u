@@ -19,8 +19,8 @@
                   <td style="text-align: left;">
                     <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
-                  <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Confirmation of Registration - Support Agent <br>
+                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Confirmation of Registration - Support Agent </h1>
                     <span style="font-size: 13px; color: #cccccc;">Agent ID: {{$agent['agent_id']}}</span>
                   </td>
                 </tr>
@@ -47,6 +47,11 @@
               <p style="font-size: 15px; margin-top: 20px;">
                 Regards,<br>
                 <b>E4U - Operations Centre</b>
+                 <br>
+                  <br>
+                  <span>
+                      Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
+                  </span>
               </p>
 
             </td>

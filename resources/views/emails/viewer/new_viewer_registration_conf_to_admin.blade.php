@@ -11,7 +11,7 @@
         <tr>
             <td align="center">
                 <!-- Main container -->
-                <table width="700" cellpadding="0" cellspacing="0"
+                <table width="600" cellpadding="0" cellspacing="0"
                     style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
 
                     <!-- Header with background and logo -->
@@ -24,7 +24,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        New Registration - Viewer<br>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">New Registration - Viewer</h1>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Member ID: {{$user->member_id ?? ''}}</span>
                                     </td>
@@ -60,18 +60,17 @@
                             </table>
 
                             <!-- Closing -->
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
 
                 </table>
 
                 <!-- Footer -->
-                <table width="700" cellpadding="0" cellspacing="0"
-                    style="background-color:#0c223d; padding: 0px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
                     <tr>
                          <td>
                             <x-email-footer/>
