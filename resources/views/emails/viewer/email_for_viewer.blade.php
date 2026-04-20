@@ -23,7 +23,7 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 16px; color:#ffffff; text-align: right;">Confirmation of Registration - Viewer</h1>
+                                        <h1 style="margin: 0; font-size: 16px; color:#ffffff; text-align: right; font-weight:bold;">Confirmation of Registration - Viewer</h1>
                                         <span style="font-size:13px; color:#cccccc;">Member ID: {{$user->member_id ?? ''}}</span>
                                     </td>
                                 </tr>
