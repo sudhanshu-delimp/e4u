@@ -9,19 +9,25 @@
  @php
  $other_services = "";
  $massage_services = "";
- $relativePath = $listing->imagePosition(1);
- $currentImage = asset($relativePath);
- if(str_contains($currentImage, 'img-11.png'))
- {
- $massage_thumb = config('escorts.escort_default_thumb');
- }
- else
- {
- if($currentImage!= "" && file_exists($relativePath))
- $massage_thumb = $currentImage;
- else
- $massage_thumb = config('escorts.escort_default_thumb');
- }
+
+ 
+
+$relativePath   =  $listing->imagePosition(1);
+$currentImage   = asset($relativePath);
+$thumnail   = asset($relativePath);
+if(str_contains($currentImage, 'img-11.png'))
+{
+    $massage_thumb = config('escorts.escort_default_thumb');
+}
+else
+{
+        if($currentImage!= "" && is_file(public_path($relativePath)))
+        $massage_thumb  = $currentImage;
+        else
+        $massage_thumb = config('escorts.escort_default_thumb');
+
+        
+}
 
  $social_links = get_social_links($listing->user_id);
 
