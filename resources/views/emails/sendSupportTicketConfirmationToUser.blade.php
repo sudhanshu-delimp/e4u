@@ -23,8 +23,8 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px; color: #ffffff;text-align: right;">Confirmation Support Ticket</h1>
-                                        <div style="font-weight: 500;">Ticket ID : {{ $body['ref_number'] }}</div>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Confirmation Support Ticket</h1>
+                                        <span style="font-size: 13px;color:#cccccc;">Ticket ID : {{ $body['ref_number'] }}</span>
                                         
                                     </td>
                                 </tr>
@@ -45,15 +45,9 @@
 
                 
                             <!-- Closing -->
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations centre</b>
-                                <br>
-                                <br>
-                                <span>
-                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
-                                </span>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
