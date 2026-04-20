@@ -116,7 +116,7 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
-
+               
         
             $data = $masseurs->map(function ($row)  {
 
@@ -1199,9 +1199,9 @@ class MassageController extends Controller
                 return response()->json(['error' => 'Membership not found'], 422);
         }
 
-
-        list($total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount) =
-                calculateTotalFee($request->membership_id, $days, $this->account,NULL);
+        
+        list($total_discount, $total_rate, $normalRate, $discountRate,$appliedDiscountAmount) =
+                calculateTotalFee($request->membership_id, $days, $this->account,Null);
        
 
       return response()->json([
@@ -1211,7 +1211,7 @@ class MassageController extends Controller
                 'days' => $days,
                 'membership_name' => $ad->memberships->name ?? 'N/A',
                 'total_discount' => $total_discount,
-                'applied_discount' => $appliedDiscountAmount
+                //'applied_discount' => $appliedDiscountAmount
             ]); 
     }
 

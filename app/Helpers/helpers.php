@@ -89,6 +89,8 @@ if (!function_exists('old_calculateTotalFee')) {
 if (!function_exists('calculateTotalFee')) {
     function calculateTotalFee($membership_id, $days, $userObject = null, $purchaseObject = null)
     {
+        $appliedDiscountAmount = 0; // Changes By Rizwan
+
         if(!empty($userObject)){
             $appiedDiscount = $userObject->activeFeeDiscount;
         }
@@ -115,7 +117,7 @@ if (!function_exists('calculateTotalFee')) {
         if ($days <= $discount_day) {
             $total_rate     = $days * $normalRate;
             $total_discount = 0;
-            return [$total_discount, $total_rate, $normalRate, $discountRate];
+            return [$total_discount, $total_rate, $normalRate, $discountRate,$appliedDiscountAmount]; // Changes By Rizwan add $appliedDiscountAmount
         }
 
 
@@ -135,6 +137,8 @@ if (!function_exists('calculateTotalFee')) {
 
         $total_discount = $discountDays * ($normalRate - $discountRate);
         $appliedDiscountAmount = ($discountDays * $discountRate);
+
+        
 
         return [$total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount];
     }
