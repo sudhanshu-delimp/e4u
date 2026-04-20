@@ -9,10 +9,16 @@
            {{-- <span>
             <img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;">
            </span> --}}
-            <div class="vrf-tooltip-wrap">
-                <span ><img width="18" height="18" src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}"></span>            
-                <span class="vrf-tooltip">Media Pending</span>
-            </div>
+            @if($escort->default_image)
+                @php 
+                    $media = $escort->getDefaultImageDetails();
+                    $media_status = getMediaVerificationDataSmallIcon(($media->varified ?? 0));
+                @endphp
+                <div class="vrf-tooltip-wrap">
+                    <span ><img width="18" height="18" src=" {{$media_status['icon']}}"></span>            
+                    <span class="vrf-tooltip">{{$media_status['label']}}</span>
+                </div>
+            @endif
                 <span class="seven_column_content_top_font_size">{{ $escortName }}</span>
                 
                 @if(auth()->user())

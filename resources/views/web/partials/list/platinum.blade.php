@@ -43,10 +43,16 @@
                                     <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                                     @endif
                                 </div>
-                                <div class="verify-image-custom">
-                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg')}}">
-                                    <span class="common_shield_tooltip">Media Pending</span>
-                                </div>
+                                @if($escort->default_image)
+                                    <div class="verify-image-custom">
+                                        @php 
+                                            $media = $escort->getDefaultImageDetails();
+                                            $media_status = getMediaVerificationDataBigIcon($media->varified ?? 0);
+                                        @endphp 
+                                        <img src="{{$media_status['icon']}}">
+                                        <span class="common_shield_tooltip">{{$media_status['label']}}</span>
+                                    </div>
+                                @endif
                             </div>
                         {{-- </a> --}}
                     </div>

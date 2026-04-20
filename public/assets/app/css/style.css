@@ -7647,17 +7647,19 @@ i.fa.fa-heart-o{
                 }
                 
                 .profile_verify_icon .verify_icon {
-                    width: 90px;
+                    width: 100px;
                     background: #0c223d;
                     padding: 5px;
                     position: absolute;
                     z-index: 3;
-                    bottom: 21px;
-                    right: 1px;
+                    bottom: 0px;
+                    right: 12px;
                 }
                 
                 .profile_verify_icon .verify_icon img {
-                    width: 100%;
+                    width: 81px;
+                    height: 28px;
+
                 }
                 
                 .common_shield_tooltip {
@@ -7674,7 +7676,7 @@ i.fa.fa-heart-o{
                 }
                 
                 .gallery_shield_tooltip {
-                    position: absolute;
+                    position: absolute !important;
                     top: 2px;
                     right: 35px;
                     z-index: 999;

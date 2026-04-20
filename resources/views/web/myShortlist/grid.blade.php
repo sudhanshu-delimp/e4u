@@ -9,10 +9,16 @@
 
     <div class="five_column_content_top d-flex justify-content-between wish_span" style="z-index: 1;width: 90%;">
         {{-- <span><img src="{{ asset('assets/app/img/pro_tect.svg') }}" class="" title="This advertiser is E4U verified"></span> --}}
-        <div class="vrf-tooltip-wrap">
-                <span><img width="18" height="18" src="{{asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}"></span>            
-                <span class="vrf-tooltip">Media Pending</span>
-            </div>
+            @if($escort->default_image)
+                @php 
+                    $media = $escort->getDefaultImageDetails();
+                    $media_status = getMediaVerificationDataSmallIcon(($media->varified ?? 0));
+                @endphp
+                <div class="vrf-tooltip-wrap">
+                    <span ><img width="18" height="18" src=" {{$media_status['icon']}}"></span>            
+                    <span class="vrf-tooltip">{{$media_status['label']}}</span>
+                </div>
+            @endif
         <span class="card_tit">{{ $escortName }}</span>
         @if(auth()->user())
             @if(auth()->user()->type == 0)

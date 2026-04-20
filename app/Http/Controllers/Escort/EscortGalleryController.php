@@ -668,19 +668,7 @@ class EscortGalleryController extends AppController
 
         $user = auth()->user();
         $image = $request->file('image');
-        // $media = EscortMedia::where('user_id', $user->id)
-        //     ->whereIn('varified', ['0', '2'])
-        //     ->whereNull('media_verification_id')
-        //     ->where('type' , '0')
-        //     ->count();
-    
-        // if ($media  <= 0) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Please upload your media before uploading the verification image.'
-        //     ], 400);
-        // }
-
+        
         $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
         $destination_path = $user->id . '/verifications/' . $fileName;
 
@@ -716,7 +704,7 @@ class EscortGalleryController extends AppController
 
         return response()->json([
             'success' => true,
-            'message' => 'Verification uploaded successfully.',
+            'message' => "Verification uploaded successfully.\nPlease allow 24 hours for the verification to be completed."
         ]);
     }
 

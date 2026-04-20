@@ -68,7 +68,7 @@ $(document).on('submit', '#mediaVerification', function (e) {
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
-                text: response.message ?? 'Verification submitted successfully.'
+                html: response.message.replace(/\n/g, "<br>")
             });
 
              // form.reset();  //

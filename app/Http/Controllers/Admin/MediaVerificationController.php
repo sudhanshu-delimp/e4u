@@ -186,7 +186,18 @@ class MediaVerificationController extends Controller
             }
             $statusText = $item->status ?? 'NA';
             $badgeClass = getStatusBadgeClass($statusText);
-            $item->status_text = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            $tooltipHtml = '';
+
+            if (in_array($statusText, ['Verified', 'Rejected'])) {
+                $staffId = get_massage_member_id($item->reviewed_by);
+                $actionText = $statusText === 'Rejected' ? 'Rejected by' : 'Approved by';
+                $tooltipHtml = "<span class='tooltip'>{$actionText}: {$staffId}</span>";
+            }
+
+            $item->status_text = "<div class='e4u-tooltip'>
+                <span class='custom_badge {$badgeClass}'>{$statusText}</span>
+                {$tooltipHtml}
+            </div>";
             $item->action = $dropdown;
         }
         return [$media_verificatiions, $total_media_verificatiion, $total_pending_verification];

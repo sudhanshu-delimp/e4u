@@ -481,6 +481,14 @@ class Escort extends Model
         // }
     }
 
+
+        public function getDefaultImageDetails()
+        {
+            if($image = $this->gallary()->wherePivot('position', 1)->first()) {
+                return $image;
+            }
+        }
+
     public function getBannerImageAttribute()
     {
         if($image = $this->medias()->where('type', 2)->orderBy('id','DESC')->first()) {

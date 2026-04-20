@@ -134,9 +134,9 @@ if (!function_exists('calculateTotalFee')) {
         }
 
         $total_discount = $discountDays * ($normalRate - $discountRate);
-        $appiedDiscountAmount = ($discountDays * $discountRate);
+        $appliedDiscountAmount = ($discountDays * $discountRate);
 
-        return [$total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount];
+        return [$total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount];
     }
 }
 
@@ -2272,6 +2272,65 @@ if (!function_exists('update_messure_for_active_listing'))
         }
         ################## End Update All Massures ##################
 
+    }
+
+
+
+    function getMediaVerificationDataSmallIcon(int $status)
+    {
+        switch ($status) {
+            case 0:
+                $icon  = asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png');
+                $label = 'Media Pending';
+                break;
+
+            case 1:
+                $icon  = asset('assets/app/img/verify/verified_icon.png');
+                $label = 'Media Verified';
+                break;
+
+            case 2:
+                $icon  = asset('assets/app/img/verify/unverified_icon.png');
+                $label = 'Media Unverified';
+                break;
+
+            default:
+                $icon  = '';
+                $label = '';
+        }
+
+        return [
+            'icon'          => $icon,
+            'label'         => $label,
+        ];
+    }
+
+
+
+    function getMediaVerificationDataBigIcon(int $status)
+    {
+        switch ($status) {
+            case 0:
+                $icon  = asset('assets/app/img/pending_icon/e4u_pending_REV.png');
+                $label = 'Media Pending';
+                break;
+
+            case 1:
+                $icon  = asset('assets/app/img/verify/e4u_verified_REV.png');
+                $label = 'Media Verified';
+                break;
+
+            case 2:
+            default:
+                $icon  = asset('assets/app/img/verify/unverified_light.png');
+                $label = 'Media Unverified';
+                break;
+        }
+
+        return [
+            'icon'  => $icon,
+            'label' => $label,
+        ];
     }
    
 }
