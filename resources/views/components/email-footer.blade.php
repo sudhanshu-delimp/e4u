@@ -3,7 +3,7 @@
      <!-- Header -->
      <tr>
          <td
-             style="text-align:center; font-size:14px; border-bottom:1px solid #ffffff; padding:15px 0; font-family:Arial, sans-serif;">
+             style="text-align:center; font-size:14px; border-bottom:1px solid #ffffff !important; padding:15px 0; font-family:Arial, sans-serif;">
              This is an automatically generated email by the Escorts4U Operations Centre.<br>
              © Copyright {{ date('Y') }} Blackbox Tech Pty Ltd. All rights reserved.
          </td>
