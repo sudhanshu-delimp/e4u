@@ -163,10 +163,10 @@ class MassageController extends Controller
                
                 //$status = "";
 
-                 $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>'; 
-                 $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
-                 $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>'; 
-                 $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> View</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> View</a>'; 
 
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -175,7 +175,7 @@ class MassageController extends Controller
                                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
                                                    
                                                   
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit </a>
                                                    '.$status. 
                             '</div>';
 
