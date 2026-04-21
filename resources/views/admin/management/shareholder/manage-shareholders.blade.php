@@ -393,6 +393,35 @@
                         }
                     });
                 }
+            });
+
+            /*** Activate shareholder Account */
+            $(document).on('click', '.delete_account', async function(e) {
+                if (await isConfirm({
+                        'action': 'Delete',
+                        'text': 'Are you sure you want to delete this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Deleting Account'
+                    });
+                    $.ajax({
+                        url: "{{ route('admin.delete.shareholder.account') }}",
+                        method: 'POST',
+                        data: {
+                            'id': $(this).attr('data-id'),
+                            request_type: 'delete'
+                        },
+                        success: function(response) {
+                            table.ajax.reload(null, false);
+                            Swal.close();
+                            swal_success_popup(response.message);
+                        },
+                        error: function(xhr) {
+                            Swal.close();
+                            swal_error_popup(xhr.responseJSON.message);
+                        }
+                    });
+                }
             })
         });
     </script>
