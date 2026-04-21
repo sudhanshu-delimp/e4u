@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\AttemptLogin;
 use App\Models\MassageLike;
+use App\Models\MassageMedia;
 use App\Models\MassageProfile;
 use App\Models\MassagePurchase;
 use App\Models\MassageReviews;
@@ -382,9 +383,41 @@ class MassageCentre extends Controller
 
        $listings = $massage;
        $media = $this->media;
+
+       ################### Massage Review #######################
+        $massage->getCollection()->transform(function ($item) {
+            $total = MassageLike::where('massage_id', $item->id)->count();
+
+            if ($total > 0) {
+                $likeCount = MassageLike::where('massage_id', $item->id)->where('like', 1)->count();
+                $dislikeCount = MassageLike::where('massage_id', $item->id)->where('like', 0)->count();
+
+                $lp = round($likeCount / $total * 100);
+            } else {
+                $lp = 0;
+            }
+
+            if ($lp == 100) {
+                $item->star_rating = 5;
+            } elseif ($lp > 80) {
+                $item->star_rating = 4;
+            } elseif ($lp > 60) {
+                $item->star_rating = 3;
+            } elseif ($lp > 40) {
+                $item->star_rating = 2;
+            } elseif ($lp > 20) {
+                $item->star_rating = 1;
+            } else {
+                $item->star_rating = 0;
+            }
+
+            return $item;
+        });
+        ###########################################################################################
+
       
             
-       Log::info( $listings);
+       
 
         return response()->json([
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
@@ -452,7 +485,24 @@ class MassageCentre extends Controller
             $dp = 0;
         }
 
-        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews','spamReportAdvertiser','lp','dp','massageLike','nextId','prevId','ids'));
+
+
+        if ($lp == 100) {
+            $star_rating = 5;
+        } elseif ($lp > 80) {
+            $star_rating = 4;
+        } elseif ($lp > 60) {
+            $star_rating = 3;
+        } elseif ($lp > 40) {
+            $star_rating = 2;
+        } elseif ($lp > 20) {
+            $star_rating = 1;
+        } else {
+            $star_rating = 0;
+        }
+
+
+        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews','spamReportAdvertiser','lp','dp','massageLike','nextId','prevId','ids','star_rating'));
     }
 
 

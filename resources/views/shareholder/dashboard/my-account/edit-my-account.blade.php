@@ -74,7 +74,7 @@
                                                 <label class="business_name">Shareholder</label>
                                                 <input type="text" class="form-control rounded-0"
                                                     placeholder="Address" name="business_name" id="business_name"
-                                                    value="{{ $staff->business_address }}">
+                                                    value="{{ $staff->business_name }}">
                                                 <span class="text-danger error-business_name"></span>
                                             </div>
                                         </div>

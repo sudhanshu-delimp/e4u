@@ -46,12 +46,12 @@
                               
                               <th>Profile Name</th>
                               <th>Location</th>
-                              <th>Stage Name</th>
+                              <th>Business Name</th>
                               <th>Start Date</th>
                               <th>End Date</th>
                               <th>Days</th>
-                             
-                              <th style="width:70px">Fee Paid</th>
+                              <th>Status</th>
+                              <th style="width:120px">Fee Paid</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -119,6 +119,7 @@
             { data: 'start_date', name: 'start_date', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'end_date', name: 'end_date', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'days', name: 'days', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'fee_paid', name: 'fee_paid', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
     ],
 

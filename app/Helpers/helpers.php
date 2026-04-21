@@ -89,6 +89,8 @@ if (!function_exists('old_calculateTotalFee')) {
 if (!function_exists('calculateTotalFee')) {
     function calculateTotalFee($membership_id, $days, $userObject = null, $purchaseObject = null)
     {
+        $appliedDiscountAmount = 0; // Changes By Rizwan
+
         if(!empty($userObject)){
             $appiedDiscount = $userObject->activeFeeDiscount;
         }
@@ -100,7 +102,7 @@ if (!function_exists('calculateTotalFee')) {
         else{
             $pricing = \App\Models\Pricing::where('membership_id', $membership_id)->first();
             if (!$pricing) {
-                return [0, 0, 0, 0];
+                return [0, 0, 0, 0, 0];
             }
             $normalRate   = $pricing->price;
             if(!empty($appiedDiscount)){
@@ -115,7 +117,7 @@ if (!function_exists('calculateTotalFee')) {
         if ($days <= $discount_day) {
             $total_rate     = $days * $normalRate;
             $total_discount = 0;
-            return [$total_discount, $total_rate, $normalRate, $discountRate];
+            return [$total_discount, $total_rate, $normalRate, $discountRate,$appliedDiscountAmount]; // Changes By Rizwan add $appliedDiscountAmount
         }
 
 
@@ -135,6 +137,8 @@ if (!function_exists('calculateTotalFee')) {
 
         $total_discount = $discountDays * ($normalRate - $discountRate);
         $appliedDiscountAmount = ($discountDays * $discountRate);
+
+        
 
         return [$total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount];
     }
@@ -1427,7 +1431,7 @@ if (!function_exists('get_weakly_availibility')) {
                              $time = 'Closed';
                         }
 
-                    $avail .= '<tr> <td>' . ucfirst($day) . '</td><td class="text-right">' . $time  . '</td> </tr>';
+                    $avail .= '<tr> <td>' . ucfirst($day) . '</td><td>' . $time  . '</td> </tr>';
                 }
 
                 return $avail;
@@ -2169,15 +2173,17 @@ if (!function_exists('update_messure_for_active_listing'))
         }   
 
     }
+}
 
 
-
+if (!function_exists('update_all_default_massures')) 
+{
     function update_all_default_massures($massagers,$massures)
     {
 
         foreach ($massagers as $day => $info) 
         {
-               
+                
             if ($info['status'] === 'closed') 
             {
                 foreach ($massures as $mDay => $mInfo) 
@@ -2243,11 +2249,13 @@ if (!function_exists('update_messure_for_active_listing'))
         }
 
         return $massures;
-       
+        
     }
-    
+}
 
 
+if (!function_exists('update_profile_massure')) 
+{
     function update_profile_massure($massage_profile_id,$masseurIds)
     {
 
@@ -2332,5 +2340,35 @@ if (!function_exists('update_messure_for_active_listing'))
             'label' => $label,
         ];
     }
-   
 }
+
+
+if (!function_exists('formatIndianNumber')) 
+{
+    function formatIndianNumber($value) 
+    {
+        if (empty($value)) return '0.00';
+
+        $value = str_replace(',', '', (string)$value);
+
+        // Check if valid number
+        if (!is_numeric($value)) return $value;
+
+        $parts = explode('.', $value);
+        $integerPart = $parts[0];
+        $decimalPart = isset($parts[1]) ? '.' . $parts[1] : '';
+
+        // Last 3 digits
+        $lastThree = substr($integerPart, -3);
+        $otherNumbers = substr($integerPart, 0, -3);
+
+        if ($otherNumbers !== '') {
+            $lastThree = ',' . $lastThree;
+        }
+
+        $formatted = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $otherNumbers) . $lastThree;
+
+        return $formatted . $decimalPart;
+    }
+}
+   

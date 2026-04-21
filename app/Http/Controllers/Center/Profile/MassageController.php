@@ -116,7 +116,7 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
-
+               
         
             $data = $masseurs->map(function ($row)  {
 
@@ -159,10 +159,15 @@ class MassageController extends Controller
 
                 $status = "";
                 if($row->enabled==0)
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+                //$status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
                
                 //$status = "";
-               
+
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> View</a>'; 
+
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -170,7 +175,7 @@ class MassageController extends Controller
                                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
                                                    
                                                   
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit </a>
                                                    '.$status. 
                             '</div>';
 
@@ -1194,9 +1199,9 @@ class MassageController extends Controller
                 return response()->json(['error' => 'Membership not found'], 422);
         }
 
-
-        list($total_discount, $total_rate, $normalRate, $discountRate, $appliedDiscountAmount) =
-                calculateTotalFee($request->membership_id, $days, $this->account);
+        
+        list($total_discount, $total_rate, $normalRate, $discountRate,$appliedDiscountAmount) =
+                calculateTotalFee($request->membership_id, $days, $this->account,Null);
        
 
       return response()->json([
@@ -1206,7 +1211,7 @@ class MassageController extends Controller
                 'days' => $days,
                 'membership_name' => $ad->memberships->name ?? 'N/A',
                 'total_discount' => $total_discount,
-                'applied_discount' => $appliedDiscountAmount
+                //'applied_discount' => $appliedDiscountAmount
             ]); 
     }
 
@@ -1337,13 +1342,14 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $profile_name,
-                    'address' => $row->massageprofile->address,
+                    'address' => auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,
                     'days' => $days,
                     'membership' => 'Massage Centre',
-                    'fee_paid' => '$ '.$row->paid_rate,
+                    'fee_paid' => '$ '.formatIndianNumber($row->paid_rate),
+                    'status' =>  '<span class="custom_badge badge_current">Current</span>'
 
                 ];
             });  
@@ -1380,7 +1386,7 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $row->massageprofile->profile_name,
-                    'address' => $row->massageprofile->address,
+                    'address' => auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,
