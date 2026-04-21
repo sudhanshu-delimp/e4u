@@ -7646,14 +7646,37 @@ i.fa.fa-heart-o{
                     position: relative;
                 }
                 
-                .profile_verify_icon .verify_icon {
-                    /* width: 90px;
-                    background: #0c223d; 
-                    padding: 5px;*/
+                .mc_view_media .carousel-control-next,
+                .carousel-control-prev {
                     position: absolute;
-                    z-index: 3;
-                    bottom: 21px;
+                    top: 50%;
+                    bottom: 0;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                    width: 15%;
+                    height: 15%;
+                    color: #fff;
+                    text-align: center;
+                    opacity: .5;
+                    transform: translate(0px, -50%);
+                }
+                
+                .profile_verify_icon .verify_icon {
+                    position: absolute;
+                    bottom: 0px;
                     right: 1px;
+                    background: rgba(12, 34, 61);
+                    z-index: 10;
+                    width: 90px;
+                    height: 37px;
+                    padding: 5px;
                 }
                 
                 .profile_verify_icon .verify_icon img {
@@ -7662,6 +7685,14 @@ i.fa.fa-heart-o{
                 
                 .common_shield_tooltip {
                     position: absolute !important;
+                }
+                
+                .verify_icon:hover .common_shield_tooltip {
+                    display: block;
+                }
+                
+                .verify_icon img:hover+.common_shield_tooltip {
+                    display: block;
                 }
                 
                 .mc_profile_img img:hover+.common_shield_tooltip {
@@ -7703,12 +7734,12 @@ i.fa.fa-heart-o{
                 .common_shield_tooltip {
                     position: absolute;
                     left: 50%;
-                    top: -35px;
+                    top: -32px;
                     z-index: 999;
                     width: max-content;
                     background: #ff3c5f;
                     color: #fff;
-                    font-size: 11px;
+                    font-size: 9px;
                     font-weight: 500;
                     padding: 5px;
                     border-radius: 3px;
@@ -7720,9 +7751,9 @@ i.fa.fa-heart-o{
                 .common_shield_tooltip::after {
                     position: absolute;
                     left: 50%;
-                    top: 26px;
+                    top: 23px;
                     content: '';
-                    border-width: 6px;
+                    border-width: 5px;
                     border-style: solid;
                     border-color: var(--peach) transparent transparent transparent;
                     transform: rotate(0deg) translate(-50%);
@@ -7737,7 +7768,7 @@ i.fa.fa-heart-o{
                     position: absolute;
                     right: 0px;
                     bottom: 0px;
-                    width: 100px;
+                    width: 90px;
                     background: #0c223d;
                     padding: 5px;
                     display: flex;
