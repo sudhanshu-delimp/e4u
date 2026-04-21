@@ -1263,28 +1263,30 @@
                                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="10000">
                                             <div class="row">
                                                 <div class="col-12 remove_padding_for_carousel">
-                                                    <img src="{{ $image['url'] }}"
+                                                    <img src="{{ $image['url'] }}" data-id="{{$image['image_data']['id']}}"
                                                         class="d-block w-100"
                                                         alt="Gallery Image"
                                                         data-toggle="modal"
-                                                        data-target="#exampleModal">
-                                                        <div class="verify_icon">
-                                                            @switch($image['image_data']['varified'] ?? 0)
-                                                                @case(0)
-                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                                    <span class="common_shield_tooltip">Media Pending</span>
-                                                                @break
-                                                                @case(1)
-                                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                                                    <span class="common_shield_tooltip">Media Verified</span>
-                                                                @break
-                                                                @case(2)
-                                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                                                    <span class="common_shield_tooltip">Media Unverified</span>
-                                                                @break
-                                                        @endswitch
-                                                        </div>
+                                                        data-target="#exampleModal">  
                                                 </div>
+                                                
+                                            </div>
+
+                                            <div class="verify_icon">
+                                                @switch($image['image_data']['varified'] ?? 0)
+                                                    @case(0)
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                                        <span class="common_shield_tooltip">Media Pending</span>
+                                                    @break
+                                                    @case(1)
+                                                        <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
+                                                        <span class="common_shield_tooltip">Media Verified</span>
+                                                    @break
+                                                    @case(2)
+                                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
+                                                        <span class="common_shield_tooltip">Media Unverified</span>
+                                                    @break
+                                                @endswitch
                                             </div>
                                         </div>
                                     @endforeach

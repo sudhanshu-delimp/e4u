@@ -959,7 +959,7 @@
                 <!-- video crousal start -->
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12 px-0 profile_verify_icon">
+                        <div class="col-12 px-0 profile_verify_icon ec-slider">
                                 
                             <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
                                 <div class="carousel-inner">
@@ -972,27 +972,27 @@
                             <div class="row">
                                 <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
                                     @php $status = $media->varified ?? "0"; @endphp
-                                    <div class="verify_icon">
-                                        @switch($status)
-                                            @case(0)
-                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                <span class="common_shield_tooltip">Media Pending</span>
-                                            @break
-                                            @case(1)
-                                                <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                                <span class="common_shield_tooltip">Media Verified</span>
-                                            @break
-                                            @case(2)
-                                                <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                                <span class="common_shield_tooltip">Media Unverified</span>
-                                            @break
-                                        @endswitch
-                                    </div>
-                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
+                                   
+                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
                                     <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                     </div>
                             </div>
-                            
+                             <div class="verify_icon">
+                                @switch($status)
+                                    @case(0)
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                        <span class="common_shield_tooltip">Media Pending</span>
+                                    @break
+                                    @case(1)
+                                        <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
+                                        <span class="common_shield_tooltip">Media Verified</span>
+                                    @break
+                                    @case(2)
+                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
+                                        <span class="common_shield_tooltip">Media Unverified</span>
+                                    @break
+                                @endswitch
+                            </div>
                         </div>
                         @endforeach
                         @else
