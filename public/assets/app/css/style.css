@@ -7647,9 +7647,9 @@ i.fa.fa-heart-o{
                 }
                 
                 .profile_verify_icon .verify_icon {
-                    /* width: 90px;
+                    width: 90px;
                     background: #0c223d; 
-                    padding: 5px;*/
+                    padding: 5px;
                     position: absolute;
                     z-index: 3;
                     bottom: 0px;

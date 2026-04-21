@@ -1558,6 +1558,26 @@ if (!function_exists('get_massage_images')) {
 }
 
 
+if (!function_exists('get_image_position_detail')) {
+    function get_image_position_detail($listing, $position)
+    {
+        try {
+            if (!$listing || $position === null) {
+                return false;
+            }
+
+            return $listing->get_image_position_detail($position);
+
+        } catch (\Throwable $e) {
+            // Log error
+            \Log::error('Helper get_image_position_detail error: ' . $e->getMessage());
+
+            return false;
+        }
+    }
+}
+
+
 if (!function_exists('get_messure_images')) {
   function get_messure_images($masseur,$position)
   {
@@ -2319,18 +2339,18 @@ if (!function_exists('update_profile_massure'))
     {
         switch ($status) {
             case 0:
-                $icon  = asset('assets/app/img/pending_icon/e4u_pending_REV.png');
+                $icon  = asset('assets/app/img/verify/pending-lg.png');
                 $label = 'Media Pending';
                 break;
 
             case 1:
-                $icon  = asset('assets/app/img/verify/e4u_verified_REV.png');
+                $icon  = asset('assets/app/img/verify/verified-lg.png');
                 $label = 'Media Verified';
                 break;
 
             case 2:
             default:
-                $icon  = asset('assets/app/img/verify/unverified_light.png');
+                $icon  = asset('assets/app/img/verify/unverified-lg.png');
                 $label = 'Media Unverified';
                 break;
         }

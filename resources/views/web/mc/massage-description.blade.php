@@ -133,15 +133,24 @@
 
 
         $images = [];
+        
         $validImages = [];
+
         $photo = 1;
 
         for ($i = 1; $i <= 7; $i++) {
+            $image_detail = [];
             $img = get_massage_images($listing, $i);
+            $image_data =  get_image_position_detail($listing, $i);
+            if(!empty($image_data)){
+                $image_detail['id'] = $image_data['id'];
+                $image_detail['varified'] = $image_data['varified'];
+            }
             $images[$i] = $img;
 
             if ($img !== false) {
-                $validImages[$i] = $img;
+                $validImages[$i]['url'] = $img;
+                $validImages[$i]['image_data'] = $image_detail;
             }
         }
 
@@ -1244,11 +1253,7 @@
                         <div class="col-12 px-0 profile_verify_icon">
                             <div id="carouselExampleInterval" class="carousel slide mc_view_media" data-ride="carousel"
                                 data-interval="false">
-                                    <div class="verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                        <span class="common_shield_tooltip">Media Pending</span>
-                                       
-                                    </div>
+                                    
                                 <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
                                 <div class="carousel-inner">
                                     
@@ -1258,11 +1263,27 @@
                                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="10000">
                                             <div class="row">
                                                 <div class="col-12 remove_padding_for_carousel">
-                                                    <img src="{{ $image }}"
+                                                    <img src="{{ $image['url'] }}"
                                                         class="d-block w-100"
                                                         alt="Gallery Image"
                                                         data-toggle="modal"
                                                         data-target="#exampleModal">
+                                                        <div class="verify_icon">
+                                                            @switch($image['image_data']['varified'] ?? 0)
+                                                                @case(0)
+                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                                                    <span class="common_shield_tooltip">Media Pending</span>
+                                                                @break
+                                                                @case(1)
+                                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
+                                                                    <span class="common_shield_tooltip">Media Verified</span>
+                                                                @break
+                                                                @case(2)
+                                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
+                                                                    <span class="common_shield_tooltip">Media Unverified</span>
+                                                                @break
+                                                        @endswitch
+                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2003,10 +2024,22 @@
                                 @foreach ($validImages as $index => $image)
                                     @if($loop->first )
                                     <div class="gallery__item gallery__item--lg">
-                                        <img src="{{  $image }}" alt="main">
-                                         <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                             <span class="common_shield_tooltip">Media Pending</span>
+                                        <img src="{{  $image['url'] }}" alt="main">
+                                        <div class="verify_icon">
+                                            @switch($image['image_data']['varified'] ?? 0)
+                                                @case(0)
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                                    <span class="common_shield_tooltip">Media Pending</span>
+                                                @break
+                                                @case(1)
+                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
+                                                    <span class="common_shield_tooltip">Media Verified</span>
+                                                @break
+                                                @case(2)
+                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
+                                                    <span class="common_shield_tooltip">Media Unverified</span>
+                                                @break
+                                            @endswitch
                                         </div>
                                     </div>
                                     @endif    
@@ -2019,10 +2052,22 @@
                                             @continue($loop->first)
 
                                             <div class="gallery__item">
-                                                <img src="{{ $image }}" alt="gallery image">
-                                                 <div class="verify_icon_sm">
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
-                                                    <h6 class="gallery_shield_tooltip">Media Pending</h6>
+                                                <img src="{{ $image['url'] }}" alt="gallery image">
+                                                <div class="verify_icon_sm">
+                                                    @switch($image['image_data']['varified'] ?? 0)
+                                                        @case(0)
+                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                            <h6 class="gallery_shield_tooltip">Media Pending</h6>
+                                                        @break
+                                                        @case(1)
+                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                                            <h6 class="gallery_shield_tooltip">Media Verified</h6>
+                                                        @break
+                                                        @case(2)
+                                                            <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                                            <h6 class="gallery_shield_tooltip">Media Unverified</h6>
+                                                        @break
+                                                    @endswitch
                                                 </div>
                                             </div>
 
