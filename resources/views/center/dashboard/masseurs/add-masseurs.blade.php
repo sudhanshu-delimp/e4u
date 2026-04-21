@@ -423,7 +423,7 @@ padding: 37px !important;
                                             <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
                                                 <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                                     data-target="#add_photo_mcc">Add Photos</button>
-                                                    <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media Verification</button>
+                                                    <button type="button" id="Media Verification" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media Verification</button>
                                             </div>
 
                                             
@@ -1047,7 +1047,7 @@ padding: 37px !important;
 
     @include('center.dashboard.modal.remove_gallary_image')
     
-    @include('center.dashboard.modal.upload_verify_media')
+    @include('center.dashboard.modal.messeue_upload_verify_media')
 
 @endsection
 
@@ -1498,6 +1498,12 @@ padding: 37px !important;
                 });
                 let form = $('form[name="masseur_frm"]');
                 let formData = new FormData(form[0]);
+               
+                let fileInput = $('#upload_varification_img')[0];
+
+                if (fileInput && fileInput.files && fileInput.files.length > 0) {
+                    formData.append('verification_image', fileInput.files[0]);
+                }
 
                 $.ajax({
                     url: "{{ route('center.create-new-masseur') }}",
@@ -2043,6 +2049,18 @@ function initDragDrop()
 
 }
 
+
+function readVarificationImageURL(input) {
+    if (input.files && input.files[0]) {
+        var $img = $(input).siblings('img');
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $img.attr('src', e.target.result);
+            $('#VerifyMedia').attr('disabled', false);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 
 </script>

@@ -689,6 +689,7 @@ class MassageGalleryController extends AppController
                 'image_path' => $destination_path,
                 'status' => MediaVerification::STATUS_PENDING,
                 'submited_by' => $user->id,
+                'user_type' => '2',
             ]);
 
             MassageMedia::where('user_id', $user->id)
