@@ -5663,7 +5663,7 @@ i.fa.fa-heart-o{
                 
                 .mc_profile_modal {
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
+                    grid-template-columns: 225px 1fr;
                     font-size: 14px;
                     gap: 0px 10px;
                 }
@@ -7647,9 +7647,9 @@ i.fa.fa-heart-o{
                 }
                 
                 .profile_verify_icon .verify_icon {
-                    width: 90px;
-                    background: #0c223d;
-                    padding: 5px;
+                    /* width: 90px;
+                    background: #0c223d; 
+                    padding: 5px;*/
                     position: absolute;
                     z-index: 3;
                     bottom: 21px;
