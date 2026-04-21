@@ -469,6 +469,25 @@ span.menu-active {
     border: none;
 }
 
+.btn-cancel-modal.btn-remove {
+    padding: 8px 20px;
+}
+
+.contact-info {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0px;
+    padding: 7px 0px 15px 0px;
+}
+
+.contact-info h5 {
+    font-size: 15px !important;
+    font-weight: 600;
+    border-bottom: 1px solid #e3e6f0;
+    color: var(--blue--text);
+    padding-bottom: 5px;
+}
+
 .brb-btn {
     background-color: var(--peach);
     color: var(--white);
