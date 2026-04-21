@@ -116,6 +116,8 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
+          
+
                
         
             $data = $masseurs->map(function ($row)  {
@@ -1365,7 +1367,7 @@ class MassageController extends Controller
 
     public function  massager_past_listing(Request $request)
     {
-
+           
 
             $today = Carbon::today();
             $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)

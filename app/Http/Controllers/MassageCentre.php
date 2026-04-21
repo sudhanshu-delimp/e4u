@@ -139,6 +139,8 @@ class MassageCentre extends Controller
             ->pluck('massage_profile_id');
 
 
+      
+
         //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
         $mc_live_list = $massage_live_ids;
         $mc_user_id = [];
