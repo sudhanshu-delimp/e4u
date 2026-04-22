@@ -276,7 +276,7 @@
             let addNewTaskHtml = `
                 <div class="mx-auto my-2 col-md-12">
                     <div class="form-group ">
-                        <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                        <label for="title">Title<span class="text-danger">*</span> </label>
                         <input id="title" placeholder="Enter Title..." name="title" type="text"
                             class="form-control" required>
                         @error('title')
@@ -284,7 +284,7 @@
                         @enderror
                     </div>
                     <div class="form-group pt-2 pb-3" data-i="">
-                        <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
+                        <label for="exampleFormControlTextarea1">Importance<span class="text-danger">*</span>
                         </label><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
@@ -300,7 +300,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1"><b>Task Description</b>
+                        <label for="exampleFormControlTextarea1">Task Description
                         </label>
                         <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
                             placeholder="Up to 300 character"></textarea>
@@ -330,12 +330,12 @@
                                 <!-- Your original form HTML -->
                                 <div class="form-group">
                                     <input name="task_id" value="`+taskId+`" type="hidden" 
-                                    <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                                    <label for="title">Title<span class="text-danger">*</span> </label>
                                     <input id="edit_title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
                                 </div>
 
                                 <div class="pt-2 pb-3">
-                                    <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                                    <label>Importance<span class="text-danger">*</span></label><br>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input task_priority" type="radio" name="task_priority" id="editinlineRadio1" value="high">
                                         <label class="form-check-label" for="editinlineRadio1">High</label>
@@ -351,7 +351,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="status"><b>Status</b><span class="text-danger">*</span></label>
+                                    <label for="status">Status<span class="text-danger">*</span></label>
                                     <select class="custom-select" name="status" id="edit_status">
                                         <option value="open">Open</option>
                                         <option value="inprogress">In Progress</option>
@@ -360,7 +360,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1"><b>Description</b></label>
+                                    <label for="exampleFormControlTextarea1">Description</label>
                                     <textarea class="form-control" id="edit_description" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
                                 </div>
                             </div>
@@ -474,12 +474,12 @@
                             <!-- Your original form HTML -->
                             <div class="form-group">
                                 <input name="task_id" value="`+taskId+`" type="hidden" 
-                                <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                                <label for="title">Title<span class="text-danger">*</span> </label>
                                 <input id="edit_title" readonly placeholder="Enter Title..." name="title" type="text" class="form-control" required>
                             </div>
 
                             <div class="pt-2 pb-3">
-                                <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                                <label>Importance<span class="text-danger">*</span></label><br>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input task_priority" disabled type="radio" name="task_priority" id="editinlineRadio1" value="high">
                                     <label class="form-check-label" for="editinlineRadio1">High</label>
@@ -495,7 +495,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="status"><b>Status</b><span class="text-danger">*</span></label>
+                                <label for="status">Status<span class="text-danger">*</span></label>
                                 <select class="custom-select" disabled name="status" id="edit_status">
                                     <option value="open">Open</option>
                                     <option value="inprogress">In Progress</option>
@@ -504,7 +504,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1"><b>Description</b></label>
+                                <label for="exampleFormControlTextarea1">Description</label>
                                 <textarea class="form-control" readonly id="edit_description" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
                             </div>
                         </div>
