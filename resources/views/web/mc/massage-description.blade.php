@@ -406,7 +406,7 @@
                                     <td> {{$duration->name}} </td>
                                     <td>
 
-                                           @if($massage_price)
+                                           @if($massage_price !== null && floatval($massage_price) != 0.0) 
                                                 <div class="public-num-value-table">
                                                     <span>$ </span>{{ $massage_price }}
                                                 </div>
