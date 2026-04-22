@@ -113,6 +113,7 @@
 
     @php 
         $massager_name = $listing->profile_name;
+        $business_name = $listing->business_name;
         $other_services = "";
         $massage_services = "";
 
@@ -417,7 +418,7 @@
                                     </td>
 
                                     <td>
-                                        @if($incall_price)
+                                        @if($incall_price !== null && floatval($incall_price) != 0.0)
                                                 <div class="public-num-value-table">
                                                     <span>$ </span>{{ $incall_price }}
                                                 </div>
@@ -427,7 +428,7 @@
                                     </td>
                                     <td>
 
-                                            @if($outcall_price)
+                                             @if($outcall_price !== null && floatval($outcall_price) != 0.0)
                                                 <div class="public-num-value-table">
                                                     <span>$ </span>{{ $outcall_price }}
                                                 </div>
@@ -1398,7 +1399,7 @@
                                         @endphp
                                         <p class="font-weight-bold mb-0 mt-2">When texting us please say :</p>
                                         <p class="profile_description_contect_pera">
-                                            <b><i>Hi {{ $massager_name }}, I found you on E4U ... </i></b>
+                                            <b><i>Hi {{ $business_name }}, I found you on E4U ... </i></b>
                                             @php
                                                 $formattedNumber = $listing->phone;
                                                 $contactTypes = $listing->contact != null ? $listing->contact : '';
@@ -1593,7 +1594,7 @@
                                     }
                                 @endphp
                                 <p class="testimonial">
-                                    <strong>{{ $massager_name }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $massager_name}}</strong> their first Review? @php } @endphp
+                                    <strong>{{ $business_name }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{$business_name}}</strong> their first Review? @php } @endphp
                                 </p>
                             </div>
                        
@@ -1812,7 +1813,7 @@
             
             <div class="modal-header">
                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
-                    <h5 class="modal-title" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
+                    <h5 class="modal-title" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $business_name }}
                     </h5>
                     <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
                     <span aria-hidden="true">
