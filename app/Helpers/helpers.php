@@ -1830,10 +1830,19 @@ if (!function_exists('get_massage_listed_profile'))
         if(!empty($massage_live_ids))
         {
             $profile = MassageProfile::select('id','purchase_id','name','profile_name')->with('purchase','state')->whereIn('id',  $massage_live_ids)->get();
-            if($profile->isNotEmpty())
+            if ($profile->isNotEmpty()) {
+                $profile->map(function ($item) {
+
+                $item->start_date = 
+                $item->isListingExtended = $item->isListingExtended(); 
+                return $item;
+            });
             return $profile;
-            else
-            return false;    
+            } 
+            else 
+            {
+                return false;
+            }   
             
         }
     }

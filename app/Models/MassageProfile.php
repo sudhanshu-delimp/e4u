@@ -475,7 +475,16 @@ class MassageProfile extends Model
         ->oldestOfMany('utc_start_date');
     }
 
-
-   
+    public function isListingExtended(){
+        $purchases = $this->purchase()
+        ->where('utc_end_time', '>=', Carbon::now('UTC'))
+        ->where('parent_id',0)
+        ->orderBy('utc_end_time', 'desc')
+        ->get();
+        return (object)[
+            'count' => $purchases->count() > 1,
+            'data' => $purchases->first()
+        ];
+    }
 
 }
