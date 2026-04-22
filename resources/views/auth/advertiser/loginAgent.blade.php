@@ -290,7 +290,7 @@ $(document).ready(function() {
                      $("#senderror").html('');
                      $("#senderror").append(
                         "<ul class='parsley-errors-list filled'>" +
-                           "<li class='parsley-required'>Your have entered invalid otp.</li>" +
+                           "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
                         "</ul>"
                      );
 

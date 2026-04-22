@@ -6873,8 +6873,6 @@ i.fa.fa-heart-o{
                 
                 .alert-danger {
                     color: #e5365a;
-                    text-transform: capitalize;
-                    font-size: small;
                     background-color: #fff;
                     border-color: #fff;
                     padding: 0;

@@ -397,7 +397,7 @@ class LoginController extends BaseController
         } else {
             return $this->validationError(
                 'OTP verification failed.',
-                ['otp' => ['Your have entered invalid otp.']],
+                ['otp' => ['Your have entered invalid OTP.']],
                 401
             );
         }
