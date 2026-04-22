@@ -21,46 +21,50 @@
                              <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
                          </div>
 
-                         <div class="col-6 mb-3">
+                         <div class="col-6">
                              <label class="form-check-label" for="name">Shareholder</label>
                              <input type="text" class="form-control rounded-0" name="business_name"
                                  id="business_name">
                              <span class="text-danger error-business_name"></span>
                          </div>
-                         <div class="col-6 mb-3">
+                         <div class="col-6">
                              <label class="form-check-label" for="business_address">Address</label>
                              <input type="text" class="form-control rounded-0" name="business_address"
                                  id="business_address">
                              <span class="text-danger error-business_address"></span>
                          </div>
-                         <div class="col-6 mb-3">
-                             <label class="form-check-label" for="contact">Contact</label>
-                             <input type="tel" maxlength="100" autocomplete="off" class="form-control rounded-0"
-                                 name="contact_person" id="contact_person">
-                             <span class="text-danger error-contact_person"></span>
-                         </div>
-                         <div class="col-6 mb-3">
-                             <label class="form-check-label" for="phone">Mobile</label>
-                             <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0 formatMobile"
-                                 name="phone" id="phone" oninput="this.value = this.value.replace(/\D/g,'');">
-                             <span class="text-danger error-phone"></span>
-                         </div>
-                         <div class="col-6 mb-3">
-                             <label class="form-check-label" for="email">Email</label>
-                             <input type="email" class="form-control rounded-0" name="email" id="email">
-                             <span class="text-danger error-email"></span>
-                         </div>
+                        <div class="col-12" id="conatct-container">
+                            <div class="contact-info my-3 row">
+                                <div class="col-12">
+                                    <h5> Primary Contact</h5>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <label class="form-check-label" for="contact">Contact</label>
+                                    <input type="tel" maxlength="100" autocomplete="off" class="form-control rounded-0"
+                                        name="contact_person" id="contact_person">
+                                    <span class="text-danger error-contact_person"></span>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <label class="form-check-label" for="phone">Mobile</label>
+                                    <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0 formatMobile"
+                                        name="phone" id="phone" oninput="this.value = this.value.replace(/\D/g,'');">
+                                    <span class="text-danger error-phone"></span>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <label class="form-check-label" for="email">Email</label>
+                                    <input type="email" class="form-control rounded-0" name="email" id="email">
+                                    <span class="text-danger error-email"></span>
+                                </div>
+                            </div>
 
+                                                     
+                        </div>
+                        <div class="col-6 mb-3"><button class="btn-success-modal" id="add-more-contact">Add Key Contact</button></div>   
                          <div class="col-12 mb-3">
                              <h6 class="border-bottom pb-1 text-blue-primary">Method of Contact:</h6>
                              <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
 
-                                 {{-- <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_1"
-                                        name="contact_type[]" value="1">
-                                    <label class="form-check-label" for="viewer_contact_type_1">Messaging</label>
-                                </div> --}}
-                                 <div class="form-check form-check-inline">
+                                 <div class="form-check form-check-inline ml-0">
                                      <input class="form-check-input" type="checkbox" id="viewer_contact_type_2"
                                          name="contact_type[]" value="2">
                                      <label class="form-check-label" for="viewer_contact_type_2">Text</label>

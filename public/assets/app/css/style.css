@@ -7772,18 +7772,18 @@ i.fa.fa-heart-o{
                     bottom: 1px;
                     right: 0px;
                     background: #0c223d;
-                    padding: 1px 5px;
+                    padding: 2px 3px;
                     text-align: center;
                     border-radius: 5px;
+                    width: 27px;
                 }
                 /* .verify_icon_sm:hover .mc_media_tooltip {
                     display: block;
                 } */
-                
-                .gallery .gallery__item .verify_icon_sm img {
+                /* .gallery .gallery__item .verify_icon_sm img {
                     width: 15px;
                     height: 19px;
-                }
+                } */
                 
                 .custom--service-tag .grid_list_icon_box:hover span {
                     opacity: 1;

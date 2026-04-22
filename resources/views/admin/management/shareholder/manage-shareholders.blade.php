@@ -424,5 +424,57 @@
                 }
             })
         });
+
+$(document).ready(function () {
+    const maxContacts = 4;
+    function updateHeadings() {
+        $(".contact-info").each(function (index) {
+            if (index === 0) {
+                $(this).find("h5").text("Primary Contact");
+            } else {
+                $(this).find("h5").text("Key Contact " + index);
+            }
+        });
+    }
+    $("#add-more-contact").click(function (e) {
+        e.preventDefault();
+
+        let contactCount = $(".contact-info").length;
+
+        if (contactCount >= maxContacts) {
+            alert("You can only add up to 3 Kay Contacts.");
+            return;
+        }
+
+        let newContact = $(".contact-info").first().clone();
+
+        // Clear input values
+        newContact.find("input").val("");
+
+        // Add remove button only for cloned ones
+        if (newContact.find(".btn-remove").length === 0) {
+            newContact.append(`
+                <div class="d-flex align-items-end col-6">
+                    <button type="button" class="btn-cancel-modal btn-remove">
+                        <i class="fa fa-times text-white"></i>
+                    </button>
+                </div>
+            `);
+        }
+
+        $("#conatct-container").append(newContact);
+
+        updateHeadings(); // 🔥 update titles
+    });
+
+    // Remove contact row
+    $(document).on("click", ".btn-remove", function () {
+        $(this).closest(".contact-info").remove();
+        updateHeadings(); // 🔥 re-update after delete
+    });
+
+    // Initial call
+    updateHeadings();
+});
     </script>
 @endpush
