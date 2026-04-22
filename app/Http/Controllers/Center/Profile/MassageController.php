@@ -160,7 +160,8 @@ class MassageController extends Controller
 
 
                 $status = "";
-                if($row->enabled==0)
+                
+                //if($row->enabled==0)
                 //$status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
                
                 //$status = "";
