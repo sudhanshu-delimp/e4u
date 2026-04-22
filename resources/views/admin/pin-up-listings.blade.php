@@ -141,6 +141,7 @@ $(document).ready(function () {
         lengthChange: true,
         searching: true,
         pageLength: 10,
+       
         ajax: {
             url: `{{ route('admin.global_monitoring.get_pinup_listing') }}`,
             type: 'GET',

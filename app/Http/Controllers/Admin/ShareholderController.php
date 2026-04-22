@@ -8,6 +8,7 @@ use App\Http\Requests\Shareholder\AddNewShareholder;
 use App\Models\Shareholder;
 use App\Repositories\Shareholder\ShareholderInterface;
 use PDF;
+
 class ShareholderController extends BaseController
 {
     protected $current_date_time;
@@ -156,7 +157,7 @@ class ShareholderController extends BaseController
      */
     public function ShareholderDataPagination($start, $limit, $order_key, $dir)
     {
-        $shareholder = Shareholder::with('shareholder_setting', 'state')
+        $shareholder = Shareholder::with('shareholder_setting', 'state', 'account_setting', 'LoginStatus')
             ->where('type', '8');
 
         $search = request()->input('search.value');
@@ -194,6 +195,10 @@ class ShareholderController extends BaseController
         $i = 1;
         foreach ($shareholders as $key => $item) {
 
+            $logAndStatus = $item->LoginStatus;
+            $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login != NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
+            $item->login_count = (isset($logAndStatus->login_count) && $logAndStatus->login_count > 0) ? $logAndStatus->login_count : 0;
+
             $item->shareholder_id = $item->id;
             $item->member_id = isset($item->member_id) ? $item->member_id : 'NA';
             $item->location = isset($item->state->name) ? $item->state->name : 'NA';
@@ -207,7 +212,7 @@ class ShareholderController extends BaseController
             $dropdownsub = "";
             $edit = "";
 
-            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="viewShareholderBtn" > <i class="fa fa-eye"></i>View Account</a>';
+            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="viewShareholderBtn" > <i class="fa fa-eye"></i>View</a>';
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
@@ -220,6 +225,7 @@ class ShareholderController extends BaseController
 
             if ($item->status == 'Pending') {
                 $dropdownsub .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center approve_account" href="javascript:void(0)" data-id=' . $item->id . '> <i class="fa fa-check"></i>Approve</a><div class="dropdown-divider"></div>';
+                $dropdownsub .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center delete_account" href="javascript:void(0)" data-id=' . $item->id . '> <i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
 
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
@@ -310,16 +316,16 @@ class ShareholderController extends BaseController
         if ($request->id && $request->request_type && $request->request_type == 'suspend') {
             $user = Shareholder::where('id', $request->id)->first();
             if ($user->status && $user->status == 'Suspended') {
-                return $this->successResponse('Shareholder\'s Already Suspended.');
+                return $this->successResponse('Shareholder\'s already suspended.');
             }
             $user->status = '3';
             $response = $user->save();
 
             if ($response) {
                 $resposne = $this->shareholderRepo->sendSuspendEmail($user);
-                return $this->successResponse(' Shareholder\'s Account has been suspended.');
+                return $this->successResponse(' Shareholder\'s account has been suspended.');
             } else
-                return $this->successResponse('Error Occurred while Account Suspending.');
+                return $this->successResponse('Error occurred while Account Suspending.');
         } else {
             return $this->successResponse('Unknown Input Found.');
         }
@@ -331,7 +337,7 @@ class ShareholderController extends BaseController
             return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
         }
         $userId  = $request->user_id;
-       $shareholder = Shareholder::with( 'shareholder_setting')->where("id", $userId)->first();
+        $shareholder = Shareholder::with('shareholder_setting')->where("id", $userId)->first();
         if ($shareholder) {
             $pdf = PDF::loadView(
                 'admin.management.shareholder.print_shareholder_pdf',
@@ -340,6 +346,35 @@ class ShareholderController extends BaseController
             return $pdf->stream('shareholder_report.pdf');
         } else {
             return response()->json(['status' => 'error', 'message' => 'Shareholder ID is required.'], 400);
+        }
+    }
+
+    /**
+     *  Delete the shareholder
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function deleteUser(Request $request)
+    {
+        try {
+            if ($request->id && $request->request_type && $request->request_type == 'delete') {
+                $user = Shareholder::where('id', $request->id)->first();
+                if ($user->status && $user->status == 'Pending') {
+                    $user->shareholder_setting()->delete();
+                    $response = $user->delete();
+                    if ($response) {
+                        return $this->successResponse(' Shareholder\'s account has been deleted.');
+                    } else
+                        return $this->successResponse('Error occurred while Account deleting.');
+                } else {
+                    return $this->successResponse('You can delete a shareholder\'s account only if its status is pending.');
+                }
+            } else {
+                return $this->successResponse('You have provided incorrect data.');
+            }
+        } catch (\Exception $e) {
+
+            return $this->successResponse('Error occurred while Account deleting.');
         }
     }
 }

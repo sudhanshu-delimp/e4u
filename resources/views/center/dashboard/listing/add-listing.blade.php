@@ -226,7 +226,7 @@ background:#16385f;
 
         <div class="summary-container">
         <div class="summary-header">
-        <span>Summary</span>
+        <span>Transaction Summary</span>
         <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: E20118</span>
         </div>
 
@@ -260,6 +260,8 @@ background:#16385f;
                 <input type="hidden" name="rate" id="rate">
                 <input type="hidden" name="total_rate" id="total_rate">
                 <input type="hidden" name="discountRate" id="discountRate">
+                <input type="hidden" name="applied_discount" id="applied_discount">
+                
                 
               
                 
@@ -283,26 +285,43 @@ background:#16385f;
 
 <script type="text/javascript">
 let profileCount = {{ count($profiles) }};
+let live_profiles = {{ count($live_profiles) }};
+
 
 $(document).ready(function () {
-    
-    if(profileCount === 0){
+
+
+
+    //////////// check if one profile is Live ///////////////
+    if(live_profiles > 0){
 
         Swal.fire({
             icon: 'warning',
             title: 'Listings',
-            text: 'You have no active Profile. Please create a Profile first.',
+            text: 'You already have a Profile Listed.  To change the Profile, cancel the Listed Profile, then List a new Profile.',
             confirmButtonText: 'OK'
         }).then((result) => {
-
             if(result.isConfirmed){
-                window.location.href = "{{ url('center-dashboard/create-profile') }}";
+                window.location.href = "{{ url('center-dashboard/list') }}";
             }
 
         });
-
     }
+    
 
+     //////////// check if no profile is exist ///////////////
+     if(profileCount === 0){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Listings',
+            text: 'You don’t have any Profiles yet.please create a Profile first, then list the Profiles.',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{{ url('center-dashboard/create-profile') }}";
+            }
+        });
+    }
 
     function checkAllRows() 
     {
@@ -520,6 +539,39 @@ function clear_prev_listing()
     
 }
 
+function formatDateToDDMMYYYY(dateStr) {
+
+    const [year, month, day] = dateStr.split('-');
+    return `${day}-${month}-${year}`;
+}
+
+
+function formatIndianNumber(value) {
+    if (!value) return '';
+
+    value = value.toString().replace(/,/g, '');
+
+    if (isNaN(value)) return value;
+
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+   
+    let lastThree = integerPart.slice(-3);
+    let otherNumbers = integerPart.slice(0, -3);
+
+    if (otherNumbers !== '') {
+        lastThree = ',' + lastThree;
+    }
+
+    let formatted =
+        otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+
+    return formatted + decimalPart;
+}
+
+
 $(".save_profile_btn").click(function(){
 
     clear_prev_listing();
@@ -564,7 +616,8 @@ $(".save_profile_btn").click(function(){
                 days: response.days,
                 total_discount:response.total_discount,
                 total_rate:response.total_rate,
-                discountRate : response.discountRate
+                discountRate : response.discountRate,
+                applied_discount : response.applied_discount
             };
 
             console.log(data);
@@ -576,6 +629,7 @@ $(".save_profile_btn").click(function(){
             let finalFee = fullFee - discount;
             let total_rate = data.total_rate;
             let discountRate = data.discountRate;
+            let applied_discount = data.applied_discount;
             total = finalFee;
            
 
@@ -589,18 +643,19 @@ $(".save_profile_btn").click(function(){
             $('#membership_id').val(membership_id);
             $('#massage_profile_id').val(profile_val);
             $('#discountRate').val(discountRate);
+            $('#applied_discount').val(applied_discount);
 
             html += `
             <tr>
                 <td>1</td>
                 <td>${profile}</td>
-                <td>${start}</td>
-                <td>${end}</td>
+                <td>${formatDateToDDMMYYYY(start)}</td>
+                <td>${formatDateToDDMMYYYY(end)}</td>
                 <td>${days}</td>
                 <td>$ ${rate}</td>
-                <td>$ ${fullFee.toFixed(2)}</td>
-                <td>$ ${discount.toFixed(2)}</td>
-                <td>$ ${finalFee.toFixed(2)}</td>
+                <td>$ ${formatIndianNumber(fullFee.toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(discount.toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(finalFee.toFixed(2))}</td>
             </tr>
             `;
 
@@ -609,7 +664,7 @@ $(".save_profile_btn").click(function(){
             <tr>
                 <td colspan="7"></td>
                 <td><strong>Total Fees</strong></td>
-                <td><strong>$ ${total.toFixed(2)}</strong></td>
+                <td><strong>$ ${formatIndianNumber(total.toFixed(2))}</strong></td>
             </tr>`;
 
             $("#summaryBody").html(html);

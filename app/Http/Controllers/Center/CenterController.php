@@ -42,6 +42,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\AdvertiserDiscount;
 
 
 class CenterController extends Controller
@@ -52,6 +53,7 @@ class CenterController extends Controller
     protected $user;
     protected $massage_profile;
     protected $attemptlogin;
+    protected $account;
 
     public function __construct(AttemptLoginRepository $attemptlogin, MassageProfileInterface $massage_profile, UserInterface $user, EscortInterface $escort, AvailabilityInterface $availability, ServiceInterface $service)
     {
@@ -60,7 +62,12 @@ class CenterController extends Controller
         $this->availability = $availability;
         $this->service = $service;
         $this->user = $user;
-         $this->attemptlogin = $attemptlogin;
+        $this->attemptlogin = $attemptlogin;
+
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
 
@@ -369,6 +376,17 @@ class CenterController extends Controller
         $no_of_members = config('agent.no_of_members');
 
         $advertings = Pricing::with('memberships')->get()->toArray();
+        $discount = AdvertiserDiscount::getActiveForUser($this->account->id);
+        if($this->account->type == MESSAGE_CENTER && $discount){
+            $rows = array_map(function($item) use($discount){
+                if(in_array($item['membership_id'],['5'])){
+                    $item['percentage'] = $discount->value;
+                    $item['discount_amount'] = number_format($discount->discountAmount($item['price']),2);
+                }
+                return $item;
+            },$advertings);
+            $advertings = $rows;
+        }
         $fees_concierge_services = FeesConciergeService::all();
         $fees_support_services = FeesSupportService::all();
         $variablLoyaltyProgram = VariablLoyaltyProgram::all();

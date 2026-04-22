@@ -165,7 +165,6 @@
                                                     }
      
     $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
-                        
 
     @endphp
 
@@ -200,7 +199,8 @@
 
 
             <div class="profile_page_title">
-                <h2 class="display_inline_block p-0">{{ $listing->profile_name ?? 'N/A' }}</h2>
+                <h2 class="display_inline_block p-0">{{ $listing->business_name ?? 'N/A' }}</h2>
+                
             </div>
 
             <div class="profile_page_name_and_phno">

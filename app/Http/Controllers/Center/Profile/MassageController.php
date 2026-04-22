@@ -77,7 +77,10 @@ class MassageController extends Controller
         $this->media = $media;
         $this->massage_profile = $massage_profile;
         $this->massage_media = $massage_media;
-        $this->account = auth()->user();
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
    
@@ -95,19 +98,34 @@ class MassageController extends Controller
 
     public function  get_all_massager_list(Request $request)
     {
-
-            $masseurs  = MassageProfile::with([
+             
+            $masseurs = MassageProfile::with([
+                'mainPurchase',
                 'brb' => function ($query) {
-                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
                 },
                 'user:id,status',
                 'activeUpcomingSuspend'
-            ])->where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
-            $countries = getCountryList();
+            ])
+            ->where('user_id', auth()->user()->id)
+            ->where('default_setting', 0)
+            ->withCount(['mainPurchase as is_active']) 
+            ->orderByDesc('is_active') 
+            ->orderBy('id', 'desc')   
+            ->get();
 
-           ///dd($masseurs->toArray());
+          
 
-            $data = $masseurs->map(function ($row) use ($countries) {
+               
+        
+            $data = $masseurs->map(function ($row)  {
+
+            if(!empty($row->is_active))
+            $is_live = true;
+            else
+            $is_live = false;        
 
 
             $brb = [];
@@ -142,11 +160,17 @@ class MassageController extends Controller
 
 
                 $status = "";
-                if($row->enabled==0)
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+                
+                //if($row->enabled==0)
+                //$status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
                
                 //$status = "";
-               
+
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>'; 
+                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> View</a>'; 
+
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -154,7 +178,7 @@ class MassageController extends Controller
                                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
                                                    
                                                   
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit </a>
                                                    '.$status. 
                             '</div>';
 
@@ -162,17 +186,21 @@ class MassageController extends Controller
                 //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
                 return [
+                    'is_live' => $is_live ? 1 : 0,
                     'id' => $row->id,
                     'profile_name' => $profile_name,
                     'business_name' => $row->business_name,
                     'business_no' => $row->business_no,
                     'phone' => $row->phone,
                     'created_at' => date('d M Y', strtotime($row->created_at)),
-                    'status' => ($row->enabled==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactive</span>',
+                    'status' => ($is_live) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>',
                     'action' => $action
 
                 ];
             });  
+
+
+          
 
 
             return response()->json([
@@ -487,10 +515,9 @@ class MassageController extends Controller
 
             $massage->contact         = $request->filled('contact') ? $request->contact : null;
 
-            if($massage_profile)
+           
             $massage->enabled  = 0; 
-            else
-            $massage->enabled  = 1;     
+               
 
 
             $massage->save();
@@ -1061,20 +1088,17 @@ class MassageController extends Controller
     {
  
             
-        $excludeIds = MassagePurchase::where('massage_centre_id',auth()->user()->id)
+        $live_profiles = MassagePurchase::where('massage_centre_id',auth()->user()->id)
                         ->whereIn('status',['listed','pending'])
                         ->pluck('massage_profile_id'); 
 
         $profiles = MassageProfile::where([
             ['user_id', '=', auth()->user()->id],
             ['default_setting', '!=', 1],
-            ['enabled', '=', 1],
-        ])
-        ->whereNotIn('id', $excludeIds)
-        ->distinct()
-        ->get();
+            ['enabled', '=', 0],
+        ])->get();
 
-        return view('center.dashboard.listing.add-listing',compact('profiles'));     
+        return view('center.dashboard.listing.add-listing',compact('profiles','live_profiles'));     
     }
 
 
@@ -1178,11 +1202,9 @@ class MassageController extends Controller
                 return response()->json(['error' => 'Membership not found'], 422);
         }
 
-
-        list($total_discount, $total_rate, $normalRate, $discountRate) =
-                calculateTotalFee($request->membership_id, $days, $this->account);
-
-
+        
+        list($total_discount, $total_rate, $normalRate, $discountRate,$appliedDiscountAmount) =
+                calculateTotalFee($request->membership_id, $days, $this->account,Null);
        
 
       return response()->json([
@@ -1192,6 +1214,7 @@ class MassageController extends Controller
                 'days' => $days,
                 'membership_name' => $ad->memberships->name ?? 'N/A',
                 'total_discount' => $total_discount,
+                //'applied_discount' => $appliedDiscountAmount
             ]); 
     }
 
@@ -1237,6 +1260,7 @@ class MassageController extends Controller
             $discount_rate      = $request->discountRate ?? 0;
             $total_rate         = $request->total_fee;
             $paid_rate          = $request->total_rate ?? 0;
+            $appliedDiscountAmount  = $request->applied_discount ?? 0;
 
             $purchase = MassagePurchase::create([
                 'parent_id'          => $parent_id,
@@ -1254,6 +1278,9 @@ class MassageController extends Controller
                 'paid_rate'          => $paid_rate,
             ]);
 
+            if($this->account->activeFeeDiscount){
+                $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
+            }
 
              return response()->json([
                 'success' => true,
@@ -1318,13 +1345,14 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $profile_name,
-                    'address' => $row->massageprofile->address,
+                    'address' => auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,
                     'days' => $days,
                     'membership' => 'Massage Centre',
-                    'fee_paid' => '$ '.$row->paid_rate,
+                    'fee_paid' => '$ '.formatIndianNumber($row->paid_rate),
+                    'status' =>  '<span class="custom_badge badge_current">Current</span>'
 
                 ];
             });  
@@ -1340,7 +1368,7 @@ class MassageController extends Controller
 
     public function  massager_past_listing(Request $request)
     {
-
+           
 
             $today = Carbon::today();
             $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
@@ -1361,7 +1389,7 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $row->massageprofile->profile_name,
-                    'address' => $row->massageprofile->address,
+                    'address' => auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,
@@ -1468,7 +1496,7 @@ class MassageController extends Controller
                 }
 
                 ########### Update All Profile Time ####################
-                $massage_profile = MassageProfile::where('user_id',$user->id)->get();
+                $massage_profile = MassageProfile::where('user_id',$user->id)->where('default_setting','!=',1)->get();
                 foreach($massage_profile as $profile)
                 {
                     if ($profile->availability)

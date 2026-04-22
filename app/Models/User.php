@@ -191,7 +191,10 @@ class User extends Authenticatable
                 break;
             case 'Supplier':
                 $type = 10;
-                break;    
+                break;
+            case 'shareholder':
+                $type = 8;
+                break;     
             default:
                 $type = 0;
                 break;
@@ -239,7 +242,10 @@ class User extends Authenticatable
                 break;
             case (10):
                 return "Supplier";
-                break;    
+                break;
+             case (8):
+                return "Shareholder";
+                break;        
         }
     }
     public function getUserTypeAttribute()
@@ -274,7 +280,10 @@ class User extends Authenticatable
                 break;
              case (10): // Supplier
                 return "P";
-                break;    
+                break; 
+             case (8): // Shareholder
+                return "B";
+                break;        
         }
     }
     public function getLevelTypeAttribute()
@@ -316,8 +325,8 @@ class User extends Authenticatable
             case (0):
                 return 4;
                 break;
-            case (9):
-                return 9;
+            case (8):
+                return 8;
                 break;    
         }
     }
@@ -782,6 +791,8 @@ class User extends Authenticatable
                 return config('constants.agent_default_icon');
             case 7: //for Operator
                 return config('constants.operator_default_icon');
+            case 8: //for Supplier
+                return config('constants.shareholder_default_icon');    
             case 9: //for Operator staff
                 return config('constants.operator_staff_default_icon');
              case 10: //for Supplier
@@ -847,6 +858,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(OperatorSetting::class, 'id', 'user_id');
     }
+    public function shareholder_setting()
+    {
+        return $this->belongsTo(ShareholderSetting::class, 'id', 'user_id');
+    }
 
     public function staff_detail()
     {
@@ -888,6 +903,8 @@ class User extends Authenticatable
             $settings = $user->agent_settings;
         } elseif ($user->type == '9') {
             $settings = $user->operator_staff_setting;
+        } elseif ($user->type == '8') {
+            $settings = $user->shareholder_setting;
         }
 
         if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {

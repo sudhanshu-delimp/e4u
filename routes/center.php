@@ -115,7 +115,8 @@ Route::post('massage-brb/inactive/{id}', [MassageProfileActionController::class,
 Route::post('massage-suspend-credit', [MassageProfileActionController::class, 'suspendProfileCredit'])->name('center.massage-suspend-credit');
 Route::post('suspend-massage-profile', [MassageProfileActionController::class, 'suspendProfile'])->name('center.suspend-massage-profile');
 Route::post('extend-profile-checkout', [MassageProfileActionController::class, 'extendProfileCheckout'])->name('center.extend-profile-checkout');
-
+Route::post('extend-profile-validate-date-range', [MassageProfileActionController::class, 'validateDateRange'])->name('center.extend-profile-validate-date-range');
+Route::post('get-transaction-summury', [MassageProfileActionController::class, 'getTransactionSummury'])->name('center.get-transaction-summury');
 
 
 

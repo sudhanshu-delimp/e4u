@@ -7,9 +7,25 @@ use App\Models\ShareholderNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Shareholder\UpdateShareholderMyAccount;
+use App\Models\Shareholder;
+use App\Models\ShareholderSetting;
+use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Repositories\User\UserInterface;
 
 class ShareholderController extends Controller
 {
+    protected $current_date_time;
+    protected $user;
+    protected $mainuser;
+
+    public function __construct(Shareholder $user, UserInterface $mainuser)
+    {
+        $this->user = $user;
+        $this->mainuser = $mainuser;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -64,15 +80,164 @@ class ShareholderController extends Controller
     // my account
     public function editMyaccount()
     {
-        return view('shareholder.dashboard.my-account.edit-my-account');
+        $staff = Shareholder::where("id", auth()->user()->id)->first();
+        return view('shareholder.dashboard.my-account.edit-my-account', compact('staff'));
+    }
+
+    /**
+     * Update My Account
+     *
+     * @param  UpdateShareholderMyAccount  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateShareholderMyAccount $request)
+    {
+        $data = $request->all();
+        $contactType = isset($data['contact_type']) ? $data['contact_type'] : "";
+        $dataToSave  =  [
+            'contact_person' => $data['contact_person'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            //'email' => $data['email'] ?? null,
+            'business_name' => $data['business_name'] ?? null,
+            'business_address' => $data['business_address'] ?? null,
+            'contact_type' => isset($data['contact_type'])  ? $contactType : null,
+        ];
+
+        $error = true;
+        if ($this->user->where('id', auth()->user()->id)->update($dataToSave)) {
+
+            $staffSetting = ShareholderSetting::firstOrNew(['user_id' => auth()->user()->id]);
+            $staffSetting->idle_preference_time = $data['idle_preference_time'] ?? null;
+            $staffSetting->twofa = $data['twofa'] ?? '2';
+            $staffSetting->save();
+            $error = false;
+        }
+        return response()->json(compact('error'));
     }
     public function changePassword()
     {
-        return view('shareholder.dashboard.my-account.change-password');
+        $user = $this->user->find(auth()->user()->id);
+        return view('shareholder.dashboard.my-account.change-password', compact('user'));
+    }
+
+    /**
+     * Update password
+     * 
+     * @param Illuminate\Http\Request $request
+     * 
+     */
+    public function updatePassword(Request $request)
+    {
+        $error = true;
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|same:new_password_confirmation',
+            'new_password_confirmation' => 'required|min:8',
+        ], [
+            'current_password.required' => 'Please enter your current password.',
+            'new_password.required' => 'Please enter a new password.',
+            'new_password.min' => 'New password must be at least 8 characters.',
+            'new_password.same' => 'New password and confirmation do not match.',
+            'new_password_confirmation.required' => 'Please confirm your new password.',
+            'new_password_confirmation.min' => 'Password confirmation must be at least 8 characters.',
+        ]);
+
+        $user = Auth::user();
+        //echo $request->current_password." <> " .$request->password;
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(["status" => false, "message" => 'Your current password is incorrect.']);
+        }
+        //$user->password = Hash::make($request->new_password);
+        //$user->save();
+        $data = $request->all();
+        
+        $this->mainuser->changeUserPassword($data);
+        return response()->json(["status" => true, "message" => 'Your password has been updated successfully!']);
     }
     public function uploadAvatar()
     {
         return view('shareholder.dashboard.my-account.upload-my-avatar');
+    }
+    public function storeMyAvatar(StoreAvatarMediaRequest $request, $id)
+    {
+        try {
+            if ((int) Auth::id() !== (int) $id) {
+                return response()->json(['type' => 1, 'message' => 'Unauthorized'], 403);
+            }
+
+            $src = $request->input('src');
+
+            $semicolonPos = strpos($src, ';');
+            $mime = substr($src, 5, $semicolonPos - 5); // image/jpeg
+            $extension = explode('/', $mime)[1] ?? 'png';
+            $extension = strtolower($extension) === 'jpeg' ? 'jpg' : strtolower($extension);
+
+            $commaPos = strpos($src, ',');
+            $base64 = substr($src, $commaPos + 1);
+            $binary = base64_decode($base64, true);
+
+            $dir = public_path('avatars');
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true);
+            }
+
+            $avatarOwner = Auth::id();
+            $avatarName = time() . '-' . $avatarOwner . '.' . $extension;
+            $fullPath = $dir . DIRECTORY_SEPARATOR . $avatarName;
+            if (File::put($fullPath, $binary) === false) {
+                throw new \RuntimeException('Failed to save avatar file');
+            }
+
+            $user = $this->user->find($id);
+            if (!$user) {
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
+            }
+            /** @var \App\Models\User $user */
+            if (!empty($user->avatar_img)) {
+                $oldPath = $dir . DIRECTORY_SEPARATOR . $user->avatar_img;
+                if (File::exists($oldPath)) {
+                    @File::delete($oldPath);
+                }
+            }
+
+            $user->avatar_img = $avatarName;
+            $user->save();
+
+            $type = 0;
+            return response()->json(compact('type', 'avatarName'));
+        } catch (\Throwable $e) {
+            \Log::error('Error saving avatar for user ' . $id . ': ' . $e->getMessage());
+            return response()->json(['type' => 1, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Remove saved avtar
+     */
+    public function removeMyAvatar()
+    {
+        try {
+            /** @var \App\Models\User $user */
+            $user = $this->user->find(auth()->user()->id);
+
+            if (!$user) {
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if (File::exists($path)) {
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            } else {
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+            $defaultImg = asset(config('constants.shareholder_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg]);
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json(['type' => 1, 'message' => 'An error occurred while removing avatar. Please try again.'], 500);
+        }
     }
     public function myShareholding()
     {
@@ -220,70 +385,5 @@ class ShareholderController extends Controller
     public function viewReply()
     {
         return view('shareholder.dashboard.support-tickets.view-and-reply');
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

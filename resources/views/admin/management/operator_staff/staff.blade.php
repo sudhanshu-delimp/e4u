@@ -148,8 +148,8 @@
                                 <span class="text-danger error-address"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="label" for="phone">Phone</label>
-                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0"
+                                <label class="form-check-label" for="phone">Phone</label>
+                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0 formatMobile"
                                     name="phone" id="phone" oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-phone"></span>
                             </div>
@@ -188,7 +188,7 @@
                             <div class="col-6 mb-3">
                                 <label class="label" for="kin_mobile">Mobile</label>
                                 <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile"
-                                    class="form-control rounded-0 no-arrow" autocomplete="off"
+                                    class="form-control rounded-0 no-arrow formatMobile" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-kin_mobile"></span>
                             </div>

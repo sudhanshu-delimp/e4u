@@ -31,7 +31,7 @@
         @if($listing->latest_active_brb)
             <div class="brb--content">
                 <div class="brb--wrappr">
-                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
+                    <span class="brb-text">Closed</span> at <span class="brb-time">{{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($listing->latest_active_brb->selected_time))}}</span>
                 </div>
             </div>
         @endif
@@ -46,7 +46,7 @@
                     <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" alt="">
                     <span class="mc_media_tooltip">Media Pending</span>
                 </span>
-                <span class="mc_title">{{$listing->profile_name}}</span>
+                <span class="mc_title">{{$listing->business_name}}</span>
                 <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">
                     <i class="fa fa-heart-o" aria-hidden="true"></i>
                     <span class="mc_legbox_tooltip">Add to My Legbox</span>
@@ -68,13 +68,15 @@
 
                 <div class="mc_card_content">
                     <div class="items">
-                        <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) .'--'.$listing->id }}</span>
+                        <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
                         <span class="mc_star">
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
+                            @for($i=1; $i<= 5; $i++)
+                                @if($listing->star_rating && $listing->star_rating > 0 && $i <= $listing->star_rating)
+                                    <i class="fa fa-star" aria-hidden="true" ></i>
+                                @else
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                @endif
+                            @endfor
                         </span>
                     </div>
 

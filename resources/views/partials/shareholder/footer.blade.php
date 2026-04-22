@@ -49,7 +49,7 @@
                     }
                 });
         });
-        initJsDatePicker();
+        /*initJsDatePicker();
         var initJsDatePicker = function() {
                 var $inputs = $(".js_datepicker");
                 if ($inputs.length > 0) {
@@ -65,7 +65,7 @@
                         }
                     });
                 }
-            }
+            }*/
         
         </script>
 

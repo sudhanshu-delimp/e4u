@@ -22,7 +22,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                         Notification - Password Reset<br>
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;"> Notification - Password Reset</h1>
                                          <span style="font-size: 13px; color: #cccccc;">Ref:
                                             {{ $body['ref'] }}</span><br>
                                             
@@ -49,16 +49,15 @@
                             <div style=";margin:10px 0px; padding-left:230px;"><strong>{{$body['new_password']}}</strong></div>
                             
                             <!-- Closing -->
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
                 <!-- Footer -->
                 <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    style="background-color:#0c223d; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
                          <td>
                             <x-email-footer/>

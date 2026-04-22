@@ -9,6 +9,7 @@ return [
     'operator_default_icon' => 'avatars/default/operator_default.png',
     'operator_staff_default_icon' => 'avatars/default/operator_staff_default.png',
     'supplier_default_icon' => 'avatars/default/supplier_default.png',
+    'shareholder_default_icon' => 'avatars/default/shareholder_default.png',
     'socket_url' => (env('APP_ENV') === 'production' ? 'https' : 'http') . '://' . env('SOCKET_HOST') . ':' . env('SOCKET_PORT'),
 
     'NotificationIcon' => [

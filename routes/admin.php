@@ -400,6 +400,7 @@ Route::post('/print-shareholder', [ShareholderController::class, 'printSharehold
 Route::post('/suspend-shareholder', [ShareholderController::class, 'suspendShareholder'])->name('admin.suspend-shareholder');
 Route::post('/active-shareholder-account', [ShareholderController::class, 'activateUser'])->name('admin.active-shareholder-account');
 Route::post('/approve-shareholder-account', [ShareholderController::class, 'approveShareholderAccount'])->name('admin.approve_shareholder_account');
+Route::post('/delete-shareholder-account', [ShareholderController::class, 'deleteUser'])->name('admin.delete.shareholder.account');
 
 
 // Route::get('reports/advertiser-suspensions',function(){

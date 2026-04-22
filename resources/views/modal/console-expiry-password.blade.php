@@ -23,6 +23,8 @@ if (auth()->check())
             if($user->type==9)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
+             if($user->type==8)
+            $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
             $password_updated_date = $user?->account_setting?->password_updated_date;
             $password_expiry_days = $user?->account_setting?->password_expiry_days;
@@ -57,8 +59,11 @@ if (auth()->check())
 
             if( $user->type==9)
             $submit_url  = 'operator.update-password';
-    
-}
+
+            if( $user->type==8)
+                $submit_url  = 'shareholder.update.password-popup';
+            }
+           
 @endphp
 
 

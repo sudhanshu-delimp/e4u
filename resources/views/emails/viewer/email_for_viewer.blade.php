@@ -23,8 +23,8 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 22px; color:#ffffff; text-align: right;">Confirmation of Registration - Viewer</h1>
-                                        <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
+                                        <h1 style="margin: 0; font-size: 16px; color:#ffffff; text-align: right; font-weight:bold;">Confirmation of Registration - Viewer</h1>
+                                        <span style="font-size:13px; color:#cccccc;">Member ID: {{$user->member_id ?? ''}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -34,7 +34,7 @@
                     <tr>
                         <td style="padding: 30px; text-align: justify;">
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$user->name ?? $user->email}},</p>
-                            <h3 style="margin-top: 25px;">E4U Registration - Confirmation</h3>
+                            <h4 style="margin-top: 25px;">E4U Registration - Confirmation</h4>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 We are pleased to confirm your Registration has been accepted and you can now log into
                                 the Viewer Console and proceed to create Profiles and Tours.
@@ -42,7 +42,7 @@
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 Thank you for joining the E4U community.
                             </p>
-                            <h3 style="margin-top: 25px;">Logging in</h3>
+                            <h4 style="margin-top: 25px;">Logging in</h4>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 10px;">
                                 The following information will assist you when logging in:
                             </p>
@@ -54,7 +54,7 @@
                             <p style="font-size: 13px; font-style: italic;">Your logging in process is also subject to SMS 2FA verification. It is a good idea to bookmark the
                                 Website.
                             </p>
-                            <h3 style="margin-top: 25px;">Welcome Message</h3>
+                            <h4 style="margin-top: 25px;">Welcome Message</h4>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">When logging on for the first time, you will be greeted with a ‘Welcome Message’ which sets
                                 out some information about the Website to make your experience a pleasant and enjoyable
                                 one.
@@ -63,16 +63,15 @@
                                 registration.
                             </p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">If you need any help, please raise a Support Ticket from your dashboard.</p>
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
                 <!-- Footer -->
                 <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    style="background-color:#0c223d; font-family:Arial, sans-serif; color:#ffffff;  text-align:center;">
                     <tr>
                          <td>
                             <x-email-footer/>

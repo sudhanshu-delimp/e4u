@@ -309,6 +309,7 @@ class LoginController extends BaseController
 
     protected function checkOTP(Request $request)
     {
+     
         $forgot_password = (int) ($request->forget_password ?? 0);
         if ($forgot_password) {
             $user = User::where('email', $request->email)->first();
@@ -353,12 +354,6 @@ class LoginController extends BaseController
         }
         //$user = User::where('phone','=',$request->phone)->first();
         $error = false;
-
-        //dd($user->otp);
-
-
-
-
         if ($user->otp == (int)$request->otp) {
 
             // if($user->email_verified_at == NULL && ($user->type == 3 || $user->type == 4)) {
@@ -402,7 +397,7 @@ class LoginController extends BaseController
         } else {
             return $this->validationError(
                 'OTP verification failed.',
-                ['otp' => ['Your have entered invalid otp.']],
+                ['otp' => ['Your have entered invalid OTP.']],
                 401
             );
         }
