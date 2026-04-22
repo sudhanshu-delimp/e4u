@@ -10,6 +10,7 @@
       font-size: 14px;
       padding: 10px;
    }
+   
 </style>
 @endsection
 <div class="container">
@@ -373,7 +374,7 @@
                      $("#senderror").html('');
                      $("#senderror").append(
                         "<ul class='parsley-errors-list filled'>" +
-                           "<li class='parsley-required'>Your have entered invalid otp.</li>" +
+                           "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
                         "</ul>"
                      );
 

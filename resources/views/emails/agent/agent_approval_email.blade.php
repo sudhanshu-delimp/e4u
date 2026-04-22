@@ -37,18 +37,18 @@
                         <td style="padding: 30px;">
 
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{ $agent['contact_person'] }},</p>
-                            <p style="font-size: 16px; margin: 20px 0 15px 0;">Your Account has been approved.Your login
-                                credentials are :</p>
+                            <p style="font-size: 16px; margin: 20px 0 15px 0;">Your Account has been approved. Your login
+                                credentials are:</p>
                             <!-- Details Table -->
                             <table width="100%" cellpadding="5" cellspacing="0"
                                 style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
 
                                 <tr>
-                                    <td style="font-weight: bold; padding: 10px 0px;">Mobile Number :</td>
+                                    <td style="font-weight: bold; padding: 10px 0px;">Mobile Number:</td>
                                     <td style="padding: 10px 0px 10px 10px">{{ $agent['phone'] ?? '' }}</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; padding: 10px 0px;">Password :</td>
+                                    <td style="font-weight: bold; padding: 10px 0px;">Password:</td>
                                     <td style="padding: 10px 0px 10px 10px">{{ $agent['plainPassword'] ?? '' }}</td>
                                 </tr>
                                 <tr>

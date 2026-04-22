@@ -147,6 +147,7 @@ class EscortController extends BaseController
     // function listing_checkout(UpdateEscortRequest $request) {
     function listing_checkout(Request $request)
     {
+        
         $checkout_type = !empty($request->checkout_type)?$request->checkout_type:null;
         $refundAmount = 0.00;
             switch ($request->checkout_type) {
