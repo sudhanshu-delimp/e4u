@@ -61,8 +61,8 @@
                      <td>Listing</td>
                      <td>25-07-2025</td>
                      <td><span>$</span> 80.00</td>
-                     <td>E40125</td>
                      <td>1235 1258 4123 xxxx</td>
+                     <td>E40125</td>
                      <td class="text-center">
                         <div class="dropdown no-arrow">
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

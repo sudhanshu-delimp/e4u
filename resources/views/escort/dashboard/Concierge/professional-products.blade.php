@@ -58,9 +58,6 @@
 
             </div>
             <!--middle content end here-->
-            <!--right side bar start from here-->
-
-
         </div>
         <!-- Progress Bar -->
             <div class="row mx-1">
