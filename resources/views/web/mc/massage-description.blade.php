@@ -1398,13 +1398,14 @@
                                         @endphp
                                         <p class="font-weight-bold mb-0 mt-2">When texting us please say :</p>
                                         <p class="profile_description_contect_pera">
-                                            <b><i>Hi {{ $massager_name }}, I found you on Escorts4U ... </i></b>
+                                            <b><i>Hi {{ $massager_name }}, I found you on E4U ... </i></b>
                                             @php
                                                 $formattedNumber = $listing->phone;
                                                 $contactTypes = $listing->contact != null ? $listing->contact : '';
                                             
                                             @endphp
-
+                                        </p>    
+                                        <p style="line-height: 1;">
                                             @if($contactTypes != '')
                                                 @if($contactTypes == 1)
                                                     on our email {{ $listing->user->email ?? '' }}
@@ -1415,7 +1416,7 @@
                                                 @endif
                                             @else
                                                 {{-- on our number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
-                                                on our number --====
+                                                on our number -=====.
                                             @endif
                                         </p>
                             </span>
@@ -1432,7 +1433,7 @@
                 <!-- Accordion: Pricing Policy & Disclaimer -->
                 <div class="accordion-container-new">
                     <div class="set">
-                        <a class="pb-1 pt-1">
+                        <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                            Our Pricing Policy
                             <i class="fa fa-angle-down"></i>
                         </a>
@@ -1444,7 +1445,7 @@
                         </div>
                     </div>
                     <div class="set">
-                        <a class="pb-1 pt-1">
+                        <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                             Disclaimer
                             <i class="fa fa-angle-down"></i>
                         </a>

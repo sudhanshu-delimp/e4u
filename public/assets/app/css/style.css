@@ -5663,7 +5663,7 @@ i.fa.fa-heart-o{
                 
                 .mc_profile_modal {
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
+                    grid-template-columns: 225px 1fr;
                     font-size: 14px;
                     gap: 0px 10px;
                 }

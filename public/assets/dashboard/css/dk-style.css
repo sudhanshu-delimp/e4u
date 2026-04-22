@@ -3365,6 +3365,10 @@ button.btn:focus {
 
 /* Left Thumbnail */
 
+.view_img_tab {
+    gap: 10px;
+}
+
 .view_img_gallery .thumbnail {
     height: 100%;
 }
@@ -3377,6 +3381,7 @@ button.btn:focus {
     color: var(--blue--text);
     font-size: 14px;
     font-weight: 600;
+    background: #f9f9f9;
 }
 
 .nav-tabs.view_img_tab li a.active {
