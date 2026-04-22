@@ -2390,5 +2390,15 @@ if (!function_exists('formatIndianNumber'))
 
         return $formatted . $decimalPart;
     }
+
+
+    if (!function_exists('get_profile_verification_status')) {
+        function get_profile_verification_status($profileId)
+        {
+            return DB::table('profile_verification_status')
+                ->where('profile_id', $profileId)
+                ->value('status') ?? '0'; // default Pending
+        }
+    }
 }
    

@@ -45,10 +45,10 @@
                                 </div>
                                 @if($escort->default_image)
                                     <div class="verify-image-custom">
-                                        @php 
-                                            $media = $escort->getDefaultImageDetails();
-                                            $media_status = getMediaVerificationDataBigIcon($media->varified ?? 0);
-                                        @endphp 
+                                         @php 
+                                        $media_verification_status =  get_profile_verification_status($escort->id);
+                                        $media_status = getMediaVerificationDataBigIcon($media_verification_status ?? 0);
+                                    @endphp 
                                         <img src="{{$media_status['icon']}}">
                                         <span class="common_shield_tooltip">{{$media_status['label']}}</span>
                                     </div>
