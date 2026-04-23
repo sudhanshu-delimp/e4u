@@ -24,7 +24,7 @@
                 </div>
                 <div class="product_view">
                     <span class="back-to-product" id="viewCart">
-                     <a href="{{route('escort.products')}}"> <i class="fa fa-chevron-left"></i> Back</a>
+                     <a href="{{route('escort.products')}}"> <i class="fa fa-arrow-left"></i> Back</a>
                     </span>
                 </div>
             </div>

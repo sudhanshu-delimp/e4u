@@ -17,10 +17,10 @@
 
         {{-- Page Heading   --}}
         <div class="row">
-            <div class="d-flex justify-content-between align-items-center col-md-12">
+            <div class="d-flex justify-content-between align-items-center flex-wrap col-md-12">
                 <div class="custom-heading-wrapper">
                     <h1 class="h1">Products</h1>
-                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>                    
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                 </div>
                 <div class="product_view e4u-tooltip">
                     <span class="view_cart" id="viewCart">
@@ -53,8 +53,8 @@
         {{-- end --}}
 
         <!--middle content-->
-        <div class="row d-flex">
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 flex">
+        <div class="row ">
+           <div class="col-12 product-card-wrapper">
                 <div class="card product-card">
                     <div class="product-image-wrapper">
                         <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
@@ -96,152 +96,146 @@
                                 </select>
                             </div>
                         </div>
-                            <button type="button" class="add_to_cart">Add to Cart</button>
+                        <button type="button" class="add_to_cart">Add to Cart</button>
                     </div>
                 </div>
-            </div>
 
-             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
-                <div class="card product-card">
-                    <div class="product-image-wrapper">
-                        <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
-                            alt="...">
-                    </div>
-                    <div class="card-body">
-                        <div class="header">
-                            <h4>Lifestyles - Bulk pack</h4>
-                            <span class="price">$ 45.00</span>
+                    <div class="card product-card">
+                        <div class="product-image-wrapper">
+                            <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
+                                alt="...">
                         </div>
-                        <div class="p_description">
-                            <p>Four Seasons - Close Fitting<br>
-                                Naked closer fitting condoms for a secure fit with less chance of
-                                slipping off during the experience.<br>
-                                QTY: 144 Size: 49mm</p>
-                        </div>
-
-                        <div class="p_color">
-                            <label for="color">Color:</label>
-                            <input type="radio" id="color1" name="color" value="gold">
-                            <label for="color1">Gold</label>
-                            <input type="radio" id="color2" name="color" value="pink">
-                            <label for="color2">Pink</label>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="p_quantity">
-                                <label for="quantity">Quantity:</label>
-                                <input type="number" id="quantity" name="quantity" min="1" max="149"
-                                    value="1">
+                        <div class="card-body">
+                            <div class="header">
+                                <h4>Lifestyles - Bulk pack</h4>
+                                <span class="price">$ 45.00</span>
                             </div>
-                            <div class="p_size">
-                                <label for="size">Size:</label>
-                                <select id="size" name="size">
-                                    <option value="close_fit">Closer Fit</option>
-                                    <option value="regular">Regular</option>
-                                    <option value="large">Large</option>
-                                    <option value="king_size">King Size</option>
-                                </select>
+                            <div class="p_description">
+                                <p>Four Seasons - Close Fitting<br>
+                                    Naked closer fitting condoms for a secure fit with less chance of
+                                    slipping off during the experience.<br>
+                                    QTY: 144 Size: 49mm</p>
                             </div>
-                        </div>
+
+                            <div class="p_color">
+                                <label for="color">Color:</label>
+                                <input type="radio" id="color1" name="color" value="gold">
+                                <label for="color1">Gold</label>
+                                <input type="radio" id="color2" name="color" value="pink">
+                                <label for="color2">Pink</label>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="p_quantity">
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" id="quantity" name="quantity" min="1" max="149"
+                                        value="1">
+                                </div>
+                                <div class="p_size">
+                                    <label for="size">Size:</label>
+                                    <select id="size" name="size">
+                                        <option value="close_fit">Closer Fit</option>
+                                        <option value="regular">Regular</option>
+                                        <option value="large">Large</option>
+                                        <option value="king_size">King Size</option>
+                                    </select>
+                                </div>
+                            </div>
                             <button type="button" class="add_to_cart">Add to Cart</button>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
-                <div class="card product-card">
-                    <div class="product-image-wrapper">
-                        <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
-                            alt="...">
-                    </div>
-                    <div class="card-body">
-                        <div class="header">
-                            <h4>Glyde Maxi - bulk pack</h4>
-                            <span class="price">$ 35.00</span>
+                    <div class="card product-card">
+                        <div class="product-image-wrapper">
+                            <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
+                                alt="...">
                         </div>
-                        <div class="p_description">
-                            <p>Four Seasons - Close Fitting<br>
-                                Naked closer fitting condoms for a secure fit with less chance of
-                                slipping off during the experience.<br>
-                                QTY: 144 Size: 49mm</p>
-                        </div>
-
-                        <div class="p_color">
-                            <label for="color">Color:</label>
-                            <input type="radio" id="color1" name="color" value="gold">
-                            <label for="color1">Gold</label>
-                            <input type="radio" id="color2" name="color" value="pink">
-                            <label for="color2">Pink</label>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="p_quantity">
-                                <label for="quantity">Quantity:</label>
-                                <input type="number" id="quantity" name="quantity" min="1" max="149"
-                                    value="1">
+                        <div class="card-body">
+                            <div class="header">
+                                <h4>Glyde Maxi - bulk pack</h4>
+                                <span class="price">$ 35.00</span>
                             </div>
-                            <div class="p_size">
-                                <label for="size">Size:</label>
-                                <select id="size" name="size">
-                                    <option value="close_fit">Closer Fit</option>
-                                    <option value="regular">Regular</option>
-                                    <option value="large">Large</option>
-                                    <option value="king_size">King Size</option>
-                                </select>
+                            <div class="p_description">
+                                <p>Four Seasons - Close Fitting<br>
+                                    Naked closer fitting condoms for a secure fit with less chance of
+                                    slipping off during the experience.<br>
+                                    QTY: 144 Size: 49mm</p>
                             </div>
-                        </div>
+
+                            <div class="p_color">
+                                <label for="color">Color:</label>
+                                <input type="radio" id="color1" name="color" value="gold">
+                                <label for="color1">Gold</label>
+                                <input type="radio" id="color2" name="color" value="pink">
+                                <label for="color2">Pink</label>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="p_quantity">
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" id="quantity" name="quantity" min="1" max="149"
+                                        value="1">
+                                </div>
+                                <div class="p_size">
+                                    <label for="size">Size:</label>
+                                    <select id="size" name="size">
+                                        <option value="close_fit">Closer Fit</option>
+                                        <option value="regular">Regular</option>
+                                        <option value="large">Large</option>
+                                        <option value="king_size">King Size</option>
+                                    </select>
+                                </div>
+                            </div>
                             <button type="button" class="add_to_cart">Add to Cart</button>
+                        </div>
                     </div>
-                </div>
-            </div>
 
 
-             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
-                <div class="card product-card">
-                    <div class="product-image-wrapper">
-                        <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
-                            alt="...">
-                    </div>
-                    <div class="card-body">
-                        <div class="header">
-                            <h4>Wet Stuff - Lubricant</h4>
-                            <span class="price">$ 30.00</span>
+                    <div class="card product-card">
+                        <div class="product-image-wrapper">
+                            <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
+                                alt="...">
                         </div>
-                        <div class="p_description">
-                            <p>Four Seasons - Close Fitting<br>
-                                Naked closer fitting condoms for a secure fit with less chance of
-                                slipping off during the experience.<br>
-                                QTY: 144 Size: 49mm</p>
-                        </div>
-
-                        <div class="p_color">
-                            <label for="color">Color:</label>
-                            <input type="radio" id="color1" name="color" value="gold">
-                            <label for="color1">Gold</label>
-                            <input type="radio" id="color2" name="color" value="pink">
-                            <label for="color2">Pink</label>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="p_quantity">
-                                <label for="quantity">Quantity:</label>
-                                <input type="number" id="quantity" name="quantity" min="1" max="149"
-                                    value="1">
+                        <div class="card-body">
+                            <div class="header">
+                                <h4>Wet Stuff - Lubricant</h4>
+                                <span class="price">$ 30.00</span>
                             </div>
-                            <div class="p_size">
-                                <label for="size">Size:</label>
-                                <select id="size" name="size">
-                                    <option value="close_fit">Closer Fit</option>
-                                    <option value="regular">Regular</option>
-                                    <option value="large">Large</option>
-                                    <option value="king_size">King Size</option>
-                                </select>
+                            <div class="p_description">
+                                <p>Four Seasons - Close Fitting<br>
+                                    Naked closer fitting condoms for a secure fit with less chance of
+                                    slipping off during the experience.<br>
+                                    QTY: 144 Size: 49mm</p>
                             </div>
-                        </div>
+
+                            <div class="p_color">
+                                <label for="color">Color:</label>
+                                <input type="radio" id="color1" name="color" value="gold">
+                                <label for="color1">Gold</label>
+                                <input type="radio" id="color2" name="color" value="pink">
+                                <label for="color2">Pink</label>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="p_quantity">
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" id="quantity" name="quantity" min="1" max="149"
+                                        value="1">
+                                </div>
+                                <div class="p_size">
+                                    <label for="size">Size:</label>
+                                    <select id="size" name="size">
+                                        <option value="close_fit">Closer Fit</option>
+                                        <option value="regular">Regular</option>
+                                        <option value="large">Large</option>
+                                        <option value="king_size">King Size</option>
+                                    </select>
+                                </div>
+                            </div>
                             <button type="button" class="add_to_cart">Add to Cart</button>
+                        </div>
                     </div>
-                </div>
-            </div>
+           </div>
         </div>
     </div>
     <!-- End of Main Content -->
@@ -257,13 +251,10 @@
     <!-- End of Footer -->
 @endsection
 @push('script')
-
-<script>
-    const viewCart = document.querySelector('#viewCart');
-    viewCart.addEventListener("click", function(){
-        window.location.href = "{{route('escort.view-cart')}}";
-    })
-
-</script>
-
+    <script>
+        const viewCart = document.querySelector('#viewCart');
+        viewCart.addEventListener("click", function() {
+            window.location.href = "{{ route('escort.view-cart') }}";
+        })
+    </script>
 @endpush
