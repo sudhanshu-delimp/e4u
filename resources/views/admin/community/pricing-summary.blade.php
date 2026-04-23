@@ -76,7 +76,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                            {{-- @foreach($advertings as $adverting)
+                                                            @foreach($advertings as $adverting)
                                                                 <tr role="row">
                                                                     <td>{!! $adverting['memberships']['name'] !!}</td>
                                                                     <td>{{ period_days($adverting['days']) }}</td>
@@ -91,7 +91,7 @@
                                                                     </td>
                                                                     <td>${{ number_format($adverting['discount_amount'], 2) }}</td>
                                                                 </tr>
-                                                            @endforeach  --}}
+                                                            @endforeach 
                                                         
                                                     </tbody>
                                                 </table>
@@ -181,14 +181,14 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                                {{-- @foreach($fees_concierge_services as $service)
+                                                                @foreach($fees_concierge_services as $service)
                                                                 <tr role="row">
                                                                     <td>{{ $service->service_type }}</td>
                                                                     <td>{{ $service->frequency }}</td>
                                                                     <td>${{ $service->amount }}</td>
                                                                     
                                                                 </tr>
-                                                                 @endforeach  --}}
+                                                                 @endforeach 
 
                                                    
                                                    
@@ -310,14 +310,14 @@
                                                     <tbody>
                                                     
 
-                                                                 {{-- @foreach($fees_support_services as $support_services)
+                                                                 @foreach($fees_support_services as $support_services)
                                                                 <tr role="row">
                                                                     <td>{{ $support_services->fee }}</td>
                                                                     <td>{{ $support_services->frequency }}</td>
                                                                     <td>${{ $support_services->amount }}</td>
                                                                     
                                                                 </tr>
-                                                                 @endforeach  --}}
+                                                                 @endforeach 
 
                                                     
                                                     </tbody>
@@ -379,7 +379,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                                {{-- @foreach($variablLoyaltyProgram as $program)
+                                                                @foreach($variablLoyaltyProgram as $program)
                                                                 <tr role="row">
                                                                     <td>{{ $program->type }}</td>
                                                                     <td>{{ $program->level }}</td>
@@ -388,17 +388,17 @@
                                                                     <td>{{ $program->reward }}</td>
                                                                     
                                                                 </tr>
-                                                                 @endforeach  --}}
+                                                                 @endforeach 
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                        {{-- <div class="card border-0 mb-0 pb-0">
+                                        <div class="card border-0 mb-0 pb-0">
                                             <div class="card-body border-0 p-0 mt-2">
                                                 <p>For every $200.00 spent by an Escort, Escorts4U will apply one day of free
                                                 advertising. When creating your Profile or Tour, the program is automatically applied.</p>
                                             </div>
-                                        </div> --}}
+                                        </div>
 
                                         <div class="mt-2">
                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
