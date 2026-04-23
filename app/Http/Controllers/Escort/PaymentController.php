@@ -44,17 +44,21 @@ class PaymentController extends Controller
         $request->validate([
             'pin_token' => 'required'
         ]);
-
+        $redirect_url = '';
         $amount = $this->getAmount();
         $result = $this->pinService->charge($request->pin_token, $amount, $this->account->email);
 
         if ($result['status']) {
             if(session()->has('checkout')){
                 $this->saveCheckout();
+                session()->forget('checkout');
+                $redirect_url = route('escort.dashboard.listings', 'current');
             }
             return response()->json([
                 'status' => 'success',
                 'message' => 'Payment completed successfully',
+                'netAmount' => $amount,
+                'redirect_url' => $redirect_url,
                 'gateway' => $result['data']
             ]);
         }

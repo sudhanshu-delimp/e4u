@@ -141,6 +141,7 @@
     
           errorHeading.text('Payment Successful');
           errorList.html('<li>' + response.message + '</li>');
+          location.assign(response.redirect_url);
     
           // close modal after delay
           setTimeout(function() {
