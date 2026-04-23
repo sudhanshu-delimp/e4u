@@ -386,41 +386,13 @@ class MassageCentre extends Controller
        $listings = $massage;
        $media = $this->media;
 
-       ################### Massage Review #######################
-        $massage->getCollection()->transform(function ($item) {
-            $total = MassageLike::where('massage_id', $item->id)->count();
-
-            if ($total > 0) {
-                $likeCount = MassageLike::where('massage_id', $item->id)->where('like', 1)->count();
-                $dislikeCount = MassageLike::where('massage_id', $item->id)->where('like', 0)->count();
-
-                $lp = round($likeCount / $total * 100);
-            } else {
-                $lp = 0;
-            }
-
-            if ($lp == 100) {
-                $item->star_rating = 5;
-            } elseif ($lp > 80) {
-                $item->star_rating = 4;
-            } elseif ($lp > 60) {
-                $item->star_rating = 3;
-            } elseif ($lp > 40) {
-                $item->star_rating = 2;
-            } elseif ($lp > 20) {
-                $item->star_rating = 1;
-            } else {
-                $item->star_rating = 0;
-            }
-
-            return $item;
-        });
-        ###########################################################################################
-
       
-            
-       
 
+        if ((int)$request->is_page_reload === 0) 
+        {
+            $massage->setCollection($massage->getCollection()->sortByDesc('purchase_id')->values());
+        }
+       
         return response()->json([
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
