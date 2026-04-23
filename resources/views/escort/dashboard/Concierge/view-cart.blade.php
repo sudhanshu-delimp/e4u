@@ -17,10 +17,18 @@
 
         {{-- Page Heading   --}}
         <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                <h1 class="h1">Products</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+            <div class="d-flex justify-content-between align-items-center col-md-12">
+                <div class="custom-heading-wrapper">
+                    <h1 class="h1">Cart</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>                    
+                </div>
+                <div class="product_view">
+                    <span class="back-to-product" id="viewCart">
+                     <a href="{{route('escort.products')}}"> <i class="fa fa-chevron-left"></i> Back</a>
+                    </span>
+                </div>
             </div>
+           
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
@@ -123,7 +131,7 @@
                                         slipping off during the experience.<br>
                                         <b>QTY: 144 Size: 49mm</b>
                                     </td>
-                                    <td class="theme-color"><span class="pr-2">$</span> 40.00</td>
+                                    <td class="theme-color text-center"><span class="pr-2">$</span> 40.00</td>
                                     <td class="theme-color qty">
                                         <form action="">
                                             <select name="cars" id="cars">
@@ -137,7 +145,7 @@
 
                                         </form>
                                     </td>
-                                    <td class="theme-color"> <span class="pr-2">$</span> 80.00</td>
+                                    <td class="theme-color text-center"> <span class="pr-2">$</span> 80.00</td>
 
                                 </tr>
 
