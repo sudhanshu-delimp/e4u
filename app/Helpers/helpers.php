@@ -1558,6 +1558,26 @@ if (!function_exists('get_massage_images')) {
 }
 
 
+if (!function_exists('get_image_position_detail')) {
+    function get_image_position_detail($listing, $position)
+    {
+        try {
+            if (!$listing || $position === null) {
+                return false;
+            }
+
+            return $listing->get_image_position_detail($position);
+
+        } catch (\Throwable $e) {
+            // Log error
+            \Log::error('Helper get_image_position_detail error: ' . $e->getMessage());
+
+            return false;
+        }
+    }
+}
+
+
 if (!function_exists('get_messure_images')) {
   function get_messure_images($masseur,$position)
   {
@@ -2281,6 +2301,65 @@ if (!function_exists('update_profile_massure'))
         ################## End Update All Massures ##################
 
     }
+
+
+
+    function getMediaVerificationDataSmallIcon(int $status)
+    {
+        switch ($status) {
+            case 0:
+                $icon  = asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png');
+                $label = 'Media Pending';
+                break;
+
+            case 1:
+                $icon  = asset('assets/app/img/verify/verified_icon.png');
+                $label = 'Media Verified';
+                break;
+
+            case 2:
+                $icon  = asset('assets/app/img/verify/unverified_icon.png');
+                $label = 'Media Unverified';
+                break;
+
+            default:
+                $icon  = '';
+                $label = '';
+        }
+
+        return [
+            'icon'          => $icon,
+            'label'         => $label,
+        ];
+    }
+
+
+
+    function getMediaVerificationDataBigIcon(int $status)
+    {
+        switch ($status) {
+            case 0:
+                $icon  = asset('assets/app/img/verify/pending-lg.png');
+                $label = 'Media Pending';
+                break;
+
+            case 1:
+                $icon  = asset('assets/app/img/verify/verified-lg.png');
+                $label = 'Media Verified';
+                break;
+
+            case 2:
+            default:
+                $icon  = asset('assets/app/img/verify/unverified-lg.png');
+                $label = 'Media Unverified';
+                break;
+        }
+
+        return [
+            'icon'  => $icon,
+            'label' => $label,
+        ];
+    }
 }
 
 
@@ -2310,6 +2389,16 @@ if (!function_exists('formatIndianNumber'))
         $formatted = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $otherNumbers) . $lastThree;
 
         return $formatted . $decimalPart;
+    }
+
+
+    if (!function_exists('get_profile_verification_status')) {
+        function get_profile_verification_status($profileId)
+        {
+            return DB::table('profile_verification_status')
+                ->where('profile_id', $profileId)
+                ->value('status') ?? '0'; // default Pending
+        }
     }
 }
    
