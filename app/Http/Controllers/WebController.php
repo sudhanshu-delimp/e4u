@@ -617,6 +617,7 @@ class WebController extends Controller
             'price' => request()->get('price'),
             'duration_price' => request()->get('duration_price'),
             'services' => request()->get('services'),
+            'verification' => request()->get('verify_list'),
         ];
 
         session(['search_shorlisting_escort_filters' => $params]);
