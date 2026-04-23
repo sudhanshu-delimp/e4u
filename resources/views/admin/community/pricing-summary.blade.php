@@ -393,12 +393,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="card border-0 mb-0 pb-0">
-                                            <div class="card-body border-0 p-0 mt-2">
-                                                <p>For every $200.00 spent by an Escort, Escorts4U will apply one day of free
-                                                advertising. When creating your Profile or Tour, the program is automatically applied.</p>
-                                            </div>
-                                        </div>
+                                       
 
                                         <div class="mt-2">
                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
