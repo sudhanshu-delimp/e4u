@@ -30,6 +30,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Escort\WalletController;
+use App\Http\Controllers\Escort\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 //remove before prod
@@ -319,6 +320,10 @@ Route::get('reccomendations',function(){
 # Wallet Module
 Route::get('my-wallet',[WalletController::class, 'index'])->name('escort.my_wallet');
 Route::get('wallet_transaction',[WalletController::class, 'transactionList'])->name('escort.wallet_transaction');
+
+#Payment Module
+Route::post('payments/process',[PaymentController::class, 'processPayment'])->name('escort.payment.process');
+
 # Escort profile reviews
 Route::get('view-reviews',[EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax',[EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');

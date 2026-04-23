@@ -237,5 +237,9 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
 
     ],
+    'payment' => [
+       'secret_key' => env('PAYMENT_SECRET'),
+       'publish_key' => env('PAYMENT_PUBLISHABLE'),
+    ]
 
 ];
