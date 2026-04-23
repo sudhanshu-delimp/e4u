@@ -1224,13 +1224,14 @@
             @endphp
             <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
             <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b>
+                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> 
                 @php
                     $formattedNumber = $escort->phone;
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
                    
                 @endphp
-
+            </p>    
+            <p style="line-height: 1;">
                 @if($contactTypes != '')
                     @if($contactTypes == 1)
                         on my email {{ $escort->user->email ?? '' }}
@@ -1259,7 +1260,7 @@
 
     <div class="accordion-container-new">
         <div class="set">
-            <a class="pb-1 pt-1">
+            <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
             Deposit
             <i class="fa fa-angle-down"></i>
             </a>
@@ -1285,7 +1286,7 @@
             </div>
         </div>
         <div class="set">
-            <a class="pb-1 pt-1">
+            <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
             My Pricing Policy
             <i class="fa fa-angle-down"></i>
             </a>
@@ -1298,7 +1299,7 @@
             </div>
         </div>
         <div class="set">
-            <a class="pb-1 pt-1">
+            <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
             Disclaimer
             <i class="fa fa-angle-down"></i>
             </a>

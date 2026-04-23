@@ -113,6 +113,7 @@
 
     @php 
         $massager_name = $listing->profile_name;
+        $business_name = $listing->business_name;
         $other_services = "";
         $massage_services = "";
 
@@ -415,7 +416,7 @@
                                     <td> {{$duration->name}} </td>
                                     <td>
 
-                                           @if($massage_price)
+                                           @if($massage_price !== null && floatval($massage_price) != 0.0) 
                                                 <div class="public-num-value-table">
                                                     <span>$ </span>{{ $massage_price }}
                                                 </div>
@@ -426,7 +427,7 @@
                                     </td>
 
                                     <td>
-                                        @if($incall_price)
+                                        @if($incall_price !== null && floatval($incall_price) != 0.0)
                                                 <div class="public-num-value-table">
                                                     <span>$ </span>{{ $incall_price }}
                                                 </div>
@@ -436,7 +437,7 @@
                                     </td>
                                     <td>
 
-                                            @if($outcall_price)
+                                             @if($outcall_price !== null && floatval($outcall_price) != 0.0)
                                                 <div class="public-num-value-table">
                                                     <span>$ </span>{{ $outcall_price }}
                                                 </div>
@@ -1421,13 +1422,14 @@
                                         @endphp
                                         <p class="font-weight-bold mb-0 mt-2">When texting us please say :</p>
                                         <p class="profile_description_contect_pera">
-                                            <b><i>Hi {{ $massager_name }}, I found you on Escorts4U ... </i></b>
+                                            <b><i>Hi {{ $business_name }}, I found you on E4U ... </i></b>
                                             @php
                                                 $formattedNumber = $listing->phone;
                                                 $contactTypes = $listing->contact != null ? $listing->contact : '';
                                             
                                             @endphp
-
+                                        </p>    
+                                        <p style="line-height: 1;">
                                             @if($contactTypes != '')
                                                 @if($contactTypes == 1)
                                                     on our email {{ $listing->user->email ?? '' }}
@@ -1438,7 +1440,7 @@
                                                 @endif
                                             @else
                                                 {{-- on our number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
-                                                on our number --====
+                                                on our number -=====.
                                             @endif
                                         </p>
                             </span>
@@ -1455,7 +1457,7 @@
                 <!-- Accordion: Pricing Policy & Disclaimer -->
                 <div class="accordion-container-new">
                     <div class="set">
-                        <a class="pb-1 pt-1">
+                        <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                            Our Pricing Policy
                             <i class="fa fa-angle-down"></i>
                         </a>
@@ -1467,7 +1469,7 @@
                         </div>
                     </div>
                     <div class="set">
-                        <a class="pb-1 pt-1">
+                        <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                             Disclaimer
                             <i class="fa fa-angle-down"></i>
                         </a>
@@ -1615,7 +1617,7 @@
                                     }
                                 @endphp
                                 <p class="testimonial">
-                                    <strong>{{ $massager_name }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $massager_name}}</strong> their first Review? @php } @endphp
+                                    <strong>{{ $business_name }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{$business_name}}</strong> their first Review? @php } @endphp
                                 </p>
                             </div>
                        
@@ -1834,7 +1836,7 @@
             
             <div class="modal-header">
                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
-                    <h5 class="modal-title" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
+                    <h5 class="modal-title" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $business_name }}
                     </h5>
                     <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
                     <span aria-hidden="true">
