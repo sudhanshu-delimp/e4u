@@ -68,6 +68,7 @@ class PaymentController extends Controller
     public function saveCheckout(){
         if(session()->has('checkout')){
             $checkout = session()->get('checkout');
+            $netPaidAmount = 0.00;
             foreach ($checkout as $startDate => $item) {
                 $escortDetail = getEscortDetail($item['escort_id']);
                 $start_date = Carbon::createFromFormat('d-m-Y', $item['start_date'])->format('Y-m-d').' 00:00:00';
@@ -108,6 +109,12 @@ class PaymentController extends Controller
                     $purchaseDetail->status = 'listed';
                     $purchaseDetail->save();
                 }
+                $netPaidAmount = $netPaidAmount + $total_rate;
+            }
+
+            $earn_days = floor($netPaidAmount / 200);
+            if($earn_days > 0){
+                $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
             }
         }
     }
