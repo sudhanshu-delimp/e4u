@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Mail;
+use Illuminate\Support\Facades\Artisan;
+
 
 class MediaVerificationController extends Controller
 {
@@ -363,6 +365,7 @@ class MediaVerificationController extends Controller
                 Mail::to($body['email'])
                     ->cc($cc)
                     ->queue(new MediaVerificationAdvertiserMail($body));
+                    Artisan::queue('profile:sync-status'); // update profile verification status
 
                 break;
 
