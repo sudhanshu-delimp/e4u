@@ -959,26 +959,40 @@
                 <!-- video crousal start -->
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12 px-0 profile_verify_icon">
+                        <div class="col-12 px-0 profile_verify_icon ec-slider">
                                 
                             <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
-                                    <div class="verify_icon">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                        <span class="common_shield_tooltip">Media Pending</span>
-                                    </div>
                                 <div class="carousel-inner">
                                     
                             @if($escort->gallary->isNotEmpty())
                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
+                            
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
                            
                             <div class="row">
                                 <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
-                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
+                                    @php $status = $media->varified ?? "0"; @endphp
+                                   
+                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
                                     <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                     </div>
                             </div>
-                            
+                             <div class="verify_icon">
+                                @switch($status)
+                                    @case(0)
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                        <span class="common_shield_tooltip">Media Pending</span>
+                                    @break
+                                    @case(1)
+                                        <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
+                                        <span class="common_shield_tooltip">Media Verified</span>
+                                    @break
+                                    @case(2)
+                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
+                                        <span class="common_shield_tooltip">Media Unverified</span>
+                                    @break
+                                @endswitch
+                            </div>
                         </div>
                         @endforeach
                         @else
@@ -1023,20 +1037,31 @@
 
                                                             <div class="gallery__item gallery__item--lg">
                                                                 <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                                                <div class="verify_icon">
-                                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                                   <span class="common_shield_tooltip">Media Pending</span>
-                                                                </div>
+                                                                    @php 
+                                                                        $item = $escort->gallary()->wherePivotIn('position',[1])->first();
+                                                                    @endphp
+                                                                    @if($item)
+                                                                        @php $media_status =  getMediaVerificationDataBigIcon($item->varified ?? 0); @endphp
+                                                                            <div class="verify_icon">
+                                                                                <img src="{{ $media_status['icon'] }}">
+                                                                                <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
+                                                                            </div>
+                                                                    @endif
                                                             </div>
                                                             <div class="small-images">
                                                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
                                                             
                                                                 <div class="gallery__item">
                                                                     <img src="{{ asset($media->path) }}" alt="">
-                                                                    <div class="verify_icon_sm">
-                                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png')}}">
-                                                                         <h6 class="gallery_shield_tooltip">Media Pending</h6>
-                                                                    </div>
+                                                                    @php 
+                                                                        $media_status = getMediaVerificationDataSmallIcon(($media->varified ?? 0));
+                                                                    @endphp
+                                                                     @if($media_status)
+                                                                        <div class="verify_icon_sm">
+                                                                            <img src="{{ $media_status['icon'] }}">
+                                                                            <span class="gallery_shield_tooltip">{{ $media_status['label'] }}</span>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
 
                                                             @endforeach

@@ -347,9 +347,15 @@ Route::get('email-hosting',function(){
 Route::get('mobile-read-sim',function(){
     return view('escort.dashboard.Concierge.mobile-read-sim');
 });
-Route::get('professional-products',function(){
-    return view('escort.dashboard.Concierge.professional-products');
-});
+
+Route::get('concierge/products',function(){
+    return view('escort.dashboard.Concierge.products');
+})->name('escort.products');
+
+Route::get('concierge/view-cart',function(){
+    return view('escort.dashboard.Concierge.view-cart');
+})->name('escort.view-cart');
+
 Route::get('travel',function(){
     return view('escort.dashboard.Concierge.travel');
 });

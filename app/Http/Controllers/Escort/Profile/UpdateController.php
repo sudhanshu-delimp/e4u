@@ -32,6 +32,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
+use Illuminate\Support\Facades\Artisan;
+
 //use Illuminate\Http\Request;
 
 class UpdateController extends AppController
@@ -767,6 +769,7 @@ class UpdateController extends AppController
         else{
             EscortGallery::insert($media_arr);
         }
+        Artisan::queue('profile:sync-status'); // update profile verification status
         return response()->json(compact('media_arr'));
     }
 

@@ -495,9 +495,9 @@ class EscortGalleryController extends AppController
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);   
             $statusMap = [
-                'pending'   => '0',
-                'verified'   => '1',
-                'unverified' => '2',
+                'all'   => ['0','1','2'],
+                'verified'   => ['1'],
+                'unverified' => ['0','2'],
             ];
 
             $status = $statusMap[$status] ?? null;
@@ -505,20 +505,20 @@ class EscortGalleryController extends AppController
                 'gallery' => $media
                     ->whereNotIn('position',[9,10])
                     ->when($status !== null, function ($query) use ($status) {
-                        return $query->where('varified', $status);
+                        return $query->whereIn('varified', $status);
                     }),
 
                 'banner'  => $media
                     ->whereIn('position',[9])
                     ->where('template','0')
                     ->when($status !== null, function ($query) use ($status) {
-                        return $query->where('varified', $status);
+                        return $query->whereIn('varified', $status);
                     }),
 
                 'pinup'   => $media
                     ->whereIn('position',[10])
                     ->when($status !== null, function ($query) use ($status) {
-                        return $query->where('varified', $status);
+                        return $query->whereIn('varified', $status);
                     }),
             };
     
@@ -526,7 +526,8 @@ class EscortGalleryController extends AppController
             $response = [];
             $response['success'] = true;
             $response['category'] = $category;
-            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category','status'))->render();
+            $currentStatus =  $request->status ?? 'all';
+            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category','currentStatus'))->render();
             $response['gallery_modal_container_html'] = view('escort.dashboard.profile.partials.gallery_modal_container',compact('media','path'))->render();
             $response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
             
@@ -667,19 +668,7 @@ class EscortGalleryController extends AppController
 
         $user = auth()->user();
         $image = $request->file('image');
-        // $media = EscortMedia::where('user_id', $user->id)
-        //     ->whereIn('varified', ['0', '2'])
-        //     ->whereNull('media_verification_id')
-        //     ->where('type' , '0')
-        //     ->count();
-    
-        // if ($media  <= 0) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Please upload your media before uploading the verification image.'
-        //     ], 400);
-        // }
-
+        
         $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
         $destination_path = $user->id . '/verifications/' . $fileName;
 
@@ -715,7 +704,7 @@ class EscortGalleryController extends AppController
 
         return response()->json([
             'success' => true,
-            'message' => 'Verification uploaded successfully.',
+            'message' => "Verification uploaded successfully.\nPlease allow 24 hours for the verification to be completed."
         ]);
     }
 
