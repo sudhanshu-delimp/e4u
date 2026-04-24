@@ -11,7 +11,10 @@ const endpoint = {
     clear_reports_url: mmRoot.data('clear-reports-url'),
     agent_state: mmRoot.data('agent-state'),
     save_report: mmRoot.data('save-report'),
+    generate_pdf: mmRoot.data('generate-pdf'),
+
 };
+
 
 
 
@@ -443,44 +446,88 @@ $(document).ready(function () {
     $('#submitMergeTypeForm').submit(function (e) {
         e.preventDefault();
         let formData = $(this).serializeArray();
-        let reportId = $('#report_id').val();
         let mergeType = $('input[name="mergeType"]:checked').val();
+        let docId = $('input[name="doc_id"]:checked').val();
+
+
+        $('#mergeType').modal('hide');
+        $("#report_items_list").html('');
+        $("#report_loader").show();
 
         $.ajax({
             url: endpoint.action_url,
             method: 'POST',
+            _token: endpoint.csrf_token,
             data: {
                 _token: endpoint.csrf_token,
-                report_id: reportId,
-                action_type: actionType
+                report_id: $('#report_id').val(),
+                mergeType: mergeType,
+                doc_id: docId,
             },
             success: function (res) {
-                if (actionHandlers[actionType]) {
-                    actionHandlers[actionType](res);
-                } else {
-                    console.warn('No handler for action:', actionType);
+                $('#view_report').modal('show');
+                $('#report_loader').hide();
+                if (res.status === true) {
+                    $('#report_items_list').html(res.data.html);
+                }
+            },
+            error: function (xhr) {
+                var msg = 'Failed to generate list.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    msg = xhr.responseJSON.message;
                 }
 
+                $('#report_loader').hide();
+                $('#report_items_list').html(`<p class="text-danger text-center py-3">${msg}</p>`);
             }
 
         });
 
     });
 
-    const actionHandlers = {
-        Merge: function (res) {
-            console.log('Merge:', res);
-        },
-        Print: function (res) {
-            console.log('Print:', res);
-        },
-        View: function (res) {
-            console.log('View:', res);
+
+    $(document).on('change', '.itemCheckbox', function () {
+        let total = $('.itemCheckbox').length;
+        let checked = $('.itemCheckbox:checked').length;
+        $('#selectAll').prop('checked', total === checked);
+        updateCount();
+    });
+
+    function updateCount() {
+        let n = $('.itemCheckbox:checked').length;
+        if (n > 0) {
+            $('#selectedCount').show().text(n + ' Selected');
+        } else {
+            $('#selectedCount').hide();
         }
-    };
+    }
 
 
+    // Item click → select/deselect
 
+    $(document).on('click', '.item', function (e) {
+
+        if ($(e.target).closest('.action_btn').length) {
+            return;
+        }
+
+        if ($(e.target).hasClass('itemCheckbox')) {
+            let isChecked = $(e.target).is(':checked');
+            $(this).toggleClass('selected', isChecked);
+            updateCount();
+            syncSelectAll();
+            return;
+        }
+
+        let checkbox = $(this).find('.itemCheckbox');
+        let newState = !checkbox.is(':checked');
+
+        checkbox.prop('checked', newState);
+        $(this).toggleClass('selected', newState);
+
+        updateCount();
+        syncSelectAll();
+    });
 
 
     //  Clear Reports
@@ -622,5 +669,150 @@ $(document).ready(function () {
             }
         }
     }
+
+
+    // Select single center 
+    $(document).on('click', '.btn-print-single', function () {
+        let centreId = $(this).data('centre-id');
+        let reportId = $(this).data('report-id');
+        let docType =  $(this).data('doc-type');
+
+        triggerPDF([centreId], reportId, docType, 'print');
+    });
+
+    // Footer Print 
+    $('#footerPrintBtn').on('click', function () {
+        let ids = getSelectedIds();
+        if (!ids.length) { showAlert('error', 'Please select at least one centre.'); return; }
+        triggerPDF(ids, $('#current_report_id').val(), 'print');
+    });
+
+    $('#footerSaveBtn').on('click', function () {
+        let ids = getSelectedIds();
+        if (!ids.length) { alert('Please select at least one item.'); return; }
+        triggerPDF(ids, $('#current_report_id').val(), 'download');
+    });
+
+    //Select All 
+    $(document).on('change', '#selectAll', function () {
+        let isChecked = $(this).is(':checked');
+
+        $('.itemCheckbox').prop('checked', isChecked);
+        $('.item').toggleClass('selected', isChecked);
+
+        updateCount();
+    });
+
+
+    function getSelectedIds() {
+        return $('.itemCheckbox:checked')
+            .map(function () { return $(this).data('centre-id'); })
+            .get();
+    }
+
+    function syncSelectAll() {
+        let total = $('.itemCheckbox').length;
+        let checked = $('.itemCheckbox:checked').length;
+        $('#selectAll').prop('checked', total === checked && total > 0);
+    }
+
+    //PDF generate
+
+    function triggerPDF(centreIds, reportId, docType, action) {
+
+        let btn = action === 'print' ? '#footerPrintBtn' : '#footerSaveBtn';
+        let originalHtml = $(btn).html();
+
+        // Button loading state
+        $(btn).prop('disabled', true).html(
+            '<span class="spinner-border spinner-border-sm"></span> ' +
+            'Generating ' + centreIds.length + ' PDF(s)...'
+        );
+
+
+
+        $.ajax({
+            url: endpoint.generate_pdf,
+            method: 'POST',
+            data: {
+                _token: endpoint.csrf_token,
+                centre_ids: centreIds,
+                report_id: reportId,
+                docType: docType,
+                action: action,
+            },
+            xhrFields: { responseType: 'blob' },
+            timeout: 120000,
+
+            success: function (blob, status, xhr) {
+                console.log(blob.type, 'blob-type');
+                
+                if (!blob || blob.size === 0) {
+                    showAlert('error', 'PDF generation failed. Empty response.');
+                    return;
+                }
+
+                if (blob.type === 'application/json') {
+                    let reader = new FileReader();
+                    reader.onload = function () {
+                        let err = JSON.parse(reader.result);
+                        showAlert('error', err.message || 'PDF generation failed.');
+                    };
+                    reader.readAsText(blob);
+                    return;
+                }
+
+
+                let filename = xhr.getResponseHeader('X-Filename') || 'report.pdf';
+                let isZip = xhr.getResponseHeader('X-Is-Zip') === 'true';
+                let count = xhr.getResponseHeader('X-PDF-Count') || 1;
+                let url   = window.URL.createObjectURL(blob);
+
+                if (action === 'print' && !isZip) {
+                    $(btn).html(
+                        '<span class="spinner-border spinner-border-sm"></span> Downloading...'
+                    );
+
+                    let a    = document.createElement('a');
+                    a.href     = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+
+                    if (isZip) {
+                        showAlert('success', pdfCount + ' PDFs downloaded as ZIP!');
+                    } else {
+                        showAlert('success', 'PDF downloaded successfully!');
+                    }
+                } else {
+                    // Download (PDF ya ZIP)
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+
+                    if (isZip) {
+                        showAlert('error', count + ' PDFs downloaded as ZIP successfully!');
+                    }
+                }
+            },
+
+            error: function () {
+                showAlert('error','PDF generation failed. Please try again.');
+            },
+
+            complete: function () {
+                $(btn).prop('disabled', false).html(originalHtml);
+            }
+        });
+    }
+
+
+
 
 });

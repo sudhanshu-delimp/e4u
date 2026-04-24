@@ -50,6 +50,61 @@
             font-weight: 600;
         }
     </style>
+
+    <style>
+        /* Normal item */
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #fff;
+            user-select: none; /* text select na ho click pe */
+        }
+
+        /* Hover */
+        .item:hover {
+            border-color: #a0b4ff;
+            background: #f5f7ff;
+        }
+
+        /* Selected */
+        .item.selected {
+            border-color: #1a3c6e;
+            background: #eef2ff;
+        }
+
+        /* Selected - left border highlight */
+        .item.selected {
+            border-left: 4px solid #1a3c6e;
+        }
+
+        /* Checkbox style */
+        .item .itemCheckbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #1a3c6e;
+            flex-shrink: 0;
+        }
+
+        .item .left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        /* Buttons ko pointer rakhna */
+        .action_btn button {
+            cursor: pointer;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -246,11 +301,10 @@
     {{-- modal  --}}
 
 
-    @include('agent.dashboard.modal.merge-type-modal')
-    @include('agent.dashboard.modal.merge-list-modal')
-    @include('agent.dashboard.modal.view-list-modal')
-    @include('agent.dashboard.modal.view-report-modal')
-
+    @include('agent.dashboard.marketing.modal.merge-type-modal')
+    @include('agent.dashboard.marketing.modal.merge-list-modal')
+    @include('agent.dashboard.marketing.modal.view-list-modal')
+    @include('agent.dashboard.marketing.modal.view-report-modal') 
     {{-- end modals --}}
 
 
@@ -268,6 +322,7 @@
         data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
         data-save-report="{{ route('agent.marketing.prospect.save-report') }}"
         data-report-list-action="{{route('agent.marketing.prospect.report.action')}}"
+        data-generate-pdf="{{route('agent.marketing.prospect.generate.pdf')}}"
         
         ></div>
 @endsection
@@ -276,7 +331,7 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>
-\
+
 
 
 @endpush

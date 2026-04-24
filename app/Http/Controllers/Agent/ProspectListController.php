@@ -8,6 +8,7 @@ use App\Models\ProspectReport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use ZipArchive;
 
 class ProspectListController extends Controller
 {
@@ -101,15 +102,6 @@ class ProspectListController extends Controller
                 $postCodeLabel = 'All (' . (auth()->user()->state_abbr ?? 'State') . ')';
             }
 
-            // Check if same filter already exists
-            // $existing = ProspectReport::where('agent_id', auth()->id())
-            //     ->where('type', $type)
-            //     ->where('post_code_label', $postCodeLabel)
-            //     ->first();
-
-            // if ($existing) {
-            //     return error_response('Report for this filter already exists.', 409);
-            // }
 
             $query = MassageExcel::where('state_id', auth()->user()->state_id)->where('archive', 'false')
                 ->whereHas('territory', function ($q) {
@@ -275,52 +267,196 @@ class ProspectListController extends Controller
     //Report List action 
     public function reportAction(Request $request)
     {
-        $report_id = $request->report_id;
-        $action_type = $request->action_type;
+        $req = $request->only('report_id', 'mergeType');
 
-        switch ($action_type) {
-            case 'Merge':
-                return $this->mergeReport($report_id);
-
-            case 'Print':
-                return $this->printReport($report_id);
-
-            case 'View':
-                return $this->viewReport($report_id);
-
-            default:
-                return response()->json(['error' => 'Invalid action'], 400);
+        if ($req['mergeType'] == 'multiple') {
+            return $this->mergeReport($req['report_id'], $req['mergeType']);
+        } else {
+            return $this->mergeReport($req['report_id'], $req['mergeType']); // same - single bhi same list dikhayega
         }
     }
 
-    private function mergeReport($id)
+    private function mergeReport($id, $mergeType)
     {
 
         try {
-            $massageCenterIds = ProspectReport::where('id', $id)
+            $report = ProspectReport::where('id', $id)
                 ->where('agent_id', auth()->id())
                 ->value('center_ids');
 
-            if ($massageCenterIds) {
-                $view = view('agent.dashboard.marketing.merge-preview', ['centerIds' => $massageCenterIds])->render();
-                return success_response(['html' => $view], "Ok", 200, []);
+            if (!$report) {
+                return error_response('Report not found', 404);
             }
+
+            // Fetch Massage Center
+            $centers = MassageExcel::whereIn('id',  $report ?? [])
+                ->get(['id', 'bussiness_name', 'address', 'email']);
+
+            // pass proper blade template.
+            $view = view('agent.dashboard.marketing.modal.centre-list', [
+                'centres' => $centers,
+                'reportId' => $id,
+                'doc_type' => $this->returnMergeType($mergeType),
+            ])->render();
+
+            return success_response([
+                'html' => $view,
+                'total' =>  $centers->count(),
+            ], 'OK', 200, []);
         } catch (\Exception $e) {
             return error_response('Failed to perform action: ' . $e->getMessage(), 500);
         }
-
-
-
-        dd($massageCenterIds);
     }
 
-    private function printReport($id)
+    private function returnMergeType($mergeType)
     {
-        dd('for print repot data');
+        //$type  =  '';
+        if ($mergeType == 'multiple') {
+            return "2";
+        } else {
+            return "1";
+        }
     }
 
-    private function viewReport($id)
+    public function generatePDF(Request $request)
     {
-        dd('for view report data');
+        try {
+            $centreIds = $request->centre_ids;
+            $reportIds = $request->report_id;
+            $docType   = $request->docType;
+            $action    = $request->action;
+
+            //View path according Merge Type
+            $viewPath = $docType === '1' ? 'agent.dashboard.marketing.modal.doc1' : 'agent.dashboard.marketing.modal.doc2';
+
+            $centres = MassageExcel::whereIn('id', $centreIds)
+                ->get()
+                ->keyBy('id');
+
+            //Manage Order
+            $orderedCentres  = collect($centreIds)
+                ->map(fn($id)  => $centres->get($id))
+                ->filter()
+                ->values();
+
+
+            if ($orderedCentres->count() === 1) {
+                return $this->generateSinglePDF(  // return add karo
+                    $orderedCentres->first(),
+                    $viewPath
+                );
+            }
+
+            //Multiple centres 
+            return $this->generateZipPDF($orderedCentres, $viewPath);
+        } catch (\Exception $e) {
+            dd($e);
+            return error_response('PDF Failed: ' . $e->getMessage(), 500);
+        }
+    }
+
+
+    //Single PDF
+
+    private function generateSinglePDF($centre, $viewPath)
+    {
+
+        $pdf = PDF::loadView($viewPath, [
+            'centres'   => collect([$centre]),
+        ])
+            ->setPaper('a4')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => false,
+                'dpi'                  => 96,
+            ]);
+
+        $filename = $this->sanitizeName($centre['bussiness_name']) . '_report.pdf';
+
+
+        return response($pdf->output(), 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'X-Filename'          => $filename,
+            'X-PDF-Count'         => 1,
+            'X-Is-Zip'            => 'false',
+        ]);
+    }
+
+
+    //Multiple  PDF -> Zip
+    private function generateZipPDF($centres, $viewPath)
+    {
+
+        $zipFilename = 'report_' . now()->format('d_m_Y_H_i_s') . '.zip';
+        $zipPath     = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $zipFilename;
+
+        //create temp folder if not exist
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        $zip = new ZipArchive();
+        $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        foreach ($centres as $index => $centre) {
+            $pdf = Pdf::loadView($viewPath, [
+                'centres' => collect([$centre]),
+            ])
+                ->setPaper('a4')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled'      => false,
+                    'dpi'                  => 96,
+                ]);
+
+            $pdfContent = $pdf->output();
+
+            dd([
+                'index'       => $index,
+                'centre'      => $centre->bussiness_name,
+                'pdfSize'     => strlen($pdfContent),
+                'pdfStart'    => substr($pdfContent, 0, 4), // Should be "%PDF"
+            ]);
+        }
+
+        $zip->close();
+
+        return response()->download($zipPath, $zipFilename, [
+            'Content-Type'  => 'application/zip',
+            'X-Filename'    => $zipFilename,
+            'X-PDF-Count'   => $centres->count(),
+            'X-Is-Zip'      => 'true',
+        ])->deleteFileAfterSend(true);
+    }
+
+    private function sanitizeName($name)
+    {
+        return substr(preg_replace('/[^A-Za-z0-9_\-]/', '_', $name), 0, 50);
+    }
+
+
+    public function testArchive(){
+
+           $files = [
+            'agent.dashboard.marketing.modal.doc1',
+            'agent.dashboard.marketing.modal.doc2',
+            ];
+
+            $zip = new ZipArchive();
+            $zipName = 'reports.zip';
+
+            if ($zip->open($zipName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+
+                foreach ($files as $file) {
+                    if (file_exists($file)) {
+                        $zip->addFile($file, basename($file));
+                    }
+                }
+
+                $zip->close();
+
+                echo "ZIP created successfully!";
+            }
     }
 }
