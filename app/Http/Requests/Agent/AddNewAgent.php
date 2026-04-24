@@ -27,6 +27,11 @@ class AddNewAgent extends FormRequest
         $this->merge([
             'business_number' => str_replace(' ', '', $this->business_number),
         ]);
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
     }
 
 
@@ -46,6 +51,7 @@ class AddNewAgent extends FormRequest
             'abn'             => 'nullable|digits_between:10,20',
         ];
     }
+    
 
     public function messages()
     {

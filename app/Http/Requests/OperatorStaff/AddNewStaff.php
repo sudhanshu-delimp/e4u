@@ -24,7 +24,6 @@ class AddNewStaff extends FormRequest
     public function rules(Request $request)
     {
          $userId = null;
-
         if(isset($request->user_id)) {
             $userId = $request->user_id;
         }
@@ -57,6 +56,21 @@ class AddNewStaff extends FormRequest
             'keys_issued' => 'bail|required|in:yes,no',
             'car_parking' => 'bail|required|in:yes,no',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        
+        if ($this->has('kin_mobile')) {
+            $this->merge([
+                'kin_mobile' => preg_replace('/\D/', '', $this->input('kin_mobile')),
+            ]);
+        }
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
     }
 
     public function messages()

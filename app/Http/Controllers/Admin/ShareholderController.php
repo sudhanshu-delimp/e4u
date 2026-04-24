@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Shareholder\AddNewShareholder;
 use App\Models\Shareholder;
+use App\Models\ShareholderContact;
 use App\Repositories\Shareholder\ShareholderInterface;
 use PDF;
 
@@ -69,9 +70,15 @@ class ShareholderController extends BaseController
     public function getShareholder($id)
     {
         $shareholder = Shareholder::with('shareholder_setting')->where("id", $id)->first();
-        return response()->json([
+        /*  return response()->json([
             'data' => $shareholder
-        ]);
+        ]); */
+
+        if ($shareholder) {
+            return view('admin.management.shareholder.edit_shareholder_new', compact('shareholder'));
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -376,5 +383,28 @@ class ShareholderController extends BaseController
 
             return $this->successResponse('Error occurred while Account deleting.');
         }
+    }
+
+    /**
+     * Delete shareholder key contact
+     */
+    public function destroy(Request $request)
+    {
+        $id = $request->id;
+        $contact = ShareholderContact::find($id);
+        
+        if (!$contact) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Contact not found'
+            ], 404);
+        }
+
+        $contact->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Contact deleted successfully'
+        ]);
     }
 }

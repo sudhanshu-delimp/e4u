@@ -49,6 +49,21 @@ class AddNewStaff extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        
+        if ($this->has('kin_mobile')) {
+            $this->merge([
+                'kin_mobile' => preg_replace('/\D/', '', $this->input('kin_mobile')),
+            ]);
+        }
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
+    }
+
     public function messages()
     {
         return [

@@ -49,6 +49,27 @@ class UpdateStaff extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        if ($this->has('abn')) {
+            $this->merge([
+                'abn' => preg_replace('/\D/', '', $this->input('abn')),
+            ]);
+        }
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
+        if ($this->has('key_contact_phone')) {
+            $this->merge([
+                'key_contact_phone' => array_map(function ($value) {
+                    return preg_replace('/\D/', '', $value); // remove spaces, symbols
+                }, $this->input('key_contact_phone'))
+            ]);
+        }
+    }
+
     public function messages()
     {
         return [

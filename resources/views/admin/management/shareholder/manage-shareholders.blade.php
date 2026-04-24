@@ -8,6 +8,8 @@
             : 0;
         $addAccess = staffPageAccessPermission($securityLevel, 'add');
         $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+     $max_shareholder_key_contact_create = config('constants.max_shareholder_key_contact_create'); 
+     $max_shareholder_key_contact_create = $max_shareholder_key_contact_create+1;   
     @endphp
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
@@ -71,7 +73,27 @@
         </div>
     </div>
     @include('admin.management.shareholder.add_shareholder')
-    @include('admin.management.shareholder.edit_shareholder')
+    {{-- @include('admin.management.shareholder.edit_shareholder') --}}
+
+    <div class="modal fade upload-modal" id="staffEditModal" tabindex="-1" role="dialog"
+        aria-labelledby="editStaffnewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStaffnewTitle"><img
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Shareholder
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-content" id="modalStaffEditContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--View Account shareholder popupform -->
     <div class="modal fade upload-modal" id="viewShareholderPopUpModel" tabindex="-1" role="dialog"
@@ -87,6 +109,32 @@
                     </button>
                 </div>
                 <div class="modal-content" id="modalViewSShareholderContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none" id="keyContactFormData">
+        <div class="key-contact-info my-3 row">
+            <div class="col-12">
+                <h5>Key Contact</h5>
+            </div>
+            <div class="col-6 mt-2">
+                <input type="hidden" name="contact_id[]" value="">
+                <label class="form-check-label" for="contact">Contact</label>
+                <input type="tel" maxlength="100" autocomplete="off" class="form-control rounded-0"
+                    name="key_contact_name[]">
+                <span class="text-danger error-key_contact_name.1"></span>
+            </div>
+            <div class="col-6 mt-2">
+                <label class="form-check-label" for="phone">Mobile</label>
+                <input type="tel" maxlength="15" autocomplete="off" class="form-control rounded-0 formatMobile"
+                    name="key_contact_phone[]" oninput="this.value = this.value.replace(/\D/g,'');" onfocus="this.value = this.value.replace(/\D/g,'');">
+                <span class="text-danger error-key_contact_phone.1"></span>
+            </div>
+            <div class="col-6 mt-2">
+                <label class="form-check-label" for="email">Email</label>
+                <input type="email" class="form-control rounded-0" name="key_contact_email[]">
+                <span class="text-danger error-key_contact_email.1"></span>
             </div>
         </div>
     </div>
@@ -190,43 +238,20 @@
                 pageLength: 10,
             });
 
-            /*** Edit the shareholder */
+
+            /*** Edit the staff */
             $(document).on('click', '#getShareholder', function() {
                 let id = $(this).data('id');
+                $('#viewShareholderPopUpModel').modal('hide');
                 $.ajax({
                     url: BASE_URL + "/admin-dashboard/get_shareholder/" + id,
                     type: 'GET',
                     success: function(response) {
                         if ($.trim(response) === "") {
-                            swal_error_popup("Shareholder data not found.");
+                            swal_error_popup("Staff data not found");
                         } else {
-                            let shareholder = response.data; // assuming {data: {...}}
-
-                            // ===== MAIN USER DATA =====
-                            $('#user_id_edit').val(shareholder.id);
-                            $('#contact_person_edit').val(shareholder.contact_person);
-                            $('#business_name_edit').val(shareholder.business_name);
-                            $('#business_address_edit').val(shareholder.business_address);
-                            $('#phone_edit').val(shareholder.phone);
-                            $('#email_edit').val(shareholder.email);
-                            $('#editShareholder').modal('show');
-                            $('#editShareholder input[name="idle_preference_time"][value="' +
-                                    shareholder.shareholder_setting.idle_preference_time + '"]')
-                                .prop('checked', true);
-                            $('#editShareholder input[name="twofa"][value="' + shareholder
-                                .shareholder_setting.twofa + '"]').prop('checked', true);
-                            var contactTypes = shareholder.contact_type;
-                            //console.log('selectedValues', selectedValues);
-
-                            // First uncheck all (important when editing multiple times)
-                            $('#editShareholder input[name="contact_type[]"]').prop('checked',
-                                false);
-
-                            // Loop and check matching values
-                            contactTypes.forEach(function(value) {
-                                $('input[name="contact_type[]"][value="' + value + '"]')
-                                    .prop('checked', true);
-                            });
+                            $('#modalStaffEditContent').html(response);
+                            $('#staffEditModal').modal('show');
                         }
                     },
                     error: function() {
@@ -234,6 +259,51 @@
                     }
                 });
             });
+
+            /*** Edit the shareholder */
+            /* $(document).on('click', '#getShareholder', function() {
+                 let id = $(this).data('id');
+                 $.ajax({
+                     url: BASE_URL + "/admin-dashboard/get_shareholder/" + id,
+                     type: 'GET',
+                     success: function(response) {
+                         if ($.trim(response) === "") {
+                             swal_error_popup("Shareholder data not found.");
+                         } else {
+                             let shareholder = response.data; // assuming {data: {...}}
+
+                             // ===== MAIN USER DATA =====
+                             $('#user_id_edit').val(shareholder.id);
+                             $('#contact_person_edit').val(shareholder.contact_person);
+                             $('#business_name_edit').val(shareholder.business_name);
+                             $('#business_address_edit').val(shareholder.business_address);
+                             $('#phone_edit').val(shareholder.phone);
+                             $('#email_edit').val(shareholder.email);
+                             $('#editShareholder').modal('show');
+                             $('#editShareholder input[name="idle_preference_time"][value="' +
+                                     shareholder.shareholder_setting.idle_preference_time + '"]')
+                                 .prop('checked', true);
+                             $('#editShareholder input[name="twofa"][value="' + shareholder
+                                 .shareholder_setting.twofa + '"]').prop('checked', true);
+                             var contactTypes = shareholder.contact_type;
+                             //console.log('selectedValues', selectedValues);
+
+                             // First uncheck all (important when editing multiple times)
+                             $('#editShareholder input[name="contact_type[]"]').prop('checked',
+                                 false);
+
+                             // Loop and check matching values
+                             contactTypes.forEach(function(value) {
+                                 $('input[name="contact_type[]"][value="' + value + '"]')
+                                     .prop('checked', true);
+                             });
+                         }
+                     },
+                     error: function() {
+                         alert("Error loading form");
+                     }
+                 });
+             });*/
             $(document).on('submit', 'form[name="add_shareholder"]', function(e) {
                 e.preventDefault();
                 let form = $(this);
@@ -256,7 +326,8 @@
                         Swal.close();
                         $('span.text-danger').text('');
                         $('#addShareholder').modal('hide');
-                        $('#editShareholder').modal('hide');
+                        //$('#editShareholder').modal('hide');
+                        $('#staffEditModal').modal('hide');
                         $('#add_shareholder')[0].reset();
                         swal_success_popup(response.message);
                     },
@@ -268,7 +339,18 @@
                             $('span.text-danger').text('');
                             let errors = xhr.responseJSON.errors;
                             $.each(errors, function(field, messages) {
-                                $('.error-' + field).text(messages[0]);
+                                if (field.includes('.')) {
+                                    // 👉 ARRAY FIELD (key_contact_person.0)
+                                    let parts = field.split('.');
+                                    let name = parts[0] + '[]';
+                                    let index = parts[1];
+                                    let input = $('[name="' + name + '"]').eq(index);
+                                    input.addClass('is-invalid');
+                                    input.next('.text-danger').text(messages[0]);
+
+                                } else {
+                                    $('.error-' + field).text(messages[0]);
+                                }
                             });
                         } else {
                             swal_error_popup(xhr.responseJSON.message ||
@@ -281,6 +363,7 @@
             /*** View the shareholder */
             $(document).on('click', '#viewShareholderBtn', function() {
                 let id = $(this).data('id');
+                $('#staffEditModal').modal('hide');
                 $.ajax({
                     url: BASE_URL + "/admin-dashboard/view-shareholder/" + id,
                     type: 'GET',
@@ -350,7 +433,8 @@
                             table.ajax.reload(null, false);
                             Swal.close();
                             $('#addShareholder').modal('hide');
-                            $('#editShareholder').modal('hide');
+                            //$('#editShareholder').modal('hide');
+                            $('#staffEditModal').modal('hide');
                             $('#viewShareholderPopUpModel').modal('hide');
                             swal_success_popup(response.message);
                         },
@@ -358,7 +442,8 @@
 
                             Swal.close();
                             $('#addShareholder').modal('hide');
-                            $('#editShareholder').modal('hide');
+                            // $('#editShareholder').modal('hide');
+                            $('#staffEditModal').modal('hide');
                             $('#viewShareholderPopUpModel').modal('hide');
                             swal_error_popup(xhr.responseJSON.message);
                         }
@@ -425,56 +510,73 @@
             })
         });
 
-$(document).ready(function () {
-    const maxContacts = 4;
-    function updateHeadings() {
-        $(".contact-info").each(function (index) {
-            if (index === 0) {
-                $(this).find("h5").text("Primary Contact");
-            } else {
-                $(this).find("h5").text("Key Contact " + index);
+        $(document).ready(function() {
+            const maxContacts = parseInt("{{$max_shareholder_key_contact_create}}");
+
+            function updateHeadings() {
+                $(".key-contact-info").each(function(index) {
+                    $(this).find("h5").text("Key Contact " + parseInt(index + 1));
+                });
+
+                
             }
-        });
-    }
-    $("#add-more-contact").click(function (e) {
-        e.preventDefault();
+            $("#add-more-contact").click(function(e) {
+                e.preventDefault();
 
-        let contactCount = $(".contact-info").length;
+                let contactCount = $(".key-contact-info").length;
 
-        if (contactCount >= maxContacts) {
-            alert("You can only add up to 3 Kay Contacts.");
-            return;
-        }
+                if (contactCount >= maxContacts) {
+                    alert("You can only add up to 3 Kay Contacts.");
+                    return;
+                }
+                 var index = contactCount-1;
+                let newContact = $(".key-contact-info").first().clone();
+                newContact.find('span.text-danger').each(function() {
 
-        let newContact = $(".contact-info").first().clone();
+                    let classes = $(this).attr('class');
 
-        // Clear input values
-        newContact.find("input").val("");
+                    if (classes.includes('error-key_contact_name')) {
+                        $(this).attr('class', 'text-danger error-key_contact_name_' + index);
+                    }
 
-        // Add remove button only for cloned ones
-        if (newContact.find(".btn-remove").length === 0) {
-            newContact.append(`
+                    if (classes.includes('error-key_contact_phone')) {
+                        $(this).attr('class', 'text-danger error-key_contact_phone_' + index);
+                    }
+
+                    if (classes.includes('error-key_contact_email')) {
+                        $(this).attr('class', 'text-danger error-key_contact_email_' + index);
+                    }
+
+                });
+
+
+                // Clear input values
+                newContact.find("input").val("");
+
+                // Add remove button only for cloned ones
+                if (newContact.find(".btn-remove").length === 0) {
+                    newContact.append(`
                 <div class="d-flex align-items-end col-6">
                     <button type="button" class="btn-cancel-modal btn-remove">
                         <i class="fa fa-times text-white"></i>
                     </button>
                 </div>
             `);
-        }
+                }
 
-        $("#conatct-container").append(newContact);
+                $("#conatct-container").append(newContact);
 
-        updateHeadings(); // 🔥 update titles
-    });
+                updateHeadings();
+            });
 
-    // Remove contact row
-    $(document).on("click", ".btn-remove", function () {
-        $(this).closest(".contact-info").remove();
-        updateHeadings(); // 🔥 re-update after delete
-    });
+            // Remove contact row
+            $(document).on("click", ".btn-remove", function() {
+                $(this).closest(".key-contact-info").remove();
+                updateHeadings(); // re-update after delete
+            });
 
-    // Initial call
-    updateHeadings();
-});
+            // Initial call
+            updateHeadings();
+        });
     </script>
 @endpush

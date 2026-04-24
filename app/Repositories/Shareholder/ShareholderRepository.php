@@ -88,10 +88,55 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
                     'contact_type' => isset($data['contact_type'])  ? $contactType : null,
                 ];
 
+                $contactIds = isset($data['contact_id']) ? $data['contact_id'] : [];
+                $persons = isset($data['key_contact_name']) ? $data['key_contact_name'] : [];
+                $mobiles = isset($data['key_contact_phone']) ? $data['key_contact_phone'] : [];
+                $emails = isset($data['key_contact_email']) ? $data['key_contact_email'] : [];
+
                 if (isset($data['user_id']) && (!empty($data['user_id']))) {
                     $user = $this->shareholder->where('id', $data['user_id'])->first();
                     if ($user) {
                         $user->update($shareholderData);
+                        foreach ($persons as $index => $person) {
+
+                            $contactId = $contactIds[$index] ?? null;
+                            $mobile     = $mobiles[$index] ?? null;
+                            $email     = $emails[$index] ?? null;
+                            // skip empty row
+                            if (!$person && !$mobile && !$email) {
+                                continue;
+                            }
+
+                            if ($contactId) {
+                                // UPDATE EXISTING
+                                $contact = $user->contacts()->find($contactId);
+
+                                if ($contact) {
+                                    $contact->update([
+                                        'name'  => $person,
+                                        'mobile' => $mobile,
+                                        'email' => $email,
+                                    ]);
+
+                                    $idsFromForm[] = $contactId;
+                                }
+                            } else {
+                                // CREATE NEW
+                                $newContact = $user->contacts()->create([
+                                    'name'  => $person,
+                                    'mobile' => $mobile,
+                                    'email' => $email,
+                                ]);
+
+                                $idsFromForm[] = $newContact->id;
+                            }
+                        }
+                        # DELETE REMOVED CONTACTS
+
+                        $user->contacts()
+                            ->whereNotIn('id', $idsFromForm)
+                            ->delete();
+
                         $message = 'Shareholder\'s Account updated successfully.';
                     } else {
                         $this->response = ['status' => false, 'message' => 'Shareholder not found.'];
@@ -107,6 +152,16 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
                         $shareholder = $this->shareholder->where('id', $user->id)->first();
                         $shareholder->update(['contact_type' => $contactType]);
                         $this->setting->create_account_setting($user);
+
+                        foreach ($persons as $index => $person) {
+                            if ($person || $mobiles[$index] || $emails[$index]) {
+                                $shareholder->contacts()->create([
+                                    'name'  => $person,
+                                    'mobile' => $mobiles[$index] ?? null,
+                                    'email' => $emails[$index] ?? null,
+                                ]);
+                            }
+                        }
                     }
                 }
 
