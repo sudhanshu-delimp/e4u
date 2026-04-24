@@ -69,8 +69,8 @@
 
                  <!-- Closing -->
                <!-- email info -->
-                                <x-email-info/>
-                            <!-- end -->
+                  <x-email-info/>
+              <!-- end -->
             </td>
           </tr>
 
