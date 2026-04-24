@@ -392,7 +392,12 @@ class MediaVerificationController extends Controller
         $member_id = get_massage_member_id($user_id);
 
         $media_verification_image = asset('escorts/' . $media_verification->image_path);
-        
+        $reviewed_by = 0;
+        if ($media_verification->reviewed_by) {
+            $reviewed_by = User::where('id', $media_verification->reviewed_by)
+                ->value('member_id'); // ✅ direct value
+        }
+
         switch ($status) {
             case '1': // Approved
                 $query->where('media_verification_id', $id)
@@ -429,6 +434,6 @@ class MediaVerificationController extends Controller
                     break;
             }
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id','media_verification_image','user_type'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id','media_verification_image','user_type','reviewed_by','status'));
     }
 }
