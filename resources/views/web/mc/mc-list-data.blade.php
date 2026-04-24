@@ -71,8 +71,12 @@ $twitter_link = "https://x.com/NMugs32853";
              <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">
-              <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}" alt="pending">
-              <span class="common_shield_tooltip">Media Pending</span>
+            @php 
+                $media_verification_status =  get_profile_verification_status($listing->id);
+                $media_status = getMediaVerificationDataBigIcon(($media_verification_status ?? 0));
+            @endphp
+              <img src="{{$media_status['icon']}}" alt="pending">
+              <span class="common_shield_tooltip">{{$media_status['label']}}</span>
          </span>
          <div class="mc_list_legbox">
              <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">
