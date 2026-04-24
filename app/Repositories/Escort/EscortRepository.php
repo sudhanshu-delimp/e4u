@@ -597,6 +597,30 @@ class EscortRepository extends BaseRepository implements EscortInterface
             });
         }
 
+        // Verification Filter
+        if (!empty($str['verification'])) {
+
+            $statusMap = [
+                'pending'    => '0',
+                'verified'   => '1',
+                'unverified' => '2',
+            ];
+
+            if (isset($statusMap[$str['verification']])) {
+
+                $status = $statusMap[$str['verification']];
+
+                $collection = $collection->whereExists(function ($q) use ($status) {
+                    $q->select(\DB::raw(1))
+                        ->from('profile_verification_status as pvs')
+                        ->whereColumn('pvs.profile_id', 'escorts.id') // table name check karo
+                        ->where('pvs.type', '3') // escort
+                        ->where('pvs.status', $status);
+                });
+            }
+        }
+
+
         return $collection;
     }
     public function findByMassageCentre($count = null, $str = null)

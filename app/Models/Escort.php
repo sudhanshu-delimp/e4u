@@ -481,6 +481,7 @@ class Escort extends Model
         // }
     }
 
+
     public function getBannerImageAttribute()
     {
         if($image = $this->medias()->where('type', 2)->orderBy('id','DESC')->first()) {

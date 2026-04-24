@@ -484,15 +484,11 @@ class MassageGalleryController extends AppController
     public function getAccountMediaGallery(Request $request, $category=null , $status = null ){
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
-            // $mediaCategory = match ($category) {
-            //     'gallery' => $media->whereNotIn('position',[9,10]),
-            //     'banner'  => $media->whereIn('position',[9])->where('template','0'),
-            //     'pinup'   => $media->whereIn('position',[10]),
-            // };
-
+            
             $statusMap = [
-                'verified'   => '1',
-                'unverified' => '2',
+                'all'   => ['0','1','2'],
+                'verified'   => ['1'],
+                'unverified' => ['0','2'],
             ];
 
             $status = $statusMap[$status] ?? null;
@@ -501,14 +497,14 @@ class MassageGalleryController extends AppController
                 'gallery' => $media
                     ->whereNotIn('position',[9,10])
                     ->when($status !== null, function ($query) use ($status) {
-                        return $query->where('varified', $status);
+                        return $query->whereIn('varified', $status);
                     }),
 
                 'banner'  => $media
                     ->whereIn('position',[9])
                     ->where('template','0')
                     ->when($status !== null, function ($query) use ($status) {
-                        return $query->where('varified', $status);
+                        return $query->whereIn('varified', $status);
                     }),
 
             };
@@ -517,7 +513,8 @@ class MassageGalleryController extends AppController
             $response = [];
             $response['success'] = true;
             $response['category'] = $category;
-            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category','status'))->render();
+            $currentStatus =  $request->status ?? 'all';
+            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category','status','currentStatus'))->render();
             $response['gallery_modal_container_html'] = view('escort.dashboard.profile.partials.gallery_modal_container',compact('media','path'))->render();
             $response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
             
@@ -702,7 +699,7 @@ class MassageGalleryController extends AppController
 
         return response()->json([
             'success' => true,
-            'message' => 'Verification uploaded successfully.',
+            'message' => "Verification uploaded successfully.\nPlease allow 24 hours for the verification to be completed."
         ]);
     }
 
