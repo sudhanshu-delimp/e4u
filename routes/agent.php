@@ -132,11 +132,15 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     //Gener pdf
     Route::post('marketing/prospect-list/generate-pdf', [ProspectListController::class, 'generatePDF'])->name('agent.marketing.prospect.generate.pdf');
 
+    //Demo
+    Route::get('marketing/prospect-list/demo1', function(){
+       return view('agent.dashboard.marketing.modal.doc1');
+    });
+
     //Testing generate PDF using HTML
-    Route::get('marketing/prospect-list/demo-pdf', [ProspectListController::class, 'demoPdf']);
+    Route::get('marketing/prospect-list/demo-pdf', [ProspectListController::class, 'testPDF']);
     Route::post('marketing/prospect-list/generate-pdf-demo', [ProspectListController::class, 'pdfGenerate'])->name('pdf.generate');
-    //test ZipArchive 
-    Route::get('marketing/prospect-list/test-archive', [ProspectListController::class, 'testArchive']);
+ 
 
     //Save Report
     Route::get('marketing/save-report', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');

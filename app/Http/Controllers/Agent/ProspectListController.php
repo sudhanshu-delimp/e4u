@@ -7,6 +7,7 @@ use App\Models\MassageExcel;
 use App\Models\ProspectReport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use ZipArchive;
 
@@ -360,15 +361,16 @@ class ProspectListController extends Controller
 
     private function generateSinglePDF($centre, $viewPath)
     {
-
+         $dynamicData = $this->getPfdDynamicName($centre);
         $pdf = PDF::loadView($viewPath, [
-            'centres'   => collect([$centre]),
+            'data'   => $dynamicData,
         ])
             ->setPaper('a4')
             ->setOptions([
                 'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled'      => false,
+                'isRemoteEnabled'      => true,
                 'dpi'                  => 96,
+                'chroot'               => public_path(),
             ]);
 
         $filename = $this->sanitizeName($centre['bussiness_name']) . '_report.pdf';
@@ -384,49 +386,94 @@ class ProspectListController extends Controller
     }
 
 
-    //Multiple  PDF -> Zip
     private function generateZipPDF($centres, $viewPath)
     {
+        @set_time_limit(0);
+        ini_set('memory_limit', '1G');
 
+        $tempDir     = storage_path('app/temp_' . uniqid());
         $zipFilename = 'report_' . now()->format('d_m_Y_H_i_s') . '.zip';
-        $zipPath     = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $zipFilename;
+        $zipPath     = storage_path('app/' . $zipFilename);
 
-        //create temp folder if not exist
-        if (!file_exists(storage_path('app/temp'))) {
-            mkdir(storage_path('app/temp'), 0755, true);
+        if (!file_exists($tempDir)) {
+            mkdir($tempDir, 0755, true);
         }
 
-        $zip = new ZipArchive();
-        $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $pdfFiles = [];
 
         foreach ($centres as $index => $centre) {
-            $pdf = Pdf::loadView($viewPath, [
-                'centres' => collect([$centre]),
+             $dynamicData = $this->getPfdDynamicName($centre);
+
+            $pdfContent = Pdf::loadView($viewPath, [
+                'data' => $dynamicData,
             ])
                 ->setPaper('a4')
                 ->setOptions([
                     'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled'      => false,
+                    'isRemoteEnabled'      => true,
                     'dpi'                  => 96,
-                ]);
+                    'chroot'               => public_path(),
+                ])
+                ->output();
 
-            $pdfContent = $pdf->output();
+            if (empty($pdfContent)) {
+                throw new \Exception('Empty PDF for: ' . $centre->bussiness_name);
+            }
 
-            dd([
-                'index'       => $index,
-                'centre'      => $centre->bussiness_name,
-                'pdfSize'     => strlen($pdfContent),
-                'pdfStart'    => substr($pdfContent, 0, 4), // Should be "%PDF"
-            ]);
+            $pdfFilename = ($index + 1) . '_' . $this->sanitizeName($centre->bussiness_name) . '.pdf';
+            $pdfPath     = $tempDir . DIRECTORY_SEPARATOR . $pdfFilename;
+
+            file_put_contents($pdfPath, $pdfContent);
+
+            $pdfFiles[] = ['path' => $pdfPath, 'name' => $pdfFilename];
+
+            unset($pdfContent);
+            gc_collect_cycles();
+        }
+
+        // Step 2: ZIP banao
+        $zip    = new ZipArchive();
+        $result = $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        if ($result !== true) {
+            throw new \Exception('ZipArchive open failed. Code: ' . $result);
+        }
+
+        foreach ($pdfFiles as $file) {
+            if (file_exists($file['path'])) {
+                $zip->addFile($file['path'], $file['name']);
+            }
         }
 
         $zip->close();
 
+        // Step 3: Validate ZIP
+        if (!file_exists($zipPath) || filesize($zipPath) == 0) {
+            throw new \Exception('ZIP file is invalid or empty.');
+        }
+
+        // Step 4: Cleanup temp PDFs
+        foreach ($pdfFiles as $file) {
+            if (file_exists($file['path'])) {
+                unlink($file['path']);
+            }
+        }
+
+        if (is_dir($tempDir)) {
+            rmdir($tempDir);
+        }
+
+
+        if (ob_get_length()) {
+            ob_end_clean();
+        }
+
+        // Step 6: Download
         return response()->download($zipPath, $zipFilename, [
-            'Content-Type'  => 'application/zip',
-            'X-Filename'    => $zipFilename,
-            'X-PDF-Count'   => $centres->count(),
-            'X-Is-Zip'      => 'true',
+            'Content-Type' => 'application/zip',
+            'X-Filename'   => $zipFilename,
+            'X-PDF-Count'  => $centres->count(),
+            'X-Is-Zip'     => 'true',
         ])->deleteFileAfterSend(true);
     }
 
@@ -435,28 +482,48 @@ class ProspectListController extends Controller
         return substr(preg_replace('/[^A-Za-z0-9_\-]/', '_', $name), 0, 50);
     }
 
+    private function getPfdDynamicName($centre)
+    {
+        $agent = Auth::user();
+        return  [
+            'bussiness_name' => $centre['bussiness_name'],
+            'name_of_agent' => $agent['business_name'],
+            'agent_email_address' => $agent['email'],
+            'data' => date('d-m-y'),
+            'address' => $centre['address'],
+            'agent_signature' =>  url('storage/' . $agent->agent_detail['signature_file']),
+            'agent_mobile_number' => $agent['phone'] ?? '',
+            'email' => $agent['email'] ?? '',
+        ];
 
-    public function testArchive(){
+    }
 
-           $files = [
-            'agent.dashboard.marketing.modal.doc1',
-            'agent.dashboard.marketing.modal.doc2',
-            ];
 
-            $zip = new ZipArchive();
-            $zipName = 'reports.zip';
 
-            if ($zip->open($zipName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+    public function testPDF()
+    {
+        $centre = MassageExcel::first(); // pehla record
+        $viewPath = 'agent.dashboard.marketing.modal.doc1';
 
-                foreach ($files as $file) {
-                    if (file_exists($file)) {
-                        $zip->addFile($file, basename($file));
-                    }
-                }
+        $dynamicData = $this->getPfdDynamicName($centre);
+        dd($dynamicData);
 
-                $zip->close();
+        $pdf = PDF::loadView($viewPath, [
+            //'centres' => collect([$centre]),
+            'data' => $dynamicData,
+        ])
+            ->setPaper('a4')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => true,
+                'dpi'                  => 96,
+                'chroot'               => public_path(),
+            ]);
 
-                echo "ZIP created successfully!";
-            }
+        // ✅ inline - browser me open hoga, download nahi
+        return response($pdf->output(), 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="test.pdf"', // attachment → inline
+        ]);
     }
 }

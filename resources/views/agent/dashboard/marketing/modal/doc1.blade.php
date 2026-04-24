@@ -178,28 +178,29 @@
 
     <div class="page_container">
         <div class="header">
-            <div class="logo"><img src="https://i.postimg.cc/43k0NYG7/png1.png" alt=""></div>
-            <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/pdf/1.png" alt="" style="width: 100%;">
+            <div class="logo"><img src="{{ public_path('assets/app/pdf/png1.png') }}" alt=""></div>
+            <img src="{{ public_path('assets/app/pdf/1.png') }}" alt="" style="width: 100%;">
 
             <div class="subtitle">
                 Information Package for the Provision of Advertising Solutions for a Massage Centre
             </div>
             <div class="info">
+                {{-- Agent business name --}}
                 <div class="info_details">
                     <h4><b>Prepared For:</b></h4>
-                    <h4>The Proprietor</h4>
-                    <p>XYZ 123 ABC</p>
+                    <h4>{{ $data['bussiness_name'] }}</h4>
                 </div>
 
+                {{-- Agent name --}}
                 <div class="info_details">
                     <h4> <b>Prepared By:</b></h4>
-                    <p>XYZ 123 ABC</p>
+                    <p>{{ $data['name_of_agent'] }}</p>
                 </div>
 
-
+                    {{-- Agent email address --}}
                 <div class="info_details">
                     <h4>Agent for Escorts4U</h4>
-                    <p>XYZ 123 ABC</p>
+                    <p>{{ $data['agent_email_address'] }}</p>
                 </div>
 
 
@@ -211,12 +212,13 @@
 
         <div class="page_1">
             <div style="text-align: right; margin: 10px 0px;">
-                <img src="https://i.postimg.cc/43k0NYG7/png1.png" alt="" style="width: 195px; height:63px;">
+                <img src="{{ public_path('assets/app/pdf/png1.png') }}" alt="" style="width: 195px; height:63px;">
             </div>
 
             <div>
-                <p style="margin-bottom: 0px;">Akshay kumar</p>
-                <p style="width:60%">Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore - 560016 </p>
+                {{-- business name --}}
+                <p style="margin-bottom: 0px;">{{ $data['bussiness_name'] }}</p>
+                <p style="width:60%">{{ $data['address'] }}</p>
                 <p>Dear Sir / Madam,</p>
             </div>
 
@@ -355,14 +357,17 @@
             </p>
 
             <span style="border-bottom:1px solid #333;">
-                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/pdf/2.png" alt="" style="width: 150px;">
+                {{-- singnature here --}}
+                @if($data['agent_signature'])
+                <img src="{{ $data['agent_signature'] }}" alt="" style="width: 150px;">
+                @endif
             </span>
 
 
             <p style="margin: 25px 0px;">
-                <span><b>M: </b> Agent Mobile No.</span>
+                <span><b>M: </b> {{ $data['agent_mobile_number'] }}</span>
                 <br>
-                <span><b>E: </b> <a href=""> Agent Email Address</a></span>
+                <span><b>E: </b> <a href="mailto:{{ $data['email'] }}">{{ $data['email'] }}</a></span>
             </p>
             <div class="heading" style="page-break-before: always; text-align: center;">
                 Sample Screen shot of a Massage Centre Profile
@@ -377,21 +382,21 @@
             </ul>
             <div style="text-align: center;">
                 <p class="subheading" style="text-align: center;">Media pop up. Select My Photos or My Videos</p>
-                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/pdf/mc1.png" alt="" style="width: 70%; border:2px solid #0c223d;">
+                <img src="{{ public_path('assets/app/pdf/mc1.png') }}" alt="" style="width: 70%; border:2px solid #0c223d;">
             </div>
             <div style="text-align: center;">
                 <p class="subheading" style="text-align: center;">Masseur pop up. Selected from Centre Profile</p>
-                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/pdf/mc2.png" alt="" style="width: 70%; border:2px solid #0c223d;">
+                <img src="{{ public_path('assets/app/pdf/mc2.png') }}" alt="" style="width: 70%; border:2px solid #0c223d;">
             </div>
         </div>
 
         <div style="text-align: center; page-break-before: always;">
             <p class="subheading" style="text-align: center;">Massage Centre Profile</p>
-            <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/pdf/5.png" alt="" style="width: 85%;">
+            <img src="{{ public_path('assets/app/pdf/5.png') }}" alt="" style="width: 85%;">
         </div>
 
         <div class="footer">
-            <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/pdf/6.png" alt="" style="width: 100%;">
+            <img src="{{ public_path('assets/app/pdf/6.png') }}" alt="" style="width: 100%;">
             <div class="footer_info">
                 <h3>For Enquiries</h3>
                 <p>Phone: 1300 700 444</p>
