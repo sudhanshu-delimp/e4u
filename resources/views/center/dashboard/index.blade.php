@@ -259,7 +259,7 @@
 @include('modal.console-expiry-password')
 
 @endsection
-<div class="modal fade upload-modal" id="WelcomeMassagePopup" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal" style="display: none;" id="WelcomeMassagePopup" tabindex="-1" role="dialog"
     aria-labelledby="RegisterMassageLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
