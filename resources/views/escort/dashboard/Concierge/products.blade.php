@@ -9,6 +9,7 @@
             list-style: none;
             color: rgb(248, 0, 0)
         }
+    
     </style>
 @endsection
 @section('content')
@@ -25,7 +26,7 @@
                 <div class="product_view e4u-tooltip">
                     <span class="view_cart" id="viewCart">
                         <i class="fa fa-shopping-cart"></i>
-                        <small class="item_count">10</small>
+                        <small class="item_count" id="cart-count">{{$totalCartItem}}</small>
                         <span class="vtooltip">View Cart</span>
                     </span>
                 </div>
@@ -53,193 +54,91 @@
         {{-- end --}}
 
         <!--middle content-->
-        <div class="row ">
-           <div class="col-12 product-card-wrapper">
-                <div class="card product-card">
-                    <div class="product-image-wrapper">
-                        <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
-                            alt="...">
-                    </div>
-                    <div class="card-body">
-                        <div class="header">
-                            <h4>Four Seasons - Naked bulk pack</h4>
-                            <span class="price">$ 45.00</span>
-                        </div>
-                        <div class="p_description">
-                            <p>Four Seasons - Close Fitting<br>
-                                Naked closer fitting condoms for a secure fit with less chance of
-                                slipping off during the experience.<br>
-                                QTY: 144 Size: 49mm</p>
-                        </div>
+        <div class="row">
+            @if ($products->isNotEmpty())
+                <div class="col-12 product-card-wrapper">
 
-                        <div class="p_color">
-                            <label for="color">Color:</label>
-                            <input type="radio" id="color1" name="color" value="gold">
-                            <label for="color1">Gold</label>
-                            <input type="radio" id="color2" name="color" value="pink">
-                            <label for="color2">Pink</label>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="p_quantity">
-                                <label for="quantity">Quantity:</label>
-                                <input type="number" id="quantity" name="quantity" min="1" max="149"
-                                    value="1">
+                    @foreach ($products as $item)
+                        <div class="card product-card">
+                            <div class="product-image-wrapper">
+                                <img src="{{ asset('admin/products/escort.jpg') }}" class="card-img-top product-image"
+                                    data-title="{{ strip_tags($item->description) }}"
+                                    data-image="{{ asset('admin/products/escort.jpg') }}" style="cursor:pointer;">
                             </div>
-                            <div class="p_size">
-                                <label for="size">Size:</label>
-                                <select id="size" name="size">
-                                    <option value="close_fit">Closer Fit</option>
-                                    <option value="regular">Regular</option>
-                                    <option value="large">Large</option>
-                                    <option value="king_size">King Size</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="button" class="add_to_cart">Add to Cart</button>
-                    </div>
-                </div>
-
-                    <div class="card product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
-                                alt="...">
-                        </div>
-                        <div class="card-body">
-                            <div class="header">
-                                <h4>Lifestyles - Bulk pack</h4>
-                                <span class="price">$ 45.00</span>
-                            </div>
-                            <div class="p_description">
-                                <p>Four Seasons - Close Fitting<br>
-                                    Naked closer fitting condoms for a secure fit with less chance of
-                                    slipping off during the experience.<br>
-                                    QTY: 144 Size: 49mm</p>
-                            </div>
-
-                            <div class="p_color">
-                                <label for="color">Color:</label>
-                                <input type="radio" id="color1" name="color" value="gold">
-                                <label for="color1">Gold</label>
-                                <input type="radio" id="color2" name="color" value="pink">
-                                <label for="color2">Pink</label>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="p_quantity">
-                                    <label for="quantity">Quantity:</label>
-                                    <input type="number" id="quantity" name="quantity" min="1" max="149"
-                                        value="1">
+                            <div class="card-body">
+                                <div class="header">
+                                    <p>{!! $item->description !!}
+                                        <br>QTY: {{ $item->qty }}
+                                        {{ !empty($item->size) && $item->size != 'N/A' ? 'Size:' . $item->size : '' }}
+                                    </p>
+                                    <span class="price">${{ $item->price }}</span>
                                 </div>
-                                <div class="p_size">
-                                    <label for="size">Size:</label>
-                                    <select id="size" name="size">
-                                        <option value="close_fit">Closer Fit</option>
-                                        <option value="regular">Regular</option>
-                                        <option value="large">Large</option>
-                                        <option value="king_size">King Size</option>
-                                    </select>
+                                <div class="product-box" id="product-{{ $item->id }}">
+
+                                    @if (in_array($item->id, $cartItems))
+                                        <div class="qty-box text-center">
+                                            <button class="qty-decrease cartAction" data-id="{{ $item->id }}"
+                                                data-type="decrease">-</button>
+
+                                            <span class="qty" id="qty-{{ $item->id }}">
+                                                {{ $item->cartItem->quantity ?? 1 }}
+                                            </span>
+
+                                            <button class="qty-increase cartAction" data-id="{{ $item->id }}"
+                                                data-type="increase">+</button>
+                                        </div>
+                                    @else
+                                        <button class="add_to_cart cartAction" data-id="{{ $item->id }}"
+                                            data-type="add">
+                                            Add to Cart
+                                        </button>
+                                    @endif
+
                                 </div>
                             </div>
-                            <button type="button" class="add_to_cart">Add to Cart</button>
+
+
                         </div>
-                    </div>
-
-                    <div class="card product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
-                                alt="...">
-                        </div>
-                        <div class="card-body">
-                            <div class="header">
-                                <h4>Glyde Maxi - bulk pack</h4>
-                                <span class="price">$ 35.00</span>
-                            </div>
-                            <div class="p_description">
-                                <p>Four Seasons - Close Fitting<br>
-                                    Naked closer fitting condoms for a secure fit with less chance of
-                                    slipping off during the experience.<br>
-                                    QTY: 144 Size: 49mm</p>
-                            </div>
-
-                            <div class="p_color">
-                                <label for="color">Color:</label>
-                                <input type="radio" id="color1" name="color" value="gold">
-                                <label for="color1">Gold</label>
-                                <input type="radio" id="color2" name="color" value="pink">
-                                <label for="color2">Pink</label>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="p_quantity">
-                                    <label for="quantity">Quantity:</label>
-                                    <input type="number" id="quantity" name="quantity" min="1" max="149"
-                                        value="1">
-                                </div>
-                                <div class="p_size">
-                                    <label for="size">Size:</label>
-                                    <select id="size" name="size">
-                                        <option value="close_fit">Closer Fit</option>
-                                        <option value="regular">Regular</option>
-                                        <option value="large">Large</option>
-                                        <option value="king_size">King Size</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="button" class="add_to_cart">Add to Cart</button>
-                        </div>
-                    </div>
-
-
-                    <div class="card product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('assets/dashboard/img/product/placeholder.png') }}" class="card-img-top"
-                                alt="...">
-                        </div>
-                        <div class="card-body">
-                            <div class="header">
-                                <h4>Wet Stuff - Lubricant</h4>
-                                <span class="price">$ 30.00</span>
-                            </div>
-                            <div class="p_description">
-                                <p>Four Seasons - Close Fitting<br>
-                                    Naked closer fitting condoms for a secure fit with less chance of
-                                    slipping off during the experience.<br>
-                                    QTY: 144 Size: 49mm</p>
-                            </div>
-
-                            <div class="p_color">
-                                <label for="color">Color:</label>
-                                <input type="radio" id="color1" name="color" value="gold">
-                                <label for="color1">Gold</label>
-                                <input type="radio" id="color2" name="color" value="pink">
-                                <label for="color2">Pink</label>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="p_quantity">
-                                    <label for="quantity">Quantity:</label>
-                                    <input type="number" id="quantity" name="quantity" min="1" max="149"
-                                        value="1">
-                                </div>
-                                <div class="p_size">
-                                    <label for="size">Size:</label>
-                                    <select id="size" name="size">
-                                        <option value="close_fit">Closer Fit</option>
-                                        <option value="regular">Regular</option>
-                                        <option value="large">Large</option>
-                                        <option value="king_size">King Size</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="button" class="add_to_cart">Add to Cart</button>
-                        </div>
-                    </div>
-           </div>
+                    @endforeach
+                @else
+                    <p>Item Not Found</p>
+            @endif
         </div>
+
+
+
+    </div>
     </div>
     <!-- End of Main Content -->
+    <!-- Product Image Modal -->
+    <div class="modal fade upload-modal " id="imageModal" tabindex="-1" >
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
 
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="https://e4u.local/assets/app/img/newcross.png"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body text-center position-relative">
+
+                    <!-- Loader -->
+                    <div id="imageLoader" class="position-absolute top-50 start-50 translate-middle">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
+
+                    <!-- Image -->
+                    <img id="modalImage" src="" class="img-fluid d-none">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -256,5 +155,81 @@
         viewCart.addEventListener("click", function() {
             window.location.href = "{{ route('escort.view-cart') }}";
         })
+
+        $(document).on('click', '.product-image', function() {
+
+            let title = $(this).data('title');
+            let image = $(this).data('image');
+
+            $('#modalTitle').text(title);
+
+            // Show modal first
+            let modal = new bootstrap.Modal(document.getElementById('imageModal'));
+            modal.show();
+
+            // Show loader, hide image
+            $('#imageLoader').show();
+            $('#modalImage').addClass('d-none');
+
+            // Create new image object to detect load
+            let img = new Image();
+            img.src = image;
+
+            img.onload = function() {
+                $('#modalImage').attr('src', image);
+                $('#imageLoader').hide();
+                $('#modalImage').removeClass('d-none');
+            };
+
+            img.onerror = function() {
+                $('#imageLoader').hide();
+                Swal.fire('Failed to load image', '', 'error');
+
+            };
+
+        });
+        $(document).on('click', '.cartAction', function() {
+
+            let id = $(this).data('id');
+            let type = $(this).data('type');
+
+            $.ajax({
+                url: "{{ route('escort.add.to.cart') }}",
+                type: "POST",
+                data: {
+                    id: id,
+                    type: type,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(res) {
+                    // update cart count
+                    $('#cart-count').text(res.cart_count);
+                    if (res.removed) {
+                        $('#product-' + id).html(`<button class="add_to_cart cartAction"  data-id="${id}"  data-type="add"> Add to Cart  </button>`);
+                        return; // stop here
+                    }
+
+                    if (type === 'add') {
+                        $('#product-' + id).html(`
+                    <div class="qty-box text-center">
+                        <button class="qty-decrease cartAction" data-id="${id}" data-type="decrease">-</button>
+                        <span class="qty" id="qty-${id}">${res.qty}</span>
+                        <button class="qty-increase cartAction" data-id="${id}" data-type="increase">+</button>
+                    </div>
+                `);
+                    } else {
+                        // Just update qty text
+                        $('#qty-' + id).text(res.qty);
+                    }
+                      Swal.fire({
+                        icon: "success",
+                        title: res.message,
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+
+        });
     </script>
 @endpush

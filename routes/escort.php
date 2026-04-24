@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Admin\Escort\ProductController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
@@ -348,9 +350,10 @@ Route::get('mobile-read-sim',function(){
     return view('escort.dashboard.Concierge.mobile-read-sim');
 });
 
-Route::get('concierge/products',function(){
-    return view('escort.dashboard.Concierge.products');
-})->name('escort.products');
+Route::prefix('concierge')->name('escort.')->group(function () {
+    Route::get('/products', [ProductController::class, 'index'])->name('products');
+     Route::post('/product/add-to-cart', [ProductController::class, 'addToCart'])->name('add.to.cart');
+});
 
 Route::get('concierge/view-cart',function(){
     return view('escort.dashboard.Concierge.view-cart');
