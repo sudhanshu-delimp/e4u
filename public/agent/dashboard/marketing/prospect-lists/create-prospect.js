@@ -675,7 +675,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn-print-single', function () {
         let centreId = $(this).data('centre-id');
         let reportId = $(this).data('report-id');
-        let docType =  $(this).data('doc-type');
+        let docType = $(this).data('doc-type');
 
         triggerPDF([centreId], reportId, docType, 'print');
     });
@@ -720,33 +720,43 @@ $(document).ready(function () {
 
     function triggerPDF(centreIds, reportId, docType, action) {
 
-        let btn = action === 'print' ? '#footerPrintBtn' : '#footerSaveBtn';
+        let btn          = action === 'print' ? '#footerPrintBtn' : '#footerSaveBtn';
         let originalHtml = $(btn).html();
+        let count        = centreIds.length;
 
-        // Button loading state
-        $(btn).prop('disabled', true).html(
-            '<span class="spinner-border spinner-border-sm"></span> ' +
-            'Generating ' + centreIds.length + ' PDF(s)...'
-        );
-
-
+        // ✅ Sirf loader show + button disable
+        $(btn).prop('disabled', true);
+        showLoader();
 
         $.ajax({
-            url: endpoint.generate_pdf,
-            method: 'POST',
-            data: {
-                _token: endpoint.csrf_token,
-                centre_ids: centreIds,
-                report_id: reportId,
-                docType: docType,
-                action: action,
+            url    : endpoint.generate_pdf,
+            method : 'POST',
+            data   : {
+                _token     : endpoint.csrf_token,
+                centre_ids : centreIds,
+                report_id  : reportId,
+                docType    : docType,
+                action     : action,
             },
-            xhrFields: { responseType: 'blob' },
-            timeout: 120000,
+            xhrFields : { responseType: 'blob' },
+            timeout   : 300000,
+
+            xhr: function () {
+                console.log('sdfsdfds');
+                let xhr = new XMLHttpRequest();
+                xhr.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        let percent = Math.round((e.loaded / e.total) * 100);
+                        console.log('Download progress: ' + percent + '%');
+                        updateLoaderProgress(percent);
+                    }
+                });
+                return xhr;
+                
+            },
 
             success: function (blob, status, xhr) {
-                console.log(blob.type, 'blob-type');
-                
+
                 if (!blob || blob.size === 0) {
                     showAlert('error', 'PDF generation failed. Empty response.');
                     return;
@@ -762,55 +772,60 @@ $(document).ready(function () {
                     return;
                 }
 
-
                 let filename = xhr.getResponseHeader('X-Filename') || 'report.pdf';
-                let isZip = xhr.getResponseHeader('X-Is-Zip') === 'true';
-                let count = xhr.getResponseHeader('X-PDF-Count') || 1;
-                let url   = window.URL.createObjectURL(blob);
+                let isZip    = xhr.getResponseHeader('X-Is-Zip') === 'true';
+                let pdfCount = xhr.getResponseHeader('X-PDF-Count') || 1;
+                let url      = window.URL.createObjectURL(blob);
 
-                if (action === 'print' && !isZip) {
-                    $(btn).html(
-                        '<span class="spinner-border spinner-border-sm"></span> Downloading...'
-                    );
+                downloadFile(url, filename);
 
-                    let a    = document.createElement('a');
-                    a.href     = url;
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    window.URL.revokeObjectURL(url);
-
-                    if (isZip) {
-                        showAlert('success', pdfCount + ' PDFs downloaded as ZIP!');
-                    } else {
-                        showAlert('success', 'PDF downloaded successfully!');
-                    }
-                } else {
-                    // Download (PDF ya ZIP)
-                    let a = document.createElement('a');
-                    a.href = url;
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    window.URL.revokeObjectURL(url);
-
-                    if (isZip) {
-                        showAlert('error', count + ' PDFs downloaded as ZIP successfully!');
-                    }
-                }
+                let msg = isZip
+                    ? pdfCount + ' PDFs downloaded as ZIP!'
+                    : 'PDF downloaded successfully!';
+                showAlert('success', msg);
             },
 
             error: function () {
-                showAlert('error','PDF generation failed. Please try again.');
+                showAlert('error', 'PDF generation failed. Please try again.');
             },
 
             complete: function () {
+                hideLoader();
                 $(btn).prop('disabled', false).html(originalHtml);
             }
         });
     }
+
+    function downloadFile(url, filename) {
+        let a  = document.createElement('a');
+        a.href     = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    }
+
+
+    function showLoader() {
+        $('#loader').removeClass('d-none');
+        updateLoaderProgress(0);
+    }
+
+    function hideLoader() {
+        $('#loader').addClass('d-none');
+        updateLoaderProgress(0);
+    }
+
+
+    function updateLoaderProgress(percent) {
+    $('#loader .progress-bar').css('width', percent + '%');
+    $('#loader h2').text(
+        percent > 0 && percent < 100
+            ? 'Downloading... ' + percent + '%'
+            : 'Downloading... Please wait'
+    );
+}
 
 
 
