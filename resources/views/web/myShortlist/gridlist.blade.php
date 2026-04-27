@@ -34,10 +34,16 @@
                                     <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                         class="img-fluid height_for_platinum">
 
-                                    <div class="verify-image-custom">
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
-                                        <span class="common_shield_tooltip">Media Pending</span>
-                                    </div>
+                                    @if($escort->default_image)
+                                        <div class="verify-image-custom">
+                                            @php 
+                                                $media_verification_status =  get_profile_verification_status($escort->id);
+                                                $media_status = getMediaVerificationDataBigIcon(($media_verification_status ?? 0));
+                                            @endphp
+                                            <img src="{{$media_status['icon']}}">
+                                            <span class="common_shield_tooltip">{{$media_status['label']}}</span>
+                                        </div>
+                                    @endif
                                     <div class="siliver_logo_icon"><img src="{{ $imagePath }}">
                                     </div>
                                     <div class="add_to_fab_list_view_each_sec">

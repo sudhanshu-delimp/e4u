@@ -263,7 +263,6 @@
                     'accommodation',
                     'email-hosting',
                     'mobile-read-sim',
-                    'professional-products',
                     'travel',
                     'visa-migration',
                     'Community',
@@ -283,7 +282,8 @@
                     'tours',
                     'ticket-list',
                     'submit_ticket',
-                ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
+                ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['uploads', 'guidelines',
+                    'products',])) show @endif"
             data-parent="#accordionSidebar">
 
             <div class="collapse-inner">
@@ -453,14 +453,21 @@
 
                 <div id="ManagementConcierge"
                     class="collapse
-                    @if (in_array(request()->segment(2), [
+                    @if (
+                        in_array(request()->segment(2), [
                             'accommodation',
                             'email-hosting',
                             'mobile-read-sim',
-                            'professional-products',
                             'travel',
                             'visa-migration',
-                        ])) show @endif"
+                        ]) 
+                        || 
+                        in_array(request()->segment(3), [
+                            'products',
+                        ])
+                    )
+                        show
+                    @endif"
                     data-parent="#Management">
 
                     <div class="py-0 collapse-inner rounded mb-2">
@@ -483,8 +490,8 @@
                             <span>Mobile SIM</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'professional-products' ? 'menu-active' : '' }}"
-                            href="{{ url('escort-dashboard/professional-products') }}">
+                        <a class="collapse-item {{ request()->segment(3) == 'products' ? 'menu-active' : '' }}"
+                            href="{{ route('escort.products') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}" />
                             <span>Products</span>
                         </a>

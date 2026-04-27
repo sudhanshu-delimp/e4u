@@ -295,6 +295,30 @@ class MassageProfile extends Model
             }
         }
     }
+
+    public function get_image_position_detail($val)
+    {
+        try {
+            // Validate input (optional but safer)
+            if (!is_numeric($val)) {
+                return [];
+            }
+
+            $image = $this->gallary()
+                        ->wherePivot('position', (int)$val)
+                        ->first();
+
+            return $image ? $image : [];
+
+        } catch (\Exception $e) {
+            // Log error for debugging
+            \Log::error('Error in get_image_position_detail: ' . $e->getMessage());
+
+            return [];
+        }
+    }
+
+
     public function imagefrontPosition($val)
     {
         if ($val == 1) {

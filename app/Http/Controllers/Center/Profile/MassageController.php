@@ -1348,7 +1348,7 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $profile_name,
-                    'address' => auth()->user()->home_state,
+                    'address' => 'Home State',//auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,
