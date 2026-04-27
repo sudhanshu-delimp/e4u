@@ -1274,20 +1274,11 @@
                                             </div>
 
                                             <div class="verify_icon">
-                                                @switch($image['image_data']['varified'] ?? 0)
-                                                    @case(0)
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                        <span class="common_shield_tooltip">Media Pending</span>
-                                                    @break
-                                                    @case(1)
-                                                        <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                                        <span class="common_shield_tooltip">Media Verified</span>
-                                                    @break
-                                                    @case(2)
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                                        <span class="common_shield_tooltip">Media Unverified</span>
-                                                    @break
-                                                @endswitch
+                                                @php
+                                                    $media_status = getMediaVerificationDataBigIcon($image['image_data']['varified'] ?? 0);
+                                                @endphp
+                                                <img src="{{$media_status['icon']}}">
+                                                <span class="common_shield_tooltip">{{$media_status['label']}}</span>
                                             </div>
                                         </div>
                                     @endforeach
@@ -2030,20 +2021,11 @@
                                     <div class="gallery__item gallery__item--lg">
                                         <img src="{{  $image['url'] }}" alt="main">
                                         <div class="verify_icon">
-                                            @switch($image['image_data']['varified'] ?? 0)
-                                                @case(0)
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                    <span class="common_shield_tooltip">Media Pending</span>
-                                                @break
-                                                @case(1)
-                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                                    <span class="common_shield_tooltip">Media Verified</span>
-                                                @break
-                                                @case(2)
-                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                                    <span class="common_shield_tooltip">Media Unverified</span>
-                                                @break
-                                            @endswitch
+                                            @php
+                                                $media_status = getMediaVerificationDataBigIcon($image['image_data']['varified'] ?? 0);
+                                            @endphp
+                                            <img src="{{$media_status['icon']}}">
+                                            <span class="common_shield_tooltip">{{$media_status['label']}}</span>
                                         </div>
                                     </div>
                                     @endif    

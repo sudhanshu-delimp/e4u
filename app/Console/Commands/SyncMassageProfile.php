@@ -7,6 +7,7 @@ use App\Models\MassagePurchase;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Artisan;
 
 class SyncMassageProfile extends Command
 {
@@ -66,6 +67,7 @@ class SyncMassageProfile extends Command
                 $this->info("Enabled Escort ID {$purchase->massage_centre_id} (related to pending Purchase ID {$purchase->id})");
                 ////UpdateMeasureForActiveListing::dispatch($purchase->id);
             }
+             Artisan::queue('profile:sync-status'); // update profile verification status
             $this->info('All pending listed purchases processed.');
         }
         else
