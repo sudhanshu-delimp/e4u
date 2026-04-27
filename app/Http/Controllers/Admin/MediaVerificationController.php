@@ -110,6 +110,7 @@ class MediaVerificationController extends Controller
 
         $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
+          
             $user = $item->user;
             $item->member_id = $user->member_id ?? 'N/A';
             $item->name      = $user->name ?? 'N/A';
@@ -161,18 +162,18 @@ class MediaVerificationController extends Controller
             </a>
             ';
 
-            // if ($item->user->type == '4') {
-            //     $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
-            //         href="javascript:void(0)" data-toggle="modal" data-target="#view_tag" data-id="' . $item->id . '">
-            //         <i class="fa fa-eye"></i> View Tag
-            //     </a>
-            //     <div class="dropdown-divider"></div>';
+            if ($item->user->type == '4') {
+                $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
+                    href="javascript:void(0)" data-toggle="modal" data-target="#view_tag" data-id="' . $item->id . '">
+                    <i class="fa fa-eye"></i> View Tag
+                </a>
+                <div class="dropdown-divider"></div>';
 
-            //     $view_centre = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-centre-btn"
-            //         href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $item->id . '">
-            //         <i class="fa fa-eye"></i> View Centre
-            //     </a>';
-            // }
+                $view_centre = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-centre-btn"
+                    href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $item->id . '">
+                    <i class="fa fa-eye"></i> View Centre
+                </a>';
+            }
 
             $dropdown = '<div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -392,7 +393,12 @@ class MediaVerificationController extends Controller
         $member_id = get_massage_member_id($user_id);
 
         $media_verification_image = asset('escorts/' . $media_verification->image_path);
-        
+        $reviewed_by = 0;
+        if ($media_verification->reviewed_by) {
+            $reviewed_by = User::where('id', $media_verification->reviewed_by)
+                ->value('member_id'); // ✅ direct value
+        }
+
         switch ($status) {
             case '1': // Approved
                 $query->where('media_verification_id', $id)
@@ -429,6 +435,6 @@ class MediaVerificationController extends Controller
                     break;
             }
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id','media_verification_image','user_type'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id','media_verification_image','user_type','reviewed_by','status'));
     }
 }

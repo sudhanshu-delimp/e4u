@@ -24,6 +24,8 @@ use App\Repositories\Message\MasseurMediaInterface;
 use App\Repositories\Message\MessageMediaInterface;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Http\Requests\Escort\StoreGalleryMediaRequest;
+use App\Models\MasseurMedia;
+use App\Models\MediaVerification;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 
@@ -282,7 +284,6 @@ class MasseurController extends AppController
                         
             $masseur->save();
             $masseur_profile_id = $masseur->id;
-
             $member_id = generate_masseur_member_id($masseur_profile_id);
             
             $masseur->member_id   = ($member_id) ? $member_id : '';
@@ -325,6 +326,12 @@ class MasseurController extends AppController
                 }
             }
 
+            // if ($request->hasFile('verification_image')) {
+            //     $this->mediaVerificationUpload(
+            //         $masseur_profile_id,
+            //         $request->file('verification_image')
+            //     );
+            // }
            
 
             DB::commit();
@@ -352,6 +359,68 @@ class MasseurController extends AppController
             ], 500);
         }
         
+    }
+
+
+    public function mediaVerificationUpload($masseur_profile_id, $verification_image)
+    {
+        $user = auth()->user();
+
+        // 🔹 Validation
+        if (empty($verification_image)) {
+            return [
+                'success' => false,
+                'message' => 'Please upload a verification image.'
+            ];
+        }
+
+        // Upload image
+        $fileName = time() . '_' . uniqid() . '.' . $verification_image->getClientOriginalExtension();
+        $destination_path = $masseur_profile_id . '/verifications/' . $fileName;
+
+        \Storage::disk('escorts')->put(
+            $destination_path,
+            file_get_contents($verification_image)
+        );
+
+        // 🔹 Check existing pending verification
+        $verification = MediaVerification::where('user_id', $user->id)
+         ->where('masseur_id', $masseur_profile_id)
+            ->where('status', '0')
+            ->first();
+
+        if ($verification) {
+
+            // 🔹 Update existing
+            $verification->update([
+                'image_path' => $destination_path,
+            ]);
+
+        } else {
+
+            // 🔹 Create new
+            $verification = MediaVerification::create([
+                'user_id'     => $user->id,
+                'image_path'  => $destination_path,
+                'masseur_id'  => $masseur_profile_id,
+                'status'      => MediaVerification::STATUS_PENDING,
+                'submited_by' => $masseur_profile_id,
+                'user_type'   => '3', // 1/2/3
+            ]);
+
+            // 🔹 Reset all media to pending
+            MasseurMedia::where('user_id', $user->id)
+                ->where('type', '0')
+                ->where('masseur_id', $masseur_profile_id)
+                ->update([
+                    'varified' => '0'
+                ]);
+        }
+
+        return [
+            'success' => true,
+            'message' => "Verification uploaded successfully."
+        ];
     }
 
     public function edit_masseur(Request $request, $id)

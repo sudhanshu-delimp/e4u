@@ -1711,6 +1711,7 @@ if (!function_exists('getUserTypeById')) {
                 case 9:
                     return "Operator-Staff";
                     break;
+                
             }
         }
     }
@@ -2400,5 +2401,14 @@ if (!function_exists('formatIndianNumber'))
                 ->value('status') ?? '0'; // default Pending
         }
     }
+
+    if (!function_exists('get_masseur_data_by_id')) {
+        function get_masseur_data_by_id($masseur_id)
+        {
+            return Masseur::findOrFail($masseur_id);
+        }
+    }
+
+    
 }
    
