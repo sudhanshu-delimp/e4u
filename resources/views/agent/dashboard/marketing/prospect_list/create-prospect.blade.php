@@ -402,7 +402,10 @@
         data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
         data-save-report="{{ route('agent.marketing.prospect.save-report') }}"
         data-report-list-action="{{ route('agent.marketing.prospect.report.action') }}"
-        data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"></div>
+        data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
+        data-update-save-report="{{route('agent.marketing.prospect.update.save.report')}}"
+        
+        ></div>
 @endsection
 
 @push('script')

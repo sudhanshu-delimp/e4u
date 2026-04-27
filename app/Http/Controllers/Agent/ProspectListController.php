@@ -361,7 +361,7 @@ class ProspectListController extends Controller
 
     private function generateSinglePDF($centre, $viewPath)
     {
-         $dynamicData = $this->getPfdDynamicName($centre);
+        $dynamicData = $this->getPfdDynamicName($centre);
         $pdf = PDF::loadView($viewPath, [
             'data'   => $dynamicData,
         ])
@@ -402,7 +402,7 @@ class ProspectListController extends Controller
         $pdfFiles = [];
 
         foreach ($centres as $index => $centre) {
-             $dynamicData = $this->getPfdDynamicName($centre);
+            $dynamicData = $this->getPfdDynamicName($centre);
 
             $pdfContent = Pdf::loadView($viewPath, [
                 'data' => $dynamicData,
@@ -477,6 +477,29 @@ class ProspectListController extends Controller
         ])->deleteFileAfterSend(true);
     }
 
+    //Update save report
+    public function updateSaveReport(Request $request)
+    {
+
+        try {
+            $centre_ids = $request->centre_ids;
+            $report_id = $request->report_id;
+            $report = ProspectReport::where('id', $report_id)
+                ->where('agent_id', auth()->id())
+                ->update([
+                    'merge_center_ids' => $centre_ids,
+                    'merged' => 'Yes',
+                    'status_type' => 'Save'
+                ]);
+            if ($report) {
+                return success_response([], 'Report saved successfully.', 200, []);
+            }
+        } catch (\Exception $e) {
+            dd($e);
+            return error_response('PDF Failed: ' . $e->getMessage(), 500);
+        }
+    }
+
     private function sanitizeName($name)
     {
         return substr(preg_replace('/[^A-Za-z0-9_\-]/', '_', $name), 0, 50);
@@ -495,7 +518,6 @@ class ProspectListController extends Controller
             'agent_mobile_number' => $agent['phone'] ?? '',
             'email' => $agent['email'] ?? '',
         ];
-
     }
 
 

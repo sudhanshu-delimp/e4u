@@ -12,6 +12,7 @@ const endpoint = {
     agent_state: mmRoot.data('agent-state'),
     save_report: mmRoot.data('save-report'),
     generate_pdf: mmRoot.data('generate-pdf'),
+    update_save_report: mmRoot.data('update-save-report'),
 
 };
 
@@ -19,8 +20,8 @@ const endpoint = {
 
 
 
-$(document).ready(function () {
 
+$(document).ready(function () {
 
     // DataTables
     var previewTable = $("#previewTable").DataTable({
@@ -553,7 +554,6 @@ $(document).ready(function () {
     });
 
     function saveReportAjax() {
-        console.log(reportsTable.rows().count(), 'count');
         $.ajax({
             url: endpoint.save_report,
             method: 'GET',
@@ -562,7 +562,6 @@ $(document).ready(function () {
             },
             success: function (res) {
                 reportsTable.clear().draw();
-                console.log(reportsTable.clear().draw());
                 //toggleClearBtn();
                 showAlert('success', res.message || 'All reports cleared.');
             },
@@ -607,6 +606,9 @@ $(document).ready(function () {
             success: function (res) {
                 if (res.data && res.data.length) {
                     reportsTable.clear().rows.add(res.data).draw();
+                }
+                if(res.data.length == 0){
+                    reportsTable.clear().draw();
                 }
                 toggleClearBtn();
             }
@@ -689,8 +691,8 @@ $(document).ready(function () {
 
     $('#footerSaveBtn').on('click', function () {
         let ids = getSelectedIds();
-        if (!ids.length) { alert('Please select at least one item.'); return; }
-        triggerPDF(ids, $('#current_report_id').val(), 'download');
+        if (!ids.length) { showAlert('error', 'Please select at least one item.'); return; }
+        triggerSave(ids, $('#current_report_id').val());
     });
 
     //Select All 
@@ -720,26 +722,26 @@ $(document).ready(function () {
 
     function triggerPDF(centreIds, reportId, docType, action) {
 
-        let btn          = action === 'print' ? '#footerPrintBtn' : '#footerSaveBtn';
+        // let btn          = action === 'print' ? '#footerPrintBtn' : '#footerSaveBtn';
         let originalHtml = $(btn).html();
-        let count        = centreIds.length;
+        let count = centreIds.length;
 
         // ✅ Sirf loader show + button disable
-        $(btn).prop('disabled', true);
+        // $(btn).prop('disabled', true);
         showLoader();
 
         $.ajax({
-            url    : endpoint.generate_pdf,
-            method : 'POST',
-            data   : {
-                _token     : endpoint.csrf_token,
-                centre_ids : centreIds,
-                report_id  : reportId,
-                docType    : docType,
-                action     : action,
+            url: endpoint.generate_pdf,
+            method: 'POST',
+            data: {
+                _token: endpoint.csrf_token,
+                centre_ids: centreIds,
+                report_id: reportId,
+                docType: docType,
+                action: action,
             },
-            xhrFields : { responseType: 'blob' },
-            timeout   : 300000,
+            xhrFields: { responseType: 'blob' },
+            timeout: 300000,
             success: function (blob, status, xhr) {
 
                 if (!blob || blob.size === 0) {
@@ -758,9 +760,9 @@ $(document).ready(function () {
                 }
 
                 let filename = xhr.getResponseHeader('X-Filename') || 'report.pdf';
-                let isZip    = xhr.getResponseHeader('X-Is-Zip') === 'true';
+                let isZip = xhr.getResponseHeader('X-Is-Zip') === 'true';
                 let pdfCount = xhr.getResponseHeader('X-PDF-Count') || 1;
-                let url      = window.URL.createObjectURL(blob);
+                let url = window.URL.createObjectURL(blob);
 
                 downloadFile(url, filename);
 
@@ -781,9 +783,10 @@ $(document).ready(function () {
         });
     }
 
+
     function downloadFile(url, filename) {
-        let a  = document.createElement('a');
-        a.href     = url;
+        let a = document.createElement('a');
+        a.href = url;
         a.download = filename;
         document.body.appendChild(a);
         a.click();
@@ -799,6 +802,30 @@ $(document).ready(function () {
     function hideLoader() {
         $('#loader').addClass('d-none');
     }
+
+    //Save Report Center Data
+    function triggerSave(centreIds, reportId) {
+        $.ajax({
+            url: endpoint.update_save_report,
+            method: 'POST',
+            data: {
+                _token: endpoint.csrf_token,
+                centre_ids: centreIds,
+                report_id: reportId,
+            },
+            success: function (res) {
+                if (res.status === true) {
+                    $('#view_report').modal('hide');
+                    loadReports();
+                    showAlert('success', res.message || 'Report saved successfully!');
+                }
+            },
+            error: function () {
+                showAlert('error', 'Failed to save report. Please try again.');
+            }
+        });
+    };
+
 
 
 

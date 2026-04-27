@@ -131,6 +131,7 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
 
     //Gener pdf
     Route::post('marketing/prospect-list/generate-pdf', [ProspectListController::class, 'generatePDF'])->name('agent.marketing.prospect.generate.pdf');
+    Route::post('marketing/prospect-list/update-save-report', [ProspectListController::class, 'updateSaveReport'])->name('agent.marketing.prospect.update.save.report');
 
     //Demo
     Route::get('marketing/prospect-list/demo1', function(){
