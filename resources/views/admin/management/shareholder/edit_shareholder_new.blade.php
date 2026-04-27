@@ -94,10 +94,10 @@
                         </div>
                         <div class="col-6 mt-2">
                             <label class="form-check-label" for="phone">Mobile</label>
-                            <input type="tel" maxlength="15" autocomplete="off"
-                                class="form-control rounded-0" name="key_contact_phone[]"
-                                oninput="this.value = this.value.replace(/\D/g,'');" value="{{ $contact->mobile }}"
-                                onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
+                            <input type="tel" maxlength="15" autocomplete="off" class="form-control rounded-0"
+                                name="key_contact_phone[]" oninput="this.value = this.value.replace(/\D/g,'');"
+                                value="{{ $contact->mobile }}" onfocus="this.value = this.value.replace(/\D/g,'');"
+                                onblur="formatMobile(this)">
                             <span class="text-danger error-key_contact_phone.{{ $contactKey }}"></span>
                         </div>
                         <div class="col-6 mt-2">
@@ -243,11 +243,11 @@
                 contactCount = 0;
             }
 
-            console.log("maxContactsEdit");
+
 
 
             if (contactCount >= maxContactsEdit) {
-                //alert("You can only add up to 3 Keyy Contacts.");
+                //alert("You can only add up to 3 Key Contacts.");
                 swal_error_popup("You can only add up to 3 Key Contacts.");
                 return;
             }
@@ -258,7 +258,7 @@
                 newContact.find('.deleteButton').remove();
             } else {
                 var newContact = $(".key-contact-info-edit").first().clone();
-                 newContact.find('.deleteButton').remove();
+                newContact.find('.deleteButton').remove();
                 var index = addedMaxKeyContactMain;
 
                 newContact.find('span.text-danger').each(function() {
@@ -310,30 +310,33 @@
         updateHeadings();
     });
 
-    function deleteKeyContact(id) {
-        if (!confirm("Are you sure you want to delete this contact?")) {
-            return;
-        }
+    async function deleteKeyContact(id) {
 
+    const confirmed = await isConfirm({
+        action: 'Delete',
+        text: 'Are you sure you want to delete this contact?'
+    });
+
+    if (confirmed) {
         $.ajax({
             url: "{{ route('admin.delete.shareholder.contact') }}",
             type: 'DELETE',
             data: {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                 id: id
+                id: id
             },
             success: function(response) {
-                if(response.status) {
-                swal_success_popup(response.message);
-                // remove the contact div from UI
-                $('#keyContectNode_' + id).remove();
+                if (response.status) {
+                    swal_success_popup(response.message);
+                    $('#keyContectNode_' + id).remove();
                 } else {
                     swal_error_popup(response.message || 'Something went wrong');
                 }
             },
             error: function(xhr) {
-                  swal_error_popup("Something went wrong!");
+                swal_error_popup("Something went wrong!");
             }
         });
     }
+}
 </script>

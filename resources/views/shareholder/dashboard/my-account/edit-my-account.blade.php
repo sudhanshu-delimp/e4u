@@ -530,11 +530,16 @@
         updateHeadings();
     });
 
-    function deleteKeyContact(id) {
-        if (!confirm("Are you sure you want to delete this contact?")) {
-            return;
-        }
+    
 
+     async function deleteKeyContact(id) {
+
+    const confirmed = await isConfirm({
+        action: 'Delete',
+        text: 'Are you sure you want to delete this contact?'
+    });
+
+    if (confirmed) {
         $.ajax({
             url: "{{ route('shareholder.delete.shareholder.contact') }}",
             type: 'DELETE',
@@ -545,7 +550,6 @@
             success: function(response) {
                 if (response.status) {
                     swal_success_popup(response.message);
-                    // remove the contact div from UI
                     $('#keyContectNode_' + id).remove();
                 } else {
                     swal_error_popup(response.message || 'Something went wrong');
@@ -559,6 +563,7 @@
             }
         });
     }
+}
 </script>
 @endpush
 <div style="display: none" id="keyContactFormData">
