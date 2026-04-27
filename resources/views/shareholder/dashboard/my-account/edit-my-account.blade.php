@@ -81,8 +81,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="business_address">Address</label>
-                                                <span
-                                                    class="form-control form-back">{{ $staff->business_address }}</span>
+                                                <input type="text" class="form-control rounded-0"
+                                                    placeholder="Address" name="business_address" id="business_address"
+                                                    value="{{ $staff->business_address }}">
+                                                <span class="text-danger error-business_address"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -97,15 +99,19 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="contact_person">Contact</label>
-                                                    <span
-                                                        class="form-control form-back">{{ $staff->contact_person }}</span>
+                                                     <input type="text" class="form-control rounded-0"
+                                                    placeholder="Contact" name="contact_person" id="contact_person"
+                                                    value="{{ $staff->contact_person }}">
+                                                <span class="text-danger error-contact_person"></span>
                                                 </div>
 
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="phone">Mobile</label>
-                                                    <span class="form-control form-back">{{ $staff->phone }}</span>
+                                                   <input type="text" class="form-control rounded-0" placeholder="Phone"
+                                                    name="phone" id="phone" value="{{ $staff->phone }}">
+                                                <span class="text-danger error-phone"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -453,7 +459,8 @@
             }
 
             if (contactCount >= maxContactsEdit) {
-                alert("You can only add up to 3 Kay Contacts.");
+               // alert("You can only add up to 3 Key Contacts.");
+                 swal_error_popup("You can only add up to 3 Key Contacts.");
                 return;
             }
             if (contactCount == 0) {

@@ -97,11 +97,11 @@ class ShareholderController extends Controller
         $data = $request->all();
         $contactType = isset($data['contact_type']) ? $data['contact_type'] : "";
         $dataToSave  =  [
-            //'contact_person' => $data['contact_person'] ?? null,
-            //'phone' => $data['phone'] ?? null,
+            'contact_person' => $data['contact_person'] ?? null,
+            'phone' => $data['phone'] ?? null,
             'email' => $data['email'] ?? null,
             //'business_name' => $data['business_name'] ?? null,
-            //'business_address' => $data['business_address'] ?? null,
+            'business_address' => $data['business_address'] ?? null,
             'contact_type' => isset($data['contact_type'])  ? $contactType : null,
         ];
 

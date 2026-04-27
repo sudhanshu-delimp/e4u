@@ -247,7 +247,8 @@
 
 
             if (contactCount >= maxContactsEdit) {
-                alert("You can only add up to 3 Kay Contacts.");
+                //alert("You can only add up to 3 Keyy Contacts.");
+                swal_error_popup("You can only add up to 3 Key Contacts.");
                 return;
             }
             if (contactCount == 0) {
