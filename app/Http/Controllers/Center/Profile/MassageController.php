@@ -116,6 +116,8 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
+          
+
                
         
             $data = $masseurs->map(function ($row)  {
@@ -158,7 +160,8 @@ class MassageController extends Controller
 
 
                 $status = "";
-                if($row->enabled==0)
+                
+                //if($row->enabled==0)
                 //$status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
                
                 //$status = "";
@@ -1342,7 +1345,7 @@ class MassageController extends Controller
                 return [
                     'id' => $row->id,
                     'profile_name' => $profile_name,
-                    'address' => auth()->user()->home_state,
+                    'address' => 'Home State',//auth()->user()->home_state,
                     'business_name' => $row->massageprofile->business_name,
                     'start_date' => $start_date,
                     'end_date' =>  $end_date,
@@ -1365,7 +1368,7 @@ class MassageController extends Controller
 
     public function  massager_past_listing(Request $request)
     {
-
+           
 
             $today = Carbon::today();
             $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)

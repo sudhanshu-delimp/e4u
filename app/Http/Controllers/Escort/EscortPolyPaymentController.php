@@ -34,6 +34,8 @@ use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 use App\Models\EscortCovidReport;
 use FFMpeg;
 use File;
+use Illuminate\Support\Facades\Artisan;
+
 //use Illuminate\Http\Request;
 
 class EscortPolyPaymentController extends Controller
@@ -240,6 +242,7 @@ class EscortPolyPaymentController extends Controller
         // return response()->json(compact('json','header'));
 //        return redirect($json['NavigateURL']);
         $this->bypass_payment($save_data, $total_rate);
+        Artisan::queue('profile:sync-status'); // update profile verification status
         return redirect(route('escort.list', 'current'));  //TODO::Added for poli chang
 
 

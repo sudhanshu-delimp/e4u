@@ -236,7 +236,7 @@
     <!-- New appointment Popup -->
     <div class="modal fade upload-modal" id="new_appointment_model" tabindex="-1" role="dialog"
         aria-labelledby="new_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog appointment_madal modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-dialog appointment_madal modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/new-appointment.png') }}"
@@ -253,14 +253,14 @@
                             <div class="col-md-12 mb-3">
                                 <!-- Advertiser Name (free text) -->
                                 <div class="form-group">
-                                    <label for="new_advertiser_name"><b>Advertiser's name</b><span class="text-danger">*</span></label>
+                                    <label for="new_advertiser_name">Advertiser's name<span class="text-danger">*</span></label>
                                     <input id="new_advertiser_name" name="new_advertiser_name" type="text" class="form-control" placeholder="Enter advertiser name" required>
                                     <small class="form-text text-muted">Type the massage center name.</small>
                                 </div>
 
                                 <!-- Date -->
                                 <div class="form-group">
-                                    <label for="appointment_date"><b>Date</b><span class="text-danger">*</span></label>
+                                    <label for="appointment_date">Date<span class="text-danger">*</span></label>
                                     <input 
                                         id="new_appointment_date" 
                                         name="new_appointment_date" 
@@ -274,7 +274,7 @@
 
                                 <!-- Time (Grid) -->
                                 <div class="form-group">
-                                    <label><b>Time Slot</b><span class="text-danger">*</span></label>
+                                    <label>Time Slot<span class="text-danger">*</span></label>
                                     <div id="slotGrid"></div>
                                     <input type="hidden" id="new_start_time" name="new_start_time">
                                     <input type="hidden" id="new_end_time" name="new_end_time">
@@ -285,7 +285,7 @@
 
                                 <!-- Address with Google Maps integration -->
                                 <div class="form-group">
-                                    <label for="address"><b>Address</b><span class="text-danger">*</span></label>
+                                    <label for="address">Address<span class="text-danger">*</span></label>
                                     <input id="new_address" name="new_address" type="text" class="form-control"
                                         placeholder="Search or enter address" required>
                                     <small class="form-text text-muted">Start typing to search address or add
@@ -304,7 +304,7 @@
                               
                                 <!-- Source -->
                                 <div class="form-group">
-                                    <label for="source"><b>Source</b><span class="text-danger">*</span></label>
+                                    <label for="source">Source<span class="text-danger">*</span></label>
                                     <select id="new_source" name="new_source" class="form-control" required>
                                         <option value="database" style="color:red;" selected>Database</option>
                                         <option value="referral" style="color:orange;">Referral</option>
@@ -313,20 +313,20 @@
                                 </div>
                                 <!-- Importance -->
                                 <div class="pt-2 pb-3">
-                                    <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                                    <label>Importance<span class="text-danger">*</span></label><br>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input task_priority" type="radio"
-                                            name="new_task_priority" value="high">
+                                            name="new_task_priority" value="high" id="editinlineRadio1">
                                         <label class="form-check-label" for="editinlineRadio1">High</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input task_priority" type="radio"
-                                            name="new_task_priority" value="medium" checked>
+                                            name="new_task_priority" value="medium" id="editinlineRadio2" checked>
                                         <label class="form-check-label" for="editinlineRadio2">Medium</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input task_priority" type="radio"
-                                            name="new_task_priority" value="low">
+                                            name="new_task_priority" value="low" id="editinlineRadio3">
                                         <label class="form-check-label" for="editinlineRadio3">Low</label>
                                     </div>
                                 </div>
@@ -373,7 +373,7 @@
                                 <input type="hidden" id="reschedule_appointment_id" name="reschedule_advertiser_id" value="">
                                 <!-- Date -->
                                 <div class="form-group">
-                                    <label for="appointment_date"><b>Date</b><span class="text-danger">*</span></label>
+                                    <label for="appointment_date">Date<span class="text-danger">*</span></label>
                                     <input id="reschedule_date" name="reschedule_date" type="date"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                         class="form-control" required="">
                                 </div>
@@ -478,14 +478,14 @@
 
                                         <!-- Advertiser -->
                                         <div class="form-group">
-                                            <label for="edit_advertiser_name"><b>Advertiser’s name</b><span
+                                            <label for="edit_advertiser_name">Advertiser’s name<span
                                                     class="text-danger">*</span></label>
                                             <input id="edit_advertiser_name" name="advertiser_name" type="text" class="form-control" placeholder="Enter advertiser name" required>
                                         </div>
 
                                         <!-- Date -->
                                         <div class="form-group">
-                                            <label for="edit_date"><b>Date</b><span class="text-danger">*</span></label>
+                                            <label for="edit_date">Date<span class="text-danger">*</span></label>
                                             <input id="edit_date" name="appointment_date"  type="date"
                                             class="form-control" 
                                             required
@@ -507,7 +507,7 @@
 
                                         <!-- Address + Google Maps -->
                                         <div class="form-group">
-                                            <label for="edit_address"><b>Address</b><span
+                                            <label for="edit_address">Address<span
                                                     class="text-danger">*</span></label>
                                             <input id="edit_address" name="address" type="text" class="form-control"
                                                 placeholder="Search or enter address" required>
@@ -520,7 +520,7 @@
 
                                         <!-- Point of Contact -->
                                         <div class="form-group">
-                                            <label for="edit_poc"><b>Point of Contact</b><span
+                                            <label for="edit_poc">Point of Contact<span
                                                     class="text-danger">*</span></label>
                                             <input id="edit_poc" name="poc" type="text" class="form-control"
                                                 placeholder="Enter contact name" required>
@@ -528,21 +528,21 @@
 
                                         <!-- Mobile -->
                                         <div class="form-group">
-                                            <label for="edit_mobile"><b>Mobile</b></label>
+                                            <label for="edit_mobile">Mobile</label>
                                             <input id="edit_mobile" name="mobile" type="tel" class="form-control"
                                                 placeholder="Enter mobile number">
                                         </div>
 
                                         <!-- Appointment Summary -->
                                         <div class="form-group">
-                                            <label for="edit_summary"><b>Appointment Summary</b></label>
+                                            <label for="edit_summary">Appointment Summary</label>
                                             <textarea id="edit_summary" name="summary" class="form-control" rows="3" maxlength="500"
                                                 placeholder="Enter summary (max 500 characters)"></textarea>
                                         </div>
 
                                         <!-- Source -->
                                         <div class="form-group">
-                                            <label for="edit_source"><b>Source</b><span
+                                            <label for="edit_source">Source<span
                                                     class="text-danger">*</span></label>
                                             <select id="edit_source" name="source" class="form-control" required>
                                                 <option value="Database" style="color:red;">Database</option>
@@ -551,21 +551,21 @@
                                             </select>
                                         </div>
                                         <div class="pt-2 pb-3">
-                                            <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                                            <label>Importance<span class="text-danger">*</span></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" value="high">
-                                                <label class="form-check-label" for="editinlineRadio1">High</label>
+                                                    name="task_priority" value="high" id="editRadio1">
+                                                <label class="form-check-label" for="editRadio1">High</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" value="medium" checked>
-                                                <label class="form-check-label" for="editinlineRadio2">Medium</label>
+                                                    name="task_priority" value="medium" checked id="editRadio2">
+                                                <label class="form-check-label" for="editRadio2">Medium</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" value="low">
-                                                <label class="form-check-label" for="editinlineRadio3">Low</label>
+                                                    name="task_priority" value="low" id="editRadio3">
+                                                <label class="form-check-label" for="editRadio3">Low</label>
                                             </div>
                                         </div>
 
@@ -621,13 +621,13 @@
                                         <input name="task_id" value="31" type="hidden">
 
                                         <div class="form-group">
-                                            <label for="view_advertiser"><b>Advertiser’s name</b><span class="text-danger">*</span></label>
+                                            <label for="view_advertiser">Advertiser’s name<span class="text-danger">*</span></label>
                                             <input id="view_advertiser" name="view_advertiser" type="text" class="form-control" readonly>
                                         </div>
 
                                         <!-- Date -->
                                         <div class="form-group">
-                                            <label for="view_date"><b>Date</b><span class="text-danger">*</span></label>
+                                            <label for="view_date">Date<span class="text-danger">*</span></label>
                                             <input id="view_date" name="view_date" type="text"  class="form-control" readonly>
                                         </div>
 
@@ -645,7 +645,7 @@
                                         <!-- Advertiser -->
                                         <!-- Address + Google Maps -->
                                         <div class="form-group">
-                                            <label for="view_address"><b>Address</b><span
+                                            <label for="view_address">Address<span
                                                     class="text-danger">*</span></label>
                                             <input id="view_address" name="view_address" type="text" class="form-control" readonly>
                                             <input type="hidden" id="view_latitude" name="view_latitude">
@@ -657,26 +657,26 @@
 
                                         <!-- Point of Contact -->
                                         <div class="form-group">
-                                            <label for="view_poc"><b>Point of Contact</b><span
+                                            <label for="view_poc">Point of Contact<span
                                                     class="text-danger">*</span></label>
                                             <input id="view_poc" name="view_poc" type="text" class="form-control"  readonly>
                                         </div>
 
                                         <!-- Mobile -->
                                         <div class="form-group">
-                                            <label for="view_mobile"><b>Mobile</b></label>
+                                            <label for="view_mobile">Mobile</label>
                                             <input id="view_mobile" type="tel" class="form-control" readonly>
                                         </div>
 
                                         <!-- Appointment Summary -->
                                         <div class="form-group">
-                                            <label for="view_summary"><b>Appointment Summary</b></label>
+                                            <label for="view_summary">Appointment Summary</label>
                                             <textarea id="view_summary" class="form-control" rows="3" maxlength="500" readonly></textarea>
                                         </div>
 
                                         <!-- Source -->
                                         <div class="form-group">
-                                            <label for="view_source"><b>Source</b><span
+                                            <label for="view_source">Source<span
                                                     class="text-danger">*</span></label>
                                             <select id="view_source" name="source" class="form-control" readonly>
                                                 <option value="Database" style="color:red;">Database</option>
@@ -686,7 +686,7 @@
                                             
                                         </div>
                                         <div class="pt-2 pb-3">
-                                            <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                                            <label>Importance<span class="text-danger">*</span></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
                                                     name="task_priority" value="high">

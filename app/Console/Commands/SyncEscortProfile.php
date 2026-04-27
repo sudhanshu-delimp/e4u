@@ -6,6 +6,8 @@ use App\Models\Purchase;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Repositories\Playmate\PlaymateInterface;
+use Illuminate\Support\Facades\Artisan;
+
 
 class SyncEscortProfile extends Command
 {
@@ -109,6 +111,7 @@ class SyncEscortProfile extends Command
                     ]);
                 }
                 $purchase->update(['status'=>'listed']);
+                Artisan::queue('profile:sync-status'); // update profile verification status
                 $this->info("=============== $key ===============");
                 $this->info("Enabled Escort ID {$purchase->escort_id} (related to pending Purchase ID {$purchase->id})");
             }

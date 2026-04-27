@@ -33,10 +33,10 @@ class MassagePurchase extends Model
 
     public function activeSuspendProfile()
     {
-            
+        $now = Carbon::now('UTC');    
         return $this->hasMany(MassageSuspendProfile::class, 'massage_profile_id','massage_profile_id')
-            ->where('utc_start_date', '<=', Carbon::now('UTC'))
-            ->where('utc_end_date', '>=', Carbon::now('UTC'));
+            ->where('utc_start_date', '<=',$now)
+            ->where('utc_end_date', '>=', $now);
     }
 
     public function user()
@@ -50,6 +50,7 @@ class MassagePurchase extends Model
     }
     
     
+    
     public function brb()
     {
         return $this->hasMany('App\Models\MassageBrb', 'profile_id','massage_profile_id');
@@ -59,5 +60,14 @@ class MassagePurchase extends Model
         return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id','massage_profile_id')
         ->where('utc_end_date', '>=', Carbon::now('UTC'))
         ->oldestOfMany('utc_start_date');
+    }
+
+
+    public function scopeOverlapping($query, $start, $end)
+    {
+        $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
+        $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
+
+        return $query->whereIn('status',['listed','pending'])->where('start_date', '<=', $formatted_end)->where('end_date', '>=', $formatted_start);
     }
 }

@@ -56,6 +56,106 @@
 .action_buttons {
    margin-bottom:10px;
 }
+
+.customModal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+z-index:9999;
+}
+
+.summary-container{
+background:#f6f7f9;
+width:70%;
+padding:20px;
+border-radius:6px;
+
+/* perfect center */
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+.summary-header{
+background: var(--blue--text);
+color:white;
+padding:15px 20px;
+font-size:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.member-id{
+font-size:14px;
+}
+
+.summary-table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+.summary-table th{
+background: var(--blue--text);
+color:white;
+padding:12px;
+border:1px solid #cfd6e0;
+font-weight:500;
+text-align: center;
+}
+
+.summary-table td{
+padding:12px;
+border:1px solid #cfd6e0;
+text-align:center;
+background:#fff;
+}
+
+.total-row td{
+background:#f4f6f9;
+font-weight:600;
+}
+
+.pay-area{
+text-align:right;
+margin-top:25px;
+}
+
+.close-btn{
+background:#FF3C5F;
+border:none;
+padding:10px 20px;
+border-radius:4px;
+margin-right:10px;
+cursor:pointer;
+}
+
+.close-btn:hover{
+background:#FF3C5F;
+}
+
+.pay-btn{
+background:#0f2745;
+color:#fff;
+border:none;
+padding:10px 25px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.pay-btn:hover{
+background:#16385f;
+}
+   
+.member-id .pr-2 i {
+    color:#fff !important;
+}
 </style>
 @stop
 @section('content')
@@ -178,6 +278,59 @@
     @include('center.dashboard.modal.listing_action_popup.index')
     @endif
 
+   <!-- Payment Summary Modal -->
+   <div id="summaryModal" class="customModal">
+
+         <div class="summary-container">
+         <div class="summary-header">
+         <span>Transaction Summary</span>
+         <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: E20118</span>
+         </div>
+
+         <table class="summary-table" >
+                     <thead>
+                           <tr>
+                           <th>Listing</th>
+                           <th>Business Name</th>
+                           <th>Start Date</th>
+                           <th>End Date</th>
+                           <th>Days</th>
+                           <th>Rate</th>
+                           <th>Full Fee</th>
+                           <th>Discount</th>
+                           <th>Discounted Fee</th>
+                           </tr>
+                     </thead>
+                     <tbody id="summaryBody"></tbody>
+         </table>
+
+
+         <form name="purchase_listing" id="purchase_listing" method="post">
+               <div class="pay-area">
+                  <input type="hidden" name="no_of_days" id="no_of_days">
+                  <input type="hidden" name="total_discount" id="total_discount">
+                  <input type="hidden" name="total_fee" id="total_fee">
+                  <input type="hidden" name="listing_start_date" id="listing_start_date">
+                  <input type="hidden" name="listing_end_date" id="listing_end_date">
+                  <input type="hidden" name="membership_id" id="membership_id">
+                  <input type="hidden" name="massage_profile_id" id="massage_profile_id">
+                  <input type="hidden" name="rate" id="rate">
+                  <input type="hidden" name="total_rate" id="total_rate">
+                  <input type="hidden" name="discountRate" id="discountRate">
+                  <input type="hidden" name="applied_discount" id="applied_discount">
+                  
+                  
+               
+                  
+                  <button type="button" class="close-btn">Close</button>
+                  <button type="button" class="pay-btn">Pay</button>
+               </div>
+         </form>
+
+
+      </div>
+   </div>
+   <!-- End Payment Summary Modal -->
 
 @endsection
 
@@ -501,6 +654,9 @@ $(document).on('change','#extendProfileId', function ()
 {
    let previousEndDateValue = $(this).find(':selected').data('end'); 
    let membership = $(this).find(':selected').data('membership');
+
+   console.log('previousEndDateValue',previousEndDateValue);
+
    let $membershipField = $('#extendMembership');
    let extendStartDateObject = $('#extendStartDate');
    let extendEndDateObject = $('#extendEndDate');
@@ -513,20 +669,7 @@ $(document).on('change','#extendProfileId', function ()
          extendEndDateObject.attr('disabled','disabled');
          $("input[name='extend_days']").attr('disabled','disabled');
    }
-   switch(membership){
-         case 'Platinum':{
-            $membershipField.val(1);
-         }break;
-         case 'Gold':{
-            $membershipField.val(2);
-         }break;
-         case 'Silver':{
-            $membershipField.val(3);
-         }break;
-         case 'Free':{
-            $membershipField.val(4);
-         }
-   }
+   
    if (previousEndDateValue) {
          extendStartDateObject.val(getDateAfter(previousEndDateValue,1));
          extendEndDateObject.val(getDateAfter(previousEndDateValue,2));
@@ -535,8 +678,182 @@ $(document).on('change','#extendProfileId', function ()
          extendEndDateObject.datepicker('option', 'minDate', null);
          extendEndDateObject.val('');
    }
+
+   
+      $('#extendMembership').val(membership);
 });
 
+
+
+// ########### Extend Profile ####################
+
+$('input[name="extend_days"]').on('change', function () {
+let days = parseInt($(this).val(), 10);
+let previousEndDateValue = $('#extendProfileId').find(':selected').data('end');
+let extendEndDateObject = $('#extendEndDate');
+
+if (previousEndDateValue && days) {
+      extendEndDateObject.val(getDateAfter(previousEndDateValue,days+1));
+} else {
+      extendEndDateObject.val('');
+}
+});
+
+
+var getDateAfter = function(dateStr, after = 1) {
+    let year, month, day;
+
+    if (dateStr.includes('-')) {
+        let parts = dateStr.split('-').map(Number);
+
+        // detect format
+        if (parts[0] > 1000) {
+            // YYYY-MM-DD
+            [year, month, day] = parts;
+        } else {
+            // DD-MM-YYYY
+            [day, month, year] = parts;
+        }
+    }
+
+    let date = new Date(year, month - 1, day);
+    date.setDate(date.getDate() + after);
+
+    let d = String(date.getDate()).padStart(2, '0');
+    let m = String(date.getMonth() + 1).padStart(2, '0');
+    let y = date.getFullYear();
+
+    return `${d}-${m}-${y}`;
+}
+
+
+$(document).on('change', '#extendEndDate, #extendProfileId, .extend-period', function() {
+let startDate = $('#extendStartDate').val();
+let endDate = $('#extendEndDate').val();
+let profile_Id = $('#extendProfileId').find(':selected').val();
+let formButton = document.querySelector(".transaction_summury");
+
+if(startDate && profile_Id){
+      $.ajax({
+      url: "{{ route('center.extend-profile-validate-date-range')}}",
+      method: 'POST',
+      headers: {
+      'Accept': 'application/json',
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+      },
+      data: {startDate,endDate,profile_Id},
+      beforeSend:function (){
+         formButton.disabled = true;
+         console.log(formButton);
+      },
+      success: function (response) {
+         if(response.success){
+            $('#extendEndDate').val('');
+            Swal.fire({
+                  title: 'Listings',
+                  text: `${response.message}`,
+                  icon: 'warning'
+            });
+         }
+         formButton.disabled = false;
+
+      },
+      error: function (xhr, status, error) {
+         console.error('Error in location filter:', error);
+      }
+      });
+}
+});
+
+
+$(document).on('click', '.transaction_summury', function(e) {
+    e.preventDefault();
+    
+   
+    let profile_data = {
+            profile_id : $('#extendProfileId').val(),
+            membership : $('#extendMembership').val(),
+            start_date : $('#extendStartDate').val(),
+            end_date : $('#extendEndDate').val(),
+    }
+
+   if (!profile_data.profile_id || !profile_data.membership || !profile_data.start_date || !profile_data.end_date) {
+   return;
+   }
+    
+    $('#extend_profile').modal('hide');
+    swal_waiting_popup({'title': 'Updating...'});
+    $.ajax({
+      method: 'POST',
+      url: "{{ route('center.get-transaction-summury')}}",
+      data: profile_data,
+      headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+     
+      success: function(response) 
+      {
+            $('#summaryBody').html('');
+            Swal.close();
+            if(response.success) 
+            {
+                  let data = response.data;
+                  let row = `
+                     <tr>
+                        <td>${data.listing}</td>
+                        <td>${data.business_name}</td>
+                        <td>${data.start_date}</td>
+                        <td>${data.end_date}</td>
+                        <td>${data.days}</td>
+                        <td><span class="mr-2">$</span>${data.rate}</td>
+                        <td><span class="mr-2">$</span>${data.full_fee}</td>
+                        <td><span class="mr-2">$</span>${data.discount}</td>
+                        <td><span class="mr-2">$</span>${data.discount_fee}</td>
+                     </tr>
+                     
+                     <tr>
+                        <td colspan="7" class="border-0"></td>
+                        <td  class="text-center"><b>Total Fees:</b></td>
+                        <td class="text-center"><span class="mr-2">$</span> ${data.discount_fee}</td>
+                     </tr>`;
+
+                     
+
+                  $('#summaryBody').append(row);
+                  $("#summaryModal").css("display","flex").hide().fadeIn();
+         }
+         else
+         {
+            $("#summaryModal").css("display","flex").hide().fadeIn();
+         }
+       },
+   });  
+
+
+    //$("#summaryModal").css("display","flex").hide().fadeIn();
+});
+
+$(document).on("click",".close-btn",function(e){
+e.preventDefault();
+$("#summaryModal").hide();
+});
+
+var initJsDatePicker = function(){
+   $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
+   $(".js_datepicker").attr('autocomplete','off');
+   $(".js_datepicker").datepicker({
+         dateFormat: "dd-mm-yy",
+         changeMonth: true,
+         changeYear: true,
+         showAnim: "slideDown",
+         constrainInput: false,
+         onSelect: function(dateText) {
+            const event = new Event('change', { bubbles: true });
+            this.dispatchEvent(event); // 👈 manually trigger change event
+         }
+   });
+}
+initJsDatePicker();
 </script>
 
 

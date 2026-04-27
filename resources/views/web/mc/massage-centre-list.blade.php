@@ -248,6 +248,7 @@ font-weight: bold;
 
 @push('scripts')
 <script>
+window.is_page_reload = 0;
 $(document).ready(function () {
     
     var activeView = 'grid';
@@ -281,7 +282,15 @@ $(document).ready(function () {
     async function initPage() {
     try 
     {
-       
+
+        if (localStorage.getItem("pageReloaded") === "true") {
+            console.log("Reload happened from interval");
+            localStorage.removeItem("pageReloaded");
+            window.is_page_reload = 1;
+        }
+
+
+        
         //  var locationData = "";
         //  const { latitude, longitude } = await getSafeLocation();
         //  if (latitude && longitude) 
@@ -386,7 +395,8 @@ $(document).ready(function () {
         $.ajax({
             url: "{{ route('mc-ajax-list') }}",
             data: { 
-                page: page,
+                 is_page_reload : window.is_page_reload,
+                 page: page,
                  filter_by_location,
                  filter_by_feild
             },
@@ -529,11 +539,11 @@ $(document).ready(function () {
 
     initPage();
     setInterval(function() {
+    localStorage.setItem("pageReloaded", "true");
     location.reload();
-    }, 1800000); 
+    }, 60000); 
 
-
-
+   
     //////// Clear Short List /////////
     $(document).on('click', '.clear_short_list', async function(e){
     var count = parseInt($('#session_count').text().trim(), 10);

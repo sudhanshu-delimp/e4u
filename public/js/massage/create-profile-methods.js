@@ -192,10 +192,10 @@ function setDefaults() {
                      dynamic_image++
                     }
                 });
-                if (dynamic_image < 5) {
+                if (dynamic_image < 3) {
                     dynamic_image = 0;
                     Swal.fire('Media',
-                    'Please attach media to this Profile from the Media Repository or upload a new file (Atleast 5 are mendatory including Thumbnail and Banner)',
+                    'Please attach media to this Profile from the Media Repository or upload a new file (Atleast 3 are mendatory including Thumbnail and Banner)',
                     'warning');
                 }
                 return dynamic_image;

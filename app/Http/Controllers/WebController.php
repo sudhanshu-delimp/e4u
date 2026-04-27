@@ -85,6 +85,28 @@ class WebController extends Controller
             $query = $query->whereHas('playmates');
         }
 
+        // Verification Filter
+        if (!empty($str['verification'])) {
+
+            $statusMap = [
+                'pending'    => '0',
+                'verified'   => '1',
+                'unverified' => '2',
+            ];
+
+            if (isset($statusMap[$str['verification']])) {
+
+                $status = $statusMap[$str['verification']];
+
+               $query->join('profile_verification_status as pvs', function($join) {
+                $join->on('pvs.profile_id', '=', 'escorts.id')
+                    ->where('pvs.type', '3');
+                });
+
+                $query->where('pvs.status', $status);
+            }
+        }
+
         if(isset($str['playmate_status']) && $str['playmate_status'] == 'without_playmates'){
             $query = $query->whereDoesntHave('playmates');
         } 
@@ -340,6 +362,7 @@ class WebController extends Controller
             'lat_state'=> $lat_state ?? '' ,
             'lng_city'=> $lng_city ?? '' ,
             'membership_type'=> request()->get('membership_type') ?? null,
+            'verification'=> request()->get('verify_list') ?? null,
         ];
 
         $radio_location_filter = session('radio_location_filter');
@@ -594,6 +617,7 @@ class WebController extends Controller
             'price' => request()->get('price'),
             'duration_price' => request()->get('duration_price'),
             'services' => request()->get('services'),
+            'verification' => request()->get('verify_list'),
         ];
 
         session(['search_shorlisting_escort_filters' => $params]);

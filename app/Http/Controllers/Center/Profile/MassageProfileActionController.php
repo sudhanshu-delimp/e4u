@@ -5,20 +5,27 @@ namespace App\Http\Controllers\Center\Profile;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\MassageBrb;
+use App\Models\MassageProfile;
+use App\Models\MassagePurchase;
 use App\Models\MassageSuspendProfile;
 use App\Services\WalletService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 
 class MassageProfileActionController extends BaseController
 {
 
     protected $walletService;
-
+    protected $account;
 
     public function __construct(WalletService $walletService)
     {
         $this->walletService = $walletService;
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
 
@@ -176,5 +183,90 @@ class MassageProfileActionController extends BaseController
         return response()->json(compact('response'));
     }
     ################## End Suspend Profile ##################
+
+
+
+    public function validateDateRange(Request $request)
+    {
+        try {
+            $response['success'] = false;
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
+            $profile_Id = $request->profile_Id;
+            $massage = getMassageDetail($profile_Id);
+
+            $conflictExists = MassagePurchase::overlapping($startDate, $endDate)
+                ->whereHas('massageprofile', function ($q) use ($massage) {
+                    $q->where('user_id', auth()->user()->id);
+                    $q->where('state_id', '<>', $massage->state_id);
+                })
+                ->with('massageprofile:id,state_id')
+                ->orderByDesc('end_date')
+                ->first()?->massage?->state?->name;
+
+            if ($conflictExists) {
+                $response['success'] = true;
+                $response['message'] = "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.";
+            }
+
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    
+    public function getTransactionSummury(Request $request)
+    {   
+
+        $profile_id = isset($request->profile_id) ? $request->profile_id : ""; 
+        $membership = isset($request->membership) ? $request->membership : ""; 
+        $start_date = isset($request->start_date) ? $request->start_date : ""; 
+        $end_date = isset($request->end_date) ? $request->end_date : ""; 
+        $loginAccount = $this->account;
+        $massage = MassageProfile::where('id', $profile_id)->first();
+        $resposne_data = [];
+      
+        if($profile_id && $membership && $start_date && $end_date )
+        {
+            if(!empty(($start_date)))
+            $daysDiff = Carbon::parse($end_date)->diffInDays(Carbon::parse($start_date))+1;
+            list($discount, $rate) = calculateTotalFee($membership, $daysDiff, $loginAccount);
+            $fullFee = $rate + $discount;
+            //$totalAmount = $rate;
+            $resposne_data = 
+            [
+                'listing' => 1,
+                'business_name' => ($massage->business_name) ? $massage->business_name : "",
+                'start_date' => date('d-m-Y',strtotime($start_date)),
+                'end_date'   => date('d-m-Y',strtotime($end_date)),
+                'days' => $daysDiff,
+                'membership' => $membership,
+                'rate' => number_format($discount > 0 ? ($fullFee / $daysDiff) : ($rate / $daysDiff), 2),
+                'full_fee' => number_format($fullFee, 2),
+                'discount' => number_format($discount, 2),
+                'discount_fee' =>  number_format($rate, 2),
+            ];
+
+
+            $response['success'] = true;
+            $response['data'] = $resposne_data;
+
+        }
+        else
+        {
+            $response['success'] = false;
+            $response['data'] = [];
+        }
+
+        return $response;
+         
+    }
+
+        
 
 }

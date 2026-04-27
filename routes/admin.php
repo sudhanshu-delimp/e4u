@@ -41,6 +41,7 @@ use App\Http\Controllers\Admin\FeeDiscountController;
 use App\Http\Controllers\Admin\AgentExcelDataManageController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\ShareholderController;
+use App\Http\Controllers\Admin\CommunityController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -627,10 +628,8 @@ Route::get('/community/local-laws',function(){
     return view('admin.community.local-laws');
 })->name('admin.local-laws');
 
-Route::get('/community/pricing-summary',function(){
-    return view('admin.community.pricing-summary');
-})->name('admin.pricing-summary');
 
+Route::get('/community/pricing-summary', [CommunityController::class, 'pricingSummary'])->name('admin.pricing-summary');
 // Route::get('/admin-dashboard/notifications/global',function(){
 //     return view('admin.notifications.global');
 // })->name('admin.global');
