@@ -50,6 +50,62 @@
     text-align: justify;
 }
 
+#payment-form .apply_benefits {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+}
+
+.wallet_details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0px;
+}
+
+.wallet_details .card {
+    border-radius: 0px;
+}
+
+.wallet_details .card-body {
+    padding: 10px !important;
+    background-color: #f3f3f3;
+}
+
+.wallet_details .card-body h5 {
+    margin-bottom: 0px;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wallet_details .card-body h5 span {
+    margin-bottom: 0px;
+    font-weight: 600;
+    color: var(--peach);
+}
+
+.wallet_details .card-body h5 img {
+    width: 25px;
+}
+
+.wallet_details .apply-btn {
+    padding: 8px 15px !important;
+}
+
+.wallet_details .apply-btn:hover {
+    background-color: var(--peach);
+    color: var(var(--white));
+}
+
 .content_wrapper .content_details h3 {
     font-size: 20px !important;
     color: var(--blue--text);
