@@ -218,6 +218,10 @@ Route::get('pricarchive-myplayboxing',function(){
     return view('escort.dashboard.archives.myplaybox');
 })->name('escort.archive-myplaybox');
 
+Route::get('complete-listings/',function(){
+    return view('escort.dashboard.complete-listings');
+})->name('escort.complete-listings');
+
 
 Route::get('archive-tours',function(){
     return view('escort.dashboard.archives.archive-tours');
