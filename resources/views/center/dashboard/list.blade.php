@@ -515,6 +515,7 @@ messages: {
 /////////// Suspend Profile ////////////////////
 
 
+<<<<<<< Updated upstream
 
 
 $(document).ready(function () {
@@ -547,11 +548,41 @@ $(document).ready(function () {
                 let listingStartDate = selectedOption.data('start');
                 let listingEndDate = selectedOption.data('end');
                 let profileId = selectedOption.val();
+=======
 
-                suspendStartDateObject.datepicker('setDate', +1);
-                suspendStartDateObject.datepicker('option', 'minDate', +1);
-                suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
+      let suspendProfileObject = $('#suspendProfileId');
+      let suspendStartDateObject = $('#suspendStartDate');
+      let suspendEndDateObject   = $('#suspendEndDate');
 
+      suspendStartDateObject.datepicker('setDate', +1);
+      suspendStartDateObject.datepicker('option', 'minDate', +1);
+      
+      suspendEndDateObject.datepicker('option', 'minDate', +1);
+
+      suspendStartDateObject.datepicker('option', 'onSelect', function () {
+            suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
+            suspendEndDateObject.datepicker('option', 'setDate', $(this).val());
+            calculateCredit();
+      });
+
+      suspendEndDateObject.datepicker('option', 'onSelect', function () {
+            suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
+            calculateCredit();
+      });
+
+      suspendProfileObject.on('change', function() {
+            let selectedOption = $(this).find(':selected');
+            let listingMembership = selectedOption.data('membership');
+            let listingStartDate = selectedOption.data('start');
+            let listingEndDate = selectedOption.data('end');
+            let profileId = selectedOption.val();
+>>>>>>> Stashed changes
+
+            suspendStartDateObject.datepicker('setDate', +1);
+            suspendStartDateObject.datepicker('option', 'minDate', +1);
+            suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
+
+<<<<<<< Updated upstream
                 suspendEndDateObject.datepicker('setDate', null);
                 suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
                 $("#creditCalculationLive").html('0.00');
@@ -559,13 +590,53 @@ $(document).ready(function () {
 
 
      
+=======
+            suspendEndDateObject.datepicker('setDate', null);
+            suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
+            $("#creditCalculationLive").html('0.00');
+      });
 
+
+     
+      function calculateCredit() 
+      {
+>>>>>>> Stashed changes
+
+         let selectedOption = suspendProfileObject.find(':selected');
+         if(suspendEndDateObject.val() && suspendStartDateObject.val()){
+            $.ajax({
+            url: "{{ route('center.massage-suspend-credit') }}",
+            method: 'POST',
+            data: {
+               start_date: suspendStartDateObject.val(),
+               end_date: suspendEndDateObject.val(),
+               profile_id: selectedOption.val(),
+               _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+               $("#creditCalculationLive").html('0.00');
+               if(response.success){
+                     $("#creditCalculationLive").html(response.refund_amount);
+                     $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+               }
+               else {
+                     $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                     Swal.fire({
+                        icon: "error",
+                        text: response.message
+                     });
+               }
+            }
+         });
+         }
+      }
 
     
     //suspendStartDateObject.datepicker('setDate', +1);
 });
 
 
+<<<<<<< Updated upstream
 function calculateCredit() 
 {
       let selectedOption = suspendProfileObject.find(':selected');
@@ -596,6 +667,11 @@ function calculateCredit()
       });
       }
 }
+=======
+
+
+
+>>>>>>> Stashed changes
 
 $("#suspend_form").on('submit', async function(e) 
 {

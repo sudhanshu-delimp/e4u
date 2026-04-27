@@ -12,6 +12,7 @@ use App\Services\WalletService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MassageProfileActionController extends BaseController
 {
@@ -90,6 +91,7 @@ class MassageProfileActionController extends BaseController
         try {
             $profileId = $request->profile_id;
             $massageProfile = getMassageDetail($profileId);
+
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getMassageSuspendRefundAmount($massageProfile, $startDate, $endDate);
