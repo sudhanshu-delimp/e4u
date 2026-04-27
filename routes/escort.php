@@ -352,6 +352,10 @@ Route::get('concierge/products',function(){
     return view('escort.dashboard.Concierge.products');
 })->name('escort.products');
 
+Route::get('concierge/my-orders',function(){
+    return view('escort.dashboard.Concierge.my-orders');
+})->name('escort.my-orders');
+
 Route::get('concierge/view-cart',function(){
     return view('escort.dashboard.Concierge.view-cart');
 })->name('escort.view-cart');
