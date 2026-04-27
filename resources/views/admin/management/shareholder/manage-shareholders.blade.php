@@ -345,7 +345,7 @@
                                     let name = parts[0] + '[]';
                                     let index = parts[1];
                                     let input = $('[name="' + name + '"]').eq(index);
-                                    input.addClass('is-invalid');
+                                    //input.addClass('is-invalid');
                                     input.next('.text-danger').text(messages[0]);
                                     $('.error-' + field.replace('.', '\\.')).text(messages[0]);
 
