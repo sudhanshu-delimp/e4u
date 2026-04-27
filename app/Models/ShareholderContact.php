@@ -10,7 +10,7 @@ class ShareholderContact extends Model
     use HasFactory;
     protected $table = 'shareholder_contact';
 
-        protected $fillable = [
+    protected $fillable = [
         'user_id',
         'name',
         'mobile',
@@ -28,5 +28,13 @@ class ShareholderContact extends Model
         $clean = removeSpaceFromString($value);
         $this->attributes['mobile'] = $clean;
     }
-  
+
+    public static function getEmails($userId = 0)
+    {
+        $emails = self::where('user_id', $userId)
+            ->whereNotNull('email')
+            ->where('email', '!=', '')
+            ->pluck('email');
+        return $emails->toArray();
+    }
 }

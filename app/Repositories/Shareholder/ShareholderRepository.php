@@ -6,6 +6,7 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Shareholder;
+use App\Models\ShareholderContact;
 use App\Models\ShareholderSetting;
 use App\Models\AccountSetting;
 use App\Mail\Shareholder\ApprovalEmail;
@@ -220,7 +221,15 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
     {
         try {
             $user['plainPassword'] = $plainPassword;
-            Mail::to($user->email)->send(new ApprovalEmail($user));
+            if($user->contacts->isNotEmpty()) {
+               
+                $emails = ShareholderContact::getEmails($user->id);
+                 //Log::info("CC is working:". json_encode( $emails));
+                 Mail::to($user->email)->cc($emails)->send(new ApprovalEmail($user));
+            } else {
+                 Mail::to($user->email)->send(new ApprovalEmail($user));
+            }
+           
         } catch (Exception $e) {
             Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
             logErrorLocal($e);
@@ -231,7 +240,13 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
     public function sendSuspendEmail($user)
     {
         try {
-            Mail::to($user->email)->send(new SuspendEmail($user));
+            if($user->contacts->isNotEmpty()) {
+                $emails = ShareholderContact::getEmails($user->id);
+                 Mail::to($user->email)->cc($emails)->send(new SuspendEmail($user));
+            } else {
+                 Mail::to($user->email)->send(new SuspendEmail($user));
+            }
+
         } catch (Exception $e) {
             Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
             logErrorLocal($e);
@@ -242,7 +257,13 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
     public function sendActiveEmail($user)
     {
         try {
-            Mail::to($user->email)->send(new ActivateEmail($user));
+            if($user->contacts->isNotEmpty()) {
+                $emails = ShareholderContact::getEmails($user->id);
+                 Mail::to($user->email)->cc($emails)->send(new ActivateEmail($user));
+            } else {
+                 Mail::to($user->email)->send(new ActivateEmail($user));
+            }
+
         } catch (Exception $e) {
             Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
             logErrorLocal($e);
