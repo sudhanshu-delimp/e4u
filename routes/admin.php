@@ -300,6 +300,8 @@ route::get('/reports/media-verification-list', [MediaVerificationController::cla
 route::get('/reports/media-verification-image', [MediaVerificationController::class, 'mediaVerificationImage'])->name('admin.media-verification-image');
 route::post('/reports/update-media-verification', [MediaVerificationController::class, 'updateMediaVerification'])->name('admin.update-media-verification');
 route::get('/gallery-pdf/{id}/{user_id}', [MediaVerificationController::class, 'galleryPdf'])->name('admin.gallery-pdf');
+route::post('/reports/masseurs-media-verification-list', [MediaVerificationController::class, 'masseursMediaVerificationList'])->name('admin.masseurs_media-verification-list');
+route::post('/reports/masseurs-media-verification-tag', [MediaVerificationController::class, 'masseursMediaVerificationTag'])->name('admin.masseurs_media-verification-tag');
 
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');

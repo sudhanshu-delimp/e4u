@@ -25,6 +25,7 @@ use App\Repositories\Message\MessageMediaInterface;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Http\Requests\Escort\StoreGalleryMediaRequest;
 use App\Models\MasseurMedia;
+use App\Models\MasseurVerification;
 use App\Models\MediaVerification;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
@@ -326,12 +327,12 @@ class MasseurController extends AppController
                 }
             }
 
-            // if ($request->hasFile('verification_image')) {
-            //     $this->mediaVerificationUpload(
-            //         $masseur_profile_id,
-            //         $request->file('verification_image')
-            //     );
-            // }
+            if ($request->hasFile('verification_image')) {
+                $this->mediaVerificationUpload(
+                    $masseur_profile_id,
+                    $request->file('verification_image')
+                );
+            }
            
 
             DB::commit();
@@ -383,32 +384,31 @@ class MasseurController extends AppController
             file_get_contents($verification_image)
         );
 
-        // 🔹 Check existing pending verification
-        $verification = MediaVerification::where('user_id', $user->id)
+        // Check existing pending verification
+        $verification = MasseurVerification::where('user_id', $user->id)
          ->where('masseur_id', $masseur_profile_id)
             ->where('status', '0')
             ->first();
 
         if ($verification) {
 
-            // 🔹 Update existing
+            // Update existing
             $verification->update([
                 'image_path' => $destination_path,
             ]);
 
         } else {
 
-            // 🔹 Create new
-            $verification = MediaVerification::create([
+            // Create new
+            $verification = MasseurVerification::create([
                 'user_id'     => $user->id,
                 'image_path'  => $destination_path,
                 'masseur_id'  => $masseur_profile_id,
-                'status'      => MediaVerification::STATUS_PENDING,
+                'status'      => '0',
                 'submited_by' => $masseur_profile_id,
-                'user_type'   => '3', // 1/2/3
             ]);
 
-            // 🔹 Reset all media to pending
+            // Reset all media to pending
             MasseurMedia::where('user_id', $user->id)
                 ->where('type', '0')
                 ->where('masseur_id', $masseur_profile_id)

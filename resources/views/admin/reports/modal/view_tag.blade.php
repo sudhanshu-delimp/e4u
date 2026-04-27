@@ -24,7 +24,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="viewTagTableBody">
                         <tr>
                             <td>004</td>
                             <td>18-02-2026</td>

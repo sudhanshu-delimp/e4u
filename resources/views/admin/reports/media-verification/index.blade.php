@@ -443,5 +443,86 @@
 
         }, 200);
     });
+
+
+
+
+    $(document).on('click', '.view-centre-btn', function() {
+
+        let mc_id = $(this).data('id');
+
+        $.ajax({
+            url: "{{ route('admin.masseurs_media-verification-list') }}",
+            type: "POST",
+            data: {
+                id: mc_id
+            },
+
+            success: function(response) {
+
+                let html = '';
+
+                if (!response.data || response.data.length === 0) {
+                    html = `<tr><td colspan="4">No data found</td></tr>`;
+                } else {
+
+                    response.data.forEach(function(item) {
+                        html += `
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.date}</td>
+                    <td>${item.name}</td>
+                    <td>
+                        <span class="custom_badge ${item.status_class}">
+                            ${item.status_text}
+                        </span>
+                    </td>
+                </tr>
+            `;
+                    });
+                }
+
+                $('#viewCentreTableBody').html(html);
+            },
+
+            error: function(xhr) {
+                console.log('Error:', xhr.responseText);
+
+                $('#viewCentreTableBody').html(`
+                <tr>
+                    <td colspan="4">Something went wrong</td>
+                </tr>
+            `);
+            }
+        });
+    });
+
+    $(document).on('click', '.view-tag-btn', function() {
+
+        let mc_id = $(this).data('id');
+
+        $.ajax({
+            url: "{{ route('admin.masseurs_media-verification-tag') }}",
+            type: "POST",
+            data: {
+                id: mc_id
+            },
+
+            success: function(response) {
+
+                $('#viewTagTableBody').html(response.html);
+
+                $('#viewTagModal').modal('show');
+            },
+
+            error: function(xhr) {
+                console.log(xhr.responseText);
+
+                $('#viewTagTableBody').html(`
+                <tr><td colspan="6">Something went wrong</td></tr>
+            `);
+            }
+        });
+    });
 </script>
 @endsection

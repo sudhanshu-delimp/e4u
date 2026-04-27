@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\MediaVerificationAdvertiserMail;
 use App\Models\EscortMedia;
 use App\Models\MassageMedia;
+use App\Models\MasseurVerification;
 use App\Models\MediaVerification;
 use App\Models\User;
 use Carbon\Carbon;
@@ -110,7 +111,7 @@ class MediaVerificationController extends Controller
 
         $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
-          
+            //   dd($item);
             $user = $item->user;
             $item->member_id = $user->member_id ?? 'N/A';
             $item->name      = $user->name ?? 'N/A';
@@ -164,13 +165,13 @@ class MediaVerificationController extends Controller
 
             if ($item->user->type == '4') {
                 $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
-                    href="javascript:void(0)" data-toggle="modal" data-target="#view_tag" data-id="' . $item->id . '">
+                    href="javascript:void(0)"  data-toggle="modal" data-target="#view_tag" data-id="' . $user->id . '">
                     <i class="fa fa-eye"></i> View Tag
                 </a>
                 <div class="dropdown-divider"></div>';
 
                 $view_centre = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-centre-btn"
-                    href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $item->id . '">
+                    href="javascript:void(0)" data-toggle="modal" data-target="#view-centre" data-id="' . $user->id . '">
                     <i class="fa fa-eye"></i> View Centre
                 </a>';
             }
@@ -213,11 +214,11 @@ class MediaVerificationController extends Controller
         $id = $request->get('id');
         $user_id = $request->get('user_id');
         $category =  $request->get('type');
-        if($category == "banners"){
+        if ($category == "banners") {
             $category = '9';
-        }else if($category == "pinups"){
-                $category = '10';
-        }else{
+        } else if ($category == "pinups") {
+            $category = '10';
+        } else {
             $category = 'gallery';
         }
 
@@ -226,24 +227,23 @@ class MediaVerificationController extends Controller
             ->first();
         $status = $media_verification->getRawOriginal('status');
         $user = User::findOrFail($user_id);
-     
-        if($user->type == 3){
+
+        if ($user->type == 3) {
             $query = EscortMedia::where('user_id', $user_id)->where('type', '0');
-        }else{
-           $query = MassageMedia::where('user_id', $user_id)->where('type', '0'); 
-        }        
-        
+        } else {
+            $query = MassageMedia::where('user_id', $user_id)->where('type', '0');
+        }
+
         if ($category == 9) {
             $query->where('position', 9);
             $query->where('template', '0');
         } elseif ($category == 10) {
             $query->where('position', 10);
-
         } else {
             // Gallery → NOT 9,10 + NULL include
             $query->where(function ($q) {
                 $q->whereNotIn('position', [9, 10])
-                ->orWhereNull('position');
+                    ->orWhereNull('position');
             });
         }
         switch ($status) {
@@ -271,29 +271,29 @@ class MediaVerificationController extends Controller
         $mediaImages = [];
         foreach ($escort_medias as $escort_media) {
             if ($escort_media->varified == "0") {
-                    $verification_icon = '<img src="'.asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png').'" /><span class="mc_media_tooltip">Media Pending</span>';
-                    $uploaded_date ='<div class="upload_date">Uploaded: <span>'.showDateWithFormat($escort_media->created_at).'</span></div>';
-                } elseif ($escort_media->varified == "2") {
-                    $verification_icon = '<img src="'.asset('assets/app/img/verify/unverified_icon.png').'" /><span class="mc_media_tooltip">Media Unverified</span>';
-                    $uploaded_date ='<div class="upload_date">Rejected: <span>'.showDateWithFormat($escort_media->updated_at).'</span></div>';
-                } else {
-                    $verification_icon = '<img src="'.asset('assets/app/img/verify/verified_icon.png').'" /><span class="mc_media_tooltip">Media Verified</span>';
-                    $uploaded_date ='<div class="upload_date">Approved: <span>'.showDateWithFormat($escort_media->updated_at).'</span></div>';
-                }
-                $position = $escort_media->position ?? 0;
-                switch ($position) {
+                $verification_icon = '<img src="' . asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') . '" /><span class="mc_media_tooltip">Media Pending</span>';
+                $uploaded_date = '<div class="upload_date">Uploaded: <span>' . showDateWithFormat($escort_media->created_at) . '</span></div>';
+            } elseif ($escort_media->varified == "2") {
+                $verification_icon = '<img src="' . asset('assets/app/img/verify/unverified_icon.png') . '" /><span class="mc_media_tooltip">Media Unverified</span>';
+                $uploaded_date = '<div class="upload_date">Rejected: <span>' . showDateWithFormat($escort_media->updated_at) . '</span></div>';
+            } else {
+                $verification_icon = '<img src="' . asset('assets/app/img/verify/verified_icon.png') . '" /><span class="mc_media_tooltip">Media Verified</span>';
+                $uploaded_date = '<div class="upload_date">Approved: <span>' . showDateWithFormat($escort_media->updated_at) . '</span></div>';
+            }
+            $position = $escort_media->position ?? 0;
+            switch ($position) {
                 case 9:
-                    $bannerImage[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
-                                            '.$verification_icon.'</div>';  
+                    $bannerImage[] = '<div class="verify_icon_wrapper">' . $uploaded_date . '<img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
+                                            ' . $verification_icon . '</div>';
                     break;
                 case 10:
-                    $pinupImage[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
-                                            '.$verification_icon.'</div>';
+                    $pinupImage[] = '<div class="verify_icon_wrapper">' . $uploaded_date . '<img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
+                                            ' . $verification_icon . '</div>';
                     break;
 
                 default:
-                    $mediaImages[] = '<div class="verify_icon_wrapper">'.$uploaded_date.'<img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
-                                           '.$verification_icon.'</div>';
+                    $mediaImages[] = '<div class="verify_icon_wrapper">' . $uploaded_date . '<img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
+                                           ' . $verification_icon . '</div>';
                     break;
             }
         }
@@ -342,7 +342,7 @@ class MediaVerificationController extends Controller
                 'media_verification_id' => $media_verification->id,
                 'varified' => (string) $request->get('status')
             ]);
-        
+
         $user = User::with('my_agent')
             ->select('id', 'name', 'email', 'member_id', 'assigned_agent_id')
             ->find($media_verification->user_id);
@@ -366,7 +366,7 @@ class MediaVerificationController extends Controller
                 Mail::to($body['email'])
                     ->cc($cc)
                     ->queue(new MediaVerificationAdvertiserMail($body));
-                    Artisan::queue('profile:sync-status'); // update profile verification status
+                Artisan::queue('profile:sync-status'); // update profile verification status
 
                 break;
 
@@ -375,13 +375,14 @@ class MediaVerificationController extends Controller
         }
         return response()->json([
             'status' => true,
-            'message' => 'Media verification '.strtolower($media_verification->status).' successfully.',
+            'message' => 'Media verification ' . strtolower($media_verification->status) . ' successfully.',
             'media_verification_status' => $status
         ]);
     }
 
 
-    public function galleryPdf($id , $user_id){
+    public function galleryPdf($id, $user_id)
+    {
         $media_verification = MediaVerification::where('id', $id)
             ->where('user_id', $user_id)
             ->first();
@@ -421,7 +422,7 @@ class MediaVerificationController extends Controller
         $bannerImage = [];
         $pinupImage =  [];
         $mediaImages = [];
-        foreach ($escorts_medias as $escort_media) { 
+        foreach ($escorts_medias as $escort_media) {
             switch ($escort_media->position) {
                 case 9:
                     $bannerImage[] = '<img src="' . asset($escort_media->path) . '" style="width:170px; border: 1px solid #ccc; padding:10px; height: 120px; object-fit: cover;" >';
@@ -435,6 +436,128 @@ class MediaVerificationController extends Controller
                     break;
             }
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id','media_verification_image','user_type','reviewed_by','status'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage', 'pinupImage', 'mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'status'));
+    }
+
+
+    public function masseursMediaVerificationList(Request $request)
+    {
+        $masseur_data = MasseurVerification::with('masseur:id,name,member_id')
+            ->where('user_id', $request->id)
+            ->latest()
+            ->get()
+            ->groupBy('masseur_id')
+            ->map(function ($items) {
+
+                $item = $items->first(); // latest record
+
+                // 🔹 Status mapping
+                $statusMap = [
+                    '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
+                    '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
+                    '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
+                ];
+
+                $status = $statusMap[$item->status] ?? $statusMap['0'];
+                return [
+                    'id'           => $item->masseur ? $item->masseur->member_id : '--',
+                    'date'         => $item->created_at ? $item->created_at->format('d-m-Y') : '--',
+                    'name'         => $item->masseur->name ?? '-',
+                    'status_text'  => $status['text'],
+                    'status_class' => $status['class'],
+                ];
+            })
+            ->values()
+            ->all();
+
+        return response()->json([
+            'status' => true,
+            'data'   => $masseur_data
+        ]);
+    }
+
+
+    public function masseursMediaVerificationTag(Request $request)
+    {
+        $mc_id = $request->id;
+
+        $data = MasseurVerification::with('masseur:id,name,member_id')
+            ->where('user_id', $mc_id)
+            ->latest()
+            ->get();
+
+        $html = '';
+
+        if ($data->isEmpty()) {
+            $html .= '<tr><td colspan="6">No data found</td></tr>';
+        } else {
+
+            foreach ($data as $item) {
+
+                // 🔹 Status mapping
+                if ($item->status == '1') {
+                    $statusText = 'Verified image';
+                    $statusClass = 'badge_accepted';
+                } elseif ($item->status == '2') {
+                    $statusText = 'Rejected image';
+                    $statusClass = 'badge_rejected';
+                } else {
+                    $statusText = 'Pending image';
+                    $statusClass = 'badge_pending';
+                }
+
+                $html .= '
+                <tr>
+                    <td>' . ($item->masseur->member_id ?? '--')  . '</td>
+                    <td>' . ($item->created_at ? $item->created_at->format('d-m-Y') : '-') . '</td>
+                    <td>' . ($item->masseur->name ?? '-') . '</td>
+
+                    <td>
+                        <a href="javascript:void(0)"
+                           class="view-image-btn"
+                           data-toggle="modal"
+                           data-target="#verify_masseur_images"
+                           data-image="' . asset('storage/' . $item->image_path) . '">
+                           View image
+                        </a>
+                    </td>
+
+                    <td>
+                        <span class="custom_badge ' . $statusClass . '">
+                            ' . $statusText . '
+                        </span>
+                    </td>
+
+                    <td class="text-center">
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v text-gray-400"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow">
+
+                                <a class="dropdown-item"
+                                   href="">
+                                   <i class="fa fa-check-circle"></i> Approve
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item"
+                                   href="">
+                                   <i class="fa fa-ban"></i> Reject
+                                </a>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            ';
+            }
+        }
+        return response()->json([
+            'status' => true,
+            'html'   => $html
+        ]);
     }
 }
