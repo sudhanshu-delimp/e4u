@@ -38,13 +38,14 @@
 
 
             <div class="mc_card_header">
-                {{-- <span class="verify_icon">
-                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}" alt="">
-                    <span class="mc_media_tooltip">Media Unverified</span>
-                </span> --}}
+                @php 
+                    $media_verification_status =  get_profile_verification_status($listing->id);
+                    $media_status = getMediaVerificationDataSmallIcon(($media_verification_status ?? 0));
+                @endphp
+                    
                 <span class="verify_icon">
-                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" alt="">
-                    <span class="mc_media_tooltip">Media Pending</span>
+                    <img src="{{$media_status['icon']}}" alt="">
+                    <span class="mc_media_tooltip">{{$media_status['label']}}</span>
                 </span>
                 <span class="mc_title">{{$listing->business_name}}</span>
                 <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">

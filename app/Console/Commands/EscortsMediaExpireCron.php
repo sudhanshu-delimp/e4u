@@ -10,6 +10,8 @@ use App\Models\MediaVerification;
 use App\Models\User;
 use Carbon\Carbon;
 use Mail;
+ use Illuminate\Support\Facades\Artisan;
+
 
 class EscortsMediaExpireCron extends Command
 {
@@ -71,7 +73,7 @@ class EscortsMediaExpireCron extends Command
 
                     \Mail::to($body['email'])
                         ->queue(new SystemMediaUnverifiedDueToNoVerificationMail($body));
-
+                    Artisan::queue('profile:sync-status'); // update profile verification status
                     \Log::info("Media expired (no verification) for user_id: " . $userId);
             }
         }
