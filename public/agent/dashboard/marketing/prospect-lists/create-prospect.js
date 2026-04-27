@@ -740,21 +740,6 @@ $(document).ready(function () {
             },
             xhrFields : { responseType: 'blob' },
             timeout   : 300000,
-
-            xhr: function () {
-                console.log('sdfsdfds');
-                let xhr = new XMLHttpRequest();
-                xhr.addEventListener('progress', function (e) {
-                    if (e.lengthComputable) {
-                        let percent = Math.round((e.loaded / e.total) * 100);
-                        console.log('Download progress: ' + percent + '%');
-                        updateLoaderProgress(percent);
-                    }
-                });
-                return xhr;
-                
-            },
-
             success: function (blob, status, xhr) {
 
                 if (!blob || blob.size === 0) {
@@ -809,23 +794,14 @@ $(document).ready(function () {
 
     function showLoader() {
         $('#loader').removeClass('d-none');
-        updateLoaderProgress(0);
     }
 
     function hideLoader() {
         $('#loader').addClass('d-none');
-        updateLoaderProgress(0);
     }
 
 
-    function updateLoaderProgress(percent) {
-    $('#loader .progress-bar').css('width', percent + '%');
-    $('#loader h2').text(
-        percent > 0 && percent < 100
-            ? 'Downloading... ' + percent + '%'
-            : 'Downloading... Please wait'
-    );
-}
+
 
 
 
