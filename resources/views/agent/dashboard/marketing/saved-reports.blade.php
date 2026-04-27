@@ -188,9 +188,9 @@
         {{-- <button type="button" data-target="#mergeList" data-toggle="modal">Go to Hell</button> --}}
     </div>
 
-    @include('agent.dashboard.modal.merge-type-modal')
-    @include('agent.dashboard.modal.merge-list-modal')
-    @include('agent.dashboard.modal.view-list-modal')
+    @include('agent.dashboard.marketing.modal.merge-type-modal')
+    @include('agent.dashboard.marketing.modal.merge-list-modal')
+    @include('agent.dashboard.marketing.modal.view-list-modal')
 
 
 

@@ -7,7 +7,9 @@ use App\Models\MassageExcel;
 use App\Models\ProspectReport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use ZipArchive;
 
 class ProspectListController extends Controller
 {
@@ -101,15 +103,6 @@ class ProspectListController extends Controller
                 $postCodeLabel = 'All (' . (auth()->user()->state_abbr ?? 'State') . ')';
             }
 
-            // Check if same filter already exists
-            // $existing = ProspectReport::where('agent_id', auth()->id())
-            //     ->where('type', $type)
-            //     ->where('post_code_label', $postCodeLabel)
-            //     ->first();
-
-            // if ($existing) {
-            //     return error_response('Report for this filter already exists.', 409);
-            // }
 
             $query = MassageExcel::where('state_id', auth()->user()->state_id)->where('archive', 'false')
                 ->whereHas('territory', function ($q) {
@@ -275,52 +268,262 @@ class ProspectListController extends Controller
     //Report List action 
     public function reportAction(Request $request)
     {
-        $report_id = $request->report_id;
-        $action_type = $request->action_type;
+        $req = $request->only('report_id', 'mergeType');
 
-        switch ($action_type) {
-            case 'Merge':
-                return $this->mergeReport($report_id);
-
-            case 'Print':
-                return $this->printReport($report_id);
-
-            case 'View':
-                return $this->viewReport($report_id);
-
-            default:
-                return response()->json(['error' => 'Invalid action'], 400);
+        if ($req['mergeType'] == 'multiple') {
+            return $this->mergeReport($req['report_id'], $req['mergeType']);
+        } else {
+            return $this->mergeReport($req['report_id'], $req['mergeType']); // same - single bhi same list dikhayega
         }
     }
 
-    private function mergeReport($id)
+    private function mergeReport($id, $mergeType)
     {
 
         try {
-            $massageCenterIds = ProspectReport::where('id', $id)
+            $report = ProspectReport::where('id', $id)
                 ->where('agent_id', auth()->id())
                 ->value('center_ids');
 
-            if ($massageCenterIds) {
-                $view = view('agent.dashboard.marketing.merge-preview', ['centerIds' => $massageCenterIds])->render();
-                return success_response(['html' => $view], "Ok", 200, []);
+            if (!$report) {
+                return error_response('Report not found', 404);
             }
+
+            // Fetch Massage Center
+            $centers = MassageExcel::whereIn('id',  $report ?? [])
+                ->get(['id', 'bussiness_name', 'address', 'email']);
+
+            // pass proper blade template.
+            $view = view('agent.dashboard.marketing.modal.centre-list', [
+                'centres' => $centers,
+                'reportId' => $id,
+                'doc_type' => $this->returnMergeType($mergeType),
+            ])->render();
+
+            return success_response([
+                'html' => $view,
+                'total' =>  $centers->count(),
+            ], 'OK', 200, []);
         } catch (\Exception $e) {
             return error_response('Failed to perform action: ' . $e->getMessage(), 500);
         }
-
-
-
-        dd($massageCenterIds);
     }
 
-    private function printReport($id)
+    private function returnMergeType($mergeType)
     {
-        dd('for print repot data');
+        //$type  =  '';
+        if ($mergeType == 'multiple') {
+            return "2";
+        } else {
+            return "1";
+        }
     }
 
-    private function viewReport($id)
+    public function generatePDF(Request $request)
     {
-        dd('for view report data');
+        try {
+            $centreIds = $request->centre_ids;
+            $reportIds = $request->report_id;
+            $docType   = $request->docType;
+            $action    = $request->action;
+
+            //View path according Merge Type
+            $viewPath = $docType === '1' ? 'agent.dashboard.marketing.modal.doc1' : 'agent.dashboard.marketing.modal.doc2';
+
+            $centres = MassageExcel::whereIn('id', $centreIds)
+                ->get()
+                ->keyBy('id');
+
+            //Manage Order
+            $orderedCentres  = collect($centreIds)
+                ->map(fn($id)  => $centres->get($id))
+                ->filter()
+                ->values();
+
+
+            if ($orderedCentres->count() === 1) {
+                return $this->generateSinglePDF(  // return add karo
+                    $orderedCentres->first(),
+                    $viewPath
+                );
+            }
+
+            //Multiple centres 
+            return $this->generateZipPDF($orderedCentres, $viewPath);
+        } catch (\Exception $e) {
+            dd($e);
+            return error_response('PDF Failed: ' . $e->getMessage(), 500);
+        }
+    }
+
+
+    //Single PDF
+
+    private function generateSinglePDF($centre, $viewPath)
+    {
+         $dynamicData = $this->getPfdDynamicName($centre);
+        $pdf = PDF::loadView($viewPath, [
+            'data'   => $dynamicData,
+        ])
+            ->setPaper('a4')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => true,
+                'dpi'                  => 96,
+                'chroot'               => public_path(),
+            ]);
+
+        $filename = $this->sanitizeName($centre['bussiness_name']) . '_report.pdf';
+
+
+        return response($pdf->output(), 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'X-Filename'          => $filename,
+            'X-PDF-Count'         => 1,
+            'X-Is-Zip'            => 'false',
+        ]);
+    }
+
+
+    private function generateZipPDF($centres, $viewPath)
+    {
+        @set_time_limit(0);
+        ini_set('memory_limit', '1G');
+
+        $tempDir     = storage_path('app/temp_' . uniqid());
+        $zipFilename = 'report_' . now()->format('d_m_Y_H_i_s') . '.zip';
+        $zipPath     = storage_path('app/' . $zipFilename);
+
+        if (!file_exists($tempDir)) {
+            mkdir($tempDir, 0755, true);
+        }
+
+        $pdfFiles = [];
+
+        foreach ($centres as $index => $centre) {
+             $dynamicData = $this->getPfdDynamicName($centre);
+
+            $pdfContent = Pdf::loadView($viewPath, [
+                'data' => $dynamicData,
+            ])
+                ->setPaper('a4')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled'      => true,
+                    'dpi'                  => 96,
+                    'chroot'               => public_path(),
+                ])
+                ->output();
+
+            if (empty($pdfContent)) {
+                throw new \Exception('Empty PDF for: ' . $centre->bussiness_name);
+            }
+
+            $pdfFilename = ($index + 1) . '_' . $this->sanitizeName($centre->bussiness_name) . '.pdf';
+            $pdfPath     = $tempDir . DIRECTORY_SEPARATOR . $pdfFilename;
+
+            file_put_contents($pdfPath, $pdfContent);
+
+            $pdfFiles[] = ['path' => $pdfPath, 'name' => $pdfFilename];
+
+            unset($pdfContent);
+            gc_collect_cycles();
+        }
+
+        // Step 2: ZIP banao
+        $zip    = new ZipArchive();
+        $result = $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        if ($result !== true) {
+            throw new \Exception('ZipArchive open failed. Code: ' . $result);
+        }
+
+        foreach ($pdfFiles as $file) {
+            if (file_exists($file['path'])) {
+                $zip->addFile($file['path'], $file['name']);
+            }
+        }
+
+        $zip->close();
+
+        // Step 3: Validate ZIP
+        if (!file_exists($zipPath) || filesize($zipPath) == 0) {
+            throw new \Exception('ZIP file is invalid or empty.');
+        }
+
+        // Step 4: Cleanup temp PDFs
+        foreach ($pdfFiles as $file) {
+            if (file_exists($file['path'])) {
+                unlink($file['path']);
+            }
+        }
+
+        if (is_dir($tempDir)) {
+            rmdir($tempDir);
+        }
+
+
+        if (ob_get_length()) {
+            ob_end_clean();
+        }
+
+        // Step 6: Download
+        return response()->download($zipPath, $zipFilename, [
+            'Content-Type' => 'application/zip',
+            'X-Filename'   => $zipFilename,
+            'X-PDF-Count'  => $centres->count(),
+            'X-Is-Zip'     => 'true',
+        ])->deleteFileAfterSend(true);
+    }
+
+    private function sanitizeName($name)
+    {
+        return substr(preg_replace('/[^A-Za-z0-9_\-]/', '_', $name), 0, 50);
+    }
+
+    private function getPfdDynamicName($centre)
+    {
+        $agent = Auth::user();
+        return  [
+            'bussiness_name' => $centre['bussiness_name'],
+            'name_of_agent' => $agent['business_name'],
+            'agent_email_address' => $agent['email'],
+            'data' => date('d-m-y'),
+            'address' => $centre['address'],
+            'agent_signature' =>  url('storage/' . $agent->agent_detail['signature_file']),
+            'agent_mobile_number' => $agent['phone'] ?? '',
+            'email' => $agent['email'] ?? '',
+        ];
+
+    }
+
+
+
+    public function testPDF()
+    {
+        $centre = MassageExcel::first(); // pehla record
+        $viewPath = 'agent.dashboard.marketing.modal.doc1';
+
+        $dynamicData = $this->getPfdDynamicName($centre);
+        dd($dynamicData);
+
+        $pdf = PDF::loadView($viewPath, [
+            //'centres' => collect([$centre]),
+            'data' => $dynamicData,
+        ])
+            ->setPaper('a4')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => true,
+                'dpi'                  => 96,
+                'chroot'               => public_path(),
+            ]);
+
+        // ✅ inline - browser me open hoga, download nahi
+        return response($pdf->output(), 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="test.pdf"', // attachment → inline
+        ]);
     }
 }
