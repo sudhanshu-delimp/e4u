@@ -30,9 +30,9 @@
                 <button class="btn-print-single" data-centre-id="{{ $centre->id }}" data-report-id="{{ $reportId }}" data-doc-type="{{$doc_type}}" >
                     Print
                 </button>
-                <button class="btn-email-single" data-email="{{ $centre->email ?? '' }}" data-doc-type="{{$doc_type}}" data-centre-id="{{ $centre->id }}" data-report-id="{{ $reportId }}">
+                <a href="mailto:{{ $centre->email ?? '' }}" class="btn-email-single" data-email="{{ $centre->email ?? '' }}" data-doc-type="{{$doc_type}}" data-centre-id="{{ $centre->id }}" data-report-id="{{ $reportId }}">
                     Email
-                </button>
+                </a>
             </div>
         </div>
     @endforeach
