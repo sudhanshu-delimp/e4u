@@ -138,7 +138,7 @@
                                                                     {{ $contactKeyNumber }}</h5>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
+                                                        <div class="row addDeleteButton">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="contact_person">Contact</label>
@@ -157,11 +157,12 @@
                                                                     <label for="phone">Mobile</label>
                                                                     <input type="tel" maxlength="15"
                                                                         autocomplete="off"
-                                                                        class="form-control rounded-0 formatMobile"
+                                                                        class="form-control rounded-0"
                                                                         name="key_contact_phone[]"
                                                                         oninput="this.value = this.value.replace(/\D/g,'');"
                                                                         value="{{ $contact->mobile }}"
-                                                                        onfocus="this.value = this.value.replace(/\D/g,'');">
+                                                                        onfocus="this.value = this.value.replace(/\D/g,'');"
+                                                                        onblur="formatMobile(this)">
                                                                     <span
                                                                         class="text-danger error-key_contact_phone.{{ $contactKey }}"></span>
                                                                 </div>
@@ -334,18 +335,20 @@
 </div>
 @endsection
 @push('script')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <!-- Shareholder update -->
 <script type="text/javascript">
-    $('#userProfile').parsley({
+    //$('#userProfile').parsley({
 
-    });
+   // });
     // new
     $('#userProfile').on('submit', function(e) {
         e.preventDefault();
         var form = $(this);
         var alertBox = $('#formAlert');
-        if (form.parsley().isValid()) {
+       // if (form.parsley().isValid()) {
 
             var url = form.attr('action');
             var data = new FormData(form[0]);
@@ -397,15 +400,16 @@
                         $('span.text-danger').text('');
                         let errors = xhr.responseJSON.errors;
                         $.each(errors, function(field, messages) {
+                           
                             if (field.includes('.')) {
-                                //ARRAY FIELD (key_contact_person.0)
-                                let parts = field.split('.');
-                                let name = parts[0] + '[]';
-
-                                let index = parts[1];
-                                let input = $('[name="' + name + '"]').eq(index);
-                                input.addClass('is-invalid');
-                                input.next('.text-danger').text(messages[0]);
+                                 console.log("Message:",field, messages);
+                                // ARRAY FIELD (key_contact_person.0)
+                                    let parts = field.split('.');
+                                    let name = parts[0] + '[]';
+                                    let index = parts[1];
+                                    let input = $('[name="' + name + '"]').eq(index);
+                                    $('.error-' + field.replace('.', '\\.')).text(messages[0]);
+                                   
 
                             } else {
                                 $('.error-' + field).text(messages[0]);
@@ -419,7 +423,7 @@
                     }
                 },
             });
-        }
+       // }
     });
 
     $(document).ready(function() {
@@ -448,9 +452,6 @@
                 contactCount = 0;
             }
 
-            console.log("maxContactsEdit");
-
-
             if (contactCount >= maxContactsEdit) {
                 alert("You can only add up to 3 Kay Contacts.");
                 return;
@@ -463,26 +464,27 @@
             } else {
                 var newContact = $(".key-contact-info-edit").first().clone();
                 newContact.find('.deleteButton').remove();
-                var index = addedMaxKeyContactMain;
 
-                newContact.find('span.text-danger').each(function() {
-
-                    let classes = $(this).attr('class');
-
-                    if (classes.includes('error-key_contact_name')) {
-                        $(this).attr('class', 'text-danger error-key_contact_name.' + index);
-                    }
-
-                    if (classes.includes('error-key_contact_phone')) {
-                        $(this).attr('class', 'text-danger error-key_contact_phone.' + index);
-                    }
-
-                    if (classes.includes('error-key_contact_email')) {
-                        $(this).attr('class', 'text-danger error-key_contact_email.' + index);
-                    }
-
-                });
             }
+            var index1 = addedMaxKeyContactMain;
+            newContact.find('span.text-danger').each(function() {
+
+                let classes = $(this).attr('class');
+
+                if (classes.includes('error-key_contact_name')) {
+                    $(this).attr('class', 'text-danger error-key_contact_name.' + index1);
+                }
+
+                if (classes.includes('error-key_contact_phone')) {
+                    $(this).attr('class', 'text-danger error-key_contact_phone.' + index1);
+                }
+
+                if (classes.includes('error-key_contact_email')) {
+                    $(this).attr('class', 'text-danger error-key_contact_email.' + index1);
+                }
+                
+            });
+
 
 
             // Clear input values
@@ -497,13 +499,13 @@
                     </button>
                 </div>
             `); */
-                newContact.find('.row').last().append(`
-    <div class="col-md-6 d-flex align-items-center">
-        <button type="button" class="btn-cancel-modal btn-remove" style="padding:13px 21px;"> 
-            <i class="fa fa-times text-white"></i>
-        </button>
-    </div>
-`);
+                newContact.find('.addDeleteButton').append(`
+        <div class="col-md-6 d-flex align-items-center">
+            <button type="button" class="btn-cancel-modal btn-remove" style="padding:13px 21px;"> 
+                <i class="fa fa-times text-white"></i>
+            </button>
+        </div>
+    `);
             }
 
             $("#conatct-container-edit").append(newContact);
@@ -553,28 +555,30 @@
 </script>
 @endpush
 <div style="display: none" id="keyContactFormData">
-<div class="key-contact-info my-3 row">
+<div class="key-contact-info my-3 row  ml-2">
     <div class="col-12">
         <h5>Key Contact</h5>
     </div>
-    <div class="col-6 mt-2">
-        <input type="hidden" name="contact_id[]" value="">
-        <label class="form-check-label" for="contact">Contact</label>
-        <input type="tel" maxlength="100" autocomplete="off" class="form-control rounded-0"
-            name="key_contact_name[]">
-        <span class="text-danger error-key_contact_name.1"></span>
-    </div>
-    <div class="col-6 mt-2">
-        <label class="form-check-label" for="phone">Mobile</label>
-        <input type="tel" maxlength="15" autocomplete="off" class="form-control rounded-0 formatMobile"
-            name="key_contact_phone[]" oninput="this.value = this.value.replace(/\D/g,'');"
-            onfocus="this.value = this.value.replace(/\D/g,'');">
-        <span class="text-danger error-key_contact_phone.1"></span>
-    </div>
-    <div class="col-6 mt-2">
-        <label class="form-check-label" for="email">Email</label>
-        <input type="email" class="form-control rounded-0" name="key_contact_email[]">
-        <span class="text-danger error-key_contact_email.1"></span>
+    <div class=" ml-2 row addDeleteButton">
+        <div class="col-6 mt-2">
+            <input type="hidden" name="contact_id[]" value="">
+            <label class="form-check-label" for="contact">Contact</label>
+            <input type="tel" maxlength="100" autocomplete="off" class="form-control rounded-0"
+                name="key_contact_name[]">
+            <span class="text-danger error-key_contact_name.1"></span>
+        </div>
+        <div class="col-6 mt-2">
+            <label class="form-check-label" for="phone">Mobile</label>
+            <input type="tel" maxlength="15" autocomplete="off" class="form-control rounded-0"
+                name="key_contact_phone[]" oninput="this.value = this.value.replace(/\D/g,'');"
+                onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
+            <span class="text-danger error-key_contact_phone.1"></span>
+        </div>
+        <div class="col-6 mt-2">
+            <label class="form-check-label" for="email">Email</label>
+            <input type="email" class="form-control rounded-0" name="key_contact_email[]">
+            <span class="text-danger error-key_contact_email.1"></span>
+        </div>
     </div>
 </div>
 </div>

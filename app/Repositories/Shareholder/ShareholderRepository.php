@@ -92,6 +92,7 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
                 $persons = isset($data['key_contact_name']) ? $data['key_contact_name'] : [];
                 $mobiles = isset($data['key_contact_phone']) ? $data['key_contact_phone'] : [];
                 $emails = isset($data['key_contact_email']) ? $data['key_contact_email'] : [];
+                 $idsFromForm = [];
 
                 if (isset($data['user_id']) && (!empty($data['user_id']))) {
                     $user = $this->shareholder->where('id', $data['user_id'])->first();

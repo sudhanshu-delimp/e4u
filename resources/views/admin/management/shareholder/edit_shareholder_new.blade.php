@@ -95,9 +95,9 @@
                         <div class="col-6 mt-2">
                             <label class="form-check-label" for="phone">Mobile</label>
                             <input type="tel" maxlength="15" autocomplete="off"
-                                class="form-control rounded-0 formatMobile" name="key_contact_phone[]"
+                                class="form-control rounded-0" name="key_contact_phone[]"
                                 oninput="this.value = this.value.replace(/\D/g,'');" value="{{ $contact->mobile }}"
-                                onfocus="this.value = this.value.replace(/\D/g,'');">
+                                onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
                             <span class="text-danger error-key_contact_phone.{{ $contactKey }}"></span>
                         </div>
                         <div class="col-6 mt-2">

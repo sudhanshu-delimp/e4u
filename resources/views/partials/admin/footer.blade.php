@@ -248,7 +248,23 @@
         $(this).val(formatted);
     });
 });
-
+ function formatMobile(obj) {
+        let value = $(obj).val();
+        // Remove non-numeric characters
+        value = value.replace(/\D/g, '');
+        let formatted = value;
+        if (value.length === 10) {
+            // 0438 028 728
+            formatted = value.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+        } else if (value.length === 11) {
+            // 0412 345 6789
+            formatted = value.replace(/(\d{4})(\d{3})(\d{4})/, '$1 $2 $3');
+        } else if (value.length === 12) {
+            // 6143 802 8728 (with country code)
+            formatted = value.replace(/(\d{4})(\d{4})(\d{4})/, '$1 $2 $3');
+        }
+         $(obj).val(formatted);
+    }
   </script>
   @stack('script')
         </body>

@@ -127,8 +127,8 @@
             </div>
             <div class="col-6 mt-2">
                 <label class="form-check-label" for="phone">Mobile</label>
-                <input type="tel" maxlength="15" autocomplete="off" class="form-control rounded-0 formatMobile"
-                    name="key_contact_phone[]" oninput="this.value = this.value.replace(/\D/g,'');" onfocus="this.value = this.value.replace(/\D/g,'');">
+                <input type="tel" maxlength="15" autocomplete="off" class="form-control rounded-0"
+                    name="key_contact_phone[]" oninput="this.value = this.value.replace(/\D/g,'');" onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
                 <span class="text-danger error-key_contact_phone.1"></span>
             </div>
             <div class="col-6 mt-2">
@@ -334,7 +334,7 @@
                     error: function(xhr) {
 
                         Swal.close();
-                        console.log(xhr);
+            
                         if (xhr.status === 422) {
                             $('span.text-danger').text('');
                             let errors = xhr.responseJSON.errors;
@@ -347,6 +347,7 @@
                                     let input = $('[name="' + name + '"]').eq(index);
                                     input.addClass('is-invalid');
                                     input.next('.text-danger').text(messages[0]);
+                                    $('.error-' + field.replace('.', '\\.')).text(messages[0]);
 
                                 } else {
                                     $('.error-' + field).text(messages[0]);
