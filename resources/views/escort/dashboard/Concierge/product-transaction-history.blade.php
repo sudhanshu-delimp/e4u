@@ -22,7 +22,7 @@
         <div class="row">
             <div class="d-flex justify-content-between align-items-center flex-wrap col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1">Order History</h1>
+                    <h1 class="h1">Transaction History</h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                 </div>
             </div>
