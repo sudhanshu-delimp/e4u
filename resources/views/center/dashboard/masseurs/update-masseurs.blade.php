@@ -58,7 +58,7 @@
 
         img.img-thumbnail.defult-image {
             width: 190px;
-            height: 180px;
+            height: 135px;
             object-fit: cover;
         }
 
@@ -406,7 +406,7 @@
                                                     <div class="col-sm-12 masseur_upl_img">
                                                         <div class="thumnail_img">
                                                             <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                            <div class="plate dvDest ui-droppable">
+                                                            <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                 <label class="newbtn" data-toggle="modal"
                                                                     data-target="#photo_gallery">
                                                                     <img class="w-100 gal-thumb-first upld-img"
@@ -416,12 +416,16 @@
                                                                         src="{{ asset($masseur->getImagePosition(1, $masseur->id)) }}"
                                                                         onclick="positionToUpdate(1)">
                                                                 </label>
+                                                                <div class="mass_lg_icon">
+                                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending_REV.png')}}">
+                                                                        <span class="mass_tooltip">Media Pending</span>
+                                                                    </div>
                                                             </div>
                                                         </div>
                                                         <div class="gal_img">
                                                             <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                             <div class="masseur_gallery">
-                                                                <div class="plate dvDest ui-droppable">
+                                                                <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img pro_gallery"
@@ -429,22 +433,34 @@
                                                                             id="img2" data-type="gallery" src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(2)">
                                                                     </label>
+                                                                    <div class="mass_sm_icon">
+                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
+                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
+                                                                                </div>
                                                                 </div>
-                                                                <div class="plate dvDest ui-droppable">
+                                                                <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img pro_gallery"
                                                                             id="img3" data-position=3 data-type="gallery" src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(3)">
                                                                     </label>
+                                                                    <div class="mass_sm_icon">
+                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
+                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
+                                                                                </div>
                                                                 </div>
-                                                                <div class="plate dvDest ui-droppable">
+                                                                <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img pro_gallery"
                                                                             id="img4" data-position=4 data-type="gallery" src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(4)">
                                                                     </label>
+                                                                    <div class="mass_sm_icon">
+                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
+                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
+                                                                                </div>
                                                                 </div>
                                                             </div>
                                                         </div>

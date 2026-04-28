@@ -3297,6 +3297,7 @@ button.btn:focus {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
+    margin-bottom: 20px;
 }
 
 @media (min-width:600px) and (max-width: 1024px) {
@@ -12277,8 +12278,8 @@ details[open]>summary:first-of-type {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 0px;
-    bottom: 0px;
+    right: 1px;
+    bottom: 1px;
     border: none;
     background: #0c223d;
     padding: 4px;

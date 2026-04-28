@@ -71,7 +71,7 @@
                         <div class="grid-container">  
                         @foreach($images as $image)    
                         @if(!in_array($image->position, [8]))                                               
-                            <div class="item4" id="dm_{{$image->id}}">
+                            <div class="item4 mass_verify_icon" id="dm_{{$image->id}}">
                                 <img class="img-thumbnail defult-image ui-draggable ui-draggable-handle" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                 <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
                                 @switch($image->position)
@@ -84,6 +84,13 @@
                                     @default
                                         <span class="badge badge-red">Gallery</span>
                                 @endswitch
+                                 <div class="mass_sm_icon">
+                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
+                                    <span class="mass_sm_tooltip">Media Pending</span>
+                                </div>
+                                <div class="upload_date">
+                                    Uploaded: <span>28-04-2026</span>
+                                </div>
                             </div>
                         @endif    
                         @endforeach   

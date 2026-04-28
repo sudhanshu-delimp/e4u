@@ -456,9 +456,9 @@ padding: 37px !important;
                                                                             
                                                                     </label>
                                                                     <div class="mass_lg_icon">
-                                                                                <img src="{{ asset('assets/app/img/verify/e4u_pending_REV.png')}}">
-                                                                                <span class="mass_tooltip">Media Pending</span>
-                                                                            </div>
+                                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending_REV.png')}}">
+                                                                        <span class="mass_tooltip">Media Pending</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="gal_img">
@@ -604,9 +604,6 @@ padding: 37px !important;
                                                                    
                                                                 </div>
                                                             </div>
-
-
-
                                                         </div>
                                                     </div>
                                                 </div>
