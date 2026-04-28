@@ -33,7 +33,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h5 class="my-4 custom_modal_text" style="text-align: center;">
+                            <h5 class="custom_modal_text" style="text-align: center;">
                             <span id="comman_str"></span>
                             <span class="comman_msg"></span>
                             </h5>
