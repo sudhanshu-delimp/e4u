@@ -356,6 +356,10 @@ Route::get('concierge/view-cart',function(){
     return view('escort.dashboard.Concierge.view-cart');
 })->name('escort.view-cart');
 
+Route::get('concierge/order-history',function(){
+    return view('escort.dashboard.Concierge.product-order-history');
+})->name('escort.order-history');
+
 Route::get('travel',function(){
     return view('escort.dashboard.Concierge.travel');
 });
