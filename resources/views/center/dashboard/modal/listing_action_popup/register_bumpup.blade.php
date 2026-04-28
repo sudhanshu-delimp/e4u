@@ -1,6 +1,6 @@
 <div class="modal fade upload-modal" id="bumpup_profile" tabindex="-1" role="dialog" aria-labelledby="extendBumpUpProfile" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <form id="bumpup_profile_form" action="{{route('escort.bumpup_register')}}" method="POST">
+      <form id="bumpup_profile_form" action="{{route('center.bumpup_register')}}" method="POST">
         {{ csrf_field() }}
         <div class="modal-content">
           <div class="modal-header">
@@ -26,11 +26,29 @@
                     <div class="col-sm-9">
                       <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                               id="bumpUpProfileId"
-                              name="escort_id"
+                              name="massage_id"
                               data-parsley-errors-container="#extend-profile-errors"
                               required
                               data-parsley-required-message="Select Profile">
-                        <option value="">Select Profile</option>
+                              <option value="">Select Profile</option>
+                              @foreach ($active_profile as $profile)
+                              @php
+                              $purchase = $profile->purchase->first();
+                              @endphp
+
+                            <option 
+                              value="{{ $profile['id'] }}"
+                              profile_name="{{ $profile['profile_name'] }}"
+                              data-start= "{{ ($purchase) ?   date('d-m-Y',strtotime($purchase['start_date'])) : '' }}"
+                              data-end="{{ ($purchase) ?  date('d-m-Y',strtotime($purchase['end_date'])) : '' }}"
+                              data-membership= "{{ ($purchase) ? $purchase['membership_id']  : '' }}"
+                              data-parsley-type="" 
+                              data-parsley-type-message="">
+                              {{ $profile['id'] }} - {{ $profile['profile_name'] }} 
+                              
+                          </option>
+      
+                          @endforeach
                         
                       </select>
                       <span id="extend-profile-errors"></span>

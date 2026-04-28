@@ -512,166 +512,94 @@ messages: {
 ////////////// End  BRB Form Submit ///////////////////
 
 
-/////////// Suspend Profile ////////////////////
+         /////////// Suspend Profile ////////////////////
 
 
-<<<<<<< Updated upstream
+       $(document).ready(function() {   
+
+         let suspendProfileObject = $('#suspendProfileId');
+         let suspendStartDateObject = $('#suspendStartDate');
+         let suspendEndDateObject   = $('#suspendEndDate');
+
+   
+         suspendStartDateObject.datepicker('setDate', +1);
+         suspendStartDateObject.datepicker('option', 'minDate', +1);
+         suspendEndDateObject.datepicker('option', 'minDate', +1);
 
 
-$(document).ready(function () {
-
-           
-            let suspendProfileObject = $('#suspendProfileId');
-            let suspendStartDateObject = $('#suspendStartDate');
-            let suspendEndDateObject   = $('#suspendEndDate');
-
-            suspendStartDateObject.datepicker('setDate', +1);
-            suspendStartDateObject.datepicker('option', 'minDate', +1);
-           
-            suspendEndDateObject.datepicker('option', 'minDate', +1);
-
-            suspendStartDateObject.datepicker('option', 'onSelect', function () {
-                suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
-                suspendEndDateObject.datepicker('option', 'setDate', $(this).val());
-                calculateCredit();
+            suspendStartDateObject.on('change', function () {
+               let selectedDate = $(this).val();
+               suspendEndDateObject.datepicker('option', 'minDate', selectedDate);
+               suspendEndDateObject.datepicker('setDate', selectedDate);
+               calculateCredit();
             });
 
-            suspendEndDateObject.datepicker('option', 'onSelect', function () {
-                suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
-                calculateCredit();
+            suspendEndDateObject.on('change', function () {
+               let selectedDate = $(this).val();
+
+               suspendStartDateObject.datepicker('option', 'maxDate', selectedDate);
+
+               calculateCredit();
             });
+
 
             suspendProfileObject.on('change', function() {
-               alert('sdffsffsd');
-                let selectedOption = $(this).find(':selected');
-                let listingMembership = selectedOption.data('membership');
-                let listingStartDate = selectedOption.data('start');
-                let listingEndDate = selectedOption.data('end');
-                let profileId = selectedOption.val();
-=======
+                  let selectedOption = $(this).find(':selected');
+                  let listingMembership = selectedOption.data('membership');
+                  let listingStartDate = selectedOption.data('start');
+                  let listingEndDate = selectedOption.data('end');
+                  let profileId = selectedOption.val();
 
-      let suspendProfileObject = $('#suspendProfileId');
-      let suspendStartDateObject = $('#suspendStartDate');
-      let suspendEndDateObject   = $('#suspendEndDate');
+                  suspendStartDateObject.datepicker('setDate', +1);
+                  suspendStartDateObject.datepicker('option', 'minDate', +1);
+                  suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
 
-      suspendStartDateObject.datepicker('setDate', +1);
-      suspendStartDateObject.datepicker('option', 'minDate', +1);
-      
-      suspendEndDateObject.datepicker('option', 'minDate', +1);
-
-      suspendStartDateObject.datepicker('option', 'onSelect', function () {
-            suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
-            suspendEndDateObject.datepicker('option', 'setDate', $(this).val());
-            calculateCredit();
-      });
-
-      suspendEndDateObject.datepicker('option', 'onSelect', function () {
-            suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
-            calculateCredit();
-      });
-
-      suspendProfileObject.on('change', function() {
-            let selectedOption = $(this).find(':selected');
-            let listingMembership = selectedOption.data('membership');
-            let listingStartDate = selectedOption.data('start');
-            let listingEndDate = selectedOption.data('end');
-            let profileId = selectedOption.val();
->>>>>>> Stashed changes
-
-            suspendStartDateObject.datepicker('setDate', +1);
-            suspendStartDateObject.datepicker('option', 'minDate', +1);
-            suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
-
-<<<<<<< Updated upstream
-                suspendEndDateObject.datepicker('setDate', null);
-                suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
-                $("#creditCalculationLive").html('0.00');
+                  suspendEndDateObject.datepicker('setDate', null);
+                  suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
+                  $("#creditCalculationLive").html('0.00');
             });
 
 
-     
-=======
-            suspendEndDateObject.datepicker('setDate', null);
-            suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
-            $("#creditCalculationLive").html('0.00');
-      });
 
 
-     
-      function calculateCredit() 
-      {
->>>>>>> Stashed changes
-
-         let selectedOption = suspendProfileObject.find(':selected');
-         if(suspendEndDateObject.val() && suspendStartDateObject.val()){
-            $.ajax({
-            url: "{{ route('center.massage-suspend-credit') }}",
-            method: 'POST',
-            data: {
-               start_date: suspendStartDateObject.val(),
-               end_date: suspendEndDateObject.val(),
-               profile_id: selectedOption.val(),
-               _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-               $("#creditCalculationLive").html('0.00');
-               if(response.success){
-                     $("#creditCalculationLive").html(response.refund_amount);
-                     $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
-               }
-               else {
-                     $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
-                     Swal.fire({
-                        icon: "error",
-                        text: response.message
-                     });
-               }
-            }
-         });
-         }
-      }
-
-    
-    //suspendStartDateObject.datepicker('setDate', +1);
-});
-
-
-<<<<<<< Updated upstream
-function calculateCredit() 
-{
-      let selectedOption = suspendProfileObject.find(':selected');
-      if(suspendEndDateObject.val() && suspendStartDateObject.val()){
-         $.ajax({
-         url: "{{ route('center.massage-suspend-credit') }}",
-         method: 'POST',
-         data: {
-            start_date: suspendStartDateObject.val(),
-            end_date: suspendEndDateObject.val(),
-            profile_id: selectedOption.val(),
-            _token: '{{ csrf_token() }}'
-         },
-         success: function(response) {
-            $("#creditCalculationLive").html('0.00');
-            if(response.success){
-                  $("#creditCalculationLive").html(response.refund_amount);
-                  $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
-            }
-            else {
-                  $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
-                  Swal.fire({
-                     icon: "error",
-                     text: response.message
+            function calculateCredit() 
+            {
+                  let selectedOption = suspendProfileObject.find(':selected');
+                  if(suspendEndDateObject.val() && suspendStartDateObject.val()){
+                     $.ajax({
+                     url: "{{ route('center.massage-suspend-credit') }}",
+                     method: 'POST',
+                     data: {
+                        start_date: suspendStartDateObject.val(),
+                        end_date: suspendEndDateObject.val(),
+                        profile_id: selectedOption.val(),
+                        
+                     },
+                     success: function(response) {
+                        $("#creditCalculationLive").html('0.00');
+                        if(response.success){
+                              $("#creditCalculationLive").html(response.refund_amount);
+                              $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                        }
+                        else {
+                              $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                              Swal.fire({
+                                 icon: "error",
+                                 text: response.message
+                              });
+                        }
+                     }
                   });
+                  }
             }
-         }
+
+
       });
-      }
-}
-=======
 
 
+            
 
->>>>>>> Stashed changes
+
 
 $("#suspend_form").on('submit', async function(e) 
 {
@@ -746,7 +674,7 @@ $(document).on('change','#extendProfileId', function ()
    
    if (previousEndDateValue) {
          extendStartDateObject.val(getDateAfter(previousEndDateValue,1));
-         extendEndDateObject.val(getDateAfter(previousEndDateValue,2));
+         extendEndDateObject.val(getDateAfter(previousEndDateValue,1));
          extendEndDateObject.datepicker('option', 'minDate', extendStartDateObject.val());
    } else {
          extendEndDateObject.datepicker('option', 'minDate', null);
@@ -774,37 +702,18 @@ let previousEndDateValue = $('#extendProfileId').find(':selected').data('end');
 let extendEndDateObject = $('#extendEndDate');
 
 if (previousEndDateValue && days) {
-      extendEndDateObject.val(getDateAfter(previousEndDateValue,days+1));
+      extendEndDateObject.val(getDateAfter(previousEndDateValue,days));
 } else {
       extendEndDateObject.val('');
 }
 });
 
 
-var getDateAfter = function(dateStr, after = 1) {
-    let year, month, day;
-
-    if (dateStr.includes('-')) {
-        let parts = dateStr.split('-').map(Number);
-
-        // detect format
-        if (parts[0] > 1000) {
-            // YYYY-MM-DD
-            [year, month, day] = parts;
-        } else {
-            // DD-MM-YYYY
-            [day, month, year] = parts;
-        }
-    }
-
-    let date = new Date(year, month - 1, day);
-    date.setDate(date.getDate() + after);
-
-    let d = String(date.getDate()).padStart(2, '0');
-    let m = String(date.getMonth() + 1).padStart(2, '0');
-    let y = date.getFullYear();
-
-    return `${d}-${m}-${y}`;
+var getDateAfter = function(dateStr,after=1) {
+            let [day, month, year] = dateStr.split('-');
+            let date = new Date(year, month - 1, day);
+            date.setDate(date.getDate() + after);
+            return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
 }
 
 
@@ -915,9 +824,6 @@ $(document).on('click', '.transaction_summury', function(e) {
          }
        },
    });  
-
-
-    //$("#summaryModal").css("display","flex").hide().fadeIn();
 });
 
 $(document).on("click",".close-btn",function(e){
@@ -952,9 +858,10 @@ e.preventDefault();
                     method: 'POST',
                     data: formData,
                     success: function(response) {
+                        table.ajax.reload(null, false);
                         Swal.close();
-                        let redirect = {'time': 2000, 'url' : 'listing/current'}
-                        swal_success_popup(response.message,redirect);
+                        /// let redirect = {'time': 2000, 'url' : 'listing/current'}
+                        /// swal_success_popup(response.message,redirect);
                     },
                     error: function(xhr) {
                         Swal.close();
@@ -1004,47 +911,57 @@ let make_form_values = (frm_values) => {
 }
 
 
- $(document).ready(function(e) {
-    $(".date-picker").each(function() {
-        int_datePicker($(this));
-    });
+// ########### Bumpup Profile #########################
+let saveBumpupButton = document.getElementById("saveBumpupButton");
+saveBumpupButton.disabled = true;
+$(document).on('change','#bumpUpProfileId', function(){
+    saveBumpupButton.disabled = !$(this).val().trim();
 });
-function int_datePicker(ele) {
-    let datePickerOptions = {
-        showAnim: 'slideDown',
-        dateFormat: 'dd-mm-yy',
-        changeMonth: true,
-        changeYear: true,
-        showOn: "both",
-        buttonImageOnly: true,
-        buttonImage: "https://e4u.local/assets/img/calendar.svg"
-    };
-    var dynamicOptions = $(ele).data('options') ? $(ele).data('options').split(', ') : '';
-    $(dynamicOptions).each(function( index, element ) {
-        var item = element.split(':');
-        datePickerOptions[item[0]] = item[1];
-    });
-    if($(ele).data('min')) {
-        datePickerOptions['minDate'] = new Date($(ele).data('min'));
-    }
-    $(ele).datepicker(datePickerOptions);
 
-    //THis is to remove icon from the input when the input is disabled
-    if($(ele).prop('disabled')){
-        $(ele).find('.ui-datepicker-trigger').hide();
-    }
-    $(".ui-datepicker-trigger").removeAttr("title");
-}                
+$("#bumpup_profile_form").on('submit', async function(e) 
+{
+   e.preventDefault();
+   var form = $(this);
+   var url = "{{ route('center.bumpup_register') }}";
+   var data = new FormData(form[0]);
 
+     let mess_data = {'title' : 'NA','text' : 'Do you want to Bump Up this Profile?',}
+      if(await isConfirm(mess_data))
+      {
+            swal_waiting_popup({
+                'title': 'Bumping Up Your Profile.'
+            });
+           
 
- $(document).on('select2:open', function(e) {
-                var select2_id_attr = $(e.target).attr('id');
-                if($('input[aria-controls="select2-' + select2_id_attr + '-results"]')[0]) {
-                    $('input[aria-controls="select2-' + select2_id_attr + '-results"]')[0].focus();
-                }
+            $.ajax({
+               method: 'POST',
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               beforeSend: function(){
+                  $("#saveBumpupButton").find('button[type=submit]').attr('disabled','disabled');
+               },
+               success: function(data) {
+                  Swal.close();
+                  if (data.response.success) {
+                      swal_success_popup(data.response.message);
+                     //$('#suspend_profile').modal('hide');
+                     ///table.draw();
+                  } else {
+                     swal_error_popup(data.response.message);
+                  }
+                  $("#saveBumpupButton").find('button[type=submit]').removeAttr('disabled');
+               },
             });
 
+      }
+
+});
+// ########### End Bumpup Profile #########################
+       
 </script>
-
-
 @endpush

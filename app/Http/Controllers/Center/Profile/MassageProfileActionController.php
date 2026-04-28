@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Center\Profile;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\MassageBrb;
+use App\Models\MassageBumpup;
 use App\Models\MassageProfile;
 use App\Models\MassagePurchase;
 use App\Models\MassageSuspendProfile;
@@ -270,6 +271,43 @@ class MassageProfileActionController extends BaseController
          
     }
 
+
+
+    public function bumpup_register(Request $request)
+    {
+
+        dd($request->all());
         
+        try {
+            $escortId = $request->escort_id;
+            $escortDetail = getEscortDetail($escortId);
+            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+            $nowLocal = Carbon::now($profileTimezone);
+            $localStart = $nowLocal->copy();
+            $localEnd   = $nowLocal->copy()->addHours(24);
+            $utcStart = $localStart->copy()->setTimezone('UTC');
+            $utcEnd = $localEnd->copy()->setTimezone('UTC');
+
+            MassageBumpup::create([
+                'user_id' => auth()->user()->id,
+                'escort_id' => $escortDetail->id,
+                'start_date' => $localStart->format('Y-m-d'),
+                'end_date' => $localEnd->format('Y-m-d'),
+                'utc_start_time' => $utcStart,
+                'utc_end_time' => $utcEnd,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile ID ' . $escortId . ' has been Bumped Up.'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while booking the Pinup.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }    
 
 }

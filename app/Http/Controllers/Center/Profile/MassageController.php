@@ -94,7 +94,7 @@ class MassageController extends Controller
         else
         $active_profile = [];
 
-        //dd($active_profile)  ; 
+        
 
         return view('center.dashboard.list',compact('active_profile'));
     }
@@ -120,7 +120,7 @@ class MassageController extends Controller
             ->get();
 
           
-
+         
                
         
             $data = $masseurs->map(function ($row)  {
@@ -128,9 +128,12 @@ class MassageController extends Controller
             if(!empty($row->is_active))
             $is_live = true;
             else
-            $is_live = false;        
+            $is_live = false;   
+        
+            $isExtended = $row->isListingExtended();
+             
 
-
+            
             $brb = [];
             if(isset($row->brb) && (count($row->brb)>0))
             $brb = json_decode(json_encode($row->brb),true);  
@@ -139,6 +142,8 @@ class MassageController extends Controller
             if(isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
             $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend),true); 
 
+           
+           
 
 
             if(!empty($brb))
@@ -159,6 +164,10 @@ class MassageController extends Controller
                 <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to ".date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])).'</small>
                 </sup>';
             }
+
+
+             if(isset($isExtended->count) && $isExtended->count)
+             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
 
 
 
@@ -1224,7 +1233,7 @@ class MassageController extends Controller
 
     public function listing_payment(PurchaseListingRequest $request)
     {
-
+          
             $data = $request->validated();
             $payload_start_date = $request->listing_start_date;
             $payload_end_date = $request->listing_end_date;
