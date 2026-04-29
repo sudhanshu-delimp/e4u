@@ -29,4 +29,13 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|unique:users'
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
+    }
 }

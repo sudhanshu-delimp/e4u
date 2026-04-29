@@ -43,6 +43,15 @@ class StoreAdvertiserRegisterRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
+    }
+
     public function messages()
 {
     return [

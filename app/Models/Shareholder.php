@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\ShareholderSetting;
+use App\Models\ShareholderContact;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Model;
@@ -23,6 +24,11 @@ class Shareholder extends Model
     public function shareholder_setting()
     {
         return $this->hasOne(ShareholderSetting::class, 'user_id', 'id');
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(ShareholderContact::class, 'user_id', 'id');
     }
 
     public function setting()

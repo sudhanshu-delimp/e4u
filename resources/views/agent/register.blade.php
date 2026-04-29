@@ -470,7 +470,7 @@
                                 );
                             window.location.href = "{{ route('agent.login') }}";
                             return false;
-                        } else(data.error == 1 && data.status != 'Pending') {
+                        } else if(data.error == 1 && data.status != 'Pending') {
                             Swal.close();
                             setTimeout(() => {
                                 $("#sendOtp_modal").modal({

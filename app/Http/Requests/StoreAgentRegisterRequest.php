@@ -30,4 +30,13 @@ class StoreAgentRegisterRequest extends FormRequest
             'type' => 'required|in:5',
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
+    }
 }

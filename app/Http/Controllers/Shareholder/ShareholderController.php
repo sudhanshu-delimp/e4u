@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Shareholder\UpdateShareholderMyAccount;
 use App\Models\Shareholder;
+use App\Models\ShareholderContact;
 use App\Models\ShareholderSetting;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\User\UserInterface;
@@ -98,8 +99,8 @@ class ShareholderController extends Controller
         $dataToSave  =  [
             'contact_person' => $data['contact_person'] ?? null,
             'phone' => $data['phone'] ?? null,
-            //'email' => $data['email'] ?? null,
-            'business_name' => $data['business_name'] ?? null,
+            'email' => $data['email'] ?? null,
+            //'business_name' => $data['business_name'] ?? null,
             'business_address' => $data['business_address'] ?? null,
             'contact_type' => isset($data['contact_type'])  ? $contactType : null,
         ];
@@ -111,6 +112,84 @@ class ShareholderController extends Controller
             $staffSetting->idle_preference_time = $data['idle_preference_time'] ?? null;
             $staffSetting->twofa = $data['twofa'] ?? '2';
             $staffSetting->save();
+            $contactIds = isset($data['contact_id']) ? $data['contact_id'] : [];
+            $persons = isset($data['key_contact_name']) ? $data['key_contact_name'] : [];
+            $mobiles = isset($data['key_contact_phone']) ? $data['key_contact_phone'] : [];
+            $emails = isset($data['key_contact_email']) ? $data['key_contact_email'] : [];
+            $idsFromForm = [];
+
+            if (isset($data['user_id']) && (!empty($data['user_id']))) {
+                $user =  $this->user->where('id', $data['user_id'])->first();
+                if ($user) {
+
+                    foreach ($persons as $index => $person) {
+
+                        $contactId = $contactIds[$index] ?? null;
+                        $mobile     = $mobiles[$index] ?? null;
+                        $email     = $emails[$index] ?? null;
+                        // skip empty row
+                        if (!$person && !$mobile && !$email) {
+                            continue;
+                        }
+
+                        if ($contactId) {
+                            // UPDATE EXISTING
+                            $contact = $user->contacts()->find($contactId);
+
+                            if ($contact) {
+                                $contact->update([
+                                    'name'  => $person,
+                                    'mobile' => $mobile,
+                                    'email' => $email,
+                                ]);
+
+                                $idsFromForm[] = $contactId;
+                            }
+                        } else {
+                            // CREATE NEW
+                            $newContact = $user->contacts()->create([
+                                'name'  => $person,
+                                'mobile' => $mobile,
+                                'email' => $email,
+                            ]);
+
+                            $idsFromForm[] = $newContact->id;
+                        }
+                    }
+                    # DELETE REMOVED CONTACTS
+
+                    $user->contacts()
+                        ->whereNotIn('id', $idsFromForm)
+                        ->delete();
+
+                    $message = 'Shareholder\'s Account updated successfully.';
+                } else {
+                    $this->response = ['status' => false, 'message' => 'Shareholder not found.'];
+                    return $this->response;
+                }
+            } else {
+                $shareholderData['enabled'] = 1;
+                $shareholderData['status'] = 2;
+                $shareholderData['type'] = '8';
+                $message = 'New shareholder\'s account added successfully.';
+                $user = Shareholder::create($shareholderData);
+                if ($user) {
+                    $shareholder = $this->shareholder->where('id', $user->id)->first();
+                    $shareholder->update(['contact_type' => $contactType]);
+                    $this->setting->create_account_setting($user);
+
+                    foreach ($persons as $index => $person) {
+                        if ($person || $mobiles[$index] || $emails[$index]) {
+                            $shareholder->contacts()->create([
+                                'name'  => $person,
+                                'mobile' => $mobiles[$index] ?? null,
+                                'email' => $emails[$index] ?? null,
+                            ]);
+                        }
+                    }
+                }
+            }
+
             $error = false;
         }
         return response()->json(compact('error'));
@@ -151,7 +230,7 @@ class ShareholderController extends Controller
         //$user->password = Hash::make($request->new_password);
         //$user->save();
         $data = $request->all();
-        
+
         $this->mainuser->changeUserPassword($data);
         return response()->json(["status" => true, "message" => 'Your password has been updated successfully!']);
     }
@@ -238,6 +317,29 @@ class ShareholderController extends Controller
             \Log::error('Error removing avatar: ' . $e->getMessage());
             return response()->json(['type' => 1, 'message' => 'An error occurred while removing avatar. Please try again.'], 500);
         }
+    }
+
+     /**
+     * Delete shareholder key contact
+     */
+    public function destroy(Request $request)
+    {
+        $id = $request->id;
+        $contact = ShareholderContact::find($id);
+        
+        if (!$contact) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Contact not found'
+            ], 404);
+        }
+
+        $contact->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Contact deleted successfully'
+        ]);
     }
     public function myShareholding()
     {
