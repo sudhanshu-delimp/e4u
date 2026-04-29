@@ -244,7 +244,9 @@
                                                         @if (!empty($contactType)) {{ in_array(4, $contactType) ? 'checked' : null }} @endif>
                                                     <label class="form-check-label" for="Method_Call">Call me</label>
                                                 </div>
+                                              
                                             </div>
+                                              <span class="text-danger error-contact_type"></span>
                                         </div>
                                     </div>
                                 </div>
