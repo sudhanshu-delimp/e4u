@@ -102,13 +102,14 @@ class MassageController extends Controller
     public function  get_all_massager_list(Request $request)
     {
              
-            $masseurs = MassageProfile::with([
+            $massage = MassageProfile::with([
                 'mainPurchase',
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))
                         ->where('active', 'Y')
                         ->orderBy('brb_time', 'desc');
                 },
+                'activeBumpup',
                 'user:id,status',
                 'activeUpcomingSuspend'
             ])
@@ -119,11 +120,14 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
+
+           
           
          
-               
+            $home_state = auth()->user()->state_id;
+            $localTimeZone  = config("escorts.profile.states.$home_state.timeZone");
         
-            $data = $masseurs->map(function ($row)  {
+            $data = $massage->map(function ($row) use($localTimeZone)  {
 
             if(!empty($row->is_active))
             $is_live = true;
@@ -131,7 +135,8 @@ class MassageController extends Controller
             $is_live = false;   
         
             $isExtended = $row->isListingExtended();
-             
+
+            
 
             
             $brb = [];
@@ -143,11 +148,12 @@ class MassageController extends Controller
             $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend),true); 
 
            
-           
+           $isBumpUped = $row->activeBumpup;
+           $row->is_bumpup = !empty($isBumpUped) ? true : false;
 
 
             if(!empty($brb))
-            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">Closed <small class="listing-tag-tooltip-desc">Closed  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip ml-1">Closed <small class="listing-tag-tooltip-desc">Closed  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
             else
             $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.'</span>';     
 
@@ -167,9 +173,14 @@ class MassageController extends Controller
 
 
              if(isset($isExtended->count) && $isExtended->count)
-             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
+             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
 
 
+             if($isBumpUped  && (!empty($isBumpUped ))){
+                $profile_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
+                <small class="listing-tag-tooltip-desc">From ' . getMassageLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getMassageLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
+                </sup>';
+            }
 
                 $status = "";
                 

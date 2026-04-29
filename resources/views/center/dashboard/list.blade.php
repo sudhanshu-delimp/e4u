@@ -947,19 +947,41 @@ $("#bumpup_profile_form").on('submit', async function(e)
                },
                success: function(data) {
                   Swal.close();
-                  if (data.response.success) {
-                      swal_success_popup(data.response.message);
-                     //$('#suspend_profile').modal('hide');
-                     ///table.draw();
-                  } else {
-                     swal_error_popup(data.response.message);
-                  }
-                  $("#saveBumpupButton").find('button[type=submit]').removeAttr('disabled');
+
+                     if (data.success) {
+                        table.draw();
+                        swal_success_popup(data.message);
+                        form.reset();
+                        $("#bumpup_profile").modal('hide');
+                     
+                     }
+                     else{
+                        swal_error_popup('Error occured while Bumping Up Profile');
+                        $("#saveBumpupButton").find('button[type=submit]').removeAttr('disabled');
+                     }
+                
                },
+               error: function(xhr) 
+               {
+                     if (xhr.status === 422) {
+                        let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+                        Swal.fire({
+                           icon: 'error',
+                           title: 'Validation Error',
+                           html: messages
+                        });
+                     } else {
+                        let message = JSON.parse(xhr.responseText).message;
+                        Swal.fire({
+                           icon: 'error',
+                           title: xhr.statusText,
+                           text: message || 'Something went wrong.'
+                        });
+                     }
+                     savePinupButton.disabled = false;
+              }
             });
-
       }
-
 });
 // ########### End Bumpup Profile #########################
        

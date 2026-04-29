@@ -399,6 +399,26 @@ if (!function_exists('getEscortTimezone')) {
     }
 }
 
+
+if (!function_exists('getMassageTimezone')) {
+
+    function getMassageTimezone($massage_profile)
+    {
+        $massage  = User::where('id',$massage_profile->user_id)->first();
+        $home_state = $massage->state_id;
+        $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+        return $profileTimezone;
+    }
+}
+
+if (!function_exists('getMassageLocalTime')) {
+
+    function getMassageLocalTime($utcTime, $localTimeZone)
+    {
+        return Carbon::parse($utcTime)->timezone($localTimeZone);
+    }
+}
+
 if (!function_exists('getEscortLocalTime')) {
 
     function getEscortLocalTime($utcTime, $localTimeZone)

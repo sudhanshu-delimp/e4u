@@ -60,8 +60,12 @@ class MassageProfileActionController extends BaseController
 
         $brbtime = date('d-m-Y h:i A', strtotime($request->brb_date . ' ' . $request->brb_time));
         $newBrb->brb_note = $request->brb_note;
-        $escortDetail = getEscortDetail($request->profile_id);
-        $profileTimezone = config("escorts.profile.states.$escortDetail[state_id].cities.$escortDetail[city_id].timeZone");
+
+         $home_state = auth()->user()->state_id;
+         $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+        
+        // $escortDetail = getEscortDetail($request->profile_id);
+        // $profileTimezone = config("escorts.profile.states.$escortDetail[state_id].cities.$escortDetail[city_id].timeZone");
 
         $localDateTime = Carbon::createFromFormat('Y-m-d H:i', "$request->brb_date $request->brb_time", $profileTimezone);
         $expiresAtUtc = $localDateTime->copy()->setTimezone('UTC');
@@ -275,13 +279,10 @@ class MassageProfileActionController extends BaseController
 
     public function bumpup_register(Request $request)
     {
-
-        dd($request->all());
-        
-        try {
-            $escortId = $request->escort_id;
-            $escortDetail = getEscortDetail($escortId);
-            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+        try 
+        {
+            $home_state = auth()->user()->state_id;
+            $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
             $nowLocal = Carbon::now($profileTimezone);
             $localStart = $nowLocal->copy();
             $localEnd   = $nowLocal->copy()->addHours(24);
@@ -290,21 +291,20 @@ class MassageProfileActionController extends BaseController
 
             MassageBumpup::create([
                 'user_id' => auth()->user()->id,
-                'escort_id' => $escortDetail->id,
+                'massage_id' => $request->massage_id,
                 'start_date' => $localStart->format('Y-m-d'),
                 'end_date' => $localEnd->format('Y-m-d'),
                 'utc_start_time' => $utcStart,
                 'utc_end_time' => $utcEnd,
             ]);
-
             return response()->json([
                 'success' => true,
-                'message' => 'Profile ID ' . $escortId . ' has been Bumped Up.'
+                'message' => 'Profile ID ' . $request->massage_id . ' has been Bumped Up.'
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong while booking the Pinup.',
+                'message' => 'Something went wrong while Bumping Up Profile.',
                 'error' => $e->getMessage(),
             ], 500);
         }
