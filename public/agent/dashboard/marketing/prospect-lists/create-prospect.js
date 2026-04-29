@@ -14,6 +14,7 @@ const endpoint = {
     generate_pdf: mmRoot.data('generate-pdf'),
     update_save_report: mmRoot.data('update-save-report'),
     view_centerlist_url: mmRoot.data('view-centerlist-url'),
+    save_report_list: mmRoot.data('save-report-list'),
 
 };
 
@@ -23,6 +24,72 @@ const endpoint = {
 
 
 $(document).ready(function () {
+
+    //Save Report table
+
+    var saveReportTable = $("#save_report_table").DataTable({
+        ajax: {
+            url: endpoint.save_report_list,
+            type: 'GET'
+        },
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Post Code"
+        },
+        processing: false,
+        serverSide: true,
+        paging: true,
+        lengthChange: false,
+        searching: true, // disable default search
+        bStateSave: true,
+        ordering: true,
+        //order: [[1, 'desc']],
+        lengthMenu: [
+            [10, 25, 50, 100],
+            [10, 25, 50, 100]
+        ],
+        pageLength: 10,
+        columns: [{
+            data: 'id',
+            name: 'id',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'date',
+            name: 'date',
+            searchable: false,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'post_code_label',
+            name: 'post_code_label',
+            searchable: true,
+            defaultContent: 'NA'
+        },
+        {
+            data: 'listings_count',
+            name: 'listings_count',
+            defaultContent: 'NA'
+        },
+        {
+            data: 'merged',
+            name: 'merged',
+            defaultContent: 'NA'
+        },
+        {
+            data: 'action',
+            name: 'action',
+            searchable: false,
+            orderable: false,
+            defaultContent: 'NA',
+            class: 'text-center'
+        },
+        ],
+    });
+
+
 
     // DataTables
     var previewTable = $("#previewTable").DataTable({
@@ -603,9 +670,13 @@ $(document).ready(function () {
 
     // Load Reports on Page Load 
     function loadReports() {
+        if($.fn.DataTable.isDataTable('#save_report_table')){
+            saveReportTable.ajax.reload(null, false); 
+        }
         $.ajax({
             url: endpoint.reports_url,
             success: function (res) {
+               
                 if (res.data && res.data.length) {
                     reportsTable.clear().rows.add(res.data).draw();
                 }
@@ -725,7 +796,7 @@ $(document).ready(function () {
     function triggerPDF(centreIds, reportId, docType, action) {
 
         // let btn          = action === 'print' ? '#footerPrintBtn' : '#footerSaveBtn';
-        let originalHtml = $(btn).html();
+        //let originalHtml = $(btn).html();
         let count = centreIds.length;
 
         // ✅ Sirf loader show + button disable
@@ -780,7 +851,7 @@ $(document).ready(function () {
 
             complete: function () {
                 hideLoader();
-                $(btn).prop('disabled', false).html(originalHtml);
+                //$(btn).prop('disabled', false).html(originalHtml);
             }
         });
     }
@@ -835,7 +906,7 @@ $(document).ready(function () {
             url: endpoint.view_centerlist_url.replace('__ID__', id),
             method: 'GET',
             success: function (res) {
-                 if (res.status === true) {
+                if (res.status === true) {
                     $('#centerlist_items').html(res.data.html);
                     $('#view_centerlist').modal('show');
                 } else {

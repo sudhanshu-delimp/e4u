@@ -135,6 +135,8 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
 
     //View generate center list
     Route::get('marketing/prospect-list/view-centerlist/{id}', [ProspectListController::class, 'viewCenterList'])->name('agent.marketing.prospect.view.centerlist');
+    //print view page
+    Route::get('marketing/prospect-list/print-view/{id}', [ProspectListController::class, 'printView'])->name('agent.marketing.prospect.print.view');
 
     //Demo
     Route::get('marketing/prospect-list/demo1', function(){
@@ -147,7 +149,7 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
  
 
     //Save Report
-    Route::get('marketing/save-report', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');
+    Route::get('marketing/save-report/report-list', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');
     
      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use ZipArchive;
+use Illuminate\Support\Facades\Crypt;
 
 class ProspectListController extends Controller
 {
@@ -76,7 +77,7 @@ class ProspectListController extends Controller
                 ->map(function ($report) {
                     return [
                         'id' => $report->id,
-                        'date_generated' => $report->created_at->format('d/m/Y'),
+                        'date_generated' => basicDateFormat($report->created_at),
                         'post_code' => $report->post_code_label,
                         'listings' => $report->listings_count,
                         'merged' => $report->merged,
@@ -178,39 +179,12 @@ class ProspectListController extends Controller
         }
     }
 
-    // public function reportAction(Request $request)
-    // {
-    //     try {
-    //         $report = ProspectReport::where('id', $request->report_id)
-    //             ->where('agent_id', auth()->id())
-    //             ->firstOrFail();
-
-
-    //         $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
-    //             ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
-    //             ->get();
-
-    //         $action = $request->action;
-
-    //         $html = view('agent.dashboard.marketing.partials.report-centers', [
-    //             'centers' => $centers,
-    //             'report' => $report,
-    //             'action' => $action,
-    //         ])->render();
-
-    //         return success_response(['html' => $html], "Ok", 200, []);
-    //     } catch (\Exception $e) {
-    //         return error_response('Failed to perform action: ' . $e->getMessage(), 500);
-    //     }
-    // }
-
-
     //save report module for show
     public function saveReportList(Request $request)
     {
 
         if ($request->ajax()) {
-            $query = ProspectReport::where('agent_id', auth()->id())->where('status_type', 'Save');
+            $query = ProspectReport::where('agent_id', auth()->id())->where('status_type', 'Save')->orderBy('created_at', 'desc');
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->filterColumn('post_code_label', function ($query, $keyword) {
@@ -222,9 +196,12 @@ class ProspectListController extends Controller
 
                 ->addColumn('action', function ($row) {
                     $actions = [];
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-bezier-curve"></i> Merge</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-print"></i> Print</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action"  data-report-action="Merge" data-report-id="' . $row->id . '">
+                    <i class="fa fa-bezier-curve"></i> Merge</a>';
+                    $actions[] = '<a href="' . route('agent.marketing.prospect.print.view', Crypt::encrypt($row->id)) . '" class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" data-report-action="Print">'
+                        . '<i class="fa fa-print"></i> Print</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="View" data-report-id="' . $row->id . '">'
+                        . '<i class="fa fa-eye"></i> View</a>';
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -533,6 +510,8 @@ class ProspectListController extends Controller
                 ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
                 ->get();
 
+               
+
             $html = view('agent.dashboard.marketing.modal.centre-list-view-table', [
                 'centres' => $centers,
                 'report' => $report,
@@ -577,6 +556,35 @@ class ProspectListController extends Controller
             return $this->generateZipPDF($orderedCentres, $viewPath);
         } catch (\Exception $e) {
             return error_response('PDF Failed: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function printView($id)
+    {
+         $decryptedId = Crypt::decrypt($id);
+        try {
+            $report = ProspectReport::where('id', $decryptedId)
+                ->where('agent_id', auth()->id())
+                ->firstOrFail();
+
+                $data = [
+                    'report_from' => Auth::user()->business_name ?? 'Agent',
+                    'date_generated' => $report->created_at->format('d-m-Y') ?? 'NA',
+                    'post_code' => $report->post_code_label ?? 'NA',
+                    'listings' => $report->listings_count ?? 0,
+                ];
+
+            $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get();
+
+            return view('agent.dashboard.marketing.prospect_list.printreport', [
+                'centres' => $centers,
+                'report' => $report,
+                'data' => $data,
+            ]);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch print view: ' . $e->getMessage(), 500);
         }
     }
 

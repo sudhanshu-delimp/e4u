@@ -42,10 +42,6 @@
                          0 Selected
                      </span>
 
-                     {{-- <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                         id="close_change">Print</button> --}}
-                     {{-- <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                         id="close_change">Save</button> --}}
                      <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
                          id="close_change">Close</button>
                  </div>
