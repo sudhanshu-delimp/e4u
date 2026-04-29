@@ -89,11 +89,11 @@
                             <div class="form-group">
                                 <label for="email"><b>Agent</b></label><br>
                                 <div class="form-check m-0">
-                                    <input class="form-check-input" type="checkbox"  name="contact_by_email" value="1">
+                                    <input class="form-check-input" type="checkbox"  name="contact_by_email" value="1" id="Method_Message">
                                     <label class="form-check-label" for="Method_Message">Contact me by email</label>
                                 </div>
                                 <div class="form-check m-0">
-                                    <input class="form-check-input" type="checkbox" name="contact_by_mobile" value="1">
+                                    <input class="form-check-input" type="checkbox" name="contact_by_mobile" value="1" id="Method_Text">
                                     <label class="form-check-label" for="Method_Text">Contact me by mobile</label>
                                 </div>
                             </div>
