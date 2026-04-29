@@ -110,7 +110,8 @@
                                                 <div class="form-group">
                                                     <label for="phone">Mobile</label>
                                                    <input type="text" class="form-control rounded-0" placeholder="Phone"
-                                                    name="phone" id="phone" value="{{ $staff->phone }}">
+                                                    name="phone" id="phone" value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');"
+                onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
                                                 <span class="text-danger error-phone"></span>
                                                 </div>
                                             </div>
