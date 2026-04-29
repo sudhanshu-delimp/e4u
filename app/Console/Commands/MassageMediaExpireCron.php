@@ -7,6 +7,8 @@ use App\Models\MassageMedia;
 use App\Models\MediaVerification;
 use App\Models\User;
 use Carbon\Carbon;
+ use Illuminate\Support\Facades\Artisan;
+
 
 class MassageMediaExpireCron extends Command
 {
@@ -72,7 +74,7 @@ class MassageMediaExpireCron extends Command
 
                 \Mail::to($body['email'])
                     ->queue(new \App\Mail\SystemMediaUnverifiedDueToNoVerificationMail($body));
-
+                Artisan::queue('profile:sync-status'); // update profile verification status
                 \Log::info("Massage media expired (no verification) for user_id: " . $userId);
             }
         }

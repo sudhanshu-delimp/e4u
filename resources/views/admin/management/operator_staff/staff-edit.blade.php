@@ -59,9 +59,9 @@
         </div>
         <div class="col-6 mb-3">
             <label class="label" for="phone">Phone</label>
-            <input type="tel" maxlength="10" class="form-control rounded-0" name="phone"
+            <input type="tel" maxlength="15" class="form-control rounded-0" name="phone"
                 id="phone" value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');"
-                autocomplete="off">
+                autocomplete="off" onfocus="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">
@@ -101,7 +101,7 @@
         </div>
         <div class="col-6 mb-3">
             <label class="label" for="kin_mobile">Mobile</label>
-            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0"
+            <input type="tel" maxlength="15" name="kin_mobile" id="kin_mobile" class="form-control rounded-0"
                  value="{{ $staff_detail->kin_mobile }}" autocomplete="off"
                 oninput="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-kin_mobile"></span>

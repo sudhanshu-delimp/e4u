@@ -11,6 +11,7 @@
         display: grid;
         grid-template-columns: auto auto auto auto auto;
         gap: 10px;
+    margin-bottom: 20px;
     }
 
     .grid-container>div {

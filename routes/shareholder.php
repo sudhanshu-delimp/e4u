@@ -18,6 +18,7 @@ Route::post('upload-avatar/{id}', [ShareholderController::class, 'storeMyAvatar'
 Route::post('remove-avatar', [ShareholderController::class, 'removeMyAvatar'])->name('shareholder.avatar.remove');
 // Route::get('/notifications', [ShareholderController::class, 'notifications'])->name('shareholder.notifications');
 Route::get('/my-shareholding', [ShareholderController::class, 'myShareholding'])->name('shareholder.my-shareholding');
+Route::delete('/key-contact-delete', [ShareholderController::class, 'destroy'])->name('shareholder.delete.shareholder.contact');
 
 // Blackbox tech pvt. ltd.
 Route::get('/annual-report', [ShareholderController::class, 'annualReport'])->name('shareholder.annualreport');

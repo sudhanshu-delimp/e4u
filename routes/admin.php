@@ -389,7 +389,7 @@ Route::post('/suspend-supplier', [SupplierController::class, 'suspendSupplier'])
 Route::post('/active-supplier-account', [SupplierController::class, 'activateUser'])->name('admin.active-supplier-account');
 Route::post('/approve-supplier-account', [SupplierController::class, 'approveSupplierAccount'])->name('admin.approve_supplier_account');
 
-/** Manage shareholdes */
+/** Manage shareholders */
 Route::get('/management/manage-shareholders', [ShareholderController::class, 'shareholderList'])->name('admin.manage-shareholders');
 Route::post('/management/add-shareholder', [ShareholderController::class, 'addShareholder'])->name('admin.add.shareholder');
 Route::get('shareholder_list_data_table', [ShareholderController::class, 'shareholderDataList'])->name('admin.shareholder_list_data_table');
@@ -402,6 +402,7 @@ Route::post('/suspend-shareholder', [ShareholderController::class, 'suspendShare
 Route::post('/active-shareholder-account', [ShareholderController::class, 'activateUser'])->name('admin.active-shareholder-account');
 Route::post('/approve-shareholder-account', [ShareholderController::class, 'approveShareholderAccount'])->name('admin.approve_shareholder_account');
 Route::post('/delete-shareholder-account', [ShareholderController::class, 'deleteUser'])->name('admin.delete.shareholder.account');
+Route::delete('/key-contact-delete', [ShareholderController::class, 'destroy'])->name('admin.delete.shareholder.contact');
 
 
 // Route::get('reports/advertiser-suspensions',function(){

@@ -346,6 +346,27 @@ class MassageCentre extends Controller
                         else
                         $massage = $massage->whereRaw('1 = 0');    
                     }  
+
+                    // Verification Filter (Massage)
+                    if ($verification != "") {
+                        $statusMap = [
+                            'verified'   => '1',
+                            'unverified' => '2',
+                        ];
+
+                        if (isset($statusMap[$verification])) {
+
+                            $status = $statusMap[$verification];
+
+                            $massage = $massage->whereExists(function ($q) use ($status) {
+                                $q->select(\DB::raw(1))
+                                    ->from('profile_verification_status as pvs')
+                                    ->whereColumn('pvs.profile_id', 'massage_profiles.id')
+                                    ->where('pvs.type', '4')
+                                    ->where('pvs.status', $status);
+                            });
+                        }
+                    }
                     
                     
                     if(empty($mc_live_list))

@@ -63,6 +63,15 @@ class AddNewSupplier extends FormRequest
                 'abn' => preg_replace('/\D/', '', $this->input('abn')),
             ]);
         }
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
+
+        $this->merge([
+            'business_number' => str_replace(' ', '', $this->business_number),
+        ]);
     }
 
     public function messages()

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Gallery PDF</title>
+    <title>Image Gallery PDF | {{$member_id}}</title>
 </head>
 <body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
 
@@ -43,9 +43,18 @@
                         <h1>Verification Image - {{$member_id}}</h1>
                     </td>
                     <td colspan="1" style="text-align: end">
-                        <p style="margin: 0px;color: rgb(54 153 5);font-weight: 600; font-size: 24px;line-height:.9;">Approved <br> <span style="color:#000000;font-size: 14px;">(Approved By: S001203)</span></p>
-                        <p style="margin: 0px;color: #ff3c5f;font-weight: 600; font-size: 24px;line-height:.9;display:none;">Rejected</p> <!-- for Rejected -->
-                        <p style="margin: 0px;color: orange;font-weight: 600;font-size: 24px;line-height:.9;display:none;">Pending</p> <!-- for Pending -->
+                        @switch((int)$status)
+                            @case(0)
+                                <p style="margin: 0px;color: orange;font-weight: 600;font-size: 24px;line-height:.9;">Pending</p> 
+                            @break
+                            @case(1)
+                                <p style="margin: 0px;color: rgb(54 153 5);font-weight: 600; font-size: 24px;line-height:.9;">Approved <br> <span style="color:#000000;font-size: 14px;">(Approved By: {{$reviewed_by}})</span></p>
+                            @break
+                            @case(2)
+                                <p style="margin: 0px;color: #ff3c5f;font-weight: 600; font-size: 24px;line-height:.9;">Rejected
+                                <br> <span style="color:#000000;font-size: 14px;">(Rejected By: {{$reviewed_by}})</span></p>
+                            @break
+                        @endswitch
                     </td>
                 </tr>
             </thead>

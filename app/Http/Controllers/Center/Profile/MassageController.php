@@ -51,6 +51,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+ use Illuminate\Support\Facades\Artisan;
+
 
 //use Illuminate\Http\Request;
 
@@ -724,6 +726,7 @@ class MassageController extends Controller
             $message = 'Updated successfully.';
             if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
+        
             massage_profile_complete_status($request->massage_id);
         }
         ######### End Update Abous us #####################
@@ -793,8 +796,7 @@ class MassageController extends Controller
 
                 $message = "Updated Successfully."; 
                 $error = false;
-
-
+                Artisan::queue('profile:sync-status'); // update profile verification status
             } catch (Exception $e) {
                $message = "Error occured while updating."; 
                $error = true; 
@@ -1304,7 +1306,7 @@ class MassageController extends Controller
             if($this->account->activeFeeDiscount){
                 $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
             }
-
+             Artisan::queue('profile:sync-status'); // update profile verification status
              return response()->json([
                 'success' => true,
                 'message' => 'Transaction completed successfully.'

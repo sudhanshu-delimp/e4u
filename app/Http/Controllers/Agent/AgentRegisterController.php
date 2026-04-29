@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Repositories\State\StateInterface;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\StoreAgentRegisterRequest;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -98,6 +99,7 @@ class AgentRegisterController extends Controller
 
     public function register(StoreAgentRegisterRequest $request)
     {
+        try{
             $user = $this->create($request->all());
             $userDataForEvent = [
                 'id' => $user->id,
@@ -134,7 +136,11 @@ class AgentRegisterController extends Controller
                 $error = 0;
                 return response()->json(compact('error'));
             }
-
+            } catch (\Exception $e) {
+                 Log::info('Agent registration failed: ' . $e->getMessage());
+             $error = 0;
+            return response()->json(compact('error'));
+        }
     }
    
 
