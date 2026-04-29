@@ -454,7 +454,7 @@ class MasseurController extends AppController
 
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
         $services = $masseur->service ?? [];
-
+    
 
         
         $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];

@@ -89,7 +89,7 @@
                                     <span class="mass_sm_tooltip">Media Pending</span>
                                 </div>
                                 <div class="upload_date">
-                                    Uploaded: <span>28-04-2026</span>
+                                    Uploaded: <span>{{showDateWithFormat($image->created_at)}}</span>
                                 </div>
                             </div>
                         @endif    

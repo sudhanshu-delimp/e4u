@@ -298,6 +298,7 @@ Route::get('/management/statistics/num', function () {
 route::get('/reports/media-verification', [MediaVerificationController::class, 'index'])->name('admin.media-verification');
 route::get('/reports/media-verification-list', [MediaVerificationController::class, 'mediaVerificationLList'])->name('admin.media-verification-list');
 route::get('/reports/media-verification-image', [MediaVerificationController::class, 'mediaVerificationImage'])->name('admin.media-verification-image');
+route::get('/reports/media-masseurs-image', [MediaVerificationController::class, 'getProfileImages'])->name('admin.getProfileImages');
 route::post('/reports/update-media-verification', [MediaVerificationController::class, 'updateMediaVerification'])->name('admin.update-media-verification');
 route::get('/gallery-pdf/{id}/{user_id}', [MediaVerificationController::class, 'galleryPdf'])->name('admin.gallery-pdf');
 route::post('/reports/masseurs-media-verification-list', [MediaVerificationController::class, 'masseursMediaVerificationList'])->name('admin.masseurs_media-verification-list');

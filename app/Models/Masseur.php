@@ -71,6 +71,47 @@ class Masseur extends Model
 
     }
 
+    public function getImageDetailsByPosition($val,$profile_id)
+    {
+
+        if($val == 1)
+        {
+                $image = DB::table('massuers_media')
+                                    ->join('masseur_galleries', 'massuers_media.id', '=', 'masseur_galleries.masseur_media_id')
+                                    ->where('masseur_galleries.masseur_profile_id', $profile_id)
+                                    ->where('masseur_galleries.position', $val)
+                                    ->orderBy('masseur_galleries.id', 'desc')
+                                    ->select('massuers_media.*')
+                                    ->first();
+
+                if($image) 
+                return $image;
+                else
+                return [];
+              
+
+        }
+
+        else
+        {
+                $image = DB::table('massuers_media')
+                                    ->join('masseur_galleries', 'massuers_media.id', '=', 'masseur_galleries.masseur_media_id')
+                                    ->where('masseur_galleries.masseur_profile_id', $profile_id)
+                                    ->where('masseur_galleries.position', $val)
+                                    ->orderBy('masseur_galleries.id', 'desc')
+                                    ->select('massuers_media.*')
+                                    ->first();
+
+                if($image) 
+                return $image;
+                else
+                return [];
+              
+
+        }
+
+    }
+
      public function imagePosition($val, $defaultPositionImages = [])
     {
         if($val == 1){

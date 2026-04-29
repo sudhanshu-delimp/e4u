@@ -524,5 +524,28 @@
             }
         });
     });
+
+
+    $(document).on('click', '.view-masseur-image-btn', function() {
+        let profile_id = $(this).data('id');
+        let profile_verification_id = $(this).data('verification-id');
+        let profile_member_id = $(this).data('member-id');
+        $('.member_id').html(profile_member_id);
+        $.ajax({
+            url: "{{ route('admin.getProfileImages') }}",
+            type: "GET",
+            data: {
+                profile_id: profile_id,
+                verification_id: profile_verification_id
+            },
+
+            success: function(res) {
+                $('.view_img_gallery_masseur .thumbnail').html(res.thumbnail);
+                $('.view_img_gallery_masseur .other_images').html(res.gallery);
+                $('.view_img_gallery_masseur .verification').html(res.verification);
+            }
+        });
+
+    });
 </script>
 @endsection

@@ -416,10 +416,19 @@
                                                                         src="{{ asset($masseur->getImagePosition(1, $masseur->id)) }}"
                                                                         onclick="positionToUpdate(1)">
                                                                 </label>
-                                                                <div class="mass_lg_icon">
-                                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending_REV.png')}}">
-                                                                        <span class="mass_tooltip">Media Pending</span>
-                                                                    </div>
+                                                                 @php 
+                                                                    $img_data = $masseur->getImageDetailsByPosition(1, $masseur->id);
+                                                                @endphp
+                                                                <div class="mass_lg_icon" style="{{ $img_data ? '' : 'display:none;' }}">
+                                                                     @if($img_data)
+                                                                        @php 
+                                                                            $status = $img_data->varified ?? 0; 
+                                                                            $status_icon = getMediaVerificationDataBigIcon($status);
+                                                                        @endphp
+                                                                        <img src="{{ $status_icon['icon'] }}">
+                                                                        <span class="mass_tooltip">{{ $status_icon['label'] }}</span>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="gal_img">
@@ -433,10 +442,21 @@
                                                                             id="img2" data-type="gallery" src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(2)">
                                                                     </label>
-                                                                    <div class="mass_sm_icon">
-                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
-                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
-                                                                                </div>
+                                                                    @php 
+                                                                        $img_data = $masseur->getImageDetailsByPosition(2, $masseur->id);
+                                                                    @endphp
+
+                                                                    <div class="mass_sm_icon" style="{{ $img_data ? '' : 'display:none;' }}">
+                                                                        @if($img_data)
+                                                                            @php 
+                                                                                $status = $img_data->varified ?? 0; 
+                                                                                $status_icon = getMediaVerificationDataSmallIcon($status);
+                                                                            @endphp
+
+                                                                            <img src="{{ $status_icon['icon'] }}">
+                                                                            <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
                                                                 <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
@@ -445,10 +465,21 @@
                                                                             id="img3" data-position=3 data-type="gallery" src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(3)">
                                                                     </label>
-                                                                    <div class="mass_sm_icon">
-                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
-                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
-                                                                                </div>
+                                                                    @php 
+                                                                        $img_data = $masseur->getImageDetailsByPosition(3, $masseur->id);
+                                                                    @endphp
+
+                                                                    <div class="mass_sm_icon" style="{{ $img_data ? '' : 'display:none;' }}">
+                                                                        @if($img_data)
+                                                                            @php 
+                                                                                $status = $img_data->varified ?? 0; 
+                                                                                $status_icon = getMediaVerificationDataSmallIcon($status);
+                                                                            @endphp
+
+                                                                            <img src="{{ $status_icon['icon'] }}">
+                                                                            <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
                                                                 <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
@@ -457,10 +488,21 @@
                                                                             id="img4" data-position=4 data-type="gallery" src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(4)">
                                                                     </label>
-                                                                    <div class="mass_sm_icon">
-                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
-                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
-                                                                                </div>
+                                                                    @php 
+                                                                        $img_data = $masseur->getImageDetailsByPosition(4, $masseur->id);
+                                                                    @endphp
+
+                                                                    <div class="mass_sm_icon" style="{{ $img_data ? '' : 'display:none;' }}">
+                                                                        @if($img_data)
+                                                                            @php 
+                                                                                $status = $img_data->varified ?? 0; 
+                                                                                $status_icon = getMediaVerificationDataSmallIcon($status);
+                                                                            @endphp
+
+                                                                            <img src="{{ $status_icon['icon'] }}">
+                                                                            <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

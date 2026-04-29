@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" style="color: white;"><img src="{{ asset('assets/dashboard/img/verify-image.png') }}"
-                        class="custompopicon"> Verification Image - [Member ID]
+                        class="custompopicon"> Verification Image - <span class="member_id">[Member ID]</span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">

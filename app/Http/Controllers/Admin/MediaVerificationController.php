@@ -514,10 +514,12 @@ class MediaVerificationController extends Controller
 
                     <td>
                         <a href="javascript:void(0)"
-                           class="view-image-btn"
+                           class="view-masseur-image-btn"
                            data-toggle="modal"
                            data-target="#verify_masseur_images"
-                           data-image="' . asset('storage/' . $item->image_path) . '">
+                           data-id="' . $item->masseur->id . '"
+                           data-verification-id="' . $item->id . '"
+                           data-member-id="' . $item->masseur->member_id . '">
                            View image
                         </a>
                     </td>
@@ -536,15 +538,15 @@ class MediaVerificationController extends Controller
 
                             <div class="dropdown-menu dropdown-menu-right shadow">
 
-                                <a class="dropdown-item"
-                                   href="">
+                                <a class="dropdown-item masseurs-approve-btn"
+                                   href="" data-id="' . $item->masseur->id . '">
                                    <i class="fa fa-check-circle"></i> Approve
                                 </a>
 
                                 <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item"
-                                   href="">
+                                <a class="dropdown-item masseurs-reject-btn"
+                                   href="" data-id="' . $item->masseur->id . '">
                                    <i class="fa fa-ban"></i> Reject
                                 </a>
 
@@ -558,6 +560,68 @@ class MediaVerificationController extends Controller
         return response()->json([
             'status' => true,
             'html'   => $html
+        ]);
+    }
+
+
+
+    public function getProfileImages(Request $request)
+    {
+        $images = \DB::table('massuers_media')
+            ->join('masseur_galleries', 'massuers_media.id', '=', 'masseur_galleries.masseur_media_id')
+            ->where('masseur_galleries.masseur_profile_id', $request->profile_id)
+            ->orderBy('masseur_galleries.position', 'asc')
+            ->select('massuers_media.*', 'masseur_galleries.position')
+            ->get();
+
+        // Verification Data (separate)
+        $verification = MasseurVerification::find($request->verification_id);
+
+        $thumbnail_html = '';
+        $gallery_html = '';
+        $verification_html = '';
+
+        foreach ($images as $img) {
+
+            $img_url = asset($img->path);
+
+            // Thumbnail
+            if ($img->position == 1 && empty($thumbnail_html)) {
+                $thumbnail_html = '
+                <span class="banner-sub-heading my-2">Thumbnail</span>
+                <img src="' . $img_url . '" alt="view image gallery">
+            ';
+            }
+            // Gallery
+            else {
+                $gallery_html .= '
+                <img src="' . $img_url . '" alt="view image gallery">
+            ';
+            }
+        }
+
+        // Gallery heading
+        if (!empty($gallery_html)) {
+            $gallery_html = '
+            <span class="banner-sub-heading mt-2">Gallery Images</span>
+            ' . $gallery_html;
+        }
+
+        // Verification HTML 
+        if ($verification && !empty($verification->image_path)) {
+
+            $verification_url = asset('escorts/' . $verification->image_path);
+
+            $verification_html = '
+            <span class="banner-sub-heading my-2">Verification Image</span>
+            <img src="' . $verification_url . '" alt="verification image">
+        ';
+        }
+
+        return response()->json([
+            'thumbnail' => $thumbnail_html,
+            'gallery' => $gallery_html,
+            'verification' => $verification_html
         ]);
     }
 }
