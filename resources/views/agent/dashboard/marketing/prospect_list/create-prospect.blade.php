@@ -372,10 +372,13 @@
     {{-- modal  --}}
 
 
-    @include('agent.dashboard.marketing.modal.merge-type-modal')
-    @include('agent.dashboard.marketing.modal.merge-list-modal')
-    @include('agent.dashboard.marketing.modal.view-list-modal')
-    @include('agent.dashboard.marketing.modal.view-report-modal')
+    @include('agent.dashboard.marketing.modal.merge-type-modal') {{-- Merge Type --}}
+    @include('agent.dashboard.marketing.modal.view-list-modal') {{-- view Modal  --}}
+    @include('agent.dashboard.marketing.modal.view-report-modal')  {{-- Merged Documents modal --}}
+    
+
+
+
     {{-- end modals --}}
 
 
@@ -404,6 +407,7 @@
         data-report-list-action="{{ route('agent.marketing.prospect.report.action') }}"
         data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
         data-update-save-report="{{route('agent.marketing.prospect.update.save.report')}}"
+        data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist',  ['id' => '__ID__']) }}"
         
         ></div>
 @endsection

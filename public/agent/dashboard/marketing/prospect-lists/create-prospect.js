@@ -13,6 +13,7 @@ const endpoint = {
     save_report: mmRoot.data('save-report'),
     generate_pdf: mmRoot.data('generate-pdf'),
     update_save_report: mmRoot.data('update-save-report'),
+    view_centerlist_url: mmRoot.data('view-centerlist-url'),
 
 };
 
@@ -435,11 +436,12 @@ $(document).ready(function () {
         let reportId = $(this).data('report-id');
         let actionType = $(this).data('report-action');
         if (actionType === 'Merge') {
-
             $('#mergeType').modal('show');
             //first store blacnk and then add value
             $('#report_id').val('');
             $('#report_id').val(reportId);
+        } else if (actionType === 'View') {
+            viewReport(reportId);
         }
 
     });
@@ -607,7 +609,7 @@ $(document).ready(function () {
                 if (res.data && res.data.length) {
                     reportsTable.clear().rows.add(res.data).draw();
                 }
-                if(res.data.length == 0){
+                if (res.data.length == 0) {
                     reportsTable.clear().draw();
                 }
                 toggleClearBtn();
@@ -826,6 +828,27 @@ $(document).ready(function () {
         });
     };
 
+
+
+    function viewReport(id) {
+        $.ajax({
+            url: endpoint.view_centerlist_url.replace('__ID__', id),
+            method: 'GET',
+            success: function (res) {
+                 if (res.status === true) {
+                    $('#centerlist_items').html(res.data.html);
+                    $('#view_centerlist').modal('show');
+                } else {
+                    showAlert('error', 'Failed to load center list');
+                }
+            },
+            error: function (err) {
+                console.error(err);
+                $('#centerlist_items').html('<p class="text-danger text-center py-3">Failed to load center list. Please try again.</p>');
+            }
+        });
+
+    }
 
 
 

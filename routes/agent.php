@@ -133,6 +133,9 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     Route::post('marketing/prospect-list/generate-pdf', [ProspectListController::class, 'generatePDF'])->name('agent.marketing.prospect.generate.pdf');
     Route::post('marketing/prospect-list/update-save-report', [ProspectListController::class, 'updateSaveReport'])->name('agent.marketing.prospect.update.save.report');
 
+    //View generate center list
+    Route::get('marketing/prospect-list/view-centerlist/{id}', [ProspectListController::class, 'viewCenterList'])->name('agent.marketing.prospect.view.centerlist');
+
     //Demo
     Route::get('marketing/prospect-list/demo1', function(){
        return view('agent.dashboard.marketing.modal.doc1');

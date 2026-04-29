@@ -520,6 +520,66 @@ class ProspectListController extends Controller
         ];
     }
 
+    // view center list for print and view
+    public function viewCenterList($id)
+    {
+
+        try {
+            $report = ProspectReport::where('id', $id)
+                ->where('agent_id', auth()->id())
+                ->firstOrFail();
+
+            $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get();
+
+            $html = view('agent.dashboard.marketing.modal.centre-list-view-table', [
+                'centres' => $centers,
+                'report' => $report,
+            ])->render();
+
+            return success_response(['html' => $html], "Ok", 200, []);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch center list: ' . $e->getMessage(), 500);
+        }
+    }
+
+    //Generate PDF from selected centres
+    public function viewCenterPDF(Request $request)
+    {
+        try {
+            $centreIds = $request->centre_ids; // selected IDs
+            $reportId  = $request->report_id;
+            $action    = $request->action;     // 'print' or 'save'
+
+            $centres = MassageExcel::whereIn('id', $centreIds)
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get()
+                ->keyBy('id');
+
+            // Order maintain karo
+            $orderedCentres = collect($centreIds)
+                ->map(fn($id) => $centres->get($id))
+                ->filter()
+                ->values();
+
+            $viewPath = 'agent.dashboard.marketing.modal.doc1'; // ya doc2
+
+            // Single → direct PDF
+            if ($orderedCentres->count() === 1) {
+                return $this->generateSinglePDF(
+                    $orderedCentres->first(),
+                    $viewPath
+                );
+            }
+
+            // Multiple → ZIP
+            return $this->generateZipPDF($orderedCentres, $viewPath);
+        } catch (\Exception $e) {
+            return error_response('PDF Failed: ' . $e->getMessage(), 500);
+        }
+    }
+
 
 
     public function testPDF()

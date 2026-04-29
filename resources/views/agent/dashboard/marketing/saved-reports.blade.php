@@ -189,7 +189,6 @@
     </div>
 
     @include('agent.dashboard.marketing.modal.merge-type-modal')
-    @include('agent.dashboard.marketing.modal.merge-list-modal')
     @include('agent.dashboard.marketing.modal.view-list-modal')
 
 

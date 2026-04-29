@@ -26,7 +26,7 @@
 
              <div class="modal-footer">
                  <div class="d-flex justify-content-end gap-10">
-                     <span id="selectedCount" class="badge badge-primary" style="display:none;">
+                     <span id="selectedCount" class="btn-cancel-modal" style="display:none;">
                          0 Selected
                      </span>
 
