@@ -47,49 +47,25 @@
                     <table class="table w-100" id="productsHistoryTable">
                         <thead class="table-bg">
                             <tr>
-                                <th>Order ID</th>
-                                <th>Product</th>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <th>Unit Price <sub>(1)</sub></th>
-                                <th>Qty</th>
-                                <th>Total</th>
-                                <th>Order Date</th>
+                                <th>Transaction ID</th>
+                                <th>Transaction Method</th>
+                                <th>Reference ID</th>
+                                <th>Amount</th>
+                                <th>Name</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>CMO001</td>
+                                <td>EPAY_20201104T062121446Z357074</td>
                                 <td>
-                                    <div style="width: 50px; border-radius: 5px; overflow: hidden;">
-                                        <img src="{{ asset('assets/dashboard/img/product/p2.png') }}" alt="" class="w-100 h-100 object-fit-cover">
-                                    </div>
+                                    Credit card
                                 </td>
-                                <td>CM01</td>
-                                <td>Four Seasons - Naked bulk pack Pure Pink Qty: 144 Size: 54mm</td>
-                                <td>$10.00</td>
-                                <td>2</td>
-                                <td>$20.00</td>
-                                <td>2023-01-01</td>
+                                <td>43558</td>
+                                <td>10,160.57</td>
+                                <td>Skate Peter</td>
                                 <td>
-                                    <span class="custom_badge badge_pending">Pending</span>
-                                </td>
-                                <td>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href=""
-                                            role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false"> <i
-                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <a href="javscript:void(0)" class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center"
-                                                data-toggle="modal" data-target="#view_product"><i class="fa fa-eye"></i>view</a>
-                                            
-
-                                        </div>
-                                    </div>
+                                    <span class="custom_badge badge_accepted">Success</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -132,50 +108,32 @@
                 ],
                 pageLength: 10,
 
-                    columns: [{
-                            data: 'code',
-                            name: 'code'
+                    columns: [
+                        {
+                            data: 'transaction_id',
+                            name: 'transaction_id'
                         },
                         {
-                            data: 'order_id',
-                            name: 'order_id'
+                            data: 't_method',
+                            name: 't_method'
                         },
                         {
-                            data: 'product',
-                            name: 'product',
-                             orderable: false,
-                            searchable: false,
+                            data: 'ref_Id',
+                            name: 'ref_Id'
                         },
                         {
-                            data: 'description',
-                            name: 'description'
+                            data: 'amount',
+                            name: 'amount'
                         },
                         {
-                            data: 'price',
-                            name: 'price'
-                        },
-                        {
-                            data: 'quantity',
-                            name: 'quantity'
-                        },
-                        {
-                            data: 'total',
-                            name: 'total'
-                        },
-                        {
-                            data: 'order_date',
-                            name: 'order_date'
+                            data: 'name',
+                            name: 'name'
                         },
                         {
                             data: 'status',
                             name: 'status'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false,
-                            className: 'text-center'
+                          
+                            
                         }
                     ]
                 });

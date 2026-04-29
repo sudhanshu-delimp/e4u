@@ -143,8 +143,8 @@
                         {
                             data: 'product',
                             name: 'product',
-                             orderable: false,
-                            searchable: false,
+                            orderable: false,
+                            searchable: false
                         },
                         {
                             data: 'description',
