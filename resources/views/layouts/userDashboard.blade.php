@@ -23,7 +23,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title">
                                 <img src="{{ asset('assets/dashboard/img/save-setting.png') }}" class="custompopicon" id="modal-icon">
-                                <span id="modal-title">About Me</span> </h5>
+                                <span id="modal-title"></span> </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
