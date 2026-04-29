@@ -227,22 +227,22 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="form-check form-check-inline ml-0">
-                                                    <input class="form-check-input" type="checkbox" id="text"
+                                                    <input class="form-check-input" type="checkbox" id="Method_Text"
                                                         name="contact_type[]" value="2"
                                                         @if (!empty($contactType)) {{ in_array(2, $contactType) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="text">Text</label>
+                                                    <label class="form-check-label" for="Method_Text">Text</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="email"
+                                                    <input class="form-check-input" type="checkbox" id="Method_Email"
                                                         name="contact_type[]" value="3"
                                                         @if (!empty($contactType)) {{ in_array(3, $contactType) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="email">Email</label>
+                                                    <label class="form-check-label" for="Method_Email">Email</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="call_me"
+                                                    <input class="form-check-input" type="checkbox" id="Method_Call"
                                                         name="contact_type[]" value="4"
                                                         @if (!empty($contactType)) {{ in_array(4, $contactType) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="call_me">Call me</label>
+                                                    <label class="form-check-label" for="Method_Call">Call me</label>
                                                 </div>
                                             </div>
                                         </div>
