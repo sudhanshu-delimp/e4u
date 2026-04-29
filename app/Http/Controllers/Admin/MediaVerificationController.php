@@ -397,7 +397,7 @@ class MediaVerificationController extends Controller
         $reviewed_by = 0;
         if ($media_verification->reviewed_by) {
             $reviewed_by = User::where('id', $media_verification->reviewed_by)
-                ->value('member_id'); // ✅ direct value
+                ->value('member_id'); // direct value
         }
 
         switch ($status) {

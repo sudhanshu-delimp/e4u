@@ -1452,4 +1452,23 @@ class MasseurController extends AppController
     }
 
     ################## End Validate Mmasseur ##########################
+
+
+    public function getImageInfo(Request $request)
+    {
+        $media_id = $request->media_id;
+        $media = MasseurMedia::findOrFail($media_id);
+        if (!$media) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Media not found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Media fetched successfully',
+            'data' => $media
+        ]);
+    }
 }

@@ -345,6 +345,8 @@ Route::get('media-centre/videos', [MediaController::class, 'videoGalleries'])->n
 Route::post('upload-chunk', [MassageGalleryController::class, 'uploadChunk'])->name('gallery.uploadChunk');
 Route::post('merge-chunks', [MassageGalleryController::class, 'mergeChunks'])->name('gallery.mergeChunks');
 Route::post('get-image-info',[MassageGalleryController::class, 'getImageInfo'])->name('center.get-image-info');
+Route::post('get-masseur-image-info',[MasseurController::class, 'getImageInfo'])->name('center.get-masseur-image-info');
+
 ############ End Media Videos ########################
 
 Route::get('notifications-and-features', [CenterProfileInformationController::class, 'massageSettings'])->name('centre.notifications-and-features');
