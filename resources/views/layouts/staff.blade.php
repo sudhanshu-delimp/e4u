@@ -22,7 +22,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">
-                                <img src="{{ asset('assets/dashboard/img/save-setting.png') }}" class="custompopicon" id="modal-icon"> 
+                                <img src="{{ asset('assets/dashboard/img/upload-photos.png') }}" class="custompopicon" id="modal-icon"> 
                                 <span style="color:white" id="modal-title"></span>
                             </h5>
                             
@@ -33,7 +33,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h5 class="my-4 custom_modal_text" style="text-align: center;">
+                            <h5 class="custom_modal_text" style="text-align: center;">
                             <span id="comman_str"></span>
                             <span class="comman_msg"></span>
                             </h5>

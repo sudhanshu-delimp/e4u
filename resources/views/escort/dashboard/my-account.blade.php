@@ -253,46 +253,46 @@
                               <div class="form-group">
                                  <label for="email">Profile creator settings</label><br>
                                  <div class="form-check form-check-inline">
-                                    <input name="profile_creator[]"  class="form-check-input" type="checkbox" id="Method_Message" value="1" @if(!empty($escort->profile_creator)) {{(in_array(1 , $escort->profile_creator)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Message">Include Profile Information (Stage Name optional)</label>
+                                    <input name="profile_creator[]"  class="form-check-input" type="checkbox" id="Stage_Name" value="1" @if(!empty($escort->profile_creator)) {{(in_array(1 , $escort->profile_creator)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Stage_Name">Include Profile Information (Stage Name optional)</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input name="profile_creator[]"  class="form-check-input" type="checkbox" id="Method_Text" value="2" @if(!empty($escort->profile_creator)) {{(in_array(2 , $escort->profile_creator)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Text">Include Profile Information and allow to over ride</label>
+                                    <input name="profile_creator[]"  class="form-check-input" type="checkbox" id="Profile_Info" value="2" @if(!empty($escort->profile_creator)) {{(in_array(2 , $escort->profile_creator)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Profile_Info">Include Profile Information and allow to over ride</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input name="profile_creator[]" class="form-check-input" type="checkbox" id="Method_Email" value="3" @if(!empty($escort->profile_creator)) {{(in_array(3 , $escort->profile_creator)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Email">Include social media information</label>
+                                    <input name="profile_creator[]" class="form-check-input" type="checkbox" id="Social_Media" value="3" @if(!empty($escort->profile_creator)) {{(in_array(3 , $escort->profile_creator)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Social_Media">Include social media information</label>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="email">How can Viewers contact me</label><br>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="viewer_contact_type[]" id="Method_Message" value="1"  @if(!empty($escort->viewer_contact_type)) {{(in_array(1 , $escort->viewer_contact_type)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Message">Call me</label>
+                                    <input class="form-check-input" type="checkbox" name="viewer_contact_type[]" id="Method_Call" value="1"  @if(!empty($escort->viewer_contact_type)) {{(in_array(1 , $escort->viewer_contact_type)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Method_Call">Call me</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="viewer_contact_type[]" type="checkbox" id="Method_Email" value="3"  @if(!empty($escort->viewer_contact_type)) {{(in_array(3 , $escort->viewer_contact_type)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Email">Email me (only for private communications with a Viewer)</label>
+                                    <input class="form-check-input" name="viewer_contact_type[]" type="checkbox" id="Method_Email_Me" value="3"  @if(!empty($escort->viewer_contact_type)) {{(in_array(3 , $escort->viewer_contact_type)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Method_Email_Me">Email me (only for private communications with a Viewer)</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="viewer_contact_type[]" type="checkbox" id="Method_Text" value="2"  @if(!empty($escort->viewer_contact_type)) {{(in_array(2 , $escort->viewer_contact_type)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Text">Text me</label>
+                                    <input class="form-check-input" name="viewer_contact_type[]" type="checkbox" id="Method_Text_Me" value="2"  @if(!empty($escort->viewer_contact_type)) {{(in_array(2 , $escort->viewer_contact_type)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Method_Text_Me">Text me</label>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="email">Tour options</label><br>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="tour_permissition_type[]" type="checkbox" id="Method_Message" value="1" @if(!empty($escort->tour_permissition_type)) {{(in_array(1 , $escort->tour_permissition_type)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Message">Allow Tours to be created</label>
+                                    <input class="form-check-input" name="tour_permissition_type[]" type="checkbox" id="Create_Tours" value="1" @if(!empty($escort->tour_permissition_type)) {{(in_array(1 , $escort->tour_permissition_type)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Create_Tours">Allow Tours to be created</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="tour_permissition_type[]" type="checkbox" id="Method_Text" value="2" @if(!empty($escort->tour_permissition_type)) {{(in_array(2 , $escort->tour_permissition_type)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Text">Allow Tours to be edited</label>
+                                    <input class="form-check-input" name="tour_permissition_type[]" type="checkbox" id="Edit_Tour" value="2" @if(!empty($escort->tour_permissition_type)) {{(in_array(2 , $escort->tour_permissition_type)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Edit_Tour">Allow Tours to be edited</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="tour_permissition_type[]" type="checkbox" id="Method_Email" value="3" @if(!empty($escort->tour_permissition_type)) {{(in_array(3 , $escort->tour_permissition_type)) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="Method_Email">Post a Tour leg one day before the arrival date</label>
+                                    <input class="form-check-input" name="tour_permissition_type[]" type="checkbox" id="Tour_Date" value="3" @if(!empty($escort->tour_permissition_type)) {{(in_array(3 , $escort->tour_permissition_type)) ? 'checked' : null }} @endif>
+                                    <label class="form-check-label" for="Tour_Date">Post a Tour leg one day before the arrival date</label>
                                  </div>
                               </div>
                            </div>

@@ -174,7 +174,7 @@
             <div class="modal-body">
                 <p class="opr-modal-text">Are you sure you want to delete your avatar?</p>
             </div>
-            <div class="modal-footer" style="justify-content: center;">
+            <div class="modal-footer justify-content-center pt-0">
                 <button type="submit" class="opr-btn-common" id="confirmDelete" data-dismiss="modal" id="close">Yes</button>
                 <button type="submit" class="opr-btn-common" id="cancelDelete" data-dismiss="modal" id="close">No</button>
             </div>

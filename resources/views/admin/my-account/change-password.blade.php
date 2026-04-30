@@ -177,24 +177,24 @@
                                     <label for="confirm_password">Password Expiry </label>
                                 </div>
                                 <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="never"
+                                    <input class="" name="password_expiry_days" type="radio" value="never" id="Never"
                                         @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="flexCheckDefault">Never</label>
+                                    <label class="form-check-label" for="Never">Never</label>
                                 </div>
                                 <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="30"
+                                    <input class="" name="password_expiry_days" type="radio" value="30" id="Day_30"
                                         @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
+                                    <label class="form-check-label" for="Day_30">Renew every 30 days</label>
                                 </div>
                                 <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="60"
+                                    <input class="" name="password_expiry_days" type="radio" value="60" id="Day_60"
                                         @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
+                                    <label class="form-check-label" for="Day_60">Renew every 60 days</label>
                                 </div>
                                 <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="90"
+                                    <input class="" name="password_expiry_days" type="radio" value="90" id="Day_90"
                                         @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
+                                    <label class="form-check-label" for="Day_90">Renew every 90 days</label>
                                 </div>
                                 <div class="pt-1">
                                     <i id="emailHelp">Unless you set your preferred Password Expiry, by default your
@@ -209,15 +209,15 @@
                                 </div>
                                 <div class="form-check m-0">
                                     <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
-                                        id="flexCheckDefault" value="1"
+                                        id="Text_Us" value="1"
                                         @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="flexCheckDefault">Text</label>
+                                    <label class="form-check-label" for="Text_Us">Text</label>
                                 </div>
                                 <div class="form-check m-0">
                                     <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
-                                        id="flexCheckDefault" value="1"
+                                        id="Email_Us" value="1"
                                         @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="flexCheckDefault">Email</label>
+                                    <label class="form-check-label" for="Email_Us">Email</label>
                                 </div>
 
                                 <div class="pt-1">
