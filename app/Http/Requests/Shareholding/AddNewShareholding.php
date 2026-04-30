@@ -31,15 +31,15 @@ class AddNewShareholding extends FormRequest
         }
 
         return [
-            'contact_person' => 'bail|required|string|max:100',
-            'business_name' => 'bail|required|string|max:100',
-            'business_address' => 'bail|required|string|max:255',
-            'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
-            'email' => "bail|required|email|max:50|email:rfc,filter|unique:users,email,{$userId}",
-            'contact_type' => 'required',
-            'key_contact_name.*' => 'sometimes|required|string|max:100',
-            'key_contact_phone.*'  => 'sometimes|required|digits:10',
-            'key_contact_email.*'  => 'sometimes|required|email:rfc,filter',
+            'shareholder_id' => 'required',
+            'member_id' => 'required',
+            'date_of_entry' => 'required',
+            'member_type' => 'required',
+            'threshold' => 'required',
+            'number_of_shares' => 'required',
+            'shareholding' => 'required',
+            'held_on_trust' => 'required',
+
         ];
     }
 
@@ -66,7 +66,7 @@ class AddNewShareholding extends FormRequest
 
     public function messages()
     {
-       return [
+        return [
             'business_name.required' => 'The shareholder name field is required.',
             'business_name.max' => 'The Shareholder name must not be greater than 100 characters.',
             'business_address.required' => 'The address field is required.',

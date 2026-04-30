@@ -399,7 +399,7 @@ Route::delete('/key-contact-delete', [ShareholderController::class, 'destroy'])-
 
 /** Manage shareholding */
 Route::get('/shareholders/shareholding', [ShareholdingController::class, 'shareholdingList'])->name('admin.manage.shareholding');
-Route::post('/management/add-shareholding', [ShareholdingController::class, 'addShareholding'])->name('admin.add.shareholder');
+Route::post('/management/add-shareholding', [ShareholdingController::class, 'addShareholding'])->name('admin.add.shareholding');
 Route::get('shareholding_list_data_table', [ShareholdingController::class, 'ShareholdingDataList'])->name('admin.shareholding_list_data_table');
 Route::get('/get_shareholding/{id}', [ShareholdingController::class, 'getShareholding'])->name('admin.get.shareholding');
 Route::get('/edit-shareholding/{id}', [ShareholdingController::class, 'editShareholding'])->name('admin.edit-shareholding');

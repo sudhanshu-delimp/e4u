@@ -234,6 +234,62 @@
                 pageLength: 10,
             });
 
+            $(document).on('submit', 'form[name="add_shareholding"]', function(e) {
+                e.preventDefault();
+                let form = $(this);
+                let formData = new FormData(this);
+                $('span.text-danger').text('');
+
+                swal_waiting_popup({
+                    'title': 'Saving Shareholding Details'
+                });
+                //  return false
+
+                $.ajax({
+                    url: "{{ route('admin.add.shareholding') }}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        $('span.text-danger').text('');
+                        $('#addShareholder').modal('hide');
+                        //$('#editShareholder').modal('hide');
+                        $('#staffEditModal').modal('hide');
+                        $('#add_shareholder')[0].reset();
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
+
+                        Swal.close();
+            
+                        if (xhr.status === 422) {
+                            $('span.text-danger').text('');
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                if (field.includes('.')) {
+                                    // 👉 ARRAY FIELD (key_contact_person.0)
+                                    let parts = field.split('.');
+                                    let name = parts[0] + '[]';
+                                    let index = parts[1];
+                                    let input = $('[name="' + name + '"]').eq(index);
+                                    //input.addClass('is-invalid');
+                                    input.next('.text-danger').text(messages[0]);
+                                    $('.error-' + field.replace('.', '\\.')).text(messages[0]);
+
+                                } else {
+                                    $('.error-' + field).text(messages[0]);
+                                }
+                            });
+                        } else {
+                            swal_error_popup(xhr.responseJSON.message ||
+                                'Something went wrong');
+                        }
+                    }
+                });
+            });
 
             /*** View the shareholding */
             $(document).on('click', '#viewShareholderBtn', function() {
