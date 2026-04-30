@@ -1604,6 +1604,15 @@ if (!function_exists('get_messure_images')) {
   }
 }
 
+
+function get_messure_images_details($masseur,$position)
+{
+    if(!$masseur || !$position) return false;   
+
+    return $masseur->getImageDetailsByPosition($position,$masseur->id);
+}
+
+
 if (!function_exists('getStateIdByCityId')) {
 function getStateIdByCityId($states, $cityId)
 {

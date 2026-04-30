@@ -19,7 +19,6 @@
                             <th>ID</th>
                             <th>Date</th>
                             <th>Name</th>
-                            <th>Image</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>

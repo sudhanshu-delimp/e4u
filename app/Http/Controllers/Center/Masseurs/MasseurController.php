@@ -1471,4 +1471,24 @@ class MasseurController extends AppController
             'data' => $media
         ]);
     }
+
+
+      public function getMediaCOunt(Request $request)
+        {
+            $masseur_gallery_ids = MasseurGallery::where('masseur_profile_id', $request->masseur_id)->pluck('masseur_media_id');
+            $query = MasseurMedia::whereIn('id',$masseur_gallery_ids);
+            // Total media count
+            $total_media_count = (clone $query)->count();
+            // Media count for verification
+            $media_count_for_verification = (clone $query)
+                ->whereIn('varified', ['0', '2'])
+                ->whereNull('media_verification_id')
+                ->count();
+
+            return response()->json([
+                'success' => true,
+                'media_count_for_verification' => $media_count_for_verification,
+                'total_media_count' => $total_media_count
+            ]);
+        }
 }

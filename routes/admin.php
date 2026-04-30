@@ -303,6 +303,7 @@ route::post('/reports/update-media-verification', [MediaVerificationController::
 route::get('/gallery-pdf/{id}/{user_id}', [MediaVerificationController::class, 'galleryPdf'])->name('admin.gallery-pdf');
 route::post('/reports/masseurs-media-verification-list', [MediaVerificationController::class, 'masseursMediaVerificationList'])->name('admin.masseurs_media-verification-list');
 route::post('/reports/masseurs-media-verification-tag', [MediaVerificationController::class, 'masseursMediaVerificationTag'])->name('admin.masseurs_media-verification-tag');
+route::post('/reports/update-masseurs-media-verification', [MediaVerificationController::class, 'updateMasseursMediaVerification'])->name('admin.update-masseurs-media-verification');
 
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');

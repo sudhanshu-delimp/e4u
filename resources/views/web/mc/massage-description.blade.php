@@ -645,15 +645,19 @@
 
                                     for ($i = 1; $i <= 4; $i++) {
                                         $img = get_messure_images($masseur, $i);
+                                        $image_data = get_messure_images_details($masseur,$i);
                                         $images[$i] = $img;
 
                                         if ($img !== false) {
-                                            $messure_validImages[$i] = $img;
+                                            $messure_validImages[$i]['url'] = $img;
+                                            $messure_validImages[$i]['img_data'] = $image_data;
                                         }
                                     }
 
                             @endphp
+                            <pre>
 
+</pre>
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view_{{$masseur->id}}" >
@@ -686,14 +690,18 @@
 
                                                             @foreach ($messure_validImages as $index => $image)
                                                                 @if($loop->first)
-                                                                <img src="{{  $image }}" class="img-responsive"
+                                                                <img src="{{  $image['url'] }}" class="img-responsive"
                                                                 style="width: 305px;height: 374px;object-fit: cover;">
                                                                 @endif
+                                                                @php 
+                                                                    $status_detail =  getMediaVerificationDataBigIcon($image['img_data']->varified);
+                                                                @endphp
                                                             @endforeach
 
                                                     <div class="veryfy_img">
-                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-                                                        <span class="common_shield_tooltip">Media Pending</span>
+                                                        
+                                                        <img src="{{ $status_detail['icon'] }}">
+                                                        <span class="common_shield_tooltip">{{ $status_detail['label'] }}</span>
                                                     </div>
                                                 </div>
 
@@ -702,10 +710,13 @@
                                                         @foreach ($messure_validImages as $index => $image)
                                                             @if(!$loop->first)
                                                             <div class="extra_img_wrapper">
-                                                                <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                                <img src="{{  $image['url'] }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
                                                                 <div class="veryfy_img">
-                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                     <h6 class="gallery_shield_tooltip">Media Pending</h6>
+                                                                @php 
+                                                                    $status_detail =  getMediaVerificationDataSmallIcon($image['img_data']->varified);
+                                                                @endphp
+                                                                    <img src="{{ $status_detail['icon'] }}">
+                                                                     <h6 class="gallery_shield_tooltip">{{ $status_detail['label'] }}</h6>
                                                                     
                                                                 </div>
                                                             </div>
@@ -813,7 +824,7 @@
 
                                                             @foreach ($messure_validImages as $index => $image)
                                                                 @if($loop->first)
-                                                                <img src="{{  $image }}" class="img-responsive"
+                                                                <img src="{{  $image['url'] }}" class="img-responsive"
                                                                 style="width: 305px;height: 374px;object-fit: cover;">
                                                                 @endif
                                                             @endforeach
@@ -827,7 +838,7 @@
 
                                                         @foreach ($messure_validImages as $index => $image)
                                                             @if(!$loop->first)
-                                                            <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                            <img src="{{  $image['url'] }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
                                                             @endif
                                                         @endforeach
                                                 </div>

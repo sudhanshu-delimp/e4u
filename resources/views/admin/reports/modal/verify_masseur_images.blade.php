@@ -32,10 +32,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn-success-modal">Print</button>
+                <button type="button" class="btn-success-modal printMasseursImgBtn">Print</button>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" >Close</button>
-                <button type="button" class="btn-success-modal">Approve</button>
-                <button type="button" class="btn-success-modal" data-dismiss="modal">Reject</button>
+                <button type="button" class="btn-success-modal approveMasseursBtn">Approve</button>
+                <button type="button" class="btn-success-modal rejectMasseursBtn" data-dismiss="modal">Reject</button>
             </div>
 
         </div>

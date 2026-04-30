@@ -84,12 +84,22 @@
                                     @default
                                         <span class="badge badge-red">Gallery</span>
                                 @endswitch
+                                @php 
+                                    $status = $image->varified ?? "2";
+                                    $status_icon = getMediaVerificationDataSmallIcon($status);
+                                @endphp
                                  <div class="mass_sm_icon">
-                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
-                                    <span class="mass_sm_tooltip">Media Pending</span>
+                                    <img src="{{ $status_icon['icon'] }}">
+                                    <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
                                 </div>
                                 <div class="upload_date">
-                                    Uploaded: <span>{{showDateWithFormat($image->created_at)}}</span>
+                                    @if($status == "0")
+                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                    @elseif($status == "1")
+                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                    @else
+                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                    @endif
                                 </div>
                             </div>
                         @endif    

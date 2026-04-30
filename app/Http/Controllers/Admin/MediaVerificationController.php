@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\MediaVerificationAdvertiserMail;
+use App\Mail\MediaVerificationMasseurMail;
 use App\Models\EscortMedia;
 use App\Models\MassageMedia;
+use App\Models\MasseurGallery;
+use App\Models\MasseurMedia;
 use App\Models\MasseurVerification;
 use App\Models\MediaVerification;
 use App\Models\User;
@@ -111,7 +114,6 @@ class MediaVerificationController extends Controller
 
         $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
-            //   dd($item);
             $user = $item->user;
             $item->member_id = $user->member_id ?? 'N/A';
             $item->name      = $user->name ?? 'N/A';
@@ -120,7 +122,6 @@ class MediaVerificationController extends Controller
                 ? showDateWithFormat($item->created_at)
                 : 'NA';
             $submittedUser = User::select('type', 'member_id')->find($item->submited_by);
-
             $item->submitted = $submittedUser
                 ? (getUserTypeById($submittedUser->type) === 'Massage-Center' ? 'Centre' : getUserTypeById($submittedUser->type))
                 : 'N/A';
@@ -493,8 +494,8 @@ class MediaVerificationController extends Controller
         } else {
 
             foreach ($data as $item) {
-
-                // 🔹 Status mapping
+                $dropdown_html = '';
+                // Status mapping
                 if ($item->status == '1') {
                     $statusText = 'Verified image';
                     $statusClass = 'badge_accepted';
@@ -506,23 +507,25 @@ class MediaVerificationController extends Controller
                     $statusClass = 'badge_pending';
                 }
 
+                if ($item->status == '0') {
+                    $dropdown_html = '<a class="dropdown-item masseurs-approve-btn"
+                            href="javascript:void(0)" data-masseur_member-id="' . $item->masseur->member_id . '" data-verification-id="' . $item->id . '" data-id="' . $item->masseur->id . '">
+                            <i class="fa fa-check-circle"></i> Approve
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item masseurs-reject-btn"
+                            href="javascript:void(0)" data-masseur_member-id="' . $item->masseur->member_id . '" data-verification-id="' . $item->id . '" data-id="' . $item->masseur->id . '">
+                            <i class="fa fa-ban"></i> Reject
+                        </a><div class="dropdown-divider"></div>';
+                }
+
                 $html .= '
                 <tr>
                     <td>' . ($item->masseur->member_id ?? '--')  . '</td>
                     <td>' . ($item->created_at ? $item->created_at->format('d-m-Y') : '-') . '</td>
                     <td>' . ($item->masseur->name ?? '-') . '</td>
-
-                    <td>
-                        <a href="javascript:void(0)"
-                           class="view-masseur-image-btn"
-                           data-toggle="modal"
-                           data-target="#verify_masseur_images"
-                           data-id="' . $item->masseur->id . '"
-                           data-verification-id="' . $item->id . '"
-                           data-member-id="' . $item->masseur->member_id . '">
-                           View image
-                        </a>
-                    </td>
 
                     <td>
                         <span class="custom_badge ' . $statusClass . '">
@@ -537,19 +540,17 @@ class MediaVerificationController extends Controller
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right shadow">
-
-                                <a class="dropdown-item masseurs-approve-btn"
-                                   href="" data-id="' . $item->masseur->id . '">
-                                   <i class="fa fa-check-circle"></i> Approve
+                            ' . $dropdown_html . '
+                                <a class="dropdown-item view-masseur-image-btn"
+                                    href="javascript:void(0)"
+                                    data-toggle="modal"
+                                    data-target="#verify_masseur_images"
+                                    data-status="' . $item->status . '"
+                                    data-id="' . $item->masseur->id . '"
+                                    data-verification-id="' . $item->id . '"
+                                    data-member-id="' . $item->masseur->member_id . '">
+                                    <i class="fa fa-eye"></i> View image
                                 </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <a class="dropdown-item masseurs-reject-btn"
-                                   href="" data-id="' . $item->masseur->id . '">
-                                   <i class="fa fa-ban"></i> Reject
-                                </a>
-
                             </div>
                         </div>
                     </td>
@@ -562,7 +563,6 @@ class MediaVerificationController extends Controller
             'html'   => $html
         ]);
     }
-
 
 
     public function getProfileImages(Request $request)
@@ -622,6 +622,73 @@ class MediaVerificationController extends Controller
             'thumbnail' => $thumbnail_html,
             'gallery' => $gallery_html,
             'verification' => $verification_html
+        ]);
+    }
+
+
+    public function updateMasseursMediaVerification(Request $request)
+    {
+
+        $id = $request->get('id');
+        $media_verification = MasseurVerification::find($id);
+
+        if (!$media_verification) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Media verification not found.'
+            ], 404);
+        }
+
+        $media_verification->status = (string) $request->get('status');
+
+        // $media_verification->status = '0';
+        $media_verification->reviewed_by = Auth::id();
+        $media_verification->reviewed_at = Carbon::now();
+        $media_verification->save();
+        $mediaIds = MasseurGallery::where('masseur_profile_id', $media_verification->masseur_id)
+            ->where('type', 0)
+            ->pluck('masseur_media_id');
+
+        MasseurMedia::whereIN('id', $mediaIds)
+            ->update([
+                'media_verification_id' => $media_verification->id,
+                'varified' => (string) $request->get('status')
+                // 'varified' => '0'
+            ]);
+
+        $user = User::with('my_agent')
+            ->select('id', 'name', 'email', 'member_id', 'assigned_agent_id')
+            ->find($media_verification->user_id);
+
+        $body = [
+            'name' => $user->name ?? $user->email,
+            'email' => $user->email,
+            'member_id' => $user->member_id,
+            'masseur_member_id' => $request->masseur_member_id,
+            'status' => $request->get('status'),
+            'agent_id' => $user->my_agent->member_id ?? null,
+        ];
+
+        $status = $media_verification->getRawOriginal('status');
+
+        switch ($status) {
+            case '1': // Approved
+            case '2': // Rejected
+                $cc = !empty($ccEmail) ? [$ccEmail] : [];
+                \Mail::to($body['email'])
+                    ->cc($cc)
+                    ->queue(new MediaVerificationMasseurMail($body));
+                Artisan::queue('profile:sync-status');
+
+                break;
+
+            default: // Pending 
+                break;
+        }
+        return response()->json([
+            'status' => true,
+            'message' => 'Media verification ' . ($media_verification->status == 1 ? 'approved' : 'rejected') . ' successfully.',
+            'media_verification_status' => $status
         ]);
     }
 }

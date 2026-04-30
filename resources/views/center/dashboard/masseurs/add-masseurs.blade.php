@@ -2016,6 +2016,10 @@ function initDragDrop()
                     boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
                 });
 
+        },
+        start: function(event, ui) {
+            let type = $(this).closest(".item4").find("span.badge").text().toLowerCase().trim();
+            $(this).data("drag-type", type);
         }
     });
 
@@ -2030,7 +2034,8 @@ function initDragDrop()
             let dragSlot = ui.draggable;
 
             let dropSlotType = dropSlot.find("img").attr("data-type");
-            let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+            // let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+            let dragSlotType = dragSlot.data("drag-type");
 
             let imgSrc = dragSlot.attr("src");
             let imgId  = dragSlot.attr("data-id");
@@ -2075,6 +2080,26 @@ function initDragDrop()
 
 }
 
+let selectedImageId = null;
+let selectedPosition = null;
+
+$(document).on('click', '.dvDest', function () {
+
+    $(".dvDest").removeClass("active");
+    $(this).addClass("active");
+    selectedPosition = $(this).find("img").data("position");
+    console.log("Selected Position:", selectedPosition);
+});
+
+
+$(document).on('click', '.select_image', function () {
+    selectedImageId = $(this).data('id');
+    if (!selectedPosition) {
+        console.log("Position not set yet");
+        return;
+    }
+    getMediaByIdAndStatusShow(selectedImageId,selectedPosition);
+});
 
  function getMediaByIdAndStatusShow(media_id, position) {
         position = String(position).trim();
@@ -2140,7 +2165,7 @@ function initDragDrop()
                 iconBox.html('').hide();
             }
         });
-    }
+}
 
 function readVarificationImageURL(input) {
     if (input.files && input.files[0]) {
