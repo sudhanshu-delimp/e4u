@@ -28,8 +28,8 @@
                                                 <option value="">Select Profile</option>
                                                 @foreach ($active_profile as $profile)
                                                     <option value="{{ $profile['id'] }}"
-                                                        profile_name="{{ $profile['profile_name'] }}">
-                                                        {{ $profile['id'] }} - {{ $profile['profile_name'] }} 
+                                                        profile_name="{{ $profile['business_name'] }}">
+                                                        {{ $profile['id'] }} - {{ $profile['business_name'] }} 
                                                         
                                                     </option>
                                                 @endforeach

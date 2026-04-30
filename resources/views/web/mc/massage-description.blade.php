@@ -479,8 +479,10 @@
                         
                     </div>
 
-                    <div class="col-sm-12">
-                        <div style="width: 100%">
+                    <div class="col-sm-12"> {{$listing->address}}
+                        <div  id="map" style="width:100%; height:153px; border-radius:8px;">
+
+
                             <!-- <iframe 
                             width="100%" 
                             height="153" 
@@ -491,14 +493,14 @@
                             src="https://maps.google.com/maps?q={{ urlencode($listing->address ?? 'Perth, Western Australia') }}&hl=en&z=14&output=embed"
                             style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
                         </iframe> -->
-                        <iframe
+                        <!-- <iframe
                             width="100%"
                             height="153"
                             style="border:0"
                             loading="lazy"
                             allowfullscreen
                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrDJA0TAg9Q9MThHqRe9tGCsNsU4vMrcQ&q={{ urlencode($listing->address ?? 'Perth, Western Australia') }}&zoom=16">
-                        </iframe>
+                        </iframe> -->
                         
                         </div>
                     </div>
@@ -2188,6 +2190,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}"></script>
 
  <script>
 
@@ -2621,6 +2624,57 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
         return false;
     }
 });
+
+
+function initMap() 
+{
+    const address = @json($listing->address ?? '192 Hampden Road Nedlands');
+
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ address: address }, function(results, status) {
+
+        if (status === "OK") 
+        {
+            const location = results[0].geometry.location;
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+                center: location,
+            });
+
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+            });
+
+            // Label under marker (balloon style)
+            const infowindow = new google.maps.InfoWindow({
+                content: `<div >
+                            📍 {{ $listing->address }}
+                          </div>`
+            });
+
+            infowindow.open(map, marker);
+
+            // OPTIONAL: store lat/lng in hidden inputs
+            const lat = location.lat();
+            const lng = location.lng();
+
+            console.log("Lat:", lat, "Lng:", lng);
+
+            if (document.getElementById("lat")) {
+                document.getElementById("lat").value = lat;
+                document.getElementById("lng").value = lng;
+            }
+
+        } 
+        
+    });
+}
+
+
+window.onload = initMap;
 
 </script>
 @endpush

@@ -1869,7 +1869,7 @@ if (!function_exists('get_massage_listed_profile'))
         $massage_live_ids  = MassagePurchase::where('status','listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if(!empty($massage_live_ids))
         {
-            $profile = MassageProfile::select('id','purchase_id','name','profile_name')->with('purchase','state')->whereIn('id',  $massage_live_ids)->get();
+            $profile = MassageProfile::select('id','purchase_id','name','profile_name','business_name')->with('purchase','state')->whereIn('id',  $massage_live_ids)->get();
             if ($profile->isNotEmpty()) {
                 $profile->map(function ($item) {
 
@@ -2429,5 +2429,23 @@ if (!function_exists('formatIndianNumber'))
                 ->value('status') ?? '0'; // default Pending
         }
     }
+}
+
+function getPlaceId($address)
+{
+    $apiKey = config('services.google_map.api_key');
+
+    $response = Http::get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json', [
+        'input' => $address,
+        'inputtype' => 'textquery',
+        'fields' => 'place_id',
+        'key' => $apiKey,
+    ]);
+
+    if ($response->successful()) {
+        return $response['candidates'][0]['place_id'] ?? null;
+    }
+
+    return null;
 }
    

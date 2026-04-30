@@ -284,7 +284,7 @@ background:#16385f;
          <div class="summary-container">
          <div class="summary-header">
          <span>Transaction Summary</span>
-         <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: E20118</span>
+         <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID : {{ auth()->user()->member_id}}</span>
          </div>
 
          <table class="summary-table" >
@@ -483,7 +483,7 @@ $("#brb_form").on('submit', function(e)
                });
                $("#brb_form")[0].reset();
                $('#add_brb').modal('hide');
-               table.draw();
+               table.ajax.reload(null, false);
                setTimeout(function() {
                   window.location.href = "../center-dashboard/listing/current";
                }, 1000);
@@ -635,7 +635,7 @@ $("#suspend_form").on('submit', async function(e)
                   if (data.response.success) {
                       swal_success_popup(data.response.message);
                      $('#suspend_profile').modal('hide');
-                     table.draw();
+                     table.ajax.reload(null, false);
                   } else {
                      swal_error_popup(data.response.message);
                   }
@@ -860,6 +860,7 @@ e.preventDefault();
                     success: function(response) {
                         table.ajax.reload(null, false);
                         Swal.close();
+                        swal_success_popup(response.message);
                         /// let redirect = {'time': 2000, 'url' : 'listing/current'}
                         /// swal_success_popup(response.message,redirect);
                     },
@@ -946,13 +947,13 @@ $("#bumpup_profile_form").on('submit', async function(e)
                   $("#saveBumpupButton").find('button[type=submit]').attr('disabled','disabled');
                },
                success: function(data) {
-                  Swal.close();
-
+                     Swal.close();
                      if (data.success) {
-                        table.draw();
+                        table.ajax.reload(null, false);
+                        $("#bumpup_profile").modal('hide');
                         swal_success_popup(data.message);
                         form.reset();
-                        $("#bumpup_profile").modal('hide');
+                       
                      
                      }
                      else{

@@ -281,26 +281,41 @@ class MassageProfileActionController extends BaseController
     {
         try 
         {
-            $home_state = auth()->user()->state_id;
-            $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
-            $nowLocal = Carbon::now($profileTimezone);
-            $localStart = $nowLocal->copy();
-            $localEnd   = $nowLocal->copy()->addHours(24);
-            $utcStart = $localStart->copy()->setTimezone('UTC');
-            $utcEnd = $localEnd->copy()->setTimezone('UTC');
+        
+                $home_state = auth()->user()->state_id;
+                $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
 
-            MassageBumpup::create([
-                'user_id' => auth()->user()->id,
-                'massage_id' => $request->massage_id,
-                'start_date' => $localStart->format('Y-m-d'),
-                'end_date' => $localEnd->format('Y-m-d'),
-                'utc_start_time' => $utcStart,
-                'utc_end_time' => $utcEnd,
-            ]);
-            return response()->json([
-                'success' => true,
-                'message' => 'Profile ID ' . $request->massage_id . ' has been Bumped Up.'
-            ]);
+                $lastBump = MassageBumpup::where('user_id', auth()->user()->id)
+                    ->where('massage_id', $request->massage_id)
+                    ->orderByDesc('id')
+                    ->first();
+
+                if ($lastBump) {
+                    $utcStart = Carbon::parse($lastBump->utc_end_time)->addSecond();
+                } else {
+        
+                    $utcStart = Carbon::now('UTC');
+                }
+
+                $utcEnd = $utcStart->copy()->addHours(24);
+
+                $localStart = $utcStart->copy()->setTimezone($profileTimezone);
+                $localEnd   = $utcEnd->copy()->setTimezone($profileTimezone);
+
+                MassageBumpup::create([
+                    'user_id' => auth()->id(),
+                    'massage_id' => $request->massage_id,
+                    'start_date' => $localStart->format('Y-m-d'),
+                    'end_date' => $localEnd->format('Y-m-d'),
+                    'utc_start_time' => $utcStart,
+                    'utc_end_time' => $utcEnd,
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Profile ID ' . $request->massage_id . ' has been Bumped Up.'
+                ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,

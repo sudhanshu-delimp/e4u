@@ -42,13 +42,13 @@
 
                                           <option 
                                             value="{{ $profile['id'] }}"
-                                            profile_name="{{ $profile['profile_name'] }}"
+                                            profile_name="{{ $profile['business_name'] }}"
                                             data-start= "{{ ($purchase) ?   date('d-m-Y',strtotime($purchase['start_date'])) : '' }}"
                                             data-end="{{ ($purchase) ?  date('d-m-Y',strtotime($purchase['end_date'])) : '' }}"
                                             data-membership= "{{ ($purchase) ? $purchase['membership_id']  : '' }}"
                                             data-parsley-type="" 
                                             data-parsley-type-message="">
-                                            {{ $profile['id'] }} - {{ $profile['profile_name'] }} 
+                                            {{ $profile['id'] }} - {{ $profile['business_name'] }} 
                                             
                                         </option>
       

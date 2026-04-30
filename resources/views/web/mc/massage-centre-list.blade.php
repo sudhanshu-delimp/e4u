@@ -541,7 +541,7 @@ $(document).ready(function () {
     setInterval(function() {
     localStorage.setItem("pageReloaded", "true");
     location.reload();
-    }, 60000); 
+    }, 600000); 
 
    
     //////// Clear Short List /////////
