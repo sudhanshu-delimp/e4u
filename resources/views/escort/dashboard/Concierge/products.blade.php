@@ -9,7 +9,6 @@
             list-style: none;
             color: rgb(248, 0, 0)
         }
-    
     </style>
 @endsection
 @section('content')
@@ -26,7 +25,7 @@
                 <div class="product_view e4u-tooltip">
                     <span class="view_cart" id="viewCart">
                         <i class="fa fa-shopping-cart"></i>
-                        <small class="item_count" id="cart-count">{{$totalCartItem}}</small>
+                        <small class="item_count" id="cart-count">0</small>
                         <span class="vtooltip">View Cart</span>
                     </span>
                 </div>
@@ -54,7 +53,7 @@
         {{-- end --}}
 
         <!--middle content-->
-        <div class="row">
+        {{-- <div class="row">
             @if ($products->isNotEmpty())
                 <div class="col-12 product-card-wrapper">
 
@@ -103,15 +102,53 @@
                 @else
                     <p>Item Not Found</p>
             @endif
+        </div> --}}
+
+        <div class="row">
+            @if ($products->isNotEmpty())
+                <div class="col-12 product-card-wrapper">
+                    @foreach ($products as $item)
+                        <div class="card product-card">
+
+                            <div class="product-image-wrapper">
+                                <img src="{{ asset('admin/products/escort.jpg') }}" class="card-img-top product-image"
+                                    data-title="{{ strip_tags($item->description) }}"
+                                    data-image="{{ asset('admin/products/escort.jpg') }}" style="cursor:pointer;">
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="header">
+                                    <p>
+                                        {!! $item->description !!}
+                                        <br>QTY: {{ $item->qty }}
+                                        {{ !empty($item->size) && $item->size != 'N/A' ? 'Size:' . $item->size : '' }}
+                                    </p>
+                                    <span class="price">${{ $item->price }}</span>
+                                </div>
+
+                                <!-- PRODUCT ACTION BOX -->
+                                <div class="product-box" id="product-{{ $item->id }}">
+                                    <button class="add_to_cart cartAction" data-id="{{ $item->id }}" data-price="{{ $item->price }}"  data-type="add">
+                                        Add to Cart
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p>Item Not Found</p>
+            @endif
         </div>
-
-
 
     </div>
     </div>
     <!-- End of Main Content -->
     <!-- Product Image Modal -->
-    <div class="modal fade upload-modal " id="imageModal" tabindex="-1" >
+    <div class="modal fade upload-modal " id="imageModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
 
@@ -156,80 +193,12 @@
             window.location.href = "{{ route('escort.view-cart') }}";
         })
 
-        $(document).on('click', '.product-image', function() {
+      
 
-            let title = $(this).data('title');
-            let image = $(this).data('image');
-
-            $('#modalTitle').text(title);
-
-            // Show modal first
-            let modal = new bootstrap.Modal(document.getElementById('imageModal'));
-            modal.show();
-
-            // Show loader, hide image
-            $('#imageLoader').show();
-            $('#modalImage').addClass('d-none');
-
-            // Create new image object to detect load
-            let img = new Image();
-            img.src = image;
-
-            img.onload = function() {
-                $('#modalImage').attr('src', image);
-                $('#imageLoader').hide();
-                $('#modalImage').removeClass('d-none');
-            };
-
-            img.onerror = function() {
-                $('#imageLoader').hide();
-                Swal.fire('Failed to load image', '', 'error');
-
-            };
-
-        });
-        $(document).on('click', '.cartAction', function() {
-
-            let id = $(this).data('id');
-            let type = $(this).data('type');
-
-            $.ajax({
-                url: "{{ route('escort.add.to.cart') }}",
-                type: "POST",
-                data: {
-                    id: id,
-                    type: type,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(res) {
-                    // update cart count
-                    $('#cart-count').text(res.cart_count);
-                    if (res.removed) {
-                        $('#product-' + id).html(`<button class="add_to_cart cartAction"  data-id="${id}"  data-type="add"> Add to Cart  </button>`);
-                        return; // stop here
-                    }
-
-                    if (type === 'add') {
-                        $('#product-' + id).html(`
-                    <div class="qty-box text-center">
-                        <button class="qty-decrease cartAction" data-id="${id}" data-type="decrease">-</button>
-                        <span class="qty" id="qty-${id}">${res.qty}</span>
-                        <button class="qty-increase cartAction" data-id="${id}" data-type="increase">+</button>
-                    </div>
-                `);
-                    } else {
-                        // Just update qty text
-                        $('#qty-' + id).text(res.qty);
-                    }
-                      Swal.fire({
-                        icon: "success",
-                        title: res.message,
-                        timer: 1000,
-                        showConfirmButton: false
-                    });
-                }
-            });
-
+       
+        $(document).ready(function() {
+            renderCartUI();
+            $('#cart-count').text(getCartCount());
         });
     </script>
 @endpush

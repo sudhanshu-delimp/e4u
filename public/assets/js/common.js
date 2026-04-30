@@ -15,8 +15,8 @@ function date_time_format(dateString) {
 }
 
 
-console.log(date_time_format("2025-08-21 08:03:12")); 
-console.log(date_time_format("2025-08-21 08:15:52")); 
+// console.log(date_time_format("2025-08-21 08:03:12")); 
+// console.log(date_time_format("2025-08-21 08:15:52")); 
 
 function swal_fire(message) {
  Swal.fire(message);

@@ -268,7 +268,7 @@
                     csrfToken: "{{ csrf_token() }}",
                     baseUrl: "{{ asset('') }}"
                 };
-                console.log(window.App);
+                // console.log(window.App);
 
             </script> 
           

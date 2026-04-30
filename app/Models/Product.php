@@ -9,7 +9,10 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function cartItem(){
-      return $this->hasOne(CartItem::class,"product_id",'id');
-    }
+  public function getImageAttribute($value)
+{
+    return $value
+        ? asset('admin/products/escort.jpg')
+        : asset('admin/products/escort.jpg');
+}
 }
