@@ -210,64 +210,8 @@ class ShareholdingController extends BaseController
         return [$shareholders, $total_shareholders];
     }
 
-    /**
-     *  Approve the shareholding
-     * 
-     * @param \Illuminate\Http\Request $request
-     */
-    public function approveShareholderAccount(Request $request)
-    {
-
-        $data = $request->all();
-        $resposne = $this->shareholderRepo->change_user_status($data);
-        if ($resposne['status'])
-            return $this->successResponse($resposne['message']);
-        else
-            return $this->validationError($resposne['message']);
-    }
-
-    /**
-     *  Acivate the shareholding
-     * 
-     * @param \Illuminate\Http\Request $request
-     */
-    public function activateUser(Request $request)
-    {
-
-        $data = $request->all();
-        $resposne = $this->shareholderRepo->activate_user($data);
-        if ($resposne['status'])
-            return $this->successResponse($resposne['message']);
-        else
-            return $this->validationError($resposne['message']);
-    }
-
-    /**
-     *  Suspent the access of shareholding dashboard
-     * 
-     * @param \Illuminate\Http\Request $request
-     */
-    public function suspendShareholder(Request $request)
-    {
-        if ($request->id && $request->request_type && $request->request_type == 'suspend') {
-            $user = Shareholder::where('id', $request->id)->first();
-            if ($user->status && $user->status == 'Suspended') {
-                return $this->successResponse('Shareholder\'s already suspended.');
-            }
-            $user->status = '3';
-            $response = $user->save();
-
-            if ($response) {
-                $resposne = $this->shareholderRepo->sendSuspendEmail($user);
-                return $this->successResponse(' Shareholder\'s account has been suspended.');
-            } else
-                return $this->successResponse('Error occurred while Account Suspending.');
-        } else {
-            return $this->successResponse('Unknown Input Found.');
-        }
-    }
-
-    public function printShareholderDetails(Request $request)
+    
+    public function printShareholdingDetails(Request $request)
     {
         if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
             return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
@@ -283,57 +227,5 @@ class ShareholdingController extends BaseController
         } else {
             return response()->json(['status' => 'error', 'message' => 'Shareholder ID is required.'], 400);
         }
-    }
-
-    /**
-     *  Delete the shareholder
-     * 
-     * @param \Illuminate\Http\Request $request
-     */
-    public function deleteUser(Request $request)
-    {
-        try {
-            if ($request->id && $request->request_type && $request->request_type == 'delete') {
-                $user = Shareholder::where('id', $request->id)->first();
-                if ($user->status && $user->status == 'Pending') {
-                    $user->shareholder_setting()->delete();
-                    $response = $user->delete();
-                    if ($response) {
-                        return $this->successResponse(' Shareholder\'s account has been deleted.');
-                    } else
-                        return $this->successResponse('Error occurred while Account deleting.');
-                } else {
-                    return $this->successResponse('You can delete a shareholder\'s account only if its status is pending.');
-                }
-            } else {
-                return $this->successResponse('You have provided incorrect data.');
-            }
-        } catch (\Exception $e) {
-
-            return $this->successResponse('Error occurred while Account deleting.');
-        }
-    }
-
-    /**
-     * Delete shareholder key contact
-     */
-    public function destroy(Request $request)
-    {
-        $id = $request->id;
-        $contact = ShareholderContact::find($id);
-        
-        if (!$contact) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Contact not found'
-            ], 404);
-        }
-
-        $contact->delete();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Contact deleted successfully'
-        ]);
     }
 }
