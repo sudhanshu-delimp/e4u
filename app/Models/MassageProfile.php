@@ -493,7 +493,10 @@ class MassageProfile extends Model
         return $this->hasMany(MassagePurchase::class, 'massage_profile_id','id');
     }
 
-   
+    public function latestPurchase()
+    {
+        return $this->hasOne(MassagePurchase::class, 'massage_profile_id')->latestOfMany(); 
+    }
 
 
     public function mainPurchase()

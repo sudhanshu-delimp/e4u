@@ -96,7 +96,12 @@ class MassageController extends Controller
         else
         $active_profile = [];
 
-        
+        // echo '<pre>';
+        // print_r(json_decode($active_profile,true));
+        // echo '</pre>';
+        // exit;
+
+       
 
         return view('center.dashboard.list',compact('active_profile'));
     }
@@ -175,7 +180,7 @@ class MassageController extends Controller
 
 
              if(isset($isExtended->count) && $isExtended->count)
-             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
+             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
 
 
              if($isBumpUped  && (!empty($isBumpUped ))){
@@ -1306,7 +1311,7 @@ class MassageController extends Controller
             if($this->account->activeFeeDiscount){
                 $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
             }
-             Artisan::queue('profile:sync-status'); // update profile verification status
+            
              return response()->json([
                 'success' => true,
                 'message' => 'Transaction completed successfully.'
@@ -1320,16 +1325,24 @@ class MassageController extends Controller
             $today = Carbon::today();
             $massagers = MassagePurchase::with([
                 'brb' => function ($query) {
-                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-                },'massageprofile','user:id,status','activeUpcomingSuspend'
-
-            ])->where('massage_centre_id', auth()->user()->id)
-            ->whereIn('status', ['pending', 'listed'])
-            // ->whereDate('start_date', '<=', $today)
-            // ->whereDate('end_date', '>=', $today)
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
+                },
+                'massageprofile',
+                'user:id,status',
+                'activeUpcomingSuspend'
+            ])
+            ->where('massage_centre_id', auth()->user()->id)
+            ->whereIn('status', ['listed'])
             ->get();
 
-    
+            // echo '<pre>';
+            // print_r($massagers->toArray());
+            // echo '</pre>';
+            // exit;
+
+
             $data = $massagers->map(function ($row) use ($today) {
 
 

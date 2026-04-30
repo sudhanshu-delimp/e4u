@@ -2092,7 +2092,7 @@
 
     {{-- my legbox --}}
 
-    <div class="modal fade upload-modal" id="my_legbox" style="display: none">
+    <div class="modal fade upload-modal" id="my_legbox" style="display: none;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">

@@ -33,11 +33,9 @@
                                         data-parsley-required-message="Select Profile">
                                     <option value="">Select Profile</option>
                                      @foreach ($active_profile as $profile)
-                                     
-                                         @continue($profile->isListingExtended()->count)
-
+                                    
                                          @php
-                                         $purchase = $profile->purchase->first();
+                                         $purchase = $profile->latestPurchase;
                                          @endphp
 
                                           <option 

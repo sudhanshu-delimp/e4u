@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4" for=""> BRB Date & Time:</label>
+                                        <label class="col-sm-4" for="">  Date & Time Closed:</label>
                                         <div class="col-sm-4">
                                             <input type="date" required min="{{ date('Y-m-d') }}"
                                                 class="form-control form-control-sm removebox_shdow" name="brb_date"
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4" for=""> BRB Note:</label>
+                                        <label class="col-sm-4" for=""> Note Closure:</label>
                                         <div class="col-sm-8">
                                             <textarea class="form-control" name="brb_note" id="brb_note" required></textarea>
                                         </div>

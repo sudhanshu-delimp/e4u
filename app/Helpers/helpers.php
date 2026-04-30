@@ -1869,12 +1869,13 @@ if (!function_exists('get_massage_listed_profile'))
         $massage_live_ids  = MassagePurchase::where('status','listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if(!empty($massage_live_ids))
         {
-            $profile = MassageProfile::select('id','purchase_id','name','profile_name','business_name')->with('purchase','state')->whereIn('id',  $massage_live_ids)->get();
+            $profile = MassageProfile::select('id','purchase_id','name','profile_name','business_name')->with('purchase','state','latestPurchase')->whereIn('id',  $massage_live_ids)->get();
             if ($profile->isNotEmpty()) {
                 $profile->map(function ($item) {
 
                 $item->start_date = 
                 $item->isListingExtended = $item->isListingExtended(); 
+                $item->latest_entry = $item->latestPurchase;
                 return $item;
             });
             return $profile;
