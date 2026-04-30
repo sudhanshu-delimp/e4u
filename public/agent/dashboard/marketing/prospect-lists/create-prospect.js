@@ -935,7 +935,7 @@ $(document).ready(function () {
             method: 'GET',
             success: function (res) {
                 if (res.status === true) {
-                    $('.append_appointment_list').html(res.data.html);
+                    $('#appointment_centers_list').html(res.data.html);
                     $('#appointmentModal').modal('show');
                 } else {
                     showAlert('error', 'Failed to load appointment list');

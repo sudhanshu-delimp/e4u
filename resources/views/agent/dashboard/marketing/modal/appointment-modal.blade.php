@@ -14,7 +14,7 @@
                 <div class="modal-body">
 
                     <!-- Static List -->
-                    <ul class="append_appointment_list">
+                    <ul class="list-group" id="appointment_centers_list">
                         
 
                     </ul>
