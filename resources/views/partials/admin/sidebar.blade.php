@@ -1403,7 +1403,7 @@
                             <div id="ShareRegister" class="collapse @if (in_array(request()->segment(3), ['shareholder','share-value'])) show @endif" data-parent="#ShareholdersMenu">
 
                                 <div class="py-0 collapse-inner rounded mb-2">
-                                    <a class="collapse-item" href="{{ route('admin.shareholder') }}">
+                                    <a class="collapse-item" href="{{ route('admin.manage.shareholding') }}">
                                         <img src="{{ asset('assets/dashboard/img/menu-icon/shareholder.png') }}">
                                         <span
                                             style="{{ request()->segment(3) == 'shareholder' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>

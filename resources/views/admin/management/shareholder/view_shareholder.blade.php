@@ -80,32 +80,32 @@
                         </tr>
                     </tbody>
                 </table>
-                 <!-- Key Contact -->
-            @if ($shareholder->contacts)
-                @foreach ($shareholder->contacts as $contact)
-                 <h6 class="text-blue-primary">Key Contact {{ $contactKey }}</h6>
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Contact</th>
-                            <td width="60%">{{ $contact->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Mobile</th>
-                            <td>{{ $contact->mobile }}</td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ $contact->email }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                 @php
-                        $contactKey = $contactKey + 1;
-                    @endphp
-                @endforeach
-            @endif
-            <!-- End Key Contact -->
+                <!-- Key Contact -->
+                @if ($shareholder->contacts)
+                    @foreach ($shareholder->contacts as $contact)
+                        <h6 class="text-blue-primary">Key Contact {{ $contactKey }}</h6>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th width="40%">Contact</th>
+                                    <td width="60%">{{ $contact->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Mobile</th>
+                                    <td>{{ $contact->mobile }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ $contact->email }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @php
+                            $contactKey = $contactKey + 1;
+                        @endphp
+                    @endforeach
+                @endif
+                <!-- End Key Contact -->
             </div>
             <div class="col-12 my-2">
 
@@ -137,3 +137,6 @@
                         aria-label="Close">Close</button>
                 </form>
             </div>
+        </div>
+    </div>
+</div>

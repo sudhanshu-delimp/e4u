@@ -201,6 +201,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Shareholder\ShareholderInterface',
             'App\Repositories\Shareholder\ShareholderRepository'
         );
+        $this->app->bind(
+            'App\Repositories\Shareholding\ShareholdingInterface',
+            'App\Repositories\Shareholding\ShareholdingRepository'
+        );
     }
 
     /**

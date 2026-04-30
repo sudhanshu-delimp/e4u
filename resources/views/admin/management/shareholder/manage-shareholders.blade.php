@@ -27,7 +27,7 @@
                                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                     <ol class="level-1">
                                         <li>Create and manage Shareholders here.</li>
-                                        <li>Shareholdings are managed from <a href="{{ route('admin.shareholder') }}"
+                                        <li>Shareholdings are managed from <a href="{{ route('admin.manage.shareholding') }}"
                                                 class="custom_links_design">Share Register</a>. </li>
                                     </ol>
                                 </div>

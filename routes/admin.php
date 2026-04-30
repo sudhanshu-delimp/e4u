@@ -42,6 +42,7 @@ use App\Http\Controllers\Admin\AgentExcelDataManageController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\ShareholderController;
 use App\Http\Controllers\Admin\CommunityController;
+use App\Http\Controllers\Admin\ShareholdingController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -167,14 +168,6 @@ Route::get('shareholders/portfolio', function () {
 Route::get('shareholders/e4u-revenue', function () {
     return view('admin.management.shareholders.e4u-revenue');
 })->name('admin.e4u-revenue');
-
-Route::get('shareholders/registrations', function () {
-    return view('admin.management.shareholders.registrations');
-})->name('admin.registrations');
-
-Route::get('shareholders/shareholder', function () {
-    return view('admin.management.shareholders.shareholder');
-})->name('admin.shareholder');
 
 Route::get('shareholders/share-value', function () {
     return view('admin.management.shareholders.share-value');
@@ -404,6 +397,19 @@ Route::post('/approve-shareholder-account', [ShareholderController::class, 'appr
 Route::post('/delete-shareholder-account', [ShareholderController::class, 'deleteUser'])->name('admin.delete.shareholder.account');
 Route::delete('/key-contact-delete', [ShareholderController::class, 'destroy'])->name('admin.delete.shareholder.contact');
 
+/** Manage shareholding */
+Route::get('/shareholders/shareholding', [ShareholdingController::class, 'shareholdingList'])->name('admin.manage.shareholding');
+Route::post('/management/add-shareholding', [ShareholdingController::class, 'addShareholding'])->name('admin.add.shareholder');
+Route::get('shareholding_list_data_table', [ShareholdingController::class, 'ShareholdingDataList'])->name('admin.shareholding_list_data_table');
+Route::get('/get_shareholding/{id}', [ShareholdingController::class, 'getShareholding'])->name('admin.get.shareholding');
+Route::get('/edit-shareholding/{id}', [ShareholdingController::class, 'editShareholding'])->name('admin.edit-shareholding');
+Route::post('/store-shareholding', [ShareholdingController::class, 'updateShareholding'])->name('admin.store-shareholding');
+Route::get('/view-shareholding/{id}', [ShareholdingController::class, 'viewShareholding'])->name('admin.view-shareholding');
+Route::post('/print-shareholding', [ShareholdingController::class, 'printShareholdingDetails'])->name('admin.shareholding');
+
+Route::get('shareholders/registrations', function () {
+    return view('admin.management.shareholders.registrations');
+})->name('admin.registrations');
 
 // Route::get('reports/advertiser-suspensions',function(){
 //     return view('admin.reports.advertiser-suspensions');
