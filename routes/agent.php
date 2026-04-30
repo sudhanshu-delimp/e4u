@@ -137,6 +137,9 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     Route::get('marketing/prospect-list/view-centerlist/{id}', [ProspectListController::class, 'viewCenterList'])->name('agent.marketing.prospect.view.centerlist');
     //print view page
     Route::get('marketing/prospect-list/print-view/{id}', [ProspectListController::class, 'printView'])->name('agent.marketing.prospect.print.view');
+    //Information Package
+    Route::get('marketing/information-packages/list', [ProspectListController::class, 'informationPackageList'])->name('agent.marketing.information.package.list');
+
 
     //Demo
     Route::get('marketing/prospect-list/demo1', function(){
@@ -150,6 +153,7 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
 
     //Save Report
     Route::get('marketing/save-report/report-list', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');
+    Route::get('marketing/save-report/view-appointment-list/{id}', [ProspectListController::class, 'appointmentList'])->name('agent.marketing.save.report.appointment.list');
     
      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');
@@ -210,9 +214,6 @@ Route::get('forms',function(){
 })->name('agent.forms');
 
 
-    Route::get('Marketing/create-information-package',function(){
-    return view('agent.dashboard.marketing.create-information-package');
-})->name('marketing.create-information-package');
 
     Route::get('Fees/monthly-report',function(){
     return view('agent.dashboard.Fees.monthly-report');

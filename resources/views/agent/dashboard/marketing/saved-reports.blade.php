@@ -29,7 +29,16 @@
         #mergeList table td {
             vertical-align: middle;
         }
+
+        .border {
+            border: 1px solid #d1d3e2 !important;
+        }
+
+        .list-group-item+.list-group-item {
+            border-top-width: 1px;
+        }
     </style>
+
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -86,6 +95,8 @@
     @include('agent.dashboard.marketing.modal.merge-type-modal') {{-- Merge Type --}}
     @include('agent.dashboard.marketing.modal.view-list-modal') {{-- view Modal  --}}
     @include('agent.dashboard.marketing.modal.view-report-modal') {{-- Merged Documents modal --}}
+    @include('agent.dashboard.marketing.modal.appointment-modal') {{-- Appointment Modal --}}
+    @include('agent.dashboard.marketing.modal.search-modal') {{-- Search Modal --}}
 
 
 
@@ -104,7 +115,9 @@
         data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
         data-update-save-report="{{ route('agent.marketing.prospect.update.save.report') }}"
         data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist', ['id' => '__ID__']) }}"
-        data-save-report-list="{{ route('agent.marketing.save.report.list') }}"></div>
+        data-save-report-list="{{ route('agent.marketing.save.report.list') }}"
+        data-view-approspectlist="{{ route('agent.marketing.save.report.appointment.list',  ['id' => '__ID__']) }}"
+        ></div>
 @endsection
 @push('script')
     <!-- file upload plugin start here -->
@@ -117,6 +130,6 @@
 
 
 
-    {{-- <script src="{{ asset('agent/dashboard/marketing/save-report/save-reports.js') }}"></script> --}}
+
     <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>
 @endpush

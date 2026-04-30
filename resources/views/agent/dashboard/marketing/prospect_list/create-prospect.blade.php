@@ -408,6 +408,7 @@
         data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
         data-update-save-report="{{route('agent.marketing.prospect.update.save.report')}}"
         data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist',  ['id' => '__ID__']) }}"
+      
         
         
         ></div>

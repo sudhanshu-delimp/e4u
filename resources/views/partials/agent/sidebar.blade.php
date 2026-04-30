@@ -98,7 +98,7 @@
                     'summary',
                     'submit_ticket',
                     'my-income',
-                    'create-information-package',
+                    'information-packages',
                     'prospect-list',
                     'database-centres',
                     'save-report',
@@ -205,7 +205,7 @@
                     <span>Marketing</span>
                 </a>
                 
-                <div id="marketing" class=" collapse  @if (request()->segment(3) == 'create-information-package' ||
+                <div id="marketing" class=" collapse  @if (request()->segment(3) == 'information-packages' ||
                         request()->segment(3) == 'prospect-list' ||
                         request()->segment(3) == 'database-centres' ||
                         request()->segment(3) == 'save-report') show @endif;"
@@ -217,10 +217,10 @@
                                 style="{{ request()->segment(3) == 'database-centres' ? 'color: #e5365a;' : '' }}">Database
                                 (Centres)</span>
                         </a>
-                        <a class="collapse-item" href="{{ route('marketing.create-information-package') }}">
+                        <a class="collapse-item" href="{{ route('agent.marketing.information.package.list') }}">
                             <img src="{{ asset('assets/app/img/helptips.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : '' }}">Information
+                                style="{{ request()->segment(3) == 'information-packages' ? 'color: #e5365a;' : '' }}">Information
                                 Packages</span>
                         </a>
                         <a class="collapse-item"

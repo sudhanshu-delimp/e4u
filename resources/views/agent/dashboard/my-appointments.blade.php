@@ -1552,6 +1552,18 @@
         }
         appointmentCountUpdate();
 
+
+        function openNewAppointmentModal(){
+                var hash = window.location.hash;
+                if (hash) {
+                    var modal = $(hash);
+                    if (modal.length) {
+                        modal.modal('show');
+                    }
+                }
+        }
+        openNewAppointmentModal();
+
        
     });
 

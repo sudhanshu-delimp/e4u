@@ -15,6 +15,7 @@ const endpoint = {
     update_save_report: mmRoot.data('update-save-report'),
     view_centerlist_url: mmRoot.data('view-centerlist-url'),
     save_report_list: mmRoot.data('save-report-list'),
+    view_approspectlist:mmRoot.data('view-approspectlist'),
 
 };
 
@@ -26,7 +27,6 @@ const endpoint = {
 $(document).ready(function () {
 
     //Save Report table
-
     var saveReportTable = $("#save_report_table").DataTable({
         ajax: {
             url: endpoint.save_report_list,
@@ -39,11 +39,10 @@ $(document).ready(function () {
         processing: false,
         serverSide: true,
         paging: true,
-        lengthChange: false,
-        searching: true, // disable default search
+        lengthChange: true,
+        searching: true,
         bStateSave: true,
         ordering: true,
-        //order: [[1, 'desc']],
         lengthMenu: [
             [10, 25, 50, 100],
             [10, 25, 50, 100]
@@ -509,6 +508,13 @@ $(document).ready(function () {
             $('#report_id').val(reportId);
         } else if (actionType === 'View') {
             viewReport(reportId);
+        } else if (actionType === 'Appointment') {
+            //$('#appointmentModal').modal('show');
+            viewAppointment(reportId);
+        } else if (actionType === 'Search') {
+            //alert('Search functionality coming soon!');
+             $('#searchCenterModal').modal('show');
+            // $('#search_report_id').val(reportId);
         }
 
     });
@@ -670,13 +676,13 @@ $(document).ready(function () {
 
     // Load Reports on Page Load 
     function loadReports() {
-        if($.fn.DataTable.isDataTable('#save_report_table')){
-            saveReportTable.ajax.reload(null, false); 
+        if ($.fn.DataTable.isDataTable('#save_report_table')) {
+            saveReportTable.ajax.reload(null, false);
         }
         $.ajax({
             url: endpoint.reports_url,
             success: function (res) {
-               
+
                 if (res.data && res.data.length) {
                     reportsTable.clear().rows.add(res.data).draw();
                 }
@@ -921,6 +927,26 @@ $(document).ready(function () {
 
     }
 
+
+    //showing appointment list
+    function viewAppointment(id) {
+        $.ajax({
+            url: endpoint.view_approspectlist.replace('__ID__', id),
+            method: 'GET',
+            success: function (res) {
+                if (res.status === true) {
+                    $('.append_appointment_list').html(res.data.html);
+                    $('#appointmentModal').modal('show');
+                } else {
+                    showAlert('error', 'Failed to load appointment list');
+                }
+            },
+            error: function (err) {
+                 showAlert('error', 'Failed to load appointment list');
+             
+            }
+        });
+    }
 
 
 

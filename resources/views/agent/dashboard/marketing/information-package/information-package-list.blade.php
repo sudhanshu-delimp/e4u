@@ -1,0 +1,386 @@
+@extends('layouts.agent')
+@section('style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+@endsection
+@section('content')
+    <style type="text/css">
+        .border {
+            border: 1px solid #d1d3e2 !important;
+        }
+
+        .list-group-item+.list-group-item {
+            border-top-width: 1px;
+        }
+    </style>
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        <!--middle content end here-->
+        {{-- Page Heading   --}}
+        <div class="row">
+            <div class="custom-heading-wrapper col-lg-12">
+                <h1 class="h1">Information Package</h1>
+                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
+                    aria-expanded="true">Help?</span>
+            </div>
+            <div class="col-md-12 mb-4">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol>
+                            <li>All lists are created according to a post code (<b>List</b>). Go to <a
+                                    href="{{ route('agent.marketing.prospect.list') }}" class="custom_links_design">Prospect
+                                    Lists </a> to create a List.</li>
+                            <li>If you merged a List it will be saved here.</li>
+                            <li>You can manage your merged Lists by:
+                                <ol class="level-2">
+                                    <li>emailing to the prospective Member;</li>
+                                    <li>printing a hard copy for mailing to the prospective Member;</li>
+                                    <li>printing a hard copy for binding and presenting to a prospective Member at an
+                                        appointment; and</li>
+                                    <li>Creating an appointment in My Appointments.</li>
+
+                                </ol>
+                                <p>You should check the information set out in the Information Package before presenting
+                                    it to the prospective Member.</p>
+                            </li>
+                            <li>Click the 'View' button to view the Information Package in full.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end --}}
+
+        {{-- Information Packages --}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive-xl">
+                    <table class="table" id="infoPackTable">
+                        <thead class="bg-first">
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Date Generated</th>
+                                <th>Post Code</th>
+                                <th>Listings</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>105</td>
+                                <td>15-12-2025</td>
+                                <td>6000 - 6004</td>
+                                <td>35</td>
+                                <td>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink" x-placement="bottom-end">
+                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                                                href="#" data-target="#centresModal" data-toggle="modal"> <i
+                                                    class="fa fa-eye"></i>
+                                                View</a>
+
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                                                href="#" data-target="#search" data-toggle="modal"> <i
+                                                    class="fa fa-search"></i>
+                                                Search</a>
+
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{-- end --}}
+    </div>
+
+    {{-- @include('agent.dashboard.modal.view-list-modal') --}}
+    {{-- search modal --}}
+    {{-- search-modal --}}
+    {{-- <div class="modal fade upload-modal" id="search" tabindex="-1" role="dialog" aria-labelledby="searchlabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/search.png') }}" class="custompopicon">
+                        <span class="text-white">Search </span>
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour text-center">
+                    <h4 class="custom_modal_text">Search the Information Package document you are looking
+                        for by the ID contained in the List.</h4>
+                    <form>
+                        <div class="row mt-3">
+                            <div class="col-md-6 mx-auto">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="id_number"
+                                        placeholder="Insert ID Number">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Save Button -->
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group text-center">
+                                    <button type="button" class="btn-success-modal" id="search_button"
+                                        data-target="#view_list" data-toggle="modal">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    {{-- end --}}
+
+
+    {{-- View list Modal --}}
+    {{-- searching-list-date --}}
+    {{-- <div class="modal fade upload-modal bd-example-modal-lg" id="view_list" tabindex="-1" role="dialog"
+        aria-labelledby="view_listLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="view_list"><img
+                            src="{{ asset('assets/dashboard/img/profile-report.png') }}" class="custompopicon">View List
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive profile_summary">
+                        <table cellpadding="8" cellspacing="0" width="100%"
+                            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+
+                            <thead class="bg-first">
+                                <!-- Table Headings -->
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Business Name</td>
+                                    <td>Address</td>
+                                    <td>Post Code</td>
+                                    <td>Mobile Number</td>
+                                    <td>Business Number</td>
+                                    <td>Done</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>369</td>
+                                    <td>Body Heat Massage</td>
+                                    <td>62 Gordon Rd East Osborne Park</td>
+                                    <td>6000</td>
+                                    <td>0456 665 012</td>
+                                    <td>9236 2587</td>
+                                    <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>256</td>
+                                    <td>Healthland</td>
+                                    <td>510 Murray St Perth</td>
+                                    <td>6000</td>
+                                    <td>0426 610 881</td>
+                                    <td>9325 2011</td>
+                                    <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>147</td>
+                                    <td>Esquire Spa and Massage</td>
+                                    <td>11 Aberdeen St Perth</td>
+                                    <td>6000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="modal-footer mt-3">
+                        <a href="{{ route('printreport') }}" target="_blank"
+                            class="btn-cancel-modal text-white">Print</a>
+                        <a href="download-report" download="report" class="btn-success-modal text-white">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    {{-- end --}}
+
+    {{-- view Massage merged list Modal --}}
+    {{-- all-merge-massage-centre-list --}}
+    {{-- <div class="modal fade upload-modal" id="centresModal" tabindex="-1" aria-labelledby="centresModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered ">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="view_list"><img src="{{ asset('assets/dashboard/img/merge.png') }}"
+                            class="custompopicon">All Massage Centres (Merged List)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Static List -->
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Tranquil Touch</h6>
+                                <small class="text-muted">Connaught Place</small>
+                            </div>
+                            <a href="{{ route('agent.my.appointment.list') }}" class="btn-appointment">Make
+                                Appointment</a>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Healing Hands</h6>
+                                <small class="text-muted">Greater Kailash</small>
+                            </div>
+                            <a href="{{ route('agent.my.appointment.list') }}" class="btn-appointment">Make
+                                Appointment</a>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Zen Retreat</h6>
+                                <small class="text-muted">Hauz Khas</small>
+                            </div>
+                            <a href="{{ route('agent.my.appointment.list') }}" class="btn-appointment">Make
+                                Appointment</a>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Soothing Springs</h6>
+                                <small class="text-muted">Saket</small>
+                            </div>
+                            <a href="{{ route('agent.my.appointment.list') }}" class="btn-appointment">Make
+                                Appointment</a>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Quiet Waves</h6>
+                                <small class="text-muted">Karol Bagh</small>
+                            </div>
+                            <a href="{{ route('agent.my.appointment.list') }}" class="btn-appointment">Make
+                                Appointment</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
+    @include('agent.dashboard.marketing.modal.all-merge-massage-centre-list')
+    @include('agent.dashboard.marketing.modal.searching-list-date')
+    @include('agent.dashboard.marketing.modal.search-modal') 
+    {{-- end --}}
+@endsection
+@push('script')
+    <!-- file upload plugin start here -->
+    <!-- file upload plugin end here -->
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Init DataTable
+            var table = $("#infoPackTable").DataTable({
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by ID or Post Code"
+                },
+                info: true,
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                bStateSave: true,
+                lengthMenu: [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+                pageLength: 10,
+                columns: [{
+                        data: 'id',
+                        name: 'id',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'date_generated',
+                        name: 'date_generated',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'post_code',
+                        name: 'post_code',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'listings',
+                        name: 'listings',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        class: 'text-center'
+                    },
+                ],
+            });
+        });
+    </script>
+@endpush

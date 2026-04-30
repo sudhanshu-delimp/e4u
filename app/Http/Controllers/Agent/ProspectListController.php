@@ -93,15 +93,18 @@ class ProspectListController extends Controller
 
     public function storeReport(Request $request)
     {
+
+
         try {
             $type = $request->type;
-
+    
             if ($type === 'single' && $request->post_code) {
                 $postCodeLabel = $request->post_code;
             } elseif ($type === 'multiple' && $request->from && $request->to) {
                 $postCodeLabel = $request->from . ' - ' . $request->to;
             } else {
-                $postCodeLabel = 'All (' . (auth()->user()->state_abbr ?? 'State') . ')';
+
+                $postCodeLabel = 'All (' . ($this->getStateDetail(auth()->user()->state_id, 'abbr') ?? 'State') . ')';
             }
 
 
@@ -202,6 +205,13 @@ class ProspectListController extends Controller
                         . '<i class="fa fa-print"></i> Print</a>';
                     $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="View" data-report-id="' . $row->id . '">'
                         . '<i class="fa fa-eye"></i> View</a>';
+                    if(!empty($row->merge_center_ids)){
+                        $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="Appointment" data-report-id="' . $row->id . '">'
+                                       . '<i class="fa fa-calendar"></i> Appointment</a>';
+                    }
+                
+                    $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="Search" data-report-id="' . $row->id . '">'
+                        . '<i class="fa fa-search"></i> Search</a>';
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -510,7 +520,7 @@ class ProspectListController extends Controller
                 ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
                 ->get();
 
-               
+
 
             $html = view('agent.dashboard.marketing.modal.centre-list-view-table', [
                 'centres' => $centers,
@@ -561,18 +571,18 @@ class ProspectListController extends Controller
 
     public function printView($id)
     {
-         $decryptedId = Crypt::decrypt($id);
+        $decryptedId = Crypt::decrypt($id);
         try {
             $report = ProspectReport::where('id', $decryptedId)
                 ->where('agent_id', auth()->id())
                 ->firstOrFail();
 
-                $data = [
-                    'report_from' => Auth::user()->business_name ?? 'Agent',
-                    'date_generated' => $report->created_at->format('d-m-Y') ?? 'NA',
-                    'post_code' => $report->post_code_label ?? 'NA',
-                    'listings' => $report->listings_count ?? 0,
-                ];
+            $data = [
+                'report_from' => Auth::user()->business_name ?? 'Agent',
+                'date_generated' => $report->created_at->format('d-m-Y') ?? 'NA',
+                'post_code' => $report->post_code_label ?? 'NA',
+                'listings' => $report->listings_count ?? 0,
+            ];
 
             $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
                 ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
@@ -588,6 +598,35 @@ class ProspectListController extends Controller
         }
     }
 
+    //for appointment modal
+    public function appointmentList($id)
+    {
+        try {
+            $report = ProspectReport::where('id', $id)
+                ->where('agent_id', auth()->id())
+                ->firstOrFail();
+
+
+            $centers = MassageExcel::whereIn('id', $report->merge_center_ids)
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get();
+
+            $html = view('agent.dashboard.marketing.modal.appointment-list-view-table', [
+                'centers' => $centers,
+                'report' => $report,
+            ])->render();
+
+            return success_response(['html' => $html], "Ok", 200, []);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch center list: ' . $e->getMessage(), 500);
+        }
+    }
+
+    // Information Package function 
+    public function informationPackageList()
+    {
+        return view('agent.dashboard.marketing.information-package.information-package-list');
+    }
 
 
     public function testPDF()
@@ -615,5 +654,24 @@ class ProspectListController extends Controller
             'Content-Type'        => 'application/pdf',
             'Content-Disposition' => 'inline; filename="test.pdf"', // attachment → inline
         ]);
+    }
+
+
+    private  function getStateDetail($stateId, $type = 'abbr')
+    {
+        $states = config('escorts.profile.states');
+
+        if (!isset($states[$stateId])) {
+            return null;
+        }
+
+        $state = $states[$stateId];
+
+        return match ($type) {
+            'name' => $state['stateName'] ?? null,
+            'abbr' => $state['stateAbbr'] ?? null,
+            'timezone' => $state['timeZone'] ?? null,
+            default => $state,
+        };
     }
 }
