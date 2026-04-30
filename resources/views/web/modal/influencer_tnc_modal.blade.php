@@ -20,9 +20,7 @@
                         <div class="content_wrapper influencer-modal p-4">
 
                             <div class="content_details">
-                                <h3><b>Influencer Terms and Conditions</b></h3>
-
-
+                                <h3>Influencer Terms and Conditions</h3>
                                 <p>
                                     In these Influencer terms and conditions (<b>Influencer Terms</b>), when we say
                                     <b>you</b> or <b>your</b>, we
@@ -35,7 +33,7 @@
                             </div>
                             {{-- 1 --}}
                             <div class="content_details">
-                                <h3 class="mb-3 content_align"><span>1.</span><b>Application and Acceptance</b></h3>
+                                <h3 class="mb-3 content_align"><span>1.</span> Application and Acceptance </h3>
 
                                 <div class="content_align">
                                     <span>1.1</span>
@@ -68,7 +66,7 @@
 
                             {{-- 2 --}}
                             <div class="content_details">
-                                <h3 class="mb-3 content_align"><span>2.</span><b>Engagement</b></h3>
+                                <h3 class="mb-3 content_align"><span>2.</span>Engagement</h3>
 
                                 <div class="content_align">
                                     <span>2.1</span>
@@ -114,7 +112,7 @@
 
                             {{-- 3 --}}
                             <div class="content_details">
-                                <h3 class="mb-3 content_align"><span>3.</span><b>Your Responsibilities</b></h3>
+                                <h3 class="mb-3 content_align"><span>3.</span>Your Responsibilities</h3>
 
                                 
 
@@ -175,7 +173,7 @@
 
                             {{-- 4 --}}
                             <div class="content_details">
-                                <h3 class="mb-3 content_align"><span>4.</span><b>Intellectual Property</b></h3>
+                                <h3 class="mb-3 content_align"><span>4.</span>Intellectual Property</h3>
 
                                 <div class="content_align">
                                     <span>4.1</span>
@@ -226,7 +224,7 @@
 
                             {{-- 5 --}}
                             <div class="content_details">
-                                <h3 class="mb-3 content_align"><span>5.</span><b>Term and Termination</b></h3>
+                                <h3 class="mb-3 content_align"><span>5.</span>Term and Termination</h3>
 
                                 <div class="content_align">
                                     <span>5.1</span>
@@ -300,7 +298,7 @@
 
                             {{-- 6 --}}
                             <div class="content_details">
-                                <h3 class="mb-3 content_align"><span>6.</span><b>General</b></h3>
+                                <h3 class="mb-3 content_align"><span>6.</span>General</h3>
 
                                 <div class="content_align">
                                     <span>6.1</span>

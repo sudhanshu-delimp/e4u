@@ -157,32 +157,33 @@
                     <textarea class="form-control" id="comments" name="comments" placeholder="Message" rows="3"></textarea>
                 </div>
 
-                <div class="form-check">
+                <div class="form-check pb-0">
                     <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
                     <label class="form-check-label" for="ccEmail">CC email to me</label>
                 </div>
-                <div class="form-check">
+                <div class="form-check pb-0">
                      <input class="form-check-input" type="checkbox" id="tnc" checked name="tnc">
                     <label class="form-check-label" for="tnc"> I have read and agree to the Influencer <a href="javascript:void(0)" data-toggle="modal" data-target="#InfluencerTnc">Terms and Conditions</a></label>
                    
                 </div>
-                <div class="d-flex justify-content-between align-items-end gap-10">
-                   <div class="w-25">
+                <div class="p-2">
+                    <label style="font-size: 13px"><sup>(*)</sup>Geolocation in use.</label>
+                </div>
+                <div class="row">
+                   <div class="col-12 col-sm-12  col-md-3 col-lg-3 col-xl-3 mb-2 d-flex">
                         <button type="submit" class="common-btn send_request_btn">Send Request</button>
                    </div>
-                    <div>
-                        <div class="geo-font">
-                        <label class="form-check-label"><sup>(*)</sup>Geolocation in use.</label>
-                    </div>
-                    <div class="border p-1 border_color rounded text-justify">
+                    <div class="col-12 col-sm-12  col-md-9 col-lg-9 col-xl-9 mb-2 d-flex">
                         
-                        <small>
-                            Any personal information submitted to this Website will be handled in accordance with
-                            E4U's <a class="termsandconditions_text_color" href="privacy-policy" target="_blank" style="font-size: 13px;">Privacy Policy</a> and
-                            <a href="privacy-collection-notice" class="termsandconditions_text_color" target="_blank" style="font-size: 13px;">Privacy Collection Notice</a>, both
-                            available on the Website.
-                        </small>
-                    </div>
+                        <div class="border px-2 border_color rounded text-justify">
+                            
+                            <small>
+                                Any personal information submitted to this Website will be handled in accordance with
+                                E4U's <a class="termsandconditions_text_color" href="privacy-policy" target="_blank" style="font-size: 13px;">Privacy Policy</a> and
+                                <a href="privacy-collection-notice" class="termsandconditions_text_color" target="_blank" style="font-size: 13px;">Privacy Collection Notice</a>, both
+                                available on the Website.
+                            </small>
+                        </div>
                     </div>
                 </div>
                 
@@ -282,13 +283,13 @@
             input.type = 'url';
             input.name = 'social_media[]';
             input.required = true;
-            input.className = 'form-control';
+            input.className = 'form-control rounded';
             input.placeholder = 'Social Media Address';
 
             // Create remove (X) button
             const removeBtn = document.createElement('button');
             removeBtn.type = 'button';
-            removeBtn.className = 'btn btn-outline-danger ml-2';
+            removeBtn.className = 'btn-cancel-modal py-1 ml-2';
             removeBtn.innerHTML = 'Remove Address';
             removeBtn.onclick = function() {
                 container.removeChild(inputGroup);
