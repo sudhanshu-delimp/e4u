@@ -117,6 +117,8 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
+           
+
 
             $home_state = auth()->user()->state_id;
             $localTimeZone  = config("escorts.profile.states.$home_state.timeZone");
@@ -169,7 +171,7 @@ class MassageController extends Controller
              $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
 
 
-             if($isBumpUped  && (!empty($isBumpUped )) && $is_live ){
+             if( $is_live && $isBumpUped  && (!empty($isBumpUped ))){
                 $profile_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
                 <small class="listing-tag-tooltip-desc">From ' . getMassageLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getMassageLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
                 </sup>';
@@ -1356,7 +1358,13 @@ class MassageController extends Controller
                 'activeUpcomingSuspend'
             ])
             ->where('massage_centre_id', auth()->user()->id)
-            ->whereIn('status', ['listed'])
+            ->whereIn('status', ['listed','pending'])
+            ->orderByRaw("CASE 
+                WHEN status = 'listed' THEN 1 
+                WHEN status = 'pending' THEN 2 
+            ELSE 3 
+            END")
+            ->limit(1)
             ->get();
 
             // echo '<pre>';
@@ -1367,7 +1375,7 @@ class MassageController extends Controller
 
             $data = $massagers->map(function ($row) use ($today) {
 
-
+                
                 $brb = [];
                 if(isset($row->brb) && (count($row->brb)>0))
                 $brb = json_decode(json_encode($row->brb),true);  

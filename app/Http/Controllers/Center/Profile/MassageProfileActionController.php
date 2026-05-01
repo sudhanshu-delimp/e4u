@@ -285,22 +285,11 @@ class MassageProfileActionController extends BaseController
                 $home_state = auth()->user()->state_id;
                 $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
 
-                $lastBump = MassageBumpup::where('user_id', auth()->user()->id)
-                    ->where('massage_id', $request->massage_id)
-                    ->orderByDesc('id')
-                    ->first();
-
-                if ($lastBump) {
-                    $utcStart = Carbon::parse($lastBump->utc_end_time)->addSecond();
-                } else {
-        
-                    $utcStart = Carbon::now('UTC');
-                }
-
-                $utcEnd = $utcStart->copy()->addHours(24);
-
-                $localStart = $utcStart->copy()->setTimezone($profileTimezone);
-                $localEnd   = $utcEnd->copy()->setTimezone($profileTimezone);
+                $nowLocal = Carbon::now($profileTimezone);
+                $localStart = $nowLocal->copy();
+                $localEnd   = $nowLocal->copy()->addHours(24);
+                $utcStart = $localStart->copy()->setTimezone('UTC');
+                $utcEnd = $localEnd->copy()->setTimezone('UTC');
 
                 MassageBumpup::create([
                     'user_id' => auth()->id(),

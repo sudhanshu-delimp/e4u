@@ -232,15 +232,15 @@ background:#16385f;
                               <table class="table mb-3" id="massage_list">
                                  <thead class="table-bg">
                                     <tr>
-                                    <th scope="col">Is Live</th>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Profile Name</th>
-                                    <th scope="col">Business Name</th>
-                                    <th scope="col">Business No</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Created Date</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col" class="text-center">Action</th>
+                                    <th>Is Live</th>
+                                    <th>ID</th>
+                                    <th>Profile Name</th>
+                                    <th>Business Name</th>
+                                    <th>Business No</th>
+                                    <th>Mobile</th>
+                                    <th>Created Date</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Action</th>
                                     </tr>
                                  </thead>
                                  <tbody class="table-content">
@@ -289,7 +289,6 @@ background:#16385f;
 
          <table class="summary-table" >
                      <thead>
-                           <tr>
                            <th>Listing</th>
                            <th>Business Name</th>
                            <th>Start Date</th>
@@ -505,10 +504,6 @@ $("#brb_form").on('submit', function(e)
                $("#brb_form")[0].reset();
                $('#add_brb').modal('hide');
                table.ajax.reload(null, false);
-               setTimeout(function() {
-                  window.location.href = "../center-dashboard/listing/current";
-               }, 1000);
-
             } else {
                Swal.fire({
                      icon: "error",
@@ -969,12 +964,12 @@ $("#bumpup_profile_form").on('submit', async function(e)
                },
                success: function(data) {
                      Swal.close();
+                     
                      if (data.success) {
                         table.ajax.reload(null, false);
-                        $("#bumpup_profile").modal('hide');
                         swal_success_popup(data.message);
-                        form.reset();
-                       
+                        $("#bumpup_profile").modal('hide');
+                      
                      
                      }
                      else{
