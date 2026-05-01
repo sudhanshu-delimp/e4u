@@ -43,7 +43,6 @@
 
     <script type="text/javascript" src="{{ asset('assets/plugins/ajax/libs/jquery/jquery.min.js') }}"></script>
 
-
     <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}">
     <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
    <style>
@@ -109,4 +108,6 @@
     @section('style')
 
     @show
+    
+
 </head>

@@ -94,7 +94,6 @@ class ProductOrderController extends Controller
             'city' => !empty(Auth::user()->city_id) ? $state['cities'][Auth::user()->city_id] : '',
             'country' => 'Australia'
           ];
-
           OrderAddress::create($orderAddress);
         }
       });

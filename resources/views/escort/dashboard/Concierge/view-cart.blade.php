@@ -324,11 +324,13 @@
 
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
+    <script>let loginUserId = '{{ Auth::user()->id }}';</script>
+    <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem('cart') || '{}');
+        let cart = getCart();
         let productIds = Object.keys(cart);
-        let finalCart = JSON.parse(localStorage.getItem("finalCart")) || [];
+        let finalCart = getFinalCart();
 
         let isDirty = false;
 
@@ -483,7 +485,7 @@
         }
 
         $(document).on("change", ".product-check", function() {
-            let finalCart = JSON.parse(localStorage.getItem("finalCart")) || [];
+            let finalCart = getFinalCart();
 
             let id = $(this).data("id");
             if (this.checked) {
@@ -492,15 +494,15 @@
             } else {
                 finalCart = finalCart.filter(itemId => itemId !== id);
             }
-
-            localStorage.setItem("finalCart", JSON.stringify(finalCart));
+            // localStorage.setItem("finalCart", JSON.stringify(finalCart));
+            saveFinalCart(finalCart);
             calculateTotals();
 
         });
 
         function next() {
             if (step === 1) {
-                let finalCart = JSON.parse(localStorage.getItem("finalCart")) || [];
+                let finalCart = getFinalCart();
 
                 if (Object.keys(finalCart).length === 0) {
                     Swal.fire('Please select at least one product before continuing.', '', 'error');
@@ -548,8 +550,8 @@
             btn.prop("disabled", true).text("Please wait...");
             // loader.show();
             // get details from local stoarge
-            let cart = JSON.parse(localStorage.getItem("cart"));
-            let finalCart = JSON.parse(localStorage.getItem("finalCart"));
+            let cart = getCart();
+            let finalCart = getFinalCart();
 
             // get final cart item 
             let itemDetails = Object.fromEntries(
@@ -560,7 +562,7 @@
             formData.delivery_type = $('input[name="delivery_type"]:checked').val();
 
             // get payment details like tax sub total toatal amount for corss check in backend before make payment
-            let paymentDetails = JSON.parse(localStorage.getItem("paymentDetails"));
+            let paymentDetails = getPaymentDetails();
 
             // set details to make order
             orderData.deliverDetails = formData;
@@ -603,8 +605,8 @@
                 result[item.name] = item.value;
             });
 
-            localStorage.setItem("deliveryAddress", JSON.stringify(result));
-
+            // localStorage.setItem("deliveryAddress", JSON.stringify(result));
+            saveDeliveryDetails(result);
             return result; // return to use in AJAX
         }
 
@@ -662,7 +664,7 @@
         }
 
         function updateDeliveryAddress() {
-            let saved = JSON.parse(localStorage.getItem("deliveryAddress"));
+            let saved = getDeliveryDetails();
 
             if (saved) {
                 // Fill text inputs & textarea
@@ -680,8 +682,8 @@
         }
 
         function updateOrderSummary() {
-            let cart = JSON.parse(localStorage.getItem('cart')) || {};
-            let finalCart = JSON.parse(localStorage.getItem('finalCart')) || [];
+            let cart = getCart()
+            let finalCart = getFinalCart();
             // calculate subtotal according final cart
             let subtotal = 0;
             finalCart.forEach(id => {
@@ -717,7 +719,8 @@
                 subtotal_payble: subtotal.toFixed(2)
             };
 
-            localStorage.setItem("paymentDetails", JSON.stringify(paymentData));
+            // localStorage.setItem("paymentDetails", JSON.stringify(paymentData));
+            savePaymentDetails(paymentData)
 
         }
         $('input[name="delivery_type"]').on('change', function() {
@@ -766,190 +769,5 @@
 
         // });
 
-
-
-        // $('#userProfile').on('submit', function(e) {
-        //     e.preventDefault();
-
-        //     var form = $(this);
-
-        //     if (form.parsley().isValid()) {
-
-        //         var url = form.attr('action');
-        //         var data = new FormData(form[0]);
-        //         $.ajax({
-        //             method: form.attr('method'),
-        //             url: url,
-        //             data: data,
-        //             contentType: false,
-        //             processData: false,
-        //             headers: {
-        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //             },
-        //             success: function(data) {
-        //                 if (!data.error) {
-        //                     $.toast({
-        //                         heading: 'Success',
-        //                         text: 'Details successfully saved',
-        //                         icon: 'success',
-        //                         loader: true,
-        //                         position: 'top-right', // Change it to false to disable loader
-        //                         loaderBg: '#9EC600' // To change the background
-        //                     });
-
-        //                 } else {
-        //                     $.toast({
-        //                         heading: 'Error',
-        //                         text: 'Records Not update',
-        //                         icon: 'error',
-        //                         loader: true,
-        //                         position: 'top-right', // Change it to false to disable loader
-        //                         loaderBg: '#9EC600' // To change the background
-        //                     });
-
-        //                 }
-        //             },
-
-        //         });
-        //     }
-        // });
-        // $('#city').select2({
-        //     allowClear: true,
-        //     placeholder: 'Select City',
-        //     createTag: function(params) {
-        //         var term = $.trim(params.term);
-
-        //         if (term === '') {
-        //             return null;
-        //         }
-        //         return {
-        //             id: term,
-        //             text: term,
-        //             newTag: false // add additional parameters
-        //         }
-        //     },
-        //     tags: false,
-        //     minimumInputLength: 2,
-        //     tokenSeparators: [','],
-        //     ajax: {
-        //         url: "{{ route('city.list') }}",
-        //         dataType: "json",
-        //         type: "GET",
-        //         data: function(params) {
-        //             console.log(params);
-        //             var queryParameters = {
-        //                 query: params.term,
-        //                 state_id: $('#state').val()
-        //             }
-        //             return queryParameters;
-        //         },
-        //         processResults: function(data) {
-        //             return {
-        //                 results: $.map(data, function(item) {
-
-        //                     return {
-        //                         text: item.name,
-        //                         id: item.id
-        //                     }
-        //                 })
-        //             };
-        //         }
-        //     }
-        // });
-
-        // $('#state').select2({
-        //     allowClear: true,
-        //     placeholder: 'Select State',
-        //     createTag: function(params) {
-        //         var term = $.trim(params.term);
-
-        //         if (term === '') {
-        //             return null;
-        //         }
-        //         return {
-        //             id: term,
-        //             text: term,
-        //             newTag: false // add additional parameters
-        //         }
-        //     },
-        //     tags: false,
-        //     minimumInputLength: 2,
-        //     tokenSeparators: [','],
-        //     ajax: {
-        //         url: "{{ route('state.list') }}",
-        //         dataType: "json",
-        //         type: "GET",
-        //         data: function(params) {
-        //             console.log(params);
-        //             var queryParameters = {
-        //                 query: params.term,
-        //                 country_id: $('#country').val()
-        //             }
-        //             return queryParameters;
-        //         },
-        //         processResults: function(data) {
-        //             return {
-        //                 results: $.map(data, function(item) {
-
-        //                     return {
-        //                         text: item.name,
-        //                         id: item.id
-        //                     }
-        //                 })
-        //             };
-        //         }
-        //     }
-        // });
-
-
-        // $('#country').on('change', function(e) {
-        //     if ($(this).val()) {
-        //         $('#state').prop('disabled', false);
-        //         $('#state').select2('open');
-        //     } else {
-        //         $('#state').prop('disabled', true);
-        //     }
-        // });
-
-        // $('#state').on('change', function(e) {
-        //     if ($(this).val()) {
-        //         $('#city').prop('disabled', false);
-        //         $('#city').select2('open');
-        //     } else {
-        //         $('#city').prop('disabled', true);
-        //     }
-        // });
-    </script>
-    <script>
-        // $(document).ready(function() {
-        //     $('#productTable').DataTable({
-        //         responsive: true,
-        //         language: {
-        //             search: "Search: _INPUT_",
-        //             searchPlaceholder: "Search by ID or Profile Name...",
-        //             lengthMenu: "Show _MENU_ entries",
-        //             zeroRecords: "No matching records found",
-        //             info: "Showing _START_ to _END_ of _TOTAL_ entries",
-        //             infoEmpty: "No entries available",
-        //             infoFiltered: "(filtered from _MAX_ total entries)"
-        //         },
-        //         initComplete: function() {
-        //             if ($('#returnToReportBtn').length === 0) {
-        //                 $('.dataTables_filter').append(
-        //                     '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-        //                 );
-        //             }
-        //             $('#returnToReportBtn').on('click', function() {
-        //                 var table = $('#productTable').DataTable();
-        //                 table.search('').draw();
-        //             });
-        //         },
-        //         "language": {
-        //             "zeroRecords": "There is no record of the search criteria you entered.",
-        //             searchPlaceholder: "Search by ID or Profile Name"
-        //         },
-        //         paging: true
-        //     });
-        // });
-    </script>
+ </script>
 @endpush

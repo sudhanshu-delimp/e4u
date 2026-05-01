@@ -20,10 +20,10 @@ class CreateOrderAddressesTable extends Migration
       $table->string('email', 100);
       $table->string('address_line1', 255);
       $table->string('address_line2', 255)->nullable();
-      $table->string('city', 100);
+      $table->string('city', 100)->nullable();
       $table->string('state', 100);
       $table->string('country', 100)->nullable();
-      $table->string('pincode', 20);
+      $table->string('pincode', 20)->nullable();
       $table->string('landmark', 255)->nullable();
       $table->timestamps();
 
