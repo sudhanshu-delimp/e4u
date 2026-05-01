@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-  public function getImageAttribute($value)
-{
-    return $value
-        ? asset('admin/products/escort.jpg')
+  public function getImageAttribute()
+  {
+    return $this->attributes['image']
+        ? asset('admin/products/' . $this->attributes['image'])
         : asset('admin/products/escort.jpg');
-}
+  }
 }

@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     try {
       $products = Product::get();
-
+ 
       return view("escort.dashboard.Concierge.products", compact("products"));
     } catch (Exception $e) {
       Log::error("product lists error" . $e->getMessage());

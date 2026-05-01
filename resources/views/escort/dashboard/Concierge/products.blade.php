@@ -111,9 +111,9 @@
                         <div class="card product-card">
 
                             <div class="product-image-wrapper">
-                                <img src="{{ asset('admin/products/escort.jpg') }}" class="card-img-top product-image"
+                                <img src="{{ $item->image }}" class="card-img-top product-image"
                                     data-title="{{ strip_tags($item->description) }}"
-                                    data-image="{{ asset('admin/products/escort.jpg') }}" style="cursor:pointer;">
+                                    data-image="{{ $item->image }}" style="cursor:pointer;">
                             </div>
 
                             <div class="card-body">
