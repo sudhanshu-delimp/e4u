@@ -89,11 +89,11 @@
 
 
         table td {
-            padding: .75rem .75rem .75rem .75rem !important;
+            padding: .40rem .50rem .50rem .75rem !important;
         }
 
         table th {
-            padding: .75rem .75rem .75rem .75rem !important;
+            padding: .40rem .50rem .50rem .75rem !important;
             font-weight: 500;
             vertical-align: middle;
 

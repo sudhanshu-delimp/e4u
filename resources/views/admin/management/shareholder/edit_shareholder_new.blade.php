@@ -66,9 +66,8 @@
                 </div>
                 <div class="col-6 mt-2">
                     <label class="form-check-label" for="phone">Mobile</label>
-                    <input type="tel" maxlength="14" autocomplete="off" class="form-control rounded-0 formatMobile"
-                        name="phone" id="phone" oninput="this.value = this.value.replace(/\D/g,'');"
-                        value="{{ $shareholder->phone }}" onfocus="this.value = this.value.replace(/\D/g,'');">
+                    <input type="tel" maxlength="14" autocomplete="off" class="form-control rounded-0"
+                        name="phone" id="phone" value="{{ $shareholder->phone }}" oninput="this.value = this.value.replace(/\D/g,'');" onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
                     <span class="text-danger error-phone"></span>
                 </div>
                 <div class="col-6 mt-2">

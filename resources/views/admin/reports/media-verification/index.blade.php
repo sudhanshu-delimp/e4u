@@ -168,7 +168,6 @@
         </div>
     </div>
 </div>
-
 @include('admin.reports.modal.view_image')
 @include('admin.reports.modal.view_tag')
 @include('admin.reports.modal.view_centre')

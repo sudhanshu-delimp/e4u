@@ -22,7 +22,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">
-                                <img src="{{ asset('assets/dashboard/img/save-setting.png') }}" class="custompopicon" id="modal-icon"> 
+                                <img src="{{ asset('assets/dashboard/img/upload-photos.png') }}" class="custompopicon" id="modal-icon"> 
                                 <span style="color:white" id="modal-title"></span>
                             </h5>
                             

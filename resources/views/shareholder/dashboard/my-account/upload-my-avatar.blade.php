@@ -188,12 +188,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h1 class="my-4 custom_modal_text" style="text-align: center;">
+                    <h1 class="custom_modal_text" style="text-align: center;">
                         <span id="comman_str">Are you sure you want to delete your avatar?</span>
                         <!-- <span class="comman_msg"></span> -->
                     </h1>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
+                <div class="modal-footer justify-content-center pt-0">
                     <button type="submit" class="btn-success-modal" id="confirmDelete" data-dismiss="modal"
                         id="close">Yes</button>
                     <button type="submit" class="btn-cancel-modal" id="cancelDelete" data-dismiss="modal"

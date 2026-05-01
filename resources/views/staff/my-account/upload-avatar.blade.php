@@ -199,7 +199,7 @@
                     <span id="comman_str">Are you sure you want to delete your avatar?</span>
                 </h1>
             </div>
-            <div class="modal-footer pt-0" style="justify-content: center;">
+            <div class="modal-footer justify-content-center pt-0">
                 <button type="submit" class="btn-success-modal" id="confirmDelete" data-dismiss="modal" id="close">Yes</button>
                 <button type="submit" class="btn-cancel-modal" id="cancelDelete" data-dismiss="modal" id="close">NO</button>
             </div>

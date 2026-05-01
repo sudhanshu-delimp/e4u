@@ -62,7 +62,7 @@
                                     Credit card
                                 </td>
                                 <td>43558</td>
-                                <td>10,160.57</td>
+                                <td>$ 45.00</td>
                                 <td>Skate Peter</td>
                                 <td>
                                     <span class="custom_badge badge_accepted">Success</span>
@@ -84,6 +84,7 @@
             </div>
         </footer>
         <!-- End of Footer -->
+
          @include('escort.dashboard.Concierge.modal.view_order_history_modal')
     @endsection
     @push('script')
