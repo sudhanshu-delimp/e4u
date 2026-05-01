@@ -171,7 +171,7 @@ Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'
 
 
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
-Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
 
 
  

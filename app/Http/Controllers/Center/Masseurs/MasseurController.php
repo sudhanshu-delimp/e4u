@@ -434,7 +434,7 @@ class MasseurController extends AppController
 
         return [
             'success' => true,
-            'message' => "Verification uploaded successfully."
+            'message' => "Verification uploaded successfully.\nPlease allow 24 hours for the verification to be completed."
         ];
     }
 
@@ -468,14 +468,17 @@ class MasseurController extends AppController
 
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
         $services = $masseur->service ?? [];
-    
-
+        $verification = MasseurVerification::where('masseur_id', $id)->where('status' , '0')->first();
+        
+        $imageUrl = $verification && $verification->image_path
+            ? asset('escorts/' . $verification->image_path)
+            : asset('assets/app/img/upload-media.png');
         
         $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
 
         //dd($masseur_availability);
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists'));
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists','imageUrl'));
     }
 
     public function update_masseur(Request $request)
@@ -747,16 +750,26 @@ class MasseurController extends AppController
     {
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id,$page_token, []);
+            $statusMap = [
+                'all'   => ['0','1','2'],
+                'verified'   => ['1'],
+                'unverified' => ['0','2'],
+            ];
+            $status = $statusMap[$status] ?? null;
             $mediaCategory = match ($category) {
                 'gallery' => $media->whereNotIn('position',[9,10]),
                 'banner'  => $media->whereIn('position',[9])->where('template','0'),
                 'pinup'   => $media->whereIn('position',[10]),
             };
+            if ($status !== null) {
+                $mediaCategory = $mediaCategory->whereIn('varified', $status);
+            }
             $path = $this->media;
             $response = [];
             $response['success'] = true;
             $response['category'] = $category;
-            $response['gallery_container_html'] = view('center.masseur.media_gallery_container',compact('mediaCategory','media','path','category'))->render();
+            $currentStatus =  $request->status ?? 'all';
+            $response['gallery_container_html'] = view('center.masseur.media_gallery_container',compact('mediaCategory','media','path','category','currentStatus'))->render();
             $response['gallery_modal_container_html'] = view('center.masseur.gallery_modal_container',compact('media','path'))->render();
             //$response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
             

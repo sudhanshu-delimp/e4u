@@ -688,21 +688,23 @@
                                             <div class="masseur_profile_wrapper">
                                                 <div class="mc_profile_img">
 
-                                                            @foreach ($messure_validImages as $index => $image)
-                                                                @if($loop->first)
-                                                                <img src="{{  $image['url'] }}" class="img-responsive"
-                                                                style="width: 305px;height: 374px;object-fit: cover;">
-                                                                @endif
-                                                                @php 
-                                                                    $status_detail =  getMediaVerificationDataBigIcon($image['img_data']->varified);
-                                                                @endphp
-                                                            @endforeach
+                                                   @foreach ($messure_validImages as $index => $image)
+                                                        @if($loop->first)
+                                                            @php 
+                                                                $status_detail = getMediaVerificationDataBigIcon($image['img_data']->varified);
+                                                            @endphp 
 
-                                                    <div class="veryfy_img">
-                                                        
-                                                        <img src="{{ $status_detail['icon'] }}">
-                                                        <span class="common_shield_tooltip">{{ $status_detail['label'] }}</span>
-                                                    </div>
+                                                            <img src="{{ $image['url'] }}" class="img-responsive"
+                                                            style="width: 305px;height: 374px;object-fit: cover;">
+
+                                                        @endif
+
+                                                    @endforeach
+
+                                                        <div class="veryfy_img">
+                                                            <img src="{{ $status_detail['icon'] }}">
+                                                            <span class="common_shield_tooltip">{{ $status_detail['label'] }}</span>
+                                                        </div>
                                                 </div>
 
                                                 <div class="masseur_extra_img">

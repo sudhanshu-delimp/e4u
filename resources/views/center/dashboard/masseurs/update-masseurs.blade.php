@@ -390,7 +390,7 @@
                                         <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
                                             <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                                 data-target="#add_photo_mcc">Add Photos</button>
-                                            <button type="button" disabled="" id="MediaVerification" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media Verification
+                                            <button type="button" disabled="" id="MediaVerification" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#veryfy_media">Media Verification
                                                 <span class="timer_tooltip"></span>
                                             </button>
                                         </div>
@@ -529,17 +529,17 @@
                                                         style="display: block;position: relative;top: 30%;">
                                                         <div class="row">
                                                             <div class="col-md-8">
-                                                                <ul class="nav nav-tabs border-0">
+                                                                <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type" >
                                                                     <li class="nav-item">
                                                                         <a class="nav-link active" id="menu_all"
-                                                                            data-toggle="tab" href="#home">All</a>
+                                                                            data-toggle="tab"  data-filter-type="all" href="#home">All</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="menu_varified" data-toggle="tab"
+                                                                        <a class="nav-link"  data-filter-type="verified" id="menu_varified" data-toggle="tab"
                                                                             href="#menu1">Verified</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="menu_unverified" data-toggle="tab"
+                                                                        <a class="nav-link"  data-filter-type="unverified" id="menu_unverified" data-toggle="tab"
                                                                             href="#menu2">Unverified</a>
                                                                     </li>
                                                                 </ul>
@@ -2068,13 +2068,19 @@
                 }
             });
         });
-
+        $(document).on('click', '#escort_profile_media_filter_type .nav-link', function(e) {
+            e.preventDefault();
+            $('#escort_profile_media_filter_type .nav-link').removeClass('active');
+            $(this).addClass('active');
+            getAccountMediaGallery();
+        });
 
         var getAccountMediaGallery = function() {
             let page_token = $('#page_token').val();
             let activeGalleryTab = $(".js_gallery_category .nav-link.active").attr('data-type');
+            let activeStatusTab = $("#escort_profile_media_filter_type .nav-link.active").attr('data-filter-type');
             return $.ajax({
-                url: `/center-dashboard/get-massuers-account-media-gallery/${activeGalleryTab}/${page_token}`,
+                url: `/center-dashboard/get-massuers-account-media-gallery/${activeGalleryTab}/${page_token}/${activeStatusTab}`,
                 type: "GET",
                 dataType: "json"
             }).done(function(response) {

@@ -22,6 +22,12 @@
         cursor: not-allowed;
         pointer-events: none;
     }
+
+    .printMasseursImgBtn.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
 </style>
 @endsection
 @section('content')
@@ -540,25 +546,46 @@
             $('.approveMasseursBtn').show();
             $('.rejectMasseursBtn').show();
         }
-        
+
+        $('.printMasseursImgBtn').attr('href', '/admin-dashboard/masseur-gallery-pdf/' + profile_verification_id + '/' + profile_id);
         $.ajax({
             url: "{{ route('admin.getProfileImages') }}",
             type: "GET",
             data: {
                 profile_id: profile_id,
-                verification_id: profile_verification_id
+                verification_id: profile_verification_id,
+                status: status
             },
 
             success: function(res) {
                 $('.view_img_gallery_masseur .thumbnail').html(res.thumbnail);
                 $('.view_img_gallery_masseur .other_images').html(res.gallery);
                 $('.view_img_gallery_masseur .verification').html(res.verification);
+                checkMasseurPrintBtn();  
             }
         });
 
     });
 
 
+
+function checkMasseurPrintBtn() {
+
+    let hasImages = $('.other_images .verify_icon_wrapper img').length > 0;
+
+    if (hasImages) {
+        $('.printMasseursImgBtn')
+            .removeClass('disabled')
+            .css('pointer-events', 'auto')
+            .attr('aria-disabled', 'false');
+    } else {
+        $('.printMasseursImgBtn')
+            .addClass('disabled')
+            .css('pointer-events', 'none')
+            .attr('aria-disabled', 'true');
+    }
+}
+        
     $(document).on('click', '.masseurs-approve-btn', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -664,6 +691,7 @@
                 if (response.status) {
                     swal.fire('', response.message, 'success');
                     $('#view_tag').modal('hide');
+                    $('#verify_masseur_images').modal('hide');
                 }
             },
             error: function(xhr) {

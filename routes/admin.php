@@ -304,7 +304,7 @@ route::get('/gallery-pdf/{id}/{user_id}', [MediaVerificationController::class, '
 route::post('/reports/masseurs-media-verification-list', [MediaVerificationController::class, 'masseursMediaVerificationList'])->name('admin.masseurs_media-verification-list');
 route::post('/reports/masseurs-media-verification-tag', [MediaVerificationController::class, 'masseursMediaVerificationTag'])->name('admin.masseurs_media-verification-tag');
 route::post('/reports/update-masseurs-media-verification', [MediaVerificationController::class, 'updateMasseursMediaVerification'])->name('admin.update-masseurs-media-verification');
-
+route::get('/masseur-gallery-pdf/{id}/{masseur_id}', [MediaVerificationController::class, 'masseurGalleryPdf'])->name('admin.masseur-gallery-pdf');
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');
 })->name('admin.support-tickets');
