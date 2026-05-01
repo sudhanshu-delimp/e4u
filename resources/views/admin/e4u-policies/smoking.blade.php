@@ -43,7 +43,7 @@
                                 vape smoke.</p>
                             <p>
                                Our values include being <i>Disciplined</i> and <i>Reliable</i> and therefore we act on our responsibilities
-to identify and remove potential and recognised risk to health and safety.
+                                to identify and remove potential and recognised risk to health and safety.
                             </p>
                         </div>
 
