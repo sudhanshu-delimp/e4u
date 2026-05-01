@@ -181,9 +181,10 @@ class MassageController extends Controller
                 $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>';     
                
 
-                if($is_live)
-                $status.= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
-                href="'.route('web.massage-description', $profile_url).'"> 
+                if(!$is_live)
+                $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+                href="javascript:void(0)" 
+                onclick="openModal(\''.route('web.massage-description', $profile_url).'\')"> 
                 <i class="fa fa-circle"></i> View
                 </a>'; 
                 else

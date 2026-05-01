@@ -323,7 +323,29 @@ background:#16385f;
 
       </div>
    </div>
-   <!-- End Payment Summary Modal -->
+<!-- End Payment Summary Modal -->
+
+<div class="modal fade upload-modal programmatic show" id="iframeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('../assets/dashboard/img/info.png') }}" class="custompopicon"> {{auth()->user()->member_id}} :  Profile </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('../assets/app/img/newcross.png') }} " class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                		<iframe id="modalFrame" width="100%" height="600px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 @endsection
 
@@ -983,6 +1005,18 @@ $("#bumpup_profile_form").on('submit', async function(e)
             });
       }
 });
+
+function openModal(url) 
+{
+    document.getElementById('modalFrame').src = url;
+    var modal = new bootstrap.Modal(document.getElementById('iframeModal'));
+    modal.show();
+}
+
+document.getElementById('iframeModal').addEventListener('hidden.bs.modal', function () {
+    document.getElementById('modalFrame').src = '';
+});
+
 // ########### End Bumpup Profile #########################
        
 </script>
