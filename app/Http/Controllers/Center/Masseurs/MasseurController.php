@@ -363,6 +363,21 @@ class MasseurController extends AppController
     }
 
 
+    public function uploadMasseurVerification(Request $request)
+    {
+        $request->validate([
+            'masseur_profile_id' => 'required',
+            'verification_image' => 'required|image'
+        ]);
+
+        $result = $this->mediaVerificationUpload(
+            $request->masseur_profile_id,
+            $request->file('verification_image')
+        );
+
+        return response()->json($result);
+    }
+
     public function mediaVerificationUpload($masseur_profile_id, $verification_image)
     {
         $user = auth()->user();
@@ -425,7 +440,6 @@ class MasseurController extends AppController
 
     public function edit_masseur(Request $request, $id)
     {
-        
         $masseur = Masseur::where('id',$id)->first();
         if(!$masseur || !$id){
         return redirect()->route('center.create-new-masseur');
@@ -1475,10 +1489,11 @@ class MasseurController extends AppController
 
       public function getMediaCOunt(Request $request)
         {
-            $masseur_gallery_ids = MasseurGallery::where('masseur_profile_id', $request->masseur_id)->pluck('masseur_media_id');
-            $query = MasseurMedia::whereIn('id',$masseur_gallery_ids);
+            $masseur_token_id = MasseurGallery::where('masseur_profile_id', $request->masseur_id)->pluck('masseur_token_id');
+            $query = MasseurMedia::whereIn('masseur_token_id',$masseur_token_id);
             // Total media count
             $total_media_count = (clone $query)->count();
+          
             // Media count for verification
             $media_count_for_verification = (clone $query)
                 ->whereIn('varified', ['0', '2'])

@@ -141,6 +141,8 @@ Route::get('profile-informations', [CenterProfileInformationController::class, '
 Route::get('get-media-count', [CenterProfileInformationController ::class, 'getMediaCOunt'])->name('center.get-media-count');
 
 Route::get('get-masseurs-media-count', [MasseurController ::class, 'getMediaCOunt'])->name('center.get-masseurs-media-count');
+Route::post('upload-masseur-verification', [MasseurController ::class, 'uploadMasseurVerification'])->name('center.upload-masseur-verification');
+
 
 Route::post('validate-phone', [MasseurController::class, 'validate_phone'])->name('center.validate-phone');;
 Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('center.create-new-masseur');
