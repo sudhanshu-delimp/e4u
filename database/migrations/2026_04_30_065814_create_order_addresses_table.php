@@ -14,6 +14,7 @@ class CreateOrderAddressesTable extends Migration
   public function up()
   {
     Schema::create('order_addresses', function (Blueprint $table) {
+      $table->id();
       $table->unsignedBigInteger('order_id');
       $table->enum('type', ['billing', 'shipping']);
       $table->string('phone', 20);
@@ -29,7 +30,6 @@ class CreateOrderAddressesTable extends Migration
 
       // FK
       $table->foreign('order_id')->references('id')->on('product_orders')->onDelete('cascade');
-
     });
   }
 

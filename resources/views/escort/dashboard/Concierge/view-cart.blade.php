@@ -9,6 +9,13 @@
             list-style: none;
             color: rgb(248, 0, 0)
         }
+
+        input[type="radio"].is-invalid+label {
+            color: red !important;
+        }
+        #swal2-title{
+          font-size:x-large;
+        }
     </style>
 @endsection
 @section('content')
@@ -324,7 +331,9 @@
 
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    <script>let loginUserId = '{{ Auth::user()->id }}';</script>
+    <script>
+        let loginUserId = '{{ Auth::user()->id }}';
+    </script>
     <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
 
     <script>
@@ -527,7 +536,6 @@
                 let data = saveStep2Data();
 
                 submitStep2Ajax(data, function() {
-
                     // Move to step 3 on success
                     step = 3;
                     localStorage.setItem("checkout_step", step);
@@ -535,6 +543,8 @@
                     step2.classList.remove("is-active");
                     bar2.style.width = "100%";
                     step3.classList.add("is-active");
+                    showStep();
+                    flushLocalStorage();
 
                 });
             }
@@ -565,7 +575,7 @@
             let paymentDetails = getPaymentDetails();
 
             // set details to make order
-            orderData.deliverDetails = formData;
+            orderData.deliveryDetails = formData;
             orderData.itemDetails = itemDetails;
             orderData.paymentDetails = paymentDetails;
 
@@ -575,10 +585,10 @@
                 data: orderData,
                 dataType: "json",
                 success: function(response) {
-                    if (response.status === "success") {
+                    if (response.status == true) {
                         if (typeof callback === "function") callback();
                     } else {
-                        Swal.fire("Error: " + response.message, '', 'error');
+                        Swal.fire(response.message, '', 'error');
 
                     }
                 },
@@ -616,6 +626,7 @@
             $("#deliveryAddressForm")
                 .find("input, textarea, select")
                 .each(function() {
+                   
                     if ($(this).val().trim() === "") {
                         isValid = false;
                         $(this).addClass("is-invalid");
@@ -703,7 +714,6 @@
             }
 
             let total = subtotal + post + tax;
-
             // set amount details after calculation in html format
             $("#orderDetails #subtotal").text("$ " + subtotal.toFixed(2));
             $("#orderDetails #post").text("$ " + post.toFixed(2));
@@ -724,13 +734,23 @@
 
         }
         $('input[name="delivery_type"]').on('change', function() {
-
+            saveStep2Data();
             updateOrderSummary();
         });
 
+        $(document).ready(function() {
+            let deliveryDetails = getDeliveryDetails();
+            $('input[name="delivery_type"]').prop('checked', false).removeAttr('checked');
+
+            // STEP 2: Check the correct one
+            $('input[name="delivery_type"][value="' + deliveryDetails.delivery_type + '"]')
+                .prop('checked', true)
+                .attr('checked', 'checked'); // only if you need HTML updated
+        })
 
         function prev() {
             if (step === 2) {
+
                 step = 1;
                 localStorage.setItem("checkout_step", step); // <<< save step
 
@@ -738,36 +758,41 @@
                 step1.classList.add("is-active");
                 bar1.style.width = "0%"; // reset bar
             } else if (step === 3) {
-                step = 2;
-                localStorage.setItem("checkout_step", step); // <<< save step
+                // move to 1 step because if yopu are at 3 that's mean order is completed
 
-                step3.classList.remove("is-active");
-                step2.classList.add("is-active");
-                bar2.style.width = "0%"; // reset bar
+                finish();
+                // step = 2;
+                // localStorage.setItem("checkout_step", step); // <<< save step
+
+                // step3.classList.remove("is-active");
+                // step2.classList.add("is-active");
+                // bar2.style.width = "0%"; // reset bar
             }
             showStep();
         }
 
         function finish() {
+            localStorage.removeItem('checkout_step');
             alert("Process Completed!");
-            reset();
+            window.location.href = "{{ route('escort.products') }}"; // reset();
         }
 
-        function reset() {
-            step = 1;
-            step1.classList.add("is-active");
-            step2.classList.remove("is-active");
-            step3.classList.remove("is-active");
+        // function reset() {
+        //     step = 1;
+        //     localStorage.setItem("checkout_step", step); // <<< save step
 
-            bar1.style.width = "0%";
-            bar2.style.width = "0%";
+        //     step1.classList.add("is-active");
+        //     step2.classList.remove("is-active");
+        //     step3.classList.remove("is-active");
 
-            showStep();
-        }
+        //     bar1.style.width = "0%";
+        //     bar2.style.width = "0%";
+
+        //     showStep();
+        // }
 
         // $('#userProfile').parsley({
 
         // });
-
- </script>
+    </script>
 @endpush

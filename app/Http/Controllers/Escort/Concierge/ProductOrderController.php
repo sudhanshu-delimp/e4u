@@ -29,8 +29,12 @@ class ProductOrderController extends Controller
 
       $subtotal = 0;
       $total = 0;
-      $tax = 0;
+      $tax = config('escorts.product_tax');
       $deliveryCharges = 0;
+
+      if (!isset($data['deliveryDetails']['delivery_type']) || (isset($data['deliveryDetails']['delivery_type']) && empty($data['deliveryDetails']['delivery_type']))) {
+        return response()->json(['status' => false, 'message' => 'please select delivery type']);
+      }
       foreach ($data['itemDetails'] as $productId => $details) {
         $product = Product::find($productId);
         if (empty($product)) {
@@ -42,17 +46,17 @@ class ProductOrderController extends Controller
 
         $subtotal += $product->price * $details['qty'];
       }
-      if ($data['deliverDetails']['delivery_type'] == 'post') {
+      if ($data['deliveryDetails']['delivery_type'] == 'post') {
         $deliveryCharges = config('escorts.delivery_charge_post');
       } else {
-        $deliveryCharges = config('escorts.delivery_charge_post');
+        $deliveryCharges = config('escorts.delivery_charge_delivery');
       }
       if ($total == $data['paymentDetails']['subtotal_payble']) {
         return response()->json(['status' => false, 'message' => 'mismatch price calculation']);
       }
 
-      $total += $subtotal * $tax + $deliveryCharges;
-      if ($total == $data['paymentDetails']['total_payble']) {
+      $total = $subtotal + $tax + $deliveryCharges;
+      if (number_format($total, 2) != number_format($data['paymentDetails']['total_payble'], 2)) {
         return response()->json(['status' => false, 'message' => 'mismatch price calculation']);
       }
 
@@ -63,9 +67,10 @@ class ProductOrderController extends Controller
         'order_status' => 'pending',
         'payment_status' => 'pending',
         'total_amount' => $total,
+        'sub_total' => $subtotal,
         'tax_amount' => $tax,
-        'delivery_charges' => $deliveryCharges,
-        'notes' => $data['special_instructions']
+        'delivery_charges' => $deliveryCharges ?? 0,
+        'notes' => $data['deliveryDetails']['special_instructions']
       ];
       DB::transaction(function () use ($orderData, $data, $state) {
 
@@ -78,12 +83,11 @@ class ProductOrderController extends Controller
               'product_id' => $productId,
               'quantity' => $details['qty'],
               'price' => $details['price'],
-              'subtotal' => $details['price'] * $details['qty'],
+              'total' => $details['price'] * $details['qty'],
             ];
             ProductOrderItem::create($orderItem);
           }
           // prepare data for delivery details like billing & shipping address
-          config('escorts.states');
           $orderAddress = [
             'order_id' => $order->id,
             'type' => 'shipping',
@@ -92,11 +96,14 @@ class ProductOrderController extends Controller
             'address_line1' => $data['deliveryDetails']['address'],
             'state' => $state['stateName'],
             'city' => !empty(Auth::user()->city_id) ? $state['cities'][Auth::user()->city_id] : '',
-            'country' => 'Australia'
+            'country' => 'Australia',
+            'pincode' => 234234
           ];
+
           OrderAddress::create($orderAddress);
         }
       });
+      return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
     } catch (\Exception $e) {
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }

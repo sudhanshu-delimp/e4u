@@ -1,4 +1,4 @@
- 
+
 // Get cart for specific user 
 function getCart() {
   return JSON.parse(localStorage.getItem('cart_' + loginUserId) || '{}');
@@ -33,7 +33,12 @@ function saveDeliveryDetails(details) {
   localStorage.setItem('deliveryAddress_' + loginUserId, JSON.stringify(details));
 }
 
-
+function flushLocalStorage() {
+  localStorage.removeItem('finalCart_' + loginUserId);
+  localStorage.removeItem('cart_' + loginUserId);
+  localStorage.removeItem('deliveryAddress_' + loginUserId);
+  localStorage.removeItem('paymentDetails_' + loginUserId);
+}
 function getCartCount() {
   let cart = getCart();
   // console.log(cart);
