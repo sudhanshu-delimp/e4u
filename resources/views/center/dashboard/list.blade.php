@@ -398,16 +398,16 @@ var table = $("#massage_list").DataTable({
 
 $(document).on('click', '.massage_action', async function () {
 
-      let current_id = $(this).attr('id');
+      let current_action = $(this).data('row-action');
       var mess = "";
       let rowId = $(this).data('row-id');
       let action = "";
 
-      if(!current_id || !rowId )
+      if(!current_action || !rowId )
       return false;
 
-       mess =   'Do you want to activate this Profile?';
-       action = current_id;
+       mess =   'Do you want to '+current_action+' this Profile?';
+       action = current_action;
 
       let mess_data = {
          'title' : 'NA',
@@ -434,7 +434,6 @@ $(document).on('click', '.massage_action', async function () {
                   if (response.success) {
                     table.ajax.reload(null, false);
                     swal_success_popup(response.message);
-
                   }
                },
 

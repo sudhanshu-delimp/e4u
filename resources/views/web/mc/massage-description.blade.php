@@ -107,6 +107,28 @@
 .brb_details h1 {
   font-size: 30px !important;
 }
+.location_class{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 0px 0px 0px;
+}
+
+.location_class img {
+    width: 190px;
+    height: 50px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+}
+.gm-style-iw-ch {
+    display: none !important;
+}
+.gm-style-iw-chr{
+    display: none !important;
+}
+
 </style>
     @stop
     @section('content')
@@ -271,7 +293,7 @@
 
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk">
+            <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
                 <a  href="{{ $prevId ? route('web.massage-description', [
                                     'id' => $prevId,
                                     'ids' => json_encode($ids)
@@ -479,8 +501,8 @@
                         
                     </div>
 
-                    <div class="col-sm-12"> {{$listing->address}}
-                        <div  id="map" style="width:100%; height:153px; border-radius:8px;">
+                    <div class="col-sm-12"> 
+                        <div  id="map" style="width:100%; height:200px; border-radius:8px;">
 
 
                             <!-- <iframe 
@@ -2589,7 +2611,7 @@ $(document).on('click', '.close_btn', function () {
     }, 300);
 });
 
-$(document).on('shown.bs.modal', '.masseur-modal', function () {
+$(document).on('shown.bs.modal', '.masseur-modal', function () {url('{{ $massage_banner }}')
 
     let modal = $(this);
     let index = parseInt(modal.data('index'));
@@ -2628,10 +2650,9 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 
 function initMap() 
 {
-    const address = @json($listing->address ?? '192 Hampden Road Nedlands');
+    const address = @json($listing->address ?? 'Perth WA, Australia');
 
     const geocoder = new google.maps.Geocoder();
-
     geocoder.geocode({ address: address }, function(results, status) {
 
         if (status === "OK") 
@@ -2650,9 +2671,9 @@ function initMap()
 
             // Label under marker (balloon style)
             const infowindow = new google.maps.InfoWindow({
-                content: `<div >
-                            📍 {{ $listing->address }}
-                          </div>`
+                content: `<div class="location_class" >
+                        <img src="{{ $massage_banner }}"  class="facebook-logo" alt="logo">
+                 {{ $listing->address }}</div>`
             });
 
             infowindow.open(map, marker);
@@ -2672,9 +2693,6 @@ function initMap()
         
     });
 }
-
-
 window.onload = initMap;
-
 </script>
 @endpush
