@@ -187,6 +187,8 @@
     <!-- End of Footer -->
 @endsection
 @push('script')
+<script>let loginUserId = '{{ Auth::user()->id }}';</script>
+    <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
     <script>
         const viewCart = document.querySelector('#viewCart');
         viewCart.addEventListener("click", function() {
