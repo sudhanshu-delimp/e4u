@@ -261,7 +261,6 @@
                                                         <span class="common_shield_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
-                                                <span class="common_shield_tooltip">Media Unverified</span>
                                             </div>
                                         </label>
                                     </div>

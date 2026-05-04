@@ -35,7 +35,6 @@ class MasseurMediaExpireCron extends Command
             $masseur_profile = MasseurGallery::where('masseur_token_id', $masseur_token_id)->first();
 
             if (!$masseur_profile) {
-                \Log::warning("Masseur profile not found for token: " . $masseur_token_id);
                 continue;
             }
 
