@@ -7,7 +7,7 @@ use Illuminate\Http\Client\RequestException;
 
 class PinPaymentService
 {
-    public function charge($token, $amount, $email = null)
+    public function charge($token, $amount, $email = null, $description = null)
     {
         try {
             $response = Http::withBasicAuth(
@@ -17,6 +17,7 @@ class PinPaymentService
                 'amount' => $amount*100,
                 'currency' => 'AUD',
                 'description' => 'Laravel Payment',
+                'description' => $description ?? 'E4U Service',
                 'email' => $email ?? 'customer@example.com',
                 'card_token' => $token
             ]);
