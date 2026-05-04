@@ -427,6 +427,7 @@ class MasseurController extends AppController
             // Reset all media to pending
             MasseurMedia::where('user_id', $user->id)
                 ->where('type', '0')
+                ->whereNull('media_verification_id')
                 ->where('masseur_token_id', $masseur_token_id)
                 ->update([
                     'varified' => '0'
@@ -751,6 +752,7 @@ class MasseurController extends AppController
     {
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id,$page_token, []);
+          
             $statusMap = [
                 'all'   => ['0','1','2'],
                 'verified'   => ['1'],

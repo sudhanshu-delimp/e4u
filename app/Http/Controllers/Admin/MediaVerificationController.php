@@ -441,35 +441,83 @@ class MediaVerificationController extends Controller
     }
 
 
+    // public function masseursMediaVerificationList(Request $request)
+    // {
+    //     $masseur_data = MasseurVerification::with('masseur:id,name,member_id')
+    //         ->where('user_id', $request->id)
+    //         ->latest()
+    //         ->get()
+    //         ->groupBy('masseur_id')
+    //         ->map(function ($items) {
+
+    //             $item = $items->first(); // latest record
+
+    //             // Status mapping
+    //             $statusMap = [
+    //                 '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
+    //                 '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
+    //                 '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
+    //             ];
+
+    //             $status = $statusMap[$item->status] ?? $statusMap['0'];
+    //             return [
+    //                 'id'           => $item->masseur ? $item->masseur->member_id : '--',
+    //                 'date'         => $item->created_at ? $item->created_at->format('d-m-Y') : '--',
+    //                 'name'         => $item->masseur->name ?? '-',
+    //                 'status_text'  => $status['text'],
+    //                 'status_class' => $status['class'],
+    //             ];
+    //         })
+    //         ->values()
+    //         ->all();
+
+    //     return response()->json([
+    //         'status' => true,
+    //         'data'   => $masseur_data
+    //     ]);
+    // }
+
     public function masseursMediaVerificationList(Request $request)
     {
+        $statusMap = [
+            '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
+            '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
+            '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
+        ];
+
         $masseur_data = MasseurVerification::with('masseur:id,name,member_id')
             ->where('user_id', $request->id)
             ->latest()
             ->get()
             ->groupBy('masseur_id')
-            ->map(function ($items) {
+            ->map(function ($items) use ($statusMap) {
 
-                $item = $items->first(); // latest record
-
-                // Status mapping
-                $statusMap = [
-                    '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
-                    '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
-                    '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
-                ];
-
+                $item = $items->first();
                 $status = $statusMap[$item->status] ?? $statusMap['0'];
+
+                // 🔹 Reviewed By
+                $reviewed_by = $item->reviewed_by ? User::find($item->reviewed_by) : null;
+
+                // 🔹 Tooltip (ONLY for approved/rejected)
+                $tooltipHtml = '';
+                if (in_array($item->status, ['1', '2'])) {
+                    $staffId = $reviewed_by ? $reviewed_by->member_id : 'N/A';
+                    $actionText = $item->status == '2' ? 'Rejected by' : 'Approved by';
+
+                    $tooltipHtml = "<span class='tooltip'>{$actionText}: {$staffId}</span>";
+                }
+
                 return [
-                    'id'           => $item->masseur ? $item->masseur->member_id : '--',
-                    'date'         => $item->created_at ? $item->created_at->format('d-m-Y') : '--',
-                    'name'         => $item->masseur->name ?? '-',
+                    'id'           => optional($item->masseur)->member_id ?? '--',
+                    'date'         => optional($item->created_at)->format('d-m-Y') ?? '--',
+                    'name'         => optional($item->masseur)->name ?? '-',
+                    'status'       => $item->status, // IMPORTANT
                     'status_text'  => $status['text'],
                     'status_class' => $status['class'],
+                    'tooltip'      => $tooltipHtml,
                 ];
             })
-            ->values()
-            ->all();
+            ->values();
 
         return response()->json([
             'status' => true,
@@ -507,18 +555,18 @@ class MediaVerificationController extends Controller
                     $statusClass = 'badge_pending';
                 }
                 $reviewed_by = 0;
-                if($item->reviewed_by){
+                if ($item->reviewed_by) {
                     $reviewed_by =  User::findOrFail($item->reviewed_by);
                 }
-                
+
                 $tooltipHtml = '';
                 if ($reviewed_by && in_array($item->status, ['1', '2'])) {
-                    $staffId = $reviewed_by 
-                        ? $reviewed_by->member_id 
+                    $staffId = $reviewed_by
+                        ? $reviewed_by->member_id
                         : 'N/A';
 
-                    $actionText = $item->status == '2' 
-                        ? 'Rejected by' 
+                    $actionText = $item->status == '2'
+                        ? 'Rejected by'
                         : 'Approved by';
 
                     $tooltipHtml = "<span class='tooltip'>{$actionText}: {$staffId}</span>";
@@ -537,7 +585,7 @@ class MediaVerificationController extends Controller
                             <i class="fa fa-ban"></i> Reject
                         </a><div class="dropdown-divider"></div>';
                 }
-                
+
                 $html .= '
                 <tr>
                     <td>' . ($item->masseur->member_id ?? '--')  . '</td>
@@ -549,7 +597,7 @@ class MediaVerificationController extends Controller
                             <span class="custom_badge ' . $statusClass . '">
                                 ' . $statusText . '
                             </span>
-                            '.$tooltipHtml.'
+                            ' . $tooltipHtml . '
                         </div> 
                     </td>
 
@@ -584,76 +632,91 @@ class MediaVerificationController extends Controller
         ]);
     }
 
-
     public function getProfileImages(Request $request)
     {
-        $masseur_profile_id = $request->profile_id;
-
         $verification = MasseurVerification::find($request->verification_id);
-        $query = MasseurMedia::whereIn('masseur_token_id', function ($q) use ($masseur_profile_id) {
-            $q->select('masseur_token_id')
-                ->from('masseur_galleries')
-                ->where('masseur_profile_id', $masseur_profile_id);
-        })
+
+        if (!$verification) {
+            return response()->json([
+                'gallery' => '',
+                'verification' => ''
+            ]);
+        }
+
+        // Get token ids
+        $masseur_token_ids = MasseurGallery::where('masseur_profile_id', $verification->masseur_id)
+            ->pluck('masseur_token_id')
+            ->unique();
+
+        if ($masseur_token_ids->isEmpty()) {
+            return response()->json([
+                'gallery' => '',
+                'verification' => ''
+            ]);
+        }
+
+        // Base query
+        $query = MasseurMedia::whereIn('masseur_token_id', $masseur_token_ids)
             ->where('type', '0');
+
+        // Status logic
         switch ($request->status) {
             case '1': // Approved
                 $query->where('media_verification_id', $verification->id)
                     ->where('varified', '1');
+                $status_text = 'Approved';
                 break;
 
             case '2': // Rejected
                 $query->where('media_verification_id', $verification->id)
                     ->where('varified', '2');
+                $status_text = 'Rejected';
                 break;
 
             case '0': // Pending
             default:
                 $query->whereNull('media_verification_id')
                     ->where('varified', '0');
+                $status_text = 'Uploaded';
                 break;
         }
-        $images =  $query->get();
+
+        $images = $query->get();
 
         $gallery_html = '';
         $verification_html = '';
 
         foreach ($images as $img) {
-            if ($request->status == '1') {
-                $status_text = 'Approved';
-            } elseif ($request->status == '2') {
-                $status_text = 'Rejected';
-            } else {
-                $status_text = 'Uploaded';
-            }
+
             $img_url = asset($img->path);
             $status_icon = getMediaVerificationDataSmallIcon($request->status);
-            $gallery_html .= '<div class="verify_icon_wrapper w-20">
-                    <img src="' . $img_url . '" alt="view image gallery">
-                    
-                    <span class="verify_icon">
-                        <img src="' . $status_icon['icon'] . '" style="width:100%; height:20px; object-fit: contain;"><span class="mc_media_tooltip">' . $status_icon['label'] . '</span>
-                    </span>
-                    <div class="upload_date">
-                        ' . $status_text . ': <span>' . showDateWithFormat($img->updated_at) . '</span>
-                    </div>
+
+            $gallery_html .= '
+        <div class="verify_icon_wrapper w-20">
+            <img src="' . $img_url . '" alt="view image gallery">
+            
+            <span class="verify_icon">
+                <img src="' . $status_icon['icon'] . '" style="width:100%; height:20px; object-fit: contain;">
+                <span class="mc_media_tooltip">' . $status_icon['label'] . '</span>
+            </span>
+
+            <div class="upload_date">
+                ' . $status_text . ': <span>' . showDateWithFormat($img->updated_at) . '</span>
             </div>
-            ';
+        </div>';
         }
 
-        // Verification HTML 
-        if ($verification && !empty($verification->image_path)) {
+        // Verification Image
+        if (!empty($verification->image_path)) {
 
             $verification_url = asset('escorts/' . $verification->image_path);
 
             $verification_html = '
-            <span class="banner-sub-heading my-2">Verification Image</span>
-            <img src="' . $verification_url . '" alt="verification image">
-        ';
+        <span class="banner-sub-heading my-2">Verification Image</span>
+        <img src="' . $verification_url . '" alt="verification image">';
         }
 
         return response()->json([
-            // 'thumbnail' => $thumbnail_html,
             'gallery' => $gallery_html,
             'verification' => $verification_html
         ]);
@@ -712,7 +775,7 @@ class MediaVerificationController extends Controller
                 \Mail::to($body['email'])
                     ->cc($cc)
                     ->queue(new MediaVerificationMasseurMail($body));
-    
+
                 break;
 
             default: // Pending 
