@@ -2722,7 +2722,7 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 function initMap() 
 {
     let capital_city = '{{ $capital_city }}';
-    const address = @json($listing->address ?? capital_city);
+    const address = @json($listing->address ?? $capital_city );
     const banner = '{{ $massage_banner }}';
     
 
