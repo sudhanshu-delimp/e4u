@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\Escort\EscortInterface;
 use App\Models\Purchase;
+use App\Models\PaymentHistory;
 use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
@@ -46,11 +47,23 @@ class PaymentController extends Controller
         ]);
         $redirect_url = '';
         $amount = $this->getAmount();
-        $result = $this->pinService->charge($request->pin_token, $amount, $this->account->email);
-
-        if ($result['status']) {
+        $gatewayResponse = $this->pinService->charge($request->pin_token, $amount, $this->account->email);
+        if ($gatewayResponse['status']) {
+            $response = $gatewayResponse['data']['response'];
+            $payment = PaymentHistory::create([
+                'user_id'         => $this->account->id,
+                'ref_no'          => now()->format('Ymd') . rand(100,999),
+                'amount'          => $response['amount'] / 100,
+                'currency'        => $response['currency'],
+                'payment_gateway' => 'pinpayments',
+                'transaction_id'  => $response['token'],
+                'status'          => $response['success'] ? 'success' : 'failed',
+                'paid_at'         => $response['captured_at'] ?? $response['created_at'],
+                'card'            => $response['card']['display_number'],
+                'meta'            => json_encode($response),
+            ]);
             if(session()->has('checkout')){
-                $this->saveCheckout();
+                $this->saveCheckout($payment);
                 session()->forget('checkout');
                 $redirect_url = route('escort.dashboard.listings', 'current');
             }
@@ -59,17 +72,17 @@ class PaymentController extends Controller
                 'message' => 'Payment completed successfully',
                 'netAmount' => $amount,
                 'redirect_url' => $redirect_url,
-                'gateway' => $result['data']
+                'gateway' => $gatewayResponse
             ]);
         }
 
         return response()->json([
             'status' => 'error',
-            'gateway' => $result['error']
+            'gateway' => $gatewayResponse['error']
         ], 400);
     }
 
-    public function saveCheckout(){
+    public function saveCheckout($payment=null){
         if(session()->has('checkout')){
             $checkout = session()->get('checkout');
             $netPaidAmount = 0.00;
@@ -95,6 +108,13 @@ class PaymentController extends Controller
                 $item['total_rate'] = $normalRate*$daysDiff; 
                 $item['paid_rate'] = $total_rate;
                 $purchaseDetail = Purchase::create($item);
+
+                if(!empty($payment)){
+                    $purchaseDetail->paymentItems()->create([
+                        'payment_history_id' => $payment->id,
+                        'amount' => $total_rate
+                    ]);
+                }
     
                 if($this->account->activeFeeDiscount){
                     $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
