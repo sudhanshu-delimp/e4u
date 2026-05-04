@@ -3,12 +3,20 @@
 namespace App\Models;
 //use App\Models\State;
 
+use App\Models\Escort;
 use App\Models\MassageBrb;
+use App\Models\MassageBumpup;
 use App\Models\MassageLike;
+use App\Models\MassagePurchase;
+use App\Models\MassageSuspendProfile;
+use App\Models\MassageViewerInteractions;
+use App\Models\Masseur;
+use App\Models\MyMassageLegbox;
 use App\Models\Reviews;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class MassageProfile extends Model
 {
@@ -485,7 +493,10 @@ class MassageProfile extends Model
         return $this->hasMany(MassagePurchase::class, 'massage_profile_id','id');
     }
 
-   
+    public function latestPurchase()
+    {
+        return $this->hasOne(MassagePurchase::class, 'massage_profile_id')->latestOfMany(); 
+    }
 
 
     public function mainPurchase()
@@ -499,7 +510,23 @@ class MassageProfile extends Model
         ->oldestOfMany('utc_start_date');
     }
 
+    public function isListingExtended(){
+        $purchases = $this->purchase()
+        ->where('utc_end_time', '>=', Carbon::now('UTC'))
+        ->where('parent_id',0)
+        ->orderBy('utc_end_time', 'desc')
+        ->get();
+        return (object)[
+            'count' => $purchases->count() > 1,
+            'data' => $purchases->first()
+        ];
+    }
 
-   
+    public function activeBumpup()
+    {
+        return $this->hasOne(MassageBumpup::class, 'massage_id')
+            ->latestOfMany('utc_start_time')
+            ->active();
+    }
 
 }

@@ -107,6 +107,28 @@
 .brb_details h1 {
   font-size: 30px !important;
 }
+.location_class{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 0px 0px 0px;
+}
+
+.location_class img {
+    width: 190px;
+    height: 50px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+}
+.gm-style-iw-ch {
+    display: none !important;
+}
+.gm-style-iw-chr{
+    display: none !important;
+}
+
 </style>
     @stop
     @section('content')
@@ -271,7 +293,7 @@
 
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk">
+            <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
                 <a  href="{{ $prevId ? route('web.massage-description', [
                                     'id' => $prevId,
                                     'ids' => json_encode($ids)
@@ -479,8 +501,10 @@
                         
                     </div>
 
-                    <div class="col-sm-12">
-                        <div style="width: 100%">
+                    <div class="col-sm-12"> 
+                        <div  id="map" style="width:100%; height:200px; border-radius:8px;">
+
+
                             <!-- <iframe 
                             width="100%" 
                             height="153" 
@@ -491,14 +515,14 @@
                             src="https://maps.google.com/maps?q={{ urlencode($listing->address ?? 'Perth, Western Australia') }}&hl=en&z=14&output=embed"
                             style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
                         </iframe> -->
-                        <iframe
+                        <!-- <iframe
                             width="100%"
                             height="153"
                             style="border:0"
                             loading="lazy"
                             allowfullscreen
                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrDJA0TAg9Q9MThHqRe9tGCsNsU4vMrcQ&q={{ urlencode($listing->address ?? 'Perth, Western Australia') }}&zoom=16">
-                        </iframe>
+                        </iframe> -->
                         
                         </div>
                     </div>
@@ -2103,7 +2127,7 @@
 
     {{-- my legbox --}}
 
-    <div class="modal fade upload-modal" id="my_legbox" style="display: none">
+    <div class="modal fade upload-modal" id="my_legbox" style="display: none;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2201,6 +2225,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}"></script>
 
  <script>
 
@@ -2599,7 +2624,7 @@ $(document).on('click', '.close_btn', function () {
     }, 300);
 });
 
-$(document).on('shown.bs.modal', '.masseur-modal', function () {
+$(document).on('shown.bs.modal', '.masseur-modal', function () {url('{{ $massage_banner }}')
 
     let modal = $(this);
     let index = parseInt(modal.data('index'));
@@ -2635,5 +2660,55 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
     }
 });
 
+
+function initMap() 
+{
+    const address = @json($listing->address ?? 'Perth WA, Australia');
+
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: address }, function(results, status) {
+
+        if (status === "OK") 
+        {
+            const location = results[0].geometry.location;
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+                center: location,
+            });
+
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+            });
+
+            // Label under marker (balloon style)
+            const infowindow = new google.maps.InfoWindow({
+                content: `<div class="location_class" >
+                        <img src="{{ $massage_banner }}"  class="facebook-logo" alt="logo">
+                 {{ $listing->address }}</div>`
+            });
+
+            infowindow.open(map, marker);
+
+            // OPTIONAL: store lat/lng in hidden inputs
+            const lat = location.lat();
+            const lng = location.lng();
+
+            console.log("Lat:", lat, "Lng:", lng);
+
+            if (document.getElementById("lat")) {
+                document.getElementById("lat").value = lat;
+                document.getElementById("lng").value = lng;
+            }
+
+        } 
+        
+    });
+}
+
+
+
+window.onload = initMap;
 </script>
 @endpush

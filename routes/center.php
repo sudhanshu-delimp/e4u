@@ -117,7 +117,7 @@ Route::post('suspend-massage-profile', [MassageProfileActionController::class, '
 Route::post('extend-profile-checkout', [MassageProfileActionController::class, 'extendProfileCheckout'])->name('center.extend-profile-checkout');
 Route::post('extend-profile-validate-date-range', [MassageProfileActionController::class, 'validateDateRange'])->name('center.extend-profile-validate-date-range');
 Route::post('get-transaction-summury', [MassageProfileActionController::class, 'getTransactionSummury'])->name('center.get-transaction-summury');
-
+Route::post('/bumpup-register', [MassageProfileActionController::class, 'bumpup_register'])->name('center.bumpup_register');
 
 
 
