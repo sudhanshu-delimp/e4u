@@ -734,8 +734,10 @@
                                                     @endforeach
 
                                                         <div class="veryfy_img">
+                                                            @if(isset($status_detail['icon']))
                                                             <img src="{{ $status_detail['icon'] }}">
                                                             <span class="common_shield_tooltip">{{ $status_detail['label'] }}</span>
+                                                             @endif
                                                         </div>
                                                 </div>
 
@@ -2719,7 +2721,7 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 
 function initMap() 
 {
-    const capital_city = '{{ $capital_city }}';
+    let capital_city = '{{ $capital_city }}';
     const address = @json($listing->address ?? capital_city);
     const banner = '{{ $massage_banner }}';
     
