@@ -379,7 +379,7 @@
             </div>
             <ul>
                 <li>Display your business logo or perhaps something more subtle</li>
-                <li>A complete snapshot of your business and services on offer all set out under</li>
+                <li>A complete snapshot of your business and services on offer all set out under About Us</li>
                 <li>Easy to see and read <i>Rates and Open Times</i></li>
                 <li>Contact preference for your Masseurs</li>
                 <li>Location map</li>
