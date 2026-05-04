@@ -44,12 +44,12 @@
                             <input type="hidden" id="search_report_id" value="">
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="searchMergeType" id="search_single" value="single" checked>
+                                <input class="form-check-input" type="radio" name="searchMergeType" id="search_single" value="1" checked>
                                 <label class="form-check-label" for="search_single"> Massage Centre (Single) </label>
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="searchMergeType" id="search_multiple" value="multiple">
+                                <input class="form-check-input" type="radio" name="searchMergeType" id="search_multiple" value="2">
                                 <label class="form-check-label" for="search_multiple">  Massage Centre (Multiple) </label>
                             </div>
                         </div>

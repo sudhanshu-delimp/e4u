@@ -1011,7 +1011,7 @@ $(document).ready(function () {
         let centreId = $(this).data('centre-id');
         let reportId = $(this).data('report-id');
         let docType = $('input[name="searchMergeType"]:checked').val();
-
+   
         triggerPDF([centreId], reportId, docType, 'print');
     });
 

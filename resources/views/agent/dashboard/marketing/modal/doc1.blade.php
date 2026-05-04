@@ -132,14 +132,14 @@
         .table-box th {
             background: #6f8593;
             color: #fff;
-            padding: 10px;
+            padding: 5px;
             text-align: center;
             font-weight: 700;
         }
         
         .table-box td {
             border: 1px solid #ccc;
-            padding: 10px;
+            padding: 5px;
             font-family: DejaVu Sans, Arial, sans-serif;
         }
         
@@ -188,19 +188,19 @@
                 {{-- Agent business name --}}
                 <div class="info_details">
                     <h4><b>Prepared For:</b></h4>
-                    <h4>{{ $data['bussiness_name'] }}</h4>
+                    <h4>{{ $data['bussiness_name'] ?? '' }}</h4>
                 </div>
 
                 {{-- Agent name --}}
                 <div class="info_details">
                     <h4> <b>Prepared By:</b></h4>
-                    <p>{{ $data['name_of_agent'] }}</p>
+                    <p>{{ $data['name_of_agent'] ?? '' }}</p>
                 </div>
 
                     {{-- Agent email address --}}
                 <div class="info_details">
                     <h4>Agent for Escorts4U</h4>
-                    <p>{{ $data['agent_email_address'] }}</p>
+                    <p>{{ $data['agent_email_address'] ?? '' }}</p>
                 </div>
 
 
@@ -217,8 +217,11 @@
 
             <div>
                 {{-- business name --}}
-                <p style="margin-bottom: 0px;">{{ $data['bussiness_name'] }}</p>
-                <p style="width:60%">{{ $data['address'] }}</p>
+                <p style="margin-bottom: 0px;">{{ $data['date']  ?? ''}} </p>
+                <p style="width:60%"><strong>{{ $data['bussiness_name'] ?? '' }}</strong></p>
+                <p style="width:60% line-height:1 !important;">{{ $data['address1'] ?? '' }}</p>
+                <p style="width:60% line-height:1 !important;">{{ $data['address2'] ?? ''}}</p>
+           
                 <p>Dear Sir / Madam,</p>
             </div>
 
@@ -247,7 +250,7 @@
             <p><strong>Here is a simple analysis with other platforms:</strong></p>
 
             <div style="margin: 0 auto; text-align: center;">
-                <table class="table-box">
+                <table class="table-box" >
                     <tr>
                         <th>Description</th>
                         <th>E4U</th>
@@ -356,18 +359,20 @@
                 <b>Escorts4U</b>
             </p>
 
-            <span style="border-bottom:1px solid #333;">
+            <span style="border-bottom:1px solid #333; display:block;">
                 {{-- singnature here --}}
+               
                 @if($data['agent_signature'])
                 <img src="{{ $data['agent_signature'] }}" alt="" style="width: 150px;">
                 @endif
+                 <span style="display:block">{{$data['name_of_agent']}}</span>
             </span>
 
 
             <p style="margin: 25px 0px;">
                 <span><b>M: </b> {{ $data['agent_mobile_number'] }}</span>
                 <br>
-                <span><b>E: </b> <a href="mailto:{{ $data['email'] }}">{{ $data['email'] }}</a></span>
+                <span><b>E: </b> <a href="mailto:{{ $data['agent_email_address'] }}">{{ $data['agent_email_address'] }}</a></span>
             </p>
             <div class="heading" style="page-break-before: always; text-align: center;">
                 Sample Screen shot of a Massage Centre Profile

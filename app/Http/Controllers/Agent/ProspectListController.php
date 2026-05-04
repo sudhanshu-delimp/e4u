@@ -497,13 +497,22 @@ class ProspectListController extends Controller
     private function getPfdDynamicName($centre)
     {
         $agent = Auth::user();
+        $address = $this->splitAddress($centre['address'] ?? '');
+
+         $signature = '';
+        if (!empty($agent->agent_detail) && !empty($agent->agent_detail->signature_file)) {
+            $signature = url('storage/' . $agent->agent_detail->signature_file);
+        }
+
         return  [
             'bussiness_name' => $centre['bussiness_name'],
             'name_of_agent' => $agent['business_name'],
             'agent_email_address' => $agent['email'],
-            'data' => date('d-m-y'),
-            'address' => $centre['address'],
-            'agent_signature' =>  url('storage/' . $agent->agent_detail['signature_file']),
+            'date' => date('d-m-Y'),
+            'name_of_massage_parler' => $centre['bussiness_name'],
+            'address1' => $address['address1'],
+            'address2' => $address['address2'],
+            'agent_signature' =>  $signature,
             'agent_mobile_number' => $agent['phone'] ?? '',
             'email' => $agent['email'] ?? '',
         ];
@@ -663,7 +672,7 @@ class ProspectListController extends Controller
                     </div>
                 </div>
                 <div class="action_btn">
-                    <button class="btn-print-single single-print-pdf" data-centre-id="' . $centre->id . '" data-report-id="' . $reportId . '"> Print </button>
+                    <button class="single-print-pdf" data-centre-id="' . $centre->id . '" data-report-id="' . $reportId . '"> Print </button>
                     <a href="mailto:' . e($centre->email ?? '') . '" class="btn-email-single" data-email="' . e($centre->email ?? '') . '" data-centre-id="' . $centre->id . '"
                     data-report-id="' . $reportId . '"> Email</a>
                 </div>
@@ -684,7 +693,6 @@ class ProspectListController extends Controller
         $viewPath = 'agent.dashboard.marketing.modal.doc1';
 
         $dynamicData = $this->getPfdDynamicName($centre);
-        dd($dynamicData);
 
         $pdf = PDF::loadView($viewPath, [
             //'centres' => collect([$centre]),
@@ -698,7 +706,7 @@ class ProspectListController extends Controller
                 'chroot'               => public_path(),
             ]);
 
-        // ✅ inline - browser me open hoga, download nahi
+        // inline - browser me open 
         return response($pdf->output(), 200, [
             'Content-Type'        => 'application/pdf',
             'Content-Disposition' => 'inline; filename="test.pdf"', // attachment → inline
@@ -723,4 +731,23 @@ class ProspectListController extends Controller
             default => $state,
         };
     }
+
+    private function splitAddress($address){
+        $words = explode(' ', $address);
+        $result = [
+            'address1' => '',
+            'address2' => ''
+        ];
+
+        //check empty 
+        $postcode = array_pop($words);
+        $state = array_pop($words);
+       
+
+        $result['address2'] = implode(' ', array_slice($words, -1)) . " $state $postcode";
+        $result['address1'] = implode(' ', array_slice($words, 0, -1));
+
+        return $result;
+    }
+
 }
