@@ -198,6 +198,14 @@
      
     $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
 
+
+    $massage_user  = get_massage_parent_data($listing->user_id);
+    $capital_city  = "";
+    if($massage_user)
+    {   $home_state = $massage_user->state_id;
+        $capital_city = config("escorts.profile.states.$home_state.cityName");
+    }
+
     @endphp
 
 
@@ -2212,7 +2220,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initMap" async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}"></script> -->
 
  <script>
 
@@ -2648,9 +2657,59 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 });
 
 
+// function initMap() 
+// {
+//     const address = @json($listing->address ?? 'Perth WA, Australia');
+
+//     const geocoder = new google.maps.Geocoder();
+//     geocoder.geocode({ address: address }, function(results, status) {
+
+//         if (status === "OK") 
+//         {
+//             const location = results[0].geometry.location;
+
+//             const map = new google.maps.Map(document.getElementById("map"), {
+//                 zoom: 16,
+//                 center: location,
+//             });
+
+//             const marker = new google.maps.Marker({
+//                 position: location,
+//                 map: map,
+//             });
+
+//             // Label under marker (balloon style)
+//             const infowindow = new google.maps.InfoWindow({
+//                 content: `<div class="location_class" >
+//                         <img src="{{ $massage_banner }}"  class="facebook-logo" alt="logo">
+//                  {{ $listing->address }}</div>`
+//             });
+
+//             infowindow.open(map, marker);
+
+//             // OPTIONAL: store lat/lng in hidden inputs
+//             const lat = location.lat();
+//             const lng = location.lng();
+
+//             console.log("Lat:", lat, "Lng:", lng);
+
+//             if (document.getElementById("lat")) {
+//                 document.getElementById("lat").value = lat;
+//                 document.getElementById("lng").value = lng;
+//             }
+
+//         } 
+        
+//     });
+// }
+
+
 function initMap() 
 {
-    const address = @json($listing->address ?? 'Perth WA, Australia');
+    const capital_city = '{{ $capital_city }}';
+    const address = @json($listing->address ?? capital_city);
+    const banner = '{{ $massage_banner }}';
+    
 
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: address }, function(results, status) {
@@ -2669,20 +2728,41 @@ function initMap()
                 map: map,
             });
 
-            // Label under marker (balloon style)
-            const infowindow = new google.maps.InfoWindow({
-                content: `<div class="location_class" >
-                        <img src="{{ $massage_banner }}"  class="facebook-logo" alt="logo">
-                 {{ $listing->address }}</div>`
+          
+            const service = new google.maps.places.PlacesService(map);
+
+            service.findPlaceFromQuery({
+                query: address,
+                fields: ["name", "photos", "rating"]
+            }, function(placeResults, placeStatus) {
+                let imageUrl = ''  //banner; 
+                let placeName = capital_city;
+                if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults[0]) 
+                {
+                    const place = placeResults[0];
+                    placeName = place.name || placeName;
+                    if (place.photos && place.photos.length > 0) {
+                        imageUrl = place.photos[0].getUrl({ maxWidth: 400,minWidth:200 });
+                    }
+                }
+
+                let g_image = "";
+                if(imageUrl!="")
+                g_image = `<img  style="width:100%; height:80px; object-fit:cover; border-radius:10px;" src=${imageUrl}  class="facebook-logo" alt="logo">`;
+                
+                const content = `
+                    <div class="location_class"> ${g_image}  ${address}</div>`;
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: content
+                });
+
+                infowindow.open(map, marker);
             });
 
-            infowindow.open(map, marker);
-
-            // OPTIONAL: store lat/lng in hidden inputs
+            
             const lat = location.lat();
             const lng = location.lng();
-
-            console.log("Lat:", lat, "Lng:", lng);
 
             if (document.getElementById("lat")) {
                 document.getElementById("lat").value = lat;
@@ -2690,11 +2770,12 @@ function initMap()
             }
 
         } 
-        
+        else 
+        {
+            console.error("Geocode failed: " + status);
+        }
     });
 }
-
-
 
 window.onload = initMap;
 </script>

@@ -2450,3 +2450,14 @@ function getPlaceId($address)
     return null;
 }
    
+
+if (!function_exists('get_massage_parent_data')) {
+  function get_massage_parent_data($user_id)
+  {
+        $user = User::where('id',$user_id)->first();
+        if($user)
+        return $user;
+        else
+        return false;
+  }
+}

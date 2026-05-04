@@ -199,7 +199,7 @@ background:#16385f;
                                 <div class="add--list listingActionButtons">
                                     <div class="">
                                           <button class="btn brb-btn" data-toggle="modal"
-                                                data-target="#add_brb" id="btn_add_brb">Add Closed</button>
+                                                data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
                                           <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                                           <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
