@@ -295,21 +295,19 @@ img#blah8 {
                                                         $imageData = $path->findByposition(auth()->user()->id, 1, 0);
                                                         if(!empty($imageData['id'])){
                                                             $media_details =  get_media_by_id($imageData['id'],'center');
-                                                            $status =  $media_details->varified;
                                                         }
                                                     @endphp
                                                     <div class="lg_verify_icon" id="verify_icon_1"
                                                         style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                         @if(!empty($imageData['id']))
-                                                            @if($status == "0")
-                                                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-                                                            @elseif($status == "1")
-                                                                <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
-                                                            @else
-                                                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                            @php 
+                                                                $status =  $media_details->varified;
+                                                                $status_icon = getMediaVerificationDataBigIcon($status);
+                                                            @endphp
+                                                                <img src="{{ $status_icon['icon']  }}">
+                                                                <span class="common_shield_tooltip">{{ $status_icon['label']  }}</span>
                                                             @endif
-                                                        @endif
-                                                        <span class="common_shield_tooltip">Media Unverified</span>
+                                                        
                                                     </div>
                                             </label>
                                         </div>

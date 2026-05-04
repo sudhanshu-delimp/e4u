@@ -13,7 +13,7 @@ class MediaVerification extends Model
         'comment',
         'reviewed_by',
         'reviewed_at',
-        'submited_by'
+        'submited_by',
     ];
 
     protected $casts = [

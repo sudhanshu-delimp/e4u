@@ -1624,6 +1624,15 @@ if (!function_exists('get_messure_images')) {
   }
 }
 
+
+function get_messure_images_details($masseur,$position)
+{
+    if(!$masseur || !$position) return false;   
+
+    return $masseur->getImageDetailsByPosition($position,$masseur->id);
+}
+
+
 if (!function_exists('getStateIdByCityId')) {
 function getStateIdByCityId($states, $cityId)
 {
@@ -1731,6 +1740,7 @@ if (!function_exists('getUserTypeById')) {
                 case 9:
                     return "Operator-Staff";
                     break;
+                
             }
         }
     }
@@ -2430,6 +2440,15 @@ if (!function_exists('formatIndianNumber'))
                 ->value('status') ?? '0'; // default Pending
         }
     }
+
+    if (!function_exists('get_masseur_data_by_id')) {
+        function get_masseur_data_by_id($masseur_id)
+        {
+            return Masseur::findOrFail($masseur_id);
+        }
+    }
+
+    
 }
 
 function getPlaceId($address)

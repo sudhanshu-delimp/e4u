@@ -24,6 +24,9 @@ use App\Repositories\Message\MasseurMediaInterface;
 use App\Repositories\Message\MessageMediaInterface;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Http\Requests\Escort\StoreGalleryMediaRequest;
+use App\Models\MasseurMedia;
+use App\Models\MasseurVerification;
+use App\Models\MediaVerification;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 
@@ -282,7 +285,6 @@ class MasseurController extends AppController
                         
             $masseur->save();
             $masseur_profile_id = $masseur->id;
-
             $member_id = generate_masseur_member_id($masseur_profile_id);
             
             $masseur->member_id   = ($member_id) ? $member_id : '';
@@ -325,6 +327,12 @@ class MasseurController extends AppController
                 }
             }
 
+            if ($request->hasFile('verification_image')) {
+                $this->mediaVerificationUpload(
+                    $masseur_profile_id,
+                    $request->file('verification_image')
+                );
+            }
            
 
             DB::commit();
@@ -354,9 +362,85 @@ class MasseurController extends AppController
         
     }
 
+
+    public function uploadMasseurVerification(Request $request)
+    {
+        $request->validate([
+            'masseur_profile_id' => 'required',
+            'verification_image' => 'required|image'
+        ]);
+
+        $result = $this->mediaVerificationUpload(
+            $request->masseur_profile_id,
+            $request->file('verification_image')
+        );
+
+        return response()->json($result);
+    }
+
+    public function mediaVerificationUpload($masseur_profile_id, $verification_image)
+    {
+        $user = auth()->user();
+
+        // 🔹 Validation
+        if (empty($verification_image)) {
+            return [
+                'success' => false,
+                'message' => 'Please upload a verification image.'
+            ];
+        }
+
+        // Upload image
+        $fileName = time() . '_' . uniqid() . '.' . $verification_image->getClientOriginalExtension();
+        $destination_path = $masseur_profile_id . '/verifications/' . $fileName;
+
+        \Storage::disk('escorts')->put(
+            $destination_path,
+            file_get_contents($verification_image)
+        );
+
+        // Check existing pending verification
+        $verification = MasseurVerification::where('user_id', $user->id)
+         ->where('masseur_id', $masseur_profile_id)
+            ->where('status', '0')
+            ->first();
+
+        if ($verification) {
+
+            // Update existing
+            $verification->update([
+                'image_path' => $destination_path,
+            ]);
+
+        } else {
+
+            // Create new
+            $verification = MasseurVerification::create([
+                'user_id'     => $user->id,
+                'image_path'  => $destination_path,
+                'masseur_id'  => $masseur_profile_id,
+                'status'      => '0',
+                'submited_by' => $masseur_profile_id,
+            ]);
+            $masseur_token_id = MasseurGallery::where('masseur_profile_id', $verification->masseur_id)->value('masseur_token_id'); 
+              
+            // Reset all media to pending
+            MasseurMedia::where('user_id', $user->id)
+                ->where('type', '0')
+                ->where('masseur_token_id', $masseur_token_id)
+                ->update([
+                    'varified' => '0'
+                ]);
+        }
+
+        return [
+            'success' => true,
+            'message' => "Verification uploaded successfully.\nPlease allow 24 hours for the verification to be completed."
+        ];
+    }
+
     public function edit_masseur(Request $request, $id)
     {
-        
         $masseur = Masseur::where('id',$id)->first();
         if(!$masseur || !$id){
         return redirect()->route('center.create-new-masseur');
@@ -385,14 +469,17 @@ class MasseurController extends AppController
 
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
         $services = $masseur->service ?? [];
-
-
+        $verification = MasseurVerification::where('masseur_id', $id)->where('status' , '0')->first();
+        
+        $imageUrl = $verification && $verification->image_path
+            ? asset('escorts/' . $verification->image_path)
+            : asset('assets/app/img/upload-media.png');
         
         $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
 
         //dd($masseur_availability);
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists'));
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists','imageUrl'));
     }
 
     public function update_masseur(Request $request)
@@ -664,16 +751,26 @@ class MasseurController extends AppController
     {
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id,$page_token, []);
+            $statusMap = [
+                'all'   => ['0','1','2'],
+                'verified'   => ['1'],
+                'unverified' => ['0','2'],
+            ];
+            $status = $statusMap[$status] ?? null;
             $mediaCategory = match ($category) {
                 'gallery' => $media->whereNotIn('position',[9,10]),
                 'banner'  => $media->whereIn('position',[9])->where('template','0'),
                 'pinup'   => $media->whereIn('position',[10]),
             };
+            if ($status !== null) {
+                $mediaCategory = $mediaCategory->whereIn('varified', $status);
+            }
             $path = $this->media;
             $response = [];
             $response['success'] = true;
             $response['category'] = $category;
-            $response['gallery_container_html'] = view('center.masseur.media_gallery_container',compact('mediaCategory','media','path','category'))->render();
+            $currentStatus =  $request->status ?? 'all';
+            $response['gallery_container_html'] = view('center.masseur.media_gallery_container',compact('mediaCategory','media','path','category','currentStatus'))->render();
             $response['gallery_modal_container_html'] = view('center.masseur.gallery_modal_container',compact('media','path'))->render();
             //$response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
             
@@ -1383,4 +1480,44 @@ class MasseurController extends AppController
     }
 
     ################## End Validate Mmasseur ##########################
+
+
+    public function getImageInfo(Request $request)
+    {
+        $media_id = $request->media_id;
+        $media = MasseurMedia::findOrFail($media_id);
+        if (!$media) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Media not found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Media fetched successfully',
+            'data' => $media
+        ]);
+    }
+
+
+      public function getMediaCOunt(Request $request)
+        {
+            $masseur_token_id = MasseurGallery::where('masseur_profile_id', $request->masseur_id)->pluck('masseur_token_id');
+            $query = MasseurMedia::whereIn('masseur_token_id',$masseur_token_id);
+            // Total media count
+            $total_media_count = (clone $query)->count();
+          
+            // Media count for verification
+            $media_count_for_verification = (clone $query)
+                ->whereIn('varified', ['0', '2'])
+                ->whereNull('media_verification_id')
+                ->count();
+
+            return response()->json([
+                'success' => true,
+                'media_count_for_verification' => $media_count_for_verification,
+                'total_media_count' => $total_media_count
+            ]);
+        }
 }

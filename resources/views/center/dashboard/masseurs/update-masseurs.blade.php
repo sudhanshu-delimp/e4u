@@ -58,7 +58,7 @@
 
         img.img-thumbnail.defult-image {
             width: 190px;
-            height: 180px;
+            height: 135px;
             object-fit: cover;
         }
 
@@ -387,9 +387,12 @@
                                 <div class="mcc-form-tab">
                                     <h2 class="mcc-heading">Media</h2>
                                     <div class="row">
-                                        <div class="col-md-12 my-3 d-flex justify-content-end">
+                                        <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
                                             <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                                 data-target="#add_photo_mcc">Add Photos</button>
+                                            <button type="button" disabled="" id="MediaVerification" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#veryfy_media">Media Verification
+                                                <span class="timer_tooltip"></span>
+                                            </button>
                                         </div>
                                         <div class="col-lg-4 col-sm-12">
                                             <div class="upload-banner p-0">
@@ -406,7 +409,7 @@
                                                     <div class="col-sm-12 masseur_upl_img">
                                                         <div class="thumnail_img">
                                                             <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                            <div class="plate dvDest ui-droppable">
+                                                            <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                 <label class="newbtn" data-toggle="modal"
                                                                     data-target="#photo_gallery">
                                                                     <img class="w-100 gal-thumb-first upld-img"
@@ -416,12 +419,25 @@
                                                                         src="{{ asset($masseur->getImagePosition(1, $masseur->id)) }}"
                                                                         onclick="positionToUpdate(1)">
                                                                 </label>
+                                                                 @php 
+                                                                    $img_data = $masseur->getImageDetailsByPosition(1, $masseur->id);
+                                                                @endphp
+                                                                <div class="mass_lg_icon" style="{{ $img_data ? '' : 'display:none;' }}" id="verify_icon_1">
+                                                                     @if($img_data)
+                                                                        @php 
+                                                                            $status = $img_data->varified ?? 0; 
+                                                                            $status_icon = getMediaVerificationDataBigIcon($status);
+                                                                        @endphp
+                                                                        <img src="{{ $status_icon['icon'] }}">
+                                                                        <span class="mass_tooltip">{{ $status_icon['label'] }}</span>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="gal_img">
                                                             <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                             <div class="masseur_gallery">
-                                                                <div class="plate dvDest ui-droppable">
+                                                                <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img pro_gallery"
@@ -429,22 +445,67 @@
                                                                             id="img2" data-type="gallery" src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(2)">
                                                                     </label>
+                                                                    @php 
+                                                                        $img_data = $masseur->getImageDetailsByPosition(2, $masseur->id);
+                                                                    @endphp
+
+                                                                    <div class="mass_sm_icon" style="{{ $img_data ? '' : 'display:none;' }}" id="verify_icon_2">
+                                                                        @if($img_data)
+                                                                            @php 
+                                                                                $status = $img_data->varified ?? 0; 
+                                                                                $status_icon = getMediaVerificationDataSmallIcon($status);
+                                                                            @endphp
+
+                                                                            <img src="{{ $status_icon['icon'] }}">
+                                                                            <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
-                                                                <div class="plate dvDest ui-droppable">
+                                                                <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img pro_gallery"
                                                                             id="img3" data-position=3 data-type="gallery" src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(3)">
                                                                     </label>
+                                                                    @php 
+                                                                        $img_data = $masseur->getImageDetailsByPosition(3, $masseur->id);
+                                                                    @endphp
+
+                                                                    <div class="mass_sm_icon" style="{{ $img_data ? '' : 'display:none;' }}" id="verify_icon_3">
+                                                                        @if($img_data)
+                                                                            @php 
+                                                                                $status = $img_data->varified ?? 0; 
+                                                                                $status_icon = getMediaVerificationDataSmallIcon($status);
+                                                                            @endphp
+
+                                                                            <img src="{{ $status_icon['icon'] }}">
+                                                                            <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
-                                                                <div class="plate dvDest ui-droppable">
+                                                                <div class="plate dvDest ui-droppable mass_verify_icon">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img pro_gallery"
                                                                             id="img4" data-position=4 data-type="gallery" src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(4)">
                                                                     </label>
+                                                                    @php 
+                                                                        $img_data = $masseur->getImageDetailsByPosition(4, $masseur->id);
+                                                                    @endphp
+
+                                                                    <div class="mass_sm_icon" style="{{ $img_data ? '' : 'display:none;' }}" id="verify_icon_4">
+                                                                        @if($img_data)
+                                                                            @php 
+                                                                                $status = $img_data->varified ?? 0; 
+                                                                                $status_icon = getMediaVerificationDataSmallIcon($status);
+                                                                            @endphp
+
+                                                                            <img src="{{ $status_icon['icon'] }}">
+                                                                            <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -468,17 +529,17 @@
                                                         style="display: block;position: relative;top: 30%;">
                                                         <div class="row">
                                                             <div class="col-md-8">
-                                                                <ul class="nav nav-tabs border-0">
+                                                                <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type" >
                                                                     <li class="nav-item">
                                                                         <a class="nav-link active" id="menu_all"
-                                                                            data-toggle="tab" href="#home">All</a>
+                                                                            data-toggle="tab"  data-filter-type="all" href="#home">All</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="menu_varified" data-toggle="tab"
+                                                                        <a class="nav-link"  data-filter-type="verified" id="menu_varified" data-toggle="tab"
                                                                             href="#menu1">Verified</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="menu_unverified" data-toggle="tab"
+                                                                        <a class="nav-link"  data-filter-type="unverified" id="menu_unverified" data-toggle="tab"
                                                                             href="#menu2">Unverified</a>
                                                                     </li>
                                                                 </ul>
@@ -1157,6 +1218,7 @@
 
 
     @include('center.dashboard.modal.remove_gallary_image')
+    @include('center.dashboard.modal.update_messeue_upload_verify_media')
 @endsection
 
 @push('script')
@@ -2006,15 +2068,19 @@
                 }
             });
         });
-
+        $(document).on('click', '#escort_profile_media_filter_type .nav-link', function(e) {
+            e.preventDefault();
+            $('#escort_profile_media_filter_type .nav-link').removeClass('active');
+            $(this).addClass('active');
+            getAccountMediaGallery();
+        });
 
         var getAccountMediaGallery = function() {
-            console.log('getAccountMediaGallery=======');
-           
             let page_token = $('#page_token').val();
             let activeGalleryTab = $(".js_gallery_category .nav-link.active").attr('data-type');
+            let activeStatusTab = $("#escort_profile_media_filter_type .nav-link.active").attr('data-filter-type');
             return $.ajax({
-                url: `/center-dashboard/get-massuers-account-media-gallery/${activeGalleryTab}/${page_token}`,
+                url: `/center-dashboard/get-massuers-account-media-gallery/${activeGalleryTab}/${page_token}/${activeStatusTab}`,
                 type: "GET",
                 dataType: "json"
             }).done(function(response) {
@@ -2040,12 +2106,44 @@
                         $(`#cItem_0`).addClass('active');
                     }
                      initDragDrop();
+                     getMediaCount()
                 }
             }).fail(function(xhr, status, error) {
                 console.error("Error:", error);
             });
         }
 
+
+        
+    function getMediaCount(){
+        return $.ajax({
+            url: `/center-dashboard/get-masseurs-media-count`,
+            type: "GET",
+            dataType: "json",
+            data: { masseur_id: "{{$masseur->id}}" },
+        }).done(function (response) {
+            let btn = $('#MediaVerification');
+            let tooltip = btn.find('.timer_tooltip');
+            if (response.success && response.total_media_count < 1) {
+                btn.prop('disabled', true);
+                btn.addClass('disabled-img-btn')
+                tooltip.text('No any media.');
+            } 
+            else if (response.success && response.media_count_for_verification < 1){
+                btn.prop('disabled', true);
+                tooltip.text('No media available for verification.');
+                btn.addClass('disabled-img-btn');
+            } 
+            else {
+                btn.prop('disabled', false);
+                tooltip.text('You must provide your Media Verification within 48 hours.');
+                btn.removeClass('disabled-img-btn')
+            }
+
+        }).fail(function (xhr, status, error) {
+            console.error("Error:", error);
+        });
+    }
 
         function updateDefaultImage(position, meidaId, img_target, media_src) {
             var url = "{{ route('center.masseur.default.images') }} ";
@@ -2095,10 +2193,6 @@
 
 getAccountMediaGallery();
 
-$(document).ready(function () {
-    //();
-});
-
 
 function initDragDrop()
 {
@@ -2128,6 +2222,10 @@ function initDragDrop()
                     boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
                 });
 
+        },
+        start: function(event, ui) {
+            let type = $(this).closest(".item4").find("span.badge").text().toLowerCase().trim();
+            $(this).data("drag-type", type);
         }
     });
 
@@ -2142,8 +2240,8 @@ function initDragDrop()
             let dragSlot = ui.draggable;
 
             let dropSlotType = dropSlot.find("img").attr("data-type");
-            let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
-
+            // let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+            let dragSlotType = dragSlot.data("drag-type");
             let imgSrc = dragSlot.attr("src");
             let imgId  = dragSlot.attr("data-id");
             let position  = dragSlot.attr("data-position");
@@ -2175,10 +2273,7 @@ function initDragDrop()
                     .attr("data-id", imgId);
 
                 $('#mediaId'+dropPosition).val(imgId);
-
-
-                    
-
+                getMediaByIdAndStatusShow(imgId, dropPosition)
             }
 
         }
@@ -2186,6 +2281,198 @@ function initDragDrop()
     });
 
 }
+let selectedImageId = null;
+let selectedPosition = null;
+
+$(document).on('click', '.dvDest', function () {
+
+    $(".dvDest").removeClass("active");
+    $(this).addClass("active");
+    selectedPosition = $(this).find("img").data("position");
+    console.log("Selected Position:", selectedPosition);
+});
+
+
+$(document).on('click', '.select_image', function () {
+    selectedImageId = $(this).data('id');
+    if (!selectedPosition) {
+        console.log("Position not set yet");
+        return;
+    }
+    getMediaByIdAndStatusShow(selectedImageId,selectedPosition);
+});
+    
+ function getMediaByIdAndStatusShow(media_id, position) {
+        position = String(position).trim();
+        let iconBox = $('#verify_icon_' + position);
+
+        if (iconBox.length === 0) {
+            console.log("Icon box not found for position:", position);
+            return;
+        }
+
+        $.ajax({
+            url: '/center-dashboard/get-masseur-image-info',
+            type: 'POST',
+            data: {
+                media_id: media_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(res) {
+                let status = res.data.varified;
+                let template = res.data.template;
+
+                if (status === null || typeof status === "undefined") {
+                    iconBox.html('').hide();
+                    return;
+                }
+
+                let iconPath = '';
+                let iconText = '';
+
+                if (position == 1) {
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                        iconText = '<span class="mass_tooltip">Media Pending</span>';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                        iconText = '<span class="mass_tooltip">Media Verified</span>';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_light.png';
+                        iconText = '<span class="mass_tooltip">Media Unverified</span>';
+                    }
+                } else {
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                        iconText = '<span class="mass_sm_tooltip">Media Pending</span>';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/verified_icon.png';
+                        iconText = '<span class="mass_sm_tooltip">Media Verified</span>';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_icon.png';
+                        iconText = '<span class="mass_sm_tooltip">Media Unverified</span>';
+                    }
+                }
+
+                iconBox.html(`<img src="${iconPath}">${iconText}`);
+
+                if (template == "1") {
+                    iconBox.hide();
+                } else {
+                    iconBox.show();
+                }
+            },
+            error: function() {
+                iconBox.html('').hide();
+            }
+        });
+}
+
+function readVarificationImageURL(input) {
+    if (input.files && input.files[0]) {
+        var $img = $(input).siblings('img');
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $img.attr('src', e.target.result);
+            $('#VerifyMedia').attr('disabled', false);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+$(document).off('submit', '#mediaVerification');
+$(document).on('submit', '#mediaVerification', function (e) {
+    e.preventDefault();
+    let form = this;
+    let formData = new FormData(form);
+    formData.append('masseur_profile_id', "{{$masseur->id}}");
+    let button = $('#verifyMediaBtn');
+    button.text('Verifying...');
+    button.prop('disabled', true);
+
+    let fileInput = $(form).find('input[type="file"]')[0];
+   
+    if (!fileInput.files.length) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Image Required',
+            text: 'Please upload verification image.'
+        });
+        button.prop('disabled', false).text('Verify Media');
+        return;
+    }
+
+    let file = fileInput.files[0];
+
+    let allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (!allowedTypes.includes(file.type)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid File Type',
+            text: 'Only JPG and PNG images are allowed.'
+        });
+        button.prop('disabled', false).text('Verify Media');
+        return;
+    }
+
+    let maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+        Swal.fire({
+            icon: 'error',
+            title: 'File Too Large',
+            text: 'Image size must be less than 5MB.'
+        });
+        button.prop('disabled', false).text('Verify Media');
+        return;
+    }
+
+    $.ajax({
+        url: $(form).attr('action'),
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                html: response.message.replace(/\n/g, "<br>")
+            });
+            getAccountMediaGallery();
+             // form.reset();  //
+            $('.img_alert').show();
+            $('.upload_varification_img_wrapper').addClass('has_img');
+            $('#veryfy_media').modal('hide');
+        },
+        error: function (xhr) {
+            let errorMsg = 'Something went wrong.';
+
+            if (xhr.responseText) {
+                try {
+                    let res = JSON.parse(xhr.responseText);
+                    if (res.message) {
+                        errorMsg = res.message;
+                    }
+                } catch (e) {
+                    console.log('JSON parse error');
+                }
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMsg
+            });
+        },
+        complete: function () {
+            button.prop('disabled', false);
+            button.text('Verify Media');
+        }
+    });
+
+});
 
 
     </script>
