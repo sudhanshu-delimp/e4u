@@ -774,25 +774,32 @@
 
 
                                                             @if(in_array('massage', $masseur_services))
+                                                            
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage only</p>
                                                                 </div>
-                                                            @endif    
 
-                                                            @if(in_array('2_hand', $masseur_services))
+                                                                @if(in_array('2_hand', $masseur_services))
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
                                                                 </div>
-                                                             @endif       
+                                                                @endif 
+                                                                
+                                                                
+                                                                @if(in_array('4_hand', $masseur_services))
+                                                                    <div class="massage_type_info">
+                                                                        <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                                        <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
+                                                                    </div>
+                                                                @endif   
 
-                                                            @if(in_array('4_hand', $masseur_services))
-                                                                <div class="massage_type_info">
-                                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
-                                                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
-                                                                </div>
-                                                             @endif   
+                                                            @endif    
+
+                                                                
+
+                                                           
 
                                                             </div>
                                                         </div>
