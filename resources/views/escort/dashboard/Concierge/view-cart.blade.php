@@ -13,8 +13,9 @@
         input[type="radio"].is-invalid+label {
             color: red !important;
         }
-        #swal2-title{
-          font-size:x-large;
+
+        #swal2-title {
+            font-size: x-large;
         }
     </style>
 @endsection
@@ -157,7 +158,7 @@
                             <h2><b>Delivery Address</b></h2>
                         </div>
                         <div class="form-row">
-                            <form action="/" id="deliveryAddressForm">
+                            {{-- <form action="/" id="deliveryAddressForm">
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="Mobile Number"><b>Mobile Number</b></label>
@@ -178,7 +179,7 @@
                                         <label for="Instructions"><b>Any Special Instructions?</b></label>
                                         <textarea type="textarea" class="form-control common_textarea" name="special_instructions" rows="5"
                                             placeholder="Like building access if we are delivering to your door." required></textarea>
-                                        {{-- <div class="row my-3"> --}}
+
                                         <div class="col-lg-12">
                                             <input type="radio" name="delivery_type" id="door" value="door"
                                                 required checked>
@@ -195,9 +196,138 @@
                                                     delivery. </p>
                                             </div>
                                         </div>
-                                        {{-- <div class="d-flex justify-content-end mr-0">
-                                            <button type="submit" class="btn-common">Place Order</button>
-                                        </div> --}}
+
+                                    </div>
+                                </div>
+                            </form> --}}
+
+                            <form action="/" id="deliveryAddressForm">
+                                <div class="row">
+                                    <!-- Mobile -->
+                                    <div class="col-6">
+                                        <label><b>Mobile Number</b></label>
+                                        <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
+                                            required>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="col-6">
+                                        <label><b>Email</b></label>
+                                        <input type="text" class="form-control" name="email"
+                                            placeholder="you@domain.com.au" required>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="col-md-12 my-2">
+                                        <label><b>Address</b></label>
+                                        <input type="text" class="form-control" name="address"
+                                            placeholder="Unit 1, 1 The Street, Suburb WA 6000" required>
+                                    </div>
+
+                                    <!-- City -->
+                                    <div class="col-md-12 my-2">
+                                        <label><b>City</b></label>
+                                        <input type="text" class="form-control" name="city" placeholder="City"
+                                            required>
+                                    </div>
+                                    <!-- Pincode -->
+                                    <div class="col-md-12 my-2">
+                                        <label><b>Pincode</b></label>
+                                        <input type="text" class="form-control" name="pincode" placeholder="600001"
+                                            required>
+                                    </div>
+                                    <!-- Special Instructions -->
+                                    <div class="col-md-12">
+                                        <label><b>Any Special Instructions?</b></label>
+                                        <textarea class="form-control common_textarea" name="special_instructions" rows="5"
+                                            placeholder="Like building access if we are delivering to your door." required></textarea>
+
+                                        <div class="col-lg-12 mt-2">
+                                            <input type="radio" name="delivery_type" id="door" value="door"
+                                                required checked>
+                                            <label for="door"><b>Delivery to the door</b></label>
+
+                                            <input type="radio" name="delivery_type" id="post" value="post"
+                                                style="margin-left:17px;" required>
+                                            <label for="post"><b>Post</b></label>
+
+                                            <div class="d-flex gap-10 mt-1">
+                                                <b>Note:</b>
+                                                <p class="text-small mb-0">If delivery to the door, we will contact you 15
+                                                    minutes before delivery.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Billing Address Toggle -->
+                                    <div class="col-12 mt-3">
+                                        <input type="checkbox" id="sameAddress" onclick="toggleBilling()">
+                                        <label for="sameAddress"><b>Billing address same as delivery</b></label>
+                                    </div>
+                                </div>
+
+                                <!-- Billing Address Section -->
+                                <div id="billingSection" class="mt-4">
+                                    <div class="d-sm-flex align-items-center justify-content-between my-3">
+                                        <h2><b>Billing Address</b></h2>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Phone -->
+                                        <div class="col-6">
+                                            <label><b>Mobile Number</b></label>
+                                            <input type="text" name="billing_phone" class="form-control"
+                                                placeholder="0145 028 758" required>
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div class="col-6">
+                                            <label><b>Email</b></label>
+                                            <input type="email" name="billing_email" class="form-control"
+                                                placeholder="you@domain.com.au" required>
+                                        </div>
+
+                                        <!-- Address Line 1 -->
+                                        <div class="col-md-12 my-2">
+                                            <label><b>Address Line 1</b></label>
+                                            <input type="text" name="billing_address_line1" class="form-control"
+                                                placeholder="Unit 1, 1 The Street" required>
+                                        </div>
+
+                                        <!-- Address Line 2 -->
+                                        <div class="col-md-12 my-2">
+                                            <label><b>Address Line 2</b></label>
+                                            <input type="text" name="billing_address_line2" class="form-control"
+                                                placeholder="Apartment, suite, etc (optional)">
+                                        </div>
+
+                                        <!-- City -->
+                                        <div class="col-6">
+                                            <label><b>City</b></label>
+                                            <input type="text" name="billing_city" class="form-control"
+                                                placeholder="City" required>
+                                        </div>
+
+                                        <!-- Pincode -->
+                                        <div class="col-6">
+                                            <label><b>Pincode</b></label>
+                                            <input type="text" name="billing_pincode" class="form-control"
+                                                placeholder="600001" required>
+                                        </div>
+
+                                        <!-- Landmark -->
+                                        <div class="col-md-12 my-2">
+                                            <label><b>Landmark</b></label>
+                                            <input type="text" name="billing_landmark" class="form-control"
+                                                placeholder="Near school, mall, etc">
+                                        </div>
+
+                                        <!-- Special Instructions -->
+                                        <div class="col-md-12">
+                                            <label><b>Any Special Instructions?</b></label>
+                                            <textarea class="form-control" name="billing_special_instructions" rows="4"
+                                                placeholder="Delivery instructions"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -626,7 +756,7 @@
             $("#deliveryAddressForm")
                 .find("input, textarea, select")
                 .each(function() {
-                   
+
                     if ($(this).val().trim() === "") {
                         isValid = false;
                         $(this).addClass("is-invalid");

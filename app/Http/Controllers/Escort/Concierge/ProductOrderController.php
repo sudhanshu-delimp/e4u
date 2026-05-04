@@ -88,21 +88,37 @@ class ProductOrderController extends Controller
             ProductOrderItem::create($orderItem);
           }
           // prepare data for delivery details like billing & shipping address
-          $orderAddress = [
+          $orderAddressShipping = [
             'order_id' => $order->id,
             'type' => 'shipping',
             'email' => $data['deliveryDetails']['email'],
             'phone' => $data['deliveryDetails']['phone'],
             'address_line1' => $data['deliveryDetails']['address'],
             'state' => $state['stateName'],
-            'city' => !empty(Auth::user()->city_id) ? $state['cities'][Auth::user()->city_id] : '',
             'country' => 'Australia',
-            'pincode' => 234234
+            'city' => $data['deliveryDetails']['city'] ?? '',
+            'pincode' => $data['deliveryDetails']['pincode'] ?? '',
           ];
 
-          OrderAddress::create($orderAddress);
+          $orderAddressBilling = [
+            'order_id' => $order->id,
+            'type' => 'billing',
+            'email' => $data['deliveryDetails']['billing_email'],
+            'phone' => $data['deliveryDetails']['billing_phone'],
+            'address_line1' => $data['deliveryDetails']['billing_address_line1'],
+            'address_line2' => $data['deliveryDetails']['billing_address_line2'] ?? '',
+            'city' => $data['deliveryDetails']['billing_city'] ?? '',
+            'pincode' => $data['deliveryDetails']['billing_pincode'] ?? '',
+            'landmark' => $data['deliveryDetails']['billing_landmark'] ?? '',
+            'state' => $state['stateName'],   // or billing state if different
+            'country' => 'Australia',
+          ];
+
+          OrderAddress::create($orderAddressShipping);
+          OrderAddress::create($orderAddressBilling);
         }
       });
+
       return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
     } catch (\Exception $e) {
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
