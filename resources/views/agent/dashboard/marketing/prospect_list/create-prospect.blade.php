@@ -52,23 +52,23 @@
     </style>
 
     <style>
-/* Loader overlay - modal ke upar */
-    #loader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 99999;        /* ✅ Bootstrap modal z-index 1050 se upar */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-    }
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99999;
+            /* ✅ Bootstrap modal z-index 1050 se upar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
 
-      .progress-container {
+        .progress-container {
             width: 300px;
             height: 6px;
             background: #ccc;
@@ -77,8 +77,9 @@
             margin-top: 20px;
             position: relative;
         }
+
         /* Smooth moving bar */
-       
+
         .progress-bar {
             position: absolute;
             width: 40%;
@@ -86,26 +87,29 @@
             background: #ff3c5f;
             animation: smoothSlide 1.2s linear infinite;
         }
-       
+
         @keyframes smoothSlide {
             0% {
                 left: -40%;
             }
+
             100% {
                 left: 100%;
             }
         }
-       
+
         .download-icon {
             font-size: 50px;
             animation: bounce 1s infinite;
         }
-       
+
         @keyframes bounce {
+
             0%,
             100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(8px);
             }
@@ -374,16 +378,14 @@
 
     @include('agent.dashboard.marketing.modal.merge-type-modal') {{-- Merge Type --}}
     @include('agent.dashboard.marketing.modal.view-list-modal') {{-- view Modal  --}}
-    @include('agent.dashboard.marketing.modal.view-report-modal')  {{-- Merged Documents modal --}}
-    
-
-
+    @include('agent.dashboard.marketing.modal.view-report-modal') {{-- Merged Documents modal --}}
 
     {{-- end modals --}}
 
 
     <div id="loader" class="overlay d-none">
-        <div class="download-icon"><img src="{{ asset('assets/dashboard/img/arrow.png') }}" alt="" style="width: 70px;"></div>
+        <div class="download-icon"><img src="{{ asset('assets/dashboard/img/arrow.png') }}" alt=""
+                style="width: 70px;"></div>
         <h2>Downloading... Please wait</h2>
         <div class="progress-container">
             <div class="progress-bar"></div>
@@ -406,12 +408,8 @@
         data-save-report="{{ route('agent.marketing.prospect.save-report') }}"
         data-report-list-action="{{ route('agent.marketing.prospect.report.action') }}"
         data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
-        data-update-save-report="{{route('agent.marketing.prospect.update.save.report')}}"
-        data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist',  ['id' => '__ID__']) }}"
-      
-        
-        
-        ></div>
+        data-update-save-report="{{ route('agent.marketing.prospect.update.save.report') }}"
+        data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist', ['id' => '__ID__']) }}"></div>
 @endsection
 
 @push('script')

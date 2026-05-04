@@ -154,6 +154,8 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     //Save Report
     Route::get('marketing/save-report/report-list', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');
     Route::get('marketing/save-report/view-appointment-list/{id}', [ProspectListController::class, 'appointmentList'])->name('agent.marketing.save.report.appointment.list');
+    //search Center using id
+    Route::post('marketing/save-report/search-center-by-id', [ProspectListController::class, 'searchCenterById'])->name('agent.marketing.save.report.search.center');
     
      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');

@@ -15,7 +15,9 @@ const endpoint = {
     update_save_report: mmRoot.data('update-save-report'),
     view_centerlist_url: mmRoot.data('view-centerlist-url'),
     save_report_list: mmRoot.data('save-report-list'),
-    view_approspectlist:mmRoot.data('view-approspectlist'),
+    view_approspectlist: mmRoot.data('view-approspectlist'),
+    search_center: mmRoot.data('search-center'),
+
 
 };
 
@@ -42,7 +44,7 @@ $(document).ready(function () {
         lengthChange: true,
         searching: true,
         bStateSave: true,
-        ordering: true,
+        ordering: false,
         lengthMenu: [
             [10, 25, 50, 100],
             [10, 25, 50, 100]
@@ -498,7 +500,6 @@ $(document).ready(function () {
     //Clieck On Action Button ex : Merge, Print, View
     $(document).on('click', '.report-action', function (e) {
         e.preventDefault();
-
         let reportId = $(this).data('report-id');
         let actionType = $(this).data('report-action');
         if (actionType === 'Merge') {
@@ -512,9 +513,13 @@ $(document).ready(function () {
             //$('#appointmentModal').modal('show');
             viewAppointment(reportId);
         } else if (actionType === 'Search') {
-            //alert('Search functionality coming soon!');
-             $('#searchCenterModal').modal('show');
-            // $('#search_report_id').val(reportId);
+            $('#search_report_id').val(reportId);
+            $('#search_id_number').val('');
+            $('#searchCenterModal').modal('show');
+            $('#search_merge_type_row').hide();
+            $('#search_result_item').html('');
+           
+            
         }
 
     });
@@ -942,11 +947,75 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                 showAlert('error', 'Failed to load appointment list');
-             
+                showAlert('error', 'Failed to load appointment list');
+
             }
         });
     }
+
+
+
+    $('#search_button').on('click', function () {
+        let centreId = $('#search_id_number').val();
+        let reportId = $('#search_report_id').val();
+        //search se pahle search result ko hide karni hai. pending....
+        if (!centreId) {
+            showAlert('error', 'Please enter a centre ID.');
+            return;
+        }
+        searchCentre(centreId,reportId);
+    });
+
+    function searchCentre(centreId,reportId) {
+
+        $.ajax({
+            url: endpoint.search_center,
+            method: 'POST',
+            data: {
+                _token: endpoint.csrf_token,
+                centre_id: centreId,
+                report_id: reportId,
+            },
+            beforeSend: function(){
+                $('#search_loader').show();
+                $('#search_merge_type_row').hide();
+                //clear previuse data
+                $('#search_result_item').html('');
+                
+            },
+            success: function (res) {
+                $('#search_loader').hide();
+                if (res.status == true) {
+                    $('#report_items_list').show();
+                    //append html
+                    $('#search_result_item').html(res.data.html);
+                    $('#search_merge_type_row').show();
+                }else{
+                   showAlert('error', res.message)
+                }
+            },
+            error : function(xhr){
+                $('#search_loader').hide();
+                $('#search_merge_type_row').hide();
+                 let message = 'Something went wrong. Please try again.';
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                    message = xhr.responseJSON.message;
+                }
+                 showAlert('error', message)
+            }
+        });
+    }
+
+    // Select single center 
+    $(document).on('click', '.single-print-pdf', function () {
+        let centreId = $(this).data('centre-id');
+        let reportId = $(this).data('report-id');
+        let docType = $('input[name="searchMergeType"]:checked').val();
+
+        triggerPDF([centreId], reportId, docType, 'print');
+    });
+
+
 
 
 

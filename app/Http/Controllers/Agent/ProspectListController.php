@@ -196,7 +196,9 @@ class ProspectListController extends Controller
                 ->editColumn('date', function ($row) {
                     return $row->created_at ? basicDateFormat($row->created_at) : 'NA';
                 })
-
+                ->orderColumn('date', function ($query, $order) {
+                    $query->orderBy('created_at', $order);
+                })
                 ->addColumn('action', function ($row) {
                     $actions = [];
                     $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action"  data-report-action="Merge" data-report-id="' . $row->id . '">
@@ -224,7 +226,7 @@ class ProspectListController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','date'])
                 ->make(true);
         }
 
@@ -626,6 +628,53 @@ class ProspectListController extends Controller
     public function informationPackageList()
     {
         return view('agent.dashboard.marketing.information-package.information-package-list');
+    }
+
+    //get search value
+    public function searchCenterById(Request $request)
+    {
+        try {
+            $reportId = $request->report_id;
+            $centerId = (int) $request->centre_id;
+
+            $report = ProspectReport::where('id', $reportId)
+                ->where('agent_id', auth()->id())
+                ->whereJsonContains('center_ids', $centerId)
+                ->first();
+    
+            if (!$report) {
+                return error_response('Centre not found in this report.', 404);
+            }
+
+            $centre = MassageExcel::where('id', $centerId)
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number', 'email')
+                ->first();
+
+            if (!$centre) {
+                return error_response('Centre not found.', 404);
+            }
+
+            $html = '
+            <div class="item" data-id="' . $centre->id . '" >
+                <div class="left">
+                    <div class="centre-info">
+                        <strong>' . e($centre->bussiness_name) . '</strong><br>
+                        <small>' . e($centre->address) . '</small>
+                    </div>
+                </div>
+                <div class="action_btn">
+                    <button class="btn-print-single single-print-pdf" data-centre-id="' . $centre->id . '" data-report-id="' . $reportId . '"> Print </button>
+                    <a href="mailto:' . e($centre->email ?? '') . '" class="btn-email-single" data-email="' . e($centre->email ?? '') . '" data-centre-id="' . $centre->id . '"
+                    data-report-id="' . $reportId . '"> Email</a>
+                </div>
+            </div>';
+
+
+            return success_response(['html' => $html], "Ok", 200, []);
+
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch centre: ' . $e->getMessage(), 500);
+        }
     }
 
 
