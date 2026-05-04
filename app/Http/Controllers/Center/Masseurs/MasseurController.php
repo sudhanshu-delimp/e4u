@@ -422,11 +422,12 @@ class MasseurController extends AppController
                 'status'      => '0',
                 'submited_by' => $masseur_profile_id,
             ]);
-
+            $masseur_token_id = MasseurGallery::where('masseur_profile_id', $verification->masseur_id)->value('masseur_token_id'); 
+              
             // Reset all media to pending
             MasseurMedia::where('user_id', $user->id)
                 ->where('type', '0')
-                ->where('masseur_id', $masseur_profile_id)
+                ->where('masseur_token_id', $masseur_token_id)
                 ->update([
                     'varified' => '0'
                 ]);

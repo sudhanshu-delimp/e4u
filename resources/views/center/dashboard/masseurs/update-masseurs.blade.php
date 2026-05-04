@@ -2193,10 +2193,6 @@
 
 getAccountMediaGallery();
 
-$(document).ready(function () {
-    //();
-});
-
 
 function initDragDrop()
 {
@@ -2444,7 +2440,7 @@ $(document).on('submit', '#mediaVerification', function (e) {
                 title: 'Success',
                 html: response.message.replace(/\n/g, "<br>")
             });
-
+            getAccountMediaGallery();
              // form.reset();  //
             $('.img_alert').show();
             $('.upload_varification_img_wrapper').addClass('has_img');

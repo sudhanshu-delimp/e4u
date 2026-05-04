@@ -712,8 +712,7 @@ class MediaVerificationController extends Controller
                 \Mail::to($body['email'])
                     ->cc($cc)
                     ->queue(new MediaVerificationMasseurMail($body));
-                Artisan::queue('profile:sync-status');
-
+    
                 break;
 
             default: // Pending 

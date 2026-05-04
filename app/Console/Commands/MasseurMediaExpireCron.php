@@ -2,11 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\Models\MasseurGallery;
 use Illuminate\Console\Command;
 use App\Models\MasseurMedia;
 use App\Models\MasseurVerification;
 use App\Models\User;
+use App\Models\Masseur;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SystemMasseurMediaUnverifiedDueToNoVerificationMail;
 
 class MasseurMediaExpireCron extends Command
 {
@@ -17,18 +20,27 @@ class MasseurMediaExpireCron extends Command
     {
         $now = now();
 
-        // LIVE
-        $expireMinutes = 60 * 48;
+        // LIVE (change to 60*48 for production)
+        $expireMinutes = 60*48;
 
-        // Step 1: users with pending media
-        $userIds = MasseurMedia::where('varified', '0')
-            ->pluck('user_id')
+        // Step 1: get unique masseur_token_ids having pending media
+        $masseur_token_ids = MasseurMedia::where('varified', '0')
+            ->whereNull('media_verification_id')
+            ->pluck('masseur_token_id')
             ->unique();
 
-        foreach ($userIds as $userId) {
+        foreach ($masseur_token_ids as $masseur_token_id) {
 
-            // Step 2: first pending media time
-            $firstPendingMediaTime = MasseurMedia::where('user_id', $userId)
+            // Step 2: get masseur profile
+            $masseur_profile = MasseurGallery::where('masseur_token_id', $masseur_token_id)->first();
+
+            if (!$masseur_profile) {
+                \Log::warning("Masseur profile not found for token: " . $masseur_token_id);
+                continue;
+            }
+
+            // Step 3: get first pending media time
+            $firstPendingMediaTime = MasseurMedia::where('masseur_token_id', $masseur_token_id)
                 ->where('varified', '0')
                 ->where('type', 0)
                 ->min('created_at');
@@ -37,40 +49,64 @@ class MasseurMediaExpireCron extends Command
                 continue;
             }
 
-            // Step 3: 48 hr check
-            if ($firstPendingMediaTime > $now->copy()->subMinutes($expireMinutes)) {
+            // Step 4: check expiry (48 hr logic)
+            if (now()->diffInMinutes($firstPendingMediaTime) < $expireMinutes) {
                 continue;
             }
 
-            // Step 4: verification check
-            $hasVerification = MasseurVerification::where('user_id', $userId)
-                ->where('status', '0') // pending verification
+            // Step 5: check if verification exists (pending)
+            $hasVerification = MasseurVerification::where('masseur_id', $masseur_profile->masseur_profile_id)
+                ->where('status', '0')
                 ->exists();
 
-            // Step 5: expire if no verification
+            // Step 6: expire media if no verification
             if (!$hasVerification) {
 
-                MasseurMedia::where('user_id', $userId)
+                // get all pending media
+                $masseur_media_data = MasseurMedia::where('masseur_token_id', $masseur_token_id)
                     ->where('varified', '0')
                     ->where('type', 0)
-                    ->update([
-                        'varified' => '2' // rejected/unverified
-                    ]);
+                    ->get();
 
+                if ($masseur_media_data->isEmpty()) {
+                    continue;
+                }
+
+                // get user_id from first record
+                $userId = $masseur_media_data->first()->user_id;
+
+                // update all media to unverified (2)
+                foreach ($masseur_media_data as $media) {
+                    $media->update(['varified' => '2']);
+                }
+
+                // get user details
                 $user = User::select('name', 'member_id', 'email')
                     ->where('id', $userId)
                     ->first();
 
+                if (!$user) {
+                    \Log::warning("User not found for user_id: " . $userId);
+                    continue;
+                }
+
+                // get masseur member id
+                $masseurMemberId = Masseur::where('id', $masseur_profile->masseur_profile_id)
+                    ->value('member_id');
+
+                // prepare email data
                 $body = [
                     'name' => $user->name ?? $user->email,
                     'email' => $user->email,
                     'member_id' => $user->member_id,
+                    'masseur_member_id' => $masseurMemberId,
                 ];
 
+                // send mail
                 Mail::to($body['email'])
-                    ->queue(new \App\Mail\SystemMediaUnverifiedDueToNoVerificationMail($body));
+                    ->queue(new SystemMasseurMediaUnverifiedDueToNoVerificationMail($body));
 
-                \Log::info("Masseur media expired (no verification) for user_id: " . $userId);
+                \Log::info("Masseur media expired for user_id: " . $userId);
             }
         }
 
