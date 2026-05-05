@@ -225,9 +225,11 @@
     <div id="loader" class="overlay d-none">
         <div class="download-icon"><img src="http://e4u_main.test/assets/dashboard/img/arrow.png" alt=""
                 style="width: 70px;"></div>
-        <h2>Downloading... Please wait</h2>
+        <h2 id>Downloading... Please wait</h2>
+        <p id="progressText">0 / 0</p>
         <div class="progress-container">
             <div class="progress-bar"></div>
+            
         </div>
     </div>
 
@@ -258,6 +260,8 @@
         data-save-report-list="{{ route('agent.marketing.save.report.list') }}"
         data-view-approspectlist="{{ route('agent.marketing.save.report.appointment.list', ['id' => '__ID__']) }}"
         data-search-center="{{route('agent.marketing.save.report.search.center')}}"
+        data-progress-data="{{route('agent.marketing.prospect.progress', ['id' => '__ID__'])}}"
+        data-download-data="{{route('agent.marketing.prospect.download', ['id' => '__ID__'])}}"
         ></div>
 @endsection
 @push('script')

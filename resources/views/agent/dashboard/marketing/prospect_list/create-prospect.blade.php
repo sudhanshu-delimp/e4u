@@ -384,14 +384,15 @@
 
 
     <div id="loader" class="overlay d-none">
-        <div class="download-icon"><img src="{{ asset('assets/dashboard/img/arrow.png') }}" alt=""
+        <div class="download-icon"><img src="http://e4u_main.test/assets/dashboard/img/arrow.png" alt=""
                 style="width: 70px;"></div>
-        <h2>Downloading... Please wait</h2>
+        <h2 id>Downloading... Please wait</h2>
+        <p id="progressText">0 / 0</p>
         <div class="progress-container">
             <div class="progress-bar"></div>
+            
         </div>
     </div>
-
 
 
 
@@ -409,7 +410,10 @@
         data-report-list-action="{{ route('agent.marketing.prospect.report.action') }}"
         data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
         data-update-save-report="{{ route('agent.marketing.prospect.update.save.report') }}"
-        data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist', ['id' => '__ID__']) }}"></div>
+        data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist', ['id' => '__ID__']) }}"
+        data-progress-data="{{route('agent.marketing.prospect.progress', ['id' => '__ID__'])}}"
+        data-download-data="{{route('agent.marketing.prospect.download', ['id' => '__ID__'])}}"
+        ></div>
 @endsection
 
 @push('script')

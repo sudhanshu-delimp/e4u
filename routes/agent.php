@@ -131,6 +131,9 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
 
     //Gener pdf
     Route::post('marketing/prospect-list/generate-pdf', [ProspectListController::class, 'generatePDF'])->name('agent.marketing.prospect.generate.pdf');
+    //show progressbar for save report and prospect list
+    Route::get('marketing/prospect-list/progress/{id}', [ProspectListController::class, 'progress'])->name('agent.marketing.prospect.progress')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);;
+    Route::get('marketing/prospect-list/download/{id}', [ProspectListController::class, 'download'])->name('agent.marketing.prospect.download');
     Route::post('marketing/prospect-list/update-save-report', [ProspectListController::class, 'updateSaveReport'])->name('agent.marketing.prospect.update.save.report');
 
     //View generate center list

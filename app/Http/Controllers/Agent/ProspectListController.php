@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\GeneratePdfJob;
 use App\Models\MassageExcel;
+use App\Models\PdfBatch;
 use App\Models\ProspectReport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -97,7 +99,7 @@ class ProspectListController extends Controller
 
         try {
             $type = $request->type;
-    
+
             if ($type === 'single' && $request->post_code) {
                 $postCodeLabel = $request->post_code;
             } elseif ($type === 'multiple' && $request->from && $request->to) {
@@ -207,11 +209,11 @@ class ProspectListController extends Controller
                         . '<i class="fa fa-print"></i> Print</a>';
                     $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="View" data-report-id="' . $row->id . '">'
                         . '<i class="fa fa-eye"></i> View</a>';
-                    if(!empty($row->merge_center_ids)){
+                    if (!empty($row->merge_center_ids)) {
                         $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="Appointment" data-report-id="' . $row->id . '">'
-                                       . '<i class="fa fa-calendar"></i> Appointment</a>';
+                            . '<i class="fa fa-calendar"></i> Appointment</a>';
                     }
-                
+
                     $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="Search" data-report-id="' . $row->id . '">'
                         . '<i class="fa fa-search"></i> Search</a>';
 
@@ -226,7 +228,7 @@ class ProspectListController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action','date'])
+                ->rawColumns(['action', 'date'])
                 ->make(true);
         }
 
@@ -308,163 +310,242 @@ class ProspectListController extends Controller
         }
     }
 
-    public function generatePDF(Request $request)
-    {
-        try {
-            $centreIds = $request->centre_ids;
-            $reportIds = $request->report_id;
-            $docType   = $request->docType;
-            $action    = $request->action;
+    // public function generatePDF(Request $request)
+    // {
+    //     try {
+    //         $centreIds = $request->centre_ids;
+    //         $reportIds = $request->report_id;
+    //         $docType   = $request->docType;
+    //         $action    = $request->action;
 
-            //View path according Merge Type
-            $viewPath = $docType === '1' ? 'agent.dashboard.marketing.modal.doc1' : 'agent.dashboard.marketing.modal.doc2';
+    //         //View path according Merge Type
+    //         $viewPath = $docType === '1' ? 'agent.dashboard.marketing.modal.doc1' : 'agent.dashboard.marketing.modal.doc2';
 
-            $centres = MassageExcel::whereIn('id', $centreIds)
-                ->get()
-                ->keyBy('id');
+    //         $centres = MassageExcel::whereIn('id', $centreIds)
+    //             ->get()
+    //             ->keyBy('id');
 
-            //Manage Order
-            $orderedCentres  = collect($centreIds)
-                ->map(fn($id)  => $centres->get($id))
-                ->filter()
-                ->values();
+    //         //Manage Order
+    //         $orderedCentres  = collect($centreIds)
+    //             ->map(fn($id)  => $centres->get($id))
+    //             ->filter()
+    //             ->values();
 
 
-            if ($orderedCentres->count() === 1) {
-                return $this->generateSinglePDF(  // return add karo
-                    $orderedCentres->first(),
-                    $viewPath
-                );
-            }
+    //         if ($orderedCentres->count() === 1) {
+    //             return $this->generateSinglePDF(  // return add karo
+    //                 $orderedCentres->first(),
+    //                 $viewPath
+    //             );
+    //         }
 
-            //Multiple centres 
-            return $this->generateZipPDF($orderedCentres, $viewPath);
-        } catch (\Exception $e) {
-            dd($e);
-            return error_response('PDF Failed: ' . $e->getMessage(), 500);
-        }
-    }
+    //         //Multiple centres 
+    //         return $this->generateZipPDF($orderedCentres, $viewPath);
+    //     } catch (\Exception $e) {
+    //         dd($e);
+    //         return error_response('PDF Failed: ' . $e->getMessage(), 500);
+    //     }
+    // }
 
 
     //Single PDF
 
-    private function generateSinglePDF($centre, $viewPath)
+    // private function generateSinglePDF($centre, $viewPath)
+    // {
+    //     $dynamicData = $this->getPfdDynamicName($centre);
+    //     $pdf = PDF::loadView($viewPath, [
+    //         'data'   => $dynamicData,
+    //     ])
+    //         ->setPaper('a4')
+    //         ->setOptions([
+    //             'isHtml5ParserEnabled' => true,
+    //             'isRemoteEnabled'      => true,
+    //             'dpi'                  => 96,
+    //             'chroot'               => public_path(),
+    //         ]);
+
+    //     $filename = $this->sanitizeName($centre['bussiness_name']) . '_report.pdf';
+
+
+    //     return response($pdf->output(), 200, [
+    //         'Content-Type'        => 'application/pdf',
+    //         'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+    //         'X-Filename'          => $filename,
+    //         'X-PDF-Count'         => 1,
+    //         'X-Is-Zip'            => 'false',
+    //     ]);
+    // }
+
+
+    // private function generateZipPDF($centres, $viewPath)
+    // {
+    //     @set_time_limit(0);
+    //     ini_set('memory_limit', '1G');
+
+    // $tempDir     = storage_path('app/temp_' . uniqid());
+    // $zipFilename = 'report_' . now()->format('d_m_Y_H_i_s') . '.zip';
+    // $zipPath     = storage_path('app/' . $zipFilename);
+
+    // if (!file_exists($tempDir)) {
+    //     mkdir($tempDir, 0755, true);
+    // }
+
+    //     $pdfFiles = [];
+
+    //     foreach ($centres as $index => $centre) {
+    //         $dynamicData = $this->getPfdDynamicName($centre);
+
+    //         $pdfContent = Pdf::loadView($viewPath, [
+    //             'data' => $dynamicData,
+    //         ])
+    //             ->setPaper('a4')
+    //             ->setOptions([
+    //                 'isHtml5ParserEnabled' => true,
+    //                 'isRemoteEnabled'      => true,
+    //                 'dpi'                  => 96,
+    //                 'chroot'               => public_path(),
+    //             ])
+    //             ->output();
+
+    //         if (empty($pdfContent)) {
+    //             throw new \Exception('Empty PDF for: ' . $centre->bussiness_name);
+    //         }
+
+    //         $pdfFilename = ($index + 1) . '_' . $this->sanitizeName($centre->bussiness_name) . '.pdf';
+    //         $pdfPath     = $tempDir . DIRECTORY_SEPARATOR . $pdfFilename;
+
+    //         file_put_contents($pdfPath, $pdfContent);
+
+    //         $pdfFiles[] = ['path' => $pdfPath, 'name' => $pdfFilename];
+
+    //         unset($pdfContent);
+    //         gc_collect_cycles();
+    //     }
+
+    //     // Step 2: ZIP banao
+    //     $zip    = new ZipArchive();
+    //     $result = $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+    //     if ($result !== true) {
+    //         throw new \Exception('ZipArchive open failed. Code: ' . $result);
+    //     }
+
+    //     foreach ($pdfFiles as $file) {
+    //         if (file_exists($file['path'])) {
+    //             $zip->addFile($file['path'], $file['name']);
+    //         }
+    //     }
+
+    //     $zip->close();
+
+    //     // Step 3: Validate ZIP
+    //     if (!file_exists($zipPath) || filesize($zipPath) == 0) {
+    //         throw new \Exception('ZIP file is invalid or empty.');
+    //     }
+
+    //     // Step 4: Cleanup temp PDFs
+    //     foreach ($pdfFiles as $file) {
+    //         if (file_exists($file['path'])) {
+    //             unlink($file['path']);
+    //         }
+    //     }
+
+    //     if (is_dir($tempDir)) {
+    //         rmdir($tempDir);
+    //     }
+
+
+    //     if (ob_get_length()) {
+    //         ob_end_clean();
+    //     }
+
+    //     // Step 6: Download
+    //     return response()->download($zipPath, $zipFilename, [
+    //         'Content-Type' => 'application/zip',
+    //         'X-Filename'   => $zipFilename,
+    //         'X-PDF-Count'  => $centres->count(),
+    //         'X-Is-Zip'     => 'true',
+    //     ])->deleteFileAfterSend(true);
+    // }
+
+    public function generatePDF(Request $request)
     {
-        $dynamicData = $this->getPfdDynamicName($centre);
-        $pdf = PDF::loadView($viewPath, [
-            'data'   => $dynamicData,
-        ])
-            ->setPaper('a4')
-            ->setOptions([
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled'      => true,
-                'dpi'                  => 96,
-                'chroot'               => public_path(),
-            ]);
 
-        $filename = $this->sanitizeName($centre['bussiness_name']) . '_report.pdf';
+        $centreIds = $request->centre_ids;
+        $docType   = $request->docType;
 
-
-        return response($pdf->output(), 200, [
-            'Content-Type'        => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-            'X-Filename'          => $filename,
-            'X-PDF-Count'         => 1,
-            'X-Is-Zip'            => 'false',
+        $batch = PdfBatch::create([
+            'status' => 'pending',
+            'total' => count($centreIds),
+            'processed' => 0,
+        ]);
+        $agentId = Auth::user()->id;
+        GeneratePdfJob::dispatch($batch->id, $centreIds, $docType, $agentId);
+        return response()->json([
+            'batch_id' => $batch->id
         ]);
     }
 
-
-    private function generateZipPDF($centres, $viewPath)
+    public function progress($id)
     {
-        @set_time_limit(0);
-        ini_set('memory_limit', '1G');
 
-        $tempDir     = storage_path('app/temp_' . uniqid());
-        $zipFilename = 'report_' . now()->format('d_m_Y_H_i_s') . '.zip';
-        $zipPath     = storage_path('app/' . $zipFilename);
+        @ini_set('output_buffering', 'off');
+        @ini_set('zlib.output_compression', false);
 
-        if (!file_exists($tempDir)) {
-            mkdir($tempDir, 0755, true);
-        }
-
-        $pdfFiles = [];
-
-        foreach ($centres as $index => $centre) {
-            $dynamicData = $this->getPfdDynamicName($centre);
-
-            $pdfContent = Pdf::loadView($viewPath, [
-                'data' => $dynamicData,
-            ])
-                ->setPaper('a4')
-                ->setOptions([
-                    'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled'      => true,
-                    'dpi'                  => 96,
-                    'chroot'               => public_path(),
-                ])
-                ->output();
-
-            if (empty($pdfContent)) {
-                throw new \Exception('Empty PDF for: ' . $centre->bussiness_name);
-            }
-
-            $pdfFilename = ($index + 1) . '_' . $this->sanitizeName($centre->bussiness_name) . '.pdf';
-            $pdfPath     = $tempDir . DIRECTORY_SEPARATOR . $pdfFilename;
-
-            file_put_contents($pdfPath, $pdfContent);
-
-            $pdfFiles[] = ['path' => $pdfPath, 'name' => $pdfFilename];
-
-            unset($pdfContent);
-            gc_collect_cycles();
-        }
-
-        // Step 2: ZIP banao
-        $zip    = new ZipArchive();
-        $result = $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-
-        if ($result !== true) {
-            throw new \Exception('ZipArchive open failed. Code: ' . $result);
-        }
-
-        foreach ($pdfFiles as $file) {
-            if (file_exists($file['path'])) {
-                $zip->addFile($file['path'], $file['name']);
-            }
-        }
-
-        $zip->close();
-
-        // Step 3: Validate ZIP
-        if (!file_exists($zipPath) || filesize($zipPath) == 0) {
-            throw new \Exception('ZIP file is invalid or empty.');
-        }
-
-        // Step 4: Cleanup temp PDFs
-        foreach ($pdfFiles as $file) {
-            if (file_exists($file['path'])) {
-                unlink($file['path']);
-            }
-        }
-
-        if (is_dir($tempDir)) {
-            rmdir($tempDir);
-        }
-
-
-        if (ob_get_length()) {
+        while (ob_get_level() > 0) {
             ob_end_clean();
         }
+        $batch = PdfBatch::where('id', $id)
+            ->first();
 
-        // Step 6: Download
-        return response()->download($zipPath, $zipFilename, [
-            'Content-Type' => 'application/zip',
-            'X-Filename'   => $zipFilename,
-            'X-PDF-Count'  => $centres->count(),
-            'X-Is-Zip'     => 'true',
-        ])->deleteFileAfterSend(true);
+        if (!$batch) {
+            return response()->json(['error' => 'Batch not found'], 404);
+        }
+        return response()->stream(function () use ($id) {
+
+
+            while (true) {
+                if (connection_aborted()) break;
+
+                $batch = PdfBatch::find($id);
+                if (!$batch) break;
+
+                echo "data: " . json_encode([
+                    'status'    => $batch->status,
+                    'processed' => $batch->processed,
+                    'total'     => $batch->total,
+                ]) . "\n\n";
+
+                ob_flush();
+                flush();
+
+                if ($batch->status === 'completed' || $batch->status === 'failed') {
+                    break;
+                }
+
+                sleep(1);
+            }
+        }, 200, [
+            'Content-Type'  => 'text/event-stream',
+            'Cache-Control' => 'no-cache',
+            'Connection'    => 'keep-alive',
+        ]);
     }
+
+    public function download($id)
+    {
+        $batch = PdfBatch::findOrFail($id);
+
+        if ($batch->status !== 'completed') {
+            abort(404);
+        }
+
+        return response()->download($batch->file_path)
+            ->deleteFileAfterSend(true);
+    }
+
+
+
 
     //Update save report
     public function updateSaveReport(Request $request)
@@ -499,7 +580,7 @@ class ProspectListController extends Controller
         $agent = Auth::user();
         $address = $this->splitAddress($centre['address'] ?? '');
 
-         $signature = '';
+        $signature = '';
         if (!empty($agent->agent_detail) && !empty($agent->agent_detail->signature_file)) {
             $signature = url('storage/' . $agent->agent_detail->signature_file);
         }
@@ -650,7 +731,7 @@ class ProspectListController extends Controller
                 ->where('agent_id', auth()->id())
                 ->whereJsonContains('center_ids', $centerId)
                 ->first();
-    
+
             if (!$report) {
                 return error_response('Centre not found in this report.', 404);
             }
@@ -680,7 +761,6 @@ class ProspectListController extends Controller
 
 
             return success_response(['html' => $html], "Ok", 200, []);
-
         } catch (\Exception $e) {
             return error_response('Failed to fetch centre: ' . $e->getMessage(), 500);
         }
@@ -732,7 +812,8 @@ class ProspectListController extends Controller
         };
     }
 
-    private function splitAddress($address){
+    private function splitAddress($address)
+    {
         $words = explode(' ', $address);
         $result = [
             'address1' => '',
@@ -742,12 +823,11 @@ class ProspectListController extends Controller
         //check empty 
         $postcode = array_pop($words);
         $state = array_pop($words);
-       
+
 
         $result['address2'] = implode(' ', array_slice($words, -1)) . " $state $postcode";
         $result['address1'] = implode(' ', array_slice($words, 0, -1));
 
         return $result;
     }
-
 }
