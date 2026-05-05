@@ -441,42 +441,6 @@ class MediaVerificationController extends Controller
     }
 
 
-    // public function masseursMediaVerificationList(Request $request)
-    // {
-    //     $masseur_data = MasseurVerification::with('masseur:id,name,member_id')
-    //         ->where('user_id', $request->id)
-    //         ->latest()
-    //         ->get()
-    //         ->groupBy('masseur_id')
-    //         ->map(function ($items) {
-
-    //             $item = $items->first(); // latest record
-
-    //             // Status mapping
-    //             $statusMap = [
-    //                 '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
-    //                 '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
-    //                 '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
-    //             ];
-
-    //             $status = $statusMap[$item->status] ?? $statusMap['0'];
-    //             return [
-    //                 'id'           => $item->masseur ? $item->masseur->member_id : '--',
-    //                 'date'         => $item->created_at ? $item->created_at->format('d-m-Y') : '--',
-    //                 'name'         => $item->masseur->name ?? '-',
-    //                 'status_text'  => $status['text'],
-    //                 'status_class' => $status['class'],
-    //             ];
-    //         })
-    //         ->values()
-    //         ->all();
-
-    //     return response()->json([
-    //         'status' => true,
-    //         'data'   => $masseur_data
-    //     ]);
-    // }
-
     public function masseursMediaVerificationList(Request $request)
     {
         $statusMap = [
@@ -485,43 +449,45 @@ class MediaVerificationController extends Controller
             '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
         ];
 
-        $masseur_data = MasseurVerification::with('masseur:id,name,member_id')
+        $data = MasseurVerification::with('masseur:id,name,member_id')
             ->where('user_id', $request->id)
-            ->latest()
-            ->get()
-            ->groupBy('masseur_id')
-            ->map(function ($items) use ($statusMap) {
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-                $item = $items->first();
-                $status = $statusMap[$item->status] ?? $statusMap['0'];
+        $result = [];
 
-                // 🔹 Reviewed By
-                $reviewed_by = $item->reviewed_by ? User::find($item->reviewed_by) : null;
+        foreach ($data as $item) {
 
-                // 🔹 Tooltip (ONLY for approved/rejected)
-                $tooltipHtml = '';
-                if (in_array($item->status, ['1', '2'])) {
-                    $staffId = $reviewed_by ? $reviewed_by->member_id : 'N/A';
-                    $actionText = $item->status == '2' ? 'Rejected by' : 'Approved by';
+            $status = $statusMap[$item->status] ?? $statusMap['0'];
 
-                    $tooltipHtml = "<span class='tooltip'>{$actionText}: {$staffId}</span>";
-                }
+            // Reviewed By
+            $reviewed_by = $item->reviewed_by
+                ? User::find($item->reviewed_by)
+                : null;
 
-                return [
-                    'id'           => optional($item->masseur)->member_id ?? '--',
-                    'date'         => optional($item->created_at)->format('d-m-Y') ?? '--',
-                    'name'         => optional($item->masseur)->name ?? '-',
-                    'status'       => $item->status, // IMPORTANT
-                    'status_text'  => $status['text'],
-                    'status_class' => $status['class'],
-                    'tooltip'      => $tooltipHtml,
-                ];
-            })
-            ->values();
+            // Tooltip
+            $tooltipHtml = '';
+            if (in_array($item->status, ['1', '2'])) {
+                $staffId = $reviewed_by ? $reviewed_by->member_id : 'N/A';
+                $actionText = $item->status == '2' ? 'Rejected by' : 'Approved by';
+
+                $tooltipHtml = "<span class='tooltip'>{$actionText}: {$staffId}</span>";
+            }
+
+            $result[] = [
+                'id'           => optional($item->masseur)->member_id ?? '--',
+                'date'         => optional($item->created_at)->format('d-m-Y') ?? '--',
+                'name'         => optional($item->masseur)->name ?? '-',
+                'status'       => $item->status,
+                'status_text'  => $status['text'],
+                'status_class' => $status['class'],
+                'tooltip'      => $tooltipHtml,
+            ];
+        }
 
         return response()->json([
             'status' => true,
-            'data'   => $masseur_data
+            'data'   => $result
         ]);
     }
 
