@@ -19,6 +19,7 @@ use Exception;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\User\UserInterface;
+use App\Models\MassagePurchase;
 
 class GlobalMonitoringController extends Controller
 {
@@ -59,7 +60,141 @@ class GlobalMonitoringController extends Controller
     {
         $uptimeString = $this->getAppUptime();
 
-        return view('admin.massage-centre-listings', ['type' => 'current', 'uptimeString' => $uptimeString]);
+        // return view('admin.massage-centre-listings', ['type' => 'current', 'uptimeString' => $uptimeString]);
+        return view('admin.massage-centre-listings-new', ['type' => 'current', 'uptimeString' => $uptimeString]);
+    }
+
+    public function massageCenterListingAjax($type = NULL, $callbyFunc = false)
+    {
+        $today = Carbon::today();
+        $search = request()->input('search.value');
+        //$search = "";
+
+        $massagers = MassagePurchase::with([
+            'brb' => function ($query) {
+                $query->where('brb_time', '>', Carbon::now('UTC'))
+                    ->where('active', 'Y')
+                    ->orderBy('brb_time', 'desc');
+            },
+            'massageprofile',
+            'user:id,status,member_id,name,email,phone,status',
+            'activeUpcomingSuspend'
+        ])->where(function ($q) use ($search) {
+            if (!empty($search)) {
+
+                $q->orWhere(function ($q) use ($search) {
+                    $q->whereHas('massageprofile', function ($q) use ($search) {
+                        $q->where('profile_name', $search);
+                    });
+                });
+                $q->orWhere(function ($q) use ($search) {
+                    $q->whereHas('user', function ($q) use ($search) {
+                        $q->where('member_id', $search);
+                    });
+                });
+            }
+        })->whereIn('status', ['listed', 'pending'])
+            ->orderByRaw("CASE 
+                WHEN status = 'listed' THEN 1 
+                WHEN status = 'pending' THEN 2 
+            ELSE 3 
+            END")
+            // ->limit()
+            ->get();
+
+        /*   echo '<pre>';
+         print_r($massagers->toArray());
+        echo '</pre>';
+         exit; */
+
+
+        $result = $massagers->map(function ($row) use ($today) {
+
+
+            $brb = [];
+            if (isset($row->brb) && (count($row->brb) > 0))
+                $brb = json_decode(json_encode($row->brb), true);
+
+            $activeUpcomingSuspend = [];
+            if (isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
+                $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend), true);
+
+
+            $start = Carbon::parse($row->start_date);
+            $end   = Carbon::parse($row->end_date);
+            $days = $start->diffInDays($end) + 1;
+
+            $start_date = date('d M Y', strtotime($row->start_date));
+            $end_date = date('d M Y', strtotime($row->end_date));
+            $profile_name = "";
+
+            if (!empty($brb))
+                $profile_name = '<span id="brb_' . $row->massageprofile->id . '"> ' . $row->massageprofile->profile_name . ' <sup class="brb_icon listing-tag-tooltip">Closed <small class="listing-tag-tooltip-desc">Closed  ' . date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])) . '</small></sup></span>';
+            else
+                $profile_name = '<span id="brb_' . $row->massageprofile->id . '"> ' . $row->massageprofile->profile_name . '</span>';
+
+            if (!empty($activeUpcomingSuspend) || $row->user->status == "Suspended") {
+                if ($row->user->status == "Suspended")
+                    $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                    <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
+                    </sup>';
+                else
+                    $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                    <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to " . date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])) . '</small>
+                    </sup>';
+            }
+            $days = 0;
+            $startDate = Carbon::parse(date('d-m-Y', strtotime($row->start_date)))->startOfDay();
+            $endDate = Carbon::parse(date('d-m-Y', strtotime($row->end_date)))->startOfDay();
+
+            $now = Carbon::now()->startOfDay();
+            $leftDays = $endDate->diffInDays($now) + 1;
+
+            if ($startDate > $now) {
+                $leftDays = '-';
+            } else if ($endDate < $now) {
+                $leftDays = '0';
+            } else {
+                $leftDays = $leftDays;
+            }
+
+            if ($startDate && $endDate) {
+                // If end_date is after or equal to start_date, calculate days (inclusive)
+                if ($endDate->gte($startDate)) {
+                    $days = $startDate->diffInDays($endDate) + 1;
+                }
+            }
+
+            return [
+                'id' => $row->id,
+                'member_id' => $row->user->member_id,
+                'member' => $row->user->name,
+                'listing' => '-',
+                'profile_name' => $profile_name,
+                'pro_name' => $profile_name,
+                'address' => 'Home State', //auth()->user()->home_state,
+                'business_name' => $row->massageprofile->business_name,
+                'start_date' => $start_date,
+                'end_date' =>  $end_date,
+                'fee_paid' => '$ ' . formatIndianNumber($row->paid_rate),
+                'status' =>  '<span class="custom_badge badge_current">Current</span>',
+                'masseurs' => 5,
+                'days' => $days,
+                'left_days' => $leftDays,
+                'status' =>  '<span class="custom_badge badge_current">Current</span>',
+                'action' => '',
+
+            ];
+        });
+
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => count($result),
+            "recordsFiltered" => count($result),
+            "data"            => $result
+        );
+
+        return response()->json($data);
     }
 
     public function getAppUptime()
@@ -83,6 +218,7 @@ class GlobalMonitoringController extends Controller
 
         return $str;
     }
+
 
 
     public function dataTableListingAjax($type = NULL, $callbyFunc = false)
@@ -437,8 +573,8 @@ class GlobalMonitoringController extends Controller
                     $nestedData['escort_name'] = $item->escort->profile_name;
                     $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateName");;
                     $nestedData['profile_id'] = $item->escort->id;
-                    $nestedData['start_date'] = date('d-m-Y',strtotime($item->start_date));
-                    $nestedData['end_date'] =   date('d-m-Y',strtotime($item->end_date));  
+                    $nestedData['start_date'] = date('d-m-Y', strtotime($item->start_date));
+                    $nestedData['end_date'] =   date('d-m-Y', strtotime($item->end_date));
                     $statusText = $item->status ?? 'NA';
                     $badgeClass = getStatusBadgeClass($statusText);
                     $nestedData['status'] = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
