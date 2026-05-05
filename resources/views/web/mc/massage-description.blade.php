@@ -726,8 +726,10 @@
                                                     @endforeach
 
                                                         <div class="veryfy_img">
+                                                            @if(isset($status_detail['icon']))
                                                             <img src="{{ $status_detail['icon'] }}">
                                                             <span class="common_shield_tooltip">{{ $status_detail['label'] }}</span>
+                                                             @endif
                                                         </div>
                                                 </div>
 
@@ -763,26 +765,41 @@
                                                             
 
 
-                                                            @if(in_array('massage', $masseur_services))
-                                                                <div class="massage_type_info">
-                                                                    <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
-                                                                    <p class="mc_rate_tooltip">Massage only</p>
-                                                                </div>
-                                                            @endif    
+                                                                @if(in_array('massage', $masseur_services))
+                                                                    <div class="massage_type_info">
+                                                                        <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
+                                                                        <p class="mc_rate_tooltip">Massage only</p>
+                                                                    </div>
+                                                                @endif 
 
-                                                            @if(in_array('2_hand', $masseur_services))
-                                                                <div class="massage_type_info">
-                                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
-                                                                    <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
-                                                                </div>
-                                                             @endif       
+                                                                @if(in_array('2_hand', $masseur_services))
 
-                                                            @if(in_array('4_hand', $masseur_services))
-                                                                <div class="massage_type_info">
-                                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
-                                                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
-                                                                </div>
-                                                             @endif   
+                                                                    @if(in_array('massage', $masseur_services))
+                                                                    <div class="massage_type_info">
+                                                                        <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
+                                                                        <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
+                                                                    </div>
+                                                                    @endif 
+
+                                                                @endif 
+                                                                
+                                                                
+                                                                @if(in_array('4_hand', $masseur_services))
+
+                                                                   @if(in_array('massage', $masseur_services) && in_array('2_hand', $masseur_services))
+                                                                    <div class="massage_type_info">
+                                                                        <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                                        <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
+                                                                    </div>
+                                                                    @endif 
+
+                                                               @endif   
+
+                                                              
+
+                                                                
+
+                                                           
 
                                                             </div>
                                                         </div>
@@ -2663,7 +2680,10 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 
 function initMap() 
 {
-    const address = @json($listing->address ?? 'Perth WA, Australia');
+    let capital_city = '{{ $capital_city }}';
+    const address = @json($listing->address ?? $capital_city );
+    const banner = '{{ $massage_banner }}';
+    
 
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: address }, function(results, status) {
