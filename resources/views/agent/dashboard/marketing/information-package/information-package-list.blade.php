@@ -311,9 +311,9 @@
         </div>
     </div> --}}
 
-    @include('agent.dashboard.marketing.modal.all-merge-massage-centre-list')
-    @include('agent.dashboard.marketing.modal.searching-list-date')
-    @include('agent.dashboard.marketing.modal.search-modal') 
+    {{-- @include('agent.dashboard.marketing.modal.all-merge-massage-centre-list')
+    @include('agent.dashboard.marketing.modal.searching-list-date') --}}
+    {{-- @include('agent.dashboard.marketing.modal.search-modal')  --}}
     {{-- end --}}
 @endsection
 @push('script')

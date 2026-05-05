@@ -98,7 +98,6 @@
                     'summary',
                     'submit_ticket',
                     'my-income',
-                    'information-packages',
                     'prospect-list',
                     'database-centres',
                     'save-report',
@@ -205,8 +204,7 @@
                     <span>Marketing</span>
                 </a>
                 
-                <div id="marketing" class=" collapse  @if (request()->segment(3) == 'information-packages' ||
-                        request()->segment(3) == 'prospect-list' ||
+                <div id="marketing" class=" collapse  @if (request()->segment(3) == 'prospect-list' ||
                         request()->segment(3) == 'database-centres' ||
                         request()->segment(3) == 'save-report') show @endif;"
                     data-parent="#Management">
@@ -217,12 +215,12 @@
                                 style="{{ request()->segment(3) == 'database-centres' ? 'color: #e5365a;' : '' }}">Database
                                 (Centres)</span>
                         </a>
-                        <a class="collapse-item" href="{{ route('agent.marketing.information.package.list') }}">
+                        {{-- <a class="collapse-item" href="{{ route('agent.marketing.information.package.list') }}">
                             <img src="{{ asset('assets/app/img/helptips.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'information-packages' ? 'color: #e5365a;' : '' }}">Information
                                 Packages</span>
-                        </a>
+                        </a> --}}
                         <a class="collapse-item"
                             href="{{ route('agent.marketing.prospect.list') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">

@@ -633,11 +633,11 @@ class ProspectListController extends Controller
         }
     }
 
-    // Information Package function 
-    public function informationPackageList()
-    {
-        return view('agent.dashboard.marketing.information-package.information-package-list');
-    }
+    // Information Package function  need need
+    // public function informationPackageList()
+    // {
+    //     return view('agent.dashboard.marketing.information-package.information-package-list');
+    // }
 
     //get search value
     public function searchCenterById(Request $request)

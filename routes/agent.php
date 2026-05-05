@@ -138,7 +138,7 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     //print view page
     Route::get('marketing/prospect-list/print-view/{id}', [ProspectListController::class, 'printView'])->name('agent.marketing.prospect.print.view');
     //Information Package
-    Route::get('marketing/information-packages/list', [ProspectListController::class, 'informationPackageList'])->name('agent.marketing.information.package.list');
+    //Route::get('marketing/information-packages/list', [ProspectListController::class, 'informationPackageList'])->name('agent.marketing.information.package.list');
 
 
     //Demo
