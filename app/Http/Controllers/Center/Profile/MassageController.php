@@ -196,6 +196,11 @@ class MassageController extends Controller
                 <i class="fa fa-circle"></i> View
                 </a>'; 
 
+
+                // if(!$is_live)
+                // $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="delete"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>';     
+               
+
                 //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>'; 
                 //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
                 //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>'; 

@@ -129,6 +129,41 @@
     display: none !important;
 }
 
+.star-rating {
+    display: inline-flex;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 2px;
+}
+
+.star::before {
+    content: "★";
+    color: #ddd; 
+    position: absolute;
+    left: 0;
+}
+
+.star.full::before {
+    color: #f5c518; 
+}
+
+.star.half::before {
+background: linear-gradient(90deg, #f5c518 50%, #ddd 50%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.location_rating{
+font-size: 12px;
+margin-top: 4px;
+margin-right: 5px;
+}
 </style>
     @stop
     @section('content')
@@ -2248,7 +2283,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initMap" async defer></script>
+
 
  <script>
 
@@ -2684,14 +2720,15 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 });
 
 
+
 function initMap() 
 {
-    let capital_city = '{{ $capital_city }}';
-    const address = @json($listing->address ?? $capital_city );
-    const banner = '{{ $massage_banner }}';
-    
+    const capital_city = '{{ $capital_city }}';
+    const address = @json($listing->address ?? $capital_city);
+    const banner = "{{ $massage_banner }}";
 
     const geocoder = new google.maps.Geocoder();
+
     geocoder.geocode({ address: address }, function(results, status) {
 
         if (status === "OK") 
@@ -2708,20 +2745,49 @@ function initMap()
                 map: map,
             });
 
-            // Label under marker (balloon style)
-            const infowindow = new google.maps.InfoWindow({
-                content: `<div class="location_class" >
-                        <img src="{{ $massage_banner }}"  class="facebook-logo" alt="logo">
-                 {{ $listing->address }}</div>`
+            
+            const service = new google.maps.places.PlacesService(map);
+
+            service.findPlaceFromQuery({
+                query: address,
+                fields: ["name", "photos", "rating"]
+            }, function(placeResults, placeStatus) {
+
+                let imageUrl = ''  //banner fallback image
+                let placeName = capital_city;
+                let ratingHtml = "";
+
+                if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults[0]) 
+                {
+                    const place = placeResults[0];
+                    console.log('place',place);
+
+                    placeName = place.name || placeName;
+
+                    if (place.rating) {
+                        ratingHtml = `<div style="margin:0; font-size:12px;"> ${getStars(place.rating)} </div>`;
+                    }
+
+                    if (place.photos && place.photos.length > 0) {
+                        imageUrl = place.photos[0].getUrl({ maxWidth: 400 });
+                    }
+                }
+
+               let g_image = "";
+               if(imageUrl!="")
+                g_image = `<img  style="width:100%; height:80px; object-fit:cover; border-radius:10px;" src=${imageUrl}  class="facebook-logo" alt="logo">`;
+               
+               const content = `<div class="location_class">  ${g_image}  ${address} ${ratingHtml} <i class="fa fa-star-half-alt"></i></div>`;
+                const infowindow = new google.maps.InfoWindow({
+                    content: content
+                });
+
+                infowindow.open(map, marker);
             });
 
-            infowindow.open(map, marker);
-
-            // OPTIONAL: store lat/lng in hidden inputs
+          
             const lat = location.lat();
             const lng = location.lng();
-
-            console.log("Lat:", lat, "Lng:", lng);
 
             if (document.getElementById("lat")) {
                 document.getElementById("lat").value = lat;
@@ -2729,12 +2795,39 @@ function initMap()
             }
 
         } 
-        
+        else 
+        {
+            console.error("Geocode failed: " + status);
+        }
     });
+}
+
+function getStars(rating) {
+    let fullStars = Math.floor(rating);
+    let halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    let emptyStars = 5 - fullStars - halfStar;
+
+    let stars = '<div class="star-rating">'+'<span class="location_rating">'+rating+'</span>';
+
+    for (let i = 0; i < fullStars; i++) {
+        stars += ' <span class="star full"></span>';
+    }
+
+    if (halfStar) {
+        stars += '<span class="star half"></span>';
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+        stars += '<span class="star"></span>';
+    }
+
+    stars += '</div>';
+
+    return stars;
 }
 
 
 
-window.onload = initMap;
+window.initMap = initMap;
 </script>
 @endpush

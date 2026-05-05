@@ -61,7 +61,7 @@
             
                     <!-- Header -->
                     <div class="listing-header d-flex justify-content-between gap-20 align-items-center mb-3">
-                        <h6 class="mb-0" style="font-weight: 600; color:#0c223d;">Geolocation must complete before you can create a New Listing</h6>
+                        <h6 class="mb-0" style="font-weight: 600; color:#0c223d;">Geolocation must complete before you can create a New Listing.</h6>
                         <button type="button" class="nex_sterp_btn mr-0" id="add_listing" disabled>Add Listing</button>
                     </div>
             
