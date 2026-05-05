@@ -197,7 +197,13 @@
                                                     }
      
     $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
-
+    
+    $massage_user  = get_massage_parent_data($listing->user_id);
+    $capital_city  = "";
+    if($massage_user)
+    {   $home_state = $massage_user->state_id;
+        $capital_city = config("escorts.profile.states.$home_state.cityName");
+    }
     @endphp
 
 
