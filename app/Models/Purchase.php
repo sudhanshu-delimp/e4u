@@ -25,6 +25,11 @@ class Purchase extends Model
         return $this->hasMany(self::class, 'parent_id');
     }
 
+    public function paymentItems()
+    {
+        return $this->morphMany(PaymentItem::class, 'item');
+    }
+
     public function setStartDateAttribute($value)
     {
         $this->attributes['start_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
