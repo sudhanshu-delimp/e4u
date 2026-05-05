@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
-     public function index()
+  public function index()
   {
 
     try {
       $products = Product::get();
- 
+
       return view("escort.dashboard.Concierge.products", compact("products"));
     } catch (Exception $e) {
       Log::error("product lists error" . $e->getMessage());
@@ -31,13 +31,22 @@ class ProductController extends Controller
   }
 
   public function getProducts(Request $request)
-    {
-        $ids = $request->ids;
+  {
+    try {
+      $ids = $request->ids ?? [];
 
-        $products = Product::whereIn('id', $ids)->get();
+      $query = Product::query();
+      if (!empty($ids)) {
+        $query = $query->whereIn('id', $ids);
+      }
+      $products = $query->get();
 
-        return response()->json([
-            'products' => $products
-        ]);
+      return response()->json([
+        'products' => $products
+      ]);
+    } catch (Exception $e) {
+      Log::error("get products" . $e->getMessage());
+       
     }
+  }
 }

@@ -4,6 +4,9 @@ function getCart() {
   return JSON.parse(localStorage.getItem('cart_' + loginUserId) || '{}');
 }
 
+function getStep() {
+  return JSON.parse(localStorage.getItem('checkout_step_' + loginUserId) || '{}');
+}
 // Save cart for specific user
 function saveCart(cart) {
   localStorage.setItem('cart_' + loginUserId, JSON.stringify(cart));
@@ -38,6 +41,8 @@ function flushLocalStorage() {
   localStorage.removeItem('cart_' + loginUserId);
   localStorage.removeItem('deliveryAddress_' + loginUserId);
   localStorage.removeItem('paymentDetails_' + loginUserId);
+  localStorage.removeItem('checkout_step_' + loginUserId);
+
 }
 function getCartCount() {
   let cart = getCart();

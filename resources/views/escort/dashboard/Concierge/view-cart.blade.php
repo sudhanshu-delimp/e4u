@@ -17,15 +17,22 @@
         #swal2-title {
             font-size: x-large;
         }
-        .parsley-errors-list {
-    text-align: left !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-}
 
-.parsley-errors-list li {
-    text-align: left !important;
-}
+        .parsley-errors-list {
+            text-align: left !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .parsley-errors-list li {
+            text-align: left !important;
+        }
+
+        #deliveryAddressForm input,
+        #deliveryAddressForm select,
+        #deliveryAddressForm textarea {
+            color: #000 !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -168,7 +175,7 @@
                         </div>
                         <div class="form-row">
 
- 
+
                             <form action="/" id="deliveryAddressForm" data-parsley-validate>
 
                                 <div class="row">
@@ -193,13 +200,21 @@
                                     </div>
 
                                     <!-- Address -->
+                                    <!-- Address -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address</b></label>
                                         <input type="text" class="form-control" name="address"
-                                            placeholder="Unit 1, 1 The Street, Suburb WA 6000" required
+                                            placeholder="Unit 1, 1 The Street" required
                                             data-parsley-required-message="Address is required">
                                     </div>
 
+                                    <!-- Address 2 (Optional) -->
+                                    <div class="col-md-12 my-2">
+                                        <label><b>Address 2 (Optional)</b></label>
+                                        <input type="text" class="form-control" name="address_2"
+                                            placeholder="Suburb WA 6000"
+                                            data-parsley-required-message="Address 2 is required">
+                                    </div>
                                     <!-- City -->
                                     <div class="col-md-6 my-2">
                                         <label><b>City</b></label>
@@ -215,28 +230,26 @@
                                             data-parsley-required-message="Pincode is required"
                                             data-parsley-type-message="Only digits allowed">
                                     </div>
-
+                                    <div class="col-md-6 my-2">
+                                        <label><b>Landmark</b></label>
+                                        <input type="text" class="form-control" name="landmark"
+                                            placeholder="Near ABC Mall">
+                                    </div>
                                     <!-- Special Instructions -->
-                                    <div class="col-md-12">
-                                        <label><b>Any Special Instructions?</b></label>
-                                        <textarea class="form-control common_textarea" name="special_instructions" rows="5"
-                                            placeholder="Like building access if we are delivering to your door." required
-                                            data-parsley-required-message="Special instructions are required"></textarea>
 
-                                        <div class="col-lg-12 mt-2">
-                                            <input type="radio" name="delivery_type" id="door" value="door"
-                                                required checked data-parsley-required-message="Choose a delivery type">
-                                            <label for="door"><b>Delivery to the door</b></label>
+                                    <div class="col-md-6 my-2">
+                                        <input type="radio" name="delivery_type" id="door" value="door"
+                                            required checked data-parsley-required-message="Choose a delivery type">
+                                        <label for="door"><b>Delivery to the door</b></label>
 
-                                            <input type="radio" name="delivery_type" id="post" value="post"
-                                                style="margin-left:17px;">
-                                            <label for="post"><b>Post</b></label>
-                                        </div>
+                                        <input type="radio" name="delivery_type" id="post" value="post">
+                                        <label for="post"><b>Post</b></label>
                                     </div>
 
                                     <!-- Billing Address Toggle -->
                                     <div class="col-12 mt-3">
-                                        <input type="checkbox" id="sameAddress" onclick="toggleBilling()">
+                                        <input type="checkbox" id="sameAddress" name="sameAddress"
+                                            onclick="toggleBilling()">
                                         <label for="sameAddress"><b>Billing address same as delivery</b></label>
                                     </div>
                                 </div>
@@ -299,12 +312,19 @@
                                         </div>
 
                                         <!-- Landmark (optional) -->
-                                        <div class="col-md-12 my-2">
+                                        <div class="col-md-12">
                                             <label><b>Landmark</b></label>
                                             <input type="text" name="billing_landmark" class="form-control"
                                                 placeholder="Near school, mall, etc">
                                         </div>
 
+
+                                        <div class="col-md-12 my-2">
+                                            <label><b>Any Special Instructions?</b></label>
+                                            <textarea class="form-control common_textarea" name="special_instructions" rows="5"
+                                                placeholder="Like building access if we are delivering to your door."required
+                                                data-parsley-required-message="Special instructions are required"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -360,6 +380,11 @@
                     </div>
                 </div>
             </div>
+            <div id="payment-element"></div>
+
+<button id="payBtn">Pay Now</button>
+
+<div id="result"></div>
             <div class="my-3 d-flex gap-20 justify-content-end">
                 {{-- <button class="btn-common mt-3" onclick="goToStep(1)"> <i class="fas fa-arrow-left text-white pr-2"></i>
                     Back</button> --}}
@@ -445,7 +470,7 @@
 
     <script>
         let cart = getCart();
-        let productIds = Object.keys(cart);
+        let productIds = Object.keys(cart) ?? '[]';
         let finalCart = getFinalCart();
 
         let isDirty = false;
@@ -465,11 +490,9 @@
         });
 
 
-
         function loadProducts() {
 
             $("#loader").show();
-
             $.ajax({
                 url: "{{ route('escort.get.products') }}",
                 type: "POST",
@@ -483,16 +506,18 @@
 
                     let rows = "";
                     let grandTotal = 0; // ✅ total accumulator
+                    if (response.products.length > 0 && Object.keys(cart).length>0) {
+                        console.log(cart,'sdf');
 
-                    response.products.forEach(product => {
-                        let qty = cart[product.id].qty;
+                        response.products.forEach(product => {
 
-                        let price = parseFloat(product.price) || 0;
-                        let total = price * qty;
+                            let qty = cart[product.id].qty;
+                            let price = parseFloat(product.price) || 0;
+                            let total = price * qty;
 
-                        grandTotal += total; // ✅ add to grand total
+                            grandTotal += total; // ✅ add to grand total
 
-                        rows += `
+                            rows += `
                 <tr>
                     <td class="theme-color">
                         <div class="form-check d-flex align-items-center text-center">
@@ -526,7 +551,10 @@
                   </td>
                 </tr>
                 `;
-                    });
+                        });
+                    } else {
+                        rows = '<tr><td colspan="6"  class="text-center">Cart is empty</td></tr>';
+                    }
 
                     $(".table-content").html(rows);
                     // ✅ update footer total
@@ -534,13 +562,46 @@
                     calculateTotals();
                 },
 
-                error: function() {
+                error: function(xhr, status, error) {
                     $("#loader").hide();
-                    Swal.fire('Error loading products', '', 'error');
+
+                    // Log the actual error in console for debugging
+                    // Handle unauthorized
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Unauthorized",
+                            text: "Your login session expired. Please log in again."
+                        });
+                        return;
+                    }
+
+                    // Handle 500 server error
+                    if (xhr.status === 500) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Server Error",
+                            text: "Something went wrong on the server. Try again later."
+                        });
+                        return;
+                    }
+
+                    $("#loader").hide();
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Something went wrong. Please try again."
+                    });
                 }
             });
         }
-        loadProducts();
+        let steps = localStorage.getItem('checkout_step_' + loginUserId);
+        console.log(steps);
+        if (steps == 1) {
+            loadProducts();
+
+        }
 
         $(document).on("change", ".qty-select", function() {
             let id = $(this).data("id");
@@ -588,6 +649,7 @@
             $("#grand-total").text("$" + grandTotal.toFixed(2));
         }
         let step = 1;
+        localStorage.setItem('checkout_step_' + loginUserId, step);
 
         const step1 = document.getElementById('pro-step-1');
         const step2 = document.getElementById('pro-step-2');
@@ -733,6 +795,25 @@
             return form.isValid();
         }
 
+        $('#sameAddress').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#billingSection')
+                    .find('input, textarea, select')
+                    .attr('disabled', true)
+                    .removeAttr('required')
+                    .parsley().reset();
+            } else {
+                $('#billingSection')
+                    .find('input, textarea, select')
+                    .attr('disabled', false)
+                    .each(function() {
+                        if ($(this).data('required') === true || $(this).attr('name').includes('billing_')) {
+                            $(this).attr('required', true);
+                        }
+                    });
+            }
+        });
+
         function toggleBilling() {
             if ($("#sameAddress").is(":checked")) {
                 $("#billingSection").hide().find("input, textarea").attr("disabled", true);
@@ -860,6 +941,7 @@
                 bar1.style.width = "0%"; // reset bar
             } else if (step === 3) {
                 // move to 1 step because if yopu are at 3 that's mean order is completed
+                localStorage.setItem("checkout_step_" + loginUserId, 2); // <<< save step
 
                 finish();
                 // step = 2;

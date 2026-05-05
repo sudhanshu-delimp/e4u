@@ -101,20 +101,42 @@ class ProductOrderController extends Controller
             'pincode' => $data['deliveryDetails']['pincode'] ?? '',
           ];
 
-          $orderAddressBilling = [
-            'order_id' => $order->id,
-            'type' => 'billing',
-            'email' => $data['deliveryDetails']['billing_email'],
-            'phone' => $data['deliveryDetails']['billing_phone'],
-            'address_line1' => $data['deliveryDetails']['billing_address_line1'],
-            'address_line2' => $data['deliveryDetails']['billing_address_line2'] ?? '',
-            'city' => $data['deliveryDetails']['billing_city'] ?? '',
-            'pincode' => $data['deliveryDetails']['billing_pincode'] ?? '',
-            'landmark' => $data['deliveryDetails']['billing_landmark'] ?? '',
-            'state' => $state['stateName'],   // or billing state if different
-            'country' => 'Australia',
-          ];
+          $delivery = $data['deliveryDetails'];
+          $stateName = $state['stateName'];
+          $same = isset($delivery['sameAddress']) ? 1 : 0;
+          // Prepare billing address
+          if ($same == 1) {
+            // Billing = Delivery
+            $billing = [
+              'email'         => $delivery['email'],
+              'phone'         => $delivery['phone'],
+              'address_line1' => $delivery['address'],
+              'address_line2' => $delivery['address_2']??'',
+              'city'          => $delivery['city'] ?? '',
+              'pincode'       => $delivery['pincode'] ?? '',
+              'landmark'      => $delivery['landmark'] ?? '',
+              'state'         => $stateName,
+              'country'       => 'Australia',
+            ];
+          } else {
+            // Billing different
+            $billing = [
+              'email'         => $delivery['billing_email'] ?? '',
+              'phone'         => $delivery['billing_phone'] ?? '',
+              'address_line1' => $delivery['billing_address_line1'] ?? '',
+              'address_line2' => $delivery['billing_address_line2'] ?? '',
+              'city'          => $delivery['billing_city'] ?? '',
+              'pincode'       => $delivery['billing_pincode'] ?? '',
+              'landmark'      => $delivery['billing_landmark'] ?? '',
+              'state'         => $stateName,
+              'country'       => 'Australia',
+            ];
+          }
 
+          $orderAddressBilling = array_merge([
+            'order_id' => $order->id,
+            'type'     => 'billing',
+          ], $billing);
           OrderAddress::create($orderAddressShipping);
           OrderAddress::create($orderAddressBilling);
         }
@@ -122,6 +144,7 @@ class ProductOrderController extends Controller
 
       return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
     } catch (\Exception $e) {
+
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
   }
