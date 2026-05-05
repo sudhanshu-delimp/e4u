@@ -272,14 +272,15 @@ E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Poli
             </a>
             <div class="content">
                <div class="accodien_manage_padding_content">
-                  <p>You can contact us through either of the following methods:</p><br>
+                  <p>Our Business Hours are:</p>
+                  <p>Monday to Friday:&nbsp; &nbsp;8:00am to 6:00pm (WST)</p>
+                  <p>Saturday & Sunday:&nbsp; &nbsp;10:00am to 4:00pm (WST) (online only)</p><br>
+                  <p>You can contact us through either of the following methods:</p>
+                  <p>Postal:</p>
                   <p>Blackbox Tech<br>
                      GPO Box T1756<br>
                      Perth WA 6845
                   </p><br>
-                  <p>Business Hours:</P>
-                  <p>Monday to Friday:&nbsp; &nbsp;7:00am to 7:00pm (WST)</p>
-                  <p>Saturday & Sunday:&nbsp; &nbsp;10:00am to 4:00pm (WST)</p><br>
                   <p>T:&nbsp; &nbsp;+61 1300 700 444</p>
                   <p>E:&nbsp; &nbsp;<a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
                </div>
@@ -305,7 +306,7 @@ E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Poli
                   <p>You will need to <a class="c-red" href="{{route('viewer.login')}}">log on</a> as a User to log a Support Ticket.
                      If you haven't registered as a
                      Viewer, and would like to log a Support Ticket, register <a class="c-red"
-                        href="{{url('/register')}}">here</a>
+                        href="{{url('/register')}}">here</a>.
                   </p>
                </div>
             </div>
@@ -331,7 +332,7 @@ E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Poli
                                  version.
                               </p>
                               <p>
-                                 Escorts4U archives all previous versions of the Terms and Conditions
+                                 Escorts4U archives all previous versions of the Terms and Conditions.
                               </p>
                               <p><b>This policy was last updated 03-06-2025</b></p>
                            </div>
