@@ -698,7 +698,7 @@ function checkMasseurPrintBtn() {
     });
 
     function changeMediaVerificationStatusForMasseurs(mediaVerificationId, status, masseur_member_id) {
-        console.log(mediaVerificationId, status, masseur_member_id);return false;
+        
         $.ajax({
             url: "{{ route('admin.update-masseurs-media-verification') }}",
             method: "POST",
