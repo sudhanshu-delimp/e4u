@@ -43,17 +43,16 @@
                                 <a href="{{route('escort.list','current')}}" style="background:#0c223d; font-size:14px;border-radius:5px; color:#fff; padding:10px; text-decoration:none;">Extend Now</a>
                             </div>
                             
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>
 
                 <!-- Footer -->
                 <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#0c223d; padding: 0px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    style="background-color:#0c223d; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
                          <td>
                             <x-email-footer/>

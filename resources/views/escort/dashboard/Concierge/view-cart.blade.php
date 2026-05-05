@@ -17,6 +17,15 @@
         #swal2-title {
             font-size: x-large;
         }
+        .parsley-errors-list {
+    text-align: left !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.parsley-errors-list li {
+    text-align: left !important;
+}
     </style>
 @endsection
 @section('content')
@@ -158,104 +167,70 @@
                             <h2><b>Delivery Address</b></h2>
                         </div>
                         <div class="form-row">
-                            {{-- <form action="/" id="deliveryAddressForm">
+
+ 
+                            <form action="/" id="deliveryAddressForm" data-parsley-validate>
+
                                 <div class="row">
-                                    <div class="col-6">
-                                        <label for="Mobile Number"><b>Mobile Number</b></label>
-                                        <input type="text" class="form-control" placeholder="0145 028 758" name="phone"
-                                            required>
-                                    </div>
-                                    <div class="col-6">
-                                        <label for="email"><b>Email</b></label>
-                                        <input type="text" class="form-control" name="email"
-                                            placeholder="you@domain.com.au" required>
-                                    </div>
-                                    <div class="col-md-12 my-2">
-                                        <label for="Address"><b>Address</b></label>
-                                        <input type="text" class="form-control" name="address"
-                                            placeholder="Unit 1, 1 The Street, Suburb WA 6000" required>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label for="Instructions"><b>Any Special Instructions?</b></label>
-                                        <textarea type="textarea" class="form-control common_textarea" name="special_instructions" rows="5"
-                                            placeholder="Like building access if we are delivering to your door." required></textarea>
 
-                                        <div class="col-lg-12">
-                                            <input type="radio" name="delivery_type" id="door" value="door"
-                                                required checked>
-                                            <label for="door"><b>Delivery to the door</b></label>
-
-                                            <input type="radio" name="delivery_type" id="post" value="post"
-                                                style="margin-left: 17px;" required>
-                                            <label for="post" for="post"><b>Post</b></label>
-
-                                            <div class="d-flex gap-10"><b>Note:</b>
-                                                <p class="text-small mb-0">If
-                                                    delivery to the door, we will
-                                                    contact you 15 minutes before
-                                                    delivery. </p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </form> --}}
-
-                            <form action="/" id="deliveryAddressForm">
-                                <div class="row">
                                     <!-- Mobile -->
                                     <div class="col-6">
                                         <label><b>Mobile Number</b></label>
                                         <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
-                                            required>
+                                            required data-parsley-type="digits" data-parsley-minlength="10"
+                                            data-parsley-required-message="Mobile number is required"
+                                            data-parsley-type-message="Only digits allowed"
+                                            data-parsley-minlength-message="Mobile must be at least 10 digits">
                                     </div>
 
                                     <!-- Email -->
                                     <div class="col-6">
                                         <label><b>Email</b></label>
-                                        <input type="text" class="form-control" name="email"
-                                            placeholder="you@domain.com.au" required>
+                                        <input type="email" class="form-control" name="email"
+                                            placeholder="you@domain.com.au" required
+                                            data-parsley-required-message="Email is required"
+                                            data-parsley-type-message="Enter a valid email address">
                                     </div>
 
                                     <!-- Address -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address</b></label>
                                         <input type="text" class="form-control" name="address"
-                                            placeholder="Unit 1, 1 The Street, Suburb WA 6000" required>
+                                            placeholder="Unit 1, 1 The Street, Suburb WA 6000" required
+                                            data-parsley-required-message="Address is required">
                                     </div>
 
                                     <!-- City -->
-                                    <div class="col-md-12 my-2">
+                                    <div class="col-md-6 my-2">
                                         <label><b>City</b></label>
                                         <input type="text" class="form-control" name="city" placeholder="City"
-                                            required>
+                                            required data-parsley-required-message="City is required">
                                     </div>
+
                                     <!-- Pincode -->
-                                    <div class="col-md-12 my-2">
+                                    <div class="col-md-6 my-2">
                                         <label><b>Pincode</b></label>
                                         <input type="text" class="form-control" name="pincode" placeholder="600001"
-                                            required>
+                                            required data-parsley-type="digits"
+                                            data-parsley-required-message="Pincode is required"
+                                            data-parsley-type-message="Only digits allowed">
                                     </div>
+
                                     <!-- Special Instructions -->
                                     <div class="col-md-12">
                                         <label><b>Any Special Instructions?</b></label>
                                         <textarea class="form-control common_textarea" name="special_instructions" rows="5"
-                                            placeholder="Like building access if we are delivering to your door." required></textarea>
+                                            placeholder="Like building access if we are delivering to your door." required
+                                            data-parsley-required-message="Special instructions are required"></textarea>
 
                                         <div class="col-lg-12 mt-2">
                                             <input type="radio" name="delivery_type" id="door" value="door"
-                                                required checked>
+                                                required checked data-parsley-required-message="Choose a delivery type">
                                             <label for="door"><b>Delivery to the door</b></label>
 
                                             <input type="radio" name="delivery_type" id="post" value="post"
-                                                style="margin-left:17px;" required>
+                                                style="margin-left:17px;">
                                             <label for="post"><b>Post</b></label>
-
-                                            <div class="d-flex gap-10 mt-1">
-                                                <b>Note:</b>
-                                                <p class="text-small mb-0">If delivery to the door, we will contact you 15
-                                                    minutes before delivery.</p>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -266,35 +241,41 @@
                                     </div>
                                 </div>
 
-                                <!-- Billing Address Section -->
+                                <!-- Billing Section -->
                                 <div id="billingSection" class="mt-4">
+
                                     <div class="d-sm-flex align-items-center justify-content-between my-3">
                                         <h2><b>Billing Address</b></h2>
                                     </div>
 
                                     <div class="row">
+
                                         <!-- Phone -->
                                         <div class="col-6">
                                             <label><b>Mobile Number</b></label>
                                             <input type="text" name="billing_phone" class="form-control"
-                                                placeholder="0145 028 758" required>
+                                                placeholder="0145 028 758" required data-parsley-type="digits"
+                                                data-parsley-minlength="10"
+                                                data-parsley-required-message="Billing phone is required">
                                         </div>
 
                                         <!-- Email -->
                                         <div class="col-6">
                                             <label><b>Email</b></label>
                                             <input type="email" name="billing_email" class="form-control"
-                                                placeholder="you@domain.com.au" required>
+                                                placeholder="you@domain.com.au" required
+                                                data-parsley-required-message="Billing email is required">
                                         </div>
 
                                         <!-- Address Line 1 -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 1</b></label>
                                             <input type="text" name="billing_address_line1" class="form-control"
-                                                placeholder="Unit 1, 1 The Street" required>
+                                                placeholder="Unit 1, 1 The Street" required
+                                                data-parsley-required-message="Billing address line 1 is required">
                                         </div>
 
-                                        <!-- Address Line 2 -->
+                                        <!-- Address Line 2 (optional) -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 2</b></label>
                                             <input type="text" name="billing_address_line2" class="form-control"
@@ -305,29 +286,25 @@
                                         <div class="col-6">
                                             <label><b>City</b></label>
                                             <input type="text" name="billing_city" class="form-control"
-                                                placeholder="City" required>
+                                                placeholder="City" required
+                                                data-parsley-required-message="Billing city is required">
                                         </div>
 
                                         <!-- Pincode -->
                                         <div class="col-6">
                                             <label><b>Pincode</b></label>
                                             <input type="text" name="billing_pincode" class="form-control"
-                                                placeholder="600001" required>
+                                                placeholder="600001" required data-parsley-type="digits"
+                                                data-parsley-required-message="Billing pincode is required">
                                         </div>
 
-                                        <!-- Landmark -->
+                                        <!-- Landmark (optional) -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Landmark</b></label>
                                             <input type="text" name="billing_landmark" class="form-control"
                                                 placeholder="Near school, mall, etc">
                                         </div>
 
-                                        <!-- Special Instructions -->
-                                        <div class="col-md-12">
-                                            <label><b>Any Special Instructions?</b></label>
-                                            <textarea class="form-control" name="billing_special_instructions" rows="4"
-                                                placeholder="Delivery instructions"></textarea>
-                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -651,7 +628,7 @@
                 updateDeliveryAddress();
 
                 step = 2;
-                localStorage.setItem("checkout_step", step); // <<< save step
+                localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
                 step1.classList.remove("is-active");
                 bar1.style.width = "100%"; // fill progress bar
@@ -668,7 +645,7 @@
                 submitStep2Ajax(data, function() {
                     // Move to step 3 on success
                     step = 3;
-                    localStorage.setItem("checkout_step", step);
+                    localStorage.setItem("checkout_step_" + loginUserId, step);
 
                     step2.classList.remove("is-active");
                     bar2.style.width = "100%";
@@ -751,26 +728,20 @@
         }
 
         function validateStep2() {
-            let isValid = true;
-
-            $("#deliveryAddressForm")
-                .find("input, textarea, select")
-                .each(function() {
-
-                    if ($(this).val().trim() === "") {
-                        isValid = false;
-                        $(this).addClass("is-invalid");
-                    } else {
-                        $(this).removeClass("is-invalid");
-                    }
-                });
-
-            return isValid;
+            let form = $('#deliveryAddressForm').parsley();
+            form.validate();
+            return form.isValid();
         }
 
-
+        function toggleBilling() {
+            if ($("#sameAddress").is(":checked")) {
+                $("#billingSection").hide().find("input, textarea").attr("disabled", true);
+            } else {
+                $("#billingSection").show().find("input, textarea").attr("disabled", false);
+            }
+        }
         document.addEventListener("DOMContentLoaded", function() {
-            let savedStep = localStorage.getItem("checkout_step");
+            let savedStep = localStorage.getItem("checkout_step_" + loginUserId);
 
             if (savedStep) {
                 step = parseInt(savedStep);
@@ -882,7 +853,7 @@
             if (step === 2) {
 
                 step = 1;
-                localStorage.setItem("checkout_step", step); // <<< save step
+                localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
                 step2.classList.remove("is-active");
                 step1.classList.add("is-active");
@@ -892,7 +863,7 @@
 
                 finish();
                 // step = 2;
-                // localStorage.setItem("checkout_step", step); // <<< save step
+                // localStorage.setItem("checkout_step_"+ loginUserId, step); // <<< save step
 
                 // step3.classList.remove("is-active");
                 // step2.classList.add("is-active");
@@ -909,7 +880,7 @@
 
         // function reset() {
         //     step = 1;
-        //     localStorage.setItem("checkout_step", step); // <<< save step
+        //     localStorage.setItem("checkout_step_"+ loginUserId, step); // <<< save step
 
         //     step1.classList.add("is-active");
         //     step2.classList.remove("is-active");

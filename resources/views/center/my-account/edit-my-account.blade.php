@@ -459,22 +459,25 @@
                                                         <label for="email">Profile creator settings</label><br>
                                                         <div class="form-check form-check-inline">
                                                             <input name="profile_creator[]" class="form-check-input"
-                                                                type="checkbox" id="Method_Message" value="1"
-                                                                checked="">
-                                                            <label class="form-check-label" for="Method_Message">Include
+                                                                type="checkbox" id="profile_Info" value="1"
+                                                                
+                                                                 @if (!empty($escort->profile_creator)) {{ in_array(1, $escort->profile_creator) ? 'checked' : null }} @endif>
+                                                            <label class="form-check-label" for="profile_Info">Include
                                                                 Profile Information</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
                                                             <input name="profile_creator[]" class="form-check-input"
-                                                                type="checkbox" id="Method_Text" value="2">
-                                                            <label class="form-check-label" for="Method_Text">Include
+                                                                type="checkbox" id="Peofile_Over" value="2"
+                                                                 @if (!empty($escort->profile_creator)) {{ in_array(2, $escort->profile_creator) ? 'checked' : null }} @endif>
+                                                            <label class="form-check-label" for="Peofile_Over">Include
                                                                 Profile Information and allow to over ride</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
                                                             <input name="profile_creator[]" class="form-check-input"
-                                                                type="checkbox" id="Method_Email" value="3"
-                                                                checked="">
-                                                            <label class="form-check-label" for="Method_Email">Include
+                                                                type="checkbox" id="Social_Media" value="3"
+                                                                
+                                                                 @if (!empty($escort->profile_creator)) {{ in_array(3, $escort->profile_creator) ? 'checked' : null }} @endif>
+                                                            <label class="form-check-label" for="Social_Media">Include
                                                                 social media information</label>
                                                         </div>
                                                     </div>
@@ -494,22 +497,23 @@
                                                         <label for="email">How can Viewers contact us</label><br>
                                                         <div class="form-check form-check-inline">
                                                             <input name="viewer_contact_type[]" class="form-check-input"
-                                                                type="checkbox" id="Method_Message" value="1"
+                                                                type="checkbox" id="Call_Us" value="1"
                                                                 @if (!empty($escort->viewer_contact_type)) {{ in_array(1, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                            <label class="form-check-label" for="Method_Message">Call
+                                                            <label class="form-check-label" for="Call_Us">Call
                                                                 us</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input" name="viewer_contact_type[]"
-                                                                type="checkbox" id="Method_Email" value="3">
-                                                            <label class="form-check-label" for="Method_Email">Email us
+                                                                type="checkbox" id="Email_Us" value="3"
+                                                                 @if (!empty($escort->viewer_contact_type)) {{ in_array(3, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
+                                                            <label class="form-check-label" for="Email_Us">Email us
                                                                 (only for private communications with a Viewer)</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
                                                             <input name="viewer_contact_type[]" class="form-check-input"
-                                                                type="checkbox" id="Method_Text" value="2"
+                                                                type="checkbox" id="Text_Us" value="2"
                                                                 @if (!empty($escort->viewer_contact_type)) {{ in_array(2, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                            <label class="form-check-label" for="Method_Text">Text
+                                                            <label class="form-check-label" for="Text_Us">Text
                                                                 us</label>
                                                         </div>
                                                         {{-- <div class="pt-1"><i>You can select both options if you want.</i></div> --}}

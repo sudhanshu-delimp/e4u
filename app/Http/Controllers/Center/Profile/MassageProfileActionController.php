@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Center\Profile;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\MassageBrb;
+use App\Models\MassageBumpup;
 use App\Models\MassageProfile;
 use App\Models\MassagePurchase;
 use App\Models\MassageSuspendProfile;
@@ -12,6 +13,7 @@ use App\Services\WalletService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MassageProfileActionController extends BaseController
 {
@@ -58,8 +60,12 @@ class MassageProfileActionController extends BaseController
 
         $brbtime = date('d-m-Y h:i A', strtotime($request->brb_date . ' ' . $request->brb_time));
         $newBrb->brb_note = $request->brb_note;
-        $escortDetail = getEscortDetail($request->profile_id);
-        $profileTimezone = config("escorts.profile.states.$escortDetail[state_id].cities.$escortDetail[city_id].timeZone");
+
+         $home_state = auth()->user()->state_id;
+         $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+        
+        // $escortDetail = getEscortDetail($request->profile_id);
+        // $profileTimezone = config("escorts.profile.states.$escortDetail[state_id].cities.$escortDetail[city_id].timeZone");
 
         $localDateTime = Carbon::createFromFormat('Y-m-d H:i', "$request->brb_date $request->brb_time", $profileTimezone);
         $expiresAtUtc = $localDateTime->copy()->setTimezone('UTC');
@@ -90,6 +96,7 @@ class MassageProfileActionController extends BaseController
         try {
             $profileId = $request->profile_id;
             $massageProfile = getMassageDetail($profileId);
+
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getMassageSuspendRefundAmount($massageProfile, $startDate, $endDate);
@@ -240,7 +247,8 @@ class MassageProfileActionController extends BaseController
             //$totalAmount = $rate;
             $resposne_data = 
             [
-                'listing' => 1,
+                'profile_id' => $profile_id,
+                'listing' =>    1,
                 'business_name' => ($massage->business_name) ? $massage->business_name : "",
                 'start_date' => date('d-m-Y',strtotime($start_date)),
                 'end_date'   => date('d-m-Y',strtotime($end_date)),
@@ -267,6 +275,43 @@ class MassageProfileActionController extends BaseController
          
     }
 
+
+
+    public function bumpup_register(Request $request)
+    {
+        try 
+        {
         
+                $home_state = auth()->user()->state_id;
+                $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+
+                $nowLocal = Carbon::now($profileTimezone);
+                $localStart = $nowLocal->copy();
+                $localEnd   = $nowLocal->copy()->addHours(24);
+                $utcStart = $localStart->copy()->setTimezone('UTC');
+                $utcEnd = $localEnd->copy()->setTimezone('UTC');
+
+                MassageBumpup::create([
+                    'user_id' => auth()->id(),
+                    'massage_id' => $request->massage_id,
+                    'start_date' => $localStart->format('Y-m-d'),
+                    'end_date' => $localEnd->format('Y-m-d'),
+                    'utc_start_time' => $utcStart,
+                    'utc_end_time' => $utcEnd,
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Profile ID ' . $request->massage_id . ' has been Bumped Up.'
+                ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while Bumping Up Profile.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }    
 
 }

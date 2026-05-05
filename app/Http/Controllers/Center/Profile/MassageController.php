@@ -51,6 +51,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+ use Illuminate\Support\Facades\Artisan;
+
 
 //use Illuminate\Http\Request;
 
@@ -86,26 +88,26 @@ class MassageController extends Controller
    
     public function massager_list(Request $request)
     {
-        // echo Carbon::now('UTC');
-        // exit;
-
-        if(is_domain_localhost())
+    
+        // if(is_domain_localhost())
+        // $active_profile = get_massage_listed_profile();
+        // else
+        // $active_profile = [];
         $active_profile = get_massage_listed_profile();
-        else
-        $active_profile = [];
         return view('center.dashboard.list',compact('active_profile'));
     }
 
     public function  get_all_massager_list(Request $request)
     {
              
-            $masseurs = MassageProfile::with([
+            $massage = MassageProfile::with([
                 'mainPurchase',
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))
                         ->where('active', 'Y')
                         ->orderBy('brb_time', 'desc');
                 },
+                'activeBumpup',
                 'user:id,status',
                 'activeUpcomingSuspend'
             ])
@@ -116,18 +118,23 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
-          
+           
 
-               
+
+            $home_state = auth()->user()->state_id;
+            $localTimeZone  = config("escorts.profile.states.$home_state.timeZone");
         
-            $data = $masseurs->map(function ($row)  {
+            $data = $massage->map(function ($row) use($localTimeZone)  {
 
             if(!empty($row->is_active))
             $is_live = true;
             else
-            $is_live = false;        
+            $is_live = false;   
+        
+            $isExtended = $row->isListingExtended();
 
-
+            $profile_url = ['id' => $row->id,'ids' => '[]'];
+            
             $brb = [];
             if(isset($row->brb) && (count($row->brb)>0))
             $brb = json_decode(json_encode($row->brb),true);  
@@ -136,16 +143,19 @@ class MassageController extends Controller
             if(isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
             $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend),true); 
 
+           
+           $isBumpUped = $row->activeBumpup;
+           $row->is_bumpup = !empty($isBumpUped) ? true : false;
 
 
-            if(!empty($brb))
-            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip">Closed <small class="listing-tag-tooltip-desc">Closed  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
+            if(!empty($brb) && $is_live)
+            $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <sup class="brb_icon listing-tag-tooltip ml-1">Closed <small class="listing-tag-tooltip-desc">Closed  '.date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])).'</small></sup></span>';  
             else
             $profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.'</span>';     
 
             //$profile_name = '<span id="brb_'.$row->id.'"> '.$row->profile_name.' <pre>'.json_encode($brb, JSON_PRETTY_PRINT).'</pre></span>'; 
 
-            if(!empty($activeUpcomingSuspend) || $row->user->status == "Suspended")
+            if((!empty($activeUpcomingSuspend) || $row->user->status == "Suspended") && $is_live)
             {
                 if($row->user->status == "Suspended")
                 $profile_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
@@ -158,13 +168,33 @@ class MassageController extends Controller
             }
 
 
+             if(isset($isExtended->count) && $isExtended->count && $is_live)
+             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
+
+
+             if( $is_live && $isBumpUped  && (!empty($isBumpUped ))){
+                $profile_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
+                <small class="listing-tag-tooltip-desc">From ' . getMassageLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getMassageLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
+                </sup>';
+            }
 
                 $status = "";
                 
-                //if($row->enabled==0)
-                //$status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+                if($is_live)
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>';     
                
-                //$status = "";
+
+                if(!$is_live)
+                $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+                href="javascript:void(0)" 
+                onclick="openModal(\''.route('web.massage-description', $profile_url).'\')"> 
+                <i class="fa fa-circle"></i> View
+                </a>'; 
+                else
+                $status.= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+                href="'.route('web.massage-description', $profile_url).'"> 
+                <i class="fa fa-circle"></i> View
+                </a>'; 
 
                 //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>'; 
                 //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
@@ -701,6 +731,7 @@ class MassageController extends Controller
             $message = 'Updated successfully.';
             if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
+        
             massage_profile_complete_status($request->massage_id);
         }
         ######### End Update Abous us #####################
@@ -770,8 +801,7 @@ class MassageController extends Controller
 
                 $message = "Updated Successfully."; 
                 $error = false;
-
-
+                Artisan::queue('profile:sync-status'); // update profile verification status
             } catch (Exception $e) {
                $message = "Error occured while updating."; 
                $error = true; 
@@ -1105,12 +1135,15 @@ class MassageController extends Controller
 
     public function action_massage_profile(Request $request)
     {
+        
         DB::beginTransaction();
-
         try 
         {
+            $mess = "";
             $userId = auth()->user()->id;
-            $massage  = MassageProfile::where(['user_id' => $userId,'id'=>$request->profile_id])->first();
+            $current_date = Carbon::parse(date('Y-m-d'));
+            $home_state = auth()->user()->state_id;
+            $massage  = MassageProfile::where(['user_id' => $userId, 'id'=>$request->profile_id])->first();
 
             if (!$massage) {
                 return response()->json([
@@ -1119,17 +1152,39 @@ class MassageController extends Controller
                 ]);
             }
 
-            MassageProfile::where('user_id', $userId)
-            ->where('default_setting', '!=', 1)
-            ->where('enabled', '=', 1)
-            ->update(['enabled'=> 0]);
+            ########## Cancel Profile ###############
+            if($request->action=='cancel')
+            {
+                $puchases = MassagePurchase::where('massage_centre_id', $userId)
+                ->where('massage_profile_id', $request->profile_id)
+                ->whereIn('status', ['pending', 'listed'])
+                ->get();
 
-            $massage->enabled = 1;  
-            $mess = 'Profile activated successfully.'; 
-            $massage->save();
+                if($puchases->isEmpty())
+                {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Profile is not listed.'
+                    ]); 
+                } 
+
+                foreach($puchases as $puchase)
+                {
+                    $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+                    $utc_date_time =  Carbon::now($profileTimezone)->startOfDay()->utc();
+                    $puchase->status = 'cancel';
+                    $puchase->utc_cancel_time = $utc_date_time;
+                    $puchase->save();
+                }    
+
+
+                $massage->purchase_id = NULL;
+                $massage->save();
+                $mess = 'Profile cancelled successfully.'; 
+            }
+            ########## End Cancel Profile ###############
 
             DB::commit();
-
             return response()->json([
                 'success' => true,
                 'message' => $mess
@@ -1221,7 +1276,7 @@ class MassageController extends Controller
 
     public function listing_payment(PurchaseListingRequest $request)
     {
-
+          
             $data = $request->validated();
             $payload_start_date = $request->listing_start_date;
             $payload_end_date = $request->listing_end_date;
@@ -1281,7 +1336,7 @@ class MassageController extends Controller
             if($this->account->activeFeeDiscount){
                 $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
             }
-
+            
              return response()->json([
                 'success' => true,
                 'message' => 'Transaction completed successfully.'
@@ -1295,19 +1350,33 @@ class MassageController extends Controller
             $today = Carbon::today();
             $massagers = MassagePurchase::with([
                 'brb' => function ($query) {
-                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-                },'massageprofile','user:id,status','activeUpcomingSuspend'
-
-            ])->where('massage_centre_id', auth()->user()->id)
-            ->whereIn('status', ['pending', 'listed'])
-            // ->whereDate('start_date', '<=', $today)
-            // ->whereDate('end_date', '>=', $today)
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
+                },
+                'massageprofile',
+                'user:id,status',
+                'activeUpcomingSuspend'
+            ])
+            ->where('massage_centre_id', auth()->user()->id)
+            ->whereIn('status', ['listed','pending'])
+            ->orderByRaw("CASE 
+                WHEN status = 'listed' THEN 1 
+                WHEN status = 'pending' THEN 2 
+            ELSE 3 
+            END")
+            ->limit(1)
             ->get();
 
-    
+            // echo '<pre>';
+            // print_r($massagers->toArray());
+            // echo '</pre>';
+            // exit;
+
+
             $data = $massagers->map(function ($row) use ($today) {
 
-
+                
                 $brb = [];
                 if(isset($row->brb) && (count($row->brb)>0))
                 $brb = json_decode(json_encode($row->brb),true);  

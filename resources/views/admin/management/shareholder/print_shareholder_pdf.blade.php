@@ -89,11 +89,11 @@
 
 
         table td {
-            padding: .75rem .75rem .75rem  .75rem !important;
+            padding: .40rem .50rem .50rem .75rem !important;
         }
 
         table th {
-            padding: .75rem  .75rem .75rem .75rem !important;
+            padding: .40rem .50rem .50rem .75rem !important;
             font-weight: 500;
             vertical-align: middle;
 
@@ -152,6 +152,7 @@
                             }
                         }
                         $contactTypesText = implode(', ', $contactTypesArray);
+                        $contactKey = 1;
                     @endphp
 
                     <!-- Avatar + Name -->
@@ -164,19 +165,27 @@
                             {{ $shareholder->contact_person }}
                         </h6>
                     </div>
-                    <!-- Merchant Details -->
-                    <table class="table table-bordered mb-3">
+                    <!-- Details Table -->
+            <div class="col-12 my-2">
+                <table class="table table-bordered mb-3">
+                    <tr>
+                        <th width="40%">Shareholder</th>
+                        <td width="60%">{{ $shareholder->business_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ $shareholder->business_address }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 my-2">
+                <h6 class="text-blue-primary">Primary Contact</h6>
+                <table class="table table-bordered">
+                    <tbody>
                         <tr>
-                            <th>Shareholder</th>
-                            <td>{{ $shareholder->business_name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Address</th>
-                            <td>{{ $shareholder->business_address }}</td>
-                        </tr>
-                        <tr>
-                            <th>Contact</th>
-                            <td>{{ $shareholder->contact_person }}</td>
+                            <th width="40%">Contact</th>
+                            <td width="60%">{{ $shareholder->contact_person }}</td>
                         </tr>
                         <tr>
                             <th>Mobile</th>
@@ -186,9 +195,42 @@
                             <th>Email</th>
                             <td>{{ $shareholder->email }}</td>
                         </tr>
+                    </tbody>
+                </table>
+                 <!-- Key Contact -->
+            @if ($shareholder->contacts)
+                @foreach ($shareholder->contacts as $contact)
+                 <h6 class="text-blue-primary">Key Contact {{ $contactKey }}</h6>
+                <table class="table table-bordered">
+                    <tbody>
                         <tr>
-                            <th>Method of Contact</th>
-                            <td>{{ $contactTypesText }}</td>
+                            <th width="40%">Contact</th>
+                            <td width="60%">{{ $contact->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Mobile</th>
+                            <td>{{ $contact->mobile }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ $contact->email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                 @php
+                        $contactKey = $contactKey + 1;
+                    @endphp
+                @endforeach
+            @endif
+            <!-- End Key Contact -->
+            </div>
+            <div class="col-12 my-2">
+
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Method of Contact</th>
+                            <td width="60%">{{ $contactTypesText }}</td>
                         </tr>
                         <tr>
                             <th>Idle Time Preference</th>
@@ -198,7 +240,9 @@
                             <th>2FA Authentication</th>
                             <td>{{ $twofa }}</td>
                         </tr>
-                    </table>
+                    </tbody>
+                </table>
+            </div>
                 </div>
             </div>
         </div>

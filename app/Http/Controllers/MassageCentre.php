@@ -139,7 +139,7 @@ class MassageCentre extends Controller
             ->pluck('massage_profile_id');
 
 
-      
+     
 
         //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
         $mc_live_list = $massage_live_ids;
@@ -156,7 +156,7 @@ class MassageCentre extends Controller
          $massage_users = $massage_users->whereIn('id',$mc_user_id);
             
 
-         $massage = MassageProfile::with('latest_active_brb');
+         $massage = MassageProfile::with('latest_active_brb','activeBumpup');
          if(!empty($mc_live_list))
          $massage = $massage->whereIn('id',$mc_live_list);
 
@@ -346,6 +346,27 @@ class MassageCentre extends Controller
                         else
                         $massage = $massage->whereRaw('1 = 0');    
                     }  
+
+                    // Verification Filter (Massage)
+                    if ($verification != "") {
+                        $statusMap = [
+                            'verified'   => '1',
+                            'unverified' => '2',
+                        ];
+
+                        if (isset($statusMap[$verification])) {
+
+                            $status = $statusMap[$verification];
+
+                            $massage = $massage->whereExists(function ($q) use ($status) {
+                                $q->select(\DB::raw(1))
+                                    ->from('profile_verification_status as pvs')
+                                    ->whereColumn('pvs.profile_id', 'massage_profiles.id')
+                                    ->where('pvs.type', '4')
+                                    ->where('pvs.status', $status);
+                            });
+                        }
+                    }
                     
                     
                     if(empty($mc_live_list))
@@ -359,9 +380,7 @@ class MassageCentre extends Controller
             $massage = $massage->whereRaw('1 = 0'); 
             }
 
-            
-            $massage = $massage->inRandomOrder()->paginate($per_page)->onEachSide(1);
-
+            $massage = $massage->paginate($per_page)->onEachSide(1);
         }
         else
         {
@@ -372,27 +391,55 @@ class MassageCentre extends Controller
             else
             $massage = $massage->whereRaw('1 = 0'); 
 
-            $massage = $massage->inRandomOrder()->paginate($per_page)->onEachSide(1);
+            $massage = $massage->paginate($per_page)->onEachSide(1);
         }
         ######### End Upper Filter ##################### 
 
      
-        // $massage->setCollection(
-        //     $massage->getCollection()->sortByDesc(function ($item) {
-        //         return !is_null($item->latest_active_brb);
-        //     })->values()
-        // );
-
-       $listings = $massage;
-       $media = $this->media;
-
       
+        $media = $this->media;
+        $collection = $massage->getCollection();
+        $bumpProfiles = $collection->filter(fn($row) => !empty($row->activeBumpup));
+        $normalProfiles = $collection->filter(fn($row) => empty($row->activeBumpup));
+       
 
         if ((int)$request->is_page_reload === 0) 
         {
-            $massage->setCollection($massage->getCollection()->sortByDesc('purchase_id')->values());
+            if ($bumpProfiles->count() > 0) 
+            {
+                $bumpProfiles = $bumpProfiles->sortByDesc(function ($row) {
+                return $row->activeBumpup->start_date;
+                });
+
+                $normalProfiles = $normalProfiles->sortByDesc('purchase_id');
+                $final = $bumpProfiles->values()->merge($normalProfiles->values());
+            } 
+            else 
+            {
+            $final = $collection->sortByDesc('purchase_id')->values();
+            }
+            
         }
-       
+        else
+        {
+            if ($bumpProfiles->count() > 0) 
+            {
+                $bumpProfiles = $bumpProfiles->sortByDesc(function ($row) {
+                return $row->activeBumpup->start_date;
+                });
+
+                $normalProfiles = $normalProfiles->shuffle();
+                $final = $bumpProfiles->values()->merge($normalProfiles->values());
+            } 
+            else 
+            {
+            $final = $collection->shuffle();
+            }  
+        }
+
+         $listings =  $massage->setCollection($final); 
+        
+        
         return response()->json([
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),

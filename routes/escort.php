@@ -356,6 +356,21 @@ Route::prefix('concierge')->name('escort.')->group(function () {
   Route::get('concierge/view-cart', [ProductController::class, 'cartListing'])->name('view-cart');
   Route::post('get/products', [ProductController::class, 'getProducts'])->name('get.products');
   Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');
+  Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('orders');
+   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
+});
+
+ 
+
+Route::get('concierge/transaction-history', function () {
+  return view('escort.dashboard.Concierge.product-transaction-history');
+})->name('escort.transaction-history');
+
+Route::get('travel', function () {
+  return view('escort.dashboard.Concierge.travel');
+});
+Route::get('visa-migration', function () {
+  return view('escort.dashboard.Concierge.visa-migration');
 });
 
 

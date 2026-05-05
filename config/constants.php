@@ -137,4 +137,5 @@ return [
         '8' => "shareholder-login",
         '9' => "operator-login",
     ],
+     'max_shareholder_key_contact_create'   => env('MAX_SHAREHOLDER_KEY_CONTACT_CREATE', 3),
 ];

@@ -227,7 +227,7 @@ background:#16385f;
         <div class="summary-container">
         <div class="summary-header">
         <span>Transaction Summary</span>
-        <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: E20118</span>
+        <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: {{auth()->user()->member_id}}</span>
         </div>
 
         <table class="summary-table" >

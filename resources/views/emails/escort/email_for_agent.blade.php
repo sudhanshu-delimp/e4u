@@ -66,10 +66,9 @@
                                 All of these Account settings have help information to assist you. You only have to do this once, but you can change any of the information by either going back to these settings, or by updating them when you create a Profile for the Escort. This is particularly helpful when creating multiple Profiles for your Escort’s Location or for a Tour.
                             </p>
 
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                             <!-- email info -->
+                                <x-email-info/>
+                            <!-- end -->
                         </td>
                     </tr>
                 </table>

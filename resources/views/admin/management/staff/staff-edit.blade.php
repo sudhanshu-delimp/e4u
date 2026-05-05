@@ -40,8 +40,8 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
         </div>
         <div class="col-6 mb-3">
             <label class="form-check-label" for="phone">Phone</label>
-            <input  type="tel" maxlength="10" class="form-control rounded-0" name="phone" id="phone"
-                value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');" autocomplete="off">
+            <input  type="tel" maxlength="14" class="form-control rounded-0" name="phone" id="phone"
+                value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');" autocomplete="off" onfocus="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">

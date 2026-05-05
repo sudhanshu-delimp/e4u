@@ -68,22 +68,16 @@
                 </table>
 
                  <!-- Closing -->
-              <p style="font-size: 15px; margin-top: 20px;">
-                Regards,<br>
-                <b>E4U - Operations Centre</b>
-                 <br>
-                                <br>
-                                <span>
-                                    Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
-                                </span>
-              </p>
+               <!-- email info -->
+                  <x-email-info/>
+              <!-- end -->
             </td>
           </tr>
 
         </table>
 
         <!-- Footer -->
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 0px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#0c223d; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
           <tr>
              <td>
                 <x-email-footer/>

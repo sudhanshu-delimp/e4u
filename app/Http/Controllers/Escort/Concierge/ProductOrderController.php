@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class ProductOrderController extends Controller
 {
@@ -123,5 +124,40 @@ class ProductOrderController extends Controller
     } catch (\Exception $e) {
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
+  }
+
+  public function orders(Request $request)
+  {
+    try {
+      $order = ProductOrder::orderby('id', 'desc')->get();
+      return  view('escort.dashboard.Concierge.product-order-history');
+    } catch (\Exception $e) {
+      return response()->json(['status' => false, 'message' => $e->getMessage()]);
+    }
+  }
+
+  public function orderList(Request $request)
+  {
+    $query = ProductOrder::query();
+
+    return DataTables::of($query)
+
+      ->addColumn('order_date', function ($row) {
+        return $row->order_date;
+      })
+      ->addColumn('order_status', function ($row) {
+        return '<span class="badge bg-info">' . $row->order_status . '</span>';
+      })
+      ->addColumn('payment_status', function ($row) {
+        return '<span class="badge bg-info">' . $row->payment_status . '</span>';
+      })
+      ->addColumn('action', function ($row) {
+        return '<a href="" class="btn btn-sm btn-primary">View</a>';
+      })
+      ->addColumn('payment_method', function ($row) {
+        return $row->payment_method ?? 'Card';
+      })
+      ->rawColumns(['order_status', 'action', 'payment_status'])
+      ->make(true);
   }
 }

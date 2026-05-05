@@ -11,6 +11,9 @@
     } else {
         $contactType = [99999];
     }
+    $contactKey = 0;
+    $max_shareholder_key_contact_create = config('constants.max_shareholder_key_contact_create');
+    $contactKeyNumber = 1;
 @endphp
 
 
@@ -68,53 +71,145 @@
                             <div class="row">
                                 <div class="col-md-10 px-0">
                                     <div class="row">
-
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="business_name">Shareholder</label>
-                                                <input type="text" class="form-control rounded-0"
-                                                    placeholder="Address" name="business_name" id="business_name"
-                                                    value="{{ $staff->business_name }}">
-                                                <span class="text-danger error-business_name"></span>
+                                                <label for="business_name">Shareholder</label>
+                                                <span class="form-control form-back">{{ $staff->business_name }}</span>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="business_address" class="my-agent">Address</label>
+                                                <label for="business_address">Address</label>
                                                 <input type="text" class="form-control rounded-0"
                                                     placeholder="Address" name="business_address" id="business_address"
                                                     value="{{ $staff->business_address }}">
                                                 <span class="text-danger error-business_address"></span>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="my-agent">Contact</label>
-                                                <input type="text" class="form-control rounded-0"
-                                                    placeholder="Address" name="contact_person" id="contact_person"
+                                    </div>
+                                    <!-- Start of Primary contact -->
+                                    <div class="col-md-12 ml-2">
+                                        <div class="row">
+                                            <div class=" mb-3 w-100">
+                                                <h5 class="border-bottom pb-1 text-blue-primary">Primary Contact</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="contact_person">Contact</label>
+                                                     <input type="text" class="form-control rounded-0"
+                                                    placeholder="Contact" name="contact_person" id="contact_person"
                                                     value="{{ $staff->contact_person }}">
                                                 <span class="text-danger error-contact_person"></span>
+                                                </div>
+
                                             </div>
-                                        </div>
-
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="phone" class="my-agent">Mobile</label>
-                                                <input type="text" class="form-control rounded-0" placeholder="Phone"
-                                                    name="phone" id="phone" value="{{ $staff->phone }}">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="phone">Mobile</label>
+                                                   <input type="text" class="form-control rounded-0" placeholder="Phone"
+                                                    name="phone" id="phone" value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');"
+                onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
                                                 <span class="text-danger error-phone"></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <span class="form-control form-back">{{ $staff->email }}</span>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" class="form-control rounded-0"
+                                                        placeholder="Email" name="email" id="email"
+                                                        value="{{ $staff->email }}">
+                                                    <span class="text-danger error-email"></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- End of Primary contact -->
+
+                                    <!-- Start of Key contact -->
+                                    <div id="conatct-container-edit">
+                                        <!-- Key Contact -->
+                                        @if ($staff->contacts)
+                                            @foreach ($staff->contacts as $contact)
+                                                <div class="key-contact-info-edit my-3"
+                                                    id="keyContectNode_{{ $contact->id }}">
+                                                    <input type="hidden" name="contact_id[]"
+                                                        value="{{ $contact->id }}">
+                                                    <div class="col-md-12  ml-2">
+                                                        <div class="row">
+                                                            <div class=" mb-3 w-100">
+                                                                <h5 class="border-bottom pb-1 text-blue-primary">Key
+                                                                    Contact
+                                                                    {{ $contactKeyNumber }}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row addDeleteButton">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="contact_person">Contact</label>
+                                                                    <input type="tel" maxlength="100"
+                                                                        autocomplete="off"
+                                                                        class="form-control rounded-0"
+                                                                        name="key_contact_name[]"
+                                                                        value="{{ $contact->name }}">
+                                                                    <span
+                                                                        class="text-danger error-key_contact_name.{{ $contactKey }}"></span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="phone">Mobile</label>
+                                                                    <input type="tel" maxlength="15"
+                                                                        autocomplete="off"
+                                                                        class="form-control rounded-0"
+                                                                        name="key_contact_phone[]"
+                                                                        oninput="this.value = this.value.replace(/\D/g,'');"
+                                                                        value="{{ $contact->mobile }}"
+                                                                        onfocus="this.value = this.value.replace(/\D/g,'');"
+                                                                        onblur="formatMobile(this)">
+                                                                    <span
+                                                                        class="text-danger error-key_contact_phone.{{ $contactKey }}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="email">Email</label>
+                                                                    <input type="text"
+                                                                        class="form-control rounded-0"
+                                                                        placeholder="Email" name="key_contact_email[]"
+                                                                        value="{{ $contact->email }}">
+                                                                    <span
+                                                                        class="text-danger error-key_contact_email.{{ $contactKey }}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex align-items-center col-6 deleteButton">
+                                                                <button type="button" class="btn-cancel-modal"
+                                                                    style="padding:13px 21px;"
+                                                                    onClick="deleteKeyContact({{ $contact->id }})">
+                                                                    <i class="fa fa-times text-white"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @php
+                                                    $contactKey = $contactKey + 1;
+                                                    $contactKeyNumber = $contactKeyNumber + 1;
+                                                @endphp
+                                            @endforeach
+                                        @endif
+
+                                    </div>
+                                    @if ($contactKey < $max_shareholder_key_contact_create)
+                                        <div class="col-6 mb-3"><button class="btn-success-modal" type="button"
+                                                id="add-more-contact-edit">Add Key
+                                                Contact</button></div>
+                                    @endif
+                                    <!-- End of Key contact -->
+
                                 </div>
                             </div>
 
@@ -133,24 +228,26 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="form-check form-check-inline ml-0">
-                                                    <input class="form-check-input" type="checkbox" id="text"
+                                                    <input class="form-check-input" type="checkbox" id="Method_Text"
                                                         name="contact_type[]" value="2"
                                                         @if (!empty($contactType)) {{ in_array(2, $contactType) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="text">Text</label>
+                                                    <label class="form-check-label" for="Method_Text">Text</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="email"
+                                                    <input class="form-check-input" type="checkbox" id="Method_Email"
                                                         name="contact_type[]" value="3"
                                                         @if (!empty($contactType)) {{ in_array(3, $contactType) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="email">Email</label>
+                                                    <label class="form-check-label" for="Method_Email">Email</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="call_me"
+                                                    <input class="form-check-input" type="checkbox" id="Method_Call"
                                                         name="contact_type[]" value="4"
                                                         @if (!empty($contactType)) {{ in_array(4, $contactType) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="call_me">Call me</label>
+                                                    <label class="form-check-label" for="Method_Call">Call me</label>
                                                 </div>
+                                              
                                             </div>
+                                              <span class="text-danger error-contact_type"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -247,80 +344,256 @@
 </div>
 @endsection
 @push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <!-- Shareholder update -->
-    <script type="text/javascript">
-        $('#userProfile').parsley({
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        });
-        // new
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            var alertBox = $('#formAlert');
-            if (form.parsley().isValid()) {
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<!-- Shareholder update -->
+<script type="text/javascript">
+    //$('#userProfile').parsley({
 
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $('span.text-danger').text('');
+   // });
+    // new
+    $('#userProfile').on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var alertBox = $('#formAlert');
+       // if (form.parsley().isValid()) {
 
-                swal_waiting_popup({
-                    'title': 'Saving Shareholder Details'
-                });
+            var url = form.attr('action');
+            var data = new FormData(form[0]);
+            $('span.text-danger').text('');
 
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        
-                        var notes = $('#notes');
-                        $('span.text-danger').text('');
-                        if (!data.error) {
-                            Swal.close();
-                            alertBox
-                                .removeClass('d-none alert-danger')
-                                .addClass('alert-success')
-                                .html('Your details have been updated successfully.');
-                            $('html, body').animate({
-                                scrollTop: notes.offset()
-                                    .top // Get the top offset of the target div
-                            }, 500);
-                        } else {
-                            alertBox
-                                .removeClass('d-none alert-success')
-                                .addClass('alert-danger')
-                                .html('Error occured while updating data.');
-                        }
+            swal_waiting_popup({
+                'title': 'Saving Shareholder Details'
+            });
 
-                        // Optional: Auto-hide after 4 seconds
-                        setTimeout(function() {
-                            alertBox.addClass('d-none');
-                        }, 10000);
-                    },
-                    error: function(xhr) {
+            $.ajax({
+                method: form.attr('method'),
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+
+                    var notes = $('#notes');
+                    $('span.text-danger').text('');
+                    if (!data.error) {
                         Swal.close();
-                        console.log(xhr);
-                        if (xhr.status === 422) {
-                            $('span.text-danger').text('');
-                            let errors = xhr.responseJSON.errors;
-                            $.each(errors, function(field, messages) {
+                        alertBox
+                            .removeClass('d-none alert-danger')
+                            .addClass('alert-success')
+                            .html('Your details have been updated successfully.');
+                        $('html, body').animate({
+                            scrollTop: notes.offset()
+                                .top // Get the top offset of the target div
+                        }, 500);
+                    } else {
+                        alertBox
+                            .removeClass('d-none alert-success')
+                            .addClass('alert-danger')
+                            .html('Error occured while updating data.');
+                    }
+
+                    // Optional: Auto-hide after 4 seconds
+                    setTimeout(function() {
+                        alertBox.addClass('d-none');
+                    }, 10000);
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    console.log(xhr);
+                    if (xhr.status === 422) {
+                        $('span.text-danger').text('');
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(field, messages) {
+                           
+                            if (field.includes('.')) {
+                                 console.log("Message:",field, messages);
+                                // ARRAY FIELD (key_contact_person.0)
+                                    let parts = field.split('.');
+                                    let name = parts[0] + '[]';
+                                    let index = parts[1];
+                                    let input = $('[name="' + name + '"]').eq(index);
+                                    $('.error-' + field.replace('.', '\\.')).text(messages[0]);
+                                   
+
+                            } else {
                                 $('.error-' + field).text(messages[0]);
-                            });
-                        } else {
-                            alertBox
-                                .removeClass('d-none alert-success')
-                                .addClass('alert-danger')
-                                .html('Oops... something went wrong. Please try again.');
-                        }
-                    },
-                });
+                            }
+                        });
+                    } else {
+                        alertBox
+                            .removeClass('d-none alert-success')
+                            .addClass('alert-danger')
+                            .html('Oops... something went wrong. Please try again.');
+                    }
+                },
+            });
+       // }
+    });
+
+    $(document).ready(function() {
+        var addedMaxKeyContactMain = addedMaxKeyContact = parseInt("{{ $contactKey }}");
+
+        if (addedMaxKeyContact == 1) {
+            addedMaxKeyContact = addedMaxKeyContact - 1;
+        }
+        if (addedMaxKeyContact == 2) {
+            addedMaxKeyContact = addedMaxKeyContact - 2;
+        }
+
+        const maxContacts = parseInt("{{ $max_shareholder_key_contact_create }}");
+        maxContactsEdit = maxContacts - addedMaxKeyContact;
+
+        function updateHeadings() {
+            $(".key-contact-info-edit").each(function(index) {
+                $(this).find("h5").text("Key Contact " + parseInt(index + 1));
+            });
+        }
+        $("#add-more-contact-edit").click(function(e) {
+            e.preventDefault();
+
+            let contactCount = $(".key-contact-info-edit").length;
+            if (contactCount == 0) {
+                contactCount = 0;
+            }
+
+            if (contactCount >= maxContactsEdit) {
+               // alert("You can only add up to 3 Key Contacts.");
+                 swal_error_popup("You can only add up to 3 Key Contacts.");
+                return;
+            }
+            if (contactCount == 0) {
+                var newContact = $(".key-contact-info").first().clone();
+                newContact.find('.deleteButton').remove();
+                // replace class
+                newContact.removeClass("key-contact-info").addClass("key-contact-info-edit");
+            } else {
+                var newContact = $(".key-contact-info-edit").first().clone();
+                newContact.find('.deleteButton').remove();
+
+            }
+            var index1 = addedMaxKeyContactMain;
+            newContact.find('span.text-danger').each(function() {
+
+                let classes = $(this).attr('class');
+
+                if (classes.includes('error-key_contact_name')) {
+                    $(this).attr('class', 'text-danger error-key_contact_name.' + index1);
+                }
+
+                if (classes.includes('error-key_contact_phone')) {
+                    $(this).attr('class', 'text-danger error-key_contact_phone.' + index1);
+                }
+
+                if (classes.includes('error-key_contact_email')) {
+                    $(this).attr('class', 'text-danger error-key_contact_email.' + index1);
+                }
+                
+            });
+
+
+
+            // Clear input values
+            newContact.find("input").val("");
+
+            // Add remove button only for cloned ones
+            if (newContact.find(".btn-remove").length === 0) {
+                /*  newContact.append(`
+                <div class="d-flex align-items-end col-6">
+                    <button type="button" class="btn-cancel-modal btn-remove">
+                        <i class="fa fa-times text-white"></i>
+                    </button>
+                </div>
+            `); */
+                newContact.find('.addDeleteButton').append(`
+        <div class="col-md-6 d-flex align-items-center">
+            <button type="button" class="btn-cancel-modal btn-remove" style="padding:13px 21px;"> 
+                <i class="fa fa-times text-white"></i>
+            </button>
+        </div>
+    `);
+            }
+
+            $("#conatct-container-edit").append(newContact);
+
+            updateHeadings();
+        });
+
+        // Remove contact row
+        $(document).on("click", ".btn-remove", function() {
+            $(this).closest(".key-contact-info-edit").remove();
+            updateHeadings(); // re-update after delete
+        });
+
+        // Initial call
+        updateHeadings();
+    });
+
+    
+
+     async function deleteKeyContact(id) {
+
+    const confirmed = await isConfirm({
+        action: 'Delete',
+        text: 'Are you sure you want to delete this contact?'
+    });
+
+    if (confirmed) {
+        $.ajax({
+            url: "{{ route('shareholder.delete.shareholder.contact') }}",
+            type: 'DELETE',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id: id
+            },
+            success: function(response) {
+                if (response.status) {
+                    swal_success_popup(response.message);
+                    $('#keyContectNode_' + id).remove();
+                } else {
+                    swal_error_popup(response.message || 'Something went wrong');
+                }
+                setTimeout(function() {
+                    location.reload();
+                }, 3000);
+            },
+            error: function(xhr) {
+                swal_error_popup("Something went wrong!");
             }
         });
-    </script>
+    }
+}
+</script>
 @endpush
+<div style="display: none" id="keyContactFormData">
+<div class="key-contact-info my-3 row  ml-2">
+    <div class="col-12">
+        <h5>Key Contact</h5>
+    </div>
+    <div class=" ml-2 row addDeleteButton">
+        <div class="col-6 mt-2">
+            <input type="hidden" name="contact_id[]" value="">
+            <label class="form-check-label" for="contact">Contact</label>
+            <input type="tel" maxlength="100" autocomplete="off" class="form-control rounded-0"
+                name="key_contact_name[]">
+            <span class="text-danger error-key_contact_name.1"></span>
+        </div>
+        <div class="col-6 mt-2">
+            <label class="form-check-label" for="phone">Mobile</label>
+            <input type="tel" maxlength="15" autocomplete="off" class="form-control rounded-0"
+                name="key_contact_phone[]" oninput="this.value = this.value.replace(/\D/g,'');"
+                onfocus="this.value = this.value.replace(/\D/g,'');" onblur="formatMobile(this)">
+            <span class="text-danger error-key_contact_phone.1"></span>
+        </div>
+        <div class="col-6 mt-2">
+            <label class="form-check-label" for="email">Email</label>
+            <input type="email" class="form-control rounded-0" name="key_contact_email[]">
+            <span class="text-danger error-key_contact_email.1"></span>
+        </div>
+    </div>
+</div>
+</div>

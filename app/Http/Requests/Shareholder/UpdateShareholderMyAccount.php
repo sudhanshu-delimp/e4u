@@ -31,20 +31,30 @@ class UpdateShareholderMyAccount extends FormRequest
         }
 
         return [
+            //'business_name' => 'bail|required|string|max:100',
             'contact_person' => 'bail|required|string|max:100',
-            'business_name' => 'bail|required|string|max:100',
             'business_address' => 'bail|required|string|max:255',
             'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
-            //'email' => "bail|required|email|max:50|email:rfc,filter|unique:users,email,{$userId}",
+            'email' => "bail|required|email|max:50|email:rfc,filter|unique:users,email,{$userId}",
             'contact_type' => 'required',
+            'key_contact_name.*' => 'sometimes|required|string|max:100',
+            'key_contact_phone.*'  => 'sometimes|required|digits:10',
+            'key_contact_email.*'  => 'sometimes|required|email:rfc,filter',
         ];
     }
 
     protected function prepareForValidation()
     {
-        if ($this->has('abn')) {
+        if ($this->has('phone')) {
             $this->merge([
-                'abn' => preg_replace('/\D/', '', $this->input('abn')),
+                'phone' => preg_replace('/\D/', '', $this->input('phone')),
+            ]);
+        }
+        if ($this->has('key_contact_phone')) {
+            $this->merge([
+                'key_contact_phone' => array_map(function ($value) {
+                    return preg_replace('/\D/', '', $value); // remove spaces, symbols
+                }, $this->input('key_contact_phone'))
             ]);
         }
     }
@@ -52,11 +62,21 @@ class UpdateShareholderMyAccount extends FormRequest
     public function messages()
     {
         return [
-             'business_name.required' => 'The shareholder name field is required.',
-             'business_name.max' => 'The business name must not be greater than 100 characters.',
+            'business_name.required' => 'The shareholder name field is required.',
+            'business_name.max' => 'The Shareholder name must not be greater than 100 characters.',
+            'business_address.required' => 'The address field is required.',
+            'contact_person.required' => 'The primary contact name field is required.',
             'contact_type.required' => 'The method of Contact field is required.',
-            'phone.required' => 'The mobile number field is required.',
+            'phone.required' => 'The primary mobile number field is required.',
+            'email.required' => 'The primary email address field is required.',
+            'phone.*.min' => 'The primary mobile number field minimum 10 digits.',
+            'phone.*.max' => 'The primary mobile number field minimum 14 digits.',
             'point_of_contact.required' => 'The point of contact field is required.',
+            'key_contact_name.*.required' => 'The key contact name field is required.',
+            'key_contact_phone.*.required' => 'The key contact mobile number field is required.',
+            'key_contact_phone.*.digits' => 'The key contact mobile number field must be 10 digits.',
+            'key_contact_email.*.required' => 'The key contact email field is required.',
+            'key_contact_email.*.email' => 'The key contact email must be a valid email address.',
         ];
     }
 }
