@@ -129,13 +129,37 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     //Report List action 
     Route::post('marketing/prospect-list/report-action', [ProspectListController::class, 'reportAction'])->name('agent.marketing.prospect.report.action');
 
+    //Gener pdf
+    Route::post('marketing/prospect-list/generate-pdf', [ProspectListController::class, 'generatePDF'])->name('agent.marketing.prospect.generate.pdf');
+    //show progressbar for save report and prospect list
+    Route::get('marketing/prospect-list/progress/{id}', [ProspectListController::class, 'progress'])->name('agent.marketing.prospect.progress')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);;
+    Route::get('marketing/prospect-list/download/{id}', [ProspectListController::class, 'download'])->name('agent.marketing.prospect.download');
+    Route::post('marketing/prospect-list/update-save-report', [ProspectListController::class, 'updateSaveReport'])->name('agent.marketing.prospect.update.save.report');
+
+    //View generate center list
+    Route::get('marketing/prospect-list/view-centerlist/{id}', [ProspectListController::class, 'viewCenterList'])->name('agent.marketing.prospect.view.centerlist');
+    //print view page
+    Route::get('marketing/prospect-list/print-view/{id}', [ProspectListController::class, 'printView'])->name('agent.marketing.prospect.print.view');
+    //Information Package
+    //Route::get('marketing/information-packages/list', [ProspectListController::class, 'informationPackageList'])->name('agent.marketing.information.package.list');
+
+
+    //Demo
+    Route::get('marketing/prospect-list/demo1', function(){
+       return view('agent.dashboard.marketing.modal.doc1');
+    });
+
     //Testing generate PDF using HTML
-    Route::get('marketing/prospect-list/demo-pdf', [ProspectListController::class, 'demoPdf']);
-    Route::post('marketing/prospect-list/generate-pdf', [ProspectListController::class, 'pdfGenerate'])->name('pdf.generate');
+    Route::get('marketing/prospect-list/demo-pdf', [ProspectListController::class, 'testPDF']);
+    Route::post('marketing/prospect-list/generate-pdf-demo', [ProspectListController::class, 'pdfGenerate'])->name('pdf.generate');
+ 
 
     //Save Report
-    Route::get('marketing/save-report', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');
-     
+    Route::get('marketing/save-report/report-list', [ProspectListController::class, 'saveReportList'])->name('agent.marketing.save.report.list');
+    Route::get('marketing/save-report/view-appointment-list/{id}', [ProspectListController::class, 'appointmentList'])->name('agent.marketing.save.report.appointment.list');
+    //search Center using id
+    Route::post('marketing/save-report/search-center-by-id', [ProspectListController::class, 'searchCenterById'])->name('agent.marketing.save.report.search.center');
+    
      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');
      })->name('agent.advertiser-list');
@@ -195,9 +219,6 @@ Route::get('forms',function(){
 })->name('agent.forms');
 
 
-    Route::get('Marketing/create-information-package',function(){
-    return view('agent.dashboard.marketing.create-information-package');
-})->name('marketing.create-information-package');
 
     Route::get('Fees/monthly-report',function(){
     return view('agent.dashboard.Fees.monthly-report');

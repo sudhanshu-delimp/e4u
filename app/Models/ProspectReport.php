@@ -23,6 +23,7 @@ class ProspectReport extends Model
 
     protected $casts = [
         'center_ids' => 'array',
+        'merge_center_ids' => 'array',
     ];
 
     public function centers()
