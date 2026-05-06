@@ -366,7 +366,6 @@
                @endphp
                 <img src="{{$base64sig}}" alt="" style="width: 150px;">
                  <span style="display:block">{{$data['name_of_agent']}}</span>
-                 <span>{{ $data['agent_signature'] }}</span>
             </span>
 
 
