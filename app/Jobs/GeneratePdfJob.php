@@ -57,6 +57,7 @@ class GeneratePdfJob implements ShouldQueue
         if (!empty($agent->agent_detail) && !empty($agent->agent_detail->signature_file)) {
             $file = $agent->agent_detail->signature_file;
             $signature = url('storage/' . ltrim($file, '/'));
+            \Log::warning("Signature: centre {$signature}");
         }
 
         $viewPath = $this->docType === '1'
@@ -125,7 +126,7 @@ class GeneratePdfJob implements ShouldQueue
                 ->output();
 
                 if (empty($pdfContent)) {
-                    \Log::warning("Empty PDF skipped: centre {$centre->id}");
+                  //  \Log::warning("Empty PDF skipped: centre {$centre->id}");
                     $batch->increment('processed');
                     continue;
                 }
@@ -135,7 +136,7 @@ class GeneratePdfJob implements ShouldQueue
 
                 file_put_contents($path, $pdfContent);
 
-                \Log::info("PDF created: $name size=" . filesize($path));
+               // \Log::info("PDF created: $name size=" . filesize($path));
 
                 $pdfFiles[] = ['path' => $path, 'name' => $name];
                 $batch->increment('processed');
@@ -144,7 +145,7 @@ class GeneratePdfJob implements ShouldQueue
                 gc_collect_cycles();
 
             } catch (\Exception $e) {
-                \Log::error("PDF failed centre {$centre->id}: " . $e->getMessage());
+              //  \Log::error("PDF failed centre {$centre->id}: " . $e->getMessage());
                 $batch->increment('processed');
                 continue;
             }
@@ -152,7 +153,7 @@ class GeneratePdfJob implements ShouldQueue
 
         if (empty($pdfFiles)) {
             $batch->update(['status' => 'failed']);
-            \Log::error('No PDFs generated — ZIP aborted');
+          //  \Log::error('No PDFs generated — ZIP aborted');
             return;
         }
 
@@ -164,7 +165,7 @@ class GeneratePdfJob implements ShouldQueue
         $result = $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         if ($result !== true) {
-            \Log::error('ZipArchive open failed: ' . $result);
+          //  \Log::error('ZipArchive open failed: ' . $result);
             $batch->update(['status' => 'failed']);
             return;
         }
@@ -175,17 +176,17 @@ class GeneratePdfJob implements ShouldQueue
                 $zip->addFile($file['path'], $file['name']);
                 $addedCount++;
             } else {
-                \Log::warning("Skipped invalid PDF: " . $file['name']);
+              //  \Log::warning("Skipped invalid PDF: " . $file['name']);
             }
         }
 
         $zip->close();
 
-        \Log::info("ZIP created: $zipName | PDFs added: $addedCount | Size: " . filesize($zipPath));
+       // \Log::info("ZIP created: $zipName | PDFs added: $addedCount | Size: " . filesize($zipPath));
 
         // Validate
         if (!file_exists($zipPath) || filesize($zipPath) == 0) {
-            \Log::error('ZIP invalid after close');
+          //  \Log::error('ZIP invalid after close');
             $batch->update(['status' => 'failed']);
             return;
         }
