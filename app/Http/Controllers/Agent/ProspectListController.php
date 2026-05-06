@@ -488,7 +488,6 @@ class ProspectListController extends Controller
 
     public function progress($id)
     {
-
         @ini_set('output_buffering', 'off');
         @ini_set('zlib.output_compression', false);
 
@@ -503,7 +502,6 @@ class ProspectListController extends Controller
         }
         return response()->stream(function () use ($id) {
 
-
             while (true) {
                 if (connection_aborted()) break;
 
@@ -516,8 +514,9 @@ class ProspectListController extends Controller
                     'total'     => $batch->total,
                 ]) . "\n\n";
 
-                ob_flush();
+                ob_flush(); // don't remove ob_flush
                 flush();
+
 
                 if ($batch->status === 'completed' || $batch->status === 'failed') {
                     break;
@@ -540,9 +539,26 @@ class ProspectListController extends Controller
             abort(404);
         }
 
-        return response()->download($batch->file_path)
-            ->deleteFileAfterSend(true);
+        if (!file_exists($batch->file_path)) {
+            abort(404, 'File not found on server');
+        }
+
+        // ✅ Yeh add karo — garbage data clean karo
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
+        $extension = pathinfo($batch->file_path, PATHINFO_EXTENSION); // pdf ya zip
+        $mimeType  = $extension === 'zip' ? 'application/zip' : 'application/pdf';
+        $filename  = 'report_' . now()->format('Ymd_His') . '.' . $extension;
+
+        return response()->download(
+            $batch->file_path,
+            $filename,
+            ['Content-Type' => $mimeType]
+        )->deleteFileAfterSend(true);
     }
+
 
 
 

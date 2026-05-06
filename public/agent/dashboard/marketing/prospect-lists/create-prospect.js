@@ -764,6 +764,7 @@ $(document).ready(function () {
         let centreId = $(this).data('centre-id');
         let reportId = $(this).data('report-id');
         let docType = $(this).data('doc-type');
+        $('#progressText').text('0 / 0');
 
         triggerPDF([centreId], reportId, docType, 'print');
     });
@@ -772,6 +773,7 @@ $(document).ready(function () {
     $('#footerPrintBtn').on('click', function () {
         let ids = getSelectedIds();
         if (!ids.length) { showAlert('error', 'Please select at least one centre.'); return; }
+        $('#progressText').text('0 / 0');
         triggerPDF(ids, $('#current_report_id').val(), 'print');
     });
 
