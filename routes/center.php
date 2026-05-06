@@ -109,6 +109,9 @@ Route::get('listing/past', function(){return view('center.dashboard.listing.past
 Route::post('listing/current-listing', [MassageController::class, 'massager_current_listing'])->name('center.current-listing');
 Route::post('listing/past-listing', [MassageController::class, 'massager_past_listing'])->name('center.past-listing');
 
+Route::post('action-massage-profile', [MassageController::class, 'action_massage_profile'])->name('center.action-massage-profile');
+Route::post('duplicate-massage-profile', [MassageController::class, 'duplicate_massage_profile'])->name('center.duplicate-massage-profile');
+
 
 Route::post('massage-brb/add', [MassageProfileActionController::class, 'add'])->name('massage.brb.add');
 Route::post('massage-brb/inactive/{id}', [MassageProfileActionController::class, 'inactive'])->name('massage.brb.inactive');
@@ -264,7 +267,7 @@ Route::get('manage-media',function(){
     return view('center.dashboard.manage-media');
 })->name('center.dashboard.manage-media');
 
-// Route::get('masseurs-statistics',function(){
+// Route::get('masseurs-statistics',function(){massage_profile_data
 //     return view('center.dashboard.masseurs-statistics');
 // })->name('center.dashboard.masseurs-statistics');
 
@@ -288,7 +291,6 @@ Route::get('archives-listing', function()
 	return view('center.dashboard.masseurs.archives-listing');
 })->name('center.archives-listing');
 
-Route::post('action-massage-profile', [MassageController::class, 'action_massage_profile'])->name('center.action-massage-profile');
 
 
 Route::get('masseurs/add-media', function()
