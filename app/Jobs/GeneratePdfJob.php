@@ -80,7 +80,7 @@ class GeneratePdfJob implements ShouldQueue
             ->setPaper('a4')
             ->setOptions([
                 'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled'      => true,
+                'isRemoteEnabled'      => false,
                 'dpi'                  => 96,
                 'chroot'               => public_path(),
             ])
@@ -119,7 +119,7 @@ class GeneratePdfJob implements ShouldQueue
                 ->setPaper('a4')
                 ->setOptions([
                     'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled'      => true,
+                    'isRemoteEnabled'      => false,
                     'dpi'                  => 96,
                     'chroot'               => public_path(),
                 ])
