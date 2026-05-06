@@ -79,12 +79,13 @@
                                 <th>Member ID </th>
                                 <th>Member</th>
                                 <th>Listing</th>
-                                <th>Profile Name</th>
+                                <th style="290px;!important;">Profile Name</th>
                                 <th>Masseurs</th>
                                 <th>Listed</th>
                                 <th>De-listed</th>
                                 <th>Days</th>
                                 <th>Remaining</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -231,9 +232,27 @@
                             orderable: false
                         },
                         {
+                            data: 'status',
+                            name: 'status',
+                            orderable: false
+                        },
+                        {
                             data: 'action',
                             name: 'action',
                             orderable: false
+                        }
+                    ],
+                    columnDefs: [{
+                            width: "260px",
+                            targets: 3
+                        },// 0 = first column
+                        {
+                            width: "85px",
+                            targets: 5
+                        },
+                        {
+                            width: "85px",
+                            targets: 6
                         }
                     ],
 

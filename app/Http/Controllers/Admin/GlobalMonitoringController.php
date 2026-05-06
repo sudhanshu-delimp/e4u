@@ -77,7 +77,7 @@ class GlobalMonitoringController extends Controller
                     ->orderBy('brb_time', 'desc');
             },
             'massageprofile',
-            'user:id,status,member_id,name,email,phone,status',
+            'user:id,status,member_id,name,email,phone,status,state_id',
             'activeUpcomingSuspend'
         ])->where(function ($q) use ($search) {
             if (!empty($search)) {
@@ -93,7 +93,7 @@ class GlobalMonitoringController extends Controller
                     });
                 });
             }
-        })->whereIn('status', ['listed', 'pending'])
+        })->whereIn('status', ['listed', 'pending', 'expire'])
             ->orderByRaw("CASE 
                 WHEN status = 'listed' THEN 1 
                 WHEN status = 'pending' THEN 2 
@@ -107,9 +107,18 @@ class GlobalMonitoringController extends Controller
         echo '</pre>';
          exit; */
 
-
         $result = $massagers->map(function ($row) use ($today) {
 
+            $homeStateId = $row->user->state_id;
+             $isLive = 0;
+            $localTimeZone  = config("escorts.profile.states.$homeStateId.timeZone");
+            $homeStateName  = config("escorts.profile.states.$homeStateId.stateAbbr");
+            if (!empty($row->massageprofile)) {
+                $is_live = true;
+                $isLive = 1;
+            } else {
+                $is_live = false;
+            }
 
             $brb = [];
             if (isset($row->brb) && (count($row->brb) > 0))
@@ -118,6 +127,11 @@ class GlobalMonitoringController extends Controller
             $activeUpcomingSuspend = [];
             if (isset($row->activeUpcomingSuspend) && (!empty($row->activeUpcomingSuspend)))
                 $activeUpcomingSuspend = json_decode(json_encode($row->activeUpcomingSuspend), true);
+
+            $isBumpUped = $row->massageprofile->activeBumpup;
+            $row->is_bumpup = !empty($isBumpUped) ? true : false;
+            $isExtended = $row->massageprofile->isListingExtended();
+
 
 
             $start = Carbon::parse($row->start_date);
@@ -129,9 +143,9 @@ class GlobalMonitoringController extends Controller
             $profile_name = "";
 
             if (!empty($brb))
-                $profile_name = '<span id="brb_' . $row->massageprofile->id . '"> ' . $row->massageprofile->profile_name . ' <sup class="brb_icon listing-tag-tooltip">Closed <small class="listing-tag-tooltip-desc">Closed  ' . date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])) . '</small></sup></span>';
+                $profile_name = '<span id="brb_' . $row->massageprofile->id . '"> ' . $row->massageprofile->profile_name . ' <br/><sup class="brb_icon listing-tag-tooltip">Closed <small class="listing-tag-tooltip-desc">Closed  ' . date('d-m-Y h:i A', strtotime($brb[0]['selected_time'])) . '</small></sup></span>';
             else
-                $profile_name = '<span id="brb_' . $row->massageprofile->id . '"> ' . $row->massageprofile->profile_name . '</span>';
+                $profile_name = '<span id="brb_' . $row->massageprofile->id . '"> ' . $row->massageprofile->profile_name . '</span><br/>';
 
             if (!empty($activeUpcomingSuspend) || $row->user->status == "Suspended") {
                 if ($row->user->status == "Suspended")
@@ -143,17 +157,61 @@ class GlobalMonitoringController extends Controller
                     <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to " . date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])) . '</small>
                     </sup>';
             }
+
+            if ($is_live && $isBumpUped  && (!empty($isBumpUped))) {
+                $profile_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
+                <small class="listing-tag-tooltip-desc">From ' . getMassageLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to " . getMassageLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A') . '</small>
+                </sup>';
+            }
+
+            if (isset($isExtended->count) && $isExtended->count && $is_live) {
+                $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  ' . date('d-m-Y h:i A', strtotime($isExtended->data->start_date)) . '</small></sup>';
+            }
+             $actionBtn = "";
+            $profile_url = ['id' => $row->massageprofile->id ,'ids' => '[]'];
+            if (!$is_live)
+                $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+                href="javascript:void(0)" 
+                onclick="openModal(\'' . route('web.massage-description', $profile_url) . '\')"> 
+                <i class="fa fa-eye"></i> View
+                </a>';
+            else
+                $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+                href="' . route('web.massage-description', $profile_url) . '"> 
+                <i class="fa fa-eye "></i> View
+                </a>';
+
+              $actionButtons = '<div class="dropdown no-arrow ml-3">
+                                    
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        aria-labelledby="dropdownMenuLink" style="">'.$actionBtn.'
+                                        
+                                    </div>
+                                </div>';
+
             $days = 0;
             $startDate = Carbon::parse(date('d-m-Y', strtotime($row->start_date)))->startOfDay();
             $endDate = Carbon::parse(date('d-m-Y', strtotime($row->end_date)))->startOfDay();
 
             $now = Carbon::now()->startOfDay();
             $leftDays = $endDate->diffInDays($now) + 1;
+            $status = $row->status;
+            $statusBtn = '<span class="custom_badge badge_current">Current</span>';
+
+            $statusText = $item->status ?? 'NA';
+            $badgeClass = getStatusBadgeClass($statusText);
+            //$statusBtn = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
 
             if ($startDate > $now) {
                 $leftDays = '-';
+                $statusBtn = '<span class="custom_badge badge_upcoming">Upcoming</span>';
             } else if ($endDate < $now) {
                 $leftDays = '0';
+                $statusBtn = '<span class="custom_badge badge_suspended">Inactive</span>';
             } else {
                 $leftDays = $leftDays;
             }
@@ -169,7 +227,7 @@ class GlobalMonitoringController extends Controller
                 'id' => $row->id,
                 'member_id' => $row->user->member_id,
                 'member' => $row->user->name,
-                'listing' => '-',
+                'listing' => $homeStateName,
                 'profile_name' => $profile_name,
                 'pro_name' => $profile_name,
                 'address' => 'Home State', //auth()->user()->home_state,
@@ -177,12 +235,11 @@ class GlobalMonitoringController extends Controller
                 'start_date' => $start_date,
                 'end_date' =>  $end_date,
                 'fee_paid' => '$ ' . formatIndianNumber($row->paid_rate),
-                'status' =>  '<span class="custom_badge badge_current">Current</span>',
-                'masseurs' => 5,
+                'status' =>  $statusBtn,
+                'masseurs' => isset($row->massageprofile->massagerMasseurs) ? $row->massageprofile->massagerMasseurs->count() : 0,
                 'days' => $days,
                 'left_days' => $leftDays,
-                'status' =>  '<span class="custom_badge badge_current">Current</span>',
-                'action' => '',
+                'action' => $actionButtons,
 
             ];
         });
