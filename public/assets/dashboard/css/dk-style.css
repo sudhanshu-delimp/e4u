@@ -12193,17 +12193,23 @@ details[open]>summary:first-of-type {
 }
 
 
+
+
+ 
+.btn-email-single:hover {
+    background-color: #d82546;
+    color: var(--white);
+}
+
+
 .btn-email-single {
+
     background-color: #ff3c5f;
     color: var(--white);
     padding: 7px 10px;
     border-radius: 5px;
     border: none;
-}
- 
-.btn-email-single:hover {
-    background-color: #d82546;
-    color: var(--white);
+    
 }
 
 
