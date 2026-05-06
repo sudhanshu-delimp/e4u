@@ -14,6 +14,7 @@ class AddSignatureFileToAgentDetailsTable extends Migration
     public function up()
     {
         Schema::table('agent_details', function (Blueprint $table) {
+            
             $table->string('signature_file')->nullable()->after('agreement_file');
         });
     }

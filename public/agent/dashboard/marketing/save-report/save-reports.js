@@ -10,67 +10,7 @@ const endpoint = {
 
 $(document).ready(function () {
     // Init DataTable
-    console.log(endpoint.save_report_list);
-    var table = $("#save_report_table").DataTable({
-        ajax: {
-            url: endpoint.save_report_list,
-            type: 'GET'
-        },
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Post Code"
-        },
-        processing: false,
-        serverSide: false,
-        paging: true,
-        lengthChange: false,
-        searching: true, // disable default search
-        bStateSave: true,
-        ordering: false,
-        lengthMenu: [
-            [10, 25, 50, 100],
-            [10, 25, 50, 100]
-        ],
-        pageLength: 10,
-        columns: [{
-            data: 'id',
-            name: 'id',
-            searchable: true,
-            orderable: true,
-            defaultContent: 'NA'
-        },
-        {
-            data: 'date',
-            name: 'date',
-            searchable: false,
-            defaultContent: 'NA'
-        },
-        {
-            data: 'post_code_label',
-            name: 'post_code_label',
-            searchable: true,
-            defaultContent: 'NA'
-        },
-        {
-            data: 'listings_count',
-            name: 'listings_count',
-            defaultContent: 'NA'
-        },
-        {
-            data: 'merged',
-            name: 'merged',
-            defaultContent: 'NA'
-        },
-        {
-            data: 'action',
-            name: 'action',
-            searchable: false,
-            orderable: false,
-            defaultContent: 'NA',
-            class: 'text-center'
-        },
-        ],
-    });
+
 
     // Show filter options
     $("#filterBtn").on("click", function () {

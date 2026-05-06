@@ -50,6 +50,136 @@
             font-weight: 600;
         }
     </style>
+
+    <style>
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99999;
+            /* ✅ Bootstrap modal z-index 1050 se upar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Smooth moving bar */
+
+        .progress-bar {
+            position: absolute;
+            width: 40%;
+            height: 100%;
+            background: #ff3c5f;
+            animation: smoothSlide 1.2s linear infinite;
+        }
+
+        @keyframes smoothSlide {
+            0% {
+                left: -40%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .download-icon {
+            font-size: 50px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
+    </style>
+
+    {{-- Loader --}}
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        /* Container */
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Smooth moving bar */
+
+        .progress-bar {
+            position: absolute;
+            width: 40%;
+            height: 100%;
+            background: #ff3c5f;
+            animation: smoothSlide 1.2s linear infinite;
+        }
+
+        @keyframes smoothSlide {
+            0% {
+                left: -40%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .download-icon {
+            font-size: 50px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -246,13 +376,23 @@
     {{-- modal  --}}
 
 
-    @include('agent.dashboard.modal.merge-type-modal')
-    @include('agent.dashboard.modal.merge-list-modal')
-    @include('agent.dashboard.modal.view-list-modal')
-    @include('agent.dashboard.modal.view-report-modal')
+    @include('agent.dashboard.marketing.modal.merge-type-modal') {{-- Merge Type --}}
+    @include('agent.dashboard.marketing.modal.view-list-modal') {{-- view Modal  --}}
+    @include('agent.dashboard.marketing.modal.view-report-modal') {{-- Merged Documents modal --}}
 
     {{-- end modals --}}
 
+
+    <div id="loader" class="overlay d-none">
+        <div class="download-icon"><img src="http://e4u_main.test/assets/dashboard/img/arrow.png" alt=""
+                style="width: 70px;"></div>
+        <h2 id>Downloading... Please wait</h2>
+        <p id="progressText">0 / 0</p>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            
+        </div>
+    </div>
 
 
 
@@ -267,8 +407,12 @@
         data-clear-reports-url="{{ route('agent.marketing.prospect.clear-reports') }}"
         data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
         data-save-report="{{ route('agent.marketing.prospect.save-report') }}"
-        data-report-list-action="{{route('agent.marketing.prospect.report.action')}}"
-        
+        data-report-list-action="{{ route('agent.marketing.prospect.report.action') }}"
+        data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
+        data-update-save-report="{{ route('agent.marketing.prospect.update.save.report') }}"
+        data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist', ['id' => '__ID__']) }}"
+        data-progress-data="{{route('agent.marketing.prospect.progress', ['id' => '__ID__'])}}"
+        data-download-data="{{route('agent.marketing.prospect.download', ['id' => '__ID__'])}}"
         ></div>
 @endsection
 
@@ -276,7 +420,4 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>
-\
-
-
 @endpush

@@ -3725,20 +3725,15 @@ color: #B9B9B9;
         
         .view_img_gallery_masseur {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 2fr 1fr 2fr;
             gap: 10px;
             margin: 0 auto;
         }
         
         .view_img_gallery_masseur .other_images {
-            display: flex;
-            justify-content: flex-start;
-            align-items: baseline;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 10px;
-            min-height: 150px;
-            max-height: 400px;
-            overflow-y: overlay;
         }
         
         .view_img_gallery_masseur img {
@@ -3747,9 +3742,7 @@ color: #B9B9B9;
             object-fit: cover;
             border-radius: 6px;
         }
-        .verify_icon_wrapper.w-20{
-            width: 23%;
-        }
+        
         .profile_list {
             display: flex;
             align-items: center;

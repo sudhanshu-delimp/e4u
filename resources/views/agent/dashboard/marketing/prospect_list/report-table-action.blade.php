@@ -5,7 +5,7 @@
         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" href="#" data-report-action="Merge" data-report-id="{{$report->id}}" >
             <i class="fa fa-bezier-curve"></i> Merge</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" href="#" data-report-action="Print" data-report-id="{{$report->id}}" ><i class="fa fa-print">
+        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" href="{{ route('agent.marketing.prospect.print.view', Crypt::encrypt($report->id)) }}" data-report-action="Print" data-report-id="{{$report->id}}" ><i class="fa fa-print">
             </i> Print</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="View" href="#" data-report-id="{{$report->id}}" >
