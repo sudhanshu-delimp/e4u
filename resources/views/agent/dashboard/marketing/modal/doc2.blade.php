@@ -373,10 +373,11 @@
             </p>
 
             <span style="border-bottom:1px solid #333; display:block;">
-                 @if($data['agent_signature'])
+                
                 <img src="{{ $data['agent_signature'] }}" alt="" style="width: 150px;">
-                @endif
+           
                 <span style="display:block">{{$data['name_of_agent']}}</span>
+                <span>{{ $data['agent_signature'] }}</span>
             </span>
 
 
