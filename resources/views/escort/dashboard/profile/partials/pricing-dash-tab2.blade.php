@@ -20,7 +20,7 @@ $loginAccount = auth()->user();
             <div class="row margin_zero_for_row">
                 <div class="col-lg-12 col-md-12 col-12 mb-2">
                     <div class="paymnt_summery mb-3 summary-bg d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Summary</h4>
+                        <h4 class="mb-0">Transaction Summary</h4>
                         <div class="member-id">
                             <span class="pr-2 "><i class="fa fa-user"></i></span>
                             <span>Member ID: {{$loginAccount->member_id}}</span>
@@ -78,7 +78,9 @@ $loginAccount = auth()->user();
                     </div>
                     
                     <div class="text-right mt-3">
-                        <button type="submit" class="save_profile_btn mr-0" id="escort-form-submit-btn">Pay</button>
+                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#test_process-payment-modal">Proceed</a>
+                        {{-- <button type="submit" class="save_profile_btn mr-0" id="escort-form-submit-btn">Pay</button>
+                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal">Proceed</a> --}}
                     </div>
                 </div>                
             </div>

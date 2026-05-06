@@ -4,23 +4,38 @@ namespace App\Http\Controllers\Escort\Concierge;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderAddress;
+use App\Models\PaymentHistory;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\ProductOrderItem;
 use App\Models\State;
+use App\Services\PinPaymentService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\DataTables;
 
 class ProductOrderController extends Controller
 {
-  public function makeOrder(Request $request)
+
+
+
+  protected $account;
+  public function __construct()
+  {
+    $this->middleware(function ($request, $next) {
+      $this->account = auth()->user();
+      return $next($request);
+    });
+  }
+  public function makeOrder(Request $request, PinPaymentService $pinPaymentService)
   {
 
 
     try {
+      DB::beginTransaction();
 
       $data = $request->all();
 
@@ -70,80 +85,111 @@ class ProductOrderController extends Controller
         'total_amount' => $total,
         'sub_total' => $subtotal,
         'tax_amount' => $tax,
+        'payment_method' => 'Card',
         'delivery_charges' => $deliveryCharges ?? 0,
         'notes' => $data['deliveryDetails']['special_instructions']
       ];
-      DB::transaction(function () use ($orderData, $data, $state) {
 
-        $order = ProductOrder::create($orderData);
-        if ($order) {
-          // prepare data for order item
-          foreach ($data['itemDetails'] as $productId => $details) {
-            $orderItem = [
-              'order_id' => $order->id,
-              'product_id' => $productId,
-              'quantity' => $details['qty'],
-              'price' => $details['price'],
-              'total' => $details['price'] * $details['qty'],
-            ];
-            ProductOrderItem::create($orderItem);
-          }
-          // prepare data for delivery details like billing & shipping address
-          $orderAddressShipping = [
+      $token = $data['pin_token'];
+      // DB::transaction(function () use ($orderData, $data, $state, $pinPaymentService, $total, $token) {
+
+
+
+      $order = ProductOrder::create($orderData);
+      if ($order) {
+        // prepare data for order item
+        foreach ($data['itemDetails'] as $productId => $details) {
+          $orderItem = [
             'order_id' => $order->id,
-            'type' => 'shipping',
-            'email' => $data['deliveryDetails']['email'],
-            'phone' => $data['deliveryDetails']['phone'],
-            'address_line1' => $data['deliveryDetails']['address'],
-            'state' => $state['stateName'],
-            'country' => 'Australia',
-            'city' => $data['deliveryDetails']['city'] ?? '',
-            'pincode' => $data['deliveryDetails']['pincode'] ?? '',
+            'product_id' => $productId,
+            'quantity' => $details['qty'],
+            'price' => $details['price'],
+            'total' => $details['price'] * $details['qty'],
           ];
-
-          $delivery = $data['deliveryDetails'];
-          $stateName = $state['stateName'];
-          $same = isset($delivery['sameAddress']) ? 1 : 0;
-          // Prepare billing address
-          if ($same == 1) {
-            // Billing = Delivery
-            $billing = [
-              'email'         => $delivery['email'],
-              'phone'         => $delivery['phone'],
-              'address_line1' => $delivery['address'],
-              'address_line2' => $delivery['address_2']??'',
-              'city'          => $delivery['city'] ?? '',
-              'pincode'       => $delivery['pincode'] ?? '',
-              'landmark'      => $delivery['landmark'] ?? '',
-              'state'         => $stateName,
-              'country'       => 'Australia',
-            ];
-          } else {
-            // Billing different
-            $billing = [
-              'email'         => $delivery['billing_email'] ?? '',
-              'phone'         => $delivery['billing_phone'] ?? '',
-              'address_line1' => $delivery['billing_address_line1'] ?? '',
-              'address_line2' => $delivery['billing_address_line2'] ?? '',
-              'city'          => $delivery['billing_city'] ?? '',
-              'pincode'       => $delivery['billing_pincode'] ?? '',
-              'landmark'      => $delivery['billing_landmark'] ?? '',
-              'state'         => $stateName,
-              'country'       => 'Australia',
-            ];
-          }
-
-          $orderAddressBilling = array_merge([
-            'order_id' => $order->id,
-            'type'     => 'billing',
-          ], $billing);
-          OrderAddress::create($orderAddressShipping);
-          OrderAddress::create($orderAddressBilling);
+          ProductOrderItem::create($orderItem);
         }
-      });
+        // prepare data for delivery details like billing & shipping address
+        $orderAddressShipping = [
+          'order_id' => $order->id,
+          'type' => 'shipping',
+          'email' => $data['deliveryDetails']['email'],
+          'phone' => $data['deliveryDetails']['phone'],
+          'address_line1' => $data['deliveryDetails']['address'],
+          'state' => $state['stateName'],
+          'country' => 'Australia',
+          'city' => $data['deliveryDetails']['city'] ?? '',
+          'pincode' => $data['deliveryDetails']['pincode'] ?? '',
+        ];
 
+        $delivery = $data['deliveryDetails'];
+        $stateName = $state['stateName'];
+        $same = isset($delivery['sameAddress']) ? 1 : 0;
+        // Prepare billing address
+        if ($same == 1) {
+          // Billing = Delivery
+          $billing = [
+            'email'         => $delivery['email'],
+            'phone'         => $delivery['phone'],
+            'address_line1' => $delivery['address'],
+            'address_line2' => $delivery['address_2'] ?? '',
+            'city'          => $delivery['city'] ?? '',
+            'pincode'       => $delivery['pincode'] ?? '',
+            'landmark'      => $delivery['landmark'] ?? '',
+            'state'         => $stateName,
+            'country'       => 'Australia',
+          ];
+        } else {
+          // Billing different
+          $billing = [
+            'email'         => $delivery['billing_email'] ?? '',
+            'phone'         => $delivery['billing_phone'] ?? '',
+            'address_line1' => $delivery['billing_address_line1'] ?? '',
+            'address_line2' => $delivery['billing_address_line2'] ?? '',
+            'city'          => $delivery['billing_city'] ?? '',
+            'pincode'       => $delivery['billing_pincode'] ?? '',
+            'landmark'      => $delivery['billing_landmark'] ?? '',
+            'state'         => $stateName,
+            'country'       => 'Australia',
+          ];
+        }
+
+        $orderAddressBilling = array_merge([
+          'order_id' => $order->id,
+          'type'     => 'billing',
+        ], $billing);
+        OrderAddress::create($orderAddressShipping);
+        OrderAddress::create($orderAddressBilling);
+      }
+      DB::commit();
+
+      // make payment using charge method
+
+      $response = $pinPaymentService->charge($token, $total, $data['deliveryDetails']['email'], $data['deliveryDetails']['special_instructions']);
+      //  dd($response);
+      if ($response['status'] === false) {
+        return response()->json(['status' => false, 'message' => $response['error']['error_description']]);
+      } else if ($response['status'] === true) {
+
+        $response =    $response['data']['response'];
+        $paymentStatus = $response['success'] == true ? 'paid' : 'failed';
+        PaymentHistory::create([
+          'user_id'         => $this->account->id,
+          'ref_no'          => now()->format('Ymd') . rand(100, 999),
+          'amount'          => $response['amount'] / 100,
+          'currency'        => $response['currency'],
+          'payment_gateway' => 'pinpayments',
+          'transaction_id'  => $response['token'],
+          'status'          => $response['success'] ? 'success' : 'failed',
+          'paid_at'         => $response['captured_at'] ?? $response['created_at'],
+          'card'            => $response['card']['display_number'],
+          'meta'            => json_encode($response),
+        ]);
+
+        ProductOrder::where('id', $order->id)->update(['payment_status' => $paymentStatus]);
+      }
       return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
     } catch (\Exception $e) {
+      DB::rollBack();
 
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
@@ -182,5 +228,16 @@ class ProductOrderController extends Controller
       })
       ->rawColumns(['order_status', 'action', 'payment_status'])
       ->make(true);
+  }
+
+
+  public function success()
+  {
+    return view('payment.success');
+  }
+
+  public function fail()
+  {
+    return view('payment.fail');
   }
 }

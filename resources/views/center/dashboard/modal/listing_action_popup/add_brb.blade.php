@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross"> Add Closed</h5>
+                    <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross"> Shop Closed</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>

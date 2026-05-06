@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -24,7 +25,10 @@ class ProductController extends Controller
   public function cartListing()
   {
     try {
-      return view('escort.dashboard.Concierge.view-cart');
+      $states = config('escorts.profile.states');
+      $country = config('app.country');
+      $state = $states[Auth::user()->state_id]['stateName'] ?? null;
+      return view('escort.dashboard.Concierge.view-cart', compact('state', 'country'));
     } catch (Exception $e) {
       Log::error("cart listing" . $e->getMessage());
     }
@@ -46,7 +50,6 @@ class ProductController extends Controller
       ]);
     } catch (Exception $e) {
       Log::error("get products" . $e->getMessage());
-       
     }
   }
 }

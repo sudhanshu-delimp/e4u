@@ -140,6 +140,10 @@ Route::get('profile-informations', [CenterProfileInformationController::class, '
 
 Route::get('get-media-count', [CenterProfileInformationController ::class, 'getMediaCOunt'])->name('center.get-media-count');
 
+Route::get('get-masseurs-media-count', [MasseurController ::class, 'getMediaCOunt'])->name('center.get-masseurs-media-count');
+Route::post('upload-masseur-verification', [MasseurController ::class, 'uploadMasseurVerification'])->name('center.upload-masseur-verification');
+
+
 Route::post('validate-phone', [MasseurController::class, 'validate_phone'])->name('center.validate-phone');;
 Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('center.create-new-masseur');
 Route::post('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
@@ -167,7 +171,7 @@ Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'
 
 
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
-Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
 
 
  
@@ -345,6 +349,8 @@ Route::get('media-centre/videos', [MediaController::class, 'videoGalleries'])->n
 Route::post('upload-chunk', [MassageGalleryController::class, 'uploadChunk'])->name('gallery.uploadChunk');
 Route::post('merge-chunks', [MassageGalleryController::class, 'mergeChunks'])->name('gallery.mergeChunks');
 Route::post('get-image-info',[MassageGalleryController::class, 'getImageInfo'])->name('center.get-image-info');
+Route::post('get-masseur-image-info',[MasseurController::class, 'getImageInfo'])->name('center.get-masseur-image-info');
+
 ############ End Media Videos ########################
 
 Route::get('notifications-and-features', [CenterProfileInformationController::class, 'massageSettings'])->name('centre.notifications-and-features');

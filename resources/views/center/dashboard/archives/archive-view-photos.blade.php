@@ -46,6 +46,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             gap: 10px;
+    margin-bottom: 20px;
         }
 
         .grid-container>div {
@@ -63,8 +64,8 @@
         }
 
         img.img-thumbnail.defult-image {
-            width: 100%;
-            height: 100%;
+            width: 193px;
+            height: 135px;
             object-fit: cover;
         }
 
@@ -123,10 +124,7 @@
             color: #fff;
         }
 
-        .defult-image {
-            width: 202px !important;
-            height: 182px !important;
-        }
+       
     </style>
     </style>
 @endsection
@@ -263,7 +261,6 @@
                                                         <span class="common_shield_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
-                                                <span class="common_shield_tooltip">Media Unverified</span>
                                             </div>
                                         </label>
                                     </div>

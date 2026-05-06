@@ -33,7 +33,14 @@
         #deliveryAddressForm textarea {
             color: #000 !important;
         }
+
+        legend {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
     </style>
+    <script src="https://cdn.pinpayments.com/pin.v2.js"></script>
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 add-punterbox-report">
@@ -319,14 +326,15 @@
                                         </div>
 
 
-                                        <div class="col-md-12 my-2">
+                                       
+                                    </div>
+                                </div>
+                                 <div class="col-md-12 my-2">
                                             <label><b>Any Special Instructions?</b></label>
                                             <textarea class="form-control common_textarea" name="special_instructions" rows="5"
                                                 placeholder="Like building access if we are delivering to your door."required
                                                 data-parsley-required-message="Special instructions are required"></textarea>
                                         </div>
-                                    </div>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -378,27 +386,98 @@
                         </div>
 
                     </div>
+                    <form class="pin" id="paymentForm">
+
+                        <div class="errors alert alert-danger" style="display:none">
+                            <h5></h5>
+                            <ul style="font-size: 14px;"></ul>
+                        </div>
+
+                        <!-- BILLING SECTION -->
+                        {{-- <fieldset class="mb-4">
+                            <legend>Billing</legend>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Address 1</label>
+                                    <input id="address-line1" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Address 2</label>
+                                    <input id="address-line2" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">City</label>
+                                    <input id="address-city" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">State</label>
+                                    <input id="address-state" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Postcode</label>
+                                    <input id="address-postcode" class="form-control">
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Country</label>
+                                    <input id="address-country" class="form-control">
+                                </div>
+                            </div>
+                        </fieldset> --}}
+
+                        <!-- PAYMENT SECTION -->
+                        <fieldset class="mb-4">
+                            <legend>Payment</legend>
+
+                            <div class="mb-3">
+                                <label class="form-label">Credit Card Number</label>
+                                <input id="cc-number" type="text" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Name on Card</label>
+                                <input id="cc-name" type="text" class="form-control">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Expiry Month</label>
+                                    <input id="cc-expiry-month" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Expiry Year</label>
+                                    <input id="cc-expiry-year" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">CVC</label>
+                                    <input id="cc-cvc" class="form-control">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        {{-- <input type="submit" value="Pay now" class="btn btn-success w-100"> --}}
+
+                    </form>
+                    <div class="my-3 ">
+
+                        <button onclick="prev()" class="btn-common" id="btnBack"> <i
+                                class="fas fa-arrow-left text-white pr-2"></i>
+                            Back</button>
+                        <button onclick="next()" class="btn-common" id="makeOrder">Place Order</button>
+
+
+
+                    </div>
                 </div>
             </div>
-            <div id="payment-element"></div>
 
-<button id="payBtn">Pay Now</button>
-
-<div id="result"></div>
-            <div class="my-3 d-flex gap-20 justify-content-end">
-                {{-- <button class="btn-common mt-3" onclick="goToStep(1)"> <i class="fas fa-arrow-left text-white pr-2"></i>
-                    Back</button> --}}
-                {{-- <button class="btn-common mt-3" onclick="goToStep(3)"></button> --}}
-                <button onclick="prev()" class="btn-common" id="btnBack"> <i
-                        class="fas fa-arrow-left text-white pr-2"></i>
-                    Back</button>
-                <button onclick="next()" class="btn-common" id="makeOrder">Place Order</button>
-
-                {{-- <span id="place_loader" style="display:none;">
-                  <i class="fa fa-user"></i> Processing...
-                </span> --}}
-
-            </div>
 
         </div>
 
@@ -454,6 +533,7 @@
 
             </div>
         </div>
+
     </div>
 @endsection
 @push('script')
@@ -463,6 +543,7 @@
 
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
+    <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
     <script>
         let loginUserId = '{{ Auth::user()->id }}';
     </script>
@@ -472,7 +553,8 @@
         let cart = getCart();
         let productIds = Object.keys(cart) ?? '[]';
         let finalCart = getFinalCart();
-
+        let step = 1;
+        // localStorage.setItem('checkout_step_' + loginUserId, step);
         let isDirty = false;
 
         // detect changes
@@ -488,6 +570,8 @@
                 e.returnValue = "";
             }
         });
+
+
 
 
         function loadProducts() {
@@ -506,8 +590,8 @@
 
                     let rows = "";
                     let grandTotal = 0; // ✅ total accumulator
-                    if (response.products.length > 0 && Object.keys(cart).length>0) {
-                        console.log(cart,'sdf');
+                    if (response.products.length > 0 && Object.keys(cart).length > 0) {
+                        // console.log(cart,'sdf');
 
                         response.products.forEach(product => {
 
@@ -597,8 +681,8 @@
             });
         }
         let steps = localStorage.getItem('checkout_step_' + loginUserId);
-        console.log(steps);
-        if (steps == 1) {
+        // console.log(steps);
+        if (steps == 1 || steps == null) {
             loadProducts();
 
         }
@@ -648,8 +732,7 @@
             // Update footer grand total
             $("#grand-total").text("$" + grandTotal.toFixed(2));
         }
-        let step = 1;
-        localStorage.setItem('checkout_step_' + loginUserId, step);
+
 
         const step1 = document.getElementById('pro-step-1');
         const step2 = document.getElementById('pro-step-2');
@@ -725,7 +808,6 @@
             let btn = $("#makeOrder");
             // let loader = $("#place_loader");
             $("#btnBack").prop("disabled", true);
-
             btn.prop("disabled", true).text("Please wait...");
             // loader.show();
             // get details from local stoarge
@@ -739,7 +821,8 @@
 
             // delivery type
             formData.delivery_type = $('input[name="delivery_type"]:checked').val();
-
+            let sameAddress = $('input[name="sameAddress"]').is(':checked');
+            formData.isSameAddress = sameAddress;
             // get payment details like tax sub total toatal amount for corss check in backend before make payment
             let paymentDetails = getPaymentDetails();
 
@@ -748,32 +831,106 @@
             orderData.itemDetails = itemDetails;
             orderData.paymentDetails = paymentDetails;
 
-            $.ajax({
-                url: "{{ route('escort.make.order') }}",
-                type: "POST",
-                data: orderData,
-                dataType: "json",
-                success: function(response) {
-                    if (response.status == true) {
-                        if (typeof callback === "function") callback();
-                    } else {
-                        Swal.fire(response.message, '', 'error');
+
+            var pinApi = new Pin.Api("{{ config('app.payment.publish_key') }}", 'test');
+
+            var form = $('#paymentForm');
+
+            var errorContainer = form.find('.errors');
+            var errorList = errorContainer.find('ul');
+            var errorHeading = errorContainer.find('h5');
+
+            // reset UI state
+            errorList.empty();
+            errorHeading.empty();
+            errorContainer.hide();
+
+            var card = {
+                number: $('#cc-number').val(),
+                name: $('#cc-name').val(),
+                expiry_month: $('#cc-expiry-month').val(),
+                expiry_year: $('#cc-expiry-year').val(),
+                cvc: $('#cc-cvc').val(),
+
+
+            };
+
+
+            if (sameAddress) {
+
+                // get from normal fields 
+                card.address_line1 = $('input[name="address"]').val() || '';
+                card.address_line2 = $('input[name="address_2"]').val() || '';
+                card.address_city = $('input[name="city"]').val() || '';
+                card.address_postcode = $('input[name="pincode"]').val() || '';
+
+            } else {
+                // get from billing section
+                card.address_line1 = $('input[name="billing_address_line1"]').val() || '';
+                card.address_line2 = $('input[name="billing_address_line2"]').val() || '';
+                card.address_city = $('input[name="billing_city"]').val() || '';
+                card.address_postcode = $('input[name="billing_pincode"]').val() || '';
+
+            }
+            card.address_state = "{{ $state }}";
+            card.address_country = "{{ $country }}";
+            console.log(card);
+
+            pinApi.createCardToken(card)
+                .then(handleSuccess, handleError)
+                .done();
+
+
+
+            function handleSuccess(card) {
+
+                orderData.pin_token = card.token;
+                $.ajax({
+                    url: "{{ route('escort.make.order') }}",
+                    type: "POST",
+                    data: orderData,
+                    dataType: "json",
+                    success: function(response) {
+                        errorContainer.removeClass('alert-danger').addClass('alert-success').show();
+                        if (response.status == true) {
+                            if (typeof callback === "function") callback();
+                        } else {
+                            Swal.fire(response.message, '', 'error');
+                        }
+                    },
+
+                    error: function(xhr) {
+                        Swal.fire('Something went wrong. Try again.', '', 'error');
+                        errorContainer.removeClass('alert-success').addClass('alert-danger').show();
+                        let res = xhr.responseJSON;
+                        errorHeading.text(res.message);
+                    },
+
+                    complete: function() {
+                        $("#btnBack").prop("disabled", false);
+                        btn.prop("disabled", false).text("Place Order");
+                        // loader.hide();
 
                     }
-                },
+                });
 
-                error: function() {
-                    Swal.fire('Something went wrong. Try again.', '', 'error');
+            }
 
-                },
+            function handleError(response) {
+                errorHeading.text(response.error_description);
 
-                complete: function() {
-                    $("#btnBack").prop("disabled", false);
-                    btn.prop("disabled", false).text("Place Order");
-                    // loader.hide();
-
+                if (response.messages) {
+                    $.each(response.messages, function(index, paramError) {
+                        $('<li>')
+                            .text(paramError.param + ": " + paramError.message)
+                            .appendTo(errorList);
+                    });
                 }
-            });
+
+                errorContainer.show();
+                $("#btnBack").prop("disabled", false);
+                btn.prop("disabled", false).text("Place Order");
+            }
         }
 
         function saveStep2Data() {
@@ -795,22 +952,36 @@
             return form.isValid();
         }
 
+
+        var form = $('#deliveryAddressForm'); // your form ID
+
         $('#sameAddress').on('change', function() {
+
             if ($(this).is(':checked')) {
+
                 $('#billingSection')
                     .find('input, textarea, select')
                     .attr('disabled', true)
-                    .removeAttr('required')
-                    .parsley().reset();
+                    .removeAttr('required');
+
+                // ✅ Reset validation on FORM
+                form.parsley().reset();
+
             } else {
+
                 $('#billingSection')
                     .find('input, textarea, select')
                     .attr('disabled', false)
                     .each(function() {
-                        if ($(this).data('required') === true || $(this).attr('name').includes('billing_')) {
+
+                        if ($(this).data('required') === true || $(this).attr('name')?.includes('billing_')) {
                             $(this).attr('required', true);
                         }
+
                     });
+
+                // optional re-validate
+                form.parsley().validate();
             }
         });
 
@@ -932,7 +1103,6 @@
 
         function prev() {
             if (step === 2) {
-
                 step = 1;
                 localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
@@ -941,7 +1111,6 @@
                 bar1.style.width = "0%"; // reset bar
             } else if (step === 3) {
                 // move to 1 step because if yopu are at 3 that's mean order is completed
-                localStorage.setItem("checkout_step_" + loginUserId, 2); // <<< save step
 
                 finish();
                 // step = 2;
@@ -956,7 +1125,8 @@
 
         function finish() {
             localStorage.removeItem('checkout_step');
-            alert("Process Completed!");
+            Swal.fire('Process Completed!', '', 'success');
+
             window.location.href = "{{ route('escort.products') }}"; // reset();
         }
 

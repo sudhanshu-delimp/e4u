@@ -21,8 +21,8 @@ class CreateProductOrdersTable extends Migration
       $table->enum('order_status', ['pending', 'paid', 'shipped', 'delivered', 'canceled'])->default('pending')->comment(
         'pending=Order created, paid=Payment done, shipped=Assigned/processing, delivered=Completed, canceled=Order canceled'
       );
-      $table->enum('payment_status', ['pending', 'confirmed', 'completed', 'cancelled'])->default('pending')->comment(
-        'pending=Awaiting payment, confirmed=Payment verified, completed=Payment captured, cancelled=Payment failed/cancelled'
+      $table->enum('payment_status', ['pending', 'paid','failed', 'cancelled'])->default('pending')->comment(
+        'pending=Awaiting payment,  paid=Payment captured,failed=Payment Failed, cancelled=Payment failed/cancelled'
       );;
       $table->string('payment_method')->nullable();
       $table->decimal('sub_total', 10, 2)->default(0);
