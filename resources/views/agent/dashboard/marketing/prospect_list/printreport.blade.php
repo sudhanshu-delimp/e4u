@@ -87,7 +87,7 @@
                 <td style="border: 1px solid #000; padding: 6px;">{{$centre->business_number}}</td>
                 <td style="border: 1px solid #000; padding: 6px;">{{$centre->email}}</td>
                 <td style="border: 1px solid #000; padding: 6px; text-align: center;">
-                    <input type="checkbox" />
+                    <input type="checkbox"  disabled />
                 </td>
             </tr>
             @endforeach
