@@ -56,7 +56,9 @@ class GeneratePdfJob implements ShouldQueue
         $signature = '';
         if (!empty($agent->agent_detail) && !empty($agent->agent_detail->signature_file)) {
             $file = $agent->agent_detail->signature_file;
-            $signature = url('storage/' . ltrim($file, '/'));
+            //$signature = url('storage/' . ltrim($file, '/'));
+            $signature = public_path('storage/' . $file);
+           
             \Log::warning("Signature: centre {$signature}");
         }
 
