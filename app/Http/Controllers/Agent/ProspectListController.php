@@ -393,7 +393,7 @@ class ProspectListController extends Controller
 
         $extension = pathinfo($batch->file_path, PATHINFO_EXTENSION); // pdf ya zip
         $mimeType  = $extension === 'zip' ? 'application/zip' : 'application/pdf';
-        $filename  = 'report_' . now()->format('Ymd_His') . '.' . $extension;
+        $filename  = basename($batch->file_path);;
 
         return response()->download(
             $batch->file_path,
@@ -689,4 +689,6 @@ class ProspectListController extends Controller
 
         return $result;
     }
+
+
 }

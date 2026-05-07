@@ -23,7 +23,8 @@ class Kernel extends ConsoleKernel
         Commands\DbBackEndProcess::class,
         Commands\SyncMassageProfile::class,
         Commands\MassageMediaExpireCron::class, 
-        Commands\EscortsMediaExpireCron::class,  
+        Commands\EscortsMediaExpireCron::class,
+        Commands\CleanPdfBatches::class,
     ];
 
     /**
@@ -43,6 +44,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('media:expire')->everyMinute();
         $schedule->command('sync_massage')->everyMinute();
         $schedule->command('massage_media:expire')->everyMinute();
+        $schedule->command('pdf:clean')->everySixHours();
     }
 
     /**
