@@ -30,7 +30,7 @@ class ProductOrderController extends Controller
       return $next($request);
     });
   }
-  public function makeOrder(Request $request, PinPaymentService $pinPaymentService)
+  public function makeOrder(Request $request,)
   {
 
 
@@ -53,12 +53,15 @@ class ProductOrderController extends Controller
       }
       foreach ($data['itemDetails'] as $productId => $details) {
         $product = Product::find($productId);
-        if (empty($product)) {
+        if (empty($product))
           return response()->json(['status' => false, 'message' => 'something went wrong!']);
-        }
-        if ($product->price != $details['price']) {
+
+        if ($product->price != $details['price'])
           return response()->json(['status' => false, 'message' => 'something went wrong!']);
-        }
+
+        // if ($data['pin_token'])
+        //   return response()->json(['status' => false, 'message' => 'something is wrong with card details']);
+
 
         $subtotal += $product->price * $details['qty'];
       }
@@ -77,7 +80,8 @@ class ProductOrderController extends Controller
       }
 
       $orderData = [
-        'order_id' => 'B001',
+        'order_id' => Auth::user()->member_id . "-" . rand(111111, 999999),
+        'type' => 'EC',
         'user_id' => Auth::user()->id,
         'order_date' => Carbon::now('UTC'),
         'order_status' => 'pending',
@@ -90,11 +94,9 @@ class ProductOrderController extends Controller
         'notes' => $data['deliveryDetails']['special_instructions']
       ];
 
-      $token = $data['pin_token'];
-      // DB::transaction(function () use ($orderData, $data, $state, $pinPaymentService, $total, $token) {
 
 
-
+      $products = [];
       $order = ProductOrder::create($orderData);
       if ($order) {
         // prepare data for order item
@@ -106,22 +108,24 @@ class ProductOrderController extends Controller
             'price' => $details['price'],
             'total' => $details['price'] * $details['qty'],
           ];
+          array_push($products, $orderItem);
           ProductOrderItem::create($orderItem);
         }
+
+        $delivery = $data['deliveryDetails'];
         // prepare data for delivery details like billing & shipping address
         $orderAddressShipping = [
           'order_id' => $order->id,
           'type' => 'shipping',
-          'email' => $data['deliveryDetails']['email'],
-          'phone' => $data['deliveryDetails']['phone'],
-          'address_line1' => $data['deliveryDetails']['address'],
+          'email' => $delivery['email'],
+          'phone' => $delivery['phone'],
+          'address_line1' => $delivery['address'],
           'state' => $state['stateName'],
           'country' => 'Australia',
-          'city' => $data['deliveryDetails']['city'] ?? '',
-          'pincode' => $data['deliveryDetails']['pincode'] ?? '',
+          'city' => $delivery['city'] ?? '',
+          'pincode' => $delivery['pincode'] ?? '',
         ];
 
-        $delivery = $data['deliveryDetails'];
         $stateName = $state['stateName'];
         $same = isset($delivery['sameAddress']) ? 1 : 0;
         // Prepare billing address
@@ -161,44 +165,53 @@ class ProductOrderController extends Controller
         OrderAddress::create($orderAddressBilling);
       }
       DB::commit();
-
-      // make payment using charge method
-
-      $response = $pinPaymentService->charge($token, $total, $data['deliveryDetails']['email'], $data['deliveryDetails']['special_instructions']);
-      //  dd($response);
-      if ($response['status'] === false) {
-        return response()->json(['status' => false, 'message' => $response['error']['error_description']]);
-      } else if ($response['status'] === true) {
-
-        $response =    $response['data']['response'];
-        $paymentStatus = $response['success'] == true ? 'paid' : 'failed';
-        PaymentHistory::create([
-          'user_id'         => $this->account->id,
-          'ref_no'          => now()->format('Ymd') . rand(100, 999),
-          'amount'          => $response['amount'] / 100,
-          'currency'        => $response['currency'],
-          'payment_gateway' => 'pinpayments',
-          'transaction_id'  => $response['token'],
-          'status'          => $response['success'] ? 'success' : 'failed',
-          'paid_at'         => $response['captured_at'] ?? $response['created_at'],
-          'card'            => $response['card']['display_number'],
-          'meta'            => json_encode($response),
-        ]);
-
-        ProductOrder::where('id', $order->id)->update(['payment_status' => $paymentStatus]);
-      }
-      return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
+      return response()->json(['status' => true, 'message' => "Order Placed Successfully.", 'orderId' => $order->id]);
     } catch (\Exception $e) {
       DB::rollBack();
-
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
   }
 
+
+  public function makeOrderPayment(Request $request, PinPaymentService $pinPaymentService)
+  {
+    try {
+      $data = $request->all();
+      // prepare metdata for product order
+
+      $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', 7)->first();
+      $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
+      if (empty($order))
+        return response()->json(['status' => false, 'message' => "Something went wrong"]);
+
+      $products = [];
+      foreach ($order->orderItems as $orderItem) {
+        $item = ['product_id' => $orderItem->product_id, 'quantity' => $orderItem->quantity, 'price' => $orderItem->price, 'total' => (float)$orderItem->total];
+        array_push($products, $item);
+      }
+      $metadata = [
+        'console' => 'Escort Console (E20189)',
+        'type' => 'escort-product-prder',
+        'order_id' => $order->id,
+        'user_id' => Auth::user()->id,
+        'total' => $order->total_amount,
+        'products' => json_encode($products)
+      ];
+      $description = "Escort Product Order";
+      // make payment using charge method
+      $response = $pinPaymentService->charge($data['pin_token'], $order->total_amount, $biilingAddress->email, $description, $metadata);
+      if ($response['status'] === false) {
+        return response()->json(['status' => false, 'message' => $response['error']]);
+      } else if ($response['status'] === true) {
+        return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
+      }
+    } catch (\Exception $e) {
+      return response()->json(['status' => false, 'message' => $e->getMessage()]);
+    }
+  }
   public function orders(Request $request)
   {
     try {
-      $order = ProductOrder::orderby('id', 'desc')->get();
       return  view('escort.dashboard.Concierge.product-order-history');
     } catch (\Exception $e) {
       return response()->json(['status' => false, 'message' => $e->getMessage()]);

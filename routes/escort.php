@@ -222,8 +222,8 @@ Route::get('pricarchive-myplayboxing', function () {
   return view('escort.dashboard.archives.myplaybox');
 })->name('escort.archive-myplaybox');
 
-Route::get('complete-listings/',function(){
-    return view('escort.dashboard.complete-listings');
+Route::get('complete-listings/', function () {
+  return view('escort.dashboard.complete-listings');
 })->name('escort.complete-listings');
 
 
@@ -326,11 +326,11 @@ Route::get('reccomendations', function () {
 });
 
 # Wallet Module
-Route::get('my-wallet',[WalletController::class, 'index'])->name('escort.my_wallet');
-Route::get('wallet_transaction',[WalletController::class, 'transactionList'])->name('escort.wallet_transaction');
+Route::get('my-wallet', [WalletController::class, 'index'])->name('escort.my_wallet');
+Route::get('wallet_transaction', [WalletController::class, 'transactionList'])->name('escort.wallet_transaction');
 
 #Payment Module
-Route::post('payments/process',[PaymentController::class, 'processPayment'])->name('escort.payment.process');
+Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('escort.payment.process');
 
 # Escort profile reviews
 Route::get('view-reviews', [EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
@@ -366,10 +366,11 @@ Route::prefix('concierge')->name('escort.')->group(function () {
   Route::get('concierge/view-cart', [ProductController::class, 'cartListing'])->name('view-cart');
   Route::post('get/products', [ProductController::class, 'getProducts'])->name('get.products');
   Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');
+  Route::post('make/order/payment', [ProductOrderController::class, 'makeOrderPayment'])->name('make.order.payment');
   Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('orders');
-   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
+  Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
 });
- 
+
 
 Route::get('concierge/transaction-history', function () {
   return view('escort.dashboard.Concierge.product-transaction-history');

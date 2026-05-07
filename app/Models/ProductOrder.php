@@ -11,6 +11,7 @@ class ProductOrder extends Model
 
   protected $fillable = [
     'order_id',
+    'type',
     'user_id',
     'order_date',
     'order_status',
@@ -23,4 +24,14 @@ class ProductOrder extends Model
     'delivery_charges',
     'notes',
   ];
+  protected $primaryKey = 'id';
+
+  public function orderItems()
+  {
+    return $this->hasMany(ProductOrderItem::class,'order_id','id');
+  }
+  public function orderAddress()
+  {
+    return $this->hasMany(OrderAddress::class,'order_id','id');
+  }
 }

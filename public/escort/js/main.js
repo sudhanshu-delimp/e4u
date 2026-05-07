@@ -26,7 +26,9 @@ function getPaymentDetails() {
 
 function savePaymentDetails(paymentDetails) {
   localStorage.setItem('paymentDetails_' + loginUserId, JSON.stringify(paymentDetails));
+
 }
+
 
 function getDeliveryDetails() {
   return JSON.parse(localStorage.getItem('deliveryAddress_' + loginUserId) || '{}');
@@ -36,8 +38,18 @@ function saveDeliveryDetails(details) {
   localStorage.setItem('deliveryAddress_' + loginUserId, JSON.stringify(details));
 }
 
+
+function saveCardBilling(details) {
+  localStorage.setItem('cardBilling_' + loginUserId, JSON.stringify(details));
+}
+function getCardBilling() {
+  return JSON.parse(localStorage.getItem('cardBilling_' + loginUserId) || '{}');
+}
+
 function flushLocalStorage() {
   localStorage.removeItem('finalCart_' + loginUserId);
+  localStorage.removeItem('cardBilling_' + loginUserId);
+
   localStorage.removeItem('cart_' + loginUserId);
   localStorage.removeItem('deliveryAddress_' + loginUserId);
   localStorage.removeItem('paymentDetails_' + loginUserId);

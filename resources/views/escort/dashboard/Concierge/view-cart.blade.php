@@ -114,7 +114,15 @@
                         <div class="pro-status-bar__bar" id="bar2"></div>
                     </div>
                 </li>
-                <li id="pro-step-3">Payment</li>
+
+                <li id="pro-step-3">Payment
+                    <div class="pro-status-bar pro-status-bar--success">
+                        <div class="pro-status-bar__bar" id="bar3"></div>
+                    </div>
+                </li>
+
+                <li id="pro-step-4">Payment Status
+                </li>
             </ul>
         </div>
 
@@ -130,9 +138,8 @@
                         <h2><b>Order Products</b></h2>
                     </div>
                     <div class="table-responsive-xl">
-                        <div id="loader" style="display:none; text-align:center; padding:20px;">
-                            <img src="loader.gif" width="60">
-                            <p>Loading products...</p> ̰
+                        <div id="loader" style="display:none; text-align:center; padding:20px;  position: absolute;  left: 42% !important;top: 35% !important">
+                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                         </div>
                         <table class="table table-bordered display" width="100%">
                             <thead class="bg-first">
@@ -190,8 +197,9 @@
                                     <!-- Mobile -->
                                     <div class="col-6">
                                         <label><b>Mobile Number</b></label>
-                                        <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
-                                            required data-parsley-type="digits" data-parsley-minlength="10"
+                                        <input type="text" class="form-control" name="phone"
+                                            placeholder="0145 028 758" required data-parsley-type="digits"
+                                            data-parsley-minlength="10"
                                             data-parsley-required-message="Mobile number is required"
                                             data-parsley-type-message="Only digits allowed"
                                             data-parsley-minlength-message="Mobile must be at least 10 digits">
@@ -326,15 +334,15 @@
                                         </div>
 
 
-                                       
+
                                     </div>
                                 </div>
-                                 <div class="col-md-12 my-2">
-                                            <label><b>Any Special Instructions?</b></label>
-                                            <textarea class="form-control common_textarea" name="special_instructions" rows="5"
-                                                placeholder="Like building access if we are delivering to your door."required
-                                                data-parsley-required-message="Special instructions are required"></textarea>
-                                        </div>
+                                <div class="col-md-12 my-2">
+                                    <label><b>Any Special Instructions?</b></label>
+                                    <textarea class="form-control common_textarea" name="special_instructions" rows="5"
+                                        placeholder="Like building access if we are delivering to your door."required
+                                        data-parsley-required-message="Special instructions are required"></textarea>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -380,97 +388,19 @@
                         </div>
 
                         <!-- Payment Logos -->
-                        <div class="d-flex justify-content-center align-items-center mt-4">
+                        {{-- <div class="d-flex justify-content-center align-items-center mt-4">
                             <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa" class="me-3">
                             <img src="{{ asset('assets/dashboard/img/master-card.png') }}" alt="MasterCard">
-                        </div>
+                        </div> --}}
 
                     </div>
-                    <form class="pin" id="paymentForm">
 
-                        <div class="errors alert alert-danger" style="display:none">
-                            <h5></h5>
-                            <ul style="font-size: 14px;"></ul>
-                        </div>
-
-                        <!-- BILLING SECTION -->
-                        {{-- <fieldset class="mb-4">
-                            <legend>Billing</legend>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Address 1</label>
-                                    <input id="address-line1" class="form-control">
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Address 2</label>
-                                    <input id="address-line2" class="form-control">
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">City</label>
-                                    <input id="address-city" class="form-control">
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">State</label>
-                                    <input id="address-state" class="form-control">
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">Postcode</label>
-                                    <input id="address-postcode" class="form-control">
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label class="form-label">Country</label>
-                                    <input id="address-country" class="form-control">
-                                </div>
-                            </div>
-                        </fieldset> --}}
-
-                        <!-- PAYMENT SECTION -->
-                        <fieldset class="mb-4">
-                            <legend>Payment</legend>
-
-                            <div class="mb-3">
-                                <label class="form-label">Credit Card Number</label>
-                                <input id="cc-number" type="text" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Name on Card</label>
-                                <input id="cc-name" type="text" class="form-control">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">Expiry Month</label>
-                                    <input id="cc-expiry-month" class="form-control">
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">Expiry Year</label>
-                                    <input id="cc-expiry-year" class="form-control">
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">CVC</label>
-                                    <input id="cc-cvc" class="form-control">
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        {{-- <input type="submit" value="Pay now" class="btn btn-success w-100"> --}}
-
-                    </form>
                     <div class="my-3 ">
 
                         <button onclick="prev()" class="btn-common" id="btnBack"> <i
                                 class="fas fa-arrow-left text-white pr-2"></i>
                             Back</button>
-                        <button onclick="next()" class="btn-common" id="makeOrder">Place Order</button>
+                        <button onclick="next()" class="btn-common" id="processOrder">Next</button>
 
 
 
@@ -481,8 +411,66 @@
 
         </div>
 
-        <!-- Step 3 -->
-        <div id="step3" class="step-content text-center py-5">
+
+        <div id="step3" class="step-content">
+            {{-- step 3 --}}
+            <div class="row mt-5">
+                <form class="pin" id="paymentForm">
+
+                    <div class="errors alert alert-danger" style="display:none">
+                        <h5></h5>
+                        <ul style="font-size: 14px;"></ul>
+                    </div>
+
+
+
+                    <fieldset class="mb-4">
+                        <legend>Payment</legend>
+
+                        <div class="mb-3">
+                            <label class="form-label">Credit Card Number</label>
+                            <input id="cc-number" type="text" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Name on Card</label>
+                            <input id="cc-name" type="text" class="form-control">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Expiry Month</label>
+                                <input id="cc-expiry-month" class="form-control" maxlength="2">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Expiry Year</label>
+                                <input id="cc-expiry-year" class="form-control" maxlength="4">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">CVC</label>
+                                <input id="cc-cvc" class="form-control" maxlength="3">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="my-3 ">
+                        <button onclick="prev()" class="btn-common" id="btnBacklast"> <i
+                                class="fas fa-arrow-left text-white pr-2"></i>
+                            Back</button>
+                        <button onclick="next()" class="btn-common" id="makeOrder">Make Payment</button>
+                    </div>
+
+                </form>
+
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                    <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa" class="me-3">
+                    <img src="{{ asset('assets/dashboard/img/master-card.png') }}" alt="MasterCard">
+                </div>
+            </div>
+        </div>
+        <!-- Step 4 -->
+        <div id="step4" class="step-content text-center py-5">
             <h2>Order Completed</h2>
             <p>Thank you for your purchase!</p>
             <button onclick="prev()" class="btn-common"> <i class="fas fa-arrow-left text-white pr-2"></i> Back</button>
@@ -796,16 +784,24 @@
                     bar2.style.width = "100%";
                     step3.classList.add("is-active");
                     showStep();
-                    flushLocalStorage();
 
                 });
+            } else if (step === 4) {
+                step = 3;
+                localStorage.setItem("checkout_step_" + loginUserId, step);
+
+                step2.classList.remove("is-active");
+                bar2.style.width = "100%";
+                step3.classList.add("is-active");
+                showStep();
+
             }
             showStep();
         }
 
         function submitStep2Ajax(formData, callback) {
             let orderData = {};
-            let btn = $("#makeOrder");
+            let btn = $("#processOrder");
             // let loader = $("#place_loader");
             $("#btnBack").prop("disabled", true);
             btn.prop("disabled", true).text("Please wait...");
@@ -830,20 +826,70 @@
             orderData.deliveryDetails = formData;
             orderData.itemDetails = itemDetails;
             orderData.paymentDetails = paymentDetails;
+            let cardBilling = {};
+            if (sameAddress) {
+                // get from normal fields 
+                cardBilling.address_line1 = $('input[name="address"]').val() || '';
+                cardBilling.address_line2 = $('input[name="address_2"]').val() || '';
+                cardBilling.address_city = $('input[name="city"]').val() || '';
+                cardBilling.address_postcode = $('input[name="pincode"]').val() || '';
 
+            } else {
+                // get from billing section
+                cardBilling.address_line1 = $('input[name="billing_address_line1"]').val() || '';
+                cardBilling.address_line2 = $('input[name="billing_address_line2"]').val() || '';
+                cardBilling.address_city = $('input[name="billing_city"]').val() || '';
+                cardBilling.address_postcode = $('input[name="billing_pincode"]').val() || '';
 
-            var pinApi = new Pin.Api("{{ config('app.payment.publish_key') }}", 'test');
+            }
+            cardBilling.address_state = "{{ $state }}";
+            cardBilling.address_country = "{{ $country }}";
+            saveCardBilling(cardBilling);
+            $.ajax({
+                url: "{{ route('escort.make.order') }}",
+                type: "POST",
+                data: orderData,
+                dataType: "json",
+                success: function(response) {
+                    // Swal.fire(response.message, '', 'success');
+                    if (response.status == true) {
+                        localStorage.setItem('orderId_' + loginUserId, JSON.stringify(response.orderId));
+                        if (typeof callback === "function") callback();
+                    } else {
+                        Swal.fire(response.message, '', 'error');
+                    }
+                },
 
-            var form = $('#paymentForm');
+                error: function(xhr) {
+                    Swal.fire('Something went wrong. Try again.', '', 'error');
+                },
 
-            var errorContainer = form.find('.errors');
-            var errorList = errorContainer.find('ul');
-            var errorHeading = errorContainer.find('h5');
+                complete: function() {
+                    $("#btnBack").prop("disabled", false);
+                    btn.prop("disabled", false).text("Next");
+                }
+            });
+        }
+        var pinApi = new Pin.Api("{{ config('app.payment.publish_key') }}", 'test');
 
+        var form = $('#paymentForm');
+
+        var errorContainer = form.find('.errors');
+        var errorList = errorContainer.find('ul');
+        var errorHeading = errorContainer.find('h5');
+
+        $(document).on('click', '#makeOrder', function() {
+
+            let btn = $("#makeOrder");
+            let backBtn = $("#btnBacklast");
+            // let loader = $("#place_loader");
+            backBtn.prop("disabled", true).html('<i class="fas fa-arrow-left text-white pr-2"></i> Please wait...');
+            btn.prop("disabled", true).text("Please wait...");
             // reset UI state
             errorList.empty();
             errorHeading.empty();
             errorContainer.hide();
+            let orderId = JSON.parse(localStorage.getItem('orderId_' + loginUserId) || '{}');
 
             var card = {
                 number: $('#cc-number').val(),
@@ -851,66 +897,45 @@
                 expiry_month: $('#cc-expiry-month').val(),
                 expiry_year: $('#cc-expiry-year').val(),
                 cvc: $('#cc-cvc').val(),
-
-
+                orderId: orderId
             };
 
+            let billingDetails = getCardBilling();
+            card = {
+                ...card,
+                ...billingDetails
+            };
 
-            if (sameAddress) {
-
-                // get from normal fields 
-                card.address_line1 = $('input[name="address"]').val() || '';
-                card.address_line2 = $('input[name="address_2"]').val() || '';
-                card.address_city = $('input[name="city"]').val() || '';
-                card.address_postcode = $('input[name="pincode"]').val() || '';
-
-            } else {
-                // get from billing section
-                card.address_line1 = $('input[name="billing_address_line1"]').val() || '';
-                card.address_line2 = $('input[name="billing_address_line2"]').val() || '';
-                card.address_city = $('input[name="billing_city"]').val() || '';
-                card.address_postcode = $('input[name="billing_pincode"]').val() || '';
-
-            }
-            card.address_state = "{{ $state }}";
-            card.address_country = "{{ $country }}";
-            console.log(card);
-
-            pinApi.createCardToken(card)
-                .then(handleSuccess, handleError)
-                .done();
-
-
+            pinApi.createCardToken(card).then(handleSuccess, handleError).done();
 
             function handleSuccess(card) {
-
-                orderData.pin_token = card.token;
+                card.pin_token = card.token;
                 $.ajax({
-                    url: "{{ route('escort.make.order') }}",
+                    url: "{{ route('escort.make.order.payment') }}",
                     type: "POST",
-                    data: orderData,
+                    data: card,
                     dataType: "json",
                     success: function(response) {
-                        errorContainer.removeClass('alert-danger').addClass('alert-success').show();
                         if (response.status == true) {
-                            if (typeof callback === "function") callback();
+                            step = 4;
+                            localStorage.setItem("checkout_step_" + loginUserId, step);
+
+                            step3.classList.remove("is-active");
+                            bar3.style.width = "100%";
+                            step4.classList.add("is-active");
+                            showStep();
                         } else {
                             Swal.fire(response.message, '', 'error');
                         }
                     },
 
                     error: function(xhr) {
-                        Swal.fire('Something went wrong. Try again.', '', 'error');
-                        errorContainer.removeClass('alert-success').addClass('alert-danger').show();
                         let res = xhr.responseJSON;
-                        errorHeading.text(res.message);
+                        Swal.fire(res.message, '', 'error');
                     },
-
                     complete: function() {
-                        $("#btnBack").prop("disabled", false);
-                        btn.prop("disabled", false).text("Place Order");
-                        // loader.hide();
-
+                        backBtn.prop("disabled", true).text("Back");
+                        btn.prop("disabled", false).text("Make Payment");
                     }
                 });
 
@@ -928,10 +953,16 @@
                 }
 
                 errorContainer.show();
-                $("#btnBack").prop("disabled", false);
-                btn.prop("disabled", false).text("Place Order");
+
+                backBtn.prop("disabled", false).html('<i class="fas fa-arrow-left text-white pr-2"></i> Back');
+                btn.prop("disabled", false).text("Make Payment");
             }
-        }
+
+
+        })
+
+
+
 
         function saveStep2Data() {
             let data = $('#deliveryAddressForm').serializeArray();
@@ -1000,6 +1031,7 @@
             } else {
                 step = 1; // default
             }
+
             if (step == 2) {
                 updateOrderSummary();
                 updateDeliveryAddress();
@@ -1023,7 +1055,11 @@
                 bar2.style.width = "100%";
                 step3.classList.add("is-active");
             }
-
+            if (step >= 4) {
+                step3.classList.remove("is-active");
+                bar3.style.width = "100%";
+                step4.classList.add("is-active");
+            }
             showStep();
         }
 
@@ -1112,21 +1148,23 @@
             } else if (step === 3) {
                 // move to 1 step because if yopu are at 3 that's mean order is completed
 
-                finish();
-                // step = 2;
-                // localStorage.setItem("checkout_step_"+ loginUserId, step); // <<< save step
+                step = 2;
+                localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
-                // step3.classList.remove("is-active");
-                // step2.classList.add("is-active");
-                // bar2.style.width = "0%"; // reset bar
+                step3.classList.remove("is-active");
+                step2.classList.add("is-active");
+                bar2.style.width = "0%"; // reset bar
+            } else if (step === 4) {
+
+                finish();
+
             }
             showStep();
         }
 
         function finish() {
-            localStorage.removeItem('checkout_step');
+            flushLocalStorage();
             Swal.fire('Process Completed!', '', 'success');
-
             window.location.href = "{{ route('escort.products') }}"; // reset();
         }
 
