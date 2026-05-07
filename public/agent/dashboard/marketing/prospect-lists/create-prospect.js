@@ -807,71 +807,6 @@ $(document).ready(function () {
     }
 
     //PDF generate
-
-    // function triggerPDF(centreIds, reportId, docType, action) {
-
-    //     // let btn          = action === 'print' ? '#footerPrintBtn' : '#footerSaveBtn';
-    //     //let originalHtml = $(btn).html();
-    //     let count = centreIds.length;
-
-    //     // ✅ Sirf loader show + button disable
-    //     // $(btn).prop('disabled', true);
-    //     showLoader();
-
-    //     $.ajax({
-    //         url: endpoint.generate_pdf,
-    //         method: 'POST',
-    //         data: {
-    //             _token: endpoint.csrf_token,
-    //             centre_ids: centreIds,
-    //             report_id: reportId,
-    //             docType: docType,
-    //             action: action,
-    //         },
-    //         xhrFields: { responseType: 'blob' },
-    //         timeout: 300000,
-    //         success: function (blob, status, xhr) {
-
-    //             if (!blob || blob.size === 0) {
-    //                 showAlert('error', 'PDF generation failed. Empty response.');
-    //                 return;
-    //             }
-
-    //             if (blob.type === 'application/json') {
-    //                 let reader = new FileReader();
-    //                 reader.onload = function () {
-    //                     let err = JSON.parse(reader.result);
-    //                     showAlert('error', err.message || 'PDF generation failed.');
-    //                 };
-    //                 reader.readAsText(blob);
-    //                 return;
-    //             }
-
-    //             let filename = xhr.getResponseHeader('X-Filename') || 'report.pdf';
-    //             let isZip = xhr.getResponseHeader('X-Is-Zip') === 'true';
-    //             let pdfCount = xhr.getResponseHeader('X-PDF-Count') || 1;
-    //             let url = window.URL.createObjectURL(blob);
-
-    //             downloadFile(url, filename);
-
-    //             let msg = isZip
-    //                 ? pdfCount + ' PDFs downloaded as ZIP!'
-    //                 : 'PDF downloaded successfully!';
-    //             showAlert('success', msg);
-    //         },
-
-    //         error: function () {
-    //             showAlert('error', 'PDF generation failed. Please try again.');
-    //         },
-
-    //         complete: function () {
-    //             hideLoader();
-    //             //$(btn).prop('disabled', false).html(originalHtml);
-    //         }
-    //     });
-    // }
-
-
     function triggerPDF(centreIds, reportId, docType, action) {
         showLoader();
         $.ajax({
@@ -906,17 +841,14 @@ $(document).ready(function () {
 
             let data = JSON.parse(event.data);
 
-            // ✅ update only when value changes
             if (data.processed !== lastProcessed) {
 
                 let percent = Math.floor((data.processed / data.total) * 100);
                 $('#progressText').text(data.processed + ' / ' + data.total);
-                //$('.progress-bar').css('width', percent + '%');
 
                 lastProcessed = data.processed;
             }
 
-            // ✅ completed
             if (data.status === 'completed') {
                 source.close();
 
@@ -927,7 +859,6 @@ $(document).ready(function () {
                 window.location = endpoint.download_date.replace('__ID__', batchId);
             }
 
-            // ❌ failed
             if (data.status === 'failed') {
                 source.close();
                 hideLoader();
@@ -1027,7 +958,6 @@ $(document).ready(function () {
     $('#search_button').on('click', function () {
         let centreId = $('#search_id_number').val();
         let reportId = $('#search_report_id').val();
-        //search se pahle search result ko hide karni hai. pending....
         if (!centreId) {
             showAlert('error', 'Please enter a centre ID.');
             return;

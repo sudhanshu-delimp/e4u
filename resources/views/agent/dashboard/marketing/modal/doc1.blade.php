@@ -361,10 +361,10 @@
 
             <span style="border-bottom:1px solid #333; display:block;">
                 {{-- singnature here --}}
-               
-                @if($data['agent_signature'])
-                <img src="{{ $data['agent_signature'] }}" alt="" style="width: 150px;">
-                @endif
+               @php
+              $base64sig =  "data:image/png;base64,".base64_encode(file_get_contents($data['agent_signature']));
+               @endphp
+                <img src="{{$base64sig}}" alt="" style="width: 150px;">
                  <span style="display:block">{{$data['name_of_agent']}}</span>
             </span>
 
