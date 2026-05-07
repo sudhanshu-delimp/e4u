@@ -1129,32 +1129,42 @@ margin-right: 5px;
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+
+                                                        @php
+                                                            $services = $listing->massage_services()
+                                                                ->where('category_id', 1)
+                                                                ->get()
+                                                                ->values()
+                                                                ->filter(fn($item, $index) => $index % 2 != 0);
+                                                        @endphp
                                                             
-                                                         @foreach (
-                                                                    $listing->massage_services()
-                                                                        ->where('category_id', 1)
-                                                                        ->get()
-                                                                        ->values()
-                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
-                                                                    as $value
-                                                                )
-                                                           <tr>
-                                                               
-                                                                <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
-                                                                <td class="table_border_solid_left">
-                                                                   
+                                                            @if($services->count() > 0)
+                                                                @foreach($services as $value)
+                                                                <tr>
+                                                                    
+                                                                        <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
+                                                                        <td class="table_border_solid_left">
+                                                                        
 
-                                                                    @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
-                                                                    @else
-                                                                    <span class="if_data_not_available">N/A</span>
-                                                                    @endif
-                                                                
-                                                                </td>
-                                                            </tr>
+                                                                            @if($value->price)
+                                                                            <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
+                                                                            @else
+                                                                            <span class="if_data_not_available">N/A</span>
+                                                                            @endif
+                                                                        
+                                                                        </td>
+                                                                    </tr>
 
-                                                            @endforeach
-                                                            </tr>
+                                                                @endforeach
+                                                            @else
+
+                                                                <tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>
+
+                                                            @endif
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -1236,7 +1246,7 @@ margin-right: 5px;
                                                                 <td class="table_border_solid_left">
                                                                    
 
-                                                                    @if($value->price)
+                                                                    @if($value->price && $value->price!=0)
                                                                     <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
@@ -1260,32 +1270,43 @@ margin-right: 5px;
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @php
+                                                                $services = $listing->massage_services()
+                                                                    ->where('category_id', 2)
+                                                                    ->get()
+                                                                    ->values()
+                                                                    ->filter(fn($item, $index) => $index % 2 != 0);
+                                                            @endphp
+
+                                                        @if($services->isNotEmpty())
                                                             
-                                                         @foreach (
-                                                                    $listing->massage_services()
-                                                                        ->where('category_id', 2)
-                                                                        ->get()
-                                                                        ->values()
-                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
-                                                                    as $value
-                                                                )
-                                                           <tr>
-                                                               
-                                                                <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
-                                                                <td class="table_border_solid_left">
-                                                                   
+                                                                    @foreach($services as $value)
 
-                                                                    @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
-                                                                    @else
-                                                                    <span class="if_data_not_available">N/A</span>
-                                                                    @endif
-                                                                
-                                                                </td>
+                                                                        <tr>
+                                                                        
+                                                                            <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
+                                                                            <td class="table_border_solid_left">
+                                                                            
+
+                                                                                @if($value->price && $value->price!=0)
+                                                                                <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
+                                                                                @else
+                                                                                <span class="if_data_not_available">N/A</span>
+                                                                                @endif
+                                                                            
+                                                                            </td>
+                                                                        </tr>
+
+                                                                      @endforeach
+
+                                                        @else
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left">&nbsp;</td>
                                                             </tr>
 
-                                                            @endforeach
-                                                            </tr>
+                                                        @endif
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </div>
