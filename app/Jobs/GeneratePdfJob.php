@@ -43,9 +43,6 @@ class GeneratePdfJob implements ShouldQueue
      */
     public function handle()
     {
-        //@set_time_limit(0);
-        //ini_set('memory_limit', '1G');
-
         $batch = PdfBatch::find($this->batchId);
         $batch->update(['status' => 'processing']);
 
@@ -58,8 +55,7 @@ class GeneratePdfJob implements ShouldQueue
             $file = $agent->agent_detail->signature_file;
             //$signature = url('storage/' . ltrim($file, '/'));
             $signature = public_path('storage/' . $file);
-           
-            \Log::warning("Signature: centre {$signature}");
+
         }
 
         $viewPath = $this->docType === '1'
@@ -93,7 +89,8 @@ class GeneratePdfJob implements ShouldQueue
                 return;
             }
 
-            $filename = $this->sanitizeName($centre['bussiness_name']) . '_report.pdf';
+            $filename = $this->sanitizeName($centre['bussiness_name']) .'.pdf';
+            
             $path     = storage_path('app/' . $filename);
             file_put_contents($path, $pdfContent);
 
@@ -138,8 +135,6 @@ class GeneratePdfJob implements ShouldQueue
 
                 file_put_contents($path, $pdfContent);
 
-               // \Log::info("PDF created: $name size=" . filesize($path));
-
                 $pdfFiles[] = ['path' => $path, 'name' => $name];
                 $batch->increment('processed');
 
@@ -147,7 +142,6 @@ class GeneratePdfJob implements ShouldQueue
                 gc_collect_cycles();
 
             } catch (\Exception $e) {
-              //  \Log::error("PDF failed centre {$centre->id}: " . $e->getMessage());
                 $batch->increment('processed');
                 continue;
             }
@@ -155,7 +149,6 @@ class GeneratePdfJob implements ShouldQueue
 
         if (empty($pdfFiles)) {
             $batch->update(['status' => 'failed']);
-          //  \Log::error('No PDFs generated — ZIP aborted');
             return;
         }
 
@@ -167,7 +160,6 @@ class GeneratePdfJob implements ShouldQueue
         $result = $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         if ($result !== true) {
-          //  \Log::error('ZipArchive open failed: ' . $result);
             $batch->update(['status' => 'failed']);
             return;
         }
@@ -184,11 +176,8 @@ class GeneratePdfJob implements ShouldQueue
 
         $zip->close();
 
-       // \Log::info("ZIP created: $zipName | PDFs added: $addedCount | Size: " . filesize($zipPath));
-
         // Validate
         if (!file_exists($zipPath) || filesize($zipPath) == 0) {
-          //  \Log::error('ZIP invalid after close');
             $batch->update(['status' => 'failed']);
             return;
         }

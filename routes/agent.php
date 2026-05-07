@@ -144,6 +144,7 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     //Route::get('marketing/information-packages/list', [ProspectListController::class, 'informationPackageList'])->name('agent.marketing.information.package.list');
 
 
+
     //Demo
     Route::get('marketing/prospect-list/demo1', function(){
        return view('agent.dashboard.marketing.modal.doc1');
