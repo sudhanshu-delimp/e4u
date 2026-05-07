@@ -23,13 +23,9 @@ class Kernel extends ConsoleKernel
         Commands\DbBackEndProcess::class,
         Commands\SyncMassageProfile::class,
         Commands\MassageMediaExpireCron::class, 
-<<<<<<< HEAD
-        Commands\EscortsMediaExpireCron::class,  
         Commands\MasseurMediaExpireCron::class,  
-=======
         Commands\EscortsMediaExpireCron::class,
         Commands\CleanPdfBatches::class,
->>>>>>> e57a41dacca751af79b7649d3806dca9e40656e4
     ];
 
     /**
