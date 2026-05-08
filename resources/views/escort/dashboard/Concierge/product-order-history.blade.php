@@ -52,7 +52,7 @@
                             <tr>
                                 <th>Order ID</th>
                                 <th>Tax</th>
-                                <th>Delivery Charge</th>
+                                <th>Shipping Charge</th>
                                 <th>Sub Total</th>
                                 <th>Total</th>
                                 <th>Payment Method</th>

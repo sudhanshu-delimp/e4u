@@ -19,8 +19,8 @@ class CreateProductOrdersTable extends Migration
       $table->string('type')->nullable();
       $table->unsignedBigInteger('user_id')->nullable();
       $table->dateTime('order_date');
-      $table->enum('order_status', ['pending', 'paid', 'shipped', 'delivered', 'canceled'])->default('pending')->comment(
-        'pending=Order created, paid=Payment done, shipped=Assigned/processing, delivered=Completed, canceled=Order canceled'
+      $table->enum('order_status', ['pending','shipped', 'delivered', 'cancelled'])->default('pending')->comment(
+        'pending=Order created, shipped=Assigned/processing, delivered=Completed, cancelled=Order cancelled'
       );
       $table->enum('payment_status', ['pending', 'paid','failed', 'cancelled'])->default('pending')->comment(
         'pending=Awaiting payment,  paid=Payment captured,failed=Payment Failed, cancelled=Payment failed/cancelled'

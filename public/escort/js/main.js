@@ -50,6 +50,7 @@ function flushLocalStorage() {
   localStorage.removeItem('finalCart_' + loginUserId);
   localStorage.removeItem('cardBilling_' + loginUserId);
 
+  localStorage.removeItem('orderId_' + loginUserId);
   localStorage.removeItem('cart_' + loginUserId);
   localStorage.removeItem('deliveryAddress_' + loginUserId);
   localStorage.removeItem('paymentDetails_' + loginUserId);

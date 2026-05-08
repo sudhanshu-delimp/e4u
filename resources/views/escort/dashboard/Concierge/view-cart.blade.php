@@ -138,7 +138,8 @@
                         <h2><b>Order Products</b></h2>
                     </div>
                     <div class="table-responsive-xl">
-                        <div id="loader" style="display:none; text-align:center; padding:20px;  position: absolute;  left: 42% !important;top: 35% !important">
+                        <div id="loader"
+                            style="display:none; text-align:center; padding:20px;  position: absolute;  left: 42% !important;top: 35% !important">
                             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                         </div>
                         <table class="table table-bordered display" width="100%">
@@ -428,7 +429,7 @@
                         <legend>Payment</legend>
 
                         <div class="mb-3">
-                            <label class="form-label">Credit Card Number</label>
+                            <label class="form-label">Card Number</label>
                             <input id="cc-number" type="text" class="form-control">
                         </div>
 
@@ -453,8 +454,13 @@
                                 <input id="cc-cvc" class="form-control" maxlength="3">
                             </div>
                         </div>
+                        
                     </fieldset>
-                    <div class="my-3 ">
+                     <div class="d-flex justify-content-center align-items-center mt-4">
+                    <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa" class="me-3">
+                    <img src="{{ asset('assets/dashboard/img/master-card.png') }}" alt="MasterCard">
+                </div>
+                    <div class="my-3 text-right">
                         <button onclick="prev()" class="btn-common" id="btnBacklast"> <i
                                 class="fas fa-arrow-left text-white pr-2"></i>
                             Back</button>
@@ -463,19 +469,16 @@
 
                 </form>
 
-                <div class="d-flex justify-content-center align-items-center mt-4">
-                    <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa" class="me-3">
-                    <img src="{{ asset('assets/dashboard/img/master-card.png') }}" alt="MasterCard">
-                </div>
+               
             </div>
         </div>
         <!-- Step 4 -->
         <div id="step4" class="step-content text-center py-5">
             <h2>Order Completed</h2>
             <p>Thank you for your purchase!</p>
-            <button onclick="prev()" class="btn-common"> <i class="fas fa-arrow-left text-white pr-2"></i> Back</button>
+            <button  type="button" class="btn-common"> <a href="{{route("escort.orders")}}" class="text-white"> View Orders</a></button>
             <button onclick="finish()" class="btn-common">Finish</button>
-        </div>
+        </div>  
 
 
 
@@ -546,18 +549,18 @@
         let isDirty = false;
 
         // detect changes
-        document.querySelectorAll("input, textarea, select").forEach(el => {
-            el.addEventListener("change", () => {
-                isDirty = true;
-            });
-        });
+        // document.querySelectorAll("input, textarea, select").forEach(el => {
+        //     el.addEventListener("change", () => {
+        //         isDirty = true;
+        //     });
+        // });
 
-        window.addEventListener("beforeunload", function(e) {
-            if (isDirty) {
-                e.preventDefault();
-                e.returnValue = "";
-            }
-        });
+        // window.addEventListener("beforeunload", function(e) {
+        //     if (isDirty) {
+        //         e.preventDefault();
+        //         e.returnValue = "";
+        //     }
+        // });
 
 
 
@@ -787,12 +790,12 @@
 
                 });
             } else if (step === 4) {
-                step = 3;
-                localStorage.setItem("checkout_step_" + loginUserId, step);
+                // step = 3;
+                // localStorage.setItem("checkout_step_" + loginUserId, step);
 
-                step2.classList.remove("is-active");
-                bar2.style.width = "100%";
-                step3.classList.add("is-active");
+                // step2.classList.remove("is-active");
+                // bar2.style.width = "100%";
+                // step3.classList.add("is-active");
                 showStep();
 
             }
@@ -897,7 +900,7 @@
                 expiry_month: $('#cc-expiry-month').val(),
                 expiry_year: $('#cc-expiry-year').val(),
                 cvc: $('#cc-cvc').val(),
-                orderId: orderId
+
             };
 
             let billingDetails = getCardBilling();
@@ -910,6 +913,7 @@
 
             function handleSuccess(card) {
                 card.pin_token = card.token;
+                card.orderId = orderId;
                 $.ajax({
                     url: "{{ route('escort.make.order.payment') }}",
                     type: "POST",
@@ -924,6 +928,7 @@
                             bar3.style.width = "100%";
                             step4.classList.add("is-active");
                             showStep();
+                            flushLocalStorage();
                         } else {
                             Swal.fire(response.message, '', 'error');
                         }
@@ -1145,6 +1150,7 @@
                 step2.classList.remove("is-active");
                 step1.classList.add("is-active");
                 bar1.style.width = "0%"; // reset bar
+                loadProducts();
             } else if (step === 3) {
                 // move to 1 step because if yopu are at 3 that's mean order is completed
 

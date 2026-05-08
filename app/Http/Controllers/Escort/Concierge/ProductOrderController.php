@@ -179,7 +179,7 @@ class ProductOrderController extends Controller
       $data = $request->all();
       // prepare metdata for product order
 
-      $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', 7)->first();
+      $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $request->orderId)->first();
       $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
       if (empty($order))
         return response()->json(['status' => false, 'message' => "Something went wrong"]);
@@ -189,9 +189,10 @@ class ProductOrderController extends Controller
         $item = ['product_id' => $orderItem->product_id, 'quantity' => $orderItem->quantity, 'price' => $orderItem->price, 'total' => (float)$orderItem->total];
         array_push($products, $item);
       }
+
       $metadata = [
         'console' => 'Escort Console (E20189)',
-        'type' => 'escort-product-prder',
+        'type' => 'escort-product-order',
         'order_id' => $order->id,
         'user_id' => Auth::user()->id,
         'total' => $order->total_amount,
@@ -228,10 +229,16 @@ class ProductOrderController extends Controller
         return $row->order_date;
       })
       ->addColumn('order_status', function ($row) {
-        return '<span class="badge bg-info">' . $row->order_status . '</span>';
+        $classes = config('escorts.order_status');
+        $class = $classes[$row->payment_status] ?? '';
+
+        return '<span class="custom_badge ' . $class . '">' . ucfirst($row->order_status) . '</span>';
       })
       ->addColumn('payment_status', function ($row) {
-        return '<span class="badge bg-info">' . $row->payment_status . '</span>';
+        $classes = config('escorts.payment_status');
+        $class = $classes[$row->payment_status] ?? '';
+
+        return '<span class="custom_badge ' . $class . '">' . ucfirst($row->payment_status) . '</span>';
       })
       ->addColumn('action', function ($row) {
         return '<a href="" class="btn btn-sm btn-primary">View</a>';

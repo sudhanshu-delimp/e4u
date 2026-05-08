@@ -850,7 +850,19 @@ return [
   'escort_default_thumb' => '../../assets/app/img/service-provider/mc_default.png',
   'delivery_charge_door' => env('DELIVERY_CHARGE_DOOR'),
   'delivery_charge_post' => env('DELIVERY_CHARGE_POST'),
-  'product_tax'=> env('PRODUCT_TAX'),
-  'webhook_secret_key'=> env('WEBHOOK_SECRET_KEY'),
-  
+  'product_tax' => env('PRODUCT_TAX'),
+  'webhook_secret_key' => env('WEBHOOK_SECRET_KEY'),
+  'payment_status' => [
+    'paid'      => 'badge_active',
+    'pending'   => 'badge_available',
+    'cancelled' => 'badge_suspended',
+    'failed'    => 'badge_suspended',
+  ],
+   'order_status' => [
+    'paid'      => 'badge_active',
+    'pending'   => 'badge_available',
+    'cancelled' => 'badge_suspended',
+    'failed'    => 'badge_suspended',
+  ],
+
 ];

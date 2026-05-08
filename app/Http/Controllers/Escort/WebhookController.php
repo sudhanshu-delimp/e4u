@@ -63,14 +63,16 @@ class WebhookController extends Controller
       if ($event == 'charge.captured') {
         $paymentObject = $data['data'];
 
-        $type = $paymentObject['metadata']->type ?? '';
+        $type = $paymentObject['metadata']['type'] ?? '';
+        Log::info($type);
         // start swithc case
         switch ($type) {
 
-          case 'escort-product-prder':
+          case 'escort-product-order':
             // update payment status of orders
             $paymentStatus = $paymentObject['success'] == true ? 'paid' : 'failed';
-            ProductOrder::where('id', $paymentObject['metadata']->order_id)->update(['payment_status' => $paymentStatus]);
+            
+            ProductOrder::where('id', $paymentObject['metadata']['order_id'])->update(['payment_status' => $paymentStatus]);
             // make payment history
             $this->handlePaymentHistory($paymentObject);
             break;
