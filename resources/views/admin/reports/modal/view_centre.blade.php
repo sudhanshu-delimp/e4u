@@ -13,7 +13,7 @@
             </div>
             <div class="modal-body" >
                <div class="verify_ing_masseurs">
-                  <table class="table w-100 text-center">
+                  <table class="table w-100 text-center" id="">
                     <thead class="table-bg">
                         <tr>
                             <th>ID</th>
@@ -22,7 +22,7 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="viewCentreTableBody">
                         <tr>
                             <td>004</td>
                             <td>18-02-2026</td>

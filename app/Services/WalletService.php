@@ -89,4 +89,30 @@ class WalletService
         }
         return $result;
     }
+
+    public function updateEarnDays($user, int $days, string $action = 'add'): void
+    {
+        DB::transaction(function () use ($user, $days, $action) {
+
+            $wallet = $user->getOrCreateWallet();
+
+            switch ($action) {
+
+                case 'add':
+                    $wallet->increment('earn_days', $days);
+                    break;
+
+                case 'subtract':
+                    $newValue = max(0, $wallet->earn_days - $days);
+
+                    $wallet->update([
+                        'earn_days' => $newValue
+                    ]);
+                    break;
+
+                default:
+                    throw new \InvalidArgumentException('Invalid action type');
+            }
+        });
+    }
 }

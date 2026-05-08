@@ -18,13 +18,20 @@ use App\Http\Requests\UpdateEscortRequest;
 use App\Models\Duration;
 use App\Models\EscortCovidReport;
 use App\Models\MassageAvailability;
+use App\Models\MassageBrb;
+use App\Models\MassageBumpup;
+use App\Models\MassageDuration;
 use App\Models\MassageGallery;
+use App\Models\MassageLike;
 use App\Models\MassageProfile;
 use App\Models\MassagePurchase;
 use App\Models\MassageRate;
+use App\Models\MassageReviews;
 use App\Models\MassagerMasseur;
 use App\Models\MassageService;
 use App\Models\MassageSetting;
+use App\Models\MassageStatistics;
+use App\Models\MassageSuspendProfile;
 use App\Models\Masseur;
 use App\Models\Pricing;
 use App\Models\Service;
@@ -47,11 +54,11 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
- use Illuminate\Support\Facades\Artisan;
 
 
 //use Illuminate\Http\Request;
@@ -196,11 +203,14 @@ class MassageController extends Controller
                 <i class="fa fa-circle"></i> View
                 </a>'; 
 
-                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>'; 
-                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
-                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>'; 
-                //  $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action"   href="javascript:void(0)">   <i class="fa fa-circle"></i> View</a>'; 
 
+                if(!$is_live)
+                $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="delete"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>';     
+               
+                if(!$is_live)
+                $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center duplicate_profile" data-row-id="'.$row->id.'"  data-row-action="duplicate"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
+
+               
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -1184,6 +1194,16 @@ class MassageController extends Controller
             }
             ########## End Cancel Profile ###############
 
+            ########## Delete Profile ###################
+            if($request->action=='delete')
+            {
+                $this->delete_massage_profile($massage,$request->profile_id);
+                $mess = 'Profile deleted successfully.'; 
+                
+            }
+            ######### End Delete Profile ################
+
+        
             DB::commit();
             return response()->json([
                 'success' => true,
@@ -1199,6 +1219,112 @@ class MassageController extends Controller
             ]);
         }
         
+    }
+
+
+
+    public function delete_massage_profile($massage_profile_data,$massage_profile_id)
+    {
+        $userId = auth()->user()->id;
+        MassagePurchase::where(['massage_centre_id' => $userId,'massage_profile_id' => $massage_profile_id])->delete();
+        MassageRate::where('massage_profile_id', $massage_profile_id)->delete();
+        MassageSuspendProfile::where(['massage_profile_id' => $massage_profile_id,'user_id' => $userId])->delete();
+        MassageStatistics::where(['massage_id' => $massage_profile_id,'user_id' => $userId])->delete();
+        MassageService::where('massage_profile_id', $massage_profile_id)->delete();
+        MassagerMasseur::where('massage_profile_id',$massage_profile_id)->delete();
+        MassageReviews::where('massage_id',$massage_profile_id)->delete();
+        MassageLike::where('massage_id',$massage_profile_id)->delete();
+        MassageGallery::where('massage_profile_id',$massage_profile_id)->delete();
+        MassageBumpup::where(['massage_id' => $massage_profile_id,'user_id' => $userId])->delete();
+        MassageBrb::where(['profile_id' => $massage_profile_id])->delete();
+        MassageAvailability::where('massage_profile_id',$massage_profile_id)->delete();
+        $massage_profile_data->delete();
+    }
+
+    public function duplicate_massage_profile(Request $request )
+    {
+
+        DB::beginTransaction();
+        try 
+        {
+        
+            $old_profile_id = isset($request->duplicate_profile_id) ? $request->duplicate_profile_id : "";
+            $new_profile_name = isset($request->new_profile_name) ? $request->new_profile_name : "";
+
+            $userId = auth()->user()->id;
+            $massage  = MassageProfile::where(['user_id' => $userId, 'id'=>$old_profile_id])->first();
+
+            if (!$massage) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Profile not found.'
+                ]);
+            }
+
+            if ($massage) 
+            {
+                $newMassage = $massage->replicate();
+                $newMassage->profile_name = $new_profile_name;
+                $newMassage->save();
+
+                $new_massage_profile_id = $newMassage->id;
+
+                if($new_massage_profile_id!="")
+                {
+                    MassageRate::where('massage_profile_id', $old_profile_id)
+                    ->get()
+                    ->each(function ($rate) use ($new_massage_profile_id) {
+                        $newRate = $rate->replicate();
+                        $newRate->massage_profile_id = $new_massage_profile_id;
+                        $newRate->save();
+                    });
+
+                    MassageService::where('massage_profile_id', $old_profile_id)
+                    ->get()
+                    ->each(function ($rate) use ($new_massage_profile_id) {
+                        $newRate = $rate->replicate();
+                        $newRate->massage_profile_id = $new_massage_profile_id;
+                        $newRate->save();
+                    });
+
+                    MassagerMasseur::where('massage_profile_id', $old_profile_id)
+                    ->get()
+                    ->each(function ($rate) use ($new_massage_profile_id) {
+                        $newRate = $rate->replicate();
+                        $newRate->massage_profile_id = $new_massage_profile_id;
+                        $newRate->save();
+                    });
+
+                    MassageGallery::where('massage_profile_id', $old_profile_id)
+                    ->get()
+                    ->each(function ($rate) use ($new_massage_profile_id) {
+                        $newRate = $rate->replicate();
+                        $newRate->massage_profile_id = $new_massage_profile_id;
+                        $newRate->save();
+                    });
+
+
+                    MassageAvailability::where('massage_profile_id', $old_profile_id)
+                    ->get()
+                    ->each(function ($rate) use ($new_massage_profile_id) {
+                        $newRate = $rate->replicate();
+                        $newRate->massage_profile_id = $new_massage_profile_id;
+                        $newRate->save();
+                    });
+                }
+            }
+            DB::commit();
+            return response()->json(['success'   => true,'message' => 'New Profile Created Successfully.']);
+        } 
+
+        catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+            ]);
+        }
+
     }
 
 

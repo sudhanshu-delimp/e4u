@@ -199,7 +199,7 @@ background:#16385f;
                                 <div class="add--list listingActionButtons">
                                     <div class="">
                                           <button class="btn brb-btn" data-toggle="modal"
-                                                data-target="#add_brb" id="btn_add_brb">Add Closed</button>
+                                                data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
                                           <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                                           <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
@@ -345,6 +345,57 @@ background:#16385f;
 
 
 
+<div class="modal fade upload-modal" id="duplicate-profile-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
+    aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id=""><img src="/assets/app/img/dublicate-profile.png" class="custompopicon" alt="cross"> Duplicate Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/newcross.png') }}"
+                                    class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                     <form id="duplicate_profile_form" data-parsley-validate>
+                        <input type="hidden" name="duplicate_profile" value="duplicate" />
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="container p-0">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3" for="">
+                                                Profile Name:
+                                                <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                                                    data-toggle="tooltip" data-html="true" data-placement="top"
+                                                    title="Be consistent when naming your Profiles, like Sydney01, Sydney 02, Perth01, Perth02 etc."
+                                                    data-boundary="window">
+                                                <span style='color:red'>*</span>
+                                            </label>
+                                            <div class="col-sm-9">
+
+                                          <input type="text"  class="form-control form-control-sm removebox_shdow" name="new_profile_name" id="new_profile_name">
+                                              
+                                                <span id="profile_name_errors" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align: right; display: block;">
+                            <input type="hidden" name="duplicate_profile_id" id="duplicate_profile_id">
+                            <button type="submit" class="btn-success-modal" id="duplicate_profile">Save</button>
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+    </div>
+</div>
+
+
 
 @endsection
 
@@ -413,6 +464,91 @@ var table = $("#massage_list").DataTable({
     ],
 
 
+});
+
+
+$(document).on('click', '.duplicate_profile', async function () {
+
+      let current_action = $(this).data('row-action');
+      var mess = "";
+      let rowId = $(this).data('row-id');
+      let action = "";
+
+      if(!current_action || !rowId )
+      return false;
+
+       mess =   'Do you want to '+current_action+' this Profile?';
+       action = current_action;
+
+      let mess_data = {
+         'title' : 'NA',
+         'text' : mess,
+      }
+
+      let post_data = {
+         'action' : action,
+         'profile_id':rowId
+      }
+   
+      if(await isConfirm(mess_data))
+      {  
+         Swal.close();
+         $('#duplicate_profile_id').val(rowId);
+         $('#duplicate-profile-modal').modal('show');   
+      }
+
+})
+
+
+$("#duplicate_profile_form").on('submit', function(e) 
+{
+   e.preventDefault();
+   var form = $(this);
+   var new_profile_name = $("#new_profile_name").val();
+   var duplicate_profile_id = $("#duplicate_profile_id").val();
+
+   if (new_profile_name === '') {
+      $("#profile_name_errors").text('Profile name is required');
+      return false;
+   }
+   var data = new FormData(form[0]);
+   swal_waiting_popup({'title': 'We’re Creating Your Profile.'});
+   $.ajax({
+         method: 'POST',
+          url: "{{ route('center.duplicate-massage-profile') }}",
+         data: data,
+         contentType: false,
+         processData: false,
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         success: function(response) {
+            Swal.close();
+            if (response.success) {
+               Swal.fire({
+                     icon: "success",
+                     text: response.message
+               });
+
+               $("#duplicate_profile_form")[0].reset();
+               $('#duplicate-profile-modal').modal('hide');
+               table.ajax.reload(null, false);
+            } else {
+               Swal.fire({
+                     icon: "error",
+                     text: response.message
+               });
+            }
+         },
+         error: function(xhr) {
+                  Swal.close();
+                  let message = 'Error while duplicating Profile';
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                     message = xhr.responseJSON.message;
+                  }
+                  swal_error_popup(message);
+         }
+   });
 });
 
 

@@ -74,7 +74,7 @@
             </form>
         @endswitch
     </div>
-
+    @include('escort.dashboard.modal.payment_form')
 @endsection
 @push('script')
     <!-- file upload plugin start here -->

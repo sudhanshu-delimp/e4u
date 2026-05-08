@@ -129,6 +129,41 @@
     display: none !important;
 }
 
+.star-rating {
+    display: inline-flex;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 2px;
+}
+
+.star::before {
+    content: "★";
+    color: #ddd; 
+    position: absolute;
+    left: 0;
+}
+
+.star.full::before {
+    color: #f5c518; 
+}
+
+.star.half::before {
+background: linear-gradient(90deg, #f5c518 50%, #ddd 50%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.location_rating{
+font-size: 12px;
+margin-top: 4px;
+margin-right: 5px;
+}
 </style>
     @stop
     @section('content')
@@ -197,7 +232,13 @@
                                                     }
      
     $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
-
+    
+    $massage_user  = get_massage_parent_data($listing->user_id);
+    $capital_city  = "";
+    if($massage_user)
+    {   $home_state = $massage_user->state_id;
+        $capital_city = config("escorts.profile.states.$home_state.cityName");
+    }
     @endphp
 
 
@@ -669,15 +710,19 @@
 
                                     for ($i = 1; $i <= 4; $i++) {
                                         $img = get_messure_images($masseur, $i);
+                                        $image_data = get_messure_images_details($masseur,$i);
                                         $images[$i] = $img;
 
                                         if ($img !== false) {
-                                            $messure_validImages[$i] = $img;
+                                            $messure_validImages[$i]['url'] = $img;
+                                            $messure_validImages[$i]['img_data'] = $image_data;
                                         }
                                     }
 
                             @endphp
+                            <pre>
 
+</pre>
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view_{{$masseur->id}}" >
@@ -708,17 +753,25 @@
                                             <div class="masseur_profile_wrapper">
                                                 <div class="mc_profile_img">
 
-                                                            @foreach ($messure_validImages as $index => $image)
-                                                                @if($loop->first)
-                                                                <img src="{{  $image }}" class="img-responsive"
-                                                                style="width: 305px;height: 374px;object-fit: cover;">
-                                                                @endif
-                                                            @endforeach
+                                                   @foreach ($messure_validImages as $index => $image)
+                                                        @if($loop->first)
+                                                            @php 
+                                                                $status_detail = getMediaVerificationDataBigIcon($image['img_data']->varified);
+                                                            @endphp 
 
-                                                    <div class="veryfy_img">
-                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-                                                        <span class="common_shield_tooltip">Media Pending</span>
-                                                    </div>
+                                                            <img src="{{ $image['url'] }}" class="img-responsive"
+                                                            style="width: 305px;height: 374px;object-fit: cover;">
+
+                                                        @endif
+
+                                                    @endforeach
+
+                                                        <div class="veryfy_img">
+                                                            @if(isset($status_detail['icon']))
+                                                            <img src="{{ $status_detail['icon'] }}">
+                                                            <span class="common_shield_tooltip">{{ $status_detail['label'] }}</span>
+                                                             @endif
+                                                        </div>
                                                 </div>
 
                                                 <div class="masseur_extra_img">
@@ -726,10 +779,13 @@
                                                         @foreach ($messure_validImages as $index => $image)
                                                             @if(!$loop->first)
                                                             <div class="extra_img_wrapper">
-                                                                <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                                <img src="{{  $image['url'] }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
                                                                 <div class="veryfy_img">
-                                                                    <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                     <h6 class="gallery_shield_tooltip">Media Pending</h6>
+                                                                @php 
+                                                                    $status_detail =  getMediaVerificationDataSmallIcon($image['img_data']->varified);
+                                                                @endphp
+                                                                    <img src="{{ $status_detail['icon'] }}">
+                                                                     <h6 class="gallery_shield_tooltip">{{ $status_detail['label'] }}</h6>
                                                                     
                                                                 </div>
                                                             </div>
@@ -750,26 +806,41 @@
                                                             
 
 
-                                                            @if(in_array('massage', $masseur_services))
-                                                                <div class="massage_type_info">
-                                                                    <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
-                                                                    <p class="mc_rate_tooltip">Massage only</p>
-                                                                </div>
-                                                            @endif    
+                                                                @if(in_array('massage', $masseur_services))
+                                                                    <div class="massage_type_info">
+                                                                        <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
+                                                                        <p class="mc_rate_tooltip">Massage only</p>
+                                                                    </div>
+                                                                @endif 
 
-                                                            @if(in_array('2_hand', $masseur_services))
-                                                                <div class="massage_type_info">
-                                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
-                                                                    <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
-                                                                </div>
-                                                             @endif       
+                                                                @if(in_array('2_hand', $masseur_services))
 
-                                                            @if(in_array('4_hand', $masseur_services))
-                                                                <div class="massage_type_info">
-                                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
-                                                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
-                                                                </div>
-                                                             @endif   
+                                                                    @if(in_array('massage', $masseur_services))
+                                                                    <div class="massage_type_info">
+                                                                        <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
+                                                                        <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
+                                                                    </div>
+                                                                    @endif 
+
+                                                                @endif 
+                                                                
+                                                                
+                                                                @if(in_array('4_hand', $masseur_services))
+
+                                                                   @if(in_array('massage', $masseur_services) && in_array('2_hand', $masseur_services))
+                                                                    <div class="massage_type_info">
+                                                                        <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                                        <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
+                                                                    </div>
+                                                                    @endif 
+
+                                                               @endif   
+
+                                                              
+
+                                                                
+
+                                                           
 
                                                             </div>
                                                         </div>
@@ -837,7 +908,7 @@
 
                                                             @foreach ($messure_validImages as $index => $image)
                                                                 @if($loop->first)
-                                                                <img src="{{  $image }}" class="img-responsive"
+                                                                <img src="{{  $image['url'] }}" class="img-responsive"
                                                                 style="width: 305px;height: 374px;object-fit: cover;">
                                                                 @endif
                                                             @endforeach
@@ -851,7 +922,7 @@
 
                                                         @foreach ($messure_validImages as $index => $image)
                                                             @if(!$loop->first)
-                                                            <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                            <img src="{{  $image['url'] }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
                                                             @endif
                                                         @endforeach
                                                 </div>
@@ -1058,32 +1129,42 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+
+                                                        @php
+                                                            $services = $listing->massage_services()
+                                                                ->where('category_id', 1)
+                                                                ->get()
+                                                                ->values()
+                                                                ->filter(fn($item, $index) => $index % 2 != 0);
+                                                        @endphp
                                                             
-                                                         @foreach (
-                                                                    $listing->massage_services()
-                                                                        ->where('category_id', 1)
-                                                                        ->get()
-                                                                        ->values()
-                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
-                                                                    as $value
-                                                                )
-                                                           <tr>
-                                                               
-                                                                <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
-                                                                <td class="table_border_solid_left">
-                                                                   
+                                                            @if($services->count() > 0)
+                                                                @foreach($services as $value)
+                                                                <tr>
+                                                                    
+                                                                        <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
+                                                                        <td class="table_border_solid_left">
+                                                                        
 
-                                                                    @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
-                                                                    @else
-                                                                    <span class="if_data_not_available">N/A</span>
-                                                                    @endif
-                                                                
-                                                                </td>
-                                                            </tr>
+                                                                            @if($value->price)
+                                                                            <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
+                                                                            @else
+                                                                            <span class="if_data_not_available">N/A</span>
+                                                                            @endif
+                                                                        
+                                                                        </td>
+                                                                    </tr>
 
-                                                            @endforeach
-                                                            </tr>
+                                                                @endforeach
+                                                            @else
+
+                                                                <tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>
+
+                                                            @endif
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -1165,7 +1246,7 @@
                                                                 <td class="table_border_solid_left">
                                                                    
 
-                                                                    @if($value->price)
+                                                                    @if($value->price && $value->price!=0)
                                                                     <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
@@ -1189,32 +1270,43 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @php
+                                                                $services = $listing->massage_services()
+                                                                    ->where('category_id', 2)
+                                                                    ->get()
+                                                                    ->values()
+                                                                    ->filter(fn($item, $index) => $index % 2 != 0);
+                                                            @endphp
+
+                                                        @if($services->isNotEmpty())
                                                             
-                                                         @foreach (
-                                                                    $listing->massage_services()
-                                                                        ->where('category_id', 2)
-                                                                        ->get()
-                                                                        ->values()
-                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
-                                                                    as $value
-                                                                )
-                                                           <tr>
-                                                               
-                                                                <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
-                                                                <td class="table_border_solid_left">
-                                                                   
+                                                                    @foreach($services as $value)
 
-                                                                    @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
-                                                                    @else
-                                                                    <span class="if_data_not_available">N/A</span>
-                                                                    @endif
-                                                                
-                                                                </td>
+                                                                        <tr>
+                                                                        
+                                                                            <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
+                                                                            <td class="table_border_solid_left">
+                                                                            
+
+                                                                                @if($value->price && $value->price!=0)
+                                                                                <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
+                                                                                @else
+                                                                                <span class="if_data_not_available">N/A</span>
+                                                                                @endif
+                                                                            
+                                                                            </td>
+                                                                        </tr>
+
+                                                                      @endforeach
+
+                                                        @else
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left">&nbsp;</td>
                                                             </tr>
 
-                                                            @endforeach
-                                                            </tr>
+                                                        @endif
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -2212,7 +2304,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initMap" async defer></script>
+
 
  <script>
 
@@ -2648,11 +2741,15 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 });
 
 
+
 function initMap() 
 {
-    const address = @json($listing->address ?? 'Perth WA, Australia');
+    const capital_city = '{{ $capital_city }}';
+    const address = @json($listing->address ?? $capital_city);
+    const banner = "{{ $massage_banner }}";
 
     const geocoder = new google.maps.Geocoder();
+
     geocoder.geocode({ address: address }, function(results, status) {
 
         if (status === "OK") 
@@ -2669,20 +2766,49 @@ function initMap()
                 map: map,
             });
 
-            // Label under marker (balloon style)
-            const infowindow = new google.maps.InfoWindow({
-                content: `<div class="location_class" >
-                        <img src="{{ $massage_banner }}"  class="facebook-logo" alt="logo">
-                 {{ $listing->address }}</div>`
+            
+            const service = new google.maps.places.PlacesService(map);
+
+            service.findPlaceFromQuery({
+                query: address,
+                fields: ["name", "photos", "rating"]
+            }, function(placeResults, placeStatus) {
+
+                let imageUrl = ''  //banner fallback image
+                let placeName = capital_city;
+                let ratingHtml = "";
+
+                if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults[0]) 
+                {
+                    const place = placeResults[0];
+                    console.log('place',place);
+
+                    placeName = place.name || placeName;
+
+                    if (place.rating) {
+                        ratingHtml = `<div style="margin:0; font-size:12px;"> ${getStars(place.rating)} </div>`;
+                    }
+
+                    if (place.photos && place.photos.length > 0) {
+                        imageUrl = place.photos[0].getUrl({ maxWidth: 400 });
+                    }
+                }
+
+               let g_image = "";
+               if(imageUrl!="")
+                g_image = `<img  style="width:100%; height:80px; object-fit:cover; border-radius:10px;" src=${imageUrl}  class="facebook-logo" alt="logo">`;
+               
+               const content = `<div class="location_class">  ${g_image}  ${address} ${ratingHtml} <i class="fa fa-star-half-alt"></i></div>`;
+                const infowindow = new google.maps.InfoWindow({
+                    content: content
+                });
+
+                infowindow.open(map, marker);
             });
 
-            infowindow.open(map, marker);
-
-            // OPTIONAL: store lat/lng in hidden inputs
+          
             const lat = location.lat();
             const lng = location.lng();
-
-            console.log("Lat:", lat, "Lng:", lng);
 
             if (document.getElementById("lat")) {
                 document.getElementById("lat").value = lat;
@@ -2690,12 +2816,39 @@ function initMap()
             }
 
         } 
-        
+        else 
+        {
+            console.error("Geocode failed: " + status);
+        }
     });
+}
+
+function getStars(rating) {
+    let fullStars = Math.floor(rating);
+    let halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    let emptyStars = 5 - fullStars - halfStar;
+
+    let stars = '<div class="star-rating">'+'<span class="location_rating">'+rating+'</span>';
+
+    for (let i = 0; i < fullStars; i++) {
+        stars += ' <span class="star full"></span>';
+    }
+
+    if (halfStar) {
+        stars += '<span class="star half"></span>';
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+        stars += '<span class="star"></span>';
+    }
+
+    stars += '</div>';
+
+    return stars;
 }
 
 
 
-window.onload = initMap;
+window.initMap = initMap;
 </script>
 @endpush
