@@ -399,6 +399,26 @@ if (!function_exists('getEscortTimezone')) {
     }
 }
 
+
+if (!function_exists('getMassageTimezone')) {
+
+    function getMassageTimezone($massage_profile)
+    {
+        $massage  = User::where('id',$massage_profile->user_id)->first();
+        $home_state = $massage->state_id;
+        $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+        return $profileTimezone;
+    }
+}
+
+if (!function_exists('getMassageLocalTime')) {
+
+    function getMassageLocalTime($utcTime, $localTimeZone)
+    {
+        return Carbon::parse($utcTime)->timezone($localTimeZone);
+    }
+}
+
 if (!function_exists('getEscortLocalTime')) {
 
     function getEscortLocalTime($utcTime, $localTimeZone)
@@ -1604,6 +1624,15 @@ if (!function_exists('get_messure_images')) {
   }
 }
 
+
+function get_messure_images_details($masseur,$position)
+{
+    if(!$masseur || !$position) return false;   
+
+    return $masseur->getImageDetailsByPosition($position,$masseur->id);
+}
+
+
 if (!function_exists('getStateIdByCityId')) {
 function getStateIdByCityId($states, $cityId)
 {
@@ -1711,6 +1740,7 @@ if (!function_exists('getUserTypeById')) {
                 case 9:
                     return "Operator-Staff";
                     break;
+                
             }
         }
     }
@@ -1849,11 +1879,21 @@ if (!function_exists('get_massage_listed_profile'))
         $massage_live_ids  = MassagePurchase::where('status','listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if(!empty($massage_live_ids))
         {
-            $profile = MassageProfile::select('id','purchase_id','name','profile_name')->with('purchase','state')->whereIn('id',  $massage_live_ids)->get();
-            if($profile->isNotEmpty())
+            $profile = MassageProfile::select('id','purchase_id','name','profile_name','business_name')->with('purchase','state','latestPurchase')->whereIn('id',  $massage_live_ids)->get();
+            if ($profile->isNotEmpty()) {
+                $profile->map(function ($item) {
+
+                $item->start_date = 
+                $item->isListingExtended = $item->isListingExtended(); 
+                $item->latest_entry = $item->latestPurchase;
+                return $item;
+            });
             return $profile;
-            else
-            return false;    
+            } 
+            else 
+            {
+                return false;
+            }   
             
         }
     }
@@ -2400,5 +2440,43 @@ if (!function_exists('formatIndianNumber'))
                 ->value('status') ?? '0'; // default Pending
         }
     }
+
+    if (!function_exists('get_masseur_data_by_id')) {
+        function get_masseur_data_by_id($masseur_id)
+        {
+            return Masseur::findOrFail($masseur_id);
+        }
+    }
+
+    
+}
+
+function getPlaceId($address)
+{
+    $apiKey = config('services.google_map.api_key');
+
+    $response = Http::get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json', [
+        'input' => $address,
+        'inputtype' => 'textquery',
+        'fields' => 'place_id',
+        'key' => $apiKey,
+    ]);
+
+    if ($response->successful()) {
+        return $response['candidates'][0]['place_id'] ?? null;
+    }
+
+    return null;
 }
    
+
+if (!function_exists('get_massage_parent_data')) {
+  function get_massage_parent_data($user_id)
+  {
+        $user = User::where('id',$user_id)->first();
+        if($user)
+        return $user;
+        else
+        return false;
+  }
+}

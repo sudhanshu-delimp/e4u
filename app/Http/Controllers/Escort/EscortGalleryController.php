@@ -693,6 +693,7 @@ class EscortGalleryController extends AppController
                 'type' => (string) $request->verification_type,
                 'status' => MediaVerification::STATUS_PENDING,
                 'submited_by' => $user->id,
+                'user_type' => '1',
             ]);
             EscortMedia::where('user_id', $user->id)
                 ->whereIn('varified', ['0', '2'])

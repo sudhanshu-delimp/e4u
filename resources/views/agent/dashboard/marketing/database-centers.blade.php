@@ -82,7 +82,7 @@
         data-download-pdf="{{route('agent.marketing.database.download.pdf',  ['id' => '__ID__'])}}"
         >
 
-        @include('agent.dashboard.modal.data-summary-modal')
+        @include('agent.dashboard.marketing.modal.data-summary-modal')
     @endsection
     @push('script')
         <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">

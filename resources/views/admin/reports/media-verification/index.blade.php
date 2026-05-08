@@ -22,6 +22,12 @@
         cursor: not-allowed;
         pointer-events: none;
     }
+
+    .printMasseursImgBtn.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
 </style>
 @endsection
 @section('content')
@@ -168,7 +174,6 @@
         </div>
     </div>
 </div>
-
 @include('admin.reports.modal.view_image')
 @include('admin.reports.modal.view_tag')
 @include('admin.reports.modal.view_centre')
@@ -388,7 +393,7 @@
                 text: "You want to reject this media verification.",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, Reject it!',
+                confirmButtonText: 'Yes, reject it!',
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -443,5 +448,278 @@
 
         }, 200);
     });
+
+
+   $(document).on('click', '.view-centre-btn', function () {
+
+    let mc_id = $(this).data('id');
+
+    $.ajax({
+        url: "{{ route('admin.masseurs_media-verification-list') }}",
+        type: "POST",
+        data: {
+            id: mc_id
+        },
+
+        success: function (response) {
+
+            let html = '';
+
+            if (!response.data || response.data.length === 0) {
+                html = `<tr><td colspan="4">No data found</td></tr>`;
+            } else {
+
+                response.data.forEach(function (item) {
+
+                    let tooltipWrapper = '';
+
+                    // Only for Approved / Rejected
+                    if (item.status !== '0') {
+                        tooltipWrapper = `
+                            <div class="e4u-tooltip">
+                                <span class="custom_badge ${item.status_class}">
+                                    ${item.status_text}
+                                </span>
+                                ${item.tooltip}
+                            </div>
+                        `;
+                    } else {
+                        // Pending (no tooltip)
+                        tooltipWrapper = `
+                            <span class="custom_badge ${item.status_class}">
+                                ${item.status_text}
+                            </span>
+                        `;
+                    }
+
+                    html += `
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.date}</td>
+                            <td>${item.name}</td>
+                            <td style="width:120px;">
+                                ${tooltipWrapper}
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            $('#viewCentreTableBody').html(html);
+        },
+
+        error: function (xhr) {
+            console.log('Error:', xhr.responseText);
+
+            $('#viewCentreTableBody').html(`
+                <tr>
+                    <td colspan="4">Something went wrong</td>
+                </tr>
+            `);
+        }
+    });
+});
+
+    $(document).on('click', '.view-tag-btn', function() {
+
+        let mc_id = $(this).data('id');
+        $.ajax({
+            url: "{{ route('admin.masseurs_media-verification-tag') }}",
+            type: "POST",
+            data: {
+                id: mc_id
+            },
+
+            success: function(response) {
+
+                $('#viewTagTableBody').html(response.html);
+
+                $('#viewTagModal').modal('show');
+            },
+
+            error: function(xhr) {
+                console.log(xhr.responseText);
+
+                $('#viewTagTableBody').html(`
+                <tr><td colspan="6">Something went wrong</td></tr>
+            `);
+            }
+        });
+    });
+
+    let profile_id = null;
+    let masseur_member_id = null ;
+    let profile_verification_id = null;
+
+    $(document).on('click', '.view-masseur-image-btn', function() {
+        let profile_id = $(this).data('id');
+        profile_verification_id = $(this).data('verification-id');
+        // masseur_member_id = $(this).data('masseur_member-id');
+        let profile_member_id = $(this).data('member-id');
+        $('.member_id').html(profile_member_id);
+
+        let status = $(this).data('status');
+        if (status == '1' || status == '2') {
+            $('.approveMasseursBtn').hide();
+            $('.rejectMasseursBtn').hide();
+        } else {
+            $('.approveMasseursBtn').show();
+            $('.rejectMasseursBtn').show();
+        }
+
+        $('.printMasseursImgBtn').attr('href', '/admin-dashboard/masseur-gallery-pdf/' + profile_verification_id + '/' + profile_id);
+        $.ajax({
+            url: "{{ route('admin.getProfileImages') }}",
+            type: "GET",
+            data: {
+                profile_id: profile_id,
+                verification_id: profile_verification_id,
+                status: status
+            },
+
+            success: function(res) {
+                $('.view_img_gallery_masseur .thumbnail').html(res.thumbnail);
+                $('.view_img_gallery_masseur .other_images').html(res.gallery);
+                $('.view_img_gallery_masseur .verification').html(res.verification);
+                checkMasseurPrintBtn();  
+            }
+        });
+
+    });
+
+
+
+function checkMasseurPrintBtn() {
+
+    let hasImages = $('.other_images .verify_icon_wrapper img').length > 0;
+
+    if (hasImages) {
+        $('.printMasseursImgBtn')
+            .removeClass('disabled')
+            .css('pointer-events', 'auto')
+            .attr('aria-disabled', 'false');
+    } else {
+        $('.printMasseursImgBtn')
+            .addClass('disabled')
+            .css('pointer-events', 'none')
+            .attr('aria-disabled', 'true');
+    }
+}
+        
+    $(document).on('click', '.masseurs-approve-btn', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        let id = $(this).data('verification-id');
+        masseur_member_id = $(this).data('masseur_member-id');
+        if (!id) {
+            console.log("ID missing");
+            return;
+        }
+
+        Swal.fire({
+            text: "You want to approve this Media Verification.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, approve it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                changeMediaVerificationStatusForMasseurs(id, 1,masseur_member_id);
+            }
+        });
+    });
+
+
+    $(document).on('click', '.approveMasseursBtn', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+       
+        if (!profile_verification_id) {
+            console.log("ID missing");
+            return;
+        }
+
+        Swal.fire({
+            text: "You want to approve this Media Verification.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, approve it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                changeMediaVerificationStatusForMasseurs(profile_verification_id, 1,$('.member_id').html());
+            }
+        });
+    });
+
+    $(document).on('click', '.rejectMasseursBtn', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+       
+        if (!profile_verification_id) {
+            console.log("ID missing");
+            return;
+        }
+
+        Swal.fire({
+            text: "You want to reject this Media Verification.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, reject it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                changeMediaVerificationStatusForMasseurs(profile_verification_id, 2,$('.member_id').html());
+            }
+        });
+    });
+
+
+    $(document).off('click', '.masseurs-reject-btn');
+    $(document).on('click', '.masseurs-reject-btn', function() {
+       
+        let id = $(this).data('verification-id');
+        let masseur_member_id = $(this).data('masseur_member-id');
+        if (!id) {
+            console.log("ID missing");
+            return;
+        }
+        Swal.fire({
+            text: "You want to reject this media verification.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, reject it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                changeMediaVerificationStatusForMasseurs(id, 2 , masseur_member_id);
+            }
+        });
+    });
+
+    function changeMediaVerificationStatusForMasseurs(mediaVerificationId, status, masseur_member_id) {
+        
+        $.ajax({
+            url: "{{ route('admin.update-masseurs-media-verification') }}",
+            method: "POST",
+            data: {
+                id: mediaVerificationId,
+                _token: "{{ csrf_token() }}",
+                status: status,
+                masseur_member_id: masseur_member_id
+            },
+            success: function(response) {
+                if (response.status) {
+                    swal.fire('', response.message, 'success');
+                    $('#view_tag').modal('hide');
+                    $('#verify_masseur_images').modal('hide');
+                }
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+                alert('An error occurred while  media verification');
+            }
+        });
+    }
 </script>
 @endsection

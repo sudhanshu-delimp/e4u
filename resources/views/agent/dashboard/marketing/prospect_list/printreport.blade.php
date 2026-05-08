@@ -27,7 +27,7 @@
     border-radius: 10px;">
     <!-- Header Row -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h2 style="margin: 0; font-size: 20px;">Agent Listing Report</h2>
+        <h2 style="margin: 0; font-size: 20px;">Center List</h2>
         <button onclick="printPage()" class="print_btn" style="padding: 8px 16px; font-size: 14px; background-color: #001f4d; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
           🖨️ Print
         </button>
@@ -39,25 +39,25 @@
                 <td style="border:0px; padding: 6px 8px;
     width: 120px;"><strong>Report For:</strong></td>
                 <td style="border-left:5px solid #000; width:10px;"></td>
-                <td style="border:0px; padding: 6px 8px;">Agent's name</td>
+                <td style="border:0px; padding: 6px 8px;">{{$data['report_from']}}</td>
             </tr>
             <tr>
                 <td style="border:0px; padding: 6px 8px; 
     width: 120px;"><strong>Date Generated:</strong></td>
                 <td style="border-left:5px solid #000; width:10px;"></td>
-                <td style="border:0px; padding: 6px 8px;">01-01-2025</td>
+                <td style="border:0px; padding: 6px 8px;">{{$data['date_generated']}}</td>
             </tr>
             <tr>
                 <td style="border:0px; padding: 6px 8px; 
     width: 120px;"><strong>Post Code:</strong></td>
                 <td style="border-left:5px solid #000; width:10px;"></td>
-                <td style="border:0px; padding: 6px 8px;">6000</td>
+                <td style="border:0px; padding: 6px 8px;">{{$data['post_code']}}</td>
             </tr>
             <tr>
                 <td style="border:0px; padding: 6px 8px; 
     width: 120px;"><strong>Listings:</strong></td>
                 <td style="border-left:5px solid #000; width:10px;"></td>
-                <td style="border:0px; padding: 6px 8px;">15</td>
+                <td style="border:0px; padding: 6px 8px;">{{$data['listings']}}</td>
             </tr>
         </table>
     </div>
@@ -77,42 +77,21 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($centres as $centre)
             <tr>
-                <td style="border: 1px solid #000; padding: 6px;">369</td>
-                <td style="border: 1px solid #000; padding: 6px;">Body Heat Massage</td>
-                <td style="border: 1px solid #000; padding: 6px;">62 Gordon Rd East Osborne Park</td>
-                <td style="border: 1px solid #000; padding: 6px;">6000</td>
-                <td style="border: 1px solid #000; padding: 6px;">0456 665 012</td>
-                <td style="border: 1px solid #000; padding: 6px;">9236 2587</td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
+                <td style="border: 1px solid #000; padding: 6px;">{{$centre->id}}</td>
+                <td style="border: 1px solid #000; padding: 6px;">{{$centre->bussiness_name}}</td>
+                <td style="border: 1px solid #000; padding: 6px;">{{$centre->address}}</td>
+                <td style="border: 1px solid #000; padding: 6px;">{{$centre->post_code}}</td>
+                <td style="border: 1px solid #000; padding: 6px;">{{$centre->mobile_number}}</td>
+                <td style="border: 1px solid #000; padding: 6px;">{{$centre->business_number}}</td>
+                <td style="border: 1px solid #000; padding: 6px;">{{$centre->email}}</td>
                 <td style="border: 1px solid #000; padding: 6px; text-align: center;">
-                    <input type="checkbox" />
+                    <input type="checkbox"  disabled />
                 </td>
             </tr>
-            <tr>
-                <td style="border: 1px solid #000; padding: 6px;">256</td>
-                <td style="border: 1px solid #000; padding: 6px;">Healthland</td>
-                <td style="border: 1px solid #000; padding: 6px;">510 Murray St Perth</td>
-                <td style="border: 1px solid #000; padding: 6px;">6000</td>
-                <td style="border: 1px solid #000; padding: 6px;">0426 610 881</td>
-                <td style="border: 1px solid #000; padding: 6px;">9325 2011</td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
-                <td style="border: 1px solid #000; padding: 6px; text-align: center;">
-                    <input type="checkbox" />
-                </td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #000; padding: 6px;">147</td>
-                <td style="border: 1px solid #000; padding: 6px;">Esquire Spa and Massage</td>
-                <td style="border: 1px solid #000; padding: 6px;">11 Aberdeen St Perth</td>
-                <td style="border: 1px solid #000; padding: 6px;">6000</td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
-                <td style="border: 1px solid #000; padding: 6px; text-align: center;">
-                    <input type="checkbox" checked />
-                </td>
-            </tr>
+            @endforeach
+            
         </tbody>
     </table>
     </div>

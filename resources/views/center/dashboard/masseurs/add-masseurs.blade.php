@@ -423,7 +423,9 @@ padding: 37px !important;
                                             <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
                                                 <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                                     data-target="#add_photo_mcc">Add Photos</button>
-                                                    <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media Verification</button>
+                                                    <button type="button" disabled id="MediaVerification" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#veryfy_media">Media Verification
+                                                        <span class="timer_tooltip"></span>
+                                                    </button>
                                             </div>
 
                                             
@@ -455,7 +457,7 @@ padding: 37px !important;
                                                                             onclick="positionToUpdate(1)" data-type="gallery">
                                                                             
                                                                     </label>
-                                                                    <div class="mass_lg_icon">
+                                                                    <div class="mass_lg_icon" id="verify_icon_1" style="display:none;">
                                                                                 <img src="{{ asset('assets/app/img/verify/e4u_pending_REV.png')}}">
                                                                                 <span class="mass_tooltip">Media Pending</span>
                                                                             </div>
@@ -472,7 +474,7 @@ padding: 37px !important;
                                                                                 onclick="positionToUpdate(2)" data-type="gallery">
                                                                         </label>
                                                                         
-                                                                                <div class="mass_sm_icon">
+                                                                                <div class="mass_sm_icon" id="verify_icon_2"  style="display:none;">
                                                                                     <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
                                                                                     <span class="mass_sm_tooltip">Media Pending</span>
                                                                                 </div>
@@ -486,7 +488,7 @@ padding: 37px !important;
                                                                                 onclick="positionToUpdate(3)" data-type="gallery">
                                                                         </label>
                                                                         
-                                                                                <div class="mass_sm_icon">
+                                                                                <div class="mass_sm_icon" id="verify_icon_3"  style="display:none;">
                                                                                     <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
                                                                                     <span class="mass_sm_tooltip">Media Pending</span>
                                                                                 </div>
@@ -500,7 +502,7 @@ padding: 37px !important;
                                                                                 onclick="positionToUpdate(4)" data-type="gallery">
                                                                                 
                                                                         </label>
-                                                                        <div class="mass_sm_icon">
+                                                                        <div class="mass_sm_icon" id="verify_icon_4"  style="display:none;">
                                                                             <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
                                                                             <span class="mass_sm_tooltip">Media Pending</span>
                                                                         </div>
@@ -523,17 +525,17 @@ padding: 37px !important;
                                                             style="display: block;position: relative;top: 30%;">
                                                             <div class="row">
                                                                 <div class="col-md-8">
-                                                                    <ul class="nav nav-tabs border-0">
+                                                                    <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
                                                                         <li class="nav-item">
-                                                                            <a class="nav-link active" id="menu_all"
+                                                                            <a class="nav-link active" data-filter-type="all" id="menu_all"
                                                                                 data-toggle="tab" href="#home">All</a>
                                                                         </li>
                                                                         <li class="nav-item">
-                                                                            <a class="nav-link" id="menu_varified" data-toggle="tab"
+                                                                            <a class="nav-link" data-filter-type="verified" id="menu_varified" data-toggle="tab"
                                                                                 href="#menu1">Verified</a>
                                                                         </li>
                                                                         <li class="nav-item">
-                                                                            <a class="nav-link" id="menu_unverified" data-toggle="tab"
+                                                                            <a class="nav-link" data-filter-type="unverified" id="menu_unverified" data-toggle="tab"
                                                                                 href="#menu2">Unverified</a>
                                                                         </li>
                                                                     </ul>
@@ -604,9 +606,6 @@ padding: 37px !important;
                                                                    
                                                                 </div>
                                                             </div>
-
-
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1067,7 +1066,7 @@ padding: 37px !important;
 
     @include('center.dashboard.modal.remove_gallary_image')
     
-    @include('center.dashboard.modal.upload_verify_media')
+    @include('center.dashboard.modal.messeue_upload_verify_media')
 
 @endsection
 
@@ -1518,6 +1517,12 @@ padding: 37px !important;
                 });
                 let form = $('form[name="masseur_frm"]');
                 let formData = new FormData(form[0]);
+               
+                let fileInput = $('#upload_varification_img')[0];
+
+                if (fileInput && fileInput.files && fileInput.files.length > 0) {
+                    formData.append('verification_image', fileInput.files[0]);
+                }
 
                 $.ajax({
                     url: "{{ route('center.create-new-masseur') }}",
@@ -1732,11 +1737,19 @@ padding: 37px !important;
             return imageNames.length;
         }
 
+         $(document).on('click', '#escort_profile_media_filter_type .nav-link', function(e) {
+            e.preventDefault();
+            $('#escort_profile_media_filter_type .nav-link').removeClass('active');
+            $(this).addClass('active');
+            getAccountMediaGallery();
+        });
+
         var getAccountMediaGallery = function() {
             let page_token = $('#page_token').val();
             let activeGalleryTab = $(".js_gallery_category .nav-link.active").attr('data-type');
+            let activeStatusTab = $("#escort_profile_media_filter_type .nav-link.active").attr('data-filter-type');
             return $.ajax({
-                url: `/center-dashboard/get-massuers-account-media-gallery/${activeGalleryTab}/${page_token}`,
+                url: `/center-dashboard/get-massuers-account-media-gallery/${activeGalleryTab}/${page_token}/${activeStatusTab}`,
                 type: "GET",
                 dataType: "json"
             }).done(function(response) {
@@ -1762,13 +1775,25 @@ padding: 37px !important;
                         $(`#cItem_0`).addClass('active');
                     }
                     initDragDrop();
+                    toggleButton();
                 }
             }).fail(function(xhr, status, error) {
                 console.error("Error:", error);
             });
         }
 
-
+        toggleButton();
+        function toggleButton() {
+            let hasImage = $('.grid-container img[src!=""]').length > 0;
+            if (hasImage) {
+                $('#MediaVerification').prop('disabled', false);
+                $('.timer_tooltip').text('You must provide your Media Verification within 48 hours.');
+                
+            } else {
+                $('#MediaVerification').prop('disabled', true);
+                $('.timer_tooltip').text('No any media.');
+            }
+        }
    
 
         function positionToUpdate(position) {
@@ -2004,6 +2029,10 @@ function initDragDrop()
                     boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
                 });
 
+        },
+        start: function(event, ui) {
+            let type = $(this).closest(".item4").find("span.badge").text().toLowerCase().trim();
+            $(this).data("drag-type", type);
         }
     });
 
@@ -2018,7 +2047,8 @@ function initDragDrop()
             let dragSlot = ui.draggable;
 
             let dropSlotType = dropSlot.find("img").attr("data-type");
-            let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+            // let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+            let dragSlotType = dragSlot.data("drag-type");
 
             let imgSrc = dragSlot.attr("src");
             let imgId  = dragSlot.attr("data-id");
@@ -2051,7 +2081,7 @@ function initDragDrop()
                     .attr("data-id", imgId);
 
                 $('#mediaId'+dropPosition).val(imgId);
-
+                getMediaByIdAndStatusShow(imgId, dropPosition)
 
                     
 
@@ -2063,6 +2093,104 @@ function initDragDrop()
 
 }
 
+let selectedImageId = null;
+let selectedPosition = null;
+
+$(document).on('click', '.dvDest', function () {
+
+    $(".dvDest").removeClass("active");
+    $(this).addClass("active");
+    selectedPosition = $(this).find("img").data("position");
+    console.log("Selected Position:", selectedPosition);
+});
+
+
+$(document).on('click', '.select_image', function () {
+    selectedImageId = $(this).data('id');
+    if (!selectedPosition) {
+        console.log("Position not set yet");
+        return;
+    }
+    getMediaByIdAndStatusShow(selectedImageId,selectedPosition);
+});
+
+ function getMediaByIdAndStatusShow(media_id, position) {
+        position = String(position).trim();
+        let iconBox = $('#verify_icon_' + position);
+
+        if (iconBox.length === 0) {
+            console.log("Icon box not found for position:", position);
+            return;
+        }
+
+        $.ajax({
+            url: '/center-dashboard/get-masseur-image-info',
+            type: 'POST',
+            data: {
+                media_id: media_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(res) {
+                let status = res.data.varified;
+                let template = res.data.template;
+
+                if (status === null || typeof status === "undefined") {
+                    iconBox.html('').hide();
+                    return;
+                }
+
+                let iconPath = '';
+                let iconText = '';
+
+                if (position == 1) {
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                        iconText = '<span class="mass_tooltip">Media Pending</span>';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                        iconText = '<span class="mass_tooltip">Media Verified</span>';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_light.png';
+                        iconText = '<span class="mass_tooltip">Media Unverified</span>';
+                    }
+                } else {
+                    if (status == "0") {
+                        iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                        iconText = '<span class="mass_sm_tooltip">Media Pending</span>';
+                    } else if (status == "1") {
+                        iconPath = '/assets/app/img/verify/verified_icon.png';
+                        iconText = '<span class="mass_sm_tooltip">Media Verified</span>';
+                    } else {
+                        iconPath = '/assets/app/img/verify/unverified_icon.png';
+                        iconText = '<span class="mass_sm_tooltip">Media Unverified</span>';
+                    }
+                }
+
+                iconBox.html(`<img src="${iconPath}">${iconText}`);
+
+                if (template == "1") {
+                    iconBox.hide();
+                } else {
+                    iconBox.show();
+                }
+            },
+            error: function() {
+                iconBox.html('').hide();
+            }
+        });
+}
+
+function readVarificationImageURL(input) {
+    if (input.files && input.files[0]) {
+        var $img = $(input).siblings('img');
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $img.attr('src', e.target.result);
+            $('#VerifyMedia').attr('disabled', false);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 
 </script>

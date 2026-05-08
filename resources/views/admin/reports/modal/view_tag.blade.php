@@ -19,12 +19,11 @@
                             <th>ID</th>
                             <th>Date</th>
                             <th>Name</th>
-                            <th>Image</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="viewTagTableBody">
                         <tr>
                             <td>004</td>
                             <td>18-02-2026</td>

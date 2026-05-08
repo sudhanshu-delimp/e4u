@@ -74,7 +74,7 @@ function swal_waiting_popup(data) {
 
 async function isConfirm(data = {}) {
 
-    console.log(data?.title);
+   
 
     const result = await Swal.fire({
         title: (data?.title == 'NA' ? "" : "Are you sure ?"),

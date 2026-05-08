@@ -45,7 +45,7 @@
                     
                 <span class="verify_icon">
                     <img src="{{$media_status['icon']}}" alt="">
-                    <span class="mc_media_tooltip">{{$media_status['label']}}</span>
+                    <span class="mcs_media_tooltip">{{$media_status['label']}}</span>
                 </span>
                 <span class="mc_title">{{$listing->business_name}}</span>
                 <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">

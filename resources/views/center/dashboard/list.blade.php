@@ -199,7 +199,7 @@ background:#16385f;
                                 <div class="add--list listingActionButtons">
                                     <div class="">
                                           <button class="btn brb-btn" data-toggle="modal"
-                                                data-target="#add_brb" id="btn_add_brb">Add Closed</button>
+                                                data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
                                           <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                                           <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
@@ -232,15 +232,15 @@ background:#16385f;
                               <table class="table mb-3" id="massage_list">
                                  <thead class="table-bg">
                                     <tr>
-                                    <th scope="col">Is Live</th>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Profile Name</th>
-                                    <th scope="col">Business Name</th>
-                                    <th scope="col">Business No</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Created Date</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col" class="text-center">Action</th>
+                                    <th>Is Live</th>
+                                    <th>ID</th>
+                                    <th>Profile Name</th>
+                                    <th>Business Name</th>
+                                    <th>Business No</th>
+                                    <th>Mobile</th>
+                                    <th>Created Date</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Action</th>
                                     </tr>
                                  </thead>
                                  <tbody class="table-content">
@@ -284,12 +284,11 @@ background:#16385f;
          <div class="summary-container">
          <div class="summary-header">
          <span>Transaction Summary</span>
-         <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: E20118</span>
+         <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID : {{ auth()->user()->member_id}}</span>
          </div>
 
          <table class="summary-table" >
                      <thead>
-                           <tr>
                            <th>Listing</th>
                            <th>Business Name</th>
                            <th>Start Date</th>
@@ -308,20 +307,13 @@ background:#16385f;
          <form name="purchase_listing" id="purchase_listing" method="post">
                <div class="pay-area">
                   <input type="hidden" name="no_of_days" id="no_of_days">
-                  <input type="hidden" name="total_discount" id="total_discount">
                   <input type="hidden" name="total_fee" id="total_fee">
+                   <input type="hidden" name="rate" id="rate">
+                    <input type="hidden" name="total_rate" id="total_rate">
                   <input type="hidden" name="listing_start_date" id="listing_start_date">
                   <input type="hidden" name="listing_end_date" id="listing_end_date">
                   <input type="hidden" name="membership_id" id="membership_id">
                   <input type="hidden" name="massage_profile_id" id="massage_profile_id">
-                  <input type="hidden" name="rate" id="rate">
-                  <input type="hidden" name="total_rate" id="total_rate">
-                  <input type="hidden" name="discountRate" id="discountRate">
-                  <input type="hidden" name="applied_discount" id="applied_discount">
-                  
-                  
-               
-                  
                   <button type="button" class="close-btn">Close</button>
                   <button type="button" class="pay-btn">Pay</button>
                </div>
@@ -330,7 +322,80 @@ background:#16385f;
 
       </div>
    </div>
-   <!-- End Payment Summary Modal -->
+<!-- End Payment Summary Modal -->
+
+<div class="modal fade upload-modal programmatic show" id="iframeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('../assets/dashboard/img/info.png') }}" class="custompopicon"> {{auth()->user()->member_id}} :  Profile </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('../assets/app/img/newcross.png') }} " class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                		<iframe id="modalFrame" width="100%" height="600px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade upload-modal" id="duplicate-profile-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
+    aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id=""><img src="/assets/app/img/dublicate-profile.png" class="custompopicon" alt="cross"> Duplicate Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/newcross.png') }}"
+                                    class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                     <form id="duplicate_profile_form" data-parsley-validate>
+                        <input type="hidden" name="duplicate_profile" value="duplicate" />
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="container p-0">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3" for="">
+                                                Profile Name:
+                                                <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                                                    data-toggle="tooltip" data-html="true" data-placement="top"
+                                                    title="Be consistent when naming your Profiles, like Sydney01, Sydney 02, Perth01, Perth02 etc."
+                                                    data-boundary="window">
+                                                <span style='color:red'>*</span>
+                                            </label>
+                                            <div class="col-sm-9">
+
+                                          <input type="text"  class="form-control form-control-sm removebox_shdow" name="new_profile_name" id="new_profile_name">
+                                              
+                                                <span id="profile_name_errors" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align: right; display: block;">
+                            <input type="hidden" name="duplicate_profile_id" id="duplicate_profile_id">
+                            <button type="submit" class="btn-success-modal" id="duplicate_profile">Save</button>
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+    </div>
+</div>
+
+
 
 @endsection
 
@@ -346,6 +411,7 @@ background:#16385f;
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
 let expanded = false;
+var is_load_first = 1;
 function showCheckboxes() {
   let checkboxes = document.getElementById("checkboxes");
   if (!expanded) {
@@ -401,19 +467,104 @@ var table = $("#massage_list").DataTable({
 });
 
 
+$(document).on('click', '.duplicate_profile', async function () {
 
-$(document).on('click', '.massage_action', async function () {
-
-      let current_id = $(this).attr('id');
+      let current_action = $(this).data('row-action');
       var mess = "";
       let rowId = $(this).data('row-id');
       let action = "";
 
-      if(!current_id || !rowId )
+      if(!current_action || !rowId )
       return false;
 
-       mess =   'Do you want to activate this Profile?';
-       action = current_id;
+       mess =   'Do you want to '+current_action+' this Profile?';
+       action = current_action;
+
+      let mess_data = {
+         'title' : 'NA',
+         'text' : mess,
+      }
+
+      let post_data = {
+         'action' : action,
+         'profile_id':rowId
+      }
+   
+      if(await isConfirm(mess_data))
+      {  
+         Swal.close();
+         $('#duplicate_profile_id').val(rowId);
+         $('#duplicate-profile-modal').modal('show');   
+      }
+
+})
+
+
+$("#duplicate_profile_form").on('submit', function(e) 
+{
+   e.preventDefault();
+   var form = $(this);
+   var new_profile_name = $("#new_profile_name").val();
+   var duplicate_profile_id = $("#duplicate_profile_id").val();
+
+   if (new_profile_name === '') {
+      $("#profile_name_errors").text('Profile name is required');
+      return false;
+   }
+   var data = new FormData(form[0]);
+   swal_waiting_popup({'title': 'We’re Creating Your Profile.'});
+   $.ajax({
+         method: 'POST',
+          url: "{{ route('center.duplicate-massage-profile') }}",
+         data: data,
+         contentType: false,
+         processData: false,
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         success: function(response) {
+            Swal.close();
+            if (response.success) {
+               Swal.fire({
+                     icon: "success",
+                     text: response.message
+               });
+
+               $("#duplicate_profile_form")[0].reset();
+               $('#duplicate-profile-modal').modal('hide');
+               table.ajax.reload(null, false);
+            } else {
+               Swal.fire({
+                     icon: "error",
+                     text: response.message
+               });
+            }
+         },
+         error: function(xhr) {
+                  Swal.close();
+                  let message = 'Error while duplicating Profile';
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                     message = xhr.responseJSON.message;
+                  }
+                  swal_error_popup(message);
+         }
+   });
+});
+
+
+
+$(document).on('click', '.massage_action', async function () {
+
+      let current_action = $(this).data('row-action');
+      var mess = "";
+      let rowId = $(this).data('row-id');
+      let action = "";
+
+      if(!current_action || !rowId )
+      return false;
+
+       mess =   'Do you want to '+current_action+' this Profile?';
+       action = current_action;
 
       let mess_data = {
          'title' : 'NA',
@@ -440,7 +591,6 @@ $(document).on('click', '.massage_action', async function () {
                   if (response.success) {
                     table.ajax.reload(null, false);
                     swal_success_popup(response.message);
-
                   }
                },
 
@@ -489,11 +639,7 @@ $("#brb_form").on('submit', function(e)
                });
                $("#brb_form")[0].reset();
                $('#add_brb').modal('hide');
-               table.draw();
-               setTimeout(function() {
-                  window.location.href = "../center-dashboard/listing/current";
-               }, 1000);
-
+               table.ajax.reload(null, false);
             } else {
                Swal.fire({
                      icon: "error",
@@ -518,86 +664,93 @@ messages: {
 ////////////// End  BRB Form Submit ///////////////////
 
 
-/////////// Suspend Profile ////////////////////
-$(document).ready(function () {
-
-    let suspendStartDateObject = $('#suspendStartDate');
-    let suspendEndDateObject   = $('#suspendEndDate');
-    let suspendProfileObject = $('#suspendProfileId');
-
-    
-    suspendStartDateObject.datepicker({
-        dateFormat: 'dd-mm-yy',
-        minDate: 1,
-        onSelect: function () {
-            suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
-            suspendEndDateObject.datepicker('setDate', $(this).val());
-            calculateCredit();
-        }
-    });
-
-    suspendEndDateObject.datepicker({
-        dateFormat: 'dd-mm-yy',
-        minDate: 1,
-        onSelect: function () {
-            suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
-            calculateCredit();
-        }
-    });
+         /////////// Suspend Profile ////////////////////
 
 
+       $(document).ready(function() {   
 
-    suspendProfileObject.on('change', function() {
-                let selectedOption = $(this).find(':selected');
-                let listingMembership = selectedOption.data('membership');
-                let listingStartDate = selectedOption.data('start');
-                let listingEndDate = selectedOption.data('end');
-                let profileId = selectedOption.val();
+         let suspendProfileObject = $('#suspendProfileId');
+         let suspendStartDateObject = $('#suspendStartDate');
+         let suspendEndDateObject   = $('#suspendEndDate');
 
-                suspendStartDateObject.datepicker('setDate', +1);
-                suspendStartDateObject.datepicker('option', 'minDate', +1);
-                suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
-
-                suspendEndDateObject.datepicker('setDate', null);
-                suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
-                $("#creditCalculationLive").html('0.00');
-      });
+   
+         suspendStartDateObject.datepicker('setDate', +1);
+         suspendStartDateObject.datepicker('option', 'minDate', +1);
+         suspendEndDateObject.datepicker('option', 'minDate', +1);
 
 
-     function calculateCredit() {
-                let selectedOption = suspendProfileObject.find(':selected');
-                if(suspendEndDateObject.val() && suspendStartDateObject.val()){
-                    $.ajax({
-                    url: "{{ route('center.massage-suspend-credit') }}",
-                    method: 'POST',
-                    data: {
+            suspendStartDateObject.on('change', function () {
+               let selectedDate = $(this).val();
+               suspendEndDateObject.datepicker('option', 'minDate', selectedDate);
+               suspendEndDateObject.datepicker('setDate', selectedDate);
+               calculateCredit();
+            });
+
+            suspendEndDateObject.on('change', function () {
+               let selectedDate = $(this).val();
+
+               suspendStartDateObject.datepicker('option', 'maxDate', selectedDate);
+
+               calculateCredit();
+            });
+
+
+            suspendProfileObject.on('change', function() {
+                  let selectedOption = $(this).find(':selected');
+                  let listingMembership = selectedOption.data('membership');
+                  let listingStartDate = selectedOption.data('start');
+                  let listingEndDate = selectedOption.data('end');
+                  let profileId = selectedOption.val();
+
+                  suspendStartDateObject.datepicker('setDate', +1);
+                  suspendStartDateObject.datepicker('option', 'minDate', +1);
+                  suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
+
+                  suspendEndDateObject.datepicker('setDate', null);
+                  suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
+                  $("#creditCalculationLive").html('0.00');
+            });
+
+
+
+
+            function calculateCredit() 
+            {
+                  let selectedOption = suspendProfileObject.find(':selected');
+                  if(suspendEndDateObject.val() && suspendStartDateObject.val()){
+                     $.ajax({
+                     url: "{{ route('center.massage-suspend-credit') }}",
+                     method: 'POST',
+                     data: {
                         start_date: suspendStartDateObject.val(),
                         end_date: suspendEndDateObject.val(),
                         profile_id: selectedOption.val(),
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
+                        
+                     },
+                     success: function(response) {
                         $("#creditCalculationLive").html('0.00');
                         if(response.success){
-                            $("#creditCalculationLive").html(response.refund_amount);
-                            $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                              $("#creditCalculationLive").html(response.refund_amount);
+                              $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
                         }
                         else {
-                            $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
-                            Swal.fire({
-                                icon: "error",
-                                text: response.message
-                            });
+                              $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                              Swal.fire({
+                                 icon: "error",
+                                 text: response.message
+                              });
                         }
-                    }
-                });
-                }
+                     }
+                  });
+                  }
             }
 
 
-    
-    //suspendStartDateObject.datepicker('setDate', +1);
-});
+      });
+
+
+            
+
 
 
 $("#suspend_form").on('submit', async function(e) 
@@ -634,7 +787,7 @@ $("#suspend_form").on('submit', async function(e)
                   if (data.response.success) {
                       swal_success_popup(data.response.message);
                      $('#suspend_profile').modal('hide');
-                     table.draw();
+                     table.ajax.reload(null, false);
                   } else {
                      swal_error_popup(data.response.message);
                   }
@@ -656,6 +809,7 @@ $(document).on('change','#extendProfileId', function ()
    let membership = $(this).find(':selected').data('membership');
 
    console.log('previousEndDateValue',previousEndDateValue);
+   
 
    let $membershipField = $('#extendMembership');
    let extendStartDateObject = $('#extendStartDate');
@@ -672,12 +826,19 @@ $(document).on('change','#extendProfileId', function ()
    
    if (previousEndDateValue) {
          extendStartDateObject.val(getDateAfter(previousEndDateValue,1));
-         extendEndDateObject.val(getDateAfter(previousEndDateValue,2));
+         extendEndDateObject.val(getDateAfter(previousEndDateValue,1));
          extendEndDateObject.datepicker('option', 'minDate', extendStartDateObject.val());
    } else {
          extendEndDateObject.datepicker('option', 'minDate', null);
          extendEndDateObject.val('');
    }
+
+
+     
+         $('#extendDay1').attr('disabled',false);
+         $('#extendDay1').prop('checked', true);
+         is_load_first++;
+      
 
    
       $('#extendMembership').val(membership);
@@ -693,39 +854,25 @@ let previousEndDateValue = $('#extendProfileId').find(':selected').data('end');
 let extendEndDateObject = $('#extendEndDate');
 
 if (previousEndDateValue && days) {
-      extendEndDateObject.val(getDateAfter(previousEndDateValue,days+1));
+      extendEndDateObject.val(getDateAfter(previousEndDateValue,days));
 } else {
       extendEndDateObject.val('');
 }
 });
 
 
-var getDateAfter = function(dateStr, after = 1) {
-    let year, month, day;
-
-    if (dateStr.includes('-')) {
-        let parts = dateStr.split('-').map(Number);
-
-        // detect format
-        if (parts[0] > 1000) {
-            // YYYY-MM-DD
-            [year, month, day] = parts;
-        } else {
-            // DD-MM-YYYY
-            [day, month, year] = parts;
-        }
-    }
-
-    let date = new Date(year, month - 1, day);
-    date.setDate(date.getDate() + after);
-
-    let d = String(date.getDate()).padStart(2, '0');
-    let m = String(date.getMonth() + 1).padStart(2, '0');
-    let y = date.getFullYear();
-
-    return `${d}-${m}-${y}`;
+var getDateAfter = function(dateStr,after=1) {
+            let [day, month, year] = dateStr.split('-');
+            let date = new Date(year, month - 1, day);
+            date.setDate(date.getDate() + after);
+            return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
 }
 
+
+function formatDate(dateStr) {
+    let [day, month, year] = dateStr.split('-');
+    return `${year}-${month}-${day}`;
+}
 
 $(document).on('change', '#extendEndDate, #extendProfileId, .extend-period', function() {
 let startDate = $('#extendStartDate').val();
@@ -798,6 +945,7 @@ $(document).on('click', '.transaction_summury', function(e) {
             if(response.success) 
             {
                   let data = response.data;
+                  make_form_values(data);
                   let row = `
                      <tr>
                         <td>${data.listing}</td>
@@ -828,9 +976,6 @@ $(document).on('click', '.transaction_summury', function(e) {
          }
        },
    });  
-
-
-    //$("#summaryModal").css("display","flex").hide().fadeIn();
 });
 
 $(document).on("click",".close-btn",function(e){
@@ -838,23 +983,172 @@ e.preventDefault();
 $("#summaryModal").hide();
 });
 
-var initJsDatePicker = function(){
-   $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
-   $(".js_datepicker").attr('autocomplete','off');
-   $(".js_datepicker").datepicker({
-         dateFormat: "dd-mm-yy",
-         changeMonth: true,
-         changeYear: true,
-         showAnim: "slideDown",
-         constrainInput: false,
-         onSelect: function(dateText) {
-            const event = new Event('change', { bubbles: true });
-            this.dispatchEvent(event); // 👈 manually trigger change event
-         }
-   });
+
+// ########## Listing Payment ################ //
+$(document).on("click",".pay-btn",async function(e){
+e.preventDefault();
+
+    let no_of_days = $("#no_of_days").val();
+    let total_fee = $("#total_fee").val();
+    let listing_start_date = $("#listing_start_date").val();
+    let listing_end_date = $("#listing_end_date").val();
+    let membership_id = $("#membership_id").val();
+    let massage_centre_id = $("#massage_centre_id").val();
+
+    if (!no_of_days || !total_fee || !listing_start_date || !listing_end_date || !membership_id || !massage_profile_id) {
+        return;
+    }
+
+    $("#summaryModal").hide();
+
+    if (await isConfirm({'action': 'Proceed','text': ''})) {
+        swal_waiting_popup({'title': 'Payment in progress'});
+        let formData = $("#purchase_listing").serialize();
+
+         $.ajax({
+                    url: "{{route('center.listing-payment')}}",
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        swal_success_popup(response.message);
+                        /// let redirect = {'time': 2000, 'url' : 'listing/current'}
+                        /// swal_success_popup(response.message,redirect);
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        console.log(xhr);
+                        if (xhr.status === 422) {
+                           swal_error_popup('Error occured while adding listing.');
+                        } else {
+                            swal_error_popup(xhr.responseJSON.message ||'Something went wrong.');
+                        }
+                    }
+        });
+
+    }
+});
+// ########## End Listing Payment ################ //
+
+
+let make_form_values = (frm_values) => {
+
+   $('#no_of_days').val('');
+   $('#total_fee').val('');
+   $('#listing_start_date').val('');
+   $('#listing_end_date').val('');
+   $('#membership_id').val('');
+   $('#massage_profile_id').val('');
+   $('#rate').val('');
+   $('#total_rate').val('');
+
+   let days             = frm_values.days;
+   let finalFee         = parseFloat(frm_values.discount_fee.replace(/,/g, '')); 
+   let start            = frm_values.start_date;
+   let end              = frm_values.end_date;
+   let membership_id    = frm_values.membership;
+   let profile_id       = frm_values.profile_id;
+   let rate             = parseFloat(frm_values.rate.replace(/,/g, ''));
+   let total_rate       = parseFloat(frm_values.discount_fee.replace(/,/g, '')); 
+  
+   $('#no_of_days').val(days);
+   $('#total_fee').val(finalFee);
+   $('#listing_start_date').val(formatDate(start));
+   $('#listing_end_date').val(formatDate(end));
+   $('#membership_id').val(membership_id);
+   $('#massage_profile_id').val(profile_id);
+   $('#rate').val(rate);
+   $('#total_rate').val(total_rate);
+
 }
-initJsDatePicker();
+
+
+// ########### Bumpup Profile #########################
+let saveBumpupButton = document.getElementById("saveBumpupButton");
+saveBumpupButton.disabled = true;
+$(document).on('change','#bumpUpProfileId', function(){
+    saveBumpupButton.disabled = !$(this).val().trim();
+});
+
+$("#bumpup_profile_form").on('submit', async function(e) 
+{
+   e.preventDefault();
+   var form = $(this);
+   var url = "{{ route('center.bumpup_register') }}";
+   var data = new FormData(form[0]);
+
+     let mess_data = {'title' : 'NA','text' : 'Do you want to Bump Up this Profile?',}
+      if(await isConfirm(mess_data))
+      {
+            swal_waiting_popup({
+                'title': 'Bumping Up Your Profile.'
+            });
+           
+
+            $.ajax({
+               method: 'POST',
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               beforeSend: function(){
+                  $("#saveBumpupButton").find('button[type=submit]').attr('disabled','disabled');
+               },
+               success: function(data) {
+                     Swal.close();
+                     
+                     if (data.success) {
+                        table.ajax.reload(null, false);
+                        swal_success_popup(data.message);
+                        $("#bumpup_profile").modal('hide');
+                      
+                     
+                     }
+                     else{
+                        swal_error_popup('Error occured while Bumping Up Profile');
+                        $("#saveBumpupButton").find('button[type=submit]').removeAttr('disabled');
+                     }
+                
+               },
+               error: function(xhr) 
+               {
+                     if (xhr.status === 422) {
+                        let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+                        Swal.fire({
+                           icon: 'error',
+                           title: 'Validation Error',
+                           html: messages
+                        });
+                     } else {
+                        let message = JSON.parse(xhr.responseText).message;
+                        Swal.fire({
+                           icon: 'error',
+                           title: xhr.statusText,
+                           text: message || 'Something went wrong.'
+                        });
+                     }
+                     savePinupButton.disabled = false;
+              }
+            });
+      }
+});
+
+function openModal(url) 
+{
+    document.getElementById('modalFrame').src = url;
+    var modal = new bootstrap.Modal(document.getElementById('iframeModal'));
+    modal.show();
+}
+
+document.getElementById('iframeModal').addEventListener('hidden.bs.modal', function () {
+    document.getElementById('modalFrame').src = '';
+});
+
+// ########### End Bumpup Profile #########################
+       
 </script>
-
-
 @endpush

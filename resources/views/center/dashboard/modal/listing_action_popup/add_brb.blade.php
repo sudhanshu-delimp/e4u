@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross"> Add Closed</h5>
+                    <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross"> Shop Closed</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -28,8 +28,8 @@
                                                 <option value="">Select Profile</option>
                                                 @foreach ($active_profile as $profile)
                                                     <option value="{{ $profile['id'] }}"
-                                                        profile_name="{{ $profile['profile_name'] }}">
-                                                        {{ $profile['id'] }} - {{ $profile['profile_name'] }} 
+                                                        profile_name="{{ $profile['business_name'] }}">
+                                                        {{ $profile['id'] }} - {{ $profile['business_name'] }} 
                                                         
                                                     </option>
                                                 @endforeach
@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4" for=""> BRB Date & Time:</label>
+                                        <label class="col-sm-4" for="">  Date & Time Closed:</label>
                                         <div class="col-sm-4">
                                             <input type="date" required min="{{ date('Y-m-d') }}"
                                                 class="form-control form-control-sm removebox_shdow" name="brb_date"
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4" for=""> BRB Note:</label>
+                                        <label class="col-sm-4" for=""> Note Closure:</label>
                                         <div class="col-sm-8">
                                             <textarea class="form-control" name="brb_note" id="brb_note" required></textarea>
                                         </div>

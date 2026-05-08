@@ -22,7 +22,7 @@
 
 
         <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.6') }}" rel="stylesheet">
+        <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.7') }}" rel="stylesheet">
         <!-- jquery ui cdn -->
 
         <!-- google fonts -->

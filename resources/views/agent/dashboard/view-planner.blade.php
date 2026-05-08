@@ -14,7 +14,12 @@
     .viewer-plan-table.table td {
         vertical-align: middle !important;
     }
-    
+    .fc-direction-ltr .fc-button-group > .fc-button {
+        text-transform: capitalize;
+    }
+    .fc-direction-ltr .fc-toolbar > * > :not(:first-child) {
+        text-transform: capitalize;
+    }
 </style>
 @endsection
 @section('content')
@@ -156,7 +161,7 @@
             method: 'GET',
             dataType: 'json',
             success: function(resp) {
-                console.log(resp);
+                
               if (!resp || resp.status !== true) {
                 $('#appointmentDetailBody').html('<div class="text-danger">Failed to load details.</div>');
                 return;

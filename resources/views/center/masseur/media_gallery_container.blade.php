@@ -2,15 +2,15 @@
     <div class="photo-header custom-photo-header">
         <div class="row">
             <div class="col-md-8">
-                <ul class="nav nav-tabs border-0">
+                <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
                     <li class="nav-item">
-                        <a class="nav-link active" id="menu_all" data-toggle="tab" href="#home">All</a>
+                        <a class="nav-link {{ $currentStatus == 'all' ? 'active' : '' }} "  data-filter-type="all" id="menu_all" data-toggle="tab" href="#home">All</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                        <a class="nav-link {{ $currentStatus == 'verified' ? 'active' : '' }}" data-filter-type="verified" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                        <a class="nav-link {{ $currentStatus == 'unverified' ? 'active' : '' }} " data-filter-type="unverified" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
                     </li> 
                 </ul>
             </div>
@@ -71,7 +71,7 @@
                         <div class="grid-container">  
                         @foreach($images as $image)    
                         @if(!in_array($image->position, [8]))                                               
-                            <div class="item4" id="dm_{{$image->id}}">
+                            <div class="item4 mass_verify_icon" id="dm_{{$image->id}}">
                                 <img class="img-thumbnail defult-image ui-draggable ui-draggable-handle" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                 <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
                                 @switch($image->position)
@@ -84,6 +84,23 @@
                                     @default
                                         <span class="badge badge-red">Gallery</span>
                                 @endswitch
+                                @php 
+                                    $status = $image->varified ?? "2";
+                                    $status_icon = getMediaVerificationDataSmallIcon($status);
+                                @endphp
+                                 <div class="mass_sm_icon">
+                                    <img src="{{ $status_icon['icon'] }}">
+                                    <span class="mass_sm_tooltip">{{ $status_icon['label'] }}</span>
+                                </div>
+                                <div class="upload_date">
+                                    @if($status == "0")
+                                        Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                    @elseif($status == "1")
+                                        Approved: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                    @else
+                                        Rejected: <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                    @endif
+                                </div>
                             </div>
                         @endif    
                         @endforeach   
