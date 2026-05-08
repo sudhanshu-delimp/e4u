@@ -188,27 +188,27 @@ class MassageController extends Controller
                 $status = "";
                 
                 if($is_live)
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Cancel</a>';     
+                $status = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-window-close"></i> Cancel<div class="dropdown-divider"></div></a>';     
                
 
                 if(!$is_live)
-                $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+                $status .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="javascript:void(0)" 
                 onclick="openModal(\''.route('web.massage-description', $profile_url).'\')"> 
-                <i class="fa fa-circle"></i> View
-                </a>'; 
+                <i class="fa fa-eye"></i> View
+                <div class="dropdown-divider"></div></a>'; 
                 else
-                $status.= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+                $status.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="'.route('web.massage-description', $profile_url).'"> 
-                <i class="fa fa-circle"></i> View
+                <i class="fa fa-eye"></i> View
                 </a>'; 
 
 
                 if(!$is_live)
-                $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="delete"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Delete</a>';     
+                $status .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'"  data-row-action="delete"  href="javascript:void(0)">   <i class="fa fa-trash"></i> Delete</a>';     
                
                 if(!$is_live)
-                $status .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center duplicate_profile" data-row-id="'.$row->id.'"  data-row-action="duplicate"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Duplicate</a>'; 
+                $status .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center duplicate_profile" data-row-id="'.$row->id.'"  data-row-action="duplicate"  href="javascript:void(0)">   <i class="fa fa-pen"></i> Duplicate</a>'; 
 
                
                  $action = '<div class="dropdown no-arrow">

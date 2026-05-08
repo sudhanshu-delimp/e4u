@@ -2475,5 +2475,35 @@ $(document).on('submit', '#mediaVerification', function (e) {
 });
 
 
-    </script>
+$(document).ready(function () 
+{
+
+    function toggleOtherServices() 
+    {
+        // first checkbox (Massage)
+        let isMassageChecked = $('input[name="service[]"][value="massage"]').is(':checked');
+
+        // other two checkboxes
+        let otherCheckboxes = $('input[name="service[]"][value="2_hand"], input[name="service[]"][value="4_hand"]');
+
+        if (isMassageChecked) {
+
+            // enable other checkboxes
+            otherCheckboxes.prop('disabled', false);
+
+        } else {
+
+            // uncheck + disable other checkboxes
+            otherCheckboxes.prop('checked', false);
+            otherCheckboxes.prop('disabled', true);
+        }
+    }
+
+    toggleOtherServices();
+
+    $('input[name="service[]"][value="massage"]').on('change', function () {
+            toggleOtherServices();
+    });
+});
+</script>
 @endpush
