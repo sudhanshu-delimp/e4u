@@ -30,7 +30,6 @@ class PinPaymentService
         'metadata' => $metadata
       ]);
       $response->throw();
-
       return ['status' => true,  'data' => $response->json()];
     } catch (RequestException $e) {
       return ['status' => false,  'error' => $e->response->json()['error_description']];

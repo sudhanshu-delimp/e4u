@@ -32,6 +32,7 @@ class CreateProductOrdersTable extends Migration
       $table->decimal('wallet_amount', 10, 2)->default(0);
       $table->decimal('delivery_charges', 10, 2)->default(0);
       $table->string('notes')->nullable();
+      $table->string('payment_message')->nullable();
       $table->timestamps();
 
       $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

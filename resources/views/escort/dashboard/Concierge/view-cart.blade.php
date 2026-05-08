@@ -396,14 +396,12 @@
 
                     </div>
 
-                    <div class="my-3 ">
+                    <div class="my-3 text-right">
 
                         <button onclick="prev()" class="btn-common" id="btnBack"> <i
                                 class="fas fa-arrow-left text-white pr-2"></i>
                             Back</button>
                         <button onclick="next()" class="btn-common" id="processOrder">Next</button>
-
-
 
                     </div>
                 </div>
@@ -418,10 +416,6 @@
             <div class="row mt-5">
                 <form class="pin" id="paymentForm">
 
-                    <div class="errors alert alert-danger" style="display:none">
-                        <h5></h5>
-                        <ul style="font-size: 14px;"></ul>
-                    </div>
 
 
 
@@ -431,35 +425,45 @@
                         <div class="mb-3">
                             <label class="form-label">Card Number</label>
                             <input id="cc-number" type="text" class="form-control">
+                            <small class="text-danger error-msg" data-field="number"></small>
+
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Name on Card</label>
                             <input id="cc-name" type="text" class="form-control">
+                            <small class="text-danger error-msg" data-field="name"></small>
+
                         </div>
 
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Expiry Month</label>
                                 <input id="cc-expiry-month" class="form-control" maxlength="2">
+                                <small class="text-danger error-msg" data-field="expiry_month"></small>
+
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Expiry Year</label>
                                 <input id="cc-expiry-year" class="form-control" maxlength="4">
+                                <small class="text-danger error-msg" data-field="expiry_year"></small>
+
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">CVC</label>
                                 <input id="cc-cvc" class="form-control" maxlength="3">
+                                <small class="text-danger error-msg" data-field="cvc"></small>
+
                             </div>
                         </div>
-                        
+
                     </fieldset>
-                     <div class="d-flex justify-content-center align-items-center mt-4">
-                    <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa" class="me-3">
-                    <img src="{{ asset('assets/dashboard/img/master-card.png') }}" alt="MasterCard">
-                </div>
+                    <div class="d-flex justify-content-center align-items-center mt-4">
+                        <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa" class="me-3">
+                        <img src="{{ asset('assets/dashboard/img/master-card.png') }}" alt="MasterCard">
+                    </div>
                     <div class="my-3 text-right">
                         <button onclick="prev()" class="btn-common" id="btnBacklast"> <i
                                 class="fas fa-arrow-left text-white pr-2"></i>
@@ -469,16 +473,17 @@
 
                 </form>
 
-               
+
             </div>
         </div>
         <!-- Step 4 -->
         <div id="step4" class="step-content text-center py-5">
             <h2>Order Completed</h2>
             <p>Thank you for your purchase!</p>
-            <button  type="button" class="btn-common"> <a href="{{route("escort.orders")}}" class="text-white"> View Orders</a></button>
+            <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white"> View
+                    Orders</a></button>
             <button onclick="finish()" class="btn-common">Finish</button>
-        </div>  
+        </div>
 
 
 
@@ -875,12 +880,6 @@
         }
         var pinApi = new Pin.Api("{{ config('app.payment.publish_key') }}", 'test');
 
-        var form = $('#paymentForm');
-
-        var errorContainer = form.find('.errors');
-        var errorList = errorContainer.find('ul');
-        var errorHeading = errorContainer.find('h5');
-
         $(document).on('click', '#makeOrder', function() {
 
             let btn = $("#makeOrder");
@@ -888,10 +887,9 @@
             // let loader = $("#place_loader");
             backBtn.prop("disabled", true).html('<i class="fas fa-arrow-left text-white pr-2"></i> Please wait...');
             btn.prop("disabled", true).text("Please wait...");
+            $(".error-msg").text(""); // clear all existing errors
+
             // reset UI state
-            errorList.empty();
-            errorHeading.empty();
-            errorContainer.hide();
             let orderId = JSON.parse(localStorage.getItem('orderId_' + loginUserId) || '{}');
 
             var card = {
@@ -939,30 +937,32 @@
                         Swal.fire(res.message, '', 'error');
                     },
                     complete: function() {
-                        backBtn.prop("disabled", true).text("Back");
+                        backBtn.prop("disabled", false).html(
+                            '<i class="fas fa-arrow-left text-white pr-2"></i> Back');
                         btn.prop("disabled", false).text("Make Payment");
                     }
                 });
 
             }
 
+
             function handleError(response) {
-                errorHeading.text(response.error_description);
 
                 if (response.messages) {
                     $.each(response.messages, function(index, paramError) {
-                        $('<li>')
-                            .text(paramError.param + ": " + paramError.message)
-                            .appendTo(errorList);
+                        let fieldName = paramError.param;
+                        let fieldError = $('.error-msg[data-field="' + fieldName + '"]');
+                        if (fieldError.length)
+                            fieldError.text(paramError.message); // show under field
+                        else
+                            $('<li>').text(fieldName + ": " + paramError.message).appendTo(errorList);
+
                     });
                 }
-
-                errorContainer.show();
-
+                // Re-enable buttons
                 backBtn.prop("disabled", false).html('<i class="fas fa-arrow-left text-white pr-2"></i> Back');
                 btn.prop("disabled", false).text("Make Payment");
             }
-
 
         })
 
