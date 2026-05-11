@@ -264,6 +264,21 @@
                   </div>
                </div>
             </div>
+
+            <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="collapsed card-link" data-toggle="collapse" href="#my_addition_info">
+                  My Additional Information
+                  </a>
+               </div>
+               <div id="my_addition_info" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                  
+                     @include('escort.dashboard.profile.information.partials.my-additional-info')
+                  </div>
+               </div>
+            </div>
+
          </div>
       </div>
    </div>
