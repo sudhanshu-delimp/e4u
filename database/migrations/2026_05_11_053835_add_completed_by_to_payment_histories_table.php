@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSignatureFileToAgentDetailsTable extends Migration
+class AddCompletedByToPaymentHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddSignatureFileToAgentDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::table('agent_details', function (Blueprint $table) {
-            
-            $table->string('signature_file')->nullable()->after('agreement_file');
+        Schema::table('payment_histories', function (Blueprint $table) {
+            $table->integer('completed_by')
+                  ->nullable()
+                  ->after('user_id');
         });
     }
 
@@ -26,8 +27,8 @@ class AddSignatureFileToAgentDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::table('agent_details', function (Blueprint $table) {
-            $table->dropColumn('signature_file');
+        Schema::table('payment_histories', function (Blueprint $table) {
+            $table->dropColumn('completed_by');
         });
     }
 }

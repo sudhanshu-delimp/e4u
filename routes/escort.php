@@ -316,9 +316,6 @@ Route::get('criticalinformation', function () {
 Route::get('my-bank-account', function () {
   return view('escort.dashboard.Bookkeeping.my-bank-account');
 });
-Route::get('transaction-summary', function () {
-  return view('escort.dashboard.Bookkeeping.transaction-summary');
-});
 
 Route::get('reccomendations', function () {
   return view('escort.dashboard.Reviews.reccomendations');
@@ -329,8 +326,11 @@ Route::get('my-wallet', [WalletController::class, 'index'])->name('escort.my_wal
 Route::get('wallet_transaction', [WalletController::class, 'transactionList'])->name('escort.wallet_transaction');
 
 #Payment Module
-Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('escort.payment.process');
-
+Route::post('payments/process',[PaymentController::class, 'processPayment'])->name('escort.payment.process');
+Route::get('transaction-summary',[PaymentController::class, 'transactionSummary'])->name('escort.payment.transaction_summary');
+Route::get('get-transaction-summary',[PaymentController::class, 'transactionSummaryDatatable'])->name('escort.payment.transaction_summary.datatable');
+Route::post('payments/detail',[PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
+Route::get('payments/{payment}/print',[PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
 # Escort profile reviews
 Route::get('view-reviews', [EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax', [EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');

@@ -134,10 +134,10 @@ class WebhookController extends Controller
       PaymentHistory::updateOrCreate(
         [
           'user_id'  => $response['metadata']['user_id'],
+          'completed_by'  => $response['metadata']['user_id'],
           'ref_no'          => now()->format('Ymd') . rand(100, 999),
           'amount'          => $response['amount'] / 100,
           'currency'        => $response['currency'],
-          // 'payment_gateway' => 'pinpayments',
           'transaction_id'  => $response['token'],
           'status'          => $response['success'] ? 'success' : 'failed',
           'paid_at'         => $response['captured_at'] ?? $response['created_at'],

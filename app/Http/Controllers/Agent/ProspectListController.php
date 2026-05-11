@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\GeneratePdfJob;
 use App\Models\MassageExcel;
+use App\Models\PdfBatch;
 use App\Models\ProspectReport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use ZipArchive;
+use Illuminate\Support\Facades\Crypt;
 
 class ProspectListController extends Controller
 {
@@ -74,7 +79,7 @@ class ProspectListController extends Controller
                 ->map(function ($report) {
                     return [
                         'id' => $report->id,
-                        'date_generated' => $report->created_at->format('d/m/Y'),
+                        'date_generated' => basicDateFormat($report->created_at),
                         'post_code' => $report->post_code_label,
                         'listings' => $report->listings_count,
                         'merged' => $report->merged,
@@ -90,6 +95,8 @@ class ProspectListController extends Controller
 
     public function storeReport(Request $request)
     {
+
+
         try {
             $type = $request->type;
 
@@ -98,18 +105,10 @@ class ProspectListController extends Controller
             } elseif ($type === 'multiple' && $request->from && $request->to) {
                 $postCodeLabel = $request->from . ' - ' . $request->to;
             } else {
-                $postCodeLabel = 'All (' . (auth()->user()->state_abbr ?? 'State') . ')';
+
+                $postCodeLabel = 'All (' . ($this->getStateDetail(auth()->user()->state_id, 'abbr') ?? 'State') . ')';
             }
 
-            // Check if same filter already exists
-            // $existing = ProspectReport::where('agent_id', auth()->id())
-            //     ->where('type', $type)
-            //     ->where('post_code_label', $postCodeLabel)
-            //     ->first();
-
-            // if ($existing) {
-            //     return error_response('Report for this filter already exists.', 409);
-            // }
 
             $query = MassageExcel::where('state_id', auth()->user()->state_id)->where('archive', 'false')
                 ->whereHas('territory', function ($q) {
@@ -185,39 +184,12 @@ class ProspectListController extends Controller
         }
     }
 
-    // public function reportAction(Request $request)
-    // {
-    //     try {
-    //         $report = ProspectReport::where('id', $request->report_id)
-    //             ->where('agent_id', auth()->id())
-    //             ->firstOrFail();
-
-
-    //         $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
-    //             ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
-    //             ->get();
-
-    //         $action = $request->action;
-
-    //         $html = view('agent.dashboard.marketing.partials.report-centers', [
-    //             'centers' => $centers,
-    //             'report' => $report,
-    //             'action' => $action,
-    //         ])->render();
-
-    //         return success_response(['html' => $html], "Ok", 200, []);
-    //     } catch (\Exception $e) {
-    //         return error_response('Failed to perform action: ' . $e->getMessage(), 500);
-    //     }
-    // }
-
-
     //save report module for show
     public function saveReportList(Request $request)
     {
 
         if ($request->ajax()) {
-            $query = ProspectReport::where('agent_id', auth()->id())->where('status_type', 'Save');
+            $query = ProspectReport::where('agent_id', auth()->id())->where('status_type', 'Save')->orderBy('created_at', 'desc');
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->filterColumn('post_code_label', function ($query, $keyword) {
@@ -226,12 +198,24 @@ class ProspectListController extends Controller
                 ->editColumn('date', function ($row) {
                     return $row->created_at ? basicDateFormat($row->created_at) : 'NA';
                 })
-
+                ->orderColumn('date', function ($query, $order) {
+                    $query->orderBy('created_at', $order);
+                })
                 ->addColumn('action', function ($row) {
                     $actions = [];
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-bezier-curve"></i> Merge</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-print"></i> Print</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action"  data-report-action="Merge" data-report-id="' . $row->id . '">
+                    <i class="fa fa-bezier-curve"></i> Merge</a>';
+                    $actions[] = '<a href="' . route('agent.marketing.prospect.print.view', Crypt::encrypt($row->id)) . '" class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" data-report-action="Print">'
+                        . '<i class="fa fa-print"></i> Print</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="View" data-report-id="' . $row->id . '">'
+                        . '<i class="fa fa-eye"></i> View</a>';
+                    if (!empty($row->merge_center_ids)) {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="Appointment" data-report-id="' . $row->id . '">'
+                            . '<i class="fa fa-calendar"></i> Appointment</a>';
+                    }
+
+                    $actions[] = '<a href="#" class="dropdown-item d-flex justify-content-start gap-10 align-items-center report-action" data-report-action="Search" data-report-id="' . $row->id . '">'
+                        . '<i class="fa fa-search"></i> Search</a>';
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -244,7 +228,7 @@ class ProspectListController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'date'])
                 ->make(true);
         }
 
@@ -275,52 +259,434 @@ class ProspectListController extends Controller
     //Report List action 
     public function reportAction(Request $request)
     {
-        $report_id = $request->report_id;
-        $action_type = $request->action_type;
+        $req = $request->only('report_id', 'mergeType');
 
-        switch ($action_type) {
-            case 'Merge':
-                return $this->mergeReport($report_id);
-
-            case 'Print':
-                return $this->printReport($report_id);
-
-            case 'View':
-                return $this->viewReport($report_id);
-
-            default:
-                return response()->json(['error' => 'Invalid action'], 400);
+        if ($req['mergeType'] == 'multiple') {
+            return $this->mergeReport($req['report_id'], $req['mergeType']);
+        } else {
+            return $this->mergeReport($req['report_id'], $req['mergeType']); // same - single bhi same list dikhayega
         }
     }
 
-    private function mergeReport($id)
+    private function mergeReport($id, $mergeType)
     {
 
         try {
-            $massageCenterIds = ProspectReport::where('id', $id)
+            $report = ProspectReport::where('id', $id)
                 ->where('agent_id', auth()->id())
                 ->value('center_ids');
 
-            if ($massageCenterIds) {
-                $view = view('agent.dashboard.marketing.merge-preview', ['centerIds' => $massageCenterIds])->render();
-                return success_response(['html' => $view], "Ok", 200, []);
+            if (!$report) {
+                return error_response('Report not found', 404);
             }
+
+            // Fetch Massage Center
+            $centers = MassageExcel::whereIn('id',  $report ?? [])
+                ->get(['id', 'bussiness_name', 'address', 'email']);
+
+            // pass proper blade template.
+            $view = view('agent.dashboard.marketing.modal.centre-list', [
+                'centres' => $centers,
+                'reportId' => $id,
+                'doc_type' => $this->returnMergeType($mergeType),
+            ])->render();
+
+            return success_response([
+                'html' => $view,
+                'total' =>  $centers->count(),
+            ], 'OK', 200, []);
         } catch (\Exception $e) {
             return error_response('Failed to perform action: ' . $e->getMessage(), 500);
         }
-
-
-
-        dd($massageCenterIds);
     }
 
-    private function printReport($id)
+    private function returnMergeType($mergeType)
     {
-        dd('for print repot data');
+        //$type  =  '';
+        if ($mergeType == 'multiple') {
+            return "2";
+        } else {
+            return "1";
+        }
     }
 
-    private function viewReport($id)
+
+    public function generatePDF(Request $request)
     {
-        dd('for view report data');
+
+        $centreIds = $request->centre_ids;
+        $docType   = $request->docType;
+
+        $batch = PdfBatch::create([
+            'status' => 'pending',
+            'total' => count($centreIds),
+            'processed' => 0,
+        ]);
+        $agentId = Auth::user()->id;
+        GeneratePdfJob::dispatch($batch->id, $centreIds, $docType, $agentId);
+        return response()->json([
+            'batch_id' => $batch->id
+        ]);
+    }
+
+    public function progress($id)
+    {
+        @ini_set('output_buffering', 'off');
+        @ini_set('zlib.output_compression', false);
+
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+        $batch = PdfBatch::where('id', $id)
+            ->first();
+
+        if (!$batch) {
+            return response()->json(['error' => 'Batch not found'], 404);
+        }
+        return response()->stream(function () use ($id) {
+
+            while (true) {
+                if (connection_aborted()) break;
+
+                $batch = PdfBatch::find($id);
+                if (!$batch) break;
+
+                echo "data: " . json_encode([
+                    'status'    => $batch->status,
+                    'processed' => $batch->processed,
+                    'total'     => $batch->total,
+                ]) . "\n\n";
+
+                ob_flush(); // don't remove ob_flush
+                flush();
+
+
+                if ($batch->status === 'completed' || $batch->status === 'failed') {
+                    break;
+                }
+
+                sleep(3);
+            }
+        }, 200, [
+            'Content-Type'  => 'text/event-stream',
+            'Cache-Control' => 'no-cache',
+            'Connection'    => 'keep-alive',
+        ]);
+    }
+
+    public function download($id)
+    {
+        $batch = PdfBatch::findOrFail($id);
+
+        if ($batch->status !== 'completed') {
+            abort(404);
+        }
+
+        if (!file_exists($batch->file_path)) {
+            abort(404, 'File not found on server');
+        }
+
+        // ✅ Yeh add karo — garbage data clean karo
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
+        $extension = pathinfo($batch->file_path, PATHINFO_EXTENSION); // pdf ya zip
+        $mimeType  = $extension === 'zip' ? 'application/zip' : 'application/pdf';
+        $filename  = 'report_' . now()->format('Ymd_His') . '.' . $extension;
+
+        return response()->download(
+            $batch->file_path,
+            $filename,
+            ['Content-Type' => $mimeType]
+        )->deleteFileAfterSend(true);
+    }
+
+
+
+
+
+    //Update save report
+    public function updateSaveReport(Request $request)
+    {
+
+        try {
+            $centre_ids = $request->centre_ids;
+            $report_id = $request->report_id;
+            $report = ProspectReport::where('id', $report_id)
+                ->where('agent_id', auth()->id())
+                ->update([
+                    'merge_center_ids' => $centre_ids,
+                    'merged' => 'Yes',
+                    'status_type' => 'Save'
+                ]);
+            if ($report) {
+                return success_response([], 'Report saved successfully.', 200, []);
+            }
+        } catch (\Exception $e) {
+            dd($e);
+            return error_response('PDF Failed: ' . $e->getMessage(), 500);
+        }
+    }
+
+    private function sanitizeName($name)
+    {
+        return substr(preg_replace('/[^A-Za-z0-9_\-]/', '_', $name), 0, 50);
+    }
+
+    private function getPfdDynamicName($centre)
+    {
+        $agent = Auth::user();
+        $address = $this->splitAddress($centre['address'] ?? '');
+
+        $signature = '';
+        if (!empty($agent->agent_detail) && !empty($agent->agent_detail->signature_file)) {
+            $signature = url('storage/' . $agent->agent_detail->signature_file);
+        }
+
+        return  [
+            'bussiness_name' => $centre['bussiness_name'],
+            'name_of_agent' => $agent['business_name'],
+            'agent_email_address' => $agent['email'],
+            'date' => date('d-m-Y'),
+            'name_of_massage_parler' => $centre['bussiness_name'],
+            'address1' => $address['address1'],
+            'address2' => $address['address2'],
+            'agent_signature' =>  $signature,
+            'agent_mobile_number' => $agent['phone'] ?? '',
+            'email' => $agent['email'] ?? '',
+        ];
+    }
+
+    // view center list for print and view
+    public function viewCenterList($id)
+    {
+
+        try {
+            $report = ProspectReport::where('id', $id)
+                ->where('agent_id', auth()->id())
+                ->firstOrFail();
+
+            $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get();
+
+
+
+            $html = view('agent.dashboard.marketing.modal.centre-list-view-table', [
+                'centres' => $centers,
+                'report' => $report,
+            ])->render();
+
+            return success_response(['html' => $html], "Ok", 200, []);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch center list: ' . $e->getMessage(), 500);
+        }
+    }
+
+    //Generate PDF from selected centres
+    public function viewCenterPDF(Request $request)
+    {
+        try {
+            $centreIds = $request->centre_ids; // selected IDs
+            $reportId  = $request->report_id;
+            $action    = $request->action;     // 'print' or 'save'
+
+            $centres = MassageExcel::whereIn('id', $centreIds)
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get()
+                ->keyBy('id');
+
+            // Order maintain karo
+            $orderedCentres = collect($centreIds)
+                ->map(fn($id) => $centres->get($id))
+                ->filter()
+                ->values();
+
+            $viewPath = 'agent.dashboard.marketing.modal.doc1'; // ya doc2
+
+            // Single → direct PDF
+            if ($orderedCentres->count() === 1) {
+                return $this->generateSinglePDF(
+                    $orderedCentres->first(),
+                    $viewPath
+                );
+            }
+
+            // Multiple → ZIP
+            return $this->generateZipPDF($orderedCentres, $viewPath);
+        } catch (\Exception $e) {
+            return error_response('PDF Failed: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function printView($id)
+    {
+        $decryptedId = Crypt::decrypt($id);
+        try {
+            $report = ProspectReport::where('id', $decryptedId)
+                ->where('agent_id', auth()->id())
+                ->firstOrFail();
+
+            $data = [
+                'report_from' => Auth::user()->business_name ?? 'Agent',
+                'date_generated' => $report->created_at->format('d-m-Y') ?? 'NA',
+                'post_code' => $report->post_code_label ?? 'NA',
+                'listings' => $report->listings_count ?? 0,
+            ];
+
+            $centers = MassageExcel::whereIn('id', $report->center_ids ?? [])
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get();
+
+            return view('agent.dashboard.marketing.prospect_list.printreport', [
+                'centres' => $centers,
+                'report' => $report,
+                'data' => $data,
+            ]);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch print view: ' . $e->getMessage(), 500);
+        }
+    }
+
+    //for appointment modal
+    public function appointmentList($id)
+    {
+        try {
+            $report = ProspectReport::where('id', $id)
+                ->where('agent_id', auth()->id())
+                ->firstOrFail();
+
+
+            $centers = MassageExcel::whereIn('id', $report->merge_center_ids)
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number')
+                ->get();
+
+            $html = view('agent.dashboard.marketing.modal.appointment-list-view-table', [
+                'centers' => $centers,
+                'report' => $report,
+            ])->render();
+
+            return success_response(['html' => $html], "Ok", 200, []);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch center list: ' . $e->getMessage(), 500);
+        }
+    }
+
+    // Information Package function  need need
+    // public function informationPackageList()
+    // {
+    //     return view('agent.dashboard.marketing.information-package.information-package-list');
+    // }
+
+    //get search value
+    public function searchCenterById(Request $request)
+    {
+        try {
+            $reportId = $request->report_id;
+            $centerId = (int) $request->centre_id;
+
+            $report = ProspectReport::where('id', $reportId)
+                ->where('agent_id', auth()->id())
+                ->whereJsonContains('center_ids', $centerId)
+                ->first();
+
+            if (!$report) {
+                return error_response('Centre not found in this report.', 404);
+            }
+
+            $centre = MassageExcel::where('id', $centerId)
+                ->select('id', 'bussiness_name', 'address', 'post_code', 'mobile_number', 'business_number', 'email')
+                ->first();
+
+            if (!$centre) {
+                return error_response('Centre not found.', 404);
+            }
+
+            $html = '
+            <div class="item" data-id="' . $centre->id . '" >
+                <div class="left">
+                    <div class="centre-info">
+                        <strong>' . e($centre->bussiness_name) . '</strong><br>
+                        <small>' . e($centre->address) . '</small>
+                    </div>
+                </div>
+                <div class="action_btn">
+                    <button class="single-print-pdf" data-centre-id="' . $centre->id . '" data-report-id="' . $reportId . '"> Print </button>
+                    <a href="mailto:' . e($centre->email ?? '') . '" class="btn-email-single" data-email="' . e($centre->email ?? '') . '" data-centre-id="' . $centre->id . '"
+                    data-report-id="' . $reportId . '"> Email</a>
+                </div>
+            </div>';
+
+
+            return success_response(['html' => $html], "Ok", 200, []);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch centre: ' . $e->getMessage(), 500);
+        }
+    }
+
+
+    public function testPDF()
+    {
+        $centre = MassageExcel::first(); // pehla record
+        $viewPath = 'agent.dashboard.marketing.modal.doc1';
+
+        $dynamicData = $this->getPfdDynamicName($centre);
+
+        $pdf = PDF::loadView($viewPath, [
+            //'centres' => collect([$centre]),
+            'data' => $dynamicData,
+        ])
+            ->setPaper('a4')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => true,
+                'dpi'                  => 96,
+                'chroot'               => public_path(),
+            ]);
+
+        // inline - browser me open 
+        return response($pdf->output(), 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="test.pdf"', // attachment → inline
+        ]);
+    }
+
+
+    private  function getStateDetail($stateId, $type = 'abbr')
+    {
+        $states = config('escorts.profile.states');
+
+        if (!isset($states[$stateId])) {
+            return null;
+        }
+
+        $state = $states[$stateId];
+
+        return match ($type) {
+            'name' => $state['stateName'] ?? null,
+            'abbr' => $state['stateAbbr'] ?? null,
+            'timezone' => $state['timeZone'] ?? null,
+            default => $state,
+        };
+    }
+
+    private function splitAddress($address)
+    {
+        $words = explode(' ', $address);
+        $result = [
+            'address1' => '',
+            'address2' => ''
+        ];
+
+        //check empty 
+        $postcode = array_pop($words);
+        $state = array_pop($words);
+
+
+        $result['address2'] = implode(' ', array_slice($words, -1)) . " $state $postcode";
+        $result['address1'] = implode(' ', array_slice($words, 0, -1));
+
+        return $result;
     }
 }

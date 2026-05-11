@@ -10,6 +10,7 @@ use App\Models\PaymentHistory;
 use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
+use PDF;
 
 class PaymentController extends Controller
 {
@@ -52,6 +53,7 @@ class PaymentController extends Controller
             $response = $gatewayResponse['data']['response'];
             $payment = PaymentHistory::create([
                 'user_id'         => $this->account->id,
+                'completed_by'    => $this->account->id,
                 'ref_no'          => now()->format('Ymd') . rand(100,999),
                 'amount'          => $response['amount'] / 100,
                 'currency'        => $response['currency'],
@@ -64,8 +66,17 @@ class PaymentController extends Controller
             ]);
             if(session()->has('checkout')){
                 $this->saveCheckout($payment);
+                $payment->service = 'Listing';
+                $payment->save();
                 session()->forget('checkout');
                 $redirect_url = route('escort.dashboard.listings', 'current');
+            }
+            if(session()->has('tour_checkout')){
+                $this->saveCheckout($payment);
+                $payment->service = 'Tour';
+                $payment->save();
+                session()->forget('tour_checkout');
+                $redirect_url = route('escort.view.tour.list', 'current');
             }
             return response()->json([
                 'status' => 'success',
@@ -141,6 +152,75 @@ class PaymentController extends Controller
                 $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
             }
         }
+    }
+
+    public function transactionSummary(Request $request){
+        return view('escort.dashboard.Bookkeeping.transaction-summary');
+    }
+
+    public function transactionSummaryDatatable(){
+        list($result, $count, $other) = $this->pinService->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            $this->account
+        );
+        $result = $this->pinService->modifyRecords($result);
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "other" => $other,
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+
+    public function paymentDetail(Request $request)
+    {
+        try {
+
+            $id = decrypt($request->id);
+            $payment = PaymentHistory::findOrFail($id);
+            $html = view('escort.dashboard.Bookkeeping.modal.transaction-summary',compact('payment'))->render();
+            return response()->json([
+                'status' => true,
+                'html'   => $html,
+                'print_url' => route('payment.detail.print', $payment->id),
+                'message'=> 'Listing fetched successfully'
+            ]);
+
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message'=> 'Invalid listing id'
+            ], 400);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message'=> 'Listing not found'
+            ], 404);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message'=> 'Something went wrong'
+            ], 500);
+        }
+    }
+
+    public function printPaymentDetail(PaymentHistory $payment)
+    {
+        $print = true;
+        $pdf = PDF::loadView('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment', 'print'));
+        return $pdf->stream($payment->user->member_id.'_Payment_Summary_'.$payment->ref_no.'.pdf');
     }
 
 }
