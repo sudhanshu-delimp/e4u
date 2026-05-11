@@ -139,7 +139,7 @@
                     </div>
                     <div class="table-responsive-xl">
                         <div id="loader"
-                            style="display:none; text-align:center; padding:20px;  position: absolute;  left: 42% !important;top: 35% !important">
+                            style="display:none; text-align:center; padding:20px;  position: absolute;  left: 42% !important;top: 45% !important">
                             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                         </div>
                         <table class="table table-bordered display" width="100%">
@@ -253,11 +253,10 @@
                                     </div>
                                     <!-- Special Instructions -->
 
-                                    <div class="col-md-6 my-2">
+                                    <div class="col-md-6 mt-5">
                                         <input type="radio" name="delivery_type" id="door" value="door"
                                             required checked data-parsley-required-message="Choose a delivery type">
                                         <label for="door"><b>Delivery to the door</b></label>
-
                                         <input type="radio" name="delivery_type" id="post" value="post">
                                         <label for="post"><b>Post</b></label>
                                     </div>
@@ -601,7 +600,7 @@
                 <tr>
                     <td class="theme-color">
                         <div class="form-check d-flex align-items-center text-center">
-                            <input class="form-check-input mr-2 product-check" type="checkbox" data-id="${product.id}" data-price="${price}" ${finalCart.includes(product.id) ? "checked" : "" }>
+                            <input class="form-check-input mr-2 product-check" type="checkbox" data-id="${product.id}" data-price="${price}" ${finalCart.includes(product.id) ? "checked" : "" }  style="width:17px; height:17px">
                             <img src="${product.image}" data-image="${product.image}" data-title="${product.description}" class="product-image" style="width:50px">
                         </div>
                     </td>

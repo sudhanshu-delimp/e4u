@@ -51,6 +51,7 @@ class ProductOrderController extends Controller
       if (!isset($data['deliveryDetails']['delivery_type']) || (isset($data['deliveryDetails']['delivery_type']) && empty($data['deliveryDetails']['delivery_type']))) {
         return response()->json(['status' => false, 'message' => 'please select delivery type']);
       }
+      // calculate subtotal for cross check pricing and db update
       foreach ($data['itemDetails'] as $productId => $details) {
         $product = Product::find($productId);
         if (empty($product))
@@ -59,12 +60,9 @@ class ProductOrderController extends Controller
         if ($product->price != $details['price'])
           return response()->json(['status' => false, 'message' => 'something went wrong!']);
 
-        // if ($data['pin_token'])
-        //   return response()->json(['status' => false, 'message' => 'something is wrong with card details']);
-
-
         $subtotal += $product->price * $details['qty'];
       }
+
       if ($data['deliveryDetails']['delivery_type'] == 'post') {
         $deliveryCharges = config('escorts.delivery_charge_post');
       } else {
@@ -186,7 +184,7 @@ class ProductOrderController extends Controller
 
       $products = [];
       foreach ($order->orderItems as $orderItem) {
-        $item = ['product_id' => $orderItem->product_id, 'quantity' => $orderItem->quantity, 'price' => $orderItem->price, 'total' => (float)$orderItem->total];
+        $item = ['product_id' => $orderItem->product_id, 'quantity' => $orderItem->quantity, 'price' => $orderItem->price];
         array_push($products, $item);
       }
 

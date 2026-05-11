@@ -16,13 +16,15 @@ class CreateProductOrdersTable extends Migration
     Schema::create('product_orders', function (Blueprint $table) {
       $table->id();
       $table->string('order_id')->nullable();
+      $table->string('transaction_id')->nullable();
+
       $table->string('type')->nullable();
       $table->unsignedBigInteger('user_id')->nullable();
       $table->dateTime('order_date');
-      $table->enum('order_status', ['pending','shipped', 'delivered', 'cancelled'])->default('pending')->comment(
+      $table->enum('order_status', ['pending', 'shipped', 'delivered', 'cancelled'])->default('pending')->comment(
         'pending=Order created, shipped=Assigned/processing, delivered=Completed, cancelled=Order cancelled'
       );
-      $table->enum('payment_status', ['pending', 'paid','failed', 'cancelled'])->default('pending')->comment(
+      $table->enum('payment_status', ['pending', 'paid', 'failed', 'cancelled'])->default('pending')->comment(
         'pending=Awaiting payment,  paid=Payment captured,failed=Payment Failed, cancelled=Payment failed/cancelled'
       );;
       $table->string('payment_method')->nullable();

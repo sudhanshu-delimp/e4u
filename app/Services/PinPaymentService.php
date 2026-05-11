@@ -41,12 +41,9 @@ class PinPaymentService
 
   protected function validateMetadata(array $metadata)
   {
-    $requiredFields = ['type', 'console', 'order_id', 'user_id'];
-
+    $requiredFields = ['type'];
     foreach ($requiredFields as $field) {
-
       if (empty($metadata[$field])) {
-
         return [
           'status' => false,
           'error'  => "Missing required metadata field: {$field}."

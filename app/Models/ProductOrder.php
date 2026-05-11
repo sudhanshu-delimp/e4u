@@ -28,10 +28,15 @@ class ProductOrder extends Model
 
   public function orderItems()
   {
-    return $this->hasMany(ProductOrderItem::class,'order_id','id');
+    return $this->hasMany(ProductOrderItem::class, 'order_id', 'id');
   }
   public function orderAddress()
   {
-    return $this->hasMany(OrderAddress::class,'order_id','id');
+    return $this->hasMany(OrderAddress::class, 'order_id', 'id');
+  }
+
+  public function scopeDeliveryType($q, $type = null)
+  {
+    return $type ? $q->where('delivery_type', $type) : $q;
   }
 }

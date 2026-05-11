@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order Received - Shareholder</title>
+</head>
+
+<body style="margin:0; padding:0; background-color:#f4f4f4;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
+        <tr>
+            <td align="center">
+                <!-- Main container -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
+                    <!-- Header with background and logo -->
+                    <tr>
+                        <td style="background-color:#0c223d; padding: 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                            style="height: 50px;">
+                                    </td>
+                                    <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
+                                        <h1
+                                            style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
+                                            Order Received - Shareholder
+                                        </h1>
+                                        <span style="font-size: 13px; color: #cccccc;">
+                                            Shareholder ID: {{ $data['member_id'] ?? '' }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Content Section -->
+                    <tr>
+                        <td style="padding: 30px; font-size: 16px;">
+
+                            <p style="margin: 0 0 15px 0;">Dear {{ $data['billing_email'] }},</p>
+
+                            <p style="margin: 20px 0 15px 0;">
+                                Your order for a range of Products has been received. Please note, if your order has
+                                been
+                                placed before <strong>11:00 am</strong> and you have requested a delivery, delivery will
+                                occur on the same day. If your order is by post, please allow <strong>48 hours</strong>
+                                for the Products to arrive. We will express post your Products to your nominated
+                                delivery
+                                address.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                If you do not receive your Products within <strong>72 hours</strong>, please lodge a
+                                Support Ticket by logging onto your Dashboard and quoting your reference number
+                                <strong>{{ $data['order_id'] }}</strong>.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                We confirm payment has been made according to your instructions.
+                            </p>
+
+                            <p style="margin: 20px 0 10px 0;"><strong>Notes:</strong></p>
+
+                            <ol style="padding-left: 20px; margin: 0; line-height: 22px;">
+                                <li>
+                                    Your products will, if by post:
+                                    <ul style="padding-left: 20px; margin-top: 10px;">
+                                        <li>(a) be dispatched on the next business day; and</li>
+                                        <li>(b) can be tracked.</li>
+                                    </ul>
+                                </li>
+                                <li style="margin-top: 10px;">
+                                    You can view your order online by going to your Dashboard and selecting
+                                    <strong>Transaction Summary</strong> and from the Action options, select
+                                    <strong>View</strong>.
+                                </li>
+                            </ol>
+
+                            <p style="margin: 25px 0 0 0;">
+                                Regards,<br>
+                                <strong>E4U - Operations Centre</strong>
+                            </p>
+
+                            <!-- email info -->
+                            <x-email-info />
+                            <!-- end -->
+
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Footer -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                    <tr>
+                        <td>
+                            <x-email-footer />
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
