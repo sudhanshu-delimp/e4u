@@ -281,6 +281,9 @@ class MasseurController extends AppController
             $masseur->availability          = $availabilityJson;
 
             $masseur->service = $request->filled('service') ? $request->service : [];
+            $masseur->massage_service_types = $request->filled('massage_service_list') ? $request->massage_service_list : [];
+            $masseur->other_service_types = $request->filled('massage_other_service_list') ? $request->massage_other_service_list : [];
+            
             $masseur->is_default = $make_defailt ? '1' : '0';
                         
             $masseur->save();
@@ -480,7 +483,7 @@ class MasseurController extends AppController
 
         //dd($masseur_availability);
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists','imageUrl'));
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists','imageUrl','massage_default'));
     }
 
     public function update_masseur(Request $request)
@@ -635,6 +638,36 @@ class MasseurController extends AppController
                 }
 
             /* ================== End Aavailibility ================== */ 
+
+             /* ================== My Services ================== */  
+            
+                if($request->type=='my_services')
+                {
+                        DB::beginTransaction();
+                        try 
+                        {
+                            $masseur = Masseur::where(['id'=> $request->masseur_id])->first();
+                            $masseur->massage_service_types = $request->filled('massage_service_list') ? $request->massage_service_list : [];
+                            $masseur->other_service_types = $request->filled('massage_other_service_list') ? $request->massage_other_service_list : [];
+                            $masseur->save();
+                            DB::commit(); 
+                            $message = "Updated Successfully."; 
+                            $error = false;
+
+                        } 
+                        catch (Exception $e)
+                        {
+                            DB::rollBack();
+                            $message = "Error occured while updating."; 
+                            $error = true; 
+                        }
+
+                        return response()->json(compact('error','message'));
+                }
+
+            /* ================== End Aavailibility ================== */ 
+
+
 
 
             /* ================== Rates ================== */

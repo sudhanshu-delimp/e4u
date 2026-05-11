@@ -881,13 +881,33 @@ margin-right: 5px;
                                                         </div>
                                                         <div class="mc_profile_modal d-block">
                                                             <span><b>Massage Services:</b> <span class="about_box_small_heading_value">
-                                                                    {{ rtrim($massage_services, ', ') }}
+
+                                                               
+
+                                                                    @if(!empty($masseur->massage_service_types) && count($masseur->massage_service_types) > 0)
+                                                                    {{ collect($masseur->massage_service_types)
+                                                                        ->map(fn($type) => config('escorts.profile.massage-services')[$type] ?? null)
+                                                                        ->filter()
+                                                                        ->implode(', ') }}
+                                                                    @else
+                                                                    {{ 'NA' }}
+                                                                    @endif
+
+                                                                   
                                                             </span></span>
                                                         </div>
 
                                                         <div class="mc_profile_modal d-block">
                                                             <span><b>Other Service Types :</b> <span class="about_box_small_heading_value">
-                                                                    {{ rtrim($other_services, ', ') }}
+
+                                                                            @if(!empty($masseur->other_service_types) && count($masseur->other_service_types) > 0)
+                                                                                {{ collect($masseur->other_service_types)
+                                                                                    ->map(fn($type) => config('escorts.profile.other-services')[$type] ?? null)
+                                                                                    ->filter()
+                                                                                    ->implode(', ') }}
+                                                                            @else
+                                                                                {{ 'NA' }}
+                                                                            @endif
 
                                                             </span></span>
                                                         </div>
