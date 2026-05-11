@@ -39,7 +39,7 @@
 
                             <!-- Main Message -->
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                               We are please to confirm your Media, after having reviewed your Verification Image, has
+                               We are pleased to confirm your Media, after having reviewed your Verification Image, has
 been approved as <i>'Verified'</i>. Any Profile you List will display your Media status as Verified
 and carry the E4U Verified icon.
                             </p>
