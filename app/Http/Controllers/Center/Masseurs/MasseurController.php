@@ -901,7 +901,11 @@ class MasseurController extends AppController
 
                $default_profile = "";
                if($row->is_default =='1')
-               $default_profile = '<sup class="text-muted superfix">D</sup>';
+                $default_profile = '<span class="profile_icon_box">
+            <sup class="text-muted superfix">D</sup>
+            <span class="profile_icon_item">Default Masseur in Profile</span>
+            </span>';
+            
 
                 return [
                    
@@ -948,7 +952,10 @@ class MasseurController extends AppController
 
                $default_profile = "";
                if($row->is_default =='1')
-               $default_profile = '<sup class="text-muted superfix">D</sup>';
+                $default_profile = '<span class="profile_icon_box">
+            <sup class="text-muted superfix">D</sup>
+            <span class="profile_icon_item">Default Masseur in Profile</span>
+            </span>';
 
 
 
@@ -1074,7 +1081,10 @@ class MasseurController extends AppController
 
             $default_profile = "";
             if($row->is_default =='1')
-            $default_profile = '<sup class="text-muted superfix">D</sup>';
+             $default_profile = '<span class="profile_icon_box">
+            <sup class="text-muted superfix">D</sup>
+            <span class="profile_icon_item">Default Masseur in Profile</span>
+            </span>';
 
 
             return [
@@ -1111,7 +1121,10 @@ class MasseurController extends AppController
 
                 $default_profile = "";
                 if($row->is_default =='1')
-                $default_profile = '<sup class="text-muted superfix">D</sup>';
+                $default_profile = '<span class="profile_icon_box">
+            <sup class="text-muted superfix">D</sup>
+            <span class="profile_icon_item">Default Masseur in Profile</span>
+            </span>';
 
                 return [
                     
