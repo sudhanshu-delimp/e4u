@@ -45,14 +45,14 @@
                     <td colspan="1" style="text-align: end">
                         @switch((int)$status)
                             @case(0)
-                                <p style="margin: 0px;color: orange;font-weight: 600;font-size: 24px;line-height:.9;">Pending</p> 
+                                <p style="margin: 0px;color: orange;font-weight: 600;font-size: 24px;line-height:.9;">Pending <br> <span style="color:#000000;font-size: 14px;">(Uploaded Date: {{showDateWithFormat($media_verification->updated_at)}})</span></p> 
                             @break
                             @case(1)
-                                <p style="margin: 0px;color: rgb(54 153 5);font-weight: 600; font-size: 24px;line-height:.9;">Approved <br> <span style="color:#000000;font-size: 14px;">(Approved By: {{$reviewed_by}})</span></p>
+                                <p style="margin: 0px;color: rgb(54 153 5);font-weight: 600; font-size: 24px;line-height:.9;">Approved <br><span style="color:#000000;font-size: 14px;">(Approved By: {{$reviewed_by}})</span> <br> <span style="color:#000000;font-size: 14px;">(Approved Date: {{showDateWithFormat($media_verification->updated_at)}})</span> </p>
                             @break
                             @case(2)
                                 <p style="margin: 0px;color: #ff3c5f;font-weight: 600; font-size: 24px;line-height:.9;">Rejected
-                                <br> <span style="color:#000000;font-size: 14px;">(Rejected By: {{$reviewed_by}})</span></p>
+                                <br> <span style="color:#000000;font-size: 14px;">(Rejected By: {{$reviewed_by}})</span><br><span style="color:#000000;font-size: 14px;">(Rejected Date: {{showDateWithFormat($media_verification->updated_at)}})</span></p>
                             @break
                         @endswitch
                     </td>

@@ -112,12 +112,23 @@ class MediaVerificationController extends Controller
 
         $total_media_verificatiion = $media_verificatiion->count();
         $media_verificatiions = $media_verificatiion->offset($start)->limit($limit)->get();
+        
 
         $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
+            $pending_count_badge = '';
+            $pending_count = MasseurVerification::
+                where('user_id', $item->user_id)
+                ->where('status', '0')
+                ->count();
+            
+            if($pending_count > 0){
+                $pending_count_badge = '<sup class="badge badge-danger pt-1" style="margin-left: 2px;">'.$pending_count.'</sup>';
+            } 
+            
             $user = $item->user;
             $item->member_id = $user->member_id ?? 'N/A';
-            $item->name      = $user->name ?? 'N/A';
+            $item->name      = $user->name.$pending_count_badge ?? 'N/A';
             $item->mobile    = $user->phone ?? 'N/A';
             $item->created_date = $item->created_at
                 ? showDateWithFormat($item->created_at)
@@ -805,6 +816,6 @@ class MediaVerificationController extends Controller
         foreach ($masseur_medias as $masseur_media) {
             $mediaImages[] = '<img src="' . asset($masseur_media->path) . '" " style="width:170px; border: 1px solid #ccc; padding:10px;height: 120px; object-fit: cover;">';
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'pinupImage', 'bannerImage', 'status'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'pinupImage', 'bannerImage', 'status','media_verification'));
     }
 }
