@@ -30,7 +30,7 @@ $businessName = isset(auth()->user()->business_name) ? auth()->user()->business_
                 </span>
                 <span>
                     <span class="separator">|</span>
-                    <b>Shareholding : </b><span
+                    <b>Shareholding : {{ isset($shareholding->shareholding) ? $shareholding->shareholding . ' %' : '' }}</b><span
                         class="user-values live_current_location"></span>
                 </span>
 

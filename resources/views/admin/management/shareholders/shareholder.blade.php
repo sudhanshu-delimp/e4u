@@ -29,11 +29,12 @@
         </div>
 
         <div class="row pb-3">
-
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <div class="bothsearch-form" style="gap: 10px;">
+                    @if($shareholders->count() > 0)
                     <button type="button" class="btn-common" data-toggle="modal" data-target="#addShareholder">Add New
                         Shareholding</button>
+                    @endif    
                 </div>
             </div>
 
@@ -42,7 +43,7 @@
                     <table class="table mb-3 w-100" id="manage_shareholding_table">
                         <thead class="table-bg">
                             <tr>
-                                <th>ID</th>
+                                <th>Member ID</th>
                                 <th>Shareholder</th>
                                 <th>Date of Entry</th>
                                 <th>Type</th>
@@ -122,7 +123,8 @@
 
             // Show / Hide Trust Fields
             $('input[name="held_on_trust"]').on('change', function() {
-                if ($(this).val() === 'Yes') {
+                $(".error-trust_deed_file").text("");
+                if ($(this).val() === 'yes') {
                     $('.trust-fields').removeClass('d-none');
                     $('#trustee').prop('disabled', false);
                     $('#trust_deed').prop('disabled', false);
@@ -134,7 +136,7 @@
             });
 
             // Initialize hidden state on load
-            if ($('input[name="held_on_trust"]:checked').val() === 'No') {
+            if ($('input[name="held_on_trust"]:checked').val() === 'no') {
                 $('.trust-fields').addClass('d-none');
                 $('#trustee').prop('disabled', true);
                 $('#trust_deed').prop('disabled', true);
@@ -187,15 +189,15 @@
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'number_of_shares',
-                        name: 'number_of_shares',
+                        data: 'numberOfShares',
+                        name: 'numberOfShares',
                         searchable: true,
                         orderable: false,
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'shareholding',
-                        name: 'shareholding',
+                        data: 'sharePurchase',
+                        name: 'sharePurchase',
                         searchable: true,
                         orderable: false,
                         defaultContent: 'NA'
@@ -258,7 +260,7 @@
                         $('#addShareholder').modal('hide');
                         //$('#editShareholder').modal('hide');
                         $('#staffEditModal').modal('hide');
-                        $('#add_shareholder')[0].reset();
+                        $('#add_shareholding')[0].reset();
                         swal_success_popup(response.message);
                     },
                     error: function(xhr) {
@@ -325,6 +327,7 @@
                         } else {
                             $('#modalStaffEditContent').html(response);
                             $('#staffEditModal').modal('show');
+                            initJsDatePickerEdit();
                         }
                     },
                     error: function() {

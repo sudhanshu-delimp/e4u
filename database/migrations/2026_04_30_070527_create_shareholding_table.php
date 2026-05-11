@@ -15,8 +15,10 @@ return new class extends Migration {
             $table->enum('member_type', ['ordinary', 'corporate', 'associate'])->default('ordinary');;
             $table->enum('threshold', ['yes', 'no'])->default('no');
             $table->unsignedBigInteger('number_of_shares')->nullable();
+            $table->decimal('share_purchase', 10, 2)->nullable();
             $table->unsignedInteger('shareholding')->nullable();
             $table->enum('held_on_trust', ['yes', 'no'])->default('no');
+            $table->string('trust_deed_file')->nullable();
             $table->timestamps();
             // Optional foreign key (uncomment if users table exists)
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

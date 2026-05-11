@@ -21,6 +21,7 @@ class Shareholding extends Model
         'number_of_shares',
         'shareholding',
         'held_on_trust',
+        'share_purchase'
     ];
 
     protected $casts = [

@@ -71,6 +71,12 @@ class Shareholder extends Model
         return $this->belongsTo(User::class, 'updated_by')
             ->select('id', 'member_id', 'name', 'business_name');
     }
+
+    public function shareholding()
+    {
+        return $this->hasOne(\App\Models\Shareholding::class, 'user_id');
+    }
+
     public function getStatusAttribute($value)
     {
         $map = [
@@ -187,7 +193,7 @@ class Shareholder extends Model
      */
     public function getList($status = "", $columns = [])
     {
-        $selectColoums = ['id', 'member_id', 'email', 'phone', 'country_id', 'city_id', 'state_id', 'status', 'name', 'type', 'gender', 'operator_id', 'created_by', 'updated_by', 'created_at', 'business_name'];
+        $selectColoums = ['id', 'member_id', 'email', 'phone', 'country_id', 'city_id', 'state_id', 'status', 'name', 'type', 'gender', 'contact_person', 'created_by', 'updated_by', 'created_at', 'business_name'];
         if (is_array($columns) && count($columns) > 0) {
             $selectColoums = $columns;
         }
@@ -208,6 +214,16 @@ class Shareholder extends Model
     public function getDropdownList($status = "")
     {
         $shareholders = $this->getList($status, ['id', 'business_name', 'name'])->pluck('name', 'id');
+        return $shareholders;
+    }
+
+    public function getShareholerNotAssignToShareholding($editCountry = 0)
+    {
+        $lists = [];
+        $shareholders = $this->whereDoesntHave('shareholding')
+            ->select('id','member_id', 'business_name', 'name', 'contact_person')
+            ->where('type', '8')
+            ->get();
         return $shareholders;
     }
 }

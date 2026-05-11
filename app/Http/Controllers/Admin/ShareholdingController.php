@@ -70,9 +70,12 @@ class ShareholdingController extends BaseController
      */
     public function getShareholding($id)
     {
-        $user = Shareholding::with('shareholder')->where("id", $id)->first();
-        if ($user) {
-            return view('admin.management.shareholders.edit_shareholding', compact('user'));
+          $shareholders = (new Shareholder())->getShareholerNotAssignToShareholding();
+       
+        $shareholding = Shareholding::with('shareholder')->where("id", $id)->first();
+
+        if ($shareholding) {
+            return view('admin.management.shareholders.edit_shareholding', compact('shareholding', 'shareholders'));
         } else {
             return "";
         }
@@ -111,8 +114,10 @@ class ShareholdingController extends BaseController
      * View shareholding list
      */
     public function shareholdingList()
-    {
-        return view('admin.management.shareholders.shareholder');
+    {  
+        //$shareholders = (new Shareholder())->getList();
+        $shareholders = (new Shareholder())->getShareholerNotAssignToShareholding();
+        return view('admin.management.shareholders.shareholder', compact('shareholders'));
     }
 
     /**
@@ -137,7 +142,7 @@ class ShareholdingController extends BaseController
     }
 
     /**
-     *  Get all Shareholder list with filter
+     *  Get all Shareholding list with filter
      * 
      * @param integer $start
      * @param integer $limit
@@ -183,8 +188,8 @@ class ShareholdingController extends BaseController
             $item->dateOfEntry = isset($item->date_of_entry) ? showDateWithFormat($item->date_of_entry, 'd-m-Y') : 'NA';
             $item->memberType = isset($item->member_type) ? ucfirst($item->member_type) : 'NA';
             $item->threshold = isset($item->threshold) ? ucfirst($item->threshold) : 'No';
-            $item->number_of_shares = isset($item->number_of_shares) ? $item->number_of_shares : 'NA';
-            $item->shareholding = isset($item->shareholding) ? $item->shareholding : 'NA';
+            $item->numberOfShares = isset($item->number_of_shares) ? number_format($item->number_of_shares) : 'NA';
+            $item->sharePurchase = isset($item->shareholding) ? $item->shareholding .'%': 'NA';
              $item->held_on_trust = isset($item->held_on_trust) ? ucfirst($item->held_on_trust) : 'NO';
 
             $suspend_html = "";
@@ -217,13 +222,13 @@ class ShareholdingController extends BaseController
             return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
         }
         $userId  = $request->user_id;
-        $shareholder = Shareholder::with('shareholder_setting')->where("id", $userId)->first();
-        if ($shareholder) {
+        $user = Shareholding::with('shareholder')->where("id", $userId)->first();
+        if ($user) {
             $pdf = PDF::loadView(
-                'admin.management.shareholder.print_shareholder_pdf',
-                ['shareholder' => $shareholder]
+                'admin.management.shareholders.print_shareholding',
+                ['user' => $user]
             )->setOption(['isRemoteEnabled' => true]);
-            return $pdf->stream('shareholder_report.pdf');
+            return $pdf->stream('shareholding_report.pdf');
         } else {
             return response()->json(['status' => 'error', 'message' => 'Shareholder ID is required.'], 400);
         }

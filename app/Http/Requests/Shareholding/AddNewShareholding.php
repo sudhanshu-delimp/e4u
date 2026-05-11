@@ -30,7 +30,7 @@ class AddNewShareholding extends FormRequest
             $userId = $request->user_id;
         }
 
-        return [
+        $rules = [
             'shareholder_id' => 'required',
             'member_id' => 'required',
             'date_of_entry' => 'required',
@@ -39,8 +39,14 @@ class AddNewShareholding extends FormRequest
             'number_of_shares' => 'required',
             'shareholding' => 'required',
             'held_on_trust' => 'required',
-
         ];
+
+        if (isset($request->shareholding_id) && !empty($request->shareholding_id)) {
+            $rules['trust_deed_file'] = 'nullable|mimes:pdf,jpg,jpeg,png|max:5120';
+        } else {
+            $rules['trust_deed_file'] = 'required_if:held_on_trust,yes|mimes:pdf,jpg,jpeg,png|max:5120';
+        }
+        return $rules;
     }
 
     protected function prepareForValidation()
@@ -82,6 +88,10 @@ class AddNewShareholding extends FormRequest
             'key_contact_phone.*.digits' => 'The key contact mobile number field must be 10 digits.',
             'key_contact_email.*.required' => 'The key contact email field is required.',
             'key_contact_email.*.email' => 'The key contact email must be a valid email address.',
+            'trust_deed_file.required_if' => 'The trust deed field is required when Held on Trust is "Yes".',
+            'trust_deed_file.file' => 'The trust deed file must be a valid file.',
+            'trust_deed_file.mimes' => 'Only PDF, JPG, JPEG, and PNG files are allowed.',
+            'trust_deed_file.max' => 'The file size must not exceed 5MB.',
         ];
     }
 }

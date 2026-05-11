@@ -14,6 +14,8 @@ use App\Models\Shareholder;
 use App\Models\ShareholderContact;
 use App\Models\ShareholderSetting;
 use App\Http\Requests\StoreAvatarMediaRequest;
+use Illuminate\Support\Facades\View;
+use App\Models\Shareholding;
 use App\Repositories\User\UserInterface;
 
 class ShareholderController extends Controller
@@ -26,6 +28,12 @@ class ShareholderController extends Controller
     {
         $this->user = $user;
         $this->mainuser = $mainuser;
+        $this->middleware(function ($request, $next) {
+            $id = auth()->user()->id;
+            $shareholding = Shareholding::where("user_id", $id)->first();
+            View::share('shareholding', $shareholding);
+            return $next($request);
+        });
     }
     /**
      * Display a listing of the resource.
@@ -319,14 +327,14 @@ class ShareholderController extends Controller
         }
     }
 
-     /**
+    /**
      * Delete shareholder key contact
      */
     public function destroy(Request $request)
     {
         $id = $request->id;
         $contact = ShareholderContact::find($id);
-        
+
         if (!$contact) {
             return response()->json([
                 'status' => false,

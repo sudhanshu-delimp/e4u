@@ -28,16 +28,12 @@
                                  <label for="shareholder_id">Select Shareholder</label>
                                  <select name="shareholder_id" id="shareholder_id" class="form-control rounded-0">
                                      <option value="">Select Shareholder</option>
-                                     <option value="1" data-name="John Doe" data-memberid="MEM001">John Doe
-                                     </option>
-                                     <option value="2" data-name="Jane Smith" data-memberid="MEM002">Jane Smith
-                                     </option>
-                                     <option value="3" data-name="Michael Johnson" data-memberid="MEM003">Michael
-                                         Johnson</option>
-                                     <option value="4" data-name="Emily Davis" data-memberid="MEM004">Emily Davis
-                                     </option>
-                                     <option value="5" data-name="David Wilson" data-memberid="MEM005">David Wilson
-                                     </option>
+                                     @foreach ($shareholders as $share)
+                                         <option value="{{ $share->id }}" data-name="{{ $share->business_name }}"
+                                             data-memberid="{{ $share->member_id }}">{{ $share->business_name }}
+                                         </option>
+                                     @endforeach
+
                                  </select>
                                  <span class="text-danger error-shareholder_id"></span>
                              </div>
@@ -61,7 +57,7 @@
                              <!-- Date of Entry -->
                              <div class="col-md-6 mb-3">
                                  <label for="date_of_entry">Date of Entry</label>
-                                 <input type="date" class="form-control rounded-0" name="date_of_entry"
+                                 <input type="text" class="form-control rounded-0 js_datepicker" name="date_of_entry"
                                      id="date_of_entry">
                                  <span class="text-danger error-date_of_entry"></span>
                              </div>
@@ -71,9 +67,9 @@
                                  <label for="membership_type">Membership Type</label>
                                  <select class="form-control rounded-0" name="member_type" id="membership_type">
                                      <option value="">Select Membership Type</option>
-                                     <option value="Ordinary">Ordinary</option>
-                                     <option value="Corporate">Corporate</option>
-                                     <option value="Associate">Associate</option>
+                                     @foreach (config('common.membership_type') as $key => $typeName)
+                                         <option value="{{ $key }}">{{ $typeName }}</option>
+                                     @endforeach
                                  </select>
                                  <span class="text-danger error-member_type"></span>
                              </div>
@@ -84,12 +80,12 @@
                                  <div>
                                      <div class="form-check form-check-inline ml-0">
                                          <input class="form-check-input" type="radio" name="threshold"
-                                             id="threshold_yes" value="Yes">
+                                             id="threshold_yes" value="yes">
                                          <label class="form-check-label" for="threshold_yes">Yes</label>
                                      </div>
                                      <div class="form-check form-check-inline">
                                          <input class="form-check-input" type="radio" name="threshold"
-                                             id="threshold_no" value="No" checked>
+                                             id="threshold_no" value="no" checked>
                                          <label class="form-check-label" for="threshold_no">No</label>
                                      </div>
                                  </div>
@@ -128,23 +124,30 @@
                                  <div>
                                      <div class="form-check form-check-inline ml-0">
                                          <input class="form-check-input" type="radio" name="held_on_trust"
-                                             id="held_on_trust_yes" value="Yes">
+                                             id="held_on_trust_yes" value="yes">
                                          <label class="form-check-label" for="held_on_trust_yes">Yes</label>
                                      </div>
                                      <div class="form-check form-check-inline">
                                          <input class="form-check-input" type="radio" name="held_on_trust"
-                                             id="held_on_trust_no" value="No" checked>
+                                             id="held_on_trust_no" value="no" checked>
                                          <label class="form-check-label" for="held_on_trust_no">No</label>
                                      </div>
+                                     <span class="text-danger error-held_on_trust"></span>
                                  </div>
                              </div>
 
                              <!-- Trustee -->
-                             <div class="col-md-12 mb-3 trust-fields d-none">
-                                 <label for="trustee">Upload Trust Deed <a href="#"
+                             <div class="row col-md-12 mb-3 trust-fields d-none">
+                                 {{--  <label for="trustee">Upload Trust Deed <a href="#"
                                          class="custom_links_design" data-target="#trust_deed_modal"
-                                         data-toggle="modal">here</a>.</label>
-
+                                         data-toggle="modal">here</a>.</label> --}}
+                                 <div class="col-3">
+                                     <label for="trustee">Upload Trust Deed: </label>
+                                 </div>
+                                 <div class="col-9">
+                                     <input type="file" name="trust_deed_file" id="trust_deed_file">
+                                 </div>
+                                 <span class="text-danger error-trust_deed_file"></span>
                              </div>
                          </div>
                      </div>

@@ -411,7 +411,7 @@ Route::get('/get_shareholding/{id}', [ShareholdingController::class, 'getShareho
 Route::get('/edit-shareholding/{id}', [ShareholdingController::class, 'editShareholding'])->name('admin.edit-shareholding');
 Route::post('/store-shareholding', [ShareholdingController::class, 'updateShareholding'])->name('admin.store-shareholding');
 Route::get('/view-shareholding/{id}', [ShareholdingController::class, 'viewShareholding'])->name('admin.view-shareholding');
-Route::post('/print-shareholding', [ShareholdingController::class, 'printShareholdingDetails'])->name('admin.shareholding');
+Route::post('/print-shareholding', [ShareholdingController::class, 'printShareholdingDetails'])->name('admin.print.shareholding');
 
 Route::get('shareholders/registrations', function () {
     return view('admin.management.shareholders.registrations');
