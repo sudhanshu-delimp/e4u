@@ -1,4 +1,5 @@
 <!-- Sidebar -->
+ 
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -283,7 +284,7 @@
                     'ticket-list',
                     'submit_ticket',
                 ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['uploads', 'guidelines',
-                    'products',])) show @endif"
+                    'products','order-history'])) show @endif"
             data-parent="#accordionSidebar">
 
             <div class="collapse-inner">
@@ -346,7 +347,7 @@
                         <span>Bank Account</span>
                     </a>
                     <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/transaction-summary') }}">
+                        href="{{ route('escort.payment.transaction_summary') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
                         <span>Transaction Summary</span></a>
                 </div>
@@ -463,7 +464,7 @@
                         ]) 
                         || 
                         in_array(request()->segment(3), [
-                            'products',
+                            'products','order-history'
                         ])
                     )
                         show
@@ -494,6 +495,11 @@
                             href="{{ route('escort.products') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}" />
                             <span>Products</span>
+                        </a>
+                           <a class="collapse-item {{ request()->segment(3) == 'order-history' ? 'menu-active' : '' }}"
+                            href="{{ route('escort.orders') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}" />
+                            <span>Orders</span>
                         </a>
 
                         <a class="collapse-item {{ request()->segment(2) == 'travel' ? 'menu-active' : '' }}"

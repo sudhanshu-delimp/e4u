@@ -1015,7 +1015,7 @@ class TourController extends Controller
             ];
         }
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
-        session()->put('checkout', $checkoutData);
+        session()->put('tour_checkout', $checkoutData);
         return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type'));
     }
 
