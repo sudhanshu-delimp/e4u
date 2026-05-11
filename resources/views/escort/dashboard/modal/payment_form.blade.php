@@ -107,7 +107,7 @@
 
                                 @csrf
                                 <div class="errors alert alert-danger" style="display:none">
-                                    <h5></h5>
+                                    <h3></h3>
                                 </div>
 
                                 <!-- Billing -->
