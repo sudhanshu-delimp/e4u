@@ -255,7 +255,7 @@ margin-right: 5px;
                 <div class="overlay">
                     @if($listing->latest_active_brb)
                         <div class="brb_details">
-                            <h1>BRB at {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
+                            <h1>Closed until {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
                             <h3>{{$listing->latest_active_brb->brb_note}}</h3>
                         </div>
                     @endif
