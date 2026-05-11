@@ -609,7 +609,7 @@
             @else
             @endif
             <div class="modal fade defult-modal" id="forhelp">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                     <div class="modal-content rounded-0">
                         <!-- Modal body -->
                         <div class="modal-body p-0">

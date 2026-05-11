@@ -197,7 +197,7 @@ class MassageProfileRepository extends BaseRepository implements MassageProfileI
 
         if(!empty($str['string']))
         {
-            $play_type = $play_type->where('name','LIKE',"%$str[string]%");
+            $play_type = $play_type->where('name','LIKE',"%".$str[string]."%");
             //->orWhere('name','LIKE','%'.$str)
         }
         if(!empty($str['city_id']))

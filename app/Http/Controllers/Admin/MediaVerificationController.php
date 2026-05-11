@@ -161,14 +161,14 @@ class MediaVerificationController extends Controller
 
             $view_image = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-image-btn"
                 href="javascript:void(0)" data-toggle="modal" data-target="#view_image" data-status="' . $item->status . '" data-id="' . $item->id . '" data-user_type="' . $user->type . '" data-member-id="' . $item->member_id . '" data-user-id="' . $item->user->id . '">
-                <i class="fa fa-eye"></i> View Image
+                <i class="fa fa-eye"></i> View Images
             </a>
             ';
 
             if ($item->user->type == '4') {
                 $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
                     href="javascript:void(0)"  data-toggle="modal" data-target="#view_tag" data-id="' . $user->id . '">
-                    <i class="fa fa-eye"></i> View Tag
+                    <i class="fa fa-eye"></i> View Masseurs
                 </a>
                 <div class="dropdown-divider"></div>';
 
@@ -444,9 +444,9 @@ class MediaVerificationController extends Controller
     public function masseursMediaVerificationList(Request $request)
     {
         $statusMap = [
-            '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
-            '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
-            '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
+            '0' => ['text' => 'Pending', 'class' => 'badge_pending'],
+            '1' => ['text' => 'Verified', 'class' => 'badge_accepted'],
+            '2' => ['text' => 'Rejected', 'class' => 'badge_rejected'],
         ];
 
         $data = MasseurVerification::with('masseur:id,name,member_id')
@@ -511,13 +511,13 @@ class MediaVerificationController extends Controller
                 $dropdown_html = '';
                 // Status mapping
                 if ($item->status == '1') {
-                    $statusText = 'Verified image';
+                    $statusText = 'Verified';
                     $statusClass = 'badge_accepted';
                 } elseif ($item->status == '2') {
-                    $statusText = 'Rejected image';
+                    $statusText = 'Rejected';
                     $statusClass = 'badge_rejected';
                 } else {
-                    $statusText = 'Pending image';
+                    $statusText = 'Pending';
                     $statusClass = 'badge_pending';
                 }
                 $reviewed_by = 0;
@@ -583,7 +583,7 @@ class MediaVerificationController extends Controller
                                     data-id="' . $item->masseur->id . '"
                                     data-verification-id="' . $item->id . '"
                                     data-member-id="' . $item->masseur->member_id . '">
-                                    <i class="fa fa-eye"></i> View image
+                                    <i class="fa fa-eye"></i> View Images
                                 </a>
                             </div>
                         </div>

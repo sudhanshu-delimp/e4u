@@ -162,18 +162,19 @@
                     <label class="form-check-label" for="ccEmail">CC email to me</label>
                 </div>
                 <div class="form-check pb-0">
-                     <input class="form-check-input" type="checkbox" id="tnc" checked name="tnc">
+                     <input class="form-check-input" type="checkbox" id="tnc" name="tnc">
                     <label class="form-check-label" for="tnc"> I have read and agree to the Influencer <a href="javascript:void(0)" data-toggle="modal" data-target="#InfluencerTnc">Terms and Conditions</a></label>
                    
                 </div>
-                <div class="p-2">
-                    <label style="font-size: 13px"><sup>(*)</sup>Geolocation in use.</label>
+                <div class="pl-2 pt-2 pb-4">
+                    <span style="font-size: 13px"><b>Note:</b> Geolocation is in use on this Website.</span>
                 </div>
-                <div class="row">
+                <div class="row d-flex justify-content-between">
                    <div class="col-12 col-sm-12  col-md-3 col-lg-3 col-xl-3 mb-2 d-flex">
-                        <button type="submit" class="common-btn send_request_btn">Send Request</button>
+                        <button type="submit" class="common-btn send_request_btn">Submit Request</button>
                    </div>
-                    <div class="col-12 col-sm-12  col-md-9 col-lg-9 col-xl-9 mb-2 d-flex">
+
+                    <div class="col-12 col-sm-12  col-md-7 col-lg-7 col-xl-7 mb-2 d-flex">
                         
                         <div class="border px-2 border_color rounded text-justify">
                             
