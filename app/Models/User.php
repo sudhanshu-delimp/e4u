@@ -349,6 +349,16 @@ class User extends Authenticatable
         return $this->hasMany(AdvertiserDiscount::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(PaymentHistory::class, 'user_id');
+    }
+
+    public function paymentsCompletedBy()
+    {
+        return $this->hasMany(PaymentHistory::class, 'completed_by');
+    }
+
     public function activeFeeDiscount()
     {
         return $this->hasOne(AdvertiserDiscount::class)

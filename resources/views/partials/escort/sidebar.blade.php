@@ -346,7 +346,7 @@
                         <span>Bank Account</span>
                     </a>
                     <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/transaction-summary') }}">
+                        href="{{ route('escort.payment.transaction_summary') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
                         <span>Transaction Summary</span></a>
                 </div>
