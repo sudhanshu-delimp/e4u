@@ -114,9 +114,10 @@ class WebhookController extends Controller
         $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
         $billingAddress = $order->orderAddress->where('type', 'billing')->first();
 
-        $mailData['orderId'] = $order->order_id;
+        $mailData['order_id'] = $order->order_id;
         $mailData['billing_email'] = $shippingAddress->email;
         Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
+        Log::info('succes mail send');
       } else Log::warning('send email issue', ['message' => "Order address was not found"]);
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);
@@ -139,6 +140,7 @@ class WebhookController extends Controller
           'amount'          => $response['amount'] / 100,
           'currency'        => $response['currency'],
           'transaction_id'  => $response['token'],
+          'service'  => !empty($response['metadata']['type']) ? ucwords(str_replace('-', ' ', $response['metadata']['type'])) : '',
           'status'          => $response['success'] ? 'success' : 'failed',
           'paid_at'         => $response['captured_at'] ?? $response['created_at'],
           'card'            => $response['card']['display_number'] ?? null,

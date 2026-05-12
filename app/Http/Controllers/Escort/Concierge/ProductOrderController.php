@@ -11,10 +11,12 @@ use App\Models\ProductOrderItem;
 use App\Models\State;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 
 class ProductOrderController extends Controller
@@ -81,7 +83,7 @@ class ProductOrderController extends Controller
         'order_id' => Auth::user()->member_id . "-" . rand(111111, 999999),
         'type' => 'EC',
         'user_id' => Auth::user()->id,
-        'order_date' => Carbon::now('UTC'),
+        'order_date' => date('Y-m-d H:i:s'),
         'order_status' => 'pending',
         'payment_status' => 'pending',
         'total_amount' => $total,
@@ -89,14 +91,24 @@ class ProductOrderController extends Controller
         'tax_amount' => $tax,
         'payment_method' => 'Card',
         'delivery_charges' => $deliveryCharges ?? 0,
+        'delivery_type' => $data['deliveryDetails']['delivery_type'],
         'notes' => $data['deliveryDetails']['special_instructions']
       ];
 
 
 
       $products = [];
-      $order = ProductOrder::create($orderData);
+      $order = ProductOrder::find($request->orderId);
+
+      if (!empty($request->orderId) && $order)
+        $order->update($orderData);
+      else
+        $order = ProductOrder::create($orderData);
+
+
       if ($order) {
+        $order->orderItems()->delete();
+        $order->orderAddress()->delete();
         // prepare data for order item
         foreach ($data['itemDetails'] as $productId => $details) {
           $orderItem = [
@@ -219,27 +231,28 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::query();
+    $query = ProductOrder::orderBy('id', 'DESC');
+    $classes = config('escorts.payment_status');
 
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
-        return $row->order_date;
+        return  date('d M Y, h:i A', strtotime($row->order_date));
       })
-      ->addColumn('order_status', function ($row) {
-        $classes = config('escorts.order_status');
-        $class = $classes[$row->payment_status] ?? '';
-
+      ->addColumn('order_status', function ($row) use ($classes) {
+        $class = $classes[$row->order_status] ?? '';
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->order_status) . '</span>';
       })
-      ->addColumn('payment_status', function ($row) {
-        $classes = config('escorts.payment_status');
+      ->addColumn('payment_status', function ($row) use ($classes) {
         $class = $classes[$row->payment_status] ?? '';
-
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->payment_status) . '</span>';
       })
       ->addColumn('action', function ($row) {
-        return '<a href="" class="btn btn-sm btn-primary">View</a>';
+        return '<div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '"  > <i class="fa fa-eye"></i> View Details </a></div></div>';
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -248,6 +261,17 @@ class ProductOrderController extends Controller
       ->make(true);
   }
 
+  public function getOrderDetails(Request $request)
+  {
+    try {
+      $order = ProductOrder::with(['orderAddress', 'paymentDetails', 'orderItems', 'orderItems.product'])->where('id', $request->id)->first();
+
+      $html = view('escort.dashboard.Concierge.product-order-details', compact('order'))->render();
+      return response()->json(['status' => true, 'html' => $html]);
+    } catch (Exception $e) {
+      Log::error($e->getMessage());
+    }
+  }
 
   public function success()
   {

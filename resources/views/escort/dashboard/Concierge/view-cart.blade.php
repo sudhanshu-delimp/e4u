@@ -452,7 +452,7 @@
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">CVC</label>
-                                <input id="cc-cvc" class="form-control" maxlength="3">
+                                <input id="cc-cvc" class="form-control" maxlength="4">
                                 <small class="text-danger error-msg" data-field="cvc"></small>
 
                             </div>
@@ -530,6 +530,7 @@
         </div>
 
     </div>
+   
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -552,20 +553,7 @@
         // localStorage.setItem('checkout_step_' + loginUserId, step);
         let isDirty = false;
 
-        // detect changes
-        // document.querySelectorAll("input, textarea, select").forEach(el => {
-        //     el.addEventListener("change", () => {
-        //         isDirty = true;
-        //     });
-        // });
-
-        // window.addEventListener("beforeunload", function(e) {
-        //     if (isDirty) {
-        //         e.preventDefault();
-        //         e.returnValue = "";
-        //     }
-        // });
-
+     
 
 
 
@@ -833,6 +821,10 @@
             orderData.deliveryDetails = formData;
             orderData.itemDetails = itemDetails;
             orderData.paymentDetails = paymentDetails;
+
+            let orderId = getOrderId();
+            orderData.orderId = orderId;
+
             let cardBilling = {};
             if (sameAddress) {
                 // get from normal fields 
@@ -889,7 +881,7 @@
             $(".error-msg").text(""); // clear all existing errors
 
             // reset UI state
-            let orderId = JSON.parse(localStorage.getItem('orderId_' + loginUserId) || '{}');
+            let orderId = getOrderId();
 
             var card = {
                 number: $('#cc-number').val(),

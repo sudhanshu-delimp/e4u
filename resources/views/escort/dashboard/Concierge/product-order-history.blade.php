@@ -79,6 +79,39 @@
                 </div>
             </div>
         </footer>
+        <div class="modal fade upload-modal" id="view-details" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content basic-modal">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="view-listing">
+                            {{-- <img  src="https://e4u.local/assets/dashboard/img/transaction.png" alt="alert"
+                                style="width:29px;"> --}}
+                            Order Details
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><img src="https://e4u.local/assets/app/img/newcross.png"
+                                    class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="orderDetailsLoader" class="text-center my-4" style="display:none;">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <p class="mt-2">Loading details...</p>
+                        </div>
+
+                        <div id="orderDetailsBody"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="https://e4u.local/escort-dashboard/payments/28/print"
+                            class="btn btn-success-modal nex_sterp_btn print_payment_summary">🖨️ Print Report</a>
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- End of Footer -->
         @include('escort.dashboard.Concierge.modal.view_order_history_modal')
     @endsection
@@ -154,6 +187,42 @@
                             className: 'text-center'
                         }
                     ]
+                });
+            });
+            $(document).on('click', '.view-order-details', function(e) {
+                e.preventDefault();
+                var orderId = $(this).data('item');
+
+                // Show loader, hide content
+                $("#orderDetailsLoader").show();
+                $("#orderDetailsBody").hide().html("");
+
+                $.ajax({
+                    url: "{{ route('escort.order.details') }}?id=" + orderId,
+                    type: "GET",
+
+                    beforeSend: function() {
+                        $("#view-details").modal("show"); // open modal immediately
+                    },
+
+                    success: function(response) {
+                        $("#orderDetailsLoader").hide();
+
+                        if (response.status === true) {
+                            $("#orderDetailsBody").html(response.html).fadeIn();
+                        } else {
+                            $("#orderDetailsBody").html(
+                                "<div class='alert alert-warning'>No details found.</div>"
+                            ).fadeIn();
+                        }
+                    },
+
+                    error: function() {
+                        $("#orderDetailsLoader").hide();
+                        $("#orderDetailsBody").html(
+                            "<div class='alert alert-danger'>Unable to load order details.</div>"
+                        ).fadeIn();
+                    }
                 });
             });
         </script>

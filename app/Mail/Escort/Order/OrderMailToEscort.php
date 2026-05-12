@@ -15,9 +15,9 @@ class OrderMailToEscort extends Mailable
    *
    * @return void
    */
-  public $data;
+  protected array $data;
 
-  public function __construct($data)
+  public function __construct(array $data)
   {
     $this->data = $data;
   }
@@ -29,7 +29,7 @@ class OrderMailToEscort extends Mailable
    */
   public function build()
   {
-    return $this->view('emails.escort.order.order_mail_to_escort');
-    // ->with(['data' => $this->data]); // <-- Pass to view
+    return $this->view('emails.escort.order.order_mail_to_escort')
+      ->with(['data' => $this->data]); // <-- Pass to view
   }
 }

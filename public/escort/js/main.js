@@ -3,6 +3,9 @@
 function getCart() {
   return JSON.parse(localStorage.getItem('cart_' + loginUserId) || '{}');
 }
+function getOrderId() {
+  return JSON.parse(localStorage.getItem('orderId_' + loginUserId) || '{}');
+}
 
 function getStep() {
   return JSON.parse(localStorage.getItem('checkout_step_' + loginUserId) || '{}');

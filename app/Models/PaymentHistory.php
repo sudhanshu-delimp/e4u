@@ -42,6 +42,16 @@ class PaymentHistory extends Model
     {
         return $this->belongsTo(User::class, 'completed_by');
     }
+ public function getPaidAtFormattedAttribute()
+  {
+    if (!$this->paid_at) {
+      return 'N/A';
+    }
 
+    $tz = config('app.escort_server_timezone');
+    return \Carbon\Carbon::parse($this->paid_at)
+      ->timezone($tz)
+      ->format('Y-m-d h:i A');
+  }
   
 }

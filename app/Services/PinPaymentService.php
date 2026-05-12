@@ -24,14 +24,19 @@ class PinPaymentService
           return ['status' => false, 'error' => $validationResponse['error']];
       }
 
-      $response = Http::withBasicAuth($secretKey,  '')->asForm()->post($url.'/1/charges', [
+      $response = Http::withBasicAuth($secretKey,  '')->asForm()->post($url . '/1/charges', [
         'amount' => $amount * 100,
         'currency' => 'AUD',
         'description' => $description ?? 'E4U Service',
         'email' => $email ?? 'customer@example.com',
         'card_token' => $token,
-        'metadata' => $metadata
+        'metadata' => $metadata,
+        // 'three_d_secure' => [
+        //   'required' => true,
+        //   'callback_url' => 'https://yourdomain.com/payment/callback'
+        // ],
       ]);
+      
       $response->throw();
       return ['status' => true,  'data' => $response->json()];
     } catch (RequestException $e) {
