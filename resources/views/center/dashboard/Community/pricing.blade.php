@@ -61,25 +61,27 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table  dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center table-bg">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="8" style="width: 100px;" aria-label="Fees">
                                                                 <p><b>Advertising Fees</b></p>
                                                             </th>
                                                         </tr>
                                                         <tr role="row" class="custom--row">
-                                                            <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                            <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 100px;" aria-label="
                                                                 Profile Name">Membership Type
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="
                                                                 Profile Name
                                                                 ">Frequency
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">Rate</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">Amount</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">%</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Amount<sup>(1)</sup></th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Date Created">Rate</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Subscription Type">Amount</th>                                                           
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Special Discount</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">New Rate</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Subscription Status">%</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Amount<sup>(1)</sup></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -96,6 +98,8 @@
                                                                     <td>{{ period_days($adverting['days']) }} </td>
                                                                     <td>{{ $adverting['frequency'] }}</td>
                                                                     <td>${{ number_format($adverting['price'], 2) }}</td>
+                                                                    <td>0.00</td>
+                                                                    <td>0.00</td>
                                                                     <td>
                                                                         @if(!empty($adverting['percentage']))
                                                                             {{ $adverting['percentage'] }}
@@ -149,7 +153,7 @@
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
                                                 
-                                                <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="reckoner" class="table    dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
                                                             <th class="sorting_disabled" rowspan="1" colspan="4" style="width: 212px;" aria-label="Fees">
@@ -205,7 +209,7 @@
 
                                         <!-- <div class="table-responsive pl-2 pt-3 list-sec">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
@@ -280,7 +284,7 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
@@ -334,7 +338,7 @@
 
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
@@ -412,7 +416,7 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
@@ -484,7 +488,7 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                      <tr role="row">
                                                             <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
