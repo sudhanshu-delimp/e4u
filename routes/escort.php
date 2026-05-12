@@ -367,7 +367,7 @@ Route::prefix('concierge')->name('escort.')->group(function () {
   Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');
   Route::post('make/order/payment', [ProductOrderController::class, 'makeOrderPayment'])->name('make.order.payment');
   Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('orders');
-  Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
+  // Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
 });
 
