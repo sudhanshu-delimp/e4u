@@ -13,6 +13,7 @@ class MasseurVerification extends Model
         'masseur_id',
         'image_path',
         'status',
+        'type',
         'comment',
         'reviewed_by',
         'reviewed_at',

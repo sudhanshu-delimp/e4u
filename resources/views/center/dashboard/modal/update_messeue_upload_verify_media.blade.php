@@ -40,19 +40,19 @@
 
                                     <div class="verification-type-title mb-2">
                                         <input type="radio" id="selfie" name="verification_type"
-                                            value="0" checked>
+                                            value="0" {{ $verification->type == '0' ? 'checked' : '' }}>
                                         <label for="selfie">Selfie</label>
                                     </div>
 
                                     <div class="verification-type-title mb-2">
                                         <input type="radio" id="licence" name="verification_type"
-                                            value="1">
+                                            value="1" {{ $verification->type == '1' ? 'checked' : '' }}>
                                         <label for="licence">Licence</label>
                                     </div>
 
                                     <div class="verification-type-title mb-2">
                                         <input type="radio" id="passport" name="verification_type"
-                                            value="2">
+                                            value="2" {{ $verification->type == '2' ? 'checked' : '' }}>
                                         <label for="passport">Passport</label>
                                     </div>
 

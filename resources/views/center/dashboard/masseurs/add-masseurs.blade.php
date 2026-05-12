@@ -1585,6 +1585,7 @@ padding: 37px !important;
 
                 if (fileInput && fileInput.files && fileInput.files.length > 0) {
                     formData.append('verification_image', fileInput.files[0]);
+                    formData.append('verification_type', $('input[name="verification_type"]:checked').val());
                 }
 
                 $.ajax({

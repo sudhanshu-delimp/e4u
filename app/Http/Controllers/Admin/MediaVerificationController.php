@@ -466,7 +466,12 @@ class MediaVerificationController extends Controller
             ->get();
 
         $result = [];
-
+        
+        $types = [
+            '0' => 'Selfie',
+            '1' => 'Licence',
+            '2' => 'Passport'
+        ];
         foreach ($data as $item) {
 
             $status = $statusMap[$item->status] ?? $statusMap['0'];
@@ -493,6 +498,7 @@ class MediaVerificationController extends Controller
                 'status_text'  => $status['text'],
                 'status_class' => $status['class'],
                 'tooltip'      => $tooltipHtml,
+                'type'      => $types[$item->type] ?? 'N/A',
             ];
         }
 
@@ -517,7 +523,11 @@ class MediaVerificationController extends Controller
         if ($data->isEmpty()) {
             $html .= '<tr><td colspan="6">No data found</td></tr>';
         } else {
-
+            $types = [
+                '0' => 'Selfie',
+                '1' => 'Licence',
+                '2' => 'Passport'
+            ];
             foreach ($data as $item) {
                 $dropdown_html = '';
                 // Status mapping
@@ -568,7 +578,7 @@ class MediaVerificationController extends Controller
                     <td>' . ($item->masseur->member_id ?? '--')  . '</td>
                     <td>' . ($item->created_at ? $item->created_at->format('d-m-Y') : '-') . '</td>
                     <td>' . ($item->masseur->name ?? '-') . '</td>
-
+                    <td>' . ($types[$item->type] ?? 'N/A') . '</td>
                     <td style="width:100px;">
                         <div class="e4u-tooltip">
                             <span class="custom_badge ' . $statusClass . '">

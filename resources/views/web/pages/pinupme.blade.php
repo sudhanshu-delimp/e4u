@@ -16,10 +16,14 @@
                     <img 
                     src="{{ !empty($user->defaultPinupImage)?asset($user->defaultPinupImage->path):asset('assets/app/img/home/home-demo.png') }}">
                     <span class="memmber_info"><i class="fa fa-user"></i> Member ID: {{$escort->user->member_id}}</span>
-                     <div class="lg_verify_icon">
-                                                
-                      <img src="{{ ('/assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-                        <span class="common_shield_tooltip">Media Pending</span>
+                    @php 
+                        $pinup_data  = get_escort_media_id_by_path($escort->user->defaultPinupImage->path);
+                        $status = $pinup_data->varified ?? 0; 
+                        $status_icon = getMediaVerificationDataBigIcon($status);
+                    @endphp
+                     <div class="lg_verify_icon">                          
+                        <img src="{{ $status_icon['icon'] }}">
+                        <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
 
                     </div>
                 </div>

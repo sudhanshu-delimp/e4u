@@ -497,6 +497,7 @@
                             <td>${item.id}</td>
                             <td>${item.date}</td>
                             <td>${item.name}</td>
+                            <td>${item.type}</td>
                             <td style="width:120px;">
                                 ${tooltipWrapper}
                             </td>
