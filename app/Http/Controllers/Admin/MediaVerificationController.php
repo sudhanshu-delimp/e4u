@@ -112,12 +112,23 @@ class MediaVerificationController extends Controller
 
         $total_media_verificatiion = $media_verificatiion->count();
         $media_verificatiions = $media_verificatiion->offset($start)->limit($limit)->get();
+        
 
         $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
+            $pending_count_badge = '';
+            $pending_count = MasseurVerification::
+                where('user_id', $item->user_id)
+                ->where('status', '0')
+                ->count();
+            
+            if($pending_count > 0){
+                $pending_count_badge = '<sup class="badge badge-danger pt-1" style="margin-left: 2px;">'.$pending_count.'</sup>';
+            } 
+            
             $user = $item->user;
             $item->member_id = $user->member_id ?? 'N/A';
-            $item->name      = $user->name ?? 'N/A';
+            $item->name      = $user->name.$pending_count_badge ?? 'N/A';
             $item->mobile    = $user->phone ?? 'N/A';
             $item->created_date = $item->created_at
                 ? showDateWithFormat($item->created_at)
@@ -455,7 +466,12 @@ class MediaVerificationController extends Controller
             ->get();
 
         $result = [];
-
+        
+        $types = [
+            '0' => 'Selfie',
+            '1' => 'Licence',
+            '2' => 'Passport'
+        ];
         foreach ($data as $item) {
 
             $status = $statusMap[$item->status] ?? $statusMap['0'];
@@ -482,6 +498,7 @@ class MediaVerificationController extends Controller
                 'status_text'  => $status['text'],
                 'status_class' => $status['class'],
                 'tooltip'      => $tooltipHtml,
+                'type'      => $types[$item->type] ?? 'N/A',
             ];
         }
 
@@ -506,7 +523,11 @@ class MediaVerificationController extends Controller
         if ($data->isEmpty()) {
             $html .= '<tr><td colspan="6">No data found</td></tr>';
         } else {
-
+            $types = [
+                '0' => 'Selfie',
+                '1' => 'Licence',
+                '2' => 'Passport'
+            ];
             foreach ($data as $item) {
                 $dropdown_html = '';
                 // Status mapping
@@ -557,7 +578,7 @@ class MediaVerificationController extends Controller
                     <td>' . ($item->masseur->member_id ?? '--')  . '</td>
                     <td>' . ($item->created_at ? $item->created_at->format('d-m-Y') : '-') . '</td>
                     <td>' . ($item->masseur->name ?? '-') . '</td>
-
+                    <td>' . ($types[$item->type] ?? 'N/A') . '</td>
                     <td style="width:100px;">
                         <div class="e4u-tooltip">
                             <span class="custom_badge ' . $statusClass . '">
@@ -805,6 +826,6 @@ class MediaVerificationController extends Controller
         foreach ($masseur_medias as $masseur_media) {
             $mediaImages[] = '<img src="' . asset($masseur_media->path) . '" " style="width:170px; border: 1px solid #ccc; padding:10px;height: 120px; object-fit: cover;">';
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'pinupImage', 'bannerImage', 'status'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'pinupImage', 'bannerImage', 'status','media_verification'));
     }
 }

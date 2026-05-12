@@ -497,6 +497,7 @@
                             <td>${item.id}</td>
                             <td>${item.date}</td>
                             <td>${item.name}</td>
+                            <td>${item.type}</td>
                             <td style="width:120px;">
                                 ${tooltipWrapper}
                             </td>
@@ -557,7 +558,7 @@
         // masseur_member_id = $(this).data('masseur_member-id');
         let profile_member_id = $(this).data('member-id');
         $('.member_id').html(profile_member_id);
-
+        $('#view_tag').modal('hide');
         let status = $(this).data('status');
         if (status == '1' || status == '2') {
             $('.approveMasseursBtn').hide();

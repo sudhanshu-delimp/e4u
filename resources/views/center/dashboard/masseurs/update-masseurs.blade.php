@@ -2562,6 +2562,10 @@ $(document).on('submit', '#mediaVerification', function (e) {
         data: formData,
         processData: false,
         contentType: false,
+        before: function (response) {
+            button.prop('disabled', true);
+            button.text('Verifing...');
+        },
         success: function (response) {
 
             Swal.fire({
