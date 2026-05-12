@@ -11,11 +11,15 @@
         <div class="trikon_style manage_toolkit_font"><a href="{{ route('web.pinup', $escort->id) }}">I am your Pin Up
                 click here.</a></div>
     @endif
-    
-    <div class="lg_verify_icon">
-                                
-        <img src="{{ ('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-        <span class="common_shield_tooltip">Media Pending</span>
+    @php 
+
+    $pinup_data  = get_escort_media_id_by_path($escort->user->defaultPinupImage->path);
+    $status = $pinup_data->varified ?? 0; 
+    $status_icon = getMediaVerificationDataBigIcon($status);
+    @endphp
+    <div class="lg_verify_icon">                    
+        <img src="{{ $status_icon['icon'] }}">
+        <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
 
     </div>
 </div>
