@@ -73,7 +73,7 @@ padding: 2px 8px 2px 8px !important;
                                                  <table id="myTable price-sec" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center table-bg">
                                                         <tr role="row" style="border-bottom: 2px solid white;">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="4" style="width: 212px; border-right: 2px solid white;" aria-label="Fees">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px; border-right: 2px solid white;" aria-label="Fees">
                                                                 <p><b>Fees</b></p>
                                                             </th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="2" style="width: 212px;" aria-label="Discounts">
@@ -81,16 +81,18 @@ padding: 2px 8px 2px 8px !important;
                                                             </th>
                                                         </tr>
                                                         <tr role="row" class="custom--row">
-                                                            <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                            <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 120px;" aria-label="
                                                                 Profile Name">Membership Type
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 120px;" aria-label="
                                                                 Profile Name
                                                                 ">Period
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">Frequency<sup>(2)</sup></th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">Rate</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">%</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 120px;" aria-label="Date Created">Frequency<sup>(2)</sup></th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 120px;" aria-label="Subscription Type">Rate</th>                                                            
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 115px;" aria-label="Status">Special Discount</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 115px;" aria-label="Status">New Rate</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 115px;" aria-label="Subscription Status">%</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Rate</th>
                                                         </tr>
                                                     </thead>
@@ -107,6 +109,8 @@ padding: 2px 8px 2px 8px !important;
                                                                     <td>{{ period_days($adverting['days']) }}</td>
                                                                     <td>{{ $adverting['frequency'] }}</td>
                                                                     <td>${{ number_format($adverting['price'], 2) }}</td>
+                                                                    <td>0.00</td>
+                                                                    <td>0.00</td>
                                                                     <td>
                                                                         @if(!empty($adverting['percentage']))
                                                                             {{ $adverting['percentage'] }}
