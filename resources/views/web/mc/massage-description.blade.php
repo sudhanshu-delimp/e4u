@@ -32,7 +32,7 @@
     padding: 2px 5px;
     position: absolute;
     z-index: 1;
-    bottom: 110%;
+    top:-35px;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
