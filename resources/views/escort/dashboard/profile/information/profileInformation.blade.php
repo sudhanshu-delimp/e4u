@@ -178,8 +178,8 @@
                   </div>
                </div>
             </div>
-            {{-- ye dynamic nhi hai abhi  --}}
-            {{-- <div class="card custom-help-contain">
+          
+            <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#my_additional_information">
                   My Additional Information
@@ -191,8 +191,9 @@
                      @include('escort.dashboard.profile.information.partials.my-additional-info')
                   </div>
                </div>
-            </div> --}}
-            {{-- end --}}
+            </div>
+            
+            
              <div class="card custom-help-contain">
                  <div class="card-header">
                      <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
@@ -265,19 +266,7 @@
                </div>
             </div>
 
-            <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="collapsed card-link" data-toggle="collapse" href="#my_addition_info">
-                  My Additional Information
-                  </a>
-               </div>
-               <div id="my_addition_info" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                  
-                     @include('escort.dashboard.profile.information.partials.my-additional-info')
-                  </div>
-               </div>
-            </div>
+            
 
          </div>
       </div>
