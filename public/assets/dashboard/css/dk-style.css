@@ -8055,6 +8055,44 @@ margin-left: 10px;
           line-height: 30px;
           cursor: pointer;
         }
+         .profile_icon_box{
+
+            position: relative;
+         }
+        .profile_icon_item{
+            position: absolute;
+            font-size: 12px;
+            top: -35px;
+            width: max-content;
+            left: 60%;
+            transform: translateX(-50%);
+            background-color: var(--peach);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: none;
+        }
+
+
+
+         .profile_icon_item::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            border-width: 4px;
+            border-style: solid;
+            background-color: var(--peach);
+            border-color: var(--peach);
+            z-index: -1;
+            transform: translate(-50%, -10%) rotate(45deg);
+        }
+        
+        .profile_icon_box:hover  .profile_icon_item {
+            display: block;
+        }
+
+
 
         .legend_item {
           position: relative;

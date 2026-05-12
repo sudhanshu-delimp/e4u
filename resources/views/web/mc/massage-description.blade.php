@@ -1125,7 +1125,7 @@ margin-right: 5px;
                                                                 <td class="table_border_solid_left">
                                                                    
 
-                                                                    @if($value->price)
+                                                                    @if($value->price && $value->price!=0)
                                                                     <div class="public-num-value-table"> <span>$ </span> {{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
@@ -1166,7 +1166,7 @@ margin-right: 5px;
                                                                         <td class="table_border_solid_left">
                                                                         
 
-                                                                            @if($value->price)
+                                                                           @if($value->price && $value->price!=0)
                                                                             <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
                                                                             @else
                                                                             <span class="if_data_not_available">N/A</span>
