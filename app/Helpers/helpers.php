@@ -174,12 +174,11 @@ if (!function_exists('getPlanFee')) {
 }
 
 
-
 if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatCurrency($amount)
+    function formatCurrency($amount, $currency = 'AUD$')
     {
         $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
         list($intPart, $decimalPart) = explode('.', $amount);
@@ -194,7 +193,7 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return 'AU$' . $formatted . '.' . $decimalPart;
+        return $currency.''. $formatted . '.' . $decimalPart;
     }
 }
 

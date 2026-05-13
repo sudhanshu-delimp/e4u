@@ -84,7 +84,7 @@ class PinPaymentService
       $item->completed_by_member_id = $item->completedByUser->member_id;
       $item->transaction_at = convert_aus_date_time_format($item->created_at);
       $item->type = ucfirst($item->type);
-      $item->amount = 'AU$' . $item->amount;
+      $item->amount = formatCurrency($item->amount);
       $action = '<div class="dropdown no-arrow">
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
