@@ -48,6 +48,8 @@ Route::get('/update-account', [CenterController::class, 'edit'])->name('center.a
 Route::post('/update-account', [CenterController::class, 'update'])->name('center.account.update');
 
 Route::post('add-sub-account', [CenterController::class, 'add_sub_account'])->name('center.add-sub-account');
+Route::post('all-other-centre-list', [CenterController ::class, 'get_all_other_centre_list'])->name('center.all-other-centre-list');
+
 
 //Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 //Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
@@ -175,6 +177,7 @@ Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'
 
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
 Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+
 
 
  

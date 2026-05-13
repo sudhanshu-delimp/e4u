@@ -603,6 +603,7 @@ class UserRepository extends BaseRepository implements UserInterface
             $user->created_at =  date('Y-m-d H:i:s');
             $user->contact_type =$data['contact_type'];
             $user->is_access_granted = $granted;
+            $user->enabled = 1;
             $user->parent_massage_center = auth()->user()->id;
             $user->type = '4';
             $user->state_id = auth()->user()->state_id;

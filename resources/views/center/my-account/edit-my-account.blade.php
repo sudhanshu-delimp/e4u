@@ -333,14 +333,14 @@
                                             <table class="table mb-3 w-100" id="other_centre_table">
                                                 <thead class="table-bg">
                                                     <tr>
-                                                        <th colspan="1" style="width: 75px;">Member ID</th>
-                                                        <th colspan="2">Display Name</th>
-                                                        <th colspan="2">Entity Name</th>
-                                                        <th colspan="2">Address</th>
-                                                        <th colspan="2">Business No.</th>
-                                                        <th colspan="2">Mobile No.</th>
-                                                        <th colspan="1">Email</th>
-                                                        <th colspan="1" class="text-center">Action</th>
+                                                        <th style="width: 75px;">Member ID</th>
+                                                        <th>Display Name</th>
+                                                        <th>Entity Name</th>
+                                                        <th>Address</th>
+                                                        <th>Business No.</th>
+                                                        <th>Mobile No.</th>
+                                                        <th>Email</th>
+                                                        <th  class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-content">
@@ -725,6 +725,19 @@
                                     <label>Password</label>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
                                     <span class="toggle-password" toggle="#password"><i class="fa fa-eye"></i></span>
+                                    <div class="password-strength mt-2 d-none" id="password-strength-wrapper">
+                                        <div class="progress" style="height:6px;">
+                                            <div id="password-strength-bar"
+                                                class="progress-bar"
+                                                role="progressbar"
+                                                style="width:0%">
+                                            </div>
+                                        </div>
+
+                                        <small id="password-strength-text" class="mt-1 d-block text-muted">
+                                            Password strength
+                                        </small>
+                                    </div>
                                     <span class="text-danger error-password"></span> 
                                 </div>
                             </div>
@@ -1021,224 +1034,59 @@
 
    
 <script>
+
     var table = $("#other_centre_table").DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID"
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10,    
+
+    ajax: {
+        url: "{{ route('center.all-other-centre-list') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        info: true,
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [
-            [1, 'desc']
-        ],
-        lengthMenu: [
-            [10, 25, 50, 100],
-            [10, 25, 50, 100]
-        ],
-        pageLength: 10,
+    },
 
-           columns: [
-               { data: 'member_ID', name: 'member_ID', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'display_name', name: 'display_name', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'entity_name', name: 'entity_name', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'address', name: 'address', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'business_no', name: 'business_no', searchable: true, orderable:true, defaultContent: 'NA' },
-               { data: 'mobile_no', name: 'mobile_no', searchable: true, orderable:true, defaultContent: 'NA' },
-               { data: 'email', name: 'email', searchable: true, orderable:true, defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-           ],
+    columns: 
+    [
+            { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'entity_name', name: 'entity_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'business_address', name: 'business_address', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
     });
+
+ 
+
+
 </script>
-    <script type="text/javascript">
-        $('#userProfile').parsley({
 
-        });
+<script type="text/javascript">
 
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
+    $('#userProfile').parsley({
 
-            var form = $(this);
-            $("#modal-title").text("About Us");
-            $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
-            if (form.parsley().isValid()) {
+    });
 
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        const modalElement = document.getElementById('comman_modal');
-                        const modal = new bootstrap.Modal(modalElement);
-                        if (!data.error) {
-                            var msg = "Saved";
-                            $('.comman_msg').html(msg);
-                            //$("#comman_modal").modal('show');
-                            
-                            modal.show();
-                            //$("#my_account_modal").show();
+    $('#userProfile').on('submit', function(e) {
+        e.preventDefault();
 
-                            //
-                        } else {
-                            $('.Lname').html("Oops.. sumthing wrong Please try again");
-                            var msg = "Oops.. sumthing wrong Please try again";
-                            $('.comman_msg').html(msg);
-                            //$("#comman_modal").modal('show');
-                            modal.show();
+        var form = $(this);
+        $("#modal-title").text("About Us");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
+        if (form.parsley().isValid()) {
 
-                        }
-                    },
-                    error: function(xhr) {
-                    const modalElement = document.getElementById('comman_modal');
-                    const modal = new bootstrap.Modal(modalElement);
-
-                    if (xhr.status === 422) {
-
-                        let errors = xhr.responseJSON.errors;
-                        let msg = '';
-
-                        $.each(errors, function(key, value) {
-                            msg += value[0] + "<br>";
-                        });
-
-                        $('.comman_msg').html(msg);
-                        modal.show();
-                    }
-            }
-
-                });
-            }
-        });
-
-        $("#close").click(function() {
-            $("#my_account_modal").hide();
-            location.reload();
-        });
-
-        $('#city').select2({
-            allowClear: true,
-            placeholder: 'Select City',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('city.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        state_id: $('#state').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-        $('#state').select2({
-            allowClear: true,
-            placeholder: 'Select State',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('state.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        country_id: $('#country').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-
-        $('#country').on('change', function(e) {
-            if ($(this).val()) {
-                $('#state').prop('disabled', false);
-                $('#state').select2('open');
-            } else {
-                $('#state').prop('disabled', true);
-            }
-        });
-
-        $('#state').on('change', function(e) {
-            if ($(this).val()) {
-                $('#city').prop('disabled', false);
-                $('#city').select2('open');
-            } else {
-                $('#city').prop('disabled', true);
-            }
-        });
-
-        /////////////////////
-        $('#profile_tour_options').on('submit', function(e) {
-            e.preventDefault();
-
-            var form = $(this);
-
-            $("#modal-title").text("Profile Contact Options");
-            $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
             var url = form.attr('action');
             var data = new FormData(form[0]);
             $.ajax({
@@ -1251,26 +1099,200 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                     const modalElement = document.getElementById('comman_modal');
+                    const modalElement = document.getElementById('comman_modal');
                     const modal = new bootstrap.Modal(modalElement);
                     if (!data.error) {
-                        $('.comman_msg').html("Saved");
-                        //$("#my_account_modal").modal('show');
-                        //$("#my_account_modal").show();
-                        //$("#comman_msg").modal('show');
+                        var msg = "Saved";
+                        $('.comman_msg').html(msg);
+                        //$("#comman_modal").modal('show');
+                        
                         modal.show();
+                        //$("#my_account_modal").show();
 
+                        //
                     } else {
-                        $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                        //$("#comman_msg").show();
-                         modal.show();
+                        $('.Lname').html("Oops.. sumthing wrong Please try again");
+                        var msg = "Oops.. sumthing wrong Please try again";
+                        $('.comman_msg').html(msg);
+                        //$("#comman_modal").modal('show');
+                        modal.show();
 
                     }
                 },
+                error: function(xhr) {
+                const modalElement = document.getElementById('comman_modal');
+                const modal = new bootstrap.Modal(modalElement);
+
+                if (xhr.status === 422) {
+
+                    let errors = xhr.responseJSON.errors;
+                    let msg = '';
+
+                    $.each(errors, function(key, value) {
+                        msg += value[0] + "<br>";
+                    });
+
+                    $('.comman_msg').html(msg);
+                    modal.show();
+                }
+        }
 
             });
+        }
+    });
+
+    $("#close").click(function() {
+        $("#my_account_modal").hide();
+        location.reload();
+    });
+
+    $('#city').select2({
+        allowClear: true,
+        placeholder: 'Select City',
+        createTag: function(params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+            return {
+                id: term,
+                text: term,
+                newTag: false // add additional parameters
+            }
+        },
+        tags: false,
+        minimumInputLength: 2,
+        tokenSeparators: [','],
+        ajax: {
+            url: "{{ route('city.list') }}",
+            dataType: "json",
+            type: "GET",
+            data: function(params) {
+                console.log(params);
+                var queryParameters = {
+                    query: params.term,
+                    state_id: $('#state').val()
+                }
+                return queryParameters;
+            },
+            processResults: function(data) {
+                return {
+                    results: $.map(data, function(item) {
+
+                        return {
+                            text: item.name,
+                            id: item.id
+                        }
+                    })
+                };
+            }
+        }
+    });
+
+    $('#state').select2({
+        allowClear: true,
+        placeholder: 'Select State',
+        createTag: function(params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+            return {
+                id: term,
+                text: term,
+                newTag: false // add additional parameters
+            }
+        },
+        tags: false,
+        minimumInputLength: 2,
+        tokenSeparators: [','],
+        ajax: {
+            url: "{{ route('state.list') }}",
+            dataType: "json",
+            type: "GET",
+            data: function(params) {
+                console.log(params);
+                var queryParameters = {
+                    query: params.term,
+                    country_id: $('#country').val()
+                }
+                return queryParameters;
+            },
+            processResults: function(data) {
+                return {
+                    results: $.map(data, function(item) {
+
+                        return {
+                            text: item.name,
+                            id: item.id
+                        }
+                    })
+                };
+            }
+        }
+    });
+
+
+    $('#country').on('change', function(e) {
+        if ($(this).val()) {
+            $('#state').prop('disabled', false);
+            $('#state').select2('open');
+        } else {
+            $('#state').prop('disabled', true);
+        }
+    });
+
+    $('#state').on('change', function(e) {
+        if ($(this).val()) {
+            $('#city').prop('disabled', false);
+            $('#city').select2('open');
+        } else {
+            $('#city').prop('disabled', true);
+        }
+    });
+
+    /////////////////////
+    $('#profile_tour_options').on('submit', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+
+        $("#modal-title").text("Profile Contact Options");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
+        var url = form.attr('action');
+        var data = new FormData(form[0]);
+        $.ajax({
+            method: form.attr('method'),
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                    const modalElement = document.getElementById('comman_modal');
+                const modal = new bootstrap.Modal(modalElement);
+                if (!data.error) {
+                    $('.comman_msg').html("Saved");
+                    //$("#my_account_modal").modal('show');
+                    //$("#my_account_modal").show();
+                    //$("#comman_msg").modal('show');
+                    modal.show();
+
+                } else {
+                    $('.comman_msg').html("Oops.. sumthing wrong Please try again");
+                    //$("#comman_msg").show();
+                        modal.show();
+
+                }
+            },
 
         });
+
+    });
 
 
 
@@ -1338,6 +1360,79 @@
                 icon.classList.add("fa-eye");
             }
         });
+    });
+
+
+    $('#password').on('keyup', function () {
+
+    let password = $(this).val();
+
+    
+    if (password.length === 0) {
+    $('#password-strength-wrapper').addClass('d-none');
+    return;
+    }
+
+    $('#password-strength-wrapper').removeClass('d-none');
+
+    let strength = 0;
+
+   
+    if (password.length >= 8) strength++;
+    if (password.length >= 12) strength++;
+    if (password.length >= 16) strength++;
+
+    if (/[a-z]/.test(password)) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+   
+    if ((password.match(/[^a-zA-Z0-9]/g) || []).length >= 2) {
+    strength++;
+    }
+
+   
+    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/.test(password)) {
+    strength++;
+    }
+
+    let width = 0;
+    let text = '';
+    let color = '';
+
+    if (strength <= 2) {
+    width = 20;
+    text = 'Very Weak';
+    color = 'bg-danger';
+
+    } else if (strength <= 4) {
+    width = 40;
+    text = 'Weak';
+    color = 'bg-warning';
+
+    } else if (strength <= 6) {
+    width = 60;
+    text = 'Medium';
+    color = 'bg-info';
+
+    } else if (strength <= 8) {
+    width = 80;
+    text = 'Strong';
+    color = 'bg-primary';
+
+    } else {
+    width = 100;
+    text = 'Very Strong';
+    color = 'bg-success';
+    }
+
+    $('#password-strength-bar')
+    .removeClass('bg-danger bg-warning bg-info bg-primary bg-success')
+    .addClass(color)
+    .css('width', width + '%');
+
+    $('#password-strength-text').text(text);
     });
 
 </script>
