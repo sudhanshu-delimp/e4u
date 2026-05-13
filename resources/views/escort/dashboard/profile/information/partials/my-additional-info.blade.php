@@ -16,9 +16,9 @@
 </style>
 
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
-    <form id="update_about_me" action="{{ route('escort.settings.about.me') }}" method="POST"
+    <form id="update_about_me" action="#" method="POST"
         enctype="multipart/form-data">
-        @csrf
+
         <!-- upload video  -->
         <div class="about_me_drop_down_info ">
 
@@ -58,16 +58,19 @@
 
                             </label>
 
+                          
+
                             <div class="col-sm-12 stageListParent pl-1">
                                 <div class="col-sm-12 pl-0">
-                                    <input type="text" class="form-control form-control-sm" id="st_name"
+                                    <input type="text" class="form-control form-control-sm" id="stage_name"
                                         placeholder="Enter stage name">
                                 </div>
-                                <div> <span><b>Note:</b> <i>Save your new Stage Names before you apply the Sort
+                                <div><span><b>Note:</b> <i>Save your new Stage Names before you apply the Sort
                                             feature.</i></span></div>
-                                <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
-                                    <label for="">Sort By : </label>
-                                    <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
+
+                                <div class="col-sm-12" style="display: ruby; padding-left: 0px;">
+                                    <label>Sort By : </label>
+                                    <div class="pt-4 pb-3">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sortedByStageName" type="radio"
                                                 name="sortedByStageName" id="alphabetically" value="alphabetically"
@@ -81,31 +84,12 @@
                                             <label class="form-check-label" for="random">Random</label>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
-                                    <div class="at-lable  mt-0">
-                                        <ul class="results" id="stageList">
-                                            @if (!empty(auth()->user()->escorts_names))
-                                                @php
-                                                    $sortedEscortName = Arr::sort(auth()->user()->escorts_names);
-                                                @endphp
-                                                @foreach ($sortedEscortName as $key => $name)
-                                                    <li style="font-size: 14px; background:#0C223D !important;"> <a
-                                                            href="#">{{ $name }}</a>
-                                                        <div class="close ml-2 text-white stage-close"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true" class='delete_stname'
-                                                                id='{{ $name }}'>×</span>
-                                                            <small class='mytool-tip'>Remove</small>
-                                                        </div>
-                                                        <input type='hidden' name='name[]'
-                                                            value="{{ $name }}">
-                                                    </li>
-                                                @endforeach
-                                            @endif
-
+                                    <div class="at-lable mt-0">
+                                        <ul class="results" id="stageNameList">
+                                            {{-- JS se dynamically render hoga --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -159,19 +143,18 @@
                                 {{-- append cards --}}
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
-                                        <ul class="results" id="stageList">
-                                            <li style="font-size: 14px; background:#0C223D !important;" class="show_details"> <a
-                                                    href="#">Sydney</a>
+                                        <ul class="results" id="stageAddress">
+                                            <li style="font-size: 14px; background:#0C223D !important;"
+                                                class="show_details"> <a href="#">Sydney</a>
                                                 <div class="close ml-2 text-white stage-close" aria-label="Close">
                                                     <span aria-hidden="true" class="delete_stname"
                                                         id="Sydney">×</span>
                                                     <small class="mytool-tip">Remove</small>
                                                 </div>
-                                                <input type="hidden" name="name[]"
-                                                    value="Sydney">
+                                                <input type="hidden" name="name[]" value="Sydney">
                                                 <div class="details_tooltip">
                                                     123, ABC Street, New South Wales, 2000
-                                                </div>    
+                                                </div>
                                             </li>
 
                                         </ul>
@@ -203,7 +186,8 @@
                                     <input type="text" class="form-control form-control-sm" id="who_title"
                                         placeholder="Enter title">
                                 </div>
-                                <div> <span><b>Note:</b> <i>Save your Titles before you apply the Sort feature.</i></span></div>
+                                <div> <span><b>Note:</b> <i>Save your Titles before you apply the Sort
+                                            feature.</i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
@@ -223,43 +207,24 @@
 
                                 </div>
 
-                                {{-- <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
-                                    <div class="at-lable  mt-0">
-                                        <ul class="results" id="stageList">
-                                            @if (!empty(auth()->user()->escorts_names))
-                                                @php 
-                                                    $sortedEscortName= Arr::sort(auth()->user()->escorts_names);
-                                                @endphp
-                                                @foreach ($sortedEscortName as $key => $name)
-                                                <li style="font-size: 14px; background:#0C223D !important;"> <a href="#">{{ $name}}</a>
-                                                    <div class="close ml-2 text-white stage-close" aria-label="Close">
-                                                        <span aria-hidden="true" class='delete_stname' id='{{$name}}'>×</span>
-                                                        <small class='mytool-tip'>Remove</small>
-                                                    </div>
-                                                    <input type='hidden' name='name[]' value="{{ $name }}">
-                                                </li>
-                                                @endforeach
-                                            @endif
-
-                                        </ul>
-                                    </div>
-                                </div> --}}
+                               
                                 {{-- append cards --}}
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
-                                        <ul class="results" id="stageList">
-                                            <li style="font-size: 14px; background:#0C223D !important;" class="show_details"> 
-                                                <a href="#" class="two_words">Sebastian Christopher Alexander Montgomery</a>
+                                        <ul class="results" id="stageTitleList">
+                                            <li style="font-size: 14px; background:#0C223D !important;"
+                                                class="show_details">
+                                                <a href="#" class="two_words">Sebastian Christopher Alexander
+                                                    Montgomery</a>
                                                 <div class="close ml-2 text-white stage-close" aria-label="Close">
                                                     <span aria-hidden="true" class="delete_stname"
                                                         id="Sydney">×</span>
                                                     <small class="mytool-tip">Remove</small>
                                                 </div>
-                                                <input type="hidden" name="name[]"
-                                                    value="Sydney">
+                                                <input type="hidden" name="name[]" value="Sydney">
                                                 <div class="details_tooltip">
                                                     Sebastian Christopher Alexander Montgomery
-                                                </div>    
+                                                </div>
                                             </li>
 
                                         </ul>
@@ -315,19 +280,21 @@
                                 {{-- append cards --}}
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
-                                        <ul class="results" id="stageList">
-                                            <li style="font-size: 14px; background:#0C223D !important;" class="show_details"> 
-                                                <a href="#" class="two_words">I don’t put everything out here.. 💋 my private link is where I get a lot more personal.</a>
+                                        <ul class="results" id="stageNarration">
+                                            <li style="font-size: 14px; background:#0C223D !important;"
+                                                class="show_details">
+                                                <a href="#" class="two_words">I don’t put everything out here..
+                                                    💋 my private link is where I get a lot more personal.</a>
                                                 <div class="close ml-2 text-white stage-close" aria-label="Close">
                                                     <span aria-hidden="true" class="delete_stname"
                                                         id="Sydney">×</span>
                                                     <small class="mytool-tip">Remove</small>
                                                 </div>
-                                                <input type="hidden" name="name[]"
-                                                    value="Sydney">
+                                                <input type="hidden" name="name[]" value="Sydney">
                                                 <div class="details_tooltip">
-                                                   <span class="seven_words ">I don’t put everything out here.. 💋 my private link is where I get a lot more personal.</span>
-                                                </div>    
+                                                    <span class="seven_words ">I don’t put everything out here.. 💋 my
+                                                        private link is where I get a lot more personal.</span>
+                                                </div>
                                             </li>
 
                                         </ul>
@@ -335,27 +302,7 @@
                                 </div>
                                 {{-- end --}}
 
-                                {{-- <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
-                                    <div class="at-lable  mt-0">
-                                        <ul class="results" id="stageList">
-                                            @if (!empty(auth()->user()->escorts_names))
-                                                @php 
-                                                    $sortedEscortName= Arr::sort(auth()->user()->escorts_names);
-                                                @endphp
-                                                @foreach ($sortedEscortName as $key => $name)
-                                                <li style="font-size: 14px; background:#0C223D !important;"> <a href="#">{{ $name}}</a>
-                                                    <div class="close ml-2 text-white stage-close" aria-label="Close">
-                                                        <span aria-hidden="true" class='delete_stname' id='{{$name}}'>×</span>
-                                                        <small class='mytool-tip'>Remove</small>
-                                                    </div>
-                                                    <input type='hidden' name='name[]' value="{{ $name }}">
-                                                </li>
-                                                @endforeach
-                                            @endif
-
-                                        </ul>
-                                    </div>
-                                </div> --}}
+                                
                             </div>
                         </div>
                     </div>
@@ -363,28 +310,37 @@
                 {{-- end --}}
 
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-12 text-right">
                         <button id="read-more" type="submit" class="save_profile_btn">Save</button>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </form>
 </div>
-<script>
-document.querySelectorAll(".two_words").forEach(el => {
-    let words = el.textContent.trim().split(/\s+/);
 
-    if (words.length > 2) {
-        el.textContent = words.slice(0, 2).join(" ") + "...";
-    }
-});
-document.querySelectorAll(".seven_words").forEach(el =>{
-    let seven_words = el.textContent.trim().split(/\s+/);
 
-    if(seven_words.length>2){
-        el.textContent = seven_words.slice(0, 7).join(" ");
-    }
-});
-</script>
+    <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
+        data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
+        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+        data-stagename-store="{{route('escort.stagename.store')}}"
+        data-stagename-delete="{{route('escort.stagename.delete')}}"
+        ></div>
+
+{{-- <script>
+    document.querySelectorAll(".two_words").forEach(el => {
+        let words = el.textContent.trim().split(/\s+/);
+
+        if (words.length > 2) {
+            el.textContent = words.slice(0, 2).join(" ") + "...";
+        }
+    });
+    document.querySelectorAll(".seven_words").forEach(el => {
+        let seven_words = el.textContent.trim().split(/\s+/);
+
+        if (seven_words.length > 2) {
+            el.textContent = seven_words.slice(0, 7).join(" ");
+        }
+    });
+</script> --}}

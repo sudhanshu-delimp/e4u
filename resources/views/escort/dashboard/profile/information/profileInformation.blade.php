@@ -275,8 +275,10 @@
 </div>
 @endsection
 @push('script')
+
 <!-- file upload plugin start here -->
 @push('script')
+<script src="{{asset('escorts/dashboard/profile/additional_information/additional_information.js')}}"></script>
 <script>
     $("#modal-title").text('');
    $('#select2-dropdown').select2({
@@ -300,7 +302,6 @@
            dataType: "json",
            type: "GET",
            data: function (params) {
-               console.log(params);
                var queryParameters = {
                    query: params.term
                }

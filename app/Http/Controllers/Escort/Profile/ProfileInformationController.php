@@ -29,6 +29,7 @@ use App\Models\EscortCovidReport;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Playmate\PlaymateInterface;
+use Exception;
 
 class ProfileInformationController extends Controller
 {
@@ -509,5 +510,39 @@ class ProfileInformationController extends Controller
         }
 
         return response()->json(compact('error', 'message'));
+    }
+
+    //store StagingName
+    public function storeEscortStageName(Request $request){
+        try{
+            $escort = User::findOrFail(Auth::id());
+            $name = $escort->escorts_names ?? [];
+            if(in_array($request->stage_name, $name)){
+                return error_response('Name already exists.', 422);
+            }
+
+            $name[] =  $request->stage_name;
+            $escort->update(['escorts_names' => $name]);
+            //$data = null, $message = 'OK', $statusCode = 200, array $extra = []
+        return success_response(null, "success", 200, []);
+        } catch(Exception $e){
+            return error_response('Sonething is wrong!' .$e->getMessage(), 500);
+        }
+
+    }
+
+    //Delete storeEscortStageName
+    public function deleteEscortStageName(Request $request){
+        try{
+            $escort = User::findOrFail($request->escort_id);
+            $name = array_values(
+                array_filter($escort->stage_name ?? [], fn($n) => $n !== $request->stage_name)
+            );
+            $escort->update(['escorts_names' => $name]);
+
+        } catch(Exception $e){
+            return error_response('Sonething is wrong!', 500);
+        }
+        
     }
 }

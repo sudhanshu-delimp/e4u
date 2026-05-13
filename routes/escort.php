@@ -133,6 +133,9 @@ Route::post('settings-services',[ProfileInformationController::class,'storeServi
 Route::post('settings-socials-link',[ProfileInformationController::class,'storeSocialsLink'])->name('escort.settings.social');
 Route::post('available-playmates',[ProfileInformationController::class,'escortplaymate'])->name('escort.playmate.check');
 Route::post('available-playmates-check',[ProfileInformationController::class,'escortplaymate'])->name('escort.availabe-playmate.check');
+//Additonaly Information
+Route::post('my-information/stage-name/store', [ProfileInformationController::class, 'storeEscortStageName'])->name('escort.stagename.store');
+Route::post('my-information/stage-name/delete', [ProfileInformationController::class, 'deleteEscortStageName'])->name('escort.stagename.delete');
 
 //Route::post('settings-upload-avatar',[ProfileInformationController::class,'storeSocialsLink'])->name('settings.save.avatar');
 //////////////end settings
