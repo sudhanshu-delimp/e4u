@@ -51,7 +51,7 @@
   text-align: justify;
 }
 
-#payment-form .apply_benefits {
+.apply_benefits {
 display: flex;
 justify-content: space-between;
 align-items: center;

@@ -223,4 +223,75 @@ class PaymentController extends Controller
         return $pdf->stream($payment->user->member_id.'_Payment_Summary_'.$payment->ref_no.'.pdf');
     }
 
+    public function paymentAdjustment(Request $request)
+    {
+        try {
+
+            $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
+            $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : null;
+            // At least one value is required
+            if (is_null($wallet_amount) && is_null($loyalty_day)) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Please enter wallet amount or loyalty days',
+                ], 422);
+            }
+            $wallet_balance   = $this->account->wallet->balance ?? 0;
+            $wallet_earn_days = $this->account->wallet->earn_days ?? 0;
+            // Validate wallet amount
+            if ($wallet_amount > $wallet_balance) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Wallet amount exceeds available balance',
+                ], 422);
+            }
+            // Validate loyalty days
+            if ($loyalty_day > $wallet_earn_days) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Loyalty days exceed available days',
+                ], 422);
+            }
+
+            $sub_total_amount = $this->getAmount();
+            $loyalty_amount = 0;
+
+            if(session()->has('checkout')){
+                $checkout = session()->get('checkout');
+                $lowestPlan = collect($checkout)->max('membership');
+                $planFee = getPlanFee($lowestPlan);
+                $loyalty_amount = ($planFee*$loyalty_day);
+            }
+
+            $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount); 
+
+            if ($total_amount < 0) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Wallet amount and Loyalty discount exceed subtotal',
+                ], 422);
+            }
+
+            $total_amount = max(0, $total_amount);
+
+            $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount'))->render();
+            
+            return response()->json([
+                'status'         => true,
+                'lowest_plan' => $lowestPlan,
+                'total_amount' => $total_amount,
+                'message' => 'Applied successfully',
+                'html' => $html,
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }

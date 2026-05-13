@@ -160,6 +160,19 @@ if (!function_exists('getBumpupFee')) {
     }
 }
 
+if (!function_exists('getPlanFee')) {
+    function getPlanFee($planId=null)
+    {
+        if(!empty($planId)){
+            $pricing = \App\Models\Pricing::where('membership_id', $planId)->first();
+            return !empty($pricing) ? $pricing->price : 0;
+        }
+        else{
+            return 0;
+        }
+    }
+}
+
 
 
 if (!function_exists('formatCurrency')) {
