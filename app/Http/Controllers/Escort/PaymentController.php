@@ -48,14 +48,25 @@ class PaymentController extends Controller
         ]);
         $redirect_url = '';
         $amount = $this->getAmount();
-        $gatewayResponse = $this->pinService->charge($request->pin_token, $amount, $this->account->email);
+        $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
+            'loyalty_day' => 0,
+            'sub_total_amount' => $amount,
+            'wallet_amount' => 0.00,
+            'loyalty_amount' => 0.00,
+            'total_amount' => $amount,
+        ];
+    
+        $gatewayResponse = $this->pinService->charge($request->pin_token, $benefit_token['total_amount'], $this->account->email);
         if ($gatewayResponse['status']) {
             $response = $gatewayResponse['data']['response'];
             $payment = PaymentHistory::create([
                 'user_id'         => $this->account->id,
                 'completed_by'    => $this->account->id,
                 'ref_no'          => now()->format('Ymd') . rand(100,999),
-                'amount'          => $response['amount'] / 100,
+                'amount'          => $benefit_token['sub_total_amount'],
+                'wallet_amount'   => $benefit_token['wallet_amount'],
+                'loyalty_amount'  => $benefit_token['loyalty_amount'],
+                'paid_amount'     => $benefit_token['total_amount'],
                 'currency'        => $response['currency'],
                 'payment_gateway' => 'pinpayments',
                 'transaction_id'  => $response['token'],
@@ -64,23 +75,40 @@ class PaymentController extends Controller
                 'card'            => $response['card']['display_number'],
                 'meta'            => json_encode($response),
             ]);
+
             if(session()->has('checkout')){
                 $this->saveCheckout($payment);
-                $payment->service = 'Listing';
-                $payment->save();
+                $payment_service = 'Listing';
                 session()->forget('checkout');
                 $redirect_url = route('escort.dashboard.listings', 'current');
             }
             if(session()->has('tour_checkout')){
                 $this->saveCheckout($payment);
-                $payment->service = 'Tour';
-                $payment->save();
+                $payment_service = 'Tour';
                 session()->forget('tour_checkout');
                 $redirect_url = route('escort.view.tour.list', 'current');
             }
+
+            if(!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0){
+                $this->walletService->debit(
+                    $this->account,
+                    $benefit_token['wallet_amount'],
+                    $payment,
+                    $payment_service,
+                    []
+                );
+            }
+
+            if(!empty($benefit_token['loyalty_day']) && $benefit_token['loyalty_day'] > 0){
+                $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
+            }
+
+            $payment->service = $payment_service;
+            $payment->save();
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Payment completed successfully',
+                'message' => '<i class="fas fas fa-check-circle text-success"></i> Payment completed successfully',
                 'netAmount' => $amount,
                 'redirect_url' => $redirect_url,
                 'gateway' => $gatewayResponse
@@ -228,9 +256,9 @@ class PaymentController extends Controller
         try {
 
             $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
-            $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : null;
+            $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
             // At least one value is required
-            if (is_null($wallet_amount) && is_null($loyalty_day)) {
+            if (empty($wallet_amount) && empty($loyalty_day)) {
                 return response()->json([
                     'status'  => false,
                     'message' => 'Please enter wallet amount or loyalty days',
@@ -283,7 +311,7 @@ class PaymentController extends Controller
                 'status'         => true,
                 'lowest_plan' => $lowestPlan,
                 'total_amount' => $total_amount,
-                'benefit_token' => encrypt(compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount')),
+                'benefit_token' => encrypt(compact('loyalty_day','sub_total_amount','wallet_amount','loyalty_amount','total_amount')),
                 'message' => 'Applied successfully',
                 'html' => $html,
             ]);
