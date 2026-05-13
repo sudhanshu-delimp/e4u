@@ -510,7 +510,7 @@
                 </div>
             `); */
                 newContact.find('.addDeleteButton').append(`
-        <div class="col-md-6 d-flex align-items-center">
+        <div class="col-md-6 d-flex align-items-end">
             <button type="button" class="btn-cancel-modal btn-remove" style="padding:13px 21px;"> 
                 <i class="fa fa-times text-white"></i>
             </button>

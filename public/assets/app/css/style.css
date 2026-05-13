@@ -456,7 +456,7 @@
                     font-size: 16px;
                     font-weight: 600;
                     z-index: 2;
-                    /* top: 15%; */
+                    top: 15%;
                 }
                 
                 a.back--search .previous_icon {
@@ -9767,7 +9767,8 @@ background-image:none;
                     }
                     /*profile css from hare*/
                     .profile_page_title h2 {
-                        font-size: 30px
+                        font-size: 24px;
+                        line-height: 1.2;
                     }
                     .profile_description_banner {
                         height: 300px;

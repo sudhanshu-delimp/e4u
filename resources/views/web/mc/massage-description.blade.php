@@ -32,7 +32,7 @@
     padding: 2px 5px;
     position: absolute;
     z-index: 1;
-    bottom: 110%;
+    top:-35px;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
@@ -255,20 +255,37 @@ margin-right: 5px;
                 <div class="overlay">
                     @if($listing->latest_active_brb)
                         <div class="brb_details">
-                            <h1>BRB at {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
+                            <h1>Closed until {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
                             <h3>{{$listing->latest_active_brb->brb_note}}</h3>
                         </div>
                     @endif
                 </div>
             </div>
-            <div class="container-fluid back_to_search_btn pt-2">
-            <a href="../massage-centres-list" class="back--search">
-                Back to Search
-                <span class="previous_icon">
-                    <i class="fa fa-chevron-up text-white" aria-hidden="true"></i>
-                </span>
-            </a>
-        </div>
+            {{-- <div class="container-fluid back_to_search_btn pt-2">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="../massage-centres-list" class="back--search">
+                   
+                    <span class="previous_icon">
+                        <i class="fa fa-chevron-left text-white" aria-hidden="true"></i>
+                    </span>
+
+                      Back to Search
+                </a>
+                    </div>
+                </div>               
+            </div> --}}
+
+            <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
+            
+                <div class="row">
+                    <div class="col-12">
+                        <a href="../massage-centres-list" class="back--search"> 
+                            <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
+                    </div>
+                </div>
+            </div>
+            
 
 
             <div class="profile_page_title">
@@ -881,13 +898,33 @@ margin-right: 5px;
                                                         </div>
                                                         <div class="mc_profile_modal d-block">
                                                             <span><b>Massage Services:</b> <span class="about_box_small_heading_value">
-                                                                    {{ rtrim($massage_services, ', ') }}
+
+                                                               
+
+                                                                    @if(!empty($masseur->massage_service_types) && count($masseur->massage_service_types) > 0)
+                                                                    {{ collect($masseur->massage_service_types)
+                                                                        ->map(fn($type) => config('escorts.profile.massage-services')[$type] ?? null)
+                                                                        ->filter()
+                                                                        ->implode(', ') }}
+                                                                    @else
+                                                                    {{ 'NA' }}
+                                                                    @endif
+
+                                                                   
                                                             </span></span>
                                                         </div>
 
                                                         <div class="mc_profile_modal d-block">
                                                             <span><b>Other Service Types :</b> <span class="about_box_small_heading_value">
-                                                                    {{ rtrim($other_services, ', ') }}
+
+                                                                            @if(!empty($masseur->other_service_types) && count($masseur->other_service_types) > 0)
+                                                                                {{ collect($masseur->other_service_types)
+                                                                                    ->map(fn($type) => config('escorts.profile.other-services')[$type] ?? null)
+                                                                                    ->filter()
+                                                                                    ->implode(', ') }}
+                                                                            @else
+                                                                                {{ 'NA' }}
+                                                                            @endif
 
                                                             </span></span>
                                                         </div>
@@ -1105,7 +1142,7 @@ margin-right: 5px;
                                                                 <td class="table_border_solid_left">
                                                                    
 
-                                                                    @if($value->price)
+                                                                    @if($value->price && $value->price!=0)
                                                                     <div class="public-num-value-table"> <span>$ </span> {{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
@@ -1146,7 +1183,7 @@ margin-right: 5px;
                                                                         <td class="table_border_solid_left">
                                                                         
 
-                                                                            @if($value->price)
+                                                                           @if($value->price && $value->price!=0)
                                                                             <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
                                                                             @else
                                                                             <span class="if_data_not_available">N/A</span>
@@ -1506,7 +1543,7 @@ margin-right: 5px;
                                     @if($contactType == 4 || $contactType == 5)
                                         <div class="tooltip-wrapper">
                                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                                            <div class="tooltip-text">Call me</div>
+                                            <div class="tooltip-text">Call us</div>
                                             @if($contactType == 5)
                                                 <span>or</span>
                                             @endif
