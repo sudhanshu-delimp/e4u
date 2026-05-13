@@ -85,8 +85,6 @@
                     }
                 });
         </script>
-
-        <script src="{{ asset('assets/js/common.js') }}"></script>
         @stack('script')
 
         <!-- ///////////// Notification ////////////////// -->

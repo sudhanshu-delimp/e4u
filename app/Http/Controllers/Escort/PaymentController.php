@@ -273,13 +273,17 @@ class PaymentController extends Controller
             }
 
             $total_amount = max(0, $total_amount);
+            $paymentAmounts = [
 
+            ];
+            
             $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount'))->render();
             
             return response()->json([
                 'status'         => true,
                 'lowest_plan' => $lowestPlan,
                 'total_amount' => $total_amount,
+                'benefit_token' => encrypt(compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount')),
                 'message' => 'Applied successfully',
                 'html' => $html,
             ]);
