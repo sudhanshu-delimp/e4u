@@ -130,3 +130,22 @@ function ajaxRequest({
 function swal_error_warning(titile,message) {
     Swal.fire((titile) ? titile : '',(message) ? message : '', 'warning' );       
 }
+
+function addOrUpdateHiddenInput(formId, name, value) {
+    let form = document.getElementById(formId);
+
+    let input = form.querySelector(`input[name="${name}"]`);
+
+    if (input) {
+        // Update existing value
+        input.value = value;
+    } else {
+        // Create new hidden input
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+
+        form.appendChild(input);
+    }
+}
