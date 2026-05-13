@@ -45,7 +45,7 @@
                                             <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Transaction
                                                 Value</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;"><span>AU$</span> {{ $payment?->amount ?? '---' }}</td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->amount ?? 0) }}</td>
                                             </tr>
                                             <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Card</strong></td>

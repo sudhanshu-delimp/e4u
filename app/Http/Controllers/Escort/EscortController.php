@@ -804,8 +804,8 @@ class EscortController extends BaseController
         if($this->account->type == ESCORT && $discount){
             $rows = array_map(function($item) use($discount){
                 if(in_array($item['membership_id'],['1','2','3'])){
-                    $item['percentage'] = $discount->value;
-                    $item['discount_amount'] = number_format($discount->discountAmount($item['price']),2);
+                    $item['special_discount'] = $discount->value;
+                    $item['new_rate'] = number_format($discount->discountAmount($item['price']),2);
                 }
                 return $item;
             },$advertings);

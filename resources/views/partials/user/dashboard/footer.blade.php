@@ -42,7 +42,6 @@
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
         <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
-        <script src="{{ asset('assets/js/common.js') }}"></script>
         <!-- Page level plugins -->
         
 

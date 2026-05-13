@@ -108,9 +108,9 @@ padding: 2px 8px 2px 8px !important;
                                                                     <td>{!! $adverting['memberships']['name'] !!}</td>
                                                                     <td>{{ period_days($adverting['days']) }}</td>
                                                                     <td>{{ $adverting['frequency'] }}</td>
-                                                                    <td>${{ number_format($adverting['price'], 2) }}</td>
-                                                                    <td>0.00</td>
-                                                                    <td>0.00</td>
+                                                                    <td>{{ formatCurrency($adverting['price']) }}</td>
+                                                                    <td>{{ $adverting['special_discount'] ?? 0 }}</td>
+                                                                    <td>{{ formatCurrency($adverting['new_rate'] ?? $adverting['price']) }}</td>
                                                                     <td>
                                                                         @if(!empty($adverting['percentage']))
                                                                             {{ $adverting['percentage'] }}
@@ -118,7 +118,7 @@ padding: 2px 8px 2px 8px !important;
                                                                             N/A
                                                                         @endif
                                                                     </td>
-                                                                    <td>${{ number_format($adverting['discount_amount'], 2) }}</td>
+                                                                    <td>{{ formatCurrency($adverting['discount_amount']) }}</td>
                                                                 </tr>
                                                             @endforeach 
                                                         
