@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-success-modal nex_sterp_btn print_payment_summary">🖨️ Print Report</a>
+                    <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white">🖨️ Print Report</a>
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
