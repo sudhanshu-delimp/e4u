@@ -21,20 +21,20 @@
                                     <p><strong>Order Summary</strong></p>
                                     <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal:</span>
-                                    <span class="paymentSubtotal">AU$ 0.00</span>
+                                    <span class="paymentSubtotal">{{formatCurrency(0)}}</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                     <span>Wallet Used:</span>
-                                    <span>AU$ 0.00</span>
+                                    <span>{{formatCurrency(0)}}</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                     <span>Loyalty Discount:</span>
-                                    <span>AU$ 0.00</span>
+                                    <span>{{formatCurrency(0)}}</span>
                                     </div>
                                     <hr>
                                     <div class="d-flex justify-content-between">
                                     <strong>Total:</strong>
-                                    <strong class="paymentTotal">AU$ 0.00</strong>
+                                    <strong class="paymentTotal">{{formatCurrency(0)}}</strong>
                                     </div>
                                 </div>
 
@@ -51,12 +51,12 @@
                                     <div class="wallet_details">
                                       <div class="card">
                                         <div class="card-body">
-                                          <h5><img src="{{asset('assets/dashboard/img/wallet.png')}}"> Wallet Money :  <span>AU$ {{Auth::user()->wallet->balance}}</span></h5>
+                                          <h5><img src="{{asset('assets/dashboard/img/wallet.png')}}"> Wallet Money :  <span>{{formatCurrency(Auth::user()->wallet->balance)}}</span></h5>
                                         </div>
                                       </div>
                                       <div class="card">
                                         <div class="card-body">
-                                          <h5> <img src="{{asset('assets/dashboard/img/days.png')}}"> Loyalty Days :  <span>{{Auth::user()->wallet->earn_days}}</span></h5>
+                                          <h5> <img src="{{asset('assets/dashboard/img/days.png')}}"> Loyalty Days :  <span>{{Auth::user()->wallet->earn_days ?? 0}}</span></h5>
                                         </div>
                                       </div>
                                     </div>
@@ -332,6 +332,7 @@
                 success: function (res, textStatus, xhr) {
                     Swal.close();
                     let option = getStatusOption(xhr);
+                    console.log(res);
                     if (res.status) {
                         $(".order_summary_adjustment").html(res.html);
                         if(res.total_amount){
