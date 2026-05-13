@@ -43,7 +43,7 @@
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
         <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
         <!-- Page level plugins -->
-        
+        @include('partials.common.footer-scripts')
 
         <script>
             $(document).ready(function(){
