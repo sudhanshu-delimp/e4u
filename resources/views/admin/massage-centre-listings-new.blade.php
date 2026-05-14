@@ -171,6 +171,7 @@
                     $(".refreshSeconds").text(' ' + countdown);
 
                     if (countdown <= 0) {
+                      
                          $('#listings').DataTable().ajax.reload(null, false);
                         countdown = 15;
                     }
@@ -196,14 +197,14 @@
                     info: true,
                     searching: true,
                     bStateSave: true,
-                    order: [
-                        [1, 'desc']
-                    ],
+                  
                     lengthMenu: [
                         [10, 25, 50, 100],
                         [10, 25, 50, 100]
                     ],
                     pageLength: 10,
+                    order: [12, 'asc'],
+                    stateSave: false,
 
                     ajax: {
                         url: "{{ route('admin.massage.center.dataTableListing') }}",
@@ -228,7 +229,7 @@
 
                     columns: [{
                             data: 'member_id',
-                            name: 'member_id'
+                            name: 'member_id',
                         },
                         {
                             data: 'member',
@@ -236,15 +237,19 @@
                         },
                         {
                             data: 'listing',
-                            name: 'listing'
+                            name: 'listing',
+                             orderable: false,
+                             sortable:false
                         },
                         {
                             data: 'profile_name',
-                            name: 'profile_name'
+                            name: 'profile_name',
+                             orderable: false
                         },
                         {
                             data: 'masseurs',
-                            name: 'masseurs'
+                            name: 'masseurs',
+                            orderable: false
                         },
                         {
                             data: 'start_date',
@@ -269,19 +274,17 @@
                         {
                             data: 'status',
                             name: 'status',
-                            orderable: false
+                            orderable: false,
                         },
                         {
                             data: 'action',
                             name: 'action',
-                            orderable: false
+                            orderable: false,
                         }
                     ],
-                   
-
 
                 });
-
+                  //table.state.clear();
 
             }
 

@@ -111,7 +111,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $isBumpUped = $item->escort->activeBumpup;
 
             $item->is_bumpup = !empty($isBumpUped) ? true : false;
-
+            $item->statusOriginal = $item->status;
 
             $item->escort_id = $item->escort_id;
             $item->member_id = $item->escort->member_id;
@@ -135,6 +135,11 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $itemArray = $item->escort->toArray();
             //print_r($itemArray);die;
             $tagCount = 0;
+
+            $endpoint = ['id' => $item->escort->id];
+            $profileUrl = route('profile.description', $endpoint);
+            $item->profileUrl = $profileUrl;
+            
 
             if ($itemArray['brb']) {
                 $item->pro_name = '<span id="brb_' . $item->escort->id . '">' . $item->escort->profile_name . " <br/><sup class='brb_icon listing-tag-tooltip'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['selected_time'])) . "</small></sup>";

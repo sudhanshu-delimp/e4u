@@ -187,7 +187,7 @@ CKEDITOR.replace('editor1', {
                 $(".refreshSeconds").text(' '+countdown);
 
                 if (countdown <= 0) {
-                    //$('#escort_listings').DataTable().ajax.reload(null, false);
+                    $('#escort_listings').DataTable().ajax.reload(null, false);
                     countdown = 15;
                     
                 }
@@ -280,12 +280,12 @@ CKEDITOR.replace('editor1', {
                     {
                         data: 'days_number',
                         searchable: false,
-                        orderable: true
+                        orderable: false
                     },
                     {
                         data: 'days_left',
                         searchable: false,
-                        orderable: true
+                        orderable: false
                     },
                     
                     {
@@ -316,7 +316,22 @@ CKEDITOR.replace('editor1', {
                     targets: 10,
                     orderable: false,
                     render: function(data, type, row) {
-                        
+                        if(row.statusOriginal == 'listed') {
+                            return `
+                            <div class="dropdown no-arrow ml-3">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="`+row.profileUrl+`" target="_blank"><i class="fa fa-eye "></i> View Listing   
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+
+                        } else {
                         return `
                             <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -333,6 +348,7 @@ CKEDITOR.replace('editor1', {
                                 </div>
                             </div>
                         `;
+                        }
                     }
                 }
             ]

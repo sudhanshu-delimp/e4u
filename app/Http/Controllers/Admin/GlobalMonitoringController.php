@@ -273,6 +273,8 @@ class GlobalMonitoringController extends Controller
     {
         $today = Carbon::today();
         $search = request()->input('search.value');
+        $order_key = request()->get('order')[0]['column'];
+        $dir = request()->get('order')[0]['dir'];
         //$search = "";
 
         $massagers = MassagePurchase::with([
@@ -284,31 +286,53 @@ class GlobalMonitoringController extends Controller
             'massageprofile',
             'user:id,status,member_id,name,email,phone,status,state_id',
             'activeUpcomingSuspend',
-            
-        ])->where(function ($q) use ($search) {
-            if (!empty($search)) {
+        ])
+            ->leftJoin('users', 'users.id', '=', 'massage_purchases.massage_centre_id')
+            ->select('massage_purchases.*')
+            ->whereIn('massage_purchases.status', ['listed', 'expire'])
+            ->where(function ($q) use ($search) {
+                    if (!empty($search)) {
+                        $q->orWhere(function ($q) use ($search) {
+                            $q->whereHas('massageprofile', function ($q) use ($search) {
+                                $q->where('profile_name', $search);
+                            });
+                        });
+                        $q->orWhere(function ($q) use ($search) {
+                            $q->whereHas('user', function ($q) use ($search) {
+                                $q->where('member_id', $search);
+                            });
+                        });
+                    }
+                }
+            );
 
-                $q->orWhere(function ($q) use ($search) {
-                    $q->whereHas('massageprofile', function ($q) use ($search) {
-                        $q->where('profile_name', $search);
-                    });
-                });
-                $q->orWhere(function ($q) use ($search) {
-                    $q->whereHas('user', function ($q) use ($search) {
-                        $q->where('member_id', $search);
-                    });
-                });
-            }
-        })
-        //->whereHas('massageprofile')
-        ->whereIn('status', ['listed', 'expire'])
-            ->orderByRaw("CASE 
-                WHEN status = 'listed' THEN 1 
-                WHEN status = 'expire' THEN 2 
-            ELSE 3 
-            END")
-            // ->limit()
-            ->get();
+        /* listed first, expire second */
+        //echo $order_key; die;
+        $massagers = $massagers->orderByRaw("
+            CASE 
+                WHEN massage_purchases.status = 'listed' THEN 1
+                WHEN massage_purchases.status = 'expire' THEN 2
+                ELSE 3
+            END
+        ");
+
+        switch ($order_key) {
+
+            case 0:
+                $massagers = $massagers->orderBy('users.member_id', $dir);
+                break;
+
+            case 1:
+                $massagers = $massagers->orderBy('users.name', $dir);
+                break;
+
+            default:
+                //$massagers = $massagers->orderBy('massage_purchases.id', 'DESC');
+                break;
+        }
+
+
+        $massagers = $massagers->get();
 
         $result = $massagers->map(function ($row) use ($today) {
 
@@ -370,17 +394,16 @@ class GlobalMonitoringController extends Controller
             }
             $actionBtn = "";
             $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
-            if ($row->status == 'listed'){
-                 $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+            if ($row->status == 'listed') {
+                $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="' . route('web.massage-description', $profile_url) . '" target="_blank"> 
                 <i class="fa fa-eye "></i> View</a>';
-               
             } else {
                 $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-listing" 
-                                    data-toggle="modal" data-target="#view-listing" data-id="'.$row->massageprofile->id.'" href="javascript:void(0)"><i class="fa fa-eye "></i> View Listing </a>';
+                                    data-toggle="modal" data-target="#view-listing" data-id="' . $row->massageprofile->id . '" href="javascript:void(0)"><i class="fa fa-eye "></i> View Listing </a>';
             }
 
-         /*    $actionButtons = '<div class="dropdown no-arrow ml-3">
+            /*    $actionButtons = '<div class="dropdown no-arrow ml-3">
                                     
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -391,7 +414,7 @@ class GlobalMonitoringController extends Controller
                                         
                                     </div>
                                 </div>'; */
-             $actionButtons = '<div class="dropdown no-arrow ml-3">
+            $actionButtons = '<div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -710,7 +733,7 @@ class GlobalMonitoringController extends Controller
                         $q->where('profile_name', 'LIKE', "%{$search}%")
                             ->orWhereHas('user', function ($q) use ($search) {
                                 $q->where('member_id', 'LIKE', "%{$search}%");
-                        });
+                            });
                     });
                 }
             });
@@ -759,10 +782,10 @@ class GlobalMonitoringController extends Controller
         //$result = $this->escortListedProfile($id);
 
         $escort = Escort::where('id', $id)->with(['durations', 'purchase', 'user', 'brb' => function ($query) {
-                $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-            }, 'pinup', 'suspendProfile'])->first()->toArray();
+            $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+        }, 'pinup', 'suspendProfile'])->first()->toArray();
 
-        
+
         $dataTableData = [];
 
         if ($escort['purchase']) {
