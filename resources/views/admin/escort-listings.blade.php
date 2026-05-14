@@ -100,39 +100,30 @@
                 <table class="table" id="escort_listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
-                            <th>
-                                Member ID
-
-                            </th>
-                            <th>
-                                Member
-
-                            </th>
-                            <th>
-                                Listing
-                            </th>
-                            <th>
-                                Profile Name
-                            </th>
-                            <th>Type</th>
-                            <th>Listed</th>
-                            <th>De-listed</th>
+                            <th>Member ID</th>
+                            <th>Member</th>
+                            <th>Listing</th>
+                            <th>Profile Name</th>
+                            <th>Membership</th>
+                            <th style="90px;!important;">Listed</th>
+                            <th style="90px;!important;">De-listed</th>
                             <th>Days</th>
                             <th>Remaining</th>
+                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-content">
                         <tr>
-                            <td colspan="10" class="theme-color text-center">Loading...</td>
+                            <td colspan="11" class="theme-color text-center">Loading...</td>
                         </tr>
                     </tbody>
                      <tr>
-                        <th colspan="10" class="border-0"></th>
+                        <th colspan="11" class="border-0"></th>
                     </tr>
                     <tfoot class="bg-first t-foot">
                         <tr>
-                            <th colspan="2" class="text-left border-0">Server time: <span class="serverTime">10:23:51 am</span></th>
+                        <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
                             <th colspan="4" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
                             <th colspan="4" class="text-right border-0">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                         </tr>
@@ -196,7 +187,7 @@ CKEDITOR.replace('editor1', {
                 $(".refreshSeconds").text(' '+countdown);
 
                 if (countdown <= 0) {
-                    $('#escort_listings').DataTable().ajax.reload(null, false);
+                    //$('#escort_listings').DataTable().ajax.reload(null, false);
                     countdown = 15;
                     
                 }
@@ -235,12 +226,14 @@ CKEDITOR.replace('editor1', {
                     $(".platinumListing").text(json.membershipCounts.platinum);
                     $(".goldListing").text(json.membershipCounts.gold);
                     $(".silverListing").text(json.membershipCounts.silver);
+                    $(".serverTime").text(json.server_time);
+                    $(".uptimeClass").html(json.server_up_time);
 
                     return json.data;
                 }
             },
             columns: [
-                { data: 'member_id', name: 'member_id' },
+                /* { data: 'member_id', name: 'member_id' },
                 { data: 'stage_name', name: 'stage_name' },
                 { data: 'state_name', name: 'state_name' },
                 { data: 'pro_name', name: 'pro_name' },
@@ -249,10 +242,60 @@ CKEDITOR.replace('editor1', {
                 { data: 'end_date_formatted', name: 'end_date', orderable: false  },
                 { data: 'days_number', name: 'days_number' , orderable: false },
                 { data: 'days_left', name: 'days_left',orderable: false  },
-                { data: 'action', name: 'action', orderable: false }
+                {data: 'enabled',name: 'enabled',searchable: false,orderable: false,defaultContent: 'NA'},
+                { data: 'action', name: 'action', orderable: false } */
+                 {
+                        data: 'member_id',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
+                        data: 'name',
+                        orderable: true
+                    },
+                    {
+                        data: 'location',
+                        searchable: false,
+                        orderable: false
+                    },
+                    {
+                        data: 'pro_name',
+                        searchable: false,
+                        orderable: true
+                    },
+                    { 
+                        data: 'membership',
+                        searchable: false, 
+                        orderable:false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'start_date',
+                        searchable: false,
+                    },
+                    {
+                        data: 'end_date',
+                        searchable: false,
+                    },
+                    {
+                        data: 'days_number',
+                        searchable: false,
+                        orderable: true
+                    },
+                    {
+                        data: 'days_left',
+                        searchable: false,
+                        orderable: true
+                    },
+                    
+                    {
+                        data: 'statusBtn',
+                        searchable: false,
+                        orderable: false,
+                    },
             ],
             columnDefs: [
-                { width: "4%", targets: 0 },  // First column
+               /*  { width: "4%", targets: 0 },  // First column
                 { width: "12%", targets: 1 },   // Third column
                 { width: "15%", targets: 2 },   // Third column 
                 { width: "8%", targets: 4 },   
@@ -260,13 +303,20 @@ CKEDITOR.replace('editor1', {
                 { width: "11%", targets: 6 },   
                 { width: "8%", targets: 8 },   
                 { width: "5%", targets: 7 },   
-                { width: "5%", targets: 9 },   
+                { width: "5%", targets: 9 },   */ 
+                {targets: 0 },  // First column
+                {targets: 1 },   // Third column
+                {targets: 2 },   // Third column 
+                {targets: 4 },   
+                {targets: 5 },   
+                {targets: 6 },   
+                {targets: 8 },   
+                {targets: 9 },   
                 {
-                    targets: 9,
+                    targets: 10,
                     orderable: false,
                     render: function(data, type, row) {
-                        $(".serverTime").text(row.server_time);
-                        $(".uptimeClass").html(row.upTime);
+                        
                         return `
                             <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -276,7 +326,7 @@ CKEDITOR.replace('editor1', {
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-listing" 
-                                    data-toggle="modal" data-target="#view-listing" data-id="`+row.id+`" href="#">
+                                    data-toggle="modal" data-target="#view-listing" data-id="`+row.escort.id+`" href="#">
                                         <i class="fa fa-eye "></i> View Listing 
                                         
                                     </a>
