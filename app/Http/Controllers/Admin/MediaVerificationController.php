@@ -448,7 +448,7 @@ class MediaVerificationController extends Controller
                     break;
             }
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage', 'pinupImage', 'mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'status'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage', 'media_verification' ,'pinupImage', 'mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'status'));
     }
 
 
