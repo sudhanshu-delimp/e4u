@@ -203,7 +203,7 @@
                         [10, 25, 50, 100]
                     ],
                     pageLength: 10,
-                    order: [9, 'asc'],
+                    order: [0, 'DESC'],
                     stateSave: false,
 
                     ajax: {
