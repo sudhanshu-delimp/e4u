@@ -112,7 +112,6 @@
 
                                 @csrf
                                 <div class="errors alert alert-danger" style="display:none">
-                                    <h3></h3>
                                 </div>
 
                                 <!-- Billing -->
@@ -203,7 +202,6 @@
 
             form.submit(function(e) {
                 e.preventDefault();
-                errorHeading.empty();
                 errorContainer.hide();
 
                 $('.is-invalid').removeClass('is-invalid');
@@ -231,13 +229,16 @@
             });
 
             function handleSuccess(card) {
+                let data = {};
+                data['_token'] = `{{ csrf_token() }}`;
+                data['pin_token'] = card.token;
+                if($("input[name='benefit_token']").length > 0){
+                    data['benefit_token'] = $("input[name='benefit_token']").val();
+                }
                 $.ajax({
                     url: form.attr('action'),
                     method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        pin_token: card.token
-                    },
+                    data: data,
                     success: function(response) {
                         submitButton.removeAttr('disabled');
 
@@ -247,7 +248,7 @@
                             .addClass('alert-success')
                             .show();
 
-                        errorHeading.text(response.message);
+                        errorContainer.html(response.message);
                         location.assign(response.redirect_url);
 
                         // close modal after delay
@@ -266,12 +267,7 @@
                             .addClass('alert-danger')
                             .show();
 
-                        errorHeading.text('Payment Failed');
-                        if (res && res.message) {
-                            $('<li>').text(res.message).appendTo(errorList);
-                        } else {
-                            $('<li>').text('Something went wrong').appendTo(errorList);
-                        }
+                        errorContainer.html('<i class="fas fa-times-circle text-danger"></i> Payment Failed');
                     }
                 });
             }
@@ -335,6 +331,7 @@
                     console.log(res);
                     if (res.status) {
                         $(".order_summary_adjustment").html(res.html);
+                        addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
                         if(res.total_amount){
                             $("#payment-form").find('input, button, select, textarea').prop('disabled', false);
                         }

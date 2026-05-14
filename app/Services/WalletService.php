@@ -98,18 +98,16 @@ class WalletService
 
             switch ($action) {
 
-                case 'add':
+                case 'add':{
                     $wallet->increment('earn_days', $days);
-                    break;
+                } break;
 
-                case 'subtract':
+                case 'subtract':{
                     $newValue = max(0, $wallet->earn_days - $days);
-
-                    $wallet->update([
-                        'earn_days' => $newValue
-                    ]);
-                    break;
-
+                    if($newValue > 0){
+                        $wallet->decrement('earn_days', $days);
+                    }
+                } break;
                 default:
                     throw new \InvalidArgumentException('Invalid action type');
             }

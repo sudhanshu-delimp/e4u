@@ -41,21 +41,21 @@
 
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table w-100">
+                            <table class="table w-100 table-bordered">
                                 <thead class="table-bg">
                                     <tr>
                                         <th colspan="3" class="text-center">My Viewers</th>
                                     </tr>
-
-                                </thead>
-                                <tbody class="table-content">
                                     <tr>
 
-                                        <td class="font-weight-bold">State</td>
+                                        <th>State</th>
 
-                                        <td class="text-center font-weight-bold">Viewers</td>
-                                        <td class="text-center font-weight-bold">Notifications</td>
+                                        <th class="text-center">Viewers</th>
+                                        <th class="text-center">Notifications</th>
                                     </tr>
+                                </thead>
+                                <tbody class="table-content">
+                                    
                                     <tr>
                                         <td>ACT:</td>
                                         <td class="text-center">10</td>
@@ -150,7 +150,7 @@
                                         <td>SA</td>
                                         <td>Email</td>
                                         <td>By email</td>
-                                        <td>    
+                                        <td>
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input" id="customSwitch_1">
                                                 <label class="custom-control-label" for="customSwitch_1"></label>
@@ -187,7 +187,7 @@
     {{-- Send Notification Popup --}}
     <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="new-ban"><img src="/assets/app/img/paper-plane-send.png"
@@ -204,7 +204,8 @@
                                 <select class="form-control rounded-0 mb-3">
                                     <option>Select Home State</option>
                                 </select>
-                                 <label class="form-check-label" for="exampleCheck1" style="color: #323C47; display:none">You are
+                                <label class="form-check-label" for="exampleCheck1"
+                                    style="color: #323C47; display:none">You are
                                     about to send notification to all viewers located in Home State. </label>
 
                                 <!-- if only one selected -->
@@ -213,50 +214,52 @@
                                     about to send notification to <span>Viewers name</span> and viewers located in
                                     <span>Location</span>. </label>
                             </div>
-                            
+
                             <div class="col-12 mb-3">
                                 <div class="form-group text-left">
-                                    {{-- in not selected any --}} <hr style="background-color: #0C223D" class="mt-4">
-   
-    <div class="card-body px-0">
-       <p class="mb-1"><b>Notes:</b></p>
-       <ol class="pl-4 text-justify">
-            <li>The Viewer will only receive this Notification if they have the feature
-                enabled.</li>
-            <li>The Notification will identify you by your Membership ID and Stage Name.
-            </li>
-        </ol>
-    </div>
-    </div>
-    </div>
-    </div>
-    </form>
-    </div>
-    <div class="modal-footer pr-3">
-        <div class="col-10 pl-0">
-            <div class="form-group">
-                <label class="form-check-label pr-4" for="exampleCheck1">Date:<span
-                        class="ml-1">10-10-2025</span></label>
-                <label class="form-check-label pr-4" for="exampleCheck1"> No. of Viewers:<span
-                        class="ml-1">100</span></label>
+                                    {{-- in not selected any --}}
+                                    <hr style="background-color: #0C223D" class="mt-4">
+
+                                    <div class="card-body px-0">
+                                        <p class="mb-1"><b>Notes:</b></p>
+                                        <ol class="pl-4 text-justify">
+                                            <li>The Viewer will only receive this Notification if they have the feature
+                                                enabled.</li>
+                                            <li>The Notification will identify you by your Membership ID and Stage Name.
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="form-check-label pr-2" for="exampleCheck1">Date:<span
+                                    class="ml-1">10-10-2025</span></label>
+                            <label class="form-check-label" for="exampleCheck1"> No. of Viewers:<span
+                                    class="ml-1">100</span></label>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-success-modal">Send</button>
+                </div>
             </div>
         </div>
-        <button type="button" class="btn-success-modal">Send</button>
-    </div>
-    </div>
-    </div>
     </div>
     {{-- end --}}
 
 
     {{-- Notification invalid Popup --}}
-    <div class="modal fade upload-modal" id="invalidNotification" tabindex="-1" role="dialog" aria-labelledby="invalidNotification"
-        aria-hidden="true" data-backdrop="static">
+    <div class="modal fade upload-modal" id="invalidNotification" tabindex="-1" role="dialog"
+        aria-labelledby="invalidNotification" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="invalidNotification"><img src="/assets/dashboard/img/invalid-notification.png"
-                            class="custompopicon" alt="cross"> Notification invalid</h5>
+                    <h5 class="modal-title" id="invalidNotification"><img
+                            src="/assets/dashboard/img/invalid-notification.png" class="custompopicon" alt="cross">
+                        Notification invalid</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -300,7 +303,7 @@
                         <div class="form-group">
                             <label class="form-check-label pr-4" for="exampleCheck1">Date:<span
                                     class="ml-1">10-10-2025</span></label>
-                           
+
                         </div>
                     </div>
                     <button type="button" class="btn-success-modal">Send</button>
@@ -338,18 +341,41 @@
                     searchPlaceholder: "Search by Viewer Name"
                 },
                 paging: true,
-                columns: [
-                    { data: 'check', name: 'check' },
-                    { data: 'name', name: 'name' },
-                    { data: 'tagged', name: 'tagged', orderable: true },
-                    { 
-                        data: 'home_state', name: 'home_state',
+                columns: [{
+                        data: 'check',
+                        name: 'check'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'tagged',
+                        name: 'tagged',
+                        orderable: true
+                    },
+                    {
+                        data: 'home_state',
+                        name: 'home_state',
                         orderable: true,
                         searchable: false
                     },
-                    { data: 'contact_method', name: 'contact_method', orderable: true},
-                    { data: 'notification', name: 'notification', orderable: true },
-                    { data: 'block', name: 'block', orderable: true, class:'text-center' }
+                    {
+                        data: 'contact_method',
+                        name: 'contact_method',
+                        orderable: true
+                    },
+                    {
+                        data: 'notification',
+                        name: 'notification',
+                        orderable: true
+                    },
+                    {
+                        data: 'block',
+                        name: 'block',
+                        orderable: true,
+                        class: 'text-center'
+                    }
                 ]
             });
         });

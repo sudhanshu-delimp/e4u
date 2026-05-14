@@ -178,7 +178,7 @@ if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatCurrency($amount, $currency = 'AUD$')
+    function formatCurrency($amount, $currency = '$')
     {
         $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
         list($intPart, $decimalPart) = explode('.', $amount);

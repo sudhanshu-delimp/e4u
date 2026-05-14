@@ -309,7 +309,7 @@
                                                                 <tr role="row">
                                                                     <td>{{ $service->service_type }}</td>
                                                                     <td>{{ $service->frequency }}</td>
-                                                                    <td>${{ $service->amount }}</td>
+                                                                    <td>{{ formatCurrency($service->amount) }}</td>
                                                                     
                                                                 </tr>
                                                                  @endforeach 
@@ -360,22 +360,22 @@
                                                     <tbody>
                                                     <tr role="row">
                                                         <td>NUM Notification</td>
-                                                        <td>[$value]</td>
+                                                        <td>{{formatCurrency(0.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Verified Media</td>
-                                                        <td>$ 10.00</td>
+                                                        <td>{{formatCurrency(10.00)}}</td>
                                                         <td>Per service, up to 7 photos</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Mobile SIM</td>
-                                                        <td>$ 85.00</td>
+                                                        <td>{{formatCurrency(85.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Email account</td>
-                                                        <td>$ 20.00</td>
+                                                        <td>{{formatCurrency(20.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     </tbody>
@@ -443,7 +443,7 @@
                                                                 <tr role="row">
                                                                     <td>{{ $support_services->fee }}</td>
                                                                     <td>{{ $support_services->frequency }}</td>
-                                                                    <td>${{ $support_services->amount }}</td>
+                                                                    <td>{{ formatCurrency($support_services->amount) }}</td>
                                                                     
                                                                 </tr>
                                                                  @endforeach 
@@ -525,7 +525,7 @@
                                                                     <td>{{ $variablLoyalty->type }}</td>
                                                                     <td>{{ $variablLoyalty->level }}</td>
                                                                     <td>{{ $variablLoyalty->discription }}</td>
-                                                                    <td>${{ $variablLoyalty->amount }}</td>
+                                                                    <td>{{ formatCurrency($variablLoyalty->amount) }}</td>
                                                                     <td>{{ $variablLoyalty->reward }}</td>
                                                                     
                                                                     

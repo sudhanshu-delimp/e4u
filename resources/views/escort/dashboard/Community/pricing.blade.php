@@ -203,7 +203,7 @@ padding: 2px 8px 2px 8px !important;
                                                                 <tr role="row">
                                                                     <td>{{ $service->service_type }}</td>
                                                                     <td>{{ $service->frequency }}</td>
-                                                                    <td>${{ $service->amount }}</td>
+                                                                    <td>{{ formatCurrency($service->amount) }}</td>
                                                                     
                                                                 </tr>
                                                                  @endforeach 
@@ -211,7 +211,7 @@ padding: 2px 8px 2px 8px !important;
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="card border-0 mb-0 pb-0">
+                                        <div class="card border-0 mb-3 pb-0">
                                             <div class="card-body border-0 p-0 mt-2">
                                                 <div class="card border-0 p-0 mb-0">
                                                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -257,22 +257,22 @@ padding: 2px 8px 2px 8px !important;
                                                     <tbody>
                                                     <tr role="row">
                                                         <td>NUM Notification</td>
-                                                        <td>[$value]</td>
+                                                        <td> {{formatCurrency(0.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Verified Media</td>
-                                                        <td>$ 10.00</td>
+                                                        <td> {{formatCurrency(10.00)}}</td>
                                                         <td>Per service, up to 7 photos</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Mobile SIM</td>
-                                                        <td>$ 85.00</td>
+                                                        <td> {{formatCurrency(85.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Email account</td>
-                                                        <td>$ 20.00</td>
+                                                        <td> {{formatCurrency(20.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     </tbody>
@@ -341,7 +341,7 @@ padding: 2px 8px 2px 8px !important;
                                                                 <tr role="row">
                                                                     <td>{{ $support_services->fee }}</td>
                                                                     <td>{{ $support_services->frequency }}</td>
-                                                                    <td>${{ $support_services->amount }}</td>
+                                                                    <td>{{ formatCurrency($support_services->amount) }}</td>
                                                                     
                                                                 </tr>
                                                                  @endforeach 

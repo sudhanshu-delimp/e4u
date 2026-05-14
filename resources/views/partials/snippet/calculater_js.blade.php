@@ -233,7 +233,7 @@
                 <td class="text-center">${members}</td>
                 <td class="text-center">
                     <input type="hidden" class="row-fee" value="${fee}">
-                    $${fee}
+                    <x-curFormat/>${fee}
                 </td>
               
                 <td class="text-center">
@@ -272,7 +272,7 @@
         $('#reckoner tfoot').html(`
             <tr class="custom-last-row">
                 <td colspan="7" class="text-right font-weight-bold">Total Fees:</td>
-                <td  class="font-weight-bold text-center">$${total.toFixed(2)}</td>
+                <td  class="font-weight-bold text-center"> <x-curFormat/>${total.toFixed(2)}</td>
             </tr>
         `).show();
     }
