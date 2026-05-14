@@ -526,22 +526,25 @@ class ProfileInformationController extends Controller
             //$data = null, $message = 'OK', $statusCode = 200, array $extra = []
         return success_response(null, "success", 200, []);
         } catch(Exception $e){
-            return error_response('Sonething is wrong!' .$e->getMessage(), 500);
+            return error_response($e->getMessage(), 400, null, []);
         }
 
     }
 
     //Delete storeEscortStageName
     public function deleteEscortStageName(Request $request){
+    
         try{
-            $escort = User::findOrFail($request->escort_id);
-            $name = array_values(
-                array_filter($escort->stage_name ?? [], fn($n) => $n !== $request->stage_name)
-            );
-            $escort->update(['escorts_names' => $name]);
-
+            $escort = User::findOrFail(Auth::id());
+           // dd($escort->escorts_names, $request->stage_name);
+            $names = $escort->escorts_names ?? [];
+            $nam = array_filter($names, function ($name) use ($request) {
+                return $name != $request->stage_name;
+            });
+            $escort->update(['escorts_names' => $nam]);
+            return success_response(null, "Delete successfully!", 200, []);
         } catch(Exception $e){
-            return error_response('Sonething is wrong!', 500);
+            return error_response($e->getMessage(), 400, null, []);
         }
         
     }

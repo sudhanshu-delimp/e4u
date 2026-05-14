@@ -16,8 +16,7 @@
 </style>
 
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
-    <form id="update_about_me" action="#" method="POST"
-        enctype="multipart/form-data">
+    <form id="update_about_me" action="#" method="POST" enctype="multipart/form-data">
 
         <!-- upload video  -->
         <div class="about_me_drop_down_info ">
@@ -46,7 +45,7 @@
 
                 {{-- stage name --}}
                 <div class="row">
-                    <div class="col-lg-12 stage">
+                    <div class="col-lg-12 ">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
                                 for="exampleFormControlSelect1" style="font-size: 18px;">
@@ -57,9 +56,6 @@
                                     data-boundary="window">
 
                             </label>
-
-                          
-
                             <div class="col-sm-12 stageListParent pl-1">
                                 <div class="col-sm-12 pl-0">
                                     <input type="text" class="form-control form-control-sm" id="stage_name"
@@ -72,16 +68,21 @@
                                     <label>Sort By : </label>
                                     <div class="pt-4 pb-3">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageName" type="radio"
-                                                name="sortedByStageName" id="alphabetically" value="alphabetically"
-                                                checked>
-                                            <label class="form-check-label" for="alphabetically">Alphabetical
-                                                (A–Z)</label>
+                                            <input class="form-check-input" type="radio" name="sortedByStageName"
+                                                id="stageNameAlphabetically" value="alphabetically" checked>
+
+                                            <label class="form-check-label" for="stageNameAlphabetically">
+                                                Alphabetical (A–Z)
+                                            </label>
                                         </div>
+
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageName" type="radio"
-                                                name="sortedByStageName" id="random" value="random">
-                                            <label class="form-check-label" for="random">Random</label>
+                                            <input class="form-check-input" type="radio" name="sortedByStageName"
+                                                id="stageNameRandom" value="random">
+
+                                            <label class="form-check-label" for="stageNameRandom">
+                                                Random
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -93,6 +94,12 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button id="read-more" type="button"
+                                            class="save_stage_name_button">Save</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,7 +109,7 @@
 
                 {{-- stage address --}}
                 <div class="row">
-                    <div class="col-lg-12 stage">
+                    <div class="col-lg-12 ">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
                                 for="exampleFormControlSelect1" style="font-size: 18px;">
@@ -127,15 +134,15 @@
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sortedByStageAddress" type="radio"
-                                                name="sortedByStageAddress" id="alphabetically" value="alphabetically"
+                                                name="sortedByStageAddress" id="addressAlphabetically" value="alphabetically"
                                                 checked>
-                                            <label class="form-check-label" for="alphabetically">Location
+                                            <label class="form-check-label" for="addressAlphabetically">Location
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sortedByStageAddress" type="radio"
-                                                name="sortedByStageAddress" id="random" value="random">
-                                            <label class="form-check-label" for="random">Random</label>
+                                                name="sortedByStageAddress" id="addressRandom" value="random">
+                                            <label class="form-check-label" for="addressRandom">Random</label>
                                         </div>
                                     </div>
 
@@ -170,7 +177,7 @@
 
                 {{-- Who Am I (Title) --}}
                 <div class="row">
-                    <div class="col-lg-12 stage">
+                    <div class="col-lg-12 ">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
                                 for="exampleFormControlSelect1" style="font-size: 18px;">
@@ -193,21 +200,23 @@
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sortedByStageTitle" type="radio"
-                                                name="sortedByStageTitle" id="alphabetically" value="alphabetically"
+                                                name="sortedByStageTitle" id="stageNameAlphabetically" value="alphabetically"
                                                 checked>
-                                            <label class="form-check-label" for="alphabetically">Alphabetical
+                                            <label class="form-check-label" for="stageNameAlphabetically">Alphabetical
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sortedByStageTitle" type="radio"
-                                                name="sortedByStageTitle" id="random" value="random">
-                                            <label class="form-check-label" for="random">Random</label>
+                                                name="sortedByStageTitle" id="stageNameRandom" value="random">
+                                            <label class="form-check-label" for="stageNameRandom">Random</label>
                                         </div>
                                     </div>
 
+
+
                                 </div>
 
-                               
+
                                 {{-- append cards --}}
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
@@ -240,7 +249,7 @@
 
                 {{-- Who Am I (Narration) --}}
                 <div class="row">
-                    <div class="col-lg-12 stage">
+                    <div class="col-lg-12 ">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
                                 for="exampleFormControlSelect1" style="font-size: 18px;">
@@ -253,9 +262,14 @@
 
                             <div class="col-sm-12 stageListParent pl-1">
                                 <div class="col-sm-12 pl-0">
-                                    <textarea class="form-control mt-2 h-100" id="who_narration_textarea"
+                                    <textarea class="form-control mt-2 h-100" id="who_narration_textarea2"
                                         placeholder="Maximum limit of 2,500 characters."></textarea>
+
+
                                 </div>
+                                 
+
+
                                 <div> <span><b>Note:</b> <i>Save your Narrations before you apply the Sort feature.
                                         </i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
@@ -263,15 +277,15 @@
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sortedByNarration" type="radio"
-                                                name="sortedByNarration" id="alphabetically" value="alphabetically"
+                                                name="sortedByNarration" id="narrationAlphabetically" value="alphabetically"
                                                 checked>
-                                            <label class="form-check-label" for="alphabetically">Alphabetical
+                                            <label class="form-check-label" for="narrationAlphabetically">Alphabetical
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sortedByNarration" type="radio"
-                                                name="sortedByNarration" id="random" value="random">
-                                            <label class="form-check-label" for="random">Random</label>
+                                                name="sortedByNarration" id="narrationRandom" value="random">
+                                            <label class="form-check-label" for="narrationRandom">Random</label>
                                         </div>
                                     </div>
 
@@ -302,7 +316,7 @@
                                 </div>
                                 {{-- end --}}
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -321,26 +335,10 @@
 </div>
 
 
-    <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
-        data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
-        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
-        data-stagename-store="{{route('escort.stagename.store')}}"
-        data-stagename-delete="{{route('escort.stagename.delete')}}"
-        ></div>
+<div id="manage-route" data-csrf-token="{{ csrf_token() }}"
+    data-success-info="{{ asset('assets/dashboard/img/info.png') }}"
+    data-error-warning="{{ asset('assets/dashboard/img/warning.png') }}"
+    data-stagename-store="{{ route('escort.stagename.store') }}"
+    data-stagename-delete="{{ route('escort.stagename.delete') }}"
+    data-stage-names="{{ json_encode($user['escorts_names'] ?? []) }}"></div>
 
-{{-- <script>
-    document.querySelectorAll(".two_words").forEach(el => {
-        let words = el.textContent.trim().split(/\s+/);
-
-        if (words.length > 2) {
-            el.textContent = words.slice(0, 2).join(" ") + "...";
-        }
-    });
-    document.querySelectorAll(".seven_words").forEach(el => {
-        let seven_words = el.textContent.trim().split(/\s+/);
-
-        if (seven_words.length > 2) {
-            el.textContent = seven_words.slice(0, 7).join(" ");
-        }
-    });
-</script> --}}
