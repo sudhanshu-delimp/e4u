@@ -43,9 +43,20 @@
                                             <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ !empty($payment->created_at) ? convert_aus_date_time_format($payment->created_at) : '---' }}</td>
                                             </tr>
                                             <tr>
-                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Transaction
-                                                Value</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->amount ?? 0) }}</td>
+                                                <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Total Fee</strong></td>
+                                                <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->amount ?? 0) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Wallet Amount</strong></td>
+                                                <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->wallet_amount ?? 0) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Loyalty Amount</strong></td>
+                                                <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->loyalty_amount ?? 0) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Payment</strong></td>
+                                                <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->paid_amount ?? 0) }}</td>
                                             </tr>
                                             <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Card</strong></td>
@@ -59,7 +70,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white">🖨️ Print Report</a>
+                    <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white">🖨️ Print Summary</a>
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                 </div>
             </div>

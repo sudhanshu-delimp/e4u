@@ -40,8 +40,13 @@
                 <div class="wallet-card">
                     <div class="wallet-header">
                         <h5>Add Money</h5>
-                        <div class="balance-box">
-                            Available Balance: AU${{$user->wallet->balance}}
+                        <div class="d-flex gap-10">
+                            <div class="balance-box">
+                                Available Balance: {{formatCurrency($user->wallet->balance)}}
+                            </div>
+                            <div class="balance-box">
+                                Loyalty Reward: {{$user->wallet->earn_days .' '. ($user->wallet->earn_days > 1 ? 'Days':'Day')}}
+                            </div>
                         </div>
                     </div>
 
