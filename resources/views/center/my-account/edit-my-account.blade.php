@@ -327,7 +327,7 @@
                                         </div>
                                         <div class="d-flex justify-content-end my-3">
                                             <button type="button" class="btn-common" data-toggle="modal"  data-backdrop="static" data-keyboard="false"
-                                                data-target="#add_center">Add Centre</button>
+                                                id="open_add_center">Add Centre</button>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table mb-3 w-100" id="other_centre_table">
@@ -574,7 +574,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Membership ID</label>
-                                        <input type="text" class="form-control" placeholder="Auto-generated when saved"
+                                        <input type="text" name="member_id" id="member_id" class="form-control" placeholder="Auto-generated when saved"
                                             readonly>
                                     </div>
                                 </div>
@@ -760,11 +760,11 @@
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-end">
                                     <!-- Submit -->
-                                    <button type="submit" class="btn-success-modal">Save</button>
+                                    <button type="submit" id="submit_button" class="btn-success-modal">Save</button>
                                 </div>
                             </div>
 
-
+                            <input type="hidden" name="center_id" id="center_id">
                         </form>
                     </div>
                      </form>
@@ -773,7 +773,6 @@
     </div>
     </div>
     {{-- end  --}}
-
 
 
     {{-- Modal: Edit Centre --}}
@@ -1121,7 +1120,7 @@
 
                     }
                 },
-                error: function(xhr) {
+                error: function(xhr) {submit_button
                 const modalElement = document.getElementById('comman_modal');
                 const modal = new bootstrap.Modal(modalElement);
 
@@ -1297,9 +1296,6 @@
     });
 
 
-
-
-
     $(document).on('submit', 'form[name="add_center_frm"]', function(e) 
     {
          e.preventDefault(); 
@@ -1365,77 +1361,134 @@
     });
 
 
-    $('#password').on('keyup', function () {
+    $('#password').on('keyup', function () 
+    {
 
-    let password = $(this).val();
+        let password = $(this).val();
+
+        
+        if (password.length === 0) {
+        $('#password-strength-wrapper').addClass('d-none');
+        return;
+        }
+
+        $('#password-strength-wrapper').removeClass('d-none');
+
+        let strength = 0;
 
     
-    if (password.length === 0) {
-    $('#password-strength-wrapper').addClass('d-none');
-    return;
-    }
+        if (password.length >= 8) strength++;
+        if (password.length >= 12) strength++;
+        if (password.length >= 16) strength++;
 
-    $('#password-strength-wrapper').removeClass('d-none');
+        if (/[a-z]/.test(password)) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^a-zA-Z0-9]/.test(password)) strength++;
 
-    let strength = 0;
+    
+        if ((password.match(/[^a-zA-Z0-9]/g) || []).length >= 2) {
+        strength++;
+        }
 
-   
-    if (password.length >= 8) strength++;
-    if (password.length >= 12) strength++;
-    if (password.length >= 16) strength++;
+    
+        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/.test(password)) {
+        strength++;
+        }
 
-    if (/[a-z]/.test(password)) strength++;
-    if (/[A-Z]/.test(password)) strength++;
-    if (/[0-9]/.test(password)) strength++;
-    if (/[^a-zA-Z0-9]/.test(password)) strength++;
+        let width = 0;
+        let text = '';
+        let color = '';
 
-   
-    if ((password.match(/[^a-zA-Z0-9]/g) || []).length >= 2) {
-    strength++;
-    }
+        if (strength <= 2) {
+        width = 20;
+        text = 'Very Weak';
+        color = 'bg-danger';
 
-   
-    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/.test(password)) {
-    strength++;
-    }
+        } else if (strength <= 4) {
+        width = 40;
+        text = 'Weak';
+        color = 'bg-warning';
 
-    let width = 0;
-    let text = '';
-    let color = '';
+        } else if (strength <= 6) {
+        width = 60;
+        text = 'Medium';
+        color = 'bg-info';
 
-    if (strength <= 2) {
-    width = 20;
-    text = 'Very Weak';
-    color = 'bg-danger';
+        } else if (strength <= 8) {
+        width = 80;
+        text = 'Strong';
+        color = 'bg-primary';
 
-    } else if (strength <= 4) {
-    width = 40;
-    text = 'Weak';
-    color = 'bg-warning';
+        } else {
+        width = 100;
+        text = 'Very Strong';
+        color = 'bg-success';
+        }
 
-    } else if (strength <= 6) {
-    width = 60;
-    text = 'Medium';
-    color = 'bg-info';
+        $('#password-strength-bar')
+        .removeClass('bg-danger bg-warning bg-info bg-primary bg-success')
+        .addClass(color)
+        .css('width', width + '%');
 
-    } else if (strength <= 8) {
-    width = 80;
-    text = 'Strong';
-    color = 'bg-primary';
-
-    } else {
-    width = 100;
-    text = 'Very Strong';
-    color = 'bg-success';
-    }
-
-    $('#password-strength-bar')
-    .removeClass('bg-danger bg-warning bg-info bg-primary bg-success')
-    .addClass(color)
-    .css('width', width + '%');
-
-    $('#password-strength-text').text(text);
+        $('#password-strength-text').text(text);
     });
 
+    ////// Edit Center ////////////////////
+    $(document).on('click', '.edit-center-btn', function () 
+    {
+
+        let row = $(this).data('row');
+        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Edit Centre`);
+
+
+        console.log(row);
+
+
+        $('#center_id').val(row.id);
+        $('#member_id').val(row.member_id);
+        $('#name').val(row.name);
+        $('#entity_name').val(row.entity_name);
+        $('#email').val(row.email);
+        $('#business_address').val(row.business_address);
+        $('#business_number').val(row.business_number);
+        $('#phone').val(row.phone);
+        $('#join_date').val(formatDateDMY(row.created_at));
+        $('input[name="accessGranted"][value="' + (row.is_access_granted == '1' ? 'yes' : 'no') + '"]').prop('checked', true);
+
+
+        $('input[name="contact_type[]"]').prop('checked', false);
+        if (row.contact_type && row.contact_type.length > 0) {
+            $.each(row.contact_type, function(index, value) {
+                $('input[name="contact_type[]"][value="' + value + '"]').prop('checked', true);
+            });
+        }
+
+        $('#submit_button').html('update')
+        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Add Centre`);
+        $('#add_center').modal({backdrop: 'static',keyboard: false});
+        $('#add_center').modal('show');
+    });
+
+
+    $(document).on('click', '#open_add_center', function () {
+
+        $('#add_center_frm')[0].reset();
+        $('#submit_button').html('update')
+
+        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Add Centre`);
+        $('#add_center').modal({backdrop: 'static',keyboard: false});
+        $('#add_center').modal('show');
+    });
+
+    function formatDateDMY(dateString) 
+    {
+        let date = new Date(dateString);
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+        return day + '-' + month + '-' + year;
+    }
+    
 </script>
 @endpush

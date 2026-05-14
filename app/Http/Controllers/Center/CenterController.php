@@ -424,34 +424,30 @@ class CenterController extends Controller
 
         $data = $userlists->map(function ($row)  {
 
-            if($row->status==1)
-            $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Deactivate</a>';   
-                else
-            $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+            // if($row->status==1)
+            // $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Suspend</a>';   
+            //     else
+            // $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
             
             
-            if($row->is_default==1)
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default Listing</a>';   
-                else
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default Listing</a>';     
+            $links = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-times-circle"></i> Suspend</a>';     
+            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Grant Access</a>'; 
+            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-eye"></i> View</a>'; 
             
-
-            
-                $action = '<div class="dropdown no-arrow">
+            $action = '<div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                 </a>
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
                                                 
                                                 
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                <div class="dropdown-divider"></div>'.$status.'<div class="dropdown-divider"></div>'.$default;
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-center-btn" href="javascript:void(0)" data-row=\''.json_encode($row).'\'> <i class="fa fa-pen"></i> Edit profile </a>
+                                                <div class="dropdown-divider"></div>'.$links;
                                                 
                                                 
                                                 
-                        '</div>';
-            //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>            
-
+            '</div>';
+            
 
             return [
                 'member_id' => $row->member_id,
