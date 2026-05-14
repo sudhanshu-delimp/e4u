@@ -30,16 +30,21 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         return $this->model->offset($to)->limit($from)->get();
     }
 
-    protected function getOrderPurchase($order_key)
+    protected function getOrderPurchase($order_key, $conditionsIn)
     {
+        if(count($conditionsIn) > 0) {
+            $columns = ['escort_id', 'name', 'location', 'profile_name', 'membership', 'start_date', 'end_date', 'days_number', 'remaining_days',  'status'];
+        } else {
         $columns = ['escort_id', 'profile_name', 'location', 'name', 'start_date', 'end_date', 'days_number', 'membership', 'status', 'fee'];
-        return $columns[$order_key];
+        }
+        return isset($columns[$order_key]) ? $columns[$order_key] :  'escort_id';
     }
 
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [], $conditionsIn = [])
     {
-        $order_field = $this->getOrderPurchase($order_key);
+        $order_field = $this->getOrderPurchase($order_key, $conditionsIn);
         $searchables = $this->getSearchableFields($columns);
+        $table = $this->model->getTable();
         $query = $this->model
             ->where($conditions)
             ->with([
@@ -82,6 +87,9 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             );
         } else if ($order_field == 'days_number') {
             $query->orderByRaw("DATEDIFF(end_date, start_date) $dir");
+        } else if ($order_field == 'remaining_days') {
+            
+            $query->selectRaw("$table.*,DATEDIFF(end_date, NOW()) as days_left")->orderBy('days_left', $dir);
         } else {
             $query->orderBy($order_field, $dir);
         }

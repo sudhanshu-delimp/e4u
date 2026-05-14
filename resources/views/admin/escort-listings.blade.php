@@ -272,20 +272,22 @@ CKEDITOR.replace('editor1', {
                     {
                         data: 'start_date',
                         searchable: false,
+                        orderable: false
                     },
                     {
                         data: 'end_date',
                         searchable: false,
+                        orderable: false
                     },
                     {
                         data: 'days_number',
                         searchable: false,
-                        orderable: false
+                        orderable: true
                     },
                     {
                         data: 'days_left',
                         searchable: false,
-                        orderable: false
+                        orderable: true
                     },
                     
                     {

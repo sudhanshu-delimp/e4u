@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\User\UserInterface;
 use App\Models\MassagePurchase;
 use App\Models\Purchase;
+use App\Models\User;
 use App\Repositories\Purchase\PurchaseInterface;
 use App\Traits\DataTablePagination;
 
@@ -276,7 +277,8 @@ class GlobalMonitoringController extends Controller
         $order_key = request()->get('order')[0]['column'];
         $dir = request()->get('order')[0]['dir'];
         //$search = "";
-
+         $massagePurchaseTableName = (new MassagePurchase)->getTable();
+         $userTableName = (new User())->getTable();
         $massagers = MassagePurchase::with([
             'brb' => function ($query) {
                 $query->where('brb_time', '>', Carbon::now('UTC'))
@@ -287,10 +289,11 @@ class GlobalMonitoringController extends Controller
             'user:id,status,member_id,name,email,phone,status,state_id',
             'activeUpcomingSuspend',
         ])
-            ->leftJoin('users', 'users.id', '=', 'massage_purchases.massage_centre_id')
-            ->select('massage_purchases.*')
-            ->whereIn('massage_purchases.status', ['listed', 'expire'])
-            ->where(function ($q) use ($search) {
+            ->leftJoin($userTableName, $userTableName.'.id', '=', $massagePurchaseTableName.'.massage_centre_id')
+            ->select($massagePurchaseTableName.'.*')
+            ->whereIn($massagePurchaseTableName.'.status', ['listed', 'expire'])
+            ->where(
+                function ($q) use ($search) {
                     if (!empty($search)) {
                         $q->orWhere(function ($q) use ($search) {
                             $q->whereHas('massageprofile', function ($q) use ($search) {
@@ -310,21 +313,40 @@ class GlobalMonitoringController extends Controller
         //echo $order_key; die;
         $massagers = $massagers->orderByRaw("
             CASE 
-                WHEN massage_purchases.status = 'listed' THEN 1
-                WHEN massage_purchases.status = 'expire' THEN 2
+                WHEN $massagePurchaseTableName.status = 'listed' THEN 1
+                WHEN $massagePurchaseTableName.status = 'expire' THEN 2
                 ELSE 3
             END
         ");
-
+            
         switch ($order_key) {
-
+           
             case 0:
-                $massagers = $massagers->orderBy('users.member_id', $dir);
+                $massagers = $massagers->orderBy($userTableName.'.member_id', $dir);
                 break;
 
             case 1:
-                $massagers = $massagers->orderBy('users.name', $dir);
+                $massagers = $massagers->orderBy($userTableName.'.name', $dir);
                 break;
+             
+             case 7:
+                //$massagers = $massagers->orderByRaw("DATEDIFF(end_date, NOW()) DESC");
+                $massagers = $massagers->selectRaw("
+                    massage_purchases.*,
+                    DATEDIFF(end_date,start_date) as days
+                ")
+                ->orderBy('days', $dir);
+                break;    
+
+            case 8:
+                //$massagers = $massagers->orderByRaw("DATEDIFF(end_date, NOW()) DESC");
+                $massagers = $massagers->selectRaw("
+                    massage_purchases.*,
+                    DATEDIFF(end_date, NOW()) as days_left
+                ")
+                ->orderBy('days_left', $dir);
+                break;
+
 
             default:
                 //$massagers = $massagers->orderBy('massage_purchases.id', 'DESC');

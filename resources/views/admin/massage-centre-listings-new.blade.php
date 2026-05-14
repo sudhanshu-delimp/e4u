@@ -203,7 +203,7 @@
                         [10, 25, 50, 100]
                     ],
                     pageLength: 10,
-                    order: [0, 'DESC'],
+                    order: [8, 'DESC'],
                     stateSave: false,
 
                     ajax: {
@@ -264,12 +264,12 @@
                         {
                             data: 'days',
                             name: 'days',
-                            orderable: false
+                            orderable: true
                         },
                         {
                             data: 'left_days',
                             name: 'left_days',
-                            orderable: false
+                            orderable: true
                         },
                         {
                             data: 'status',
