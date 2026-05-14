@@ -12,10 +12,20 @@
     <div class="container-fluid banner_width">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <div href="#" class="tip mb-2 pinup-summary-img d_custom_pinup_img">
+                <div href="#" class="tip mb-2 pinup-summary-img d_custom_pinup_img lg_icon_wrapper">
                     <img 
                     src="{{ !empty($user->defaultPinupImage)?asset($user->defaultPinupImage->path):asset('assets/app/img/home/home-demo.png') }}">
                     <span class="memmber_info"><i class="fa fa-user"></i> Member ID: {{$escort->user->member_id}}</span>
+                    @php 
+                        $pinup_data  = get_escort_media_id_by_path($escort->user->defaultPinupImage->path);
+                        $status = $pinup_data->varified ?? 0; 
+                        $status_icon = getMediaVerificationDataBigIcon($status);
+                    @endphp
+                     <div class="lg_verify_icon">                          
+                        <img src="{{ $status_icon['icon'] }}">
+                        <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
+
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">

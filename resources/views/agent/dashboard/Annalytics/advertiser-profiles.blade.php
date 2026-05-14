@@ -85,8 +85,8 @@
                                             <td>15-04-2025</td>
                                             <td>104</td>
                                             <td>Yes</td>
-                                            <td><div class="num_value">$<span>1,443.00</span></div></td>
-                                            <td> <div class="num_value">$<span>72.15</span></div></td>
+                                            <td><div class="num_value"><x-curFormat/><span>1,443.00</span></div></td>
+                                            <td> <div class="num_value"><x-curFormat/><span>72.15</span></div></td>
                                             <td>
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"

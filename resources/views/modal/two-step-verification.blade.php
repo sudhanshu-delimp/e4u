@@ -60,7 +60,7 @@
                                 <div class="termsandconditions_text_color">
                                     @error('opt')
 
-                                            {{ $message }}
+                                            {{-- {{ $message }} --}}
                                     @enderror
 
                                 </div>
@@ -74,7 +74,7 @@
                         
                         <div class="modal-footer forgot_pass pt-0 pb-4 justify-content-center">
 
-                                    <p id="otpTimerMsg" class="pt-2 text-muted" style="color:brown !important"></p>
+                                    <p id="otpTimerMsg" class="pt-2 text-muted" style="color:#ff3c5f !important"></p>
                                     <p id="resendLine" class="pt-2" style="display: none;">
                                         Not received your verification code?
                                         <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a>
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const timer = setInterval(function () {
             const min = String(Math.floor(seconds / 60)).padStart(2, '0');
             const sec = String(seconds % 60).padStart(2, '0');
-            timerEl.innerHTML = `If you have not received the OTP, please wait  <span style="color:#097969; font-size:18px;"> ${min}:${sec} sec </span> to resend it`;
+            timerEl.innerHTML = `<i class="fa fa fa-exclamation-circle" style="color:#ff3c5f; font-size:20px;"></i> Please wait  <span style="color:#097969; font-size:18px;"> ${min}:${sec} seconds </span>  before requesting another OTP.`;
 
             if (seconds <= 0) {
                 clearInterval(timer);

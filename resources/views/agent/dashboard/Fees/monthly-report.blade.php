@@ -71,8 +71,8 @@
                      <td>01-10-2025 to 31-10-2025 </td>
                      <td>A600025</td>
                      <td>WA</td>
-                     <td class="text-left"><div class="num_value">$<span>4,749.00</span></div></td>
-                     <td class="text-left"><div class="num_value">$<span>237.45</span></div></td>
+                     <td class="text-left"><div class="num_value"><x-curFormat/><span>4,749.00</span></div></td>
+                     <td class="text-left"><div class="num_value"><x-curFormat/><span>237.45</span></div></td>
                      <td><span class="custom_badge badge_accepted">Approved</span></td>
                      <td>01-11-2025</td>
                      <td>

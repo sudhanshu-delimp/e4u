@@ -160,13 +160,25 @@ if (!function_exists('getBumpupFee')) {
     }
 }
 
+if (!function_exists('getPlanFee')) {
+    function getPlanFee($planId=null)
+    {
+        if(!empty($planId)){
+            $pricing = \App\Models\Pricing::where('membership_id', $planId)->first();
+            return !empty($pricing) ? $pricing->price : 0;
+        }
+        else{
+            return 0;
+        }
+    }
+}
 
 
 if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatCurrency($amount)
+    function formatCurrency($amount, $currency = '$')
     {
         $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
         list($intPart, $decimalPart) = explode('.', $amount);
@@ -181,7 +193,7 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return 'AU$' . $formatted . '.' . $decimalPart;
+        return $currency.''. $formatted . '.' . $decimalPart;
     }
 }
 

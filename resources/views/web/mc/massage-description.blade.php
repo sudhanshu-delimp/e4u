@@ -32,7 +32,7 @@
     padding: 2px 5px;
     position: absolute;
     z-index: 1;
-    bottom: 110%;
+    top:-35px;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
@@ -261,14 +261,31 @@ margin-right: 5px;
                     @endif
                 </div>
             </div>
-            <div class="container-fluid back_to_search_btn pt-2">
-            <a href="../massage-centres-list" class="back--search">
-                Back to Search
-                <span class="previous_icon">
-                    <i class="fa fa-chevron-up text-white" aria-hidden="true"></i>
-                </span>
-            </a>
-        </div>
+            {{-- <div class="container-fluid back_to_search_btn pt-2">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="../massage-centres-list" class="back--search">
+                   
+                    <span class="previous_icon">
+                        <i class="fa fa-chevron-left text-white" aria-hidden="true"></i>
+                    </span>
+
+                      Back to Search
+                </a>
+                    </div>
+                </div>               
+            </div> --}}
+
+            <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
+            
+                <div class="row">
+                    <div class="col-12">
+                        <a href="../massage-centres-list" class="back--search"> 
+                            <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
+                    </div>
+                </div>
+            </div>
+            
 
 
             <div class="profile_page_title">
@@ -1526,7 +1543,7 @@ margin-right: 5px;
                                     @if($contactType == 4 || $contactType == 5)
                                         <div class="tooltip-wrapper">
                                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                                            <div class="tooltip-text">Call me</div>
+                                            <div class="tooltip-text">Call us</div>
                                             @if($contactType == 5)
                                                 <span>or</span>
                                             @endif

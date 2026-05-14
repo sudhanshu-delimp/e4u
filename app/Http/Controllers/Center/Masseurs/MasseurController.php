@@ -333,7 +333,8 @@ class MasseurController extends AppController
             if ($request->hasFile('verification_image')) {
                 $this->mediaVerificationUpload(
                     $masseur_profile_id,
-                    $request->file('verification_image')
+                    $request->file('verification_image'),
+                    $request->verification_type
                 );
             }
            
@@ -373,15 +374,18 @@ class MasseurController extends AppController
             'verification_image' => 'required|image'
         ]);
 
+        $verification_type =  $request->verification_type;
+
         $result = $this->mediaVerificationUpload(
             $request->masseur_profile_id,
-            $request->file('verification_image')
+            $request->file('verification_image'),
+            $verification_type
         );
 
         return response()->json($result);
     }
 
-    public function mediaVerificationUpload($masseur_profile_id, $verification_image)
+    public function mediaVerificationUpload($masseur_profile_id, $verification_image, $verification_type)
     {
         $user = auth()->user();
 
@@ -413,6 +417,7 @@ class MasseurController extends AppController
             // Update existing
             $verification->update([
                 'image_path' => $destination_path,
+                'type' => $verification_type,
             ]);
 
         } else {
@@ -424,6 +429,7 @@ class MasseurController extends AppController
                 'masseur_id'  => $masseur_profile_id,
                 'status'      => '0',
                 'submited_by' => $masseur_profile_id,
+                'type' => $verification_type,
             ]);
             $masseur_token_id = MasseurGallery::where('masseur_profile_id', $verification->masseur_id)->value('masseur_token_id'); 
               
@@ -483,7 +489,7 @@ class MasseurController extends AppController
 
         //dd($masseur_availability);
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists','imageUrl','massage_default'));
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists','imageUrl','massage_default','verification'));
     }
 
     public function update_masseur(Request $request)
@@ -1187,7 +1193,7 @@ class MasseurController extends AppController
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
                                                 
                                                 
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-masseur/'.$row->id.'"> <i class="fa fa-pen"></i> Edit profile </a>
                                                 <div class="dropdown-divider"></div>'.$status.'<div class="dropdown-divider"></div>'.$default;
                                                 
                                                 

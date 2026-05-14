@@ -331,6 +331,7 @@ Route::get('transaction-summary',[PaymentController::class, 'transactionSummary'
 Route::get('get-transaction-summary',[PaymentController::class, 'transactionSummaryDatatable'])->name('escort.payment.transaction_summary.datatable');
 Route::post('payments/detail',[PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
 Route::get('payments/{payment}/print',[PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
+Route::post('payments/adjustment',[PaymentController::class, 'paymentAdjustment'])->name('payment.adjustment');
 # Escort profile reviews
 Route::get('view-reviews', [EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax', [EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');
@@ -367,7 +368,7 @@ Route::prefix('concierge')->name('escort.')->group(function () {
   Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');
   Route::post('make/order/payment', [ProductOrderController::class, 'makeOrderPayment'])->name('make.order.payment');
   Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('orders');
-  Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
+  // Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
 });
 

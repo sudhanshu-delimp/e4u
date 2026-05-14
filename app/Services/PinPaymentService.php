@@ -13,7 +13,7 @@ class PinPaymentService
   public function charge(string $token, float $amount, $email = null, $description = null, $metadata = [])
   {
     try {
-      $url = config("app.payment.test_url");
+      $url = config("app.payment.base_url");
       $secretKey = config('app.payment.secret_key');
 
       // validate some meta data fileds that's required for make payment 
@@ -24,7 +24,7 @@ class PinPaymentService
           return ['status' => false, 'error' => $validationResponse['error']];
       }
 
-      $response = Http::withBasicAuth($secretKey,  '')->asForm()->post($url, [
+      $response = Http::withBasicAuth($secretKey,  '')->asForm()->post($url.'/1/charges', [
         'amount' => $amount * 100,
         'currency' => 'AUD',
         'description' => $description ?? 'E4U Service',
@@ -84,7 +84,7 @@ class PinPaymentService
       $item->completed_by_member_id = $item->completedByUser->member_id;
       $item->transaction_at = convert_aus_date_time_format($item->created_at);
       $item->type = ucfirst($item->type);
-      $item->amount = 'AU$' . $item->amount;
+      $item->amount = formatCurrency($item->amount);
       $action = '<div class="dropdown no-arrow">
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

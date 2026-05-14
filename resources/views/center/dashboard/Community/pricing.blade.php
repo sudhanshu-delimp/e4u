@@ -61,25 +61,27 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table  dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center table-bg">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="8" style="width: 100px;" aria-label="Fees">
                                                                 <p><b>Advertising Fees</b></p>
                                                             </th>
                                                         </tr>
                                                         <tr role="row" class="custom--row">
-                                                            <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                            <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 100px;" aria-label="
                                                                 Profile Name">Membership Type
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="
                                                                 Profile Name
                                                                 ">Frequency
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">Rate</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">Amount</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">%</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Amount<sup>(1)</sup></th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Date Created">Rate</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Subscription Type">Amount</th>                                                           
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Special Discount</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">New Rate</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Subscription Status">%</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Amount<sup>(1)</sup></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -95,7 +97,9 @@
                                                                     <td>{!! $adverting['memberships']['name'] !!}</td>
                                                                     <td>{{ period_days($adverting['days']) }} </td>
                                                                     <td>{{ $adverting['frequency'] }}</td>
-                                                                    <td>${{ number_format($adverting['price'], 2) }}</td>
+                                                                    <td>{{ formatCurrency($adverting['price']) }}</td>
+                                                                    <td>{{ $adverting['special_discount'] ?? 0 }}</td>
+                                                                    <td>{{ formatCurrency($adverting['new_rate'] ?? $adverting['price']) }}</td>
                                                                     <td>
                                                                         @if(!empty($adverting['percentage']))
                                                                             {{ $adverting['percentage'] }}
@@ -103,7 +107,7 @@
                                                                             N/A
                                                                         @endif
                                                                     </td>
-                                                                    <td>${{ number_format($adverting['discount_amount'], 2) }}</td>
+                                                                    <td>{{ formatCurrency($adverting['discount_amount']) }}</td>
                                                                 </tr>
                                                             @endforeach 
 
@@ -149,7 +153,7 @@
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
                                                 
-                                                <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="reckoner" class="table    dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
                                                             <th class="sorting_disabled" rowspan="1" colspan="4" style="width: 212px;" aria-label="Fees">
@@ -205,7 +209,7 @@
 
                                         <!-- <div class="table-responsive pl-2 pt-3 list-sec">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
@@ -280,7 +284,7 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
@@ -305,7 +309,7 @@
                                                                 <tr role="row">
                                                                     <td>{{ $service->service_type }}</td>
                                                                     <td>{{ $service->frequency }}</td>
-                                                                    <td>${{ $service->amount }}</td>
+                                                                    <td>{{ formatCurrency($service->amount) }}</td>
                                                                     
                                                                 </tr>
                                                                  @endforeach 
@@ -334,7 +338,7 @@
 
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
@@ -356,22 +360,22 @@
                                                     <tbody>
                                                     <tr role="row">
                                                         <td>NUM Notification</td>
-                                                        <td>[$value]</td>
+                                                        <td>{{formatCurrency(0.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Verified Media</td>
-                                                        <td>$ 10.00</td>
+                                                        <td>{{formatCurrency(10.00)}}</td>
                                                         <td>Per service, up to 7 photos</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Mobile SIM</td>
-                                                        <td>$ 85.00</td>
+                                                        <td>{{formatCurrency(85.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     <tr role="row">
                                                         <td>Email account</td>
-                                                        <td>$ 20.00</td>
+                                                        <td>{{formatCurrency(20.00)}}</td>
                                                         <td>Per month</td>
                                                     </tr>
                                                     </tbody>
@@ -412,7 +416,7 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
@@ -439,7 +443,7 @@
                                                                 <tr role="row">
                                                                     <td>{{ $support_services->fee }}</td>
                                                                     <td>{{ $support_services->frequency }}</td>
-                                                                    <td>${{ $support_services->amount }}</td>
+                                                                    <td>{{ formatCurrency($support_services->amount) }}</td>
                                                                     
                                                                 </tr>
                                                                  @endforeach 
@@ -484,7 +488,7 @@
                                     <div class="card-body p-0">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                      <tr role="row">
                                                             <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
@@ -521,7 +525,7 @@
                                                                     <td>{{ $variablLoyalty->type }}</td>
                                                                     <td>{{ $variablLoyalty->level }}</td>
                                                                     <td>{{ $variablLoyalty->discription }}</td>
-                                                                    <td>${{ $variablLoyalty->amount }}</td>
+                                                                    <td>{{ formatCurrency($variablLoyalty->amount) }}</td>
                                                                     <td>{{ $variablLoyalty->reward }}</td>
                                                                     
                                                                     

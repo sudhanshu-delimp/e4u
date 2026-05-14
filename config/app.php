@@ -240,8 +240,7 @@ return [
   'payment' => [
     'secret_key' => env('PAYMENT_SECRET'),
     'publish_key' => env('PAYMENT_PUBLISHABLE'),
-    'test_url' => env('TEST_URL'),
-    'live_url' => env('LIVE_URL'),
+    'base_url' => env('PAYMENT_BASE_URL'),
   ],
   'loyalty_amount' => (float) env('LOYALTY_AMOUNT', 200),
 

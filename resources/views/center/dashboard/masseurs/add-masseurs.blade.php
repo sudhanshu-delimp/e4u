@@ -1440,32 +1440,32 @@ padding: 37px !important;
                     }
 
 
-                    if (field.data('ajax') === 'phone') 
-                    {
-                        console.log('ajax-phone');
+                    // if (field.data('ajax') === 'phone') 
+                    // {
+                    //     console.log('ajax-phone');
 
 
-                        let request = $.ajax({
-                            url: "{{ route('center.validate-phone') }}",
-                            type: 'POST',
-                            data: {
-                                form_type: 'add',
-                                phone: field.val(),
-                                _token: $('meta[name="csrf-token"]').attr('content')
-                            },
-                            async: false,
-                            success: function (res) {
-                                if (!res.valid) {
-                                    showError(field, res.message || 'Invalid phone number');
-                                }
-                            },
-                            error: function () {
-                                showError(field, 'Unable to validate phone number');
-                            }
-                        });
+                    //     let request = $.ajax({
+                    //         url: "{{ route('center.validate-phone') }}",
+                    //         type: 'POST',
+                    //         data: {
+                    //             form_type: 'add',
+                    //             phone: field.val(),
+                    //             _token: $('meta[name="csrf-token"]').attr('content')
+                    //         },
+                    //         async: false,
+                    //         success: function (res) {
+                    //             if (!res.valid) {
+                    //                 showError(field, res.message || 'Invalid phone number');
+                    //             }
+                    //         },
+                    //         error: function () {
+                    //             showError(field, 'Unable to validate phone number');
+                    //         }
+                    //     });
 
-                        ajaxRequests.push(request);
-                    }
+                    //     ajaxRequests.push(request);
+                    // }
 
 
 
@@ -1585,6 +1585,7 @@ padding: 37px !important;
 
                 if (fileInput && fileInput.files && fileInput.files.length > 0) {
                     formData.append('verification_image', fileInput.files[0]);
+                    formData.append('verification_type', $('input[name="verification_type"]:checked').val());
                 }
 
                 $.ajax({
