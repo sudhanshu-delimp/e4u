@@ -383,6 +383,11 @@ class LoginController extends BaseController
                     $escort->default_setting = 1;
                     $escort->save();
                 }
+
+                session()->forget([
+                    'parent_user_id',
+                    'is_impersonated'
+                ]);
             }
 
             $result = $this->attemptlogin->findby(auth()->user()->id);

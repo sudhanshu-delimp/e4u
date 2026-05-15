@@ -340,98 +340,12 @@
                                                         <th>Business No.</th>
                                                         <th>Mobile No.</th>
                                                         <th>Email</th>
+                                                        <th style="width: 100px !important;">Switch Account</th>
                                                         <th  class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-content">
-                                                    <tr>
-                                                        <td colspan="1">01</td>
-                                                        <td colspan="2"><span class="grant-access">Marianne Smith
-                                                                <sup>Accessed</sup></span></td>
-                                                        <td colspan="2">infocomnet Pvt Ltd</td>
-                                                        <td colspan="2">456 Elm Road, Perth, WA 6000 </td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="1">info@center.au.com</td>
-                                                        <td colspan="1" class="text-center">
-                                                            <div class="dropdown no-arrow">
-                                                                <a class="dropdown-toggle" href="#" role="button"
-                                                                    id="dropdownMenuLink" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="true">
-                                                                    <i
-                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                </a>
-                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                    aria-labelledby="dropdownMenuLink"
-                                                                    x-placement="bottom-end">
-
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-target="#edit_center"
-                                                                        data-toggle="modal"> <i class="fa fa-pen"></i>
-                                                                        Edit</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-check-circle"></i>
-                                                                        Grant Access</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-times-circle"></i>
-                                                                        Suspend</a>
-
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#view_center"> <i
-                                                                            class="fa fa-eye "></i> View</a>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="1">02</td>
-                                                        <td colspan="2"><span class="grant-access">Well Chalse</span>
-                                                        </td>
-                                                        <td colspan="2">DEF Pvt Ltd</td>
-                                                        <td colspan="2">Green Street, Manning</td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="1">info@center.au.com</td>
-                                                        <td colspan="1" class="text-center">
-                                                            <div class="dropdown no-arrow">
-                                                                <a class="dropdown-toggle" href="#" role="button"
-                                                                    id="dropdownMenuLink" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="true">
-                                                                    <i
-                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                </a>
-                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                    aria-labelledby="dropdownMenuLink"
-                                                                    x-placement="bottom-end">
-
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-target="#edit_center"
-                                                                        data-toggle="modal"> <i class="fa fa-pen"></i>
-                                                                        Edit</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-check-circle"></i>
-                                                                        Grant Access</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-times-circle"></i>
-                                                                        Suspend</a>
-
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#view_center"> <i
-                                                                            class="fa fa-eye "></i> View</a>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -586,12 +500,12 @@
                                         <div class="mt-2">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="accessGranted"
-                                                    id="accessYes" value="yes" checked>
+                                                    id="accessYes" value="yes">
                                                 <label class="form-check-label" for="accessYes">Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="accessGranted"
-                                                    id="accessNo" value="no">
+                                                    id="accessNo" value="no" checked>
                                                 <label class="form-check-label" for="accessNo">No</label>
                                             </div>
                                         </div>
@@ -1041,8 +955,7 @@
     paging: true,
     lengthChange: true,
     searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
+    order: [[0, 'desc']],
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
     pageLength: 10,    
 
@@ -1065,7 +978,9 @@
             { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'login', name: 'login', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            
             ],
     });
 
@@ -1310,7 +1225,7 @@
                contentType: false,
                processData: false, 
                success: function(response) {
-                     //table.ajax.reload(null, false); 
+                     table.ajax.reload(null, false); 
                      Swal.close();
                      $('span.text-danger').text('');
                      $('#add_center').modal('hide');
