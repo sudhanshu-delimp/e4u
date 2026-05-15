@@ -149,3 +149,63 @@ function addOrUpdateHiddenInput(formId, name, value) {
         form.appendChild(input);
     }
 }
+
+var getStatusOption = (xhr)=>{
+    let icon,title;
+    let res = xhr.responseJSON || JSON.parse(xhr.responseText.trim());
+    console.log(`Response is..`);
+    console.log(res);
+    let message = res?.message || res?.gateway || 'Something went wrong';
+    switch (xhr.status) {
+        case 200:
+        icon = 'success';
+        title = title? title:'Success';
+        break;
+
+        case 400:
+        icon = 'warning';
+        title = 'Bad Request';
+        break;
+
+        case 401:
+        icon = 'warning';
+        title = 'Unauthorized';
+        message = 'Your session has expired. Please login again.';
+        break;
+
+        case 403:
+        icon = 'warning';
+        title = 'Forbidden';
+        break;
+
+        case 404:
+        icon = 'info';
+        title = 'Not Found';
+        break;
+
+        case 419:
+        icon = 'warning';
+        title = 'Unauthorized';
+        break;
+
+        case 422:
+        icon = 'warning';
+        title = 'Validation Error';
+
+        // Show validation errors if exist
+        if (res?.errors) {
+            message = Object.values(res.errors).flat().join('\n');
+        }
+        break;
+
+        case 500:
+        icon = 'error';
+        title = 'Server Error';
+        break;
+
+        default:
+        icon = 'error';
+        title = 'Error';
+    }
+    return {icon, title, message};
+}

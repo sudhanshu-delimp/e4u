@@ -82,10 +82,10 @@ class WalletService
         foreach($result as $key => $item) {
             $item->created_date = convert_aus_date_time_format($item->created_at);
             $item->type = ucfirst($item->type);
-            $item->amount = 'AU$'.$item->amount;
+            $item->amount = formatCurrency($item->amount);
             $item->transaction_type = $item->type == 'Credit'?"<span class='credit'>{$item->type}</span>":"<span class='debit'>{$item->type}</span>";
             $item->transaction_amount = $item->type == 'Credit'?"<span class='amount-plus'>+{$item->amount}</span>":"<span class='amount-minus'>-{$item->amount}</span>";
-            $item->transaction_balance_after = 'AU$'.$item->balance_after;
+            $item->transaction_balance_after = formatCurrency($item->balance_after);
         }
         return $result;
     }

@@ -80,10 +80,10 @@
                                 <th>Member ID </th>
                                 <th>Member</th>
                                 <th>Listing</th>
-                                <th style="290px;!important;">Profile Name</th>
+                                <th>Profile Name</th>
                                 <th>Masseurs</th>
-                                <th>Listed</th>
-                                <th>De-listed</th>
+                                <th  style="90px;!important;">Listed</th>
+                                <th  style="90px;!important;">De-listed</th>
                                 <th>Days</th>
                                 <th>Remaining</th>
                                 <th>Status</th>
@@ -93,12 +93,22 @@
 
                         <tbody class="table-content">
                             <tr>
-                                <td colspan="10" class="theme-color text-center">Loading...</td>
+                                <td colspan="11" class="theme-color text-center">Loading...</td>
                             </tr>
                         </tbody>
                         <tr>
-                            <th colspan="10" class="border-0"></th>
+                            <th colspan="11" class="border-0"></th>
                         </tr>
+                        <tfoot class="bg-first t-foot">
+                            <tr>
+                                <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">
+                                    {{date('d-m-Y h:i a')}}</span></th>
+                                <th colspan="4" class="text-center border-0">Refresh time:<span class="refreshSeconds">
+                                        15</span></th>
+                                <th colspan="4" class="text-right border-0">Up time: <span
+                                        class="uptimeClass">{{ getAppUptime() }}</span></th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -126,23 +136,26 @@
         </div>
 
         <div class="modal fade upload-modal programmatic show" id="iframeModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('../assets/dashboard/img/info.png') }}" class="custompopicon"> {{auth()->user()->member_id}} :  Profile </h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('../assets/app/img/newcross.png') }} " class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
-            <div class="modal-body">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
+                                src="{{ asset('../assets/dashboard/img/info.png') }}" class="custompopicon">
+                            {{ auth()->user()->member_id }} : Profile </h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">
+                                <img src="{{ asset('../assets/app/img/newcross.png') }} "
+                                    class="img-fluid img_resize_in_smscreen">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
-                		<iframe id="modalFrame" width="100%" height="600px" frameborder="0"></iframe>
+                        <iframe id="modalFrame" width="100%" height="600px" frameborder="0"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
         <!-- end -->
     @endsection
     @push('script')
@@ -158,7 +171,8 @@
                     $(".refreshSeconds").text(' ' + countdown);
 
                     if (countdown <= 0) {
-                        // $('#listings').DataTable().ajax.reload(null, false);
+                      
+                         $('#listings').DataTable().ajax.reload(null, false);
                         countdown = 15;
                     }
 
@@ -183,14 +197,14 @@
                     info: true,
                     searching: true,
                     bStateSave: true,
-                    order: [
-                        [1, 'desc']
-                    ],
+                  
                     lengthMenu: [
                         [10, 25, 50, 100],
                         [10, 25, 50, 100]
                     ],
                     pageLength: 10,
+                    order: [8, 'DESC'],
+                    stateSave: false,
 
                     ajax: {
                         url: "{{ route('admin.massage.center.dataTableListing') }}",
@@ -207,13 +221,15 @@
                         dataSrc: function(json) {
                             var totalRows = json.recordsTotal || json.recordsFiltered;
                             $(".totalListing").text(totalRows);
+                            $(".serverTime").text(json.server_time);
+                            $(".uptimeClass").html(json.server_up_time);
                             return json.data;
                         }
                     },
 
                     columns: [{
                             data: 'member_id',
-                            name: 'member_id'
+                            name: 'member_id',
                         },
                         {
                             data: 'member',
@@ -221,15 +237,19 @@
                         },
                         {
                             data: 'listing',
-                            name: 'listing'
+                            name: 'listing',
+                             orderable: false,
+                             sortable:false
                         },
                         {
                             data: 'profile_name',
-                            name: 'profile_name'
+                            name: 'profile_name',
+                             orderable: false
                         },
                         {
                             data: 'masseurs',
-                            name: 'masseurs'
+                            name: 'masseurs',
+                            orderable: false
                         },
                         {
                             data: 'start_date',
@@ -244,41 +264,27 @@
                         {
                             data: 'days',
                             name: 'days',
-                            orderable: false
+                            orderable: true
                         },
                         {
                             data: 'left_days',
                             name: 'left_days',
-                            orderable: false
+                            orderable: true
                         },
                         {
                             data: 'status',
                             name: 'status',
-                            orderable: false
+                            orderable: false,
                         },
                         {
                             data: 'action',
                             name: 'action',
-                            orderable: false
+                            orderable: false,
                         }
                     ],
-                    columnDefs: [{
-                            width: "260px",
-                            targets: 3
-                        }, // 0 = first column
-                        {
-                            width: "85px",
-                            targets: 5
-                        },
-                        {
-                            width: "85px",
-                            targets: 6
-                        }
-                    ],
-
 
                 });
-
+                  //table.state.clear();
 
             }
 
@@ -288,12 +294,11 @@
                 const escortId = $(this).data('id');
 
                 $.ajax({
-                    url: '{{ route('escort.current.single-list.dataTableListing') }}/' +
+                    url: '{{ route("escort.current.single-list.dataTableListing") }}/' +
                         escortId, // replace with your actual route
                     method: 'GET',
                     success: function(response) {
-                        console.log('response');
-                        console.log(response);
+                        
 
                         $("#escortPopupModalBodyIframe").attr('src', response.profileurl)
                     },

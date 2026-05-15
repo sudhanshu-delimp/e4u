@@ -82,14 +82,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-end w-100 gap-10">
-                                                    <button type="reset" class="reset-btn btn-cancel-modal">Reset</button>
-                                                    <button type="submit" class="apply-btn">Apply</button>
+                                                    <button type="reset" class="reset-btn btn-cancel-modal" name="action" value="reset">Reset</button>
+                                                    <button type="submit" class="apply-btn"  name="action" value="apply">Apply</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-
+                                <div class="finish-payment-form d-none mt-2">
+                                    <form action="{{ route('escort.payment.process') }}" method="post" id="finish-payment-form">
+                                        <button type="submit" name="action" value="finish_payment" class="btn-success-modal btn-block">
+                                            Finish Payment
+                                        </button>
+                                    </form>
+                                </div>
                                 <div class="support mt-3">
                                     <p class="mb-0"><strong>Note:</strong></p>
                                     <p class="small mb-0">
@@ -174,11 +180,10 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn-success-modal btn-block">
+                                <button type="submit" name="action" value="pay_now" class="btn-success-modal btn-block">
                                     Pay Now
                                 </button>
                             </div>
-                            
                 </form>
                         </div>
                     </div>
@@ -239,35 +244,44 @@
                     url: form.attr('action'),
                     method: 'POST',
                     data: data,
-                    success: function(response) {
+                    beforeSend: function () {
+                        Swal.fire({
+                            title: 'Processing Payment',
+                            text: 'Do not refresh or close this page.',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response, textStatus, xhr) {
+                        Swal.close();
                         submitButton.removeAttr('disabled');
-
-                        // success UI
-                        errorContainer
-                            .removeClass('alert-danger')
-                            .addClass('alert-success')
-                            .show();
-
-                        errorContainer.html(response.message);
-                        location.assign(response.redirect_url);
-
-                        // close modal after delay
-                        setTimeout(function() {
-                            $('#paymentModal').modal('hide');
-                        }, 1500);
+                        let option = getStatusOption(xhr);
+                        Swal.fire({
+                            icon: option.icon,
+                            title: option.title,
+                            text: option.message,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = response.redirect_url;
+                            }
+                        });
                     },
                     error: function(xhr) {
-
+                        Swal.close();
+                        let option = getStatusOption(xhr);
+                        Swal.fire({
+                            icon: option.icon,
+                            title: option.title,
+                            text: option.message,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        });
                         submitButton.removeAttr('disabled');
-
-                        let res = xhr.responseJSON;
-
-                        errorContainer
-                            .removeClass('alert-success')
-                            .addClass('alert-danger')
-                            .show();
-
-                        errorContainer.html('<i class="fas fa-times-circle text-danger"></i> Payment Failed');
                     }
                 });
             }
@@ -305,7 +319,8 @@
         });
 
         var adjustmentForm = $('#adjustment-form');
-        var submitAdjustmentForm = function(){
+        var finishPaymentForm = $('#finish-payment-form');
+        var submitAdjustmentForm = function(object=null){
             $.ajax({
                 url: adjustmentForm.attr('action'),
                 method: 'POST',
@@ -313,7 +328,9 @@
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                data: adjustmentForm.serialize(),
+                data: `${adjustmentForm.serialize()}${
+                    object ? `&${$(object).attr('name')}=${$(object).val()}` : ''
+                }`,
                 beforeSend: function () {
                     Swal.fire({
                         title: 'Please wait...',
@@ -334,9 +351,13 @@
                         addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
                         if(res.total_amount){
                             $("#payment-form").find('input, button, select, textarea').prop('disabled', false);
+                            finishPaymentForm.find('input, button, select, textarea').prop('disabled', true);
+                            finishPaymentForm.parent().addClass('d-none');
                         }
                         else{
                             $("#payment-form").find('input, button, select, textarea').prop('disabled', true);
+                            finishPaymentForm.find('input, button, select, textarea').prop('disabled', false);
+                            finishPaymentForm.parent().removeClass('d-none');
                         }
                     }
                     else{
@@ -364,9 +385,66 @@
             submitAdjustmentForm();
         });
 
+        finishPaymentForm.submit(function(e) {
+            e.preventDefault();
+            let submitButton = finishPaymentForm.find(":submit");
+            submitButton.attr({disabled: true});
+            let data = {};
+            data['_token'] = `{{ csrf_token() }}`;
+            data['pin_token'] = `{{encrypt('without_pay_now')}}`;
+            if($("input[name='benefit_token']").length > 0){
+                data['benefit_token'] = $("input[name='benefit_token']").val();
+            }
+            $.ajax({
+                url: finishPaymentForm.attr('action'),
+                method: 'POST',
+                data: data,
+                beforeSend: function () {
+                    Swal.fire({
+                        title: 'Processing Payment',
+                        text: 'Do not refresh or close this page.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function(response, textStatus, xhr) {
+                    console.log(response);
+                    Swal.close();
+                    submitButton.removeAttr('disabled');
+                    let option = getStatusOption(xhr);
+                    Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = response.redirect_url;
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    let option = getStatusOption(xhr);
+                    Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                    });
+                    submitButton.removeAttr('disabled');
+                }
+            });
+        });
+
         adjustmentForm.on('click', '.reset-btn', function (e) {
             adjustmentForm[0].reset();
-            submitAdjustmentForm();
+            submitAdjustmentForm(this);
         });
     </script>
 @endpush
