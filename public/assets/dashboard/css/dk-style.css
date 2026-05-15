@@ -1636,6 +1636,7 @@ button.btn:focus {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 
 .wallet-header h2 {
