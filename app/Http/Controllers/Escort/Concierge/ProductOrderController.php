@@ -212,7 +212,7 @@ class ProductOrderController extends Controller
       // make payment using charge method
       $response = $pinPaymentService->charge($data['pin_token'], $order->total_amount, $biilingAddress->email, $description, $metadata);
       if ($response['status'] === false) {
-        return response()->json(['status' => false, 'message' => $response['error'],'errors' => $response['errors']]);
+        return response()->json(['status' => false, 'message' => $response['error'], 'errors' => $response['errors']]);
       } else if ($response['status'] === true) {
         return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
       }
@@ -220,6 +220,7 @@ class ProductOrderController extends Controller
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
   }
+  
   public function orders(Request $request)
   {
     try {
