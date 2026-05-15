@@ -301,9 +301,9 @@
 
     data-additional-store="{{route('escort.additional.store')}}"
     data-additional-delete="{{route('escort.additional.delete')}}"
-    data-addresses="{{json_encode($address ?? '')}}"
+    data-address="{{json_encode($address)}}"
     data-title="{{json_encode($title)}}"
-    data-narrations="{{json_encode($narration ?? [])}}"
+    data-narrations="{{json_encode($narration)}}"
     
     ></div>
 

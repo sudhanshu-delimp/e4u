@@ -567,13 +567,16 @@ class ProfileInformationController extends Controller
             if($request->type == 'title'){
                 $escort->short_desc = $this->makeShortDescription($request);
                 $escort->value = $request->value;
+                $escort->type = 'title';
 
             }else if($request->type == 'address'){
                 $escort->short_desc = $this->makeShortDescription($request);
                 $escort->value = $request->value;
+                $escort->type = 'address';
             }else{
                 $escort->short_desc = $this->makeShortDescription($request);
                 $escort->value = $request->value;
+                $escort->type = 'narration';
 
             }
             $escort->user_id = Auth::id();
