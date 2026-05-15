@@ -209,12 +209,12 @@
                                              <label for="">Do you consent, pursuant to clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?</label>
                                              </div>
                                              <div class="form-check form-check-inline ml-0">
-                                                <input class="form-check-input" type="radio" name="idle_preference_time" id="yes" value="15">
+                                                <input class="form-check-input" type="radio" name="idle_preference_time" id="yes" >
                                                 <label class="form-check-label" for="yes">Yes</label>
                                              </div>
 
                                              <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="idle_preference_time" id="no" value="30" checked>
+                                                <input class="form-check-input" type="radio" name="idle_preference_time" id="no"  checked>
                                                 <label class="form-check-label" for="no">No</label>
                                              </div>                                                                
                                        </div>
