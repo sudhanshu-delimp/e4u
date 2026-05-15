@@ -19,6 +19,7 @@ use App\Http\Requests\Escort\UpdateRequestAbout;
 use App\Http\Requests\Escort\StoreRateRequest;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Models\Escort;
+use App\Models\EscortAdditionalInformation;
 use App\Repositories\Duration\DurationInterface;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -66,23 +67,29 @@ class ProfileInformationController extends Controller
     public function updateProfile($id)
     {
         $escort = $this->escort->find($id);
-        list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->service->findByCategory([1, 2, 3]);
         $durations = $this->duration->all();
         $availability = $escort->availability;
         $service = $this->service;
-        return view('escort.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations'));
+        return view('escort.dashboard.profile.update', compact('escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations'));
     }
 
     public function showAboutMe()
     {
         $user = auth()->user();
-        if(!$escort = $this->escort->findDefault($user->id,1)) {
+        if (!$escort = $this->escort->findDefault($user->id, 1)) {
             $escort = $this->escort->make();
         }
-        list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->service->findByCategory([1, 2, 3]);
         $durations = $this->duration->all();
         $availability = $escort->availability;
-        return view('escort.dashboard.profile.information.profileInformation',compact('escort','service_one','service_two','service_three','availability','durations','user'));
+        //for additional information
+        $address = $user->additionalInfo->where('type','address')->pluck('short_desc')->toArray();
+        $title = $user->additionalInfo->where('type','title')->pluck('short_desc')->toArray();
+        $narration = $user->additionalInfo->where('type','narration')->pluck('short_desc')->toArray();
+        return view('escort.dashboard.profile.information.profileInformation', 
+        compact('escort', 'service_one', 'service_two', 'service_three', 
+        'availability', 'durations', 'user', 'address', 'title', 'narration'));
     }
 
     public function escortplaymate(Request $request)
@@ -94,7 +101,6 @@ class ProfileInformationController extends Controller
         $user->save();
 
         return response()->json(compact('user'));
-
     }
     public function storeAboutMe(UpdateRequestAboutMe $request)
     {
@@ -104,89 +110,89 @@ class ProfileInformationController extends Controller
         $user->save();
         $input = [
             //'name'=>$request->name,
-            'nationality_id'=>$request->nationality_id,
-            'height'=>$request->height,
-            'eyes'=>$request->eyes,
-            'orientation'=>$request->orientation,
-            'age'=>$request->age,
-            'hair_color'=>$request->hair_color,
-            'skin_tone'=>$request->skin_tone,
-            'breast'=>$request->breast,
-            'endowment'=>$request->endowment,
-            'thickness'=>$request->thickness,
-            'circumcised'=>$request->circumcised,
-            'butt'=>$request->butt,
-            'preference'=>$request->preference,
-            'hormones'=>$request->hormones,
-            'contact'=>$request->contact,
-            'ethnicity'=>$request->ethnicity,
-            'body_type'=>$request->body_type,
-            'hair_style'=>$request->hair_style,
-            'weight'=>$request->weight,
-            'dress_size'=>$request->dress_size,
+            'nationality_id' => $request->nationality_id,
+            'height' => $request->height,
+            'eyes' => $request->eyes,
+            'orientation' => $request->orientation,
+            'age' => $request->age,
+            'hair_color' => $request->hair_color,
+            'skin_tone' => $request->skin_tone,
+            'breast' => $request->breast,
+            'endowment' => $request->endowment,
+            'thickness' => $request->thickness,
+            'circumcised' => $request->circumcised,
+            'butt' => $request->butt,
+            'preference' => $request->preference,
+            'hormones' => $request->hormones,
+            'contact' => $request->contact,
+            'ethnicity' => $request->ethnicity,
+            'body_type' => $request->body_type,
+            'hair_style' => $request->hair_style,
+            'weight' => $request->weight,
+            'dress_size' => $request->dress_size,
             'user_id' => auth()->user()->id,
-            'piercing'=>$request->piercing,
-            'drugs'=>$request->drugs,
-            'travel'=>$request->travel,
-            'tattoos'=>$request->tattoos,
-            'smoke'=>$request->smoke,
-            'available_to'=>$request->available_to,
-            'license'=>$request->license,
-            'play_type'=> $request->play_type,
-            'payment_type'=>$request->payment_type,
-            'shaved'=>$request->shaved ? $request->shaved : NULL,
-            'covidreport'=>$request->covidreport ? $request->covidreport : NULL,
-            'enabled'=>1,
+            'piercing' => $request->piercing,
+            'drugs' => $request->drugs,
+            'travel' => $request->travel,
+            'tattoos' => $request->tattoos,
+            'smoke' => $request->smoke,
+            'available_to' => $request->available_to,
+            'license' => $request->license,
+            'play_type' => $request->play_type,
+            'payment_type' => $request->payment_type,
+            'shaved' => $request->shaved ? $request->shaved : NULL,
+            'covidreport' => $request->covidreport ? $request->covidreport : NULL,
+            'enabled' => 1,
             'default_setting' => 1
         ];
-        $request->language ? $input['language'] = $request->language : $input['language'] ='';
-       //dd($input);
+        $request->language ? $input['language'] = $request->language : $input['language'] = '';
+        //dd($input);
 
-        $error=true;
-        if($data = $this->escort->updateOrCreate($input, auth()->user()->id,1)) {
+        $error = true;
+        if ($data = $this->escort->updateOrCreate($input, auth()->user()->id, 1)) {
             $error = false;
         }
         return response()->json(compact('error'));
     }
     public function sortByStageNameAboutMe(Request $request)
     {
-        if(Auth::user() == null){
+        if (Auth::user() == null) {
             return response()->json([
-                'status'=>  false,
+                'status' =>  false,
                 'sort_by' => 'random',
-                'data'=>[],
+                'data' => [],
             ]);
         }
 
         $stageName = auth()->user()->escorts_names;
 
         return response()->json([
-            'status'=> auth()->user() ? true : false,
+            'status' => auth()->user() ? true : false,
             'sort_by' => $request->sort_by,
-            'data'=>$stageName,
+            'data' => $stageName,
         ]);
     }
     public function storeSocialsLink(Request $request)
     {
         $input = [
-            'social_links'=>$request->social_links,
+            'social_links' => $request->social_links,
         ];
         $user = User::findOrFail(auth()->id());
         $profile_creator = $user->profile_creator ?? [];
-       
+
         if (!in_array('3', $profile_creator)) {
-           if (empty($profile_creator)) {
+            if (empty($profile_creator)) {
                 $profile_creator[] = '3';
             } else {
                 $profile_creator[] = '3';
             }
-        } 
+        }
         $user->profile_creator = $profile_creator;
         $user->save();
 
-        $error=true;
+        $error = true;
         //if($data = $this->escort->updateOrCreate($input, auth()->user()->id,1)) {
-        if($data = $this->user->store($input, auth()->user()->id)) {
+        if ($data = $this->user->store($input, auth()->user()->id)) {
             $error = false;
         }
         return response()->json(compact('error'));
@@ -195,7 +201,7 @@ class ProfileInformationController extends Controller
     {
 
         $user = auth()->user()->id;
-        $escort = $this->escort->findDefault($user,1);
+        $escort = $this->escort->findDefault($user, 1);
         $escort->incall_enabled = $request->incall_enabled;
         $escort->outcall_enabled = $request->outcall_enabled;
         $escort->incall_amount = $request->incall_amount;
@@ -203,19 +209,20 @@ class ProfileInformationController extends Controller
         $escort->save();
 
         $arr = [];
-        foreach($request->duration_id as $key =>$value)
-        {
-            $arr  += [$value => [
-                "massage_price" => $request->massage_price[$key],
-                "incall_price" => $request->incall_price[$key],
-                "outcall_price" => $request->outcall_price[$key]],
-                ];
+        foreach ($request->duration_id as $key => $value) {
+            $arr  += [
+                $value => [
+                    "massage_price" => $request->massage_price[$key],
+                    "incall_price" => $request->incall_price[$key],
+                    "outcall_price" => $request->outcall_price[$key]
+                ],
+            ];
         }
-        $error=true;
-        if($data = $escort->durations()->sync($arr)) {
+        $error = true;
+        if ($data = $escort->durations()->sync($arr)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
 
 
@@ -229,69 +236,67 @@ class ProfileInformationController extends Controller
     {
         //dd($request->all());
         $user = auth()->user()->id;
-        $escort = $this->escort->findDefault($user,1);
+        $escort = $this->escort->findDefault($user, 1);
         $escortId = $escort->id;
         $data['escort_id'] = $escortId;
 
         $shortDays = config('escorts.days.short_form');
         foreach ($shortDays as $day => $shortDay) {
-            if(!empty($request->{$shortDay."_from"})) {
+            if (!empty($request->{$shortDay . "_from"})) {
                 $data  += [
-                    $day."_from" => date('H:i:s', strtotime($request->{$shortDay."_from"}.$request->{$shortDay."_time_from"})),
-                    $day."_to" => date('H:i:s', strtotime($request->{$shortDay."_to"}.$request->{$shortDay."_time_to"}))
+                    $day . "_from" => date('H:i:s', strtotime($request->{$shortDay . "_from"} . $request->{$shortDay . "_time_from"})),
+                    $day . "_to" => date('H:i:s', strtotime($request->{$shortDay . "_to"} . $request->{$shortDay . "_time_to"}))
                 ];
             } else {
                 $data  += [
-                    $day."_from" => null,
-                    $day."_to" => null,
+                    $day . "_from" => null,
+                    $day . "_to" => null,
                 ];
             }
         }
-        if(!empty($request->availability_time))
-        {
+        if (!empty($request->availability_time)) {
             $data  += [
-                "availability_time" =>$request->availability_time,
+                "availability_time" => $request->availability_time,
             ];
         }
-//        dd($data);
+        //        dd($data);
         //$escort = $this->escort->find($escortId);
         $availability = $escort->availability;
 
-        $error=true;
-        if($data = $this->availability->store($data, $availability ? $availability->id : null)) {
+        $error = true;
+        if ($data = $this->availability->store($data, $availability ? $availability->id : null)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
 
     public function storeServices(StoreServiceRequest $request)
     {
         $user = auth()->user()->id;
-        $escort = $this->escort->findDefault($user,1);
+        $escort = $this->escort->findDefault($user, 1);
         $arr = [];
         //dd($request->service_id);
-        if(!empty($request->service_id)) {
-            foreach($request->service_id as $key =>$value)
-            {
+        if (!empty($request->service_id)) {
+            foreach ($request->service_id as $key => $value) {
                 $arr  += [$value => ["price" => $request->price[$key]]];
             }
         }
 
-        $error=true;
-        if($data = $escort->services()->sync($arr)) {
+        $error = true;
+        if ($data = $escort->services()->sync($arr)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
 
     public function uploadCovidReport($file, $escort_id)
     {
-        $file_path = 'escort-covid-report/'.$escort_id.'/'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$file->getClientOriginalExtension();
+        $file_path = 'escort-covid-report/' . $escort_id . '/' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
         Storage::disk('escorts')->put($file_path, file_get_contents($file));
 
         $data = [
             'escort_id' => $escort_id,
-            'path' => 'escorts/'.$file_path,
+            'path' => 'escorts/' . $file_path,
         ];
 
         EscortCovidReport::create($data);
@@ -302,32 +307,32 @@ class ProfileInformationController extends Controller
     public function storeReadMore(UpdateRequestReadMore $request, $id)
     {
         $input = [
-            'piercing'=>$request->piercing,
-            'drugs'=>$request->drugs,
-            'travel'=>$request->travel,
-            'tattoos'=>$request->tattoos,
-            'smoke'=>$request->smoke,
-            'available_to'=>$request->available_to,
-            'license'=>$request->license,
-            'play_type'=> $request->play_type,
-            'payment_type'=>$request->payment_type
+            'piercing' => $request->piercing,
+            'drugs' => $request->drugs,
+            'travel' => $request->travel,
+            'tattoos' => $request->tattoos,
+            'smoke' => $request->smoke,
+            'available_to' => $request->available_to,
+            'license' => $request->license,
+            'play_type' => $request->play_type,
+            'payment_type' => $request->payment_type
         ];
         $request->language ? $input['language'] = $request->language : '';
-        $error=true;
-        if($data = $this->escort->store($input, $id)) {
+        $error = true;
+        if ($data = $this->escort->store($input, $id)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
-    public function storeAbout(UpdateRequestAbout $request ,$id)
+    public function storeAbout(UpdateRequestAbout $request, $id)
     {
         $input = [
-            'about'=>$request->about,
+            'about' => $request->about,
         ];
 
 
         $error = true;
-        if(isset($request->about)) {
+        if (isset($request->about)) {
             $data = $this->escort->store($input, $id);
             $error = false;
         }
@@ -337,35 +342,35 @@ class ProfileInformationController extends Controller
     {
 
         $input = [
-            'name'=>$request->name,
-            'age'=>$request->age,
-            'phone'=>$request->phone,
-            'pincode'=>$request->pincode,
-            'city_id'=>$request->city_id,
-            'country_id'=>$request->country_id,
-            'state_id'=>$request->state_id,
-            'social_links'=>$request->social_links,
+            'name' => $request->name,
+            'age' => $request->age,
+            'phone' => $request->phone,
+            'pincode' => $request->pincode,
+            'city_id' => $request->city_id,
+            'country_id' => $request->country_id,
+            'state_id' => $request->state_id,
+            'social_links' => $request->social_links,
             'user_id' => auth()->user()->getMemberIdAttribute(),
             'enabled' => 1,
         ];
 
-        $error=true;
-        if($data = $this->escort->store($input, $id = null)) {
+        $error = true;
+        if ($data = $this->escort->store($input, $id = null)) {
             $error = false;
             $url = route('update.profile', [$data->id]);
         }
-        return response()->json(compact('data','error','url'));
+        return response()->json(compact('data', 'error', 'url'));
     }
 
 
 
 
-    public function parseTime($hour,$minutes,$meridian)
+    public function parseTime($hour, $minutes, $meridian)
     {
-        if(($hour && $minutes && $meridian) == null){
+        if (($hour && $minutes && $meridian) == null) {
             return null;
         } else {
-            return Carbon::createFromFormat('g:i A',$hour.":".$minutes." ".$meridian)->toTimeString();
+            return Carbon::createFromFormat('g:i A', $hour . ":" . $minutes . " " . $meridian)->toTimeString();
         }
     }
 
@@ -385,22 +390,20 @@ class ProfileInformationController extends Controller
 
 
         return response()->json(compact('error'));
-
     }
     public function saveMembership(Request $request, $id)
     {
         $escort = $this->escort->find($id);
         $data = [];
         $enable = [];
-        $data = ['plan_type' =>$request->plan_type];
-        $enable = ['enabled' =>1];
+        $data = ['plan_type' => $request->plan_type];
+        $enable = ['enabled' => 1];
         $user = $this->user->store($data, $escort->user_id);
         $escort_update = $this->escort->store($enable, $id);
         $error = 1;
 
 
         return response()->json(compact('error'));
-
     }
 
     public function uploadFile($attachment, $escort)
@@ -409,14 +412,14 @@ class ProfileInformationController extends Controller
 
         list($type, $prefix) = $this->getPrefix($attachment);
 
-        $file_path = $prefix.$escort_id.'/banner/'.Str::slug(pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$attachment->getClientOriginalExtension();
+        $file_path = $prefix . $escort_id . '/banner/' . Str::slug(pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $attachment->getClientOriginalExtension();
         Storage::disk('escorts')->put($file_path, file_get_contents($attachment));
 
-        if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
+        if (!$media = $this->media->findByPath('escorts/' . $file_path)) {
             $data = [
                 'escort_id' => $escort_id,
                 'type' => $type,
-                'path' => 'escorts/'.$file_path,
+                'path' => 'escorts/' . $file_path,
             ];
             $media = $this->media->store($data);
         }
@@ -427,14 +430,14 @@ class ProfileInformationController extends Controller
     public function getPrefix($file)
     {
         $mime = $file->getMimeType();
-        if(strstr($mime, "video/")){
+        if (strstr($mime, "video/")) {
             $str = 'videos/';
             $type = 3;  //2=>image; 3=>video (banner)
         } else {
             $str = 'images/';
             $type = 2;  //2=>image; 3=>video (banner)
         }
-        return [$type, 'attatchment/'.$str];
+        return [$type, 'attatchment/' . $str];
     }
     public function savePlaymate($id)
     {
@@ -443,23 +446,22 @@ class ProfileInformationController extends Controller
         $userId = auth()->user() ? auth()->user()->id : null;
         //dd($userId);
         $index = [
-                'user_id' => $userId,
-                'playmate_id' => $id,
-                ];
+            'user_id' => $userId,
+            'playmate_id' => $id,
+        ];
+        $error = 0;
+        if (!empty($userId)) {
+            $result = Playmate::where('playmate_id', $id)->where('user_id', $userId)->first();
+
+            if (!is_null($result)) {
                 $error = 0;
-                if(!empty($userId)) {
-                    $result = Playmate::where('playmate_id',$id)->where('user_id', $userId)->first();
+            } else {
 
-                    if(!is_null($result))
-                    {
-                        $error = 0;
-                    } else {
-
-                        $data = Playmate::create($index);
-                        //dd($data);
-                        $error = 1;
-                    }
-                }
+                $data = Playmate::create($index);
+                //dd($data);
+                $error = 1;
+            }
+        }
 
 
         return response()->json(compact('error'));
@@ -478,9 +480,9 @@ class ProfileInformationController extends Controller
              * Get Login User Profile's id those were attach with the removed Playmate.
              */
             $escortPorfileIdsWithPlaymate = $user->listedEscorts
-            ->filter(fn($escort) => $escort->playmates->contains($item->playmate_id))
-            ->pluck('id')
-            ->toArray();
+                ->filter(fn($escort) => $escort->playmates->contains($item->playmate_id))
+                ->pluck('id')
+                ->toArray();
 
             /**
              * Remove Playmate from Login User's all Profile's Playmatelist.
@@ -498,12 +500,12 @@ class ProfileInformationController extends Controller
             /**
              * Remove records from the history table that matches user and playmate ids.
              */
-            if(!empty($escortPorfileIdsWithPlaymate)){
-                foreach($escortPorfileIdsWithPlaymate as $escortId){
+            if (!empty($escortPorfileIdsWithPlaymate)) {
+                foreach ($escortPorfileIdsWithPlaymate as $escortId) {
                     $this->playmateHistory->trashPlaymateHistory($escortId, $item->playmate_id);
                 }
             }
-            $item->where(['user_id'=>$item->user_id,'playmate_id'=>$item->playmate_id])->delete();
+            $item->where(['user_id' => $item->user_id, 'playmate_id' => $item->playmate_id])->delete();
         } catch (\Exception $e) {
             $error = true;
             $message = 'Failed to remove playmate: ' . $e->getMessage();
@@ -513,39 +515,95 @@ class ProfileInformationController extends Controller
     }
 
     //store StagingName
-    public function storeEscortStageName(Request $request){
-        try{
+    public function storeEscortStageName(Request $request)
+    {
+        try {
             $escort = User::findOrFail(Auth::id());
             $name = $escort->escorts_names ?? [];
-            if(in_array($request->stage_name, $name)){
+            if (in_array($request->stage_name, $name)) {
                 return error_response('Name already exists.', 422);
             }
 
             $name[] =  $request->stage_name;
             $escort->update(['escorts_names' => $name]);
-            //$data = null, $message = 'OK', $statusCode = 200, array $extra = []
-        return success_response(null, "success", 200, []);
-        } catch(Exception $e){
+
+            return success_response(null, "success", 200, []);
+        } catch (Exception $e) {
             return error_response($e->getMessage(), 400, null, []);
         }
-
     }
 
     //Delete storeEscortStageName
-    public function deleteEscortStageName(Request $request){
-    
-        try{
+    public function deleteEscortStageName(Request $request)
+    {
+
+        try {
             $escort = User::findOrFail(Auth::id());
-           // dd($escort->escorts_names, $request->stage_name);
             $names = $escort->escorts_names ?? [];
             $nam = array_filter($names, function ($name) use ($request) {
                 return $name != $request->stage_name;
             });
             $escort->update(['escorts_names' => $nam]);
             return success_response(null, "Delete successfully!", 200, []);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return error_response($e->getMessage(), 400, null, []);
         }
-        
+    }
+
+    //Additional informaion function
+    public function additionalStorage(Request $request)
+    {
+     
+        try {
+
+            $alreadyExist =  EscortAdditionalInformation::where('type', $request->type)
+                                            ->where('value', $request->value)
+                                            ->exists();
+            if($alreadyExist){
+                return error_response('Value already exists in database.',422);
+            }
+
+            $escort = new EscortAdditionalInformation();
+            if($request->type == 'title'){
+                $escort->short_desc = $this->makeShortDescription($request);
+                $escort->value = $request->value;
+
+            }else if($request->type == 'address'){
+                $escort->short_desc = $this->makeShortDescription($request);
+                $escort->value = $request->value;
+            }else{
+                $escort->short_desc = $this->makeShortDescription($request);
+                $escort->value = $request->value;
+
+            }
+            $escort->user_id = Auth::id();
+            $escort->save();
+    
+            return success_response(null, "success", 200, []);
+        } catch (Exception $e) {
+            return error_response($e->getMessage(), 500, null, []);
+        }
+    }
+
+    public function additionalDelete(Request $request)
+    {
+        try {
+            return success_response(null, 'Success', 200, []);
+        } catch (Exception $e) {
+            return error_response($e->getMessage(), 500, null, []);
+        }
+    }
+
+    private function makeShortDescription($request)
+    {
+        if ($request->type == 'title') {
+            return substr($request->value, 0, 5);
+        }else{
+            $plainText = strip_tags($request->value);
+            $plainText = html_entity_decode($plainText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $plainText = preg_replace('/\s+/', ' ', $plainText);
+            $words = explode(' ', trim($plainText));
+            return implode(' ', array_slice($words, 0, 5));
+        }
     }
 }

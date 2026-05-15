@@ -16,7 +16,7 @@ class CreateEscortAdditionalInformationTable extends Migration
         Schema::create('escort_additional_information', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('type');
+            $table->enum('type', ['address', 'title', 'narration'])->nullable()->comment('address,title,narration');
             $table->longText('value')->nullable();
             $table->string('short_desc')->nullable();
             $table->timestamps();

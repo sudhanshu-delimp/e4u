@@ -61,8 +61,7 @@
                                     <input type="text" class="form-control form-control-sm" id="stage_name"
                                         placeholder="Enter stage name">
                                 </div>
-                                <div><span><b>Note:</b> <i>Save your new Stage Names before you apply the Sort
-                                            feature.</i></span></div>
+                                <div><span><b>Note:</b> <i>Save your new Stage Names before you apply the Sort feature.</i></span></div>
 
                                 <div class="col-sm-12" style="display: ruby; padding-left: 0px;">
                                     <label>Sort By : </label>
@@ -127,21 +126,16 @@
                                     <input type="text" class="form-control form-control-sm" id="st_address"
                                         placeholder="Enter street address">
                                 </div>
-                                <div> <span><b>Note:</b> <i>Save your Addresses before you apply the Sort
-                                            feature.</i></span></div>
+                                <div> <span><b>Note:</b> <i>Save your Addresses before you apply the Sort feature.</i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageAddress" type="radio"
-                                                name="sortedByStageAddress" id="addressAlphabetically" value="alphabetically"
-                                                checked>
-                                            <label class="form-check-label" for="addressAlphabetically">Location
-                                                (A–Z)</label>
+                                            <input class="form-check-input sortedByStageAddress" type="radio" name="sortedByStageAddress" id="addressAlphabetically" value="alphabetically" checked>
+                                            <label class="form-check-label" for="addressAlphabetically">Location (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageAddress" type="radio"
-                                                name="sortedByStageAddress" id="addressRandom" value="random">
+                                            <input class="form-check-input sortedByStageAddress" type="radio" name="sortedByStageAddress" id="addressRandom" value="random">
                                             <label class="form-check-label" for="addressRandom">Random</label>
                                         </div>
                                     </div>
@@ -151,20 +145,14 @@
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
                                         <ul class="results" id="stageAddress">
-                                            <li style="font-size: 14px; background:#0C223D !important;"
-                                                class="show_details"> <a href="#">Sydney</a>
-                                                <div class="close ml-2 text-white stage-close" aria-label="Close">
-                                                    <span aria-hidden="true" class="delete_stname"
-                                                        id="Sydney">×</span>
-                                                    <small class="mytool-tip">Remove</small>
-                                                </div>
-                                                <input type="hidden" name="name[]" value="Sydney">
-                                                <div class="details_tooltip">
-                                                    123, ABC Street, New South Wales, 2000
-                                                </div>
-                                            </li>
+                                            {{-- Js append here --}}
 
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="save_address_button">Save</button>
                                     </div>
                                 </div>
                                 {{-- end --}}
@@ -211,32 +199,20 @@
                                             <label class="form-check-label" for="stageNameRandom">Random</label>
                                         </div>
                                     </div>
-
-
-
                                 </div>
-
-
                                 {{-- append cards --}}
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
                                         <ul class="results" id="stageTitleList">
-                                            <li style="font-size: 14px; background:#0C223D !important;"
-                                                class="show_details">
-                                                <a href="#" class="two_words">Sebastian Christopher Alexander
-                                                    Montgomery</a>
-                                                <div class="close ml-2 text-white stage-close" aria-label="Close">
-                                                    <span aria-hidden="true" class="delete_stname"
-                                                        id="Sydney">×</span>
-                                                    <small class="mytool-tip">Remove</small>
-                                                </div>
-                                                <input type="hidden" name="name[]" value="Sydney">
-                                                <div class="details_tooltip">
-                                                    Sebastian Christopher Alexander Montgomery
-                                                </div>
-                                            </li>
+                                            {{-- js append here --}}
 
                                         </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="save_title_button">Save</button>
                                     </div>
                                 </div>
                                 {{-- end --}}
@@ -257,19 +233,13 @@
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
                                     data-toggle="tooltip" data-html="true" data-placement="top"
                                     title="You can create as many Narrations as you like." data-boundary="window">
-
                             </label>
-
                             <div class="col-sm-12 stageListParent pl-1">
                                 <div class="col-sm-12 pl-0">
-                                    <textarea class="form-control mt-2 h-100" id="who_narration_textarea2"
+                                    <textarea class="form-control mt-2 h-100" id="who_narration_textarea" name="narration"
                                         placeholder="Maximum limit of 2,500 characters."></textarea>
-
-
                                 </div>
                                  
-
-
                                 <div> <span><b>Note:</b> <i>Save your Narrations before you apply the Sort feature.
                                         </i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
@@ -288,35 +258,22 @@
                                             <label class="form-check-label" for="narrationRandom">Random</label>
                                         </div>
                                     </div>
-
                                 </div>
-
                                 {{-- append cards --}}
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
                                         <ul class="results" id="stageNarration">
-                                            <li style="font-size: 14px; background:#0C223D !important;"
-                                                class="show_details">
-                                                <a href="#" class="two_words">I don’t put everything out here..
-                                                    💋 my private link is where I get a lot more personal.</a>
-                                                <div class="close ml-2 text-white stage-close" aria-label="Close">
-                                                    <span aria-hidden="true" class="delete_stname"
-                                                        id="Sydney">×</span>
-                                                    <small class="mytool-tip">Remove</small>
-                                                </div>
-                                                <input type="hidden" name="name[]" value="Sydney">
-                                                <div class="details_tooltip">
-                                                    <span class="seven_words ">I don’t put everything out here.. 💋 my
-                                                        private link is where I get a lot more personal.</span>
-                                                </div>
-                                            </li>
+                                           {{-- js append here --}}
 
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="save_narration_button">Save</button>
+                                    </div>
+                                </div>
                                 {{-- end --}}
-
-
                             </div>
                         </div>
                     </div>
@@ -340,5 +297,13 @@
     data-error-warning="{{ asset('assets/dashboard/img/warning.png') }}"
     data-stagename-store="{{ route('escort.stagename.store') }}"
     data-stagename-delete="{{ route('escort.stagename.delete') }}"
-    data-stage-names="{{ json_encode($user['escorts_names'] ?? []) }}"></div>
+    data-stage-names="{{ json_encode($user['escorts_names'] ?? []) }}"
+
+    data-additional-store="{{route('escort.additional.store')}}"
+    data-additional-delete="{{route('escort.additional.delete')}}"
+    data-addresses="{{json_encode($address ?? '')}}"
+    data-title="{{json_encode($title)}}"
+    data-narrations="{{json_encode($narration ?? [])}}"
+    
+    ></div>
 

@@ -982,4 +982,14 @@ class User extends Authenticatable
             'balance' => 0
         ]);
     }
+
+    //connection with Escort profile for additional info
+    public function additionalInfo()
+    {
+        return $this->hasMany(EscortAdditionalInformation::class);
+    }
+
+
+
+
 }
