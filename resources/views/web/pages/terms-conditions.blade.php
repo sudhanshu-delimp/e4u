@@ -71,14 +71,14 @@
         }
 
         /*.cms-lvl2{
-                                                                                                margin-left: 30px;
-                                                                                                }*/
+                                                                                                            margin-left: 30px;
+                                                                                                            }*/
         /*.cms-lvl3{
-                                                                                                margin-left:50px ;
-                                                                                                }*/
+                                                                                                            margin-left:50px ;
+                                                                                                            }*/
         /*.cms-lvl4{
-                                                                                                margin-left:50px ;
-                                                                                                }*/
+                                                                                                            margin-left:50px ;
+                                                                                                            }*/
         .cms-paragraph,
         .cms-list-paragraph {
             font-size: 16px;
@@ -982,24 +982,6 @@
                                                             or personal nature.</p>
                                                     </div>
 
-
-                                                    <div class="content_align">
-                                                        <p>
-                                                        <ol class="level-2 pl-5">
-                                                            <li>provide accurate, complete and up-to-date information and
-                                                                ensure it remains so;</li>
-                                                            <li>keep your username and password secure and confidential and
-                                                                protect them
-                                                                from misuse or being stolen;</li>
-                                                            <li>notify E4U immediately if you become aware of any
-                                                                unauthorised access to your
-                                                                Account; and</li>
-                                                            <li>not permit your Account to be used by or transferred to any
-                                                                other person.</li>
-                                                        </ol>
-                                                        </p>
-                                                    </div>
-
                                                 </div>
                                                 {{-- end --}}
 
@@ -1633,7 +1615,8 @@
                                                         <p>
                                                             Agents are appointed and managed by, and contracted with, Agency
                                                             Management Pty
-                                                            Ltd (AMA), an independent third party. E4U does not appoint
+                                                            Ltd (<b>AMA</b>), an independent third party. E4U does not
+                                                            appoint
                                                             Agents directly. Where
                                                             an Advertiser engages an Agent, the Agent will be granted access
                                                             to the Website to act
@@ -1862,7 +1845,7 @@
                                                     <div class="content_align">
                                                         <span>20.3</span>
                                                         <p>
-                                                            he Agent agrees that E4U has the right to make changes to the
+                                                            The Agent agrees that E4U has the right to make changes to the
                                                             Website, including the
                                                             Agent Console, at its sole discretion, at any time without
                                                             giving any explanation or
@@ -2025,6 +2008,7 @@
                                                             An Agent agrees and accepts that:
                                                         </p>
                                                     </div>
+
                                                     <div class="content_align">
                                                         <p>
                                                         <ol class="level-2 pl-5">
@@ -2126,7 +2110,7 @@
                                                             <li>E4U provides an optional image verification procedure.
                                                                 Advertisers who opt to take part
                                                                 in image verification must supply a verification photo
-                                                                (Verification Image). The
+                                                                (<b>Verification Image</b>). The
                                                                 Verification Image must show identifying features which
                                                                 match the Advertiser's Profile
                                                                 photos. An Advertiser must not under any circumstances
@@ -2314,26 +2298,38 @@
                                                     <div class="content_align">
                                                         <span>26.1</span>
                                                         <p>
-                                                            The Advertiser and the Viewer acknowledge that E4U is not responsible in any way for
-any actions, omissions or negligence on the part of any User of the Website and that
-any agreement made between an Advertiser and Viewer as a direct or indirect result
-of the provision of Services, is solely and wholly between the Advertiser and Viewer and
-not, under any circumstances, with E4U.
+                                                            The Advertiser and the Viewer acknowledge that E4U is not
+                                                            responsible in any way for
+                                                            any actions, omissions or negligence on the part of any User of
+                                                            the Website and that
+                                                            any agreement made between an Advertiser and Viewer as a direct
+                                                            or indirect result
+                                                            of the provision of Services, is solely and wholly between the
+                                                            Advertiser and Viewer and
+                                                            not, under any circumstances, with E4U.
                                                         </p>
                                                     </div>
 
                                                     <div class="content_align">
                                                         <span>26.2</span>
                                                         <p>
-                                                            Users acknowledge and agree that data transmission over the internet cannot be
-guaranteed as totally secure. Whilst E4U will use its reasonable endeavours to protect
-such information, E4U does not warrant and cannot ensure the security of any
-information which is transmitted to E4U. Accordingly, any information which a User
-transmits to E4U is transmitted at their own risk, including (without limitation) private
-email addresses, personal information and images. E4U takes reasonable steps to
-preserve the security of such information and images, but will not be held responsible
-if the information or images become public, under any circumstances, except to the
-extent caused by E4U’s own negligence.
+                                                            Users acknowledge and agree that data transmission over the
+                                                            internet cannot be
+                                                            guaranteed as totally secure. Whilst E4U will use its reasonable
+                                                            endeavours to protect
+                                                            such information, E4U does not warrant and cannot ensure the
+                                                            security of any
+                                                            information which is transmitted to E4U. Accordingly, any
+                                                            information which a User
+                                                            transmits to E4U is transmitted at their own risk, including
+                                                            (without limitation) private
+                                                            email addresses, personal information and images. E4U takes
+                                                            reasonable steps to
+                                                            preserve the security of such information and images, but will
+                                                            not be held responsible
+                                                            if the information or images become public, under any
+                                                            circumstances, except to the
+                                                            extent caused by E4U’s own negligence.
                                                         </p>
                                                     </div>
 
@@ -2341,15 +2337,18 @@ extent caused by E4U’s own negligence.
                                                     <div class="content_align">
                                                         <span>26.3</span>
                                                         <p>
-                                                            To the maximum extent permitted by law, E4U gives no warranty as to accuracy,
-suitability or functionality of the Website or the Services. The User acknowledges that
-from time to time there may be faults, defects and errors with the Website and they will
-not hold E4U responsible in this regard.
+                                                            To the maximum extent permitted by law, E4U gives no warranty as
+                                                            to accuracy,
+                                                            suitability or functionality of the Website or the Services. The
+                                                            User acknowledges that
+                                                            from time to time there may be faults, defects and errors with
+                                                            the Website and they will
+                                                            not hold E4U responsible in this regard.
                                                         </p>
                                                     </div>
 
 
-                                                    
+
 
                                                 </div>
                                                 {{-- end --}}
@@ -2430,7 +2429,7 @@ not hold E4U responsible in this regard.
                                                     <div class="content_align">
                                                         <span>27.5</span>
                                                         <p>
-                                                            To the  maximum extent permitted by law, the aggregate liability
+                                                            To the maximum extent permitted by law, the aggregate liability
                                                             of E4U to the Advertiser
                                                             or Viewer or any other party who may have a claim against E4U in
                                                             respect of the
@@ -2472,7 +2471,7 @@ not hold E4U responsible in this regard.
                                                     <div class="content_align">
 
                                                         <p>
-                                                            <ol class="level-2 pl-5">
+                                                        <ol class="level-2 pl-5">
                                                             <li>the User has breached these Terms and Conditions, the
                                                                 Acceptable Usage Policy
                                                                 or any other relevant Policy and has not remedied that
@@ -2497,7 +2496,7 @@ not hold E4U responsible in this regard.
                                                     <div class="content_align">
 
                                                         <p>
-                                                            <ol class="level-2 pl-5">
+                                                        <ol class="level-2 pl-5">
                                                             <li>the User has engaged in fraudulent, illegal or criminal
                                                                 conduct in connection with
                                                                 the Website or Services;</li>
@@ -2566,7 +2565,7 @@ not hold E4U responsible in this regard.
                                                     <div class="content_align">
 
                                                         <p>
-                                                            <ol class="level-2 pl-5">
+                                                        <ol class="level-2 pl-5">
                                                             <li>E4U will remove the User's access to the Website; and</li>
                                                             <li>where applicable, the Advertiser authorises E4U to debit
                                                                 their nominated payment
@@ -2630,8 +2629,8 @@ not hold E4U responsible in this regard.
                                                         <p>
                                                             E4U may offer Advertisers access to a range of concierge
                                                             services through the
-                                                            Advertiser Console as set out in this Part G (Concierge
-                                                            Services). Concierge Services
+                                                            Advertiser Console as set out in this Part G (<b>Concierge
+                                                                Services</b>). Concierge Services
                                                             are optional and are in addition to the advertising Services
                                                             provided under these Terms
                                                             and Conditions.
@@ -2981,608 +2980,693 @@ not hold E4U responsible in this regard.
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="cms-accordion-content-area">
-                                            <!-- level 1 list -->
-                                            <ol type="1" class="cms-lvl1-list pl-0">
-                                                <li class=" cms-lvl1-list-title"><span
-                                                        class="cms-list-span"><b>29.</b></span>Links
-                                                    to Other Websites
-                                                </li>
-                                                <ol type="1" class="cms-list cms-lvl2">
-                                                    <li class="cms-list-item "><span class="cms-list-span">29.1</span>E4U
-                                                        may from time to time provide on the Website, links to other
-                                                        websites and information on those websites for the Users
-                                                        convenience. This does not imply sponsorship, endorsement, or
-                                                        approval or any arrangement between E4U and the owners of those
-                                                        other websites. E4U takes no responsibility for any of the
-                                                        content found on any linked websites
-                                                    </li>
-                                                    <li class="cms-list-item "><span class="cms-list-span">29.2</span>E4U
-                                                        takes no responsibility for any of the content or material on
-                                                        any linked websites. Third party websites are not under E4U’s
-                                                        control.
-                                                    </li>
-                                                    <li class="cms-list-item "><span class="cms-list-span">29.3</span>The
-                                                        Website may contain information provided by third parties for
-                                                        which E4U accepts no responsibility whatsoever including,
-                                                        without limitation, for information or advice provided to the
-                                                        Advertiser directly by third parties such as information
-                                                        relating to Concierge Services. E4U is making a
-                                                        'recommendation'only and is not providing any advice regarding
-                                                        the third party and the services offered. E4U is not responsible
-                                                        for any advice provided to the Advertiser in this regard.
-                                                    </li>
-                                                </ol>
-                                                <ol type="1" class="cms-lvl1-list pl-0">
-                                                    <li class=" cms-lvl1-list-title"><span
-                                                            class="cms-list-span"><b>30.</b></span>Termination
-                                                    </li>
-                                                    <ol type="1" class="cms-list cms-lvl2">
-                                                        <li class="cms-list-item "><span
-                                                                class="cms-list-span">30.1</span>In addition to all
-                                                            other rights and remedies available to it at law or equity
-                                                            or statute, E4U may terminate this agreement with a User as
-                                                            set out in these Terms and Conditions, at any time and
-                                                            without notice.
-                                                        </li>
-                                                        <li class="cms-list-item "><span
-                                                                class="cms-list-span">30.2</span>In addition to all
-                                                            other rights and remedies available to it at law or equity
-                                                            or statute, upon termination:
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl3">
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">(a)</span>E4U will remove the
-                                                                User's access to the Website; and
-                                                            </li>
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">(b)</span>where applicable,
-                                                                the Advertiser authorises E4U to debit their
-                                                                Card immediately for any outstanding Fees, if any, that
-                                                                the Advertiser may owe E4U.
-                                                            </li>
-                                                        </ol>
-                                                        <li class="cms-list-item "><span
-                                                                class="cms-list-span">30.3</span>The obligations of the
-                                                            User under any clause of these Terms and Conditions, survive
-                                                            the termination of this agreement.
-                                                        </li>
-                                                    </ol>
-                                                    <ol type="1" class="cms-lvl1-list pl-0">
-                                                        <li class=" cms-lvl1-list-title"><span
-                                                                class="cms-list-span"><b>31.</b></span>
-                                                            Assignment
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">31.1</span>E4U may at any time
-                                                                assign all or any of its rights and liabilities arising
-                                                                under these Terms and Conditions.
-                                                            </li>
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">31.2</span>A User is not
-                                                                entitled to assign or purport to assign any of its
-                                                                rights or liabilities under these Terms and Conditions
-                                                                without the prior written consent of E4U(which consent
-                                                                may be given or withheld or given subject to conditions
-                                                                in absolute discretion of E4U).
-                                                            </li>
-                                                        </ol>
-                                                    </ol>
-                                                    <ol type="1" class="cms-lvl1-list pl-0">
-                                                        <li class=" cms-lvl1-list-title"><span
-                                                                class="cms-list-span"><b>32.</b></span>Acceptable
-                                                            Usage Policy, Legal Statements and Policies
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item ">Users agree that the Legal
-                                                                Statements, Policies and Guidelines contained within the
-                                                                Website form part of these Terms and Conditions and if
-                                                                there is any conflict between these Terms and Conditions
-                                                                and the Policies, then these Terms and Conditions will
-                                                                prevail to the extent of any inconsistency.
-                                                            </li>
-                                                        </ol>
-                                                    </ol>
-                                                    <ol type="1" class="cms-lvl1-list pl-0">
-                                                        <li class=" cms-lvl1-list-title"><span
-                                                                class="cms-list-span"><b>33.</b></span>
-                                                            Discrimination Policy
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">33.1</span>Application
-                                                            </li>
-                                                            <li class="cms-list-item pl-4 ml-3">This policy applies to
-                                                                all users of the Website, Advertisers, Viewers, Services
-                                                                and the Website.
-                                                            </li>
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">33.2</span>Discrimination
-                                                            </li>
-                                                            <ol type="1" class="cms-list cms-lvl3">
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(a)</span>E4U
-                                                                    takes seriously its responsibility to comply with
-                                                                    all anti-discrimination laws.
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(b)</span>E4U
-                                                                    has taken all reasonable steps to ensure it is at
-                                                                    all times complying with all anti-discrimination
-                                                                    laws, and that the Services do not portray people or
-                                                                    depict material in a way which discriminates against
-                                                                    or vilifies a person or section of the community on
-                                                                    account of race, ethnicity, nationality, gender,
-                                                                    age, sex, sexual orientation, transgender status,
-                                                                    marital status,family responsibilities, religion,
-                                                                    disability or impairment, mental illness,political
-                                                                    belief or activity, religious belief or activity,
-                                                                    breast feeding or any other attribute identified
-                                                                    under State, Territory or Federal
-                                                                    anti-discrimination or human rights legislation, or
-                                                                    personal association with a person with the
-                                                                    attributes identified.
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(c)</span>If
-                                                                    an Advertiser or Viewer believes that any aspect of
-                                                                    the Website or the Services contravenes any
-                                                                    anti-discrimination laws, they should bring the
-                                                                    alleged breach to the attention of E4U and request
-                                                                    that E4U resolve the issue.
-                                                                </li>
-                                                            </ol>
-                                                        </ol>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">33.3</span>Compliance by
-                                                                Advertisers
-                                                            </li>
-                                                            <ol type="1" class="cms-list cms-lvl3">
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(a)</span>Advertisers
-                                                                    must comply with all State, Territory and
-                                                                    Federal anti-discrimination laws which may affect
-                                                                    them.
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(b)</span>
-                                                                    if an Advertiser is found to be in breach of any
-                                                                    anti-discrimination law(including but not limited to
-                                                                    an Advertiser's Profile or their conduct breaches any
-                                                                    anti-discrimination law) E4U reserves the right to
-                                                                    immediately cancel the Membership without refund
-                                                                    (except as required at law) and any Profile or Tour
-                                                                    will be immediately removed from the Website.
-                                                                </li>
-                                                            </ol>
-                                                        </ol>
-                                                    </ol>
-                                                    <ol type="1" class="cms-lvl1-list pl-0">
-                                                        <li class=" cms-lvl1-list-title"><span
-                                                                class="cms-list-span"><b>34.</b></span>Unforeseen
-                                                            Circumstances
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item ">E4U will not be responsible for
-                                                                any failure to perform due to unforeseen circumstances
-                                                                or to causes beyond our reasonable control, including
-                                                                but not limited to acts of God, war, riot, embargoes,
-                                                                acts of civil or military authority, or terrorism, fire,
-                                                                flood, earthquakes, hurricanes, tropical storms or other
-                                                                natural disasters,pandemics, fibre cuts, strikes, or
-                                                                shortages in transportation, facilities, fuel, energy,
-                                                                labour or materials, failure of the telecommunications
-                                                                or information services infrastructure, hacking, SPAM,
-                                                                or any failure of a computer, server or software,
-                                                                including errors or omissions, for so long as such event
-                                                                continues to delay the Websites performance.
-                                                            </li>
-                                                        </ol>
-                                                    </ol>
-                                                    <ol type="1" class="cms-lvl1-list pl-0">
-                                                        <li class=" cms-lvl1-list-title"><span
-                                                                class="cms-list-span"><b>35.</b></span>General
-                                                        </li>
+                                            <div class="content_wrapper influencer-modal p-4">
 
-                                                        <li class="cms-list-item "><span
-                                                                class="cms-list-span ml-4 pl-3">35.1</span>Severability
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item pl-5">If a provision of these Terms
-                                                                and Conditions is held to be invalid or unenforceable in
-                                                                whole or in part, the provision is ineffective only to
-                                                                the extent of the invalidity or unenforceability and the
-                                                                validity or enforceability of all other provisions of
-                                                                the Terms and Conditions.
-                                                            </li>
-                                                        </ol>
-                                                        <li class="cms-list-item ml-4 pl-3"><span
-                                                                class="cms-list-span">35.2</span>Notices
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item pl-5">A party may validly give a
-                                                                notice to another party only by:
-                                                            </li>
-                                                            <ol type="1" class="cms-list cms-lvl3">
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(a)</span>
-                                                                    personally serving the notice on the other party
-                                                                    (the notice is treated as received at the time of
-                                                                    service of the notice); or
-                                                                </li>
-                                                                <li class="cms-list-item"><span
-                                                                        class="cms-list-span">(b)</span>
-                                                                    <span>emailing the notice to the <a
-                                                                            href="{{ url('contact-us') }}">email
-                                                                            address</a> of the other party and the email
-                                                                        will be deemed to have been received within 24 hours
-                                                                        of the time that the email is sent, as long as the
-                                                                        sender has not received a notice that the email was
-                                                                        unable to the sent, or delivered.</span>
-                                                                </li>
-                                                            </ol>
-                                                        </ol>
-                                                        <li class="cms-list-item ml-4 pl-3"><span
-                                                                class="cms-list-span">35.3</span>Governing
-                                                            law and jurisdiction
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item pl-5">The law of Western Australia
-                                                                governs these Terms and Conditions and the Advertiser
-                                                                and Viewer submit themselves to the jurisdiction of the
-                                                                courts of that State to determine any dispute arising
-                                                                out of the Website and these terms and Conditions.
-                                                            </li>
-                                                        </ol>
-                                                        <li class="cms-list-item ml-4 pl-3"><span
-                                                                class="cms-list-span">35.4</span>Waiver
-                                                        </li>
 
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item pl-5">Waiver of a breach of, or
-                                                                default under, these Terms and Conditions or of
-                                                                any right, power, authority, discretion or remedy created
-                                                                or arising upon a breach of, or default under, these
-                                                                Terms and Conditions:
+                                                {{-- 37 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>37.</span>Links to Other Websites
+                                                    </h3>
+                                                    <div class="content_align">
+                                                        <span>37.1</span>
+                                                        <p>
+                                                            E4U may from time to time provide on the Website links to other
+                                                            websites for the User's
+                                                            convenience. This does not imply sponsorship, endorsement,
+                                                            approval or any arrangement
+                                                            between E4U and the owners of those other websites. Third party
+                                                            websites are not under
+                                                            E4U's control and E4U takes no responsibility for any content or
+                                                            material found on any linked
+                                                            websites.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- end --}}
+
+                                                {{-- 38 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>38.</span>Assignment
+                                                    </h3>
+
+                                                    <div class="content_align">
+                                                        <span>38.1</span>
+                                                        <p>
+                                                            E4U may at any time assign all or any of its rights and
+                                                            liabilities arising under these
+                                                            Terms and Conditions.
+                                                        </p>
+                                                    </div>
+
+
+                                                    <div class="content_align">
+                                                        <span>38.2</span>
+                                                        <p>
+                                                            A User is not entitled to assign or purport to assign any of its
+                                                            rights or liabilities under
+                                                            these Terms and Conditions without the prior written consent of
+                                                            E4U (which consent
+                                                            may be given or withheld or given subject to conditions in
+                                                            absolute discretion of E4U).
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- end --}}
+
+                                                {{-- 39 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>39.</span>Acceptable Usage Policy,
+                                                        Legal Statements and Policies</h3>
+
+
+                                                    <div class="content_align">
+
+                                                        <p>
+                                                            Users agree that the Legal Statements, Policies and Guidelines
+                                                            contained within the Website
+                                                            form part of these Terms and Conditions and if there is any
+                                                            conflict between these Terms and
+                                                            Conditions and the Policies, then these Terms and Conditions
+                                                            will prevail to the extent of any
+                                                            inconsistency.
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                                {{-- end --}}
+
+                                                {{-- 40 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>40.</span>Discrimination Policy
+                                                    </h3>
+
+
+                                                    <div class="content_align">
+                                                        <span>40.1</span>
+                                                        <p>
+                                                            Application
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+                                                        <span></span>
+                                                        <p>
+                                                            This policy applies to all users of the Website, Advertisers,
+                                                            Viewers, Services and the
+                                                            Website.
+                                                        </p>
+                                                    </div>
+
+
+
+
+                                                    <div class="content_align">
+                                                        <span>40.2</span>
+                                                        <p>
+                                                            Discrimination
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p>
+                                                        <ol class="level-2 pl-5">
+                                                            <li>E4U takes seriously its responsibility to comply with all
+                                                                anti-discrimination laws.</li>
+                                                            <li>E4U has taken all reasonable steps to ensure it is at all
+                                                                times complying with all
+                                                                anti-discrimination laws, and that the Services do not
+                                                                portray people or depict
+                                                                material in a way which discriminates against or vilifies a
+                                                                person or section of the
+                                                                community on account of race, ethnicity, nationality,
+                                                                gender, age, sex, sexual
+                                                                orientation, transgender status, marital status, family
+                                                                responsibilities, religion,
+                                                                disability or impairment, mental illness, political belief
+                                                                or activity, religious belief
+                                                                or activity, breast feeding or any other attribute
+                                                                identified under State, Territory
+                                                                or Federal anti-discrimination or human rights legislation,
+                                                                or personal association
+                                                                with a person with the attributes identified.
                                                             </li>
-                                                            <ol type="1" class="cms-list cms-lvl3">
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(a)</span>is
-                                                                    not waived by any failure to exercise or delay in
-                                                                    exercising or partial exercise of any right, power,
-                                                                    authority, discretion or remedy under these Terms and
-                                                                    Conditions; and
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(b)</span>must
-                                                                    be in writing and signed by the party granting the
-                                                                    waiver.
-                                                                </li>
-                                                            </ol>
+                                                            <li>
+                                                                If an Advertiser or Viewer believes that any aspect of the
+                                                                Website or the Services
+                                                                contravenes any anti-discrimination laws, they should bring
+                                                                the alleged breach
+                                                                to the attention of E4U and request that E4U resolve the
+                                                                issue
+                                                            </li>
                                                         </ol>
-                                                        <li class="cms-list-item ml-4 pl-3"><span
-                                                                class="cms-list-span">35.5</span>Amendments
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item pl-5">E4U reserves the right to
-                                                                amend the Terms and Conditions at any time with
-                                                                or without further notice to you and without giving you
-                                                                any explanation or justification for such change; and the
-                                                                User agrees to be bound by the Terms and Conditions as
-                                                                amended.
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+                                                        <span>40.3</span>
+                                                        <p>
+                                                            Compliance by Advertisers
+                                                        </p>
+                                                    </div>
+                                                    <div class="content_align">
+                                                        <p>
+                                                        <ol class="level-2 pl-5">
+                                                            <li>
+                                                                Advertisers must comply with all State, Territory and
+                                                                Federal anti-discrimination
+                                                                laws which may affect them.
+                                                            </li>
+                                                            <li>
+                                                                if an Advertiser is found to be in breach of any
+                                                                anti-discrimination law(including
+                                                                but not limited to an Advertiser's Profile or their conduct
+                                                                breaches any
+                                                                anti-discrimination law) E4U reserves the right to
+                                                                immediately cancel the
+                                                                Membership without refund (except as required at law) and
+                                                                any Profile or Tour will
+                                                                be immediately removed from the Website.
                                                             </li>
                                                         </ol>
-                                                    </ol>
-                                                    <ol type="1" class="cms-lvl1-list pl-0">
-                                                        <li class=" cms-lvl1-list-title"><span
-                                                                class="cms-list-span"><b>36.</b></span>Definitions
-                                                            and Interpretation
-                                                        </li>
-                                                        <ol type="1" class="cms-list cms-lvl2">
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">36.1</span> Definitions
+                                                        </p>
+                                                    </div>
+
+
+                                                </div>
+                                                {{-- end --}}
+
+
+                                                {{-- 41 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>41.</span>Unforeseen Circumstances
+                                                    </h3>
+
+
+                                                    <div class="content_align">
+
+                                                        <p>
+                                                            E4U will not be responsible for any failure to perform due to
+                                                            unforeseen circumstances or to
+                                                            causes beyond our reasonable control, including but not limited
+                                                            to acts of God, war, riot,
+                                                            embargoes, acts of civil or military authority, or terrorism,
+                                                            fire, flood, earthquakes, hurricanes,
+                                                            tropical storms or other natural disasters, pandemics, fibre
+                                                            cuts, strikes, or shortages in
+                                                            transportation, facilities, fuel, energy, labour or materials,
+                                                            failure of the telecommunications
+                                                            or information services infrastructure, hacking, SPAM, or any
+                                                            failure of a computer, server
+                                                            or software, including errors or omissions, for so long as such
+                                                            event continues to delay the
+                                                            Websites performance.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- end --}}
+
+                                                {{-- 42 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>42.</span>General</h3>
+
+
+                                                    <div class="content_align">
+                                                        <span>42.1</span>
+                                                        <p>
+                                                            Disputes with E4U
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+                                                        <p class="pl-5">
+                                                            Neither party may commence court proceedings relating to any
+                                                            dispute arising from or
+                                                            in connection with these Terms and Conditions (<b>Dispute</b>)
+                                                            without first meeting a
+                                                            representative of the other party within 14 days of notifying
+                                                            that other party of the
+                                                            Dispute in writing. Nothing in this clause prevents either party
+                                                            from seeking urgent
+                                                            injunctive or equitable relief from a court of appropriate
+                                                            jurisdiction. If the Dispute is not
+                                                            resolved at that initial meeting, the parties must refer the
+                                                            matter to mediation
+                                                            administered by Resolution Institute Australia in accordance
+                                                            with the Resolution
+                                                            Institute Mediation Rules before commencing court proceedings.
+                                                        </p>
+                                                    </div>
+
+
+                                                    <div class="content_align">
+                                                        <span>42.2</span>
+                                                        <p>
+                                                            Disputes between Advertisers and Viewers
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p class="pl-5">
+                                                            E4U encourages Advertisers and Viewers to attempt to resolve any
+                                                            disputes directly
+                                                            and in good faith. E4U is not a party to any dispute between an
+                                                            Advertiser and a
+                                                            Viewer, is not responsible for mediating or resolving any such
+                                                            dispute and has no
+                                                            obligation to participate in or contribute to its resolution. In
+                                                            the event that a dispute
+                                                            between an Advertiser and a Viewer cannot be resolved directly,
+                                                            the parties may
+                                                            choose to resolve the dispute through mediation or other means
+                                                            at their own cost.
+                                                        </p>
+                                                    </div>
+                                                    <div class="content_align">
+                                                        <span>42.3</span>
+                                                        <p>
+                                                            Clauses 41.1 and 41.2 will survive termination or expiry of
+                                                            these Terms and Conditions.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- end --}}
+
+                                                {{-- 43 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>43.</span>Severability</h3>
+
+
+                                                    <div class="content_align">
+                                                        <span>43.1</span>
+                                                        <p>
+                                                            If a provision of these Terms and Conditions is held to be
+                                                            invalid or unenforceable in
+                                                            whole or in part, the provision is ineffective only to the
+                                                            extent of the invalidity or
+                                                            unenforceability and the validity or enforceability of all other
+                                                            provisions of the Terms and
+                                                            Conditions.
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+                                                        <span>43.2</span>
+                                                        <p>
+                                                            Notices
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p class="pl-5">
+                                                            A party may validly give a notice to another party only by:
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p>
+                                                        <ol class="level-2 pl-5">
+                                                            <li>personally serving the notice on the other party (the notice
+                                                                is treated as received
+                                                                at the time of service of the notice); or
                                                             </li>
-                                                            <li class="cms-list-item pl-5"> In these Terms and
-                                                                Conditions unless the contrary intention appears or the
-                                                                context otherwise requires:
+                                                            <li>emailing the notice to the email address of the other party
+                                                                and the email will be
+                                                                deemed to have been received within 24 hours of the time
+                                                                that the email is sent,
+                                                                as long as the sender has not received a notice that the
+                                                                email was unable to the
+                                                                sent, or delivered.
                                                             </li>
-                                                            <p class="d-block pl-5" id="B1"><b>Acceptable Usage
-                                                                    Policy:</b> means
-                                                                the Acceptable Usage Policy which governs the use of the
-                                                                Website and which are set out in the footer of the
-                                                                Website under the heading “Legal”;
-                                                            </p>
-                                                            <p class="d-block pl-5" id="B2"><b>Account:</b> means
-                                                                the collective
-                                                                and personal information of a Member;</p>
-                                                            <p class="d-block pl-5"><b>Advertiser:</b> means either of or
-                                                                collectively an Escort or Massage Centre who advertises
+                                                        </ol>
+                                                        </p>
+                                                    </div>
+                                                    <div class="content_align">
+                                                        <span>43.3</span>
+                                                        <p>
+                                                            Governing law and jurisdiction
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p class="pl-5">
+                                                            The law of Western Australia governs these Terms and Conditions
+                                                            and Users submit
+                                                            themselves to the jurisdiction of the courts of that State to
+                                                            determine any dispute arising
+                                                            out of the Website and these Terms and Conditions.
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+                                                        <span>43.4</span>
+                                                        <p>
+                                                            Waiver
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p class="pl-5">
+                                                            Waiver of a breach of, or default under, these Terms and
+                                                            Conditions or of any right,
+                                                            power, authority, discretion or remedy created or arising upon a
+                                                            breach of, or default
+                                                            under, these Terms and Conditions:
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p>
+                                                        <ol class="level-2 pl-5">
+                                                            <li>is not waived by any failure to exercise or delay in
+                                                                exercising or partial exercise
+                                                                of any right, power, authority, discretion or remedy under
+                                                                these Terms and
+                                                                Conditions; and
+                                                            </li>
+                                                            <li>must be in writing and signed by the party granting the
+                                                                waiver.
+                                                            </li>
+                                                        </ol>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- end --}}
+
+
+                                                {{-- 44 --}}
+                                                <div class="content_details">
+                                                    <h3 class="mb-3 content_align"><span>44.</span>Definitions and
+                                                        Interpretation</h3>
+
+
+                                                    <div class="content_align">
+
+                                                        <p class="pl-5">
+                                                            Definitions
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p class="pl-5">
+                                                            In these Terms and Conditions unless the contrary intention
+                                                            appears or the context
+                                                            otherwise requires:
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="content_align">
+
+                                                        <p>
+                                                        <ol class="pl-1" style="list-style-type: none">
+                                                            <li>
+                                                                <b>Acceptable Usage Policy</b> means the Acceptable Usage
+                                                                Policy which governs the use
+                                                                of the Website and which is set out in the footer of the
+                                                                Website under the heading
+                                                                "Legal";
+                                                            </li>
+                                                            <li>
+                                                                <b>Account</b> means the account created by a User upon
+                                                                registration on the Website;
+                                                            </li>
+                                                            <li>
+                                                                <b>Advertiser</b> means either of or collectively an Escort
+                                                                or Massage Centre who advertise
                                                                 on the Website and has requested the Services of E4U in
-                                                                respect to the provision of a Profile or Concierge
-                                                                Services or Support Services and in accordance with these
-                                                                Terms and Conditions. Where the Advertiser appoints an
-                                                                Agent to act for them on their behalf, a reference to
-                                                                the Advertiser includes a reference to their agent;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Advertiser Console:</b> means the
-                                                                Advertiser’s information management tool on the Website
-                                                                that visually displays an Advertiser’s account details;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Advertising Request:</b> means a
-                                                                request to post a Profile or Tour on the Website by an
+                                                                respect to the provision of
+                                                                a Profile or Concierge Services or Support Services and in
+                                                                accordance with these
+                                                                Terms and Conditions. Where the Advertiser appoints an Agent
+                                                                to act for them on their
+                                                                behalf, a reference to the Advertiser includes a reference
+                                                                to their Agent;
+                                                            </li>
+                                                            <li>
+                                                                <b>Advertiser Console</b> means the Advertiser's information
+                                                                management tool on the
+                                                                Website that visually displays an Advertiser's Account
+                                                                details;
+                                                            </li>
+                                                            <li>
+                                                                <b>Advertising Request</b> means a request to List a Profile
+                                                                or Tour on the Website by an
                                                                 Advertiser;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Agent Console:</b> means the Agent
-                                                                information management tool on the Website that visually
-                                                                displays an Agent’s account details and enables access
-                                                                to the applications for the Agent to manage Advertisers;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Archive:</b> means the structure
-                                                                of a set of personal data contained in the Account and
-                                                                which is used to compile a Profile or Profiles or Tour,
-                                                                and which is accessible by the Advertiser according to
-                                                                specific criteria attached to the Profile or Tour, and
-                                                                which is stored in folders according to the geographic
-                                                                location;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Concierge Services:</b> means any
-                                                                of or all of the concierge services provided by E4U to
-                                                                an Advertiser on the Website and which are accessed
-                                                                through the Advertiser Console;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Competition and Consumer Act:</b>
-                                                                means the <i>Competition and Consumer Act 2010
-                                                                    (Cth);</i>
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Corporations Act:</b> means the
-                                                                <i>Corporations Act 2001 (Cth);</i>
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>E4U:</b> is the trading entity of
-                                                                Blackbox Tech ACN 606 776 096, the owner of the
-                                                                Website;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>E4U Verification Certificate:</b>
-                                                                means the seal placed on an Advertiser’s media
-                                                                confirming the media has been verified by E4U as being
+                                                            </li>
+                                                            <li>
+                                                                <b>Agent</b> means a person or entity provided by E4U to
+                                                                support an Advertiser in their use
+                                                                of the Website, who has been granted access to the Website
+                                                                in accordance with these
+                                                                Terms and Conditions;
+                                                            </li>
+                                                            <li>
+                                                                <b>Agent Console</b> means the Agent information management
+                                                                tool on the Website that
+                                                                visually displays an Agent's account details and enables
+                                                                access to the applications for
+                                                                the Agent to manage Advertisers;
+                                                            </li>
+                                                            <li>
+                                                                <b>Classification Laws</b> means all laws and regulations
+                                                                applicable to the classification of
+                                                                content in the relevant State or Territory in which the
+                                                                Website is accessed;
+                                                            </li>
+                                                            <li>
+                                                                <b>Concierge Services</b> means any of or all of the
+                                                                concierge services provided by E4U to
+                                                                an Advertiser on the Website as set out in Part G of these
+                                                                Terms and Conditions;
+                                                            </li>
+                                                            <li>
+                                                                <b>Consequential Loss</b> means any consequential loss,
+                                                                special or indirect loss, real or
+                                                                anticipated loss of profit, loss of benefit, loss of
+                                                                revenue, loss of business, loss of
+                                                                goodwill, loss of opportunity, loss of savings, loss of
+                                                                reputation, loss of use and/or loss
+                                                                or corruption of data, whether under statute, contract,
+                                                                equity, tort (including negligence),
+                                                                indemnity or otherwise. However, your obligation to pay us
+                                                                any amounts for access to
+                                                                or use of our Services (including our Website) will not
+                                                                constitute Consequential Loss;
+                                                            </li>
+                                                            <li>
+                                                                <b>Consumer Law Rights</b> has the meaning given in clause
+                                                                24.1;
+                                                            </li>
+                                                            <li>
+                                                                <b>E4U</b> and <b>Escorts4U</b> refers to the trading entity
+                                                                of Blackbox Tech Pty Ltd ACN 664 919
+                                                                975, the owner of the Website;
+                                                            </li>
+                                                            <li>
+                                                                <b>E4U Email</b> means the dedicated email address in the
+                                                                format [Member ID]@e4u.com.au
+                                                                provided to an Advertiser as part of the Email Hosting
+                                                                service under clause 30;
+                                                            </li>
+                                                            <li>
+                                                                <b>E4U Verification Certificate</b> means the seal placed on
+                                                                an Advertiser's Media
+                                                                confirming the Media has been verified by E4U as being
                                                                 authentic;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Escort:</b> means a person who
-                                                                works as a private escort, offers companionship and time
+                                                            </li>
+                                                            <li>
+                                                                <b>Escort</b> means a person who works as a private escort,
+                                                                offers companionship and time
                                                                 to other people and does not work in or for an Escort
-                                                                Agency. Where the Escort appoints an agent to act for
-                                                                them or on their behalf, a reference to the Escort
-                                                                includes a reference to their agent;</p>
-                                                            <p class="d-block pl-5"><b>Escort Agency:</b> means a
-                                                                business which facilitates or arranges for the provision
-                                                                of sexual services to persons at premises made available
-                                                                by the said agency;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Escort Profile:</b> means the
-                                                                collective information posted by an Escort setting out
-                                                                in formation in relation to a Profile or Tour;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Fees:</b> means the fees, which
-                                                                are set out on the Website (as amended from time to
-                                                                time) and which are payable by the Advertiser for
-                                                                posting a Profile or Tour on the Website or taking up
-                                                                any of the Concierge Services or Support Services;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Geolocation:</b> means the
-                                                                technology that is used by E4U to identify a
-                                                                User’s computer or mobile device physical location;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>GST:</b> means any tax, levy,
-                                                                charge, or impost implemented under the GST Act;</p>
-                                                            <p class="d-block pl-5"><b>GST Act:</b> means the A New Tax
-                                                                System <i>(Goods and Services Tax) Act 1999(Cth)</i> or an
-                                                                Act
-                                                                of the Parliament of the Common wealth of
-                                                                Australia substantially in the form of or which has a
-                                                                similar effect to the GST Act;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Home State:</b> means the State
-                                                                that the User has domiciled as where they reside;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Legal Statements:</b> means the
-                                                                collective of any, either or all of the statements set
-                                                                out in the Website footer under the heading Legal;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Massage Centre/s:</b> means a
-                                                                registered business or incorporated body pursuant to the
-                                                                Corporations Act and which operates as a massage centre
-                                                                and has Membership with E4U and accesses the Website in
-                                                                accordance with these Terms and Conditions. Where the
-                                                                Massage Centre appoints an agent to act for them or on
-                                                                their behalf, a reference to the Massage Centre includes
-                                                                a reference to their agent;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Masseur/s:</b> means a person who
-                                                                works in a Massage Centre and whose information is
-                                                                incorporated into and forms a part of the Massage Centre
+                                                                Agency. Where the Escort
+                                                                appoints an Agent to act for them or on their behalf, a
+                                                                reference to the Escort includes
+                                                                a reference to their Agent;
+                                                            </li>
+                                                            <li>
+                                                                <b>Escort Agency</b> means a business which facilitates or
+                                                                arranges for the provision of
+                                                                sexual services to persons at premises made available by the
+                                                                said agency;
+                                                            </li>
+                                                            <li>
+                                                                <b>Fees</b> means the fees which are set out on the Website
+                                                                (as amended from time to time)
+                                                                and which are payable by the Advertiser for posting a
+                                                                Profile or Tour on the Website
+                                                                or taking up any of the Concierge Services or Support
+                                                                Services;
+                                                            </li>
+                                                            <li>
+                                                                <b>GST</b> means any tax, levy, charge, or impost
+                                                                implemented under the GST Act;
+                                                            </li>
+                                                            <li>
+                                                                <b>GST Act</b> means the <i>A New Tax System (Goods and
+                                                                    Services Tax) Act 1999</i> (Cth) or
+                                                                an Act of the Parliament of the Commonwealth of Australia
+                                                                substantially in the form of
+                                                                or which has a similar effect to the GST Act;
+                                                            </li>
+                                                            <li>
+                                                                <b>Home State</b> means the State in which the User resides;
+                                                            </li>
+                                                            <li>
+                                                                <b>Legal Statements</b> means the collective of any, either
+                                                                or all of the statements set out
+                                                                in the Website footer under the heading Legal;
+                                                            </li>
+                                                            <li>
+                                                                <b>Local Laws</b> means all laws, regulations and codes
+                                                                applicable to the advertising and
+                                                                provision of escort, sex work or massage services in the
+                                                                relevant State, Territory or
+                                                                country;
+                                                            </li>
+                                                            <li>
+                                                                <b>Location</b> means a State, other than the Home State,
+                                                                that an Escort is, at the time,
+                                                                located in;
+                                                            </li>
+                                                            <li>
+                                                                <b>Loyalty Program</b> means the loyalty program offered by
+                                                                E4U to Advertisers from time
+                                                                to time, details of which are set out on the Website;
+                                                            </li>
+                                                            <li>
+                                                                <b>Massage Centre</b> means a registered business or
+                                                                incorporated body pursuant to the
+                                                                <i>Corporations Act 2001</i> (Cth) which operates as a
+                                                                Massage Centre and has Membership
+                                                                with E4U and accesses the Website in accordance with these
+                                                                Terms and Conditions.
+                                                                Where the Massage Centre appoints an Agent to act for them
+                                                                or on their behalf, a
+                                                                reference to the Massage Centre includes a reference to
+                                                                their Agent;
+                                                            </li>
+                                                            <li>
+                                                                <b>Masseur</b> means a person who works in a Massage Centre
+                                                                and whose information is
+                                                                incorporated into and forms a part of the Massage Centre's
                                                                 Profile;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Massage Centre Profile:</b> means
-                                                                the collective information posted by a Massage Centre
-                                                                setting out information in relation to a Profile;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Member</b> and <b>Membership:</b>
-                                                                means an Escort or Massage Centre or Viewer who has or
-                                                                which has applied for membership by completing and
-                                                                submitting the online membership application, or has
-                                                                proceeded to access the Services and whose membership
-                                                                has not been determined, is suspended or cancelled;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Policies:</b> means either or both
-                                                                of Community or Legal information referred to as a Policy
-                                                                or that has the header ‘Policy’ contained in the footer
-                                                                of the Website under the respective headings;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Profile:</b> means a web page
-                                                                containing information advertising the services of
-                                                                either of or both of an Escort Profile or Massage Centre
-                                                                Profile and which is posted on the Website;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Prospective User:</b> means a
-                                                                person within Australia who may register themselves on
-                                                                the Website;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Registration:</b> means the
-                                                                process undertaken on the Website by a Prospective User
-                                                                requesting Membership and which includes the Prospective
-                                                                User nominating the Home State;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Related Entity</b> or <b> Related
-                                                                    Party</b> or <b> Associated Entity:</b> has the same
-                                                                meaning as ascribed to each of those terms pursuant to the
-                                                                <i>Corporations Act 2001
-                                                                    (Cth)</i>;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Risks:</b> has the collective
-                                                                meaning ascribed under clause 27.4;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Services:</b> means all of the
-                                                                services provided by E4U to an Advertiser, including the
-                                                                Concierge Services, and Viewer pursuant to these Terms
-                                                                and Conditions and include digital and online services to
-                                                                advertise escort services (Profile),including websites,
-                                                                applications (apps), email and social media and to
-                                                                provide web design service through a Profile to
-                                                                Advertisers;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Support Services:</b> means
-                                                                services provided to an Advertiser by E4U or an Agent
-                                                                and are undertaken in relation to the Services;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Terms and Conditions:</b> means
-                                                                these terms and conditions as amended from time to time
-                                                                by E4U, at its sole discretion, and without the
-                                                                requirement of any notice to the Advertiser or Viewer,
-                                                                and which also incorporates the Policies and Legal
+                                                            </li>
+                                                            <li>
+                                                                <b>Media</b> means any photographs, videos, images or other
+                                                                visual or audio content
+                                                                uploaded to the Website by a User;
+                                                            </li>
+                                                            <li>
+                                                                <b>Member</b> and <b>Membership</b> means a User who has
+                                                                completed Registration on the
+                                                                Website and whose Membership has not been suspended or
+                                                                cancelled;
+                                                            </li>
+                                                            <li>
+                                                                <b>Policies</b> means either or both of Community or Legal
+                                                                information referred to as a Policy
+                                                                or that has the header 'Policy' contained in the footer of
+                                                                the Website under the
+                                                                respective headings;
+                                                            </li>
+                                                            <li>
+                                                                <b>Privacy Policy</b> means E4U's privacy policy as
+                                                                published on the Website from time to
+                                                                time;
+                                                            </li>
+                                                            <li>
+                                                                <b>Products</b> means products sold by E4U through the
+                                                                Website as set out in clause 31;
+                                                            </li>
+                                                            <li>
+                                                                <b>Profile</b> means a web page containing information
+                                                                advertising the services of an Escort
+                                                                or a Massage Centre which is Listed on the Website;
+                                                            </li>
+                                                            <li>
+                                                                <b>Refund Policy</b> means E4U's refund policy as published
+                                                                on the Website from time to
+                                                                time;
+                                                            </li>
+                                                            <li>
+                                                                <b>Registration</b> means the process undertaken on the
+                                                                Website by a User requesting
+                                                                Membership;
+                                                            </li>
+                                                            <li>
+                                                                <b>Related Entity, Related Party</b> or <b>Associated
+                                                                    Entity</b> has the same meaning as
+                                                                ascribed to each of those terms pursuant to the
+                                                                <i>Corporations Act 2001</i> (Cth);
+                                                            </li>
+                                                            <li>
+                                                                <b>Risks</b> has the collective meaning ascribed under
+                                                                clause 26.3;
+                                                            </li>
+                                                            <li>
+                                                                <b>Services</b> means all of the services provided by E4U to
+                                                                an Advertiser and Viewer
+                                                                pursuant to these Terms and Conditions, including the
+                                                                Concierge Services and Support
+                                                                Services, and includes digital and online services to
+                                                                advertise escort services through
+                                                                a Profile, including websites, applications, email and
+                                                                social media;
+                                                            </li>
+                                                            <li>
+                                                                <b>Spam Policy</b> means E4U's spam policy as published on
+                                                                the Website from time to time;
+                                                            </li>
+                                                            <li>
+                                                                <b>Support Services</b> means services provided to an
+                                                                Advertiser by E4U or an Agent in
+                                                                relation to the Services;
+                                                            </li>
+                                                            <li>
+                                                                <b>Terms and Conditions</b> means these terms and conditions
+                                                                as amended from time to
+                                                                time in accordance with clause 2.2, and which also
+                                                                incorporates the Policies and Legal
                                                                 Statements;
-                                                            </p>
-                                                            <p class="d-block pl-5"><b>Tour:</b> means the collective
-                                                                posting of Profiles conjoined over a period of time;</p>
-                                                            <p class="d-block pl-5"><b>User:</b> means either of or
-                                                                collectively an Advertiser, Agent or Viewer;</p>
-                                                            <p class="d-block pl-5"><b>Viewer/s:</b> means a person who
-                                                                has completed Registration, is not an Advertiser or
-                                                                Agent, and accesses the Website;</p>
-                                                            <p class="d-block pl-5"><b>Website:</b> means the websites <a
-                                                                    href="https://www.e4u.com.au/">www.e4u.com.au</a>
-                                                                and <a href="www.escorts4u.com.au">www.escorts4u.com.au</a>
-                                                                or
-                                                                such other website or social media platforms operated by
-                                                                E4U from time to
-                                                                time from which the Services are provided.
-                                                            </p>
-                                                            <li class="cms-list-item "><span
-                                                                    class="cms-list-span">36.2</span> Interpretation
                                                             </li>
-                                                            <li class="cms-list-item pl-5"> In these Terms and
-                                                                Conditions unless the contrary intention appears or the
-                                                                context otherwise requires:
+                                                            <li>
+                                                                <b>Tour</b> means a series of linked Profiles posted by an
+                                                                Escort across multiple Locations
+                                                                over a nominated period of time, representing the Escort's
+                                                                touring schedule;
                                                             </li>
-                                                            <ol type="1" class="cms-list cms-lvl3">
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(a)</span>clause
-                                                                    and sub-clause headings are for reference purposes
-                                                                    only;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(b)</span>the
-                                                                    singular includes the plural and vice versa;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(c)</span>words
-                                                                    denoting any gender include all genders;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(d)</span>reference
-                                                                    to a person includes any other entity recognised by
-                                                                    law and vice versa;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(e)</span>
-                                                                    where a word or phrase is defined its other
-                                                                    grammatical forms have a corresponding meaning;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(f)</span>any
-                                                                    reference to a party to these Terms and Conditions
-                                                                    includes its successors and permitted assigns;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(g)</span>
-                                                                    if a party consists of more than one person, these
-                                                                    Terms and Conditions binds them jointly and each of
-                                                                    them severally;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(h)</span>any
-                                                                    reference to any agreement or document includes that
-                                                                    agreement or document as amended at any time;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(i)</span>the
-                                                                    use of the word includes or including is not to be
-                                                                    taken as limiting the meaning of the words preceding
-                                                                    it;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(j)</span>
-                                                                    the expression at any time includes reference to
-                                                                    past, present and future time and the performance of
-                                                                    any action from time to time;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(k)</span>
-                                                                    an agreement, representation or warranty on the part
-                                                                    of two or more persons binds them jointly and
-                                                                    severally;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(l)</span>
-                                                                    an agreement, representation or warranty on the part
-                                                                    of two or more persons is for the benefit of them
-                                                                    jointly and severally;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(m)</span>reference
-                                                                    to a provision described, prefaced or qualified by
-                                                                    the name, heading or caption of a clause, subclause,
-                                                                    paragraph, schedule, item, annexure, exhibit or
-                                                                    attachment in these Terms and Conditions means a
-                                                                    cross reference to that clause, subclause,
-                                                                    paragraph, schedule, item, annexure, exhibit or
-                                                                    attachment;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(n)</span>reference
-                                                                    to a statute includes all regulations and amendments
-                                                                    to that statute and any statute passed in
-                                                                    substitution for that statute or incorporating any
-                                                                    of its provisions to the extent that they are
-                                                                    incorporated;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(o)</span>any
-                                                                    definition set out in the "Abbreviations" contained
-                                                                    in the footer of the Website are to be read with and
-                                                                    form a part of these Terms and Conditions and may
-                                                                    not be construed adversely to any part of this
-                                                                    clause 26;
-                                                                </li>
-                                                                <li class="cms-list-item "><span
-                                                                        class="cms-list-span">(p)</span>these
-                                                                    Terms and Conditions may not be construed adversely
-                                                                    to a party only because that party was responsible
-                                                                    for preparing it.
-                                                                </li>
-                                                            </ol>
+                                                            <li><b>User</b> means either of or collectively an Advertiser,
+                                                                Agent or Viewer;</li>
+                                                            <li><b>Viewer</b> means a person who has completed Registration,
+                                                                is not an Advertiser or Agent,
+                                                                and accesses the Website;</li>
+                                                            <li>
+                                                                <b>Website</b> means the websites <a
+                                                                    href="https://www.e4u.com.au/">www.e4u.com.au</a> and
+                                                                <a
+                                                                    href="https://www.escorts4u.com.au/">www.escorts4u.com.au</a>
+                                                                or such
+                                                                other website or social media platforms operated by E4U from
+                                                                time to time from which
+                                                                the Services are provided.
+                                                            </li>
                                                         </ol>
-                                                    </ol>
-                                                </ol>
+                                                        </p>
+
+                                                    </div>
+
+
+                                                </div>
+                                                {{-- end --}}
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

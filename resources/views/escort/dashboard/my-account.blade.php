@@ -199,6 +199,27 @@
                                     </div>
                                  </div>
                                  {{-- end --}}
+
+
+                                 {{-- Social Media Consent --}}
+                                    <div class="col-md-12 my-4">
+                                       <div class="form-group">
+                                             <div>
+                                                <h3 class="h3">Social Media Consent</h3>
+                                             <label for="">Do you consent, pursuant to clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?</label>
+                                             </div>
+                                             <div class="form-check form-check-inline ml-0">
+                                                <input class="form-check-input" type="radio" name="idle_preference_time" id="yes" value="15">
+                                                <label class="form-check-label" for="yes">Yes</label>
+                                             </div>
+
+                                             <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="idle_preference_time" id="no" value="30" checked>
+                                                <label class="form-check-label" for="no">No</label>
+                                             </div>                                                                
+                                       </div>
+                                    </div>
+                                 {{-- end --}}
                               </div>
                            </div>
                         </div>
