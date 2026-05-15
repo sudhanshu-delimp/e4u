@@ -99,7 +99,7 @@
                                 <div class="support mt-3">
                                     <p class="mb-0"><strong>Note:</strong></p>
                                     <p class="small mb-0">
-                                        Users can apply benefits by selecting available wallet money and loyalty days to
+                                        Users can apply benefits by selecting available Wallet money and Loyalty days to
                                         reduce the total payable amount.
                                     </p>
                                 </div>
