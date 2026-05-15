@@ -415,9 +415,6 @@
             <div class="row mt-5">
                 <form class="pin" id="paymentForm">
 
-
-
-
                     <fieldset class="mb-4">
                         <legend>Payment</legend>
 
@@ -530,7 +527,6 @@
         </div>
 
     </div>
-   
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -553,7 +549,7 @@
         // localStorage.setItem('checkout_step_' + loginUserId, step);
         let isDirty = false;
 
-     
+
 
 
 
@@ -889,7 +885,6 @@
                 expiry_month: $('#cc-expiry-month').val(),
                 expiry_year: $('#cc-expiry-year').val(),
                 cvc: $('#cc-cvc').val(),
-
             };
 
             let billingDetails = getCardBilling();
@@ -919,7 +914,20 @@
                             showStep();
                             flushLocalStorage();
                         } else {
-                            Swal.fire(response.message, '', 'error');
+
+                            if (response.errors && typeof response.errors === "object" && response
+                                .errors && Object.keys(response.errors).length > 0) {
+                                let html = '<div class="alert alert-danger"><ul>';
+                                Object.values(response.errors).forEach(function(errArr) {
+                                    html += `<li>${errArr.message}</li>`;
+                                });
+                                html += '</ul></div>';
+                                Swal.fire(response.message + html, '', 'error');
+                            } else {
+                                Swal.fire(response.message, '', 'error');
+                            }
+
+
                         }
                     },
 

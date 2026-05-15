@@ -202,17 +202,17 @@ class ProductOrderController extends Controller
 
       $metadata = [
         'console' => 'Escort Console (E20189)',
-        'type' => 'escort-product-order',
+        'type' => 'product-purchase',
         'order_id' => $order->id,
         'user_id' => Auth::user()->id,
         'total' => $order->total_amount,
         'products' => json_encode($products)
       ];
-      $description = "Escort Product Order";
+      $description = "Product Purchase";
       // make payment using charge method
       $response = $pinPaymentService->charge($data['pin_token'], $order->total_amount, $biilingAddress->email, $description, $metadata);
       if ($response['status'] === false) {
-        return response()->json(['status' => false, 'message' => $response['error']]);
+        return response()->json(['status' => false, 'message' => $response['error'],'errors' => $response['errors']]);
       } else if ($response['status'] === true) {
         return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
       }

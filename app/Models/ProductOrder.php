@@ -42,10 +42,12 @@ class ProductOrder extends Model
     return $this->hasOne(PaymentHistory::class, 'transaction_id', 'transaction_id');
   }
 
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'user_id', 'id');
+  }
   public function scopeDeliveryType($q, $type = null)
   {
     return $type ? $q->where('delivery_type', $type) : $q;
   }
-
-  
 }

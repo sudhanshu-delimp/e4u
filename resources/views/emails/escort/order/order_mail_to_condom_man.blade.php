@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Order Confirmation - Products</title>
+    <title>Attention Operations</title>
 </head>
 
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
@@ -25,14 +25,12 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            Order Confirmation - Products
+                                            E4U Concierge - Product Order
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Ref: {{ $data['ref'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
-
                                             <br>
-
                                         </span>
                                     </td>
                                 </tr>
@@ -44,44 +42,33 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;">Dear {{ $data['billing_name'] }},</p>
+                            <p style="margin: 0 0 15px 0;">Dear Supplier,</p>
 
                             <p style="margin: 20px 0 15px 0;">
-                                Your order for a range of Products has been received. Please note, if your order has
-                                been
-                                placed before <strong>11:00 am</strong> and you have requested a delivery, delivery will
-                                occur on the same day. If your order is by post, please allow <strong>48 hours</strong>
-                                for the Products to arrive. We will express post your Products to your nominated
-                                delivery
-                                address.
+                                We have received a request to supply products from an E4U Member. Please prepare the
+                                order accordingly. The following information was provided by the Member:
                             </p>
 
-                            <p style="margin: 15px 0;">
-                                If you do not receive your Products within <strong>72 hours</strong>, please lodge a
-                                Support Ticket by logging onto your Dashboard and quoting your reference number
-                                <strong>{{ $data['ref'] }}</strong>.
-                            </p>
+                            <table>
+                                <tr>
+                                    <td>Member name: </td>
+                                    <td>{{ $data['member_name'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile:</td>
+                                    <td>{{ $data['member_id'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery address:</td>
+                                    <td>{{ $data['delivery_address'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery type: </td>
+                                    <td>{{ ucfirst($data['delivery_type']) }}</td>
+                                </tr>
 
-                            <p style="margin: 15px 0;">
-                                We confirm payment has been made according to your instructions.
-                            </p>
-
-                            <p style="margin: 20px 0 10px 0;"><strong>Notes:</strong></p>
-
-                            <ol style="padding-left: 20px; margin: 0; line-height: 22px;">
-                                <li>
-                                    Your products will, if by post:
-                                    <ul style="padding-left: 20px; margin-top: 10px;">
-                                        <li>(a) be dispatched on the next business day; and</li>
-                                        <li>(b) can be tracked.</li>
-                                    </ul>
-                                </li>
-                                <li style="margin-top: 10px;">
-                                    You can view your order online by going to your Dashboard and selecting
-                                    <strong>Transaction Summary</strong> and from the Action options, select
-                                    <strong>View</strong>.
-                                </li>
-                            </ol>
+                            </table>
+                            Payment has been made be the Member.
 
 
                             <!-- email info -->

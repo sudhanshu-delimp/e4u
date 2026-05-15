@@ -5,7 +5,9 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
 use App\Models\PaymentHistory;
+use App\Models\ProductOrder;
 use App\Traits\DataTablePagination;
+use Illuminate\Support\Facades\Log;
 
 class PinPaymentService
 {
@@ -31,16 +33,12 @@ class PinPaymentService
         'email' => $email ?? 'customer@example.com',
         'card_token' => $token,
         'metadata' => $metadata,
-        // 'three_d_secure' => [
-        //   'required' => true,
-        //   'callback_url' => 'https://yourdomain.com/payment/callback'
-        // ],
       ]);
-      
+
       $response->throw();
       return ['status' => true,  'data' => $response->json()];
     } catch (RequestException $e) {
-      return ['status' => false,  'error' => $e->response->json()['error_description']];
+      return ['status' => false,  'error' => $e->response->json()['error_description'], 'errors' => $e->response->json()['messages'] ?? []];
     } catch (\Exception $e) {
       return ['status' => false,  'error' => $e->getMessage()];
     }
@@ -100,5 +98,34 @@ class PinPaymentService
       $item->action = $action;
     }
     return $result;
+  }
+
+  public function handlePaymentHistory(array $response)
+  {
+    try {
+
+      // update order status
+      $paymentStatus = $response['success'] == true ? 'paid' : 'failed';
+      ProductOrder::where('id', $response['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $response['status_message'], 'transaction_id' => $response['token']]);
+
+      // make history of payment
+      PaymentHistory::updateOrCreate(
+        [
+          'user_id'  => $response['metadata']['user_id'],
+          'completed_by'  => $response['metadata']['user_id'],
+          'ref_no'          => now()->format('Ymd') . rand(100, 999),
+          'amount'          => $response['amount'] / 100,
+          'currency'        => $response['currency'],
+          'transaction_id'  => $response['token'],
+          'service'  => !empty($response['metadata']['type']) ? ucwords(str_replace('-', ' ', $response['metadata']['type'])) : '',
+          'status'          => $response['success'] ? 'success' : 'failed',
+          'paid_at'         => $response['captured_at'] ?? $response['created_at'],
+          'card'            => $response['card']['display_number'] ?? null,
+          'meta'            => json_encode($response),
+        ]
+      );
+    } catch (\Exception $e) {
+      Log::info('', [$e->getMessage()]);
+    }
   }
 }

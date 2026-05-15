@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Escort\Order\OrderMailToE4U;
 use App\Mail\Escort\Order\OrderMailToEscort;
-use App\Models\PaymentHistory;
+use App\Mail\Escort\Order\SendOrderMailToCondomMan;
 use App\Models\ProductOrder;
+use App\Models\User;
+use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -13,7 +16,7 @@ use Illuminate\Support\Facades\Mail;
 class WebhookController extends Controller
 {
 
-  function handle(Request $request)
+  function handle(Request $request, PinPaymentService $pinPaymentService)
   {
     $signatureHeader = $request->header('Pin-Signature');
 
@@ -23,6 +26,7 @@ class WebhookController extends Controller
     $signingKey = config('escorts.webhook_secret_key');
 
     // Parse header: t=timestamp,v1=signature
+    
     $parts = [];
     foreach (explode(',', $signatureHeader) as $part) {
       [$key, $value] = explode('=', $part, 2);
@@ -68,10 +72,12 @@ class WebhookController extends Controller
       if ($event == 'charge.captured') {
         // start swithc case
         switch ($type) {
-          case 'escort-product-order':
-            $this->sendMail($paymentObject);
+          case 'product-purchase':
             // make payment history
-            $this->handlePaymentHistory($paymentObject);
+            $pinPaymentService->handlePaymentHistory($paymentObject);
+
+            // send mail regarding mail
+            $this->sendProductOrderMail($paymentObject);
             break;
 
           default:
@@ -85,7 +91,7 @@ class WebhookController extends Controller
         switch ($type) {
           case 'escort-product-order':
             // make payment history
-            $this->handlePaymentHistory($paymentObject);
+            $pinPaymentService->handlePaymentHistory($paymentObject);
             break;
 
           default:
@@ -102,51 +108,63 @@ class WebhookController extends Controller
     }
   }
 
-  protected function sendMail(array $response)
+  protected function sendProductOrderMail(array $response)
   {
 
     try {
-      // send email to escort
       $mailData = [];
-      $order =   ProductOrder::with('orderAddress')->where('id', $response['metadata']['order_id'])->first();
+      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $response['metadata']['order_id'])->first();
       if ($order->orderAddress) {
+        $billingAddress = $order->orderAddress->where('type', 'billing')->first();
+        $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
+        $mailData['member_id'] = $order->user ? $order->user->member_id : '';
+        $mailData['order_id'] = $order->order_id ?? "";
+        $mailData['billing_name'] = $order->user ? $order->user->name : "";
+
+        // send email to escort
+        Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
+
+
+        // send email to e4u
+        $user = User::where('id', $order->user_id)->first();
+        $memberId = "";
+        if ($user) {
+          $memberId = $user->member_id ?? '';
+        }
 
         $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
-        $billingAddress = $order->orderAddress->where('type', 'billing')->first();
+        $address1 = $shippingAddress->address_line1 ?? '';
+        $address2 = $shippingAddress->address_line2 ?? '';
+        $city     = $shippingAddress->city ?? '';
+        $state    = $shippingAddress->state ?? '';
+        $country  = $shippingAddress->country ?? '';
 
-        $mailData['order_id'] = $order->order_id;
-        $mailData['billing_email'] = $shippingAddress->email;
-        Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
+        $completeAddress = trim(
+          implode(', ', array_filter([
+            $address1 . ' ' . $address2,
+            $city,
+            $state,
+            $country
+          ]))
+        );
+        $mailData['member_id'] = $memberId;
+        $mailData['member_name'] = $shippingAddress ? $shippingAddress->name : "example@gmail.com";
+        $mailData['email'] = $shippingAddress->email ? $shippingAddress->email : "example@gmail.com";
+        $mailData['mobile'] = $shippingAddress->phone ? $shippingAddress->phone : "999999999999";
+        $mailData['delivery_address'] = $completeAddress;
+        $mailData['delivery_type'] = $order->delivery_type ? $order->delivery_type : "Door";
+        $e4uEmail = "ashish.kumar@delimp.com";
+        Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
+
+        // // send mail to condom man
+        $products = $order->orderItems;
+        $condommail = "ashish120897maurya@gmail.com";
+        $mailData['member_name'] = $user->name;
+        $mailData['products'] = $products;
+        Mail::to($condommail)->send(new SendOrderMailToCondomMan($mailData));
+
         Log::info('succes mail send');
       } else Log::warning('send email issue', ['message' => "Order address was not found"]);
-    } catch (\Exception $e) {
-      Log::info('', [$e->getMessage()]);
-    }
-  }
-  protected function handlePaymentHistory(array $response)
-  {
-    try {
-
-      // update order status
-      $paymentStatus = $response['success'] == true ? 'paid' : 'failed';
-      ProductOrder::where('id', $response['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $response['status_message'], 'transaction_id' => $response['token']]);
-
-      // make history of payment
-      PaymentHistory::updateOrCreate(
-        [
-          'user_id'  => $response['metadata']['user_id'],
-          'completed_by'  => $response['metadata']['user_id'],
-          'ref_no'          => now()->format('Ymd') . rand(100, 999),
-          'amount'          => $response['amount'] / 100,
-          'currency'        => $response['currency'],
-          'transaction_id'  => $response['token'],
-          'service'  => !empty($response['metadata']['type']) ? ucwords(str_replace('-', ' ', $response['metadata']['type'])) : '',
-          'status'          => $response['success'] ? 'success' : 'failed',
-          'paid_at'         => $response['captured_at'] ?? $response['created_at'],
-          'card'            => $response['card']['display_number'] ?? null,
-          'meta'            => json_encode($response),
-        ]
-      );
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);
     }

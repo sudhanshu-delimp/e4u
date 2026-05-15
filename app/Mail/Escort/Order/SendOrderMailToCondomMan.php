@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderMailToE4U extends Mailable
+class SendOrderMailToCondomMan extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class OrderMailToE4U extends Mailable
    */
   public function build()
   {
-    return $this->subject('Order Confirmation: ' . $this->data['order_id'])->view('emails.escort.order.order_mail_to_e4u')
-      ->with(['data' => $this->data]);  
+    return $this->subject('Order Confirmation: ' . $this->data['order_id'])->view('emails.escort.order.order_mail_to_condom_man')
+      ->with(['data' => $this->data]); // <-- Pass to view
   }
 }
