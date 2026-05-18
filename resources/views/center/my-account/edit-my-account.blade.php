@@ -1217,7 +1217,13 @@
          let form = $(this);
          let formData = new FormData(this);
          $('span.text-danger').text('');
+         if (!document.getElementById("center_id").value) {
          swal_waiting_popup({'title':'Adding a New Centre'});
+         }
+         else
+         {
+          swal_waiting_popup({'title':'Updating Centre'});   
+         }
          $.ajax({
                url: "{{ route('center.add-sub-account') }}",
                method: 'POST',
@@ -1359,7 +1365,7 @@
 
         console.log(row);
 
-
+        $('.modal-title').html('Add Centre');
         $('#center_id').val(row.id);
         $('#member_id').val(row.member_id);
         $('#name').val(row.name);
@@ -1380,7 +1386,7 @@
         }
 
         $('#submit_button').html('update')
-        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Add Centre`);
+        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Edit Centre`);
         $('#add_center').modal({backdrop: 'static',keyboard: false});
         $('#add_center').modal('show');
     });
@@ -1389,8 +1395,7 @@
     $(document).on('click', '#open_add_center', function () {
 
         $('#add_center_frm')[0].reset();
-        $('#submit_button').html('update')
-
+        $('#submit_button').html('Add')
         $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Add Centre`);
         $('#add_center').modal({backdrop: 'static',keyboard: false});
         $('#add_center').modal('show');
