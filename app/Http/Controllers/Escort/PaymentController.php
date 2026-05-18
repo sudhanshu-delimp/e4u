@@ -41,13 +41,96 @@ class PaymentController extends Controller
         return $amount;
     }
 
+    public function paymentAdjustment(Request $request)
+    {
+        try {
+
+            $action = $request->filled('action') ? (float) $request->action : 'apply';
+            $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
+            $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
+            // At least one value is required
+            if ($action=='apply' && empty($wallet_amount) && empty($loyalty_day)) {    
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Please enter wallet amount or loyalty days',
+                ], 422);
+            }
+            $wallet_balance   = $this->account->wallet->balance ?? 0;
+            $wallet_earn_days = $this->account->wallet->earn_days ?? 0;
+            // Validate wallet amount
+            if ($wallet_amount > $wallet_balance) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Wallet amount exceeds available balance',
+                ], 422);
+            }
+            // Validate loyalty days
+            if ($loyalty_day > $wallet_earn_days) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Loyalty days exceed available days',
+                ], 422);
+            }
+
+            $sub_total_amount = $this->getAmount();
+            $loyalty_amount = 0;
+
+            if(session()->has('checkout')){
+                $checkout = session()->get('checkout');
+                $lowestPlan = collect($checkout)->max('membership');
+                $planFee = getPlanFee($lowestPlan);
+                $loyalty_amount = ($planFee*$loyalty_day);
+            }
+
+            $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount); 
+
+            if ($total_amount < 0) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Wallet amount and Loyalty discount exceed subtotal',
+                ], 422);
+            }
+
+            $total_amount = max(0, $total_amount);
+            $paymentAmounts = [
+
+            ];
+            
+            $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount'))->render();
+            
+            return response()->json([
+                'status'         => true,
+                'lowest_plan' => $lowestPlan,
+                'total_amount' => $total_amount,
+                'benefit_token' => encrypt(compact('loyalty_day','sub_total_amount','wallet_amount','loyalty_amount','total_amount')),
+                'message' => 'Applied successfully',
+                'html' => $html,
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
+    }
+    
     public function processPayment(Request $request)
     {
         $request->validate([
             'pin_token' => 'required'
         ]);
+        
+        $pin_token = str_contains($request->pin_token, 'card') ? $request->pin_token : decrypt($request->pin_token);
+
+        $is_bypass = $pin_token == 'without_pay_now' ? true : false;
+
         $redirect_url = '';
+        $gatewayResponse['status'] = true;
         $amount = $this->getAmount();
+
         $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
             'loyalty_day' => 0,
             'sub_total_amount' => $amount,
@@ -55,10 +138,15 @@ class PaymentController extends Controller
             'loyalty_amount' => 0.00,
             'total_amount' => $amount,
         ];
-    
-        $gatewayResponse = $this->pinService->charge($request->pin_token, $benefit_token['total_amount'], $this->account->email);
-        if ($gatewayResponse['status']) {
-            $response = $gatewayResponse['data']['response'];
+        
+        if(!$is_bypass){
+            $gatewayResponse = $this->pinService->charge($pin_token, $benefit_token['total_amount'], $this->account->email);
+            if ($gatewayResponse['status']) {
+                $response = $gatewayResponse['data']['response'];
+            }
+        }
+
+        
             $payment = PaymentHistory::create([
                 'user_id'         => $this->account->id,
                 'completed_by'    => $this->account->id,
@@ -67,13 +155,13 @@ class PaymentController extends Controller
                 'wallet_amount'   => $benefit_token['wallet_amount'],
                 'loyalty_amount'  => $benefit_token['loyalty_amount'],
                 'paid_amount'     => $benefit_token['total_amount'],
-                'currency'        => $response['currency'],
+                'currency'        => $is_bypass ? 'AUD' : $response['currency'],
                 'payment_gateway' => 'pinpayments',
-                'transaction_id'  => $response['token'],
-                'status'          => $response['success'] ? 'success' : 'failed',
-                'paid_at'         => $response['captured_at'] ?? $response['created_at'],
-                'card'            => $response['card']['display_number'],
-                'meta'            => json_encode($response),
+                'transaction_id'  => $is_bypass ? NULL : $response['token'],
+                'status'          => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
+                'paid_at'         => $is_bypass ? NULL : $response['created_at'],
+                'card'            => $is_bypass ? NULL : $response['card']['display_number'],
+                'meta'            => $is_bypass ? NULL : json_encode($response),
             ]);
 
             if(session()->has('checkout')){
@@ -103,17 +191,20 @@ class PaymentController extends Controller
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
 
+            $earn_days = floor($benefit_token['total_amount']/200);
+            if($earn_days > 0){
+                $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
+            }
+
             $payment->service = $payment_service;
             $payment->save();
 
             return response()->json([
                 'status' => 'success',
-                'message' => '<i class="fas fas fa-check-circle text-success"></i> Payment completed successfully',
+                'message' => 'Your payment has been processed successfully.',
                 'netAmount' => $amount,
-                'redirect_url' => $redirect_url,
-                'gateway' => $gatewayResponse
+                'redirect_url' => $redirect_url
             ]);
-        }
 
         return response()->json([
             'status' => 'error',
@@ -172,12 +263,6 @@ class PaymentController extends Controller
                     $purchaseDetail->status = 'listed';
                     $purchaseDetail->save();
                 }
-                $netPaidAmount = $netPaidAmount + $total_rate;
-            }
-
-            $earn_days = floor($netPaidAmount / 200);
-            if($earn_days > 0){
-                $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
             }
         }
     }
@@ -249,81 +334,6 @@ class PaymentController extends Controller
         $print = true;
         $pdf = PDF::loadView('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment', 'print'));
         return $pdf->stream($payment->user->member_id.'_Payment_Summary_'.$payment->ref_no.'.pdf');
-    }
-
-    public function paymentAdjustment(Request $request)
-    {
-        try {
-
-            $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
-            $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
-            // At least one value is required
-            if (empty($wallet_amount) && empty($loyalty_day)) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'Please enter wallet amount or loyalty days',
-                ], 422);
-            }
-            $wallet_balance   = $this->account->wallet->balance ?? 0;
-            $wallet_earn_days = $this->account->wallet->earn_days ?? 0;
-            // Validate wallet amount
-            if ($wallet_amount > $wallet_balance) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'Wallet amount exceeds available balance',
-                ], 422);
-            }
-            // Validate loyalty days
-            if ($loyalty_day > $wallet_earn_days) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'Loyalty days exceed available days',
-                ], 422);
-            }
-
-            $sub_total_amount = $this->getAmount();
-            $loyalty_amount = 0;
-
-            if(session()->has('checkout')){
-                $checkout = session()->get('checkout');
-                $lowestPlan = collect($checkout)->max('membership');
-                $planFee = getPlanFee($lowestPlan);
-                $loyalty_amount = ($planFee*$loyalty_day);
-            }
-
-            $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount); 
-
-            if ($total_amount < 0) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'Wallet amount and Loyalty discount exceed subtotal',
-                ], 422);
-            }
-
-            $total_amount = max(0, $total_amount);
-            $paymentAmounts = [
-
-            ];
-            
-            $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount'))->render();
-            
-            return response()->json([
-                'status'         => true,
-                'lowest_plan' => $lowestPlan,
-                'total_amount' => $total_amount,
-                'benefit_token' => encrypt(compact('loyalty_day','sub_total_amount','wallet_amount','loyalty_amount','total_amount')),
-                'message' => 'Applied successfully',
-                'html' => $html,
-            ]);
-
-        } catch (\Exception $e) {
-
-            return response()->json([
-                'status'  => false,
-                'message' => 'Something went wrong',
-                'error'   => $e->getMessage()
-            ], 500);
-        }
     }
 
 }

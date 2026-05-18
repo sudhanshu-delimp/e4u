@@ -29,8 +29,7 @@
                 <div class="row">
                     <!-- Page Heading -->
                     <div class="col-md-12 custom-heading-wrapper">
-                        <h1 class="h1">
-                            Fees & Variables</h1>
+                        <h1 class="h1">Pricing summary</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                     </div>
                     <div class="col-lg-12">
@@ -64,8 +63,11 @@
                                                 <table id="myTable price-sec" class="table  dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center table-bg">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="8" style="width: 100px;" aria-label="Fees">
-                                                                <p><b>Advertising Fees</b></p>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 100px; border-right: 2px solid white;" aria-label="Fees">
+                                                                <p><b>Fees</b></p>
+                                                            </th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="2" style="width: 100px;" aria-label="Fees">
+                                                                <p><b>Discounts<sup>(1)</sup></b></p>
                                                             </th>
                                                         </tr>
                                                         <tr role="row" class="custom--row">
@@ -74,14 +76,14 @@
                                                             </th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="
                                                                 Profile Name
-                                                                ">Frequency
+                                                                ">Period
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Date Created">Rate</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Subscription Type">Amount</th>                                                           
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Special Discount</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Date Created">Frequency<sup>(2)</sup></th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Subscription Type">Rate</th>                                                           
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Special Discount %</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">New Rate</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Subscription Status">%</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Amount<sup>(1)</sup></th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Status">Rate</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

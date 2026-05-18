@@ -15,7 +15,6 @@
   filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
   margin-top:-30px;
 }
-
 #upload-demo{
 	width: 250px;
 	height: 250px;

@@ -90,7 +90,7 @@ padding: 2px 8px 2px 8px !important;
                                                             </th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 120px;" aria-label="Date Created">Frequency<sup>(2)</sup></th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 120px;" aria-label="Subscription Type">Rate</th>                                                            
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 115px;" aria-label="Status">Special Discount</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 115px;" aria-label="Status">Special Discount %</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 115px;" aria-label="Status">New Rate</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 115px;" aria-label="Subscription Status">%</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Rate</th>
