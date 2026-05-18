@@ -380,8 +380,8 @@ class CenterController extends Controller
         if($this->account->type == MESSAGE_CENTER && $discount){
             $rows = array_map(function($item) use($discount){
                 if(in_array($item['membership_id'],['5'])){
-                    $item['percentage'] = $discount->value;
-                    $item['discount_amount'] = number_format($discount->discountAmount($item['price']),2);
+                    $item['special_discount'] = $discount->value;
+                    $item['new_rate'] = number_format($discount->discountAmount($item['price']),2);
                 }
                 return $item;
             },$advertings);

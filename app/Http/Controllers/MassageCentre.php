@@ -408,7 +408,7 @@ class MassageCentre extends Controller
             if ($bumpProfiles->count() > 0) 
             {
                 $bumpProfiles = $bumpProfiles->sortByDesc(function ($row) {
-                return $row->activeBumpup->start_date;
+                return $row->activeBumpup?->utc_start_time;
                 });
 
                 $normalProfiles = $normalProfiles->sortByDesc('purchase_id');
@@ -425,7 +425,7 @@ class MassageCentre extends Controller
             if ($bumpProfiles->count() > 0) 
             {
                 $bumpProfiles = $bumpProfiles->sortByDesc(function ($row) {
-                return $row->activeBumpup->start_date;
+                return $row->activeBumpup?->utc_start_time;
                 });
 
                 $normalProfiles = $normalProfiles->shuffle();
@@ -438,6 +438,8 @@ class MassageCentre extends Controller
         }
 
          $listings =  $massage->setCollection($final); 
+
+        
         
         
         return response()->json([

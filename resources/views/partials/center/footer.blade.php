@@ -68,6 +68,7 @@
         <script src="{{ asset('assets/app/js/demo/chart-pie-demo.js') }}"></script>-->
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
          <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
+         @include('partials.common.footer-scripts')
         <script>
             jQuery.browser = {};
             (function () {
@@ -85,8 +86,6 @@
                     }
                 });
         </script>
-
-        <script src="{{ asset('assets/js/common.js') }}"></script>
         @stack('script')
 
         <!-- ///////////// Notification ////////////////// -->
@@ -268,7 +267,7 @@
                     csrfToken: "{{ csrf_token() }}",
                     baseUrl: "{{ asset('') }}"
                 };
-                console.log(window.App);
+                // console.log(window.App);
 
             </script> 
           

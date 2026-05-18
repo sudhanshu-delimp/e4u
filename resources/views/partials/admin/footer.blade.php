@@ -49,8 +49,7 @@
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
-        <script src="{{ asset('assets/js/common.js') }}"></script>
-        
+        @include('partials.common.footer-scripts')
         <!-- <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script>
           <script>
               const socket_url = "{{ config('constants.socket_url') }}";
@@ -167,63 +166,7 @@
                 }
             }
 
-        var getStatusOption = (xhr)=>{
-            let icon,title;
-            let res = xhr.responseJSON;
-            let message = res?.message || 'Something went wrong';
-            switch (xhr.status) {
-                case 200:
-                icon = 'success';
-                title = title? title:'Success';
-                break;
-
-                case 400:
-                icon = 'warning';
-                title = 'Bad Request';
-                break;
-
-                case 401:
-                icon = 'warning';
-                title = 'Unauthorized';
-                message = 'Your session has expired. Please login again.';
-                break;
-
-                case 403:
-                icon = 'warning';
-                title = 'Forbidden';
-                break;
-
-                case 404:
-                icon = 'info';
-                title = 'Not Found';
-                break;
-
-                case 419:
-                icon = 'warning';
-                title = 'Unauthorized';
-                break;
-
-                case 422:
-                icon = 'warning';
-                title = 'Validation Error';
-
-                // Show validation errors if exist
-                if (res?.errors) {
-                    message = Object.values(res.errors).flat().join('\n');
-                }
-                break;
-
-                case 500:
-                icon = 'error';
-                title = 'Server Error';
-                break;
-
-                default:
-                icon = 'error';
-                title = 'Error';
-            }
-            return {icon, title, message};
-        }
+        
 
         $(document).ready(function () {
     $('.formatMobile').on('blur', function () {

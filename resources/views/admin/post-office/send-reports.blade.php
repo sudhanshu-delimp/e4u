@@ -22,6 +22,9 @@
         .table th {
             border: 1px solid #0c233d;
         }
+        #previewTemplate table td{
+            border:none;
+        }
     </style>
 @endsection
 @section('content')
@@ -351,12 +354,12 @@
 
     <!-- custome modal design previeo template -->
 
-    <div class="modal fade upload-modal bd-example-modal-lg" id="previewTemplate" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="previewTemplate" tabindex="-1" role="dialog"
         aria-labelledby="previewTemplateLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="previewTemplate"> <img
+                    <h5 class="modal-title" > <img
                             src="{{ asset('assets/dashboard/img/email-template.png') }}" class="custompopicon"> Template
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -415,20 +418,25 @@
                                                 [additional text appears here]
                                             </p>
 
-                                            <!-- Closing -->
-                                            <p style="font-size: 15px; margin-top: 20px;">
-                                                Regards,<br>
-                                                <b>E4U - Operations Centre</b>
-                                            </p>
-
-                                        </td>
+                                             <!-- email info -->
+                                                            <x-email-info/>
+                                                        <!-- end -->
+                                                                                    </td>
                                     </tr>
 
                                 </table>
 
-                                {{-- <x-email-footer /> --}}
-                                    <x-email-footer />
-                                {{-- <x-email-footer /> --}}
+                               
+                                <!-- Footer -->
+                                <table cellpadding="0" cellspacing="0" style="background-color:#0c223d; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                                    <tr>
+                                        <td>
+                                            {{-- <x-email-footer /> --}}
+                                                <x-email-footer />
+                                            {{-- <x-email-footer /> --}}
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>

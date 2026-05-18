@@ -123,7 +123,7 @@
                     <label class="form-check-label" for="auto4">$1,500.00</label>
                 </div>
 
-                <div class="pt-1"><i>Select your preferred top up value to be applied to your Credit.</i></div>
+                <div class="pt-1"><i>Select your preferred top up value to be applied to your Wallet.</i></div>
             </div>
 
 

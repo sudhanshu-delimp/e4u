@@ -557,7 +557,7 @@
     <div class="modal fade upload-modal" id="add_center" tabindex="-1" aria-labelledby="add_centerLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scorllable">
-        <form name="add_center_frm" id="add_center_frm" method="POST" enctype="multipart/form-data">
+       
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/add-center.png') }}"
@@ -566,7 +566,8 @@
                             <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                         </button>
                     </div>
-                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                     <form name="add_center_frm" id="add_center_frm" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
                         <form>
                             <div class="row">
                                 <!-- Membership ID -->
@@ -753,8 +754,9 @@
 
                         </form>
                     </div>
+                     </form>
                 </div>
-        </form>
+       
     </div>
     </div>
     {{-- end  --}}
