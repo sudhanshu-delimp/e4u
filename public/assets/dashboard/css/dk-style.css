@@ -59,6 +59,16 @@
     padding: 10px;
 }
 
+.payment_note ol {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.payment_note ol li {
+    font-size: 13px !important;
+    line-height: 1.4;
+}
+
 .wallet_details {
     display: flex;
     justify-content: space-between;

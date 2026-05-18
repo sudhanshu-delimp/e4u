@@ -96,12 +96,13 @@
                                         </button>
                                     </form>
                                 </div>
-                                <div class="support mt-3">
+                                <div class="support mt-3 payment_note">
                                     <p class="mb-0"><strong>Note:</strong></p>
-                                    <p class="small mb-0">
-                                        Users can apply benefits by selecting available Wallet money and Loyalty days to
-                                        reduce the total payable amount.
-                                    </p>
+                                       <ol>
+                                        <li>You can apply any portion of your benefits by selecting from your Wallet, to reduce the total Fee payable for this Service.</li>
+                                        <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
+                                        <li>For a detailed summary of this transaction, go to <a href="{{ route('escort.payment.transaction_summary') }}" class="custom_links_design" target="_blank"> Transaction Summary</a> .</li>
+                                       </ol>
                                 </div>
 
                             </div>
