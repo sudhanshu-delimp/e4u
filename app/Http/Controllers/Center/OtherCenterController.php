@@ -47,7 +47,12 @@ class OtherCenterController extends Controller
         try
         {
             $data = $request->all();
+
+            if(!isset($data['center_id']) || $data['center_id']=="")
             $resposne = $this->user->add_subuser_account($data);
+            else
+            $resposne = $this->user->update_subuser_account($data);    
+
             if($resposne['status'])
             return  Success_response([],$resposne['message'],200);
             else

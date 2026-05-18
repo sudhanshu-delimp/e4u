@@ -1235,6 +1235,7 @@
                      Swal.close();
                      $('span.text-danger').text('');
                      $('#add_center').modal('hide');
+                     $('#add_center_frm')[0].reset();
                      swal_success_popup(response.message);
                },
                error: function(xhr) 
@@ -1372,8 +1373,8 @@
         $('#entity_name').val(row.entity_name);
         $('#email').val(row.email);
         $('#business_address').val(row.business_address);
-        $('#business_number').val(row.business_number);
-        $('#phone').val(row.phone);
+        $('#business_number').val(row.business_number.replace(/\s+/g, '')); 
+        $('#phone').val(row.phone.replace(/\s+/g, ''));  
         $('#join_date').val(formatDateDMY(row.created_at));
         $('input[name="accessGranted"][value="' + (row.is_access_granted == '1' ? 'yes' : 'no') + '"]').prop('checked', true);
 
