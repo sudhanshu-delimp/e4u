@@ -394,27 +394,4 @@ class CenterController extends Controller
         return view('center.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
     }
 
-
-
-    public function add_sub_account(AddMassageCentre $request)
-    {
-        $data = $request->all();
-        try
-        {
-            $data = $request->all();
-            $resposne = $this->user->add_subuser_account($data);
-            if($resposne['status'])
-            return  Success_response([],$resposne['message'],200);
-            else
-            return  Success_response([],$resposne['message'],200);   
-        } 
-        catch(Exception $e){
-          return  Success_response([],'Failed to add new centre',200);    
-        }
-    }
-
-
-    
-   
-
 }

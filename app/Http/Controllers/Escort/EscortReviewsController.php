@@ -49,24 +49,28 @@ class EscortReviewsController extends Controller
         $todayCount = $monthCount = $yearCount = $allCount = 0;
 
         if ($userEscortsProfile->isNotEmpty()) {
-            $reviews = Reviews::whereIn('escort_id', $userEscortsProfile)
+            $reviews = Reviews::whereIn('advertiser_id', $userEscortsProfile)
+                ->where('advertiser_type','escort')
                 ->whereIn('status', ['published','suspended'])
                 ->with(['escort', 'user'])
                 ->orderBy('status','desc')
                 ->get();
 
             // Counts directly from DB instead of filtering collection
-            $todayCount = Reviews::whereIn('escort_id', $userEscortsProfile)
+            $todayCount = Reviews::whereIn('advertiser_id', $userEscortsProfile)
+                ->where('advertiser_type','escort')
                 ->whereIn('status', ['published','suspended'])
                 ->whereDate('created_at', $today)
                 ->count();
 
-            $monthCount = Reviews::whereIn('escort_id', $userEscortsProfile)
+            $monthCount = Reviews::whereIn('advertiser_id', $userEscortsProfile)
+                ->where('advertiser_type','escort')
                 ->whereIn('status', ['published','suspended'])
                 ->where('created_at', '>=', $monthStart)
                 ->count();
 
-            $yearCount = Reviews::whereIn('escort_id', $userEscortsProfile)
+            $yearCount = Reviews::whereIn('advertiser_id', $userEscortsProfile)
+                ->where('advertiser_type','escort')
                 ->whereIn('status', ['published','suspended'])
                 ->where('created_at', '>=', $yearStart)
                 ->count();
