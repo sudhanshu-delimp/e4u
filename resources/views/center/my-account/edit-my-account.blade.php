@@ -327,111 +327,25 @@
                                         </div>
                                         <div class="d-flex justify-content-end my-3">
                                             <button type="button" class="btn-common" data-toggle="modal"  data-backdrop="static" data-keyboard="false"
-                                                data-target="#add_center">Add Centre</button>
+                                                id="open_add_center">Add Centre</button>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table mb-3 w-100" id="other_centre_table">
                                                 <thead class="table-bg">
                                                     <tr>
-                                                        <th colspan="1" style="width: 75px;">Member ID</th>
-                                                        <th colspan="2">Display Name</th>
-                                                        <th colspan="2">Entity Name</th>
-                                                        <th colspan="2">Address</th>
-                                                        <th colspan="2">Business No.</th>
-                                                        <th colspan="2">Mobile No.</th>
-                                                        <th colspan="1">Email</th>
-                                                        <th colspan="1" class="text-center">Action</th>
+                                                        <th style="width: 75px;">Member ID</th>
+                                                        <th>Display Name</th>
+                                                        <th>Entity Name</th>
+                                                        <th>Address</th>
+                                                        <th>Business No.</th>
+                                                        <th>Mobile No.</th>
+                                                        <th>Email</th>
+                                                        <th style="width: 100px !important;">Switch Account</th>
+                                                        <th  class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-content">
-                                                    <tr>
-                                                        <td colspan="1">01</td>
-                                                        <td colspan="2"><span class="grant-access">Marianne Smith
-                                                                <sup>Accessed</sup></span></td>
-                                                        <td colspan="2">infocomnet Pvt Ltd</td>
-                                                        <td colspan="2">456 Elm Road, Perth, WA 6000 </td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="1">info@center.au.com</td>
-                                                        <td colspan="1" class="text-center">
-                                                            <div class="dropdown no-arrow">
-                                                                <a class="dropdown-toggle" href="#" role="button"
-                                                                    id="dropdownMenuLink" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="true">
-                                                                    <i
-                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                </a>
-                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                    aria-labelledby="dropdownMenuLink"
-                                                                    x-placement="bottom-end">
-
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-target="#edit_center"
-                                                                        data-toggle="modal"> <i class="fa fa-pen"></i>
-                                                                        Edit</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-check-circle"></i>
-                                                                        Grant Access</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-times-circle"></i>
-                                                                        Suspend</a>
-
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#view_center"> <i
-                                                                            class="fa fa-eye "></i> View</a>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="1">02</td>
-                                                        <td colspan="2"><span class="grant-access">Well Chalse</span>
-                                                        </td>
-                                                        <td colspan="2">DEF Pvt Ltd</td>
-                                                        <td colspan="2">Green Street, Manning</td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="2">0438 028 728</td>
-                                                        <td colspan="1">info@center.au.com</td>
-                                                        <td colspan="1" class="text-center">
-                                                            <div class="dropdown no-arrow">
-                                                                <a class="dropdown-toggle" href="#" role="button"
-                                                                    id="dropdownMenuLink" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="true">
-                                                                    <i
-                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                </a>
-                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                    aria-labelledby="dropdownMenuLink"
-                                                                    x-placement="bottom-end">
-
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-target="#edit_center"
-                                                                        data-toggle="modal"> <i class="fa fa-pen"></i>
-                                                                        Edit</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-check-circle"></i>
-                                                                        Grant Access</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#"> <i class="fa fa-times-circle"></i>
-                                                                        Suspend</a>
-
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#view_center"> <i
-                                                                            class="fa fa-eye "></i> View</a>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -574,7 +488,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Membership ID</label>
-                                        <input type="text" class="form-control" placeholder="Auto-generated when saved"
+                                        <input type="text" name="member_id" id="member_id" class="form-control" placeholder="Auto-generated when saved"
                                             readonly>
                                     </div>
                                 </div>
@@ -586,12 +500,12 @@
                                         <div class="mt-2">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="accessGranted"
-                                                    id="accessYes" value="yes" checked>
+                                                    id="accessYes" value="yes">
                                                 <label class="form-check-label" for="accessYes">Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="accessGranted"
-                                                    id="accessNo" value="no">
+                                                    id="accessNo" value="no" checked>
                                                 <label class="form-check-label" for="accessNo">No</label>
                                             </div>
                                         </div>
@@ -726,6 +640,19 @@
                                     <label>Password</label>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
                                     <span class="toggle-password" toggle="#password"><i class="fa fa-eye"></i></span>
+                                    <div class="password-strength mt-2 d-none" id="password-strength-wrapper">
+                                        <div class="progress" style="height:6px;">
+                                            <div id="password-strength-bar"
+                                                class="progress-bar"
+                                                role="progressbar"
+                                                style="width:0%">
+                                            </div>
+                                        </div>
+
+                                        <small id="password-strength-text" class="mt-1 d-block text-muted">
+                                            Password strength
+                                        </small>
+                                    </div>
                                     <span class="text-danger error-password"></span> 
                                 </div>
                             </div>
@@ -747,11 +674,11 @@
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-end">
                                     <!-- Submit -->
-                                    <button type="submit" class="btn-success-modal">Save</button>
+                                    <button type="submit" id="submit_button" class="btn-success-modal">Save</button>
                                 </div>
                             </div>
 
-
+                            <input type="hidden" name="center_id" id="center_id">
                         </form>
                     </div>
                      </form>
@@ -760,7 +687,6 @@
     </div>
     </div>
     {{-- end  --}}
-
 
 
     {{-- Modal: Edit Centre --}}
@@ -1023,224 +949,60 @@
 
    
 <script>
+
     var table = $("#other_centre_table").DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID"
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    order: [[0, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10,    
+
+    ajax: {
+        url: "{{ route('center.all-other-centre-list') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        info: true,
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [
-            [1, 'desc']
-        ],
-        lengthMenu: [
-            [10, 25, 50, 100],
-            [10, 25, 50, 100]
-        ],
-        pageLength: 10,
+    },
 
-           columns: [
-               { data: 'member_ID', name: 'member_ID', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'display_name', name: 'display_name', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'entity_name', name: 'entity_name', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'address', name: 'address', searchable: true, orderable:true, defaultContent: 'NA'},
-               { data: 'business_no', name: 'business_no', searchable: true, orderable:true, defaultContent: 'NA' },
-               { data: 'mobile_no', name: 'mobile_no', searchable: true, orderable:true, defaultContent: 'NA' },
-               { data: 'email', name: 'email', searchable: true, orderable:true, defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-           ],
+    columns: 
+    [
+            { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'entity_name', name: 'entity_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'business_address', name: 'business_address', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'login', name: 'login', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            
+            ],
     });
+
+ 
+
+
 </script>
-    <script type="text/javascript">
-        $('#userProfile').parsley({
 
-        });
+<script type="text/javascript">
 
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
+    $('#userProfile').parsley({
 
-            var form = $(this);
-            $("#modal-title").text("About Us");
-            $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
-            if (form.parsley().isValid()) {
+    });
 
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        const modalElement = document.getElementById('comman_modal');
-                        const modal = new bootstrap.Modal(modalElement);
-                        if (!data.error) {
-                            var msg = "Saved";
-                            $('.comman_msg').html(msg);
-                            //$("#comman_modal").modal('show');
-                            
-                            modal.show();
-                            //$("#my_account_modal").show();
+    $('#userProfile').on('submit', function(e) {
+        e.preventDefault();
 
-                            //
-                        } else {
-                            $('.Lname').html("Oops.. sumthing wrong Please try again");
-                            var msg = "Oops.. sumthing wrong Please try again";
-                            $('.comman_msg').html(msg);
-                            //$("#comman_modal").modal('show');
-                            modal.show();
+        var form = $(this);
+        $("#modal-title").text("About Us");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
+        if (form.parsley().isValid()) {
 
-                        }
-                    },
-                    error: function(xhr) {
-                    const modalElement = document.getElementById('comman_modal');
-                    const modal = new bootstrap.Modal(modalElement);
-
-                    if (xhr.status === 422) {
-
-                        let errors = xhr.responseJSON.errors;
-                        let msg = '';
-
-                        $.each(errors, function(key, value) {
-                            msg += value[0] + "<br>";
-                        });
-
-                        $('.comman_msg').html(msg);
-                        modal.show();
-                    }
-            }
-
-                });
-            }
-        });
-
-        $("#close").click(function() {
-            $("#my_account_modal").hide();
-            location.reload();
-        });
-
-        $('#city').select2({
-            allowClear: true,
-            placeholder: 'Select City',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('city.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        state_id: $('#state').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-        $('#state').select2({
-            allowClear: true,
-            placeholder: 'Select State',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('state.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        country_id: $('#country').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-
-        $('#country').on('change', function(e) {
-            if ($(this).val()) {
-                $('#state').prop('disabled', false);
-                $('#state').select2('open');
-            } else {
-                $('#state').prop('disabled', true);
-            }
-        });
-
-        $('#state').on('change', function(e) {
-            if ($(this).val()) {
-                $('#city').prop('disabled', false);
-                $('#city').select2('open');
-            } else {
-                $('#city').prop('disabled', true);
-            }
-        });
-
-        /////////////////////
-        $('#profile_tour_options').on('submit', function(e) {
-            e.preventDefault();
-
-            var form = $(this);
-
-            $("#modal-title").text("Profile Contact Options");
-            $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
             var url = form.attr('action');
             var data = new FormData(form[0]);
             $.ajax({
@@ -1253,29 +1015,200 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                     const modalElement = document.getElementById('comman_modal');
+                    const modalElement = document.getElementById('comman_modal');
                     const modal = new bootstrap.Modal(modalElement);
                     if (!data.error) {
-                        $('.comman_msg').html("Saved");
-                        //$("#my_account_modal").modal('show');
-                        //$("#my_account_modal").show();
-                        //$("#comman_msg").modal('show');
+                        var msg = "Saved";
+                        $('.comman_msg').html(msg);
+                        //$("#comman_modal").modal('show');
+                        
                         modal.show();
+                        //$("#my_account_modal").show();
 
+                        //
                     } else {
-                        $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                        //$("#comman_msg").show();
-                         modal.show();
+                        $('.Lname').html("Oops.. sumthing wrong Please try again");
+                        var msg = "Oops.. sumthing wrong Please try again";
+                        $('.comman_msg').html(msg);
+                        //$("#comman_modal").modal('show');
+                        modal.show();
 
                     }
                 },
+                error: function(xhr) {submit_button
+                const modalElement = document.getElementById('comman_modal');
+                const modal = new bootstrap.Modal(modalElement);
+
+                if (xhr.status === 422) {
+
+                    let errors = xhr.responseJSON.errors;
+                    let msg = '';
+
+                    $.each(errors, function(key, value) {
+                        msg += value[0] + "<br>";
+                    });
+
+                    $('.comman_msg').html(msg);
+                    modal.show();
+                }
+        }
 
             });
+        }
+    });
+
+    $("#close").click(function() {
+        $("#my_account_modal").hide();
+        location.reload();
+    });
+
+    $('#city').select2({
+        allowClear: true,
+        placeholder: 'Select City',
+        createTag: function(params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+            return {
+                id: term,
+                text: term,
+                newTag: false // add additional parameters
+            }
+        },
+        tags: false,
+        minimumInputLength: 2,
+        tokenSeparators: [','],
+        ajax: {
+            url: "{{ route('city.list') }}",
+            dataType: "json",
+            type: "GET",
+            data: function(params) {
+                console.log(params);
+                var queryParameters = {
+                    query: params.term,
+                    state_id: $('#state').val()
+                }
+                return queryParameters;
+            },
+            processResults: function(data) {
+                return {
+                    results: $.map(data, function(item) {
+
+                        return {
+                            text: item.name,
+                            id: item.id
+                        }
+                    })
+                };
+            }
+        }
+    });
+
+    $('#state').select2({
+        allowClear: true,
+        placeholder: 'Select State',
+        createTag: function(params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+            return {
+                id: term,
+                text: term,
+                newTag: false // add additional parameters
+            }
+        },
+        tags: false,
+        minimumInputLength: 2,
+        tokenSeparators: [','],
+        ajax: {
+            url: "{{ route('state.list') }}",
+            dataType: "json",
+            type: "GET",
+            data: function(params) {
+                console.log(params);
+                var queryParameters = {
+                    query: params.term,
+                    country_id: $('#country').val()
+                }
+                return queryParameters;
+            },
+            processResults: function(data) {
+                return {
+                    results: $.map(data, function(item) {
+
+                        return {
+                            text: item.name,
+                            id: item.id
+                        }
+                    })
+                };
+            }
+        }
+    });
+
+
+    $('#country').on('change', function(e) {
+        if ($(this).val()) {
+            $('#state').prop('disabled', false);
+            $('#state').select2('open');
+        } else {
+            $('#state').prop('disabled', true);
+        }
+    });
+
+    $('#state').on('change', function(e) {
+        if ($(this).val()) {
+            $('#city').prop('disabled', false);
+            $('#city').select2('open');
+        } else {
+            $('#city').prop('disabled', true);
+        }
+    });
+
+    /////////////////////
+    $('#profile_tour_options').on('submit', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+
+        $("#modal-title").text("Profile Contact Options");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
+        var url = form.attr('action');
+        var data = new FormData(form[0]);
+        $.ajax({
+            method: form.attr('method'),
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                    const modalElement = document.getElementById('comman_modal');
+                const modal = new bootstrap.Modal(modalElement);
+                if (!data.error) {
+                    $('.comman_msg').html("Saved");
+                    //$("#my_account_modal").modal('show');
+                    //$("#my_account_modal").show();
+                    //$("#comman_msg").modal('show');
+                    modal.show();
+
+                } else {
+                    $('.comman_msg').html("Oops.. sumthing wrong Please try again");
+                    //$("#comman_msg").show();
+                        modal.show();
+
+                }
+            },
 
         });
 
-
-
+    });
 
 
     $(document).on('submit', 'form[name="add_center_frm"]', function(e) 
@@ -1284,7 +1217,13 @@
          let form = $(this);
          let formData = new FormData(this);
          $('span.text-danger').text('');
+         if (!document.getElementById("center_id").value) {
          swal_waiting_popup({'title':'Adding a New Centre'});
+         }
+         else
+         {
+          swal_waiting_popup({'title':'Updating Centre'});   
+         }
          $.ajax({
                url: "{{ route('center.add-sub-account') }}",
                method: 'POST',
@@ -1292,10 +1231,11 @@
                contentType: false,
                processData: false, 
                success: function(response) {
-                     //table.ajax.reload(null, false); 
+                     table.ajax.reload(null, false); 
                      Swal.close();
                      $('span.text-danger').text('');
                      $('#add_center').modal('hide');
+                     $('#add_center_frm')[0].reset();
                      swal_success_popup(response.message);
                },
                error: function(xhr) 
@@ -1342,5 +1282,134 @@
         });
     });
 
+
+    $('#password').on('keyup', function () 
+    {
+
+        let password = $(this).val();
+
+        
+        if (password.length === 0) {
+        $('#password-strength-wrapper').addClass('d-none');
+        return;
+        }
+
+        $('#password-strength-wrapper').removeClass('d-none');
+
+        let strength = 0;
+
+    
+        if (password.length >= 8) strength++;
+        if (password.length >= 12) strength++;
+        if (password.length >= 16) strength++;
+
+        if (/[a-z]/.test(password)) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+    
+        if ((password.match(/[^a-zA-Z0-9]/g) || []).length >= 2) {
+        strength++;
+        }
+
+    
+        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/.test(password)) {
+        strength++;
+        }
+
+        let width = 0;
+        let text = '';
+        let color = '';
+
+        if (strength <= 2) {
+        width = 20;
+        text = 'Very Weak';
+        color = 'bg-danger';
+
+        } else if (strength <= 4) {
+        width = 40;
+        text = 'Weak';
+        color = 'bg-warning';
+
+        } else if (strength <= 6) {
+        width = 60;
+        text = 'Medium';
+        color = 'bg-info';
+
+        } else if (strength <= 8) {
+        width = 80;
+        text = 'Strong';
+        color = 'bg-primary';
+
+        } else {
+        width = 100;
+        text = 'Very Strong';
+        color = 'bg-success';
+        }
+
+        $('#password-strength-bar')
+        .removeClass('bg-danger bg-warning bg-info bg-primary bg-success')
+        .addClass(color)
+        .css('width', width + '%');
+
+        $('#password-strength-text').text(text);
+    });
+
+    ////// Edit Center ////////////////////
+    $(document).on('click', '.edit-center-btn', function () 
+    {
+
+        let row = $(this).data('row');
+        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Edit Centre`);
+
+
+        console.log(row);
+
+        $('.modal-title').html('Add Centre');
+        $('#center_id').val(row.id);
+        $('#member_id').val(row.member_id);
+        $('#name').val(row.name);
+        $('#entity_name').val(row.entity_name);
+        $('#email').val(row.email);
+        $('#business_address').val(row.business_address);
+        $('#business_number').val(row.business_number.replace(/\s+/g, '')); 
+        $('#phone').val(row.phone.replace(/\s+/g, ''));  
+        $('#join_date').val(formatDateDMY(row.created_at));
+        $('input[name="accessGranted"][value="' + (row.is_access_granted == '1' ? 'yes' : 'no') + '"]').prop('checked', true);
+
+
+        $('input[name="contact_type[]"]').prop('checked', false);
+        if (row.contact_type && row.contact_type.length > 0) {
+            $.each(row.contact_type, function(index, value) {
+                $('input[name="contact_type[]"][value="' + value + '"]').prop('checked', true);
+            });
+        }
+
+        $('#submit_button').html('update')
+        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Edit Centre`);
+        $('#add_center').modal({backdrop: 'static',keyboard: false});
+        $('#add_center').modal('show');
+    });
+
+
+    $(document).on('click', '#open_add_center', function () {
+
+        $('#add_center_frm')[0].reset();
+        $('#submit_button').html('Add')
+        $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Add Centre`);
+        $('#add_center').modal({backdrop: 'static',keyboard: false});
+        $('#add_center').modal('show');
+    });
+
+    function formatDateDMY(dateString) 
+    {
+        let date = new Date(dateString);
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+        return day + '-' + month + '-' + year;
+    }
+    
 </script>
 @endpush

@@ -982,4 +982,18 @@ class User extends Authenticatable
             'balance' => 0
         ]);
     }
+
+
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(User::class, 'created_by');
+    }
+
+
+                
 }
