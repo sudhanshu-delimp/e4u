@@ -187,11 +187,10 @@ class OtherCenterController extends Controller
 
 
         session([
-            'parent_user_id' => $loggedInUser->id,
+            'parent_massage_id' => $loggedInUser->id,
+            'switch_for'=> 'massage_to_massage',
             'is_impersonated' => true
         ]);
-
-    
 
         Auth::login($childUser);
 

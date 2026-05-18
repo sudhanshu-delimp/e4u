@@ -384,10 +384,8 @@ class LoginController extends BaseController
                     $escort->save();
                 }
 
-                session()->forget([
-                    'parent_user_id',
-                    'is_impersonated'
-                ]);
+                ########### Only For Massage To Massage #################
+                session()->forget(['parent_massage_id','is_impersonated','switch_for']);
             }
 
             $result = $this->attemptlogin->findby(auth()->user()->id);
