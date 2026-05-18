@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/set-commission.png') }}" class="custompopicon"
+                    <img src="{{ asset('assets/dashboard/img/secure-payment.png') }}" class="custompopicon"
                         alt="View Centre">
                     Secure Payment
                 </h5>
