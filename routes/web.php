@@ -48,6 +48,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Agent\ImpersonateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -246,10 +247,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/logout', [LoginController::class,'logout'])->name('logout');
         });
         ################ End All Authencated User Url #################################
-
+        Route::get('back-to-agent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
 });
-
-
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');
