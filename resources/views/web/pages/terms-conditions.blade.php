@@ -502,7 +502,7 @@
                                                                         photographs) it submits to and posts in a Profile on
                                                                         the Website and such
                                                                         information and material does not infringe the
-                                                                        rights of any other third party</li>
+                                                                        rights of any other third party.</li>
                                                                 </ol>
                                                             </li>
                                                             <li>The Massage Centre acknowledges that any:
@@ -624,7 +624,7 @@
                                                             protected by (intellectual property) rights including, but not
                                                             limited to, copyrighted works
                                                             and material other than works, trade marks and service marks
-                                                            (Intellectual Property),
+                                                            (<b>Intellectual Property</b>),
                                                             the Advertiser grants E4U a perpetual, non-exclusive and
                                                             payment-free licence
                                                             throughout the world to:</p>
@@ -789,7 +789,7 @@
                                                                         Website; and</li>
                                                                     <li>E4U amending or removing any material or information
                                                                         from the Website
-                                                                        in accordance with these Terms and Conditions</li>
+                                                                        in accordance with these Terms and Conditions.</li>
                                                                 </ol>
                                                             </li>
                                                         </ol>
@@ -941,7 +941,7 @@
 
                                                     <div class="content_align">
                                                         <span>9.1</span>
-                                                        <p>The Advertiser advertises on the Website at their own risk</p>
+                                                        <p>The Advertiser advertises on the Website at their own risk.</p>
                                                     </div>
 
                                                     <div class="content_align">
@@ -1384,7 +1384,7 @@
                                                             with the means to access the Website, such as an activation key
                                                             and password.
                                                             Registration may include 2FA verification in the Registration
-                                                            and logon process
+                                                            and logon process.
                                                         </p>
                                                     </div>
 
@@ -1534,7 +1534,7 @@
                                                                 E4U or other relevant
                                                                 Intellectual Property right holder, including saving any
                                                                 Media on the Website to any type
-                                                                of media
+                                                                of media;
                                                             </li>
                                                             <li>
                                                                 they will comply with the Terms and Conditions;
@@ -1849,7 +1849,7 @@
                                                             Website, including the
                                                             Agent Console, at its sole discretion, at any time without
                                                             giving any explanation or
-                                                            justification for removing the material or information
+                                                            justification for removing the material or information.
                                                         </p>
                                                     </div>
 
@@ -2579,7 +2579,7 @@
                                                         <p>
                                                             The obligations of the User under any clause of these Terms and
                                                             Conditions survive
-                                                            the termination of this agreement
+                                                            the termination of this agreement.
                                                         </p>
                                                     </div>
                                                     <div class="content_align">
@@ -2864,7 +2864,7 @@
                                                         <p>
                                                             E4U is not a party to any such arrangement and is not
                                                             responsible for any advice,
-                                                            services or outcomes provided by PEAMS
+                                                            services or outcomes provided by PEAMS.
                                                         </p>
                                                     </div>
                                                 </div>
