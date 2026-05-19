@@ -3117,7 +3117,7 @@
                                                                 contravenes any anti-discrimination laws, they should bring
                                                                 the alleged breach
                                                                 to the attention of E4U and request that E4U resolve the
-                                                                issue
+                                                                issue.
                                                             </li>
                                                         </ol>
                                                         </p>
