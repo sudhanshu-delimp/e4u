@@ -10453,6 +10453,14 @@ td {
     border-radius: 50px;
 }
 
+#loginFormViewer .parsley-errors-list {
+    width: 100%;
+}
+
+#escort_login .parsley-errors-list {
+    width: 100%;
+}
+
 .escort_header_top_menu {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
