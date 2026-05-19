@@ -7,6 +7,6 @@
 @include('partials.web.footer')
 
 @include('partials.web.login-modal')
-
+@stack('script')
 @section('script')
 @show
