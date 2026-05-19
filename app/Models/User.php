@@ -927,6 +927,27 @@ class User extends Authenticatable
     }
 
 
+    public function getAccountSettings()
+    {
+        if ($this->type == '0') {
+            $settings = $this->viewer_settings;
+        } elseif ($this->type == '1') {
+            $settings = $this->staff_setting;
+        } elseif ($this->type == '3') {
+            $settings = $this->escort_settings;
+        } elseif ($this->type == '4') {
+            $settings = $this->massage_settings;
+        } elseif ($this->type == '5') {
+            $settings = $this->agent_settings;
+        } elseif ($this->type == '9') {
+            $settings = $this->operator_staff_setting;
+        } elseif ($this->type == '8') {
+            $settings = $this->shareholder_setting;
+        }
+        return $settings;
+    }
+
+
 
 
     public function update_last_login($user)
