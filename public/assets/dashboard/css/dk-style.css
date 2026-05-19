@@ -13646,6 +13646,7 @@ details[open]>summary:first-of-type {
     padding: 0px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-card .header {
