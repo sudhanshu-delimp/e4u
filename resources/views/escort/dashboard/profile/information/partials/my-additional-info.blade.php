@@ -67,8 +67,7 @@
                                     <label>Sort By : </label>
                                     <div class="pt-4 pb-3">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="sortedByStageName"
-                                                id="stageNameAlphabetically" value="alphabetically" checked>
+                                            <input class="form-check-input" type="radio" name="sortedByStageNames" id="stageNameAlphabetically" value="alphabetically" checked>
 
                                             <label class="form-check-label" for="stageNameAlphabetically">
                                                 Alphabetical (A–Z)
@@ -76,8 +75,7 @@
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="sortedByStageName"
-                                                id="stageNameRandom" value="random">
+                                            <input class="form-check-input" type="radio" name="sortedByStageNames" id="stageNameRandom" value="random">
 
                                             <label class="form-check-label" for="stageNameRandom">
                                                 Random
@@ -131,11 +129,11 @@
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageAddress" type="radio" name="sortedByStageAddress" id="addressAlphabetically" value="alphabetically" checked>
+                                            <input class="form-check-input " type="radio" name="sortedByStageAddress" id="addressAlphabetically" value="alphabetically" checked>
                                             <label class="form-check-label" for="addressAlphabetically">Location (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageAddress" type="radio" name="sortedByStageAddress" id="addressRandom" value="random">
+                                            <input class="form-check-input " type="radio" name="sortedByStageAddress" id="addressRandom" value="random">
                                             <label class="form-check-label" for="addressRandom">Random</label>
                                         </div>
                                     </div>
@@ -187,16 +185,13 @@
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageTitle" type="radio"
-                                                name="sortedByStageTitle" id="stageNameAlphabetically" value="alphabetically"
-                                                checked>
-                                            <label class="form-check-label" for="stageNameAlphabetically">Alphabetical
+                                            <input class="form-check-input " type="radio" name="sortedByStageTitle" id="titleAlphabetically" value="alphabetically" checked>
+                                            <label class="form-check-label" for="titleAlphabetically">Alphabetical
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByStageTitle" type="radio"
-                                                name="sortedByStageTitle" id="stageNameRandom" value="random">
-                                            <label class="form-check-label" for="stageNameRandom">Random</label>
+                                            <input class="form-check-input " type="radio" name="sortedByStageTitle" id="titleRandom" value="random">
+                                            <label class="form-check-label" for="titleRandom">Random</label>
                                         </div>
                                     </div>
                                 </div>
@@ -246,15 +241,12 @@
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByNarration" type="radio"
-                                                name="sortedByNarration" id="narrationAlphabetically" value="alphabetically"
-                                                checked>
+                                            <input class="form-check-input " type="radio" name="sortedByNarration" id="narrationAlphabetically" value="alphabetically" checked>
                                             <label class="form-check-label" for="narrationAlphabetically">Alphabetical
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input sortedByNarration" type="radio"
-                                                name="sortedByNarration" id="narrationRandom" value="random">
+                                            <input class="form-check-input " type="radio" name="sortedByNarration" id="narrationRandom" value="random">
                                             <label class="form-check-label" for="narrationRandom">Random</label>
                                         </div>
                                     </div>

@@ -520,11 +520,11 @@ class ProfileInformationController extends Controller
         try {
             $escort = User::findOrFail(Auth::id());
             $name = $escort->escorts_names ?? [];
-            if (in_array($request->stage_name, $name)) {
+            if (in_array($request->value, $name)) {
                 return error_response('Name already exists.', 422);
             }
 
-            $name[] =  $request->stage_name;
+            $name[] =  $request->value;
             $escort->update(['escorts_names' => $name]);
 
             return success_response(null, "success", 200, []);
@@ -541,7 +541,7 @@ class ProfileInformationController extends Controller
             $escort = User::findOrFail(Auth::id());
             $names = $escort->escorts_names ?? [];
             $nam = array_filter($names, function ($name) use ($request) {
-                return $name != $request->stage_name;
+                return $name != $request->value;
             });
             $escort->update(['escorts_names' => $nam]);
             return success_response(null, "Delete successfully!", 200, []);
@@ -557,7 +557,7 @@ class ProfileInformationController extends Controller
         try {
 
             $alreadyExist =  EscortAdditionalInformation::where('type', $request->type)
-                                            ->where('value', $request->value)
+                                            ->where('short_desc','like', '%' . $this->makeShortDescription($request) . '%')
                                             ->exists();
             if($alreadyExist){
                 return error_response('Value already exists in database.',422);
