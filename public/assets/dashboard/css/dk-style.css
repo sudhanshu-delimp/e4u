@@ -13543,40 +13543,18 @@ details[open]>summary:first-of-type {
     box-shadow: 0px 0px 10px -2px #c1c1c1;
 }
 
-
-/* Laptop / Medium screen */
-
-@media (max-width: 1250px) {
-    .product-card-wrapper {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.taxAmount {
+    border-bottom: 1px solid;
+    padding: 10px 0px;
+    width: 100px;
+    text-align: end;
 }
 
-
-/* Tablet */
-
-@media (max-width: 992px) {
-    .product-card-wrapper {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-
-/* Small tablet / mobile */
-
-@media (max-width: 768px) {
-    .product-card-wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-
-/* Mobile */
-
-@media (max-width: 480px) {
-    .product-card-wrapper {
-        grid-template-columns: repeat(1, 1fr);
-    }
+.totalDue {
+    border-bottom: 4px double;
+    padding: 10px 0px;
+    width: 100px;
+    text-align: end;
 }
 
 .product_view .back-to-product a {
@@ -13803,6 +13781,42 @@ details[open]>summary:first-of-type {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 20px;
         align-items: center;
+    }
+}
+
+
+/* Laptop / Medium screen */
+
+@media (max-width: 1250px) {
+    .product-card-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* Tablet */
+
+@media (max-width: 992px) {
+    .product-card-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* Small tablet / mobile */
+
+@media (max-width: 768px) {
+    .product-card-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+    .product-card-wrapper {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 

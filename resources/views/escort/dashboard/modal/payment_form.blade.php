@@ -23,18 +23,26 @@
                                     <span>Subtotal:</span>
                                     <span class="paymentSubtotal">{{formatCurrency(0)}}</span>
                                     </div>
-                                    <div class="d-flex justify-content-between mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Wallet Used:</span>
                                     <span>{{formatCurrency(0)}}</span>
                                     </div>
-                                    <div class="d-flex justify-content-between mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Loyalty Discount:</span>
                                     <span>{{formatCurrency(0)}}</span>
                                     </div>
                                     <hr>
-                                    <div class="d-flex justify-content-between">
-                                    <strong>Total:</strong>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <strong>Total Fee:</strong>
                                     <strong class="paymentTotal">{{formatCurrency(0)}}</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <strong>GST:</strong>
+                                    <strong class="taxAmount">$ 1.20</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <strong>Total Due:</strong>
+                                    <strong class="paymentTotal totalDue">{{formatCurrency(0)}}</strong>
                                     </div>
                                 </div>
 
@@ -97,11 +105,11 @@
                                     </form>
                                 </div>
                                 <div class="support mt-3 payment_note">
-                                    <p class="mb-0"><strong>Note:</strong></p>
+                                    <p class="mb-0"><strong>Notes:</strong></p>
                                        <ol>
                                         <li>You can apply any portion of your benefits by selecting from your Wallet, to reduce the total Fee payable for this Service.</li>
                                         <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
-                                        <li>For a detailed summary of this transaction, go to <a href="{{ route('escort.payment.transaction_summary') }}" class="custom_links_design" target="_blank"> Transaction Summary</a> .</li>
+                                        <li>For a detailed summary of this transaction, go to <a href="{{ route('escort.payment.transaction_summary') }}" class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
                                        </ol>
                                 </div>
 
