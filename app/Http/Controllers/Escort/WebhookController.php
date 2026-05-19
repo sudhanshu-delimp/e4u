@@ -76,7 +76,6 @@ class WebhookController extends Controller
           case 'product-purchase':
             // make payment history
             $pinPaymentService->handlePaymentHistory($paymentObject);
-            Log::info('dsfkjg');
             SendProductPurchaseMail::dispatch($paymentObject);
             break;
 
