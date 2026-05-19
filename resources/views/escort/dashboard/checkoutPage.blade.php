@@ -75,6 +75,7 @@
         @endswitch
     </div>
     @include('escort.dashboard.modal.payment_form')
+    @include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 @endsection
 @push('script')
     <!-- file upload plugin start here -->
