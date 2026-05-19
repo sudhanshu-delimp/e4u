@@ -634,23 +634,23 @@
                                         <label for="email">Method of contact:</label><br>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" checked type="checkbox" name="contact_type[]"
-                                                id="Method_Message" value="1">
-                                            <label class="form-check-label" for="Method_Message">Message (via Console)</label>
+                                                id="methodMessage" value="1">
+                                            <label class="form-check-label" for="methodMessage">Message (via Console)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                                id="Method_Text" value="2">
-                                            <label class="form-check-label" for="Method_Text">Text</label>
+                                                id="methodText" value="2">
+                                            <label class="form-check-label" for="methodText">Text</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                                id="Method_Email" value="3">
-                                            <label class="form-check-label" for="Method_Email">Email</label>
+                                                id="methodEmail" value="3">
+                                            <label class="form-check-label" for="methodEmail">Email</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                                id="Method_call_me" value="4">
-                                            <label class="form-check-label" for="Method_call_me">Call me</label>
+                                                id="Method_callme" value="4">
+                                            <label class="form-check-label" for="Method_callme">Call me</label>
                                         </div>
                                     </div>
                                 </div>
