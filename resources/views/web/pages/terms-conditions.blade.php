@@ -166,8 +166,8 @@
                                                         featuring certain goods or
                                                         services on our Website.
                                                     </p>
-
-                                                    <p>
+                                                    
+                                                    <p class="mt-2">
                                                         Nothing in these Terms and Conditions limits your rights and
                                                         remedies at law, including any
                                                         of your Consumer Law Rights.
@@ -1047,8 +1047,8 @@
 
                                                                 <ol class="level-3">
                                                                     <li>the rights of any person or corporation under the
-                                                                        Competition and Consumer Act
-                                                                        2010 (Cth) or equivalent State legislation;</li>
+                                                                        <i>Competition and Consumer Act
+                                                                        2010</i> (Cth) or equivalent State legislation;</li>
                                                                     <li>any intellectual property right, including but not
                                                                         limited to, copyright, trade marks,
                                                                         business names, confidential information rights
@@ -3246,7 +3246,7 @@
                                                     <div class="content_align">
                                                         <span>42.3</span>
                                                         <p>
-                                                            Clauses 41.1 and 41.2 will survive termination or expiry of
+                                                            Clauses 42.1 and 42.2 will survive termination or expiry of
                                                             these Terms and Conditions.
                                                         </p>
                                                     </div>
