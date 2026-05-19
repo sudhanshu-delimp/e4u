@@ -157,18 +157,21 @@
                     <textarea class="form-control" id="comments" name="comments" placeholder="Message" rows="3"></textarea>
                 </div>
 
-                <div class="form-check pb-0">
-                    <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
-                    <label class="form-check-label" for="ccEmail">CC email to me</label>
+                <div class="d-flex justify-content-between gap-20 flex-wrap">
+                    <div class="form-check pb-0 pt-1">
+                        <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
+                        <label class="form-check-label" for="ccEmail">CC email to me</label>
+                    </div>
+                    <div class="pl-2 pt-2">
+                        <span style="font-size: 13px"><b>Note:</b> Geolocation is in use on this Website.</span>
+                    </div>
                 </div>
-                <div class="form-check pb-0">
+                <div class="form-check pb-3">
                      <input class="form-check-input" type="checkbox" id="tnc" name="tnc">
                     <label class="form-check-label" for="tnc"> I have read and agree to the Influencer <a href="javascript:void(0)" data-toggle="modal" data-target="#InfluencerTnc">Terms and Conditions</a></label>
                    
                 </div>
-                <div class="pl-2 pt-2 pb-4">
-                    <span style="font-size: 13px"><b>Note:</b> Geolocation is in use on this Website.</span>
-                </div>
+                
                 <div class="row d-flex justify-content-between">
                    <div class="col-12 col-sm-12  col-md-3 col-lg-3 col-xl-3 mb-2 d-flex">
                         <button type="submit" class="common-btn send_request_btn">Submit Request</button>

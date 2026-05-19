@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Escort;
@@ -1585,5 +1586,90 @@ class WebController extends Controller
         return view('web.pages.blogs');
     }   
 
+    public function sendOtpNotification(Request $request, User $user){
+        try{
+            $settings = $user->getAccountSettings();
+            $action = $request->action;
 
+            $otp = $user->generateOTP();
+            $user->otp = $otp;
+            $user->save();
+            
+            switch($action){
+                case 'payment':{
+                    $mailTemplate = 'emails.otp.payment_otp';
+                    $mailSubject = 'Payment Otp';
+                    $smsBody = "Hello :username, your one-time payment OTP is :otp. If you didn’t request this, please ignore this message.";
+                } break;
+            }
+
+            if($settings->twofa=='1'){
+                sendLoginOtpEmail($otp, $user, $mailTemplate, $mailSubject);
+            }
+            else{
+                sendLoginOtpSms($otp, $user, $smsBody);
+            }
+
+            return response()->json([
+                'data' => $user->getAccountSettings()
+            ]);
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function validateOtpNotification(Request $request, User $user)
+    {
+        try {
+
+            $request->validate([
+                'otp' => 'required|numeric'
+            ]);
+
+            $otp = $request->otp;
+
+            if ($user->otp == $otp) {
+
+                // Clear OTP after successful verification
+                $user->otp = null;
+                $user->save();
+
+                return response()->json([
+                    'status' => 200,
+                    'success' => true,
+                    'message' => 'OTP verified successfully.'
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status' => 422,
+                    'success' => false,
+                    'message' => 'Invalid OTP.'
+                ]);
+
+            }
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return response()->json([
+                'status' => 422,
+                'success' => false,
+                'message' => $e->validator->errors()->first()
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status' => 500,
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+
+        }
+    }
 }

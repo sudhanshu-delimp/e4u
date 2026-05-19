@@ -20,9 +20,14 @@ use DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\User\UserInterface;
 use App\Models\MassagePurchase;
+use App\Models\Purchase;
+use App\Models\User;
+use App\Repositories\Purchase\PurchaseInterface;
+use App\Traits\DataTablePagination;
 
 class GlobalMonitoringController extends Controller
 {
+    use DataTablePagination;
     protected $escort;
     protected $massage_profile;
     protected $user;
@@ -30,12 +35,14 @@ class GlobalMonitoringController extends Controller
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
+    protected $purchase;
 
-    public function __construct(MassageProfileInterface $massage_profile,  EscortInterface $escort, UserInterface $user)
+    public function __construct(MassageProfileInterface $massage_profile,  EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase)
     {
         $this->escort = $escort;
         $this->massage_profile = $massage_profile;
         $this->user = $user;
+        $this->purchase = $purchase;
         $this->middleware(function ($request, $next) {
             $user = auth()->user();   // works here
             // Now do everything that needs user data
@@ -201,7 +208,7 @@ class GlobalMonitoringController extends Controller
 
             $days = "-";
             $leftDays = '-';
-             $statusBtn = "";
+            $statusBtn = "";
             if (!empty($start) && !empty($start)) {
                 $startDate = Carbon::parse(date('d-m-Y', strtotime($row->mainPurchase->start_date)))->startOfDay();
                 $endDate = Carbon::parse(date('d-m-Y', strtotime($row->mainPurchase->end_date)))->startOfDay();
@@ -243,7 +250,7 @@ class GlobalMonitoringController extends Controller
                 'start_date' => $start_date,
                 'end_date' =>  $end_date,
                 'fee_paid' => '$ ' . formatIndianNumber($row->paid_rate),
-                'status' =>  ($is_live) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>',
+                'status' => ($is_live) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>',
                 'masseurs' => isset($row->massagerMasseurs) ? $row->massagerMasseurs->count() : 0,
                 'days' => $days,
                 'left_days' => $leftDays,
@@ -267,8 +274,11 @@ class GlobalMonitoringController extends Controller
     {
         $today = Carbon::today();
         $search = request()->input('search.value');
+        $order_key = request()->get('order')[0]['column'];
+        $dir = request()->get('order')[0]['dir'];
         //$search = "";
-
+         $massagePurchaseTableName = (new MassagePurchase)->getTable();
+         $userTableName = (new User())->getTable();
         $massagers = MassagePurchase::with([
             'brb' => function ($query) {
                 $query->where('brb_time', '>', Carbon::now('UTC'))
@@ -277,34 +287,74 @@ class GlobalMonitoringController extends Controller
             },
             'massageprofile',
             'user:id,status,member_id,name,email,phone,status,state_id',
-            'activeUpcomingSuspend'
-        ])->where(function ($q) use ($search) {
-            if (!empty($search)) {
+            'activeUpcomingSuspend',
+        ])
+            ->leftJoin($userTableName, $userTableName.'.id', '=', $massagePurchaseTableName.'.massage_centre_id')
+            ->select($massagePurchaseTableName.'.*')
+            ->whereIn($massagePurchaseTableName.'.status', ['listed', 'expire'])
+            ->where(
+                function ($q) use ($search) {
+                    if (!empty($search)) {
+                        $q->orWhere(function ($q) use ($search) {
+                            $q->whereHas('massageprofile', function ($q) use ($search) {
+                                $q->where('profile_name', $search);
+                            });
+                        });
+                        $q->orWhere(function ($q) use ($search) {
+                            $q->whereHas('user', function ($q) use ($search) {
+                                $q->where('member_id', $search);
+                            });
+                        });
+                    }
+                }
+            );
 
-                $q->orWhere(function ($q) use ($search) {
-                    $q->whereHas('massageprofile', function ($q) use ($search) {
-                        $q->where('profile_name', $search);
-                    });
-                });
-                $q->orWhere(function ($q) use ($search) {
-                    $q->whereHas('user', function ($q) use ($search) {
-                        $q->where('member_id', $search);
-                    });
-                });
-            }
-        })->whereIn('status', ['listed', 'expire'])
-            ->orderByRaw("CASE 
-                WHEN status = 'listed' THEN 1 
-                WHEN status = 'expire' THEN 2 
-            ELSE 3 
-            END")
-            // ->limit()
-            ->get();
+        /* listed first, expire second */
+        //echo $order_key; die;
+        $massagers = $massagers->orderByRaw("
+            CASE 
+                WHEN $massagePurchaseTableName.status = 'listed' THEN 1
+                WHEN $massagePurchaseTableName.status = 'expire' THEN 2
+                ELSE 3
+            END
+        ");
+            
+        switch ($order_key) {
+           
+            case 0:
+                $massagers = $massagers->orderBy($userTableName.'.member_id', $dir);
+                break;
 
-        /*   echo '<pre>';
-         print_r($massagers->toArray());
-        echo '</pre>';
-         exit; */
+            case 1:
+                $massagers = $massagers->orderBy($userTableName.'.name', $dir);
+                break;
+             
+             case 7:
+                //$massagers = $massagers->orderByRaw("DATEDIFF(end_date, NOW()) DESC");
+                $massagers = $massagers->selectRaw("
+                    massage_purchases.*,
+                    DATEDIFF(end_date,start_date) as days
+                ")
+                ->orderBy('days', $dir);
+                break;    
+
+            case 8:
+                //$massagers = $massagers->orderByRaw("DATEDIFF(end_date, NOW()) DESC");
+                $massagers = $massagers->selectRaw("
+                    massage_purchases.*,
+                    DATEDIFF(end_date, NOW()) as days_left
+                ")
+                ->orderBy('days_left', $dir);
+                break;
+
+
+            default:
+                //$massagers = $massagers->orderBy('massage_purchases.id', 'DESC');
+                break;
+        }
+
+
+        $massagers = $massagers->get();
 
         $result = $massagers->map(function ($row) use ($today) {
 
@@ -335,8 +385,8 @@ class GlobalMonitoringController extends Controller
             $end   = Carbon::parse($row->end_date);
             $days = $start->diffInDays($end) + 1;
 
-            $start_date = date('d M Y', strtotime($row->start_date));
-            $end_date = date('d M Y', strtotime($row->end_date));
+            $start_date = date('d-m-Y', strtotime($row->start_date));
+            $end_date = date('d-m-Y', strtotime($row->end_date));
             $profile_name = "";
 
             if (!empty($brb))
@@ -366,18 +416,16 @@ class GlobalMonitoringController extends Controller
             }
             $actionBtn = "";
             $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
-            if (!$is_live)
-                $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
-                href="javascript:void(0)" 
-                onclick="openModal(\'' . route('web.massage-description', $profile_url) . '\')"> 
-                <i class="fa fa-eye"></i> View
-                </a>';
-            else
+            if ($row->status == 'listed') {
                 $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="' . route('web.massage-description', $profile_url) . '" target="_blank"> 
                 <i class="fa fa-eye "></i> View</a>';
+            } else {
+                $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-listing" 
+                                    data-toggle="modal" data-target="#view-listing" data-id="' . $row->massageprofile->id . '" href="javascript:void(0)"><i class="fa fa-eye "></i> View Listing </a>';
+            }
 
-            $actionButtons = '<div class="dropdown no-arrow ml-3">
+            /*    $actionButtons = '<div class="dropdown no-arrow ml-3">
                                     
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -387,7 +435,17 @@ class GlobalMonitoringController extends Controller
                                         aria-labelledby="dropdownMenuLink" style="">' . $actionBtn . '
                                         
                                     </div>
-                                </div>';
+                                </div>'; */
+            $actionButtons = '<div class="dropdown no-arrow ml-3">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">' . $actionBtn . '
+                                    
+                                </div>
+                            </div>';
 
             $days = 0;
             $startDate = Carbon::parse(date('d-m-Y', strtotime($row->start_date)))->startOfDay();
@@ -444,7 +502,9 @@ class GlobalMonitoringController extends Controller
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => count($result),
             "recordsFiltered" => count($result),
-            "data"            => $result
+            "data"            => $result,
+            'server_up_time' => $this->getAppUptime(),
+            'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
         );
 
         return response()->json($data);
@@ -583,8 +643,8 @@ class GlobalMonitoringController extends Controller
     {
         $escorts = MassageProfile::where('id', $id)->with('user')->first();
 
-        // center-profile/7
-        $profileurl = route('center.profile.description', $id);
+        $profile_url = ['id' => $id, 'ids' => '[]'];
+        $profileurl = route('web.massage-description',  $profile_url);
 
         $dataTableData = [];
 
@@ -651,28 +711,61 @@ class GlobalMonitoringController extends Controller
     public function dataTableEscortListingAjax($type = NULL)
     {
         $conditions = [];
-        $conditions[] = ['enabled', 1];
-        list($result, $count) = $this->escort->paginatedList(
+        $conditionsIn = [];
+        $conditionsIn['column'] = 'status';
+        $conditionsIn['condition'] = ['listed', 'expire'];
+        $userId = null;
+        //list($result, $count) = $this->escort->paginatedList(
+        list($result, $count) = $this->purchase->paginatedList(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
             request()->get('order')[0]['dir'],
             request()->get('columns'),
             request()->get('search')['value'],
-            null,
-            $conditions
+            $userId,
+            $conditions,
+            $conditionsIn
         );
-
+        $search = request()->input('search.value');
         $data = array(
             "draw"            => intval(request()->input('draw')),
             "other"            => request()->get('order')[0]['column'],
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
             "data"            => $result,
-            "membershipCounts" => $this->countEscortMembershipCategories(),
+            "membershipCounts" => $this->countEscortPurchaseMembershipCategories($search, $userId),
+            'server_up_time' => $this->getAppUptime(),
+            'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
         );
 
         return response()->json($data);
+    }
+
+    public function countEscortPurchaseMembershipCategories($search, $user_id = 0)
+    {
+        $escorts = Purchase::whereIn('status', ['listed', 'expire'])
+            ->whereHas('escort', function ($sub_query) use ($user_id, $search) {
+                if ($user_id > 0) {
+                    $sub_query = $sub_query->where('user_id', $user_id);
+                }
+                $sub_query->whereNotNull('profile_name');
+                if ($search) {
+                    $sub_query->where(function ($q) use ($search) {
+                        $q->where('profile_name', 'LIKE', "%{$search}%")
+                            ->orWhereHas('user', function ($q) use ($search) {
+                                $q->where('member_id', 'LIKE', "%{$search}%");
+                            });
+                    });
+                }
+            });
+
+        return [
+            'silver'   => (clone $escorts)->whereIn('membership', ['3'])->count() ?? 0,
+            'gold'     => (clone $escorts)->whereIn('membership', ['2'])->count() ?? 0,
+            'platinum' => (clone $escorts)->whereIn('membership', ['1'])->count() ?? 0,
+            'total' => (clone $escorts)->whereIn('membership', ['1', '2', '3'])->count() ?? 0,
+        ];
     }
 
     public function countEscortMembershipCategories()
@@ -708,9 +801,13 @@ class GlobalMonitoringController extends Controller
 
     public function dataTableEscortSingleListingAjax($id)
     {
-        $result = $this->escortListedProfile($id);
+        //$result = $this->escortListedProfile($id);
 
-        $escort = $result->first()->toArray();
+        $escort = Escort::where('id', $id)->with(['durations', 'purchase', 'user', 'brb' => function ($query) {
+            $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+        }, 'pinup', 'suspendProfile'])->first()->toArray();
+
+
         $dataTableData = [];
 
         if ($escort['purchase']) {
@@ -824,7 +921,7 @@ class GlobalMonitoringController extends Controller
                 foreach ($items as $item) {
                     $nestedData['member_id'] = $item->user->member_id;
                     $nestedData['escort_name'] = $item->escort->profile_name;
-                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateName");;
+                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");;
                     $nestedData['profile_id'] = $item->escort->id;
                     $nestedData['start_date'] = date('d-m-Y', strtotime($item->start_date));
                     $nestedData['end_date'] =   date('d-m-Y', strtotime($item->end_date));

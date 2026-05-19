@@ -52,7 +52,7 @@
                     <th>Transaction Value</th>
                     <th>Card</th>
                     <th>Completed By</th>
-                    <th class="text-center">Action</th>
+                    <th>Action</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -108,7 +108,7 @@
          { data: 'amount', name: 'amount', searchable: true, orderable:true ,defaultContent: 'NA'},
          { data: 'card', name: 'card', searchable: true, orderable:false,defaultContent: 'NA' },
          { data: 'completed_by_member_id', name: 'completed_by', searchable: true, orderable:false,defaultContent: 'NA' },
-         { data: 'action', name: 'action', searchable: false, orderable:false,defaultContent: 'NA' },
+         { data: 'action', name: 'action', searchable: false, orderable:false,defaultContent: 'NA', class: 'text-center' },
      ],
      order: [0,'desc'],
  });

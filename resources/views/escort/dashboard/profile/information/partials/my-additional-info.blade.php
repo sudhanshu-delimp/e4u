@@ -296,6 +296,7 @@
     data-address="{{json_encode($address)}}"
     data-title="{{json_encode($title)}}"
     data-narrations="{{json_encode($narration)}}"
+
     
     ></div>
 

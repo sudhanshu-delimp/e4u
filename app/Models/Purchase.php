@@ -10,7 +10,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['parent_id','escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'tour_location_id','rate','discount_rate','total_rate','paid_rate'];
+    protected $fillable = ['parent_id', 'escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'tour_location_id', 'rate', 'discount_rate', 'total_rate', 'paid_rate'];
     protected $table = 'purchase';
     public $timestamps = true;
 
@@ -32,12 +32,12 @@ class Purchase extends Model
 
     public function setStartDateAttribute($value)
     {
-        $this->attributes['start_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['start_date'] = empty($value) ? null : Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
 
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['end_date'] = empty($value) ? null : Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
 
     public function getStartDateAttribute($value)
@@ -57,7 +57,22 @@ class Purchase extends Model
     public function getDaysNumberAttribute()
     {
         return Carbon::parse($this->start_date)
-              ->diffInDays(Carbon::parse($this->end_date))+1;
+            ->diffInDays(Carbon::parse($this->end_date)) + 1;
+    }
+
+    public function getDaysLeftAttribute()
+    {
+        $now = Carbon::now()->startOfDay();
+        $startDate = Carbon::parse(date('d-m-Y', strtotime($this->start_date)))->startOfDay();
+        $endDate = Carbon::parse(date('d-m-Y', strtotime($this->end_date)))->startOfDay();
+        if ($startDate > $now) {
+            return '-';
+        } else if ($endDate < $now) {
+            return '0';
+        } else {
+            $left =  Carbon::parse(now())->diffInDays(Carbon::parse($this->end_date)) + 1;
+        }
+        return  $left;
     }
 
     public function getMembershipTypeAttribute($value)
@@ -65,7 +80,8 @@ class Purchase extends Model
         return getMembershipType($this->membership);
     }
 
-    public function getPreviousMembershipTypeAttribute(){
+    public function getPreviousMembershipTypeAttribute()
+    {
         return getMembershipType($this->parent->membership);
     }
 
@@ -84,15 +100,15 @@ class Purchase extends Model
         $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
         $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
 
-        return $query->whereIn('status',['listed','pending'])->where('start_date', '<=', $formatted_end)->where('end_date', '>=', $formatted_start);
+        return $query->whereIn('status', ['listed', 'pending'])->where('start_date', '<=', $formatted_end)->where('end_date', '>=', $formatted_start);
     }
-    
+
     public function availabilityFromA($day)
     {
-        if(!$availability = $this->availability) {
+        if (!$availability = $this->availability) {
             $availability = $this->availability()->make();
         }
-        if($attribute =  $availability->{$day.'_from'}) {
+        if ($attribute =  $availability->{$day . '_from'}) {
             return Carbon::createFromFormat('H:i:s', $attribute)->format('A');
         }
 
@@ -101,28 +117,29 @@ class Purchase extends Model
 
     public function availabilityToA($day)
     {
-        if(!$availability = $this->availability) {
+        if (!$availability = $this->availability) {
             $availability = $this->availability()->make();
         }
-        if($attribute =  $availability->{$day.'_to'}) {
+        if ($attribute =  $availability->{$day . '_to'}) {
             return Carbon::createFromFormat('H:i:s', $attribute)->format('A');
         }
         return null;
     }
 
-    public function getLeftListingDaysAttribute(){
+    public function getLeftListingDaysAttribute()
+    {
         $todayDate = $this->escort->today;
         $listEndDate = getEscortLocalTime($this->utc_end_time, $this->escort->timezone);
         return $todayDate->diffInDays($listEndDate);
     }
 
-    public function getRefundAmountAttribute(){
+    public function getRefundAmountAttribute()
+    {
         $todayDate = $this->escort->today;
-        if($todayDate->gte($this->start_date)){ /* To Know Listing has been started or not  */
+        if ($todayDate->gte($this->start_date)) { /* To Know Listing has been started or not  */
             list($usedDicount, $amount) = calculateTotalFee($this->membership, ($this->days_number - $this->left_listing_days), $this);
-            $amount = $this->paid_rate-$amount;
-        }
-        else{
+            $amount = $this->paid_rate - $amount;
+        } else {
             list($usedDicount, $amount) = calculateTotalFee($this->membership, $this->days_number, $this);
         }
         return number_format($amount, 2, '.', '');
@@ -132,5 +149,4 @@ class Purchase extends Model
     {
         return $this->morphMany(CreditTransaction::class, 'transactionable');
     }
-
 }

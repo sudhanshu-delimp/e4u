@@ -174,12 +174,11 @@ if (!function_exists('getPlanFee')) {
 }
 
 
-
 if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatCurrency($amount)
+    function formatCurrency($amount, $currency = '$')
     {
         $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
         list($intPart, $decimalPart) = explode('.', $amount);
@@ -194,7 +193,7 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return 'AU$' . $formatted . '.' . $decimalPart;
+        return $currency.''. $formatted . '.' . $decimalPart;
     }
 }
 
@@ -1027,7 +1026,7 @@ if (!function_exists('formatPhone')) {
 
 
 if (!function_exists('sendLoginOtpEmail')) {
-    function sendLoginOtpEmail($otp, $user)
+    function sendLoginOtpEmail($otp, $user, $mailTemplate = 'emails.otp.login_otp', $mailSubject = 'Login Otp')
     {
         log_info('sendLoginOtpEmail');
 
@@ -1045,9 +1044,9 @@ if (!function_exists('sendLoginOtpEmail')) {
                     'member_id'      => $user->member_id,
                 ];
 
-                Mail::send('emails.login_otp', $data, function ($message) use ($user) {
+                Mail::send($mailTemplate, $data, function ($message) use ($user, $mailSubject) {
                     $message->to($user->email)
-                        ->subject('Login Otp');
+                        ->subject($mailSubject);
                 });
 
                 return true;
@@ -1060,20 +1059,33 @@ if (!function_exists('sendLoginOtpEmail')) {
 
 
 if (!function_exists('sendLoginOtpSms')) {
-    function sendLoginOtpSms($otp, $user)
+    function sendLoginOtpSms($otp, $user, $message = null)
     {
         log_info('sendLoginOtpSms');
+
         if (isset($user->phone) && $user->phone != "") {
 
-            if ($user && $user->type == '5')
-                $username = $user->business_name;
-            else
-                $username = $user->name;
+            $username = ($user && $user->type == '5')
+                ? $user->business_name
+                : $user->name;
 
-            $msg = "Hello " . $username . ", your one-time login OTP is " . $otp . ".If you didn’t request this, please ignore this message.";
+            // default message
+            $message = $message ?? "Hello :username, your one-time login OTP is :otp. If you didn’t request this, please ignore this message.";
+
+            // replace placeholders
+            $message = str_replace(
+                [':username', ':otp'],
+                [$username, $otp],
+                $message
+            );
+
             $sendotp = new SendSms();
-            $output = $sendotp->send_otp_sms($user->phone, $msg);
+            $output = $sendotp->send_otp_sms($user->phone, $message);
+
+            return $output;
         }
+
+        return false;
     }
 }
 

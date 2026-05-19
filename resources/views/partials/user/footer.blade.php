@@ -90,7 +90,7 @@
 <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/app/js/jqueryuijs.js') }}"></script>
 <script>
-
+@include('partials.common.footer-scripts')
 $(document).ready(function() {
 
 var loginForm = $("#loginForm");

@@ -84,12 +84,24 @@ class ProfileInformationController extends Controller
         $durations = $this->duration->all();
         $availability = $escort->availability;
         //for additional information
-        $address = $user->additionalInfo->where('type','address')->pluck('short_desc')->toArray();
-        $title = $user->additionalInfo->where('type','title')->pluck('short_desc')->toArray();
-        $narration = $user->additionalInfo->where('type','narration')->pluck('short_desc')->toArray();
-        return view('escort.dashboard.profile.information.profileInformation', 
-        compact('escort', 'service_one', 'service_two', 'service_three', 
-        'availability', 'durations', 'user', 'address', 'title', 'narration'));
+        $address = $user->additionalInfo->where('type', 'address')->pluck('short_desc')->toArray();
+        $title = $user->additionalInfo->where('type', 'title')->pluck('short_desc')->toArray();
+        $narration = $user->additionalInfo->where('type', 'narration')->pluck('short_desc')->toArray();
+        return view(
+            'escort.dashboard.profile.information.profileInformation',
+            compact(
+                'escort',
+                'service_one',
+                'service_two',
+                'service_three',
+                'availability',
+                'durations',
+                'user',
+                'address',
+                'title',
+                'narration'
+            )
+        );
     }
 
     public function escortplaymate(Request $request)
@@ -541,7 +553,7 @@ class ProfileInformationController extends Controller
             $escort = User::findOrFail(Auth::id());
             $names = $escort->escorts_names ?? [];
             $nam = array_filter($names, function ($name) use ($request) {
-                return $name != $request->value;
+                return $name != $request->data;
             });
             $escort->update(['escorts_names' => $nam]);
             return success_response(null, "Delete successfully!", 200, []);
@@ -553,35 +565,32 @@ class ProfileInformationController extends Controller
     //Additional informaion function
     public function additionalStorage(Request $request)
     {
-     
-        try {
 
+        try {
             $alreadyExist =  EscortAdditionalInformation::where('type', $request->type)
-                                            ->where('short_desc','like', '%' . $this->makeShortDescription($request) . '%')
-                                            ->exists();
-            if($alreadyExist){
-                return error_response('Value already exists in database.',422);
+                ->where('short_desc', 'like', '%' . $this->makeShortDescription($request) . '%')
+                ->exists();
+            if ($alreadyExist) {
+                return error_response('Value already exists in database.', 422);
             }
 
             $escort = new EscortAdditionalInformation();
-            if($request->type == 'title'){
+            if ($request->type == 'title') {
                 $escort->short_desc = $this->makeShortDescription($request);
                 $escort->value = $request->value;
                 $escort->type = 'title';
-
-            }else if($request->type == 'address'){
+            } else if ($request->type == 'address') {
                 $escort->short_desc = $this->makeShortDescription($request);
                 $escort->value = $request->value;
                 $escort->type = 'address';
-            }else{
+            } else {
                 $escort->short_desc = $this->makeShortDescription($request);
                 $escort->value = $request->value;
                 $escort->type = 'narration';
-
             }
             $escort->user_id = Auth::id();
             $escort->save();
-    
+
             return success_response(null, "success", 200, []);
         } catch (Exception $e) {
             return error_response($e->getMessage(), 500, null, []);
@@ -591,17 +600,35 @@ class ProfileInformationController extends Controller
     public function additionalDelete(Request $request)
     {
         try {
-            return success_response(null, 'Success', 200, []);
+            $data = trim($request->data);
+            $query = EscortAdditionalInformation::where('user_id', Auth::id())
+            ->where('type', $request->type);
+            if ($request->type == 'title') {
+                $query->where('value', $data);
+            } else {
+                $query->where('short_desc', 'like', '%' . $data . '%');
+            }
+   
+            $delete = $query->first();
+
+            if ($delete) {
+                $delete->delete();
+            }
+
+            return success_response(null, "Delete successfully!", 200, []);
         } catch (Exception $e) {
-            return error_response($e->getMessage(), 500, null, []);
+            return error_response($e->getMessage(), 400, null, []);
         }
     }
 
+
+
     private function makeShortDescription($request)
     {
+     
         if ($request->type == 'title') {
-            return substr($request->value, 0, 5);
-        }else{
+            return implode(' ', array_slice(explode(' ', $request->value), 0, 5));
+        } else {
             $plainText = strip_tags($request->value);
             $plainText = html_entity_decode($plainText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
             $plainText = preg_replace('/\s+/', ' ', $plainText);
