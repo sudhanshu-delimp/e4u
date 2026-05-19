@@ -45,9 +45,8 @@
         <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
-        <script src="{{ asset('assets/js/common.js?v1') }}"></script>
         <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-
+        @include('partials.common.footer-scripts')
         <script>
             jQuery.browser = {};
             (function() {

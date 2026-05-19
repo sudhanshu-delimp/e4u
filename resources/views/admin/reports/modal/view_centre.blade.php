@@ -19,6 +19,7 @@
                             <th>ID</th>
                             <th>Date</th>
                             <th>Name</th>
+                            <th>Type</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -27,38 +28,9 @@
                             <td>004</td>
                             <td>18-02-2026</td>
                             <td>Lia</td>
+                            <td>Selfie</td>
                             <td>
-                                <span class="custom_badge badge_accepted">Verified image</span>
-                            </td>
-                        </tr>
-
-                        
-                        <tr>
-                            <td>002</td>
-                            <td>18-02-2026</td>
-                            <td>Jane</td>
-                            <td>
-                                <span class="custom_badge badge_rejected">Rejected image</span>
-                            </td>
-                        </tr>
-
-                        
-                        <tr>
-                            <td>003</td>
-                            <td>16-02-2026</td>
-                            <td>Ming</td>
-                            <td>
-                                <span class="custom_badge badge_accepted">Verified image</span>
-                            </td>
-                        </tr>
-
-                        
-                        <tr>
-                            <td>001</td>
-                            <td>31-01-2026</td>
-                            <td>Joy</td>
-                            <td>
-                                <span class="custom_badge badge_pending">Pending image</span>
+                                <span class="custom_badge badge_accepted">Verified</span>
                             </td>
                         </tr>
                     </tbody>

@@ -493,12 +493,12 @@
 
                         <a class="collapse-item {{ request()->segment(3) == 'products' ? 'menu-active' : '' }}"
                             href="{{ route('escort.products') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}" />
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/product.png') }}" />
                             <span>Products</span>
                         </a>
-                           <a class="collapse-item {{ request()->segment(3) == 'order-history' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ request()->segment(3) == 'order-history' ? 'menu-active' : '' }}"
                             href="{{ route('escort.orders') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}" />
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/order-confirmation.png') }}" />
                             <span>Orders</span>
                         </a>
 

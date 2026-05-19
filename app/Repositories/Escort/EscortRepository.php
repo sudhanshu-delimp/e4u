@@ -161,7 +161,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->days_left = $item->days_left;
             $item->pro_name = $item->profile_name ? '<span id="brb_' . $item->id . '" >' . $item->profile_name : "NA";
             $item->city_name = $item->city ? $item->city->name : null;
-            $item->state_name = $item->state ? $item->state->name : null;
+            $item->state_name = $item->state ? $item->state->iso2: null;
             $localTimeZone = getEscortTimezone($item);
             $mainPurchase = $item->mainPurchase;
             if ($item->enabled == 1) {
@@ -285,8 +285,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
                 </sup>';
             }
-            $item->start_date_formatted = $item->start_date_formatted;
-            $item->end_date_formatted = $item->end_date_formatted;
+            $item->start_date_formatted = $item->start_date;
+            $item->end_date_formatted = $item->end_date;
             $item->pro_name .= '</span>';
             $badgeClass = getStatusBadgeClass(strtolower($item->enabled));
             $item->enabled = "<span class='custom_badge {$badgeClass}'>{$item->enabled}</span>";
@@ -645,7 +645,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
 
         if (!empty($str['string'])) {
-            $play_type = $play_type->where('name', 'LIKE', "%$str[string]%");
+            $play_type = $play_type->where('name', 'LIKE', "%".$str[string]."%");
             //->orWhere('name','LIKE','%'.$str)
         }
 

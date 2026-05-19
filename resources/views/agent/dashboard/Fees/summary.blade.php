@@ -122,7 +122,7 @@
                                                                     <td class="text-center" id="current-fy" style="width:27%;">2025 / 2026</td>
                                                                     <td class="bg-first text-right"><b>Total Earnings</b>
                                                                     </td>
-                                                                    <td class="text-right" style="width:20%;">$ 486.60</td>
+                                                                    <td class="text-right" style="width:20%;"><x-curFormat/>486.60</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="bg-first text-right"><b>Select FY</b></td>
@@ -144,7 +144,7 @@
                                                                     </td>
                                                                     <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
                                                                     </td>
-                                                                    <td class="text-right" style="width:20%;">$ 121.65</td>
+                                                                    <td class="text-right" style="width:20%;"><x-curFormat/>121.65</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="bg-first text-right"><b>Display Type</b>

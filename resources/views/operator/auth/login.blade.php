@@ -84,7 +84,7 @@
                 </section>
             </section>
             <div class="modal upload-modal opr-modal" id="comman_modal" style="display: none">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <input type="hidden" value="0" id="forgot_password">
                         <form id="forgotPasswordSend" method="post" action="">

@@ -22,11 +22,8 @@
                                     <div class="input-group">
                                         <input type="text" 
                                             class="form-control rounded-0" 
-                                            placeholder="Member Id" 
+                                            placeholder="Enter Member ID" 
                                             name="keyword" style="padding: 22px 10px">
-                                        <button class="btn-success-modal rounded-0" type="submit">
-                                            Search
-                                        </button>
                                         <div id="memberDropdown" class="dropdown-menu w-75 overflow-auto" style="height: 35vh"></div>
                                     </div>
                                 </div>
@@ -125,6 +122,7 @@ $(document).ready(function () {
         let value = $(this).text();
         $('input[name="keyword"]').val(value);
         $('#memberDropdown').hide();
+        $("#advertiserForm").submit();
     });
 
 });
