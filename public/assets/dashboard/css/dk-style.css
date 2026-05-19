@@ -2590,6 +2590,14 @@ color: #B9B9B9;
     width: 150px;
 }
 
+#loginFormViewer .parsley-errors-list {
+    width: 100%;
+}
+
+#escort_login .parsley-errors-list {
+    width: 100%;
+}
+
 .otp-verify-btn {
     font-family: Poppins;
     font-size: 17px;
