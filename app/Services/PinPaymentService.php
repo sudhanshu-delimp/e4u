@@ -2,12 +2,17 @@
 
 namespace App\Services;
 
+use App\Mail\Escort\Order\OrderMailToE4U;
+use App\Mail\Escort\Order\OrderMailToEscort;
+use App\Mail\Escort\Order\SendOrderMailToCondomMan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
+use App\Models\User;
 use App\Traits\DataTablePagination;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class PinPaymentService
 {
@@ -128,4 +133,6 @@ class PinPaymentService
       Log::info('', [$e->getMessage()]);
     }
   }
+
+   
 }

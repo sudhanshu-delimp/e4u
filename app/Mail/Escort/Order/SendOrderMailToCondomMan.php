@@ -30,7 +30,7 @@ class SendOrderMailToCondomMan extends Mailable
    */
   public function build()
   {
-    return $this->subject('Order Confirmation: ' . $this->data['order_id'])->view('emails.escort.order.order_mail_to_condom_man')
+    return $this->subject('E4U Concierge - Product Order')->view('emails.escort.order.order_mail_to_condom_man')
       ->with(['data' => $this->data]); // <-- Pass to view
   }
 }

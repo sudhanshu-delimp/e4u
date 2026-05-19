@@ -30,7 +30,7 @@ class OrderMailToE4U extends Mailable
    */
   public function build()
   {
-    return $this->subject('Order Confirmation: ' . $this->data['order_id'])->view('emails.escort.order.order_mail_to_e4u')
+    return $this->subject('Concierge Service - Product Order')->view('emails.escort.order.order_mail_to_e4u')
       ->with(['data' => $this->data]);  
   }
 }

@@ -74,7 +74,7 @@ class ProductOrderController extends Controller
         return response()->json(['status' => false, 'message' => 'mismatch price calculation']);
       }
 
-      $total = $subtotal + $tax + $deliveryCharges;
+      $total = $subtotal + $deliveryCharges;
       if (number_format($total, 2) != number_format($data['paymentDetails']['total_payble'], 2)) {
         return response()->json(['status' => false, 'message' => 'mismatch price calculation']);
       }
@@ -220,7 +220,7 @@ class ProductOrderController extends Controller
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
   }
-  
+
   public function orders(Request $request)
   {
     try {

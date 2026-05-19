@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Attention Operations</title>
-</head>
-
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -68,6 +63,93 @@
                                 </tr>
 
                             </table>
+                            <table width="100%" cellpadding="0" cellspacing="0"
+                                style="border:1px solid #e1e1e1;margin-top:10px;border-collapse:collapse;">
+                                <tr>
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                        Product</th>
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                        Quantity</th>
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                        Price</th>
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                        Total</th>
+                                </tr>
+
+                                @foreach ($data['products'] as $item)
+                                    <tr>
+                                        <td
+                                            style="padding:8px;border:1px solid #e1e1e1;vertical-align:top;font-size:13px;">
+                                            {!! $item->product->description !!} <br>
+                                            <span style="color:#555;font-size:12px;">
+                                                QTY: {{ $item->product->qty }}
+                                                @if (!empty($item->product->size) && $item->product->size != 'N/A')
+                                                    <br>Size: {{ $item->product->size }}
+                                                @endif
+                                            </span>
+                                        </td>
+
+                                        <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                            {{ $item->quantity }}
+                                        </td>
+
+                                        <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                            ${{ number_format($item->price, 2) }}
+                                        </td>
+
+                                        <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                            ${{ number_format($item->price * $item->quantity, 2) }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                {{-- Subtotal --}}
+                                <tr>
+                                    <td colspan="3"
+                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                        ${{ number_format($data['sub_total'], 2) }}
+                                    </td>
+                                </tr>
+
+                                {{-- GST --}}
+                                <tr>
+                                    <td colspan="3"
+                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
+                                        <strong>GST</strong>
+                                    </td>
+                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                        ${{ number_format($data['tax_amount'], 2) }}
+                                    </td>
+                                </tr>
+
+                                {{-- Delivery Charge --}}
+                                <tr>
+                                    <td colspan="3"
+                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
+                                        <strong>Delivery Charge</strong>
+                                    </td>
+                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                        ${{ number_format($data['delivery_charges'], 2) }}
+                                    </td>
+                                </tr>
+
+                                {{-- Grand Total --}}
+                                <tr>
+                                    <td colspan="3"
+                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:14px;font-weight:bold;">
+                                        Grand Total
+                                    </td>
+                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:14px;font-weight:bold;">
+                                        ${{ number_format($data['grand_total'], 2) }}
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <br>
                             Payment has been made be the Member.
 
 

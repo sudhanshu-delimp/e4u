@@ -71,6 +71,9 @@
                                     <li>your order is complete and the details are correct</li>
                                     <li>there is access to your stay if we are delivering</li>
                                     <li>you have you mobile nearby. We will call you 15 minutes out</li>
+                                    <li>Escorts4U has partnered with the Condom Man to offer a convenient delivery service
+                                        to the
+                                        door, within the Perth CBD, and Express Post to other capital cities.</li>
                                 </ol>
                             </li>
                             <li>SMS 2FA applies to payment.</li>
@@ -81,26 +84,7 @@
         </div>
         {{-- end --}}
 
-        <!--middle content-->
-        <div class="row">
-            <div class="col-sm-9">
-                <!-- Begin Page Content -->
-                <div class="container-fluid" style="padding: 0px 0px;">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-3">
-                        <h2><b>Partnership</b></h2>
-                    </div>
-                    <p>Escorts4U has partnered with the Condom Man to offer a convenient delivery service to the
-                        door, within the Perth CBD, and Express Post to other capital cities.
-                    </p>
-                </div>
-                <!-- /.container-fluid -->
 
-            </div>
-            <!--middle content end here-->
-            <!--right side bar start from here-->
-
-
-        </div>
         <!-- Progress Bar -->
         <div class="row mx-1">
             <ul class="list-unstyled multi-steps">
@@ -139,19 +123,20 @@
                     </div>
                     <div class="table-responsive-xl">
                         <div id="loader"
-                            style="display:none; text-align:center; padding:20px;  position: absolute;  left: 42% !important;top: 45% !important">
+                            style="display:none; text-align:center; padding:20px; font-weight: 300; position: absolute;  left: 42% !important;top: 45% !important">
                             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                         </div>
                         <table class="table table-bordered display" width="100%">
                             <thead class="bg-first">
                                 <tr>
-                                    <th scope="col" class="text-center font-weight-bold">Product
+                                    <th scope="col" class="text-c enter font-weight-bold"><input type="checkbox"
+                                            id="select-all" style="width:17px; height:17px"> Product
                                     </th>
-                                    <th scope="col" class="text-center font-weight-bold">Code</th>
-                                    <th scope="col" class="text-center font-weight-bold">Description </th>
-                                    <th scope="col" class="text-center font-weight-bold">Unit Price<sup>(1)</sup></th>
-                                    <th scope="col" class="text-center font-weight-bold">Qty</th>
-                                    <th scope="col" class="text-center font-weight-bold">Total
+                                    <th scope="col" class="text-ce nter font-weight-bold">Code</th>
+                                    <th scope="col" class="text-c enter font-weight-bold">Description </th>
+                                    <th scope="col" class="text-c enter font-weight-bold">Unit Price<sup>(1)</sup></th>
+                                    <th scope="col" class="text-c enter font-weight-bold">Qty</th>
+                                    <th scope="col" class="text-c enter font-weight-bold">Total
                                     </th>
 
                                 </tr>
@@ -198,9 +183,8 @@
                                     <!-- Mobile -->
                                     <div class="col-6">
                                         <label><b>Mobile Number</b></label>
-                                        <input type="text" class="form-control" name="phone"
-                                            placeholder="0145 028 758" required data-parsley-type="digits"
-                                            data-parsley-minlength="10"
+                                        <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
+                                            required data-parsley-type="digits" data-parsley-minlength="10"
                                             data-parsley-required-message="Mobile number is required"
                                             data-parsley-type-message="Only digits allowed"
                                             data-parsley-minlength-message="Mobile must be at least 10 digits">
@@ -240,10 +224,10 @@
 
                                     <!-- Pincode -->
                                     <div class="col-md-6 my-2">
-                                        <label><b>Pincode</b></label>
-                                        <input type="text" class="form-control" name="pincode" placeholder="600001"
-                                            required data-parsley-type="digits"
-                                            data-parsley-required-message="Pincode is required"
+                                        <label><b>Postcode</b></label>
+                                        <input type="text" class="form-control" name="pincode" placeholder="6001"
+                                            required data-parsley-type="digits" maxlength="4"
+                                            data-parsley-required-message="Postcode is required"
                                             data-parsley-type-message="Only digits allowed">
                                     </div>
                                     <div class="col-md-6 my-2">
@@ -260,13 +244,19 @@
                                         <input type="radio" name="delivery_type" id="post" value="post">
                                         <label for="post"><b>Post</b></label>
                                     </div>
-
+                                    <div class="col-md-12 my-2">
+                                        <label><b>Any Special Instructions?</b></label>
+                                        <textarea class="form-control common_textarea" name="special_instructions" rows="5"
+                                            placeholder="Like building access if we are delivering to your door."required
+                                            data-parsley-required-message="Special instructions are required"></textarea>
+                                    </div>
                                     <!-- Billing Address Toggle -->
                                     <div class="col-12 mt-3">
                                         <input type="checkbox" id="sameAddress" name="sameAddress"
                                             onclick="toggleBilling()">
                                         <label for="sameAddress"><b>Billing address same as delivery</b></label>
                                     </div>
+
                                 </div>
 
                                 <!-- Billing Section -->
@@ -320,10 +310,10 @@
 
                                         <!-- Pincode -->
                                         <div class="col-6">
-                                            <label><b>Pincode</b></label>
+                                            <label><b>Postcode</b></label>
                                             <input type="text" name="billing_pincode" class="form-control"
-                                                placeholder="600001" required data-parsley-type="digits"
-                                                data-parsley-required-message="Billing pincode is required">
+                                                maxlength="4" placeholder="6001" required data-parsley-type="digits"
+                                                data-parsley-required-message="Billing Postcode is required">
                                         </div>
 
                                         <!-- Landmark (optional) -->
@@ -337,12 +327,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 my-2">
-                                    <label><b>Any Special Instructions?</b></label>
-                                    <textarea class="form-control common_textarea" name="special_instructions" rows="5"
-                                        placeholder="Like building access if we are delivering to your door."required
-                                        data-parsley-required-message="Special instructions are required"></textarea>
-                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -359,13 +344,13 @@
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
-                            <span>Post:</span>
+                            <span>Postage:</span>
                             <span id="post">$ 0.00</span>
 
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
-                            <span>Tax:</span>
+                            <span>GST:</span>
                             <span id="tax">$ 0.00</span>
 
                         </div>
@@ -583,7 +568,7 @@
                             rows += `
                 <tr>
                     <td class="theme-color">
-                        <div class="form-check d-flex align-items-center text-center">
+                        <div class="form-check d-flex align-items-center text- center">
                             <input class="form-check-input mr-2 product-check" type="checkbox" data-id="${product.id}" data-price="${price}" ${finalCart.includes(product.id) ? "checked" : "" }  style="width:17px; height:17px">
                             <img src="${product.image}" data-image="${product.image}" data-title="${product.description}" class="product-image" style="width:50px">
                         </div>
@@ -592,11 +577,11 @@
                     <td class="theme-color">${product.code}</td>
 
                     <td class="theme-color">
-                        <b>${product.description}</b><br>
-                        <b>QTY: ${product.qty} ${product.size && product.size!="N/A" ? `Size: ${product.size}` : ''}</b>
+                        ${product.description}<br>
+                        <strong>QTY:</strong> ${product.qty} ${product.size && product.size!="N/A" ? `Size: ${product.size}` : ''}
                     </td>
 
-                    <td class="theme-color text-center">
+                    <td class="theme-color text-ce nter">
                         $${price.toFixed(2)}
                     </td>
 
@@ -609,7 +594,7 @@
                         </select>
                     </td>
 
-                   <td class="theme-color text-center total-cell" data-id="${product.id}">
+                   <td class="theme-color text-c enter total-cell" data-id="${product.id}">
                       $${total.toFixed(2)}
                   </td>
                 </tr>
@@ -724,6 +709,12 @@
             document.getElementById("step" + step).classList.add("active");
         }
 
+        $(document).on("change", "#select-all", function() {
+            let checked = this.checked;
+
+            $(".product-check").prop("checked", checked).trigger("change");
+        });
+
         $(document).on("change", ".product-check", function() {
             let finalCart = getFinalCart();
 
@@ -734,7 +725,6 @@
             } else {
                 finalCart = finalCart.filter(itemId => itemId !== id);
             }
-            // localStorage.setItem("finalCart", JSON.stringify(finalCart));
             saveFinalCart(finalCart);
             calculateTotals();
 
@@ -1106,11 +1096,13 @@
                 post = parseFloat("{{ config('escorts.delivery_charge_door') }}");
             }
 
-            let total = subtotal + post + tax;
+            let total = subtotal + post;
+            let gst = subtotal * 0.10;          // 10% GST
+
             // set amount details after calculation in html format
             $("#orderDetails #subtotal").text("$ " + subtotal.toFixed(2));
             $("#orderDetails #post").text("$ " + post.toFixed(2));
-            $("#orderDetails #tax").text("$ " + tax.toFixed(2));
+            $("#orderDetails #tax").text("$ " + gst.toFixed(2));
             $("#orderDetails #total").text("$ " + total.toFixed(2));
 
 
@@ -1118,7 +1110,7 @@
             // set data to local storage for make order 
             let paymentData = {
                 total_payble: total.toFixed(2),
-                tax_payble: tax.toFixed(2),
+                tax_payble: gst.toFixed(2),
                 subtotal_payble: subtotal.toFixed(2)
             };
 
