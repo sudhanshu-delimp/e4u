@@ -67,6 +67,7 @@
 .payment_note ol li {
     font-size: 13px !important;
     line-height: 1.4;
+    text-align: justify;
 }
 
 .wallet_details {
@@ -2588,14 +2589,6 @@ color: #B9B9B9;
 
 .forgot_pass .label_margin_zero_for_login img {
     width: 150px;
-}
-
-#loginFormViewer .parsley-errors-list {
-    width: 100%;
-}
-
-#escort_login .parsley-errors-list {
-    width: 100%;
 }
 
 .otp-verify-btn {
