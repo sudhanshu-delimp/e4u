@@ -67,6 +67,7 @@
 .payment_note ol li {
     font-size: 13px !important;
     line-height: 1.4;
+    text-align: justify;
 }
 
 .wallet_details {
@@ -10450,6 +10451,14 @@ td {
     background: #eff0f6;
     padding: 7px;
     border-radius: 50px;
+}
+
+#loginFormViewer .parsley-errors-list {
+    width: 100%;
+}
+
+#escort_login .parsley-errors-list {
+    width: 100%;
 }
 
 .escort_header_top_menu {
