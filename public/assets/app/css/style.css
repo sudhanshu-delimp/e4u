@@ -5513,6 +5513,10 @@ i.fa.fa-heart-o{
                 }
                 /* alam */
                 
+                .table.faq--table td {
+                    font-size: 16px !important;
+                }
+                
                 .faq--table .tb-flex {
                     display: flex;
                     gap: 20px;
