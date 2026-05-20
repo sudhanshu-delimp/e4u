@@ -306,7 +306,7 @@
                     success: function(response, textStatus, xhr) {
                         Swal.close();
                         paymentFormData = {};
-                        submitButton.removeAttr('disabled');
+                        //submitButton.removeAttr('disabled');
                         let option = getStatusOption(xhr);
                         Swal.fire({
                             icon: option.icon,
