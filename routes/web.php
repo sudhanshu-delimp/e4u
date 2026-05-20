@@ -771,6 +771,8 @@ Route::get('/check-sms-status', [DemoController::class, 'checkMessageStatus']);
 
 Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('update-password');
+Route::post('/send/otp/notification/{user}', [WebController::class, 'sendOtpNotification'])->name('send.opt.notification');
+Route::post('/validate/otp/notification/{user}', [WebController::class, 'validateOtpNotification'])->name('validate.opt.notification');
 
 
 

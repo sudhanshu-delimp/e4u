@@ -40,7 +40,7 @@
                 <div class="wallet-card">
                     <div class="wallet-header">
                         <h5>Add Money</h5>
-                        <div class="d-flex gap-10">
+                        <div class="d-flex gap-10 flex-wrap">
                             <div class="balance-box">
                                 Available Balance: {{formatCurrency($user->wallet->balance)}}
                             </div>
@@ -56,7 +56,7 @@
                             <div class="form-row align-items-end">
 
 
-                                <div class="col-md-3">
+                                <div class="col-md-3 my-1">
                                     <label>Select Top Up Amount</label>
                                     <select class="form-control" name="amount" id="amount">
                                         <option value="100">AU$100</option>
@@ -67,7 +67,7 @@
                                         <option value="other">Other</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 my-1">
                                     <label>Enter Amount</label>
 
                                     <div class="input-group">
@@ -80,7 +80,7 @@
 
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2 my-1">
                                     <button type="submit" class="btn-success-modal btn-block">
                                         Add Money
                                     </button>
