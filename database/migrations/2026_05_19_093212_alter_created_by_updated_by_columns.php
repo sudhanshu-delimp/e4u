@@ -21,7 +21,9 @@ return new class extends Migration
             'massage_bumpup',
             'massage_brbs',
             'purchase',
-            'massage_purchases'
+            'massage_purchases',
+            'massage_gallery',
+            'massage_medias'
         ];
 
         foreach ($tables as $table) {
@@ -47,7 +49,9 @@ return new class extends Migration
             'massage_bumpup',
             'massage_brbs',
             'purchase',
-            'massage_purchases'
+            'massage_purchases',
+            'massage_gallery',
+            'massage_medias'
         ];
 
         foreach ($tables as $table) {

@@ -1901,6 +1901,9 @@ if (!function_exists('get_massage_listed_profile'))
 {
     function get_massage_listed_profile()
     {
+        $isImpersonated = request('isImpersonated');
+        $impersonatedId = request('impersonatedId');
+
         $massage_live_ids  = MassagePurchase::where('status','listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if(!empty($massage_live_ids))
         {
