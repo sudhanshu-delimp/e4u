@@ -100,7 +100,7 @@ class ImpersonateController extends Controller
 
             Auth::login($childUser);
 
-            if (($childUser->type == '3')) {
+            if (($childUser->type == 3)) {
                 return redirect('/escort-dashboard')->with('success', "Successfully switch to the escort account");
             } else {
                 return redirect('/center-dashboard')->with('success', "Successfully switch to the massage center account");
