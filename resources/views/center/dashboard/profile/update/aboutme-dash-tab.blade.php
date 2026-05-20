@@ -191,7 +191,7 @@
                         Business No:</label>
                     <input type="hidden" value="{{ $massage_default->business_no }}" class="form-control"
                         id="profile_business_no">
-                    <input type="text" value="{{ $escort->business_no }}" name="business_no"
+                    <input type="text" value="{{ $escort->getRawOriginal('business_no') }}" name="business_no"
                         class="form-control update_profile_data" id="business_no" placeholder="Enter Business Number">
                 </div>
 
@@ -200,7 +200,7 @@
                         Mobile No: </label>
                     <input type="hidden" value="{{ $massage_default->phone }}" class="form-control"
                         id="profile_phone">
-                    <input type="text" value="{{ $escort->phone }}" name="phone"
+                    <input type="text" value="{{ $escort->getRawOriginal('phone') }}" name="phone"
                         class="form-control update_profile_data" id="phone" placeholder="Enter Mobile Number">
                 </div>
 

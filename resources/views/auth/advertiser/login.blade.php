@@ -371,6 +371,7 @@
             error: function(data) {
  
                console.log("error otp: ", data.responseJSON.errors);
+               var errorsHtml = '';
                $.each(data.responseJSON.errors, function(key, value) {
                   errorsHtml = '<div class="alert alert-danger"><ul>';
                   errorsHtml += '<li>' + value + '</li>'; //showing only the first error.

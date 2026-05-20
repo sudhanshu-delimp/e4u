@@ -675,6 +675,11 @@ class UserRepository extends BaseRepository implements UserInterface
     }
 
 
+    function get_contact_type($contactType)
+    {
+       return  $this->user_model->ContactType($contactType);
+    }
 
+   
 
 }

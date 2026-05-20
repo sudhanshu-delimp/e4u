@@ -128,8 +128,8 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
-           
-
+          
+        
 
             $home_state = auth()->user()->state_id;
             $localTimeZone  = config("escorts.profile.states.$home_state.timeZone");
