@@ -172,14 +172,14 @@
                    
                 </div>
                 
-                <div class="row d-flex justify-content-between">
+                <div class="row d-flex justify-content-between align-items-center">
                    <div class="col-12 col-sm-12  col-md-3 col-lg-3 col-xl-3 mb-2 d-flex">
                         <button type="submit" class="common-btn send_request_btn">Submit Request</button>
                    </div>
 
                     <div class="col-12 col-sm-12  col-md-7 col-lg-7 col-xl-7 mb-2 d-flex">
                         
-                        <div class="border px-2 border_color rounded text-justify">
+                        <div class="border p-2 border_color rounded text-justify ">
                             
                             <small>
                                 Any personal information submitted to this Website will be handled in accordance with
@@ -208,9 +208,8 @@
     </section>
 
 
-    
-<div class="modal fade upload-modal" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-   aria-hidden="true">
+    <div class="modal fade upload-modal" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">

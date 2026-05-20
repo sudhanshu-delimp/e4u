@@ -42,7 +42,7 @@
 
         <!--middle content-->
         <div class="row ">
-            <div class="col-12 product-card-wrapper">
+            <div class="col-12">
                 <div class="table-responsive">
                     <table class="table w-100" id="productsHistoryTable">
                         <thead class="table-bg">
