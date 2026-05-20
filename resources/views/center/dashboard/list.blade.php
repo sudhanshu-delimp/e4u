@@ -1108,7 +1108,8 @@ $("#bumpup_profile_form").on('submit', async function(e)
                       
                      
                      }
-                     else{
+                     else
+                     {
                         swal_error_popup('Error occured while Bumping Up Profile');
                         $("#saveBumpupButton").find('button[type=submit]').removeAttr('disabled');
                      }
@@ -1116,23 +1117,37 @@ $("#bumpup_profile_form").on('submit', async function(e)
                },
                error: function(xhr) 
                {
-                     if (xhr.status === 422) {
-                        let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
-                        Swal.fire({
-                           icon: 'error',
-                           title: 'Validation Error',
-                           html: messages
-                        });
-                     } else {
-                        let message = JSON.parse(xhr.responseText).message;
-                        Swal.fire({
-                           icon: 'error',
-                           title: xhr.statusText,
-                           text: message || 'Something went wrong.'
-                        });
+                     Swal.close();
+                     $("#saveBumpupButton").find('button[type=submit]').removeAttr('disabled');
+                     let response = {};
+                     try {
+                        response = JSON.parse(xhr.responseText);
+                     } catch (e) {}
+
+                     if (xhr.status === 422) 
+                     {
+                        if (response.message) 
+                        {
+                              swal_error_popup(response.message);
+                        } 
+                        else if (response.errors) 
+                        {
+                              let messages = Object.values(response.errors)
+                                 .flat()
+                                 .join('<br>');
+
+                              swal_error_popup(messages);
+                        }
+                        else
+                        {
+                              swal_error_popup('Validation error occurred.');
+                        }
+                     } 
+                     else 
+                     {
+                        swal_error_popup(response.message || 'Something went wrong.');
                      }
-                     savePinupButton.disabled = false;
-              }
+               }
             });
       }
 });

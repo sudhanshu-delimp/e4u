@@ -340,8 +340,9 @@
                                                         <th>Business No.</th>
                                                         <th>Mobile No.</th>
                                                         <th>Email</th>
-                                                        <th style="width: 100px !important;">Switch Account</th>
-                                                        <th  class="text-center">Action</th>
+                                                        <th>Access Granted</th>
+                                                        <th>Status</th>
+                                                        <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-content">
@@ -859,77 +860,94 @@
     {{-- End --}}
 
     {{-- Modal: View Centre --}}
-    <div class="modal fade upload-modal" id="view_center" tabindex="-1" aria-labelledby="view_centerLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon"
-                            alt="View Centre">
-                        Centre Summary
-                    </h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </button>
-                </div>
-                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <th width="30%">Membership ID</th>
-                                <td>MC101</td>
-                            </tr>
-                            <tr>
-                                <th>Access Granted</th>
-                                <td>Yes</td>
-                            </tr>
+   <!-- View Center Modal -->
+<div class="modal fade upload-modal" id="view_center" tabindex="-1" aria-labelledby="view_centerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
 
-                            <tr>
-                                <th>Date Joined</th>
-                                <td>30-06-2025</td>
-                            </tr>
-                            <tr>
-                                <th>Display Name</th>
-                                <td>Example Business</td>
-                            </tr>
-                            <tr>
-                                <th>Entity Name</th>
-                                <td>ABC Pvt Ltd</td>
-                            </tr>
-                            <tr>
-                                <th>Address</th>
-                                <td>123 Business Street</td>
-                            </tr>
-                            <tr>
-                                <th>Point of Contact</th>
-                                <td>John Doe</td>
-                            </tr>
-                            <tr>
-                                <th>Email</th>
-                                <td>example@mail.com</td>
-                            </tr>
-                            <tr>
-                                <th>Business No.</th>
-                                <td>987654321</td>
-                            </tr>
-                            <tr>
-                                <th>Mobile No.</th>
-                                <td>+91 9876543210</td>
-                            </tr>
-                            <tr>
-                                <th>Method of Contact</th>
-                                <td>Message, Email</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer d-flex justify-content-end">
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                </div>
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon" alt="View Centre">
+                    Centre Summary
+                </h5>
+
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </button>
             </div>
+
+            <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                <table class="table table-bordered">
+                    <tbody>
+
+                        <tr>
+                            <th width="30%">Membership ID</th>
+                            <td id="v_member_id"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Access Granted</th>
+                            <td id="v_access_granted"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Date Joined</th>
+                            <td id="v_join_date"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Display Name</th>
+                            <td id="v_name"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Entity Name</th>
+                            <td id="v_entity_name"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Address</th>
+                            <td id="v_business_address"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Point of Contact</th>
+                            <td id="v_contact_person"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td id="v_email"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Business No.</th>
+                            <td id="v_business_number"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Mobile No.</th>
+                            <td id="v_phone"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Method of Contact</th>
+                            <td id="v_method_of_contact"></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-end">
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+
         </div>
     </div>
+</div>
     {{-- end --}}
 
 @endsection
@@ -978,7 +996,8 @@
             { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'login', name: 'login', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            { data: 'access_granted', name: 'access_granted', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
             
             ],
@@ -1074,7 +1093,7 @@
             return {
                 id: term,
                 text: term,
-                newTag: false // add additional parameters
+                newTag: false 
             }
         },
         tags: false,
@@ -1359,11 +1378,8 @@
     ////// Edit Center ////////////////////
     $(document).on('click', '.edit-center-btn', function () 
     {
-
         let row = $(this).data('row');
         $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Edit Centre`);
-
-
         console.log(row);
 
         $('.modal-title').html('Add Centre');
@@ -1392,6 +1408,22 @@
         $('#add_center').modal('show');
     });
 
+    $(document).on('click', '.view-center-btn', function () {
+        let row = $(this).data('row');
+        $('#v_member_id').text(row.member_id ?? '');
+        $('#v_access_granted').text(row.access_granted ?? '');
+        $('#v_join_date').text(row.join_date ?? '');
+        $('#v_name').text(row.name ?? '');
+        $('#v_entity_name').text(row.entity_name ?? '');
+        $('#v_business_address').text(row.business_address ?? '');
+        $('#v_contact_person').text(row.contact_person ?? '');
+        $('#v_email').text(row.email ?? '');
+        $('#v_business_number').text(row.business_number ?? '');
+        $('#v_phone').text(row.phone ?? '');
+        $('#v_method_of_contact').text(row.method_of_contact ?? '');
+        $('#view_center').modal('show');
+    });
+
 
     $(document).on('click', '#open_add_center', function () {
 
@@ -1402,6 +1434,107 @@
         $('#add_center').modal('show');
     });
 
+
+
+    $(document).on('click', '.active-account-btn', async function(e) {
+        if (await isConfirm({
+                'action': 'make',
+                'text': 'Activate This Account.'
+            })) {
+            ajaxRequest({
+                url: "{{ route('center.action-account') }}",
+                method: 'POST',
+                data: {
+                    id: $(this).data('row-id'),
+                    request_type: 'activate-account'
+                },
+                success: function(response) {
+                    console.log(response)
+                    if (response.status) {
+                        swal_success_popup(response.message);
+                        table.ajax.reload(null, false);
+                    } else {
+                        swal_error_popup(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    swal_error_popup('Error occured whiile making request');
+                }
+            });
+
+        }
+    })
+
+    $(document).on('click', '.account-grant-access', async function(e) {
+        if (await isConfirm({
+                'action': 'make',
+                'text': 'Grant Access to This Account.'
+            })) {
+            ajaxRequest({
+                url: "{{ route('center.action-account') }}",
+                method: 'POST',
+                data: {
+                    id: $(this).data('row-id'),
+                    request_type: 'access-grant'
+                },
+                success: function(response) {
+                    console.log(response)
+                    if (response.status) {
+                        swal_success_popup(response.message);
+                        table.ajax.reload(null, false);
+                    } else {
+                        swal_error_popup(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    swal_error_popup('Error occured whiile making request');
+                }
+            });
+
+        }
+    })
+
+    $(document).on('click', '.account-suspend-btn', async function(e) {
+        if (await isConfirm({
+                'action': 'Suspend',
+                'text': ' Suspend This Account.'
+            })) {
+            ajaxRequest({
+                url: "{{ route('center.action-account') }}",
+                method: 'POST',
+                data: {
+                    id: $(this).data('row-id'),
+                    request_type: 'suspend'
+                },
+                success: function(response) {
+                    console.log(response)
+                    if (response.status) {
+                        swal_success_popup(response.message);
+                        table.ajax.reload(null, false);
+                    } else {
+                        swal_error_popup(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    swal_error_popup('Error occured whiile making request');
+                }
+            });
+
+        }
+    })
+
+    $(document).on('click', '.login_center', async function(e) {
+        if (await isConfirm({'action': ' Login ', 'text': 'you want to access this account?'})) {
+
+            swal_waiting_popup({'title':'Redirecting...'});    
+           let account_id =  $(this).data('row-id');
+            setTimeout(function () {
+            window.location.href = "{{ route('center.switch-to-child', ':id') }}".replace(':id', account_id);
+            }, 2000);
+
+        }
+    });
+    
     function formatDateDMY(dateString) 
     {
         let date = new Date(dateString);
