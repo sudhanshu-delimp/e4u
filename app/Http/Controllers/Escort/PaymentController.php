@@ -73,6 +73,7 @@ class PaymentController extends Controller
             }
 
             $sub_total_amount = $this->getAmount();
+            
             $loyalty_amount = 0;
 
             if(session()->has('checkout')){
@@ -83,6 +84,11 @@ class PaymentController extends Controller
             }
 
             $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount); 
+
+            $this->pinService->setAmount($total_amount);
+
+            $gstAmount = $this->pinService->getGSTAmount();
+            $totalDueAmount = $this->pinService->getTotalDue();
 
             if ($total_amount < 0) {
                 return response()->json([
@@ -96,7 +102,7 @@ class PaymentController extends Controller
 
             ];
             
-            $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount'))->render();
+            $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount','gstAmount','totalDueAmount'))->render();
             
             return response()->json([
                 'status'         => true,
@@ -139,30 +145,35 @@ class PaymentController extends Controller
             'total_amount' => $amount,
         ];
         
+        $this->pinService->setAmount($benefit_token['total_amount']);
+        $gstAmount = $this->pinService->getGSTAmount();
+        $totalDueAmount = $this->pinService->getTotalDue();
+
         if(!$is_bypass){
-            $gatewayResponse = $this->pinService->charge($pin_token, $benefit_token['total_amount'], $this->account->email);
+            $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
             if ($gatewayResponse['status']) {
                 $response = $gatewayResponse['data']['response'];
             }
         }
 
-        
-            $payment = PaymentHistory::create([
-                'user_id'         => $this->account->id,
-                'completed_by'    => $this->account->id,
-                'ref_no'          => now()->format('Ymd') . rand(100,999),
-                'amount'          => $benefit_token['sub_total_amount'],
-                'wallet_amount'   => $benefit_token['wallet_amount'],
-                'loyalty_amount'  => $benefit_token['loyalty_amount'],
-                'paid_amount'     => $benefit_token['total_amount'],
-                'currency'        => $is_bypass ? 'AUD' : $response['currency'],
-                'payment_gateway' => 'pinpayments',
-                'transaction_id'  => $is_bypass ? NULL : $response['token'],
-                'status'          => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
-                'paid_at'         => $is_bypass ? NULL : $response['created_at'],
-                'card'            => $is_bypass ? NULL : $response['card']['display_number'],
-                'meta'            => $is_bypass ? NULL : json_encode($response),
-            ]);
+        $payment = PaymentHistory::create([
+            'user_id'         => $this->account->id,
+            'completed_by'    => $this->account->id,
+            'ref_no'          => now()->format('Ymd') . rand(100, 999),
+            'amount'          => $benefit_token['sub_total_amount'],
+            'wallet_amount'   => $benefit_token['wallet_amount'],
+            'loyalty_amount'  => $benefit_token['loyalty_amount'],
+            'net_amount'     => $benefit_token['total_amount'],
+            'gst_amount'     => $gstAmount,
+            'paid_amount'     => $totalDueAmount,
+            'currency'        => $is_bypass ? 'AUD' : $response['currency'],
+            'payment_gateway' => 'pinpayments',
+            'transaction_id'  => $is_bypass ? NULL : $response['token'],
+            'status'          => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
+            'paid_at'         => $is_bypass ? NULL : $response['created_at'],
+            'card'            => $is_bypass ? NULL : $response['card']['display_number'],
+            'meta'            => $is_bypass ? NULL : json_encode($response),
+        ]);
 
             if(session()->has('checkout')){
                 $this->saveCheckout($payment);

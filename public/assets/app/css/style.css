@@ -5517,6 +5517,7 @@ i.fa.fa-heart-o{
                     display: flex;
                     gap: 20px;
                     align-items: center;
+                    align-items: baseline;
                 }
                 
                 .faq--table p {
@@ -5524,7 +5525,7 @@ i.fa.fa-heart-o{
                 }
                 
                 .faq--table .tb-flex p:first-child {
-                    min-width: 75px;
+                    min-width: 105px;
                 }
                 
                 table p {
