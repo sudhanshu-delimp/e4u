@@ -175,275 +175,262 @@
 
 
 @endsection
-@section('script')
+@push('script')
 
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
 <script>
 
-    $(function() {
-        $('#escort_login').parsley({
+   $(function() {
+      $('#escort_login').parsley({
 
-        });
-    });
-    $(function() {
-        $('#forgotPasswordSend').parsley({
+      });
+   });
+   $(function() {
+      $('#forgotPasswordSend').parsley({
 
-        });
-    });
+      });
+   });
 
-</script>
+   document.getElementById('mobileno').focus();
 
-<script>
-    document.getElementById('mobileno').focus();
-</script>
-<script>
-
-$(document).ready(function() {
-   $("body").on("click","#forgotpassword",function(e){
-      e.preventDefault();
-      $("#comman_modal").modal('show');
-      // $('#comman_modal').on('hidden.bs.modal', function () {
-         // var mailForm = $("#forgotPasswordSend");
-      //    $("#sendSubmit").on("click",function(e)){
-      //     e.preventDefault();
-      //     var mailForm = $("#forgotPasswordSend");
-
-      //    })
-         $("body").on("submit","#forgotPasswordSend",function(e){
-            e.preventDefault();
-            $('#forgot_password').val('1');
-            send2FAotp($('#email').val());
-         });
-      // });
-
-      $("body").on("click", "#sendOtpSubmit", function(e) {
+   $(document).ready(function() {
+      $("body").on("click","#forgotpassword",function(e){
          e.preventDefault();
-         let form = $("#SendOtp")[0];
-         let data = new FormData(form);
-         var url = "{{ route('web.checkOTP')}}";
-         data.append('forget_password' , $('#forgot_password').val());
-         data.append('email' , $('#email').val());
+         $("#comman_modal").modal('show');
+            $("body").on("submit","#forgotPasswordSend",function(e){
+               e.preventDefault();
+               $('#forgot_password').val('1');
+               send2FAotp($('#email').val());
+            });
+         // });
+
+         $("body").on("click", "#sendOtpSubmit", function(e) {
+            e.preventDefault();
+            let form = $("#SendOtp")[0];
+            let data = new FormData(form);
+            var url = "{{ route('web.checkOTP')}}";
+            data.append('forget_password' , $('#forgot_password').val());
+            data.append('email' , $('#email').val());
+            var token = $('input[name="_token"]').attr('value');
+
+            $.ajax({
+               url: url,
+               type: 'POST',
+               data: data,
+               dataType: "JSON",
+               contentType: false,
+               processData: false,
+               headers: {
+                  'X-CSRF-Token': token
+               },
+               beforeSend: function () {
+                  $('#sendOtpSubmit').prop('disabled', true);
+                  $('#sendOtpSubmit').html('Verifying...');
+               }, 
+               success: function(data) {
+                  if(data.error ==  false){
+                     var form = $(this);
+                     var url = "{{ route('web.sendMail.agent')}}";
+                     var data = new FormData($('#forgotPasswordSend')[0]);
+                     var token = $('input[name="_token"]').attr('value');
+                        $.ajax({
+                              url: url,
+                              type: 'POST',
+                              data: data,
+                              dataType: "JSON",
+                              contentType: false,
+                              processData: false,
+                              headers: {
+                                 'X-CSRF-Token': token
+                              },
+                              beforeSend: function () {
+                                 $('#sendSubmit').prop('disabled', true);
+                                 $('#sendSubmit').html('<div class="spinner-border spinner-border-sm"></div> Sending...');
+                              },
+                              success: function(data) {
+                                 if(data.error == true) {
+                                    $("#comman_modal").modal('hide');
+                                    $(".comman_msg").text(data.email);
+                                    $("#recovery_modal").modal('show');
+                                    $('#sendSubmit').prop('disabled', false);
+                                    $('#sendSubmit').html('Send');
+                                    $('#email').val('');
+                                    $('#sendOtp_modal').modal('hide');
+                                    $('#sendOtpSubmit').prop('disabled', false);
+                                    $('#sendOtpSubmit').html('Verify');
+                                    $('#otp').val('');
+                                 }
+                                 if(data.error == false) { 
+                                    $("#errorNew ul").remove();
+                                    $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
+                                    $('#sendSubmit').prop('disabled', false);
+                                    $('#sendSubmit').html('Send');
+                                 }
+                              },
+                              error: function(data) {
+                                 console.log("error: ", data.responseJSON.errors);
+                              }
+                        }); 
+                  }else if (data.error === true && !('type' in data)) {
+                        $('.otp-input').val('');
+                        $('.first_input').val('').focus().select();
+                        $("#senderror").html('');
+                        $("#senderror").append(
+                           "<ul class='parsley-errors-list filled'>" +
+                              "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
+                           "</ul>"
+                        );
+
+                        $('#otp').val('');
+                        $('#sendOtpSubmit').prop('disabled', false);
+                        $('#sendOtpSubmit').html('Verify');
+                  }else{
+                  window.location.href = "{{ route('agent.dashboard') }}";
+                  }
+               },
+               error: function(data) {
+   
+                  console.log("error otp: ", data.responseJSON.errors);
+                  $.each(data.responseJSON.errors, function(key, value) {
+                     errorsHtml = '<div class="alert alert-danger"><ul>';
+                     errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                  });
+                  $('#sendOtpSubmit').prop('disabled', false);
+                        $('#sendOtpSubmit').html('Verify');
+                  errorsHtml += '</ul></di>';
+                  $('#senderror').html(errorsHtml);
+                  $('.otp-input').val('');
+                  $('.first_input').val('').focus().select();
+               }
+            });
+         });        
+      });
+            // use for change pin and resend otp
+      
+      $(document).off('click' , '#resendOtpSubmit');
+      $(document).on('click' , '#resendOtpSubmit' , function(){
+         send2FAotp($('#email').val());
+      });
+
+      var loginForm = $("#escort_login");
+
+      loginForm.submit(function(e) {
+      
+         e.preventDefault();
+         
+         swal_waiting_popup({});
+         var form = $(this);
+         var url = form.attr('action');
+         var formData = new FormData($("#escort_login")[0]);
+         console.log(formData);
          var token = $('input[name="_token"]').attr('value');
 
          $.ajax({
             url: url,
             type: 'POST',
-            data: data,
+            data: formData,
             dataType: "JSON",
             contentType: false,
             processData: false,
             headers: {
-               'X-CSRF-Token': token
+                  'X-CSRF-Token': token
             },
-            beforeSend: function () {
-               $('#sendOtpSubmit').prop('disabled', true);
-               $('#sendOtpSubmit').html('Verifying...');
-            }, 
-            success: function(data) {
-               if(data.error ==  false){
-                  var form = $(this);
-                  var url = "{{ route('web.sendMail.agent')}}";
-                  var data = new FormData($('#forgotPasswordSend')[0]);
-                  var token = $('input[name="_token"]').attr('value');
-                     $.ajax({
-                           url: url,
-                           type: 'POST',
-                           data: data,
-                           dataType: "JSON",
-                           contentType: false,
-                           processData: false,
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           beforeSend: function () {
-                              $('#sendSubmit').prop('disabled', true);
-                              $('#sendSubmit').html('<div class="spinner-border spinner-border-sm"></div> Sending...');
-                           },
-                           success: function(data) {
-                              if(data.error == true) {
-                                 $("#comman_modal").modal('hide');
-                                 $(".comman_msg").text(data.email);
-                                 $("#recovery_modal").modal('show');
-                                 $('#sendSubmit').prop('disabled', false);
-                                 $('#sendSubmit').html('Send');
-                                 $('#email').val('');
-                                 $('#sendOtp_modal').modal('hide');
-                                 $('#sendOtpSubmit').prop('disabled', false);
-                                 $('#sendOtpSubmit').html('Verify');
-                                 $('#otp').val('');
-                              }
-                              if(data.error == false) { 
-                                 $("#errorNew ul").remove();
-                                 $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
-                                 $('#sendSubmit').prop('disabled', false);
-                                 $('#sendSubmit').html('Send');
-                              }
-                           },
-                           error: function(data) {
-                              console.log("error: ", data.responseJSON.errors);
-                           }
-                     }); 
-               }else if (data.error === true && !('type' in data)) {
-                     $('.otp-input').val('');
-                     $('.first_input').val('').focus().select();
-                     $("#senderror").html('');
-                     $("#senderror").append(
-                        "<ul class='parsley-errors-list filled'>" +
-                           "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
-                        "</ul>"
-                     );
+               success: function(data) {
+                  Swal.close();
+                  $('#formerror').html('');
+                  var ph = data.phone;
+                  $("#phoneId").attr('value',ph);
+                  if(data.error == 1) {
+                     $('body').on("click","#resendOtpSubmit",function(){
+                        $("#escort_login").submit();
+                        /* $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>"); */
+                        var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
+                        $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
+                     });
+                     
+                     setTimeout(() => {
+                     $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
+                     }, 300); 
 
-                     $('#otp').val('');
-                     $('#sendOtpSubmit').prop('disabled', false);
-                     $('#sendOtpSubmit').html('Verify');
-               }else{
-                 window.location.href = "{{ route('agent.dashboard') }}";
-               }
+
+                     $("body").on("submit","#SendOtp",function(e){
+                           e.preventDefault();
+                           var form = $(this);
+                           
+                           console.log(ph);
+                           $('#sendOtpSubmit').attr('disabled', true);
+                           $('.wait-loader').css({'display':'block'});
+                           // var url = form.attr('action');
+                           var url = "{{ route('web.checkOTP')}}";
+                           
+                           var data = new FormData($('#SendOtp')[0]);
+                           var phone = data.phone;
+                           //data.append("phone",phone );
+                           console.log("url="+url);
+                           var token = $('input[name="_token"]').attr('value');
+                     
+                           $.ajax({
+                              url: url,
+                              type: 'POST',
+                              data: data,
+                              dataType: "JSON",
+                              contentType: false,
+                              processData: false,
+                              headers: {
+                                 'X-CSRF-Token': token
+                              },
+                              success: function(data) {
+                                 console.log(data);
+                                 
+                                 if(data.error == true) {
+                                 //console.log(data); 
+                                 window.location.href = "{{ route('agent.dashboard') }}";
+                                 }
+                              },
+                              error: function(data) {
+                                 $('#sendOtpSubmit').attr('disabled', false);
+                                 $('.wait-loader').css({'display':'none'});
+                                 console.log("error otp: ", data.responseJSON.errors);
+                                 $.each(data.responseJSON.errors, function(key, value) {
+                                 errorsHtml = '<div class="alert alert-danger"><ul>';
+                                 errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                                 });
+
+                                 errorsHtml += '</ul></di>';
+                                 $('#senderror').html(errorsHtml);
+                                 $('.otp-input').val('');
+                                 $('.first_input').val('').focus().select();
+                              }
+                           });  
+                  
+                     });
+
+
+                  }
             },
             error: function(data) {
- 
-               console.log("error otp: ", data.responseJSON.errors);
-               $.each(data.responseJSON.errors, function(key, value) {
-                  errorsHtml = '<div class="alert alert-danger"><ul>';
+
+                  Swal.close();
+                  console.log("error: ", data.responseJSON.errors);
+                  $.each(data.responseJSON.errors, function(key, value) {
+                  errorsHtml = '<div class="alert alert-danger" style="text-transform:none !important;"><ul>';
                   errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-               });
-               $('#sendOtpSubmit').prop('disabled', false);
-                     $('#sendOtpSubmit').html('Verify');
-               errorsHtml += '</ul></di>';
-               $('#senderror').html(errorsHtml);
-               $('.otp-input').val('');
-               $('.first_input').val('').focus().select();
+                  });
+
+                  errorsHtml += '</ul></di>';
+                  $('#formerror').html(errorsHtml);
             }
          });
-      });        
-   });
-         // use for change pin and resend otp
-    
-   $(document).off('click' , '#resendOtpSubmit');
-   $(document).on('click' , '#resendOtpSubmit' , function(){
-      send2FAotp($('#email').val());
-   });
-
-   var loginForm = $("#escort_login");
-
-   loginForm.submit(function(e) {
-   
-      e.preventDefault();
-      
-      swal_waiting_popup({});
-      var form = $(this);
-      var url = form.attr('action');
-      var formData = new FormData($("#escort_login")[0]);
-      console.log(formData);
-      var token = $('input[name="_token"]').attr('value');
-
-      $.ajax({
-         url: url,
-         type: 'POST',
-         data: formData,
-         dataType: "JSON",
-         contentType: false,
-         processData: false,
-         headers: {
-               'X-CSRF-Token': token
-         },
-            success: function(data) {
-               Swal.close();
-               $('#formerror').html('');
-               var ph = data.phone;
-               $("#phoneId").attr('value',ph);
-               if(data.error == 1) {
-                  $('body').on("click","#resendOtpSubmit",function(){
-                     $("#escort_login").submit();
-                     /* $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>"); */
-                     var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
-                     $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
-                  });
-                  
-                  setTimeout(() => {
-                  $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
-                  }, 300); 
+      });
 
 
-                  $("body").on("submit","#SendOtp",function(e){
-                        e.preventDefault();
-                        var form = $(this);
-                        
-                        console.log(ph);
-                         $('#sendOtpSubmit').attr('disabled', true);
-                         $('.wait-loader').css({'display':'block'});
-                        // var url = form.attr('action');
-                        var url = "{{ route('web.checkOTP')}}";
-                        
-                        var data = new FormData($('#SendOtp')[0]);
-                        var phone = data.phone;
-                        //data.append("phone",phone );
-                        console.log("url="+url);
-                        var token = $('input[name="_token"]').attr('value');
-                  
-                        $.ajax({
-                           url: url,
-                           type: 'POST',
-                           data: data,
-                           dataType: "JSON",
-                           contentType: false,
-                           processData: false,
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           success: function(data) {
-                              console.log(data);
-                              
-                              if(data.error == true) {
-                              //console.log(data); 
-                              window.location.href = "{{ route('agent.dashboard') }}";
-                              }
-                           },
-                           error: function(data) {
-                               $('#sendOtpSubmit').attr('disabled', false);
-                               $('.wait-loader').css({'display':'none'});
-                              console.log("error otp: ", data.responseJSON.errors);
-                              $.each(data.responseJSON.errors, function(key, value) {
-                              errorsHtml = '<div class="alert alert-danger"><ul>';
-                              errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                              });
-
-                              errorsHtml += '</ul></di>';
-                              $('#senderror').html(errorsHtml);
-                              $('.otp-input').val('');
-                              $('.first_input').val('').focus().select();
-                           }
-                        });  
-               
-                  });
-
-
-               }
-         },
-         error: function(data) {
-
-                Swal.close();
-               console.log("error: ", data.responseJSON.errors);
-               $.each(data.responseJSON.errors, function(key, value) {
-                 errorsHtml = '<div class="alert alert-danger" style="text-transform:none !important;"><ul>';
-                 errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-               });
-
-               errorsHtml += '</ul></di>';
-               $('#formerror').html(errorsHtml);
-         }
+      $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
+         $('#forgot_password').val(0);
+         $("#senderror").html('');
       });
    });
 
-
-   $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
-      $('#forgot_password').val(0);
-      $("#senderror").html('');
-   });
-});
-</script>
-<script>
     document.addEventListener("DOMContentLoaded", function () {
         const toggleIcon = document.querySelector(".toggle-password");
         const passwordInput = document.querySelector("#exampleInputPassword1");
@@ -457,16 +444,12 @@ $(document).ready(function() {
         });
     });
     
-</script>
- 
-
-<script>
-let agent_pending_status = sessionStorage.getItem('agent_pending_status');
-  if (agent_pending_status) {
-        let formattedMessage = agent_pending_status.replace(/\n/g, '<br>');
-        swal_success_popup(formattedMessage);
-         sessionStorage.removeItem('agent_pending_status');
-  }
+   let agent_pending_status = sessionStorage.getItem('agent_pending_status');
+   if (agent_pending_status) {
+         let formattedMessage = agent_pending_status.replace(/\n/g, '<br>');
+         swal_success_popup(formattedMessage);
+            sessionStorage.removeItem('agent_pending_status');
+   }
 
     function send2FAotp(email)
       {
@@ -498,4 +481,4 @@ let agent_pending_status = sessionStorage.getItem('agent_pending_status');
       }
 
 </script>
-@endsection
+@endpush

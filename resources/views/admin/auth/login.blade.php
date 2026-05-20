@@ -189,33 +189,27 @@
 </section>
                     
 @endsection
-@section('script')
+@push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    $(function() {
+   $(function() {
         $('#admin_login').parsley({
     
         });
-    });
+   });
     
-    $(function() {
+   $(function() {
         $('#forgotPasswordSend').parsley({
 
         });
     });
+   document.getElementById('email').focus();
 
-</script>
-
-<script>
-    document.getElementById('email').focus();
-</script>
-<script>
 
 $(document).ready(function() {
    $("body").on("click","#forgotpassword",function(e){
-            
          e.preventDefault();
          $("#comman_modal").modal('show');
          $("body").on("submit","#forgotPasswordSend",function(e){
@@ -247,16 +241,13 @@ $(document).ready(function() {
                   }
             },
             error: function(data) {
-
-                  console.log("error otp: ", data.responseJSON.errors);
-                  
+   
             }
             });
          }      
    });
 
-
-     $("body").on("click", "#sendOtpSubmit", function(e) {
+   $("body").on("click", "#sendOtpSubmit", function(e) {
          e.preventDefault();
          let form = $("#SendOtp")[0];
          let data = new FormData(form);
@@ -320,7 +311,7 @@ $(document).ready(function() {
                               }
                            },
                            error: function(data) {
-                              console.log("error: ", data.responseJSON.errors);
+
                            }
                      }); 
                }else if (data.error === true && !('type' in data)) {
@@ -343,10 +334,9 @@ $(document).ready(function() {
                }
             },
             error: function(data) {
- 
-               console.log("error otp: ", data.responseJSON.errors);
+                let errorsHtml = '<div class="alert alert-danger"><ul>';
                $.each(data.responseJSON.errors, function(key, value) {
-                  errorsHtml = '<div class="alert alert-danger"><ul>';
+                  //errorsHtml = '<div class="alert alert-danger"><ul>';
                   errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
                });
                $('#sendOtpSubmit').prop('disabled', false);
@@ -359,9 +349,9 @@ $(document).ready(function() {
          });
       }); 
 
-   var loginFormViewer = $("#admin_login");
+      var loginFormViewer = $("#admin_login");
 
-    loginFormViewer.submit(function(e) {
+      loginFormViewer.submit(function(e) {
    
       e.preventDefault();
       swal_waiting_popup({});
@@ -369,7 +359,6 @@ $(document).ready(function() {
       var form = $(this);
       var url = form.attr('action');
       var formData = new FormData($("#admin_login")[0]);
-      console.log(formData);
       var token = $('input[name="_token"]').attr('value');
 
         $.ajax({
@@ -383,10 +372,8 @@ $(document).ready(function() {
                'X-CSRF-Token': token
          },
             success: function(data) {
-               //console.log(data);
                 $('#formerror').html('');
                  Swal.close();
-                console.log(data);
                 var ph = data.phone;
                 $("#phoneId").attr('value',ph);
                 if(data.error == 1) {
@@ -408,14 +395,12 @@ $(document).ready(function() {
                         var form = $(this);
                          $('#sendOtpSubmit').attr('disabled', true);
                         $('.wait-loader').css({'display':'block'});
-                        console.log(ph);
                         // var url = form.attr('action');
                         var url = "{{ route('web.checkOTP')}}";
                         
                         var data = new FormData($('#SendOtp')[0]);
                         var phone = data.phone;
                         //data.append("phone",phone );
-                        console.log("url="+url);
                         var token = $('input[name="_token"]').attr('value');
                   
                         $.ajax({
@@ -429,19 +414,16 @@ $(document).ready(function() {
                               'X-CSRF-Token': token
                            },
                            success: function(data) {
-                              console.log(data);
-                              
                               if(data.error == true) {
-                              //console.log(data); 
                               window.location.href = "{{ route('admin.index') }}";
                               }
                            },
                            error: function(data) {
                               $('#sendOtpSubmit').attr('disabled', false);
                               $('.wait-loader').css({'display':'none'});
-                              console.log("error v: ", data.responseJSON.errors);
+                              let errorsHtml = '<div class="alert alert-danger"><ul>';
                               $.each(data.responseJSON.errors, function(key, value) {
-                              errorsHtml = '<div class="alert alert-danger"><ul>';
+                             
                               errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
                               });
 
@@ -456,19 +438,19 @@ $(document).ready(function() {
          },
          error: function(data) {
             swal({
-                               title: "Oops!",
-                               text: data.responseJSON.message,
-                               icon: "error",
-                               closeModal: true,
-                               buttons: {
-                                   cancel: false,
-                                   ok:true,
-                               },
-                           });
-               console.log("error w: ", data.responseJSON.errors);
+                  title: "Oops!",
+                  text: data.responseJSON.message,
+                  icon: "error",
+                  closeModal: true,
+                  buttons: {
+                     cancel: false,
+                     ok:true,
+                  },
+               });
                 Swal.close();
+               let errorsHtml = '<div class="alert alert-danger"><ul>';
                $.each(data.responseJSON.errors, function(key, value) {
-                errorsHtml = '<div class="alert alert-danger"><ul>';
+               
                 errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
                });
 
@@ -479,32 +461,29 @@ $(document).ready(function() {
     });
 
    
-});
-</script>
+   });
 
-<script>
-     document.addEventListener("DOMContentLoaded", function () {
-        const toggleIcon = document.querySelector(".toggle-password");
-        const passwordInput = document.querySelector("#exampleInputPassword1");
-        const eyeIcon = document.querySelector("#toggleEyeIcon");
+   document.addEventListener("DOMContentLoaded", function () {
+      const toggleIcon = document.querySelector(".toggle-password");
+      const passwordInput = document.querySelector("#exampleInputPassword1");
+      const eyeIcon = document.querySelector("#toggleEyeIcon");
 
-        toggleIcon.addEventListener("click", function () {
-            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-            passwordInput.setAttribute("type", type);
-            eyeIcon.classList.toggle("fa-eye");
-            eyeIcon.classList.toggle("fa-eye-slash");
-        });
-    });
-      $(document).off('click' , '#resendOtpSubmit');
-      $(document).on('click' , '#resendOtpSubmit' , function(){
-         send2FAotp($('.email-val').val());
+      toggleIcon.addEventListener("click", function () {
+         const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+         passwordInput.setAttribute("type", type);
+         eyeIcon.classList.toggle("fa-eye");
+         eyeIcon.classList.toggle("fa-eye-slash");
       });
+   });
+   $(document).off('click' , '#resendOtpSubmit');
+   $(document).on('click' , '#resendOtpSubmit' , function(){
+      send2FAotp($('.email-val').val());
+   });
 
-      $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
-         $('#forgot_password').val(0);
-         $("#senderror").html('');
-      });
-
+   $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
+      $('#forgot_password').val(0);
+      $("#senderror").html('');
+   });
 
 </script>
-@endsection
+@endpush

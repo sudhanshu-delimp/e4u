@@ -170,7 +170,7 @@
 
     </section>
 @endsection
-@section('script')
+@push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -186,12 +186,9 @@
 
             });
         });
-    </script>
 
-    <script>
         document.getElementById('email').focus();
-    </script>
-    <script>
+
         $(document).ready(function() {
             $("body").on("click", "#forgotpassword", function(e) {
                 e.preventDefault();
@@ -226,7 +223,7 @@
                             }
                         },
                         error: function(data) {
-                            console.log("error otp: ", data.responseJSON.errors);
+
                         }
                     });
                 }
@@ -234,7 +231,6 @@
 
             $("body").on("click", "#sendOtpSubmit", function(e) {
 
-                console.log('submit otp');
                 e.preventDefault();
                 let form = $("#SendOtp")[0];
                 let data = new FormData(form);
@@ -302,8 +298,7 @@
                                     }
                                 },
                                 error: function(data) {
-                                    console.log("error: ", data.responseJSON
-                                    .errors);
+
                                 }
                             });
                         } else if (data.error === true && !('type' in data)) {
@@ -327,7 +322,6 @@
                     },
                     error: function(data) {
 
-                        console.log("error otp: ", data.responseJSON.errors);
                         $.each(data.responseJSON.errors, function(key, value) {
                             errorsHtml = '<div class="alert alert-danger"><ul>';
                             errorsHtml += '<li>' + value +
@@ -350,7 +344,6 @@
                 var form = $(this);
                 var url = form.attr('action');
                 var formData = new FormData($("#admin_login")[0]);
-                //console.log(formData);
                 var token = $('input[name="_token"]').attr('value');
 
                 $.ajax({
@@ -364,7 +357,6 @@
                         'X-CSRF-Token': token
                     },
                     success: function(data) {
-                       // console.log(data);
                         $('#formerror').html('');
                         Swal.close();
                         var ph = data.phone;
@@ -395,7 +387,7 @@
                                 var data = new FormData($('#SendOtp')[0]);
                                 var phone = data.phone;
                                 //data.append("phone",phone );
-                                console.log("url=" + url);
+
                                 var token = $('input[name="_token"]').attr('value');
                                 $.ajax({
                                     url: url,
@@ -447,7 +439,7 @@
                                 ok: true,
                             },
                         });
-                        console.log("error w: ", data.responseJSON.errors);
+
                         Swal.close();
                         $.each(data.responseJSON.errors, function(key, value) {
                             errorsHtml = '<div class="alert alert-danger"><ul>';
@@ -470,9 +462,7 @@
             $('#forgot_password').val(0);
             $("#senderror").html('');
         });
-    </script>
 
-    <script>
         document.addEventListener("DOMContentLoaded", function() {
             const toggleIcon = document.querySelector(".toggle-password");
             const passwordInput = document.querySelector("#exampleInputPassword1");
@@ -485,4 +475,4 @@
             });
         });
     </script>
-@endsection
+@endpush
