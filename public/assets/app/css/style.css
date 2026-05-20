@@ -5517,6 +5517,7 @@ i.fa.fa-heart-o{
                     display: flex;
                     gap: 20px;
                     align-items: center;
+                    align-items: baseline;
                 }
                 
                 .faq--table p {
