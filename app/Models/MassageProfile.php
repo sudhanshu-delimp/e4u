@@ -92,6 +92,11 @@ class MassageProfile extends Model
         return formatMobileNumber($value);
     }
 
+     public function getBusinessNoAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
     public function state()
     {
         return $this->belongsTo('App\Models\State', 'state_id');
