@@ -274,7 +274,7 @@ padding: 37px !important;
                                         <div class="form-group business-field">
                                             <label for="mobile" class="mb-1">Mobile</label>
                                             <input type="text" id="mobile" name="mobile" data-ajax="phone"
-                                                class="form-control rounded-0 allow_only_numeric" placeholder="Enter Mobile" required>
+                                                class="form-control rounded-0 allow_only_numeric" maxlength="10" minlength="10" placeholder="Enter Mobile" required>
                                         </div>
 
 
