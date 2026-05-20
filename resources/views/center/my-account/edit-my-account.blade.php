@@ -280,6 +280,30 @@
                                                                     placeholder="Insert your PayID Number" value="{{ formatAccountNumber($escort->pay_id_no, 'bsb') }}">
                                                             </div>
                                                         </div>
+
+
+
+                                                        {{-- Social Media Consent --}}
+
+                                                        <div class="col-md-12 my-4">
+                                                            <div class="form-group">
+                                                                <div>
+                                                                    <h3 class="h3">Social Media Consent</h3>
+                                                                <label for="">Do you consent, pursuant to clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline ml-0">
+                                                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="yes">
+                                                                    <label class="form-check-label" for="yes">Yes</label>
+                                                                </div>
+
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="no" checked>
+                                                                    <label class="form-check-label" for="no">No</label>
+                                                                </div>                                                                
+                                                            </div>
+                                                        </div>
+                                                        {{-- end --}}
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -611,23 +635,23 @@
                                         <label for="email">Method of contact:</label><br>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" checked type="checkbox" name="contact_type[]"
-                                                id="Method_Message" value="1">
-                                            <label class="form-check-label" for="Method_Message">Message (via Console)</label>
+                                                id="methodMessage" value="1">
+                                            <label class="form-check-label" for="methodMessage">Message (via Console)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                                id="Method_Text" value="2">
-                                            <label class="form-check-label" for="Method_Text">Text</label>
+                                                id="methodText" value="2">
+                                            <label class="form-check-label" for="methodText">Text</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                                id="Method_Email" value="3">
-                                            <label class="form-check-label" for="Method_Email">Email</label>
+                                                id="methodEmail" value="3">
+                                            <label class="form-check-label" for="methodEmail">Email</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" name="contact_type[]"
-                                                id="Method_call_me" value="4">
-                                            <label class="form-check-label" for="Method_call_me">Call me</label>
+                                                id="Method_callme" value="4">
+                                            <label class="form-check-label" for="Method_callme">Call me</label>
                                         </div>
                                     </div>
                                 </div>

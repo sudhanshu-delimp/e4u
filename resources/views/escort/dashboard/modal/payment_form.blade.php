@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/set-commission.png') }}" class="custompopicon"
+                    <img src="{{ asset('assets/dashboard/img/secure-payment.png') }}" class="custompopicon"
                         alt="View Centre">
                     Secure Payment
                 </h5>
@@ -23,18 +23,26 @@
                                     <span>Subtotal:</span>
                                     <span class="paymentSubtotal">{{formatCurrency(0)}}</span>
                                     </div>
-                                    <div class="d-flex justify-content-between mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Wallet Used:</span>
                                     <span>{{formatCurrency(0)}}</span>
                                     </div>
-                                    <div class="d-flex justify-content-between mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Loyalty Discount:</span>
                                     <span>{{formatCurrency(0)}}</span>
                                     </div>
                                     <hr>
-                                    <div class="d-flex justify-content-between">
-                                    <strong>Total:</strong>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <strong>Total Fee:</strong>
                                     <strong class="paymentTotal">{{formatCurrency(0)}}</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <strong>GST:</strong>
+                                    <strong class="taxAmount">$ 1.20</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <strong>Total Due:</strong>
+                                    <strong class="paymentTotal totalDue">{{formatCurrency(0)}}</strong>
                                     </div>
                                 </div>
 
@@ -96,12 +104,13 @@
                                         </button>
                                     </form>
                                 </div>
-                                <div class="support mt-3">
-                                    <p class="mb-0"><strong>Note:</strong></p>
-                                    <p class="small mb-0">
-                                        Users can apply benefits by selecting available Wallet money and Loyalty days to
-                                        reduce the total payable amount.
-                                    </p>
+                                <div class="support mt-3 payment_note">
+                                    <p class="mb-0"><strong>Notes:</strong></p>
+                                       <ol>
+                                        <li>You can apply any portion of your benefits by selecting from your Wallet, to reduce the total Fee payable for this Service.</li>
+                                        <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
+                                        <li>For a detailed summary of this transaction, go to <a href="{{ route('escort.payment.transaction_summary') }}" class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
+                                       </ol>
                                 </div>
 
                             </div>
@@ -196,12 +205,13 @@
 @push('script')
     <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
     <script>
+        let card = {};
+        let paymentFormData = {};
+        let form = $('form.pin');
         $(function() {
 
             var pinApi = new Pin.Api('{{ config('app.payment.publish_key') }}', 'test');
-
-            var form = $('form.pin'),
-                submitButton = form.find(":submit"),
+            var submitButton = form.find(":submit"),
                 errorContainer = form.find('.errors'),
                 errorHeading = errorContainer.find('h3');
 
@@ -216,74 +226,31 @@
                     disabled: true
                 });
 
-                var card = {
-                    number: $('#cc-number').val(),
-                    name: $('#cc-name').val(),
-                    expiry_month: $('#cc-expiry-month').val(),
-                    expiry_year: $('#cc-expiry-year').val(),
-                    cvc: $('#cc-cvc').val(),
-                    address_line1: $('#address-line1').val(),
-                    address_line2: $('#address-line2').val(),
-                    address_city: $('#address-city').val(),
-                    address_state: $('#address-state').val(),
-                    address_postcode: $('#address-postcode').val(),
-                    address_country: $('#address-country').val()
-                };
-
+                card['number'] = $('#cc-number').val();
+                card['name'] = $('#cc-name').val();
+                card['expiry_month'] = $('#cc-expiry-month').val();
+                card['expiry_year'] = $('#cc-expiry-year').val();
+                card['cvc'] = $('#cc-cvc').val();
+                card['address_line1'] = $('#address-line1').val();
+                card['address_line2'] = $('#address-line2').val();
+                card['address_city'] = $('#address-city').val();
+                card['address_state'] = $('#address-state').val();
+                card['address_postcode'] = $('#address-postcode').val();
+                card['address_country'] = $('#address-country').val();
                 pinApi.createCardToken(card).then(handleSuccess, handleError).done();
             });
 
             function handleSuccess(card) {
-                let data = {};
-                data['_token'] = `{{ csrf_token() }}`;
-                data['pin_token'] = card.token;
+                
+                paymentFormData['_token'] = `{{ csrf_token() }}`;
+                paymentFormData['pin_token'] = card.token;
+
                 if($("input[name='benefit_token']").length > 0){
-                    data['benefit_token'] = $("input[name='benefit_token']").val();
+                    paymentFormData['benefit_token'] = $("input[name='benefit_token']").val();
                 }
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: data,
-                    beforeSend: function () {
-                        Swal.fire({
-                            title: 'Processing Payment',
-                            text: 'Do not refresh or close this page.',
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-                    },
-                    success: function(response, textStatus, xhr) {
-                        Swal.close();
-                        submitButton.removeAttr('disabled');
-                        let option = getStatusOption(xhr);
-                        Swal.fire({
-                            icon: option.icon,
-                            title: option.title,
-                            text: option.message,
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = response.redirect_url;
-                            }
-                        });
-                    },
-                    error: function(xhr) {
-                        Swal.close();
-                        let option = getStatusOption(xhr);
-                        Swal.fire({
-                            icon: option.icon,
-                            title: option.title,
-                            text: option.message,
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                        });
-                        submitButton.removeAttr('disabled');
-                    }
-                });
+
+                $("#sendOtp_modal").modal('show');
+                form.closest('.modal').modal('hide');
             }
 
             function handleError(response) {
@@ -312,6 +279,81 @@
             }
 
         });
+
+        var processPaymentForm = function(){
+                $.ajax({
+                    url: form.attr('action'),
+                    method: 'POST',
+                    data: paymentFormData,
+                    beforeSend: function () {
+                        Swal.fire({
+                            title: 'Processing Payment',
+                            text: 'Do not refresh or close this page.',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response, textStatus, xhr) {
+                        Swal.close();
+                        paymentFormData = {};
+                        submitButton.removeAttr('disabled');
+                        let option = getStatusOption(xhr);
+                        Swal.fire({
+                            icon: option.icon,
+                            title: option.title,
+                            text: option.message,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = response.redirect_url;
+                            }
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        let option = getStatusOption(xhr);
+                        Swal.fire({
+                            icon: option.icon,
+                            title: option.title,
+                            text: option.message,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        });
+                        submitButton.removeAttr('disabled');
+                    }
+                });
+            }
+       
+        $("#sendOtp_modal").on('show.bs.modal', function(){
+            $.ajax({
+                url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
+                method: 'POST',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {action : 'payment'},
+                success: function (res, textStatus, xhr) {
+                    console.log(res);
+                },
+                error: function (xhr) {
+                    Swal.close();
+                    let option = getStatusOption(xhr);
+                    Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message
+                    });
+                }
+            });
+        });
+
+            
+        
 
         $("#process-payment-modal").on('show.bs.modal', function(){
             let amount = parseFloat($('.listing_total_fees').text().replace(/[^0-9.]/g, '')).toFixed(2);
