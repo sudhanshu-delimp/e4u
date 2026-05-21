@@ -13,7 +13,7 @@
             <div id="content">
 
                 @include('partials.center.navigation')
-
+                <div>@include('flash-message')</div>
                 @yield('content')
 
             </div>

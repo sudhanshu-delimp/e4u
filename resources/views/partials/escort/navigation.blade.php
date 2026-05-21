@@ -54,6 +54,11 @@
                     <span class="separator">|</span> <b>Location time : </b><span
                         class="user-values live_current_time">00:00 AM</span>
                 </span>
+                 @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
+                            <span>
+                                <b>Switch To Primary Account :  </b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('agent.back-to-parent') }}">Switch Back</a></span>  
+                            </span>
+                            @endif
 
             </div>
         </div>

@@ -73,10 +73,9 @@ $contactMsg = session('success');
          <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
          <ul>
              <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
-                 arrange bookings. Please contact <a class="c-red" href="{{ url('help-for-advertisers')}}">Advertisers</a> directly
+                 arrange bookings. Please contact <a class="c-red" href="{{ url('all-escorts-list')}}">Advertisers 001</a> directly
              </li>
-             <li>An Advertiser with a question, first look at our help for <a class="c-red"
-                                                                              href="{{ url('help-for-advertisers')}}">Advertisers</a>,
+             <li>An Advertiser with a question, first look at our help for <a class="c-red" href="{{ url('all-escorts-list')}}">Advertisers</a>,
                  or <a class="c-red" href="{{ url('faqs')}}">FAQs</a> and if you
                  don't find the answer, then contact us by logging a "Support Ticket" (the preferred
                  method of contact, but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> )
@@ -184,10 +183,10 @@ $contactMsg = session('success');
                   <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
                   <ul>
                      <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
-                        arrange bookings. Please contact <a class="c-red" href="{{ url('help-for-advertisers')}}">Advertisers</a> directly.
+                        arrange bookings. Please contact <a class="c-red" href="{{ url('all-escorts-list')}}">Advertisers</a> directly.
                      </li>
                      <li>An Advertiser with a question, first look at our help for <a class="c-red"
-                        href="{{ url('help-for-advertisers')}}">Advertisers</a>,
+                        href="{{ url('all-escorts-list')}}">Advertisers</a>,
                         or <a class="c-red" href="{{ url('faqs')}}">FAQs</a> and if you
                         don't find the answer, then contact us by logging a "Support Ticket" (the preferred
                         method of contact @if(!auth()->user()), but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> @endif)
@@ -212,7 +211,7 @@ $contactMsg = session('success');
                   </p>
                   <p>
                      Any personal information submitted to this Website will be handled in accordance with
-E4U's <a class="c-red" href="{{'privacy-policy'}}" target="_blank"> Privacy Policy </a> and <a href="{{'privacy-collection-notice'}}" target="_blank">Privacy Collection Notice</a>, both available on the Website.
+E4U's <a class="c-red" href="{{url('privacy-policy')}}" > Privacy Policy </a> and <a href="{{url('privacy-collection-notice')}}">Privacy Collection Notice</a>, both available on the Website.
                      
                   </p>
                   <form id="contactus" name="contactus" style="display: @if ($errors->any()) block; @else none; @endif" action="{{ route('contactus.send')}}" method="post">
