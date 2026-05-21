@@ -133,9 +133,8 @@ class OtherCenterController extends Controller
                 'business_number' => $row->business_number,
                 'mobile' => $row->phone,
                 'email' => $row->email,
+                'status' => $statusText,
                 'action' => $action,
-                
-
             ];
         });  
 
