@@ -322,6 +322,7 @@
                     },
                     error: function(xhr) {
                         Swal.close();
+                        submitButton.removeAttr('disabled');
                         let option = getStatusOption(xhr);
                         Swal.fire({
                             icon: option.icon,
