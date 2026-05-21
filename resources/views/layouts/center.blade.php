@@ -6,25 +6,22 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        {{--  @if(canManage())
+        @if(canManage())
         @include('partials.center.sidebar')
         @else
         @include('partials.center.child_sidebar')
-        @endif --}}
-
-        @include('partials.center.sidebar')
+        @endif
 
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
 
-            @include('partials.center.navigation')
 
-                {{-- @if(canManage())
+                @if(canManage())
                 @include('partials.center.navigation')
                 @else
                 @include('partials.center.child_navigation')
-                @endif --}}
+                @endif
                 
                 <div>@include('flash-message')</div>
                 @yield('content')
