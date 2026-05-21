@@ -17,6 +17,8 @@ class PaymentHistory extends Model
         'amount',
         'wallet_amount',
         'loyalty_amount',
+        'net_amount',
+        'gst_amount',
         'paid_amount',
         'currency',
         'transaction_id',

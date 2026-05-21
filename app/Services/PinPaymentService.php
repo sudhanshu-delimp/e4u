@@ -10,6 +10,28 @@ use App\Traits\DataTablePagination;
 class PinPaymentService
 {
   use DataTablePagination;
+  protected $totalAmount = 0.00;
+  protected $gstAmount = 0.00;
+  protected $totalDueAmount = 0.00;
+
+  public function setAmount($amount)
+  {
+    $this->totalAmount = $amount;
+    return $this;
+  }
+
+  public function getGSTAmount()
+  {
+    $this->gstAmount = ($this->totalAmount * 10) / 100;
+    return $this->gstAmount;
+  }
+
+  public function getTotalDue()
+  {
+    $this->totalDueAmount = $this->totalAmount + $this->gstAmount;
+    return $this->totalDueAmount;
+  }
+
   public function charge(string $token, float $amount, $email = null, $description = null, $metadata = [])
   {
     try {

@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                     <strong>GST:</strong>
-                                    <strong class="taxAmount">$ 1.20</strong>
+                                    <strong class="taxAmount">{{formatCurrency(0)}}</strong>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                     <strong>Total Due:</strong>
@@ -280,6 +280,13 @@
 
         });
 
+        $(document).on('input', '#adjustment-form input', function () {
+            let value = parseFloat($(this).val());
+            if (value < 0) {
+                $(this).val(0);
+            }
+        });
+
         var processPaymentForm = function(){
                 $.ajax({
                     url: form.attr('action'),
@@ -299,7 +306,7 @@
                     success: function(response, textStatus, xhr) {
                         Swal.close();
                         paymentFormData = {};
-                        submitButton.removeAttr('disabled');
+                        //submitButton.removeAttr('disabled');
                         let option = getStatusOption(xhr);
                         Swal.fire({
                             icon: option.icon,
@@ -352,14 +359,6 @@
             });
         });
 
-            
-        
-
-        $("#process-payment-modal").on('show.bs.modal', function(){
-            let amount = parseFloat($('.listing_total_fees').text().replace(/[^0-9.]/g, '')).toFixed(2);
-            $(".order_summary_adjustment .paymentSubtotal, .order_summary_adjustment .paymentTotal").text(`AU$ ${amount}`);
-        });
-
         var adjustmentForm = $('#adjustment-form');
         var finishPaymentForm = $('#finish-payment-form');
         var submitAdjustmentForm = function(object=null){
@@ -371,7 +370,7 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: `${adjustmentForm.serialize()}${
-                    object ? `&${$(object).attr('name')}=${$(object).val()}` : ''
+                    object ? `&${$(object).attr('name')}=${$(object).attr('value')}` : ''
                 }`,
                 beforeSend: function () {
                     Swal.fire({
@@ -387,7 +386,6 @@
                 success: function (res, textStatus, xhr) {
                     Swal.close();
                     let option = getStatusOption(xhr);
-                    console.log(res);
                     if (res.status) {
                         $(".order_summary_adjustment").html(res.html);
                         addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
@@ -487,6 +485,13 @@
         adjustmentForm.on('click', '.reset-btn', function (e) {
             adjustmentForm[0].reset();
             submitAdjustmentForm(this);
+        });
+
+        $("#process-payment-modal").on('show.bs.modal', function(event){
+            if(event.relatedTarget){
+                adjustmentForm.find('[name="wallet_amount"]').val(0);
+                submitAdjustmentForm(event.relatedTarget);
+            }
         });
     </script>
 @endpush

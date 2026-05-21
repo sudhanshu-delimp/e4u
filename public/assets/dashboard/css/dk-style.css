@@ -10498,6 +10498,14 @@ td {
     background-color: var(--peach) !important;
 }
 
+.btn-email-single {
+    background-color: #ff3c5f;
+    color: var(--white);
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: none;
+}
+
 @media(max-width:1800px) {
     .topbar-logged-in-user-data .d-user-info {
         max-width: 100%;
