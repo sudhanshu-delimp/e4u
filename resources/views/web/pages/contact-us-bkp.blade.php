@@ -26,7 +26,7 @@
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
 
     <div class="container">
-     <h1 class="home_heading_first margin_btm_twenty_px">Contact Us</h1>      
+     <h1 class="home_heading_first margin_btm_twenty_px">Contact Us 1</h1>      
 
       <h3>Some general information</h3>
                      <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
