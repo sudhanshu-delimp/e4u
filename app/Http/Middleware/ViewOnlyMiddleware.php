@@ -22,6 +22,7 @@ class ViewOnlyMiddleware
              'center.current-listing',
              'center.past-listing',
              'center.all-massager-list',
+             'center.switch-to-child'
         ];
 
         if ($request->routeIs($exceptRoutes)) {
