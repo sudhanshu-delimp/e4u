@@ -234,7 +234,7 @@ class OtherCenterController extends Controller
         ]);
 
         return redirect('/center-dashboard')
-            ->with('success', 'Back to parent account');
+            ->with('success', "Switched back to ".Auth::user()->name." account");
     }
 
 
@@ -276,7 +276,7 @@ class OtherCenterController extends Controller
 
         Auth::login($childUser);
 
-        return redirect('/center-dashboard')->with('success', 'Logged in as child account');
+        return redirect('/center-dashboard')->with('success', 'Logged in as '.Auth::user()->name);
     }
 
 }
