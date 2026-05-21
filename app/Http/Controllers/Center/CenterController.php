@@ -270,6 +270,7 @@ class CenterController extends Controller
             'contact_type' => $request->contact_type,
             'pay_id_name'=>$request->payID_name,
             'pay_id_no'=>$request->paID_no,
+            'social_media_consent' => $request->social_media_consent,
             'subrub_city'=>$request->subrub_city,
 
             // 'gender' => $request->gender,
