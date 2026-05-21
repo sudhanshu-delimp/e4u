@@ -17,7 +17,9 @@
                         <div class="col-12 mb-3">
                                 <div id="listingModalContent">
                                     @endif
-                                    <h3>Transaction Summary</h3>
+                                    @if(!empty($print))
+                                        <h3>Transaction Summary</h3>
+                                    @endif
                                     <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
                                         <tbody>
                                             <tr>
@@ -53,6 +55,10 @@
                                             <tr>
                                                 <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Loyalty Amount</strong></td>
                                                 <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->loyalty_amount ?? 0) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>GST</strong></td>
+                                                <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Payment</strong></td>
