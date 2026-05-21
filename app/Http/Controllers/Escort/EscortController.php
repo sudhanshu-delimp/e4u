@@ -376,6 +376,7 @@ class EscortController extends BaseController
             //'social_links'=>$request->social_links,
             'pay_id_name' => $request->PayID_Name,
             'pay_id_no' => $request->PayID_NO,
+            'social_media_consent' => $request->social_media_consent,
 
         ];
 

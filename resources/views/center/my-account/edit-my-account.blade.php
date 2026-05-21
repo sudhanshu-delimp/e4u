@@ -292,12 +292,12 @@
                                                                 <label for="">Do you consent, pursuant to clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline ml-0">
-                                                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="yes">
+                                                                    <input class="form-check-input" type="radio" name="social_media_consent" id="yes" value="1" {{ isset($escort->social_media_consent) && $escort->social_media_consent == '1' ? 'checked' : '' }}>
                                                                     <label class="form-check-label" for="yes">Yes</label>
                                                                 </div>
 
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="no" checked>
+                                                                    <input class="form-check-input" type="radio" name="social_media_consent" id="no" value="0" {{ isset($escort->social_media_consent) && $escort->social_media_consent == '0' ? 'checked' : '' }}>
                                                                     <label class="form-check-label" for="no">No</label>
                                                                 </div>                                                                
                                                             </div>

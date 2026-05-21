@@ -223,7 +223,7 @@
 
     
     <div id="loader" class="overlay d-none">
-        <div class="download-icon"><img src="http://e4u_main.test/assets/dashboard/img/arrow.png" alt=""
+        <div class="download-icon"><img src="{{ asset('assets/dashboard/img/arrow.png') }}" alt=""
                 style="width: 70px;"></div>
         <h2 id>Downloading... Please wait</h2>
         <p id="progressText">0 / 0</p>
