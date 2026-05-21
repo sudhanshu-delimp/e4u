@@ -36,22 +36,21 @@
     .newbtn{
     cursor: pointer;
     }
+    
     .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-grow: inherit;
     gap: 10px;
     }
-    .grid-container > div {
-    background-color: rgba(255, 255, 255, 0.8);
+    .grid-container .item4{
+        flex: 1 1 160px;
     }
     .item1 {
     grid-column: 3 / span 3;
     }
-    .item4{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+    
     img.img-thumbnail.defult-image {
         width: 100%;
         height: 180px;
@@ -99,6 +98,13 @@
     }
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
+    }
+    @media(max-width:768px){
+        .newbtn img{        
+        object-fit: cover;
+        width: 100% !important;
+        height: auto !important;
+        }
     }
 </style>
 @endsection
@@ -169,7 +175,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
             <div class="upload-photo-sec">
                 <div class="photo-top-header">                    
                     <div class="custom-img-filter-header border-0">
@@ -183,8 +189,8 @@
                 <div class="container">
                     <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('escort.default.images')}}">
                         @csrf
-                        <div class="row pt-3 pl-2 pr-2">
-                            <div class="col-lg-4 pr-0 pl-0">
+                        <div class="row pt-3">
+                            <div class="col-12 col-lg-4 col-sm-12 col-md-4 col-xl-4 pr-0 pl-0">
                                 
                                 <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                 <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
@@ -219,14 +225,14 @@
                                    
                                 </div>
                             </div>
-                            <div class="col-8">
+                            <div class="col-12 col-lg-8 col-sm-12 col-md-8 col-xl-8">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 ">
                                         <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                                     </div>
                                 </div>
-                                <div class="row" style="">
-                                    <div class="col-4 pr-0">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-sm-12 col-md-4 col-xl-4 pl-lg-2 pr-lg-0 p-0 pl-sm-2 ">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="2" data-html="true" data-placement="top" title="" data-boundary="window" id="img2" src="{{ asset($path->findByposition(auth()->user()->id,2, 1)['path'])}}">
@@ -255,7 +261,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-4 pr-0">
+                                    <div class="col-12 col-lg-4 col-sm-12 col-md-4 col-xl-4 pl-lg-2 pr-lg-0 p-0 pl-sm-2 ">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="3" data-html="true" data-placement="top" title="" data-boundary="window"  id="img3" src="{{ asset($path->findByposition(auth()->user()->id,3, 1)['path'])}}">
@@ -284,7 +290,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-4 pr-0">
+                                    <div class="col-12 col-lg-4 col-sm-12 col-md-4 col-xl-4 pl-lg-2 pr-lg-0 p-0 pl-sm-2 ">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="4" data-html="true" data-placement="top" title="" data-boundary="window"  id="img4" src="{{ asset($path->findByposition(auth()->user()->id,4, 1)['path'])}}">
@@ -313,9 +319,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row" style="">
-                                    <div class="col-4 pr-0">
+                                    <div class="col-12 col-lg-4 col-sm-12 col-md-4 col-xl-4 pl-lg-2 pr-lg-0 p-0 pl-sm-2 ">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="5" data-html="true" data-placement="top" title="" data-boundary="window"  id="img5" src="{{ asset($path->findByposition(auth()->user()->id,5, 1)['path'])}}">
@@ -344,7 +348,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-4 pr-0">
+                                    <div class="col-12 col-lg-4 col-sm-12 col-md-4 col-xl-4 pl-lg-2 pr-lg-0 p-0 pl-sm-2 ">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="6" data-html="true" data-placement="top" title="" data-boundary="window"  id="img6" src="{{ asset($path->findByposition(auth()->user()->id,6, 1)['path'])}}">
@@ -373,7 +377,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-4 pr-0">
+                                    <div class="col-12 col-lg-4 col-sm-12 col-md-4 col-xl-4 pl-lg-2 pr-lg-0 p-0 pl-sm-2 ">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
                                             <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="7" data-html="true" data-placement="top" title="" data-boundary="window"  id="img7" src="{{ asset($path->findByposition(auth()->user()->id,7, 1)['path'])}}">
@@ -406,7 +410,7 @@
                             </div>
                            
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                     <h2 class="banner-sub-heading my-1">Banner Image</h2>
                                    
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
@@ -483,7 +487,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8" id="js_profile_media_gallery">
+        <div class="col-12 col-xl-8 col-lg-8 col-md-12 col-sm-12" id="js_profile_media_gallery">
             <div class="photo-top-header">
                 <div class="photo-header custom-photo-header">
                     <div class="row">
