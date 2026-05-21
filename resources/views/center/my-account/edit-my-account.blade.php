@@ -364,8 +364,6 @@
                                                         <th>Business No.</th>
                                                         <th>Mobile No.</th>
                                                         <th>Email</th>
-                                                        <th>Access Granted</th>
-                                                        <th>Status</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
@@ -1020,8 +1018,6 @@
             { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'access_granted', name: 'access_granted', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
             
             ],

@@ -90,6 +90,11 @@ class OtherCenterController extends Controller
             $row->access_permitted = ($row->is_access_granted) ? 'Yes' : 'No';
 
             $links = "";
+            $label = "";
+            if($row->is_access_granted)
+            $label = '<sup class="playmate_icon listing-tag-tooltip ml-1">Accessed</sup>';
+
+            $display_name = "<span class='grant-access'>".$row->name.$label."</span>";            
 
             if($row->is_access_granted)
             {
@@ -122,14 +127,12 @@ class OtherCenterController extends Controller
 
             return [
                 'member_id' => $row->member_id,
-                'name' => $row->name,
+                'name' => $display_name,
                 'entity_name' => $row->entity_name,
                 'business_address' => $row->business_address,
                 'business_number' => $row->business_number,
                 'mobile' => $row->phone,
                 'email' => $row->email,
-                'status' => $row->status_text,
-                'access_granted' => $row->access_permitted,
                 'action' => $action,
                 
 
