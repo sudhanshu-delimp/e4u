@@ -17,7 +17,6 @@ class ViewOnlyMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-
         $exceptRoutes = [
              'center.current-listing',
              'center.past-listing',
