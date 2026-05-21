@@ -33,48 +33,44 @@
             </a>
             <div class="content">
                <div class="accodien_manage_padding_content">
-                  <p class="pt-4"><b>Q:How do I get to post my Profile on the Escorts Home Page?</b></p>
-                  <p>Your Membership automatically entitles you to appear on the Escort Home Page,
-                     appearing within the Membership Type you have selected when creating your Profile. 
+                  <p class="pt-4"><b>Q:How do I get to post my Profile on the Escorts Listing Page?</b></p>
+                  <p>Your Membership automatically entitles you to appear on the Escort Listing Page,
+                     appearing within the Membership Type you have selected when Listing your Profile. 
                      Where the number of Profiles exceeds, within the Membership Type, the number of
-                     available positions within the Escort Home Page, the Website, every two hours, will
-                     randomly rotate the Profiles, so as to ensure all Advertisers receive equal time at the
+                     available positions within the Escort Listing Page, the Website, every thirty minutes, will
+                     reshuffle the Profiles, so as to ensure all Advertisers receive equal time at the
                      top of their respective Membership Types. The rotation of Profiles occurs in both List
-                     View and Grid View.
-                  </p>
+                     View and Grid View.  If you are an Influencer, Pin Up or have Bumped Up your Profile, then you will remain at the top of the Listing Page
+                     according to your status.</p><br>
                   <p>Only the Membership Type 'Free', will be presented with a silhouette thumbnail, that is,
                      the thumbnail is not apparent on the Escort Home Page, but their photographs do
                      appear within their Profile which Viewers can see when they open the Profile. Their
                      Profile summary is also restricted, Viewers will need to open the Profile to determine
-                     all of the Escort's basic information to form a perception.
-                  </p>
-                  <p><b>Q:How long do I have to wait to be at the top of the Escort Home Page?</b></p>
-                  <p>Every Profile within a Membership Type is randomly rotated every two hours.</p>
+                     all of the Escort's basic information to form a perception.</p><br>
+                  <p><b>Q:How long do I have to wait to be at the top of the Escort Listing Page?</b></p>
+                  <p>Every Profile within a Membership Type is reshuffled every thirty minutes.  Only Influencers, Pin Up and Bumped Up Profiles maintain a priority position
+                     on the Listing Page.</p><br>
                   <p><b>Q:What if I forget my login or password?</b></p>
                   <p>If you forget your password simply go to the Logon Page and click the “forgot
                      password” link and then enter your details. You will receive an email to the email
                      address registered in your My Account details. Escorts4U also uses SMS 2FA
-                     technology for certain functions within the Website, including login and password
-                     recovery.
-                  </p>
+                     technology for certain functions within the Website, including login and password recovery.</p><br>
                   <p><b>Q:Do I need a SWA (see <a class="c-red" href="faqs">Local Laws</a> Victoria) number to advertise with you?</b></p>
-                  <p>If you are operating as a sex worker in Victoria, you have the option of displaying your SWA number on your Profile. It is no longer compulsory to register and display your SWA number under the Victorian State government legislation. Your Profile setup has a provision for you to insert your SWA number. You will be able to complete a Profile without your SWA number where your Home State or the Profile is designated as Victoria.
-                  </p>
+                  <p>If you are operating as a sex worker in Victoria, you have the option of displaying your SWA number on your Profile. 
+                     It is no longer compulsory to register and display your SWA number under the Victorian State government legislation. 
+                     Your Profile setup has a provision for you to insert your SWA number. You will be able to complete a Profile without 
+                     your SWA number where your Home State or the Profile is designated as Victoria.</p><br>
                   <p>If you do not currently have a SWA number, but would prefer to do so, you will need to register with the Business Licensing
-                     Authority (BLA). For more information, contact the BLA at:
-                  </p>
+                     Authority (BLA). For more information, contact the BLA at:</p>
                   <p><a href="www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers">www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers
-                     </a>
-                  </p>
+                     </a></p><br>
                   <p><b>Q:Can I have a default Profile - can I create other Profiles from my default Profile when I
-                     want to Tour?</b>
-                  </p>
-                  <p>Yes you absolutely can. In fact you can go further by creating a Profile for each city
+                     want to Tour?</b></p>
+                  <p>Yes you absolutely can. In fact you can go further by creating multiple Profiles for each city
                      you visit. Each Profile is kept in your Archive Folder. Simply turn off your Profile when
                      you are leaving a city and turn on your Archived Profile for the city your are next
                      visiting. Very convenient. This way you can have subtle differences between Profiles
-                     within Locations. 
-                  </p>
+                     within Locations.</p><br>
                   <p>You can go one step further and create a Tour, two or more Locations, by linking your
                      Profiles you have created and stored in your Archive Folder. Once you post your Tour
                      all you need to do is keep to the scheduled dates you have set in the Tour. Each
@@ -82,9 +78,7 @@
                      taken down at midnight preceding the day you leave, all done automatically. You don't
                      need to do anything. You can edit your Tour along the way if your schedule changes. 
                      The Website keeps track of any changes to your Tour along the way, such as where
-                     you shorten a stay in a Location, you will be credited for the number of days you have
-                     reduced the Tour by.
-                  </p>
+                     you shorten a stay in a Location, you will be credited for the number of days you have reduced the Tour by.</p>
                   
                </div>
             </div>
@@ -177,166 +171,135 @@
             <div class="content">
                <div class="accodien_manage_padding_content">
                   <p style="border: none;"><b>Q: What Account information is mandatory for an Advertiser and what is not?</b></p>
-                  <p>When you register to be come a Member, there is some mandatory information we
-                     request from you, such as your:
-                  </p>
+                  <p>When you register to become a Member, there is some mandatory information we request from you, such as your:</p>
                   <ul>
+                     <li>your name (for an Escort) or Business name (for a Massage Centre)</li>
                      <li>mobile number</li>
                      <li>email account; and</li>
                      <li>Home State (where you are domiciled).</li>
                   </ul>
-                  <p>You do not have to provide your name but it is optional. When you create a Profile,
+                  <p>We do require your name, it is not optional. When you create a Profile,
                      you can nominate a Profile Name for the Profile you are creating. We refer to that name as your 'Stage Name'.  You can allocate a
-                     different Stage Name for each Profile and have as many as your like.
-                  </p>
+                     different Stage Name for each Profile, and have as many as your like.</p><br>
                   <p>When Escorts4U or a User communicates with you, you are addressed by your
-                     Membership Number unless you have provided your name to us.
-                  </p>
+                     Membership ID, and in some communications, your name you have provided to us, such as payments for Services.</p><br>
                   <p><b>Q: What Account information is mandatory for a Viewer and what is not?</b></p>
-                  <p>When you register to be come a Member, there is some mandatory information we
-                     request from you, such as your:
-                  </p>
+                  <p>When you register to be come a Member, there is some mandatory information we request from you, such as your:</p>
                   <ul>
-                     <li>mobile number; and</li>
+                     <li>mobile number</li>
+                     <li>email account; and</li>
                      <li>Home State (where you are domiciled).
                      </li>
                   </ul>
                   <p>You do not have to provide your name but it is optional and should you choose to have
-                     a name, the name you choose can be anonymous in nature. 
-                  </p>
-                  <p><b>Q: To what extent is Geolocation applied in the Website?</b>
-                  </p>
+                     a name, the name you choose can be anonymous in nature.</p><br>
+                  <p><b>Q: To what extent is Geolocation applied in the Website?</b></p>
                   <p>Geolocation by proxy IP is by Country-Region-City. The Website does not undertake
                      any geolocation search beyond the City you reside in. If you do not live in a capital
-                     city, then the Website will by default attach you to the capital city in the region
-                     Location.
-                  </p>
-                  <p><b>Q: Once I am online, can I update my Profile(s) by myself?</b>
-                  </p>
+                     city, then the Website will by default attach you to the capital city in the Location.</p><br>
+                  <p><b>Q: Once I am online, can I update my Profile(s) by myself?</b></p>
                   <p>Absolutely, you can. Managing your Profiles has never been easier. All Advertisers
                      have their own username and password, and have the ability to login and update their
-                     Account, Profile Information and Profiles any time of the day. All changes to Profile
-                     content and settings will be visible online immediately.</p>
+                     Account, Profile Information, Media and Listed Profiles any time of the day. All changes to Profile
+                     content and settings will be visible online immediately.</p><br>
                   
                   <p>We even make it much easier for you by making available an Agent to help you with
-                     your Account, Profile Information, Profiles and Tours. Once you have registered, you
+                     your Account, Profile Information, Media and Listed Profiles and Tours. Once you have registered, you
                      simply request the help of an Agent and they will help you with all your queries and
-                     management of your Account.
-                  </p>
+                     management of your Account.</p><br>
                   <p><b>Q: Can I update my Media?</b></p>
                   <p>You certainly can. You will have direct access to your image gallery and videos
-                     retained in your Archive Folder. Simply log on and upload or delete Media retained in
-                     your Archive Folder (those which are displayed in any of your Profiles) any time of the
+                     retained in your Media folder. Simply log on and upload or delete photos and video retained in
+                     your Media folder (those which are displayed in any of your Profiles) any time of the
                      day. You can move Media around and nominate which photo image is your
-                     Thumbnail or Banner Image.
+                     Thumbnail or Banner Image.  You can also manage your Pin Up image and Media Verification here.</p><br>
+                  <p>Media Verification is very important.  Once you upload your Media (photos), you can then have your photos verified.
+                     Simply upload your Verification Image and within 24 hours the Media will be reviewed and the verification status updated.
+                     There are three verification statuses:
+                     <ul>
+                        <li>Pending.  This is when you have uploaded your Media but the Media has not been verified.  All Media will display the E4U Pending icon.  
+                           You have 48 hours to upload your Verification Image, otherwise your verification status will change to Unverified, and the E4U 
+                              Unverified icon will be displayed on all Media.  This includes any Listed Profiles.</li>
+                        <li>Unverified.  This is where your Verification Image and Media are not a match, and E4U has rejected the submitted Verification Image.
+                           The verification status on all Media will display the E4U Unverified icon.  This will also occur where you have not uploaded a 
+                           Verification Image within 48 hours of having uploaded any Media.</li>
+                        <li>Verified.  All Media will display the E4U Verified icon upon E4U approving the Verification Image.  
+                           Any Media that you upload after verification, will display the E4U Pending icon until verified.  
+                           If you do not upload a new Verification Image within 48 hours, the new Media status will change to Unverified, and will have the E4U Unveridied
+                           icon displayed on that Media.  You can have a mix of Pending, Unverified and Verified Media appear within a Profile should you select Media and attached
+                           to a Profile in between verification.</li>
+                     </ul>
                   </p>
-                  <p>If required, we will format your Media for you, to create a striking presentation. All
-                     changes to images will be online within a 24 hour period of new images having been
-                     uploaded (often within a few hours).
-                  </p>
-                  <p>Once you have all of your images and video uploaded in your Archive Folder, you will
-                     have three groups of Media:
-                  </p>
+                  <p>Once you have all of your images and video uploaded in your Archive folder, you will have three groups of Media:</p>
                   <ul>
-                     <li>Thumbnail (default image for your series of Profile photos - up to 7)</li>
-                     <li>Banner Image (which appears across the top of the Profile)
-                     </li>
-                     <li>Video image (a frame selected from the video and which appears as an image with
-                        a play tag)
-                     </li>
-                   </ul>
-                  <p>If you have requested Escorts4U to verify your Media, we will attach an Escorts4U
-                        Verified Icon to the image.  This is highly recommended as the verification adds credibility to your Profile.
-                     </p>
+                     <li>Thumbnail (default image for your series of Profile photos)</li>
+                     <li>Gallery images (a set of up to six photos which appear with the Thumbnail image when selected)</li>
+                     <li>Banner Image (which appears across the top of your Profile); and</li>
+                  </ul>
+                  <p>Remember, if you have submitted your Verification Image to E4U, we will attach an E4U Verified icon,
+                     according to the status, to the image.  This is highly recommended as verification adds credibility to your Profile.</p><br>
                   <p><b>Q: Can I remove my photos?</b></p>
-                  <p>You can delete Media from your Archive Folder by simply selecting the cross on the
+                  <p>You can delete Media from your Archive folder by simply selecting the cross on the
                      image and it is deleted. You can organise your images into groups (folders within your
                      Archive Folder) to help you better manage your Media. You should always update
                      your Profiles with your new Media before deleting any existing Media as any Media
                      which is deleted will automatically be removed from a Profile which that image or video
-                     was contained in.
-                  </p>
-                  <!-- <p><b>Q:</b>Can I remove my photos?</p>
-                     <p>You can delete Media from your Archive Folder by simply selecting the cross on the
-                     image and it is deleted. You can organise your images into groups (folders within your
-                     Archive Folder) to help you better manage your Media. You should always update
-                     your Profiles with your new Media before deleting any existing Media as any Media
-                     which is deleted will automatically be removed from a Profile which that image or video
-                     was contained in.</p>         --> 
+                     was contained in.</p><br>
                   <p><b>Q: Can I select a Thumbnail or Banner Image?</b></p>
-                  <p>You can select your Thumbnail or Banner Image (the preview image that appears
+                  <p>You can select your Thumbnail or Banner image (the preview image that appears
                      across the top of your Profile) by logging on, selecting your preferred image and
-                     dragging it to the Profile basket. You can have a different Thumbnail or Banner Image
-                     for each Profile you create.
-                  </p>
+                     dragging it to the Profile basket. You can have a different Thumbnail or Banner image
+                     for each Profile you create.  You also have a range of template images you can select from if 
+                     you do not have a suitable image to use as your Banner image.</p><br>
                   <p>The Thumbnail you select for any Profile will be the photo image which appears on the
-                     Search Page where your Profile is listed.
-                  </p>
+                     Search page where your Profile is listed.</p><br>
                   <p><b>Q: Can I see how much traffic I am generating for my Profile?</b></p>
                   <p>You certainly can. From the moment you begin to advertise with us you will be able to
                      access your Dashboard and view all of your analytics from within your Dashboard. 
                      The Profile statistics are broken down into numerous information groups to assist you
-                     when analysing your successes.
-                  </p>
-                  <p><b>Q; How does the Tour feature work?</b>
-                  </p>
-                  <p></p>
-                  <p>As soon as you create your Tour from your selected Profiles, it will be posted
-                     according to your start date. One day prior to your first Tour destination you will appear
-                     on the Escort Home Page for that Location, according to the Membership Type you
-                     have chosen when you created the Tour. That is, if you selected Platinum you will
-                     appear in the top group on the Escort Home Page.
-                  </p>
+                     when analysing your successes.</p><br>
+                  <p><b>Q; How does the Tour feature work?</b></p>
+                  <p>As soon as you create your Tour from your selected Profiles, it will be Listed
+                     according to your start date. You have the option of having your Tour appear in the Location
+                     one day prior to your first Location start date.  You will appear on the Escort Listing page for that Location,
+                     according to the Membership Type you have chosen when you created the Tour. That is, if you selected Platinum you will
+                     appear in the top group on the Escort Listing page.</p><br>
                   <p>This will enable you to have maximum exposure before your Tour commences, and
-                     give you the chance to take pre bookings in advance. You can also send out a V-Alert
+                     give you the chance to take pre-bookings in advance. You can also send out a V-Alert
                      to those Viewers who have added you to their Legbox and enabled the V-Alert feature
                      to receive V-Alert notifications. Where you select this option in the Tour creator, a
                      V-Alert will be automatically forwarded to Viewers, who have enabled this feature, one day before each leg of the Tour. 
-                     This is a free service.  The Viewer will receive the notification according to their settings, that is, by email or text.
-                  </p>
-                  <p></p>
+                     This is a free service.  The Viewer will receive the notification according to their settings, that is, by email or text.</p><br>
                   <p><b>Q: Do I need to enter information into my Tour?</b></p>
                   <p>Your Tour will automatically use the same information and Media that is set up in each
                      of your selected Profiles you have created for your different Locations. Like for
-                     example, your Sydney and Melbourne Profiles.
-                  </p>
-                  <p>
-                     If you would like to display different information in your Tour, such as Rates, About Me
+                     example, your Sydney and Melbourne Profiles.</p><br>
+                  <p>If you would like to display different information in your Tour, such as Rates, About Me
                      or Availability, you can login and edit your Tour at any time or you can edit the
-                     information while you create the Tour.
-                  </p>
+                     information while you create the Tour.  You have the option of saving the changes to your default settings.</p><br>
                   <p>For Tours which include Victoria, in order for us to display your Profile in Victoria and Queensland,
                      images will need to comply with the Local Laws of these Locations. You cannot show your bare
-                     breasts, buttocks, anus or full frontal nudity of the genital region. You will also need to
-                     supply us with your SWA number, at your option, to comply with the Victorian legislation, if you have chosen to display your SWA number.</p>
+                     breasts, buttocks, anus or full frontal nudity of the genital region. You also have the option to display
+                     your SWA number for Victoria.</p><br>
                   <p>Escort advertising laws in Australia differ from state to state. Before you embark on a
                      Tour, it is your responsibility to become familiar with the Local Laws and ensure you
-                     are compliant (see Local Laws above).
-                  </p>
-                  <p>
-                     While on Tour, if you upgrade your Membership Type you will not lose any remaining
+                     are compliant (see Local Laws above).</p><br>
+                  <p>While on Tour, if you upgrade your Membership Type you will not lose any remaining
                      days you have paid for. They will be applied automatically if you do not continue at
-                     the higher Membership Type.
-                  </p>
-                  <p><b>Q: What is an Agent and how can they help me?</b>
-                  </p>
+                     the higher Membership Type.</p><br>
+                  <p><b>Q: What is an Agent and how can they help me?</b></p>
                   <p>An Agent is a person or entity that has been appointed by Escorts4U in a designated
                      Location, like for example the “Victorian Agent”. The role of the Agent is to assist
                      Advertisers in the management of their Account, Media, Profiles, Tours, Concierge
-                     Services and Account information.
-                  </p>
-                  <p>You can appoint an Agent at any time by either:
-                  </p>
+                     Services and Account information.</p><br>
+                  <p>You can appoint an Agent at any time by either:</p>
                   <ul>
                      <li>Nominating the Agent as a part of the registration process; or by</li>
-                     <li>Requesting an Agent to be appointed by lodging a request through your
-                        Dashboard.
-                     </li>
+                     <li>Requesting an Agent to be appointed by lodging a request through your Dashboard.</li>
                   </ul>
                   <p>When you appoint an Agent, you enter into an arrangement with the Agent directly for
                      the Agent to provide the Agent Services. The Agent will have full access to your
-                     Account.
-                  </p>
+                     Account.</p>
                   
                </div>
             </div>
@@ -351,69 +314,45 @@
                   <p class="pt-4"><b>Q: How frequent are the advertising payments?</b></p>
                   <p>Fees are paid in advance according to the advertising period you have selected for
                      your Profile or Tour. You will receive an email from us 24 hours before the expiry of
-                     the Profile (advertisement). If you do not renew the Profile Subscription, your Profile
+                     your Profile (advertisement). If you do not renew the Profile Subscription, your Profile
                      will be removed from the Website, but retained in your archived Profiles within the
-                     Archive Folder which you can access from your Dashboard. You can renew a Profile
-                     at any time.
-                  </p>
-                  <p>When setting up a Profile, you can elect to have an automatic renewal for a
-                     determined period for the Profile, like for example, every 5 days at the Platinum level.
-                  </p>
+                     Archive folder which you can access from your Dashboard. You can renew a Profile 
+                     at any time as well as extend the Profile while it is Listed.</p><br>
                   <p><b>Q: How will I know my next payment is due?</b></p>
                   <p>We will email you a notification 24 hours prior to the expiry of your Profile. Your
-                     payment options will be listed in the email.
-                  </p>
-                  <p> You can also find out your due date at any time by logging in and clicking on the
-                     Dashboard link that administers published Profiles and Tours.
-                  </p>
+                     payment options will be listed in the email.</p><br>
+                  <p>You can also find out your due date at any time by logging in and clicking on the
+                     Dashboard link that administers Listed Profiles and Tours.</p><br>
                   <p><b>Q: What are my payment options?</b></p>
-                  <p>We accept payments by Card only. Payment is processed online when you post or
+                  <p>We accept payments by Card only. Payment is processed online when you List, extend or
                      renew your Profile or Tour. You are not required to provide your Card information
-                     when you set up your Account or any Profiles. You can even set up Profiles to be
-                     retained in your Archive Folder until you are ready to advertise.
-                  </p>
-                  <!-- <p>We accept payments by Card only. Payment is processed online when you post or
-                     renew your Profile or Tour. You are not required to provide your Card information
-                     when you set up your Account or any Profiles. You can even set up Profiles to be
-                     retained in your Archive Folder until you are ready to advertise.
-                     </p> -->
+                     when you set up your Account or any Profiles after your first payment. You can even set up Profiles to be
+                     retained in your Archive Folder until you are ready to List them.</p><br>
                   <p>There are effectively three payment options, all with your Card, namely:</p>
                   <ul>
-                     <li>Pay as you go. If you post a Profile for 3 days, you can pay for 3 days.</li>
-                     <li>Pay in advance. You can pay a lump sum into your Account and then draw down
-                        on those funds as you post and renew your Profiles or Tours.
-                     </li>
+                     <li>Pay as you go. If you List a Profile for 3 days, you pay for 3 days.</li>
+                     <li>Pay in advance. You can pay a lump sum into your Wallet and then draw down
+                        on those funds as you List, extend or renew your Profiles or Tours.</li>
                      <li>Pay and renew. You pay for the number of days you have selected for your Profile,
                         and elect to automatically renew your Profile each nominated period thereafter (like
-                        every 5 days) and for the nominated occurrences (like for 3 renewals).
-                     </li>
+                        every 5 days) and for the nominated occurrences (like for 3 renewals).</li>
                   </ul>
                   <p><b>Q: Can I pay weekly?</b></p>
                   <p>Yes you can. We calculate your Fees based on the number of days you select for
-                     your Profile to be published. Some discounts do apply in certain circumstances (see
-                     <a class="c-red" href="help-for-advertisers">Loyalty Program</a> )
-                  </p>
-                  <p><b>Q: Do I receive a discount if I make a pre payment for months in advance?</b>
-                  </p>
+                     your Profile to be Listed. Some discounts do apply in certain circumstances (see
+                     <a class="c-red" href="help-for-escorts">Loyalty Program</a> ).</p><br>
+                  <p><b>Q: Do I receive a discount if I make a pre payment for months in advance?</b></p>
                   <p>Yes you do. We offer generous discounts for pre-payments, long term advertising (22
                      days or more) and cumulative spending. You can see all of our discounts in the Fee
-                     summary which you can access from your Dashboard.
-                  </p>
+                     summary which you can access from your Dashboard.</p><br>
                   <p><b>Q: Important note regarding payments</b></p>
                   <p>When raising a query with us, we can only trace and allocate a payment to your Profile
                      if it has the correct Payment Reference. It is very important that your payment query
                      has the correct Payment Reference, which is the confirmation reference number we
-                     provide you in your email notification once your published Profile Fee has been made. 
-                     It is like a receipt.
-                  </p>
-                  <p>When you view a published Profile in your Archive Folder, the Profile will have the
-                     number reference attached to it for your convenience. A current published Profile is
-                     retained in the ‘Current Publications’ sub-group and all historical 
-                     publications are retained in your ‘Past Profiles’ sub-group.
-                  </p>
-                  <p>Any queries regarding payments that cannot be matched to Profiles will remain open
-                     until you match the payment query to the Profile.
-                  </p>
+                     provide you in your email notification once your Listed Profile Fee has been made. It is like a receipt.</p><br>
+                  <p>When you view a Listed Profile, it will have the number reference attached to it for your convenience. A current Listed Profile is
+                     retained in the 'Listed Profiles' and all historical Listings are retained in your 'Archived Profiles'.</p><br>
+                  <p>Any queries regarding payments that cannot be matched to Profiles will remain open until you match the payment query to the Profile.</p>
                   
                </div>
             </div>
@@ -428,28 +367,22 @@
                   <p class="pt-4"><b>Q: Do I have to sign a contract to advertise?</b></p>
                   <p>Save for the Policy statements including the <a class="c-red" href="{{ url('terms-conditions')}}">Terms and Conditions</A> of use, there are
                      no other contracts, no obligation to advertise and you can cancel your Membership at
-                     any time
-                  </p>
+                     any time.</p><br>
                   <p><b>Q: What is the best type of Membership for me?</b></p>
-                  <p>We have a range of Membership options that are sure to fit in with your needs.
-                  </p>
-                  <p>Depending on the Viewer's display preference, the Search Page will present in either a
+                  <p>We have a range of Membership options that are sure to fit in with your needs.</p><br>
+                  <p>Depending on the Viewer's display preference, the Listing page will present in either a
                      "List View" or "Grid View" format. Viewers can then select to view your Profile. You
                      will always rank within your Membership Type in all search results irrespective of which
-                     format the Viewers choose to view the Escort Home Page. Each Membership Type
-                     reshuffles every 2 hours enabling all Advertisers to appear first from time to time within
-                     their respective Membership Type on the Escort Home Page
-                  </p>
-                  <p>A viewer can ‘flag’ your Profile and then view the list of Profiles from within the Escort
-                     Home Page that they have selected. A registered Viewer can go one step further by
+                     format the Viewers choose to view the Escort Profile summary. Each Membership Type
+                     reshuffles every 30 minutes enabling all Advertisers to appear first from time to time within
+                     their respective Membership Type on the Escort Listing page.  The rules apply for Massage Centres.</p><br>
+                  <p>A viewer can 'flag' your Profile and then view the list of Profiles from within the Escort Listing page
+                     that they have selected. A registered Viewer can go one step further by
                      adding your Profile to their Legbox. That will entitle them to receive notifications from
                      you as well as having communication capability with you should you have those
-                     features enabled.
-                  </p>
-                  <p>Each Membership Type enjoys certain benefits according to that Membership Type.
-                     The following table summarises the distinctions between each Membership Type
-                     according to the format:
-                  </p>
+                     features enabled.</p><br>
+                  <p>Each Membership Type enjoys certain benefits according to the Membership Type.  The following table 
+                     summarises the distinctions between each Membership Type according to the format:</p>
                   <table class="table faq--table">
                      <thead>
                         <tr>
@@ -461,33 +394,29 @@
                         <tr>
                            <td>Platinum</td>
                            <td>
-                              <p>Platinum Membership always ranks at the top of the Escort Home Page.</p>
-                              <div class="tb-flex">
-                                 <p><b>List View: </b></p>
-                                 <p>Your Thumbnail photo is 142px x 200px. Rates, review rating,
-                                    available to, verification and your 'Who I am' are displayed.
-                                 </p>
-                              </div>
+                              <p>Platinum Membership always ranks at the top of the Escort Listing page.</p>
                               <div class="tb-flex">
                                  <p><b>Grid View:  </b></p>
-                                 <p>Your Thumbnail photo is 200px x 281px. Hourly rate, services,
-                                    gender, orientation and view rating are included in the display.
-                                 </p>
+                                 <p>Your Thumbnail photo, Stage Name, Verification status, Location, age, hourly rate, services,
+                                    gender, orientation and view rating are included in the display.</p>
+                     </div>
+                               <div class="tb-flex">     
+                                 <p><b>List View:  </b></p>
+                                 <p>Your Thumbnail photo, Stage Name, Verification status, rates, review rating,
+                                    available to, My Playbox status, start and finish dates and your 'Who I am' are displayed.</p>
                               </div>
                               <div class="tb-flex">
                                  <p><b>Profile Page:  </b></p>
-                                 <p>A comprehensive and informative summary about you. Your
-                                    Thumbnail is 420px x 600px together with 6 additional photos
-                                    and a video player 640px x 360px. All photos and the video
-                                    can pop up.
-                                 </p>
+                                 <p>A comprehensive and informative summary about you. Displayed is your Thumbnail and default galery images, video,
+                                    availability, Rates, My Playmates, About Me, Statistics, Who Am I, My Service, Deposit details, together with policies,
+                                    legal statements, Reviews and tips.</p>
                               </div>
                            </td>
                         </tr>
                         <tr>
                            <td>Gold</td>
                            <td>
-                              <p>Gold Membership ranks behind Platinum and before Silver.</p>
+                              <p>Gold Membership ranks behind Platinum and before Silver.There are </p>
                               <div class="tb-flex">
                                  <p><b>List View: </b></p>
                                  <p>Your Thumbnail photo is 112px x 157px. Rates, review rating,

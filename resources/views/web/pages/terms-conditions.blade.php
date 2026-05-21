@@ -2724,7 +2724,7 @@
                                         <div class="cms-accordion-content-area">
                                             <!-- level 1 list -->
                                             <ol type="1" class="cms-lvl1-list pl-0">
-                                                <li class=" cms-lvl1-list-title"><span class="cms-list-span"><b>36.</b></span>General Terms</li>
+                                                <li class=" cms-lvl1-list-title"><span class="cms-list-span"><b>35.</b></span>Terms and Conditions</li>
                                                 
                                         </div>
                                     </div>
