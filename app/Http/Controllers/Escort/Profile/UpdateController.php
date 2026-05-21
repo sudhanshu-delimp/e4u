@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Traits\ResizeImage;
 use App\Http\Controllers\AppController;
+use App\Models\EscortAdditionalInformation;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
@@ -104,7 +105,6 @@ class UpdateController extends AppController
         $user = auth()->user();
         $escortDefault = $this->escort->findDefault($user->id, 1);
         $users = $this->user->find($user->id);
-
         if($request->gender!="" && $user->gender=="")
         {
              $users->gender =  $request->gender;
@@ -121,6 +121,20 @@ class UpdateController extends AppController
                 $users->save();
             }
         }
+        //start store Street Address
+        $address = trim($request->address);
+        if (!empty($address)) {
+             EscortAdditionalInformation::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'type'    => 'address',
+                    'value'   => $address,
+                    'short_desc' => implode(' ', array_slice(explode(' ', $address), 0, 5)) ?? null
+                ]
+            );
+        }
+
+        //end store Street Address
         $cityId = 0;
         $cnt = 0;
         if (isset($request->state_id)) {

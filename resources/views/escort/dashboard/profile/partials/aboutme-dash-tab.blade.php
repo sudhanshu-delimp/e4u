@@ -219,7 +219,7 @@
 
                                 <div class="col-sm-6">
                                     @if ($showSelect)
-                                        <select id="stageName" name="name"
+                                        <select id="stageName" name="name" onclick="stageNameInput(this)"
                                             class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
                                             title="(for public display)" required
                                             data-parsley-required-message="Select stage name"
@@ -235,7 +235,7 @@
                                             <option value="new">Add a new Stage Name</option>
                                         </select>
 
-                                        <input type="text" id="stageNameInp" name=""
+                                        <input type="hidden" id="stageNameInp" name=""
                                             value="{{ $editSuffix }}"
                                             class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
                                             title="(for public display)"
@@ -244,7 +244,7 @@
                                             data-parsley-group="group_one"
                                             data-parsley-errors-container="#stageName-errors"
                                             data-is-edit="{{ !$isNewProfile ? 'true' : 'false' }}"
-                                            data-original-name="{{ $currentName }}" style="display:none">
+                                            data-original-name="{{ $currentName }}" >
                                     @else
                                         <input type="text" id="stageName" name="name"
                                             class="change_default form-control form-control-sm select_tag_remove_box_sadow"
@@ -429,8 +429,8 @@
                                     @if ($hasAddresses)
 
                                         {{-- Dropdown: existing saved addresses --}}
-                                        <select id="address" name="address"
-                                            class="js-address-select form-control form-control-sm select_tag_remove_box_sadow change_default"
+                                        <select id="address" name="address" onclick="addressInput(this)"
+                                            class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
                                             title="Street Address" data-parsley-group="group_one"
                                             data-parsley-errors-container="#address-errors">
                                             <option value="">— Choose a Street Address —</option>
@@ -444,11 +444,11 @@
                                         </select>
 
                                         {{-- Text input: hidden until "Add new" is selected --}}
-                                        <input type="text" id="addressInp" name="" value=""
-                                            class="form-control form-control-sm select_tag_remove_box_sadow mt-1"
+                                        <input type="hidden" id="addressInp" name="" value=""
+                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
                                             placeholder="Enter new Street Address" data-parsley-group="group_one"
                                             data-parsley-errors-container="#address-errors"
-                                            data-original-address="{{ $currentAddress }}" style="display:none">
+                                            data-original-address="{{ $currentAddress }}" >
                                     @else
                                         {{-- No saved addresses: plain text input (current behaviour) --}}
                                         <input type="text" id="address" name="address"
@@ -3048,33 +3048,42 @@
             return true;
         }
 
-        $(document).on('change', '#stageName.js-stage-name-select', function() {
-            const isNew = $(this).val() === 'new';
+        function addressInput(ele) {
+            if ($(ele).val() == 'new') {
+                $(ele).remove();
+                $("#addressInp").attr('type', 'text');
+                $("#addressInp").attr('name', 'address');
+            }
+            return true;
+        }
 
-            if (isNew) {
-                // Disable & hide select so it won't submit
-                $(this).prop('disabled', true).hide();
+        // $(document).on('change', '#stageName.js-stage-name-select', function() {
+        //     const isNew = $(this).val() === 'new';
 
-                // Activate the text input
-                $('#stageNameInp')
-                    .attr('name', 'name')
-                    .attr('required', true)
-                    .show()
-                    .trigger('focus');
-            } else {
-                // Revert: re-enable select
-                $(this).prop('disabled', false).show();
+        //     if (isNew) {
+        //         // Disable & hide select so it won't submit
+        //         $(this).prop('disabled', true).hide();
 
-                // Deactivate text input
-                $('#stageNameInp')
-                    .attr('name', '')
-                    .removeAttr('required') kl
+        //         // Activate the text input
+        //         $('#stageNameInp')
+        //             .attr('name', 'name')
+        //             .attr('required', true)
+        //             .show()
+        //             .trigger('focus');
+        //     } else {
+        //         // Revert: re-enable select
+        //         $(this).prop('disabled', false).show();
+
+        //         // Deactivate text input
+        //         $('#stageNameInp')
+        //             .attr('name', '')
+        //             .removeAttr('required') 
 
                      
-                    .val('')
-                    .hide();
-            }
-        });
+        //             .val('')
+        //             .hide();
+        //     }
+        // });
 
         // Street Address handal
 

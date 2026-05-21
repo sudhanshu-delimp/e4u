@@ -1286,6 +1286,7 @@ $loginAccount = auth()->user();
 
 
                    let inputName = $(this).attr('name');
+                
                    if ( inputName==='gender' && profile_gender !== "Null" && profile_gender !== "") 
                    {
                         call_gender_alert(this.value);
@@ -1792,7 +1793,7 @@ $loginAccount = auth()->user();
         }
 
         function update_escort_default(updateButton, form_data) {
-            updateButton.prop('disabled', true).html('<div class="spinner-border"></div>');
+           // updateButton.prop('disabled', true).html('<div class="spinner-border"></div>');
             var url = "{{ route('escort.update_escort_default') }}";
             $.ajax({
                 type: 'POST',
