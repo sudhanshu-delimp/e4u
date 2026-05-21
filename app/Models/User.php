@@ -349,6 +349,16 @@ class User extends Authenticatable
         return $this->hasMany(AdvertiserDiscount::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(PaymentHistory::class, 'user_id');
+    }
+
+    public function paymentsCompletedBy()
+    {
+        return $this->hasMany(PaymentHistory::class, 'completed_by');
+    }
+
     public function activeFeeDiscount()
     {
         return $this->hasOne(AdvertiserDiscount::class)
@@ -917,6 +927,27 @@ class User extends Authenticatable
     }
 
 
+    public function getAccountSettings()
+    {
+        if ($this->type == '0') {
+            $settings = $this->viewer_settings;
+        } elseif ($this->type == '1') {
+            $settings = $this->staff_setting;
+        } elseif ($this->type == '3') {
+            $settings = $this->escort_settings;
+        } elseif ($this->type == '4') {
+            $settings = $this->massage_settings;
+        } elseif ($this->type == '5') {
+            $settings = $this->agent_settings;
+        } elseif ($this->type == '9') {
+            $settings = $this->operator_staff_setting;
+        } elseif ($this->type == '8') {
+            $settings = $this->shareholder_setting;
+        }
+        return $settings;
+    }
+
+
 
 
     public function update_last_login($user)
@@ -972,4 +1003,18 @@ class User extends Authenticatable
             'balance' => 0
         ]);
     }
+
+
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(User::class, 'created_by');
+    }
+
+
+                
 }

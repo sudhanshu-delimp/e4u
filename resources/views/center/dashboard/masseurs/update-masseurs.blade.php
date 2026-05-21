@@ -238,8 +238,8 @@
                                         <div class="form-group business-field">
                                             <label for="mobile" class="mb-1">Mobile</label>
                                             <input type="text" id="mobile" name="mobile" data-ajax="phone"
-                                                class="form-control rounded-0" placeholder="Enter Mobile"
-                                                value="{{ $masseur->mobile }}" required>
+                                                class="form-control rounded-0" maxlength="10" minlength="10" placeholder="Enter Mobile"
+                                                value="{{ $masseur->getRawOriginal('mobile') }}" required>
                                         </div>
 
 
@@ -963,6 +963,135 @@
 
                                 </div>
                                 <!-- End My Availability -->
+                            </form>
+
+
+                             <form id="masseur_frm_service_type" name="masseur_frm_service_type" method="Post">
+                               <div class="mcc-form-tab">
+                                        <h2 class="mcc-heading">My Services</h2>
+                                            <div class="row">
+
+
+                                                <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
+
+
+                                                        <div class="form-group business-field col-md-6">
+                                                            
+                                                            <label for="exampleFormControlSelect1">Massage services
+                                                            </label>
+                                                            
+                                                                <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_language_data" id="massage_service" name="massage_service" >
+                                                                <option value="" selected="">-- Not Set --</option>
+                                                                 @foreach ($massage_default->massage_services()->where('category_id', 1)->get() as $value)
+
+                                                                    @if(!empty($masseur->massage_service_types) && in_array($value->service_id, $masseur->massage_service_types))
+                                                                        @continue
+                                                                    @endif
+                                                               
+                                                                <option value="{{$value->service_id}}"  data-name="{{config('escorts.profile.massage-services')[$value->service_id]  }}">{{config('escorts.profile.massage-services')[$value->service_id]  }}</option>
+                                                                @endforeach
+                                                                </select>
+
+
+                                                            
+                                                                <div id="show_db_massage_service" class="d-flex">
+
+                                                                        @if(!empty($masseur->massage_service_types)) 
+                                                                            @foreach($masseur->massage_service_types as $massage_service_type)
+
+                                                                               
+
+                                                                                <div class='selecated_languages select_lang massage_service' id="{{ $massage_service_type }}">
+                                                                                    <span class='languages_choosed_from_drop_down'>{!!config('escorts.profile.massage-services')[$massage_service_type]  !!} <small class='remove-lang remove-lang-massage-service'>×</small></span>
+                                                                                    
+                                                                                </div>
+                                                                    
+                                                                            @endforeach 
+                                                                        @endif
+                                                                </div>
+                                                            
+
+
+                                                                <div id="container_massage_service"> 
+                                                                   @if(!empty($masseur->massage_service_types)) 
+                                                                            @foreach($masseur->massage_service_types as $massage_service_type)
+                                                                        <input type='hidden' name='massage_service_list[]' value="{{$massage_service_type}}">
+                                                                        @endforeach
+                                                                    @endif
+                                                                </div>
+
+                                                                <div id="show_massage_service" style="display:none"></div>
+                                                                <div id="container_massage_service"></div>
+                                                                    
+                                                        
+                                                        </div>
+
+
+                                                        <div class="form-group business-field col-md-6">
+                                                            
+                                                            <label for="exampleFormControlSelect1">Other service types
+                                                            </label>
+                                                            
+                                                                <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_language_data" id="massage_other_service" name="massage_other_service" >
+                                                                <option value="" selected="">-- Not Set --</option>
+                                                                @foreach ($massage_default->massage_services()->where('category_id', 2)->get() as $value)
+
+                                                                 @if(!empty($masseur->massage_service_types) && in_array($value->service_id, $masseur->other_service_types))
+                                                                        @continue
+                                                                 @endif
+
+                                                                <option value="{{$value->service_id}}"  data-name="{{config('escorts.profile.other-services')[$value->service_id]  }}">{{config('escorts.profile.other-services')[$value->service_id]  }}</option>
+                                                                @endforeach
+                                                                </select>
+
+
+                                                            
+                                                                <div id="show_db_massage_other_service" class="d-flex">
+
+                                                                        @if(!empty($masseur->other_service_types)) 
+                                                                            @foreach($masseur->other_service_types as $other_service_type)
+                                                                        
+                                                                                <div class='selecated_languages massage_other_service select_lang' id="{{ $other_service_type }}">
+                                                                                    <span class='languages_choosed_from_drop_down'>{!! config('escorts.profile.other-services')[$other_service_type] !!} <small class='remove-lang remove-lang-massage-other-service'>×</small></span>
+                                                                                    
+                                                                                </div>
+                                                                    
+                                                                            @endforeach 
+                                                                        @endif
+                                                                </div>
+                                                            
+
+
+                                                                <div id="container_massage_other_service"> 
+                                                                    @if(!empty($masseur->other_service_types)) 
+                                                                            @foreach($masseur->other_service_types as $other_service_type)
+                                                                        <input type='hidden' name='massage_other_service_list[]' value="{{$other_service_type}}">
+                                                                        @endforeach
+                                                                    @endif
+                                                                </div>
+
+                                                                <div id="show_massage_other_service" style="display:none"></div>
+                                                                <div id="container_massage_other_service"></div>
+                                                                    
+                                                        
+                                                        </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        <div class="d-flex justify-content-end py-3">
+                                            <input type="hidden" name="type" id="type" value="my_services">
+                                            <input type="hidden" name="page_token" id="page_token"
+                                                value="{{ $masseur->token_id }}">
+                                            <input type="hidden" name="masseur_id" id="masseur_id"
+                                                value="{{ $masseur->id }}">
+                                            <button type="button" id="submitMasseur"
+                                                class="btn-common save_profile_btn">Update</button>
+                                        </div>
+
+                                    </div>
                             </form>
 
 
@@ -2433,6 +2562,10 @@ $(document).on('submit', '#mediaVerification', function (e) {
         data: formData,
         processData: false,
         contentType: false,
+        before: function (response) {
+            button.prop('disabled', true);
+            button.text('Verifing...');
+        },
         success: function (response) {
 
             Swal.fire({
@@ -2475,5 +2608,77 @@ $(document).on('submit', '#mediaVerification', function (e) {
 });
 
 
-    </script>
+$(document).ready(function () 
+{
+
+    function toggleOtherServices() 
+    {
+        // first checkbox (Massage)
+        let isMassageChecked = $('input[name="service[]"][value="massage"]').is(':checked');
+
+        // other two checkboxes
+        let otherCheckboxes = $('input[name="service[]"][value="2_hand"], input[name="service[]"][value="4_hand"]');
+
+        if (isMassageChecked) {
+
+            // enable other checkboxes
+            otherCheckboxes.prop('disabled', false);
+
+        } else {
+
+            // uncheck + disable other checkboxes
+            otherCheckboxes.prop('checked', false);
+            otherCheckboxes.prop('disabled', true);
+        }
+    }
+
+    toggleOtherServices();
+
+    $('input[name="service[]"][value="massage"]').on('change', function () {
+            toggleOtherServices();
+    });
+
+
+    $('#massage_service').change(function() {
+            console.log('===========');
+            var languageValue = $('#massage_service').val();
+            $("#show_massage_service").show();
+            //$(".select_lang").hide();
+            var selectedLanguage = $(this).children("option:selected", this).data("name");
+            $("#show_db_massage_service").append(" <div class='selecated_languages massage_service select_lang' id="+languageValue+"><span class='languages_choosed_from_drop_down'>" + selectedLanguage + " <small class='remove-lang remove-lang-massage-service'>×</small></span> </div> ");
+            $("#container_massage_service").append("<input type='hidden' name='massage_service_list[]' value=" + languageValue + ">");
+            $("#massage_service option[value='" + languageValue + "']").remove();
+        });
+
+        $(document).on('click', '.remove-lang-massage-service , span.custom--help', function() {
+            let parent = $(this).closest('.massage_service');
+            let id = parent.attr('id');
+            $('#container_massage_service input[name="massage_service_list[]"][value="'+id+'"]').remove();
+            $(this).closest('.massage_service').remove();
+            //$(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
+        });
+
+
+        $('#massage_other_service').change(function() {
+            console.log('===========');
+            var languageValue = $('#massage_other_service').val();
+            $("#show_massage_other_service").show();
+            //$(".select_lang").hide();
+            var selectedLanguage = $(this).children("option:selected", this).data("name");
+            $("#show_db_massage_other_service").append(" <div class='selecated_languages massage_other_service select_lang' id="+languageValue+"><span class='languages_choosed_from_drop_down'>" + selectedLanguage + " <small class='remove-lang remove-lang-massage-other-service'>×</small></span> </div> ");
+            $("#container_massage_other_service").append("<input type='hidden' name='massage_other_service_list[]' value=" + languageValue + ">");
+            $("#massage_other_service option[value='" + languageValue + "']").remove();
+        });
+
+        $(document).on('click', '.remove-lang-massage-other-service , span.custom--help', function() {
+            let parent = $(this).closest('.massage_other_service');
+            let id = parent.attr('id');
+            $('#container_massage_other_service input[name="massage_other_service_list[]"][value="'+id+'"]').remove();
+            $(this).closest('.massage_other_service').remove();
+            //$(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
+        });
+
+
+});
+</script>
 @endpush

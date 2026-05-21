@@ -92,6 +92,11 @@ class MassageProfile extends Model
         return formatMobileNumber($value);
     }
 
+     public function getBusinessNoAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
     public function state()
     {
         return $this->belongsTo('App\Models\State', 'state_id');
@@ -504,10 +509,24 @@ class MassageProfile extends Model
         return $this->belongsTo(MassagePurchase::class, 'purchase_id');
     }
 
-     public function activeUpcomingSuspend(){
-        return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id','id')
-        ->where('utc_end_date', '>=', Carbon::now('UTC'))
-        ->oldestOfMany('utc_start_date');
+    //  public function activeUpcomingSuspend(){
+    //     return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id','id')
+    //     ->where('utc_end_date', '>=', Carbon::now('UTC'))
+    //     ->oldestOfMany('utc_start_date');
+    // }
+
+    public function activeUpcomingSuspend()
+    {
+        $now = now('UTC');
+        return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id', 'id')
+        ->where(function ($query) use ($now) {
+                $query->where(function ($q) use ($now) {
+                    $q->where('utc_start_date', '<=', $now)
+                    ->where('utc_end_date', '>=', $now);
+                })
+                ->orWhere('utc_start_date', '>', $now);
+            })
+            ->orderBy('utc_start_date', 'asc');
     }
 
     public function isListingExtended(){

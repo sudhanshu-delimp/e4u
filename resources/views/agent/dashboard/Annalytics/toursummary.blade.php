@@ -85,8 +85,8 @@
                                             <td>15-04-2025</td>
                                             <td>104</td>
                                             <td>Yes</td>
-                                            <td><div class="num_value">$<span>1,443.00</span></div></td>
-                                            <td> <div class="num_value">$<span>72.15</span></div></td>
+                                            <td><div class="num_value"><x-curFormat/><span>1,443.00</span></div></td>
+                                            <td> <div class="num_value"><x-curFormat/><span>72.15</span></div></td>
                                             <td>
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"
@@ -279,7 +279,7 @@
                                     <td style="text-align:center;">15-01-2025</td>
                                     <td >Platinum</td>
                                     <td style="text-align:center;">15</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>120.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>120.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">SA</td>
@@ -287,7 +287,7 @@
                                     <td style="text-align:center;">28-01-2025</td>
                                     <td>Platinum</td>
                                     <td style="text-align:center;">12</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>96.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>96.00</span></div></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center;">Vic</td>
@@ -295,7 +295,7 @@
                                     <td style="text-align:center;">23-02-2025</td>
                                     <td>Platinum</td>
                                     <td style="text-align:center;">26</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>208.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>208.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">Vic</td>
@@ -303,7 +303,7 @@
                                     <td style="text-align:center;">23-02-2025</td>
                                     <td>Gold</td>
                                     <td style="text-align:center;">26</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>156.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>156.00</span></div></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center;">Vic</td>
@@ -311,7 +311,7 @@
                                     <td style="text-align:center;">09-02-2025</td>
                                     <td>Pin Up</td>
                                     <td style="text-align:center;">(1 week)</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>475.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>475.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">Tas</td>
@@ -319,7 +319,7 @@
                                     <td style="text-align:center;">05-03-2025</td>
                                     <td>Gold</td>
                                     <td style="text-align:center;">10</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>60.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>60.00</span></div></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center;">NSW</td>
@@ -327,7 +327,7 @@
                                     <td style="text-align:center;">31-03-2025</td>
                                     <td>Platinum</td>
                                     <td style="text-align:center;">26</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>208.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>208.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">Qld</td>
@@ -335,7 +335,7 @@
                                     <td style="text-align:center;">15-04-2025</td>
                                     <td>Platinum</td>
                                     <td style="text-align:center;">15</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>120.00</span></div></td>
+                                    <td style="text-align:right;"><div class="num_value"><x-curFormat/><span>120.00</span></div></td>
                                 </tr>
                                 <tr style="font-weight:bold;">
                                     <td colspan="4" style="
@@ -343,7 +343,7 @@
                                                                             <td style="
                                             border-top: 1px solid; border-bottom: 1px solid; text-align:center;">104</td>
                                                                             <td style="
-                                            border-top: 1px solid; border-bottom: 1px solid; text-align:right;"><div class="num_value">$<span>1,443.00</span></div></td>
+                                            border-top: 1px solid; border-bottom: 1px solid; text-align:right;"><div class="num_value"><x-curFormat/><span>1,443.00</span></div></td>
                                 </tr>
                             </tbody>
 

@@ -11,9 +11,15 @@ class PaymentHistory extends Model
 
     protected $fillable = [
         'user_id',
+        'completed_by',
         'ref_no',
         'service',
         'amount',
+        'wallet_amount',
+        'loyalty_amount',
+        'net_amount',
+        'gst_amount',
+        'paid_amount',
         'currency',
         'transaction_id',
         'status',
@@ -31,4 +37,16 @@ class PaymentHistory extends Model
     {
         return $this->hasMany(PaymentItem::class, 'payment_history_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function completedByUser()
+    {
+        return $this->belongsTo(User::class, 'completed_by');
+    }
+
+  
 }

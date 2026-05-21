@@ -10,7 +10,12 @@ class Masseur extends Model
 {
     use HasFactory;
 
-    protected $casts = ['service' => 'array'];
+    protected $casts = [
+    'service' => 'array',
+    'massage_service_types'=>'array',
+    'other_service_types' => 'array'
+    ];
+  
 
 
     public function durations()
@@ -27,7 +32,10 @@ class Masseur extends Model
         return null;
     }
 
-
+    public function getMobileAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
 
 
     public function getImagePosition($val,$profile_id)

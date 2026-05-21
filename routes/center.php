@@ -10,6 +10,7 @@ use App\Http\Controllers\Center\MassageGalleryController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 use App\Http\Controllers\Center\Masseurs\MasseurController;
 use App\Http\Controllers\Center\MediaController;
+use App\Http\Controllers\Center\OtherCenterController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\MassageController;
@@ -44,10 +45,19 @@ Route::post('/change-password-expiry', [CenterController::class, 'updatePassword
 Route::get('/upload-my-avatar', [CenterController::class, 'uploadAvatar'])->name('center.profile.avatar');
 Route::post('upload-avatar/{id}',[CenterController::class,'storeMyAvatar'])->name('center.save.avatar');
 Route::post('remove-avatar',[CenterController::class,'removeMyAvatar'])->name('center.avatar.remove');
-Route::get('/update-account', [CenterController::class, 'edit'])->name('center.account.edit');
-Route::post('/update-account', [CenterController::class, 'update'])->name('center.account.update');
 
-Route::post('add-sub-account', [CenterController::class, 'add_sub_account'])->name('center.add-sub-account');
+Route::get('update-account', [CenterController::class, 'edit'])->name('center.account.edit');
+Route::post('update-account', [CenterController::class, 'update'])->name('center.account.update');
+
+
+
+
+Route::post('add-sub-account', [OtherCenterController::class, 'add_sub_account'])->name('center.add-sub-account');
+Route::post('all-other-centre-list', [OtherCenterController ::class, 'get_all_other_centre_list'])->name('center.all-other-centre-list');
+Route::post('action-account', [OtherCenterController::class, 'account_action'])->name('center.action-account');
+
+Route::get('switch-login/{id}', [OtherCenterController::class, 'switchLogin'])->name('center.switch-to-child');
+Route::get('back-to-parent', [OtherCenterController::class, 'backToParent'])->name('center.back-to-parent');
 
 //Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 //Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
@@ -108,6 +118,9 @@ Route::get('listing/past', function(){return view('center.dashboard.listing.past
 
 Route::post('listing/current-listing', [MassageController::class, 'massager_current_listing'])->name('center.current-listing');
 Route::post('listing/past-listing', [MassageController::class, 'massager_past_listing'])->name('center.past-listing');
+
+Route::post('action-massage-profile', [MassageController::class, 'action_massage_profile'])->name('center.action-massage-profile');
+Route::post('duplicate-massage-profile', [MassageController::class, 'duplicate_massage_profile'])->name('center.duplicate-massage-profile');
 
 
 Route::post('massage-brb/add', [MassageProfileActionController::class, 'add'])->name('massage.brb.add');
@@ -172,6 +185,7 @@ Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'
 
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
 Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+
 
 
  
@@ -264,7 +278,7 @@ Route::get('manage-media',function(){
     return view('center.dashboard.manage-media');
 })->name('center.dashboard.manage-media');
 
-// Route::get('masseurs-statistics',function(){
+// Route::get('masseurs-statistics',function(){massage_profile_data
 //     return view('center.dashboard.masseurs-statistics');
 // })->name('center.dashboard.masseurs-statistics');
 
@@ -288,7 +302,6 @@ Route::get('archives-listing', function()
 	return view('center.dashboard.masseurs.archives-listing');
 })->name('center.archives-listing');
 
-Route::post('action-massage-profile', [MassageController::class, 'action_massage_profile'])->name('center.action-massage-profile');
 
 
 Route::get('masseurs/add-media', function()

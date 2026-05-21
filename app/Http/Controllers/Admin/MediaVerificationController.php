@@ -112,12 +112,23 @@ class MediaVerificationController extends Controller
 
         $total_media_verificatiion = $media_verificatiion->count();
         $media_verificatiions = $media_verificatiion->offset($start)->limit($limit)->get();
+        
 
         $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
+            $pending_count_badge = '';
+            $pending_count = MasseurVerification::
+                where('user_id', $item->user_id)
+                ->where('status', '0')
+                ->count();
+            
+            if($pending_count > 0){
+                $pending_count_badge = '<sup class="badge badge-danger pt-1" style="margin-left: 2px;">'.$pending_count.'</sup>';
+            } 
+            
             $user = $item->user;
             $item->member_id = $user->member_id ?? 'N/A';
-            $item->name      = $user->name ?? 'N/A';
+            $item->name      = $user->name.$pending_count_badge ?? 'N/A';
             $item->mobile    = $user->phone ?? 'N/A';
             $item->created_date = $item->created_at
                 ? showDateWithFormat($item->created_at)
@@ -161,14 +172,14 @@ class MediaVerificationController extends Controller
 
             $view_image = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-image-btn"
                 href="javascript:void(0)" data-toggle="modal" data-target="#view_image" data-status="' . $item->status . '" data-id="' . $item->id . '" data-user_type="' . $user->type . '" data-member-id="' . $item->member_id . '" data-user-id="' . $item->user->id . '">
-                <i class="fa fa-eye"></i> View Image
+                <i class="fa fa-eye"></i> View Images
             </a>
             ';
 
             if ($item->user->type == '4') {
                 $view_tag = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-tag-btn"
                     href="javascript:void(0)"  data-toggle="modal" data-target="#view_tag" data-id="' . $user->id . '">
-                    <i class="fa fa-eye"></i> View Tag
+                    <i class="fa fa-eye"></i> View Masseurs
                 </a>
                 <div class="dropdown-divider"></div>';
 
@@ -437,91 +448,63 @@ class MediaVerificationController extends Controller
                     break;
             }
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage', 'pinupImage', 'mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'status'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage', 'media_verification' ,'pinupImage', 'mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'status'));
     }
 
-
-    // public function masseursMediaVerificationList(Request $request)
-    // {
-    //     $masseur_data = MasseurVerification::with('masseur:id,name,member_id')
-    //         ->where('user_id', $request->id)
-    //         ->latest()
-    //         ->get()
-    //         ->groupBy('masseur_id')
-    //         ->map(function ($items) {
-
-    //             $item = $items->first(); // latest record
-
-    //             // Status mapping
-    //             $statusMap = [
-    //                 '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
-    //                 '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
-    //                 '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
-    //             ];
-
-    //             $status = $statusMap[$item->status] ?? $statusMap['0'];
-    //             return [
-    //                 'id'           => $item->masseur ? $item->masseur->member_id : '--',
-    //                 'date'         => $item->created_at ? $item->created_at->format('d-m-Y') : '--',
-    //                 'name'         => $item->masseur->name ?? '-',
-    //                 'status_text'  => $status['text'],
-    //                 'status_class' => $status['class'],
-    //             ];
-    //         })
-    //         ->values()
-    //         ->all();
-
-    //     return response()->json([
-    //         'status' => true,
-    //         'data'   => $masseur_data
-    //     ]);
-    // }
 
     public function masseursMediaVerificationList(Request $request)
     {
         $statusMap = [
-            '0' => ['text' => 'Pending image', 'class' => 'badge_pending'],
-            '1' => ['text' => 'Verified image', 'class' => 'badge_accepted'],
-            '2' => ['text' => 'Rejected image', 'class' => 'badge_rejected'],
+            '0' => ['text' => 'Pending', 'class' => 'badge_pending'],
+            '1' => ['text' => 'Verified', 'class' => 'badge_accepted'],
+            '2' => ['text' => 'Rejected', 'class' => 'badge_rejected'],
         ];
 
-        $masseur_data = MasseurVerification::with('masseur:id,name,member_id')
+        $data = MasseurVerification::with('masseur:id,name,member_id')
             ->where('user_id', $request->id)
-            ->latest()
-            ->get()
-            ->groupBy('masseur_id')
-            ->map(function ($items) use ($statusMap) {
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-                $item = $items->first();
-                $status = $statusMap[$item->status] ?? $statusMap['0'];
+        $result = [];
+        
+        $types = [
+            '0' => 'Selfie',
+            '1' => 'Licence',
+            '2' => 'Passport'
+        ];
+        foreach ($data as $item) {
 
-                // 🔹 Reviewed By
-                $reviewed_by = $item->reviewed_by ? User::find($item->reviewed_by) : null;
+            $status = $statusMap[$item->status] ?? $statusMap['0'];
 
-                // 🔹 Tooltip (ONLY for approved/rejected)
-                $tooltipHtml = '';
-                if (in_array($item->status, ['1', '2'])) {
-                    $staffId = $reviewed_by ? $reviewed_by->member_id : 'N/A';
-                    $actionText = $item->status == '2' ? 'Rejected by' : 'Approved by';
+            // Reviewed By
+            $reviewed_by = $item->reviewed_by
+                ? User::find($item->reviewed_by)
+                : null;
 
-                    $tooltipHtml = "<span class='tooltip'>{$actionText}: {$staffId}</span>";
-                }
+            // Tooltip
+            $tooltipHtml = '';
+            if (in_array($item->status, ['1', '2'])) {
+                $staffId = $reviewed_by ? $reviewed_by->member_id : 'N/A';
+                $actionText = $item->status == '2' ? 'Rejected by' : 'Approved by';
 
-                return [
-                    'id'           => optional($item->masseur)->member_id ?? '--',
-                    'date'         => optional($item->created_at)->format('d-m-Y') ?? '--',
-                    'name'         => optional($item->masseur)->name ?? '-',
-                    'status'       => $item->status, // IMPORTANT
-                    'status_text'  => $status['text'],
-                    'status_class' => $status['class'],
-                    'tooltip'      => $tooltipHtml,
-                ];
-            })
-            ->values();
+                $tooltipHtml = "<span class='tooltip'>{$actionText}: {$staffId}</span>";
+            }
+
+            $result[] = [
+                'id'           => optional($item->masseur)->member_id ?? '--',
+                'date'         => optional($item->created_at)->format('d-m-Y') ?? '--',
+                'name'         => optional($item->masseur)->name ?? '-',
+                'status'       => $item->status,
+                'status_text'  => $status['text'],
+                'status_class' => $status['class'],
+                'tooltip'      => $tooltipHtml,
+                'type'      => $types[$item->type] ?? 'N/A',
+            ];
+        }
 
         return response()->json([
             'status' => true,
-            'data'   => $masseur_data
+            'data'   => $result
         ]);
     }
 
@@ -540,18 +523,22 @@ class MediaVerificationController extends Controller
         if ($data->isEmpty()) {
             $html .= '<tr><td colspan="6">No data found</td></tr>';
         } else {
-
+            $types = [
+                '0' => 'Selfie',
+                '1' => 'Licence',
+                '2' => 'Passport'
+            ];
             foreach ($data as $item) {
                 $dropdown_html = '';
                 // Status mapping
                 if ($item->status == '1') {
-                    $statusText = 'Verified image';
+                    $statusText = 'Verified';
                     $statusClass = 'badge_accepted';
                 } elseif ($item->status == '2') {
-                    $statusText = 'Rejected image';
+                    $statusText = 'Rejected';
                     $statusClass = 'badge_rejected';
                 } else {
-                    $statusText = 'Pending image';
+                    $statusText = 'Pending';
                     $statusClass = 'badge_pending';
                 }
                 $reviewed_by = 0;
@@ -591,7 +578,7 @@ class MediaVerificationController extends Controller
                     <td>' . ($item->masseur->member_id ?? '--')  . '</td>
                     <td>' . ($item->created_at ? $item->created_at->format('d-m-Y') : '-') . '</td>
                     <td>' . ($item->masseur->name ?? '-') . '</td>
-
+                    <td>' . ($types[$item->type] ?? 'N/A') . '</td>
                     <td style="width:100px;">
                         <div class="e4u-tooltip">
                             <span class="custom_badge ' . $statusClass . '">
@@ -617,7 +604,7 @@ class MediaVerificationController extends Controller
                                     data-id="' . $item->masseur->id . '"
                                     data-verification-id="' . $item->id . '"
                                     data-member-id="' . $item->masseur->member_id . '">
-                                    <i class="fa fa-eye"></i> View image
+                                    <i class="fa fa-eye"></i> View Images
                                 </a>
                             </div>
                         </div>
@@ -839,6 +826,6 @@ class MediaVerificationController extends Controller
         foreach ($masseur_medias as $masseur_media) {
             $mediaImages[] = '<img src="' . asset($masseur_media->path) . '" " style="width:170px; border: 1px solid #ccc; padding:10px;height: 120px; object-fit: cover;">';
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'pinupImage', 'bannerImage', 'status'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('mediaImages', 'member_id', 'media_verification_image', 'user_type', 'reviewed_by', 'pinupImage', 'bannerImage', 'status','media_verification'));
     }
 }

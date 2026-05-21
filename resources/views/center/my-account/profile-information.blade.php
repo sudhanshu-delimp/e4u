@@ -389,7 +389,7 @@
                                                                                 <span class="dollar-sign">
                                                                                 {{config('escorts.profile.massage-services')[$value->service_id]  }}
                                                                                 </span>
-                                                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{$value->price}}" min=0 step=10 max=200>
+                                                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{ (int) $value->price}}" min=0 step=10 max=200>
                                                                                 <input type='hidden' name='service_id[]' value="{{$value->service_id}}">
                                                                                 <input type="hidden" name="category_id[]" value="{{$value->category_id}}">
                                                                                 <span id="span_id" data-id="{{$value->id}}">
@@ -433,7 +433,7 @@
                                                                                 <span class="dollar-sign">
                                                                                 {{config('escorts.profile.other-services')[$value->service_id]  }}
                                                                                 </span>
-                                                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{$value->price}}" min=0 step=10 max=200>
+                                                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{ (int) $value->price}}" min=0 step=10 max=200>
                                                                                 <input type='hidden' name='service_id[]' value="{{$value->service_id}}">
                                                                                 <input type="hidden" name="category_id[]" value="{{$value->category_id}}">
                                                                                 <span id="span_id" data-id="{{$value->id}}">

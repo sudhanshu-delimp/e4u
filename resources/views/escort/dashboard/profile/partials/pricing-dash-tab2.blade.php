@@ -60,10 +60,10 @@ $loginAccount = auth()->user();
                                         <td class="text-center">{{ $listing['end_date'] ? date('d-m-Y',strtotime($listing['end_date'])) : ''}}</td>
                                         <td class="text-center">{{ $daysDiff }}</td>
                                         <td class="text-center">{{ $membership[$listing['membership']] }}</td>
-                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($discount > 0 ? ($fullFee / $daysDiff) : ($rate / $daysDiff), 2) }}</td>
-                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($fullFee, 2) }}</td>
-                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($discount, 2) }}</td>
-                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($rate, 2) }}</td>
+                                        <td class="text-center"><span class="mr-2">AU$</span>  {{ number_format($discount > 0 ? ($fullFee / $daysDiff) : ($rate / $daysDiff), 2) }}</td>
+                                        <td class="text-center"><span class="mr-2">AU$</span>  {{ number_format($fullFee, 2) }}</td>
+                                        <td class="text-center"><span class="mr-2">AU$</span>  {{ number_format($discount, 2) }}</td>
+                                        <td class="text-center"><span class="mr-2">AU$</span>  {{ number_format($rate, 2) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -71,14 +71,14 @@ $loginAccount = auth()->user();
                                 <tr>
                                     <td colspan="8" class="border-0"></td>
                                     <td  class="text-center"><b>Total Fees:</b></td>
-                                    <td class="text-center"><b><span class="mr-2">$</span> {{ number_format($totalAmount, 2) }}</b></td>
+                                    <td class="text-center listing_total_fees"><b><span class="mr-2">AU$</span> {{ number_format($totalAmount, 2) }}</b></td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                     
                     <div class="text-right mt-3">
-                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#test_process-payment-modal">Proceed</a>
+                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal" name="action" value="proceed">Proceed</a>
                         {{-- <button type="submit" class="save_profile_btn mr-0" id="escort-form-submit-btn">Pay</button>
                         <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal">Proceed</a> --}}
                     </div>

@@ -466,7 +466,7 @@
             let html = '';
 
             if (!response.data || response.data.length === 0) {
-                html = `<tr><td colspan="4">No data found</td></tr>`;
+                html = `<tr><td colspan="5">No data found</td></tr>`;
             } else {
 
                 response.data.forEach(function (item) {
@@ -497,6 +497,7 @@
                             <td>${item.id}</td>
                             <td>${item.date}</td>
                             <td>${item.name}</td>
+                            <td>${item.type}</td>
                             <td style="width:120px;">
                                 ${tooltipWrapper}
                             </td>
@@ -554,10 +555,10 @@
     $(document).on('click', '.view-masseur-image-btn', function() {
         let profile_id = $(this).data('id');
         profile_verification_id = $(this).data('verification-id');
-        masseur_member_id = $(this).data('masseur_member-id');
+        // masseur_member_id = $(this).data('masseur_member-id');
         let profile_member_id = $(this).data('member-id');
         $('.member_id').html(profile_member_id);
-
+        $('#view_tag').modal('hide');
         let status = $(this).data('status');
         if (status == '1' || status == '2') {
             $('.approveMasseursBtn').hide();
@@ -647,7 +648,7 @@ function checkMasseurPrintBtn() {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                changeMediaVerificationStatusForMasseurs(profile_verification_id, 1,masseur_member_id);
+                changeMediaVerificationStatusForMasseurs(profile_verification_id, 1,$('.member_id').html());
             }
         });
     });
@@ -669,7 +670,7 @@ function checkMasseurPrintBtn() {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                changeMediaVerificationStatusForMasseurs(profile_verification_id, 2,masseur_member_id);
+                changeMediaVerificationStatusForMasseurs(profile_verification_id, 2,$('.member_id').html());
             }
         });
     });
@@ -698,6 +699,7 @@ function checkMasseurPrintBtn() {
     });
 
     function changeMediaVerificationStatusForMasseurs(mediaVerificationId, status, masseur_member_id) {
+        
         $.ajax({
             url: "{{ route('admin.update-masseurs-media-verification') }}",
             method: "POST",

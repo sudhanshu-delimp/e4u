@@ -44,6 +44,11 @@
     .form-control {
       border: 1px solid #d1d3e2;
     }
+      @media (min-width: 1200px) {
+             .modal-xl {
+                max-width: 1140px;
+            }
+        }
 </style>
 @endsection
 @section('content')
@@ -91,25 +96,63 @@
                 </div>
             </div>
 
-<div class="form-group">
-    <label for="exampleFormControlTextarea1">Comment</label>
-    <textarea class="form-control border_for_form" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
-</div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Comment</label>
+                <textarea class="form-control border_for_form" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+            </div>
 
-            <button type="submit" id="btnSubmit" class="common-btn mb-3">Submit Feedback</button>
+
+
+            
+
+            <div class="d-flex justify-content-between gap-20 flex-wrap">
+                    <div class="form-check pb-0 pt-1">
+                        <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
+                        <label class="form-check-label" for="ccEmail">CC email to me</label>
+                    </div>
+                    <div class="pl-2 pt-2">
+                        <span style="font-size: 13px"><b>Note:</b> Geolocation is in use on this Website.</span>
+                    </div>
+                </div>
+                <div class="form-check pb-3">
+                     <input class="form-check-input" type="checkbox" id="tnc" name="tnc">
+                    <label class="form-check-label" for="tnc"> I have read and agree to the Influencer <a href="javascript:void(0)" data-toggle="modal" data-target="#InfluencerTnc" class="custom_links_design" style="font-size: 13px;color:#FF3C5F;">Terms and Conditions</a></label>
+                   
+                </div>
+            <div class="row d-flex justify-content-between align-items-center">
+                   <div class="col-12 col-sm-12  col-md-3 col-lg-3 col-xl-3 mb-2 d-flex">
+                        <button type="submit" id="btnSubmit" class="common-btn mb-3">Submit Feedback</button>
+                   </div>
+
+                    <div class="col-12 col-sm-12  col-md-7 col-lg-7 col-xl-7 mb-2 d-flex">
+                        
+                        <div class="border p-2 border_color rounded text-justify">
+                            
+                            <small>
+                                Any personal information submitted to this Website will be handled in accordance with
+                                E4U's <a class="termsandconditions_text_color" href="privacy-policy" target="_blank" style="font-size: 13px;">Privacy Policy</a> and
+                                <a href="privacy-collection-notice" class="termsandconditions_text_color" target="_blank" style="font-size: 13px;">Privacy Collection Notice</a>, both
+                                available on the Website.
+                            </small>
+                        </div>
+                    </div>
+                </div>
         </form>
 
          <!-- changes to this policy -->
-    <div class="container mt-4 px-0 chagneto-policy">
-        <hr class="custom_hr">
-         <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-         <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-         <p>Escorts4U archives all previous versions of this Policy.</p>
-         <p><b>This policy was last updated 04-06-2025</b></p>
-    </div>
+        <div class="container mt-4 px-0 chagneto-policy">
+            <hr class="custom_hr">
+            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+            <p class="border-0 text-align-justify">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                review the most current version.</p>
+            <p>Escorts4U archives all previous versions of this Policy.</p>
+            <p><b>This policy was last updated 04-06-2025</b></p>
+        </div>
     </div>
 </section>
+
+ @include('./web.modal.influencer_tnc_modal')
+
 @endsection
 @push('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/src/extra/validator/comparison.js') }}"></script>

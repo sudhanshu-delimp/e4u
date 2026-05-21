@@ -217,21 +217,9 @@
     </div>
 
 @endsection
-@section('script')
 
+@push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript">
-//   $(document).ready(function() {
-//     $("#sendSubmit").click(function() {
-//       // disable button
-//       $("#sendSubmit").prop("disabled", true);
-//       // add spinner to button
-//       $("#sendSubmit").html(
-//         `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
-//       );
-//     });
-// });
-</script>
 <script>
 
     $(function() {
@@ -245,31 +233,21 @@
         });
     });
 
-</script>
-<script>
+
     document.getElementById('mobileno').focus();
-</script>
-<script>
+
 
     $(document).ready(function() {
         $("body").on("click","#forgotpassword",function(e){
             
             e.preventDefault();
             $("#comman_modal").modal('show');
-            // $('#comman_modal').on('hidden.bs.modal', function () {
-               // var mailForm = $("#forgotPasswordSend");
-            //    $("#sendSubmit").on("click",function(e)){
-            //     e.preventDefault();
-            //     var mailForm = $("#forgotPasswordSend");
-
-            //    })
             $("body").on("submit","#forgotPasswordSend",function(e){
                 e.preventDefault();
                 var form = $(this);
                 $('#forgot_password').val('1');
                 send2FAotp($('#email').val()); 
             });
-            // });
             
         });
 
@@ -393,6 +371,7 @@
             error: function(data) {
  
                console.log("error otp: ", data.responseJSON.errors);
+               var errorsHtml = '';
                $.each(data.responseJSON.errors, function(key, value) {
                   errorsHtml = '<div class="alert alert-danger"><ul>';
                   errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
@@ -521,32 +500,8 @@
                }
            });
        });
-        // $(".mynote").click(function(){
-        //     console.log("heloo");
-        //     var token = $('input[name="_token"]').attr('value');
-        //     $.post({
-        //             type: 'POST',
-        //             url: "{{ route('web.send.otp') }}",
-        //             data: {
-        //                 //phone: "+61475821841",
-        //                 phone: "+61488827343",
-        //                 msg: "Your OTP for E4U login is "
-        //             },
-        //             headers: {
-        //                         'X-CSRF-Token': token
-        //                     },
-        //         }).done(function (data) {
-        //             console.log(data);
-                    
-        //         });
- 
-        // })
     });
-    </script>
-
- 
-
-<script>
+    
     document.addEventListener("DOMContentLoaded", function () {
         function togglePasswordVisibility(inputId, iconId) {
             const input = document.getElementById(inputId);
@@ -573,5 +528,4 @@
       $("#senderror").html('');
    });
 </script>
-    
-@endsection
+@endpush

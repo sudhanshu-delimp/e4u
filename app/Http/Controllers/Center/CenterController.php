@@ -270,6 +270,7 @@ class CenterController extends Controller
             'contact_type' => $request->contact_type,
             'pay_id_name'=>$request->payID_name,
             'pay_id_no'=>$request->paID_no,
+            'social_media_consent' => $request->social_media_consent,
             'subrub_city'=>$request->subrub_city,
 
             // 'gender' => $request->gender,
@@ -380,8 +381,8 @@ class CenterController extends Controller
         if($this->account->type == MESSAGE_CENTER && $discount){
             $rows = array_map(function($item) use($discount){
                 if(in_array($item['membership_id'],['5'])){
-                    $item['percentage'] = $discount->value;
-                    $item['discount_amount'] = number_format($discount->discountAmount($item['price']),2);
+                    $item['special_discount'] = $discount->value;
+                    $item['new_rate'] = number_format($discount->discountAmount($item['price']),2);
                 }
                 return $item;
             },$advertings);
@@ -393,28 +394,5 @@ class CenterController extends Controller
     
         return view('center.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
     }
-
-
-
-    public function add_sub_account(AddMassageCentre $request)
-    {
-        $data = $request->all();
-        try
-        {
-            $data = $request->all();
-            $resposne = $this->user->add_subuser_account($data);
-            if($resposne['status'])
-            return  Success_response([],$resposne['message'],200);
-            else
-            return  Success_response([],$resposne['message'],200);   
-        } 
-        catch(Exception $e){
-          return  Success_response([],'Failed to add new centre',200);    
-        }
-    }
-
-
-    
-   
 
 }

@@ -291,6 +291,20 @@ class MassageProfileActionController extends BaseController
                 $utcStart = $localStart->copy()->setTimezone('UTC');
                 $utcEnd = $localEnd->copy()->setTimezone('UTC');
 
+
+                $isSuspended = MassageSuspendProfile::where('massage_profile_id', $request->massage_id)
+                        ->where('user_id', auth()->user()->id)
+                        ->where('utc_start_date', '<=', now('UTC'))
+                        ->where('utc_end_date', '>=', now('UTC'))
+                        ->exists();
+
+                    if ($isSuspended) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Profile ID ' . $request->massage_id . ' is currently suspended. You cannot Bump Up this Profile.'
+                        ], 422);
+                    }
+
                 MassageBumpup::create([
                     'user_id' => auth()->id(),
                     'massage_id' => $request->massage_id,

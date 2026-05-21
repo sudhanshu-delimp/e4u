@@ -1,0 +1,2 @@
+{{-- <x-curFormat/> --}}
+<span>$</span>

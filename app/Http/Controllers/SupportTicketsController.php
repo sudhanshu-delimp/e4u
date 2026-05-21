@@ -184,6 +184,7 @@ class SupportTicketsController extends AppController
         $red_url = match ($request->user_type ?? '') {
             'admin'  => 'admin.support-ticket.list',
             'viewer' => 'user.view-and-reply-ticket',
+            'shareholder' => 'shareholder.view-and-reply',
             default  => 'support-ticket.list',
         };
 

@@ -157,25 +157,29 @@
                     <textarea class="form-control" id="comments" name="comments" placeholder="Message" rows="3"></textarea>
                 </div>
 
-                <div class="form-check pb-0">
-                    <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
-                    <label class="form-check-label" for="ccEmail">CC email to me</label>
+                <div class="d-flex justify-content-between gap-20 flex-wrap">
+                    <div class="form-check pb-0 pt-1">
+                        <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
+                        <label class="form-check-label" for="ccEmail">CC email to me</label>
+                    </div>
+                    <div class="pl-2 pt-2">
+                        <span style="font-size: 13px"><b>Note:</b> Geolocation is in use on this Website.</span>
+                    </div>
                 </div>
-                <div class="form-check pb-0">
-                     <input class="form-check-input" type="checkbox" id="tnc" checked name="tnc">
+                <div class="form-check pb-3">
+                     <input class="form-check-input" type="checkbox" id="tnc" name="tnc">
                     <label class="form-check-label" for="tnc"> I have read and agree to the Influencer <a href="javascript:void(0)" data-toggle="modal" data-target="#InfluencerTnc">Terms and Conditions</a></label>
                    
                 </div>
-                <div class="p-2">
-                    <label style="font-size: 13px"><sup>(*)</sup>Geolocation in use.</label>
-                </div>
-                <div class="row">
+                
+                <div class="row d-flex justify-content-between align-items-center">
                    <div class="col-12 col-sm-12  col-md-3 col-lg-3 col-xl-3 mb-2 d-flex">
-                        <button type="submit" class="common-btn send_request_btn">Send Request</button>
+                        <button type="submit" class="common-btn send_request_btn">Submit Request</button>
                    </div>
-                    <div class="col-12 col-sm-12  col-md-9 col-lg-9 col-xl-9 mb-2 d-flex">
+
+                    <div class="col-12 col-sm-12  col-md-7 col-lg-7 col-xl-7 mb-2 d-flex">
                         
-                        <div class="border px-2 border_color rounded text-justify">
+                        <div class="border p-2 border_color rounded text-justify ">
                             
                             <small>
                                 Any personal information submitted to this Website will be handled in accordance with
@@ -204,9 +208,8 @@
     </section>
 
 
-    
-<div class="modal fade upload-modal" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-   aria-hidden="true">
+    <div class="modal fade upload-modal" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">

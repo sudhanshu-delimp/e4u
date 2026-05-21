@@ -29,6 +29,144 @@
         #mergeList table td {
             vertical-align: middle;
         }
+
+        .border {
+            border: 1px solid #d1d3e2 !important;
+        }
+
+        .list-group-item+.list-group-item {
+            border-top-width: 1px;
+        }
+    </style>
+
+        <style>
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99999;
+            /* ✅ Bootstrap modal z-index 1050 se upar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Smooth moving bar */
+
+        .progress-bar {
+            position: absolute;
+            width: 40%;
+            height: 100%;
+            background: #ff3c5f;
+            animation: smoothSlide 1.2s linear infinite;
+        }
+
+        @keyframes smoothSlide {
+            0% {
+                left: -40%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .download-icon {
+            font-size: 50px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
+    </style>
+
+    {{-- Loader --}}
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        /* Container */
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Smooth moving bar */
+
+        .progress-bar {
+            position: absolute;
+            width: 40%;
+            height: 100%;
+            background: #ff3c5f;
+            animation: smoothSlide 1.2s linear infinite;
+        }
+
+        @keyframes smoothSlide {
+            0% {
+                left: -40%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .download-icon {
+            font-size: 50px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
     </style>
 @endsection
 @section('content')
@@ -76,129 +214,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- <tr>
-                        <td>123</td>
-                        <td>01-01-2025</td>
-                        <td>6152</td>
-                        <td>15</td>
-                        <td>No </td>
-                        <td>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" x-placement="bottom-end">
 
-
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="#" data-target="#mergeType" data-toggle="modal"> <i
-                                            class="fa fa-bezier-curve"></i>
-                                        Merge</a>
-
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
-                                        Print</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="#" data-target="#view_list" data-toggle="modal"> <i
-                                            class="fa fa-eye"></i>
-                                        View</a>
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>105</td>
-                        <td>15-12-2024</td>
-                        <td>6000 - 6004</td>
-                        <td>35</td>
-                        <td>Yes </td>
-                        <td>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" x-placement="bottom-end">
-
-
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="#" data-target="#mergeType" data-toggle="modal"> <i
-                                            class="fa fa-bezier-curve"></i>
-                                        Merge</a>
-
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
-                                        Print</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="#" data-target="#view_list" data-toggle="modal"> <i
-                                            class="fa fa-eye"></i>
-                                        View</a>
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>101</td>
-                        <td>01-01-2025</td>
-                        <td>All</td>
-                        <td>568</td>
-                        <td>No</td>
-                        <td>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" x-placement="bottom-end">
-
-
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="#" data-target="#mergeType" data-toggle="modal"> <i
-                                            class="fa fa-bezier-curve"></i>
-                                        Merge</a>
-
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
-                                        Print</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                        href="#" data-target="#view_list" data-toggle="modal"> <i
-                                            class="fa fa-eye"></i>
-                                        View</a>
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr> --}}
                 </tbody>
             </table>
         </div>
 
-        {{-- <button type="button" data-target="#mergeList" data-toggle="modal">Go to Hell</button> --}}
     </div>
 
-    @include('agent.dashboard.modal.merge-type-modal')
-    @include('agent.dashboard.modal.merge-list-modal')
-    @include('agent.dashboard.modal.view-list-modal')
+    
+    <div id="loader" class="overlay d-none">
+        <div class="download-icon"><img src="{{ asset('assets/dashboard/img/arrow.png') }}" alt=""
+                style="width: 70px;"></div>
+        <h2 id>Downloading... Please wait</h2>
+        <p id="progressText">0 / 0</p>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            
+        </div>
+    </div>
+
+
+    @include('agent.dashboard.marketing.modal.merge-type-modal') {{-- Merge Type --}}
+    @include('agent.dashboard.marketing.modal.view-list-modal') {{-- view Modal  --}}
+    @include('agent.dashboard.marketing.modal.view-report-modal') {{-- Merged Documents modal --}}
+    @include('agent.dashboard.marketing.modal.appointment-modal') {{-- Appointment Modal --}}
+    @include('agent.dashboard.marketing.modal.search-modal') {{-- Search Modal --}}
 
 
 
     <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+        data-postcodes-url="{{ route('agent.marketing.prospect.postcodes') }}"
+        data-generate-url="{{ route('agent.marketing.prospect.store-report') }}"
+        data-recipients-url="{{ route('agent.marketing.prospect.recipients') }}"
+        data-reports-url="{{ route('agent.marketing.prospect.reports') }}"
+        data-action-url="{{ route('agent.marketing.prospect.report-action') }}"
+        data-clear-reports-url="{{ route('agent.marketing.prospect.clear-reports') }}"
+        data-agent-state="{{ auth()->user()->state_abbr ?? '' }}"
+        data-save-report="{{ route('agent.marketing.prospect.save-report') }}"
+        data-report-list-action="{{ route('agent.marketing.prospect.report.action') }}"
+        data-generate-pdf="{{ route('agent.marketing.prospect.generate.pdf') }}"
+        data-update-save-report="{{ route('agent.marketing.prospect.update.save.report') }}"
+        data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist', ['id' => '__ID__']) }}"
         data-save-report-list="{{ route('agent.marketing.save.report.list') }}"
-      
+        data-view-approspectlist="{{ route('agent.marketing.save.report.appointment.list', ['id' => '__ID__']) }}"
+        data-search-center="{{route('agent.marketing.save.report.search.center')}}"
+        data-progress-data="{{route('agent.marketing.prospect.progress', ['id' => '__ID__'])}}"
+        data-download-data="{{route('agent.marketing.prospect.download', ['id' => '__ID__'])}}"
         ></div>
 @endsection
 @push('script')
@@ -209,6 +272,9 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    <script src="{{ asset('agent/dashboard/marketing/save-report/save-reports.js') }}"></script>
 
+
+
+
+    <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>
 @endpush

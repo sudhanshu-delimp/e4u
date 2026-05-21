@@ -615,11 +615,7 @@
                                     src="{{ asset('assets/dashboard/img/menu-icon/communication.png') }}">
                                 <span style="{{ request()->is('*communication*') ? 'color: #FF3C5F;' : '' }}">communications</span>
                             </a>
-                             <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
-                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/credits.png') }}">
-                                <span style="{{ request()->is('*credit*') ? 'color: #FF3C5F;' : '' }}">Credits</span>
-                            </a>
+                           
 
                             <a class="nav-link collapsed" href="{{ route('admin.media-verification') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"

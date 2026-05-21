@@ -36,11 +36,17 @@
                        
                         </span>
 
+                            
+
+
                            </div>
                            <div class="gap-b">
-                           
-                            
-                   
+
+                            @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
+                            <span>
+                                <b>Switch To Primary Account :  </b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('center.back-to-parent') }}">Switch Back</a></span>  
+                            </span>
+                            @endif
                         
                    
                            </div>

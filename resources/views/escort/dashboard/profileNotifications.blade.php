@@ -31,7 +31,7 @@
                                 <li>Your Auto-Recharge option is ‘No’ by default.
                                     <ol class="level-2">
                                         <li>select your preferred option. The preferred option will remain in place until you
-                                            change it. The Top Up will occur when your Credit balance falls below
+                                            change it. The Top Up will occur when your Wallet balance falls below
                                             $100.00. The Transaction will take place on the day you reach $100.00 or less.</li>
                                         <li>
                                             if the Top Up can not be processed, due to your bank rejecting the transaction,
@@ -141,7 +141,7 @@
                     </div>
                 
                 <div class="pt-1">
-                    <i>Select your preferred top up value to be applied to your Credit.</i>
+                    <i>Select your preferred top up value to be applied to your Wallet.</i>
                 </div>
             </div>
 
