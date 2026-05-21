@@ -17,6 +17,11 @@ class EscortAuth
      */
     public function handle(Request $request, Closure $next)
     {
+        $request->merge([
+            'impersonatedId' => 0,
+            'isImpersonated' => false,
+        ]);
+        
         $response = $next($request);
         
         if(!$user = auth()->user()) {

@@ -285,6 +285,7 @@ class MasseurController extends AppController
             $masseur->other_service_types = $request->filled('massage_other_service_list') ? $request->massage_other_service_list : [];
             
             $masseur->is_default = $make_defailt ? '1' : '0';
+            $masseur->created_by = $request->isImpersonated ? $request->impersonatedId : $user->id;
                         
             $masseur->save();
             $masseur_profile_id = $masseur->id;
@@ -451,7 +452,16 @@ class MasseurController extends AppController
 
     public function edit_masseur(Request $request, $id)
     {
-        $masseur = Masseur::where('id',$id)->first();
+         if($request->isImpersonated && $id) {
+           $masseur = Masseur::where('id', $id)->where('created_by', $request->impersonatedId)->first();
+           if(!$masseur){
+             return redirect()->route('center.dashboard')->with('error', accessDeniedMsg());
+           }
+
+        } else {
+           $masseur = Masseur::where('id',$id)->first(); 
+        }
+       
         if(!$masseur || !$id){
         return redirect()->route('center.create-new-masseur');
         }
@@ -519,6 +529,7 @@ class MasseurController extends AppController
 
                         $masseur->vaccination           = $request->vaccination;
                         $masseur->commentary            = $request->commentary;
+                        $masseur->updated_by = $request->isImpersonated ? $request->impersonatedId : $user->id;
 
                         $masseur->service = $request->filled('service') ? $request->service : [];
 
@@ -1166,8 +1177,11 @@ class MasseurController extends AppController
 
     public function  get_all_masseur_list(Request $request)
     {
-
-        $masseurs  = Masseur::where('user_id', auth()->user()->id)->get();
+        if($request->isImpersonated) {
+            $masseurs  = Masseur::where('user_id', auth()->user()->id)->where('created_by', $request->impersonatedId)->get();
+        } else {
+           $masseurs  = Masseur::where('user_id', auth()->user()->id)->get(); 
+        }
         $countries = getCountryList();
         $totalActive = $masseurs->where('status', 1)->count();
 
