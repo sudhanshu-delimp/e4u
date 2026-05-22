@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
+Route::get('/dashboard', [CenterController::class, 'index'])->name('center.dashboard.impersonate');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
 Route::post('/profile-contact-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('center.account.profile.contact.update');
 //Route::get('profile/{id}',[CenterController::class,'updateProfile'])->name('center.update.profile');
