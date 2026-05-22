@@ -25,11 +25,6 @@ class ImpersonateController extends Controller
         $this->service = $service;
         $this->user = $user;
         $this->attemptlogin = $attemptlogin;
-
-        $this->middleware(function ($request, $next) {
-            $this->account = auth()->user();
-            return $next($request);
-        });
     }
 
     /**
@@ -91,18 +86,32 @@ class ImpersonateController extends Controller
                 abort(404, 'Child account not found');
                 return redirect()->back()->with('error', 'Unauthorized access not allowed.');
             }
+            
+            Auth::logout();
 
+            // invalidate old session
+            request()->session()->invalidate();
+
+            // regenerate csrf token
+            request()->session()->regenerateToken();
+
+            // login new user
+            Auth::login($childUser);
+
+            // regenerate new authenticated session
+            request()->session()->regenerate();
+
+            // store impersonation data AFTER login
             session([
                 'parent_agent_id' => $loggedInUser->id,
                 'switch_for' => 'agent_to_massage',
                 'is_impersonated' => true
             ]);
 
-            Auth::login($childUser);
-
             if (($childUser->type == 3)) {
                 return redirect('/escort-dashboard')->with('success', "Successfully switch to the escort account");
             } else {
+
                 return redirect('/center-dashboard')->with('success', "Successfully switch to the massage center account");
             }
         } catch (Exception $e) {
