@@ -8,6 +8,10 @@
             list-style: none;
             color: rgb(248, 0, 0)
         }
+        
+    #sendOtp_modal .modal-dialog {
+    max-width: 600px;
+}
     </style>
 @endsection
 @section('content')
@@ -18,42 +22,49 @@
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
             
-        <div class="col-md-12 mb-4" id="profile_and_tour_options">
-            <div class="collapse" id="notes">
-                <div class="card">
-                    <div class="card-body">
-                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                      <ol>
-                          <li>Please note we use 2FA verification process to enable you to make payment.</li>
-                          <li>Your verification code will be sent to your nominated preference.</li>
-                          <li>Please check the purchase summary before you authorise payment.</li>
-                      </ol>
+            <div class="col-md-12 mb-4" id="profile_and_tour_options">
+                <div class="collapse" id="notes">
+                    <div class="card">
+                        <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Please note we use 2FA verification process to enable you to make payment.</li>
+                            <li>Your verification code will be sent to your nominated preference.</li>
+                            <li>Please check the purchase summary before you authorise payment.</li>
+                        </ol>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- 3 step bar --}}
+       
+       </div>
+
+        <!-- Progress Bar -->
+    <div class="row">
         <div class="col-lg-12">
-            <div class="progressbar">
-                <div class="step active">
-                    <div class="circle">✔</div>
-                    <p class="step-title">1. Listings</p>
+            <div class="custom_progress_wrapper">
+            <div class="custom_pro_container">
+                <div class="progress_line" id="custom_progress" style="width: 50%"></div>
+
+                <div class="custom_step">
+                    <div class="circle active">✓</div>
+                    <div class="label active">Listings</div>
                 </div>
-                <div class="step active">
-                    <div class="circle">✔</div>
-                    <p class="step-title">2. Payment</p>
+
+                <div class="custom_step">
+                    <div class="circle active current">2</div>
+                    <div class="label active">Payment</div>
                 </div>
-                <div class="step">
-                    <div class="circle"></div>
-                    <p class="step-title">3. Completion</p>
+
+                <div class="custom_step">
+                    <div class="circle">3</div>
+                    <div class="label">Completion</div>
                 </div>
             </div>
-            {{-- <div class="buttons">
-                <button id="prev" disabled>Previous</button>
-                <button id="next">Next</button>
-            </div> --}}
         </div>
-       </div>
+        </div>
+    </div>
+    {{-- end --}}
        
         @switch($checkout_type)
             @case('upgrade')
@@ -78,10 +89,7 @@
     @include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 @endsection
 @push('script')
-    <!-- file upload plugin start here -->
-    <!-- file upload plugin end here -->
-    <script type="text/javascript">
-
-    </script>
+    
+<script src="{{ asset('js/escort/progress_bar.js') }}"></script> 
 @endpush
 

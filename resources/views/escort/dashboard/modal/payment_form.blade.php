@@ -100,7 +100,7 @@
                                 <div class="finish-payment-form d-none mt-2">
                                     <form action="{{ route('escort.payment.process') }}" method="post" id="finish-payment-form">
                                         <button type="submit" name="action" value="finish_payment" class="btn-success-modal btn-block">
-                                            Finish Payment
+                                            Complete Payment
                                         </button>
                                     </form>
                                 </div>
@@ -322,6 +322,7 @@
                     },
                     error: function(xhr) {
                         Swal.close();
+                        submitButton.removeAttr('disabled');
                         let option = getStatusOption(xhr);
                         Swal.fire({
                             icon: option.icon,

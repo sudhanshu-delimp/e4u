@@ -131,7 +131,9 @@
                        <div id="" class="table-responsive-xl">
                           <div id="bankAccountTable_wrapper" class="dataTables_wrapper no-footer">
                              <div class="datatable-topbar">
-                                <div id="bankAccountTable_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="Search by Account Number" aria-controls="bankAccountTable"></label><button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button></div>
+                                <div id="bankAccountTable_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="Search by Account Number" aria-controls="bankAccountTable"></label>
+                                <!-- <button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button> -->
+                              </div>
                                 <div class="dataTables_length" id="bankAccountTable_length">
                                    <label>
                                       Show 

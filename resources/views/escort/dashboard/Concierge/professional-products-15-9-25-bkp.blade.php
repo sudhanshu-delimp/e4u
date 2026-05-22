@@ -320,7 +320,7 @@
                 <p><strong>Need a hand?</strong></p>
                 <p class="small mb-0">
                     If you need any help with your order you can contact your
-                    Support Agent is appointed, or contact our support centre on <strong>0403 614 211</strong>.
+                    Support Agent is appointed, or contact our support centre on <strong>1300 700 444</strong>.
                 </p>
               </div>
       
@@ -564,11 +564,11 @@ data-keyboard="false">
                infoFiltered: "(filtered from _MAX_ total entries)"
            },
            initComplete: function() {
-                    if ($('#returnToReportBtn').length === 0) {
-                        $('.dataTables_filter').append(
-                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-                        );
-                    }
+                    // if ($('#returnToReportBtn').length === 0) {
+                    //     $('.dataTables_filter').append(
+                    //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                    //     );
+                    // }
                     $('#returnToReportBtn').on('click', function() {
                         var table = $('#productTable').DataTable();
                         table.search('').draw();

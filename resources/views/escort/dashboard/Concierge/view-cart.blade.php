@@ -383,7 +383,7 @@
                             <p><strong>Need a hand?</strong></p>
                             <p class="small mb-0">
                                 If you need any help with your order you can contact your
-                                Support Agent if appointed, or contact our support centre on <strong>0403 614 211</strong>.
+                                Support Agent if appointed, or contact our support centre on <strong>1300 700 444</strong>.
                             </p>
                         </div>
 
