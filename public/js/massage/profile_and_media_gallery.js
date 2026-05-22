@@ -146,7 +146,7 @@ function preview_image(event)
                     </a>
                 `);
             } else {
-                Swal.fire('Media', "Can't upload more than 5 MB", 'error');
+                Swal.fire('Media', "Can't upload more than 50 MB", 'error');
             }
         });
         input.value = '';
