@@ -134,6 +134,32 @@ class UpdateController extends AppController
             );
         }
 
+        //start store Title
+        $title = trim($request->about_title);
+        if (!empty($title)) {
+             EscortAdditionalInformation::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'type'    => 'title',
+                    'value'   => $title,
+                    'short_desc' => implode(' ', array_slice(explode(' ', $title), 0, 5)) ?? null
+                ]
+            );
+        }
+
+        //start store Street Address
+        $address = trim($request->address);
+        if (!empty($address)) {
+             EscortAdditionalInformation::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'type'    => 'address',
+                    'value'   => $address,
+                    'short_desc' => implode(' ', array_slice(explode(' ', $address), 0, 5)) ?? null
+                ]
+            );
+        }
+
         //end store Street Address
         $cityId = 0;
         $cnt = 0;

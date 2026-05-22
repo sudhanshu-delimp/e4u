@@ -244,7 +244,7 @@
                                             data-parsley-group="group_one"
                                             data-parsley-errors-container="#stageName-errors"
                                             data-is-edit="{{ !$isNewProfile ? 'true' : 'false' }}"
-                                            data-original-name="{{ $currentName }}" >
+                                            data-original-name="{{ $currentName }}">
                                     @else
                                         <input type="text" id="stageName" name="name"
                                             class="change_default form-control form-control-sm select_tag_remove_box_sadow"
@@ -448,7 +448,7 @@
                                             class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
                                             placeholder="Enter new Street Address" data-parsley-group="group_one"
                                             data-parsley-errors-container="#address-errors"
-                                            data-original-address="{{ $currentAddress }}" >
+                                            data-original-address="{{ $currentAddress }}">
                                     @else
                                         {{-- No saved addresses: plain text input (current behaviour) --}}
                                         <input type="text" id="address" name="address"
@@ -2490,10 +2490,69 @@
                     method="POST">
                     @csrf
             @endif
-            <input type="text" name="about_title"
+
+
+            {{-- <input type="text" name="about_title"
                 value="{{ $escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mb-3"
                 placeholder="Enter Your Title Here" required data-parsley-group="group_one"
-                data-parsley-required-message="Enter title">
+                data-parsley-required-message="Enter title"> --}}
+
+            @php
+                $currentTitle = $escort->about_title ?? '';
+                $savedTitles = $loginAccount->additionalInfo->where('type', 'title');
+                $hasTitles = $savedTitles->isNotEmpty();
+            @endphp
+
+            <div class="form-group row tab-about-me-row-padding">
+                {{-- <label class="col-sm-2 font-weight-500" for="title">
+                    Title:
+                </label> --}}
+
+                <div class="col-sm-6">
+
+                    @if ($hasTitles)
+
+                        {{-- Dropdown: existing saved titles --}}
+                        <select id="title" name="about_title" onclick="titleInput(this)"
+                            class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
+                            title="Title" data-parsley-group="group_one"
+                            data-parsley-errors-container="#title-errors">
+
+                            <option value="">— Choose Your Title —</option>
+
+                            @foreach ($savedTitles as $title)
+                                <option value="{{ $title->value }}"
+                                    {{ $currentTitle === $title->value ? 'selected' : '' }}>
+                                    {{ $title->value }}
+                                </option>
+                            @endforeach
+
+                            <option value="new">Add a new Title</option>
+                        </select>
+
+                        {{-- Text input: hidden until "Add new" is selected --}}
+                        <input type="hidden" id="titleInp" name="about_title" value=""
+                            class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
+                            placeholder="Enter new Title" data-parsley-group="group_one"
+                            data-parsley-errors-container="#title-errors"
+                            data-original-title="{{ $currentTitle }}">
+                    @else
+                        {{-- No saved titles: plain text input --}}
+                        <input type="text" id="title" name="about_title" value="{{ $currentTitle }}"
+                            placeholder="Title"
+                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
+                            data-parsley-group="group_one" data-parsley-errors-container="#title-errors">
+
+                    @endif
+
+                </div>
+
+                <div class="col-sm-4">
+                    <span id="title-errors"></span>
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="col-12">
                     <textarea id="editor1" name="about" data-parsley-maxlength="2500"
@@ -2610,7 +2669,7 @@
         var profileId = parseInt(
             '{{ request()->segment(2) ==
             '
-                                        profile '
+                                                    profile '
                 ? $escort->id
                 : 0 }}'
         );
@@ -3057,38 +3116,16 @@
             return true;
         }
 
-        // $(document).on('change', '#stageName.js-stage-name-select', function() {
-        //     const isNew = $(this).val() === 'new';
-
-        //     if (isNew) {
-        //         // Disable & hide select so it won't submit
-        //         $(this).prop('disabled', true).hide();
-
-        //         // Activate the text input
-        //         $('#stageNameInp')
-        //             .attr('name', 'name')
-        //             .attr('required', true)
-        //             .show()
-        //             .trigger('focus');
-        //     } else {
-        //         // Revert: re-enable select
-        //         $(this).prop('disabled', false).show();
-
-        //         // Deactivate text input
-        //         $('#stageNameInp')
-        //             .attr('name', '')
-        //             .removeAttr('required') 
-
-                     
-        //             .val('')
-        //             .hide();
-        //     }
-        // });
-
-        // Street Address handal
+        function titleInput(ele) {
+            if ($(ele).val() == 'new') {
+                $(ele).remove();
+                $("#titleInp").attr('type', 'text');
+                $("#titleInp").attr('name', 'about_title');
+            }
+            return true;
+        }
 
 
-  
     </script>
 @endpush
 <style>
