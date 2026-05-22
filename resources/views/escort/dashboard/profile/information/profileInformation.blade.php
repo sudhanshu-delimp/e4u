@@ -1069,13 +1069,6 @@
 
    });
 
-
-
-
-
-
-   
-
    $("#close").click(function()
    {
        $("#my_account_modal").hide();
