@@ -1716,6 +1716,7 @@ class UpdateController extends AppController
     public function getNarration(Request $request){
 
         try{
+            
             $narration = EscortAdditionalInformation::where('short_desc', $request->short_desc)->pluck('value');
             if($narration){
               return  success_response($narration, 'Ok', 200, []);
