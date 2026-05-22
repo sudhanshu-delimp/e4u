@@ -86,7 +86,11 @@ class FeedbackController extends Controller
                 'comment' => $request->comment,
             ];
             if ($data && !empty($subjectName)) {
-                $mailResp = Mail::to(config('common.contactus_admin_email'))->queue(new SendFeedbackRequest($body));
+                $mail = Mail::to(config('common.contactus_admin_email'));
+                if ($request->has('cc_email')) {
+                    $mail->cc($request->email);
+                }
+                $mailResp = $mail->queue(new SendFeedbackRequest($body));
             } else {
                 $error = true;
             }
