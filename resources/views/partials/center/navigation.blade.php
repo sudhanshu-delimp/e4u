@@ -40,7 +40,7 @@
 
 
                            </div>
-                           <div class="gap-b">
+                           {{-- <div class="gap-b">
 
                             @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
                             <span>
@@ -55,7 +55,7 @@
                             @endif
                         
                    
-                           </div>
+                           </div> --}}
                         </div>
                     </div>
                     {{-- end --}}
@@ -117,6 +117,23 @@
                         
             
                 <!-- //////// Notification ///////////// -->
+                        <li class="nav-item">                            
+                               @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)  
+                            <a class="nav-link" href="{{ route('center.back-to-parent') }}">
+                                <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile"/></span>
+                            </a>
+                            @endif
+
+                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
+                             <a class="nav-link" href="{{ route('agent.back-to-parent') }}">
+                            <span class="switch-profile">
+                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile"/>
+
+                            </span>
+                             </a>
+                            @endif
+
+                        </li>
 
                         <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">                            
                                 <span class="support-tooltip">Support Tickets</span>
