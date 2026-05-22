@@ -2504,9 +2504,9 @@
             @endphp
 
             <div class="form-group row tab-about-me-row-padding">
-                {{-- <label class="col-sm-2 font-weight-500" for="title">
+                <label class="col-sm-2 font-weight-500" for="title">
                     Title:
-                </label> --}}
+                </label>
 
                 <div class="col-sm-6">
 
@@ -2552,6 +2552,39 @@
                 </div>
             </div>
 
+            @php
+                $savedNarrations = $loginAccount->additionalInfo->where('type', 'narration');
+            @endphp
+
+
+            <div class="form-group row tab-about-me-row-padding">
+                <label class="col-sm-2 font-weight-500" for="narration">
+                    Narration:
+                </label>
+
+                <div class="col-sm-6">
+                    {{-- Dropdown: existing saved titles --}}
+                    <select id="narration" name="about_narration" 
+                        class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default"
+                        title="Narration" data-parsley-group="group_one"
+                        data-parsley-errors-container="#narration-errors">
+
+                        <option value="">— Choose Your Narration —</option>
+
+                        @foreach ($savedNarrations as $narration)
+                            <option value="{{ $narration->short_desc }}"
+                                {{-- {{ $currentTitle === $narration->shart_desc ? 'selected' : '' }} --}}
+                                >
+                                {{ $narration->short_desc }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-sm-4">
+                    <span id="narration-errors"></span>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-12">
@@ -2669,7 +2702,7 @@
         var profileId = parseInt(
             '{{ request()->segment(2) ==
             '
-                                                    profile '
+                                                                profile '
                 ? $escort->id
                 : 0 }}'
         );
@@ -3124,10 +3157,6 @@
             }
             return true;
         }
-
-
-
-        
     </script>
 @endpush
 <style>

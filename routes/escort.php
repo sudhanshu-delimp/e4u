@@ -116,6 +116,9 @@ Route::post('duplicate-profile', [UpdateController::class, 'duplicateProfile'])-
 Route::post('update-escort/{id?}', [UpdateController::class, 'update_escort'])->name('escort.update_escort');
 Route::post('update_escort_default', [UpdateController::class, 'update_escort_default'])->name('escort.update_escort_default');
 
+//update narration value using ajax in the New Profile
+Route::post('/get-narration', [UpdateController::class, 'getNarration'])->name('escort.get.narration');
+
 Route::post('create-profile/{id}', [CreateController::class, 'createProfile'])->name('escort.create.profile'); //create and update
 Route::get('update-profile/{id?}', [UpdateController::class, 'updateBasicProfile'])->name('escort.profile.basic.update');
 Route::post('upload-media', [CreateController::class, 'saveMedia'])->name('upload.media');

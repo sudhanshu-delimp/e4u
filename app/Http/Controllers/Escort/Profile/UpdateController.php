@@ -33,6 +33,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
+use Exception;
 use Illuminate\Support\Facades\Artisan;
 
 //use Illuminate\Http\Request;
@@ -1710,5 +1711,19 @@ class UpdateController extends AppController
 
         $exists = $query->exists();
         return  $exists ? response()->json(false, 422) : response()->json(true, 200);
+    }
+
+    public function getNarration(Request $request){
+
+        try{
+            $narration = EscortAdditionalInformation::where('short_desc', $request->short_desc)->pluck('value');
+            if($narration){
+              return  success_response($narration, 'Ok', 200, []);
+            }
+           return error_response('No data found', 404, []);
+        } catch(Exception $e){
+            return error_response($e->getMessage(), 500, []);
+        }
+
     }
 }
