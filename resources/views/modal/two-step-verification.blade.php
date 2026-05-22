@@ -1,4 +1,5 @@
-<div class="modal fade upload-modal {{ isset($action) ? 'on-form-action' : '' }}" id="sendOtp_modal" style="display: none">
+<div class="modal fade upload-modal {{ isset($action) ? 'on-form-action' : '' }}"  id="sendOtp_modal" style="display: none"  data-backdrop="static"
+     data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <form id="SendOtp" method="POST" action="{{ isset($action) ? route('validate.opt.notification', Auth::user()->id): '#' }}">

@@ -10,6 +10,7 @@ use App\Models\PaymentHistory;
 use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class PaymentController extends Controller
@@ -44,7 +45,6 @@ class PaymentController extends Controller
     public function paymentAdjustment(Request $request)
     {
         try {
-
             $action = $request->filled('action') ? (float) $request->action : 'apply';
             $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
             $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;

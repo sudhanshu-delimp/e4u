@@ -1590,7 +1590,6 @@ class WebController extends Controller
         try{
             $settings = $user->getAccountSettings();
             $action = $request->action;
-
             $otp = $user->generateOTP();
             $user->otp = $otp;
             $user->save();

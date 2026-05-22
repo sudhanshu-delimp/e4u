@@ -32,11 +32,24 @@ class ProductOrderController extends Controller
       return $next($request);
     });
   }
-  public function makeOrder(Request $request,)
+  // public function makeOrder(Request $request,)
+  // {
+
+
+  //   try {
+
+  //     return response()->json(['status' => true, 'message' => "Order Placed Successfully.", 'orderId' => $order->id]);
+  //   } catch (\Exception $e) {
+  //     DB::rollBack();
+  //     return response()->json(['status' => false, 'message' => $e->getMessage()]);
+  //   }
+  // }
+
+
+  public function makeOrderPayment(Request $request, PinPaymentService $pinPaymentService)
   {
-
-
     try {
+
       DB::beginTransaction();
 
       $data = $request->all();
@@ -175,21 +188,11 @@ class ProductOrderController extends Controller
         OrderAddress::create($orderAddressBilling);
       }
       DB::commit();
-      return response()->json(['status' => true, 'message' => "Order Placed Successfully.", 'orderId' => $order->id]);
-    } catch (\Exception $e) {
-      DB::rollBack();
-      return response()->json(['status' => false, 'message' => $e->getMessage()]);
-    }
-  }
 
 
-  public function makeOrderPayment(Request $request, PinPaymentService $pinPaymentService)
-  {
-    try {
-      $data = $request->all();
       // prepare metdata for product order
 
-      $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $request->orderId)->first();
+      $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $order->id)->first();
       $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
       if (empty($order))
         return response()->json(['status' => false, 'message' => "Something went wrong"]);
