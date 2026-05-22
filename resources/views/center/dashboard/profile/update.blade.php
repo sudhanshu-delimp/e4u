@@ -74,6 +74,10 @@
 #selected_service_two small[id="price[]-error"] {
     display: none  !important;
 }
+
+.disable_class{
+background-color: #dcb9b9 !important;
+}
 </style>
 @endsection
 @section('content')
@@ -938,7 +942,7 @@ console.log('profileId',profileId);
         },
 
         columns: [
-        
+            { data: 'member_id' },
             { data: 'profile' },
             { data: 'days', class:'masseur_cus_width' },
             { data: 'ethnicity' },

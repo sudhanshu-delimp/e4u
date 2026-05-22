@@ -1063,6 +1063,7 @@
 
             columns: [
             
+                { data: 'member_id'},
                 { data: 'profile'},
                 { data: 'days' , class:'masseur_cus_width'},
                 { data: 'ethnicity' },

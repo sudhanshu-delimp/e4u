@@ -29,8 +29,8 @@
                     <table id="selected_masseur"  class="table" width="100%">
                         <thead class="bg-first">
                             <tr>
+                                <th>Member ID</th>
                                 <th>Profile</th>
-                                <!-- <th>Available Time</th> -->
                                 <th>Available Days</th>
                                 <th>Nationality</th>
                                 <th> Ethnicity</th>

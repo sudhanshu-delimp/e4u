@@ -37,7 +37,7 @@
                                     <thead class="bg-first">
                                         <tr>
 
-                                            
+                                            <th>Member ID</th>
                                             <th>Profile</th>
                                             <th>Available Days</th>
                                             <th>Nationality</th>
