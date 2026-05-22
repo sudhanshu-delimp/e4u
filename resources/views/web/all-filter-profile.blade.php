@@ -865,7 +865,7 @@
                         </div>
                     @endif
                     @if ($grouped->has('4'))
-                        <div class="manage_listview_margin_siliver_section free_card">
+                        <div class="manage_listview_margin_siliver_section">
                             <div class="bod_image custom-mb">
                                 <div class="ec_tooltip">
                                     <img src="{{ asset('assets/app/img/Group 153.png') }}">
