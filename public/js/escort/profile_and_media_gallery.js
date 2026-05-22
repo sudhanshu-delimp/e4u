@@ -127,7 +127,7 @@ function preview_image(event)
             const fileSizeMB = file.size / (1024 * 1024);
             const index = previousSelectedImagesCount + i;
     
-            if (fileSizeMB <= 2) {
+            if (fileSizeMB <= 4) {
                 allFiles.push(file); 
                 const imgURL = URL.createObjectURL(file);
                 $('#image_preview').append(`
@@ -144,7 +144,7 @@ function preview_image(event)
                     </a>
                 `);
             } else {
-                Swal.fire('Media', "Can't upload more than 2 MB", 'error');
+                Swal.fire('Media', "Can't upload more than 4 MB", 'error');
             }
         });
         input.value = '';
