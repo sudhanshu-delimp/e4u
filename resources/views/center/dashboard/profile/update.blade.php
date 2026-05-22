@@ -693,6 +693,17 @@ console.log('profileId',profileId);
     var isCalculating = false;
 
 
+    $(document).ready(function()
+    {
+        $(document).on('click', '.remove-row', function () {
+        $(this).closest('tr').remove();
+        refresh_masseur_table();
+        toggleSaveProfileButton();
+        });
+    });
+     
+
+
     $('.add_masseurs').on('click', function () {
 
         $('#masseurs_Tab tbody input.select-masseur:checked').each(function () {
@@ -706,13 +717,15 @@ console.log('profileId',profileId);
                 return false;
             }
 
-            let profile     = $row.find('td:eq(1)').html();
-            let days        = $row.find('td:eq(2)').html();
-            let ethnicity   = $row.find('td:eq(3)').text();
-            let nationality = $row.find('td:eq(4)').text();
+            let member_id   = $row.find('td:eq(1)').html();
+            let profile     = $row.find('td:eq(2)').html();
+            let days        = $row.find('td:eq(3)').html();
+            let ethnicity   = $row.find('td:eq(4)').text();
+            let nationality = $row.find('td:eq(5)').text();
 
             let html = `
                 <tr data-id="${id}">
+                    <td>${member_id}</td>
                     <td>${profile}</td>
                     <td>${days}</td>
                     <td>${nationality}</td>
@@ -729,11 +742,7 @@ console.log('profileId',profileId);
 
         
 
-        $(document).on('click', '.remove-row', function () {
-        $(this).closest('tr').remove();
-        refresh_masseur_table();
-        toggleSaveProfileButton();
-        });
+       
 
 
     });
@@ -867,6 +876,7 @@ console.log('profileId',profileId);
 
             columns: [
                 { data: 'checkbox', orderable: false, searchable: false },
+                { data: 'member_id' },
                 { data: 'profile' },
                 { data: 'days',class:'masseur_cus_width' },
                 { data: 'ethnicity' },

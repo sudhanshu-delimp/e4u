@@ -90,6 +90,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 5%;"></th>
+                                        <th style="width: 15%;">Member ID</th>
                                         <th style="width: 15%;">Profile</th>
                                         <th style="width: 40%;">Available Days</th>
                                         <th style="width: 20%;">Ethnicity</th>

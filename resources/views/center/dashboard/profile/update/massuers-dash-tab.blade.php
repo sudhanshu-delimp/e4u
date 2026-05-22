@@ -114,6 +114,7 @@
                                         <th>
                                             
                                         </th>
+                                        <th>Member ID</th>
                                         <th>Profile</th>
                                         <!-- <th>Available Time</th> -->
                                         <th>Available Days</th>

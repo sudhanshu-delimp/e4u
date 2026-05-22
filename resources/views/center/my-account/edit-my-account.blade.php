@@ -854,17 +854,17 @@
     ],
     createdRow: function(row, data, dataIndex) {
 
-        if (data.status == 'Active') {
-            $(row).css('background-color', '#e5f2e8');
-        }
+        // if (data.status == 'Active') {
+        //     $(row).css('background-color', '#e5f2e8');
+        // }
 
-        if (data.status == 'Suspended') {
-            $(row).css('background-color', '#fae0e0');
-        }
+        // if (data.status == 'Suspended') {
+        //     $(row).css('background-color', '#fae0e0');
+        // }
 
-        if (data.status == 'Pending') {
-            $(row).css('background-color', '#e6d5a0');
-        }
+        // if (data.status == 'Pending') {
+        //     $(row).css('background-color', '#e6d5a0');
+        // }
     }
 
 
@@ -1411,6 +1411,8 @@
         let year = date.getFullYear();
         return day + '-' + month + '-' + year;
     }
+
+    
     
 </script>
 @endpush

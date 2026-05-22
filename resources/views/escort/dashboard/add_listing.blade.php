@@ -50,10 +50,10 @@
                     <div class="label">Payment</div>
                 </div>
 
-                {{-- <div class="custom_step">
+                <div class="custom_step">
                     <div class="circle">3</div>
                     <div class="label">Completion</div>
-                </div> --}}
+                </div>
             </div>
 
             {{-- <button id="prev" disabled>Prev</button>
