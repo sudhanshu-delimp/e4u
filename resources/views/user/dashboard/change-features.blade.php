@@ -171,6 +171,7 @@
                 </div>
 
                 <div class="pt-1"><i>By selecting a particular interest, we can refine your Escort Listings View page.</i></div>
+                <br>
                 <div class="pt-1"><i>These settings apply to your Home State.</i></div>
             </div>
 

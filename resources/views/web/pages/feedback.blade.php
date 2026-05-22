@@ -105,7 +105,7 @@
 
             
 
-            <div class="d-flex justify-content-between gap-20 flex-wrap">
+            <div class="d-flex justify-content-between gap-20 flex-wrap mb-3">
                     <div class="form-check pb-0 pt-1">
                         <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
                         <label class="form-check-label" for="ccEmail">CC email to me</label>
@@ -114,11 +114,11 @@
                         <span style="font-size: 13px"><b>Note:</b> Geolocation is in use on this Website.</span>
                     </div>
                 </div>
-                <div class="form-check pb-3">
+                {{-- <div class="form-check pb-3">
                      <input class="form-check-input" type="checkbox" id="tnc" name="tnc">
                     <label class="form-check-label" for="tnc"> I have read and agree to the Influencer <a href="javascript:void(0)" data-toggle="modal" data-target="#InfluencerTnc" class="custom_links_design" style="font-size: 13px;color:#FF3C5F;">Terms and Conditions</a></label>
                    
-                </div>
+                </div> --}}
             <div class="row d-flex justify-content-between align-items-center">
                    <div class="col-12 col-sm-12  col-md-3 col-lg-3 col-xl-3 mb-2 d-flex">
                         <button type="submit" id="btnSubmit" class="common-btn mb-3">Submit Feedback</button>

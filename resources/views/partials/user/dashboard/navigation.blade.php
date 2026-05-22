@@ -20,11 +20,11 @@
                                     <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span>
                                 </span>
                                 <span><span class="separator">|</span>
-                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                     <b>Current Location :  </b><span class="user-values live_current_location"></span>
                                 </span>
 
                                 <span>
-                                     <b>Current Location :  </b><span class="user-values live_current_location"></span> 
+                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                                 </span>
                                 
                                 <span><span class="separator">|</span>
