@@ -269,7 +269,45 @@
                 };
                 // console.log(window.App);
 
+
+                
+
             </script> 
+
+
+             @if(!canManage())
+             <script type="text/javascript">
+                 $(document).ready(function() {
+
+                    $('.save_profile_btn').css({'display':'none'});
+                    $('.resetdays-icon').css({'display':'none'});
+                    $('.remove-lang').css({'display':'none'});
+   
+
+                    $('#btn_add_brb').css({'display':'none'});
+                    $('#btn_suspend_profile').css({'display':'none'});
+                    $('#btn_extend_profile').css({'display':'none'});
+                    $('#btn_bumpup_profile').css({'display':'none'});
+
+
+                    $('.allow_only_numeric').prop({'disabled':true});
+
+                    $('input[type="number"]').prop('disabled', true);
+                    $('.my_service_anal .input_border').css({'background-color':'#fff'});
+                    $('.column_class').css({'display':'none'});
+                    $('.my_service_anal #span_id').css({'display':'none'});
+
+                    
+                   
+
+                    $('input[type="text"]').prop('disabled', true);
+                    $('select').prop('disabled', true);
+                    $('input[type="checkbox"]').prop('disabled', true);
+                    $('input[type="radio"]').prop('disabled', true);
+
+                 })
+             </script>
+             @endif
           
 
     </body>

@@ -362,7 +362,7 @@
                                                 <div class="pt-0 pb-0">
                                                     <div class="row">
                                                         <div class="col-lg-6 col-md-12 col-sm-12 full-width-for-ipad-select">
-                                                            <div class="form-group row">
+                                                            <div class="form-group row column_class">
                                                                 <label class="font-weight-500 col-sm-5" for="exampleFormControlSelect1">Massage services </label>
                                                                 <div class="col-sm-7">
                                                                     <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
@@ -406,7 +406,7 @@
                                                 <div class="pt-2 pb-2">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group row">
+                                                            <div class="form-group row column_class">
                                                                 <label class="font-weight-500 col-sm-5" for="exampleFormControlSelect1">Other service types </label>
                                                                 <div class="col-sm-7">
                                                                     <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_two">
