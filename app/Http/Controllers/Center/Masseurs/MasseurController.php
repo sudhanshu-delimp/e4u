@@ -927,6 +927,7 @@ class MasseurController extends AppController
                 return [
                    
                     'id' => $row->id,
+                    'member_id' => $row->member_id,
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
                     
                     'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"><span class="list_profile_name">'.$row->name.$default_profile.'</span>',
@@ -979,6 +980,7 @@ class MasseurController extends AppController
                 return [
                    
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
+                    'member_id' => $row->member_id,
                     
                     'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"><span class="list_profile_name">'.$row->name.$default_profile.'</span>',
 
@@ -1146,7 +1148,7 @@ class MasseurController extends AppController
                 return [
                     
                     'id' => $row->id,
-                    
+                    'member_id' => $row->member_id,
                     'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> <span class="list_profile_name">'.$row->name.$default_profile.'</span>',
 
                     'days' => $avail_list,
@@ -1154,14 +1156,14 @@ class MasseurController extends AppController
                     'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
 
                     'nationality' => $countries[$row->nationality] ?? 'NA',
-                        'action' => '',
 
-                    //  'action' => '<button 
-                    //     type="button"  
-                    //     class="btn-danger btn-sm remove-row delete-masseur" 
-                    //     data-id="'.$row->id.'">
-                    //     Remove
-                    // </button>',
+                    // class="btn-danger btn-sm remove-row delete-masseur" data-id="'.$row->id.'"
+                    
+                     'action' => '<button 
+                        type="button"  
+                        class="btn-danger btn-sm remove-row">
+                        Remove
+                    </button>',
 
                 ];
             });  

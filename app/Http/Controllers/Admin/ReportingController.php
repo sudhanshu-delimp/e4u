@@ -231,9 +231,20 @@ class ReportingController extends BaseController
             $item->action = $dropdown;
             $memberIdBadgeText =  '';
             if ($item->social_media_consent == '1'){
-                $memberIdBadgeText = '<span><sup class="extend_icon listing-tag-tooltip ml-1">Consent Social Media</sup></span>';
+                $memberIdBadgeText = '<span class="d-none"><sup class="extend_icon listing-tag-tooltip ml-1">Consent Social Media</sup></span>';
             }
-            $item->member_id = $item->member_id . $memberIdBadgeText;
+
+            $parent_account = "";
+            if($item->is_child=='1')
+            {
+                $parent_member_id = ($item->createddBy->member_id) ? '<small class="listing-tag-tooltip-desc">Primary Member Id : '.$item->createddBy->member_id.'</small>' : "";
+                $parent_account = '<span><sup class="suspend_icon listing-tag-tooltip ml-1">Primary Member'.$parent_member_id.'</sup></span>';
+            }
+            
+
+
+
+            $item->member_id = $item->member_id . $memberIdBadgeText.$parent_account;
             $item->registration_date = isset($item->created_at) ? showDateWithFormat($item->created_at) :  '---';
             $i++;
         }

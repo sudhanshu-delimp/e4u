@@ -2508,3 +2508,14 @@ if (!function_exists('get_massage_parent_data')) {
         return false;
   }
 }
+
+
+if (!function_exists('canManage')) {
+
+    function canManage()
+    {
+        return auth()->check()
+            && auth()->user()->can_manage();
+    }
+
+}
