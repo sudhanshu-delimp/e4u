@@ -11565,6 +11565,16 @@ border-top: 5px solid var(--peach);
     }
 }
 
+.switch-profile {
+    background: #eff0f6;
+    padding: 6px;
+    border-radius: 100%;
+}
+
+.switch-profile img {
+    width: 28px;
+}
+
 
 /* Progress line */
 
