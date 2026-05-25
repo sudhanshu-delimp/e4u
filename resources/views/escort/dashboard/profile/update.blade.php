@@ -1948,26 +1948,10 @@
 
                 success: function(response) {
                     let editor = CKEDITOR.instances['editor1'];
-                   // editor.setData('append data');
                     editor.setData(response.data[0]);
-                    console.log(response.data[0]);
-
                     if (response.data) {
-                       
-                         //let editor = CKEDITOR.instances['editor1'];
+                        editor.setData(response.data);
 
-                        // if (editor) {
-
-                        //     // replace content
-                             editor.setData(response.data);
-
-                        //     // append content
-                        //     // let oldData = editor.getData();
-                        //     // editor.setData(oldData + '<br>' + response.data);
-
-                        // } else {
-                        //     console.log('CKEditor instance not found');
-                        // }
                     }
                 },
 
