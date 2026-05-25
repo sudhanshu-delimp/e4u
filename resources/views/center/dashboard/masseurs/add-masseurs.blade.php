@@ -1661,7 +1661,7 @@ padding: 37px !important;
                                 </a>
                             `);
                 } else {
-                    Swal.fire('Media', "Can't upload more than 2 MB", 'error');
+                    Swal.fire('Media', "Can't upload more than 4 MB", 'error');
                 }
             });
             input.value = '';
@@ -1933,14 +1933,14 @@ padding: 37px !important;
                 var imgbytes = input.files[0].size;
                 var imgkbytes = Math.round(parseInt(imgbytes) / 1024);
                 var imgMB = Math.round(parseInt(imgkbytes) / 1024);
-                if (imgMB <= 2) {
+                if (imgMB <= 4) {
                     reader.onload = function(e) {
                         $('#blah' + input.id[3])
                             .attr('src', e.target.result);
 
                     };
                 } else {
-                    $('.comman_msg').html("Can't upload more than 2 MB size");
+                    $('.comman_msg').html("Can't upload more than 4 MB size");
                     $("#comman_modal").modal('show');
                 }
 
