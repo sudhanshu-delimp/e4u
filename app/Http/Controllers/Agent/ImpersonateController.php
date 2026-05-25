@@ -117,7 +117,6 @@ class ImpersonateController extends Controller
                 $countryId = $city->country_id;
             }
 
-
             /*$attempt = AttemptLogin::where('user_id', $childUser->id)
                 ->latest()
                 ->first();
@@ -147,8 +146,6 @@ class ImpersonateController extends Controller
                     'type' => 1,
                 ]);
             } */
-
-           
 
             // store impersonation data AFTER login
             session([
