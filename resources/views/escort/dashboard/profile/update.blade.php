@@ -1927,8 +1927,9 @@
             return editor;
         }
 
+
+
         //append narration value after on change dropdown
-        
         $('#narration').on('change', function() {
             let short_desc = $(this).val();
             if (short_desc == '') {
@@ -1945,7 +1946,6 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-
                 success: function(response) {
                     let editor = CKEDITOR.instances['editor1'];
                     editor.setData(response.data[0]);
