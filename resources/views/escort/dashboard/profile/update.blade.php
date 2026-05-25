@@ -1927,8 +1927,6 @@
             return editor;
         }
 
-
-
         //append narration value after on change dropdown
         $('#narration').on('change', function() {
             let short_desc = $(this).val();
