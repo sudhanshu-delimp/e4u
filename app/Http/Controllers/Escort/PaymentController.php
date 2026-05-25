@@ -212,16 +212,15 @@ class PaymentController extends Controller
             if (session()->has('checkout')) {
                 $this->saveCheckout($payment);
                 $payment_service = 'Profile Listing';
-                session()->forget('checkout');
-                $redirect_url = route('escort.dashboard.listings', 'current');
+                $redirect_url = route('escort.account.listing_success');
             }
 
             if (session()->has('tour_checkout')) {
                 $this->saveCheckout($payment);
                 $payment_service = 'Tour';
-                session()->forget('tour_checkout');
-                $redirect_url = route('escort.view.tour.list', 'current');
+                $redirect_url = route('escort.account.listing_success');
             }
+            
             if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
                 $this->walletService->debit($this->account, $benefit_token['wallet_amount'], $payment, $payment_service, []);
             }

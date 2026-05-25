@@ -1,7 +1,8 @@
 <div class="modal fade upload-modal {{ isset($action) ? 'on-form-action' : '' }}" id="sendOtp_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <form id="SendOtp" method="POST" action="{{ isset($action) ? route('validate.opt.notification', Auth::user()->id): '#' }}">
+            <form id="SendOtp" method="POST"
+                action="{{ isset($action) ? route('validate.opt.notification', Auth::user()->id) : '#' }}">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -44,10 +45,11 @@
                                 <input type="text" maxlength="1" class="form-control otp-input text-center ml-1" />
                                 <input type="text" maxlength="1" class="form-control otp-input text-center ml-1" />
                             </div>
-                            <input type="hidden" maxlength="6" required class="form-control w-75" name="otp" id="otp">
+                            <input type="hidden" maxlength="6" required class="form-control w-75" name="otp"
+                                id="otp">
                             <input type="hidden" value="0" name="change_pin_active" id="change_pin_active">
                             @if (isset($inPaymentMode))
-                                <input type="hidden" value="1" name="in_payment_mode" id="in_payment_mode">    
+                                <input type="hidden" value="1" name="in_payment_mode" id="in_payment_mode">
                             @endif
                             <img src="{{ asset('assets/app/img/circle-loader.gif') }}" class="wait-loader"
                                 style="width: 60px;margin-bottom:18px;display:none;" alt="face-lock verification">
@@ -83,181 +85,187 @@
 
 
 @push('script')
-<script>
-    const otpInputs = document.querySelectorAll(".otp-input");
-    const hiddenOtp = document.getElementById("otp");
+    <script>
+        const otpInputs = document.querySelectorAll(".otp-input");
+        const hiddenOtp = document.getElementById("otp");
 
-    let otpSubmitted = false;
-    
-    let sendOtpForm = $("#SendOtp");
-    
-    sendOtpForm.on('submit', function(e){
-        e.preventDefault();
-        submitButton = sendOtpForm.find(":submit"),
-        $.ajax({
-            url: sendOtpForm.attr('action'),
-            method: sendOtpForm.attr('method'),
-            dataType: 'JSON',
-            headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
-            data: sendOtpForm.serialize(),
-            beforeSend: function() {
-                submitButton.attr({
-                    disabled: true
-                });
-                Swal.fire({
-                    title: 'Verifying OTP',
-                    text: 'Please wait while we verify your OTP. Do not refresh or close this page.',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-            },
-            success: function(response, textStatus, xhr) {
-                Swal.close();
-                submitButton.removeAttr('disabled');
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                }).then((result) => {
-                    if($("#in_payment_mode").length > 0){
-                        $("#process-payment-modal").modal('show');
-                        processPaymentForm();
-                    }
-                });
-                sendOtpForm.closest('.modal').modal('hide');
-            },
-            error: function(xhr) {
-                Swal.close();
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                });
-                submitButton.removeAttr('disabled');
-            }
-        });
-    });
+        let otpSubmitted = false;
 
-    function updateHiddenOtp() {
-        let otp = "";
-        otpInputs.forEach(input => otp += input.value);
-        hiddenOtp.value = otp;
+        let sendOtpForm = $("#SendOtp");
 
-        if (otp.length === 6 && !otpSubmitted) {
-            otpSubmitted = true;
-            if ($(".on-form-action").length > 0) {
-                sendOtpForm.submit();
-            } else {
-                document.getElementById("sendOtpSubmit").click();
-            }
-        } else if (otp.length < 6) {
-            otpSubmitted = false;
-        }
-    }
-
-    otpInputs.forEach((input, index) => {
-        input.addEventListener("input", () => {
-            if (input.value.length === 1 && index < otpInputs.length - 1) {
-                otpInputs[index + 1].focus();
-            }
-            updateHiddenOtp();
-        });
-
-        input.addEventListener("keydown", (e) => {
-            if (e.key === "Backspace" && !input.value && index > 0) {
-                otpInputs[index - 1].focus();
-            }
-            setTimeout(updateHiddenOtp, 10);
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-
-        const timerEl = document.getElementById("otpTimerMsg");
-        const resendEl = document.getElementById("resendLine");
-
-        $('#sendOtp_modal').on('shown.bs.modal', focusFirstOtpInput);
-
-
-        let seconds = '{{ config('common.otp_resend_seconds') }}';
-
-        function startOtpTimer() {
-            resendEl.style.display = "none";
-            timerEl.style.display = "block";
-
-            $('#sendOtp_modal').one('shown.bs.modal', function() {
-                const otpInputs = document.querySelectorAll(".otp-input");
-                if (otpInputs.length > 0) {
-                    otpInputs[0].focus();
-                }
-            });
-
-            const timer = setInterval(function() {
-                const min = String(Math.floor(seconds / 60)).padStart(2, '0');
-                const sec = String(seconds % 60).padStart(2, '0');
-                timerEl.innerHTML =
-                    `<i class="fa fa fa-exclamation-circle" style="color:#ff3c5f; font-size:20px;"></i> Please wait  <span style="color:#097969; font-size:18px;"> ${min}:${sec} seconds </span>  before requesting another OTP.`;
-
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    timerEl.style.display = "none";
-                    resendEl.style.display = "block";
-                }
-                seconds--;
-            }, 1000);
-        }
-
-        startOtpTimer();
-
-        document.getElementById("resendOtpSubmit").addEventListener("click", function(e) {
+        sendOtpForm.on('submit', function(e) {
             e.preventDefault();
-            $('#resendLine').css({
-                'display': 'none'
+            submitButton = sendOtpForm.find(":submit"),
+                $.ajax({
+                    url: sendOtpForm.attr('action'),
+                    method: sendOtpForm.attr('method'),
+                    dataType: 'JSON',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: sendOtpForm.serialize(),
+                    beforeSend: function() {
+                        submitButton.attr({
+                            disabled: true
+                        });
+                        Swal.fire({
+                            title: 'Verifying OTP',
+                            text: 'Please wait while we verify your OTP. Do not refresh or close this page.',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response, textStatus, xhr) {
+                        Swal.close();
+                        submitButton.removeAttr('disabled');
+                        let option = getStatusOption(xhr);
+                        Swal.fire({
+                            icon: option.icon,
+                            title: option.title,
+                            text: option.message,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
+                            if ($("#in_payment_mode").length > 0) {
+                                $("#process-payment-modal").modal({
+                                    backdrop: 'static',
+                                    keyboard: false,
+                                    show: true
+                                });
+                                processPaymentForm();
+                            }
+                        });
+                        sendOtpForm.closest('.modal').modal('hide');
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        let option = getStatusOption(xhr);
+                        Swal.fire({
+                            icon: option.icon,
+                            title: option.title,
+                            text: option.message,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        });
+                        submitButton.removeAttr('disabled');
+                    }
+                });
+        });
+
+        function updateHiddenOtp() {
+            let otp = "";
+            otpInputs.forEach(input => otp += input.value);
+            hiddenOtp.value = otp;
+
+            if (otp.length === 6 && !otpSubmitted) {
+                otpSubmitted = true;
+                if ($(".on-form-action").length > 0) {
+                    sendOtpForm.submit();
+                } else {
+                    document.getElementById("sendOtpSubmit").click();
+                }
+            } else if (otp.length < 6) {
+                otpSubmitted = false;
+            }
+        }
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener("input", () => {
+                if (input.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+                updateHiddenOtp();
             });
-            seconds = '{{ config('common.otp_resend_seconds') }}';
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Backspace" && !input.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+                setTimeout(updateHiddenOtp, 10);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const timerEl = document.getElementById("otpTimerMsg");
+            const resendEl = document.getElementById("resendLine");
+
+            $('#sendOtp_modal').on('shown.bs.modal', focusFirstOtpInput);
+
+
+            let seconds = '{{ config('common.otp_resend_seconds') }}';
+
+            function startOtpTimer() {
+                resendEl.style.display = "none";
+                timerEl.style.display = "block";
+
+                $('#sendOtp_modal').one('shown.bs.modal', function() {
+                    const otpInputs = document.querySelectorAll(".otp-input");
+                    if (otpInputs.length > 0) {
+                        otpInputs[0].focus();
+                    }
+                });
+
+                const timer = setInterval(function() {
+                    const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+                    const sec = String(seconds % 60).padStart(2, '0');
+                    timerEl.innerHTML =
+                        `<i class="fa fa fa-exclamation-circle" style="color:#ff3c5f; font-size:20px;"></i> Please wait  <span style="color:#097969; font-size:18px;"> ${min}:${sec} seconds </span>  before requesting another OTP.`;
+
+                    if (seconds <= 0) {
+                        clearInterval(timer);
+                        timerEl.style.display = "none";
+                        resendEl.style.display = "block";
+                    }
+                    seconds--;
+                }, 1000);
+            }
+
             startOtpTimer();
 
-            focusFirstOtpInput();
-
-
-        });
-    });
-
-
-    otpInputs.forEach((input, index) => {
-        input.addEventListener("input", () => {
-
-            input.value = input.value.replace(/[^0-9]/g, '');
-            if (input.value.length === 1 && index < otpInputs.length - 1) {
-                otpInputs[index + 1].focus();
-            }
-        });
-
-        input.addEventListener("keydown", (e) => {
-            if (
-                !["Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete"].includes(e.key) &&
-                !/^[0-9]$/.test(e.key)
-            ) {
+            document.getElementById("resendOtpSubmit").addEventListener("click", function(e) {
                 e.preventDefault();
-            }
-        });
-    });
+                $('#resendLine').css({
+                    'display': 'none'
+                });
+                seconds = '{{ config('common.otp_resend_seconds') }}';
+                startOtpTimer();
 
-    function focusFirstOtpInput() {
-        const otpInputs = document.querySelectorAll(".otp-input");
-        if (otpInputs.length > 0) {
-            otpInputs.forEach(input => input.value = "");
-            otpInputs[0].focus();
+                focusFirstOtpInput();
+
+
+            });
+        });
+
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener("input", () => {
+
+                input.value = input.value.replace(/[^0-9]/g, '');
+                if (input.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener("keydown", (e) => {
+                if (
+                    !["Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete"].includes(e.key) &&
+                    !/^[0-9]$/.test(e.key)
+                ) {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        function focusFirstOtpInput() {
+            const otpInputs = document.querySelectorAll(".otp-input");
+            if (otpInputs.length > 0) {
+                otpInputs.forEach(input => input.value = "");
+                otpInputs[0].focus();
+            }
         }
-    }
-</script>
+    </script>
 @endpush
