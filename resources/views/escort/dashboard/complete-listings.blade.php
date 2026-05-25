@@ -119,10 +119,10 @@
                     <!-- Replace with your image -->
                     <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="order">
 
-                    <h2>Thank You for Your Order!</h2>
-                    <p>Your Purchase is Confirmed! Get Ready for an Amazing Experience.</p>
+                    <h2>Thank you for your Oder!</h2>
+                    <p>Your purchase is confirmed, get ready for a Great Experience!</p>
 
-                    <button class="btn btn-primary" id="continueBtn">Continue Shopping</button>
+                    <a href="{{$redirect_url}}" class="btn btn-primary" id="continueBtn">Continue Shopping</a>
 
                 </div>
                 </div>

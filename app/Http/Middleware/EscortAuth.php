@@ -22,7 +22,20 @@ class EscortAuth
             'isImpersonated' => false,
         ]);
         
-        $response = $next($request);
+       
+
+        if (session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true) {
+            $allowedActions = config('escorts.impersonate_action_allowed');
+             $request->merge([
+                'impersonatedId' => session('parent_agent_id'),
+                'isImpersonated' => true,
+            ]);
+            
+            if (!in_array(request()->segment(2), $allowedActions) && request()->segment(2) != '') {
+                //Log::info('Action: '.request()->segment(2));
+                return redirect()->route('escort.dashboard')->with('error', accessDeniedMsg());
+            }
+        }
         
         if(!$user = auth()->user()) {
             //return redirect()->route('advertiser.login');
@@ -32,6 +45,7 @@ class EscortAuth
         if($user->type != 3) {
             return redirect('/');
         }
+        $response = $next($request);
 
         return $response;
     }

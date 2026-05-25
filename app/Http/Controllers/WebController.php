@@ -1639,36 +1639,32 @@ class WebController extends Controller
                 $user->save();
 
                 return response()->json([
-                    'status' => 200,
                     'success' => true,
                     'message' => 'OTP verified successfully.'
-                ]);
+                ], 200);
 
             } else {
 
                 return response()->json([
-                    'status' => 422,
                     'success' => false,
                     'message' => 'Invalid OTP.'
-                ]);
+                ], 422);
 
             }
 
         } catch (\Illuminate\Validation\ValidationException $e) {
 
             return response()->json([
-                'status' => 422,
                 'success' => false,
                 'message' => $e->validator->errors()->first()
-            ]);
+            ], 422);
 
         } catch (\Exception $e) {
 
             return response()->json([
-                'status' => 500,
                 'success' => false,
                 'message' => $e->getMessage(),
-            ]);
+            ], 500);
 
         }
     }
