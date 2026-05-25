@@ -314,6 +314,8 @@
                                 </div>
                             </div>
 
+
+                            
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#other_centre"
@@ -375,6 +377,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse"

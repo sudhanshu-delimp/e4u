@@ -16,7 +16,7 @@
     <!-- Divider -->
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    {{--  <li class="nav-item active">
         <a class="nav-link" href=" {{ route('center.dashboard') }}">
             <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -24,7 +24,8 @@
                     fill="white" />
             </svg>
             <span>Dashboard</span></a>
-    </li>
+    </li>  --}}
+   
 
     {{-- My Account --}}
     <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}" >
