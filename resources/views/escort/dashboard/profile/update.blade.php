@@ -1962,9 +1962,6 @@
 
         });
 
-
-
-
         $("body").on("click", "#save_change", function() {
             let profileName = $('input[name="profile_name"]').val();
             let field = $("#trigger-element").val();
