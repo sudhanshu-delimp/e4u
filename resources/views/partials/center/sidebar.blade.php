@@ -1,3 +1,9 @@
+ @php 
+ $hideNavBar = false;
+ if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true){
+    $hideNavBar = true;
+ }
+ @endphp
 <!-- Sidebar -->
 <ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar"
     id="accordionSidebar">
@@ -21,7 +27,7 @@
     </li>
 
     {{-- My Account --}}
-    <li class="nav-item">
+    <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}" >
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="false" aria-controls="collapseTwo">
 
@@ -214,7 +220,7 @@
         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}">
 
         {{-- Administration --}}
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#AdminTab">

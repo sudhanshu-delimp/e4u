@@ -66,23 +66,44 @@ class OtherCenterController extends Controller
 
     public function  get_all_other_centre_list(Request $request)
     {
-
         $userlists  = User::where('created_by', auth()->user()->id)->orderBy('id','desc')->get();
         
-        // $countries = getCountryList();
-        // $totalActive = $masseurs->where('status', 1)->count();
-
         $data = $userlists->map(function ($row)  {
 
-            // if($row->status==1)
-            // $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Suspend</a>';   
-            //     else
-            // $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+            $row->access_granted        = ($row->is_access_granted == 1) ? 'Yes' : 'No';
+            $row->join_date             = date('d-m-Y',strtotime($row->created_at));
             
+            $row->method_of_contact = "";
+            if (!empty($row->contact_type)) 
+            {
+                $contactType = $row->contact_type;
+                if (is_array($contactType) && count($contactType) > 0) {
+                    $row->method_of_contact = implode(', ', $this->user->get_contact_type($contactType));
+                }
+            }
+
+
+            $statusText = $row->status ?? 'NA';
+            $badgeClass = getStatusBadgeClass($statusText);
+            $row->status_text = '<span class="custom_badge '.$badgeClass.'">'.$statusText.'</span>';
+
+            $row->access_permitted = ($row->is_access_granted) ? 'Yes' : 'No';
+
+            $links = "";
+
+            if($row->is_access_granted)
+            {
+                if($row->status!='Suspended')
+                $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" data-row-id="'.$row->id.'" id="row_suspend"  href="javascript:void(0)">   <i class="fa fa-times-circle"></i> Suspend</a>'; 
+                else
+                $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" data-row-id="'.$row->id.'" id="row_suspend"  href="javascript:void(0)">   <i class="fa fa-check"></i> Activate</a>';    
+
+            }
+             if(!$row->is_access_granted)
+             $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-grant-access" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Grant Access</a>'; 
             
-            $links = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-times-circle"></i> Suspend</a>';     
-            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Grant Access</a>'; 
-            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-eye"></i> View</a>'; 
+            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center login_center" data-row-id="'.$row->id.'" href="javascript:void(0)"> <i class="fa fa-random"></i> Access Centre</a>';  
+            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-center-btn" href="javascript:void(0)" data-row=\''.json_encode($row).'\'  href="javascript:void(0)">   <i class="fa fa-eye"></i> View</a>'; 
             
             $action = '<div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -92,7 +113,7 @@ class OtherCenterController extends Controller
                                                 
                                                 
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-center-btn" href="javascript:void(0)" data-row=\''.json_encode($row).'\'> <i class="fa fa-pen"></i> Edit profile </a>
-                                                <div class="dropdown-divider"></div>'.$links;
+                                                '.$links;
                                                 
                                                 
                                                 
@@ -107,8 +128,10 @@ class OtherCenterController extends Controller
                 'business_number' => $row->business_number,
                 'mobile' => $row->phone,
                 'email' => $row->email,
+                'status' => $row->status_text,
+                'access_granted' => $row->access_permitted,
                 'action' => $action,
-                'login' => '<a href="'.route('center.switch-to-child', $row->id).'">Switch Account</a>'
+                
 
             ];
         });  
@@ -121,19 +144,75 @@ class OtherCenterController extends Controller
 
     }
 
+    public function account_action(Request $request)
+    {
+            $user = User::where('id',$request->id)->first();
 
-   
+        if($request->id && $request->request_type && $request->request_type=='suspend')
+        {
+            if($user->status && $user->status=='Suspended')
+            {
+                return Success_response([],'This Account Already Suspended',200); 
+            }
+            
+            $user->status = '3';
+            $response = $user->save();
 
+            if($response)
+            return Success_response([],'Account Suspended Successfully',200); 
+            else
+            return Success_response([],'Error Occurred while Account Suspending',200);
+        }
+
+        else if($request->id && $request->request_type && $request->request_type=='access-grant')
+        {
+            if($user->status && $user->is_access_granted==1)
+            {
+                return Success_response([],'This Account Already Acccess Granted ',200); 
+            }
+            
+            $user->is_access_granted = 1;
+            $response = $user->save();
+
+            if($response)
+            return Success_response([],'Account Granted Successfully',200); 
+            else
+            return Success_response([],'Error Occurred while Account Suspending',200);
+        }
+
+        else if($request->id && $request->request_type && $request->request_type=='activate-account')
+        {
+            if($user->status && $user->status=='Active')
+            {
+                return Success_response([],'This Account Already Active ',200); 
+            }
+            
+                $user->status = '1';
+            $response = $user->save();
+
+            if($response)
+            return Success_response([],'Account Activated Successfully',200); 
+            else
+            return Success_response([],'Error Occurred while Account Suspending',200);
+        }
+        else
+        {
+            return Success_response([],'Unknown Input Found',200);
+                
+        }
+            
+    }
+ 
 
     public function backToParent()
     {
       
-        if (!session()->has('parent_user_id')) {
+        if (!session()->has('parent_massage_id')) {
 
             abort(403, 'No parent session found');
         }
 
-        $parentUser = User::find(session('parent_user_id'));
+        $parentUser = User::find(session('parent_massage_id'));
 
         if (!$parentUser) {
 
@@ -147,8 +226,9 @@ class OtherCenterController extends Controller
         Auth::login($parentUser);
 
         session()->forget([
-            'parent_user_id',
-            'is_impersonated'
+            'parent_massage_id',
+            'is_impersonated',
+            'switch_for'
         ]);
 
         return redirect('/center-dashboard')

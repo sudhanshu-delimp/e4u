@@ -374,7 +374,7 @@
                             <p><strong>Need a hand?</strong></p>
                             <p class="small mb-0">
                                 If you need any help with your order you can contact your
-                                Support Agent if appointed, or contact our support centre on <strong>0403 614 211</strong>.
+                                Support Agent if appointed, or contact our support centre on <strong>1300 700 444</strong>.
                             </p>
                         </div>
  
@@ -1013,7 +1013,11 @@
 
 
         $(document).on('click', "#makeOrder", function() {
-
+ let btn = $("#makeOrder");
+            let backBtn = $("#btnBacklast");
+            // let loader = $("#place_loader");
+            backBtn.prop("disabled", true).html('<i class="fas fa-arrow-left text-white pr-2"></i> Please wait...');
+            btn.prop("disabled", true).text("Please wait...");  
             var card = {
                 number: $('#cc-number').val(),
                 name: $('#cc-name').val(),
@@ -1035,6 +1039,8 @@
 
                 $("#sendOtp_modal").modal('show');
                 form.closest('.modal').modal('hide');
+                 backBtn.prop("disabled", false).html('<i class="fas fa-arrow-left text-white pr-2"></i> Back');
+                btn.prop("disabled", false).text("Make Payment");
             }
 
             function handleError(response) {
@@ -1098,7 +1104,7 @@
                 dataType: "json",
                 success: function(response) {
                     if (response.status == true) {
-                        alert("working");
+                        // alert("working");
                         step = 4;
                         localStorage.setItem("checkout_step_" + loginUserId, step);
 

@@ -20,29 +20,29 @@
                             <div class="order_summary_adjustment">
                                 <p><strong>Order Summary</strong></p>
                                 <div class="d-flex justify-content-between mb-2">
-                                <span>Subtotal:</span>
-                                <span class="paymentSubtotal">{{formatCurrency(0)}}</span>
+                                    <span>Subtotal:</span>
+                                    <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span>Wallet Used:</span>
-                                <span>{{formatCurrency(0)}}</span>
+                                    <span>Wallet Used:</span>
+                                    <span>{{ formatCurrency(0) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span>Loyalty Discount:</span>
-                                <span>{{formatCurrency(0)}}</span>
+                                    <span>Loyalty Discount:</span>
+                                    <span>{{ formatCurrency(0) }}</span>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center">
-                                <strong>Total Fee:</strong>
-                                <strong class="paymentTotal">{{formatCurrency(0)}}</strong>
+                                    <strong>Total Fee:</strong>
+                                    <strong class="paymentTotal">{{ formatCurrency(0) }}</strong>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                <strong>GST:</strong>
-                                <strong class="taxAmount">$ 1.20</strong>
+                                    <strong>GST:</strong>
+                                    <strong class="taxAmount">$ 1.20</strong>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                <strong>Total Due:</strong>
-                                <strong class="paymentTotal totalDue">{{formatCurrency(0)}}</strong>
+                                    <strong>Total Due:</strong>
+                                    <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
                                 </div>
                             </div>
 
@@ -58,59 +58,76 @@
                             <div class="collapse" id="collapseExample">
                                 <div class="wallet_details">
                                     <div class="card">
-                                    <div class="card-body">
-                                        <h5><img src="{{asset('assets/dashboard/img/wallet.png')}}"> Wallet Money :  <span>{{formatCurrency(Auth::user()->wallet->balance)}}</span></h5>
-                                    </div>
+                                        <div class="card-body">
+                                            <h5><img src="{{ asset('assets/dashboard/img/wallet.png') }}"> Wallet Money
+                                                : <span>{{ formatCurrency(Auth::user()->wallet->balance) }}</span></h5>
+                                        </div>
                                     </div>
                                     <div class="card">
-                                    <div class="card-body">
-                                        <h5> <img src="{{asset('assets/dashboard/img/days.png')}}"> Loyalty Days :  <span>{{Auth::user()->wallet->earn_days ?? 0}}</span></h5>
+                                        <div class="card-body">
+                                            <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days :
+                                                <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <strong>Total Fee:</strong>
+                                            <strong class="paymentTotal">{{ formatCurrency(0) }}</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <strong>GST:</strong>
+                                            <strong class="taxAmount">{{ formatCurrency(0) }}</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <strong>Total Due:</strong>
+                                            <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
+                                        </div>
                                     </div>
+                                    <div class="card p-3 " style="border-radius:0px;">
+                                        <form action="{{ route('payment.adjustment') }}" method="post"
+                                            id="adjustment-form">
+                                            <div class="form-row benefit_section">
+                                                <div class="form-group col-6">
+                                                    <label class="mb-0" for="Wallet">Wallet Money</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">AU$</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="wallet_amount"
+                                                            placeholder="Enter amount.">
+                                                    </div>
+                                                </div>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="card p-3 " style="border-radius:0px;">
-                                    <form action="{{ route('payment.adjustment') }}" method="post" id="adjustment-form">
-                                        <div class="form-row benefit_section">
-                                            <div class="form-group col-6">
-                                                <label class="mb-0" for="Wallet">Wallet Money</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">AU$</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="wallet_amount" placeholder="Enter amount.">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-6">
-                                                <label class="mb-0" for="Days">Loyalty Days</label>                                               
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="loyalty_day" placeholder="Enter days.">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Day</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end w-100 gap-10">
-                                                <button type="reset" class="reset-btn btn-cancel-modal" name="action" value="reset">Reset</button>
-                                                <button type="submit" class="apply-btn"  name="action" value="apply">Apply</button>
-                                            </div>
-                                        </div>
+                                <div class="finish-payment-form d-none mt-2">
+                                    <form action="{{ route('escort.payment.process') }}" method="post"
+                                        id="finish-payment-form">
+                                        <button type="submit" name="action" value="finish_payment"
+                                            class="btn-success-modal btn-block">
+                                            Complete Payment
+                                        </button>
                                     </form>
                                 </div>
                             </div>
                             <div class="finish-payment-form d-none mt-2">
-                                <form action="{{ route('escort.payment.process') }}" method="post" id="finish-payment-form">
-                                    <button type="submit" name="action" value="finish_payment" class="btn-success-modal btn-block">
+                                <form action="{{ route('escort.payment.process') }}" method="post"
+                                    id="finish-payment-form">
+                                    <button type="submit" name="action" value="finish_payment"
+                                        class="btn-success-modal btn-block">
                                         Finish Payment
                                     </button>
                                 </form>
                             </div>
                             <div class="support mt-3 payment_note">
                                 <p class="mb-0"><strong>Notes:</strong></p>
-                                    <ol>
-                                    <li>You can apply any portion of your benefits by selecting from your Wallet, to reduce the total Fee payable for this Service.</li>
+                                <ol>
+                                    <li>You can apply any portion of your benefits by selecting from your Wallet, to
+                                        reduce the total Fee payable for this Service.</li>
                                     <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
-                                    <li>For a detailed summary of this transaction, go to <a href="{{ route('escort.payment.transaction_summary') }}" class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
-                                    </ol>
+                                    <li>For a detailed summary of this transaction, go to <a
+                                            href="{{ route('escort.payment.transaction_summary') }}"
+                                            class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
+                                </ol>
                             </div>
 
                         </div>
@@ -119,79 +136,86 @@
 
                     </div>
 
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">                            
-                        <form action="{{ route('escort.payment.process') }}" class="pin" method="post" id="payment-form">
-                            
-                                    <div class="card p-3">
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                        <form action="{{ route('escort.payment.process') }}" class="pin" method="post"
+                            id="payment-form">
 
-                                        @csrf
-                                        <div class="errors alert alert-danger" style="display:none">
-                                        </div>
+                            <div class="card p-3">
 
-                                        <!-- Billing -->
-                                        <h6 class="font-weight-bold mb-0">Billing Details</h6>
-                                        <hr class="mt-0">
-                                        <div class="form-row">
-                                            <div class="form-group col-12">
-                                                <label class="mb-0" for="add1">Address 1</label>
-                                                <input id="address-line1" class="form-control address_line1" placeholder="Address 1">
-                                            </div>
-                                            <div class="form-group col-12">
-                                                <label class="mb-0" for="add2">Address 2</label>
-                                                <input id="address-line2" class="form-control" placeholder="Address 2">
-                                            </div>
-                                        </div>
+                                @csrf
+                                <div class="errors alert alert-danger" style="display:none">
+                                </div>
 
-                                        <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <label class="mb-0" for="City">City</label>
-                                                <input id="address-city" class="form-control address_city" placeholder="City">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="mb-0" for="State">State</label>
-                                                <input id="address-state" class="form-control" placeholder="State">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="mb-0" for="Postcode">Postcode</label>
-                                                <input id="address-postcode" class="form-control" placeholder="Postcode">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="mb-0" for="Country">Country</label>
-                                            <input id="address-country" class="form-control address_country" placeholder="Country">
-                                        </div>
-
-
-
-                                        <!-- Card -->
-
-                                        <h6 class="font-weight-bold mb-0">Card Details</h6>
-                                        <hr class="mt-0">
-                                        <div class="form-group">
-                                            <input id="cc-number" class="form-control number" placeholder="Card Number">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input id="cc-name" class="form-control name" placeholder="Name on Card">
-                                        </div>
-
-                                        <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <input id="cc-expiry-month" class="form-control expiry_month" placeholder="MM">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <input id="cc-expiry-year" class="form-control expiry_year" placeholder="YYYY">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <input id="cc-cvc" class="form-control cvc" placeholder="CVC">
-                                            </div>
-                                        </div>
-
-                                        <button type="submit" name="action" value="pay_now" class="btn-success-modal btn-block">
-                                            Pay Now
-                                        </button>
+                                <!-- Billing -->
+                                <h6 class="font-weight-bold mb-0">Billing Details</h6>
+                                <hr class="mt-0">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label class="mb-0" for="add1">Address 1</label>
+                                        <input id="address-line1" class="form-control address_line1"
+                                            placeholder="Address 1">
                                     </div>
+                                    <div class="form-group col-12">
+                                        <label class="mb-0" for="add2">Address 2</label>
+                                        <input id="address-line2" class="form-control" placeholder="Address 2">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label class="mb-0" for="City">City</label>
+                                        <input id="address-city" class="form-control address_city"
+                                            placeholder="City">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="mb-0" for="State">State</label>
+                                        <input id="address-state" class="form-control" placeholder="State">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="mb-0" for="Postcode">Postcode</label>
+                                        <input id="address-postcode" class="form-control" placeholder="Postcode">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="mb-0" for="Country">Country</label>
+                                    <input id="address-country" class="form-control address_country"
+                                        placeholder="Country">
+                                </div>
+
+
+
+                                <!-- Card -->
+
+                                <h6 class="font-weight-bold mb-0">Card Details</h6>
+                                <hr class="mt-0">
+                                <div class="form-group">
+                                    <input id="cc-number" class="form-control number" placeholder="Card Number">
+                                </div>
+
+                                <div class="form-group">
+                                    <input id="cc-name" class="form-control name" placeholder="Name on Card">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <input id="cc-expiry-month" class="form-control expiry_month"
+                                            placeholder="MM">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input id="cc-expiry-year" class="form-control expiry_year"
+                                            placeholder="YYYY">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input id="cc-cvc" class="form-control cvc" placeholder="CVC">
+                                    </div>
+                                </div>
+
+                                <button type="submit" name="action" value="pay_now"
+                                    class="btn-success-modal btn-block">
+                                    Pay Now
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -240,11 +264,11 @@
             });
 
             function handleSuccess(card) {
-                
+
                 paymentFormData['_token'] = `{{ csrf_token() }}`;
                 paymentFormData['pin_token'] = card.token;
 
-                if($("input[name='benefit_token']").length > 0){
+                if ($("input[name='benefit_token']").length > 0) {
                     paymentFormData['benefit_token'] = $("input[name='benefit_token']").val();
                 }
 
@@ -257,77 +281,85 @@
                 $('.invalid-feedback').remove();
 
                 if (response.messages) {
-                $.each(response.messages, function(index, paramError) {
-                const fieldName = paramError.param;
-                const message = paramError.message;
+                    $.each(response.messages, function(index, paramError) {
+                        const fieldName = paramError.param;
+                        const message = paramError.message;
 
-                const field = $(`.${fieldName}`);
+                        const field = $(`.${fieldName}`);
 
-                if (field.length) {
-                field.addClass('is-invalid');
+                        if (field.length) {
+                            field.addClass('is-invalid');
 
-                $('<div class="invalid-feedback">')
-                    .text(message)
-                    .insertAfter(field);
-                } else {
-                    console.warn("Field not found:", fieldName);
-                }
-                });
+                            $('<div class="invalid-feedback">')
+                                .text(message)
+                                .insertAfter(field);
+                        } else {
+                            console.warn("Field not found:", fieldName);
+                        }
+                    });
                 }
                 submitButton.removeAttr('disabled');
             }
 
         });
 
-        var processPaymentForm = function(){
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: paymentFormData,
-                    beforeSend: function () {
-                        Swal.fire({
-                            title: 'Processing Payment',
-                            text: 'Do not refresh or close this page.',
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-                    },
-                    success: function(response, textStatus, xhr) {
-                        Swal.close();
-                        paymentFormData = {};
-                        submitButton.removeAttr('disabled');
-                        let option = getStatusOption(xhr);
-                        Swal.fire({
-                            icon: option.icon,
-                            title: option.title,
-                            text: option.message,
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = response.redirect_url;
-                            }
-                        });
-                    },
-                    error: function(xhr) {
-                        Swal.close();
-                        let option = getStatusOption(xhr);
-                        Swal.fire({
-                            icon: option.icon,
-                            title: option.title,
-                            text: option.message,
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                        });
-                        submitButton.removeAttr('disabled');
-                    }
-                });
+        $(document).on('input', '#adjustment-form input', function() {
+            let value = parseFloat($(this).val());
+            if (value < 0) {
+                $(this).val(0);
             }
-       
-        $("#sendOtp_modal").on('show.bs.modal', function(){
+        });
+
+        var processPaymentForm = function() {
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: paymentFormData,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Processing Payment',
+                        text: 'Do not refresh or close this page.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function(response, textStatus, xhr) {
+                    Swal.close();
+                    paymentFormData = {};
+                    //submitButton.removeAttr('disabled');
+                    let option = getStatusOption(xhr);
+                    Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = response.redirect_url;
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    submitButton.removeAttr('disabled');
+                    let option = getStatusOption(xhr);
+                    Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                    });
+                    submitButton.removeAttr('disabled');
+                }
+            });
+        }
+
+        $("#sendOtp_modal").on('show.bs.modal', function() {
             $.ajax({
                 url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
                 method: 'POST',
@@ -335,11 +367,13 @@
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                data: {action : 'payment'},
-                success: function (res, textStatus, xhr) {
+                data: {
+                    action: 'payment'
+                },
+                success: function(res, textStatus, xhr) {
                     console.log(res);
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     Swal.close();
                     let option = getStatusOption(xhr);
                     Swal.fire({
@@ -351,17 +385,9 @@
             });
         });
 
-            
-        
-
-        $("#process-payment-modal").on('show.bs.modal', function(){
-            let amount = parseFloat($('.listing_total_fees').text().replace(/[^0-9.]/g, '')).toFixed(2);
-            $(".order_summary_adjustment .paymentSubtotal, .order_summary_adjustment .paymentTotal").text(`AU$ ${amount}`);
-        });
-
         var adjustmentForm = $('#adjustment-form');
         var finishPaymentForm = $('#finish-payment-form');
-        var submitAdjustmentForm = function(object=null){
+        var submitAdjustmentForm = function(object = null) {
             $.ajax({
                 url: adjustmentForm.attr('action'),
                 method: 'POST',
@@ -370,9 +396,9 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: `${adjustmentForm.serialize()}${
-                    object ? `&${$(object).attr('name')}=${$(object).val()}` : ''
+                    object ? `&${$(object).attr('name')}=${$(object).attr('value')}` : ''
                 }`,
-                beforeSend: function () {
+                beforeSend: function() {
                     Swal.fire({
                         title: 'Please wait...',
                         text: 'Applying adjustment',
@@ -383,25 +409,26 @@
                         }
                     });
                 },
-                success: function (res, textStatus, xhr) {
+                success: function(res, textStatus, xhr) {
                     Swal.close();
                     let option = getStatusOption(xhr);
-                    console.log(res);
                     if (res.status) {
                         $(".order_summary_adjustment").html(res.html);
                         addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
-                        if(res.total_amount){
-                            $("#payment-form").find('input, button, select, textarea').prop('disabled', false);
-                            finishPaymentForm.find('input, button, select, textarea').prop('disabled', true);
+                        if (res.total_amount) {
+                            $("#payment-form").find('input, button, select, textarea').prop('disabled',
+                                false);
+                            finishPaymentForm.find('input, button, select, textarea').prop('disabled',
+                            true);
                             finishPaymentForm.parent().addClass('d-none');
-                        }
-                        else{
-                            $("#payment-form").find('input, button, select, textarea').prop('disabled', true);
-                            finishPaymentForm.find('input, button, select, textarea').prop('disabled', false);
+                        } else {
+                            $("#payment-form").find('input, button, select, textarea').prop('disabled',
+                                true);
+                            finishPaymentForm.find('input, button, select, textarea').prop('disabled',
+                                false);
                             finishPaymentForm.parent().removeClass('d-none');
                         }
-                    }
-                    else{
+                    } else {
                         Swal.fire({
                             icon: option.icon,
                             title: option.title,
@@ -409,7 +436,7 @@
                         });
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     Swal.close();
                     let option = getStatusOption(xhr);
                     Swal.fire({
@@ -429,18 +456,20 @@
         finishPaymentForm.submit(function(e) {
             e.preventDefault();
             let submitButton = finishPaymentForm.find(":submit");
-            submitButton.attr({disabled: true});
+            submitButton.attr({
+                disabled: true
+            });
             let data = {};
             data['_token'] = `{{ csrf_token() }}`;
-            data['pin_token'] = `{{encrypt('without_pay_now')}}`;
-            if($("input[name='benefit_token']").length > 0){
+            data['pin_token'] = `{{ encrypt('without_pay_now') }}`;
+            if ($("input[name='benefit_token']").length > 0) {
                 data['benefit_token'] = $("input[name='benefit_token']").val();
             }
             $.ajax({
                 url: finishPaymentForm.attr('action'),
                 method: 'POST',
                 data: data,
-                beforeSend: function () {
+                beforeSend: function() {
                     Swal.fire({
                         title: 'Processing Payment',
                         text: 'Do not refresh or close this page.',
@@ -452,7 +481,7 @@
                     });
                 },
                 success: function(response, textStatus, xhr) {
-                    console.log(response);
+                    // console.log(response);
                     Swal.close();
                     submitButton.removeAttr('disabled');
                     let option = getStatusOption(xhr);
@@ -483,9 +512,16 @@
             });
         });
 
-        adjustmentForm.on('click', '.reset-btn', function (e) {
+        adjustmentForm.on('click', '.reset-btn', function(e) {
             adjustmentForm[0].reset();
             submitAdjustmentForm(this);
+        });
+
+        $("#process-payment-modal").on('show.bs.modal', function(event) {
+            if (event.relatedTarget) {
+                adjustmentForm.find('[name="wallet_amount"]').val(0);
+                submitAdjustmentForm(event.relatedTarget);
+            }
         });
     </script>
 @endpush

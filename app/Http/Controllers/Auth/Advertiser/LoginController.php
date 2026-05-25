@@ -387,6 +387,10 @@ class LoginController extends BaseController
                 ########### Only For Massage To Massage #################
                 session()->forget(['parent_massage_id','is_impersonated','switch_for']);
             }
+            if ($type == 5) {
+                ########### Only For Agent To Massage #################
+                session()->forget(['parent_agent_id','is_impersonated','switch_for']);
+            }
 
             $result = $this->attemptlogin->findby(auth()->user()->id);
             if ($result[0]->login_count <= 1 && !session()->has('welcome_popup_closed')) {

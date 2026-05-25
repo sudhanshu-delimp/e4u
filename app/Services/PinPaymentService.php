@@ -17,6 +17,28 @@ use Illuminate\Support\Facades\Mail;
 class PinPaymentService
 {
   use DataTablePagination;
+  protected $totalAmount = 0.00;
+  protected $gstAmount = 0.00;
+  protected $totalDueAmount = 0.00;
+
+  public function setAmount($amount)
+  {
+    $this->totalAmount = $amount;
+    return $this;
+  }
+
+  public function getGSTAmount()
+  {
+    $this->gstAmount = ($this->totalAmount * 10) / 100;
+    return $this->gstAmount;
+  }
+
+  public function getTotalDue()
+  {
+    $this->totalDueAmount = $this->totalAmount + $this->gstAmount;
+    return $this->totalDueAmount;
+  }
+
   public function charge(string $token, float $amount, $email = null, $description = null, $metadata = [])
   {
     try {
@@ -92,7 +114,7 @@ class PinPaymentService
       $item->completed_by_member_id = $item->completedByUser->member_id;
       $item->transaction_at = convert_aus_date_time_format($item->created_at);
       $item->type = ucfirst($item->type);
-      $item->amount = formatCurrency($item->amount);
+      $item->amount = formatCurrency($item->paid_amount);
       $action = '<div class="dropdown no-arrow">
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

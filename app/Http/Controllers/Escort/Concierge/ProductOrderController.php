@@ -235,7 +235,7 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::orderBy('id', 'DESC');
+    $query = ProductOrder::orderBy('created_at', 'DESC');
     $classes = config('escorts.payment_status');
 
     return DataTables::of($query)

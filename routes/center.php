@@ -54,6 +54,8 @@ Route::post('update-account', [CenterController::class, 'update'])->name('center
 
 Route::post('add-sub-account', [OtherCenterController::class, 'add_sub_account'])->name('center.add-sub-account');
 Route::post('all-other-centre-list', [OtherCenterController ::class, 'get_all_other_centre_list'])->name('center.all-other-centre-list');
+Route::post('action-account', [OtherCenterController::class, 'account_action'])->name('center.action-account');
+
 Route::get('switch-login/{id}', [OtherCenterController::class, 'switchLogin'])->name('center.switch-to-child');
 Route::get('back-to-parent', [OtherCenterController::class, 'backToParent'])->name('center.back-to-parent');
 

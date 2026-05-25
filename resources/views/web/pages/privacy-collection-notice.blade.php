@@ -5,7 +5,7 @@
     <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
         <div class="container">
             <h1 class="home_heading_first">Privacy Collection Notice</h1>
-            <p>This Privacy Collection Notice (<b>Collect Notice</b>) describes how Blackbox Tech Pty Ltd t/a Escorts4U (ABN 88
+            <p>This Privacy Collection Notice (<b>Collection Notice</b>) describes how Blackbox Tech Pty Ltd t/a Escorts4U (ABN 88
                 664 919 975) (<b>we,</b> <b>us</b> or <b>our</b>) collects and handles your personal information when you make
                 an enquiry with us. We collect personal information from you so that we can respond to your
                 enquiry and for related purposes set out in our <a class="c-red" href="{{ 'privacy-policy' }}"
@@ -17,8 +17,7 @@
                 third parties, those third parties may store, transfer or access personal information outside of
                 Australia.
             </p>
-            <p>If you do not provide your personal information to us, it may affect your ability to access the
-                services.</p>
+            <p>If you do not provide your personal information to us, it may affect your ability to do business with you and offer our services to you.</p>
             <p>Please see our <a class="c-red" href="{{ 'privacy-policy' }}" target="_blank"> Privacy Policy</a> for more
                 information about how we collect, store, use and
                 disclose your personal information, including details about overseas disclosure, access,

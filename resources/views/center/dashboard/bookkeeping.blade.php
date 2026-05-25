@@ -1142,11 +1142,11 @@ Account details, including the initial setup.</li>
             filter.add(length).wrapAll('<div class="datatable-topbar"></div>');
             filter.parent().prepend(filter);
 
-            if ($('#returnToReportBtn').length === 0) {
-               $('.dataTables_filter').append(
-                  '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-               );
-            }
+            // if ($('#returnToReportBtn').length === 0) {
+            //    $('.dataTables_filter').append(
+            //       '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+            //    );
+            // }
             $('#returnToReportBtn').on('click', function() {
                var table = $('#bankAccountTable').DataTable();
                table.search('').draw();

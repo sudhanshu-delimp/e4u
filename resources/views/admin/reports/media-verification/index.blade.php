@@ -466,7 +466,7 @@
             let html = '';
 
             if (!response.data || response.data.length === 0) {
-                html = `<tr><td colspan="4">No data found</td></tr>`;
+                html = `<tr><td colspan="5">No data found</td></tr>`;
             } else {
 
                 response.data.forEach(function (item) {

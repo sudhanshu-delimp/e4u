@@ -32,7 +32,10 @@ class Masseur extends Model
         return null;
     }
 
-
+    public function getMobileAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
 
 
     public function getImagePosition($val,$profile_id)
