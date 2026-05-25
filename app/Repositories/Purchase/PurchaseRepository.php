@@ -102,7 +102,6 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
     {
         $i = 1;
         $locations = config('escorts.profile.states');
-        $statusBtn = '<span class="custom_badge badge_current">Current</span>';
         foreach ($result as $key => $item) {
 
             $startDate = Carbon::parse(date('d-m-Y', strtotime($item->start_date)))->startOfDay();
@@ -110,8 +109,10 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $now = Carbon::now()->startOfDay();
             if ($startDate > $now) {
                 $statusBtn = '<span class="custom_badge badge_upcoming">Upcoming</span>';
-            } else if ($endDate < $now) {
+            } elseif ($endDate < $now) {
                 $statusBtn = '<span class="custom_badge badge_suspended">Expired</span>';
+            } else {
+                $statusBtn = '<span class="custom_badge badge_current">Current</span>';
             }
             $localTimeZone = getEscortTimezone($item);
             $isExtended = $item->escort->isListingExtended();
