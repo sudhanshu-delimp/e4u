@@ -744,7 +744,7 @@ class GlobalMonitoringController extends Controller
 
     public function countEscortPurchaseMembershipCategories($search, $user_id = 0)
     {
-        $escorts = Purchase::whereIn('status', ['listed', 'expire'])
+        $escorts = Purchase::whereIn('status', ['listed'])
             ->whereHas('escort', function ($sub_query) use ($user_id, $search) {
                 if ($user_id > 0) {
                     $sub_query = $sub_query->where('user_id', $user_id);
