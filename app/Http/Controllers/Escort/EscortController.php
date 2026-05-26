@@ -831,6 +831,7 @@ class EscortController extends BaseController
                 if(in_array($item['membership_id'],['1','2','3'])){
                     $item['special_discount'] = $discount->value;
                     $item['new_rate'] = number_format($discount->discountAmount($item['price']),2);
+                    $item['discount_amount'] = AdvertiserDiscount::getNetDiscount( (object)$item, $discount);
                 }
                 return $item;
             },$advertings);

@@ -110,7 +110,7 @@
          { data: 'completed_by_member_id', name: 'completed_by', searchable: true, orderable:false,defaultContent: 'NA' },
          { data: 'action', name: 'action', searchable: false, orderable:false,defaultContent: 'NA', class: 'text-center' },
      ],
-     order: [0,'desc'],
+     order: [2,'desc'],
  });
 
     $('#view-listing').on('show.bs.modal', function (event) {
