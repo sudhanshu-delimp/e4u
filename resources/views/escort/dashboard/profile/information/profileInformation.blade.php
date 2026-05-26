@@ -276,7 +276,7 @@
 <!-- file upload plugin start here -->
 @push('script')
 
-<script src="{{asset('escorts/dashboard/profile/additional_information/additional_information.js')}}"></script>
+<script src="{{asset('js/escort/dashboard/profile/additional_information/additional_information.js')}}"></script>
 <script>
     $("#modal-title").text('');
    $('#select2-dropdown').select2({
