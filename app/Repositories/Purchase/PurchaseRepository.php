@@ -92,12 +92,12 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $query->selectRaw("$table.*,DATEDIFF(end_date, NOW()) as days_left")->orderBy('days_left', $dir);
         } else {
             $query->orderByRaw("
-                CASE 
-                    WHEN end_date >= NOW() THEN 1
-                    ELSE 2
-                END ASC,
-                end_date DESC
-            ");
+            CASE 
+                WHEN end_date >= NOW() THEN 1
+                ELSE 2
+            END ASC,
+            end_date ASC
+        ");
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyEscorts($mainQuery->get(), $start);

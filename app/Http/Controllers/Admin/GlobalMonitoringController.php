@@ -314,12 +314,21 @@ class GlobalMonitoringController extends Controller
 
         /* listed first, expire second */
         //echo $order_key; die;
+        // $massagers = $massagers->orderByRaw("
+        //     CASE 
+        //         WHEN $massagePurchaseTableName.status = 'listed' THEN 1
+        //         WHEN $massagePurchaseTableName.status = 'expire' THEN 2
+        //         ELSE 3
+        //     END
+        // ");
+
         $massagers = $massagers->orderByRaw("
             CASE 
                 WHEN $massagePurchaseTableName.status = 'listed' THEN 1
                 WHEN $massagePurchaseTableName.status = 'expire' THEN 2
                 ELSE 3
-            END
+            END ASC,
+            end_date ASC
         ");
             
         switch ($order_key) {
