@@ -135,7 +135,7 @@ class ReportingController extends BaseController
         $i = 1;
 
         foreach ($agents as $key => $item) {
-
+            $memberIdBadgeText =  '';
             $item->territory = isset($item->state->iso2) ? $item->state->iso2 :  '---';
 
             $dropdown = '<div class="dropdown no-arrow" data-current-status="' . (int) $item->getRawOriginal('status') . '"><a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
@@ -229,6 +229,22 @@ class ReportingController extends BaseController
             $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye mr-2"></i> View</a></div></div>';
 
             $item->action = $dropdown;
+            $memberIdBadgeText =  '';
+            if ($item->social_media_consent == '1'){
+                $memberIdBadgeText = '<span class="d-none"><sup class="extend_icon listing-tag-tooltip ml-1">Consent Social Media</sup></span>';
+            }
+
+            $parent_account = "";
+            if($item->is_child=='1')
+            {
+                $parent_member_id = ($item->createddBy->member_id) ? '<small class="listing-tag-tooltip-desc">Primary Member Id : '.$item->createddBy->member_id.'</small>' : "";
+                $parent_account = '<span><sup class="suspend_icon listing-tag-tooltip ml-1">Primary Member'.$parent_member_id.'</sup></span>';
+            }
+            
+
+
+
+            $item->member_id = $item->member_id . $memberIdBadgeText.$parent_account;
             $item->registration_date = isset($item->created_at) ? showDateWithFormat($item->created_at) :  '---';
             $i++;
         }

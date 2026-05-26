@@ -200,6 +200,30 @@ class EscortController extends BaseController
         return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type', 'refundAmount'));
     }
 
+    public function listing_success(Request $request)
+    {
+        $redirect_url = null;
+
+        $sessionRoutes = [
+            'checkout' => route('escort.dashboard.listings', 'current'),
+            'tour_checkout' => route('escort.view.tour.list', 'current'),
+        ];
+
+        foreach ($sessionRoutes as $sessionKey => $route) {
+            if (session()->has($sessionKey)) {
+                session()->forget($sessionKey);
+                $redirect_url = $route;
+                break;
+            }
+        }
+
+        if (!$redirect_url) {
+            return redirect()->route('escort.dashboard');
+        }
+
+        return view('escort.dashboard.complete-listings', compact('redirect_url'));
+    }
+
 
     function listings($type)
     {
@@ -376,6 +400,7 @@ class EscortController extends BaseController
             //'social_links'=>$request->social_links,
             'pay_id_name' => $request->PayID_Name,
             'pay_id_no' => $request->PayID_NO,
+            'social_media_consent' => $request->social_media_consent,
 
         ];
 

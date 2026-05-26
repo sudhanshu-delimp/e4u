@@ -31,7 +31,7 @@
                                 '..',
                             ) }}</span>
                                 @else
-                                <span class="user-values" title=""><a href="{{url('/center-dashboard/agent-request') }}" class="request-active">Request one</a></span>
+                                <span class="user-values" title="">NA</span>
                                 @endif
                        
                         </span>
@@ -118,7 +118,7 @@
             
                 <!-- //////// Notification ///////////// -->
 
-                        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">                            
+                        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap {{ canManage() ? '': 'd-none'}}">                            
                                 <span class="support-tooltip">Support Tickets</span>
                             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
@@ -137,7 +137,7 @@
 
                         </li>
 
-                        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
+                        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap {{ canManage() ? '': 'd-none'}}">
                              <span class="alert-tooltip">Alert Centre</span>
                             <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -181,7 +181,7 @@
                                 
                                 <a class="dropdown-item" href="{{ route('agent-request') }}">
                                 @else
-                                 <a class="dropdown-item" href="#">   
+                                 <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="#">   
                                 @endif    
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                         
@@ -189,7 +189,7 @@
                                           <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
                                         My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
                                         @else
-                                           My Agent ID : <span style="color:var(--peach)" class="request-active"> Request one</span>
+                                           My Agent ID : NA
                                         @endif
                                         
                                 </a>
@@ -202,27 +202,27 @@
                                
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('center.account.edit')}}">
+                                <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit')}}">
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                                     Edit my account
                                 </a>
 
-                                <a class="dropdown-item" href="{{ route('center.change.password')}}">
+                                <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.change.password')}}">
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                                     Change password
                                 </a>
 
-                                <a class="dropdown-item" href="{{ route('center.profile')}}">
+                                <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.profile')}}">
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
                                     New Profile
                                 </a>
 
-                                 <a class="dropdown-item" href="{{ route('center.create-new-masseur')}}">
+                                 <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.create-new-masseur')}}">
                                       <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
                                     New Masseur 
                                 </a>
 
-                                  <a class="dropdown-item" href="{{ route('support-ticket.form_create')}}">
+                                  <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('support-ticket.form_create')}}">
                                       <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
                                     Support Ticket
                                 </a>
@@ -239,7 +239,7 @@
                                     Profile Information
                                 </a>  -->
                                 
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider {{ canManage() ? '': 'd-none'}}"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                                     Logout

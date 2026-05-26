@@ -1011,6 +1011,21 @@ class User extends Authenticatable
     }
 
 
+    public function can_manage()
+    {
+        // Primary account
+        if ($this->is_child == 0) {
+            return true;
+        }
 
+        // Primary switched into child switch_for
+        if ($this->is_child == 1 && session()->has('parent_massage_id')  && session()->has('switch_for') && session()->has('switch_for')=='massage_to_massage') 
+        {
+            return true;
+        }
 
+        // Child direct login
+        return false;
+    }
+                
 }

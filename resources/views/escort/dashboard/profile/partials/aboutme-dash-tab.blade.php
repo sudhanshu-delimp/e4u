@@ -3058,17 +3058,17 @@
         }
 
 
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                //console.log(reader);
-                var imgbytes = input.files[0].size;
-                var imgkbytes = Math.round(parseInt(imgbytes) / 1024);
-                var imgMB = Math.round(parseInt(imgkbytes) / 1024);
-                if (imgMB <= 2) {
-                    reader.onload = function(e) {
-                        $('#blah' + input.id[3])
-                            .attr('src', e.target.result);
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            //console.log(reader);
+            var imgbytes = input.files[0].size;
+            var imgkbytes = Math.round(parseInt(imgbytes) / 1024);
+            var imgMB = Math.round(parseInt(imgkbytes) / 1024);
+            if (imgMB <= 4) {
+                reader.onload = function(e) {
+                    $('#blah' + input.id[3])
+                        .attr('src', e.target.result);
 
                     };
                 } else {

@@ -30,29 +30,40 @@
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- 3 step bar --}}
+        </div> 
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="row">
         <div class="col-lg-12">
-            <div class="progressbar">
-                <div class="step active">
-                    <div class="circle">✔</div>
-                    <p class="step-title">1. Listings</p>
+            <div class="custom_progress_wrapper">
+            <div class="custom_pro_container">
+                <div class="progress_line" id="custom_progress"></div>
+
+                <div class="custom_step">
+                    <div class="circle active current">1</div>
+                    <div class="label active">Listings</div>
                 </div>
-                <div class="step">
-                    <div class="circle"></div>
-                    <p class="step-title">2. Payment</p>
+
+                <div class="custom_step">
+                    <div class="circle">2</div>
+                    <div class="label">Payment</div>
                 </div>
-                <div class="step">
-                    <div class="circle"></div>
-                    <p class="step-title">3. Completion</p>
+
+                <div class="custom_step">
+                    <div class="circle">3</div>
+                    <div class="label">Completion</div>
                 </div>
             </div>
-            {{-- <div class="buttons">
-                <button id="prev" disabled>Previous</button>
-                <button id="next">Next</button>
-            </div> --}}
+
+            {{-- <button id="prev" disabled>Prev</button>
+            <button id="next">Next</button> --}}
+        </div>
         </div>
     </div>
+    {{-- end --}}
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="listing-container">
@@ -127,9 +138,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script src="{{ asset('js/escort/add_listing.js') }}"></script>
-
-
-   
+<script src="{{ asset('js/escort/add_listing.js') }}"></script>  
+<script src="{{ asset('js/escort/progress_bar.js') }}"></script>  
     
 @endpush

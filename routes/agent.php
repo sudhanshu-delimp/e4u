@@ -25,6 +25,7 @@ use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Escort\EscortController as DataTableController;
 use App\Http\Controllers\Agent\ProspectListController;
 use App\Http\Controllers\Agent\DatabaseCentreController;
+use App\Http\Controllers\Agent\ImpersonateController;
 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
@@ -161,11 +162,11 @@ use App\Http\Controllers\Agent\DatabaseCentreController;
     //search Center using id
     Route::post('marketing/save-report/search-center-by-id', [ProspectListController::class, 'searchCenterById'])->name('agent.marketing.save.report.search.center');
     
-     Route::get('advertiser-list',function(){
+/*      Route::get('advertiser-list',function(){
         return view('agent.dashboard.Advertisers.advertiser-list');
-     })->name('agent.advertiser-list');
-     
-        Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
+     })->name('agent.advertiser-list'); */
+    Route::get('/advertiser-list', [AgentRequestController::class, 'advertiserList'])->name('agent.advertiser-list');
+    Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
      
     Route::get('/multi-merge-report',function(){
@@ -343,4 +344,6 @@ Route::get('/appointments-count', [AppointmentController::class, 'appointmentCou
 Route::get('/appointment-pdf-download/{id}', [AppointmentController::class, 'appointmentPdfDownload'])->name('agent.appointment.pdf.download');
 Route::get('/dashboard/notifications', [\App\Http\Controllers\Agent\AppointmentController::class, 'showAgentNotifications'])->name('agent.dashboard.notifications');
 Route::get('/dashboard/notifications/datatable', [\App\Http\Controllers\Agent\AppointmentController::class, 'notificationsDatatable'])->name('agent.dashboard.notifications.datatable');
+Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('agent.switch-to-child');
+Route::get('/back-to-parent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
 

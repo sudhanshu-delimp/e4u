@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Escort\EscortInterface;
 use App\Models\Purchase;
 use App\Models\PaymentHistory;
@@ -28,14 +29,24 @@ class PaymentController extends Controller
         });
     }
     
-    protected function getAmount(){
-        $amount = 0.00;
-        if(session()->has('checkout')){
-            $checkout = session()->get('checkout');
-            foreach ($checkout as $startDate => $item) {
-                $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
-                list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
-                $amount = $amount+$total_rate;
+    protected function getAmount($amount = 0.00){
+        if(empty($amount)){
+            if(session()->has('checkout')){
+                $checkout = session()->get('checkout');
+                foreach ($checkout as $startDate => $item) {
+                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                    list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
+                    $amount = $amount+$total_rate;
+                }
+            }
+
+            if(session()->has('tour_checkout')){
+                $checkout = session()->get('tour_checkout');
+                foreach ($checkout as $startDate => $item) {
+                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                    list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
+                    $amount = $amount+$total_rate;
+                }
             }
         }
         return $amount;
@@ -55,6 +66,7 @@ class PaymentController extends Controller
                     'message' => 'Please enter wallet amount or loyalty days',
                 ], 422);
             }
+            
             $wallet_balance   = $this->account->wallet->balance ?? 0;
             $wallet_earn_days = $this->account->wallet->earn_days ?? 0;
             // Validate wallet amount
@@ -78,6 +90,13 @@ class PaymentController extends Controller
 
             if(session()->has('checkout')){
                 $checkout = session()->get('checkout');
+                $lowestPlan = collect($checkout)->max('membership');
+                $planFee = getPlanFee($lowestPlan);
+                $loyalty_amount = ($planFee*$loyalty_day);
+            }
+
+            if (session()->has('tour_checkout')) {
+                $checkout = session()->get('tour_checkout');
                 $lowestPlan = collect($checkout)->max('membership');
                 $planFee = getPlanFee($lowestPlan);
                 $loyalty_amount = ($planFee*$loyalty_day);
@@ -122,105 +141,123 @@ class PaymentController extends Controller
             ], 500);
         }
     }
-    
+
     public function processPayment(Request $request)
     {
-        $request->validate([
-            'pin_token' => 'required'
-        ]);
-        
-        $pin_token = str_contains($request->pin_token, 'card') ? $request->pin_token : decrypt($request->pin_token);
+        try {
 
-        $is_bypass = $pin_token == 'without_pay_now' ? true : false;
+            $request->validate([
+                'pin_token' => 'required'
+            ]);
 
-        $redirect_url = '';
-        $gatewayResponse['status'] = true;
-        $amount = $this->getAmount();
+            $pin_token = str_contains($request->pin_token, 'card') ? $request->pin_token : decrypt($request->pin_token);
 
-        $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
-            'loyalty_day' => 0,
-            'sub_total_amount' => $amount,
-            'wallet_amount' => 0.00,
-            'loyalty_amount' => 0.00,
-            'total_amount' => $amount,
-        ];
-        
-        $this->pinService->setAmount($benefit_token['total_amount']);
-        $gstAmount = $this->pinService->getGSTAmount();
-        $totalDueAmount = $this->pinService->getTotalDue();
+            $is_bypass = $pin_token == 'without_pay_now';
 
-        if(!$is_bypass){
-            $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
-            if ($gatewayResponse['status']) {
-                $response = $gatewayResponse['data']['response'];
+            $redirect_url = '';
+            $gatewayResponse['status'] = true;
+
+            $amount = $this->getAmount();
+
+            $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
+                'loyalty_day' => 0,
+                'sub_total_amount' => $amount,
+                'wallet_amount' => 0.00,
+                'loyalty_amount' => 0.00,
+                'total_amount' => $amount,
+            ];
+
+            $this->pinService->setAmount($benefit_token['total_amount']);
+
+            $gstAmount = $this->pinService->getGSTAmount();
+            $totalDueAmount = $this->pinService->getTotalDue();
+
+            if (!$is_bypass) {
+
+                $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
+
+                if ($gatewayResponse['status']) {
+                    $response = $gatewayResponse['data']['response'];
+                } else {
+                    return response()->json([
+                        'status' => 'error',
+                        'gateway' => $gatewayResponse['error']
+                    ], 400);
+                }
             }
-        }
 
-        $payment = PaymentHistory::create([
-            'user_id'         => $this->account->id,
-            'completed_by'    => $this->account->id,
-            'ref_no'          => now()->format('Ymd') . rand(100, 999),
-            'amount'          => $benefit_token['sub_total_amount'],
-            'wallet_amount'   => $benefit_token['wallet_amount'],
-            'loyalty_amount'  => $benefit_token['loyalty_amount'],
-            'net_amount'     => $benefit_token['total_amount'],
-            'gst_amount'     => $gstAmount,
-            'paid_amount'     => $totalDueAmount,
-            'currency'        => $is_bypass ? 'AUD' : $response['currency'],
-            'payment_gateway' => 'pinpayments',
-            'transaction_id'  => $is_bypass ? NULL : $response['token'],
-            'status'          => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
-            'paid_at'         => $is_bypass ? NULL : $response['created_at'],
-            'card'            => $is_bypass ? NULL : $response['card']['display_number'],
-            'meta'            => $is_bypass ? NULL : json_encode($response),
-        ]);
+            DB::beginTransaction();
 
-            if(session()->has('checkout')){
+            $payment = PaymentHistory::create([
+                'user_id' => $this->account->id,
+                'completed_by' => $this->account->id,
+                'ref_no' => now()->format('Ymd') . rand(100, 999),
+                'amount' => $benefit_token['sub_total_amount'],
+                'wallet_amount' => $benefit_token['wallet_amount'],
+                'loyalty_amount' => $benefit_token['loyalty_amount'],
+                'net_amount' => $benefit_token['total_amount'],
+                'gst_amount' => $gstAmount,
+                'paid_amount' => $totalDueAmount,
+                'currency' => $is_bypass ? 'AUD' : $response['currency'],
+                'payment_gateway' => 'pinpayments',
+                'transaction_id' => $is_bypass ? null : $response['token'],
+                'status' => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
+                'paid_at' => $is_bypass ? null : $response['created_at'],
+                'card' => $is_bypass ? null : $response['card']['display_number'],
+                'meta' => $is_bypass ? null : json_encode($response),
+            ]);
+
+            $payment_service = '';
+
+            if (session()->has('checkout')) {
                 $this->saveCheckout($payment);
-                $payment_service = 'Listing';
-                session()->forget('checkout');
-                $redirect_url = route('escort.dashboard.listings', 'current');
+                $payment_service = 'Profile Listing';
+                $redirect_url = route('escort.account.listing_success');
             }
-            if(session()->has('tour_checkout')){
+
+            if (session()->has('tour_checkout')) {
                 $this->saveCheckout($payment);
                 $payment_service = 'Tour';
-                session()->forget('tour_checkout');
-                $redirect_url = route('escort.view.tour.list', 'current');
+                $redirect_url = route('escort.account.listing_success');
             }
-
-            if(!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0){
-                $this->walletService->debit(
-                    $this->account,
-                    $benefit_token['wallet_amount'],
-                    $payment,
-                    $payment_service,
-                    []
-                );
+            
+            if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
+                $this->walletService->debit($this->account, $benefit_token['wallet_amount'], $payment, $payment_service, []);
             }
-
-            if(!empty($benefit_token['loyalty_day']) && $benefit_token['loyalty_day'] > 0){
+            if (!empty($benefit_token['loyalty_day']) && $benefit_token['loyalty_day'] > 0) {
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
-
-            $earn_days = floor($benefit_token['total_amount']/200);
-            if($earn_days > 0){
+            $earn_days = floor($benefit_token['total_amount'] / 200);
+            if ($earn_days > 0) {
                 $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
             }
-
             $payment->service = $payment_service;
             $payment->save();
-
+            DB::commit();
             return response()->json([
                 'status' => 'success',
                 'message' => 'Your payment has been processed successfully.',
                 'netAmount' => $amount,
                 'redirect_url' => $redirect_url
             ]);
-
-        return response()->json([
-            'status' => 'error',
-            'gateway' => $gatewayResponse['error']
-        ], 400);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Payment Processing Error', [
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+            ]);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong while processing payment.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function saveCheckout($payment=null){

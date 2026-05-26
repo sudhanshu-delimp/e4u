@@ -150,6 +150,7 @@ function addOrUpdateHiddenInput(formId, name, value) {
     }
 }
 
+
 var getStatusOption = (xhr)=>{
     let icon,title;
     let res = xhr.responseJSON || JSON.parse(xhr.responseText.trim());

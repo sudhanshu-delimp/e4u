@@ -292,12 +292,12 @@
                                                                 <label for="">Do you consent, pursuant to clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline ml-0">
-                                                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="yes">
+                                                                    <input class="form-check-input" type="radio" name="social_media_consent" id="yes" value="1" {{ isset($escort->social_media_consent) && $escort->social_media_consent == '1' ? 'checked' : '' }}>
                                                                     <label class="form-check-label" for="yes">Yes</label>
                                                                 </div>
 
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="no" checked>
+                                                                    <input class="form-check-input" type="radio" name="social_media_consent" id="no" value="0" {{ isset($escort->social_media_consent) && $escort->social_media_consent == '0' ? 'checked' : '' }}>
                                                                     <label class="form-check-label" for="no">No</label>
                                                                 </div>                                                                
                                                             </div>
@@ -364,8 +364,6 @@
                                                         <th>Business No.</th>
                                                         <th>Mobile No.</th>
                                                         <th>Email</th>
-                                                        <th>Access Granted</th>
-                                                        <th>Status</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
@@ -714,264 +712,95 @@
     {{-- end  --}}
 
 
-    {{-- Modal: Edit Centre --}}
-    <div class="modal fade upload-modal" id="edit_center" tabindex="-1" aria-labelledby="edit_centerLabel"
-        aria-hidden="true">
+    {{-- Modal: View Centre --}}
+   <!-- View Center Modal -->
+    <div class="modal fade upload-modal" id="view_center" tabindex="-1" aria-labelledby="view_centerLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon"
-                            alt="Edit Centre">
-                        Edit Centre
+                        <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon" alt="View Centre">
+                        Centre Summary
                     </h5>
+
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                     </button>
                 </div>
-                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-                    <form>
-                        <div class="row">
-                            <!-- Membership ID -->
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Membership ID</label>
-                                    <input type="text" class="form-control" value="MC101" readonly>
-                                </div>
-                            </div>
 
-                            <!-- Access Granted -->
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Access Granted</label>
-                                    <div class="mt-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="accessGranted"
-                                                id="accessYes" value="yes" checked>
-                                            <label class="form-check-label" for="accessYes">Yes</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="accessGranted"
-                                                id="accessNo" value="no">
-                                            <label class="form-check-label" for="accessNo">No</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                    <table class="table table-bordered">
+                        <tbody>
 
-                        <!-- Subtle line -->
-                        <hr class="my-3" style="border-top: 1px solid #e0e0e0;">
+                            <tr>
+                                <th width="30%">Membership ID</th>
+                                <td id="v_member_id"></td>
+                            </tr>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <!-- Date Joined -->
-                                <div class="form-group">
-                                    <label>Date Joined</label>
-                                    <input type="text" value="30-06-2025" placeholder="DD-MM-YYYY"
-                                        class="form-control" onfocus="this.type='date'; this.placeholder='';">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Display Name -->
+                            <tr>
+                                <th>Access Granted</th>
+                                <td id="v_access_granted"></td>
+                            </tr>
 
-                                <div class="form-group">
-                                    <label for="Display Name" class="common_help_icon common-tooltip">Display Name
-                                        <img class="delay_tooltip tooltip-icon"
-                                            src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
-                                        <span class="tooltip-text">Insert here the trading /
-                                            business name of the Business.</span>
+                            <tr>
+                                <th>Date Joined</th>
+                                <td id="v_join_date"></td>
+                            </tr>
 
-                                    </label>
+                            <tr>
+                                <th>Display Name</th>
+                                <td id="v_name"></td>
+                            </tr>
 
-                                    <input type="text" class="form-control" value="Abc Wellness Centre">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <!-- Entity Name -->
+                            <tr>
+                                <th>Entity Name</th>
+                                <td id="v_entity_name"></td>
+                            </tr>
 
-                                <div class="form-group">
-                                    <label for="Entity Name" class="common_help_icon common-tooltip">Entity Name
-                                        <img class="delay_tooltip tooltip-icon"
-                                            src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
-                                        <span class="tooltip-text">What is the name of the
-                                            corporate entity that owns the Business Name, like
-                                            ABC Pty Ltd</span>
+                            <tr>
+                                <th>Address</th>
+                                <td id="v_business_address"></td>
+                            </tr>
 
-                                    </label>
-                                    <input type="text" class="form-control" value="Abc Pvt Ltd">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Address -->
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <textarea class="form-control" rows="1">123 Main Street, Mumbai</textarea>
-                                </div>
-                            </div>
-                        </div>
+                            <tr>
+                                <th>Point of Contact</th>
+                                <td id="v_contact_person"></td>
+                            </tr>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <!-- Point of Contact -->
-                                <div class="form-group">
-                                    <label>Point of Contact</label>
-                                    <input type="text" class="form-control" value="Rahul Sharma">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Email -->
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" value="contact@abcwellness.com">
-                                </div>
-                            </div>
-                        </div>
+                            <tr>
+                                <th>Email</th>
+                                <td id="v_email"></td>
+                            </tr>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <!-- Business No. -->
-                                <div class="form-group">
-                                    <label>Business No.</label>
-                                    <input type="text" class="form-control" value="BN-556677">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Mobile No. -->
-                                <div class="form-group">
-                                    <label>Mobile No.</label>
-                                    <input type="tel" class="form-control" value="+91 9876543210">
-                                </div>
-                            </div>
-                        </div>
+                            <tr>
+                                <th>Business No.</th>
+                                <td id="v_business_number"></td>
+                            </tr>
 
-                        <!-- Method of Contact -->
-                        <div class="form-group">
-                            <label>Method of contact:</label><br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Method_Message" value="1"
-                                    checked>
-                                <label class="form-check-label" for="Method_Message">Message (via Console)</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Method_Text" value="2" checked>
-                                <label class="form-check-label" for="Method_Text">Text</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Method_Email" value="3">
-                                <label class="form-check-label" for="Method_Email">Email</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Method_call_me" value="4">
-                                <label class="form-check-label" for="Method_call_me">Call me</label>
-                            </div>
-                        </div>
+                            <tr>
+                                <th>Mobile No.</th>
+                                <td id="v_phone"></td>
+                            </tr>
 
-                        <!-- Footer Buttons -->
-                        <div class="row">
-                            <div class="col-lg-12 d-flex justify-content-end">
-                                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn-success-modal ml-2">Save</button>
-                            </div>
-                        </div>
-                    </form>
+                            <tr>
+                                <th>Method of Contact</th>
+                                <td id="v_method_of_contact"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
+
+                <div class="modal-footer d-flex justify-content-end">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
-    {{-- End --}}
-
-    {{-- Modal: View Centre --}}
-   <!-- View Center Modal -->
-<div class="modal fade upload-modal" id="view_center" tabindex="-1" aria-labelledby="view_centerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon" alt="View Centre">
-                    Centre Summary
-                </h5>
-
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                </button>
-            </div>
-
-            <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
-                <table class="table table-bordered">
-                    <tbody>
-
-                        <tr>
-                            <th width="30%">Membership ID</th>
-                            <td id="v_member_id"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Access Granted</th>
-                            <td id="v_access_granted"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Date Joined</th>
-                            <td id="v_join_date"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Display Name</th>
-                            <td id="v_name"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Entity Name</th>
-                            <td id="v_entity_name"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Address</th>
-                            <td id="v_business_address"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Point of Contact</th>
-                            <td id="v_contact_person"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Email</th>
-                            <td id="v_email"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Business No.</th>
-                            <td id="v_business_number"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Mobile No.</th>
-                            <td id="v_phone"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Method of Contact</th>
-                            <td id="v_method_of_contact"></td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="modal-footer d-flex justify-content-end">
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal">
-                    Close
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
     {{-- end --}}
 
 @endsection
@@ -1020,11 +849,26 @@
             { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'access_granted', name: 'access_granted', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
             
-            ],
+    ],
+    createdRow: function(row, data, dataIndex) {
+
+        // if (data.status == 'Active') {
+        //     $(row).css('background-color', '#e5f2e8');
+        // }
+
+        // if (data.status == 'Suspended') {
+        //     $(row).css('background-color', '#fae0e0');
+        // }
+
+        // if (data.status == 'Pending') {
+        //     $(row).css('background-color', '#e6d5a0');
+        // }
+    }
+
+
+
     });
 
  
@@ -1567,6 +1411,8 @@
         let year = date.getFullYear();
         return day + '-' + month + '-' + year;
     }
+
+    
     
 </script>
 @endpush

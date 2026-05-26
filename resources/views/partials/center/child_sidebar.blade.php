@@ -41,7 +41,7 @@
                 request()->segment(2) == 'upload-my-avatar') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{ route('center.account.edit') }}">
+                <a class="collapse-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit') }}">
 
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
@@ -52,19 +52,19 @@
 
                     <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
                         information</span></a>
-                <a class="collapse-item" href="{{ route('center.change.password') }}">
+                <a class="collapse-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.change.password') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
 
                     <span style="{{ request()->segment(2) == 'change-password' ? 'color: #e5365a;' : '' }}">Change
                         password</span></a>
 
-                <a class="collapse-item" href="{{ route('centre.notifications-and-features') }}">
+                <a class="collapse-item {{ canManage() ? '': 'd-none'}}" href="{{ route('centre.notifications-and-features') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
 
                     <span
                         style="{{ request()->segment(2) == 'notifications-and-features' ? 'color: #e5365a;' : '' }}">Notifications
                         & Features</span></a>
-                <a class="collapse-item" href="{{ route('center.profile.avatar') }}">
+                <a class="collapse-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.profile.avatar') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
 
                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
@@ -105,7 +105,7 @@
                     data-parent="#ProfileManagement">
 
                     <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item {{ request()->segment(3) == 'add-listing' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ request()->segment(3) == 'add-listing' ? 'menu-active' : '' }} {{ canManage() ? '': 'd-none'}}"
                             href="{{ route('center.add-listing') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
                             <span>New</span>
@@ -137,7 +137,7 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ canManage() ? '': 'd-none'}}" {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
                             href="{{ route('center.profile') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
                             <span>New Profile</span>
@@ -154,13 +154,12 @@
 
 
                 {{-- Masseurs --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMasseurs">
+                <a class="nav-link collapsed {{ canManage() ? '': 'd-none'}}" href="#" data-toggle="collapse" data-target="#CenterMasseurs">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png') }}">
                     <span>Masseurs </span>
                 </a>
 
-                <div id="CenterMasseurs"
-                    class="collapse
+                <div id="CenterMasseurs" class="collapse {{ canManage() ? '': 'd-none'}}"
                     
                     @if (in_array(request()->segment(2), ['create-new-masseur','archives-listing','update-masseur'] )) show @endif"
                     data-parent="#ProfileManagement">
@@ -183,14 +182,14 @@
                 </div>
 
                 {{-- Media Centre --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMedia">
+                <a class="nav-link collapsed {{ canManage() ? '': 'd-none'}}" href="#" data-toggle="collapse" data-target="#CenterMedia">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/media-centre.png') }}">
                     <span>Media</span>
                 </a>
 
                 <div id="CenterMedia"
                     class="collapse
-                   @if (request()->segment(2) == 'archive-view-photos' || request()->segment(3) == 'videos') show @endif"
+                   @if (request()->segment(2) == 'archive-view-photos' || request()->segment(3) == 'videos') show @endif {{ canManage() ? '': 'd-none'}}"
                     data-parent="#ProfileManagement">
 
                     <div class="py-0 collapse-inner rounded mb-2">
@@ -220,7 +219,7 @@
         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
     </li>
 
-    <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}">
+    <li class="nav-item {{ canManage() ? '': 'd-none'}}">
 
         {{-- Administration --}}
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#AdminTab">
