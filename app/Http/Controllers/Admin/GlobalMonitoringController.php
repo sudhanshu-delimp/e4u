@@ -276,7 +276,10 @@ class GlobalMonitoringController extends Controller
         $search = request()->input('search.value');
         $order_key = request()->get('order')[0]['column'];
         $dir = request()->get('order')[0]['dir'];
-        //$search = "";
+        // ✅ Yeh 3 lines add karo
+        $start  = request()->input('start', 0);
+        $length = request()->input('length', 10);
+        $draw   = intval(request()->input('draw'));
          $massagePurchaseTableName = (new MassagePurchase)->getTable();
          $userTableName = (new User())->getTable();
         $massagers = MassagePurchase::with([
@@ -353,8 +356,8 @@ class GlobalMonitoringController extends Controller
                 break;
         }
 
-
-        $massagers = $massagers->get();
+        $recordsTotal = (clone $massagers)->count();
+        $massagers = $massagers->skip($start)->take($length)->get();
 
         $result = $massagers->map(function ($row) use ($today) {
 
@@ -497,14 +500,16 @@ class GlobalMonitoringController extends Controller
 
             ];
         });
-
+        
+        $listedCount = $massagers->where('status', 'listed')->count();
         $data = array(
-            "draw"            => intval(request()->input('draw')),
-            "recordsTotal"    => count($result),
-            "recordsFiltered" => count($result),
+            "draw"            => $draw,
+            "recordsTotal"    => $recordsTotal,
+            "recordsFiltered" => $recordsTotal,
+            "current_listing_count" => $listedCount,
             "data"            => $result,
-            'server_up_time' => $this->getAppUptime(),
-            'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+            'server_up_time'  => $this->getAppUptime(),
+            'server_time'     => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
         );
 
         return response()->json($data);

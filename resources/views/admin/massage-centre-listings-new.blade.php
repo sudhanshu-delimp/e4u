@@ -183,6 +183,7 @@
                 });
             });
 
+            let isInitialLoad = true;
             function ajaxReload() {
 
                 var table = $("#listings").DataTable({
@@ -196,7 +197,7 @@
                     lengthChange: true,
                     info: true,
                     searching: true,
-                    bStateSave: true,
+                    bStateSave: false,
                   
                     lengthMenu: [
                         [10, 25, 50, 100],
@@ -219,10 +220,13 @@
                             return JSON.stringify(d);
                         },
                         dataSrc: function(json) {
-                            var totalRows = json.recordsTotal || json.recordsFiltered;
-                            $(".totalListing").text(totalRows);
-                            $(".serverTime").text(json.server_time);
-                            $(".uptimeClass").html(json.server_up_time);
+                            if (isInitialLoad) {
+                                $(".totalListing").text(json.current_listing_count || 0);
+                                $(".serverTime").text(json.server_time);
+                                $(".uptimeClass").html(json.server_up_time);
+                                isInitialLoad = false;
+                            }
+
                             return json.data;
                         }
                     },
@@ -284,7 +288,7 @@
                     ],
 
                 });
-                  //table.state.clear();
+                  table.state.clear();
 
             }
 
