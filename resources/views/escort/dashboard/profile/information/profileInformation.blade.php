@@ -178,8 +178,8 @@
                   </div>
                </div>
             </div>
-            {{-- ye dynamic nhi hai abhi  --}}
-            {{-- <div class="card custom-help-contain">
+          
+            <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#my_additional_information">
                   My Additional Information
@@ -191,8 +191,9 @@
                      @include('escort.dashboard.profile.information.partials.my-additional-info')
                   </div>
                </div>
-            </div> --}}
-            {{-- end --}}
+            </div>
+            
+            
              <div class="card custom-help-contain">
                  <div class="card-header">
                      <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
@@ -271,8 +272,11 @@
 </div>
 @endsection
 @push('script')
+
 <!-- file upload plugin start here -->
 @push('script')
+
+<script src="{{asset('escorts/dashboard/profile/additional_information/additional_information.js')}}"></script>
 <script>
     $("#modal-title").text('');
    $('#select2-dropdown').select2({
@@ -296,7 +300,6 @@
            dataType: "json",
            type: "GET",
            data: function (params) {
-               console.log(params);
                var queryParameters = {
                    query: params.term
                }
@@ -639,51 +642,51 @@
    });
    });
 
-    $(document).ready(function () {
-        $('input[name="sortedByStageName"]').on('change', function () {
-            let selectedValue = $(this).val(); 
-            sortStageNameByOrder(selectedValue);
-        });
-    });
+    // $(document).ready(function () {
+    //     $('input[name="sortedByStageName"]').on('change', function () {
+    //         let selectedValue = $(this).val(); 
+    //         sortStageNameByOrder(selectedValue);
+    //     });
+    // });
 
-    function sortStageNameByOrder(sortBy){
-        $.ajax({
-                url: '{{route("escort.settings.sort-stage-name.about.me")}}', // Replace with your actual endpoint
-                type: 'POST',
-                data: {
-                    sort_by: sortBy,
-                    _token: $('meta[name="csrf-token"]').attr('content') // For Laravel CSRF
-                },
-                success: function (response) {
-                    if(response.status == true){
-                        let stageListhtml = ``;
-                        var da = response.data;
-                        if(response.sort_by != 'random'){
-                            da = (response.data).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-                        }
+    // function sortStageNameByOrder(sortBy){
+    //     $.ajax({
+    //             url: '{{route("escort.settings.sort-stage-name.about.me")}}', // Replace with your actual endpoint
+    //             type: 'POST',
+    //             data: {
+    //                 sort_by: sortBy,
+    //                 _token: $('meta[name="csrf-token"]').attr('content') // For Laravel CSRF
+    //             },
+    //             success: function (response) {
+    //                 if(response.status == true){
+    //                     let stageListhtml = ``;
+    //                     var da = response.data;
+    //                     if(response.sort_by != 'random'){
+    //                         da = (response.data).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+    //                     }
                         
-                        da.forEach(function (name) {
-                            stageListhtml += `
-                                <li style="font-size: 14px; background:#0C223D !important;">
-                                    <a href="#">${name}</a>
-                                    <div class="close ml-2 text-white stage-close" aria-label="Close">
-                                        <span aria-hidden="true" class='delete_stname' id='${name}'>×</span>
-                                        <small class='mytool-tip'>Remove</small>
-                                    </div>
-                                    <input type='hidden' name='name[]' value="${name}">
-                                </li>`;
-                        });
-                        $('#stageList').html(stageListhtml);
-                    }
-                     // Example DOM update
-                },
-                error: function (xhr) {
-                    console.error("Error in sorting:", xhr.responseText);
-                }
-            });
-    }
+    //                     da.forEach(function (name) {
+    //                         stageListhtml += `
+    //                             <li style="font-size: 14px; background:#0C223D !important;">
+    //                                 <a href="#">${name}</a>
+    //                                 <div class="close ml-2 text-white stage-close" aria-label="Close">
+    //                                     <span aria-hidden="true" class='delete_stname' id='${name}'>×</span>
+    //                                     <small class='mytool-tip'>Remove</small>
+    //                                 </div>
+    //                                 <input type='hidden' name='name[]' value="${name}">
+    //                             </li>`;
+    //                     });
+    //                     $('#stageList').html(stageListhtml);
+    //                 }
+    //                  // Example DOM update
+    //             },
+    //             error: function (xhr) {
+    //                 console.error("Error in sorting:", xhr.responseText);
+    //             }
+    //         });
+    // }
 
-    sortStageNameByOrder('alphabetically');
+    // sortStageNameByOrder('alphabetically');
 
    $('#myServices').on('submit', function(e) {
        e.preventDefault();
@@ -1066,10 +1069,6 @@
 
    });
 
-
-
-
-
    $("#close").click(function()
    {
        $("#my_account_modal").hide();
@@ -1082,10 +1081,10 @@
 
    });
 
-   $("body").on('click','.delete_stname',function(e){
-       var id = $(this).attr('id');
-       $(this).parents('li').remove();
-   })
+//    $("body").on('click','.delete_stname',function(e){
+//        var id = $(this).attr('id');
+//        $(this).parents('li').remove();
+//    });
 
     $(document).ready(function(){
 
@@ -1120,4 +1119,5 @@
     });
 
 </script>
+
 @endpush
