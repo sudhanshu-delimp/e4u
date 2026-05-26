@@ -173,9 +173,8 @@ class PaymentController extends Controller
             $totalDueAmount = $this->pinService->getTotalDue();
 
             if (!$is_bypass) {
-
+                dd($pin_token,$totalDueAmount,$this->account->email);
                 $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
-
                 if ($gatewayResponse['status']) {
                     $response = $gatewayResponse['data']['response'];
                 } else {
