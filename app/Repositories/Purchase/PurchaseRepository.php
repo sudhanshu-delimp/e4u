@@ -91,7 +91,13 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             
             $query->selectRaw("$table.*,DATEDIFF(end_date, NOW()) as days_left")->orderBy('days_left', $dir);
         } else {
-            $query->orderBy($order_field, $dir);
+            $query->orderByRaw("
+                CASE 
+                    WHEN end_date >= NOW() THEN 1
+                    ELSE 2
+                END ASC,
+                end_date DESC
+            ");
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyEscorts($mainQuery->get(), $start);
@@ -132,9 +138,11 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $item->days_number = $item->days_number;
             $item->days_left = $item->days_left;
             // $item->status = $item->escort->enabled == 1 ?'Current':'Upcoming';
-            $statusText = $item->escort->enabled == 1 ? 'Current' : 'Upcoming';
-            $badgeClass = getStatusBadgeClass(strtolower($statusText));
-            $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            // $statusText = $item->escort->enabled == 1 ? 'Current' : 'Upcoming';
+            // $badgeClass = getStatusBadgeClass(strtolower($statusText));
+            // $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            // $item->statusBtn = $statusBtn;
+            $item->status = $statusBtn;
             $item->statusBtn = $statusBtn;
 
             $item->location = $locations[$item->escort->state_id]['stateAbbr'];
