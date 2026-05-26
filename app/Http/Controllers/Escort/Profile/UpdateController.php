@@ -1368,7 +1368,6 @@ class UpdateController extends AppController
             $input['about_title'] = $request->about_title;
         }
 
-
         $error = true;
         if (isset($request->about)) {
             $data = $this->escort->store($input, $id);

@@ -2507,11 +2507,8 @@
                 <label class="col-sm-2 font-weight-500" for="title">
                     Title:
                 </label>
-
                 <div class="col-sm-6">
-
                     @if ($hasTitles)
-
                         {{-- Dropdown: existing saved titles --}}
                         <select id="title" name="about_title" onclick="titleInput(this)"
                             class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
@@ -2531,7 +2528,7 @@
                         </select>
 
                         {{-- Text input: hidden until "Add new" is selected --}}
-                        <input type="hidden" id="titleInp" name="about_title" value=""
+                        <input type="hidden" id="titleInp" name="" value=""
                             class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
                             placeholder="Enter new Title" data-parsley-group="group_one"
                             data-parsley-errors-container="#title-errors"
@@ -2585,7 +2582,6 @@
                     <span id="narration-errors"></span>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <textarea id="editor1" name="about" data-parsley-maxlength="2500"
