@@ -13,6 +13,50 @@
     .parsley-min {
         color: #e5365a;
     }
+
+
+    .emoji-input-wrapper {
+    position: relative;
+}
+
+.emoji-btn {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 9;
+
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.3s ease;
+}
+
+    .emoji-btn:hover {
+        background: #f2f2f2;
+        transform: translateY(-50%) scale(1.5);
+    }
+
+    #who_title {
+        padding-left: 45px !important;
+        height: 38px;
+        border-radius: 8px;
+    }
+
+    #emojiPicker {
+        position: absolute;
+        top: 45px;
+        left: 0;
+        z-index: 9999;
+        display: none;
+    }
 </style>
 
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
@@ -61,13 +105,15 @@
                                     <input type="text" class="form-control form-control-sm" id="stage_name"
                                         placeholder="Enter stage name">
                                 </div>
-                                <div><span><b>Note:</b> <i>Save your new Stage Names before you apply the Sort feature.</i></span></div>
+                                <div><span><b>Note:</b> <i>Save your new Stage Names before you apply the Sort
+                                            feature.</i></span></div>
 
                                 <div class="col-sm-12" style="display: ruby; padding-left: 0px;">
                                     <label>Sort By : </label>
                                     <div class="pt-4 pb-3">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="sortedByStageNames" id="stageNameAlphabetically" value="alphabetically" checked>
+                                            <input class="form-check-input" type="radio" name="sortedByStageNames"
+                                                id="stageNameAlphabetically" value="alphabetically" checked>
 
                                             <label class="form-check-label" for="stageNameAlphabetically">
                                                 Alphabetical (A–Z)
@@ -75,7 +121,8 @@
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="sortedByStageNames" id="stageNameRandom" value="random">
+                                            <input class="form-check-input" type="radio" name="sortedByStageNames"
+                                                id="stageNameRandom" value="random">
 
                                             <label class="form-check-label" for="stageNameRandom">
                                                 Random
@@ -124,16 +171,20 @@
                                     <input type="text" class="form-control form-control-sm" id="st_address"
                                         placeholder="Enter street address">
                                 </div>
-                                <div> <span><b>Note:</b> <i>Save your Addresses before you apply the Sort feature.</i></span></div>
+                                <div> <span><b>Note:</b> <i>Save your Addresses before you apply the Sort
+                                            feature.</i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input " type="radio" name="sortedByStageAddress" id="addressAlphabetically" value="alphabetically" checked>
-                                            <label class="form-check-label" for="addressAlphabetically">Location (A–Z)</label>
+                                            <input class="form-check-input " type="radio" name="sortedByStageAddress"
+                                                id="addressAlphabetically" value="alphabetically" checked>
+                                            <label class="form-check-label" for="addressAlphabetically">Location
+                                                (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input " type="radio" name="sortedByStageAddress" id="addressRandom" value="random">
+                                            <input class="form-check-input " type="radio" name="sortedByStageAddress"
+                                                id="addressRandom" value="random">
                                             <label class="form-check-label" for="addressRandom">Random</label>
                                         </div>
                                     </div>
@@ -175,9 +226,11 @@
                             </label>
 
                             <div class="col-sm-12 stageListParent pl-1">
-                                <div class="col-sm-12 pl-0">
+                                <div class="col-sm-12 pl-0 emoji-input-wrapper">
+                                    <span class="emoji-btn" id="emojiBtn">😊</span>
                                     <input type="text" class="form-control form-control-sm" id="who_title"
                                         placeholder="Enter title">
+                                    <emoji-picker id="emojiPicker"></emoji-picker>
                                 </div>
                                 <div> <span><b>Note:</b> <i>Save your Titles before you apply the Sort
                                             feature.</i></span></div>
@@ -185,12 +238,14 @@
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input " type="radio" name="sortedByStageTitle" id="titleAlphabetically" value="alphabetically" checked>
+                                            <input class="form-check-input " type="radio" name="sortedByStageTitle"
+                                                id="titleAlphabetically" value="alphabetically" checked>
                                             <label class="form-check-label" for="titleAlphabetically">Alphabetical
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input " type="radio" name="sortedByStageTitle" id="titleRandom" value="random">
+                                            <input class="form-check-input " type="radio" name="sortedByStageTitle"
+                                                id="titleRandom" value="random">
                                             <label class="form-check-label" for="titleRandom">Random</label>
                                         </div>
                                     </div>
@@ -234,19 +289,21 @@
                                     <textarea class="form-control mt-2 h-100" id="who_narration_textarea" name="narration"
                                         placeholder="Maximum limit of 2,500 characters."></textarea>
                                 </div>
-                                 
+
                                 <div> <span><b>Note:</b> <i>Save your Narrations before you apply the Sort feature.
                                         </i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input " type="radio" name="sortedByNarration" id="narrationAlphabetically" value="alphabetically" checked>
+                                            <input class="form-check-input " type="radio" name="sortedByNarration"
+                                                id="narrationAlphabetically" value="alphabetically" checked>
                                             <label class="form-check-label" for="narrationAlphabetically">Alphabetical
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input " type="radio" name="sortedByNarration" id="narrationRandom" value="random">
+                                            <input class="form-check-input " type="radio" name="sortedByNarration"
+                                                id="narrationRandom" value="random">
                                             <label class="form-check-label" for="narrationRandom">Random</label>
                                         </div>
                                     </div>
@@ -255,7 +312,7 @@
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
                                         <ul class="results" id="stageNarration">
-                                           {{-- js append here --}}
+                                            {{-- js append here --}}
 
                                         </ul>
                                     </div>
@@ -290,13 +347,6 @@
     data-stagename-store="{{ route('escort.stagename.store') }}"
     data-stagename-delete="{{ route('escort.stagename.delete') }}"
     data-stage-names="{{ json_encode($user['escorts_names'] ?? []) }}"
-
-    data-additional-store="{{route('escort.additional.store')}}"
-    data-additional-delete="{{route('escort.additional.delete')}}"
-    data-address="{{json_encode($address)}}"
-    data-title="{{json_encode($title)}}"
-    data-narrations="{{json_encode($narration)}}"
-
-    
-    ></div>
-
+    data-additional-store="{{ route('escort.additional.store') }}"
+    data-additional-delete="{{ route('escort.additional.delete') }}" data-address="{{ json_encode($address) }}"
+    data-title="{{ json_encode($title) }}" data-narrations="{{ json_encode($narration) }}"></div>

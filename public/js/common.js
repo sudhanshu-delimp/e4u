@@ -1,4 +1,4 @@
-console.log('Common JS Loaded');
+
 function date_time_format(dateString) {
    
     const date = new Date(dateString.replace(" ", "T") + "Z");

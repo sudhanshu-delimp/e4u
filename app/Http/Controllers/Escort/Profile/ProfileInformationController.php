@@ -604,7 +604,7 @@ class ProfileInformationController extends Controller
             $query = EscortAdditionalInformation::where('user_id', Auth::id())
             ->where('type', $request->type);
             if ($request->type == 'title') {
-                $query->where('value', $data);
+                $query->where('short_desc', $data);
             } else {
                 $query->where('short_desc', 'like', '%' . $data . '%');
             }

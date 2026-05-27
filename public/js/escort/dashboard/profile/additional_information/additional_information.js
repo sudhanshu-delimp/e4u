@@ -7,10 +7,10 @@ const endpoint = {
     stagename_delete: mmRoot.data('stagename-delete'),
     stage_names: mmRoot.data('stage-names'),
     additional_store: mmRoot.data('additional-store'),
-    additional_delete : mmRoot.data('additional-delete'),
-    address :mmRoot.data('address')  || [],
-    title : mmRoot.data('title') || [],
-    narrations : mmRoot.data('narrations') || [],
+    additional_delete: mmRoot.data('additional-delete'),
+    address: mmRoot.data('address') || [],
+    title: mmRoot.data('title') || [],
+    narrations: mmRoot.data('narrations') || [],
 };
 
 
@@ -19,62 +19,62 @@ const endpoint = {
 $(function () {
 
     const modules = {
-        stageName : {
-            listId : '#stageNameList',
-            inputId : '#stage_name',
-            sortRadio : 'sortedByStageNames',
-            saveBtn : '.save_stage_name_button',
-            deleteClass : '.delete_stage_name',
-            storeUrl : endpoint.stagename_store,
-            deleteUrl : endpoint.stagename_delete,
-            extraData : {type : 'name'},
-            data : Object.values(endpoint.stage_names || {}),
-            isTextarea : false,
+        stageName: {
+            listId: '#stageNameList',
+            inputId: '#stage_name',
+            sortRadio: 'sortedByStageNames',
+            saveBtn: '.save_stage_name_button',
+            deleteClass: '.delete_stage_name',
+            storeUrl: endpoint.stagename_store,
+            deleteUrl: endpoint.stagename_delete,
+            extraData: { type: 'name' },
+            data: Object.values(endpoint.stage_names || {}),
+            isTextarea: false,
         },
         address: {
-            listId : '#stageAddress',
-            inputId : '#st_address',
-            sortRadio : 'sortedByStageAddress',
-            saveBtn : '.save_address_button',
-            deleteClass : '.delete_address',
-            storeUrl : endpoint.additional_store,
-            deleteUrl : endpoint.additional_delete,
-            extraData : {type : 'address'},
-            data : Object.values(endpoint.address || {}),
-            isTextarea : false
+            listId: '#stageAddress',
+            inputId: '#st_address',
+            sortRadio: 'sortedByStageAddress',
+            saveBtn: '.save_address_button',
+            deleteClass: '.delete_address',
+            storeUrl: endpoint.additional_store,
+            deleteUrl: endpoint.additional_delete,
+            extraData: { type: 'address' },
+            data: Object.values(endpoint.address || {}),
+            isTextarea: false
         },
-        title : {
-            listId : '#stageTitleList',
-            inputId : '#who_title',
-            sortRadio : 'sortedByStageTitle',
-            saveBtn : '.save_title_button',
-            deleteClass : '.delete_title',
-            storeUrl : endpoint.additional_store,
-            deleteUrl : endpoint.additional_delete,
-            extraData : {type : 'title'},
-            data : Object.values(endpoint.title || {}),
-            isTextarea : false
+        title: {
+            listId: '#stageTitleList',
+            inputId: '#who_title',
+            sortRadio: 'sortedByStageTitle',
+            saveBtn: '.save_title_button',
+            deleteClass: '.delete_title',
+            storeUrl: endpoint.additional_store,
+            deleteUrl: endpoint.additional_delete,
+            extraData: { type: 'title' },
+            data: Object.values(endpoint.title || {}),
+            isTextarea: false
         },
-        narration : {
-            listId : '#stageNarration',
-            inputId : '#who_narration_textarea',
-            sortRadio : 'sortedByNarration',
-            saveBtn : '.save_narration_button',
-            deleteClass : '.delete_narration',
-            storeUrl : endpoint.additional_store,
-            deleteUrl : endpoint.additional_delete,
-            extraData : {type : 'narration'},
-            data : Object.values(endpoint.narrations || {}),
-            isTextarea : false, // this is textarea 
-            isCkeditor : true,
+        narration: {
+            listId: '#stageNarration',
+            inputId: '#who_narration_textarea',
+            sortRadio: 'sortedByNarration',
+            saveBtn: '.save_narration_button',
+            deleteClass: '.delete_narration',
+            storeUrl: endpoint.additional_store,
+            deleteUrl: endpoint.additional_delete,
+            extraData: { type: 'narration' },
+            data: Object.values(endpoint.narrations || {}),
+            isTextarea: false, // this is textarea 
+            isCkeditor: true,
         }
     }
 
 
     //Card Template
-    function stageCard(name, deleteClass){
-         const display = name.length > 40 ? name.substring(0, 40) + '...' : name;
-         return `
+    function stageCard(name, deleteClass) {
+        const display = name.length > 40 ? name.substring(0, 40) + '...' : name;
+        return `
             <li style="font-size:14px; background:#0C223D !important;">
                 <a href="#">${display}</a>
                 <div class="close ml-2 text-white stage-close" aria-label="Close">
@@ -88,9 +88,9 @@ $(function () {
     //Short
     function getSortedNames(names, sortType) {
         let sorted = [...names];
-        if(sortType == 'alalphabetically'){
+        if (sortType == 'alalphabetically') {
             shorted.sort((a, b) => a.localeCompare(b));
-        } else if(sortType == 'random'){
+        } else if (sortType == 'random') {
             for (let i = sorted.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [sorted[i], sorted[j]] = [sorted[j], sorted[i]];
@@ -100,9 +100,7 @@ $(function () {
     }
 
     function renderList(mod) {
-         console.log('step 2 working');   
         const sortType = $(`input[name="${mod.sortRadio}"]:checked`).val();
-         console.log('step 3 working', mod.sortRadio, sortType);  
         const ul = $(mod.listId);
         ul.empty();
         getSortedNames(mod.data, sortType).forEach(function (name) {
@@ -111,26 +109,24 @@ $(function () {
     }
 
     //init
-     Object.values(modules).forEach(mod => renderList(mod));
+    Object.values(modules).forEach(mod => renderList(mod));
 
 
 
     //SORT RADIO CHANGE 
-    Object.values(modules).forEach(function (mod){
-         $(`input[name="${mod.sortRadio}"]`).on('change', function () {
-            console.log('step 1 working');         
+    Object.values(modules).forEach(function (mod) {
+        $(`input[name="${mod.sortRadio}"]`).on('change', function () {
             renderList(mod);
         });
     });
 
-    
+
 
     // GENERIC SAVE 💫
 
-    function initSave(mod){
-        $(document).on('click', mod.saveBtn, function(){
-              console.log('mod', mod);
-              let value = '';
+    function initSave(mod) {
+        $(document).on('click', mod.saveBtn, function () {
+            let value = '';
             if (mod.isCkeditor) {
                 const editorInstance = CKEDITOR.instances[mod.inputId.replace('#', '')];
                 value = editorInstance ? editorInstance.getData().trim() : '';
@@ -148,35 +144,37 @@ $(function () {
                     return;
                 }
             }
-            if(!value){
+            if (!value) {
                 showAlert('warning', 'Warning', 'Please enter a value.');
             }
 
             $.ajax({
-                url : mod.storeUrl,
-                method : 'POST',
-                dataType : 'json',
-                data : Object.assign({
-                    _token : endpoint.csrf_token,
-                    value : value,
-                    type : mod.extraData.type
-                },mod.extraData),
-                success: function(res){
-                    if(res.status == true){
-                        if(mod.isCkeditor){
-                            mod.data.push(getShortDesc(value));
-                        }else{
-                            mod.data.push(value);
-                        }
+                url: mod.storeUrl,
+                method: 'POST',
+                dataType: 'json',
+                data: Object.assign({
+                    _token: endpoint.csrf_token,
+                    value: value,
+                    type: mod.extraData.type
+                }, mod.extraData),
+                success: function (res) {
+                    if (res.status == true) {
+                         mod.data.push(getShortDesc(value));
+                        // if (mod.isCkeditor) {
+                        //     mod.data.push(getShortDesc(value));
+                        // } else {
+                           
+                        // }
                         renderList(mod);
                         $(mod.inputId).val('');
+                        CKEDITOR.instances['who_narration_textarea'].setData('');
                         showAlert('success', 'Saved', 'Added successfully!');
                     } else {
                         showAlert('error', 'Error', res.message || 'Something went wrong.');
                     }
 
                 },
-                error : function(xhr){
+                error: function (xhr) {
                     showAlert('error', 'Error', getErrorMsg(xhr));
                 }
             });
@@ -186,31 +184,31 @@ $(function () {
 
 
     // GENERIC DELETE
-    function initDelete(mod){
+    function initDelete(mod) {
         $(document).on('click', mod.deleteClass, function () {
             const name = $(this).data('name');
             const $liElem = $(this).closest('li');
             $.ajax({
-                url : mod.deleteUrl,
-                method : 'POST',
-                dataType : 'json',
-                data : Object.assign({
-                    _token : endpoint.csrf_token,
-                    data : name,
-                    type : mod.extraData.type
+                url: mod.deleteUrl,
+                method: 'POST',
+                dataType: 'json',
+                data: Object.assign({
+                    _token: endpoint.csrf_token,
+                    data: name,
+                    type: mod.extraData.type
 
                 }),
-                success: function (res){
+                success: function (res) {
                     console.log('delete response', res);
-                    if(res.status == true){
+                    if (res.status == true) {
                         mod.data = mod.data.filter(n => n != name);
                         $liElem.remove();
                         showAlert('success', 'Removed', 'Removed successfully!');
-                    }else{
+                    } else {
                         showAlert('error', 'Error', res.message || 'Something went wrong.');
                     }
                 },
-                error : function(xhr){
+                error: function (xhr) {
                     showAlert('error', 'Error', getErrorMsg(xhr));
                 }
             });
@@ -240,7 +238,7 @@ $(function () {
     function showAlert(type, title, message) {
         const iconMap = {
             success: endpoint.success_image,
-            error  : endpoint.error_image,
+            error: endpoint.error_image,
             warning: endpoint.error_image
         };
         $('#modal-icon').attr('src', iconMap[type] || endpoint.success_image);
@@ -250,16 +248,21 @@ $(function () {
         $('#comman_modal').modal('show');
     }
 
-    function getShortDesc(value){
-        let plainText = value;
-        plainText = value.replace(/<[^>]*>/g, '');
-        //remove extra space
-        plainText = plainText.replace(/\s+/, ' ').trim();
-        // First 5 words
-        const words = plainText.split(' ').filter(w => w.length > 0);
-        return words.slice(0, 5).join(' ');
+    function getShortDesc(value) {
+        // Check if value contains HTML tags
+        console.log('Original value:', value);
+        const hasHtml = /<[^>]*>/g.test(value);
+        if (hasHtml) {
+            let plainText = value.replace(/<[^>]*>/g, '');
+            // remove extra spaces/new lines/tabs
+            plainText = plainText.replace(/\s+/g, ' ').trim();
+            return plainText.split(' ').slice(0, 5).join(' ');
+        }
+        console.log('Plain text value:', value);
+        // Plain text condition
+        return value.split(' ').slice(0, 5).join(' ');
     }
-    
+
     initCkEditor('who_narration_textarea');
 
     function initCkEditor(textarea, charLimit = 2500) {
@@ -323,5 +326,38 @@ $(function () {
         return editor;
     }
 
+    // Open / Close Picker
+    $('#emojiBtn').on('click', function (e) {
+
+        e.stopPropagation();
+
+        $('#emojiPicker').toggle();
+
+    });
+
+    // Add Emoji
+    document.querySelector('#emojiPicker')
+        .addEventListener('emoji-click', event => {
+
+            let emoji = event.detail.unicode;
+
+            $('#who_title').val(
+                $('#who_title').val() + emoji
+            );
+
+            $('#who_title').focus();
+
+        });
+
+    // Close Outside Click
+    $(document).on('click', function (e) {
+
+        if (!$(e.target).closest('#emojiPicker, #emojiBtn').length) {
+
+            $('#emojiPicker').hide();
+
+        }
+
+    });
 
 });
