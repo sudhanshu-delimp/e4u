@@ -1,5 +1,5 @@
 console.log('Common JS Loaded');
-
+console.log('============================');
 var initJsDatePicker = function () {
     var $inputs = $(".js_datepicker");
     if ($inputs.length > 0) {
@@ -11,8 +11,12 @@ var initJsDatePicker = function () {
                 changeMonth: true,
                 changeYear: true,
                 showAnim: "slideDown",
+                constrainInput: false,
                 onSelect: function (dateText) {
-                    $(this).trigger('change');
+                    const event = new Event('change', {
+                        bubbles: true
+                    });
+                    this.dispatchEvent(event); // 👈 manually trigger change event
                 }
             };
             // Start from today
