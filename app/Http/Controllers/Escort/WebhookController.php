@@ -15,13 +15,15 @@ class WebhookController extends Controller
   function handle(Request $request, PinPaymentService $pinPaymentService)
   {
 
-  Log::info("webhook working");
+    Log::info("webhook working");
     $signatureHeader = $request->header('Pin-Signature');
 
+
     if (!$signatureHeader)
-      return false;
+      return response()->json(['status' => ' signature not found '], 500);
 
     $signingKey = config('escorts.webhook_secret_key');
+    //  return "djfgdjhfg";
 
     // Parse header: t=timestamp,v1=signature
 
@@ -35,7 +37,8 @@ class WebhookController extends Controller
     $signature = $parts['v1'] ?? null;
 
     if (!$timestamp || !$signature)
-      return false;
+      return response()->json(['status' => 'timestamp or signature not found '], 500);
+
 
 
     // IMPORTANT: get raw body exactly as received
@@ -45,15 +48,17 @@ class WebhookController extends Controller
     // Generate expected signature
     $expected = hash_hmac('sha256', $payload, $signingKey);
 
+
     // Constant-time comparison
     if (!hash_equals($expected, $signature))
-      return false;
+      return response()->json(['status' => 'signature noty verified'], 500);
+
 
 
     // Optional: timestamp tolerance check (e.g. 5 minutes)
     $tolerance = 300; // seconds
     if (abs(time() - (int)$timestamp) > $tolerance)
-      return false;
+      return response()->json(['status' => 'timestamp tolerance check '], 500);
 
     try {
 
@@ -88,7 +93,7 @@ class WebhookController extends Controller
         switch ($type) {
           case 'product-purchase':
             // make payment history
-            
+
             // $this->handlePaymentHistoryStatus($paymentObject);
             $pinPaymentService->handlePaymentHistory($paymentObject);
             break;
@@ -99,7 +104,6 @@ class WebhookController extends Controller
             break;
         }
       }
-
       return response()->json(['status' => 'ok'], 200);
     } catch (\Exception $e) {
       Log::info('Webhook handle error', [$e->getMessage()]);
