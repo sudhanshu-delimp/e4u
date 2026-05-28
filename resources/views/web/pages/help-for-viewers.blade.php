@@ -49,7 +49,7 @@
                                  <ul>
                                      <li> Mobile number (for SMS 2FA verification), and notifications if you have your mobile number selected for that purpose </li>
                                      <li>Email address (for notifications)</li>
-                                     <li>Your location (city)</li>
+                                     <li>Your location (city),</li>
                                  </ul>
                                  <p>as a mandatory information requirement during the registration process.</p>
                              </div>
@@ -57,21 +57,18 @@
                                  <p class="pt-2"><b>Q: Will Advertisers see my identity?</b></p>
                                  <p>No. During the registration process, you create a user name (optional) and you logon
                                      using your email address. Your Account details are never displayed to any other User. 
-                                     Any communication between Users only shows the Member Number, unless the User
-                                     enables their name to be displayed in any communications.
-                                 </p>
+                                     Any communication between Users only shows the Member ID number, unless the User
+                                     enables their name to be displayed in any communications.</p><br>
                              </div>
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: How much control will I have?</b></p>
                                  <p>You have total control over every aspect of your Subscription. You can enable and
-                                     disable every feature available to you, including your Subscription. It is your choice.                                
-                                 </p>
+                                     disable every feature available to you, including your Subscription. It is your choice.</p><br>
                              </div>
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: What features can I control?</b></p>
                                  <p>In your Dashboard you will have access to the Viewer features. Some features are
-                                     enabled by default which include:
-                                 </p>
+                                     enabled by default which include:</p>
                                  <ul>
                                      <li>Legbox. You can flag your favourite Advertiser to be added to your Legbox </li>
                                      <li>Write reviews</li>
@@ -80,10 +77,10 @@
                                  </ul>
                                  <p>Optional features that you can enable include:</p>
                                  <ul>
-                                     <li>What are your interests? (This will help us refine your Advertiser Home Page landing)</li>
+                                     <li>What are your interests? (This will help us refine your Advertiser Listing Page)</li>
                                      <li>Display my name in communications (whatever name you have set up in your Account details, which can be a fictitious name, like “Longman10")</li>
                                      <li>Password expiry (default is set to “Never”)</li>
-                                     <li>Browser expiry (default is set to "Never")</li>
+                                     <li>Idle time (browser expiry - default is set to "Never")</li>
                                      <li>Advertiser notes (record your experience with an Advertiser "Notebox")</li>
                                      <li>A-Alert notifications (how you are notified for any alert, by email or text or both)</li>
                                      <li>Upload your Avatar (Display your personal image or any image with your Account summary)</li>
@@ -93,8 +90,7 @@
                                  <p class="pt-2"><b>Q: What will happen if I leave the Website open on my browser and I walk away?</b></p>
                                  <p>If you are registered as a Viewer and logged on, and you walk away from your browser
                                      and there is no activity for the set time, if you have your preferences for this feature enabled, the Website will close and load “Google”
-                                     home page after the set time has expired. 
-                                 </p>
+                                     home page after the set you have sellected in your settings has expired. </p><br>
                                  
                              </div>
                          </div>
@@ -113,11 +109,12 @@
                          <div class="row">
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: Are there any benefits to me as as Registered Viewer? </b></p>
-                                 <p>Absolutely.  As a registered Viewer you receive a number of benefits, all of which are free.  You pay no Fees to access any of the Services provided to you as a Viewer.  Benefits include:</p>
+                                 <p>Absolutely.  As a registered Viewer you receive a number of benefits, all of which are free.  
+                                    You pay no Fees to access any of the Services provided to you as a Viewer.  Benefits include:</p>
                              </div>
                          </div>
                      </div>
-                                                 <div class="table-responsive-sm">
+                            <div class="table-responsive-sm">
                                 <table class="table" style="border: 1px;">
                                     <thead>
                                     <tr>
@@ -228,21 +225,17 @@
                                      promote any advertising, marketing or third party approaches on the Website. We do
                                      not even permit competitor platforms to advertise on the Website. Profiles are not
                                      permitted to advertise any third party promoters or marketing material, not even “Only
-                                     Fans” or any similar websites for example.
-                                 </p>
-                                 <p>
-                                     To the greatest extent possible, the Website is coded to limit or prohibit ‘big tech’ from crawling over your information while logged on.
-                                 </p>
+                                     Fans” or any similar websites for example.</p><br>
+                                 <p>To the greatest extent possible, the Website is coded to limit or prohibit 'big tech' from crawling over your information while logged on.</p><br>
                              </div>
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: Can Advertisers market to me?</b></p>
                                  <p>No. Unless you enable the "Alert" feature with a favourite Advertiser, and they choose
-                                     to use the feature, you will not receive any material or notifications.
-                                 </p>
+                                     to use the feature, you will not receive any material or notifications.</p><br>
                                  <p><b>How can I see an Escort's Playbox?</b></p>
-                                 <p>Whenever an Escort posts a Profile, anywhere in Australia, if the Escort has My Playbox enabled, then the ‘My Playbox’ icon will appear on the Profile. Simply click the My Playbox icon and it will take you to the Escort’s Playbox page.</p>
-                                
-                                </div>
+                                 <p>Whenever an Escort posts a Profile, anywhere in Australia, if the Escort has My Playbox enabled, then the 'My Playbox' 
+                                    icon will appear on the Profile. Simply click the My Playbox icon and it will take you to the Escort's My Playbox page.</p><br>
+                              </div>
                          </div>
                      </div>
                  </div>
@@ -261,21 +254,17 @@
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: How much will it cost me to be a Member?</b></p>
                                  <p>Absolutely nothing.  Subscription to the Website is absolutely free. There are absolutely no
-                                     Fees to pay. There are no restrictions to any of the Services or to Advertisers.
-                                 </p>
+                                     Fees to pay. There are no restrictions to any of the Services or to the Advertisers.</p><br>
                              </div>
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: Can I pay an Escort through the Website?</b></p>
                                  <p>Absolutely not. Escorts4U does not act as agent for Advertisers. You need to
-                                     speak to the Advertiser to ascertain what are their payment options. A Profile
-                                     will usually display payment options with an Advertiser.
-                                 </p>
+                                     speak to the Advertiser directly to ascertain what are their payment options. A Profile
+                                     will usually display payment options with an Advertiser.</p><br>
                              </div>
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: Are there any payments I need to make? </b></p>
-                                 <p>No. As a Viewer there are no charges to be a subscriber to the Website.
-                                     Absolutely none.
-                                 </p>
+                                 <p>No. As a Viewer there are no charges to be a subscriber to the Website.  Absolutely none.</p>
                                  
                              </div>
                              

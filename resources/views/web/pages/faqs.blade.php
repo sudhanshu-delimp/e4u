@@ -419,7 +419,7 @@
                            <td>Free</td>
                            <td>
                               <p>Free Membership ranks behind Silver.</p>
-                              <p>Escort Profile Page: You will appear after paid listings in all Search Page
+                              <p>Escort Listing Page: You will appear after paid listings in all Search Page
                                  results and Profile shortlist displays.
                               </p>
                               <div class="tb-flex">

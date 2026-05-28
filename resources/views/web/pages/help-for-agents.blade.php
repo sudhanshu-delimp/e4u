@@ -50,24 +50,25 @@
                                  <li> Commission structure </li>
                              </ul>
                              <p>
-                                 The Agent Agreement appointment is for a set time with options to renew.
-                             </p>
+                                 The Agent Agreement appointment is for a set time with options to renew.  You will also be required
+                                 to undertake a formal appointment process.
+                             </p><br>
                              
                         </div>
 
                         <div class="col-sm-12">
                          <p class="pt-2"><b>Q: What communication tools will be available to me? </b></p>
-                          <p>You will have an email account allocated you for all communications to Escorts4U,
-                             Advertisers and prospective Members. Your email account will be styled: agent.[territory]@e4u.com.au.</p>
-                         <p>We will also provide you with business cards.</p>
+                          <p>You will have an email account allocated to you for all communications to Escorts4U,
+                             Advertisers and prospective Members. Your email account will be styled: agent.[territory]@e4u.com.au.</p><br>
+                         <p>We will also provide you with business cards.</p><br>
                              
                      </div>
 
                      <div class="col-sm-12">
                          <p class="pt-2"><b>Q: Will I have access to all my clients Accounts?</b></p>
                           <p>Yes you absolutely will. You will have access to Profile Information, Profile and Tour
-                             creator and the Archive Folder, as well as to the Concierge Services.
-                             </p>
+                             creator and the Archive Folder, as well as to the Concierge Services and the clients Account settings.
+                             </p><br>
                      </div>
 
                      <div class="col-sm-12">
@@ -77,30 +78,32 @@
                        </p>
                        
                        <ul>
-                         <li>Proposal to a Massage Centre to become a Member</li>
-                         <li>Information about the Services</li>
+                         <li>Templated proposal documents to a Massage Centre to become a Member (auto generated within your Agent Console)</li>
+                         <li>Detailed information about the Services</li>
                        </ul>
                        <p>
                          All of the marketing material is loaded in your Dashboard. You simply pull up the
-                         document you want to use, insert the addressee’s information, save the document to a
+                         document you want to use, insert the addressee's information, save the document to a
                          folder and then print the document in either soft or hard form. Marketing materials are
                          designed to summarise to the prospective Member information about the relevant area
                          of Escorts4U you are targeting. You can print the document to take with you to a
                          meeting, or email it in pdf format to the prospective member.                            
-                       </p>
+                       </p><br>
+                       <p>You can create prospects lists by postcode, as well as manage your appointments and tasks from your Dashboard.
+                        </p><br>
                      </div>
 
                      <div class="col-sm-12">
                          <p class="pt-2"><b>Q: Can I use my own marketing material?</b></p>
                           <p>No. You must use the Escorts4U marketing material unless your material is approved
-                             by us.</p>
+                             by us.</p><br>
                              
                      </div>
 
                      <div class="col-sm-12">
                          <p class="pt-2"><b>Q: Is there any training?</b></p>
                           <p>
-                             Yes there is. Training is provided for free. Usually over three sessions totaling ten to
+                             Yes there certainly is. Training is provided for free. Usually over three sessions totaling ten to
                              twelve hours.
                           </p>
                     
@@ -125,28 +128,40 @@
                        <div class="col-sm-12">
                        <p class="pt-2"><b>Q: What is an Agent?</p></b>
                        <p>
-                         An Agent is a person or entity, appointed by Escorts4U, that assists Advertisers in the management of their Profiles, Tours and Account.
-                                       
-                   </div>
+                         An Agent is a person or entity, appointed by Escorts4U, that assists Advertisers in the management of their Profiles, Tours, Media and Account.</p><br>
+                     </div>
                       <div class="col-sm-12">
                           <P class="pt-2"><b>Q: How do I apply to become an Agent?</b></P>
                            <ul class="list-step">
-                               <li><span>Step 1.  </span> You land on the Website hover over “Register” located at the top right
+                             <li><span>Step 1.  </span> You land on the Website hover over “Register” located at the top right
                                  hand corner and click “Agent Registration”.</li>
                              <li><span>Step 2.  </span> Complete the information fields.</li>
                              <li><span>Step 3.  </span> Click the “Register” button.</li>
                            </ul>
                            <p>
-                             Someone from our support team will be in touch with you within 24 hours.
-                           </p>
+                             Someone from our support team, or Agency Management (Australia) Pty Ltd, will be in touch with you within 24 hours.
+                           </p><br>
                       </div>
-
+                        <div class="col-sm-12">
+                          <P class="pt-2"><b>Q: Who is Agency Management (Australia) Pty Ltd?</b></P>
+                        <p>Agency Management (Australia) Pty Ltd is the Company's appointed recruitment provider.  Their role is to:</p>
+                          <ul>
+                             <li>Recruit Agents and appoint them to an E4U Territory</li>
+                             <li>Train Agents on how the E4U system (Platform) works</li>
+                             <li>Manage Agents ensuring compliance with their Agent Agreement; and</li>
+                             <li>Provide support and mentor services to the Agents</li>
+                           </ul>
+                           <p>A Territory is a State within Australia, like for example New South Wales.  The appointment of an Agent to a Territory is not exclusive, 
+                            but the number of appointments is limited to each Territory.</p><br>
+                           <p>Someone from our support team, or Agency Management (Australia) Pty Ltd, will be in touch with you within 24 hours.
+                           </p><br>
+                      </div>
                       <div class="col-sm-12">
                        <p class="pt-2"><b>Q: Will I get a confirmation of my application to become an Agent?</p></b>
                        <p>
                          Yes you will. Escorts4U will forward to you by email a confirmation that we have
                          received your application. The confirmation will contain a reference number for you to
-                         quote if any follow up is required.
+                         quote if any follow up is required.</p><br>
                          
                      
                    </div>
@@ -155,7 +170,7 @@
                        <P class="pt-2"><b>Q: How do I get in touch with Escorts4U if I have any queries?</b></p>
                         <p>
                          You can forward an email to our support team anytime. Please allow us some time to
-                         get back to you. We will get back to you within 24 hours, usually sooner.
+                         get back to you. We will usually get back to you within 24 hours, or sooner.</p><br>
                        
                    </div>
 
@@ -164,13 +179,13 @@
                      <p>
                          Yes. It is up to you as to which form of entity you wish to be, sole trader or an
                          incorporated company. You will need to be registered for GST as well.                           
-                     </p>
+                     </p><br>
                     <p>
                      Escorts4U can assist you with putting into place the entity you wish to use. That
                      assistance is only with the putting into place the entity type, we do not provide advice
                      on which type of entity is best suited to you. You need to get your own advice from an
                      accountant in that regard.
-                    </p>
+                    </p><br>
                    </div>
                    <div class="col-sm-12">
                        <p class="pt-2"><b>Q: Can Escorts4U put me in touch with an accountant?</b></p>
@@ -180,19 +195,19 @@
                          choose an accountant that is nearest to you. When you contact the accounting
                          practice, mention you are wanting to make an appointment to discuss becoming an
                          Agent for Escorts4U.
-                       </p>
+                       </p><br>
                        <p>
                          Escorts4U has no financial arrangements with any of the accounting practices. We do
                          not pay any commissions to the accounting practices.                            
-                       </p>
+                       </p><br>
                    </div>
                    
                    <div class="col-sm-12">
                        <p class="pt-2"><b>Q: Will I have exclusivity to the area I am appointed in?</b></p>
                        <p>
-                         No. Your appointment is a non-exclusive appointment within a Location. It is not our
-                         practice to appoint more than 3 Agents to each Location. It is our view that 3 Agents
-                         is adequate to service all of the Advertisers needs in any Location.
+                         No. Your appointment is a non-exclusive appointment within a Territory, like for example, NSW. It is not our
+                         practice to appoint more than 3 Agents to each Territory. It is our view that 3 Agents
+                         is adequate to service all of the Advertisers needs in any Territory, usually metro and country.
                        </p>
                        
                    </div>
@@ -217,11 +232,11 @@
                              <p class="pt-2"><b>Q: What is the basis of how am I paid?</b> </p>
                              <p>
                                  You are paid a Commission based upon your successes with recruiting Massage
-                                 Centres and Escorts to become a Member and on their respective advertising with us. 
+                                 Centres and Escorts to become a Member of Escorts4U and on their respective advertising with us. 
                                  Your commission is calculated on:
-                             </p>
+                             </p><br>
                              <ul>
-                                 <li>A set payment for each Massage Centre irrespective of whether they advertise with us or not</li>
+                                 <li>A set payment for each Massage Centre who becomes a Member irrespective of whether they advertise with us or not</li>
                                  <li>A set percentage rate of 5% for all advertising placed with us by the Advertiser</li>
                              </ul>
                          </div>
@@ -230,14 +245,14 @@
                              <p class="pt-2"><b>Q: Can I see a report on the Commission?</b></p>
                              <p>
                                  Yes you can. Each month you are sent a report setting out the results of new
-                                 Members and advertising spent by the Advertisers. You will have an opportunity to
+                                 and current Members and their advertising spend. You will have an opportunity to
                                  review the report and raise any queries before payment is made to you.                       
-                             </p>
+                             </p><br>
                              <p>
-                                 You can also look up an Advertiser’s ongoing spend by logging onto the Website and
+                                 You can also look up an Advertiser's ongoing spend by logging onto the Website and
                                  going to your Dashboard.
                                  
-                             </p>
+                             </p><br>
                          </div>
                      
                          <div class="col-sm-12">
@@ -290,7 +305,7 @@
                           <p>
                              Escorts4U will assist you will all of these tasks, in particular, through your Dashboard,
                              access to a Massage Centre database to assist you with making appointments.
-                          </p>
+                          </p><br>
                           <p>
                              Generally, you are expected to:
                           </p>
@@ -298,7 +313,7 @@
                               <li>have the required knowledge base</li>
                               <li>expedite the notification of User problems and complaints to E4U so as to maximise a speedy resolution</li>
                               <li>analyse the territory/market potential, track sales and status reports through the Agent Log </li>
-                              <li>provide E4U with reports on User needs, problems, interests, competitive activities,and potential for new products and services</li>
+                              <li>provide E4U with reports on User needs, problems, interests, competitive activities, and potential for new products and services</li>
                               <li>keep abreast of best practices and promotional trends</li>
                               <li>continuously improve through feedback</li>
                           </ul>
@@ -308,7 +323,7 @@
                        <p class="pt-2"><b>Q: Can I provide other services to Advertisers?</b></p>
                        <p>
                          Yes you can. Provided they are not services linked to another advertising website for Escorts or Massage Centres.
-                      </p>
+                      </p><br>
                    </div>
                    
                    <div class="col-sm-12">
@@ -317,7 +332,7 @@
                          Yes we will, but only to the extent you need us to. As an Agent, you are expected to
                          look after you interests under the Agent Agreement. The Agent Agreement is very
                          comprehensive and sets out in a very clear manner what is expected of you as an Agent.
-                        </p>
+                        </p><br>
                        
                    </div>
 
@@ -328,7 +343,7 @@
                          Website and its administrative processes. Whist you are an independent operator
                          under the Agent Agreement, we do work closely with you and encourage you to be a
                          part of the team.
-                     </p>
+                     </p><br>
                     <p>
                     
                    </div>
@@ -337,10 +352,10 @@
                      <p class="pt-2"><b>Q: As an Agent, can I communicate with other Agents?</b></p>
                   <p>
                      Yes you can. It is not encouraged but if you feel the need to discuss matters with
-                     other Agents then you can do so. We do not permit Agents from one Location to
-                     conduct business in another Location. Whilst the Agent Agreement is a non-exclusive
+                     other Agents then you can do so. We do not permit Agents from one Territory to
+                     conduct business in another Territory. Whilst the Agent Agreement is a non-exclusive
                      agreement, it is limited to the Territory named in the Agent Agreement.                        
-                  </p>
+                  </p><br>
 
                  </div>
                     
@@ -351,7 +366,7 @@
                          encouraged to build a close working relationship with Advertisers who have appointed
                          you. You are also encouraged to meet with and hopefully persuade other Advertisers
                          to engage you as their Agent.
-                     </p>
+                     </p><br>
                  </div>
 
                  <div class="col-sm-12">
