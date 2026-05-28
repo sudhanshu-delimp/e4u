@@ -1,6 +1,44 @@
 console.log('Common JS Loaded');
+
+var initJsDatePicker = function () {
+    var $inputs = $(".js_datepicker");
+    if ($inputs.length > 0) {
+        $inputs.attr('placeholder', 'DD-MM-YYYY');
+        $inputs.attr('autocomplete', 'off');
+        $inputs.each(function () {
+            let options = {
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                showAnim: "slideDown",
+                onSelect: function (dateText) {
+                    $(this).trigger('change');
+                }
+            };
+            // Start from today
+            if ($(this).hasClass('min_today')) {
+                options.minDate = 0;
+            }
+            $(this).datepicker(options);
+        });
+    }
+}
+
+initJsDatePicker();
+
+$(document).on('input', '.only_digits', function () {
+    this.value = this.value.replace(/\D/g, '');
+});
+
+$(document).on('input', '.only_digits_decimal', function () {
+    this.value = this.value
+        .replace(/[^0-9.]/g, '')   // allow digits + dot
+        .replace(/(\..*?)\..*/g, '$1'); // allow only ONE dot
+});
+
+
 function date_time_format(dateString) {
-   
+
     const date = new Date(dateString.replace(" ", "T") + "Z");
     const options = {
         year: 'numeric',
@@ -20,12 +58,12 @@ function date_time_format(dateString) {
 // console.log(date_time_format("2025-08-21 08:15:52")); 
 
 function swal_fire(message) {
- Swal.fire(message);
+    Swal.fire(message);
 }
 
-function swal_success_popup(message,redirect = null) {
+function swal_success_popup(message, redirect = null) {
 
-     let config = {
+    let config = {
         title: message ? message : 'Action Performed',
         icon: "success",
         draggable: true,
@@ -47,24 +85,24 @@ function swal_success_popup(message,redirect = null) {
 
 function swal_error_popup(message) {
 
-      Swal.fire({
-      title: (message) ? message : 'Action could not performed',
-      icon: "error",
-      draggable: true,
-      allowOutsideClick: false,
+    Swal.fire({
+        title: (message) ? message : 'Action could not performed',
+        icon: "error",
+        draggable: true,
+        allowOutsideClick: false,
         allowEscapeKey: false,
     });
 }
 
-function swal_error_warning(titile,message) {
-    Swal.fire((titile) ? titile : '',(message) ? message : '', 'warning' );       
+function swal_error_warning(titile, message) {
+    Swal.fire((titile) ? titile : '', (message) ? message : '', 'warning');
 }
 
 function swal_waiting_popup(data) {
 
     let gif_img = `<img src="../../assets/img/wait_loader.gif" alt="loading..." style="width:80px; margin-top:10px;">`;
-    let my_html  = (data.title) ? '<p>'+data.title+'</p>'+gif_img  :  '<p>Processing your request...</p>'+gif_img;
-        Swal.fire({
+    let my_html = (data.title) ? '<p>' + data.title + '</p>' + gif_img : '<p>Processing your request...</p>' + gif_img;
+    Swal.fire({
         title: 'Please wait...',
         html: my_html,
         showConfirmButton: false,
@@ -75,7 +113,7 @@ function swal_waiting_popup(data) {
 
 async function isConfirm(data = {}) {
 
-   
+
 
     const result = await Swal.fire({
         title: (data?.title == 'NA' ? "" : "Are you sure ?"),
@@ -87,23 +125,22 @@ async function isConfirm(data = {}) {
         confirmButtonText: "Yes, " + (data.action ? data.action : 'do') + " it!",
         cancelButtonText: data.cancelText ? data.cancelText : "Cancel",
         showDenyButton: data.is_third_button ? true : false,
-         denyButtonText: data.is_third_button 
-            ? (data.third_button_text ? data.third_button_text : "Save it & add another ") 
+        denyButtonText: data.is_third_button
+            ? (data.third_button_text ? data.third_button_text : "Save it & add another ")
             : undefined,
 
-        denyButtonColor: data.is_third_button 
-            ? (data.third_button_color ? data.third_button_color : "#0c223d") 
+        denyButtonColor: data.is_third_button
+            ? (data.third_button_color ? data.third_button_color : "#0c223d")
             : undefined,
 
-        
+
     });
 
     if (result.isConfirmed) {
         return true;
-    } 
-    else if (result.isDenied) 
-    {
-        return "redirect"; 
+    }
+    else if (result.isDenied) {
+        return "redirect";
     }
     else {
         return false;
@@ -127,8 +164,8 @@ function ajaxRequest({
     });
 }
 
-function swal_error_warning(titile,message) {
-    Swal.fire((titile) ? titile : '',(message) ? message : '', 'warning' );       
+function swal_error_warning(titile, message) {
+    Swal.fire((titile) ? titile : '', (message) ? message : '', 'warning');
 }
 
 function addOrUpdateHiddenInput(formId, name, value) {
@@ -151,62 +188,62 @@ function addOrUpdateHiddenInput(formId, name, value) {
 }
 
 
-var getStatusOption = (xhr)=>{
-    let icon,title;
+var getStatusOption = (xhr) => {
+    let icon, title;
     let res = xhr.responseJSON || JSON.parse(xhr.responseText.trim());
     console.log(`Response is..`);
     console.log(res);
     let message = res?.message || res?.gateway || 'Something went wrong';
     switch (xhr.status) {
         case 200:
-        icon = 'success';
-        title = title? title:'Success';
-        break;
+            icon = 'success';
+            title = title ? title : 'Success';
+            break;
 
         case 400:
-        icon = 'warning';
-        title = 'Bad Request';
-        break;
+            icon = 'warning';
+            title = 'Bad Request';
+            break;
 
         case 401:
-        icon = 'warning';
-        title = 'Unauthorized';
-        message = 'Your session has expired. Please login again.';
-        break;
+            icon = 'warning';
+            title = 'Unauthorized';
+            message = 'Your session has expired. Please login again.';
+            break;
 
         case 403:
-        icon = 'warning';
-        title = 'Forbidden';
-        break;
+            icon = 'warning';
+            title = 'Forbidden';
+            break;
 
         case 404:
-        icon = 'info';
-        title = 'Not Found';
-        break;
+            icon = 'info';
+            title = 'Not Found';
+            break;
 
         case 419:
-        icon = 'warning';
-        title = 'Unauthorized';
-        break;
+            icon = 'warning';
+            title = 'Unauthorized';
+            break;
 
         case 422:
-        icon = 'warning';
-        title = 'Validation Error';
+            icon = 'warning';
+            title = 'Validation Error';
 
-        // Show validation errors if exist
-        if (res?.errors) {
-            message = Object.values(res.errors).flat().join('\n');
-        }
-        break;
+            // Show validation errors if exist
+            if (res?.errors) {
+                message = Object.values(res.errors).flat().join('\n');
+            }
+            break;
 
         case 500:
-        icon = 'error';
-        title = 'Server Error';
-        break;
+            icon = 'error';
+            title = 'Server Error';
+            break;
 
         default:
-        icon = 'error';
-        title = 'Error';
+            icon = 'error';
+            title = 'Error';
     }
-    return {icon, title, message};
+    return { icon, title, message };
 }
