@@ -90,6 +90,11 @@ class OtherCenterController extends Controller
             $row->access_permitted = ($row->is_access_granted) ? 'Yes' : 'No';
 
             $links = "";
+            $label = "";
+            if($row->is_access_granted)
+            $label = '<sup class="playmate_icon listing-tag-tooltip ml-1">Accessed</sup>';
+
+            $display_name = "<span class='grant-access'>".$row->name.$label."</span>";            
 
             if($row->is_access_granted)
             {
@@ -102,7 +107,7 @@ class OtherCenterController extends Controller
              if(!$row->is_access_granted)
              $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-grant-access" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Grant Access</a>'; 
             
-            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center login_center" data-row-id="'.$row->id.'" href="javascript:void(0)"> <i class="fa fa-random"></i> Access Centre</a>';  
+            //$links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center login_center" data-row-id="'.$row->id.'" href="javascript:void(0)"> <i class="fa fa-random"></i> Access Centre</a>';  
             $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-center-btn" href="javascript:void(0)" data-row=\''.json_encode($row).'\'  href="javascript:void(0)">   <i class="fa fa-eye"></i> View</a>'; 
             
             $action = '<div class="dropdown no-arrow">
@@ -122,17 +127,14 @@ class OtherCenterController extends Controller
 
             return [
                 'member_id' => $row->member_id,
-                'name' => $row->name,
+                'name' => $display_name,
                 'entity_name' => $row->entity_name,
                 'business_address' => $row->business_address,
                 'business_number' => $row->business_number,
                 'mobile' => $row->phone,
                 'email' => $row->email,
-                'status' => $row->status_text,
-                'access_granted' => $row->access_permitted,
+                'status' => $statusText,
                 'action' => $action,
-                
-
             ];
         });  
 
@@ -232,7 +234,7 @@ class OtherCenterController extends Controller
         ]);
 
         return redirect('/center-dashboard')
-            ->with('success', 'Back to parent account');
+            ->with('success', "Switched back to ".Auth::user()->name." account");
     }
 
 
@@ -274,7 +276,7 @@ class OtherCenterController extends Controller
 
         Auth::login($childUser);
 
-        return redirect('/center-dashboard')->with('success', 'Logged in as child account');
+        return redirect('/center-dashboard')->with('success', 'Logged in as '.Auth::user()->name);
     }
 
 }

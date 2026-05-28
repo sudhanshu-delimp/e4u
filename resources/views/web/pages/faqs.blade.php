@@ -392,9 +392,10 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>Platinum</td>
+                           <td>Platinum<br>Gold<br>Silver</td>
                            <td>
-                              <p>Platinum Membership always ranks at the top of the Escort Listing page.</p>
+                              <p>Platinum Membership always ranks at the top of the Escort Listing page, followed by Gold then Silver.  Each of these Membership Types
+                                 are separated within the Listing Page.</p>
                               <div class="tb-flex">
                                  <p><b>Grid View:  </b></p>
                                  <p>Your Thumbnail photo, Stage Name, Verification status, Location, age, hourly rate, services,
@@ -413,185 +414,112 @@
                               </div>
                            </td>
                         </tr>
-                        <tr>
-                           <td>Gold</td>
-                           <td>
-                              <p>Gold Membership ranks behind Platinum and before Silver.There are </p>
-                              <div class="tb-flex">
-                                 <p><b>List View: </b></p>
-                                 <p>Your Thumbnail photo is 112px x 157px. Rates, review rating,
-                                    available to, verification and your 'Who I am' are displayed.
-                                 </p>
-                              </div>
-                              <div class="tb-flex">
-                                 <p><b>Grid View:  </b></p>
-                                 <p>Your Thumbnail photo is 163px x 229px. Hourly rate, services,
-                                    gender, orientation and view rating are included in the display.
-                                 </p>
-                              </div>
-                              <div class="tb-flex">
-                                 <p><b>Profile Page:  </b></p>
-                                 <p>A comprehensive and informative summary about you. Your
-                                    Thumbnail is 420px x 600px together with 6 additional photos
-                                    and a video player 640px x 360px. All photos and the video
-                                    can pop up.
-                                 </p>
-                              </div>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Silver</td>
-                           <td>
-                              <p>Silver Membership ranks behind Gold and before Free.</p>
-                              <div class="tb-flex">
-                                 <p><b>List View: </b></p>
-                                 <p>Your Thumbnail photo is 102px x 144px. Review rating,
-                                    available to, verification and your 'Who I am' are displayed.
-                                 </p>
-                              </div>
-                              <div class="tb-flex">
-                                 <p><b>Grid View:  </b></p>
-                                 <p>Your Thumbnail photo is 136px x 191px. Hourly rate, services,
-                                    gender, orientation and view rating are included in the display.
-                                 </p>
-                              </div>
-                              <div class="tb-flex">
-                                 <p><b>Profile Page:  </b></p>
-                                 <p>A comprehensive and informative summary about you. Your
-                                    Thumbnail is 420px x 600px together with 6 additional photos
-                                    and a video player 640px x 360px. All photos and the video can
-                                    pop up
-                                 </p>
-                              </div>
-                           </td>
-                        </tr>
+                        
                         <tr>
                            <td>Free</td>
                            <td>
                               <p>Free Membership ranks behind Silver.</p>
-                              <p>Escort Home Page: You will appear after paid listings in all Search Page
+                              <p>Escort Profile Page: You will appear after paid listings in all Search Page
                                  results and Profile shortlist displays.
                               </p>
                               <div class="tb-flex">
-                                 <p><b>List View: </b></p>
-                                 <p>Your Thumbnail is displayed as a silhouette 79px x 116px.
-                                    Available to and your 'Who I am' are displayed.
-                                 </p>
+                                 <p><b>Grid View: </b></p>
+                                 <p>Your Thumbnail photo, Stage Name, Verification status, Location, age, hourly rate, services,
+                                    gender, orientation and view rating are included in the display.</p>
                               </div>
                               <div class="tb-flex">
-                                 <p><b>Grid View:  </b></p>
-                                 <p>Your Thumbnail is displayed as a silhouette 100px x 145px.
-                                    Hourly rate and services are included in the display.
-                                 </p>
+                                 <p><b>List View:  </b></p>
+                                 <p>Your Thumbnail photo, Stage Name, Verification status, rates, review rating,
+                                    available to, My Playbox status, start and finish dates and your 'Who I am' are displayed.</p>
                               </div>
                               <div class="tb-flex">
                                  <p><b>Profile Page:  </b></p>
-                                 <p>A comprehensive and informative summary about you. Your
-                                    thumbnail photo is 420px x 600px together with 6 additional
-                                    photos 100px x 100px. No video is available. All photos can
-                                    pop up.
-                                 </p>
+                                 <p>A comprehensive and informative summary about you. Displayed is your Thumbnail and default galery images, video,
+                                    availability, Rates, My Playmates, About Me, Statistics, Who Am I, My Service, Deposit details, together with policies,
+                                    legal statements, Reviews and tips.</p><br>
                               </div>
                               <p>If you receive over a certain number of Profile views or telephone number
                                  clicks during the free 14 day period you will be informed and notified to
-                                 upgrade to a paying Membership Type. 
-                              </p>
+                                 upgrade to a paying Membership Type.</p><br>
                               <p>We do this to provide for the fairest distribution of leads between our Free
                                  Members. If you do not elect to become a paying Member, your Profile will be
                                  suspended. You will still be able to log onto your Account at any time to
-                                 upgrade your Membership Type.
-                              </p>
+                                 upgrade your Membership Type.</p>
                            </td>
                         </tr>
                      </tbody>
                   </table>
                   <p><b>Q: What do I have to do to create a Profile?</b></p>
                   <p>There are two steps to creating your Profile. First you set up your Account, including
-                     your Additional Information, which is referred to as My Account, and then from within
-                     your Dashboard you create Profiles to advertise. You can create many profiles, for
-                     example, a Profile for each city you visit or two Profiles within a Location. Like
-                     ‘Perth01’ and ‘Perth02’. The difference may only be your Profile Name and the
-                     published Media.
-                  </p>
+                     your Additional Information, which we referr to as My Account, and then from within
+                     your Dashboard you create Profiles to advertise. You can create as many Profiles as you want, for
+                     example, a Profile for each city you visit when Touring or perhaps two Profiles within a Location. Like
+                     'Perth01' and 'Perth02'. The difference may only be your Stage Name and your Media, it is up to you.
+                  </p><br>
                   <p>Although there may only be subtle differences between Profiles, you have the
                      convenience of activating the right Profile already configured for the city you are
                      visiting without having to edit the one Profile every time you travel to another Location. 
-                     You have a 'Default Profile' in your Archives Folder which you use to create new
+                     You have a 'Default Profile' in your Archives folder which you use to create new
                      Profiles for Locations, or even more then one Profile for a Location.
-                  </p>
+                  </p><br>
                   <p>You can create a Profile at any time after registering on the <a class="c-red" href="{{ url('advertiser-register')}}">registration page</a>. It is a
                      very quick and easy process to follow. You can create a Profile in less than 5 minutes. 
                      You can also request our assistance or better still, request the services of an Agent 
                      who can help you create your Profile/s and manage your Account generally, along with
                      many other services.
-                  </p>
+                  </p><br>
                   <p><b>Q: How many images and video can I have in my Profile?</b></p>
                   <p>You can have a maximum of seven photo images, including the Thumbnail,
                      irrespective of your Membership Type with your Thumbnail acting as the default image
-                     displayed on the Escort Home Page (except for Free Membership). Platinum and
-                     Gold Members can also upload a maximum of three videos as well as their photos
-                     being displayed in a larger format than other Membership Types on the Escort Home
-                     Page in both List View and Grid View.
-                  </p>
-                  <p>Your can retain many photos and video in your Archive Folder, but you are limited to
+                     displayed on your Profile Page. You can also upload a maximum of three videos which are displayed with your other Media.</p><br>
+                  <p>Your can retain up to 30 photos and 6 videos in your Archive folder, but you are limited to
                      the number of photos and video permitted in a Profile.
-                  </p>
+                  </p><br>
                   <p><b>Q: How long does it take for my advertisement to go online?</b></p>
-                  <p>When you create a Profile and pay the Fee, the Profile is published immediately. If
-                     you have included Verified Photos in the Profile, our support team, whilst they will
-                     have a report advising us you have posted the Profile, will not necessarily review the
-                     Profile.
-                  </p>
-                  <p>If the Profile you have posted does not contain Verified Photos, then our support team
+                  <p>When you create a Profile and pay the Fee, the Profile is Listed immediately. Your Media Media will display
+                     the appropriate Verification icon according to the status at the time, being either Pending, Verified or Unverified.</p><br>
+                  <p>If the Profile you have Listed does not contain Verified Photos, then our support team
                      will review the Profile to check the Media is compliant with the Classification Laws. 
-                     The review of your Profile will be completed within 24 hours. If the Profile is deemed
+                     The review of your Profile will be completed usually within 24 hours. If the Profile is deemed
                      to be non-compliant, then the Profile will be suspended and you will be notified by
                      email. You will have the option to edit the Profile which will then be immediately
-                     posted and the support team will again review the Profile, if any of the Media is not
-                     verified.
-                  </p>
+                     Listed and the support team will again review your Media, if any of your Media has not been verified.</p><br>
                   <p>All Media which is verified will be displayed with an E4U Verification Icon (see <a class="c-red" href="{{ url('abbreviations')}}">Website
-                          Icons</a>).
-                  </p>
+                          Icons</a>).</p><br>
                   <p>During the review of your Profile, if the Profile is suspended for more than one day,
                      and the Fee paid includes the supended period, then the Fee will be credited back to
-                     you.
-                  </p>
+                     you.</p><br>
                   <p><b>Q:How can I maximise my presence?</b></p>
                   <p>Most Escorts usually advertise on a number of websites. When advertising on another
                      website, include your website address to Escorts4U. For example,
                      www.escorts4u.com.au/123456 (your Profile ID Number). Over time your clients,
-                     when you re-direct them to this Website, will conclude this is the better website to find
-                     you.
-                  </p>
+                     when you re-direct them to our Website, will conclude this is the better website to find
+                     you.</p><br>
                   <p><b>Q:Do I need to have professional photography?</b></p>
                   <p>We recommend that your Media is professional in quality. But it is entirely up to you.
                      Self images are fine but you should always bear in mind that the more professional the
-                     photos, the better your chances of attracting clients. Overall though, your photos do
+                     photos, the better your chances of attracting companions. Overall though, your photos do
                      not need to be taken by a professional photographer, but must have a good quality
                      finish. Remembering, the higher quality images you provide, the more striking
-                     presentation we can make for you.
-                  </p>
+                     presentation we can make for you.</p><br>
                   <p>It is important that images have a certain mood, atmosphere and sensuality. This is
                      essential in order to capture the attention of your potential clients, and leave them
                      wanting to see more. Try not to have obscure or misleading photos. Any Media
                      where the face is not present or obscure may be rejected.
-                  </p>
+                  </p><br>
                   <p><b>Q:Can you recommend any professional photographers?</b></p>
                   <p>We do not provide any recommendations for professional photographers. You will
-                     need to speak to your colleagues or use good old "Google".
-                  </p>
+                     need to speak to your colleagues, your Agent if you have appointed one, or use good old "Google".
+                  </p><br>
                   <p><b>Q:Can I advertise with you if I am working for an Massage Centre?</b></p>
                   <p>Absolutely. You can have your own Account and post Profiles whenever you want as
-                     well as being included in the Massage Profile should the Massage Centre also
+                     well as being included in the Massage Centre Profile should the Massage Centre also
                      register. Just remember, by registering and creating your own Account, you are
-                     considered to be an Escort for the purposes of posting a Profile.
-                  </p>
+                     considered to be an Escort for the purposes of Listing a Profile.</p><br>
                   <p><b>Q:How do I cancel my Membership?</b></p>
                   <p>Just send us a Support Ticket requesting we cancel your Membership and we will
                      attend to your request. Always retain your Membership Number. If you decide to join
-                     again, your Membership Number will assist you with re-registration.
-                  </p>
+                     again, your Membership Number will assist you with re-registration.</p>
                  
                </div>
             </div>
@@ -604,67 +532,63 @@
             <div class="content">
                <div class="accodien_manage_padding_content">
                   <p class="pt-4"><b>Q: I cannot login to My Account, what should I do?</b></p>
-                  <p>Check that you typed in the right email or password and that you have also entered in
+                  <p>Check that you typed in the right mobile number or email or password, as the case may be, and that you have also entered in
                      the correct SMS 2FA code that was texted to you. If you have lost your password, use
                      the “Forgot Your Password” link. Please be mindful that we do use SMS 2FA
                      verification when logging onto the Website. If you still have problems, please email us
                      at <a href="mailto:support@escorts4u.com.au">support@escorts4u.com.au</a> and include your <u>Membership Number</u> in the body of
                      the email.
-                  </p>
+                  </p><br>
                   <p><b>Q: I cannot upload and/or save my images, why?</b></p>
                   <p>Check the allowed image types below and then try again:</p>
                   <ul>
                      <li>photos must be .jpg or .png format</li>
-                     <li>photos must be portrait orientation</li>
+                     <li>gallery photos must be portrait orientation, and your Banner and Pin Up images should be landscape</li>
                      <li>the minimum height and width of the photos must be 500px</li>
                      <li>the proper ratio is 2/3 (width/height)</li>
                      <li>if your ratio is smaller then we will crop from the bottom</li>
                      <li>if your ratio is larger then we will crop from the sides</li>
                      <li>maximum allowed dimension is 4000x6000px</li>
                   </ul>
-                  <p>If you still have problems, please email us or preferably, log on and create a Support Ticket.</p>
-                  <p><b>Q: I have other questions, where can I send my messages?</b>
-                  </p>
-                  If you have any other technical or administrative questions, please email us or
-                  preferably, log on and create a Support Ticket.
+                  <p>If you still have problems, please email us or preferably, log on and create a Support Ticket.</p><br>
+                  <p><b>Q: I have other questions, where can I send my messages?</b></p>
+                  <p>If you have any other technical or administrative questions, please email us or
+                  preferably, log on and create a Support Ticket.</p><br>
                   <p><b>Q: Why does the Website have a Home State and Location?</b>
                   </p>
                   <p>By designating the Advertiser with a Home State, the Website will function more
-                     accurately when posting Profiles and Tours. For example, in Victoria you have the option to be registered under the Sex Work Act 1994 and display your SWA registration
+                     accurately when posting Profiles and Tours. For example, in Victoria you have the option to be 
+                     registered under the <i>Sex Work Act 1994</i> and display your SWA registration
                      number. When completing your Profile Information in the Dashboard, the Website will
-                     know to make the SWA number optional for you to include.</p>
-                  <p>
-                      Whereas, when you are on Tour, the Location is simply the State you are visiting.</p>
-                  <p>
-                     Geolocation technology is deployed in the Website. When you register, the Website
+                     know to make the SWA number optional for you to include.  Whereas, when you are on Tour, 
+                     the Location is simply the State you are visiting.</p><br>
+                  <p>Geolocation technology is deployed in the Website. When you register, the Website
                      will automatically know your Location and will then deem it your Home State, unless
                      you change it. Once you complete your registration, the Home State can not be
-                     changed.
-                  </p>
+                     changed.</p><br>
                   <p><b>Q:What exactly is SMS 2FA authentication?</b></p>
                   <p>Two-factor authentication (2FA) is an additional layer of end-user Account protection
                      beyond a password. It significantly decreases the risk of Account takeovers where a
                      hacker accesses banking, shopping, social media or other online accounts by
                      combining the password (something you know) with a second factor, like a one-time
                      passcode or push notification sent to your mobile phone (something you have).
-                  </p>
+                  </p><br>
                   <p><b>Q: Is SMS 2FA the same thing as two-step verification?</b></p>
                   <p>Yes. Websites refer to this security feature in several different ways: two-factor
-                     authentication (or 2FA), two-step verification (or 2-Step), multi-factor authentication
-                     and two-step authentication.
-                  </p>
+                     authentication (or 2FA), two-step verification (or 2-Step), one-time-password, multi-factor authentication
+                     and two-step authentication.</p><br>
                   <p><b>Q: How does SMS 2FA work?</b></p>
                   <p>This form of authentication is actually quite simple. After signing in, the User receives
                      a text message with an SMS authentication code. All they need to do is enter that
                      code into the field provided on the Website pop up to gain access. You have probably already
                      experienced this process yourself when logging into websites like Amazon, Facebook,
-                     Google, Twitter, and other services like banking.
-                  </p>
-                  <p>As a possession-based factor, SMS 2FA verifies a User’s identity based on something
+                     Google, X, and other services like banking.
+                  </p><br>
+                  <p>As a possession-based factor, SMS 2FA verifies a User's identity based on something
                      they own, like their mobile phone. This adds an extra layer of security to a login. In
-                     theory, bad actors would have to steal a User’s password and their mobile phone in
+                     theory, bad actors would have to steal a User's password and their mobile phone in
                      order to gain unauthorised access to your Account.
-                  </p>
+                  </p><br>
                   <p><b>Q: What if I lose my mobile phone?</b></p>
                   <p>If your mobile phone is lost or stolen you should immediately contact your mobile
                      phone provider to lock access to the device. Additionally, to prevent unwanted access
@@ -672,17 +596,17 @@
                      a best practice to utilise the lock feature in your phone's settings. You should set your
                      mobile phone to lock and require a password for use of the device when you are not
                      actively using it. 
-                  </p>
+                  </p><br>
                   <p>As a general guide on passwords, use different passwords across your accounts; use
                      a combination of special characters, numbers and both upper and lowercase letters;
                      avoid using passwords that include information that can be easily discovered online
                      like maiden names, high school mascots and phone numbers; do not create
                      passwords that are so complicated that they need to be written down or that require a
                      password reset on every login.
-                  </p>
+                  </p><br>
                   <p><b>Q: Do I have to use SMS 2FA verification to gain access to the Website and services?</b></p>
-                  <p>Yes.  But only to your Dashboard once you have registered.</p>
-                  <p><b>Does the Website work on any device/</b></p>
+                  <p>Yes.  But only to your Dashboard once you have registered.</p><br>
+                  <p><b>Does the Website work on any device?</b></p>
                   <p>Yes, absolutely.</p>
                  
 

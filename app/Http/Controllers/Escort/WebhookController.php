@@ -7,8 +7,10 @@ use App\Jobs\SendProductPurchaseMail;
 use App\Mail\Escort\Order\OrderMailToE4U;
 use App\Mail\Escort\Order\OrderMailToEscort;
 use App\Mail\Escort\Order\SendOrderMailToCondomMan;
+use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
 use App\Models\User;
+use App\Models\Wallet;
 use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -77,6 +79,9 @@ class WebhookController extends Controller
             // make payment history
             $pinPaymentService->handlePaymentHistory($paymentObject);
             SendProductPurchaseMail::dispatch($paymentObject);
+            if (isset($paymentObject['metadata']['wallet_amount']) && $paymentObject['metadata']['wallet_amount'] > 0) {
+              $pinPaymentService->handleWalletAmount($paymentObject['metadata']['user_id'], $paymentObject['metadata']['wallet_amount']);
+            }
             break;
 
           default:
@@ -88,7 +93,7 @@ class WebhookController extends Controller
         switch ($type) {
           case 'product-purchase':
             // make payment history
-            $pinPaymentService->handlePaymentHistory($paymentObject);
+            $this->handlePaymentHistoryStatus($paymentObject);
             break;
 
           default:
@@ -101,6 +106,22 @@ class WebhookController extends Controller
       return response()->json(['status' => 'ok'], 200);
     } catch (\Exception $e) {
       Log::info('Webhook handle error', [$e->getMessage()]);
+    }
+  }
+
+
+  public function handlePaymentHistoryStatus(array $handleWalletAmount)
+  {
+    try {
+
+      $paymentHistory =  PaymentHistory::where('transaction_id', $handleWalletAmount['token'])->first();
+      $paymentHistory->status = $handleWalletAmount['success'] ? 'success' : 'failed';
+      $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $handleWalletAmount['created_at'];
+
+      $paymentHistory->save();
+      return true;
+    } catch (\Exception $e) {
+      Log::info('', [$e->getMessage()]);
     }
   }
 }

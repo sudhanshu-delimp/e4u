@@ -28,10 +28,8 @@ class CreateProductOrdersTable extends Migration
         'pending=Awaiting payment,  paid=Payment captured,failed=Payment Failed, cancelled=Payment failed/cancelled'
       );;
       $table->string('payment_method')->nullable();
-      $table->decimal('sub_total', 10, 2)->default(0);
-      $table->decimal('total_amount', 10, 2)->default(0);
-      $table->decimal('tax_amount', 10, 2)->default(0);
-      $table->decimal('wallet_amount', 10, 2)->default(0);
+      // $table->decimal('sub_total', 10, 2)->default(0);
+      
       $table->decimal('delivery_charges', 10, 2)->default(0);
       $table->string('notes')->nullable();
       $table->string('payment_message')->nullable();

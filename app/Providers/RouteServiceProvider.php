@@ -84,7 +84,7 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/operator.php')); 
 
             Route::prefix('center-dashboard')
-                ->middleware(['web', 'center', 'HeaderInfo','TrackLoginUserInfo'])
+                ->middleware(['web', 'center', 'HeaderInfo','TrackLoginUserInfo','view.only'])
                 ->namespace('App\Http\Controllers\Center')
                 ->group(base_path('routes/center.php'));
 

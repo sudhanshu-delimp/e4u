@@ -797,13 +797,15 @@
                 return;
             }
 
-            let profile = $row.find('td:eq(1)').html();
-            let days = $row.find('td:eq(2)').html();
-            let ethnicity = $row.find('td:eq(3)').text();
-            let nationality = $row.find('td:eq(4)').text();
+            let member_id = $row.find('td:eq(1)').html();
+            let profile = $row.find('td:eq(2)').html();
+            let days = $row.find('td:eq(3)').html();
+            let ethnicity = $row.find('td:eq(4)').text();
+            let nationality = $row.find('td:eq(5)').text();
 
             let html = `
                 <tr data-id="${id}">
+                    <td>${member_id}</td>
                     <td>${profile}</td>
                     <td>${days}</td>
                     <td>${nationality}</td>
@@ -873,6 +875,11 @@
                     orderable: false,
                     searchable: false
                 },
+
+                {
+                    data: 'member_id'
+                },
+                
                 {
                     data: 'profile'
                 },
@@ -1063,6 +1070,7 @@
 
             columns: [
             
+                { data: 'member_id'},
                 { data: 'profile'},
                 { data: 'days' , class:'masseur_cus_width'},
                 { data: 'ethnicity' },

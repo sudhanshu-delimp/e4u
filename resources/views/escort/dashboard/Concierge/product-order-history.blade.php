@@ -51,9 +51,12 @@
                         <thead class="table-bg">
                             <tr>
                                 <th>Order ID</th>
-                                <th>Tax</th>
-                                <th>Shipping Charge</th>
+                                <th>User</th>
                                 <th>Sub Total</th>
+                                <th>Wallet Amount</th>
+                                <th>Shipping Charge</th>
+                                <th>Tax</th>
+
                                 <th>Total</th>
                                 <th>Payment Method</th>
                                 <th>Order Date</th>
@@ -79,7 +82,9 @@
                 </div>
             </div>
         </footer>
-        <div class="modal fade upload-modal" id="view-details" tabindex="-1">
+        <div class="modal fade upload-modal" id="view-details"  tabindex="-1"
+     data-backdrop="static" 
+     data-keyboard="false">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content basic-modal">
 
@@ -105,9 +110,9 @@
                     </div>
 
                     <div class="modal-footer">
-                        <a href="https://e4u.local/escort-dashboard/payments/28/print"
-                            class="btn btn-success-modal nex_sterp_btn print_payment_summary">🖨️ Print Report</a>
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                        {{-- <a href="https://e4u.local/escort-dashboard/payments/28/print"
+                            class="btn btn-success-modal nex_sterp_btn print_payment_summary">🖨️ Print Report</a> --}}
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -147,17 +152,27 @@
                         },
 
 
+                       
+                        
                         {
-                            data: 'tax_amount',
-                            name: 'tax_amount'
+                            data: 'user',
+                            name: 'user'
+                        },
+                        {
+                            data: 'sub_total',
+                            name: 'sub_total'
+                        },
+                        {
+                            data: 'wallet_amount',
+                            name: 'wallet_amount'
                         },
                         {
                             data: 'delivery_charges',
                             name: 'delivery_charges'
                         },
-                        {
-                            data: 'sub_total',
-                            name: 'sub_total'
+                         {
+                            data: 'gst_amount',
+                            name: 'gst_amount'
                         },
                         {
                             data: 'total_amount',

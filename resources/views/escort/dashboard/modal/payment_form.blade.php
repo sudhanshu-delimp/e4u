@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong>GST:</strong>
-                                    <strong class="taxAmount">$ 1.20</strong>
+                                    <strong class="taxAmount">{{ formatCurrency(0) }}</strong>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong>Total Due:</strong>
@@ -65,47 +65,42 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days :
-                                                <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
+                                            <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days
+                                                : <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
                                         </div>
-                                        <hr>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <strong>Total Fee:</strong>
-                                            <strong class="paymentTotal">{{ formatCurrency(0) }}</strong>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <strong>GST:</strong>
-                                            <strong class="taxAmount">{{ formatCurrency(0) }}</strong>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <strong>Total Due:</strong>
-                                            <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
-                                        </div>
-                                    </div>
-                                    <div class="card p-3 " style="border-radius:0px;">
-                                        <form action="{{ route('payment.adjustment') }}" method="post"
-                                            id="adjustment-form">
-                                            <div class="form-row benefit_section">
-                                                <div class="form-group col-6">
-                                                    <label class="mb-0" for="Wallet">Wallet Money</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">AU$</span>
-                                                        </div>
-                                                        <input type="text" class="form-control" name="wallet_amount"
-                                                            placeholder="Enter amount.">
-                                                    </div>
-                                                </div>
-                                        </form>
                                     </div>
                                 </div>
-                                <div class="finish-payment-form d-none mt-2">
-                                    <form action="{{ route('escort.payment.process') }}" method="post"
-                                        id="finish-payment-form">
-                                        <button type="submit" name="action" value="finish_payment"
-                                            class="btn-success-modal btn-block">
-                                            Complete Payment
-                                        </button>
+                                <div class="card p-3 " style="border-radius:0px;">
+                                    <form action="{{ route('payment.adjustment') }}" method="post"
+                                        id="adjustment-form">
+                                        <div class="form-row benefit_section">
+                                            <div class="form-group col-6">
+                                                <label class="mb-0" for="Wallet">Wallet Money</label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">AU$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" name="wallet_amount"
+                                                        placeholder="Enter amount.">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label class="mb-0" for="Days">Loyalty Days</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="loyalty_day"
+                                                        placeholder="Enter days.">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Day</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-end w-100 gap-10">
+                                                <button type="reset" class="reset-btn btn-cancel-modal" name="action"
+                                                    value="reset">Reset</button>
+                                                <button type="submit" class="apply-btn" name="action"
+                                                    value="apply">Apply</button>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -114,7 +109,7 @@
                                     id="finish-payment-form">
                                     <button type="submit" name="action" value="finish_payment"
                                         class="btn-success-modal btn-block">
-                                        Finish Payment
+                                        Complete Payment
                                     </button>
                                 </form>
                             </div>
@@ -272,7 +267,12 @@
                     paymentFormData['benefit_token'] = $("input[name='benefit_token']").val();
                 }
 
-                $("#sendOtp_modal").modal('show');
+                $("#sendOtp_modal").modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+
                 form.closest('.modal').modal('hide');
             }
 
@@ -419,7 +419,7 @@
                             $("#payment-form").find('input, button, select, textarea').prop('disabled',
                                 false);
                             finishPaymentForm.find('input, button, select, textarea').prop('disabled',
-                            true);
+                                true);
                             finishPaymentForm.parent().addClass('d-none');
                         } else {
                             $("#payment-form").find('input, button, select, textarea').prop('disabled',

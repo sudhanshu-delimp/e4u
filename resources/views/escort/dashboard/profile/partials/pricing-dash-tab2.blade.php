@@ -78,9 +78,7 @@ $loginAccount = auth()->user();
                     </div>
                     
                     <div class="text-right mt-3">
-                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal" name="action" value="proceed">Proceed</a>
-                        {{-- <button type="submit" class="save_profile_btn mr-0" id="escort-form-submit-btn">Pay</button>
-                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal">Proceed</a> --}}
+                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="proceed">Proceed</a>
                     </div>
                 </div>                
             </div>

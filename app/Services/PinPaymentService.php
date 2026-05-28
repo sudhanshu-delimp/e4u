@@ -10,6 +10,7 @@ use Illuminate\Http\Client\RequestException;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
 use App\Models\User;
+use App\Models\Wallet;
 use App\Traits\DataTablePagination;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -136,12 +137,17 @@ class PinPaymentService
       ProductOrder::where('id', $response['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $response['status_message'], 'transaction_id' => $response['token']]);
 
       // make history of payment
-      PaymentHistory::updateOrCreate(
+      PaymentHistory::create(
         [
           'user_id'  => $response['metadata']['user_id'],
           'completed_by'  => $response['metadata']['user_id'],
           'ref_no'          => now()->format('Ymd') . rand(100, 999),
-          'amount'          => $response['amount'] / 100,
+          'amount'          => $response['metadata']['sub_total_amount'],
+          'gst_amount' => $response['metadata']['gst_amount'],
+          'paid_amount'          => $response['amount'] / 100,
+          'wallet_amount'  => $response['metadata']['wallet_amount'],
+          'net_amount'  => $response['metadata']['net_amount'],
+          'delivery_charge'  => $response['metadata']['delivery_charge'],
           'currency'        => $response['currency'],
           'transaction_id'  => $response['token'],
           'service'  => !empty($response['metadata']['type']) ? ucwords(str_replace('-', ' ', $response['metadata']['type'])) : '',
@@ -156,5 +162,16 @@ class PinPaymentService
     }
   }
 
-   
+  public function handleWalletAmount(int $userId, $walletAmount)
+  {
+    try {
+      $wallet = Wallet::where('user_id', $userId)->first();
+      $newBalance = $wallet->balance - $walletAmount;
+      $wallet->balance = $newBalance;
+      $wallet->save();
+      return true;
+    } catch (\Exception $e) {
+      Log::info('', [$e->getMessage()]);
+    }
+  }
 }

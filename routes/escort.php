@@ -68,9 +68,12 @@ Route::post('/upgrade-list', [EscortController::class, 'upgradeList'])->name('es
 Route::get('/pinup-summary/{escort}', [PinUpsController::class, 'pinupSummary'])->name('escort.pinup_summary');
 Route::get('/list/data-table/{type?}', [EscortController::class, 'dataTable'])->name('escort.list.dataTable');
 Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTableListing'])->name('escort.list.dataTableListing');
-Route::get('/add-listing', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
+
+Route::get('/listing/add', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
+Route::post('/listing/checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
+Route::get('/listing/success', [EscortController::class, 'listing_success'])->name('escort.account.listing_success');
+
 Route::get('/listings/{type}', [EscortController::class, 'listings'])->name('escort.dashboard.listings');
-Route::post('/listing-checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
 Route::post('/get-geo-location-profiles', [EscortController::class, 'getGeoLocationProfiles'])->name('listing.get_geo_location_profiles');
 Route::post('/listing/validate-date-range', [EscortController::class, 'validateDateRange'])->name('listing.validate_date_range');
 Route::get('/update-account', [EscortController::class, 'edit'])->name('escort.account.edit');
@@ -332,6 +335,7 @@ Route::get('get-transaction-summary',[PaymentController::class, 'transactionSumm
 Route::post('payments/detail',[PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
 Route::get('payments/{payment}/print',[PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
 Route::post('payments/adjustment',[PaymentController::class, 'paymentAdjustment'])->name('payment.adjustment');
+Route::post('apply/wallet',[PaymentController::class, 'applyWallet'])->name('apply.wallet');
 # Escort profile reviews
 Route::get('view-reviews', [EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax', [EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');

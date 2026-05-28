@@ -1,3 +1,9 @@
+<style>
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: white !important
+    }
+</style>
 <ul class="nav nav-tabs" id="orderTabs" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="order-tab" data-toggle="tab" href="#orderTab" role="tab">
@@ -25,7 +31,7 @@
 
     <!-- ORDER -->
     <div class="tab-pane fade show active" id="orderTab" role="tabpanel">
-        <table class="table">
+        <table class="table table-bordered table-striped table-hover">
             <tr>
                 <th>Order ID</th>
                 <td>{{ $order->order_id ?? 'N/A' }}</td>
@@ -34,31 +40,33 @@
                 <th>Status</th>
                 <td>{{ $order->order_status ?? 'N/A' }}</td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <th>Payment Method</th>
                 <td>{{ $order->payment_method ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <th>Sub Total</th>
-                <td>${{ $order->sub_total ?? 'N/A' }}</td>
+                <td>${{ $order->paymentDetails->amount ?? 'N/A' }}</td>
             </tr>
             <tr>
-                <th>Tax </th>
-                <td>${{ $order->tax_amount ?? 'N/A' }}</td>
+                <th>Gst Amount </th>
+                <td>${{ $order->paymentDetails->gst_amount ?? 'N/A' }}</td>
+            </tr> --}}
+            <tr>
+                <th>Console</th>
+                <td>{{ $order->type ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th>Transaction Id</th>
+                <td>{{ $order->transaction_id ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <th>Payment Method</th>
                 <td>{{ $order->payment_method ?? 'N/A' }}</td>
             </tr>
-            <tr>
-                <th>Delivery Type / Charge</th>
-                <td>{{ ucfirst($order->delivery_type) ?? 'N/A' }}{{ '/$' . $order->delivery_charges ?? 'N/A' }}</td>
-            </tr>
 
-            <tr>
-                <th>Total</th>
-                <td>${{ $order->total_amount ?? '0.00' }}</td>
-            </tr>
+
+
 
             <tr>
                 <th>Order Date</th>
@@ -74,7 +82,7 @@
     <!-- ITEMS -->
     <div class="tab-pane fade" id="itemsTab" role="tabpanel">
         @if (!empty($order->orderItems) && count($order->orderItems) > 0)
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -147,14 +155,34 @@
         @php $payment = $order->paymentDetails ?? null; @endphp
 
         @if ($payment)
-            <table class="table">
+            <table class="table table-bordered table-striped table-hover">
                 <tr>
                     <th>Transaction ID</th>
                     <td>{{ $payment->transaction_id ?? 'N/A' }}</td>
                 </tr>
                 <tr>
+                    <th>Sub Total</th>
+                    <td>${{ $payment->amount ?? 'N/A' }}</td>
+                </tr>
+
+                <tr>
+                    <th>Wallet Amount </th>
+                    <td>${{ $payment->wallet_amount ?? 'N/A' }}</td>
+                </tr>
+                
+                <tr>
+                    <th>Delivery Type / Charge</th>
+                    <td>{{ ucfirst($order->delivery_type) ?? 'N/A' }}{{ '/$' . $payment->delivery_charge ?? 'N/A' }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Gst Amount ( {{ config('escorts.product_tax') }}% of Subtotal )</th>
+                    <td>${{ $payment->gst_amount ?? 'N/A' }}</td>
+                </tr>
+                <tr>
                     <th>Amount</th>
-                    <td>${{ $payment->amount ?? '0.00' }}</td>
+                    <td>${{ $payment->paid_amount ?? '0.00' }}</td>
                 </tr>
                 <tr>
                     <th>Status</th>
@@ -162,7 +190,7 @@
                 </tr>
                 <tr>
                     <th>Payment Date</th>
-                    <td>{{ date('d M Y, h:i A', strtotime($payment->paid_at)) ?? 'N/A' }}</td>
+                    <td>{{ $payment->paid_at ? date('d M Y, h:i A', strtotime($payment->paid_at)) : 'N/A' }}</td>
 
                 </tr>
             </table>

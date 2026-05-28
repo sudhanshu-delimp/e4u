@@ -37,7 +37,7 @@
                                     <thead class="bg-first">
                                         <tr>
 
-                                            
+                                            <th>Member ID</th>
                                             <th>Profile</th>
                                             <th>Available Days</th>
                                             <th>Nationality</th>
@@ -114,6 +114,7 @@
                                         <th>
                                             
                                         </th>
+                                        <th>Member ID</th>
                                         <th>Profile</th>
                                         <!-- <th>Available Time</th> -->
                                         <th>Available Days</th>

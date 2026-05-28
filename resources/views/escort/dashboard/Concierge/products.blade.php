@@ -9,6 +9,13 @@
             list-style: none;
             color: rgb(248, 0, 0)
         }
+
+        .cart-disabled {
+            opacity: 0.4;
+            pointer-events: none;
+            /* Prevent click */
+            cursor: default;
+        }
     </style>
 @endsection
 @section('content')
@@ -112,8 +119,8 @@
 
                             <div class="product-image-wrapper">
                                 <img src="{{ $item->image }}" class="card-img-top product-image"
-                                    data-title="{{ strip_tags($item->description) }}"
-                                    data-image="{{ $item->image }}" style="cursor:pointer;">
+                                    data-title="{{ strip_tags($item->description) }}" data-image="{{ $item->image }}"
+                                    style="cursor:pointer;">
                             </div>
 
                             <div class="card-body">
@@ -129,7 +136,8 @@
 
                                 <!-- PRODUCT ACTION BOX -->
                                 <div class="product-box" id="product-{{ $item->id }}">
-                                    <button class="add_to_cart cartAction" data-id="{{ $item->id }}" data-price="{{ $item->price }}"  data-type="add">
+                                    <button class="add_to_cart cartAction" data-id="{{ $item->id }}"
+                                        data-price="{{ $item->price }}" data-type="add">
                                         Add to Cart
                                     </button>
                                 </div>
@@ -187,7 +195,9 @@
     <!-- End of Footer -->
 @endsection
 @push('script')
-<script>let loginUserId = '{{ Auth::user()->id }}';</script>
+    <script>
+        let loginUserId = '{{ Auth::user()->id }}';
+    </script>
     <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
     <script>
         const viewCart = document.querySelector('#viewCart');
@@ -195,12 +205,22 @@
             window.location.href = "{{ route('escort.view-cart') }}";
         })
 
-      
 
-       
+
+
         $(document).ready(function() {
             renderCartUI();
-            $('#cart-count').text(getCartCount());
+cartCount();
         });
+
+        function cartCount() {
+            let count = getCartCount();
+            $('#cart-count').text(count);
+            if (count == 0) {
+                $('#viewCart').addClass('cart-disabled');
+            } else {
+                $('#viewCart').removeClass('cart-disabled');
+            }
+        }
     </script>
 @endpush

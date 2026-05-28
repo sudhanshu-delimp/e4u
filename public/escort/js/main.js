@@ -152,6 +152,7 @@ $(document).on('click', '.cartAction', function () {
     timer: 700,
     showConfirmButton: false
   });
+  cartCount();
 });
 
 $(document).on('click', '.product-image', function () {
