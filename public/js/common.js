@@ -1,5 +1,5 @@
-console.log('Common JS Loaded');
-console.log('============================');
+console.log('😊 Common JS Loaded');
+
 var initJsDatePicker = function () {
     var $inputs = $(".js_datepicker");
     if ($inputs.length > 0) {
@@ -56,10 +56,6 @@ function date_time_format(dateString) {
 
     return date.toLocaleString('en-GB', options);
 }
-
-
-// console.log(date_time_format("2025-08-21 08:03:12")); 
-// console.log(date_time_format("2025-08-21 08:15:52")); 
 
 function swal_fire(message) {
     Swal.fire(message);
@@ -250,4 +246,13 @@ var getStatusOption = (xhr) => {
             title = 'Error';
     }
     return { icon, title, message };
+}
+
+var displaySwal = function(xhr){
+    let option = getStatusOption(xhr);
+    Swal.fire({
+        icon: option.icon,
+        title: option.title,
+        text: option.message
+    });
 }
