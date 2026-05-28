@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Escort\Concierge;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendProductPurchaseMail;
 use App\Models\OrderAddress;
 use App\Models\PaymentHistory;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\ProductOrderItem;
-use App\Models\State;
 use App\Services\PinPaymentService;
-use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class ProductOrderController extends Controller
 {
@@ -30,11 +31,24 @@ class ProductOrderController extends Controller
       return $next($request);
     });
   }
-  public function makeOrder(Request $request,)
+  // public function makeOrder(Request $request,)
+  // {
+
+
+  //   try {
+
+  //     return response()->json(['status' => true, 'message' => "Order Placed Successfully.", 'orderId' => $order->id]);
+  //   } catch (\Exception $e) {
+  //     DB::rollBack();
+  //     return response()->json(['status' => false, 'message' => $e->getMessage()]);
+  //   }
+  // }
+
+
+  public function makeOrderPayment(Request $request, PinPaymentService $pinPaymentService)
   {
-
-
     try {
+
       DB::beginTransaction();
 
       $data = $request->all();
@@ -43,7 +57,7 @@ class ProductOrderController extends Controller
       $state = $states[Auth::user()->state_id] ?? null;
 
 
-      $subtotal = 0;
+      $calculatedSubtotal = 0;
       $total = 0;
       $tax = config('escorts.product_tax');
       $deliveryCharges = 0;
@@ -60,43 +74,81 @@ class ProductOrderController extends Controller
         if ($product->price != $details['price'])
           return response()->json(['status' => false, 'message' => 'something went wrong!']);
 
-        $subtotal += $product->price * $details['qty'];
+        $calculatedSubtotal += $product->price * $details['qty'];
       }
-
       if ($data['deliveryDetails']['delivery_type'] == 'post') {
         $deliveryCharges = config('escorts.delivery_charge_post');
       } else {
         $deliveryCharges = config('escorts.delivery_charge_delivery');
       }
-      if ($total == $data['paymentDetails']['subtotal_payble']) {
-        return response()->json(['status' => false, 'message' => 'mismatch price calculation']);
+
+      $subtotal       = floatval($data['paymentDetails']['subtotal_payble']);
+      $walletAmount   = floatval($data['paymentDetails']['wallet_amount'] ?? 0);
+      $totalPayable   = floatval($data['paymentDetails']['total_payble']);
+      $deliveryCharges = $deliveryCharges ?? 0; // ensure defined
+
+      // 2. Check subtotal mismatch
+      if (number_format($calculatedSubtotal, 2) != number_format($subtotal, 2)) {
+        return response()->json([
+          'status'  => false,
+          'message' => 'Subtotal mismatch after applying wallet amount'
+        ]);
       }
 
-      $total = $subtotal + $tax + $deliveryCharges;
-      if (number_format($total, 2) != number_format($data['paymentDetails']['total_payble'], 2)) {
-        return response()->json(['status' => false, 'message' => 'mismatch price calculation']);
+
+
+      $gst_amount = ($calculatedSubtotal * $tax) / 100;
+
+
+
+      // 3. Calculate final total
+      $calculatedTotal = $calculatedSubtotal + $deliveryCharges;
+      $netAmount = 0;
+      if ($walletAmount > 0)
+        $netAmount = $calculatedSubtotal - $walletAmount;
+
+
+
+      if ($walletAmount > 0)
+        $calculatedTotal -= $walletAmount;
+
+      // 4. Check final total mismatch
+      if (number_format($calculatedTotal, 2) != number_format($totalPayable, 2)) {
+        return response()->json([
+          'status'  => false,
+          'message' => "The final payable amount is incorrect. Please recheck and continue."
+        ]);
       }
+
 
       $orderData = [
         'order_id' => Auth::user()->member_id . "-" . rand(111111, 999999),
         'type' => 'EC',
         'user_id' => Auth::user()->id,
-        'order_date' => Carbon::now('UTC'),
+        'order_date' => date('Y-m-d H:i:s'),
         'order_status' => 'pending',
         'payment_status' => 'pending',
-        'total_amount' => $total,
-        'sub_total' => $subtotal,
-        'tax_amount' => $tax,
         'payment_method' => 'Card',
+        // 'total_amount' => $totalPayable,
         'delivery_charges' => $deliveryCharges ?? 0,
+        'delivery_type' => $data['deliveryDetails']['delivery_type'],
         'notes' => $data['deliveryDetails']['special_instructions']
       ];
 
 
 
       $products = [];
-      $order = ProductOrder::create($orderData);
+      $order = ProductOrder::find($request->orderId);
+
+      if (!empty($request->orderId) && $order)
+        $order->update($orderData);
+      else
+        $order = ProductOrder::create($orderData);
+
+
       if ($order) {
+        $order->orderItems()->delete();
+        $order->orderAddress()->delete();
         // prepare data for order item
         foreach ($data['itemDetails'] as $productId => $details) {
           $orderItem = [
@@ -163,21 +215,11 @@ class ProductOrderController extends Controller
         OrderAddress::create($orderAddressBilling);
       }
       DB::commit();
-      return response()->json(['status' => true, 'message' => "Order Placed Successfully.", 'orderId' => $order->id]);
-    } catch (\Exception $e) {
-      DB::rollBack();
-      return response()->json(['status' => false, 'message' => $e->getMessage()]);
-    }
-  }
 
 
-  public function makeOrderPayment(Request $request, PinPaymentService $pinPaymentService)
-  {
-    try {
-      $data = $request->all();
       // prepare metdata for product order
 
-      $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $request->orderId)->first();
+      $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $order->id)->first();
       $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
       if (empty($order))
         return response()->json(['status' => false, 'message' => "Something went wrong"]);
@@ -190,24 +232,65 @@ class ProductOrderController extends Controller
 
       $metadata = [
         'console' => 'Escort Console (E20189)',
-        'type' => 'escort-product-order',
+        'type' => 'product-purchase',
         'order_id' => $order->id,
         'user_id' => Auth::user()->id,
-        'total' => $order->total_amount,
+        'net_amount' => $netAmount,
+        'sub_total_amount' => $subtotal,
+        'delivery_charge' => $deliveryCharges,
+        'gst_amount' => $gst_amount,
+        'wallet_amount' => $walletAmount,
         'products' => json_encode($products)
       ];
-      $description = "Escort Product Order";
-      // make payment using charge method
-      $response = $pinPaymentService->charge($data['pin_token'], $order->total_amount, $biilingAddress->email, $description, $metadata);
-      if ($response['status'] === false) {
-        return response()->json(['status' => false, 'message' => $response['error']]);
-      } else if ($response['status'] === true) {
+      $description = "Product Purchase";
+      if ($totalPayable > 0) {
+        // make payment using charge method
+        $response = $pinPaymentService->charge($data['pin_token'], $totalPayable, $biilingAddress->email, $description, $metadata);
+        if ($response['status'] === false) {
+          return response()->json(['status' => false, 'message' => $response['error'], 'errors' => $response['errors']]);
+        } else if ($response['status'] === true) {
+          // store payment history 
+          $pinPaymentService->handlePaymentHistory($response['data']['response']);
+          return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
+        }
+      } else {
+        $customTransactionId = Str::random(20); // 20-character random string
+        PaymentHistory::create(
+          [
+            'user_id' => $this->account->id,
+            'completed_by' => $this->account->id,
+            'ref_no'          => now()->format('Ymd') . rand(100, 999),
+            'amount'          => $calculatedSubtotal,
+            'gst_amount' => $gst_amount,
+            'paid_amount'          => $calculatedTotal,
+            'wallet_amount'  => $walletAmount,
+            'net_amount'  => $netAmount,
+            'delivery_charge'  => $deliveryCharges,
+            'currency'        => "AUD",
+            'transaction_id'  => $customTransactionId,
+            'service'  =>  'Product Purchase',
+            'status'          =>  'success',
+            'paid_at'         => null,
+            'card'            =>   null,
+            'meta'            => null,
+          ]
+        );
+
+        // update amount in wallet balance
+        $pinPaymentService->handleWalletAmount($this->account->id, $walletAmount);
+        // update order payment status
+        ProductOrder::where('id', $order->id)->update(['payment_status' => "paid", 'transaction_id' => $customTransactionId, 'payment_method' => 'Wallet']);
+        // dispatch job to send product order related mail 
+        $customPaymentObject['metadata']['order_id'] = $order->id;
+        SendProductPurchaseMail::dispatch($customPaymentObject);
+
         return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
       }
     } catch (\Exception $e) {
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
   }
+
   public function orders(Request $request)
   {
     try {
@@ -219,27 +302,42 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::query();
-
+    $query = ProductOrder::with('paymentDetails', 'user')->orderBy('created_at', 'DESC');
+    $classes = config('escorts.payment_status');
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
-        return $row->order_date;
+        return  date('d M Y, h:i A', strtotime($row->order_date));
       })
-      ->addColumn('order_status', function ($row) {
-        $classes = config('escorts.order_status');
-        $class = $classes[$row->payment_status] ?? '';
-
+      ->addColumn('total_amount', function ($row) {
+        return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
+      })
+      ->addColumn('gst_amount', function ($row) {
+        return   $row->paymentDetails ? $row->paymentDetails->gst_amount : '0.00';
+      })
+      ->addColumn('sub_total', function ($row) {
+        return   $row->paymentDetails ? $row->paymentDetails->amount : '0.00';
+      })
+      ->addColumn('wallet_amount', function ($row) {
+        return   $row->paymentDetails ? $row->paymentDetails->wallet_amount : '0.00';
+      })
+      ->addColumn('user', function ($row) {
+        return   $row->user ? $row->user->name : '0.00';
+      })
+      ->addColumn('order_status', function ($row) use ($classes) {
+        $class = $classes[$row->order_status] ?? '';
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->order_status) . '</span>';
       })
-      ->addColumn('payment_status', function ($row) {
-        $classes = config('escorts.payment_status');
+      ->addColumn('payment_status', function ($row) use ($classes) {
         $class = $classes[$row->payment_status] ?? '';
-
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->payment_status) . '</span>';
       })
       ->addColumn('action', function ($row) {
-        return '<a href="" class="btn btn-sm btn-primary">View</a>';
+        return '<div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '"  > <i class="fa fa-eye"></i> View Details </a></div></div>';
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -248,6 +346,17 @@ class ProductOrderController extends Controller
       ->make(true);
   }
 
+  public function getOrderDetails(Request $request)
+  {
+    try {
+      $order = ProductOrder::with(['orderAddress', 'paymentDetails', 'orderItems', 'orderItems.product'])->where('id', $request->id)->first();
+
+      $html = view('escort.dashboard.Concierge.product-order-details', compact('order'))->render();
+      return response()->json(['status' => true, 'html' => $html]);
+    } catch (Exception $e) {
+      Log::error($e->getMessage());
+    }
+  }
 
   public function success()
   {
