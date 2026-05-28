@@ -293,6 +293,11 @@ class PaymentController extends Controller
                 }
     
                 if($this->account->activeFeeDiscount){
+                    
+                    $purchaseDetail->special_discount_value = $this->account->activeFeeDiscount->value;
+                    $purchaseDetail->special_discount_type = $this->account->activeFeeDiscount->type;
+                    $purchaseDetail->save();
+
                     $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
                 }
     
