@@ -4,17 +4,10 @@ namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendProductPurchaseMail;
-use App\Mail\Escort\Order\OrderMailToE4U;
-use App\Mail\Escort\Order\OrderMailToEscort;
-use App\Mail\Escort\Order\SendOrderMailToCondomMan;
 use App\Models\PaymentHistory;
-use App\Models\ProductOrder;
-use App\Models\User;
-use App\Models\Wallet;
 use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class WebhookController extends Controller
 {
