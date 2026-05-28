@@ -1004,15 +1004,10 @@ class User extends Authenticatable
         ]);
     }
 
-
-    public function parent()
+    //connection with Escort profile for additional info
+    public function additionalInfo()
     {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function children()
-    {
-        return $this->hasMany(User::class, 'created_by');
+        return $this->hasMany(EscortAdditionalInformation::class);
     }
 
 

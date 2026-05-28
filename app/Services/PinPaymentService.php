@@ -31,13 +31,13 @@ class PinPaymentService
   public function getGSTAmount()
   {
     $this->gstAmount = ($this->totalAmount * 10) / 100;
-    return $this->gstAmount;
+    return number_format($this->gstAmount, 2);
   }
 
   public function getTotalDue()
   {
     $this->totalDueAmount = $this->totalAmount + $this->gstAmount;
-    return $this->totalDueAmount;
+    return number_format($this->totalDueAmount, 2);
   }
 
   public function charge(string $token, float $amount, $email = null, $description = null, $metadata = [])

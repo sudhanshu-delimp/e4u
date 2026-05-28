@@ -198,7 +198,7 @@ CKEDITOR.replace('editor1', {
                 $('#escort_listings').DataTable().search(this.value).draw();
             });
         })
-
+        let isInitialLoad = true;
         function ajaxReload()
         {
             var table = $('#escort_listings').DataTable({
@@ -220,14 +220,17 @@ CKEDITOR.replace('editor1', {
                 type: "GET",
                 dataSrc: function(json) {
                     // var totalRows = json.data.length; 
-                    var totalRows = json.recordsTotal || json.recordsFiltered; 
+                     if (isInitialLoad) {
+                        var totalRows = json.recordsTotal || json.recordsFiltered; 
 
-                    $(".totalListing").text(json.membershipCounts.total);
-                    $(".platinumListing").text(json.membershipCounts.platinum);
-                    $(".goldListing").text(json.membershipCounts.gold);
-                    $(".silverListing").text(json.membershipCounts.silver);
-                    $(".serverTime").text(json.server_time);
-                    $(".uptimeClass").html(json.server_up_time);
+                        $(".totalListing").text(json.membershipCounts.total);
+                        $(".platinumListing").text(json.membershipCounts.platinum);
+                        $(".goldListing").text(json.membershipCounts.gold);
+                        $(".silverListing").text(json.membershipCounts.silver);
+                        $(".serverTime").text(json.server_time);
+                        $(".uptimeClass").html(json.server_up_time);
+                        isInitialLoad = false;
+                    }
 
                     return json.data;
                 }

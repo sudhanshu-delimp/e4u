@@ -95,7 +95,7 @@
                                 <!-- Start Date -->
                                 <div class="listing-field">
                                     <label>Start Date:</label>
-                                    <input type="text" name="start_date[]" class="profile_start js_datepicker" onkeydown="return false" required>
+                                    <input type="text" name="start_date[]" class="profile_start js_datepicker min_today" onkeydown="return false" required>
                                 </div>
             
                                 <!-- End Date -->

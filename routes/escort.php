@@ -119,6 +119,9 @@ Route::post('duplicate-profile', [UpdateController::class, 'duplicateProfile'])-
 Route::post('update-escort/{id?}', [UpdateController::class, 'update_escort'])->name('escort.update_escort');
 Route::post('update_escort_default', [UpdateController::class, 'update_escort_default'])->name('escort.update_escort_default');
 
+//update narration value using ajax in the New Profile
+Route::post('/get-narration', [UpdateController::class, 'getNarration'])->name('escort.get.narration');
+
 Route::post('create-profile/{id}', [CreateController::class, 'createProfile'])->name('escort.create.profile'); //create and update
 Route::get('update-profile/{id?}', [UpdateController::class, 'updateBasicProfile'])->name('escort.profile.basic.update');
 Route::post('upload-media', [CreateController::class, 'saveMedia'])->name('upload.media');
@@ -131,14 +134,19 @@ Route::post('policy/{id}', [UpdateController::class, 'updatePolicy'])->name('esc
 Route::post('profile/{id}', [UpdateController::class, 'storeAboutMe'])->name('escort.about.me');
 /////////settings
 Route::get('profile-information', [ProfileInformationController::class, 'showAboutMe'])->name('escort.profile.information');
-Route::post('settings-information', [ProfileInformationController::class, 'storeAboutMe'])->name('escort.settings.about.me');
-Route::post('settings-information/sort-stage-name', [ProfileInformationController::class, 'sortByStageNameAboutMe'])->name('escort.settings.sort-stage-name.about.me');
-Route::post('settings-my-rates', [ProfileInformationController::class, 'storeRates'])->name('escort.settings.rate');
-Route::post('settings-availability', [ProfileInformationController::class, 'storeAvailability'])->name('escort.settings.availability');
-Route::post('settings-services', [ProfileInformationController::class, 'storeServices'])->name('escort.settings.services');
-Route::post('settings-socials-link', [ProfileInformationController::class, 'storeSocialsLink'])->name('escort.settings.social');
-Route::post('available-playmates', [ProfileInformationController::class, 'escortplaymate'])->name('escort.playmate.check');
-Route::post('available-playmates-check', [ProfileInformationController::class, 'escortplaymate'])->name('escort.availabe-playmate.check');
+Route::post('settings-information',[ProfileInformationController::class,'storeAboutMe'])->name('escort.settings.about.me');
+Route::post('settings-information/sort-stage-name',[ProfileInformationController::class,'sortByStageNameAboutMe'])->name('escort.settings.sort-stage-name.about.me');
+Route::post('settings-my-rates',[ProfileInformationController::class,'storeRates'])->name('escort.settings.rate');
+Route::post('settings-availability',[ProfileInformationController::class,'storeAvailability'])->name('escort.settings.availability');
+Route::post('settings-services',[ProfileInformationController::class,'storeServices'])->name('escort.settings.services');
+Route::post('settings-socials-link',[ProfileInformationController::class,'storeSocialsLink'])->name('escort.settings.social');
+Route::post('available-playmates',[ProfileInformationController::class,'escortplaymate'])->name('escort.playmate.check');
+Route::post('available-playmates-check',[ProfileInformationController::class,'escortplaymate'])->name('escort.availabe-playmate.check');
+//Additonaly Information
+Route::post('my-information/stage-name/store', [ProfileInformationController::class, 'storeEscortStageName'])->name('escort.stagename.store');
+Route::post('my-information/stage-name/delete', [ProfileInformationController::class, 'deleteEscortStageName'])->name('escort.stagename.delete');
+Route::post('my-information/additional-store', [ProfileInformationController::class, 'additionalStorage'])->name('escort.additional.store');
+Route::post('my-information/additional-delete', [ProfileInformationController::class, 'additionalDelete'])->name('escort.additional.delete');
 
 //Route::post('settings-upload-avatar',[ProfileInformationController::class,'storeSocialsLink'])->name('settings.save.avatar');
 //////////////end settings

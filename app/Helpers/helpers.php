@@ -24,6 +24,8 @@ use App\Models\MasseurMedia;
 use App\Models\Purchase;
 use App\Models\State;
 use App\Models\User;
+use App\Models\AdvertiserDiscount;
+
 use App\Sms\SendSms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -105,8 +107,9 @@ if (!function_exists('calculateTotalFee')) {
                 return [0, 0, 0, 0, 0];
             }
             $normalRate   = $pricing->price;
+            
             if(!empty($appiedDiscount)){
-                $discountRate = number_format($appiedDiscount->discountAmount($normalRate),2);
+                $discountRate = AdvertiserDiscount::getNetDiscount($pricing, $appiedDiscount);
             }
             else{
                 $discountRate = $pricing->discount_amount ?: $normalRate;

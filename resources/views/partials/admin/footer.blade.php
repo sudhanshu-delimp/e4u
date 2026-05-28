@@ -94,20 +94,6 @@
                 }
             }
 
-            $(document).on('input', '.only_digits', function () {
-             this.value = this.value.replace(/\D/g, '');
-            });
-
-            $(document).on('input', '.only_digits_decimal', function () {
-                this.value = this.value
-                .replace(/[^0-9.]/g, '')   // allow digits + dot
-                .replace(/(\..*?)\..*/g, '$1'); // allow only ONE dot
-            });
-
-            $(document).ready(function() {
-                initJsDatePicker();
-            });
-
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {

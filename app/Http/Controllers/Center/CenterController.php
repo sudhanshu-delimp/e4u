@@ -383,6 +383,7 @@ class CenterController extends Controller
                 if(in_array($item['membership_id'],['5'])){
                     $item['special_discount'] = $discount->value;
                     $item['new_rate'] = number_format($discount->discountAmount($item['price']),2);
+                    $item['discount_amount'] = AdvertiserDiscount::getNetDiscount($item, $discount);
                 }
                 return $item;
             },$advertings);
