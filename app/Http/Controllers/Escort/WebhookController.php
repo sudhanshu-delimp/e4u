@@ -77,6 +77,7 @@ class WebhookController extends Controller
         switch ($type) {
           case 'product-purchase':
             // make payment history
+            Log::info("Any Special Instructions?");
             $pinPaymentService->handlePaymentHistory($paymentObject);
             SendProductPurchaseMail::dispatch($paymentObject);
             if (isset($paymentObject['metadata']['wallet_amount']) && $paymentObject['metadata']['wallet_amount'] > 0) {
