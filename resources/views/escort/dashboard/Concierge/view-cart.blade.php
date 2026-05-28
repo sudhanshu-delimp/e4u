@@ -1364,6 +1364,18 @@
 
                 let details = JSON.parse(localStorage.getItem(key)) || {};
                 let dueAmount = Number(details.total_payble);
+
+                let accountWalletAmount = parseFloat("{{ Auth::user()->wallet->balance }}");
+                if (accountWalletAmount <= 0) {
+                    Swal.fire("Insufficient wallet balance.", "You don't have enough amount to apply.",
+                        "error");
+                        return;
+                } else if (walletAmount > accountWalletAmount) {
+                    Swal.fire("The wallet amount you entered exceeds your wallet balance.", '', 'error');
+                    return;
+                }
+
+
                 if (walletAmount == "" || walletAmount == null) {
                     Swal.fire("The wallet amount is required to apply the wallet.", '',
                         'error');
@@ -1375,7 +1387,8 @@
                         'error');
                     return;
                 }
-                let accountWalletAmount = "{{ Auth::user()->wallet->balance }}";
+
+
 
                 let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
 

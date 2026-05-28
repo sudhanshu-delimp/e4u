@@ -68,8 +68,8 @@ return [
     */
   'timezone' => env('TIMEZONE', 'UTC'),
   'escort_server_timezone' => env('ESCORT_SERVER_TIMEZONE', 'Australia/Perth'),
-  'e4u_mail' => env('E4U_MAIL', 'admin@e4u.com.au'),
-  'condom_mail' => env('CONDOM_MAIL', 'info@condomman.com.au'),
+  'e4u_mail' => env('ORDER_TO_MAIL', 'admin@e4u.com.au'),
+  'condom_mail' => env('ORDER_CONDOM_MAIL', 'info@condomman.com.au'),
 
   /*
     |--------------------------------------------------------------------------
