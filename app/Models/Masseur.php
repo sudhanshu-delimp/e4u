@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Masseur extends Model
@@ -181,6 +182,29 @@ class Masseur extends Model
     public function gallary()
     {
         return $this->belongsToMany('App\Models\MasseurMedia','masseur_galleries','masseur_profile_id','masseur_media_id')->withPivot('position');
+    }
+
+    /**
+     * Indicates if the model should have created_by and updated_by fields.
+     *
+     * @var bool
+     */
+    public $createdUpdatedBy = true;
+
+    /**
+     * Get the created by that owns the details.
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    /**
+     * Get the updated by that owns the details.
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
     
 }

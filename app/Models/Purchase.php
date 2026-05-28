@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['parent_id', 'escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'tour_location_id', 'rate', 'discount_rate', 'total_rate', 'paid_rate'];
+    protected $fillable = ['parent_id', 'escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'tour_location_id', 'rate', 'discount_rate', 'total_rate', 'paid_rate', 'created_by', 'updated_by'];
     protected $table = 'purchase';
     public $timestamps = true;
 
@@ -148,5 +148,28 @@ class Purchase extends Model
     public function transactions()
     {
         return $this->morphMany(CreditTransaction::class, 'transactionable');
+    }
+
+    /**
+     * Indicates if the model should have created_by and updated_by fields.
+     *
+     * @var bool
+     */
+    public $createdUpdatedBy = true;
+
+    /**
+     * Get the created by that owns the details.
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    /**
+     * Get the updated by that owns the details.
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
 }
