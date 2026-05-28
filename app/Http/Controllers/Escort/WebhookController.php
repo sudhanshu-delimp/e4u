@@ -14,6 +14,8 @@ class WebhookController extends Controller
 
   function handle(Request $request, PinPaymentService $pinPaymentService)
   {
+
+  Log::info("webhook working");
     $signatureHeader = $request->header('Pin-Signature');
 
     if (!$signatureHeader)
@@ -86,6 +88,7 @@ class WebhookController extends Controller
         switch ($type) {
           case 'product-purchase':
             // make payment history
+            
             // $this->handlePaymentHistoryStatus($paymentObject);
             $pinPaymentService->handlePaymentHistory($paymentObject);
             break;
