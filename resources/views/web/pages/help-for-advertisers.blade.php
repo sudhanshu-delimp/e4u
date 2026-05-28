@@ -82,30 +82,38 @@
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: Is Membership free?</b></p>
                             <p>Yes, there are no fees to pay for Membership. You only pay for the Services you use.
-                                And your first two weeks advertising with us are free!</p>
+                                And you have the option of Listing your Profile as Free Membership Type which will give you
+                                two weeks advertising, under the Free Membership Type, with us free!</p><br>
                             <p>Create and refine your Profile over the two weeks and then decide if you want to
                                 continue using us. There are no restrictions placed on how your Profile is published
-                                except that you will not feature at the top of the Escort Home Page under the
-                                Membership Type - Free.</p>
-                            <p>All of our paying Advertisers are prioritised to the front of the Escort Home Page
-                                according to the Membership Type they choose when publishing their Profile. You can
-                                elect to become a paying Advertiser at any time. If you never advertise with us, your
-                                Account will always remain and there are no Fees.
-                            </p>
+                                except that you will not feature at the top of the Escort Listing Page under the
+                                Membership Type - Free.</p><br>
+                            <p>All of our paying Advertisers are prioritised to the front of the Escort Listing Page
+                                according to the Membership Type they choose when Listing their Profile. You can
+                                elect to become a paying Advertiser at any time by simply 'Upgrading' your Listed Profile to either
+                                Platinum, Gold or Silver. If you never advertise with us, your Account will always remain and there are no Fees.</p><br>
                             <p>Registered Viewers will have full access to your Profile including unrestricted
-                                communication rights should you have the texting and email features enabled.</p>
+                                communication rights should you have the texting and email features enabled.</p><br>
                             <p><b>Q: Are there any great features available to me?</b></p>
                             <p>Yes. We have a number of great features to enhance your Profile and relationship
                                 building with Viewers. You can:
                             </p>
                             <ul>
-                                <li>Switch on and off the ‘Be Right Back’ feature. Let the Viewers know when you are
-not available to meet, but they still can view your Profile</li>
+                                <li>Upgrade your Platinum Listing to 'Pin Up' status.  As the Location's Pin Up, you will appear 
+                                    at the front of the Website and at the top of the Listing page
+                                </li>
+                                <li>Switch on and off the 'Be Right Back' feature. Let the Viewers know when you are
+                                    not available to meet, but they still can view your Profile.  We have a similar feature for Massage Centres as well</li>
                                 <li>Send an "A-Alert" to registered Viewers, who have flagged you in their Legbox,
                                     when you are visiting their Location
                                 </li>
-                                <li>Suspend your Profile at any time</li>
-                                <li>Exchange pictures within the chat facility (if the feature is enabled by the User)
+                                <li>Suspend your Profile at any time.  If you have to stop work for a period of time, Suspend
+                                    your Profile.  Your Profile will be removed from the Listings, and you will be credited with the
+                                    number of days you have suspended your Profile
+                                </li>
+                                <li>Bump Up your Profile.  If you find yourself, and this service is also available for Massage Centres, down 
+                                    the page or perhaps on page 25 for example, then you can Bump Up your Profile which will place you back at 
+                                    the top of the Listing page
                                 </li>
                                 <li>Create and archive Profiles, ready to activate at any time or to create a Tour;
                                     and
@@ -113,16 +121,15 @@ not available to meet, but they still can view your Profile</li>
                                 <li>Much more ...
                                 </li>
                             </ul>
-                            <p><b>Q: Are there any loyalty programs?</b></p>
+                            <p><b>Q: is there a loyalty program?</b></p>
                             <p>Absolutely. Escorts4U will reward you for your loyalty. A simple program, for every
                                 $200.00 in advertising an Escort spends with us, we will reward you with 1 day of free
-                                advertising (Platinum and Gold level). And for a Massage Centre, every $500.00 you
-                                spend with us we will reward you with 1 day of free advertising. You can use your
-                                rewards any time you like, or accumulate your rewards and use them all at once, it is
-                                entirely up to you.</p>
+                                advertising. And for a Massage Centre, every $500.00 you spend with us we will reward you with 
+                                1 day of free advertising. You can use your rewards any time you like, or accumulate your 
+                                rewards and use them all at once, it is entirely up to you.</p><br>
                             <p>Discounts to advertising Fees also apply once you spend over a certain amount. The
                                 discounts are very generous.
-                            </p>
+                            </p><br>
                             <p><b>Q: Can I get help to manage my Account?</b></p>
                             <p>Yes you can. Our support team will help you manage your Account or alternatively,
                                 you can reach out to an Agent. An Agent will assist you with:
@@ -157,8 +164,9 @@ not available to meet, but they still can view your Profile</li>
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: What are the packages?</b></p>
-                            <p>Packages are designed around the Membership Type you choose on the day you post your
-                                Profile. You can change a Profile Package anytime during the advertised period.</p>
+                            <p>Packages are designed around the Membership Type you choose on the day you List your
+                                Profile. You can change the Membership Type your Profile is Listed under anytime during the advertised period.</p><br>
+                            <p>Check out all the great features available to you under our various Membership Types:</p>
                             <div class="table-responsive-sm">
                                 <table class="table" style="border: 1px;">
                                     <thead>
@@ -178,7 +186,7 @@ not available to meet, but they still can view your Profile</li>
                                         <td><p>After Platinum</p></td>
                                         <td><p>After Gold</p></td>
                                         <td><p>Bottom of page</p></td>
-                                        <td><p>Profiles within each Membership Type rotate every 2 hours</p></td>
+                                        <td><p>Profiles within each Membership Type reshuffle every 30 minutes</p></td>
                                     </tr>
                                     <tr>
                                         <td><p>Priority Search</p></td>
@@ -192,16 +200,16 @@ not available to meet, but they still can view your Profile</li>
                                         <td>Short list me</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
-                                        <td>&#x2717;</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
                                         <td>Search results displayed according to your Membership Type</td>
                                     </tr>
 
                                     <tr>
                                         <td>Home page - Pin Up</td>
                                         <td>✓</td>
-                                        <td>✓</td>
-                                        <td>✓</td>
+                                        <td>&#x2717;</td>
+                                        <td>&#x2717;</td>
                                         <td>&#x2717;</td>
                                         <td>Display your Thumbnail exclusively on the home page</td>
                                     </tr>
@@ -219,7 +227,7 @@ not available to meet, but they still can view your Profile</li>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>&#x2717;</td>
-                                        <td>Larger thumbnail for Platinum reducing down to Silver</td>
+                                        <td>Larger thumbnail for all membership Types except for Free</td>
                                     </tr>
                                     <tr>
                                         <td>Thumbnail - Grid View</td>
@@ -227,7 +235,7 @@ not available to meet, but they still can view your Profile</li>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>&#x2717;</td>
-                                        <td>Larger thumbnail for Platinum reducing down to Silver</td>
+                                        <td>Larger thumbnail for all membership Types except for Free</td>
                                     </tr>
                                     <tr>
                                         <td>Thumbnail - Profile View</td>
@@ -238,20 +246,28 @@ not available to meet, but they still can view your Profile</li>
                                         <td>Same size for all Membership Types, including 6 smaller photos</td>
                                     </tr>
                                     <tr>
-                                        <td>Video (640px x 360px)</td>
+                                        <td>Video</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
-                                        <td>&#x2717;</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
                                         <td>Limited to 30 seconds play with up to 3 videos per Profile</td>
                                     </tr>
                                     <tr>
-                                        <td>Touring Schedule</td>
+                                        <td>Tour Schedule</td>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>✓</td>
+                                        <td>&#x2717;</td>
                                         <td>Set your arrival and departure times for each Location</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tour Profile Notification</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>&#x2717;</td>
+                                        <td>Profile display you are on Tour in the Location and how many days left</td>
                                     </tr>
                                     <tr>
                                         <td>Availability Summary</td>
@@ -290,22 +306,48 @@ not available to meet, but they still can view your Profile</li>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
+                                        <td>✓</td>
                                         <td>Have your photos display our E4U Verification Icon</td>
+                                    </tr>
+                                    <tr>
+                                        <td>My Playmates</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>&#x2717;</td>
+                                        <td>Display who your Playmates are for 3somes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deposit</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>&#x2717;</td>
+                                        <td>Let your clients know when you need a deposit and how much</td>
+                                    </tr>
+                                    <tr>
+                                        <td>My Playbox</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>&#x2717;</td>
+                                        <td>Upload your content for Viewers to see by payment.  You retain 90% of the revenue collected.  
+                                            A My Playbox icon appears on any Profile you List to let Viewers know you have a My Playbox profile
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Social Media Summary</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
-                                        <td>&#x2717;</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
                                         <td>List all of your social media profiles</td>
                                     </tr>
                                     <tr>
                                         <td>Alert Notifications</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
+                                        <td>✓</td>
                                         <td>&#x2717;</td>
                                         <td>Forward your followers A-Alert notifications ahead of your arrival</td>
                                     </tr>
@@ -346,8 +388,8 @@ not available to meet, but they still can view your Profile</li>
                                         <td>National Ugly Mugs(NUM) List</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
-                                        <td>&#x2717;</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
                                         <td>Report difficult incidents with clients in real time</td>
                                     </tr>
                                     <tr>
@@ -363,16 +405,16 @@ not available to meet, but they still can view your Profile</li>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
+                                        <td>✓</td>
                                         <td>Archive all of your Profiles and Media, activating anytime</td>
                                     </tr>
                                     <tr>
-                                        <td>Transfer Credits</td>
+                                        <td>Apply Credits</td>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
-                                        <td>&#x2717;</td>
-                                        <td>Transfer any credits you have when you up-rate your Profile</td>
+                                        <td>✓</td>
+                                        <td>Apply any credits you have when you purchase any Services</td>
                                     </tr>
                                     <tr>
                                         <td>Analytics</td>
@@ -425,16 +467,7 @@ not available to meet, but they still can view your Profile</li>
                                             $500.00 in advertising, get 1 day free
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>My Playbox</td>
-                                        <td>✓</td>
-                                        <td>✓</td>
-                                        <td>✓</td>
-                                        <td>&#x2717;</td>
-                                        <td>Upload your content for Viewers to see by payment.  You retain 90% of the revenue collected.  A My Playbox icon appears on any Profile you post to let Viewers know you have a Playbox.
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                   </tbody>
                                 </table>
                             </div>
 
@@ -445,7 +478,7 @@ not available to meet, but they still can view your Profile</li>
                                     href="{{ url('law-enforcement')}}"
                                     class="termsandconditions_text_color">Local Laws</a>.</li>
                                 <li>Monthly fee of $5.00 (to cover SMS costs).</li>
-                                <li>Payment by Card.</li>
+                                <li>Payment by Card.  Credits and Loyalty days can be used to offset Fee.</li>
                             </ol>
 
 
@@ -504,22 +537,18 @@ not available to meet, but they still can view your Profile</li>
                                 <li>Agent, management services for Escorts and Massage Centres</li>
                             </ul>
                             <p><b>Q: What is the effect on me according to the Membership type I select?</b></p>
-                            <p>We have a range of Membership options that are sure to fit in with your needs.</p>
+                            <p>We have a range of Membership options that are sure to fit in with your needs.</p><br>
                             <p>Depending on the Viewer's display preference, the Search Page will present in either a
                                 "List View" or "Grid View" format. Viewers can then select to view your Profile. You
-                                will
-                                always rank within your Membership Type in all search results irrespective of which
-                                format the Viewers choose to view the Escort Home Page. Each Membership Type
-                                reshuffles every 2 hours enabling all Advertisers to appear first from time to time
-                                within
-                                their respective Membership Type on the Escort Home Page.</p>
-                            <p>A viewer can ‘flag’ your Profile and then view the list of Profiles from within the
-                                Escort
-                                Home Page that they have selected. A registered Viewer can go one step further by
+                                will always rank within your Membership Type in all search results irrespective of which
+                                format the Viewers choose to view the Escort Listing Page. Each Membership Type
+                                reshuffles every 30 minutes enabling all Advertisers to appear first from time to time
+                                within their respective Membership Type on the Escort Listing Page.</p><br>
+                            <p>A viewer can 'flag' your Profile and then view the list of Profiles from within the
+                                Escort Listing Page that they have selected. A registered Viewer can go one step further by
                                 adding your Profile to their Legbox. That will entitle them to receive notifications
-                                from
-                                you as well as having communication capability with you should you have those
-                                features enabled.</p>
+                                from you as well as having communication capability with you should each of you have those
+                                features enabled.</p><br>
                             <p>Each Membership Type enjoys certain benefits according to that Membership Type.
                                 The following table summarises the distinctions between each Membership Type
                                 according to the format:</p>
@@ -534,80 +563,34 @@ not available to meet, but they still can view your Profile</li>
                                 <tbody>
                                 <tr>
 
-                                    <td>Platinum</td>
+                                    <td>Platinum<br>Gold<br>Silver</td>
                                     <td style="border-left: 2px solid #000000;">
-                                        Platinum Membership always ranks at the top of the Escort Home Page.
-                                        <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Rates, review
-                                            rating,
-                                            available to, verification and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Hourly rate,
-                                            services,
-                                            gender, orientation and view rating are included in the display.</p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            Thumbnail is 420px x 600px together with 6 additional photos
-                                            and a video player 640px x 360px. All photos and the video
-                                            can pop up.
-                                        </p>
+                                        <p>Platinum Membership always ranks at the top of the Escort Listing Page, followed by Gold, Silver and then Free.</p>
+                                        <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Location, age, hourly rates, review
+                                            rating, available to, Services hourly rate summary, video availability, 
+                                            arrival and departure dates, and your 'Who I am' are included in the display. 
+                                            Add to Shortlist, add to Legbox, membership Type, and your Media Verification status are also included.</p>
+                                        <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Location, age, hourly rate,
+                                            services, gender, available to, and review rating are included in the display.  
+                                            Add to Shortlist, add to Legbox and your Media Verification status are also included.</p>
+                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your Thumbnail is
+                                            420px x 600px together with 6 additional photos and a video player. All photos and the video
+                                            can pop up.</p>
                                     </td>
                                 </tr>
 
-                                <tr>
-
-                                    <td>Gold</td>
+                                <td>Free</td>
                                     <td style="border-left: 2px solid #000000;">
-                                        Gold Membership ranks behind Platinum and before Silver.
-                                        <p><b>List View:</b> Your Thumbnail photo is 112px x 157px. Rates, review
-                                            rating,
-                                            available to, verification and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo is 163px x 229px. Hourly rate,
-                                            services,
-                                            gender, orientation and view rating are included in the display.
-                                        </p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            Thumbnail is 420px x 600px together with 6 additional photos
-                                            and a video player 640px x 360px. All photos and the video
-                                            can pop up
-                                        </p>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>Silver</td>
-                                    <td style="border-left: 2px solid #000000;">
-                                        Silver Membership ranks behind Gold and before Free.
-                                        <p><b>List View:</b> Your Thumbnail photo is 102px x 144px. Review rating,
-                                            available to, verification and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo is 136px x 191px. Hourly rate,
-                                            services,
-                                            gender, orientation and view rating are included in the display.
-                                        </p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            Thumbnail is 420px x 600px together with 6 additional photos
-                                            and a video player 640px x 360px. All photos and the video can
-                                            pop up.
-                                        </p>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>Free</td>
-                                    <td style="border-left: 2px solid #000000;">
-                                        Free Membership ranks behind Silver
-                                        <p>Escort Home Page: You will appear after paid listings in all Search Page
+                                        <p>Free Membership ranks behind Silver</p>
+                                        <p>Escort Listing Page: You will appear after paid listings in all Search Page
                                             results and Profile shortlist displays.</p>
-                                        <p><b>List View:</b> Your Thumbnail is displayed as a silhouette 79px x 116px.
-                                            Available to and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b>Your Thumbnail is displayed as a silhouette 100px x 145px.
-                                            Hourly rate and services are included in the display.
-                                        </p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            thumbnail photo is 420px x 600px together with 6 additional
-                                            photos 100px x 100px. No video is available. All photos can
-                                            pop up.</p>
+                                        <p><b>Grid View:</b> Your Thumbnail photo, Stage Name, Verification status, Location, 
+                                            age, hourly rate, services, gender, orientation and view rating are included in the display.</p>
+                                        <p><b>List View:</b> Your Thumbnail photo, Stage Name, Verification status, rates, 
+                                            review rating, available to, My Playbox status, start and finish dates and your 'Who I am' are displayed.</p>
+                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Displayed is your 
+                                            Thumbnail and default galery images, video, availability, Rates, My Playmates, About Me, 
+                                            Statistics, Who Am I, My Service, Deposit details, together with policies, legal statements, Reviews and tips.</p>
                                         <p>If you receive over a certain number of Profile views or telephone number
                                             clicks during the free 14 day period you will be informed and notified to
                                             upgrade to a paying Membership Type.</p>
@@ -622,7 +605,7 @@ not available to meet, but they still can view your Profile</li>
                             </table>
                             <p>If you upgrade your Membership Type you will not lose any remaining days you have paid
                                 for. They will be applied automatically if you do not continue at the higher Membership
-                                Type</p>
+                                Type.</p>
                                 
                         </div>
                     </div>
@@ -636,27 +619,23 @@ not available to meet, but they still can view your Profile</li>
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: What is My Playbox?</b></p>
                             <p>My Playbox is a subscription service within the Website for Creators to earn additional
-revenue based off their Profiles. Viewers can go to a Creator’s Playbox by simply clicking the My Playbox icon which appears on any Profile an Escort posts. The
-Viewer selects the Content they wish to view, once on the Creators Playbox page, and pays the Viewer Payment set by the Creator.
-                            </p>
-                            <p>Viewers pay to view the Content either as a pay-per-view or by subscription.</p>
+                                revenue based off their Profiles (or Content as it is sometimes called). Viewers can go to a Creator's Playbox by simply clicking the 
+                                My Playbox icon which appears on any Profile the Escort has Listed. The Viewer selects the Content 
+                                they wish to view, once on the Creators Playbox page, and pays the Viewer Payment set by the Creator.</p><br>
+                            <p>Viewers pay to view the Content either as a pay-per-view or by subscription.  It is entirely up to the Viewer.</p><br>
                             <p><b>Q: How does it work?</b></p>
-                            <p>If a Creator has uploaded content to their Playbox, the My Playbox icon appears on any Profile they publish. The Viewer simply clicks the icon which will take them to the
-Escorts Playbox page. This is particularly helpful for Viewers to get to see an Escort who they are considering meeting with.
-                            </p>
-                            <p><b>Q: How do I activate My Playbox?</b>
-                            </p>
-                            <p>Go to your Account and simply enable the service in your settings.
-                            </p>
-                            <p><b>Q: How are my earnings calculated?</b>
-                            </p>
-                            <p>As a Creator selling Content and subscriptions you will earn 90% of what Viewers pay you.</p>
+                            <p>If a Creator has uploaded Content to their Playbox, the My Playbox icon appears on any Profile they 
+                                publish. The Viewer simply clicks the icon which will take them to the Escorts Playbox Profile page. This is 
+                                particularly helpful for Viewers to get to see an Escort who they are considering meeting with.</p><br>
+                            <p><b>Q: How do I activate My Playbox?</b></p>
+                            <p>Go to your Account and simply enable the service in your settings.</p><br>
+                            <p><b>Q: How are my earnings calculated?</b></p>
+                            <p>As a Creator selling Content and subscriptions you will earn 90% of what Viewers pay you.</p><br>
                             <p><b>Q: How frequent are payouts?</b></p>
-                            <p>Payouts are made on the 1st of the month by bank transfer.</p>
+                            <p>Payouts are made on the 1st of the month by bank transfer.</p><br>
                             <p><b>Are there any terms and conditions?</b></p>
-                            <p>Yes. There are terms & conditions (Playbox Terms) that you need to agree to before you can set up your Playbox. The Playbox Terms are specific to the My Playbox
-service.
-                            </p>
+                            <p>Yes. There are terms & conditions (Playbox Terms) that you need to agree to before you can set up your Playbox. 
+                                The Playbox Terms are specific to the My Playbox service.</p>
                              
                         </div>
                     </div>
@@ -672,52 +651,40 @@ service.
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: How do I pay for advertising?</b></p>
                             <p>Payment, by Card, is requested when you post a Profile or Tour or take up any of the
-                                Concierge Services. If you renew your Profile, your Card will be debited automatically.
-                            </p>
+                                Concierge Services. If you renew your Profile, your Card will be debited automatically.</p><br>
                             <p><b>Q: Does Escorts4U retain my Card details?</b></p>
                             <p>Our secure, third-party payments provider retains your details. Escorts4U does not
-                                directly retain your Card details.
-                            </p>
-                            <p><b>Q: Can I transfer Credits I have earn't from my Loyalty program?</b>
-                            </p>
+                                directly retain your Card details.</p><br>
+                            <p><b>Q: Can I transfer Credits I have earn't from my Loyalty program?</b></p>
                             <p>Yes, when you create a Profile or Tour, any Credits you have will be displayed and you
-                                will have the option to utilise them.
-                            </p>
-                            <p><b>Q: What is the easiest way to pay?</b>
-                            </p>
+                                will have the option to utilise them.</p><br>
+                            <p><b>Q: What is the easiest way to pay?</b></p>
                             <p>There are effectively three payment options, all with your Card, namely:</p>
                             <ul>
                                 <li>Pay as you go. If you post a Profile for 3 days, you only pay for 3 days.</li>
-                                <li>Pay in advance. You can pay a lump sum into your Account and then draw down
-                                    on those funds as you post and renew your Profiles or Tours.
-                                </li>
+                                <li>Pay in advance. You can pay a lump sum into your Wallet and then draw down
+                                    on those funds as you List and renew your Profiles or Tours.</li>
                                 <li>Pay and renew. You pay for the number of days you have selected for your Profile,
                                     and elect to automatically renew your Profile each nominated period thereafter (like
-                                    every 5 days) and for the nominated occurrences (like for 3 renewals).
-                                </li>
-
+                                    every 5 days) and for the nominated occurrences (like for 3 renewals).</li>
                             </ul>
                             <p>All transactions are completed using SMS 2FA and are confirmed by email notification
-                                to you. You can also view all of your purchase history from your Dashboard.
-                            </p>
+                                to you. You can also view all of your purchase history from your Dashboard.</p><br>
                             <p><b>Q: How do you set prices?</b></p>
                             <p>Our main objective is to provide value-for-money in an effective way. Our pricing is
                                 defined on a daily per Location basis with discounts applying for longer booking
                                 periods (22 days or more). We only raise prices (and not often) when the number of
                                 enquiries and Advertisers goes over a certain level. This is to maintain the number of
                                 Platinum and Gold listings at a level where each paid advertisement will continue to
-                                receive the number of enquiries the Member expects from us.</p>
-                            <p>We introduced variable pricing (Membership Types) after talking to many Advertisers
+                                receive the number of enquiries the Member expects from us.</p><br>
+                            <p>We introduced variable pricing (Membership Types) after talking to so many Advertisers
                                 who were asking how they could get more exposure and indicated they were willing to
-                                pay more if they could stand out.
-                            </p>
+                                pay more if they could stand out.</p><br>
                             <p>You also have the option of appearing on the Home Page as the Pin Up for your
-                                Home State or Location if you are touring. You can register to activate this feature
+                                Home State or Location if you are Touring. You can register to activate this feature
                                 through your Dashboard. Your Profile is posted as the Pin Up for an exclusive seven
-                                day period. This is a very popular feature and registration is required. You will be
-                                notified when your turn becomes available and asked if you still wish to proceed with
-                                the listing. If you confirm you wish to proceed, your Profile will appear in the Pin Up
-                                position the following day. Your Card will be automatically debited.</p>
+                                day period. This is a very popular feature and registration requires that you have 
+                                an existing Platinum Listed Profile.</p>
                                 
                         </div>
                     </div>
@@ -733,36 +700,19 @@ service.
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: Can I use fake images if they look very similar to me?</b></p>
                             <p>Absolutely not. We have a strict policy that all images must belong to the Escort, and
-                                be of themselves. This is mandatory and there is no negotiation on this policy.
-
-                            </p>
+                                be of themselves. This is mandatory and there is no negotiation on this policy.</p><br>
                             <p><b>Q: Is it a requirement to have my photos verified?</b></p>
-                            <p>Image verification is not a requirement, it is optional. However, we highly recommend
+                            <p>Media verification is not mandatory, it is optional. However, we highly recommend
                                 you have your images verified by us so that you can better establish client trust. You
                                 should remember that the biggest complaint from Viewers is fake Media and Profiles.
                                 If a report is made our support staff will investigate and if the Profile is found to
-                                have
-                                fake Media then the Profile will be Suspended.
-                            </p>
-                            <p><b>Q: How do I get my photos verified?</b>
-                            </p>
-                            <p>We have our own image verification system incorporated into the Media upload process.
-                            </p>
+                                have fake Media then the Profile may be Suspended.</p><br>
+                            <p><b>Q: How do I get my photos verified?</b></p>
+                            <p>We have our own image verification system incorporated into the Media upload process.</p><br>
                             <p>If you pass our image verification criteria, we will mark your Media with the prestigious
-                                E4U Verification Icon, which essentially verifies your Media as being genuine.
-                            </p>
-                            <p><b>Q: Will any images of me be blurred?</b></p>
-
-                            <p>We offer a blurring service free of charge to Platinum Advertisers. The service is
-                                available to Gold and Silver Members with the payment of a Fee. All Advertisers can
-                                have up to a maximum of six photo images per month blurred.
-                            </p>
-                            <p>Facial blurring is always styled with a light blurring effect. The blurring service does
-                                not include the removal of large tattoos or alterations to an Escort's appearance.</p>
-                            <p>All images for blurring must be submitted at the same time and be verified.
-                            </p>
+                                E4U Verification Icon, which essentially verifies your Media as being genuine.</p><br>
                             <p><b>Q: What are the photograph image requirements to advertise?</b></p>
-                            <p>We have a strict policy on what images you can publish. Your images must:</p>
+                            <p>We have a strict policy on what images you can publish. Your images must:</p><br>
                             <ul>
                                 <li>Be good quality and high resolution</li>
                                 <li>Be your own (of yourself). Other people in the image is acceptable provided you
@@ -780,7 +730,7 @@ service.
                             </ul>
                             <p>You can publish a montage photo image, like for example your Thumbnail image, provided that each of the images contained
                                 in the montage are compliant with our policy.
-                            </p>
+                            </p><br>
                             <p>We will not publish any images which:
                             </p>
                             <ul>
@@ -817,7 +767,7 @@ service.
                                     address. This information is set out in your Profile
                                 </li>
                             </ul>
-                            <p>We recommend your videos are brief and highlight your personality.</p>
+                            <p>We recommend your videos are brief and highlight your personality.</p><br>
                              
                         </div>
                     </div>
@@ -842,21 +792,20 @@ service.
                                 <li>Views of your video</li>
                                 <li>How many times you have been short listed on the Search Page</li>
                                 <li>How many Viewers have added you to their Legbox</li>
-                                <li>Clicks from your Profile to your Playbox page</li>
+                                <li>Clicks from your Profile to your My Playbox page</li>
                                 <li>The number of messages sent to you</li>
                                 <li>Clicks to your social media page/s (if you have provided a link)</li>
                                 <li>And many other helpful analytics</li>
                             </ul>
                             <p>If you use Google Analytics you can also find the number of website visitors by looking
                                 in Acquisition > Campaigns > All Campaigns. We know you will not always know about
-                                all the customers we send, but we have tried our best to give you an idea</p>
+                                all the customers we send, but we have tried our best to give you an idea</p><br>
                             <p>If you have questions about measurement, get in touch, as we greatly appreciate
                                 hearing about your results and any suggestions about how we can improve the
-                                information we present to you.
-                            </p>
+                                information we present to you.</p><br>
                             <p><b>Q: Can I request a report?</b></p>
                             <p>Yes you can. Simply go to your Dashboard and select the report type you want and
-                                the frequency you want the report to be sent to you.</p>
+                                the frequency you want the report to be sent to you.</p><br>
                                  
                         </div>
                     </div>
@@ -877,9 +826,8 @@ service.
                                 simply tick the box or select from a drop down menu. The Profile creator also pre-loads
                                 all of your Profile Information, which makes it very quick and easy to create a
                                 Profile. Spend the time to complete your Profile Information, you will find the time is
-                                well spent.</p>
-                            <p>Here are some good tips for you:
-                            </p>
+                                well spent.</p><br>
+                            <p>Here are some good tips for you:</p>
                             <ul>
                                 <li>Put real photos up, preferably more than one. You can upload up to 6 photos plus
                                     your Thumbnail. Make sure you have had them verified to save time when you post
@@ -897,7 +845,7 @@ service.
                                 <li>If you have a video to upload, make sure it is not too long and that the recording
                                     is of good quality. You can have up to 3 videos per Profile
                                 </li>
-                                <li>Include your Playbox content if you have enable this feature</li>
+                                <li>Include your My Playbox content if you have enable this feature</li>
                                 <li>Include your social media links if you have any</li>
 
                             </ul>
@@ -918,26 +866,23 @@ service.
                                 </li>
                             </ul>
                             <p><b>Q: Can I have more than one Profile?</b></p>
-                            <p>Yes, you absolutely can. If you create more than one Profile for a Location you might want to use a different Stage Name for each Profile, perhaps use different Media and set out a different summary about yourself. Our Profile creator is very detailed, you
-will be very satisfied with how we present your Profile.
-                            </p>
+                            <p>Yes, you absolutely can. If you create more than one Profile for a Location you might want to use a different 
+                                Stage Name for each Profile, perhaps use different Media and set out a different summary about yourself. 
+                                Our Profile creator is very detailed, you will be very satisfied with how we present your Profile.</p><br>
                             <p>You can archive your Profiles in the Profile Group folder so that you do not have to edit or
                                 recreate the one Profile across a number of Locations, including more than one in the
                                 same Location. Just switch on and switch off the Profile for the Location you are in. It
-                                is really easy to manage your Profiles and post them.</p>
+                                is really easy to manage your Profiles and List them.</p><br>
                             <p><b>How do I make My Playbox available?</b></p>
-                            <p>When you enable the My Playbox feature, the My Playbox icon will appear on any Profile that you publish. Viewers will see the My Playbox icon, located at the top of the
-Profile, indicating the service is available to Viewers.</p>
+                            <p>When you enable the My Playbox feature, the My Playbox icon will appear on any Profile that you have Listed. 
+                                Viewers will see the My Playbox icon, located at the top of the Profile, indicating the service is available to Viewers.</p><br>
                             <p><b>Q: Can I make Profiles for different individuals?</b></p>
-                            <p>Yes, as long as you have their permission for you to list them and they are real
-                                people.</p>
+                            <p>Yes, as long as you have their permission for you to list them and they are real people.</p><br>
                             <p>If you are a Massage Centre, you only need to create one Profile as a Massage
-                                Centre Profile allows you to post up to 8 Masseur Profiles (see <a href="help-for-massage-centres"
-                                                                                                   class="termsandconditions_text_color">Help
-                                    for Massage Centres</a>).
-                            </p>
+                                Centre Profile allows you to post up to 8 Masseur Profiles (see <a href="help-for-massage-centres" class="termsandconditions_text_color">Help
+                                    for Massage Centres</a>).</p><br>
                             <p><b>Q: How are Profiles ordered?</b></p>
-                            <p>Profiles within each Membership Types are randomised every 2 hours and customised
+                            <p>Profiles within each Membership Types are reshuffled every 30 minutes and customised
                                 to each individual Advertiser according to their Profile Information. The search bar in
                                 the Website is very powerful and enables Viewers to search Advertisers by:</p>
                             <ul>
@@ -946,54 +891,62 @@ Profile, indicating the service is available to Viewers.</p>
                                 <li>Age</li>
                                 <li>Rate</li>
                                 <li>Service type, such as Massage, Incall or Outcall; and</li>
+                                <li>Playmates</li>
                                 <li>Verified Photos</li>
                                 <li>Much more ...</li>
                             </ul>
                             <p>The search bar also has an advanced feature whereby Viewers can also search by
-                                Service Tag for:
-                            </p>
+                                Service Tag for:</p>
                             <ul>
                                 <li>Fun stuff on the Viewer</li>
                                 <li>Kinky stuff on the Viewer</li>
                                 <li>Fun stuff on the Advertiser</li>
                             </ul>
                             <p>It is very important that you set your Profile Information for Service Tags accurately so
-                                that a Viewer can undertake a search with confidence.
-                            </p>
+                                that a Viewer can undertake a search with confidence.</p><br>
                             <p>By completing your Profile creator and answering all the questions, you enhance your
                                 chances of being found with the search bar. We do this to provide the best possible
                                 experience for Advertisers and Viewers ensuring that all Advertisers in a single
-                                Membership Type receive a similar amount of exposure to Viewers.</p>
+                                Membership Type receive a similar amount of exposure to Viewers.</p><br>
                             <p><b>Q: Is fake Media OK?</b></p>
                             <p>If you post any fake Media, your Account will be suspended. If we determine that you
                                 have other Accounts, they will also be suspended regardless of whether they are
                                 genuine or not. There are no excuses and we will not enter into any discussion with
                                 you. Posting fake Media is fraud and a breach of intellectual property rights of the
                                 owner of the fake media. If you have paid for Profiles and you are Suspended the
-                                Credits are not refundable.
-                            </p>
-                            <p>You will have an opportunity to edit the suspended Profile to remove the fake Media.</p>
+                                Credits are not refundable.</p><br>
+                            <p>You will have an opportunity to edit the suspended Profile to remove the fake Media.</p><br>
                             <p><b>Q: Why are my photos marked as fake?</b></p>
                             <p>This is the most common complaint from other Advertisers and Viewers about Profiles
                                 - fake Media. Further, fake Media is not fair and does not provide for a level playing
                                 field for all the Advertisers. Your Media may be marked as fake because of a report
                                 from an Advertiser or Viewer. You will receive a warning email from us giving you 48
-                                hours to have your Media verified before your Profile is returned to active.
-                            </p>
+                                hours to have your Media verified before your Profile is returned to active.</p><br>
+                            <p>Media Verification is very important.  Once you upload your Media (photos), you can then have your photos verified.
+                                Simply upload your Verification Image and within 24 hours the Media will be reviewed and the verification status updated.
+                                There are three verification statuses:</p>
+                       <ul>
+                            <li>Pending.  This is when you have uploaded your Media but the Media has not been verified.  All Media will display the E4U Pending icon.  
+                               You have 48 hours to upload your Verification Image, otherwise your verification status will change to Unverified, and the E4U 
+                                  Unverified icon will be displayed on all Media.  This includes any Listed Profiles.</li>
+                            <li>Unverified.  This is where your Verification Image and Media are not a match, and E4U has rejected the submitted Verification Image.
+                           The verification status on all Media will display the E4U Unverified icon.  This will also occur where you have not uploaded a 
+                           Verification Image within 48 hours of having uploaded any Media.</li>
+                            <li>Verified.  All Media will display the E4U Verified icon upon E4U approving the Verification Image.  
+                           Any Media that you upload after verification, will display the E4U Pending icon until verified.  
+                           If you do not upload a new Verification Image within 48 hours, the new Media status will change to Unverified, and will have the E4U Unveridied
+                           icon displayed on that Media.  You can have a mix of Pending, Unverified and Verified Media appear within a Profile should you select Media and attached
+                           to a Profile in between verification.</li>
+                        </ul>
                             <p><b>Q: What is not OK?</b></p>
-                            <p>If you are an Advertiser and do not follow the Policies, your Account, including any
-                                future accounts, will be blocked.</p>
+                            <p>If you are an Advertiser and do not follow the Policies, your Account, including any future accounts, will be blocked.</p><br>
                             <p>It is not acceptable for:</p>
                             <ul>
                                 <li>Underage photos or photos of children to appear in any Profile
                                 </li>
                                 <li>Trafficking, enslavement or anything similar to be promoted</li>
-                                <li>Abuse, violence or oppressive behaviour to be directed towards other Advertisers or
-                                    Viewers
-                                </li>
-                                <li>Online trolling or other defamation to be directed towards other Advertisers or
-                                    Viewers
-                                </li>
+                                <li>Abuse, violence or oppressive behaviour to be directed towards other Advertisers or Viewers</li>
+                                <li>Online trolling or other defamation to be directed towards other Advertisers or Viewers</li>
 
                             </ul>
                              
@@ -1020,14 +973,13 @@ Profile, indicating the service is available to Viewers.</p>
                                 </li>
                             </ul>
                             <p><b>Q: How do I pay for these services?</b></p>
-                            <p>Payment, by Card, is requested when you request any of these services. You tell us
+                            <p>Payment, by Card, is required when you request any of these services. You tell us
                                 how long you are here for and payment is charged according to your stay. You can
-                                extend any time, your Card will be debited automatically.</p>
+                                extend any time, your Card will be debited automatically.</p><br>
                             <p><b>Q: How do I get my Mobile SIM?</b></p>
                             <p>You need to register with Escorts4U, then logon and from your Dashboard order your
                                 Mobile SIM. We will post the SIM to you. The SIM will already be active, just place it
-                                in your mobile phone and you are right to go.
-                            </p>
+                                in your mobile phone and you are right to go.</p><br>
                             <p><b>Q: How do I access my email account?</b></p>
                             <p>You can access your email account via your mobile phone email app (Microsoft
                                 Outlook) or a web browser. It is very easy, simply follow the install instructions and
@@ -1048,11 +1000,11 @@ Profile, indicating the service is available to Viewers.</p>
                             <p class="pt-4"><b>Q: Who is the engine behind this service?</b></p>
                             <p>Escorts4U has partnered with a leading provider of travel, accommodation and related
                                 services online bookings as a convenient one stop shop for you. It is no different to
-                                booking your accommodation and flights directly through those providers.</p>
+                                booking your accommodation and flights directly through those providers.</p><br>
                             <p><b>Q: Will I receive the same amount of information?</b></p>
                             <p>Yes you will. All of the information you would receive by booking direct, you will also
                                 receive through the Website. There is no difference.
-                            </p>
+                            </p><br>
                             <p><b>Q: Will I get the same discounts on offers as if I went direct?</b></p>
                             <p>Yes you will. Any promotions and discounts on offer directly will be available through
                                 the Website as well</p>
@@ -1070,48 +1022,45 @@ Profile, indicating the service is available to Viewers.</p>
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: What is the Ugly Mugs Register?</b></p>
-                            <p>The National Ugly Mugs register (NUM) is a pioneering, national concept delivered by
+                            <p>The National Ugly Mugs register (<b>NUM</b>) is a pioneering, national concept delivered by
                                 Escorts4U through this Website. It is designed to provide greater protection for
                                 Advertisers who are often targeted or find themselves the victim of a dangerous
                                 individual, but are reluctant to report the incident to the police. These offenders are
                                 often serial sexual predators or criminals who pose a risk to Escorts and to the public
-                                as a whole.</p>
+                                as a whole.</p><br>
                             <p><b>Q: How does the register help me?</b></p>
                             <p>As a registered Advertiser, you will have access to NUM through your Dashboard.
                                 You simply complete an online report regarding your incident, and the NUM Report is
                                 made available to other Escorts via their Dashboard. You remain anonymous.
-                            </p>
+                            </p><br>
                             <p><b>Q: Is NUM confidential?</b></p>
                             <p>Yes. NUM operates under a strict confidentiality policy which means we will not
                                 disclose or share information outside the Escorts4U team without your permission.
                                 Your information will be held electronically on a secure system. We follow strict
                                 guidelines of confidentiality, and we can reassure you that we will always protect your
-                                interests and respect to everything you say.</p>
+                                interests and respect to everything you say.</p><br>
                             <p>We follow the <a href="{{ url('faqs')}}"
                                                 class="termsandconditions_text_color">Local
                                     Laws</a> and the principles set out in the Privacy Act and the Notifiable
-                                    Data Breaches scheme.</p>
+                                    Data Breaches scheme.</p><br>
                             <p><b>Q: Is the NUM funded by the police?</b></p>
-                            <p>No. Escorts4U has no connection with any of the police services throughout Australia.</p>
+                            <p>No. Escorts4U has no connection with any of the police services throughout Australia.</p><br>
                             <p><b>Q: How do I make a report?</b></p>
                             <p>Simply log on and go to your Dashboard. Select "Make a Report" to submit your
                                 incident. The NUM report will be reviewed by our support team and then published to
                                 other Escorts via the NUM register. Only Advertisers have access to the NUM
-                                register.
-                            </p>
+                                register.</p><br>
                             <p><b>Q: What is a NUM Alert?</b></p>
                             <p>An Alert is simply a warning meant to alert Escorts to people or situations that may be
-                                dangerous to them.</p>
+                                dangerous to them.</p><br>
                             <p>When we receive a NUM Report it will be moderated and risk assessed by our support
                                 staff and sanitised to form an Alert. This will then be posted onto the NUM register,
                                 which registered Advertisers can access from their Dashboard. We also email or text
                                 to other Escorts, who have enabled the service, alerting them of dangerous
-                                individuals.
-                            </p>
+                                individuals.</p><br>
                             <p><b>Q: What can I do in the NUM register?</b></p>
                             <p>When you register as an Advertiser you automatically gain access to the NUM
-                                register. You can:
-                            </p>
+                                register. You can:</p>
                             <ul>
                                 <li>View Alerts</li>
                                 <li>Make a report</li>
@@ -1122,22 +1071,15 @@ Profile, indicating the service is available to Viewers.</p>
                             <p><b>Q: Can I do a Number check?</b></p>
                             <p>Yes. Simply log on and follow these simple steps:</p>
                             <ul>
-                                <li>Go to your Dashboard.</li>
-                                <li>Click "Lookup"</li>
+                                <li>Go to the NUM Dashboard</li>
                                 <li>Type in the number you want to check in the search field</li>
-                                <li>Select "Submit"</li>
-                                <li>A message will appear letting you know if there has been a match or not (this
-                                    service is subject to the Privacy Act).
-                                </li>
-
+                                <li>As you type the number into the search field, a short list will appear which will narrow down as you type in the number</li>
+                                <li>If there is a report, a summary will appear letting you know if there has been a match or not (this service is subject to the Privacy Act).</li>
                             </ul>
                             <p>As the number checker is new, there are not so many 'ugly numbers' in the database,
                                 so if there is no match this is not to say that the number and person using the number
-                                are safe to meet with.
-                            </p>
-                            <p>Every time an 'ugly number' is reported to NUM it will be immediately added to the
-                                database.
-                            </p>
+                                are safe to meet with.  Always apply caution with who you intend meeting with.</p><br>
+                            <p>Every time an 'ugly number' is reported to NUM it will be immediately added to the database.</p><br>
                             <p><b>Q: What happens if I make a false report?</b></p>
                             <p>If we determine that you have mad a false report your Account will be cancelled.</p>
 
@@ -1155,33 +1097,29 @@ Profile, indicating the service is available to Viewers.</p>
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: How do I apply for a Visa?</b></p>
                             <p>You can apply for a Visa online or engage a migration agent to prepare your
-                                application on your behalf.</p>
+                                application on your behalf.</p><br>
                             <p><b>Q: Can Escorts4U help me with my Visa?</b></p>
                             <p>Yes. We have partnered with a reputable provider of visa, migration and education
                                 placement services who can assist you by providing all the advice you need to sort out
                                 your needs. Just logon and from your Dashboard, select Concierge Services - Visa.
-                                Complete the Visa request form and someone will be in touch.
-                            </p>
+                                Complete the Visa request form and someone will be in touch.</p><br>
                             <p><b>Q: How do I open a Bank account by myself?</b></p>
                             <p>If you choose to open a Bank account within six weeks of your arrival you will only
                                 need your passport as identification. If you wait more than six weeks after your arrival
                                 to open an account you will need extra identification like a birth certificate, driver's
-                                licence or credit card.</p>
+                                licence or credit card.</p><br>
                             <p>When opening your Bank account, make sure you are very clear about your address.
                                 Ask to view your address details entered up by the Bank officer on the monitor to be
                                 absolutely sure the address is correct. This will avoid any problems with the delivery
-                                of your debit card. Bank officers are human and make mistakes.
-                            </p>
+                                of your debit card. Bank officers are human and make mistakes.</p><br>
                             <p><b>Q: My card has not arrived, what should I do?</b></p>
                             <p>If your card has not arrived within the time the Bank advised you it would take for the
                                 card to arrive, go back to the Bank and re-order the card. Some Banks, as an interim
                                 solution, will issue you an international debit card while you are there. You will need
                                 to transfer funds into the international account the Bank creates for you. You can do that
-                                via your Bank app.
-                            </p>
-                            <p>If you have to go down this path, don’t be intimidated by the Bank. Insist they issue
-                                the international card. Most Banks issue the card from the branch.
-                            </p>
+                                via your Bank app.</p><br>
+                            <p>If you have to go down this path, don't be intimidated by the Bank. Insist they issue
+                                the international card. Most Banks issue the card from the branch.</p><br>
                             <p><b>Q: How do I move money Internationally?</b></p>
                             <p>Most Banks in Australia have International Money Transfer services as a part of their
                                 online banking service. Once you have opened your Bank account and registered to
