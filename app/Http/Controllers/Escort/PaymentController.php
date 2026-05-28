@@ -11,422 +11,375 @@ use App\Models\PaymentHistory;
 use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class PaymentController extends Controller
 {
-  protected $walletService;
-  protected $pinService;
-  protected $user;
-  public function __construct(WalletService $walletService, PinPaymentService $pinService, EscortInterface $escort)
-  {
-    $this->escort = $escort;
-    $this->walletService = $walletService;
-    $this->pinService = $pinService;
-    $this->middleware(function ($request, $next) {
-      $this->account = auth()->user();
-      return $next($request);
-    });
-  }
-
-  protected function getAmount($amount = 0.00)
-  {
-    if (empty($amount)) {
-      if (session()->has('checkout')) {
-        $checkout = session()->get('checkout');
-        foreach ($checkout as $startDate => $item) {
-          $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date'])) + 1;
-          list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
-          $amount = $amount + $total_rate;
-        }
-      }
-
-      if (session()->has('tour_checkout')) {
-        $checkout = session()->get('tour_checkout');
-        foreach ($checkout as $startDate => $item) {
-          $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date'])) + 1;
-          list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
-          $amount = $amount + $total_rate;
-        }
-      }
+    protected $walletService;
+    protected $pinService;
+    protected $user;
+    public function __construct(WalletService $walletService, PinPaymentService $pinService, EscortInterface $escort)
+    {
+        $this->escort = $escort;
+        $this->walletService = $walletService;
+        $this->pinService = $pinService;
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
-    return $amount;
-  }
+    
+    protected function getAmount($amount = 0.00){
+        if(empty($amount)){
+            if(session()->has('checkout')){
+                $checkout = session()->get('checkout');
+                foreach ($checkout as $startDate => $item) {
+                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                    list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
+                    $amount = $amount+$total_rate;
+                }
+            }
 
-  public function paymentAdjustment(Request $request)
-  {
-    try {
-      $action = $request->filled('action') ? (float) $request->action : 'apply';
-      $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
-      $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
-      // At least one value is required
-      if ($action == 'apply' && empty($wallet_amount) && empty($loyalty_day)) {
-        return response()->json([
-          'status'  => false,
-          'message' => 'Please enter wallet amount or loyalty days',
-        ], 422);
-      }
-
-      $wallet_balance   = $this->account->wallet->balance ?? 0;
-      $wallet_earn_days = $this->account->wallet->earn_days ?? 0;
-      // Validate wallet amount
-      if ($wallet_amount > $wallet_balance) {
-        return response()->json([
-          'status'  => false,
-          'message' => 'Wallet amount exceeds available balance',
-        ], 422);
-      }
-      // Validate loyalty days
-      if ($loyalty_day > $wallet_earn_days) {
-        return response()->json([
-          'status'  => false,
-          'message' => 'Loyalty days exceed available days',
-        ], 422);
-      }
-
-      $sub_total_amount = $this->getAmount();
-
-      $loyalty_amount = 0;
-
-      if (session()->has('checkout')) {
-        $checkout = session()->get('checkout');
-        $lowestPlan = collect($checkout)->max('membership');
-        $planFee = getPlanFee($lowestPlan);
-        $loyalty_amount = ($planFee * $loyalty_day);
-      }
-
-      if (session()->has('tour_checkout')) {
-        $checkout = session()->get('tour_checkout');
-        $lowestPlan = collect($checkout)->max('membership');
-        $planFee = getPlanFee($lowestPlan);
-        $loyalty_amount = ($planFee * $loyalty_day);
-      }
-
-      $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount);
-
-      $this->pinService->setAmount($total_amount);
-
-      $gstAmount = $this->pinService->getGSTAmount();
-      $totalDueAmount = $this->pinService->getTotalDue();
-
-      if ($total_amount < 0) {
-        return response()->json([
-          'status'  => false,
-          'message' => 'Wallet amount and Loyalty discount exceed subtotal',
-        ], 422);
-      }
-
-      $total_amount = max(0, $total_amount);
-      $paymentAmounts = [];
-
-      $html = view('escort.dashboard.modal.order_summary_adjustment', compact('sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
-
-      return response()->json([
-        'status'         => true,
-        'lowest_plan' => $lowestPlan,
-        'total_amount' => $total_amount,
-        'benefit_token' => encrypt(compact('loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount')),
-        'message' => 'Applied successfully',
-        'html' => $html,
-      ]);
-    } catch (\Exception $e) {
-
-      return response()->json([
-        'status'  => false,
-        'message' => 'Something went wrong',
-        'error'   => $e->getMessage()
-      ], 500);
-    }
-  }
-
-  public function applyWallet(Request $request)
-  {
-    try {
-      // -------------------------------
-      // 1. Validate Request
-      // -------------------------------
-      $request->validate([
-        'wallet_amount' => 'required|numeric|min:1'
-      ]);
-
-      // -------------------------------
-      // 2. Current Wallet Balance
-      // -------------------------------
-      $wallet_balance = $this->account->wallet->balance ?? 0;
-      $entered_amount = $request->wallet_amount;
-
-      // -------------------------------
-      // 3. Check if entered amount is <= wallet balance
-      // -------------------------------
-      if ($entered_amount > $wallet_balance) {
-        return response()->json([
-          'status'  => false,
-          'message' => 'Entered amount exceeds your wallet balance (AU$ ' . $wallet_balance . ')'
-        ], 422);
-      }
-
-      // 4. Deduct Amount From Wallet
-      // -------------------------------
-      $this->account->wallet->balance = $wallet_balance - $entered_amount;
-
-      // 5. Success Response
-      // -------------------------------
-      return response()->json([
-        'status'  => true,
-        'message' => 'Wallet amount applied successfully!',
-        'remaining_wallet_balance' => $this->account->wallet->balance,
-        'wallet_used' => $entered_amount
-      ]);
-    } catch (\Exception $e) {
-      // -------------------------------
-      // 6. Error Response
-      // -------------------------------
-      return response()->json([
-        'status'  => false,
-        'message' => $e->getMessage()
-      ], 500);
-    }
-  }
-  public function processPayment(Request $request)
-  {
-    try {
-
-      $request->validate([
-        'pin_token' => 'required'
-      ]);
-
-      $pin_token = str_contains($request->pin_token, 'card') ? $request->pin_token : decrypt($request->pin_token);
-
-      $is_bypass = $pin_token == 'without_pay_now';
-
-      $redirect_url = '';
-      $gatewayResponse['status'] = true;
-
-      $amount = $this->getAmount();
-
-      $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
-        'loyalty_day' => 0,
-        'sub_total_amount' => $amount,
-        'wallet_amount' => 0.00,
-        'loyalty_amount' => 0.00,
-        'total_amount' => $amount,
-      ];
-
-      $this->pinService->setAmount($benefit_token['total_amount']);
-
-      $gstAmount = $this->pinService->getGSTAmount();
-      $totalDueAmount = $this->pinService->getTotalDue();
-
-      if (!$is_bypass) {
-
-        $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
-
-        if ($gatewayResponse['status']) {
-          $response = $gatewayResponse['data']['response'];
-        } else {
-          return response()->json([
-            'status' => 'error',
-            'gateway' => $gatewayResponse['error']
-          ], 400);
+            if(session()->has('tour_checkout')){
+                $checkout = session()->get('tour_checkout');
+                foreach ($checkout as $startDate => $item) {
+                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                    list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
+                    $amount = $amount+$total_rate;
+                }
+            }
         }
-      }
-
-      DB::beginTransaction();
-
-      $payment = PaymentHistory::create([
-        'user_id' => $this->account->id,
-        'completed_by' => $this->account->id,
-        'ref_no' => now()->format('Ymd') . rand(100, 999),
-        'amount' => $benefit_token['sub_total_amount'],
-        'wallet_amount' => $benefit_token['wallet_amount'],
-        'loyalty_amount' => $benefit_token['loyalty_amount'],
-        'net_amount' => $benefit_token['total_amount'],
-        'gst_amount' => $gstAmount,
-        'paid_amount' => $totalDueAmount,
-        'currency' => $is_bypass ? 'AUD' : $response['currency'],
-        'payment_gateway' => 'pinpayments',
-        'transaction_id' => $is_bypass ? null : $response['token'],
-        'status' => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
-        'paid_at' => $is_bypass ? null : $response['created_at'],
-        'card' => $is_bypass ? null : $response['card']['display_number'],
-        'meta' => $is_bypass ? null : json_encode($response),
-      ]);
-
-      $payment_service = '';
-
-      if (session()->has('checkout')) {
-        $this->saveCheckout($payment);
-        $payment_service = 'Profile Listing';
-        $redirect_url = route('escort.account.listing_success');
-      }
-
-      if (session()->has('tour_checkout')) {
-        $this->saveCheckout($payment);
-        $payment_service = 'Tour';
-        $redirect_url = route('escort.account.listing_success');
-      }
-
-      if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
-        $this->walletService->debit($this->account, $benefit_token['wallet_amount'], $payment, $payment_service, []);
-      }
-      if (!empty($benefit_token['loyalty_day']) && $benefit_token['loyalty_day'] > 0) {
-        $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
-      }
-      $earn_days = floor($benefit_token['total_amount'] / 200);
-      if ($earn_days > 0) {
-        $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
-      }
-      $payment->service = $payment_service;
-      $payment->save();
-      DB::commit();
-      return response()->json([
-        'status' => 'success',
-        'message' => 'Your payment has been processed successfully.',
-        'netAmount' => $amount,
-        'redirect_url' => $redirect_url
-      ]);
-    } catch (\Illuminate\Validation\ValidationException $e) {
-      return response()->json([
-        'status' => 'error',
-        'errors' => $e->errors()
-      ], 422);
-    } catch (\Exception $e) {
-      DB::rollBack();
-      \Log::error('Payment Processing Error', [
-        'message' => $e->getMessage(),
-        'line' => $e->getLine(),
-        'file' => $e->getFile(),
-      ]);
-      return response()->json([
-        'status' => 'error',
-        'message' => 'Something went wrong while processing payment.',
-        'error' => $e->getMessage()
-      ], 500);
+        return $amount;
     }
-  }
 
-  public function saveCheckout($payment = null)
-  {
-    if (session()->has('checkout')) {
-      $checkout = session()->get('checkout');
-      $netPaidAmount = 0.00;
-      foreach ($checkout as $startDate => $item) {
-        $escortDetail = getEscortDetail($item['escort_id']);
-        $start_date = Carbon::createFromFormat('d-m-Y', $item['start_date'])->format('Y-m-d') . ' 00:00:00';
-        $end_date = Carbon::createFromFormat('d-m-Y', $item['end_date'])->format('Y-m-d') . ' 23:59:59';
+    public function paymentAdjustment(Request $request)
+    {
+        try {
 
-        $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+            $action = $request->filled('action') ? (float) $request->action : 'apply';
+            $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
+            $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
+            // At least one value is required
+            if ($action=='apply' && empty($wallet_amount) && empty($loyalty_day)) {    
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Please enter wallet amount or loyalty days',
+                ], 422);
+            }
+            
+            $wallet_balance   = $this->account->wallet->balance ?? 0;
+            $wallet_earn_days = $this->account->wallet->earn_days ?? 0;
+            // Validate wallet amount
+            if ($wallet_amount > $wallet_balance) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Wallet amount exceeds available balance',
+                ], 422);
+            }
+            // Validate loyalty days
+            if ($loyalty_day > $wallet_earn_days) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Loyalty days exceed available days',
+                ], 422);
+            }
 
-        $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
-        $utcSartTime = $localStartDateTime->copy()->setTimezone('UTC');
+            $sub_total_amount = $this->getAmount();
+            
+            $loyalty_amount = 0;
 
-        $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);
-        $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
+            if(session()->has('checkout')){
+                $checkout = session()->get('checkout');
+                $lowestPlan = collect($checkout)->max('membership');
+                $planFee = getPlanFee($lowestPlan);
+                $loyalty_amount = ($planFee*$loyalty_day);
+            }
 
-        $item['utc_start_time'] = $utcSartTime;
-        $item['utc_end_time'] = $utcEndTime;
-        $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date'])) + 1;
-        list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
-        $item['rate'] = $normalRate;
-        $item['discount_rate'] = $discountRate;
-        $item['total_rate'] = $normalRate * $daysDiff;
-        $item['paid_rate'] = $total_rate;
-        $purchaseDetail = Purchase::create($item);
+            if (session()->has('tour_checkout')) {
+                $checkout = session()->get('tour_checkout');
+                $lowestPlan = collect($checkout)->max('membership');
+                $planFee = getPlanFee($lowestPlan);
+                $loyalty_amount = ($planFee*$loyalty_day);
+            }
 
-        if (!empty($payment)) {
-          $purchaseDetail->paymentItems()->create([
-            'payment_history_id' => $payment->id,
-            'amount' => $total_rate
-          ]);
+            $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount); 
+
+            $this->pinService->setAmount($total_amount);
+
+            $gstAmount = $this->pinService->getGSTAmount();
+            $totalDueAmount = $this->pinService->getTotalDue();
+
+            if ($total_amount < 0) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Wallet amount and Loyalty discount exceed subtotal',
+                ], 422);
+            }
+
+            $total_amount = max(0, $total_amount);
+            $paymentAmounts = [
+
+            ];
+            
+            $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount','gstAmount','totalDueAmount'))->render();
+            
+            return response()->json([
+                'status'         => true,
+                'lowest_plan' => $lowestPlan,
+                'total_amount' => $total_amount,
+                'benefit_token' => encrypt(compact('loyalty_day','sub_total_amount','wallet_amount','loyalty_amount','total_amount')),
+                'message' => 'Applied successfully',
+                'html' => $html,
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage()
+            ], 500);
         }
-
-        if ($this->account->activeFeeDiscount) {
-          $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
-        }
-
-        if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
-          $escortDetail->start_date = $item['start_date'];
-          $escortDetail->end_date = $item['end_date'];
-          $escortDetail->utc_start_time = $utcSartTime;
-          $escortDetail->utc_end_time = $utcEndTime;
-          $escortDetail->membership = $item['membership'];
-          $escortDetail->enabled = 1;
-          $escortDetail->purchase_id = $purchaseDetail->id;
-          $escortDetail->save();
-
-          $purchaseDetail->status = 'listed';
-          $purchaseDetail->save();
-        }
-      }
     }
-  }
 
-  public function transactionSummary(Request $request)
-  {
-    return view('escort.dashboard.Bookkeeping.transaction-summary');
-  }
+    public function processPayment(Request $request)
+    {
+        try {
 
-  public function transactionSummaryDatatable()
-  {
-    list($result, $count, $other) = $this->pinService->paginatedList(
-      request()->get('start'),
-      request()->get('length'),
-      request()->get('order')[0]['column'],
-      request()->get('order')[0]['dir'],
-      request()->get('columns'),
-      request()->get('search')['value'],
-      $this->account
-    );
-    $result = $this->pinService->modifyRecords($result);
-    $data = array(
-      "draw"            => intval(request()->input('draw')),
-      "recordsTotal"    => intval($count),
-      "recordsFiltered" => intval($count),
-      "other" => $other,
-      "data"            => $result
-    );
+            $request->validate([
+                'pin_token' => 'required'
+            ]);
 
-    return response()->json($data);
-  }
+            $pin_token = str_contains($request->pin_token, 'card') ? $request->pin_token : decrypt($request->pin_token);
 
-  public function paymentDetail(Request $request)
-  {
-    try {
+            $is_bypass = $pin_token == 'without_pay_now';
 
-      $id = decrypt($request->id);
-      $payment = PaymentHistory::findOrFail($id);
-      $html = view('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment'))->render();
-      return response()->json([
-        'status' => true,
-        'html'   => $html,
-        'print_url' => route('payment.detail.print', $payment->id),
-        'message' => 'Listing fetched successfully'
-      ]);
-    } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            $redirect_url = '';
+            $gatewayResponse['status'] = true;
 
-      return response()->json([
-        'status' => false,
-        'message' => 'Invalid listing id'
-      ], 400);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            $amount = $this->getAmount();
 
-      return response()->json([
-        'status' => false,
-        'message' => 'Listing not found'
-      ], 404);
-    } catch (\Exception $e) {
-      return response()->json([
-        'status' => false,
-        'message' => 'Something went wrong'
-      ], 500);
+            $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
+                'loyalty_day' => 0,
+                'sub_total_amount' => $amount,
+                'wallet_amount' => 0.00,
+                'loyalty_amount' => 0.00,
+                'total_amount' => $amount,
+            ];
+
+            $this->pinService->setAmount($benefit_token['total_amount']);
+
+            $gstAmount = $this->pinService->getGSTAmount();
+            $totalDueAmount = $this->pinService->getTotalDue();
+
+            if (!$is_bypass) {
+                $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
+                if ($gatewayResponse['status']) {
+                    $response = $gatewayResponse['data']['response'];
+                } else {
+                    return response()->json([
+                        'status' => 'error',
+                        'gateway' => $gatewayResponse['error']
+                    ], 400);
+                }
+            }
+
+            DB::beginTransaction();
+
+            $payment = PaymentHistory::create([
+                'user_id' => $this->account->id,
+                'completed_by' => $this->account->id,
+                'ref_no' => now()->format('Ymd') . rand(100, 999),
+                'amount' => $benefit_token['sub_total_amount'],
+                'wallet_amount' => $benefit_token['wallet_amount'],
+                'loyalty_amount' => $benefit_token['loyalty_amount'],
+                'net_amount' => $benefit_token['total_amount'],
+                'gst_amount' => $gstAmount,
+                'paid_amount' => $totalDueAmount,
+                'currency' => $is_bypass ? 'AUD' : $response['currency'],
+                'payment_gateway' => 'pinpayments',
+                'transaction_id' => $is_bypass ? null : $response['token'],
+                'status' => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
+                'paid_at' => $is_bypass ? null : $response['created_at'],
+                'card' => $is_bypass ? null : $response['card']['display_number'],
+                'meta' => $is_bypass ? null : json_encode($response),
+            ]);
+
+            $payment_service = '';
+
+            if (session()->has('checkout')) {
+                $this->saveCheckout($payment);
+                $payment_service = 'Profile Listing';
+                $redirect_url = route('escort.account.listing_success');
+            }
+
+            if (session()->has('tour_checkout')) {
+                $this->saveCheckout($payment);
+                $payment_service = 'Tour';
+                $redirect_url = route('escort.account.listing_success');
+            }
+            
+            if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
+                $this->walletService->debit($this->account, $benefit_token['wallet_amount'], $payment, $payment_service, []);
+            }
+            if (!empty($benefit_token['loyalty_day']) && $benefit_token['loyalty_day'] > 0) {
+                $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
+            }
+            $earn_days = floor($benefit_token['total_amount'] / 200);
+            if ($earn_days > 0) {
+                $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
+            }
+            $payment->service = $payment_service;
+            $payment->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Your payment has been processed successfully.',
+                'netAmount' => $amount,
+                'redirect_url' => $redirect_url
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Payment Processing Error', [
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+            ]);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong while processing payment.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
-  }
 
-  public function printPaymentDetail(PaymentHistory $payment)
-  {
-    $print = true;
-    $pdf = PDF::loadView('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment', 'print'));
-    return $pdf->stream($payment->user->member_id . '_Payment_Summary_' . $payment->ref_no . '.pdf');
-  }
+    public function saveCheckout($payment=null){
+        if(session()->has('checkout')){
+            $checkout = session()->get('checkout');
+            $netPaidAmount = 0.00;
+            foreach ($checkout as $startDate => $item) {
+                $escortDetail = getEscortDetail($item['escort_id']);
+                $start_date = Carbon::createFromFormat('d-m-Y', $item['start_date'])->format('Y-m-d').' 00:00:00';
+                $end_date = Carbon::createFromFormat('d-m-Y', $item['end_date'])->format('Y-m-d').' 23:59:59';
+                
+                $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+    
+                $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
+                $utcSartTime = $localStartDateTime->copy()->setTimezone('UTC');
+    
+                $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);
+                $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
+    
+                $item['utc_start_time'] = $utcSartTime;
+                $item['utc_end_time'] = $utcEndTime; 
+                $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
+                $item['rate'] = $normalRate; 
+                $item['discount_rate'] = $discountRate; 
+                $item['total_rate'] = $normalRate*$daysDiff; 
+                $item['paid_rate'] = $total_rate;
+                $purchaseDetail = Purchase::create($item);
+
+                if(!empty($payment)){
+                    $purchaseDetail->paymentItems()->create([
+                        'payment_history_id' => $payment->id,
+                        'amount' => $total_rate
+                    ]);
+                }
+    
+                if($this->account->activeFeeDiscount){
+                    $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
+                }
+    
+                if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
+                    $escortDetail->start_date = $item['start_date'];
+                    $escortDetail->end_date = $item['end_date'];
+                    $escortDetail->utc_start_time = $utcSartTime;
+                    $escortDetail->utc_end_time = $utcEndTime;
+                    $escortDetail->membership = $item['membership'];
+                    $escortDetail->enabled = 1;
+                    $escortDetail->purchase_id = $purchaseDetail->id;
+                    $escortDetail->save();
+    
+                    $purchaseDetail->status = 'listed';
+                    $purchaseDetail->save();
+                }
+            }
+        }
+    }
+
+    public function transactionSummary(Request $request){
+        return view('escort.dashboard.Bookkeeping.transaction-summary');
+    }
+
+    public function transactionSummaryDatatable(){
+        list($result, $count, $other) = $this->pinService->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            $this->account
+        );
+        $result = $this->pinService->modifyRecords($result);
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "other" => $other,
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+
+    public function paymentDetail(Request $request)
+    {
+        try {
+
+            $id = decrypt($request->id);
+            $payment = PaymentHistory::findOrFail($id);
+            $html = view('escort.dashboard.Bookkeeping.modal.transaction-summary',compact('payment'))->render();
+            return response()->json([
+                'status' => true,
+                'html'   => $html,
+                'print_url' => route('payment.detail.print', $payment->id),
+                'message'=> 'Listing fetched successfully'
+            ]);
+
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message'=> 'Invalid listing id'
+            ], 400);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message'=> 'Listing not found'
+            ], 404);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message'=> 'Something went wrong'
+            ], 500);
+        }
+    }
+
+    public function printPaymentDetail(PaymentHistory $payment)
+    {
+        $print = true;
+        $pdf = PDF::loadView('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment', 'print'));
+        return $pdf->stream($payment->user->member_id.'_Payment_Summary_'.$payment->ref_no.'.pdf');
+    }
+
 }

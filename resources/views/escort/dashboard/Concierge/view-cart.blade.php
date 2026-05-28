@@ -472,7 +472,7 @@
                                         </div>
                                     </div>
                                     <div class="card p-3 " style="border-radius:0px;">
-                                        <form action="{{ route('apply.wallet') }}" method="post" id="adjustment-form">
+                                        <form id="adjustment-form">
                                             <div class="form-row benefit_section">
                                                 <div class="form-group col-12">
                                                     <label class="mb-0" for="Wallet">Wallet Money</label>
@@ -487,21 +487,19 @@
                                                 <div class="d-flex justify-content-end w-100 gap-10">
                                                     <button type="button" class="reset-btn btn-cancel-modal"
                                                         name="action" value="reset" id="resetWallet">Reset</button>
-                                                    <button type="submit" class="apply-btn" name="action"
-                                                        value="apply">Apply</button>
+                                                    <button type="button" class="apply-btn" id="applyWallet"
+                                                        name="action" value="apply">Apply</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="finish-payment-form d-none mt-2">
-                                    <form action="{{ route('escort.payment.process') }}" method="post"
-                                        id="finish-payment-form">
-                                        <button type="submit" name="action" value="finish_payment"
-                                            class="btn-success-modal btn-block">
-                                            Finish Payment
-                                        </button>
-                                    </form>
+
+                                    <button type="button" data-action="wallet" id="finish_payment"
+                                        class="btn-success-modal btn-block">
+                                        Finish Payment
+                                    </button>
                                 </div>
                                 <div class="support mt-3 payment_note">
                                     <p class="mb-0"><strong>Notes:</strong></p>
@@ -919,6 +917,11 @@
 
 
 
+        $(document).on("click", "#finish_payment", function() {
+            processPaymentForm();
+        })
+
+
         var pinApi = new Pin.Api("{{ config('app.payment.publish_key') }}", 'test');
 
 
@@ -927,31 +930,23 @@
             let btn = $("#makeOrder");
             btn.prop("disabled", true);
 
-            let key = 'paymentDetails_' + loginUserId;
 
-            let details = JSON.parse(localStorage.getItem(key)) || {};
-            if (details.total_payble == 0 || details.total_payble == "0.00") {
-                $("#sendOtp_modal").modal('show');
-                paymentForm.closest('.modal').modal('hide');
+            var card = {
+                number: $('#cc-number').val(),
+                name: $('#cc-name').val(),
+                expiry_month: $('#cc-expiry-month').val(),
+                expiry_year: $('#cc-expiry-year').val(),
+                cvc: $('#cc-cvc').val(),
+            };
 
-            } else {
-                var card = {
-                    number: $('#cc-number').val(),
-                    name: $('#cc-name').val(),
-                    expiry_month: $('#cc-expiry-month').val(),
-                    expiry_year: $('#cc-expiry-year').val(),
-                    cvc: $('#cc-cvc').val(),
-                };
+            let billingDetails = getCardBilling();
+            card = {
+                ...card,
+                ...billingDetails
+            };
 
-                let billingDetails = getCardBilling();
-                card = {
-                    ...card,
-                    ...billingDetails
-                };
+            pinApi.createCardToken(card).then(handleSuccess, handleError).done();
 
-                pinApi.createCardToken(card).then(handleSuccess, handleError).done();
-
-            }
 
             function handleSuccess(card) {
                 localStorage.setItem('card_token_' + loginUserId, JSON.stringify(card.token));
@@ -1352,15 +1347,16 @@
                 }
             });
         });
+        var finishPaymentForm = $('.finish-payment-form');
 
 
         $(document).ready(function() {
 
-            $("#adjustment-form").on("submit", function(e) {
+            $(document).on("click", "#applyWallet", function(e) {
                 e.preventDefault(); // Stop normal form submit
                 updateOrderSummary();
 
-                let form = $(this);
+                let form = $("#adjustment-form");
                 let formData = form.serialize();
                 let walletAmount = Number(form.find('input[name="wallet_amount"]').val());
                 // Get existing details (if any)
@@ -1408,11 +1404,20 @@
                 let gst_amount = oldSubtotal * tax / 100;
                 details.tax_payble = gst_amount.toFixed(2);
                 if (total_payble == 0) {
-                    $(".card_details").hide();
+                    $(".card_details").find("input, select, textarea, button").prop("disabled", true);
                     subtotal = oldSubtotal;
-                    $("#makeOrder").text("Process Order");
+                    $("#makeOrder").prop("disabled", true);
+                    // $("#makeOrder").text("Process Order");
+                    finishPaymentForm.removeClass('d-none');
+
+
                 } else {
-                    $(".card_details").show();
+                    $(".card_details").find("input, select, textarea, button").prop("disabled", false);
+                    $("#makeOrder").prop("disabled", false);
+                    finishPaymentForm.addClass('d-none');
+
+
+
                 }
                 // Update UI
                 $(".taxAmount").text("$ " + gst_amount.toFixed(2));

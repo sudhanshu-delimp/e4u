@@ -210,7 +210,7 @@
 
         $(document).ready(function() {
             renderCartUI();
-cartCount();
+            cartCount();
         });
 
         function cartCount() {
