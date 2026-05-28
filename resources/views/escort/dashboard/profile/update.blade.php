@@ -49,6 +49,10 @@ $existDefaultService = $escort->services()->exists();
 $existAvailability = $escort->availability()->exists();
 $editMode = request()->segment(2) == 'profile' ? true:false;
 $loginAccount = auth()->user();
+$isImpersonated = false;
+ if (session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true) {
+    $isImpersonated = false;  }
+
 @endphp
 <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="d-sm-flex align-items-center justify-content-between">
@@ -212,6 +216,7 @@ $loginAccount = auth()->user();
    <div class="toast-body">Hello, world! This is a toast message.</div>
 </div>
 <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
+@if(!$isImpersonated)
 <div class="modal fade upload-modal programmatic" id="change_all" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -242,6 +247,7 @@ $loginAccount = auth()->user();
       </div>
    </div>
 </div>
+@endif
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">

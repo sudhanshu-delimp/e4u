@@ -1,5 +1,10 @@
 <!-- Sidebar -->
- 
+  @php 
+ $hideNavBar = false;
+ if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true){
+    $hideNavBar = true;
+ }
+ @endphp
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -43,6 +48,15 @@
                 request()->segment(2) == 'upload-my-avatar') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
+
+                @if($hideNavBar)
+                <a class="collapse-item" href="{{ route('escort.profile.information') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+
+                    <span style="{{ request()->segment(2) == 'profile-information' ? 'color: #e5365a;' : '' }}">My
+                        information</span></a>
+
+                @else   
                 <a class="collapse-item" href="{{ route('escort.account.edit') }}">
 
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
@@ -70,6 +84,7 @@
 
                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
                         avatar</span></a>
+            @endif            
 
             </div>
         </div>
@@ -236,7 +251,7 @@
 
 
     {{-- Administration --}}
-
+ @if(!$hideNavBar)
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management">
@@ -658,5 +673,6 @@
             </div>
         </div>
     </li>
+ @endif
 </ul>
 <!-- end sidebar -->
