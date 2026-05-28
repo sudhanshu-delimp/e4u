@@ -50,7 +50,7 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['billing_name'] = $order->user ? $order->user->name : "";
 
         // send email to escort
-        Mail::to("ashish120897maurya@gmail.com")->send(new OrderMailToEscort($mailData));
+        Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
 
 
         // send email to e4u
@@ -83,7 +83,7 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['delivery_type'] = $order->delivery_type ? $order->delivery_type : "Door";
         $e4uEmail = config('app.e4u_mail');
 
-        Mail::to("ashish.kumar@delimp.com")->send(new OrderMailToE4U($mailData));
+        Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
 
         // // send mail to condom man
         $products = $order->orderItems;
@@ -95,7 +95,7 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['tax_amount'] = $order->tax_amount;
         $mailData['delivery_charges'] = $order->delivery_charges;
 
-        Mail::to("ashish.kumar+67@delimp.com")->send(new SendOrderMailToCondomMan($mailData));
+        Mail::to($condommail)->send(new SendOrderMailToCondomMan($mailData));
       }
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);

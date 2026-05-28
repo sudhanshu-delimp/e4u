@@ -15,7 +15,6 @@ class WebhookController extends Controller
   function handle(Request $request, PinPaymentService $pinPaymentService)
   {
 
-    Log::info("webhook working");
     $signatureHeader = $request->header('Pin-Signature');
 
 
@@ -77,8 +76,7 @@ class WebhookController extends Controller
         switch ($type) {
           case 'product-purchase':
             // make payment history
-            Log::info("Any Special Instructions?");
-            $pinPaymentService->handlePaymentHistory($paymentObject);
+            $this->handlePaymentHistoryStatus($paymentObject);
             SendProductPurchaseMail::dispatch($paymentObject);
             if (isset($paymentObject['metadata']['wallet_amount']) && $paymentObject['metadata']['wallet_amount'] > 0) {
               $pinPaymentService->handleWalletAmount($paymentObject['metadata']['user_id'], $paymentObject['metadata']['wallet_amount']);
@@ -112,18 +110,18 @@ class WebhookController extends Controller
   }
 
 
-  // public function handlePaymentHistoryStatus(array $handleWalletAmount)
-  // {
-  //   try {
+  public function handlePaymentHistoryStatus(array $paymentObject)
+  {
+    try {
 
-  //     $paymentHistory =  PaymentHistory::where('transaction_id', $handleWalletAmount['token'])->first();
-  //     $paymentHistory->status = $handleWalletAmount['success'] ? 'success' : 'failed';
-  //     $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $handleWalletAmount['created_at'];
+      $paymentHistory =  PaymentHistory::where('transaction_id', $paymentObject['token'])->first();
+      $paymentHistory->status = $paymentObject['success'] ? 'success' : 'failed';
+      $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $paymentObject['created_at'];
 
-  //     $paymentHistory->save();
-  //     return true;
-  //   } catch (\Exception $e) {
-  //     Log::info('', [$e->getMessage()]);
-  //   }
-  // }
+      $paymentHistory->save();
+      return true;
+    } catch (\Exception $e) {
+      Log::info('', [$e->getMessage()]);
+    }
+  }
 }
