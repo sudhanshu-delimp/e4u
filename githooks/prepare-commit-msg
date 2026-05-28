@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+const fs = require('fs');
+const { execSync } = require('child_process');
+
+const commitMsgFile = process.argv[2];
+if (!commitMsgFile) process.exit(0);
+
+try {
+  const branchName = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+  
+  // Supported task regex: matches task-123 or task_123 case-insensitively
+  const regex = /(?:^|\/|_|-)(task)[-_](\d+)/i;
+  const match = branchName.match(regex);
+  
+  if (match) {
+    const rawTaskId = match[2];
+    const uppercaseSetting = true;
+    const idStr = uppercaseSetting ? `TASK-${rawTaskId}` : `task-${rawTaskId}`;
+    
+    let formatTemplate = "[TASK-{id}]";
+    const prefix = formatTemplate.replace('{id}', idStr.split('-')[1]).replace('TASK-', '');
+    
+    // Auto-generate the final prefix (e.g. [TASK-123])
+    const finalPrefix = `[${idStr}]`;
+    
+    let commitMsg = fs.readFileSync(commitMsgFile, 'utf8');
+    const trimmedMsg = commitMsg.trim();
+    
+    if (!trimmedMsg) process.exit(0);
+    
+    // Prevent double-prefixing
+    const hasPrefix = trimmedMsg.includes(finalPrefix) || new RegExp(`\\\[TASK[-_]${rawTaskId}\\\]`, 'i').test(trimmedMsg);
+    
+    if (!hasPrefix) {
+      fs.writeFileSync(commitMsgFile, `${finalPrefix} ${trimmedMsg}\n`);
+    }
+  }
+} catch (err) {
+  // Silent fail to ensure we do not block general commits
+}

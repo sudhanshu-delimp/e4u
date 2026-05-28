@@ -60,4 +60,25 @@ class AdvertiserDiscount extends Model
     {
         return self::where('user_id', $userId)->active()->latest()->first();
     }
+
+    // public static function getNetDiscount($pricing, $discount){
+    //     $amount = 0.00;
+    //     if($discount){
+    //         $amount =  $pricing['new_rate'] - ($pricing['new_rate']*$pricing['percentage'])/100;
+    //     }
+    //     return number_format($amount, 2);
+        
+    // }
+
+    public static function getNetDiscount($pricing, $discount){
+        $amount = 0.00;
+        if($discount){
+            if(empty($pricing->new_rate)){
+                $pricing->new_rate = number_format($discount->discountAmount($pricing->price),2);
+            }
+            $amount =  $pricing->new_rate - ($pricing->new_rate*$pricing->percentage)/100;
+        }
+        return number_format($amount, 2);
+        
+    }
 }

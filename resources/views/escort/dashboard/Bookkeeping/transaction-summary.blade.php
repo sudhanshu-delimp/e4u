@@ -82,7 +82,7 @@
      processing: true,
      "language": {
              "zeroRecords": "There is no record of the search criteria you entered.",
-             searchPlaceholder: "Search..."
+             searchPlaceholder: "Search by Service Type"
          },
      initComplete: function() {
         //  if ($('#returnToReportBtn').length === 0) {
@@ -102,15 +102,15 @@
          }
      },
      columns: [
-         { data: 'ref_no', name: 'ref_no', searchable: true, orderable:false ,defaultContent: 'NA'},
+         { data: 'ref_no', name: 'ref_no', searchable: false, orderable:false ,defaultContent: 'NA'},
          { data: 'service', name: 'service', searchable: true, orderable:true ,defaultContent: 'NA'},
-         { data: 'transaction_at', name: 'created_at', searchable: true, orderable:true ,defaultContent: 'NA'},
-         { data: 'amount', name: 'amount', searchable: true, orderable:true ,defaultContent: 'NA'},
-         { data: 'card', name: 'card', searchable: true, orderable:false,defaultContent: 'NA' },
-         { data: 'completed_by_member_id', name: 'completed_by', searchable: true, orderable:false,defaultContent: 'NA' },
+         { data: 'transaction_at', name: 'created_at', searchable: false, orderable:true ,defaultContent: 'NA'},
+         { data: 'amount', name: 'amount', searchable: false, orderable:true ,defaultContent: 'NA'},
+         { data: 'card', name: 'card', searchable: false, orderable:false,defaultContent: 'NA' },
+         { data: 'completed_by_member_id', name: 'completed_by', searchable: false, orderable:false,defaultContent: 'NA' },
          { data: 'action', name: 'action', searchable: false, orderable:false,defaultContent: 'NA', class: 'text-center' },
      ],
-     order: [0,'desc'],
+     order: [2,'desc'],
  });
 
     $('#view-listing').on('show.bs.modal', function (event) {

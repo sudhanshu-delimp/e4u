@@ -201,51 +201,8 @@
         $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
             e.stopPropagation(); 
         });
-
-
-        // $.ajax({
-        //         url: "{{ route('user.get-notification') }}",
-        //         method: 'GET',
-        //         success: function(response) {
-                   
-        //             console.log('yyyyy');
-        //         },
-        //         error: function(xhr) {
-                   
-        //         }
-        //     });
         
-       
-        </script>
-
-        <script>
-
-var initJsDatePicker = function() {
-                var $inputs = $(".js_datepicker");
-                if ($inputs.length > 0) {
-                    $inputs.attr('placeholder', 'DD-MM-YYYY');
-                    $inputs.attr('autocomplete', 'off');
-                    $inputs.each(function() {
-                        let options = {
-                            dateFormat: "dd-mm-yy",
-                            changeMonth: true,
-                            changeYear: true,
-                            showAnim: "slideDown",
-                            onSelect: function(dateText) {
-                                $(this).trigger('change');
-                            }
-                        };
-                    // Start from today
-                    if ($(this).hasClass('min_today')) {
-                        options.minDate = 0;
-                    }
-                        $(this).datepicker(options);
-                    });
-                }
-            }
-
             $(document).ready(function() {
-                initJsDatePicker();
                 get_current_location_time();
                 setInterval(updateTime, 1000);
 

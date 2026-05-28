@@ -48,23 +48,6 @@
                     }
                 });
             });
-            /*initJsDatePicker();
-            var initJsDatePicker = function() {
-                    var $inputs = $(".js_datepicker");
-                    if ($inputs.length > 0) {
-                        $inputs.attr('placeholder', 'DD-MM-YYYY');
-                        $inputs.attr('autocomplete', 'off');
-                        $inputs.datepicker({
-                            dateFormat: "dd-mm-yy",
-                            changeMonth: true,
-                            changeYear: true,
-                            showAnim: "slideDown",
-                            onSelect: function(dateText) {
-                                $(this).trigger('change');
-                            }
-                        });
-                    }
-                }*/
 
             function formatMobile(obj) {
                 let value = $(obj).val();

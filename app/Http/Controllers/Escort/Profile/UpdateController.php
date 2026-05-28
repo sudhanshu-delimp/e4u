@@ -28,10 +28,12 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Traits\ResizeImage;
 use App\Http\Controllers\AppController;
+use App\Models\EscortAdditionalInformation;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
+use Exception;
 use Illuminate\Support\Facades\Artisan;
 
 //use Illuminate\Http\Request;
@@ -104,7 +106,6 @@ class UpdateController extends AppController
         $user = auth()->user();
         $escortDefault = $this->escort->findDefault($user->id, 1);
         $users = $this->user->find($user->id);
-
         if($request->gender!="" && $user->gender=="")
         {
              $users->gender =  $request->gender;
@@ -121,6 +122,46 @@ class UpdateController extends AppController
                 $users->save();
             }
         }
+        //start store Street Address
+        $address = trim($request->address);
+        if (!empty($address)) {
+             EscortAdditionalInformation::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'type'    => 'address',
+                    'value'   => $address,
+                    'short_desc' => implode(' ', array_slice(explode(' ', $address), 0, 5)) ?? null
+                ]
+            );
+        }
+
+        //start store Title
+        $title = trim($request->about_title);
+        if (!empty($title)) {
+             EscortAdditionalInformation::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'type'    => 'title',
+                    'value'   => $title,
+                    'short_desc' => implode(' ', array_slice(explode(' ', $title), 0, 5)) ?? null
+                ]
+            );
+        }
+
+        //start store Street Address
+        $address = trim($request->address);
+        if (!empty($address)) {
+             EscortAdditionalInformation::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'type'    => 'address',
+                    'value'   => $address,
+                    'short_desc' => implode(' ', array_slice(explode(' ', $address), 0, 5)) ?? null
+                ]
+            );
+        }
+
+        //end store Street Address
         $cityId = 0;
         $cnt = 0;
         if (isset($request->state_id)) {
@@ -1327,7 +1368,6 @@ class UpdateController extends AppController
             $input['about_title'] = $request->about_title;
         }
 
-
         $error = true;
         if (isset($request->about)) {
             $data = $this->escort->store($input, $id);
@@ -1670,5 +1710,20 @@ class UpdateController extends AppController
 
         $exists = $query->exists();
         return  $exists ? response()->json(false, 422) : response()->json(true, 200);
+    }
+
+    public function getNarration(Request $request){
+
+        try{
+            
+            $narration = EscortAdditionalInformation::where('short_desc', $request->short_desc)->pluck('value');
+            if($narration){
+              return  success_response($narration, 'Ok', 200, []);
+            }
+           return error_response('No data found', 404, []);
+        } catch(Exception $e){
+            return error_response($e->getMessage(), 500, []);
+        }
+
     }
 }
