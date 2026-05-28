@@ -86,7 +86,8 @@ class WebhookController extends Controller
         switch ($type) {
           case 'product-purchase':
             // make payment history
-            $this->handlePaymentHistoryStatus($paymentObject);
+            // $this->handlePaymentHistoryStatus($paymentObject);
+            $pinPaymentService->handlePaymentHistory($paymentObject);
             break;
 
           default:
@@ -103,18 +104,18 @@ class WebhookController extends Controller
   }
 
 
-  public function handlePaymentHistoryStatus(array $handleWalletAmount)
-  {
-    try {
+  // public function handlePaymentHistoryStatus(array $handleWalletAmount)
+  // {
+  //   try {
 
-      $paymentHistory =  PaymentHistory::where('transaction_id', $handleWalletAmount['token'])->first();
-      $paymentHistory->status = $handleWalletAmount['success'] ? 'success' : 'failed';
-      $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $handleWalletAmount['created_at'];
+  //     $paymentHistory =  PaymentHistory::where('transaction_id', $handleWalletAmount['token'])->first();
+  //     $paymentHistory->status = $handleWalletAmount['success'] ? 'success' : 'failed';
+  //     $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $handleWalletAmount['created_at'];
 
-      $paymentHistory->save();
-      return true;
-    } catch (\Exception $e) {
-      Log::info('', [$e->getMessage()]);
-    }
-  }
+  //     $paymentHistory->save();
+  //     return true;
+  //   } catch (\Exception $e) {
+  //     Log::info('', [$e->getMessage()]);
+  //   }
+  // }
 }
