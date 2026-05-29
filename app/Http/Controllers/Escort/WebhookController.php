@@ -76,6 +76,7 @@ class WebhookController extends Controller
         // start swithc case
         switch ($type) {
           case 'product-purchase':
+
             // make payment history
             $this->handlePaymentHistoryStatus($paymentObject);
             SendProductPurchaseMail::dispatch($paymentObject);
@@ -86,16 +87,18 @@ class WebhookController extends Controller
 
           default:
             // Unknown type handling
-            Log::warning('Unknown payment metadata type', ['type' => $type,  'response' => $paymentObject]);
+            Log::warning('Unknown event', ['type' => $event,  'response' => $paymentObject]);
             break;
         }
       } else if ($event == 'charge.failed') {
         switch ($type) {
           case 'product-purchase':
             // make payment history
-
-            // $this->handlePaymentHistoryStatus($paymentObject);
             $pinPaymentService->handlePaymentHistory($paymentObject);
+
+            // handle payment history status
+            $this->handlePaymentHistoryStatus($paymentObject);
+
             break;
 
           default:
@@ -123,7 +126,7 @@ class WebhookController extends Controller
       Log::info("payment status update");
       // update order status
       $paymentStatus = $paymentObject['success'] == true ? 'paid' : 'failed';
-      ProductOrder::where('id', $paymentObject['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $paymentObject['status_message'], 'transaction_id' => $response['token']]);
+      ProductOrder::where('id', $paymentObject['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $paymentObject['status_message'], 'transaction_id' => $paymentObject['token']]);
 
       return true;
     } catch (\Exception $e) {

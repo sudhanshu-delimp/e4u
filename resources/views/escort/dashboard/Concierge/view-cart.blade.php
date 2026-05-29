@@ -39,6 +39,10 @@
             font-weight: 600;
             margin-bottom: 10px;
         }
+
+        .cardImage img {
+            height: 40px !important;
+        }
     </style>
     <script src="https://cdn.pinpayments.com/pin.v2.js"></script>
 @endsection
@@ -570,7 +574,16 @@
 
 
                                     <div class="card_details">
-                                        <h6 class="font-weight-bold mb-0">Card Details</h6>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="font-weight-bold mb-0">Card Details</h6>
+
+                                            <div class="d-flex align-items-center cardImage">
+                                                <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa"
+                                                    class="me-2">
+                                                <img src="{{ asset('assets/dashboard/img/master-card.png') }}"
+                                                    alt="MasterCard">
+                                            </div>
+                                        </div>
                                         <hr class="mt-0">
                                         <div class="form-group">
                                             <input id="cc-number" class="form-control number" placeholder="Card Number">
@@ -602,12 +615,7 @@
                                                 <small class="text-danger error-msg" data-field="cvc"></small>
 
                                             </div>
-                                            <div class="d-flex justify-content-center align-items-center mt-4">
-                                                <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa"
-                                                    class="me-3">
-                                                <img src="{{ asset('assets/dashboard/img/master-card.png') }}"
-                                                    alt="MasterCard">
-                                            </div>
+
                                         </div>
                                     </div>
 
@@ -667,67 +675,14 @@
                 type: "POST",
                 data: {
                     ids: productIds,
+                    cart: cart,
+                    finalCart: finalCart,
                     _token: "{{ csrf_token() }}"
                 },
 
                 success: function(response) {
                     $("#loader").hide();
-
-                    let rows = "";
-                    let grandTotal = 0; // ✅ total accumulator
-                    if (response.products.length > 0 && Object.keys(cart).length > 0) {
-                        // console.log(cart,'sdf');
-
-                        response.products.forEach(product => {
-
-                            let qty = cart[product.id].qty;
-                            let price = parseFloat(product.price) || 0;
-                            let total = price * qty;
-
-                            grandTotal += total; // ✅ add to grand total
-
-                            rows += `
-                <tr>
-                    <td class="theme-color">
-                        <div class="form-check d-flex align-items-center text- center">
-                            <input class="form-check-input mr-2 product-check" type="checkbox" data-id="${product.id}" data-price="${price}" ${finalCart.includes(product.id) ? "checked" : "" }  style="width:17px; height:17px">
-                            <img src="${product.image}" data-image="${product.image}" data-title="${product.description}" class="product-image" style="width:50px">
-                        </div>
-                    </td>
-
-                    <td class="theme-color">${product.code}</td>
-
-                    <td class="theme-color">
-                        ${product.description}<br>
-                        <strong>QTY:</strong> ${product.qty} ${product.size && product.size!="N/A" ? `Size: ${product.size}` : ''}
-                    </td>
-
-                    <td class="theme-color text-ce nter">
-                        $${price.toFixed(2)}
-                    </td>
-
-                    <td class="theme-color qty">
-                       
-                         <select class="qty-select" data-id="${product.id}" data-price="${product.price}">
-                            ${[1,2,3,4,5].map(q =>
-                                `<option value="${q}" ${q == qty ? 'selected' : ''}>${q}</option>`
-                            ).join('')}
-                        </select>
-                    </td>
-
-                   <td class="theme-color text-c enter total-cell" data-id="${product.id}">
-                      $${total.toFixed(2)}
-                  </td>
-                </tr>
-                `;
-                        });
-                    } else {
-                        rows = '<tr><td colspan="6"  class="text-center">Cart is empty</td></tr>';
-                    }
-
-                    $(".table-content").html(rows);
-                    // ✅ update footer total
-                    // $("#grand-total").text("$" + grandTotal.toFixed(2));
+                    $(".table-content").html(response.html);
                     calculateTotals();
                 },
 
@@ -1369,7 +1324,7 @@
                 if (accountWalletAmount <= 0) {
                     Swal.fire("Insufficient wallet balance.", "You don't have enough amount to apply.",
                         "error");
-                        return;
+                    return;
                 } else if (walletAmount > accountWalletAmount) {
                     Swal.fire("The wallet amount you entered exceeds your wallet balance.", '', 'error');
                     return;

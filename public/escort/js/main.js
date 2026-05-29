@@ -160,7 +160,7 @@ $(document).on('click', '.product-image', function () {
   let title = $(this).data('title') ?? 'title';
   let image = $(this).data('image') ?? 'https://e4u.local/admin/products/escort.jpg';
 
-  $('#modalTitle').text(title);
+  $('#modalTitle').html(title);
 
   // Show modal first
   let modal = new bootstrap.Modal(document.getElementById('imageModal'));
