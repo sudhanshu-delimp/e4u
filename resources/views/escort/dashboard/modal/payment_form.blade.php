@@ -63,7 +63,7 @@
                                                 : <span>{{ formatCurrency(Auth::user()->wallet->balance) }}</span></h5>
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    <div class="card payment_loyalty_option">
                                         <div class="card-body">
                                             <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days
                                                 : <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
@@ -80,14 +80,14 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">AU$</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="wallet_amount"
+                                                    <input type="text" class="form-control only_digits" name="wallet_amount"
                                                         placeholder="Enter amount.">
                                                 </div>
                                             </div>
-                                            <div class="form-group col-6">
+                                            <div class="form-group col-6 payment_loyalty_option">
                                                 <label class="mb-0" for="Days">Loyalty Days</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="loyalty_day"
+                                                    <input type="text" class="form-control only_digits" name="loyalty_day"
                                                         placeholder="Enter days.">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">Day</span>
@@ -98,7 +98,7 @@
                                                 <button type="reset" class="reset-btn btn-cancel-modal" name="action"
                                                     value="reset">Reset</button>
                                                 <button type="submit" class="apply-btn" name="action"
-                                                    value="apply">Apply</button>
+                                                    value="">Apply</button>
                                             </div>
                                         </div>
                                     </form>
@@ -221,307 +221,313 @@
 </div>
 {{-- end --}}
 @push('script')
-    <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
-    <script>
-        let card = {};
-        let paymentFormData = {};
-        let form = $('form.pin');
-        $(function() {
+<script src='https://cdn.pinpayments.com/pin.v2.js'></script>
+<script>
+    let card = {};
+    let paymentFormData = {};
+    let form = $('form.pin');
+    $(function() {
 
-            var pinApi = new Pin.Api('{{ config('app.payment.publish_key') }}', 'test');
-            var submitButton = form.find(":submit"),
-                errorContainer = form.find('.errors'),
-                errorHeading = errorContainer.find('h3');
+        var pinApi = new Pin.Api('{{ config('
+            app.payment.publish_key ') }}', 'test');
+        var submitButton = form.find(":submit"),
+            errorContainer = form.find('.errors'),
+            errorHeading = errorContainer.find('h3');
 
-            form.submit(function(e) {
-                e.preventDefault();
-                errorContainer.hide();
-
-                $('.is-invalid').removeClass('is-invalid');
-                $('.invalid-feedback').remove();
-
-                submitButton.attr({
-                    disabled: true
-                });
-
-                card['number'] = $('#cc-number').val();
-                card['name'] = $('#cc-name').val();
-                card['expiry_month'] = $('#cc-expiry-month').val();
-                card['expiry_year'] = $('#cc-expiry-year').val();
-                card['cvc'] = $('#cc-cvc').val();
-                card['address_line1'] = $('#address-line1').val();
-                card['address_line2'] = $('#address-line2').val();
-                card['address_city'] = $('#address-city').val();
-                card['address_state'] = $('#address-state').val();
-                card['address_postcode'] = $('#address-postcode').val();
-                card['address_country'] = $('#address-country').val();
-                pinApi.createCardToken(card).then(handleSuccess, handleError).done();
-            });
-
-            function handleSuccess(card) {
-
-                paymentFormData['_token'] = `{{ csrf_token() }}`;
-                paymentFormData['pin_token'] = card.token;
-
-                if ($("input[name='benefit_token']").length > 0) {
-                    paymentFormData['benefit_token'] = $("input[name='benefit_token']").val();
-                }
-
-                $("#sendOtp_modal").modal({
-                    backdrop: 'static',
-                    keyboard: false,
-                    show: true
-                });
-
-                form.closest('.modal').modal('hide');
-            }
-
-            function handleError(response) {
-                $('.is-invalid').removeClass('is-invalid');
-                $('.invalid-feedback').remove();
-
-                if (response.messages) {
-                    $.each(response.messages, function(index, paramError) {
-                        const fieldName = paramError.param;
-                        const message = paramError.message;
-
-                        const field = $(`.${fieldName}`);
-
-                        if (field.length) {
-                            field.addClass('is-invalid');
-
-                            $('<div class="invalid-feedback">')
-                                .text(message)
-                                .insertAfter(field);
-                        } else {
-                            console.warn("Field not found:", fieldName);
-                        }
-                    });
-                }
-                submitButton.removeAttr('disabled');
-            }
-
-        });
-
-        $(document).on('input', '#adjustment-form input', function() {
-            let value = parseFloat($(this).val());
-            if (value < 0) {
-                $(this).val(0);
-            }
-        });
-
-        var processPaymentForm = function() {
-            $.ajax({
-                url: form.attr('action'),
-                method: 'POST',
-                data: paymentFormData,
-                beforeSend: function() {
-                    Swal.fire({
-                        title: 'Processing Payment',
-                        text: 'Do not refresh or close this page.',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-                },
-                success: function(response, textStatus, xhr) {
-                    Swal.close();
-                    paymentFormData = {};
-                    //submitButton.removeAttr('disabled');
-                    let option = getStatusOption(xhr);
-                    Swal.fire({
-                        icon: option.icon,
-                        title: option.title,
-                        text: option.message,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = response.redirect_url;
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    submitButton.removeAttr('disabled');
-                    let option = getStatusOption(xhr);
-                    Swal.fire({
-                        icon: option.icon,
-                        title: option.title,
-                        text: option.message,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                    });
-                    submitButton.removeAttr('disabled');
-                }
-            });
-        }
-
-        $("#sendOtp_modal").on('show.bs.modal', function() {
-            $.ajax({
-                url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
-                method: 'POST',
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                data: {
-                    action: 'payment'
-                },
-                success: function(res, textStatus, xhr) {
-                    console.log(res);
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    let option = getStatusOption(xhr);
-                    Swal.fire({
-                        icon: option.icon,
-                        title: option.title,
-                        text: option.message
-                    });
-                }
-            });
-        });
-
-        var adjustmentForm = $('#adjustment-form');
-        var finishPaymentForm = $('#finish-payment-form');
-        var submitAdjustmentForm = function(object = null) {
-            $.ajax({
-                url: adjustmentForm.attr('action'),
-                method: 'POST',
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                data: `${adjustmentForm.serialize()}${
-                    object ? `&${$(object).attr('name')}=${$(object).attr('value')}` : ''
-                }`,
-                beforeSend: function() {
-                    Swal.fire({
-                        title: 'Please wait...',
-                        text: 'Applying adjustment',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-                },
-                success: function(res, textStatus, xhr) {
-                    Swal.close();
-                    let option = getStatusOption(xhr);
-                    if (res.status) {
-                        $(".order_summary_adjustment").html(res.html);
-                        addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
-                        if (res.total_amount) {
-                            $("#payment-form").find('input, button, select, textarea').prop('disabled',
-                                false);
-                            finishPaymentForm.find('input, button, select, textarea').prop('disabled',
-                                true);
-                            finishPaymentForm.parent().addClass('d-none');
-                        } else {
-                            $("#payment-form").find('input, button, select, textarea').prop('disabled',
-                                true);
-                            finishPaymentForm.find('input, button, select, textarea').prop('disabled',
-                                false);
-                            finishPaymentForm.parent().removeClass('d-none');
-                        }
-                    } else {
-                        Swal.fire({
-                            icon: option.icon,
-                            title: option.title,
-                            text: option.message
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    let option = getStatusOption(xhr);
-                    Swal.fire({
-                        icon: option.icon,
-                        title: option.title,
-                        text: option.message
-                    });
-                }
-            });
-        }
-
-        adjustmentForm.submit(function(e) {
+        form.submit(function(e) {
             e.preventDefault();
-            submitAdjustmentForm();
-        });
+            errorContainer.hide();
 
-        finishPaymentForm.submit(function(e) {
-            e.preventDefault();
-            let submitButton = finishPaymentForm.find(":submit");
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+
             submitButton.attr({
                 disabled: true
             });
-            let data = {};
-            data['_token'] = `{{ csrf_token() }}`;
-            data['pin_token'] = `{{ encrypt('without_pay_now') }}`;
+
+            card['number'] = $('#cc-number').val();
+            card['name'] = $('#cc-name').val();
+            card['expiry_month'] = $('#cc-expiry-month').val();
+            card['expiry_year'] = $('#cc-expiry-year').val();
+            card['cvc'] = $('#cc-cvc').val();
+            card['address_line1'] = $('#address-line1').val();
+            card['address_line2'] = $('#address-line2').val();
+            card['address_city'] = $('#address-city').val();
+            card['address_state'] = $('#address-state').val();
+            card['address_postcode'] = $('#address-postcode').val();
+            card['address_country'] = $('#address-country').val();
+            pinApi.createCardToken(card).then(handleSuccess, handleError).done();
+        });
+
+        function handleSuccess(card) {
+
+            paymentFormData['_token'] = `{{ csrf_token() }}`;
+            paymentFormData['pin_token'] = card.token;
+
             if ($("input[name='benefit_token']").length > 0) {
-                data['benefit_token'] = $("input[name='benefit_token']").val();
+                paymentFormData['benefit_token'] = $("input[name='benefit_token']").val();
             }
-            $.ajax({
-                url: finishPaymentForm.attr('action'),
-                method: 'POST',
-                data: data,
-                beforeSend: function() {
-                    Swal.fire({
-                        title: 'Processing Payment',
-                        text: 'Do not refresh or close this page.',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-                },
-                success: function(response, textStatus, xhr) {
-                    // console.log(response);
-                    Swal.close();
-                    submitButton.removeAttr('disabled');
-                    let option = getStatusOption(xhr);
-                    Swal.fire({
-                        icon: option.icon,
-                        title: option.title,
-                        text: option.message,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = response.redirect_url;
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    let option = getStatusOption(xhr);
-                    Swal.fire({
-                        icon: option.icon,
-                        title: option.title,
-                        text: option.message,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                    });
-                    submitButton.removeAttr('disabled');
-                }
+
+            $("#sendOtp_modal").modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
             });
-        });
 
-        adjustmentForm.on('click', '.reset-btn', function(e) {
-            adjustmentForm[0].reset();
-            submitAdjustmentForm(this);
-        });
+            form.closest('.modal').modal('hide');
+        }
 
-        $("#process-payment-modal").on('show.bs.modal', function(event) {
-            if (event.relatedTarget) {
-                adjustmentForm.find('[name="wallet_amount"]').val(0);
-                submitAdjustmentForm(event.relatedTarget);
+        function handleError(response) {
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+
+            if (response.messages) {
+                $.each(response.messages, function(index, paramError) {
+                    const fieldName = paramError.param;
+                    const message = paramError.message;
+
+                    const field = $(`.${fieldName}`);
+
+                    if (field.length) {
+                        field.addClass('is-invalid');
+
+                        $('<div class="invalid-feedback">')
+                            .text(message)
+                            .insertAfter(field);
+                    } else {
+                        console.warn("Field not found:", fieldName);
+                    }
+                });
+            }
+            submitButton.removeAttr('disabled');
+        }
+
+    });
+
+    let initLoyaltySection = function(action = 'show') {
+        (action == 'hide') ? $(".payment_loyalty_option").hide(): $(".payment_loyalty_option").show();
+    }
+
+    // $(document).on('input', '#adjustment-form input', function() {
+    //     let value = parseFloat($(this).val());
+    //     if (value < 0) {
+    //         $(this).val(0);
+    //     }
+    // });
+
+    var processPaymentForm = function() {
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: paymentFormData,
+            beforeSend: function() {
+                Swal.fire({
+                    title: 'Processing Payment',
+                    text: 'Do not refresh or close this page.',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+            },
+            success: function(response, textStatus, xhr) {
+                Swal.close();
+                paymentFormData = {};
+                //submitButton.removeAttr('disabled');
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = response.redirect_url;
+                    }
+                });
+            },
+            error: function(xhr) {
+                Swal.close();
+                submitButton.removeAttr('disabled');
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                });
+                submitButton.removeAttr('disabled');
             }
         });
-    </script>
+    }
+
+    $("#sendOtp_modal").on('show.bs.modal', function() {
+        $.ajax({
+            url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
+            method: 'POST',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data: {
+                action: 'payment'
+            },
+            success: function(res, textStatus, xhr) {
+                console.log(res);
+            },
+            error: function(xhr) {
+                Swal.close();
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message
+                });
+            }
+        });
+    });
+
+    var adjustmentForm = $('#adjustment-form');
+    var finishPaymentForm = $('#finish-payment-form');
+    var submitAdjustmentForm = function(checkAmount = true) {
+        let submitButton = adjustmentForm.find('button[type="submit"]');
+        $.ajax({
+            url: adjustmentForm.attr('action'),
+            method: 'POST',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data: `${adjustmentForm.serialize()}&${submitButton.attr('name')}=${submitButton.attr('value')}&checkAmount=${checkAmount}`,
+            beforeSend: function() {
+                Swal.fire({
+                    title: 'Please wait...',
+                    text: 'Applying adjustment',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+            },
+            success: function(res, textStatus, xhr) {
+                Swal.close();
+                let option = getStatusOption(xhr);
+                if (res.status) {
+                    $(".order_summary_adjustment").html(res.html);
+                    addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
+                    if (res.total_amount) {
+                        $("#payment-form").find('input, button, select, textarea').prop('disabled',
+                            false);
+                        finishPaymentForm.find('input, button, select, textarea').prop('disabled',
+                            true);
+                        finishPaymentForm.parent().addClass('d-none');
+                    } else {
+                        $("#payment-form").find('input, button, select, textarea').prop('disabled',
+                            true);
+                        finishPaymentForm.find('input, button, select, textarea').prop('disabled',
+                            false);
+                        finishPaymentForm.parent().removeClass('d-none');
+                    }
+                } else {
+                    Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.close();
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message
+                });
+            }
+        });
+    }
+
+    adjustmentForm.submit(function(e) {
+        e.preventDefault();
+        submitAdjustmentForm();
+    });
+
+    finishPaymentForm.submit(function(e) {
+        e.preventDefault();
+        let submitButton = finishPaymentForm.find(":submit");
+        submitButton.attr({
+            disabled: true
+        });
+        let data = {};
+        data['_token'] = `{{ csrf_token() }}`;
+        data['pin_token'] = `{{ encrypt('without_pay_now') }}`;
+        if ($("input[name='benefit_token']").length > 0) {
+            data['benefit_token'] = $("input[name='benefit_token']").val();
+        }
+        $.ajax({
+            url: finishPaymentForm.attr('action'),
+            method: 'POST',
+            data: data,
+            beforeSend: function() {
+                Swal.fire({
+                    title: 'Processing Payment',
+                    text: 'Do not refresh or close this page.',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+            },
+            success: function(response, textStatus, xhr) {
+                // console.log(response);
+                Swal.close();
+                submitButton.removeAttr('disabled');
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = response.redirect_url;
+                    }
+                });
+            },
+            error: function(xhr) {
+                Swal.close();
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                });
+                submitButton.removeAttr('disabled');
+            }
+        });
+    });
+
+    adjustmentForm.on('click', '.reset-btn', function(e) {
+        adjustmentForm[0].reset();
+        submitAdjustmentForm(false);
+    });
+
+    $("#process-payment-modal").on('show.bs.modal', function(event) {
+        if (event.relatedTarget) {
+            $(event.relatedTarget).attr('value') != 'listing' ? initLoyaltySection('hide') : initLoyaltySection('show');
+            adjustmentForm.find('button[type="submit"]').attr('value', $(event.relatedTarget).attr('value'));
+            adjustmentForm.find('[name="wallet_amount"]').val(0);
+            submitAdjustmentForm(false);
+        }
+    });
+</script>
 @endpush
