@@ -131,7 +131,7 @@ class PaymentController extends Controller
                 'status'         => true,
                 'lowest_plan' => $lowestPlan ?? 0,
                 'total_amount' => $total_amount,
-                'benefit_token' => encrypt(compact('loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount')),
+                'benefit_token' => encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount')),
                 'message' => 'Applied successfully',
                 'html' => $html,
             ]);
@@ -163,6 +163,7 @@ class PaymentController extends Controller
             $amount = $this->getAmount();
 
             $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
+                'action' => 'listing',
                 'loyalty_day' => 0,
                 'sub_total_amount' => $amount,
                 'wallet_amount' => 0.00,
@@ -210,16 +211,30 @@ class PaymentController extends Controller
 
             $payment_service = '';
 
-            if (session()->has('checkout')) {
-                $this->saveCheckout($payment);
-                $payment_service = 'Profile Listing';
-                $redirect_url = route('escort.account.listing_success');
-            }
+            switch ($benefit_token['action']) {
+                case 'listing': {
+                        if (session()->has('checkout') && $benefit_token['action'] == 'listing') {
+                            $this->saveCheckout($payment);
+                            $payment_service = 'Profile Listing';
+                            $redirect_url = route('escort.account.listing_success');
+                        }
 
-            if (session()->has('tour_checkout')) {
-                $this->saveCheckout($payment);
-                $payment_service = 'Tour';
-                $redirect_url = route('escort.account.listing_success');
+                        if (session()->has('tour_checkout') && $benefit_token['action'] == 'listing') {
+                            $this->saveCheckout($payment);
+                            $payment_service = 'Tour';
+                            $redirect_url = route('escort.account.listing_success');
+                        }
+                    }
+                    break;
+                case 'pinup': {
+                        $payment_service = 'Pin Up';
+                        dd('hello pinup');
+                    }
+                    break;
+
+                default:
+                    # code...
+                    break;
             }
 
             if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
