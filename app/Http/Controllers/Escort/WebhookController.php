@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Escort;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendProductPurchaseMail;
 use App\Models\PaymentHistory;
+use App\Models\ProductOrder;
 use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -113,12 +114,17 @@ class WebhookController extends Controller
   public function handlePaymentHistoryStatus(array $paymentObject)
   {
     try {
-
+      Log::info("handle payment status");
       $paymentHistory =  PaymentHistory::where('transaction_id', $paymentObject['token'])->first();
       $paymentHistory->status = $paymentObject['success'] ? 'success' : 'failed';
       $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $paymentObject['created_at'];
-
       $paymentHistory->save();
+
+      Log::info("payment status update");
+      // update order status
+      $paymentStatus = $paymentObject['success'] == true ? 'paid' : 'failed';
+      ProductOrder::where('id', $paymentObject['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $paymentObject['status_message'], 'transaction_id' => $response['token']]);
+
       return true;
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);
