@@ -39,6 +39,7 @@ class SendProductPurchaseMail implements ShouldQueue
   {
 
     try {
+      Log::info("working mail ");
       $mailData = [];
       $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $this->paymentObject['metadata']['order_id'])->first();
       if ($order->orderAddress) {
@@ -81,10 +82,8 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['delivery_address'] = $completeAddress;
         $mailData['delivery_type'] = $order->delivery_type ? $order->delivery_type : "Door";
         $e4uEmail = config('app.e4u_mail');
-        sleep(10);
 
         Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
-        sleep(10);
 
         // // send mail to condom man
         $products = $order->orderItems;

@@ -131,7 +131,6 @@ class PinPaymentService
   public function handlePaymentHistory(array $response)
   {
     try {
-
       // update order status
       $paymentStatus = $response['success'] == true ? 'paid' : 'failed';
       ProductOrder::where('id', $response['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $response['status_message'], 'transaction_id' => $response['token']]);

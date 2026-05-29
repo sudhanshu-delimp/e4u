@@ -243,7 +243,9 @@ class ProductOrderController extends Controller
         'products' => json_encode($products)
       ];
       $description = "Product Purchase";
+      Log::info('inititae product order');
       if ($totalPayable > 0) {
+          Log::info('started order');
         // make payment using charge method
         $response = $pinPaymentService->charge($data['pin_token'], $totalPayable, $biilingAddress->email, $description, $metadata);
         if ($response['status'] === false) {
@@ -254,6 +256,7 @@ class ProductOrderController extends Controller
           return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
         }
       } else {
+        Log::info("Process Order");
         $customTransactionId = Str::random(20); // 20-character random string
         PaymentHistory::create(
           [
