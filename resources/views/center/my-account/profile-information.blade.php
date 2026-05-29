@@ -573,6 +573,7 @@
             }
 
              
+            resetUnsavedChanges();
 
             $.ajax({
                 method: form.attr('method'),

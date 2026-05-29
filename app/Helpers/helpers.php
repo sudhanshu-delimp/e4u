@@ -2519,3 +2519,20 @@ if (!function_exists('canManage')) {
     }
 
 }
+
+
+if (!function_exists('is_parent_massage_user_switch')) {
+function is_parent_massage_user_switch()
+{
+    if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true) 
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+   
+}
+

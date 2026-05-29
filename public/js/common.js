@@ -75,8 +75,6 @@ function swal_waiting_popup(data) {
 
 async function isConfirm(data = {}) {
 
-   
-
     const result = await Swal.fire({
         title: (data?.title == 'NA' ? "" : "Are you sure ?"),
         text: (data.text ? data.text : ''),
@@ -109,6 +107,25 @@ async function isConfirm(data = {}) {
         return false;
     }
 }
+
+
+
+async function changeAlert(data = {}) {
+    const result = await Swal.fire({
+        title: data.title ?? "Are you sure?",
+        text: data.text ?? "",
+        icon: data.icon ?? "warning",
+        showCancelButton: data.showCancelButton ?? true,
+        confirmButtonColor: data.confirmButtonColor ?? "#3085d6",
+        cancelButtonColor: data.cancelButtonColor ?? "#d33",
+        confirmButtonText: data.confirmButtonText ?? "Yes",
+        cancelButtonText: data.cancelButtonText ?? "Cancel",
+        reverseButtons: true,
+    });
+
+    return result.isConfirmed;
+}
+
 
 
 function ajaxRequest({
@@ -209,4 +226,9 @@ var getStatusOption = (xhr)=>{
         title = 'Error';
     }
     return {icon, title, message};
+}
+
+
+function resetUnsavedChanges(){
+    formChanged = false;
 }
