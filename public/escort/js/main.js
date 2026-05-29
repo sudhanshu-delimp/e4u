@@ -94,65 +94,77 @@ function renderCartUI() {
 }
 $(document).on('click', '.cartAction', function () {
 
-  let id = $(this).data('id');
-  let type = $(this).data('type');
-  let price = $(this).data('price');
-  let cart = getCart();
+    let id = $(this).data('id');
+    let type = $(this).data('type');
+    let price = $(this).data('price');
+    let cart = getCart();
 
-  let qty = cart[id]?.qty || 0;
-  let message = "";
+    let qty = cart[id]?.qty || 0;
+    let message = "";
 
-  if (type === "add" || type === "increase") {
-    qty++;
-    cart[id] = {
-      qty: qty,
-      price: price // ✅ FIX: store price here
-    };
-    message = (type === "add") ? "Added to Cart" : "Quantity Increased";
-  }
-
-  if (type === "decrease") {
-    qty--;
-
-    if (qty <= 0) {
-      delete cart[id];
-      message = "Removed from Cart";
-    } else {
-      cart[id] = {
-        qty: qty,
-        price: price // ✅ keep price here too
-      };
-      message = "Quantity Decreased";
+    // 🔹 Max Limit = 5
+    if ((type === "add" || type === "increase") && qty >= 5) {
+        Swal.fire({
+            icon: "warning",
+            title: "Maximum Limit Reached",
+            text: "You can only add up to 5 quantities.",
+            timer: 1000,
+            showConfirmButton: false
+        });
+        return; // ⛔ stop execution
     }
-  }
 
-  saveCart(cart);
+    if (type === "add" || type === "increase") {
+        qty++;
+        cart[id] = {
+            qty: qty,
+            price: price
+        };
+        message = (type === "add") ? "Added to Cart" : "Quantity Increased";
+    }
 
-  $('#cart-count').text(getCartCount());
+    if (type === "decrease") {
+        qty--;
 
-  if (!cart[id]) {
-    $("#product-" + id).html(`
+        if (qty <= 0) {
+            delete cart[id];
+            message = "Removed from Cart";
+        } else {
+            cart[id] = {
+                qty: qty,
+                price: price
+            };
+            message = "Quantity Decreased";
+        }
+    }
+
+    saveCart(cart);
+    $('#cart-count').text(getCartCount());
+
+    if (!cart[id]) {
+        $("#product-" + id).html(`
             <button class="add_to_cart cartAction" data-id="${id}" data-price="${price}" data-type="add">
                 Add to Cart
             </button>
         `);
-  } else {
-    $("#product-" + id).html(`
+    } else {
+        $("#product-" + id).html(`
             <div class="qty-box text-center">
                 <button class="qty-decrease cartAction" data-id="${id}" data-price="${price}" data-type="decrease">-</button>
                 <span class="qty" id="qty-${id}">${cart[id].qty}</span>
                 <button class="qty-increase cartAction" data-id="${id}" data-price="${price}" data-type="increase">+</button>
             </div>
         `);
-  }
+    }
 
-  Swal.fire({
-    icon: "success",
-    title: message,
-    timer: 700,
-    showConfirmButton: false
-  });
-  cartCount();
+    Swal.fire({
+        icon: "success",
+        title: message,
+        timer: 700,
+        showConfirmButton: false
+    });
+
+    cartCount();
 });
 
 $(document).on('click', '.product-image', function () {

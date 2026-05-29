@@ -164,7 +164,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="https://e4u.local/assets/app/img/newcross.png"
+                            <img src="{{asset("assets/app/img/newcross.png")}}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -202,11 +202,9 @@
     <script>
         const viewCart = document.querySelector('#viewCart');
         viewCart.addEventListener("click", function() {
+            localStorage.setItem('checkout_step_' + loginUserId, 1);
             window.location.href = "{{ route('escort.view-cart') }}";
         })
-
-
-
 
         $(document).ready(function() {
             renderCartUI();
