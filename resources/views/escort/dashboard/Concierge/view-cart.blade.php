@@ -153,7 +153,7 @@
                                         Total:
                                     </th>
                                     <th>
-                                        <span id="grand-total">0.00</span>
+                                        <span id="grand-total">$0.00</span>
                                     </th>
                                 </tr>
                             </tfoot>
@@ -162,7 +162,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button class="btn-common" onclick="next()">Proceed to Checkout <i
+                <button class="btn-common" onclick="next()">Next <i
                         class="fas fa-arrow-right text-white pl-2"></i></button>
             </div>
         </div>
@@ -340,7 +340,7 @@
                         <button onclick="prev()" class="btn-common" id="btnBack"> <i
                                 class="fas fa-arrow-left text-white pr-2"></i>
                             Back</button>
-                        <button onclick="next()" class="btn-common" id="processOrder">Next</button>
+                        <button onclick="next()" class="btn-common" id="processOrder">Proceed to Checkout</button>
 
                     </div>
                 </div>
@@ -384,7 +384,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            <img src=" {{asset("assets/app/img/newcross.png")}}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -434,7 +434,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <strong>GST (Inclusive):</strong>
-                                        <strong class="taxAmount" style="border: none">$ 1.20</strong>
+                                        <strong class="taxAmount" style="border: none">$1.20</strong>
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center">
@@ -1180,11 +1180,11 @@
             let gst = subtotal * tax / 100; // 10% GST
 
             // set amount details after calculation in html format
-            $(".paymentSubtotal").text("$ " + subtotal.toFixed(2));
+            $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
             // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
-            $(".deliveryCharge").text("$ " + deliveryCharge.toFixed(2));
-            $(".taxAmount").text("$ " + gst.toFixed(2));
-            $(".totalDue").text("$ " + total.toFixed(2));
+            $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
+            $(".taxAmount").text("$" + gst.toFixed(2));
+            $(".totalDue").text("$" + total.toFixed(2));
 
             // set data to local storage for make order 
             let paymentData = {
@@ -1348,9 +1348,9 @@
                 let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
 
 
-                $("#walletAmount").text("$ " + Number(remaining_wallet_balance)
+                $("#walletAmount").text("$" + Number(remaining_wallet_balance)
                     .toFixed(2));
-                $("#walletUsed").text("$ " + Number(walletAmount).toFixed(2));
+                $("#walletUsed").text("$" + Number(walletAmount).toFixed(2));
 
                 // FORCE numeric values
                 let oldSubtotal = Number(details.subtotal_payble) || 0;
@@ -1388,9 +1388,9 @@
 
                 }
                 // Update UI
-                $(".taxAmount").text("$ " + gst_amount.toFixed(2));
+                $(".taxAmount").text("$" + gst_amount.toFixed(2));
                 // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
-                $(".totalDue").text("$ " + total_payble.toFixed(2));
+                $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));
                 localStorage.setItem('paymentDetails_' + loginUserId, JSON.stringify(
@@ -1407,8 +1407,8 @@
             updateOrderSummary();
 
             let accountWalletAmount = "{{ Auth::user()->wallet->balance }}";
-            $("#walletUsed").text("$ 0.00");
-            $("#walletAmount").text("$ " + accountWalletAmount);
+            $("#walletUsed").text("$0.00");
+            $("#walletAmount").text("$" + accountWalletAmount);
             let key = 'paymentDetails_' + loginUserId;
 
             let details = JSON.parse(localStorage.getItem(key)) || {};
