@@ -286,8 +286,9 @@ class PaymentController extends Controller
 
     public function saveCheckout($payment = null)
     {
-        if (session()->has('checkout')) {
-            $checkout = session()->get('checkout');
+
+        if (session()->has('checkout') || session()->has('tour_checkout')) {
+            $checkout = session()->has('checkout') ? session()->get('checkout') : session()->get('tour_checkout');
             $netPaidAmount = 0.00;
             foreach ($checkout as $startDate => $item) {
                 $escortDetail = getEscortDetail($item['escort_id']);
