@@ -57,6 +57,13 @@
         z-index: 9999;
         display: none;
     }
+    .make_default{
+        
+    position: absolute;
+    bottom: -6px;
+    font-size: 10px;
+    line-height: 30px;
+    }
 </style>
 
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
@@ -346,7 +353,9 @@
     data-error-warning="{{ asset('assets/dashboard/img/warning.png') }}"
     data-stagename-store="{{ route('escort.stagename.store') }}"
     data-stagename-delete="{{ route('escort.stagename.delete') }}"
-    data-stage-names="{{ json_encode($user['escorts_names'] ?? []) }}"
+    data-stage-names="{{ json_encode($stage_names ?? []) }}"
     data-additional-store="{{ route('escort.additional.store') }}"
     data-additional-delete="{{ route('escort.additional.delete') }}" data-address="{{ json_encode($address) }}"
-    data-title="{{ json_encode($title) }}" data-narrations="{{ json_encode($narration) }}"></div>
+    data-title="{{ json_encode($title) }}"
+    data-narrations="{{ json_encode($narration) }}"
+    data-update-default-additional="{{ route('escort.additional.update_default') }}"></div>

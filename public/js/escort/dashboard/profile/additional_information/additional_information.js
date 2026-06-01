@@ -11,14 +11,21 @@ const endpoint = {
     address: mmRoot.data('address') || [],
     title: mmRoot.data('title') || [],
     narrations: mmRoot.data('narrations') || [],
+    update_default_additional: mmRoot.data('update-default-additional'),
 };
+
 
 
 
 
 $(function () {
 
+const defaultEscortName = endpoint.stage_names?.default_escort_name || '';
+const stageNames = endpoint.stage_names?.escorts_names;
+
+
     const modules = {
+
         stageName: {
             listId: '#stageNameList',
             inputId: '#stage_name',
@@ -28,8 +35,12 @@ $(function () {
             storeUrl: endpoint.stagename_store,
             deleteUrl: endpoint.stagename_delete,
             extraData: { type: 'name' },
-            data: Object.values(endpoint.stage_names || {}),
-            isTextarea: false,
+            updateDefaultUrl: endpoint.update_default_additional,
+               data: stageNames.map(item => ({
+                id: null,
+                value: item,
+                is_default: item === defaultEscortName ? 1 : 0
+            })),
         },
         address: {
             listId: '#stageAddress',
@@ -40,7 +51,15 @@ $(function () {
             storeUrl: endpoint.additional_store,
             deleteUrl: endpoint.additional_delete,
             extraData: { type: 'address' },
-            data: Object.values(endpoint.address || {}),
+            updateDefaultUrl: endpoint.update_default_additional,
+            data: Object.values(endpoint.address || {}).map(item => {
+                return {
+                    id: item.id,
+                    value: item.short_desc,
+                    is_default: item.make_default || 0
+                };
+
+            }),
             isTextarea: false
         },
         title: {
@@ -51,8 +70,16 @@ $(function () {
             deleteClass: '.delete_title',
             storeUrl: endpoint.additional_store,
             deleteUrl: endpoint.additional_delete,
+            updateDefaultUrl: endpoint.update_default_additional,
             extraData: { type: 'title' },
-            data: Object.values(endpoint.title || {}),
+            data: Object.values(endpoint.title || {}).map(item => {
+                return {
+                    id: item.id,
+                    value: item.short_desc,
+                    is_default: item.make_default || 0
+                };
+
+            }),
             isTextarea: false
         },
         narration: {
@@ -64,38 +91,59 @@ $(function () {
             storeUrl: endpoint.additional_store,
             deleteUrl: endpoint.additional_delete,
             extraData: { type: 'narration' },
-            data: Object.values(endpoint.narrations || {}),
+            updateDefaultUrl: endpoint.update_default_additional,
+            data: Object.values(endpoint.narrations || {}).map(item => {
+                return {
+                    id: item.id,
+                    value: item.short_desc,
+                    is_default: item.make_default || 0
+                };
+
+            }),
             isTextarea: false, // this is textarea 
             isCkeditor: true,
         }
     }
 
+   // console.log(endpoint.stage_names.escorts_names, 'endpoint.narrations....');
 
-    //Card Template
-    function stageCard(name, deleteClass) {
-        const display = name.length > 40 ? name.substring(0, 40) + '...' : name;
+
+
+    function stageCard(item, deleteClass) {
+        const value = item?.value || '';
         return `
-            <li style="font-size:14px; background:#0C223D !important;">
-                <a href="#">${display}</a>
-                <div class="close ml-2 text-white stage-close" aria-label="Close">
-                    <span aria-hidden="true" class="${deleteClass.replace('.', '')}" data-name="${name}">×</span>
-                    <small class="mytool-tip">Remove</small>
-                </div>
-            </li>`;
+        <li class="stage-card ${item.is_default == 1 ? 'default-card' : ''}" data-id="${item.id}">
+            <a href="javascript:void(0)">${value}</a>
+            <div class="close ml-2 text-white stage-close">
+                <span aria-hidden="true" class="${deleteClass.replace('.', '')}"  data-id="${item.id}"  data-name="${item.value}"> × </span>
+                
+            </div>
+            <div class="hover-action">
+                <button type="button" class="default-toggle-btn" data-id="${item.id}" data-type="${deleteClass}" data-value="${item.value}"> ${item.is_default == 1 ? 'Remove from Default' : 'Add to Default'} </button>
+            </div>
+            <span class="make_default">${item.is_default == 1 ? '<span>Default</span>' : ''}</span>
+        </li>
+    `;
     }
+
+
 
 
     //Short
     function getSortedNames(names, sortType) {
         let sorted = [...names];
         if (sortType == 'alalphabetically') {
-            shorted.sort((a, b) => a.localeCompare(b));
+            sorted.sort((a, b) =>
+                a.value.localeCompare(b.value)
+            );
         } else if (sortType == 'random') {
             for (let i = sorted.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [sorted[i], sorted[j]] = [sorted[j], sorted[i]];
+                [sorted[i], sorted[j]] =
+                    [sorted[j], sorted[i]];
             }
         }
+
         return sorted;
     }
 
@@ -103,8 +151,8 @@ $(function () {
         const sortType = $(`input[name="${mod.sortRadio}"]:checked`).val();
         const ul = $(mod.listId);
         ul.empty();
-        getSortedNames(mod.data, sortType).forEach(function (name) {
-            ul.append(stageCard(name, mod.deleteClass));
+        getSortedNames(mod.data, sortType).forEach(function (item) {
+            ul.append(stageCard(item, mod.deleteClass));
         });
     }
 
@@ -159,11 +207,16 @@ $(function () {
                 }, mod.extraData),
                 success: function (res) {
                     if (res.status == true) {
-                         mod.data.push(getShortDesc(value));
+                        mod.data.push({
+                            id: res.id,
+                            value: getShortDesc(value),
+                            is_default: 0
+                        });
+                        //mod.data.push(getShortDesc(value));
                         // if (mod.isCkeditor) {
                         //     mod.data.push(getShortDesc(value));
                         // } else {
-                           
+
                         // }
                         renderList(mod);
                         $(mod.inputId).val('');
@@ -199,7 +252,6 @@ $(function () {
 
                 }),
                 success: function (res) {
-                    console.log('delete response', res);
                     if (res.status == true) {
                         mod.data = mod.data.filter(n => n != name);
                         $liElem.remove();
@@ -221,6 +273,7 @@ $(function () {
     Object.values(modules).forEach(function (mod) {
         initSave(mod);
         initDelete(mod);
+        initDefault(mod);
     });
 
     //for error message
@@ -250,7 +303,6 @@ $(function () {
 
     function getShortDesc(value) {
         // Check if value contains HTML tags
-        console.log('Original value:', value);
         const hasHtml = /<[^>]*>/g.test(value);
         if (hasHtml) {
             let plainText = value.replace(/<[^>]*>/g, '');
@@ -258,7 +310,6 @@ $(function () {
             plainText = plainText.replace(/\s+/g, ' ').trim();
             return plainText.split(' ').slice(0, 5).join(' ');
         }
-        console.log('Plain text value:', value);
         // Plain text condition
         return value.split(' ').slice(0, 5).join(' ');
     }
@@ -359,5 +410,71 @@ $(function () {
         }
 
     });
+
+
+    function initDefault(mod) {
+
+        $(document).on('click', `${mod.listId} .default-toggle-btn`, function () {
+
+            let button = $(this);
+            let card = button.closest('.stage-card');
+            let id = button.data('id');
+            let type = button.data('type');
+            let value = button.data('value');
+
+            let alreadyDefault = card.hasClass('default-card');
+
+            // Reset all cards
+            $(mod.listId)
+                .find('.stage-card')
+                .removeClass('default-card');
+
+            $(mod.listId)
+                .find('.default-toggle-btn')
+                .text('Add to Default');
+
+            $(mod.listId)
+                .find('.make_default')
+                .html('');
+
+            // Set selected card as default
+            if (!alreadyDefault) {
+                card.addClass('default-card');
+                button.text('Remove from Default');
+
+                card.find('.make_default')
+                    .html('<span>Default</span>');
+            }
+
+            // Update local data
+            mod.data.forEach(item => {
+                item.is_default = 0;
+
+                if (item.id == id && !alreadyDefault) {
+                    item.is_default = 1;
+                }
+            });
+
+            $.ajax({
+                url: mod.updateDefaultUrl,
+                method: 'POST',
+                data: {
+                    _token: endpoint.csrf_token,
+                    id: id,
+                    type: type,
+                    alreadyDefault: alreadyDefault,
+                    value: value
+                },
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+
+        });
+
+    }
 
 });

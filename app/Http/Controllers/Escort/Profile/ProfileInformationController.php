@@ -84,9 +84,10 @@ class ProfileInformationController extends Controller
         $durations = $this->duration->all();
         $availability = $escort->availability;
         //for additional information
-        $address = $user->additionalInfo->where('type', 'address')->pluck('short_desc')->toArray();
-        $title = $user->additionalInfo->where('type', 'title')->pluck('short_desc')->toArray();
-        $narration = $user->additionalInfo->where('type', 'narration')->pluck('short_desc')->toArray();
+        $stage_names = User::where('id', Auth::id())->select('escorts_names','default_escort_name')->first()->toArray();
+        $address = $user->additionalInfo->where('type', 'address')->toArray();
+        $title = $user->additionalInfo->where('type', 'title')->toArray();
+        $narration = $user->additionalInfo->where('type', 'narration')->toArray();
         return view(
             'escort.dashboard.profile.information.profileInformation',
             compact(
@@ -99,7 +100,8 @@ class ProfileInformationController extends Controller
                 'user',
                 'address',
                 'title',
-                'narration'
+                'narration',
+                'stage_names'
             )
         );
     }
@@ -602,13 +604,13 @@ class ProfileInformationController extends Controller
         try {
             $data = trim($request->data);
             $query = EscortAdditionalInformation::where('user_id', Auth::id())
-            ->where('type', $request->type);
+                ->where('type', $request->type);
             if ($request->type == 'title') {
                 $query->where('short_desc', $data);
             } else {
                 $query->where('short_desc', 'like', '%' . $data . '%');
             }
-   
+
             $delete = $query->first();
 
             if ($delete) {
@@ -625,7 +627,7 @@ class ProfileInformationController extends Controller
 
     private function makeShortDescription($request)
     {
-     
+
         if ($request->type == 'title') {
             return implode(' ', array_slice(explode(' ', $request->value), 0, 5));
         } else {
@@ -634,6 +636,45 @@ class ProfileInformationController extends Controller
             $plainText = preg_replace('/\s+/', ' ', $plainText);
             $words = explode(' ', trim($plainText));
             return implode(' ', array_slice($words, 0, 5));
+        }
+    }
+
+
+    public function updateDefaultAdditional(Request $request)
+    {
+
+  
+        try {
+            if($request->id == null && $request->type == '.delete_stage_name'){
+                   User::whereKey(Auth::id())->update(['default_escort_name' => $request->value]);
+                return success_response(null, "Default status updated successfully!", 200, []);
+            }
+
+            
+            $user = User::find(Auth::id());
+            if($request->alreadyDefault == 'true') {
+                EscortAdditionalInformation::where('id', $request->id)
+                    ->where('user_id', Auth::id())
+                    ->where('type', Str::afterLast($request->type, '_'))
+                    ->update(['make_default' => 0]);
+
+                return success_response(null, "Default status removed successfully!", 200, []);
+            }
+           $type = Str::afterLast($request->type, '_');
+            if ($request->filled('id') && in_array($type, ['title', 'address', 'narration'])) {
+
+                EscortAdditionalInformation::where('type', $type)
+                    ->update(['make_default' => 0]);
+
+                EscortAdditionalInformation::where('id', $request->id)
+                    ->where('user_id', Auth::id())
+                    ->where('type', $type)
+                    ->update(['make_default' => 1]);
+            }
+
+            return success_response(null, "Default status updated successfully!", 200, []);
+        } catch (Exception $e) {
+            return error_response($e->getMessage(), 400, null, []);
         }
     }
 }
