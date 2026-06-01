@@ -132,7 +132,6 @@
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-
                         <form action="{{ route('escort.payment.process') }}" class="pin" method="post"
                             id="payment-form">
 
@@ -273,7 +272,7 @@
                     keyboard: false,
                     show: true
                 });
-                
+
                 form.closest('.modal').modal('hide');
             }
 
@@ -420,7 +419,7 @@
                             $("#payment-form").find('input, button, select, textarea').prop('disabled',
                                 false);
                             finishPaymentForm.find('input, button, select, textarea').prop('disabled',
-                            true);
+                                true);
                             finishPaymentForm.parent().addClass('d-none');
                         } else {
                             $("#payment-form").find('input, button, select, textarea').prop('disabled',
@@ -482,7 +481,7 @@
                     });
                 },
                 success: function(response, textStatus, xhr) {
-                    console.log(response);
+                    // console.log(response);
                     Swal.close();
                     submitButton.removeAttr('disabled');
                     let option = getStatusOption(xhr);

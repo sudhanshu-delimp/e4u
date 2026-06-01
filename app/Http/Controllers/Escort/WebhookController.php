@@ -3,26 +3,30 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Escort\Order\OrderMailToEscort;
+use App\Jobs\SendProductPurchaseMail;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
+use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class WebhookController extends Controller
 {
 
-  function handle(Request $request)
+  function handle(Request $request, PinPaymentService $pinPaymentService)
   {
+
     $signatureHeader = $request->header('Pin-Signature');
 
+
     if (!$signatureHeader)
-      return false;
+      return response()->json(['status' => ' signature not found '], 500);
 
     $signingKey = config('escorts.webhook_secret_key');
+    //  return "djfgdjhfg";
 
     // Parse header: t=timestamp,v1=signature
+
     $parts = [];
     foreach (explode(',', $signatureHeader) as $part) {
       [$key, $value] = explode('=', $part, 2);
@@ -33,7 +37,8 @@ class WebhookController extends Controller
     $signature = $parts['v1'] ?? null;
 
     if (!$timestamp || !$signature)
-      return false;
+      return response()->json(['status' => 'timestamp or signature not found '], 500);
+
 
 
     // IMPORTANT: get raw body exactly as received
@@ -43,15 +48,17 @@ class WebhookController extends Controller
     // Generate expected signature
     $expected = hash_hmac('sha256', $payload, $signingKey);
 
+
     // Constant-time comparison
     if (!hash_equals($expected, $signature))
-      return false;
+      return response()->json(['status' => 'signature noty verified'], 500);
+
 
 
     // Optional: timestamp tolerance check (e.g. 5 minutes)
     $tolerance = 300; // seconds
     if (abs(time() - (int)$timestamp) > $tolerance)
-      return false;
+      return response()->json(['status' => 'timestamp tolerance check '], 500);
 
     try {
 
@@ -68,24 +75,30 @@ class WebhookController extends Controller
       if ($event == 'charge.captured') {
         // start swithc case
         switch ($type) {
-          case 'escort-product-order':
-            $this->sendMail($paymentObject);
+          case 'product-purchase':
+
             // make payment history
-            $this->handlePaymentHistory($paymentObject);
+            $this->handlePaymentHistoryStatus($paymentObject);
+            SendProductPurchaseMail::dispatch($paymentObject);
+            if (isset($paymentObject['metadata']['wallet_amount']) && $paymentObject['metadata']['wallet_amount'] > 0) {
+              $pinPaymentService->handleWalletAmount($paymentObject['metadata']['user_id'], $paymentObject['metadata']['wallet_amount']);
+            }
             break;
 
           default:
             // Unknown type handling
-            Log::warning('Unknown payment metadata type', ['type' => $type,  'response' => $paymentObject]);
+            Log::warning('Unknown event', ['type' => $event,  'response' => $paymentObject]);
             break;
         }
-        // end swich case
-
       } else if ($event == 'charge.failed') {
         switch ($type) {
-          case 'escort-product-order':
+          case 'product-purchase':
             // make payment history
-            $this->handlePaymentHistory($paymentObject);
+            $pinPaymentService->handlePaymentHistory($paymentObject);
+
+            // handle payment history status
+            $this->handlePaymentHistoryStatus($paymentObject);
+
             break;
 
           default:
@@ -94,57 +107,28 @@ class WebhookController extends Controller
             break;
         }
       }
-
-      return response()->json(['status' => 'ok']);
+      return response()->json(['status' => 'ok'], 200);
     } catch (\Exception $e) {
       Log::info('Webhook handle error', [$e->getMessage()]);
-      return false;
     }
   }
 
-  protected function sendMail(array $response)
-  {
 
-    try {
-      // send email to escort
-      $mailData = [];
-      $order =   ProductOrder::with('orderAddress')->where('id', $response['metadata']['order_id'])->first();
-      if ($order->orderAddress) {
-
-        $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
-        $billingAddress = $order->orderAddress->where('type', 'billing')->first();
-
-        $mailData['orderId'] = $order->order_id;
-        $mailData['billing_email'] = $shippingAddress->email;
-        Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
-      } else Log::warning('send email issue', ['message' => "Order address was not found"]);
-    } catch (\Exception $e) {
-      Log::info('', [$e->getMessage()]);
-    }
-  }
-  protected function handlePaymentHistory(array $response)
+  public function handlePaymentHistoryStatus(array $paymentObject)
   {
     try {
+      Log::info("handle payment status");
+      $paymentHistory =  PaymentHistory::where('transaction_id', $paymentObject['token'])->first();
+      $paymentHistory->status = $paymentObject['success'] ? 'success' : 'failed';
+      $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $paymentObject['created_at'];
+      $paymentHistory->save();
 
+      Log::info("payment status update");
       // update order status
-      $paymentStatus = $response['success'] == true ? 'paid' : 'failed';
-      ProductOrder::where('id', $response['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $response['status_message'], 'transaction_id' => $response['token']]);
+      $paymentStatus = $paymentObject['success'] == true ? 'paid' : 'failed';
+      ProductOrder::where('id', $paymentObject['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $paymentObject['status_message'], 'transaction_id' => $paymentObject['token']]);
 
-      // make history of payment
-      PaymentHistory::updateOrCreate(
-        [
-          'user_id'  => $response['metadata']['user_id'],
-          'completed_by'  => $response['metadata']['user_id'],
-          'ref_no'          => now()->format('Ymd') . rand(100, 999),
-          'amount'          => $response['amount'] / 100,
-          'currency'        => $response['currency'],
-          'transaction_id'  => $response['token'],
-          'status'          => $response['success'] ? 'success' : 'failed',
-          'paid_at'         => $response['captured_at'] ?? $response['created_at'],
-          'card'            => $response['card']['display_number'] ?? null,
-          'meta'            => json_encode($response),
-        ]
-      );
+      return true;
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);
     }

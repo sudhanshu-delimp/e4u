@@ -173,9 +173,7 @@ class PaymentController extends Controller
             $totalDueAmount = $this->pinService->getTotalDue();
 
             if (!$is_bypass) {
-
                 $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
-
                 if ($gatewayResponse['status']) {
                     $response = $gatewayResponse['data']['response'];
                 } else {
@@ -295,6 +293,11 @@ class PaymentController extends Controller
                 }
     
                 if($this->account->activeFeeDiscount){
+                    
+                    $purchaseDetail->special_discount_value = $this->account->activeFeeDiscount->value;
+                    $purchaseDetail->special_discount_type = $this->account->activeFeeDiscount->type;
+                    $purchaseDetail->save();
+
                     $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
                 }
     

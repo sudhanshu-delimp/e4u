@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Order Received - Shareholder</title>
-</head>
-
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -25,10 +19,14 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            Order Received - Shareholder
+                                            Order Confirmation - Products
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Shareholder ID: {{ $data['member_id'] ?? '' }}
+                                            Ref: {{ $data['ref'] ?? '' }}<br>
+                                            Member ID: {{ $data['member_id'] ?? '' }}
+
+                                            <br>
+
                                         </span>
                                     </td>
                                 </tr>
@@ -40,7 +38,7 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;">Dear {{ $data['billing_email'] }},</p>
+                            <p style="margin: 0 0 15px 0;">Dear {{ $data['billing_name'] }},</p>
 
                             <p style="margin: 20px 0 15px 0;">
                                 Your order for a range of Products has been received. Please note, if your order has
@@ -55,7 +53,7 @@
                             <p style="margin: 15px 0;">
                                 If you do not receive your Products within <strong>72 hours</strong>, please lodge a
                                 Support Ticket by logging onto your Dashboard and quoting your reference number
-                                <strong>{{ $data['order_id'] }}</strong>.
+                                <strong>{{ $data['ref'] }}</strong>.
                             </p>
 
                             <p style="margin: 15px 0;">
@@ -79,10 +77,6 @@
                                 </li>
                             </ol>
 
-                            <p style="margin: 25px 0 0 0;">
-                                Regards,<br>
-                                <strong>E4U - Operations Centre</strong>
-                            </p>
 
                             <!-- email info -->
                             <x-email-info />

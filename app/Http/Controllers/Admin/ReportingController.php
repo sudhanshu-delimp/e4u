@@ -231,7 +231,7 @@ class ReportingController extends BaseController
             $item->action = $dropdown;
             $memberIdBadgeText =  '';
             if ($item->social_media_consent == '1'){
-                $memberIdBadgeText = '<span class="d-none"><sup class="extend_icon listing-tag-tooltip ml-1">Consent Social Media</sup></span>';
+                $memberIdBadgeText = '<span><sup class="extend_icon listing-tag-tooltip ml-1">Consent Social Media</sup></span>';
             }
 
             $parent_account = "";

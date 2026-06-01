@@ -535,7 +535,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-lg-12 stage">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex" for="exampleFormControlSelect1" style="font-size: 18px;">
@@ -588,7 +588,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <br>
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
