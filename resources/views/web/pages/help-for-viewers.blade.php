@@ -19,6 +19,30 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
     }
+
+    .membership_packages.table th{
+            font-weight: bold;
+            border-top: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6 !important;
+            text-align: center;
+        }
+         .membership_packages.table th:first-child{
+            text-align: left;
+            width: 250px;
+         }
+         .membership_packages.table th:last-child{
+            text-align: left;
+         }
+          .membership_packages.table td{
+            text-align: center
+          }
+          
+         .membership_packages.table td:first-child{
+            text-align: left;
+         }
+         .membership_packages.table td:last-child{
+            text-align: left;
+         }
 </style>
 @endsection
 @section('content')
@@ -115,7 +139,7 @@
                          </div>
                      </div>
                             <div class="table-responsive-sm">
-                                <table class="table" style="border: 1px;">
+                                <table class="table membership_packages table-bordered" style="border: 1px;">
                                     <thead>
                                     <tr>
                                         <th>Features</th>
@@ -126,13 +150,13 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><p>Viewing</p></td>
-                                        <td><p>✓</p></td>
-                                        <td><p>✓</p></td>
-                                        <td><p>View all of the Advertisers on the Website</p></td>
+                                        <td>Viewing</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>View all of the Advertisers on the Website</td>
                                     </tr>
                                     <tr>
-                                        <td><p>Chatting</p></td>
+                                        <td>Chatting</td>
                                         <td>✓</td>
                                         <td>&#x2717;</td>
                                         <td>Participate in direct chatting with Advertisers (provided they have enabled this feature)</td>
@@ -184,8 +208,8 @@
                                     </tr>
                                     <tr>
                                         <td>Recommendation</td>
-                                        <td>✓</td>
-                                        <td>✓</td>
+                                        <td>&#128077;</td>
+                                        <td>&#128078;</td>
                                         <td>Share your experiences and publish a recommendation [thumb icon up] or [thumb icon down]</td>
                                     </tr>
                                     <tr>

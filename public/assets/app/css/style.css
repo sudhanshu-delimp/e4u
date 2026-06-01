@@ -2869,8 +2869,8 @@ i.fa.fa-heart-o{
                 }
                 
                 .bod_image img {
-                    width: 50px;
-                    height: 64px;
+                    width: 30px;
+                    height: 53px;
                     object-fit: contain;
                     margin-right: 10px;
                 }
@@ -2945,10 +2945,9 @@ i.fa.fa-heart-o{
                 .list_provide_cruise .row .col-lg-4 {
                     padding-left: 0;
                 }
-                
-                .list_provide_cruise .row .col-lg-8 .row .col-md-4 {
+                /* .list_provide_cruise .row .col-lg-8 .row .col-md-4 {
                     padding-right: 0;
-                }
+                } */
                 
                 .list_cruise>div {
                     flex: 1;
@@ -2997,7 +2996,7 @@ i.fa.fa-heart-o{
                 }
                 
                 .icon-lis-col>div {
-                    margin-bottom: 1.5em !important;
+                    margin-bottom: 0.7em !important;
                 }
                 
                 .icon-lis-col .d-flex {
@@ -3608,14 +3607,14 @@ i.fa.fa-heart-o{
                 }
                 
                 .list_view_profile_pera_font_size {
+                    line-height: 20px;
                     font-size: 14px;
-                    line-height: 24.5px;
+                    text-align: justify;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     display: -webkit-box;
                     -webkit-line-clamp: 5;
                     -webkit-box-orient: vertical;
-                    text-align: justify;
                 }
                 
                 .video_icon img {
@@ -3706,7 +3705,6 @@ i.fa.fa-heart-o{
                 
                 .flex_directiom_warp_but_list_child_not_hundred_present {
                     flex-wrap: wrap;
-                    padding: 0px 15px;
                 }
                 
                 .flex_warp {
@@ -5372,7 +5370,7 @@ i.fa.fa-heart-o{
                 }
                 
                 .custom-mb {
-                    margin-bottom: 20px;
+                    margin-bottom: 30px;
                 }
                 
                 .text {
@@ -5394,13 +5392,10 @@ i.fa.fa-heart-o{
                 }
                 
                 .silver_card {
-                    border-bottom: 1px solid;
-                    margin-bottom: 50px;
+                    margin-bottom: 30px;
                 }
                 
-                .free_card {
-                    margin-left: 40px;
-                }
+                .free_card {}
                 
                 .otherliste .listiconprofilelistview {
                     display: none;
@@ -5678,15 +5673,14 @@ i.fa.fa-heart-o{
                     justify-content: flex-start;
                     flex-direction: column;
                 }
-                
-                .custom-rate-type {
+                /* .custom-rate-type {
                     display: flex;
                     justify-content: flex-start;
                     gap: 15px;
                     padding-left: 30px;
                     flex-wrap: wrap;
                     margin-bottom: 15px;
-                }
+                } */
                 /* massage profile page description */
                 
                 .social-media-profile:hover {
@@ -8398,12 +8392,13 @@ i.fa.fa-heart-o{
                     align-items: center;
                     justify-content: space-between;
                     flex-wrap: wrap !important;
-                    padding: 15px;
                 }
                 
                 .all-escort-view-profile-box {
                     display: flex;
-                    flex-direction: column !important;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 100%;
                 }
                 
                 .all-escort-view-profile-btn {
@@ -8422,9 +8417,7 @@ i.fa.fa-heart-o{
                     display: flex;
                     justify-content: flex-start;
                     gap: 15px;
-                    padding-left: 30px;
                     flex-wrap: wrap;
-                    margin-bottom: 15px;
                 }
                 
                 .shortlist-rate-type {
