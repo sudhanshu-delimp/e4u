@@ -855,20 +855,20 @@
                                 {{ $memberTotalCount[3] }}
                                 <span class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
-                            <div class="row  mx-md-n2">
+                           
                                 @if ($grouped->has('3'))
                                     @foreach ($grouped['3'] as $escort)
                                         @include('web.partials.list.silver')
                                     @endforeach
                                 @endif
-                            </div>
+                           
                         </div>
                     @endif
                     @if ($grouped->has('4'))
                         <div class="free_card">
                             <div class="bod_image custom-mb">
                                 <div class="ec_tooltip">
-                                    <img src="{{ asset('assets/app/img/Group 153.png') }}">
+                                    <img src="{{ asset('assets/app/img/free.png') }}">
                                     <span class="ec_type_tooltip">
                                         Free Members - {{ $memberTotalCount[4] }}
                                         {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}

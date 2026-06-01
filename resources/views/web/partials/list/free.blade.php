@@ -1,7 +1,6 @@
 @php
     $escortName = ($escort->gender == 'Transgender')? 'TS-' . $escort->name : $escort->name;
 @endphp
-<div class="platinum-sec">
     
 <div class="listview_each_section_border_btm silver-sec brb--listing">
     <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
@@ -21,7 +20,7 @@
                             @endif
                                <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid" title="View Profile">
                             </a>
-                            <div class="siliver_logo_icon"><img src="{{ asset('images/platinum_membership.png')}}"></div>
+                            <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/free.png')}}"></div>
                                 <div class="add_to_fab_list_view_each_sec">
                                     @if(auth()->user())
                                         @if(auth()->user()->type == 0)
@@ -280,5 +279,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>
