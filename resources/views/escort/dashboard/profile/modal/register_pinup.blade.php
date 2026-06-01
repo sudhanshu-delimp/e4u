@@ -1,4 +1,4 @@
-<div class="modal fade upload-modal" id="pinup_profile" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal modal-form-pinup" id="pinup_profile" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
     aria-modal="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="form-group row custom-pin-button">
                                     <div class="col-sm-12 text-right">
-                                        <a class="btn-success-modal text-white d-none" href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="pinup">Proceed</a>
+                                        <a id="modalPaymentButton" class="btn-success-modal text-white d-none" href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="pinup">Proceed</a>
                                         <button type="submit" class="btn-success-modal"
                                             id="savePinupButton">Register</button>
                                     </div>

@@ -228,7 +228,6 @@ class PaymentController extends Controller
                     break;
                 case 'pinup': {
                         $payment_service = 'Pin Up';
-                        dd('hello pinup');
                     }
                     break;
 
@@ -240,20 +239,29 @@ class PaymentController extends Controller
             if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
                 $this->walletService->debit($this->account, $benefit_token['wallet_amount'], $payment, $payment_service, []);
             }
+
             if (!empty($benefit_token['loyalty_day']) && $benefit_token['loyalty_day'] > 0) {
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
-            $earn_days = floor($benefit_token['total_amount'] / 200);
-            if ($earn_days > 0) {
-                $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
+
+            if ($benefit_token['action'] === 'listing') {
+                $earn_days = floor($benefit_token['total_amount'] / 200);
+                if ($earn_days > 0) {
+                    $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
+                }
             }
+
             $payment->service = $payment_service;
             $payment->save();
+
             DB::commit();
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Your payment has been processed successfully.',
                 'netAmount' => $amount,
+                'action' => $benefit_token['action'],
+                'payment_id' => encrypt($payment->id),
                 'redirect_url' => $redirect_url
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -307,7 +315,7 @@ class PaymentController extends Controller
                 if (!empty($payment)) {
                     $purchaseDetail->paymentItems()->create([
                         'payment_history_id' => $payment->id,
-                        'amount' => $total_rate
+                        'amount' => $payment->amount
                     ]);
                 }
 

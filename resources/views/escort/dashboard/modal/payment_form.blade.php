@@ -220,7 +220,7 @@
 </div>
 </div>
 {{-- end --}}
-@push('script')
+@prepend('script')
 <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
 <script>
     let card = {};
@@ -228,8 +228,7 @@
     let form = $('form.pin');
     $(function() {
 
-        var pinApi = new Pin.Api('{{ config('
-            app.payment.publish_key ') }}', 'test');
+        var pinApi = new Pin.Api(`{{ config('app.payment.publish_key') }}`, 'test');
         var submitButton = form.find(":submit"),
             errorContainer = form.find('.errors'),
             errorHeading = errorContainer.find('h3');
@@ -308,13 +307,6 @@
         (action == 'hide') ? $(".payment_loyalty_option").hide(): $(".payment_loyalty_option").show();
     }
 
-    // $(document).on('input', '#adjustment-form input', function() {
-    //     let value = parseFloat($(this).val());
-    //     if (value < 0) {
-    //         $(this).val(0);
-    //     }
-    // });
-
     var processPaymentForm = function() {
         $.ajax({
             url: form.attr('action'),
@@ -335,18 +327,33 @@
                 Swal.close();
                 paymentFormData = {};
                 //submitButton.removeAttr('disabled');
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = response.redirect_url;
+                let otherModalForm;
+                if (!response.redirect_url || response.redirect_url.trim() === '') {
+                    form.closest('.modal').modal('hide');
+                    otherModalForm = $(`.modal-form-${response.action}`).find('form');
+                }
+                switch (response.action) {
+                    case 'pinup': {
+                        displaySwal(xhr, false);
+                        otherModalForm.attr('action', `{{route('pinup.register')}}`);
+                        otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+                        setTimeout(() => {
+                            otherModalForm.trigger('submit');
+                        }, 2000); // 2 seconds
                     }
-                });
+                    break;
+
+                    default: {
+                        displaySwal(xhr).then((result) => {
+                            if (result.isConfirmed) {
+                                if (response.redirect_url) {
+                                    window.location.href = response.redirect_url;
+                                }
+                            }
+                        });
+                    }
+                    break;
+                }
             },
             error: function(xhr) {
                 Swal.close();
@@ -530,4 +537,4 @@
         }
     });
 </script>
-@endpush
+@endprepend

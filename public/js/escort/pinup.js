@@ -1,6 +1,7 @@
-let savePinupButton = document.getElementById("savePinupButton");
+let pinupFrom = $(".modal-form-pinup form");
+let pinupFromButton = pinupFrom.find(":submit");
 let btn_pinup_profile = document.getElementById("btn_pinup_profile");
-savePinupButton.disabled = true;
+pinupFromButton.disabled = true;
 $(document).on('change', '#pinup_profile_id', function () {
     let weekSelect = document.getElementById('pinup_week');
     let escortId = $(this).val();
@@ -19,7 +20,7 @@ $(document).on('change', '#pinup_profile_id', function () {
                     option.textContent = label;
                     weekSelect.appendChild(option);
                 });
-                savePinupButton.disabled = false;
+                pinupFromButton.disabled = false;
             }
             else {
                 Swal.fire({
@@ -27,7 +28,7 @@ $(document).on('change', '#pinup_profile_id', function () {
                     title: 'Pin Up',
                     text: response.message
                 });
-                savePinupButton.disabled = true;
+                pinupFromButton.disabled = true;
             }
         },
         error: function () {
@@ -36,48 +37,42 @@ $(document).on('change', '#pinup_profile_id', function () {
                 title: 'Pin Up',
                 text: response.message
             });
-            savePinupButton.disabled = true;
+            pinupFromButton.disabled = true;
         }
     });
 });
 
-savePinupButton.addEventListener("click", function (e) {
+pinupFrom.on('submit', function (e) {
     e.preventDefault();
-    const button = e.target
-    const form = button.closest('form');
-    if (!form) {
-        console.error("Form not found!");
-        return;
-    }
-    const action = form.action;
-    const method = form.method;
-    const formData = new FormData(form);
-    savePinupButton.disabled = true;
+    pinupFromButton.disabled = true;
     $.ajax({
-        url: action,
-        method: method,
-        data: formData,
-        processData: false,
-        contentType: false,
+        url: pinupFrom.attr('action'),
+        method: pinupFrom.attr('method'),
+        dataType: 'json',
         headers: {
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        success: function (data) {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Registered for Pin Up',
-                    text: data.message
-                });
-                form.reset();
-                savePinupButton.disabled = false;
-                $("#pinup_profile").modal('hide');
-                btn_pinup_profile.disabled = true;
-                table.draw();
+        data: pinupFrom.serialize(),
+        beforeSend: function () {
+            showLoadingPopup();
+        },
+        success: function (response, textStatus, xhr) {
+            Swal.close();
+            if (response.success) {
+                if (response.validation) {
+                    pinupFrom.closest('.modal').modal('hide');
+                    $("#modalPaymentButton").trigger('click');
+                }
+                else {
+                    pinupFrom.closest('.modal').modal('hide');
+                    table.draw();
+                    displaySwal(xhr);
+                }
             }
+            pinupFromButton.disabled = false;
         },
         error: function (xhr) {
+            Swal.close();
             if (xhr.status === 422) {
                 let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
                 Swal.fire({
@@ -93,7 +88,7 @@ savePinupButton.addEventListener("click", function (e) {
                     text: message || 'Something went wrong.'
                 });
             }
-            savePinupButton.disabled = false;
+            pinupFromButton.disabled = false;
         }
     });
 });
@@ -129,7 +124,7 @@ $("#pinupSummary").on('show.bs.modal', function (event) {
                     text: message || 'Something went wrong.'
                 });
             }
-            savePinupButton.disabled = false;
+            pinupFromButton.disabled = false;
         }
     });
 });

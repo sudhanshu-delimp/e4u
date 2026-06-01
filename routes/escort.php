@@ -183,9 +183,7 @@ Route::post('escort-brb/add', [EscortBrbController::class, 'add'])->name('escort
 Route::post('escort-brb/inactive/{id}', [EscortBrbController::class, 'inactive'])->name('escort.brb.inactive');
 
 ////////////pagis
-/*Route::get('register-for-pin-up',function(){
-    return view('escort.dashboard.registerPinup.register-pin-up');
-});*/
+
 Route::get('view-archives', function () {
   return view('escort.dashboard.archives.view-archives');
 });

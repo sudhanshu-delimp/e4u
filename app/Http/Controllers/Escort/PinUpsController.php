@@ -10,6 +10,7 @@ use App\Models\Pricing;
 use App\Models\EscortPinup;
 use App\Models\TourLocation;
 use App\Models\TourProfile;
+use App\Models\PaymentHistory;
 use App\Models\EscortMedia;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -197,15 +198,16 @@ class PinUpsController extends AppController
 
             $data = $request->validated();
 
-            // validation only flow
             if ($action === 'validate') {
 
                 return response()->json([
                     'success' => true,
+                    'validation' => true,
                     'message' => 'Validation passed successfully!',
                     'amount' => getPinupFee(),
                 ]);
             }
+
 
             $escortId = $data['pinup_profile_id'];
             $escortDetail = getEscortDetail($escortId);
@@ -242,6 +244,7 @@ class PinUpsController extends AppController
                 'utc_end_time' => $utcEnd,
             ]);
 
+
             if ($request->tour_location_id) {
 
                 TourLocation::where('id', $request->tour_location_id)
@@ -255,6 +258,17 @@ class PinUpsController extends AppController
                 ])->update([
                     'is_pinup' => $escortPinup->id
                 ]);
+            }
+
+            if ($request->filled('payment_token')) {
+                $paymentId = decrypt($request->payment_token);
+                $payment = PaymentHistory::findOrFail($paymentId);
+                if (!empty($payment)) {
+                    $escortPinup->paymentItems()->create([
+                        'payment_history_id' => $payment->id,
+                        'amount' => $payment->amount
+                    ]);
+                }
             }
 
             return response()->json([
