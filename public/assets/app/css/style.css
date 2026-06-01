@@ -2869,8 +2869,8 @@ i.fa.fa-heart-o{
                 }
                 
                 .bod_image img {
-                    width: 50px;
-                    height: 64px;
+                    width: 30px;
+                    height: 53px;
                     object-fit: contain;
                     margin-right: 10px;
                 }
@@ -5370,7 +5370,7 @@ i.fa.fa-heart-o{
                 }
                 
                 .custom-mb {
-                    margin-bottom: 20px;
+                    margin-bottom: 30px;
                 }
                 
                 .text {
@@ -5392,13 +5392,10 @@ i.fa.fa-heart-o{
                 }
                 
                 .silver_card {
-                    border-bottom: 1px solid;
-                    margin-bottom: 50px;
+                    margin-bottom: 30px;
                 }
                 
-                .free_card {
-                    margin-left: 40px;
-                }
+                .free_card {}
                 
                 .otherliste .listiconprofilelistview {
                     display: none;

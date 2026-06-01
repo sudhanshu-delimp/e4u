@@ -865,7 +865,7 @@
                         </div>
                     @endif
                     @if ($grouped->has('4'))
-                        <div class="manage_listview_margin_siliver_section free_card">
+                        <div class="free_card">
                             <div class="bod_image custom-mb">
                                 <div class="ec_tooltip">
                                     <img src="{{ asset('assets/app/img/Group 153.png') }}">
@@ -877,13 +877,11 @@
                                 {{ $memberTotalCount[4] }}<span
                                     class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
-                            <div class="row">
                                 @if ($grouped->has('4'))
                                     @foreach ($grouped['4'] as $escort)
                                         @include('web.partials.list.free')
                                     @endforeach
                                 @endif
-                            </div>
                         </div>
                     @endif
                 </div>
