@@ -82,7 +82,7 @@ class Purchase extends Model
 
     public function getPreviousMembershipTypeAttribute()
     {
-        return getMembershipType($this->parent->membership);
+        return getMembershipType($this->parent->membership);unt_type', 'total_rate', '
     }
 
     public function escort()
