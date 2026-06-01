@@ -118,7 +118,7 @@
                                 <tr>
                                     <td colspan="3"
                                         style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
-                                        <strong>GST</strong>
+                                        <strong>GST (Inclusive)</strong>
                                     </td>
                                     <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
                                         ${{ number_format($data['tax_amount'], 2) }}
@@ -127,6 +127,16 @@
 
                                 {{-- Delivery Charge --}}
                                 <tr>
+                                    <td colspan="3"
+                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
+                                        <strong>Wallet Amount</strong>
+                                    </td>
+                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                        ${{ number_format($data['wallet_amount'], 2) }}
+                                    </td>
+                                </tr>
+
+                                   <tr>
                                     <td colspan="3"
                                         style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
                                         <strong>Delivery Charge</strong>

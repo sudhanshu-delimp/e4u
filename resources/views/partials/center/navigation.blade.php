@@ -118,9 +118,9 @@
             
                 <!-- //////// Notification ///////////// -->
                         <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap"> 
-                             <span class="support-tooltip">Switch to Agent Account</span>                               
+                             <span class="support-tooltip">Switch to Parent Account</span>                               
                                @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)  
-                            <a class="nav-link" href="{{ route('center.back-to-parent') }}">
+                            <a class="nav-link switch-user-btn" href="javascript:void(0)" >
                                 <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile"/></span>
                             </a>
                             @endif

@@ -39,6 +39,7 @@ class SendProductPurchaseMail implements ShouldQueue
   {
 
     try {
+      Log::info("working mail ");
       $mailData = [];
       $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $this->paymentObject['metadata']['order_id'])->first();
       if ($order->orderAddress) {
@@ -81,20 +82,19 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['delivery_address'] = $completeAddress;
         $mailData['delivery_type'] = $order->delivery_type ? $order->delivery_type : "Door";
         $e4uEmail = config('app.e4u_mail');
-        sleep(10);
 
         Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
-        sleep(10);
 
         // // send mail to condom man
         $products = $order->orderItems;
         $condommail = config('app.condom_mail') ;
         $mailData['member_name'] = $user->name;
         $mailData['products'] = $products;
-        $mailData['sub_total'] = $order->sub_total;
-        $mailData['grand_total'] = $order->total_amount;
-        $mailData['tax_amount'] = $order->tax_amount;
-        $mailData['delivery_charges'] = $order->delivery_charges;
+        $mailData['sub_total'] = $order->paymentDetails->amount;
+        $mailData['wallet_amount'] = $order->paymentDetails->wallet_amount;
+        $mailData['grand_total'] = $order->paymentDetails->paid_amount;
+        $mailData['tax_amount'] = $order->paymentDetails->gst_amount;
+        $mailData['delivery_charges'] = $order->paymentDetails->delivery_charge;
 
         Mail::to($condommail)->send(new SendOrderMailToCondomMan($mailData));
       }

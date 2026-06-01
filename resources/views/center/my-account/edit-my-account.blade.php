@@ -314,6 +314,8 @@
                                 </div>
                             </div>
 
+
+                            @if(!is_parent_massage_user_switch())
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#other_centre"
@@ -375,6 +377,9 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
+
+
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse"
@@ -624,6 +629,20 @@
                                         <span class="text-danger error-phone"></span> 
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-lg-12">
+                                    <!-- Business No. -->
+                                    <div class="form-group">
+                                        <label>Point of Contact</label>
+                                        <input type="text" class="form-control" name="contact_person"  id="contact_person" placeholder="Enter point of contact...">
+                                         <span class="text-danger error-point_of_contact"></span> 
+                                    </div>
+                                </div>
+                               
                             </div>
 
 
@@ -890,6 +909,7 @@
         $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
         if (form.parsley().isValid()) {
 
+            resetUnsavedChanges();
             var url = form.attr('action');
             var data = new FormData(form[0]);
             $.ajax({
@@ -1255,6 +1275,7 @@
         $('#member_id').val(row.member_id);
         $('#name').val(row.name);
         $('#entity_name').val(row.entity_name);
+        $('#contact_person').val(row.contact_person);
         $('#email').val(row.email);
         $('#business_address').val(row.business_address);
         $('#business_number').val(row.business_number.replace(/\s+/g, '')); 

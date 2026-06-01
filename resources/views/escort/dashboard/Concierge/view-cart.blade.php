@@ -39,6 +39,10 @@
             font-weight: 600;
             margin-bottom: 10px;
         }
+
+        .cardImage img {
+            height: 40px !important;
+        }
     </style>
     <script src="https://cdn.pinpayments.com/pin.v2.js"></script>
 @endsection
@@ -149,7 +153,7 @@
                                         Total:
                                     </th>
                                     <th>
-                                        <span id="grand-total">0.00</span>
+                                        <span id="grand-total">$0.00</span>
                                     </th>
                                 </tr>
                             </tfoot>
@@ -158,7 +162,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button class="btn-common" onclick="next()">Proceed to Checkout <i
+                <button class="btn-common" onclick="next()">Next <i
                         class="fas fa-arrow-right text-white pl-2"></i></button>
             </div>
         </div>
@@ -336,7 +340,7 @@
                         <button onclick="prev()" class="btn-common" id="btnBack"> <i
                                 class="fas fa-arrow-left text-white pr-2"></i>
                             Back</button>
-                        <button onclick="next()" class="btn-common" id="processOrder">Next</button>
+                        <button onclick="next()" class="btn-common" id="processOrder">Proceed to Checkout</button>
 
                     </div>
                 </div>
@@ -380,7 +384,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            <img src=" {{asset("assets/app/img/newcross.png")}}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -403,7 +407,8 @@
     </div>
 
 
-    <div class="modal fade upload-modal" id="process-payment-modal" tabindex="-1" aria-labelledby="renew_discountLabel"
+    <div class="modal fade upload-modal" id="process-payment-modal" tabindex="-1" aria-labelledby="renew_discountLabel" data-backdrop="static"
+     data-keyboard="false"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
@@ -430,7 +435,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <strong>GST (Inclusive):</strong>
-                                        <strong class="taxAmount" style="border: none">$ 1.20</strong>
+                                        <strong class="taxAmount" style="border: none">$1.20</strong>
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center">
@@ -570,7 +575,16 @@
 
 
                                     <div class="card_details">
-                                        <h6 class="font-weight-bold mb-0">Card Details</h6>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="font-weight-bold mb-0">Card Details</h6>
+
+                                            <div class="d-flex align-items-center cardImage">
+                                                <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa"
+                                                    class="me-2">
+                                                <img src="{{ asset('assets/dashboard/img/master-card.png') }}"
+                                                    alt="MasterCard">
+                                            </div>
+                                        </div>
                                         <hr class="mt-0">
                                         <div class="form-group">
                                             <input id="cc-number" class="form-control number" placeholder="Card Number">
@@ -602,12 +616,7 @@
                                                 <small class="text-danger error-msg" data-field="cvc"></small>
 
                                             </div>
-                                            <div class="d-flex justify-content-center align-items-center mt-4">
-                                                <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa"
-                                                    class="me-3">
-                                                <img src="{{ asset('assets/dashboard/img/master-card.png') }}"
-                                                    alt="MasterCard">
-                                            </div>
+
                                         </div>
                                     </div>
 
@@ -667,67 +676,14 @@
                 type: "POST",
                 data: {
                     ids: productIds,
+                    cart: cart,
+                    finalCart: finalCart,
                     _token: "{{ csrf_token() }}"
                 },
 
                 success: function(response) {
                     $("#loader").hide();
-
-                    let rows = "";
-                    let grandTotal = 0; // ✅ total accumulator
-                    if (response.products.length > 0 && Object.keys(cart).length > 0) {
-                        // console.log(cart,'sdf');
-
-                        response.products.forEach(product => {
-
-                            let qty = cart[product.id].qty;
-                            let price = parseFloat(product.price) || 0;
-                            let total = price * qty;
-
-                            grandTotal += total; // ✅ add to grand total
-
-                            rows += `
-                <tr>
-                    <td class="theme-color">
-                        <div class="form-check d-flex align-items-center text- center">
-                            <input class="form-check-input mr-2 product-check" type="checkbox" data-id="${product.id}" data-price="${price}" ${finalCart.includes(product.id) ? "checked" : "" }  style="width:17px; height:17px">
-                            <img src="${product.image}" data-image="${product.image}" data-title="${product.description}" class="product-image" style="width:50px">
-                        </div>
-                    </td>
-
-                    <td class="theme-color">${product.code}</td>
-
-                    <td class="theme-color">
-                        ${product.description}<br>
-                        <strong>QTY:</strong> ${product.qty} ${product.size && product.size!="N/A" ? `Size: ${product.size}` : ''}
-                    </td>
-
-                    <td class="theme-color text-ce nter">
-                        $${price.toFixed(2)}
-                    </td>
-
-                    <td class="theme-color qty">
-                       
-                         <select class="qty-select" data-id="${product.id}" data-price="${product.price}">
-                            ${[1,2,3,4,5].map(q =>
-                                `<option value="${q}" ${q == qty ? 'selected' : ''}>${q}</option>`
-                            ).join('')}
-                        </select>
-                    </td>
-
-                   <td class="theme-color text-c enter total-cell" data-id="${product.id}">
-                      $${total.toFixed(2)}
-                  </td>
-                </tr>
-                `;
-                        });
-                    } else {
-                        rows = '<tr><td colspan="6"  class="text-center">Cart is empty</td></tr>';
-                    }
-
-                    $(".table-content").html(rows);
-                    // ✅ update footer total
-                    // $("#grand-total").text("$" + grandTotal.toFixed(2));
+                    $(".table-content").html(response.html);
                     calculateTotals();
                 },
 
@@ -1225,11 +1181,11 @@
             let gst = subtotal * tax / 100; // 10% GST
 
             // set amount details after calculation in html format
-            $(".paymentSubtotal").text("$ " + subtotal.toFixed(2));
+            $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
             // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
-            $(".deliveryCharge").text("$ " + deliveryCharge.toFixed(2));
-            $(".taxAmount").text("$ " + gst.toFixed(2));
-            $(".totalDue").text("$ " + total.toFixed(2));
+            $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
+            $(".taxAmount").text("$" + gst.toFixed(2));
+            $(".totalDue").text("$" + total.toFixed(2));
 
             // set data to local storage for make order 
             let paymentData = {
@@ -1369,7 +1325,7 @@
                 if (accountWalletAmount <= 0) {
                     Swal.fire("Insufficient wallet balance.", "You don't have enough amount to apply.",
                         "error");
-                        return;
+                    return;
                 } else if (walletAmount > accountWalletAmount) {
                     Swal.fire("The wallet amount you entered exceeds your wallet balance.", '', 'error');
                     return;
@@ -1393,9 +1349,9 @@
                 let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
 
 
-                $("#walletAmount").text("$ " + Number(remaining_wallet_balance)
+                $("#walletAmount").text("$" + Number(remaining_wallet_balance)
                     .toFixed(2));
-                $("#walletUsed").text("$ " + Number(walletAmount).toFixed(2));
+                $("#walletUsed").text("$" + Number(walletAmount).toFixed(2));
 
                 // FORCE numeric values
                 let oldSubtotal = Number(details.subtotal_payble) || 0;
@@ -1433,9 +1389,9 @@
 
                 }
                 // Update UI
-                $(".taxAmount").text("$ " + gst_amount.toFixed(2));
+                $(".taxAmount").text("$" + gst_amount.toFixed(2));
                 // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
-                $(".totalDue").text("$ " + total_payble.toFixed(2));
+                $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));
                 localStorage.setItem('paymentDetails_' + loginUserId, JSON.stringify(
@@ -1452,8 +1408,8 @@
             updateOrderSummary();
 
             let accountWalletAmount = "{{ Auth::user()->wallet->balance }}";
-            $("#walletUsed").text("$ 0.00");
-            $("#walletAmount").text("$ " + accountWalletAmount);
+            $("#walletUsed").text("$0.00");
+            $("#walletAmount").text("$" + accountWalletAmount);
             let key = 'paymentDetails_' + loginUserId;
 
             let details = JSON.parse(localStorage.getItem(key)) || {};

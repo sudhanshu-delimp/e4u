@@ -92,7 +92,11 @@ class OtherCenterController extends Controller
             $links = "";
             $label = "";
             if($row->is_access_granted)
-            $label = '<sup class="playmate_icon listing-tag-tooltip ml-1">Accessed</sup>';
+            $label = '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Granted</sup>';
+
+            if($row->status=='Suspended')
+            $label = '<sup class="playmate_icon listing-tag-tooltip ml-1">Suspended</sup>';
+
 
             $display_name = "<span class='grant-access'>".$row->name.$label."</span>";            
 
@@ -107,7 +111,7 @@ class OtherCenterController extends Controller
              if(!$row->is_access_granted)
              $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-grant-access" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Grant Access</a>'; 
             
-            //$links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center login_center" data-row-id="'.$row->id.'" href="javascript:void(0)"> <i class="fa fa-random"></i> Access Centre</a>';  
+            $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center login_center" data-row-id="'.$row->id.'" href="javascript:void(0)"> <i class="fa fa-random"></i> Switch to</a>';  
             $links.= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-center-btn" href="javascript:void(0)" data-row=\''.json_encode($row).'\'  href="javascript:void(0)">   <i class="fa fa-eye"></i> View</a>'; 
             
             $action = '<div class="dropdown no-arrow">
