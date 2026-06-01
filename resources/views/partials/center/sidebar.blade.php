@@ -47,6 +47,13 @@
 
                     <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
                         information</span></a>
+                         <a class="collapse-item" href="{{ route('center.account.edit') }}">
+
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+
+                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
+                        Account</span></a>
+                        
                @else         
                 <a class="collapse-item" href="{{ route('center.account.edit') }}">
 
