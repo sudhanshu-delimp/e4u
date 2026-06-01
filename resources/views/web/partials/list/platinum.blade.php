@@ -56,8 +56,8 @@
                             </div>
                         {{-- </a> --}}
                     </div>
-                    <div class="col-md-8 p-0 all-escort-view-profile-box">
-                        <div class="mb-3 list_cruise pr-0 platinum-escort-list-view-custom">
+                    <div class="col-md-8 p-0 gold-seven all-escort-view-profile-box">
+                        <div class="list_cruise platinum-escort-list-view-custom">
                             <div class="list_view_pla_name manage_name_responsive_in_gold">{{$escortName}}</div>
                             <div class="age" style="margin-top: 13px;">
                                 <span class="margin_and_font_size_color_for_free manage_age_responsive_in_gold">AGE:</span><span class="free_profile_age_color_and_font">{{$escort->age}}</span>
@@ -84,7 +84,8 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between mb-4 flex_directiom_warp_but_list_child_not_hundred_present list_gender_area  pr-0">
+
+                        <div class="d-flex justify-content-between  flex_directiom_warp_but_list_child_not_hundred_present list_gender_area ">
                             <div class="custom--gender--area">
                                 <div class="gender">
                                     <span class="filter-pad">Gender:</span>
@@ -135,54 +136,53 @@
                                 
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 custom-rate-type">
-                                <div class="d-flex align-items-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/handwithhart.png')}}">
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Massage</h4>
-                                        </div>
-                                        <div class="profile_hr">
+
+                        <div class="custom-rate-type">
+                            <div class="d-flex align-items-center manage_gap_text_img-profile">
+                                <img src="{{ asset('assets/app/img/handwithhart.png')}}">
+                                <div class="div_contain_text">
+                                    <div class="profile_message">
+                                        <h4>Massage</h4>
+                                    </div>
+                                    <div class="profile_hr">
+                                    <h4>
+                                    @php  
+                                    $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
+                                    @endphp
+                                    {{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}
+                                    </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center manage_gap_text_img-profile">
+                                <img src="{{ asset('assets/app/img/areodownimg.png')}}">
+                                <div class="div_contain_text">
+                                    <div class="profile_message">
+                                        <h4>Incalls</h4>
+                                    </div>
+                                    <div class="profile_hr">
+                                    <h4>
+                                        @php  
+                                        $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
+                                        @endphp
+                                        {{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}
+                                    </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center manage_gap_text_img-profile">
+                                <img src="{{ asset('assets/app/img/aeroupimg.png')}}">
+                                <div class="div_contain_text">
+                                    <div class="profile_message">
+                                        <h4>Outcalls</h4>
+                                    </div>
+                                    <div class="profile_hr">
                                         <h4>
                                         @php  
-                                        $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
+                                        $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
                                         @endphp
-                                        {{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}
+                                        {{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}
                                         </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/areodownimg.png')}}">
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Incalls</h4>
-                                        </div>
-                                        <div class="profile_hr">
-                                        <h4>
-                                            @php  
-                                            $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
-                                            @endphp
-                                            {{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}
-                                        </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/aeroupimg.png')}}">
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Outcalls</h4>
-                                        </div>
-                                        <div class="profile_hr">
-                                            <h4>
-                                            @php  
-                                            $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
-                                            @endphp
-                                            {{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}
-                                            </h4>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -191,14 +191,16 @@
                             $plainTextAbout = strip_tags($escort->about);
                             $limitText = Str::limit($plainTextAbout, 210, '...');
                         @endphp
-                        <div class="col pr-1 prof_desc">
+                        <div class="prof_desc">
+                            <strong>About Me</strong><br>
                             <p class="list_view_profile_pera_font_size">{!! $limitText !!}
                                 @if(strlen($plainTextAbout) > 210)
                                     <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="h6 text-danger">Read More</a>
                             @endif
                             </p>
                         </div>
-                        <div class="col pr-1 all-escort-view-profile-btn">
+
+                        <div class="all-escort-view-profile-btn">
                             {{-- social-media icon --}}
                             <div class="social_media_icons">                               
                                <div class="social_media_wrapper">

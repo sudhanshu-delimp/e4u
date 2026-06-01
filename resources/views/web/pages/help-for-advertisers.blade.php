@@ -32,8 +32,30 @@
         .table2 td:first-child {
             font-weight: bold;
         }
-    </style>
-    <style>
+
+        .membership_packages.table th{
+            font-weight: bold;
+            border-top: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6 !important;
+            text-align: center;
+        }
+         .membership_packages.table th:first-child{
+            text-align: left;
+            width: 250px;
+         }
+         .membership_packages.table th:last-child{
+            text-align: left;
+         }
+          .membership_packages.table td{
+            text-align: center
+          }
+          
+         .membership_packages.table td:first-child{
+            text-align: left;
+         }
+         .membership_packages.table td:last-child{
+            text-align: left;
+         }
         .loader {
             border: 16px solid #f3f3f3;
             border-radius: 50%;
@@ -166,9 +188,9 @@
                             <p class="pt-4"><b>Q: What are the packages?</b></p>
                             <p>Packages are designed around the Membership Type you choose on the day you List your
                                 Profile. You can change the Membership Type your Profile is Listed under anytime during the advertised period.</p><br>
-                            <p>Check out all the great features available to you under our various Membership Types:</p>
+                            <p><b>Check out all the great features available to you under our various Membership Types:</b></p>
                             <div class="table-responsive-sm">
-                                <table class="table" style="border: 1px;">
+                                <table class="table table-bordered membership_packages" style="border: 1px;">
                                     <thead>
                                     <tr>
                                         <th>Features<sup style="font-size: smaller">(1)</sup></th>
@@ -181,15 +203,15 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><p>Carousel Position</p></td>
-                                        <td><p>Top of page</p></td>
-                                        <td><p>After Platinum</p></td>
-                                        <td><p>After Gold</p></td>
-                                        <td><p>Bottom of page</p></td>
-                                        <td><p>Profiles within each Membership Type reshuffle every 30 minutes</p></td>
+                                        <td>Carousel Position</td>
+                                        <td>Top of page</td>
+                                        <td>After Platinum</td>
+                                        <td>After Gold</td>
+                                        <td>Bottom of page</td>
+                                        <td>Profiles within each Membership Type reshuffle every 30 minutes</td>
                                     </tr>
                                     <tr>
-                                        <td><p>Priority Search</p></td>
+                                        <td>Priority Search</td>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
@@ -483,7 +505,7 @@
 
 
                             <p><b>Some other great services</b></p>
-                            <table class="table">
+                            <table class="table membership_packages table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">Service</th>
@@ -492,24 +514,24 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><b>Products</b></td>
+                                    <td>Products</td>
                                     <td>Order products to be delivered to your door or posted to your nominated address
                                         (dependant on your Location)
                                     </td>
                                 </tr>
                                 <tr>
 
-                                    <td><b>Telecommunications</b></td>
+                                    <td>Telecommunications</td>
                                     <td>Order a SIM for your mobile phone and an email account to meet Australian
                                         standards
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><b>Travel & Accommodation</b></td>
+                                    <td>Travel & Accommodation</td>
                                     <td>Complete all of your travel and accommodation bookings online with us</td>
                                 </tr>
                                 <tr>
-                                    <td><b>Visa & Migration services </b></td>
+                                    <td>Visa & Migration services</td>
                                     <td>Let us help you with all of your visa, migration and education placement needs
                                     </td>
                                 </tr>

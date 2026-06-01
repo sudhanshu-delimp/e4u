@@ -80,7 +80,7 @@
 
                     </div>
                     <div class="col-md-8 p-0 gold-seven all-escort-view-profile-box">
-                        <div class="d-flex justify-content-between mb-4 sm-my-2 gold-profile-details-custom">
+                        <div class="d-flex justify-content-between gold-profile-details-custom">
                             <div class="free_profile_name_and_color">{{ $escortName }}</div>
                             <div class="age" style="margin-top: 5px;display: flex;gap: 8px;">
                                 <span class="margin_and_font_size_color_for_free">AGE:</span><span
@@ -116,7 +116,8 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between mb-4 flex_warp list_gender_area  pr-0">
+
+                        <div class="d-flex justify-content-between flex_warp list_gender_area">
                             <div class="custom--gender--area">
                                 <div class="gender">
                                     <span class="filter-pad">Gender:</span>
@@ -229,15 +230,18 @@
                             $plainTextAbout = strip_tags($escort->about);
                             $limitText = Str::limit($plainTextAbout, 210, '...');
                         @endphp
-                        <div class="col pl-0 pr-1">
+                        <div class="about_me">
+                            <strong>About Me</strong><br>
                             <p class="list_view_profile_pera_font_size">{!! $limitText !!}
+                                 
                                 @if (strlen($plainTextAbout) > 210)
                                     <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
                                         class="h6 text-danger">Read More</a>
                                 @endif
                             </p>
                         </div>
-                        <div class="col pl-0 pr-1 all-escort-view-profile-btn">
+
+                        <div class="all-escort-view-profile-btn">
                             {{-- social-media icon --}}
                             <div class="social_media_icons">
                                 <div class="social_media_wrapper">

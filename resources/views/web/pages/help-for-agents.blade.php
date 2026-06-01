@@ -237,7 +237,7 @@
                              </p><br>
                              <ul>
                                  <li>A set payment for each Massage Centre who becomes a Member irrespective of whether they advertise with us or not</li>
-                                 <li>A set percentage rate of 5% for all advertising placed with us by the Advertiser</li>
+                                 <li>A set percentage rate of <a href="{{route('admin.set-fees')}}">5%</a> for all advertising placed with us by the Advertiser</li>
                              </ul>
                          </div>
 
