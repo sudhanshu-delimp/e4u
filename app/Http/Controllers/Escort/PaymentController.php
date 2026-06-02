@@ -12,6 +12,7 @@ use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
 use PDF;
+use Illuminate\Support\Facades\Artisan;
 
 class PaymentController extends Controller
 {
@@ -193,7 +194,7 @@ class PaymentController extends Controller
             $payment = PaymentHistory::create([
                 'user_id' => $this->account->id,
                 'completed_by' => $this->account->id,
-                'ref_no' => now()->format('Ymd') . rand(100, 999),
+                'ref_no' => generateReferenceNo(PaymentHistory::class),
                 'amount' => $benefit_token['sub_total_amount'],
                 'wallet_amount' => $benefit_token['wallet_amount'],
                 'loyalty_amount' => $benefit_token['loyalty_amount'],
@@ -255,7 +256,7 @@ class PaymentController extends Controller
             $payment->save();
 
             DB::commit();
-
+            Artisan::queue('profile:sync-status');
             return response()->json([
                 'status' => 'success',
                 'message' => 'Your payment has been processed successfully.',
@@ -264,6 +265,7 @@ class PaymentController extends Controller
                 'payment_id' => encrypt($payment->id),
                 'redirect_url' => $redirect_url
             ]);
+            
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
