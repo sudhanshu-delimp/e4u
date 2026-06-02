@@ -193,7 +193,7 @@ class PaymentController extends Controller
             $payment = PaymentHistory::create([
                 'user_id' => $this->account->id,
                 'completed_by' => $this->account->id,
-                'ref_no' => now()->format('Ymd') . rand(100, 999),
+                'ref_no' => time() . rand(100, 999),
                 'amount' => $benefit_token['sub_total_amount'],
                 'wallet_amount' => $benefit_token['wallet_amount'],
                 'loyalty_amount' => $benefit_token['loyalty_amount'],

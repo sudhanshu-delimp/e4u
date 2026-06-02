@@ -1,10 +1,10 @@
 let pinupFrom = $(".modal-form-pinup form");
 let pinupFromButton = pinupFrom.find(":submit");
-let btn_pinup_profile = document.getElementById("btn_pinup_profile");
+let pinupButton = $("#btn_pinup_profile");
 let weekSelect = $('#pinup_week');
 let locationSelect = $('#pinup_location_id');
 let profileSelect = $('#pinup_profile_id');
-savePinupButton.disabled = true;
+pinupFromButton.prop('disabled', true);
 $("#pinup_profile").on('show.bs.modal', function (event) {
     locationSelect.empty();
     let button = $(event.relatedTarget);
@@ -64,7 +64,7 @@ locationSelect.on("change", function () {
                     })
                 );
             });
-            savePinupButton.disabled = false;
+            pinupFromButton.prop('disabled', false);
             $("input[name='tour_location_id']").val(tour_location_id);
 
             profileSelect.append('<option value="">-- Select Profile --</option>');
@@ -85,7 +85,7 @@ locationSelect.on("change", function () {
                 title: 'Pin Up',
                 text: response.message
             });
-            savePinupButton.disabled = true;
+            pinupFromButton.prop('disabled', true);
         }
     }).fail(function (xhr, status, error) {
         console.error("Error:", error);
@@ -94,7 +94,7 @@ locationSelect.on("change", function () {
 
 pinupFrom.on('submit', function (e) {
     e.preventDefault();
-    pinupFromButton.disabled = true;
+    pinupFromButton.prop('disabled', true);
     $.ajax({
         url: pinupFrom.attr('action'),
         method: pinupFrom.attr('method'),
@@ -112,14 +112,24 @@ pinupFrom.on('submit', function (e) {
                 if (response.validation) {
                     pinupFrom.closest('.modal').modal('hide');
                     $("#modalPaymentButton").trigger('click');
+                    pinupButton.prop('disabled', true);
                 }
                 else {
                     pinupFrom.closest('.modal').modal('hide');
-                    table.draw();
-                    displaySwal(xhr);
+                    if ($("table#sailorTable").length > 0) {
+                        table.draw();
+                        displaySwal(xhr);
+                    }
+                    else {
+                        displaySwal(xhr).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    }
                 }
             }
-            pinupFromButton.disabled = false;
+            pinupFromButton.prop('disabled', false);
         },
         error: function (xhr) {
             Swal.close();
@@ -138,7 +148,7 @@ pinupFrom.on('submit', function (e) {
                     text: message || 'Something went wrong.'
                 });
             }
-            pinupFromButton.disabled = false;
+            pinupFromButton.prop('disabled', false);
         }
     });
 });

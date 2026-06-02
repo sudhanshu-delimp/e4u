@@ -357,7 +357,6 @@
             },
             error: function(xhr) {
                 Swal.close();
-                submitButton.removeAttr('disabled');
                 let option = getStatusOption(xhr);
                 Swal.fire({
                     icon: option.icon,
@@ -366,7 +365,7 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                 });
-                submitButton.removeAttr('disabled');
+                submitButton.prop('disabled', false);
             }
         });
     }
