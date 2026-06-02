@@ -129,7 +129,7 @@
                         Part A - Introduction
                         <i class="fa fa-angle-down"></i>
                     </a>
-                    <div class="content ">
+                    <div class="content">
                         <div class="accodien_manage_padding_content">
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
