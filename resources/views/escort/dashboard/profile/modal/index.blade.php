@@ -2,5 +2,6 @@
 @include('escort.dashboard.profile.modal.register_bumpup')
 @include('escort.dashboard.profile.modal.register_pinup')
 @include('escort.dashboard.profile.modal.upgrade')
+@include('escort.dashboard.modal.payment_form')
+@include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 @include('escort.dashboard.profile.modal.pinup_summary')
-

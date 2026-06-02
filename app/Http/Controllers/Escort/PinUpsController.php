@@ -10,6 +10,7 @@ use App\Models\Pricing;
 use App\Models\EscortPinup;
 use App\Models\TourLocation;
 use App\Models\TourProfile;
+use App\Models\PaymentHistory;
 use App\Models\EscortMedia;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -17,26 +18,28 @@ use Exception;
 
 class PinUpsController extends AppController
 {
-    function index(Request $request){
+    function index(Request $request)
+    {
         $escort = Escort::find($request->escort_id);
-        if($escort->currentActivePinup){
+        if ($escort->currentActivePinup) {
             $user = $escort->user;
-            return view('web.pages.pinupme', compact('escort','user'));
-        }
-        else{
+            return view('web.pages.pinupme', compact('escort', 'user'));
+        } else {
             return redirect()->route('home');
         }
     }
 
-    function create() {
+    function create()
+    {
         $escorts = Escort::where('user_id', '!=', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
 
         return view('escort.dashboard.registerPinup.register-pin-up', compact('escorts'));
     }
 
 
-    function checkout(Request $request) {
-//        $escort_id = $request->escort_id;
+    function checkout(Request $request)
+    {
+        //        $escort_id = $request->escort_id;
 
         $checkoutData = $request->data;
         $escorts = Escort::where('user_id', '!=', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
@@ -45,7 +48,7 @@ class PinUpsController extends AppController
         $reservedWeeks = $this->_getReservedPinupDates();
         $removedPinups = [];
         foreach ($checkoutData as $idx => $pinup) {
-            if(in_array($pinup['week_start'], $reservedWeeks)) {
+            if (in_array($pinup['week_start'], $reservedWeeks)) {
                 $removedPinups[] = $pinup;
                 unset($checkoutData[$idx]);
             }
@@ -59,10 +62,11 @@ class PinUpsController extends AppController
     }
 
     //TODO::remove payment gateway not finalized hence we using this as payment testing
-    function test_payment(Request $request) {
+    function test_payment(Request $request)
+    {
         $cart = session()->get('pinUpCheckout');
         $price = Pricing::where('membership_id', 6)->first()->price;
-//        $total_fee = $request->post('total_fee');
+        //        $total_fee = $request->post('total_fee');
 
         $pinUps = [];
         foreach ($cart as $product) {
@@ -78,22 +82,24 @@ class PinUpsController extends AppController
         return redirect()->route('escort.dashboard.pinUpList')->with('info', 'Pin-up registered successfully');
     }
 
-    function profile_and_week_data(Request $request) {
+    function profile_and_week_data(Request $request)
+    {
         $stateId = $request->input('stateId');
         $type = $request->input('type');
         $escortId = $request->input('escortId');
 
-        if($type == 'profileList') {
+        if ($type == 'profileList') {
             $profiles = Escort::where('state_id', $stateId)->where('user_id', '!=', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
             $profiles = $profiles->pluck('NameWithProfileName', 'id');
             return response()->json($profiles);
-        } elseif($type == 'weekList') {
+        } elseif ($type == 'weekList') {
             $reservedWeeks = $this->_getReservedPinupDates($stateId);
             return response()->json($reservedWeeks);
         }
     }
 
-    function list($type) {
+    function list($type)
+    {
         $pinups = PinUps::select(['id', 'state_id', 'user_id', 'escort_id', 'week_start', 'payment_amount'])
             /*->with(['purchase' => function ($query) use ($type) {
                 if($type == 'past') {
@@ -107,7 +113,7 @@ class PinUpsController extends AppController
             ->where('user_id', auth()->user()->id)
             ->where('payment_status', 'Success')
             ->orderBy('week_start', 'ASC');
-        if($type == 'past') {
+        if ($type == 'past') {
             $pinups->where('week_start', '<', date('Y-m-d'));
         } else {
             $pinups->where('week_start', '>=', date('Y-m-d'));
@@ -120,19 +126,21 @@ class PinUpsController extends AppController
 
 
 
-    private function _getReservedPinupDates($stateId = NULL) {
+    private function _getReservedPinupDates($stateId = NULL)
+    {
         $reservedWeeks = PinUps::where('payment_status', 'Success')
             ->whereBetween('week_start', [date('Y-m-d'), date('Y-m-d', strtotime('+6 months'))]);
-        if($stateId) {
+        if ($stateId) {
             $reservedWeeks->where('state_id', $stateId);
         }
 
         return $reservedWeeks->pluck('week_start')->toArray();
     }
-    
-    
-    public function pinup_available_weeks(Escort $escort){
-        try{
+
+
+    public function pinup_available_weeks(Escort $escort)
+    {
+        try {
             $start = Carbon::parse($escort->start_date)->startOfWeek(Carbon::MONDAY);
             $end = Carbon::parse($escort->end_date)->endOfWeek(Carbon::SUNDAY);
             $weeks = collect();
@@ -141,9 +149,9 @@ class PinUpsController extends AppController
             while ($start->lte($end)) {
                 $weekStart = $start->copy();
                 $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
-        
+
                 // Only include if full week is within profile listing range
-            
+
                 //if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
                 if ($weekEnd->gte($today->startOfDay())) {
                     $weeks->push([
@@ -152,7 +160,7 @@ class PinUpsController extends AppController
                     ]);
                     $candidateStarts[] = $weekStart->toDateString();
                 }
-        
+
                 $start->addWeek();
             }
             if (empty($candidateStarts)) {
@@ -162,16 +170,16 @@ class PinUpsController extends AppController
                     'message' => 'Sorry, no weeks are available during your selected profile dates.',
                 ]);
             }
-            
+
             // Fetch week starts already booked for THIS location (state_id + city_id)
             $bookedStarts = EscortPinup::query()
-            ->where('state_id', $escort->state_id)
-            ->where('city_id',  $escort->city_id)
-            ->whereIn('start_date', $candidateStarts)   
-            ->pluck('start_date')                       
-            ->map(fn ($d) => Carbon::parse($d)->toDateString())
-            ->all();
-            $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
+                ->where('state_id', $escort->state_id)
+                ->where('city_id',  $escort->city_id)
+                ->whereIn('start_date', $candidateStarts)
+                ->pluck('start_date')
+                ->map(fn($d) => Carbon::parse($d)->toDateString())
+                ->all();
+            $available = $weeks->reject(fn($w) => in_array($w['start'], $bookedStarts));
             return response()->json([
                 'success' => true,
                 'weeks' => $available->values(),
@@ -184,20 +192,49 @@ class PinUpsController extends AppController
             ], 500);
         }
     }
+    public function register(StorePinupRequest $request, $action = null)
+    {
+        try {
 
-    public function register(StorePinupRequest $request){
-        try{
             $data = $request->validated();
+
+            if ($action === 'validate') {
+
+                return response()->json([
+                    'success' => true,
+                    'validation' => true,
+                    'message' => 'Validation passed successfully!',
+                    'amount' => getPinupFee(),
+                ]);
+            }
+
+
             $escortId = $data['pinup_profile_id'];
             $escortDetail = getEscortDetail($escortId);
-            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+
+            $profileTimezone = config(
+                "escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone"
+            );
+
             [$startDate, $endDate] = explode('|', $data['pinup_week']);
-            $localStart = Carbon::createFromFormat('Y-m-d', $startDate, $profileTimezone)->startOfDay();
-            $localEnd = Carbon::createFromFormat('Y-m-d', $endDate, $profileTimezone)->endOfDay();
+
+            $localStart = Carbon::createFromFormat(
+                'Y-m-d',
+                $startDate,
+                $profileTimezone
+            )->startOfDay();
+
+            $localEnd = Carbon::createFromFormat(
+                'Y-m-d',
+                $endDate,
+                $profileTimezone
+            )->endOfDay();
+
             $utcStart = $localStart->copy()->setTimezone('UTC');
             $utcEnd = $localEnd->copy()->setTimezone('UTC');
+
             $escortPinup = EscortPinup::create([
-                'user_id' => auth()->user()->id,
+                'user_id' => auth()->id(),
                 'escort_id' => $escortDetail->id,
                 'state_id' => $escortDetail->state_id,
                 'city_id' => $escortDetail->city_id,
@@ -206,16 +243,40 @@ class PinUpsController extends AppController
                 'utc_start_time' => $utcStart,
                 'utc_end_time' => $utcEnd,
             ]);
-            if($request->tour_location_id){
-                TourLocation::where('id',$request->tour_location_id)->update(['is_pinup'=>'1']);
-                TourProfile::where(['tour_location_id'=>$request->tour_location_id,'escort_id'=>$escortId])->update(['is_pinup'=>$escortPinup->id]);
+
+
+            if ($request->tour_location_id) {
+
+                TourLocation::where('id', $request->tour_location_id)
+                    ->update([
+                        'is_pinup' => '1'
+                    ]);
+
+                TourProfile::where([
+                    'tour_location_id' => $request->tour_location_id,
+                    'escort_id' => $escortId
+                ])->update([
+                    'is_pinup' => $escortPinup->id
+                ]);
             }
+
+            if ($request->filled('payment_token')) {
+                $paymentId = decrypt($request->payment_token);
+                $payment = PaymentHistory::findOrFail($paymentId);
+                if (!empty($payment)) {
+                    $escortPinup->paymentItems()->create([
+                        'payment_history_id' => $payment->id,
+                        'amount' => $payment->amount
+                    ]);
+                }
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Pinup slot booked successfully!'
             ]);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
+
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong while booking the Pinup.',
@@ -224,17 +285,17 @@ class PinUpsController extends AppController
         }
     }
 
-    public function getPinupProfile(Request $request){
-        try{
+    public function getPinupProfile(Request $request)
+    {
+        try {
             $response = [];
             $response['success'] = false;
             $latitude = $request->latitude;
             $longitude = $request->longitude;
-            $view = $request->view?$request->view:null;
-            if(!empty($request->pinup_id)){
+            $view = $request->view ? $request->view : null;
+            if (!empty($request->pinup_id)) {
                 $pinupDetail = EscortPinup::find($request->pinup_id);
-            }
-            else{
+            } else {
                 $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
                 $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
                 $response['location'] = $location;
@@ -242,24 +303,25 @@ class PinUpsController extends AppController
             }
             $response['request'] = $request->all();
             //
-            if($pinupDetail){
+            if ($pinupDetail) {
                 $response['success'] = true;
                 $escort = $pinupDetail->escort;
                 $user = $escort->user;
                 $response['escort'] = $pinupDetail->escort;
                 $response['user'] = $escort->user;
-                switch($view){
-                    case 'pinup_summary':{
-                        $response['html'] = view('partials.web.pinup_summary',compact('escort','user'))->render();
-                    } break;
-                    case 'pinup_home':{
-                        $response['html'] = view('partials.web.pinup_home',compact('escort'))->render();
-                    } break;
+                switch ($view) {
+                    case 'pinup_summary': {
+                            $response['html'] = view('partials.web.pinup_summary', compact('escort', 'user'))->render();
+                        }
+                        break;
+                    case 'pinup_home': {
+                            $response['html'] = view('partials.web.pinup_home', compact('escort'))->render();
+                        }
+                        break;
                 }
             }
             return response()->json($response);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
@@ -268,11 +330,12 @@ class PinUpsController extends AppController
         return response()->json($pinupDetail);
     }
 
-    public function pinupSummary(Escort $escort){
+    public function pinupSummary(Escort $escort)
+    {
         try {
             $response = [];
             $response['success'] = true;
-            $response['html'] = view('escort.dashboard.profile.modal.include.pinup_summary_content',compact('escort'))->render();
+            $response['html'] = view('escort.dashboard.profile.modal.include.pinup_summary_content', compact('escort'))->render();
             return response()->json($response);
         } catch (Exception $e) {
             return response()->json([
