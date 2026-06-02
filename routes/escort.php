@@ -69,7 +69,7 @@ Route::get('/pinup-summary/{escort}', [PinUpsController::class, 'pinupSummary'])
 Route::get('/list/data-table/{type?}', [EscortController::class, 'dataTable'])->name('escort.list.dataTable');
 Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTableListing'])->name('escort.list.dataTableListing');
 
-Route::get('/listing/add', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
+Route::get('/listings/add', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
 Route::post('/listing/checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
 Route::get('/listing/success', [EscortController::class, 'listing_success'])->name('escort.account.listing_success');
 
@@ -530,9 +530,9 @@ Route::get('my-information', function () {
   return view('escort.dashboard.HowDone.my-information');
 })->name('escort.my-information');
 
-Route::get('listing', function () {
+Route::get('how-is-it-done/listings', function () {
   return view('escort.dashboard.HowDone.listings');
-})->name('escort.listing');
+})->name('escort.listings');
 
 Route::get('media', function () {
   return view('escort.dashboard.HowDone.media');
