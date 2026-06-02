@@ -1,4 +1,5 @@
-let savePinupButton = document.getElementById("savePinupButton");
+let pinupFrom = $(".modal-form-pinup form");
+let pinupFromButton = pinupFrom.find(":submit");
 let btn_pinup_profile = document.getElementById("btn_pinup_profile");
 let weekSelect = $('#pinup_week');
 let locationSelect = $('#pinup_location_id');
@@ -12,7 +13,7 @@ $("#pinup_profile").on('show.bs.modal', function (event) {
         url: `${window.App.baseUrl}escort-dashboard/get-tour-locations`,
         type: "POST",
         dataType: "json",
-        data:{tour_id,module:'pinup'},
+        data: { tour_id, module: 'pinup' },
         beforeSend: function () {
 
         },
@@ -22,16 +23,16 @@ $("#pinup_profile").on('show.bs.modal', function (event) {
             $.each(response.locations, function (i, item) {
                 locationSelect.append(
                     $('<option>', {
-                    value: item.state.id,
-                    text: `${item.state.name}`,
-                    'data-tour-location-id': item.id,
-                    'data-start': item.start_date,
-                    'data-end': item.end_date
+                        value: item.state.id,
+                        text: `${item.state.name}`,
+                        'data-tour-location-id': item.id,
+                        'data-start': item.start_date,
+                        'data-end': item.end_date
                     })
                 );
             });
         }
-        else{
+        else {
             locationSelect.append(`<option value="">-- ${response.message}--</option>`);
         }
     }).fail(function (xhr, status, error) {
@@ -39,7 +40,7 @@ $("#pinup_profile").on('show.bs.modal', function (event) {
     });
 });
 
-locationSelect.on("change", function() {
+locationSelect.on("change", function () {
     profileSelect.empty();
     weekSelect.empty();
     let tour_location_id = $(this).find(':selected').data('tour-location-id');
@@ -47,7 +48,7 @@ locationSelect.on("change", function() {
         url: `${window.App.baseUrl}escort-dashboard/get-tour-location-profiles`,
         type: "POST",
         dataType: "json",
-        data:{tour_location_id},
+        data: { tour_location_id },
         beforeSend: function () {
 
         },
@@ -58,8 +59,8 @@ locationSelect.on("change", function() {
             response.weeks.forEach(week => {
                 weekSelect.append(
                     $('<option>', {
-                    value: `${week.start}|${week.end}`,
-                    text: `${week.start} (Mon)  -To-  ${week.end} (Sun)`
+                        value: `${week.start}|${week.end}`,
+                        text: `${week.start} (Mon)  -To-  ${week.end} (Sun)`
                     })
                 );
             });
@@ -68,17 +69,17 @@ locationSelect.on("change", function() {
 
             profileSelect.append('<option value="">-- Select Profile --</option>');
             $.each(response.profiles, function (i, item) {
-                if(item.tour_plan==1){
+                if (item.tour_plan == 1) {
                     profileSelect.append(
                         $('<option>', {
-                        value: item.escort.id,
-                        text: `${item.escort.name}`
+                            value: item.escort.id,
+                            text: `${item.escort.name}`
                         })
                     );
                 }
             });
         }
-        else{
+        else {
             Swal.fire({
                 icon: 'error',
                 title: 'Pin Up',
@@ -91,42 +92,37 @@ locationSelect.on("change", function() {
     });
 });
 
-savePinupButton.addEventListener("click", function (e) {
+pinupFrom.on('submit', function (e) {
     e.preventDefault();
-    
-    const button = e.target
-    const form = button.closest('form');
-    if (!form) {
-        console.error("Form not found!");
-        return;
-    }
-    const action = form.action;
-    const method = form.method;
-    const formData = new FormData(form);
-    savePinupButton.disabled = true;
+    pinupFromButton.disabled = true;
     $.ajax({
-        url: action,
-        method: method,
-        data: formData,
-        processData: false,
-        contentType: false,
+        url: pinupFrom.attr('action'),
+        method: pinupFrom.attr('method'),
+        dataType: 'json',
         headers: {
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        success: function(data) {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Registered for Pin Up',
-                    text: data.message
-                });
-                form.reset();
-                savePinupButton.disabled = false;
-                $("#pinup_profile").modal('hide');
+        data: pinupFrom.serialize(),
+        beforeSend: function () {
+            showLoadingPopup();
+        },
+        success: function (response, textStatus, xhr) {
+            Swal.close();
+            if (response.success) {
+                if (response.validation) {
+                    pinupFrom.closest('.modal').modal('hide');
+                    $("#modalPaymentButton").trigger('click');
+                }
+                else {
+                    pinupFrom.closest('.modal').modal('hide');
+                    table.draw();
+                    displaySwal(xhr);
+                }
             }
+            pinupFromButton.disabled = false;
         },
-        error: function(xhr) {
+        error: function (xhr) {
+            Swal.close();
             if (xhr.status === 422) {
                 let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
                 Swal.fire({
@@ -142,7 +138,7 @@ savePinupButton.addEventListener("click", function (e) {
                     text: message || 'Something went wrong.'
                 });
             }
-            savePinupButton.disabled = false;
+            pinupFromButton.disabled = false;
         }
     });
 });
