@@ -46,19 +46,19 @@
 
                             <table>
                                 <tr>
-                                    <th>Member name: </th>
+                                    <td>Member name: </td>
                                     <td>{{ $data['member_name'] }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Mobile:</th>
+                                    <td>Mobile:</td>
                                     <td>{{ $data['member_id'] }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Delivery address:</th>
+                                    <td>Delivery address:</td>
                                     <td>{{ $data['delivery_address'] }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Delivery type: </th>
+                                    <td>Delivery type: </td>
                                     <td>{{ ucfirst($data['delivery_type']) }}</td>
                                 </tr>
 
