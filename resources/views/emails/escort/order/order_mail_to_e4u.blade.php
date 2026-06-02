@@ -23,7 +23,7 @@
                                             Concierge Service - Product Order
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['ref'] ?? '' }}<br>
+                                            Ref: {{ $data['id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
