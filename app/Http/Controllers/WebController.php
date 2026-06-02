@@ -522,6 +522,13 @@ class WebController extends Controller
                 $viewType  =  auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
          }
 
+        // Check both param names — URL param and form submit
+        if (request()->has('viewType') && in_array(request()->input('viewType'), ['grid', 'list'])) {
+            $viewType = request()->input('viewType');
+        } elseif (request()->has('view_type') && in_array(request()->input('view_type'), ['grid', 'list'])) {
+            $viewType = request()->input('view_type');
+        }
+
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag','viewType'));
     }
 
