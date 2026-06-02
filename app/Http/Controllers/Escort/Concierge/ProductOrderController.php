@@ -122,7 +122,7 @@ class ProductOrderController extends Controller
 
 
       $orderData = [
-        'order_id' => Auth::user()->member_id . "-" . rand(111111, 999999),
+        'order_id' => generateReferenceNo(ProductOrder::class),
         'type' => 'EC',
         'user_id' => Auth::user()->id,
         'order_date' => date('Y-m-d H:i:s'),

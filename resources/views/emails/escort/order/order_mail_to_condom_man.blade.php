@@ -23,7 +23,7 @@
                                             E4U Concierge - Product Order
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['ref'] ?? '' }}<br>
+                                            Ref: {{ $data['id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -46,19 +46,19 @@
 
                             <table>
                                 <tr>
-                                    <td>Member name: </td>
+                                    <th>Member name: </th>
                                     <td>{{ $data['member_name'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mobile:</td>
+                                    <th>Mobile:</th>
                                     <td>{{ $data['member_id'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery address:</td>
+                                    <th>Delivery address:</th>
                                     <td>{{ $data['delivery_address'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery type: </td>
+                                    <th>Delivery type: </th>
                                     <td>{{ ucfirst($data['delivery_type']) }}</td>
                                 </tr>
 
@@ -102,67 +102,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
-                                {{-- Subtotal --}}
-                                <tr>
-                                    <td colspan="3"
-                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
-                                        <strong>Subtotal</strong>
-                                    </td>
-                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
-                                        ${{ number_format($data['sub_total'], 2) }}
-                                    </td>
-                                </tr>
-
-                                {{-- GST --}}
-                                <tr>
-                                    <td colspan="3"
-                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
-                                        <strong>GST (Inclusive)</strong>
-                                    </td>
-                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
-                                        ${{ number_format($data['tax_amount'], 2) }}
-                                    </td>
-                                </tr>
-
-                                {{-- Delivery Charge --}}
-                                <tr>
-                                    <td colspan="3"
-                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
-                                        <strong>Wallet Amount</strong>
-                                    </td>
-                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
-                                        ${{ number_format($data['wallet_amount'], 2) }}
-                                    </td>
-                                </tr>
-
-                                   <tr>
-                                    <td colspan="3"
-                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:13px;">
-                                        <strong>Delivery Charge</strong>
-                                    </td>
-                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
-                                        ${{ number_format($data['delivery_charges'], 2) }}
-                                    </td>
-                                </tr>
-
-                                {{-- Grand Total --}}
-                                <tr>
-                                    <td colspan="3"
-                                        style="padding:8px;border:1px solid #e1e1e1;text-align:right;font-size:14px;font-weight:bold;">
-                                        Grand Total
-                                    </td>
-                                    <td style="padding:8px;border:1px solid #e1e1e1;font-size:14px;font-weight:bold;">
-                                        ${{ number_format($data['grand_total'], 2) }}
-                                    </td>
-                                </tr>
-
                             </table>
-
                             <br>
                             Payment has been made be the Member.
-
-
                             <!-- email info -->
                             <x-email-info />
                             <!-- end -->

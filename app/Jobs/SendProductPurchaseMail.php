@@ -43,6 +43,8 @@ class SendProductPurchaseMail implements ShouldQueue
       $mailData = [];
       $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $this->paymentObject['metadata']['order_id'])->first();
       if ($order->orderAddress) {
+        $mailData['id'] = $order->id;
+
         $billingAddress = $order->orderAddress->where('type', 'billing')->first();
         $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
         $mailData['member_id'] = $order->user ? $order->user->member_id : '';
