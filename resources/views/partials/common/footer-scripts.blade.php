@@ -1,9 +1,9 @@
-<script src="{{ asset('js/common.js') }}"></script>
-
+<script>
+let formChanged = false;
+</script>
 
 @if(is_parent_massage_user_switch())  
 <script>
-let formChanged = false;
 $(document).on('input change','input, textarea, select', function () {
 formChanged = true;
 });
@@ -47,3 +47,5 @@ $(document).on('click', '.switch-user-btn', async function (e) {
 
 </script>
 @endif
+
+<script src="{{ asset('js/common.js') }}"></script>
