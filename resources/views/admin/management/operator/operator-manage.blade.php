@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('style')
     <style>
+        
     </style>
 @stop
 @section('content')
