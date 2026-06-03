@@ -28,7 +28,7 @@
             <div class="row plat_num_row">
                 <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 pr-3 pr-lg-0 self-w-73">
                     <div class="row plat-inner mr-0 ml-0">
-                        <div class="col-md-4 p_for_sm">
+                        <div class="col-md-4 pl-0">
                             <a href="{{ route('profile.description', $escort->id) }}?list">
                                 <div class="section_wise_level_icon_img all-escort-profile-pic">
                                     <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"

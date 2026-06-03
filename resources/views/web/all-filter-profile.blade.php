@@ -89,6 +89,14 @@
                             <div class="search_filters">
                                 <div class="search_filters_inside">
                                     <form id="allfilters" method="" action="">
+
+                                    {{-- Existing line --}}
+                                    <input type="hidden" name="view_type" id="view_type"
+                                        value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
+
+                                    {{-- ADD THIS LINE below it --}}
+                                    <input type="hidden" name="viewType" id="viewType_input"
+                                        value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="custom-search-help mb-2 ">
@@ -855,20 +863,20 @@
                                 {{ $memberTotalCount[3] }}
                                 <span class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
-                            <div class="row  mx-md-n2">
+                           
                                 @if ($grouped->has('3'))
                                     @foreach ($grouped['3'] as $escort)
                                         @include('web.partials.list.silver')
                                     @endforeach
                                 @endif
-                            </div>
+                           
                         </div>
                     @endif
                     @if ($grouped->has('4'))
-                        <div class="manage_listview_margin_siliver_section free_card">
+                        <div class="free_card">
                             <div class="bod_image custom-mb">
                                 <div class="ec_tooltip">
-                                    <img src="{{ asset('assets/app/img/Group 153.png') }}">
+                                    <img src="{{ asset('assets/app/img/free.png') }}">
                                     <span class="ec_type_tooltip">
                                         Free Members - {{ $memberTotalCount[4] }}
                                         {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}
@@ -877,13 +885,11 @@
                                 {{ $memberTotalCount[4] }}<span
                                     class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
-                            <div class="row">
                                 @if ($grouped->has('4'))
                                     @foreach ($grouped['4'] as $escort)
                                         @include('web.partials.list.free')
                                     @endforeach
                                 @endif
-                            </div>
                         </div>
                     @endif
                 </div>
@@ -903,14 +909,33 @@
 
 
         {{-- OR use fully custom pagination --}}
+        @php
+            $viewType = 'grid';
+            if (auth()->check() && auth()->user()->viewer_settings) {
+                $viewType = auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
+            }
+            if (request()->has('viewType') && in_array(request()->input('viewType'), ['grid', 'list'])) {
+                $viewType = request()->input('viewType');
+            }
 
+            $total   = $paginator->lastPage();
+            $current = $paginator->currentPage();
+            $start   = max(1, $current - 2);
+            $end     = min($total, $current + 2);
+
+            $withView = fn($url) => $url 
+                ? $url . (str_contains($url, '?') ? '&' : '?') . 'viewType=' . $viewType 
+                : '#';
+
+               
+        @endphp
 
         <nav aria-label="Page navigation" class="custom-pagination">
             <ul class="list-unstyled">
 
                 {{-- First Page --}}
                 <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->url(1) }}"
+                    <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->url(1)) }}"
                         style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
                         <i class="fa fa-angle-double-left"></i> First
                     </a>
@@ -918,7 +943,7 @@
 
                 {{-- Previous Page --}}
                 <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->previousPageUrl() }}"
+                    <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->previousPageUrl()) }}"
                         style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
                         <i class="fa fa-angle-left"></i> Previous
                     </a>
@@ -938,14 +963,14 @@
                 @if ($start > 1)
                     @php $jumpBack = max(1, $current - 5); @endphp
                     <li class="mx-1">
-                        <a href="{{ $paginator->url($jumpBack) }}" title="Jump back 5 pages">...</a>
+                        <a href="{{ $withView($paginator->url($jumpBack)) }}" title="Jump back 5 pages">...</a>
                     </li>
                 @endif
 
                 {{-- Page Numbers --}}
                 @for ($i = $start; $i <= $end; $i++)
                     <li>
-                        <a href="{{ $paginator->url($i) }}"
+                        <a href="{{ $withView($paginator->url($i)) }}"
                             style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d' }}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
                             {{ $i }}
                         </a>
@@ -956,13 +981,13 @@
                 @if ($end < $total)
                     @php $jumpForward = min($total, $current + 5); @endphp
                     <li class="mx-1">
-                        <a href="{{ $paginator->url($jumpForward) }}" title="Jump forward 5 pages">...</a>
+                        <a href="{{ $withView($paginator->url($jumpForward)) }}" title="Jump forward 5 pages">...</a>
                     </li>
                 @endif
 
                 {{-- Next Page --}}
                 <li class="mx-1 {{ !$paginator->hasMorePages() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->hasMorePages() ? $paginator->nextPageUrl() : '#' }}"
+                    <a href="{{ $paginator->hasMorePages() ? $withView($paginator->nextPageUrl()) : '#' }}"
                         style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
                         Next <i class="fa fa-angle-right"></i>
                     </a>
@@ -970,7 +995,7 @@
 
                 {{-- Last Page --}}
                 <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
-                    <a href="{{ $current == $total ? '#' : $paginator->url($total) }}"
+                    <a href="{{ $current == $total ? '#' : $withView($paginator->url($total)) }}"
                         style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
                         Last <i class="fa fa-angle-double-right"></i>
                     </a>
@@ -1288,59 +1313,107 @@
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
+        var viewType = 'grid'; // Default
 
         if (window.authUser.isLoggedIn) {
-            var viewType = '{{ $viewType }}';
+            // First take PHP value (user settings)
+            viewType = '{{ $viewType }}';
+            
+            // Then override with URL param if present (pagination click)
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('viewType')) {
+                viewType = urlParams.get('viewType');
+            }
+        } else {
+            // For guests, check URL param first, then localStorage
+            var urlParams = new URLSearchParams(window.location.search);
+            viewType = urlParams.get('viewType') || localStorage.getItem('profileViewType') || 'grid';
         }
-        else {
-        var viewType = localStorage.getItem('profileViewType') || 'grid';
-        }
-        
+
         console.log(viewType);
 
-        // Define functions for grid and list view logic
-        function showGridView() {
-            localStorage.setItem('profileViewType', 'grid');
-            $('.preChanges').html('<h3>Escorts Grid View</h3>');
-            var val = $('#grid-modal').attr('class');
-            $('#view_type').val('grid')
-            // Always set display states explicitly
-            $('.otherliste').css('display', 'block');
-            $('.list-view-div').css('display', 'none');
-            if (val != "active") {
-                $('.grid').hide();
-                $('.my-wishlist').hide();
-                $('#grid-template').html(
-                    '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                );
-                if (view1.includes('=list')) {
-                    let newUrl = view1.replace('=list', '=grid');
-                    $('.footer_view_type_one').attr('href', newUrl);
-                }
-                if (view2.includes('=list')) {
-                    let newUrl = view2.replace('=list', '=grid');
-                    $('.footer_view_type_two').attr('href', newUrl);
-                }
-                setTimeout(function() {
-                    $('.spinner-border').css('display', 'none');
-                    $('.my-wishlist').css('display', 'none');
-                    $('.space_between_row').show();
-                    $('#grid-modal').addClass('active');
-                    $('#grid-list').removeClass('active');
-                }, 1000);
-            }
+        // Now trigger correct view on page load
+        if (viewType === 'grid') {
+            showGridView();
+        } else {
+            showListView();
         }
+
+       function showGridView() {
+    localStorage.setItem('profileViewType', 'grid');
+
+    var url = new URL(window.location.href);
+    url.searchParams.set('viewType', 'grid');
+    window.history.replaceState({}, '', url.toString());
+
+    $('.custom-pagination a').each(function() {
+        var href = $(this).attr('href');
+        if (href && href !== '#') {
+            if (href.includes('viewType=')) {
+                href = href.replace(/viewType=(grid|list)/, 'viewType=grid');
+            } else {
+                href = href + (href.includes('?') ? '&' : '?') + 'viewType=grid';
+            }
+            $(this).attr('href', href);
+        }
+    });
+
+    $('.preChanges').html('<h3>Escorts Grid View</h3>');
+    var val = $('#grid-modal').attr('class');
+    $('#view_type').val('grid');
+    $('#viewType_input').val('grid'); // Keep form input in sync
+    $('.otherliste').css('display', 'block');
+    $('.list-view-div').css('display', 'none');
+    if (val != "active") {
+        $('.grid').hide();
+        $('.my-wishlist').hide();
+        $('#grid-template').html(
+            '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
+        );
+        if (view1.includes('=list')) {
+            let newUrl = view1.replace('=list', '=grid');
+            $('.footer_view_type_one').attr('href', newUrl);
+        }
+        if (view2.includes('=list')) {
+            let newUrl = view2.replace('=list', '=grid');
+            $('.footer_view_type_two').attr('href', newUrl);
+        }
+        setTimeout(function() {
+            $('.spinner-border').css('display', 'none');
+            $('.my-wishlist').css('display', 'none');
+            $('.space_between_row').show();
+            $('#grid-modal').addClass('active');
+            $('#grid-list').removeClass('active');
+        }, 1000);
+    }
+}
 
         function showListView() {
             localStorage.setItem('profileViewType', 'list');
+
+            var url = new URL(window.location.href);
+            url.searchParams.set('viewType', 'list');
+            window.history.replaceState({}, '', url.toString());
+
+            $('.custom-pagination a').each(function() {
+                var href = $(this).attr('href');
+                if (href && href !== '#') {
+                    if (href.includes('viewType=')) {
+                        href = href.replace(/viewType=(grid|list)/, 'viewType=list');
+                    } else {
+                        href = href + (href.includes('?') ? '&' : '?') + 'viewType=list';
+                    }
+                    $(this).attr('href', href);
+                }
+            });
+
             $('.preChanges').html('<h3>Escorts List View</h3>');
             var grid = $('#grid-list').attr('class');
-            $('#view_type').val('list')
-            // Always set display states explicitly
+            $('#view_type').val('list');
+            $('#viewType_input').val('list'); // Keep form input in sync
             $('.otherliste').css('display', 'none');
             $('.list-view-div').css('display', 'block');
             if (grid != "active") {
-                console.log(grid);
                 $('.space_between_row').hide();
                 $('.my-wishlist').hide();
                 $('#grid-template').html(

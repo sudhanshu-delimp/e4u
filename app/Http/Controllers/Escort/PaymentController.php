@@ -12,6 +12,7 @@ use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
 use PDF;
+use Illuminate\Support\Facades\Artisan;
 
 class PaymentController extends Controller
 {
@@ -28,24 +29,25 @@ class PaymentController extends Controller
             return $next($request);
         });
     }
-    
-    protected function getAmount($amount = 0.00){
-        if(empty($amount)){
-            if(session()->has('checkout')){
+
+    protected function getAmount($amount = 0.00)
+    {
+        if (empty($amount)) {
+            if (session()->has('checkout')) {
                 $checkout = session()->get('checkout');
                 foreach ($checkout as $startDate => $item) {
-                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date'])) + 1;
                     list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
-                    $amount = $amount+$total_rate;
+                    $amount = $amount + $total_rate;
                 }
             }
 
-            if(session()->has('tour_checkout')){
+            if (session()->has('tour_checkout')) {
                 $checkout = session()->get('tour_checkout');
                 foreach ($checkout as $startDate => $item) {
-                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                    $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date'])) + 1;
                     list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
-                    $amount = $amount+$total_rate;
+                    $amount = $amount + $total_rate;
                 }
             }
         }
@@ -56,17 +58,18 @@ class PaymentController extends Controller
     {
         try {
 
-            $action = $request->filled('action') ? (float) $request->action : 'apply';
+            $action = $request->filled('action') ? $request->action : '';
+            $checkAmount = $request->filled('checkAmount') ? $request->boolean('checkAmount') : true;
             $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
             $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
             // At least one value is required
-            if ($action=='apply' && empty($wallet_amount) && empty($loyalty_day)) {    
+            if ($checkAmount == true && empty($wallet_amount) && empty($loyalty_day)) {
                 return response()->json([
                     'status'  => false,
-                    'message' => 'Please enter wallet amount or loyalty days',
+                    'message' => $action == 'listing' ? 'Please enter wallet amount or loyalty days.' : 'Please enter wallet amount.',
                 ], 422);
             }
-            
+
             $wallet_balance   = $this->account->wallet->balance ?? 0;
             $wallet_earn_days = $this->account->wallet->earn_days ?? 0;
             // Validate wallet amount
@@ -84,25 +87,30 @@ class PaymentController extends Controller
                 ], 422);
             }
 
-            $sub_total_amount = $this->getAmount();
-            
+            $sub_total_amount = match ($action) {
+                'listing' => $this->getAmount(),
+                'pinup' => $this->getAmount(getPinupFee()),
+                'bump-up' => $this->getAmount(getBumpupFee()),
+                default => null,
+            };
+
             $loyalty_amount = 0;
 
-            if(session()->has('checkout')){
+            if (session()->has('checkout')) {
                 $checkout = session()->get('checkout');
                 $lowestPlan = collect($checkout)->max('membership');
                 $planFee = getPlanFee($lowestPlan);
-                $loyalty_amount = ($planFee*$loyalty_day);
+                $loyalty_amount = ($planFee * $loyalty_day);
             }
 
             if (session()->has('tour_checkout')) {
                 $checkout = session()->get('tour_checkout');
                 $lowestPlan = collect($checkout)->max('membership');
                 $planFee = getPlanFee($lowestPlan);
-                $loyalty_amount = ($planFee*$loyalty_day);
+                $loyalty_amount = ($planFee * $loyalty_day);
             }
 
-            $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount); 
+            $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount);
 
             $this->pinService->setAmount($total_amount);
 
@@ -117,26 +125,22 @@ class PaymentController extends Controller
             }
 
             $total_amount = max(0, $total_amount);
-            $paymentAmounts = [
 
-            ];
-            
-            $html = view('escort.dashboard.modal.order_summary_adjustment',compact('sub_total_amount','wallet_amount','loyalty_amount','total_amount','gstAmount','totalDueAmount'))->render();
-            
+            $html = view('escort.dashboard.modal.order_summary_adjustment', compact('action', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
+
             return response()->json([
                 'status'         => true,
-                'lowest_plan' => $lowestPlan,
+                'lowest_plan' => $lowestPlan ?? 0,
                 'total_amount' => $total_amount,
-                'benefit_token' => encrypt(compact('loyalty_day','sub_total_amount','wallet_amount','loyalty_amount','total_amount')),
+                'benefit_token' => encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount')),
                 'message' => 'Applied successfully',
                 'html' => $html,
             ]);
-
         } catch (\Exception $e) {
 
             return response()->json([
                 'status'  => false,
-                'message' => 'Something went wrong',
+                'message' => 'Something went wrong' . '[' . $e->getMessage() . '] [' . $e->getLine() . ']',
                 'error'   => $e->getMessage()
             ], 500);
         }
@@ -160,6 +164,7 @@ class PaymentController extends Controller
             $amount = $this->getAmount();
 
             $benefit_token = $request->filled('benefit_token') ? decrypt($request->benefit_token) : [
+                'action' => 'listing',
                 'loyalty_day' => 0,
                 'sub_total_amount' => $amount,
                 'wallet_amount' => 0.00,
@@ -189,7 +194,7 @@ class PaymentController extends Controller
             $payment = PaymentHistory::create([
                 'user_id' => $this->account->id,
                 'completed_by' => $this->account->id,
-                'ref_no' => now()->format('Ymd') . rand(100, 999),
+                'ref_no' => generateReferenceNo(PaymentHistory::class),
                 'amount' => $benefit_token['sub_total_amount'],
                 'wallet_amount' => $benefit_token['wallet_amount'],
                 'loyalty_amount' => $benefit_token['loyalty_amount'],
@@ -207,37 +212,60 @@ class PaymentController extends Controller
 
             $payment_service = '';
 
-            if (session()->has('checkout')) {
-                $this->saveCheckout($payment);
-                $payment_service = 'Profile Listing';
-                $redirect_url = route('escort.account.listing_success');
+            switch ($benefit_token['action']) {
+                case 'listing': {
+                        if (session()->has('checkout') && $benefit_token['action'] == 'listing') {
+                            $this->saveCheckout($payment);
+                            $payment_service = 'Profile Listing';
+                            $redirect_url = route('escort.account.listing_success');
+                        }
+
+                        if (session()->has('tour_checkout') && $benefit_token['action'] == 'listing') {
+                            $this->saveCheckout($payment);
+                            $payment_service = 'Tour';
+                            $redirect_url = route('escort.account.listing_success');
+                        }
+                    }
+                    break;
+                case 'pinup': {
+                        $payment_service = 'Pin Up';
+                    }
+                    break;
+
+                default:
+                    # code...
+                    break;
             }
 
-            if (session()->has('tour_checkout')) {
-                $this->saveCheckout($payment);
-                $payment_service = 'Tour';
-                $redirect_url = route('escort.account.listing_success');
-            }
-            
             if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
                 $this->walletService->debit($this->account, $benefit_token['wallet_amount'], $payment, $payment_service, []);
             }
+
             if (!empty($benefit_token['loyalty_day']) && $benefit_token['loyalty_day'] > 0) {
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
-            $earn_days = floor($benefit_token['total_amount'] / 200);
-            if ($earn_days > 0) {
-                $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
+
+            if ($benefit_token['action'] === 'listing') {
+                $earn_days = floor($benefit_token['total_amount'] / 200);
+                if ($earn_days > 0) {
+                    $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
+                }
             }
+
             $payment->service = $payment_service;
             $payment->save();
+
             DB::commit();
+            Artisan::queue('profile:sync-status');
             return response()->json([
                 'status' => 'success',
                 'message' => 'Your payment has been processed successfully.',
                 'netAmount' => $amount,
+                'action' => $benefit_token['action'],
+                'payment_id' => encrypt($payment->id),
                 'redirect_url' => $redirect_url
             ]);
+            
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
@@ -258,49 +286,51 @@ class PaymentController extends Controller
         }
     }
 
-    public function saveCheckout($payment=null){
-        if(session()->has('checkout')){
-            $checkout = session()->get('checkout');
+    public function saveCheckout($payment = null)
+    {
+
+        if (session()->has('checkout') || session()->has('tour_checkout')) {
+            $checkout = session()->has('checkout') ? session()->get('checkout') : session()->get('tour_checkout');
             $netPaidAmount = 0.00;
             foreach ($checkout as $startDate => $item) {
                 $escortDetail = getEscortDetail($item['escort_id']);
-                $start_date = Carbon::createFromFormat('d-m-Y', $item['start_date'])->format('Y-m-d').' 00:00:00';
-                $end_date = Carbon::createFromFormat('d-m-Y', $item['end_date'])->format('Y-m-d').' 23:59:59';
-                
+                $start_date = Carbon::createFromFormat('d-m-Y', $item['start_date'])->format('Y-m-d') . ' 00:00:00';
+                $end_date = Carbon::createFromFormat('d-m-Y', $item['end_date'])->format('Y-m-d') . ' 23:59:59';
+
                 $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
-    
+
                 $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
                 $utcSartTime = $localStartDateTime->copy()->setTimezone('UTC');
-    
+
                 $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);
                 $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
-    
+
                 $item['utc_start_time'] = $utcSartTime;
-                $item['utc_end_time'] = $utcEndTime; 
-                $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
+                $item['utc_end_time'] = $utcEndTime;
+                $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date'])) + 1;
                 list($total_discount, $total_rate, $normalRate, $discountRate, $appiedDiscountAmount) = calculateTotalFee($item['membership'], $daysDiff, $this->account);
-                $item['rate'] = $normalRate; 
-                $item['discount_rate'] = $discountRate; 
-                $item['total_rate'] = $normalRate*$daysDiff; 
+                $item['rate'] = $normalRate;
+                $item['discount_rate'] = $discountRate;
+                $item['total_rate'] = $normalRate * $daysDiff;
                 $item['paid_rate'] = $total_rate;
                 $purchaseDetail = Purchase::create($item);
 
-                if(!empty($payment)){
+                if (!empty($payment)) {
                     $purchaseDetail->paymentItems()->create([
                         'payment_history_id' => $payment->id,
-                        'amount' => $total_rate
+                        'amount' => $payment->amount
                     ]);
                 }
-    
-                if($this->account->activeFeeDiscount){
-                    
+
+                if ($this->account->activeFeeDiscount) {
+
                     $purchaseDetail->special_discount_value = $this->account->activeFeeDiscount->value;
                     $purchaseDetail->special_discount_type = $this->account->activeFeeDiscount->type;
                     $purchaseDetail->save();
 
                     $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
                 }
-    
+
                 if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
                     $escortDetail->start_date = $item['start_date'];
                     $escortDetail->end_date = $item['end_date'];
@@ -310,7 +340,7 @@ class PaymentController extends Controller
                     $escortDetail->enabled = 1;
                     $escortDetail->purchase_id = $purchaseDetail->id;
                     $escortDetail->save();
-    
+
                     $purchaseDetail->status = 'listed';
                     $purchaseDetail->save();
                 }
@@ -318,11 +348,13 @@ class PaymentController extends Controller
         }
     }
 
-    public function transactionSummary(Request $request){
+    public function transactionSummary(Request $request)
+    {
         return view('escort.dashboard.Bookkeeping.transaction-summary');
     }
 
-    public function transactionSummaryDatatable(){
+    public function transactionSummaryDatatable()
+    {
         list($result, $count, $other) = $this->pinService->paginatedList(
             request()->get('start'),
             request()->get('length'),
@@ -350,32 +382,29 @@ class PaymentController extends Controller
 
             $id = decrypt($request->id);
             $payment = PaymentHistory::findOrFail($id);
-            $html = view('escort.dashboard.Bookkeeping.modal.transaction-summary',compact('payment'))->render();
+            $html = view('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment'))->render();
             return response()->json([
                 'status' => true,
                 'html'   => $html,
                 'print_url' => route('payment.detail.print', $payment->id),
-                'message'=> 'Listing fetched successfully'
+                'message' => 'Listing fetched successfully'
             ]);
-
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
 
             return response()->json([
                 'status' => false,
-                'message'=> 'Invalid listing id'
+                'message' => 'Invalid listing id'
             ], 400);
-
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
 
             return response()->json([
                 'status' => false,
-                'message'=> 'Listing not found'
+                'message' => 'Listing not found'
             ], 404);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message'=> 'Something went wrong'
+                'message' => 'Something went wrong'
             ], 500);
         }
     }
@@ -384,7 +413,6 @@ class PaymentController extends Controller
     {
         $print = true;
         $pdf = PDF::loadView('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment', 'print'));
-        return $pdf->stream($payment->user->member_id.'_Payment_Summary_'.$payment->ref_no.'.pdf');
+        return $pdf->stream($payment->user->member_id . '_Payment_Summary_' . $payment->ref_no . '.pdf');
     }
-
 }

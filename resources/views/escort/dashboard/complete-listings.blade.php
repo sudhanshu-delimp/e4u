@@ -81,7 +81,6 @@
                     </div>
                 </div>
             </div>
-        </div>    
 
 
         
@@ -117,7 +116,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="thank-you-card">
                     <!-- Replace with your image -->
-                    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="order">
+                    <img src="{{ asset('assets/dashboard/img/success.png') }}" alt="order">
 
                     <h2>Thank you for your Oder!</h2>
                     <p>Your purchase is confirmed, get ready for a Great Experience!</p>
@@ -128,6 +127,7 @@
                 </div>
             </div>
         </div>
+    </div>        
     @endsection
     @push('script')        
         <script src="{{ asset('js/escort/progress_bar.js') }}"></script> 

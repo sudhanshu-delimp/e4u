@@ -265,12 +265,23 @@ var getStatusOption = (xhr) => {
     return { icon, title, message };
 }
 
-var displaySwal = function(xhr){
+var displaySwal = function (xhr, showConfirmButton = true) {
     let option = getStatusOption(xhr);
-    Swal.fire({
+    return Swal.fire({
         icon: option.icon,
         title: option.title,
-        text: option.message
+        text: option.message,
+        showConfirmButton: showConfirmButton
+    });
+}
+
+var showLoadingPopup = function (title = 'Processing', text = 'Please wait...') {
+    Swal.fire({
+        title,
+        text,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => Swal.showLoading()
     });
 }
 

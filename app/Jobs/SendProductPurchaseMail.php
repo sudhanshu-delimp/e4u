@@ -43,6 +43,8 @@ class SendProductPurchaseMail implements ShouldQueue
       $mailData = [];
       $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $this->paymentObject['metadata']['order_id'])->first();
       if ($order->orderAddress) {
+        $mailData['id'] = $order->id;
+
         $billingAddress = $order->orderAddress->where('type', 'billing')->first();
         $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
         $mailData['member_id'] = $order->user ? $order->user->member_id : '';
@@ -50,7 +52,7 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['billing_name'] = $order->user ? $order->user->name : "";
 
         // send email to escort
-        Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
+        // Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
 
 
         // send email to e4u
@@ -83,7 +85,7 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['delivery_type'] = $order->delivery_type ? $order->delivery_type : "Door";
         $e4uEmail = config('app.e4u_mail');
 
-        Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
+        // Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
 
         // // send mail to condom man
         $products = $order->orderItems;
