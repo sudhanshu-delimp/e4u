@@ -130,7 +130,7 @@ $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator-
                     <td width="40%">{{ $operator->operator_detail->commission_advertising_percent }}</td>
                 </tr>
                 <tr>
-                    <th><b>Massage Centre (Registrations)</th>
+                    <th><b>Massage Centre (Registrations)</b></th>
                     <td>{{ $operator->operator_detail->commission_massage_centre_percent }}</td>
                 </tr>
             </table>
