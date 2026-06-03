@@ -11440,7 +11440,7 @@ border-top: 5px solid var(--peach);
 
 .pinup_brb_strip {
     position: absolute;
-    top: 80%;
+    top: 50%;
     left: 0px;
     right: 0px;
     color: #fff;
@@ -11450,7 +11450,7 @@ border-top: 5px solid var(--peach);
     font-size: clamp(12px, 5vw, 18px);
     font-weight: 600;
     margin-bottom: 0px;
-    transform: translate(0, -80%);
+    transform: translate(0, -50%);
 }
 
 .brb_icon {
