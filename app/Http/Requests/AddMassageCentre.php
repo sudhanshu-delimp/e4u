@@ -34,7 +34,7 @@ class AddMassageCentre extends FormRequest
             'email' => 'required|email|max:255|unique:users,email,' . $centerId,
 
             'business_address'  => 'required|string|max:255',
-            'business_number'   => 'required|digits_between:10,15',
+            'business_number' => 'required|digits:8',
 
             'phone' => 'required|min:10|max:14|unique:users,phone,' . $centerId,
 

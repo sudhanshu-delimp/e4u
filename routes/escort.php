@@ -147,6 +147,7 @@ Route::post('my-information/stage-name/store', [ProfileInformationController::cl
 Route::post('my-information/stage-name/delete', [ProfileInformationController::class, 'deleteEscortStageName'])->name('escort.stagename.delete');
 Route::post('my-information/additional-store', [ProfileInformationController::class, 'additionalStorage'])->name('escort.additional.store');
 Route::post('my-information/additional-delete', [ProfileInformationController::class, 'additionalDelete'])->name('escort.additional.delete');
+Route::post('my-information/update-default-additional', [ProfileInformationController::class, 'updateDefaultAdditional'])->name('escort.additional.update_default');
 
 //Route::post('settings-upload-avatar',[ProfileInformationController::class,'storeSocialsLink'])->name('settings.save.avatar');
 //////////////end settings
