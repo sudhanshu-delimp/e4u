@@ -111,7 +111,7 @@ pinupFrom.on('submit', function (e) {
             if (response.success) {
                 if (response.validation) {
                     pinupFrom.closest('.modal').modal('hide');
-                    $("#modalPaymentButton").trigger('click');
+                    pinupFrom.find("#modalPaymentButton").trigger('click');
                     pinupButton.prop('disabled', true);
                 }
                 else {

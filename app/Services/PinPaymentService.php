@@ -173,4 +173,9 @@ class PinPaymentService
       Log::info('', [$e->getMessage()]);
     }
   }
+
+  public function paymentHistoryDetail(int $id)
+  {
+    return PaymentHistory::findOrFail($id);
+  }
 }

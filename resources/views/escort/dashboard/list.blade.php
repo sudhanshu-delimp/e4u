@@ -107,10 +107,14 @@
                             <div class="">
                                 <button class="btn brb-btn" data-toggle="modal"
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
-                                <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+                                <button class="btn upgrade-btn" data-toggle="modal"
+                                    data-target="#add_brb" id="btn_upgrade">Upgrade</button>
                                 <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile </button>
                                 <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up </button>
+                                <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+
+
 
                             </div>
                             <div class="pinup-tooltip-wrapper">
@@ -176,7 +180,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="container p-0">
-                            <form action="{{ route('escort.account.listing_checkout')}}" method="POST" id="extend_form">
+                            <form action="{{ route('escort.account.listing_checkout',['type'=>'extend'])}}" method="POST" id="extend_form">
                                 {{ csrf_field() }}
                                 <!-- Profile select -->
                                 <div class="form-group row">

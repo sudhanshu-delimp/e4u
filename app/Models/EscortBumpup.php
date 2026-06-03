@@ -18,6 +18,11 @@ class EscortBumpup extends Model
         'utc_end_time',
     ];
 
+    public function paymentItems()
+    {
+        return $this->morphMany(PaymentItem::class, 'item');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -27,10 +32,10 @@ class EscortBumpup extends Model
     {
         return $this->belongsTo(Escort::class);
     }
-    
+
     public function scopeActive($query)
     {
         return $query->where('utc_start_time', '<=', Carbon::now('UTC'))
-        ->where('utc_end_time', '>=', Carbon::now('UTC'));
+            ->where('utc_end_time', '>=', Carbon::now('UTC'));
     }
 }

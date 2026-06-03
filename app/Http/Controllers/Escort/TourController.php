@@ -51,7 +51,7 @@ class TourController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(TourInterface $tour,UserInterface $user, EscortInterface $escort, AvailabilityInterface $availability,  ServiceInterface $service, DurationInterface $duration, EscortMediaInterface $media)
+    public function __construct(TourInterface $tour, UserInterface $user, EscortInterface $escort, AvailabilityInterface $availability,  ServiceInterface $service, DurationInterface $duration, EscortMediaInterface $media)
     {
         $this->escort = $escort;
         $this->availability = $availability;
@@ -62,31 +62,31 @@ class TourController extends Controller
         $this->tour = $tour;
     }
 
-    public function tourProfileList($sm,$id)
+    public function tourProfileList($sm, $id)
     {
         $escorts = $this->escort->FindByUsers(auth()->user()->id);
         $tours = $this->tour->find($id);
-        return view('escort.dashboard.archives.archive-tour-summer',compact('escorts','tours'));
+        return view('escort.dashboard.archives.archive-tour-summer', compact('escorts', 'tours'));
     }
     public function viewTourList($type)
     {
         $escort = $this->escort->FindByUsers(auth()->user()->id);
-        $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
+        $escorts = $escort->whereNotNull('state_id')->where('default_setting', 0)->unique('state_id');
         $tours = $this->tour->all();
-        $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
+        $user_names = $escort->whereNotNull('state_id')->where('default_setting', 0);
         $find_tour = null;
-        return view('escort.dashboard.archives.archive-tour-view-profiles',compact('escorts','tours','find_tour','user_names', 'type'));
+        return view('escort.dashboard.archives.archive-tour-view-profiles', compact('escorts', 'tours', 'find_tour', 'user_names', 'type'));
     }
     public function viewTourEdit($id)
     {
 
         $escort = $this->escort->FindByUsers(auth()->user()->id);
-        $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
+        $escorts = $escort->whereNotNull('state_id')->where('default_setting', 0)->unique('state_id');
 
         $find_tour = $this->tour->find($id);
-        $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
+        $user_names = $escort->whereNotNull('state_id')->where('default_setting', 0);
         //dd($find_tour->tour_location);
-        $template = view('escort.dashboard.archives.partials.edit-tour', compact('escorts','find_tour','user_names'))->render();
+        $template = view('escort.dashboard.archives.partials.edit-tour', compact('escorts', 'find_tour', 'user_names'))->render();
 
         $status = true;
 
@@ -96,40 +96,40 @@ class TourController extends Controller
     public function createTour($id = null)
     {
         $user = auth()->user();
-        if($user->status == "Suspended"){
-             return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
+        if ($user->status == "Suspended") {
+            return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
         }
-        
-        if(!empty($id)){
+
+        if (!empty($id)) {
             $tour = Tour::findOrFail($id);
-            $tourLocations = TourLocation::where(['tour_id'=>$id])->get();
+            $tourLocations = TourLocation::where(['tour_id' => $id])->get();
             $userLocations = $this->getAccountLocations(true);
-            return view('escort.dashboard.NewTour.edit-tour',compact('tour','tourLocations','userLocations'));
-        }
-        else{
+            return view('escort.dashboard.NewTour.edit-tour', compact('tour', 'tourLocations', 'userLocations'));
+        } else {
             return view('escort.dashboard.NewTour.create-tour');
         }
     }
     public function nameByState($id)
     {
         $escort = $this->escort->FindByUsers(auth()->user()->id);
-        $escorts = $escort->where('state_id','==',$id)->where('default_setting',0);
+        $escorts = $escort->where('state_id', '==', $id)->where('default_setting', 0);
         //dd($escorts);
         //dd($find_tour->tour_location);
         //$template = view('escort.dashboard.archives.partials.edit-tour', compact('escorts','find_tour'))->render();
 
         $status = true;
 
-        return response()->json(compact('status','escorts','id'), 200);
+        return response()->json(compact('status', 'escorts', 'id'), 200);
         //return response()->json(compact('find_tour'));
     }
-    public function TourDataTable(Request $request, $type = NULL){
+    public function TourDataTable(Request $request, $type = NULL)
+    {
         $today = Carbon::today()->format('Y-m-d');
         $conditions = [];
         if ($type == 'current') {
-            $conditions[] = ['end_date','>=',$today];
+            $conditions[] = ['end_date', '>=', $today];
         } elseif ($type == 'past') {
-            $conditions[] = ['end_date','<',$today];
+            $conditions[] = ['end_date', '<', $today];
         }
         list($result, $count, $other) = $this->tour->paginatedList(
             request()->get('start'),
@@ -152,74 +152,74 @@ class TourController extends Controller
 
         return response()->json($data);
     }
-//     public function TourDataTable(Request $request, $type = NULL)
-//     {
+    //     public function TourDataTable(Request $request, $type = NULL)
+    //     {
 
-//     $today = \Carbon\Carbon::today();
-//     $user_id = auth()->user()->id;
-//     $search = $request->get('search');
-//     $sortBy = $request->get('sort_by', 'id');
-//     $sortDir = $request->get('sort_dir', 'desc');
-//     $length = $request->get('length', 10);
-//     $start = $request->get('start', 0);
-//     $query = \App\Models\Tour::with('locations');
-//     $query->where('user_id', $user_id);
-//     if ($type === 'current') {
-//         $query->whereHas('latestLocation', fn($q) => 
-//             $q->where('end_date', '>=', $today)
-//         );
-//     } elseif ($type === 'past') {
-//         $query->whereHas('latestLocation', fn($q) => 
-//          $q->where('end_date', '<', $today)
-//         );
-//     }
+    //     $today = \Carbon\Carbon::today();
+    //     $user_id = auth()->user()->id;
+    //     $search = $request->get('search');
+    //     $sortBy = $request->get('sort_by', 'id');
+    //     $sortDir = $request->get('sort_dir', 'desc');
+    //     $length = $request->get('length', 10);
+    //     $start = $request->get('start', 0);
+    //     $query = \App\Models\Tour::with('locations');
+    //     $query->where('user_id', $user_id);
+    //     if ($type === 'current') {
+    //         $query->whereHas('latestLocation', fn($q) => 
+    //             $q->where('end_date', '>=', $today)
+    //         );
+    //     } elseif ($type === 'past') {
+    //         $query->whereHas('latestLocation', fn($q) => 
+    //          $q->where('end_date', '<', $today)
+    //         );
+    //     }
 
-//     // Search by tour name
-//     if ($search) {
-//         $query->where('name', 'like', '%' . $search . '%');
-//     }
+    //     // Search by tour name
+    //     if ($search) {
+    //         $query->where('name', 'like', '%' . $search . '%');
+    //     }
 
-//     $total = $query->count();
-//     $tours = $query->orderBy($sortBy, $sortDir)
-//     ->skip($start)
-//     ->take($length)
-//     ->get()
-//     ->map(function ($tour, $index) {
-//         $startDate = $tour->locations->min('start_date');
-//         $endDate = $tour->locations->max('end_date');
-//         $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
-//         $is_checkout = $tour->tourPurchase->count();
-//         $action = '<div class="dropdown no-arrow archive-dropdown">
-//             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-//             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-//         if(empty($is_checkout)){
-//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
-//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $tour->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
-//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
-//         }
-//         else{
-//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
-//         }
-        
-//         $action .= '</div></div>';
+    //     $total = $query->count();
+    //     $tours = $query->orderBy($sortBy, $sortDir)
+    //     ->skip($start)
+    //     ->take($length)
+    //     ->get()
+    //     ->map(function ($tour, $index) {
+    //         $startDate = $tour->locations->min('start_date');
+    //         $endDate = $tour->locations->max('end_date');
+    //         $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
+    //         $is_checkout = $tour->tourPurchase->count();
+    //         $action = '<div class="dropdown no-arrow archive-dropdown">
+    //             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+    //             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
+    //         if(empty($is_checkout)){
+    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
+    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $tour->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
+    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+    //         }
+    //         else{
+    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
+    //         }
 
-//         return [
-//             'id' => $tour->id,
-//             'name' => $tour->name,
-//             'start_date' => $startDate->format('d-m-Y'),
-//             'end_date' => $endDate->format('d-m-Y'),
-//             'days' => $days,
-//             'action' => $action
-//         ];
-//     });
+    //         $action .= '</div></div>';
 
-// return response()->json([
-//     'data' => $tours,
-//     'recordsTotal' => $total,
-//     'recordsFiltered' => $total,
-// ]);
+    //         return [
+    //             'id' => $tour->id,
+    //             'name' => $tour->name,
+    //             'start_date' => $startDate->format('d-m-Y'),
+    //             'end_date' => $endDate->format('d-m-Y'),
+    //             'days' => $days,
+    //             'action' => $action
+    //         ];
+    //     });
 
-//     }
+    // return response()->json([
+    //     'data' => $tours,
+    //     'recordsTotal' => $total,
+    //     'recordsFiltered' => $total,
+    // ]);
+
+    //     }
 
 
 
@@ -243,15 +243,15 @@ class TourController extends Controller
             'start_date' => \Carbon\Carbon::createFromFormat('d-m-Y', $request->start_date[0])->format('Y-m-d'),
             'end_date' => \Carbon\Carbon::createFromFormat('d-m-Y', last($request->end_date))->format('Y-m-d'),
             'location' => $request->stateId,
-           // 'location' => $request->cityId,
+            // 'location' => $request->cityId,
         ];
-        $tour = $this->tour->store($tourData,$id);
+        $tour = $this->tour->store($tourData, $id);
         $arr = [];
-           
+
         if (!empty($request->stateId)) {
-            
+
             foreach ($request->stateId as $key => $stateId) {
-                $arr[$stateId] = [ 
+                $arr[$stateId] = [
                     "profile_id" => (int) $request->escortId[$key] ?? null,  // Added safety check
                     "start_date" => $tourData['start_date'] ?? null,  // Avoid undefined index error
                     "end_date" => $tourData['end_date'] ?? null,
@@ -263,14 +263,13 @@ class TourController extends Controller
 
         $error = true;
 
-        if($data = $tour->locations()->sync($arr)) {
+        if ($data = $tour->locations()->sync($arr)) {
 
-                $error = false;
-
+            $error = false;
         }
 
-       
-        return response()->json(compact('error','tour'));
+
+        return response()->json(compact('error', 'tour'));
     }
     public function DeleteTour($id)
     {
@@ -295,10 +294,9 @@ class TourController extends Controller
     {
         $latest = $this->escort->latest();
         $user = auth()->user();
-        if($id == null)
-        {
+        if ($id == null) {
             $update_id = $latest->id;
-            $profile = $this->escort->findDefault($user->id,1);
+            $profile = $this->escort->findDefault($user->id, 1);
         } else {
             $update_id = $id;
             $profile = $this->escort->find($id);
@@ -309,18 +307,18 @@ class TourController extends Controller
 
 
 
-        return view('escort.dashboard.profile.create-profile', compact('profile','update_id'));
+        return view('escort.dashboard.profile.create-profile', compact('profile', 'update_id'));
     }
 
     public function updateProfile($id)
     {
         $escort = $this->escort->find($id);
-        list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->service->findByCategory([1, 2, 3]);
         $durations = $this->duration->all();
         $availability = $escort->availability;
         $service = $this->service;
         //dd($escort->nation);
-        return view('escort.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations'));
+        return view('escort.dashboard.profile.update', compact('escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations'));
     }
     public function updatePolicy(UpdateRequestPolicy $request, $id)
     {
@@ -329,8 +327,8 @@ class TourController extends Controller
             'pricing_policy' => $request->pricing_policy,
             'disclaimer' => $request->disclaimer,
         ];
-        $error=true;
-        if(isset($request->pricing_policy) || isset($request->disclaimer)) {
+        $error = true;
+        if (isset($request->pricing_policy) || isset($request->disclaimer)) {
             $data = $this->escort->store($input, $id);
             $error = false;
         }
@@ -351,54 +349,52 @@ class TourController extends Controller
 
         $error = 0;
         $user = auth()->user();
-        $escort = $this->escort->findDefault($user->id,1);
+        $escort = $this->escort->findDefault($user->id, 1);
         //dd($request->start_date);
         $input = [
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'profile_name'=>$request->profile_name ? $request->profile_name : null,
-            'membership'=>$request->membership ? $request->membership : null,
-            'gender'=>$escort->gender ? $escort->getRawOriginal('gender') : NULL,
-            'nationality_id'=>$escort->nationality_id ? $escort->nationality_id : NULL,
-            'height'=>$escort->height ? $escort->height : NULL,
-            'eyes'=>$escort->eyes ? $escort->eyes : NULL,
-            'orientation'=>$escort->orientation ? $escort->orientation : NULL,
-            'age'=>$escort->age ? $escort->age : NULL,
-            'hair_color'=>$escort->hair_color ? $escort->hair_color : NULL,
-            'skin_tone'=>$escort->skin_tone ? $escort->skin_tone : NULL,
-            'breast'=>$escort->breast ? $escort->breast : NULL,
-            'contact'=>$escort->contact ? $escort->contact : NULL,
-            'ethnicity'=>$escort->ethnicity ? $escort->ethnicity : NULL,
-            'body_type'=>$escort->body_type ? $escort->body_type : NULL,
-            'hair_style'=>$escort->hair_style ? $escort->hair_style : NULL,
-            'weight'=>$escort->weight ? $escort->weight : NULL,
-            'dress_size'=>$escort->dresss_size ? $escort->dresss_size : NULL,
+            'profile_name' => $request->profile_name ? $request->profile_name : null,
+            'membership' => $request->membership ? $request->membership : null,
+            'gender' => $escort->gender ? $escort->getRawOriginal('gender') : NULL,
+            'nationality_id' => $escort->nationality_id ? $escort->nationality_id : NULL,
+            'height' => $escort->height ? $escort->height : NULL,
+            'eyes' => $escort->eyes ? $escort->eyes : NULL,
+            'orientation' => $escort->orientation ? $escort->orientation : NULL,
+            'age' => $escort->age ? $escort->age : NULL,
+            'hair_color' => $escort->hair_color ? $escort->hair_color : NULL,
+            'skin_tone' => $escort->skin_tone ? $escort->skin_tone : NULL,
+            'breast' => $escort->breast ? $escort->breast : NULL,
+            'contact' => $escort->contact ? $escort->contact : NULL,
+            'ethnicity' => $escort->ethnicity ? $escort->ethnicity : NULL,
+            'body_type' => $escort->body_type ? $escort->body_type : NULL,
+            'hair_style' => $escort->hair_style ? $escort->hair_style : NULL,
+            'weight' => $escort->weight ? $escort->weight : NULL,
+            'dress_size' => $escort->dresss_size ? $escort->dresss_size : NULL,
             'covidreport' => $escort->covidreport ? $escort->covidreport : NULL,
-            'piercing'=>$escort->piercing ? $escort->piercing : NULL,
-            'drugs'=>$escort->drugs ? $escort->drugs : NULL,
-            'travel'=>$escort->travel ? $escort->travel : NULL,
-            'tattoos'=>$escort->tattoos ? $escort->tattoos : NULL,
-            'smoke'=>$escort->smoke ? $escort->smoke : NULL,
-            'available_to'=>$escort->available_to ? $escort->available_to : NULL,
-            'license'=>$escort->license ? $escort->license : NULL,
-            'play_type'=> $escort->play_type ? $escort->play_type : NULL,
-            'payment_type'=>$escort->payment_type ? $escort->payment_type : NULL,
-            'language'=>$escort->language ? $escort->language : NULL,
-            'social_links'=>$escort->social_links ? $escort->social_links : NULL,
-            'enabled'=>1,
-            'user_id'=>$user->id,
+            'piercing' => $escort->piercing ? $escort->piercing : NULL,
+            'drugs' => $escort->drugs ? $escort->drugs : NULL,
+            'travel' => $escort->travel ? $escort->travel : NULL,
+            'tattoos' => $escort->tattoos ? $escort->tattoos : NULL,
+            'smoke' => $escort->smoke ? $escort->smoke : NULL,
+            'available_to' => $escort->available_to ? $escort->available_to : NULL,
+            'license' => $escort->license ? $escort->license : NULL,
+            'play_type' => $escort->play_type ? $escort->play_type : NULL,
+            'payment_type' => $escort->payment_type ? $escort->payment_type : NULL,
+            'language' => $escort->language ? $escort->language : NULL,
+            'social_links' => $escort->social_links ? $escort->social_links : NULL,
+            'enabled' => 1,
+            'user_id' => $user->id,
             'default_setting' => 0,
         ];
         //dd($input);
-        if($new_escort = $this->escort->create($input)) {
+        if ($new_escort = $this->escort->create($input)) {
             $escortId = $new_escort->id;
             $error = 1;
-
         }
         $arr = [];
 
-        foreach($escort->durations as $key =>$durations)
-        {
+        foreach ($escort->durations as $key => $durations) {
             //dd($durations->pivot);
             $id = $durations->pivot->duration_id;
             $arr[$id] = [
@@ -406,10 +402,9 @@ class TourController extends Controller
                 'incall_price' => $durations->pivot->incall_price,
                 'outcall_price' => $durations->pivot->outcall_price,
             ];
-        }
-        ;
+        };
         //dd($arr);
-        if($data_durations  = $new_escort->durations()->sync($arr)) {
+        if ($data_durations  = $new_escort->durations()->sync($arr)) {
             $error = 1;
         }
         $data  = [
@@ -417,7 +412,7 @@ class TourController extends Controller
             "monday_to" => $escort->availability->monday_to,
             "tuesday_from" => $escort->availability->tuesday_from,
             "tuesday_to" => $escort->availability->tuesday_to,
-            "wednesday_from" =>$escort->availability->wednesday_from,
+            "wednesday_from" => $escort->availability->wednesday_from,
             "wednesday_to" => $escort->availability->wednesday_to,
             "thursday_from" => $escort->availability->thursday_from,
             "thursday_to" => $escort->availability->thursday_to,
@@ -425,20 +420,19 @@ class TourController extends Controller
             "friday_to" => $escort->availability->friday_to,
             "saturday_from" => $escort->availability->saturday_from,
             "saturday_to" => $escort->availability->saturday_to,
-            "sunday_from" =>$escort->availability->sunday_from,
+            "sunday_from" => $escort->availability->sunday_from,
             "sunday_to" => $escort->availability->sunday_to,
             "escort_id" => $escortId,
         ];
         $availability = $escort->availability;
-        if($data = $this->availability->store($data)) {
+        if ($data = $this->availability->store($data)) {
             $error = 1;
         }
         //dd($data);
 
-        if($escort->services != null) {
+        if ($escort->services != null) {
             $service_arr = [];
-            foreach($escort->services as $key =>$services)
-            {
+            foreach ($escort->services as $key => $services) {
                 //dd($durations->pivot);
                 //dd($escort->services);
 
@@ -446,17 +440,16 @@ class TourController extends Controller
                 $service_arr[$id] = [
                     'price' => $services->pivot->price,
                 ];
-
             }
 
-            if($data_services = $new_escort->services()->sync($service_arr)) {
-            $error = 1;
+            if ($data_services = $new_escort->services()->sync($service_arr)) {
+                $error = 1;
             }
         }
 
 
 
-        return response()->json(compact('error','escortId'));
+        return response()->json(compact('error', 'escortId'));
         //return redirect()->route('escort.update.profile', [$escortId]);
     }
 
@@ -464,62 +457,60 @@ class TourController extends Controller
     {
 
         $input = [
-            'gender'=>$request->gender,
-            'nationality_id'=>$request->nationality_id,
+            'gender' => $request->gender,
+            'nationality_id' => $request->nationality_id,
             //'statistics'=>$request->statistics,
-            'height'=>$request->height,
-            'eyes'=>$request->eyes,
-            'orientation'=>$request->orientation,
-            'age'=>$request->age,
-            'hair_color'=>$request->hair_color,
-            'skin_tone'=>$request->skin_tone,
-            'breast'=>$request->breast,
-            'contact'=>$request->contact,
-            'ethnicity'=>$request->ethnicity,
-            'body_type'=>$request->body_type,
-            'hair_style'=>$request->hair_style,
-            'weight'=>$request->weight,
-            'dress_size'=>$request->dress_size,
-            'profile_name'=>$request->profile_name,
-            'membership'=>$request->membership,
+            'height' => $request->height,
+            'eyes' => $request->eyes,
+            'orientation' => $request->orientation,
+            'age' => $request->age,
+            'hair_color' => $request->hair_color,
+            'skin_tone' => $request->skin_tone,
+            'breast' => $request->breast,
+            'contact' => $request->contact,
+            'ethnicity' => $request->ethnicity,
+            'body_type' => $request->body_type,
+            'hair_style' => $request->hair_style,
+            'weight' => $request->weight,
+            'dress_size' => $request->dress_size,
+            'profile_name' => $request->profile_name,
+            'membership' => $request->membership,
             'covidreport' => $request->covidreport,
         ];
         $user = auth()->user();
-        $escort = $this->escort->findDefault($user->id,1);
-        if($escort->id == $id)
-        {
+        $escort = $this->escort->findDefault($user->id, 1);
+        if ($escort->id == $id) {
             $id = null;
-            $input['user_id'] =$user->id;
-
+            $input['user_id'] = $user->id;
         }
 
         $request->start_date ? $input['start_date'] = $request->start_date : NULL;
         $request->end_date ? $input['end_date'] = $request->end_date : NULL;
         $error = true;
 
-        if($escort = $this->escort->store($input, $id)) {
+        if ($escort = $this->escort->store($input, $id)) {
             $error = false;
-            if($request->file('banner_image')) $this->uploadFile($request->file('banner_image'), $escort);
-            if($request->file('banner_video')) $this->uploadFile($request->file('banner_video'), $escort);
+            if ($request->file('banner_image')) $this->uploadFile($request->file('banner_image'), $escort);
+            if ($request->file('banner_video')) $this->uploadFile($request->file('banner_video'), $escort);
         }
 
-        if(($escort->covidreport == 1 || $escort->covidreport == 2 ) && $request->file('covid_report_file')) {
+        if (($escort->covidreport == 1 || $escort->covidreport == 2) && $request->file('covid_report_file')) {
             $this->uploadCovidReport($request->file('covid_report_file'), $escort->id);
         } else {
             $escort->covidReport()->delete();
         }
 
-        return response()->json(compact('escort','error'));
+        return response()->json(compact('escort', 'error'));
     }
 
     public function uploadCovidReport($file, $escort_id)
     {
-        $file_path = 'escort-covid-report/'.$escort_id.'/'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$file->getClientOriginalExtension();
+        $file_path = 'escort-covid-report/' . $escort_id . '/' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
         Storage::disk('escorts')->put($file_path, file_get_contents($file));
 
         $data = [
             'escort_id' => $escort_id,
-            'path' => 'escorts/'.$file_path,
+            'path' => 'escorts/' . $file_path,
         ];
 
         EscortCovidReport::create($data);
@@ -530,32 +521,32 @@ class TourController extends Controller
     public function storeReadMore(UpdateRequestReadMore $request, $id)
     {
         $input = [
-            'piercing'=>$request->piercing,
-            'drugs'=>$request->drugs,
-            'travel'=>$request->travel,
-            'tattoos'=>$request->tattoos,
-            'smoke'=>$request->smoke,
-            'available_to'=>$request->available_to,
-            'license'=>$request->license,
-            'play_type'=> $request->play_type,
-            'payment_type'=>$request->payment_type
+            'piercing' => $request->piercing,
+            'drugs' => $request->drugs,
+            'travel' => $request->travel,
+            'tattoos' => $request->tattoos,
+            'smoke' => $request->smoke,
+            'available_to' => $request->available_to,
+            'license' => $request->license,
+            'play_type' => $request->play_type,
+            'payment_type' => $request->payment_type
         ];
         $request->language ? $input['language'] = $request->language : NULL;
-        $error=true;
-        if($data = $this->escort->store($input, $id)) {
+        $error = true;
+        if ($data = $this->escort->store($input, $id)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
-    public function storeAbout(UpdateRequestAbout $request ,$id)
+    public function storeAbout(UpdateRequestAbout $request, $id)
     {
         $input = [
-            'about'=>$request->about,
+            'about' => $request->about,
         ];
 
 
         $error = true;
-        if(isset($request->about)) {
+        if (isset($request->about)) {
             $data = $this->escort->store($input, $id);
             $error = false;
         }
@@ -565,24 +556,24 @@ class TourController extends Controller
     {
 
         $input = [
-            'name'=>$request->name,
-            'age'=>$request->age,
-            'phone'=>$request->phone,
-            'pincode'=>$request->pincode,
-            'city_id'=>$request->city_id,
-            'country_id'=>$request->country_id,
-            'state_id'=>$request->state_id,
-            'social_links'=>$request->social_links,
+            'name' => $request->name,
+            'age' => $request->age,
+            'phone' => $request->phone,
+            'pincode' => $request->pincode,
+            'city_id' => $request->city_id,
+            'country_id' => $request->country_id,
+            'state_id' => $request->state_id,
+            'social_links' => $request->social_links,
             'user_id' => auth()->user()->getMemberIdAttribute(),
             'enabled' => 1,
         ];
 
-        $error=true;
-        if($data = $this->escort->store($input, $id = null)) {
+        $error = true;
+        if ($data = $this->escort->store($input, $id = null)) {
             $error = false;
             $url = route('update.profile', [$data->id]);
         }
-        return response()->json(compact('data','error','url'));
+        return response()->json(compact('data', 'error', 'url'));
     }
 
     public function storeServices(StoreServiceRequest $request,  $id)
@@ -590,115 +581,107 @@ class TourController extends Controller
         $escort = $this->escort->find($id);
         $arr = [];
         //dd($request->service_id);
-        if(!empty($request->service_id)) {
-            foreach($request->service_id as $key =>$value)
-            {
+        if (!empty($request->service_id)) {
+            foreach ($request->service_id as $key => $value) {
                 $arr  += [$value => ["price" => $request->price[$key]]];
             }
         }
 
-        $error=true;
-        if($data = $escort->services()->sync($arr)) {
+        $error = true;
+        if ($data = $escort->services()->sync($arr)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
     public function storeRates(StoreRateRequest $request, $id)
     {
         $escort = $this->escort->find($id);
         $arr = [];
-        foreach($request->duration_id as $key =>$value)
-        {
-            $arr  += [$value => [
-                "massage_price" => $request->massage_price[$key],
-                "incall_price" => $request->incall_price[$key],
-                "outcall_price" => $request->outcall_price[$key]],
-                ];
+        foreach ($request->duration_id as $key => $value) {
+            $arr  += [
+                $value => [
+                    "massage_price" => $request->massage_price[$key],
+                    "incall_price" => $request->incall_price[$key],
+                    "outcall_price" => $request->outcall_price[$key]
+                ],
+            ];
         }
-        $error=true;
-        if($data = $escort->durations()->sync($arr)) {
+        $error = true;
+        if ($data = $escort->durations()->sync($arr)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
 
-    public function parseTime($hour,$minutes,$meridian)
+    public function parseTime($hour, $minutes, $meridian)
     {
-        if(($hour && $minutes && $meridian) == null){
+        if (($hour && $minutes && $meridian) == null) {
             return null;
         } else {
-            return Carbon::createFromFormat('g:i A',$hour.":".$minutes." ".$meridian)->toTimeString();
+            return Carbon::createFromFormat('g:i A', $hour . ":" . $minutes . " " . $meridian)->toTimeString();
         }
     }
 
     public function storeAvailability(StoreAvailabilityRequest $request, $escortId)
     {
         $data = [];
-        if(!empty($request->mon_hh_from))
-        {
-        $data  += [
-            "monday_from" => $this->parseTime($request->mon_hh_from,$request->mon_mm_from,$request->mon_time_from),
-            "monday_to" => $this->parseTime($request->mon_hh_to,$request->mon_mm_to,$request->mon_time_to),
-            "escort_id" => $escortId,
-                ];
-
-        }
-        if(!empty($request->tue_hh_from))
-        {
+        if (!empty($request->mon_hh_from)) {
             $data  += [
-                "tuesday_from" => $this->parseTime($request->tue_hh_from,$request->tue_mm_from,$request->tue_time_from),
-                "tuesday_to" => $this->parseTime($request->tue_hh_to,$request->tue_mm_to,$request->tue_time_to),
+                "monday_from" => $this->parseTime($request->mon_hh_from, $request->mon_mm_from, $request->mon_time_from),
+                "monday_to" => $this->parseTime($request->mon_hh_to, $request->mon_mm_to, $request->mon_time_to),
                 "escort_id" => $escortId,
-                    ];
+            ];
         }
-        if(!empty($request->wed_hh_from))
-        {
+        if (!empty($request->tue_hh_from)) {
             $data  += [
-                "wednesday_from" =>$this->parseTime($request->wed_hh_from,$request->wed_mm_from,$request->wed_time_from),
-                "wednesday_to" => $this->parseTime($request->wed_hh_to,$request->wed_mm_to,$request->mon_time_to),
+                "tuesday_from" => $this->parseTime($request->tue_hh_from, $request->tue_mm_from, $request->tue_time_from),
+                "tuesday_to" => $this->parseTime($request->tue_hh_to, $request->tue_mm_to, $request->tue_time_to),
                 "escort_id" => $escortId,
-                    ];
+            ];
         }
-        if(!empty($request->thu_hh_from))
-        {
+        if (!empty($request->wed_hh_from)) {
             $data  += [
-                "thursday_from" => $this->parseTime($request->thu_hh_from,$request->thu_mm_from,$request->thu_time_from),
-                "thursday_to" => $this->parseTime($request->thu_hh_to,$request->thu_mm_to,$request->thu_time_to),
+                "wednesday_from" => $this->parseTime($request->wed_hh_from, $request->wed_mm_from, $request->wed_time_from),
+                "wednesday_to" => $this->parseTime($request->wed_hh_to, $request->wed_mm_to, $request->mon_time_to),
                 "escort_id" => $escortId,
-                    ];
+            ];
         }
-        if(!empty($request->fri_hh_from))
-        {
+        if (!empty($request->thu_hh_from)) {
             $data  += [
-                "friday_from" => $this->parseTime($request->fri_hh_from,$request->fri_mm_from,$request->fri_time_from),
-                "friday_to" => $this->parseTime($request->fri_hh_to,$request->fri_mm_to,$request->fri_time_to),
+                "thursday_from" => $this->parseTime($request->thu_hh_from, $request->thu_mm_from, $request->thu_time_from),
+                "thursday_to" => $this->parseTime($request->thu_hh_to, $request->thu_mm_to, $request->thu_time_to),
                 "escort_id" => $escortId,
-                    ];
+            ];
         }
-        if(!empty($request->sat_hh_from))
-        {
+        if (!empty($request->fri_hh_from)) {
             $data  += [
-                "saturday_from" => $this->parseTime($request->sat_hh_from,$request->sat_mm_from,$request->sat_time_from),
-                "saturday_to" => $this->parseTime($request->sat_hh_to,$request->sat_mm_to,$request->sat_time_to),
+                "friday_from" => $this->parseTime($request->fri_hh_from, $request->fri_mm_from, $request->fri_time_from),
+                "friday_to" => $this->parseTime($request->fri_hh_to, $request->fri_mm_to, $request->fri_time_to),
                 "escort_id" => $escortId,
-                    ];
+            ];
         }
-        if(!empty($request->sun_hh_from))
-        {
+        if (!empty($request->sat_hh_from)) {
             $data  += [
-                "sunday_from" =>$this->parseTime($request->sun_hh_from,$request->sun_mm_from,$request->sun_time_from),
-                "sunday_to" => $this->parseTime($request->sun_hh_to,$request->sun_mm_to,$request->sun_time_to),
+                "saturday_from" => $this->parseTime($request->sat_hh_from, $request->sat_mm_from, $request->sat_time_from),
+                "saturday_to" => $this->parseTime($request->sat_hh_to, $request->sat_mm_to, $request->sat_time_to),
                 "escort_id" => $escortId,
-                    ];
+            ];
+        }
+        if (!empty($request->sun_hh_from)) {
+            $data  += [
+                "sunday_from" => $this->parseTime($request->sun_hh_from, $request->sun_mm_from, $request->sun_time_from),
+                "sunday_to" => $this->parseTime($request->sun_hh_to, $request->sun_mm_to, $request->sun_time_to),
+                "escort_id" => $escortId,
+            ];
         }
 
         $escort = $this->escort->find($escortId);
         $availability = $escort->availability;
-        $error=true;
-        if($data = $this->availability->store($data, $availability ? $availability->id : null)) {
+        $error = true;
+        if ($data = $this->availability->store($data, $availability ? $availability->id : null)) {
             $error = false;
         }
-        return response()->json(compact('data','error'));
+        return response()->json(compact('data', 'error'));
     }
     public function deleteProfile($id)
     {
@@ -715,22 +698,20 @@ class TourController extends Controller
 
 
         return response()->json(compact('error'));
-
     }
     public function saveMembership(Request $request, $id)
     {
         $escort = $this->escort->find($id);
         $data = [];
         $enable = [];
-        $data = ['plan_type' =>$request->plan_type];
-        $enable = ['enabled' =>1];
+        $data = ['plan_type' => $request->plan_type];
+        $enable = ['enabled' => 1];
         $user = $this->user->store($data, $escort->user_id);
         $escort_update = $this->escort->store($enable, $id);
         $error = 1;
 
 
         return response()->json(compact('error'));
-
     }
 
     public function uploadFile($attachment, $escort)
@@ -739,14 +720,14 @@ class TourController extends Controller
 
         list($type, $prefix) = $this->getPrefix($attachment);
 
-        $file_path = $prefix.$escort_id.'/banner/'.Str::slug(pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$attachment->getClientOriginalExtension();
+        $file_path = $prefix . $escort_id . '/banner/' . Str::slug(pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $attachment->getClientOriginalExtension();
         Storage::disk('escorts')->put($file_path, file_get_contents($attachment));
 
-        if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
+        if (!$media = $this->media->findByPath('escorts/' . $file_path)) {
             $data = [
                 'escort_id' => $escort_id,
                 'type' => $type,
-                'path' => 'escorts/'.$file_path,
+                'path' => 'escorts/' . $file_path,
             ];
             $media = $this->media->store($data);
         }
@@ -757,14 +738,14 @@ class TourController extends Controller
     public function getPrefix($file)
     {
         $mime = $file->getMimeType();
-        if(strstr($mime, "video/")){
+        if (strstr($mime, "video/")) {
             $str = 'videos/';
             $type = 3;  //2=>image; 3=>video (banner)
         } else {
             $str = 'images/';
             $type = 2;  //2=>image; 3=>video (banner)
         }
-        return [$type, 'attatchment/'.$str];
+        return [$type, 'attatchment/' . $str];
     }
 
     public function getAccountLocations($asArray = false)
@@ -784,8 +765,9 @@ class TourController extends Controller
         return $asArray ? $userStates : response()->json($userStates);
     }
 
-    public function getAccountProfiles(Request $request){
-        
+    public function getAccountProfiles(Request $request)
+    {
+
         $stateId = $request->input('state_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -794,35 +776,36 @@ class TourController extends Controller
 
         /** Check if tour is scheduled for another location in the selected date range. */
 
-        $conflictExists = Tour::where('user_id',auth()->user()->id)
+        $conflictExists = Tour::where('user_id', auth()->user()->id)
             ->with('locations')
             ->whereHas('locations', function ($query) use ($startDate, $endDate, $stateId) {
-                $query->whereNotIn('state_id',[$stateId])
-                ->overlapping($startDate, $endDate);
+                $query->whereNotIn('state_id', [$stateId])
+                    ->overlapping($startDate, $endDate);
             })
             ->exists();
 
-        if(!$conflictExists){
+        if (!$conflictExists) {
             $escort = $this->escort->FindByUsers(auth()->user()->id);
             $escorts = $escort->where('state_id', $stateId)->whereNotNull('name');
             $availableEscorts = $escorts->filter(function ($escort) use ($startDate, $endDate) {
                 /** Check if profile is already in the queue of listing in the selected date range. */
-            $purchase = $escort->purchase()
-                ->where(function ($query) use ($startDate, $endDate) {
-                    $query->overlapping($startDate, $endDate);
-                })->exists();
+                $purchase = $escort->purchase()
+                    ->where(function ($query) use ($startDate, $endDate) {
+                        $query->overlapping($startDate, $endDate);
+                    })->exists();
                 /** Check if profile is the part the created current and upcomming tours in the selected date range. */
-            $tour = $escort->tourProfiles()
-                ->whereHas('location.tour.locations', function ($query) use ($startDate, $endDate) {
-                $query->overlapping($startDate, $endDate);
-            })
-            ->exists();
+                $tour = $escort->tourProfiles()
+                    ->whereHas('location.tour.locations', function ($query) use ($startDate, $endDate) {
+                        $query->overlapping($startDate, $endDate);
+                    })
+                    ->exists();
 
-            return  !$purchase && !$tour; /** include escrot if not overlap with existing purchase and tour. */
+                return  !$purchase && !$tour;
+                /** include escrot if not overlap with existing purchase and tour. */
             })->values();
         }
-        
-        if(!empty($availableEscorts)){
+
+        if (!empty($availableEscorts)) {
             foreach ($availableEscorts as $escort) {
                 $userProfiles[] = [
                     'id' => $escort['id'],
@@ -833,15 +816,16 @@ class TourController extends Controller
         return response()->json($userProfiles);
     }
 
-    public function saveAccountTour(Request $request){
+    public function saveAccountTour(Request $request)
+    {
         DB::beginTransaction();
         try {
-              // Create a new Tour
+            // Create a new Tour
             $tour = Tour::create([
                 'name' => $request->tour_name,
                 'user_id' => auth()->id() // Assuming the user is logged in
             ]);
-            
+
             foreach ($request->locations as $location) {
                 // Create Tour Location
                 $tourLocation = TourLocation::create([
@@ -872,8 +856,7 @@ class TourController extends Controller
                 'message' => 'Tour created successfully! <br> To undertake a Return Tour create a new Tour.',
                 'tour_id' => $tour->id
             ]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'success' => false,
@@ -883,99 +866,99 @@ class TourController extends Controller
     }
 
     public function updateAccountTour(Request $request, $id)
-{
-    DB::beginTransaction();
-    try {
-        // Step 1: Update the tour basic info
-        $tour = Tour::findOrFail($id);
+    {
+        DB::beginTransaction();
+        try {
+            // Step 1: Update the tour basic info
+            $tour = Tour::findOrFail($id);
 
-        $existingLocationIds = [];
+            $existingLocationIds = [];
 
-        // Step 2: Loop through locations
-        foreach ($request->locations as $location) {
-            if (isset($location['id'])) {
-                // Update existing location
-                $tourLocation = TourLocation::find($location['id']);
-                if ($tourLocation) {
-                    $tourLocation->update([
+            // Step 2: Loop through locations
+            foreach ($request->locations as $location) {
+                if (isset($location['id'])) {
+                    // Update existing location
+                    $tourLocation = TourLocation::find($location['id']);
+                    if ($tourLocation) {
+                        $tourLocation->update([
+                            'state_id' => $location['location_id'],
+                            'start_date' => $location['start_date'],
+                            'end_date' => $location['end_date'],
+                        ]);
+                    }
+                } else {
+                    // Create new location
+                    $tourLocation = TourLocation::create([
+                        'tour_id' => $tour->id,
                         'state_id' => $location['location_id'],
                         'start_date' => $location['start_date'],
                         'end_date' => $location['end_date'],
                     ]);
                 }
-            } else {
-                // Create new location
-                $tourLocation = TourLocation::create([
-                    'tour_id' => $tour->id,
-                    'state_id' => $location['location_id'],
-                    'start_date' => $location['start_date'],
-                    'end_date' => $location['end_date'],
-                ]);
-            }
 
-            $existingLocationIds[] = $tourLocation->id;
+                $existingLocationIds[] = $tourLocation->id;
 
-            // Step 3: Sync profiles in each location
-            $existingProfileIds = [];
+                // Step 3: Sync profiles in each location
+                $existingProfileIds = [];
 
-            foreach ($location['profiles'] as $profile) {
-                if (isset($profile['id'])) {
-                    // Update existing profile
-                    $tourProfile = TourProfile::find($profile['id']);
-                    if ($tourProfile) {
-                        $tourProfile->update([
+                foreach ($location['profiles'] as $profile) {
+                    if (isset($profile['id'])) {
+                        // Update existing profile
+                        $tourProfile = TourProfile::find($profile['id']);
+                        if ($tourProfile) {
+                            $tourProfile->update([
+                                'escort_id' => $profile['profile_id'],
+                                'tour_plan' => $profile['tour_plan'],
+                            ]);
+                        }
+                    } else {
+                        // Create new profile
+                        $tourProfile = TourProfile::create([
+                            'tour_location_id' => $tourLocation->id,
                             'escort_id' => $profile['profile_id'],
                             'tour_plan' => $profile['tour_plan'],
                         ]);
                     }
-                } else {
-                    // Create new profile
-                    $tourProfile = TourProfile::create([
-                        'tour_location_id' => $tourLocation->id,
-                        'escort_id' => $profile['profile_id'],
-                        'tour_plan' => $profile['tour_plan'],
-                    ]);
+
+                    $existingProfileIds[] = $tourProfile->id ?? null;
                 }
 
-                $existingProfileIds[] = $tourProfile->id ?? null;
+                // Delete removed profiles from this location
+                TourProfile::where('tour_location_id', $tourLocation->id)
+                    ->whereNotIn('id', array_filter($existingProfileIds))
+                    ->delete();
             }
 
-            // Delete removed profiles from this location
-            TourProfile::where('tour_location_id', $tourLocation->id)
-                ->whereNotIn('id', array_filter($existingProfileIds))
-                ->delete();
+            // Step 4: Delete removed locations
+            TourLocation::where('tour_id', $tour->id)
+                ->whereNotIn('id', $existingLocationIds)
+                ->each(function ($loc) {
+                    // Delete related profiles too
+                    $loc->profiles()->delete();
+                    $loc->delete();
+                });
+
+            $tour->update([
+                'name' => $request->tour_name,
+                'start_date' => $tour->locations()->min('start_date'),
+                'end_date' => $tour->locations()->max('end_date'),
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Tour updated successfully!',
+                'tour_id' => $tour->id
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error updating tour: ' . $e->getMessage()
+            ], 500);
         }
-
-        // Step 4: Delete removed locations
-        TourLocation::where('tour_id', $tour->id)
-            ->whereNotIn('id', $existingLocationIds)
-            ->each(function ($loc) {
-                // Delete related profiles too
-                $loc->profiles()->delete();
-                $loc->delete();
-            });
-            
-        $tour->update([
-            'name' => $request->tour_name,
-            'start_date' => $tour->locations()->min('start_date'),
-            'end_date' => $tour->locations()->max('end_date'),
-        ]);    
-
-        DB::commit();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Tour updated successfully!',
-            'tour_id' => $tour->id
-        ]);
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return response()->json([
-            'success' => false,
-            'message' => 'Error updating tour: ' . $e->getMessage()
-        ], 500);
     }
-}
 
 
     public function updateTour($id)
@@ -987,8 +970,9 @@ class TourController extends Controller
         //return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
     }
 
-    public function tourCheckout(Request $request, $id){
-        $checkout_type = !empty($request->checkout_type)?$request->checkout_type:null;
+    public function tourCheckout(Request $request, $type, $id)
+    {
+        $checkout_type = !empty($request->checkout_type) ? $request->checkout_type : null;
         $tour = Tour::findOrFail($id);
         $data = [];
         $escort_ids = [];
@@ -996,7 +980,7 @@ class TourController extends Controller
         foreach ($tourProfiles as $profile) {
             $data[] = [
                 'escort_id' => $profile->escort_id,
-                'tour_location_id'=>$profile->tour_location_id,
+                'tour_location_id' => $profile->tour_location_id,
                 'membership' => $profile->tour_plan,
                 'start_date' => $profile->location->start_date->format('d-m-Y'),
                 'end_date' => $profile->location->end_date->format('d-m-Y'),
@@ -1004,43 +988,43 @@ class TourController extends Controller
             $escort_ids[] = $profile->escort_id;
         }
         $checkoutData = [];
-        foreach($data  as $key=>$listing){
+        foreach ($data  as $key => $listing) {
             $index = date('Ymd', strtotime($listing['start_date'])) . rand(100, 999);
             $checkoutData[$index] = [
-                'escort_id'=>$listing['escort_id'],
-                'tour_location_id'=>$listing['tour_location_id'],
-                'start_date'=>$listing['start_date'],
-                'end_date'=>$listing['end_date'],
-                'membership'=>$listing['membership']
+                'escort_id' => $listing['escort_id'],
+                'tour_location_id' => $listing['tour_location_id'],
+                'start_date' => $listing['start_date'],
+                'end_date' => $listing['end_date'],
+                'membership' => $listing['membership']
             ];
         }
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
         session()->put('tour_checkout', $checkoutData);
-        return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type'));
+        return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type', 'type'));
     }
 
-    public function validateDateRange(Request $request){
+    public function validateDateRange(Request $request)
+    {
         try {
             $response['success'] = false;
             $startDate = $request->startDate;
             $endDate = $request->endDate;
             $userId = auth()->user()->id;
 
-            $conflictExists = Tour::where('user_id',$userId)
-            ->with('locations')
-            ->whereHas('locations', function ($query) use ($startDate, $endDate) {
-                $query->overlapping($startDate, $endDate);
-            })
-            ->orderByDesc('id')
-            ->first();
+            $conflictExists = Tour::where('user_id', $userId)
+                ->with('locations')
+                ->whereHas('locations', function ($query) use ($startDate, $endDate) {
+                    $query->overlapping($startDate, $endDate);
+                })
+                ->orderByDesc('id')
+                ->first();
 
-            if($conflictExists){
+            if ($conflictExists) {
                 $response['success'] = true;
-                $response['message'] = "You already have a <a class='custom_links_design' href='".route('escort.store.tour', $conflictExists->id)."' target='_blank'>{$conflictExists->name}</a> tour booked from {$conflictExists->locations->min('start_date_formatted')} to {$conflictExists->locations->max('end_date_formatted')}.";
+                $response['message'] = "You already have a <a class='custom_links_design' href='" . route('escort.store.tour', $conflictExists->id) . "' target='_blank'>{$conflictExists->name}</a> tour booked from {$conflictExists->locations->min('start_date_formatted')} to {$conflictExists->locations->max('end_date_formatted')}.";
             }
 
             return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -1049,21 +1033,20 @@ class TourController extends Controller
         }
     }
 
-    public function getTourLocations(Request $request){
+    public function getTourLocations(Request $request)
+    {
         try {
             $response['success'] = false;
             $tourId = $request->tour_id;
-            $conditions = $request->module=='pinup'?['tour_id'=>$tourId, 'is_pinup'=>'0']:['tour_id'=>$tourId];
+            $conditions = $request->module == 'pinup' ? ['tour_id' => $tourId, 'is_pinup' => '0'] : ['tour_id' => $tourId];
             $locations = TourLocation::with('state')->where($conditions)->get();
-            if($locations->count() > 0){
+            if ($locations->count() > 0) {
                 $response['success'] = true;
                 $response['locations'] = $locations;
-            }
-            else{
+            } else {
                 $response['message'] = 'Not Available.';
             }
             return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -1071,20 +1054,20 @@ class TourController extends Controller
             ], 500);
         }
     }
-    
-    public function getTourLocationProfiles(Request $request){
+
+    public function getTourLocationProfiles(Request $request)
+    {
         try {
             $response['success'] = false;
             $tour_location_id = $request->tour_location_id;
             $tourLocation = TourLocation::find($tour_location_id);
-            $profiles = TourProfile::with('escort')->where(['tour_location_id'=>$tour_location_id])->get();
+            $profiles = TourProfile::with('escort')->where(['tour_location_id' => $tour_location_id])->get();
             $availableWeeks = $this->getPinupAvailableWeeks($tourLocation);
-            if($availableWeeks['success']){
+            if ($availableWeeks['success']) {
                 $response['success'] = true;
                 $response['profiles'] = $profiles;
                 $response['weeks'] = $availableWeeks['weeks'];
-            }
-            else{
+            } else {
                 $response['message'] = $availableWeeks['message'];
             }
             return response()->json($response);
@@ -1096,8 +1079,9 @@ class TourController extends Controller
         }
     }
 
-    protected function getPinupAvailableWeeks($tour_location){
-        try{
+    protected function getPinupAvailableWeeks($tour_location)
+    {
+        try {
             $start = Carbon::parse($tour_location->start_date)->startOfWeek(Carbon::MONDAY);
             $end = Carbon::parse($tour_location->end_date)->endOfWeek(Carbon::SUNDAY);
             $weeks = collect();
@@ -1106,9 +1090,9 @@ class TourController extends Controller
             while ($start->lte($end)) {
                 $weekStart = $start->copy();
                 $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
-        
+
                 // Only include if full week is within profile listing range
-            
+
                 if ($weekStart->gte(Carbon::parse($tour_location->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($tour_location->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
                     $weeks->push([
                         'start' => $weekStart->toDateString(),
@@ -1116,7 +1100,7 @@ class TourController extends Controller
                     ]);
                     $candidateStarts[] = $weekStart->toDateString();
                 }
-        
+
                 $start->addWeek();
             }
             if (empty($candidateStarts)) {
@@ -1126,15 +1110,15 @@ class TourController extends Controller
                     'message' => 'Sorry, no weeks are available during your selected listing dates.',
                 ];
             }
-            
+
             // Fetch week starts already booked for THIS location (state_id + city_id)
             $bookedStarts = EscortPinup::query()
-            ->where('state_id', $tour_location->state_id)
-            ->whereIn('start_date', $candidateStarts)   
-            ->pluck('start_date')                       
-            ->map(fn ($d) => Carbon::parse($d)->toDateString())
-            ->all();
-            $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
+                ->where('state_id', $tour_location->state_id)
+                ->whereIn('start_date', $candidateStarts)
+                ->pluck('start_date')
+                ->map(fn($d) => Carbon::parse($d)->toDateString())
+                ->all();
+            $available = $weeks->reject(fn($w) => in_array($w['start'], $bookedStarts));
             return [
                 'success' => true,
                 'weeks' => $available->values(),
@@ -1148,7 +1132,5 @@ class TourController extends Controller
         }
     }
 
-    public function registerTourPinup(Request $request){
-
-    }
+    public function registerTourPinup(Request $request) {}
 }
