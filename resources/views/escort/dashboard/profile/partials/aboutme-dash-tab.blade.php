@@ -415,7 +415,7 @@
                                 $savedAddresses = $loginAccount->additionalInfo->where('type', 'address');
                                 $hasAddresses = $savedAddresses->isNotEmpty();
                             @endphp
-
+                            
                             <div class="form-group row tab-about-me-row-padding">
                                 <label class="col-sm-2 font-weight-500 small-icon" for="address">
                                     Street Address:
@@ -436,7 +436,7 @@
                                             <option value="">— Choose a Street Address —</option>
                                             @foreach ($savedAddresses as $addr)
                                                 <option value="{{ $addr->value }}"
-                                                    {{ $currentAddress === $addr->value ? 'selected' : '' }}>
+                                                    {{ $currentAddress == $addr->short_desc ? 'selected' : '' }}>
                                                     {{ $addr->value }}
                                                 </option>
                                             @endforeach
