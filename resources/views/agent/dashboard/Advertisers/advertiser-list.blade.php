@@ -543,7 +543,7 @@
                 </a>
                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" style="height:auto !important;">
                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)"  onclick="return switchAccount('${row.switch_account_route}', '${row.switch_confirm_message}');">
-                    <i class="fa fa-user"></i> Switch To</a>
+                    <i class="fa fa-random"></i> Switch To</a>
                    <!--a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#createProfileModal"><i class="fa fa-plus"></i> Create Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pen"></i> Edit Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/profile/list/${row.member_id}"><i class="fa fa-list"></i> List Profile</a>

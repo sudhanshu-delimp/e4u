@@ -52,7 +52,8 @@ class ImpersonateController extends Controller
 
             session()->forget([
                 'parent_agent_id',
-                'is_impersonated'
+                'is_impersonated',
+                'switch_for',
             ]);
 
             return redirect('/agent-dashboard')->with('success', 'Successfully back to the agent account');
