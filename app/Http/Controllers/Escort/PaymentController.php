@@ -30,9 +30,11 @@ class PaymentController extends Controller
         });
     }
 
-    protected function getAmount($amount = 0.00)
+    protected function getAmount($action = null)
     {
-        if (empty($amount)) {
+        $amount = 0.00;
+
+        if (in_array($action, ['listing', 'extend'])) {
             if (session()->has('checkout')) {
                 $checkout = session()->get('checkout');
                 foreach ($checkout as $startDate => $item) {
@@ -41,7 +43,7 @@ class PaymentController extends Controller
                     $amount = $amount + $total_rate;
                 }
             }
-
+        } else {
             if (session()->has('tour_checkout')) {
                 $checkout = session()->get('tour_checkout');
                 foreach ($checkout as $startDate => $item) {
@@ -88,9 +90,11 @@ class PaymentController extends Controller
             }
 
             $sub_total_amount = match ($action) {
-                'listing' => $this->getAmount(),
-                'pinup' => $this->getAmount(getPinupFee()),
-                'bump-up' => $this->getAmount(getBumpupFee()),
+                'listing' => $this->getAmount($action),
+                'extend' => $this->getAmount($action),
+                'tour' => $this->getAmount($action),
+                'pinup' => getPinupFee(),
+                'bumpUp' => getBumpupFee(),
                 default => null,
             };
 
@@ -214,21 +218,29 @@ class PaymentController extends Controller
 
             switch ($benefit_token['action']) {
                 case 'listing': {
-                        if (session()->has('checkout') && $benefit_token['action'] == 'listing') {
-                            $this->saveCheckout($payment);
-                            $payment_service = 'Profile Listing';
-                            $redirect_url = route('escort.account.listing_success');
-                        }
-
-                        if (session()->has('tour_checkout') && $benefit_token['action'] == 'listing') {
-                            $this->saveCheckout($payment);
-                            $payment_service = 'Tour';
-                            $redirect_url = route('escort.account.listing_success');
-                        }
+                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $payment_service = 'Profile Listing';
+                        $redirect_url = route('escort.account.listing_success');
+                    }
+                    break;
+                case 'tour': {
+                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $payment_service = 'Tour';
+                        $redirect_url = route('escort.account.listing_success');
+                    }
+                    break;
+                case 'extend': {
+                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $payment_service = 'Profile Extend';
+                        $redirect_url = route('escort.account.listing_success');
                     }
                     break;
                 case 'pinup': {
-                        $payment_service = 'Pin Up';
+                        $payment_service = 'Profile Pin Up';
+                    }
+                    break;
+                case 'bumpUp': {
+                        $payment_service = 'Profile Bump Up';
                     }
                     break;
 
@@ -245,7 +257,7 @@ class PaymentController extends Controller
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
 
-            if ($benefit_token['action'] === 'listing') {
+            if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {
                 $earn_days = floor($benefit_token['total_amount'] / 200);
                 if ($earn_days > 0) {
                     $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
@@ -265,7 +277,6 @@ class PaymentController extends Controller
                 'payment_id' => encrypt($payment->id),
                 'redirect_url' => $redirect_url
             ]);
-            
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
@@ -286,11 +297,11 @@ class PaymentController extends Controller
         }
     }
 
-    public function saveCheckout($payment = null)
+    public function saveCheckout($action = null, $payment = null)
     {
 
         if (session()->has('checkout') || session()->has('tour_checkout')) {
-            $checkout = session()->has('checkout') ? session()->get('checkout') : session()->get('tour_checkout');
+            $checkout = in_array($action, ['listing', 'extend']) ? session()->get('checkout') : session()->get('tour_checkout');
             $netPaidAmount = 0.00;
             foreach ($checkout as $startDate => $item) {
                 $escortDetail = getEscortDetail($item['escort_id']);
