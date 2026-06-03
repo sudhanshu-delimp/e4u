@@ -2,7 +2,7 @@
   @php 
  $hideNavBar = false;
  if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true){
-    $hideNavBar = true;
+    $hideNavBar = false;
  }
  @endphp
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
