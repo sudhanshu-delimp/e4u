@@ -365,7 +365,7 @@
                                                         <th>Address</th>
                                                         <th>Business No.</th>
                                                         <th>Mobile No.</th>
-                                                        <th>Email</th>
+                                                        <!-- <th>Email</th> -->
                                                         <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
@@ -867,7 +867,7 @@
             { data: 'business_address', name: 'business_address', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
+           // { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
             
     ],
@@ -1330,6 +1330,8 @@
                 'action': 'make',
                 'text': 'Activate This Account.'
             })) {
+
+           
             ajaxRequest({
                 url: "{{ route('center.action-account') }}",
                 method: 'POST',
@@ -1359,6 +1361,7 @@
                 'action': 'make',
                 'text': 'Grant Access to This Account.'
             })) {
+            swal_waiting_popup({'title':'Granting Permission'});      
             ajaxRequest({
                 url: "{{ route('center.action-account') }}",
                 method: 'POST',
