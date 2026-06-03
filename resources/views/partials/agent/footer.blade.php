@@ -213,8 +213,31 @@
         $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
             e.stopPropagation(); 
         });
-
-
         </script>  
+
+           
+        @if (Session::has('success'))
+            <script>
+                Swal.fire({
+                    title: '{{ Session::get('title') }}',
+                    text: '{{ Session::get('success') }}',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            </script>
+        @endif
+
+        @foreach (['warning', 'info', 'error'] as $alert)
+            @if (Session::has($alert))
+                <script>
+                    Swal.fire({
+                        title: '{{ ucfirst($alert) }}',
+                        text: '{{ Session::get($alert) }}',
+                        icon: '{{ $alert }}',
+                        confirmButtonText: 'OK'
+                    });
+                </script>
+            @endif
+        @endforeach
         </body>
         </html>

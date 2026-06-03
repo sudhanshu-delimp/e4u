@@ -1,7 +1,7 @@
  @php 
  $hideNavBar = false;
  if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true){
-    $hideNavBar = true;
+    $hideNavBar = false;
  }
  @endphp
 <!-- Sidebar -->
@@ -47,6 +47,13 @@
 
                     <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
                         information</span></a>
+                         <a class="collapse-item" href="{{ route('center.account.edit') }}">
+
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+
+                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
+                        Account</span></a>
+                        
                @else         
                 <a class="collapse-item" href="{{ route('center.account.edit') }}">
 

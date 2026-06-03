@@ -130,6 +130,78 @@
         width:18px;
     }
 </style>
+
+<style>
+    .stage-card {
+    position: relative;
+    list-style: none;
+    background: #0C223D;
+    color: #fff;
+
+    padding: 14px 15px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: 0.3s ease;
+}
+
+.stage-card.default-card {
+    background: #ff3c5f;
+}
+
+.stage-card a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.stage-close span {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hover-action {
+    position: absolute;
+    bottom: -42px;
+    left: 10px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.2s ease;
+
+    z-index: 99;
+}
+
+.stage-card:hover .hover-action {
+    opacity: 1;
+    visibility: visible;
+}
+
+.default-toggle-btn {
+    border: none;
+    background: #ff3c5f;
+    color: #fff;
+
+    padding: 8px 14px;
+    border-radius: 4px;
+
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.stage-card.default-card .default-toggle-btn {
+    background: #0C223D;
+}
+.stage-card.default-card {
+    background: #ff3c5f !important;
+}
+</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -277,6 +349,12 @@
 @push('script')
 
 <script src="{{asset('js/escort/dashboard/profile/additional_information/additional_information.js')}}"></script>
+
+<script type="module">
+    import 'https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js';
+</script>
+
+
 <script>
     $("#modal-title").text('');
    $('#select2-dropdown').select2({

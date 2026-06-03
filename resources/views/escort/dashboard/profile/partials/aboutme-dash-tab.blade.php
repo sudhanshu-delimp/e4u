@@ -208,9 +208,9 @@
                                 $isNewProfile = Str::contains(request()->path(), 'create-profile');
                                 $isCreator = !empty($user->profile_creator) && in_array(1, $user->profile_creator);
                                 $showSelect = ($isCreator && $isNewProfile) || (isset($profile_type) && !$isNewProfile);
-                                $currentName = $escort->name ?? '';
+                                $currentName = $escort->name ?? $user->default_escort_name;
                                 $editSuffix = !$isNewProfile && $currentName ? $currentName . '-edit' : '';
-                                //dd($loginAccount->additionalInfo->where('type', 'address'));
+
                             @endphp
                             <div class="form-group row tab-about-me-row-padding">
                                 <label class="col-sm-2 font-weight-500" for="stageName">
@@ -411,11 +411,11 @@
                             </div> --}}
 
                             @php
-                                $currentAddress = $escort->address ?? '';
+                                $currentAddress = $escort->address ?? additional_information(Auth::id(), 'address');
                                 $savedAddresses = $loginAccount->additionalInfo->where('type', 'address');
                                 $hasAddresses = $savedAddresses->isNotEmpty();
                             @endphp
-
+                            
                             <div class="form-group row tab-about-me-row-padding">
                                 <label class="col-sm-2 font-weight-500 small-icon" for="address">
                                     Street Address:
@@ -436,7 +436,7 @@
                                             <option value="">— Choose a Street Address —</option>
                                             @foreach ($savedAddresses as $addr)
                                                 <option value="{{ $addr->value }}"
-                                                    {{ $currentAddress === $addr->value ? 'selected' : '' }}>
+                                                    {{ $currentAddress == $addr->short_desc ? 'selected' : '' }}>
                                                     {{ $addr->value }}
                                                 </option>
                                             @endforeach
@@ -2498,17 +2498,25 @@
                 data-parsley-required-message="Enter title"> --}}
 
             @php
-                $currentTitle = $escort->about_title ?? '';
+                $currentTitle = $escort->about_title ?? additional_information(Auth::id(), 'title');
                 $savedTitles = $loginAccount->additionalInfo->where('type', 'title');
                 $hasTitles = $savedTitles->isNotEmpty();
             @endphp
 
+            @php
+                $currentNarrations = additional_information(Auth::id(), 'narration');
+
+                $savedNarrations = $loginAccount->additionalInfo->where('type', 'narration');
+            @endphp
+
+
             <div class="form-group row tab-about-me-row-padding">
-                <label class="col-sm-2 font-weight-500" for="title">
-                    Title:
-                </label>
+
                 <div class="col-sm-6">
                     @if ($hasTitles)
+                        <label class="font-weight-500" for="title">
+                            Title:
+                        </label>
                         {{-- Dropdown: existing saved titles --}}
                         <select id="title" name="about_title" onclick="titleInput(this)"
                             class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
@@ -2544,24 +2552,13 @@
 
                 </div>
 
-                <div class="col-sm-4">
-                    <span id="title-errors"></span>
-                </div>
-            </div>
-
-            @php
-                $savedNarrations = $loginAccount->additionalInfo->where('type', 'narration');
-            @endphp
-
-
-            <div class="form-group row tab-about-me-row-padding">
-                <label class="col-sm-2 font-weight-500" for="narration">
-                    Narration:
-                </label>
-
                 <div class="col-sm-6">
+
+                    <label class="font-weight-500" for="narration">
+                        Narration:
+                    </label>
                     {{-- Dropdown: existing saved titles --}}
-                    <select id="narration" name="about_narration" 
+                    <select id="narration" name="about_narration"
                         class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default"
                         title="Narration" data-parsley-group="group_one"
                         data-parsley-errors-container="#narration-errors">
@@ -2569,19 +2566,20 @@
                         <option value="">— Choose Your Narration —</option>
 
                         @foreach ($savedNarrations as $narration)
-                            <option value="{{ $narration->short_desc }}"
-                                {{-- {{ $currentTitle === $narration->shart_desc ? 'selected' : '' }} --}}
-                                >
+                            <option value="{{ $narration->short_desc }} "
+                                {{ $currentNarrations == $narration->short_desc ? 'selected' : '' }}>
                                 {{ $narration->short_desc }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-
-                <div class="col-sm-4">
-                    <span id="narration-errors"></span>
-                </div>
             </div>
+
+
+
+
+
+
             <div class="row">
                 <div class="col-12">
                     <textarea id="editor1" name="about" data-parsley-maxlength="2500"
@@ -2696,11 +2694,7 @@
     <script>
         let isDropTriggered = false;
         var profileId = parseInt(
-            '{{ request()->segment(2) ==
-            '
-                                                                profile '
-                ? $escort->id
-                : 0 }}'
+            '{{ request()->segment(2) == 'profile' ? $escort->id : 0 }}'
         );
 
         function initDragDrop() {
@@ -3058,17 +3052,17 @@
         }
 
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            //console.log(reader);
-            var imgbytes = input.files[0].size;
-            var imgkbytes = Math.round(parseInt(imgbytes) / 1024);
-            var imgMB = Math.round(parseInt(imgkbytes) / 1024);
-            if (imgMB <= 4) {
-                reader.onload = function(e) {
-                    $('#blah' + input.id[3])
-                        .attr('src', e.target.result);
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                //console.log(reader);
+                var imgbytes = input.files[0].size;
+                var imgkbytes = Math.round(parseInt(imgbytes) / 1024);
+                var imgMB = Math.round(parseInt(imgkbytes) / 1024);
+                if (imgMB <= 4) {
+                    reader.onload = function(e) {
+                        $('#blah' + input.id[3])
+                            .attr('src', e.target.result);
 
                     };
                 } else {
@@ -3153,6 +3147,8 @@
             }
             return true;
         }
+
+
     </script>
 @endpush
 <style>

@@ -25,7 +25,7 @@ use App\Models\Purchase;
 use App\Models\State;
 use App\Models\User;
 use App\Models\AdvertiserDiscount;
-
+use App\Models\EscortAdditionalInformation;
 use App\Sms\SendSms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -2423,6 +2423,24 @@ if (!function_exists('canManage')) {
 }
 
 
+if (!function_exists('additional_information')){
+    function additional_information($user_id, $type, $value=null)
+    {
+        if($value){
+            return EscortAdditionalInformation::where('user_id', $user_id)
+                    ->where('type', $type)
+                    ->where('make_default', 1)
+                    ->value('value') ?? '';
+        }else{
+            return EscortAdditionalInformation::where('user_id', $user_id)
+            ->where('type', $type)
+            ->where('make_default', 1)
+            ->value('short_desc') ?? '';
+        }
+   
+    }
+}
+
 if (!function_exists('is_parent_massage_user_switch')) {
     function is_parent_massage_user_switch()
     {
@@ -2433,3 +2451,4 @@ if (!function_exists('is_parent_massage_user_switch')) {
         }
     }
 }
+
