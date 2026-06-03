@@ -3,7 +3,8 @@
 namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class Tour extends Model
 {
@@ -84,6 +85,29 @@ class Tour extends Model
     public function transactions()
     {
         return $this->morphMany(CreditTransaction::class, 'transactionable');
+    }
+
+    /**
+     * Indicates if the model should have created_by and updated_by fields.
+     *
+     * @var bool
+     */
+    public $createdUpdatedBy = true;
+
+    /**
+     * Get the created by that owns the details.
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    /**
+     * Get the updated by that owns the details.
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
 }
 

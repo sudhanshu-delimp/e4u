@@ -189,7 +189,6 @@ class OtherCenterController extends Controller
 
             try {
             Mail::to($user->email)->send( new OtherCentreRegistrationEmail($user,$new_password));
-            Log::info('Other Massage mail sended');
             } 
             catch (Exception $e) {
             Log::error('Other Massage Center Email sending failed: ' . $e->getMessage());

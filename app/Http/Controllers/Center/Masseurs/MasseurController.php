@@ -453,7 +453,8 @@ class MasseurController extends AppController
     public function edit_masseur(Request $request, $id)
     {
          if($request->isImpersonated && $id) {
-           $masseur = Masseur::where('id', $id)->where('created_by', $request->impersonatedId)->first();
+           //$masseur = Masseur::where('id', $id)->where('created_by', $request->impersonatedId)->first();
+           $masseur = Masseur::where('id',$id)->first(); 
            if(!$masseur){
              return redirect()->route('center.dashboard')->with('error', accessDeniedMsg());
            }
@@ -1180,7 +1181,9 @@ class MasseurController extends AppController
     public function  get_all_masseur_list(Request $request)
     {
         if($request->isImpersonated) {
-            $masseurs  = Masseur::where('user_id', auth()->user()->id)->where('created_by', $request->impersonatedId)->get();
+            //$masseurs  = Masseur::where('user_id', auth()->user()->id)->where('created_by', $request->impersonatedId)->get();
+            $masseurs  = Masseur::where('user_id', auth()->user()->id)->get(); 
+
         } else {
            $masseurs  = Masseur::where('user_id', auth()->user()->id)->get(); 
         }

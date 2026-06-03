@@ -120,9 +120,9 @@ class MassageController extends Controller
             ])
             ->where('user_id', auth()->user()->id)
             ->where('default_setting', 0);
-            if($request->isImpersonated) {
+           /*  if($request->isImpersonated) {
                 $massage = $massage->where('created_by', $request->impersonatedId);
-            }
+            } */
             $massage = $massage->withCount(['mainPurchase as is_active']) 
             ->orderByDesc('is_active') 
             ->orderBy('id', 'desc')   
@@ -354,12 +354,12 @@ class MassageController extends Controller
        
         $user = auth()->user();
 
-        if($request->isImpersonated) {
+        /* if($request->isImpersonated) {
             $profile = MassageProfile::where('id', $id)->where('created_by', $request->impersonatedId)->first();
             if(!$profile){
                  return redirect()->route('center.dashboard')->with('error', accessDeniedMsg());
             }
-        }
+        } */
 
         
         ########## default profile data ############
@@ -1496,9 +1496,9 @@ class MassageController extends Controller
             ])
             ->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['listed','pending'])
-            ->when($request->isImpersonated, function ($query) use ($request) {
+            /* ->when($request->isImpersonated, function ($query) use ($request) {
                 $query->where('created_by', $request->impersonatedId);
-            })
+            }) */
             ->orderByRaw("CASE 
                 WHEN status = 'listed' THEN 1 
                 WHEN status = 'pending' THEN 2 
@@ -1581,9 +1581,9 @@ class MassageController extends Controller
             $today = Carbon::today();
             $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['expire'])
-            ->when($request->isImpersonated, function ($query) use ($request) {
+            /* ->when($request->isImpersonated, function ($query) use ($request) {
                 $query->where('created_by', $request->impersonatedId);
-            })
+            }) */
             ->get();
 
         

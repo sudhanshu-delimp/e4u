@@ -23,7 +23,6 @@
                 @include('partials.center.child_navigation')
                 @endif
                 
-                <div>@include('flash-message')</div>
                 @yield('content')
 
             </div>
