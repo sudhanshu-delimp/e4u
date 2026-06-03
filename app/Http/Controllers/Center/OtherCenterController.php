@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddMassageCentre;
+use App\Mail\MessageCentr\OtherCentreRegistrationEmail;
 use App\Models\User;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 use App\Repositories\Escort\AvailabilityInterface;
@@ -14,6 +15,9 @@ use App\Repositories\User\UserInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OtherCenterController extends Controller
 {
@@ -152,7 +156,7 @@ class OtherCenterController extends Controller
 
     public function account_action(Request $request)
     {
-            $user = User::where('id',$request->id)->first();
+        $user = User::where('id',$request->id)->first();
 
         if($request->id && $request->request_type && $request->request_type=='suspend')
         {
@@ -177,8 +181,19 @@ class OtherCenterController extends Controller
                 return Success_response([],'This Account Already Acccess Granted ',200); 
             }
             
+            $new_password = 'e4u' . random_int(100000, 999999);
+
             $user->is_access_granted = 1;
+            $user->password =  Hash::make($new_password);
             $response = $user->save();
+
+            try {
+            Mail::to($user->email)->send( new OtherCentreRegistrationEmail($user,$new_password));
+            Log::info('Other Massage mail sended');
+            } 
+            catch (Exception $e) {
+            Log::error('Other Massage Center Email sending failed: ' . $e->getMessage());
+            }
 
             if($response)
             return Success_response([],'Account Granted Successfully',200); 

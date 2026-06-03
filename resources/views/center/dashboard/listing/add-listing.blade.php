@@ -571,6 +571,10 @@ function formatIndianNumber(value) {
     return formatted + decimalPart;
 }
 
+  function parseDate(dateStr) {
+    let [day, month, year] = dateStr.split('-');
+    return new Date(year, month - 1, day);
+    }
 
 $(".save_profile_btn").click(function(){
 
@@ -586,14 +590,19 @@ $(".save_profile_btn").click(function(){
     let start = row.find('.profile_start').val();
     let end = row.find('.profile_end').val();
 
+     console.log(start+'=========='+end);
+
     // safety check
     if (!start || !end) {
         alert("Please select start and end date");
         return;
     }
 
-    let startDate = new Date(start);
-    let endDate = new Date(end);
+  
+    let startDate = parseDate(start);
+    let endDate = parseDate(end);
+
+   
 
     let days = Math.ceil((endDate - startDate) / (1000*60*60*24)) + 1;
     let membership_id = 5;

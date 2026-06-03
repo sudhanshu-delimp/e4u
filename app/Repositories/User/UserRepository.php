@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Mail\MessageCentr\OtherCentreRegistrationEmail;
 use App\Models\AccountSetting;
 use App\Models\Escort;
 use App\Models\MassageProfile;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Schema;
 
 class UserRepository extends BaseRepository implements UserInterface
@@ -618,6 +620,8 @@ class UserRepository extends BaseRepository implements UserInterface
                     $escort->default_setting = 1;
                     $escort->save();
                     }
+
+                
             }
             return [ 'status' => true, 'message' => 'New Centre added successfully.'];
         } 
