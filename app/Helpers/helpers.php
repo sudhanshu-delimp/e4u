@@ -38,6 +38,17 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+if (!function_exists('generateReferenceNo')) {
+    function generateReferenceNo(string $modelClass): string
+    {
+        $lastRecord = $modelClass::latest('id')->first();
+
+        $nextId = $lastRecord ? $lastRecord->id + 1 : 1;
+
+        return now()->format('Ymd') . str_pad($nextId, 5, '0', STR_PAD_LEFT);
+    }
+}
+
 if (!function_exists('old_calculateTotalFee')) {
     function old_calculateTotalFee($plan = 0, $days = 0)
     {

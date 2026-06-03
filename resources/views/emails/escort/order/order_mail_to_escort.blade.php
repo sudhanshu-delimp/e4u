@@ -22,7 +22,7 @@
                                             Order Confirmation - Products
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['ref'] ?? '' }}<br>
+                                            Ref: {{ $data['id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
 
                                             <br>
@@ -53,7 +53,7 @@
                             <p style="margin: 15px 0;">
                                 If you do not receive your Products within <strong>72 hours</strong>, please lodge a
                                 Support Ticket by logging onto your Dashboard and quoting your reference number
-                                <strong>{{ $data['ref'] }}</strong>.
+                                <strong>{{ $data['id'] }}</strong>.
                             </p>
 
                             <p style="margin: 15px 0;">
