@@ -61,7 +61,7 @@ Route::post('/send-payment-receipt-escort', [EscortAccountController::class, 'se
 Route::get('/', [EscortController::class, 'index'])->name('escort.dashboard');
 Route::get('/list/{type}', [EscortController::class, 'escortList'])->name('escort.list');
 Route::get('/pinup-available-weeks/{escort}', [PinUpsController::class, 'pinup_available_weeks'])->name('escort.pinup_available_weeks');
-Route::post('/pinup-register', [PinUpsController::class, 'register'])->name('pinup.register');
+Route::post('/pinup-register/{action?}', [PinUpsController::class, 'register'])->name('pinup.register');
 Route::post('/bumpup-register', [EscortController::class, 'bumpup_register'])->name('escort.bumpup_register');
 Route::post('/get-upgrade-amount', [EscortController::class, 'getUpgradeAmount'])->name('escort.upgrade_amount');
 Route::post('/upgrade-list', [EscortController::class, 'upgradeList'])->name('escort.upgrade_list');
@@ -69,7 +69,7 @@ Route::get('/pinup-summary/{escort}', [PinUpsController::class, 'pinupSummary'])
 Route::get('/list/data-table/{type?}', [EscortController::class, 'dataTable'])->name('escort.list.dataTable');
 Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTableListing'])->name('escort.list.dataTableListing');
 
-Route::get('/listing/add', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
+Route::get('/listings/add', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
 Route::post('/listing/checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
 Route::get('/listing/success', [EscortController::class, 'listing_success'])->name('escort.account.listing_success');
 
@@ -134,14 +134,14 @@ Route::post('policy/{id}', [UpdateController::class, 'updatePolicy'])->name('esc
 Route::post('profile/{id}', [UpdateController::class, 'storeAboutMe'])->name('escort.about.me');
 /////////settings
 Route::get('profile-information', [ProfileInformationController::class, 'showAboutMe'])->name('escort.profile.information');
-Route::post('settings-information',[ProfileInformationController::class,'storeAboutMe'])->name('escort.settings.about.me');
-Route::post('settings-information/sort-stage-name',[ProfileInformationController::class,'sortByStageNameAboutMe'])->name('escort.settings.sort-stage-name.about.me');
-Route::post('settings-my-rates',[ProfileInformationController::class,'storeRates'])->name('escort.settings.rate');
-Route::post('settings-availability',[ProfileInformationController::class,'storeAvailability'])->name('escort.settings.availability');
-Route::post('settings-services',[ProfileInformationController::class,'storeServices'])->name('escort.settings.services');
-Route::post('settings-socials-link',[ProfileInformationController::class,'storeSocialsLink'])->name('escort.settings.social');
-Route::post('available-playmates',[ProfileInformationController::class,'escortplaymate'])->name('escort.playmate.check');
-Route::post('available-playmates-check',[ProfileInformationController::class,'escortplaymate'])->name('escort.availabe-playmate.check');
+Route::post('settings-information', [ProfileInformationController::class, 'storeAboutMe'])->name('escort.settings.about.me');
+Route::post('settings-information/sort-stage-name', [ProfileInformationController::class, 'sortByStageNameAboutMe'])->name('escort.settings.sort-stage-name.about.me');
+Route::post('settings-my-rates', [ProfileInformationController::class, 'storeRates'])->name('escort.settings.rate');
+Route::post('settings-availability', [ProfileInformationController::class, 'storeAvailability'])->name('escort.settings.availability');
+Route::post('settings-services', [ProfileInformationController::class, 'storeServices'])->name('escort.settings.services');
+Route::post('settings-socials-link', [ProfileInformationController::class, 'storeSocialsLink'])->name('escort.settings.social');
+Route::post('available-playmates', [ProfileInformationController::class, 'escortplaymate'])->name('escort.playmate.check');
+Route::post('available-playmates-check', [ProfileInformationController::class, 'escortplaymate'])->name('escort.availabe-playmate.check');
 //Additonaly Information
 Route::post('my-information/stage-name/store', [ProfileInformationController::class, 'storeEscortStageName'])->name('escort.stagename.store');
 Route::post('my-information/stage-name/delete', [ProfileInformationController::class, 'deleteEscortStageName'])->name('escort.stagename.delete');
@@ -184,9 +184,7 @@ Route::post('escort-brb/add', [EscortBrbController::class, 'add'])->name('escort
 Route::post('escort-brb/inactive/{id}', [EscortBrbController::class, 'inactive'])->name('escort.brb.inactive');
 
 ////////////pagis
-/*Route::get('register-for-pin-up',function(){
-    return view('escort.dashboard.registerPinup.register-pin-up');
-});*/
+
 Route::get('view-archives', function () {
   return view('escort.dashboard.archives.view-archives');
 });
@@ -338,12 +336,13 @@ Route::get('my-wallet', [WalletController::class, 'index'])->name('escort.my_wal
 Route::get('wallet_transaction', [WalletController::class, 'transactionList'])->name('escort.wallet_transaction');
 
 #Payment Module
-Route::post('payments/process',[PaymentController::class, 'processPayment'])->name('escort.payment.process');
-Route::get('transaction-summary',[PaymentController::class, 'transactionSummary'])->name('escort.payment.transaction_summary');
-Route::get('get-transaction-summary',[PaymentController::class, 'transactionSummaryDatatable'])->name('escort.payment.transaction_summary.datatable');
-Route::post('payments/detail',[PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
-Route::get('payments/{payment}/print',[PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
-Route::post('payments/adjustment',[PaymentController::class, 'paymentAdjustment'])->name('payment.adjustment');
+Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('escort.payment.process');
+Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('escort.payment.transaction_summary');
+Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('escort.payment.transaction_summary.datatable');
+Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
+Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
+Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('payment.adjustment');
+// Route::post('apply/wallet',[PaymentController::class, 'applyWallet'])->name('apply.wallet');
 # Escort profile reviews
 Route::get('view-reviews', [EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax', [EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');
@@ -382,6 +381,7 @@ Route::prefix('concierge')->name('escort.')->group(function () {
   Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('orders');
   // Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
+  Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('order.details');
 });
 
 
@@ -531,9 +531,9 @@ Route::get('my-information', function () {
   return view('escort.dashboard.HowDone.my-information');
 })->name('escort.my-information');
 
-Route::get('listing', function () {
+Route::get('how-is-it-done/listings', function () {
   return view('escort.dashboard.HowDone.listings');
-})->name('escort.listing');
+})->name('escort.listings');
 
 Route::get('media', function () {
   return view('escort.dashboard.HowDone.media');

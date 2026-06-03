@@ -8,20 +8,25 @@ const next = document.getElementById("next");
 let currentStep = 1;
 let hasStarted = false; // 👈 NEW
 
-next.addEventListener("click", () => {
-    currentStep++;
-    if (currentStep > circles.length) currentStep = circles.length;
+if (next) {
+    next.addEventListener("click", () => {
+        currentStep++;
+        if (currentStep > circles.length) {
+            currentStep = circles.length;
+        }
+        update();
+    });
+}
 
-    hasStarted = true; // start animation after first move
-    update();
-});
-
-prev.addEventListener("click", () => {
-    currentStep--;
-    if (currentStep < 1) currentStep = 1;
-
-    update();
-});
+if (prev) {
+    prev.addEventListener("click", () => {
+        currentStep--;
+        if (currentStep < 1) {
+            currentStep = 1;
+        }
+        update();
+    });
+}
 
 function update() {
     circles.forEach((circle, index) => {

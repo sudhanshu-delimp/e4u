@@ -340,100 +340,57 @@
 
                             <table class="table2">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Type</th>
-                                        <th scope="col" style="border-left: 2px solid #000000;">Description</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col" style="border-left: 2px solid #000000;">Description</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                <tr>
 
-                                        <td>Platinum</td>
-                                        <td style="border-left: 2px solid #000000;">
-                                            Platinum Membership always ranks at the top of the Escort Listing page.
-                                            <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
-                                                detailing the salient points about you, such as your hourly rate,
-                                                services, gender, orientation, together with your rating are all included in the display.
-                                                  Grid view is the default Listing.</p>
-                                            <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
-                                                inforation about you, together with your rates, rating,
-                                                available to, verification and the introduction to your 'Who I am' are displayed.</p>
-                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos (optional). All of your Media is available individually or in a pop up.
-                                            </p>
-                                        </td>
-                                    </tr>
+                                    <td>Platinum<br>Gold<br>Silver</td>
+                                    <td style="border-left: 2px solid #000000;">
+                                        <p>Platinum Membership always ranks at the top of the Escort Listing Page, followed by Gold, Silver and then Free.</p>
+                                        <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Location, age, hourly rates, review
+                                            rating, available to, Services hourly rate summary, video availability, 
+                                            arrival and departure dates, and your 'Who I am' are included in the display. 
+                                            Add to Shortlist, add to Legbox, membership Type, and your Media Verification status are also included.</p>
+                                        <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Location, age, hourly rate,
+                                            services, gender, available to, and review rating are included in the display.  
+                                            Add to Shortlist, add to Legbox and your Media Verification status are also included.</p>
+                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your Thumbnail is
+                                            420px x 600px together with 6 additional photos and a video player. All photos and the video
+                                            can pop up.</p>
+                                    </td>
+                                </tr>
 
-                                    <tr>
+                                <td>Free</td>
+                                    <td style="border-left: 2px solid #000000;">
+                                        <p>Free Membership ranks behind Silver</p>
+                                        <p>Escort Listing Page: You will appear after paid listings in all Search Page
+                                            results and Profile shortlist displays.</p>
+                                        <p><b>Grid View:</b> Your Thumbnail photo, Stage Name, Verification status, Location, 
+                                            age, hourly rate, services, gender, orientation and view rating are included in the display.</p>
+                                        <p><b>List View:</b> Your Thumbnail photo, Stage Name, Verification status, rates, 
+                                            review rating, available to, My Playbox status, start and finish dates and your 'Who I am' are displayed.</p>
+                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Displayed is your 
+                                            Thumbnail and default galery images, video, availability, Rates, My Playmates, About Me, 
+                                            Statistics, Who Am I, My Service, Deposit details, together with policies, legal statements, Reviews and tips.</p>
+                                        <p>If you receive over a certain number of Profile views or telephone number
+                                            clicks during the free 14 day period you will be informed and notified to
+                                            upgrade to a paying Membership Type.</p>
+                                        <p>We do this to provide for the fairest distribution of leads between our Free
+                                            Members. If you do not elect to become a paying Member, your Profile will be
+                                            suspended. You will still be able to log onto your Account at any time to
+                                            upgrade your Membership Type.</p>
 
-                                        <td>Gold</td>
-                                        <td style="border-left: 2px solid #000000;">
-                                            Gold Membership ranks behind Platinum and before Silver.
-                                            <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
-                                                detailing the salient points about you, such as your hourly rate,
-                                                services, gender, orientation, together with your rating are all included in the display.
-                                                  Grid view is the default Listing.</p>
-                                            <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
-                                                inforation about you, together with your rates, rating,
-                                                available to, verification and the introduction to your 'Who I am' are displayed.</p>
-                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos (optional). All of your Media is available individually or in a pop up.
-                                            </p>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-
-                                        <td>Silver</td>
-                                        <td style="border-left: 2px solid #000000;">
-                                            Silver Membership ranks behind Gold and before Free.
-                                            <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
-                                                detailing the salient points about you, such as your hourly rate,
-                                                services, gender, orientation, together with your rating are all included in the display.
-                                                  Grid view is the default Listing.</p>
-                                            <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
-                                                inforation about you, together with your rates, rating,
-                                                available to, verification and the introduction to your 'Who I am' are displayed.</p>
-                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos (optional). All of your Media is available individually or in a pop up.
-                                            </p>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-
-                                        <td>Free</td>
-                                        <td style="border-left: 2px solid #000000;">
-                                            Free Membership ranks behind Silver and has limited display options.  On the Escort Listing page 
-                                                you will appear after paid Listings in all Search Page
-                                                results and Profile Shortlist displays.
-                                            <p><b>Grid View:</b>Your Thumbnail is displayed as a silhouette without any personal information about you other than
-                                                your name, hourly rate and your services being included in the display.
-                                            </p>
-                                                <p><b>List View:</b> Your Thumbnail is displayed as a silhouette with limited information being displayed.
-                                                The User must click into your Profile to view your Media.
-                                            </p>
-                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos (optional). All of your Media is available individually or in a pop up.</p>
-                                            <p>If you receive over a certain number of Profile views or telephone number
-                                                clicks during the free 14 day period you will be informed and notified to
-                                                upgrade to a paying Membership Type.</p>
-                                            <p>We do this to provide for the fairest distribution of leads between our Free
-                                                Members. If you do not elect to become a paying Member, your Profile will be
-                                                suspended. You will still be able to log onto your Account at any time to
-                                                upgrade your Membership Type for the Profile you have Listed as Free.</p>
-
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
-
+                                <p>If you upgrade your Membership Type you will not lose any remaining days you have paid
+                                for. They will be applied automatically if you do not continue at the higher Membership
+                                Type.</p>
 
                         </div>
                     </div>

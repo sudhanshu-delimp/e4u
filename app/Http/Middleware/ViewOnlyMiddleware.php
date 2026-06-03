@@ -17,32 +17,32 @@ class ViewOnlyMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        $exceptRoutes = [
-             'center.current-listing',
-             'center.past-listing',
-             'center.all-massager-list',
-             'center.switch-to-child'
-        ];
+                // $exceptRoutes = [
+                //      'center.current-listing',
+                //      'center.past-listing',
+                //      'center.all-massager-list',
+                //      'center.switch-to-child'
+                // ];
 
-        if ($request->routeIs($exceptRoutes)) {
-            return $next($request);
-        }
+                // if ($request->routeIs($exceptRoutes)) {
+                //     return $next($request);
+                // }
 
-        if (auth()->check() && !canManage()) 
-        {
-                if (!$request->isMethod('get')) {
+                // if (auth()->check() && !canManage()) 
+                // {
+                //         if (!$request->isMethod('get')) {
 
-                    if ($request->ajax()) {
+                //             if ($request->ajax()) {
 
-                        return response()->json([
-                            'success' => false,
-                            'message' => 'You are not authorized to perform this action.'
-                        ], 403);
+                //                 return response()->json([
+                //                     'success' => false,
+                //                     'message' => 'You are not authorized to perform this action.'
+                //                 ], 403);
 
-                    }
-                   abort(403, 'Unauthorized access.');
-                }
-        }
+                //             }
+                //            abort(403, 'Unauthorized access.');
+                //         }
+                // }
 
         return $next($request);
     }

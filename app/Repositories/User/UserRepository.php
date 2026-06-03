@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Mail\MessageCentr\OtherCentreRegistrationEmail;
 use App\Models\AccountSetting;
 use App\Models\Escort;
 use App\Models\MassageProfile;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Schema;
 
 class UserRepository extends BaseRepository implements UserInterface
@@ -599,6 +601,7 @@ class UserRepository extends BaseRepository implements UserInterface
             $user->phone = $data['phone'];
             $user->business_address = $data['business_address'];
             $user->business_number = $data['business_number'];
+            $user->contact_person = $data['contact_person'];
             $user->entity_name = $data['entity_name'];
             $user->created_at =  date('Y-m-d H:i:s');
             $user->contact_type =$data['contact_type'];
@@ -617,6 +620,8 @@ class UserRepository extends BaseRepository implements UserInterface
                     $escort->default_setting = 1;
                     $escort->save();
                     }
+
+                
             }
             return [ 'status' => true, 'message' => 'New Centre added successfully.'];
         } 
@@ -655,7 +660,10 @@ class UserRepository extends BaseRepository implements UserInterface
             if(isset($data['name']) || $data['name']!="")
             $user->entity_name = $data['entity_name'];
 
-           
+
+            if(isset($data['contact_person']) || $data['contact_person']!="")
+            $user->contact_person = $data['contact_person'];
+
             $user->contact_type =$data['contact_type'];
             $user->is_access_granted = $granted;
            

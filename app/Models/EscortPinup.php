@@ -21,6 +21,11 @@ class EscortPinup extends Model
         'utc_end_time',
     ];
 
+    public function paymentItems()
+    {
+        return $this->morphMany(PaymentItem::class, 'item');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -49,7 +54,7 @@ class EscortPinup extends Model
     public function scopeActive($query)
     {
         return $query->where('utc_start_time', '<=', Carbon::now('UTC'))
-        ->where('utc_end_time', '>=', Carbon::now('UTC'));
+            ->where('utc_end_time', '>=', Carbon::now('UTC'));
     }
 
     public static function latestActiveForCity(int $cityId): ?self
@@ -60,14 +65,15 @@ class EscortPinup extends Model
             ->whereHas('escort', function ($escortQuery) {
                 $escortQuery->whereDoesntHave('suspendProfile', function ($suspendQuery) {
                     $suspendQuery->where('utc_start_date', '<=', Carbon::now('UTC'))
-                                 ->where('utc_end_date', '>=', Carbon::now('UTC'));
+                        ->where('utc_end_date', '>=', Carbon::now('UTC'));
                 });
             })
             ->orderBy('utc_end_time', 'desc')
             ->first();
     }
 
-    public function getStatusAttribute(){
+    public function getStatusAttribute()
+    {
         $now = Carbon::now('UTC');
         if ($now->between($this->utc_start_time, $this->utc_end_time)) {
             return 'Current';

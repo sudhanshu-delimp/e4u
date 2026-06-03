@@ -232,36 +232,6 @@
         </script>  
 <script>
                 
-                var initJsDatePicker = function() {
-                var $inputs = $(".js_datepicker");
-                if ($inputs.length > 0) {
-                    $inputs.attr('placeholder', 'DD-MM-YYYY');
-                    $inputs.attr('autocomplete', 'off');
-                    $inputs.each(function() {
-                        let options = {
-                            dateFormat: "dd-mm-yy",
-                            changeMonth: true,
-                            changeYear: true,
-                            showAnim: "slideDown",
-                            onSelect: function(dateText) {
-                                $(this).trigger('change');
-                            }
-                        };
-                    // Start from today
-                    if ($(this).hasClass('min_today')) {
-                        options.minDate = 0;
-                    }
-                        $(this).datepicker(options);
-                    });
-                }
-            }
-
-            $(document).ready(function() {
-                initJsDatePicker();
-            });
-
-
-
                 window.App = {
                     userId: {{ auth()->id() }},
                     csrfToken: "{{ csrf_token() }}",
@@ -269,7 +239,45 @@
                 };
                 // console.log(window.App);
 
+
+                
+
             </script> 
+
+
+             @if(!canManage())
+             <script type="text/javascript">
+                 $(document).ready(function() {
+
+                    $('.save_profile_btn').css({'display':'none'});
+                    $('.resetdays-icon').css({'display':'none'});
+                    $('.remove-lang').css({'display':'none'});
+   
+
+                    $('#btn_add_brb').css({'display':'none'});
+                    $('#btn_suspend_profile').css({'display':'none'});
+                    $('#btn_extend_profile').css({'display':'none'});
+                    $('#btn_bumpup_profile').css({'display':'none'});
+
+
+                    $('.allow_only_numeric').prop({'disabled':true});
+
+                    $('input[type="number"]').prop('disabled', true);
+                    $('.my_service_anal .input_border').css({'background-color':'#fff'});
+                    $('.column_class').css({'display':'none'});
+                    $('.my_service_anal #span_id').css({'display':'none'});
+
+                    
+                   
+
+                    $('input[type="text"]').prop('disabled', true);
+                    $('select').prop('disabled', true);
+                    $('input[type="checkbox"]').prop('disabled', true);
+                    $('input[type="radio"]').prop('disabled', true);
+
+                 })
+             </script>
+             @endif
           
 
     </body>

@@ -16,7 +16,7 @@
     <!-- Divider -->
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    {{--  <li class="nav-item active">
         <a class="nav-link" href=" {{ route('center.dashboard') }}">
             <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -24,7 +24,8 @@
                     fill="white" />
             </svg>
             <span>Dashboard</span></a>
-    </li>
+    </li>  --}}
+   
 
     {{-- My Account --}}
     <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}" >
@@ -137,7 +138,7 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ canManage() ? '': 'd-none'}}" {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
+                        <a class="collapse-item " {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
                             href="{{ route('center.profile') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
                             <span>New Profile</span>
@@ -154,12 +155,12 @@
 
 
                 {{-- Masseurs --}}
-                <a class="nav-link collapsed {{ canManage() ? '': 'd-none'}}" href="#" data-toggle="collapse" data-target="#CenterMasseurs">
+                <a class="nav-link collapsed  href="#" data-toggle="collapse" data-target="#CenterMasseurs">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png') }}">
                     <span>Masseurs </span>
                 </a>
 
-                <div id="CenterMasseurs" class="collapse {{ canManage() ? '': 'd-none'}}"
+                <div id="CenterMasseurs" class="collapse"
                     
                     @if (in_array(request()->segment(2), ['create-new-masseur','archives-listing','update-masseur'] )) show @endif"
                     data-parent="#ProfileManagement">
@@ -182,14 +183,14 @@
                 </div>
 
                 {{-- Media Centre --}}
-                <a class="nav-link collapsed {{ canManage() ? '': 'd-none'}}" href="#" data-toggle="collapse" data-target="#CenterMedia">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMedia">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/media-centre.png') }}">
                     <span>Media</span>
                 </a>
 
                 <div id="CenterMedia"
                     class="collapse
-                   @if (request()->segment(2) == 'archive-view-photos' || request()->segment(3) == 'videos') show @endif {{ canManage() ? '': 'd-none'}}"
+                   @if (request()->segment(2) == 'archive-view-photos' || request()->segment(3) == 'videos') show @endif"
                     data-parent="#ProfileManagement">
 
                     <div class="py-0 collapse-inner rounded mb-2">

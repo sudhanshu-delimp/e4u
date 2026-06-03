@@ -15,6 +15,7 @@ class ProductController extends Controller
   {
 
     try {
+
       $products = Product::get();
 
       return view("escort.dashboard.Concierge.products", compact("products"));
@@ -38,16 +39,23 @@ class ProductController extends Controller
   {
     try {
       $ids = $request->ids ?? [];
-
+      $cart = $request->cart ?? [];
+      $finalCart = $request->finalCart ?? [];
       $query = Product::query();
       if (!empty($ids)) {
         $query = $query->whereIn('id', $ids);
       }
       $products = $query->get();
 
-      return response()->json([
-        'products' => $products
-      ]);
+      // Render Blade
+     
+        $html = view('admin.products.render', [
+            'products' => $products,
+            'cart' => $cart,
+            'finalCart' => $finalCart
+        ])->render();
+
+        return response()->json(['html' => $html]);
     } catch (Exception $e) {
       Log::error("get products" . $e->getMessage());
     }

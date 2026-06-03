@@ -430,3 +430,12 @@
         });
     });
 </script>
+
+
+
+
+@if(!canManage())
+<script>
+ window.location.href = '{{route("center.profile.information")}}';
+</script>
+@endif

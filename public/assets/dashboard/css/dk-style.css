@@ -571,6 +571,21 @@ span.menu-active {
     text-decoration: none;
 }
 
+.upgrade-btn {
+    background-color: #ff4500;
+    color: var(--white);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff4500;
+}
+
+.upgrade-btn:hover {
+    color: #fff;
+    background-color: #0c223dcf;
+    border: 1px solid #0c223dcf;
+    text-decoration: none;
+}
+
 .btn-bump-up {
     background-color: #36b9cc;
     border-color: #36b9cc;
@@ -11425,7 +11440,7 @@ border-top: 5px solid var(--peach);
 
 .pinup_brb_strip {
     position: absolute;
-    top: 80%;
+    top: 50%;
     left: 0px;
     right: 0px;
     color: #fff;
@@ -11435,7 +11450,7 @@ border-top: 5px solid var(--peach);
     font-size: clamp(12px, 5vw, 18px);
     font-weight: 600;
     margin-bottom: 0px;
-    transform: translate(0, -80%);
+    transform: translate(0, -50%);
 }
 
 .brb_icon {
@@ -11563,6 +11578,16 @@ border-top: 5px solid var(--peach);
     100% {
         width: 100%;
     }
+}
+
+.switch-profile {
+    background: #eff0f6;
+    padding: 6px;
+    border-radius: 100%;
+}
+
+.switch-profile img {
+    width: 28px;
 }
 
 
