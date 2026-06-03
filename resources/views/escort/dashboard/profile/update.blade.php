@@ -280,6 +280,11 @@
     @if (Session::has('message'))
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
+
+    @php
+     $currentNarrations = additional_information(Auth::id(), 'narration', 'value');
+
+    @endphp
 @endsection
 @push('script')
     <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
@@ -289,6 +294,7 @@
         window.App.escortId = '{{ $escort->id }}';
 
         var profile_gender = '{{ auth()->user()->gender }}';
+        var selectNarrations = '{{additional_information(Auth::id(), 'narration', 'value')}}';
 
 
 
@@ -1960,6 +1966,12 @@
 
         });
 
+
+
+
+
+
+
         $("body").on("click", "#save_change", function() {
             let profileName = $('input[name="profile_name"]').val();
             let field = $("#trigger-element").val();
@@ -1985,5 +1997,14 @@
         function toggleDeposit(type, show) {
             document.getElementById(type + '_input').style.display = show ? 'block' : 'none';
         }
+
+
+        CKEDITOR.on('instanceReady', function(evt) {
+            if (evt.editor.name === 'editor1') {
+                $('#narration').trigger('change');
+            }
+        });
+
+        
     </script>
 @endpush

@@ -128,7 +128,7 @@ class CreateController extends Controller
         $service = $this->service;
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
-        
+
         return view('escort.dashboard.profile.update',compact('defaultServiceIds','media', 'path','escort','service','availability','service_one','service_two','service_three','durations','user'));
     }
     public function agentIndex($id = null)
