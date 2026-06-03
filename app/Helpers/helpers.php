@@ -2422,7 +2422,6 @@ if (!function_exists('canManage')) {
     }
 }
 
-}
 
 if (!function_exists('additional_information')){
     function additional_information($user_id, $type, $value=null)
@@ -2452,3 +2451,4 @@ if (!function_exists('is_parent_massage_user_switch')) {
         }
     }
 }
+
