@@ -274,11 +274,11 @@
                                        
                                                 <!-- Details Table -->
                                                 <table class="table table-bordered mb-3">
-                                                   <tr><th>Business Name</th><td>${(rowData.business_name) ? rowData.business_name : 'NA'}</td></tr>
-                                                   <tr><th>Mobile</th><td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td></tr>
-                                                   <tr><th>Email</th><td>${(rowData.email) ? rowData.email : 'NA'}</td></tr>
-                                                   <tr><th>ABN</th><td>${(rowData.abn) ? rowData.abn : 'NA'}</td></tr>
-                                                   <tr><th>Address</th><td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td></tr>
+                                                   <tr><th><b>Business Name</b></th><td>${(rowData.business_name) ? rowData.business_name : 'NA'}</td></tr>
+                                                   <tr><th><b>Mobile</b></th><td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td></tr>
+                                                   <tr><th><b>Email</b></th><td>${(rowData.email) ? rowData.email : 'NA'}</td></tr>
+                                                   <tr><th><b>ABN</b></th><td>${(rowData.abn) ? rowData.abn : 'NA'}</td></tr>
+                                                   <tr><th><b>Address</b></th><td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td></tr>
                                                 </table>
                                        
                                                 

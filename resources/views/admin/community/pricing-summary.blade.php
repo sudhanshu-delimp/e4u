@@ -105,7 +105,7 @@
                                                         <li>
                                                             Discount only applies:
                                                         </li>
-                                                        <ol class="level-2">
+                                                        <ol class="level-2 mb-2">
                                                             <li>to a single transaction; and</li>
                                                             <li>from day 22 to all Advertisers.</li>
                                                         </ol>
@@ -121,7 +121,7 @@
                                         {{-- @include('partials.snippet.calculater_table') --}}
 
 
-                                        <div class="mt-2">
+                                        <div class="mt-2 card border-0 mb-0 pb-0">
                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                             <ol class="mb-0" type="1">
                                                 <li>
@@ -395,7 +395,7 @@
                                         </div>
                                        
 
-                                        <div class="mt-2">
+                                        <div class="mt-2 card border-0 mb-0 pb-0">
                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                             <ol class="mb-0" type="1">
                                                 <li>

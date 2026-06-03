@@ -57,6 +57,9 @@
         display: flex;
         justify-content: space-between;
     }
+    .modal-lg {
+        max-width: 600px !important;
+    }
 </style>
 @endsection
 @section('content')
