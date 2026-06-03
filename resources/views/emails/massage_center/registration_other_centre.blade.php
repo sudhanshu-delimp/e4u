@@ -46,12 +46,12 @@
 
 
                                 <tr>
-                                    <td style="font-weight: bold; padding: 10px 0px;">Login id / Mobile No:</td>
-                                    <td style="padding: 10px 0px 10px 10px">{{removeSpaceFromString($user->phone)}}</td>
+                                    <td colspan="2" style="font-weight: bold; padding: 10px 0px;">Login id / Mobile No : {{removeSpaceFromString($user->phone)}}</td>
+                                   
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; padding: 10px 0px;">Password:</td>
-                                    <td style="padding: 10px 0px 10px 10px">{{ $userpassword }}</td>
+                                    <td colspan="2" style="font-weight: bold; padding: 10px 0px;">Password : {{ $userpassword }}</td>
+                                   
                                 </tr>
                                 <!-- <tr>
                                     <td style="font-weight: bold; padding: 10px 0px;">Location:</td>
