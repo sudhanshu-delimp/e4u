@@ -599,7 +599,7 @@
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, Switch",
+                confirmButtonText: "Yes Switch",
                 cancelButtonText: "Cancel",
                 showDenyButton: false,
             });
