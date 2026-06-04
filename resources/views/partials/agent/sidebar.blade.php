@@ -121,6 +121,18 @@
                         request()->segment(2) == 'calculate-reckoner') show @endif;"
                     data-parent="#Management">
                     <div class="py-2 collapse-inner rounded">
+
+                        
+
+
+
+                        <a class="collapse-item" href="{{ route('agent.advertiser-list') }}">
+
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/list-current.png') }}">
+                            <span
+                                style="{{ request()->segment(2) == 'advertiser-list' ? 'color: #e5365a;' : '' }}">
+                                Advertiser List</span>
+                        </a>
                         <a class="collapse-item" href="{{ route('agent.new-requests') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/request.png') }}">
                             <span style="{{ request()->segment(3) == 'new-requests' ? 'color: #e5365a;' : '' }}">New
@@ -133,16 +145,6 @@
                             <span
                                 style="{{ request()->segment(3) == 'history-requests' ? 'color: #e5365a;' : '' }}">History
                                 Requests</span>
-                        </a>
-
-
-
-                        <a class="collapse-item" href="{{ route('agent.advertiser-list') }}">
-
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/list-current.png') }}">
-                            <span
-                                style="{{ request()->segment(2) == 'advertiser-list' ? 'color: #e5365a;' : '' }}">List
-                                Advertisers</span>
                         </a>
 
                         <a class="collapse-item" href="{{ route('pricingsummaries') }}">

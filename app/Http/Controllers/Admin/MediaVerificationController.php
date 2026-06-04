@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Mail;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 
 
 class MediaVerificationController extends Controller
@@ -49,10 +50,35 @@ class MediaVerificationController extends Controller
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
             "data"            => $result,
-            "totalPending"    => intval($total_pending_verification)
+            "totalPending"    => intval($total_pending_verification),
+            'server_up_time' => $this->getAppUptime(),
+            'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
         );
 
         return response()->json($data);
+    }
+
+
+    public function getAppUptime()
+    {
+        $startTime = Cache::get('app_start_time');
+        $str = '';
+
+        if (!$startTime) {
+            return 'App start time not available.';
+        }
+
+        $start = \Carbon\Carbon::parse($startTime);
+        $now = now();
+
+        $diffInSeconds = $now->diffInSeconds($start);
+
+        $days = floor($diffInSeconds / 86400);
+        $hours = floor(($diffInSeconds % 86400) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+        $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
+
+        return $str;
     }
 
     public function getMediaVerificationData($start, $limit, $order_key, $dir)
