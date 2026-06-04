@@ -592,7 +592,7 @@
         });
 
         async function switchAccount(url, msg) {
-            const confirmed = await Swal.fire({
+            const result = await Swal.fire({
                 title: "Are you sure?",
                 text: msg,
                 icon: "warning",
@@ -604,7 +604,7 @@
                 showDenyButton: false,
             });
 
-            if (confirmed) {
+            if (result.isConfirmed) {
                 window.location.href = url;
             }
             return false;
