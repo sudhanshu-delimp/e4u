@@ -197,7 +197,7 @@ class PaymentController extends Controller
 
             $payment = PaymentHistory::create([
                 'user_id' => $this->account->id,
-                'completed_by' => $this->account->id,
+                'completed_by' => $request->isImpersonated ? $request->impersonatedId : $this->account->id,
                 'ref_no' => generateReferenceNo(PaymentHistory::class),
                 'amount' => $benefit_token['sub_total_amount'],
                 'wallet_amount' => $benefit_token['wallet_amount'],

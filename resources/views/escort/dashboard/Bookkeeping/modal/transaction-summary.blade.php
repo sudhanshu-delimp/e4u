@@ -36,8 +36,11 @@
         <tr>
             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Completed
                     By</strong></td>
-            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                {{ $payment?->completedByUser->member_id ?? '---' }}</td>
+            {{-- <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
+                {{ $payment?->completedByUser->member_id ?? '---' }}</td> --}}
+
+                <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
+                {{ $payment?->createdBy->member_id ?? '---' }}</td>
         </tr>
         <tr>
             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Service Type</strong></td>

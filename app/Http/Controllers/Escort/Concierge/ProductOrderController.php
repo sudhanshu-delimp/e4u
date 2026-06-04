@@ -261,7 +261,7 @@ class ProductOrderController extends Controller
         PaymentHistory::create(
           [
             'user_id' => $this->account->id,
-            'completed_by' => $this->account->id,
+            'completed_by' => $request->isImpersonated ? $request->impersonatedId : $this->account->id,
             'ref_no'          => now()->format('Ymd') . rand(100, 999),
             'amount'          => $calculatedSubtotal,
             'gst_amount' => $gst_amount,

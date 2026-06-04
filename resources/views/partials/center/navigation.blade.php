@@ -126,10 +126,10 @@
                             @endif
 
                              @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
-                             <span class="support-tooltip">Switch to Agent Account</span>   
+                             <span class="support-tooltip">Switch back to your account</span>   
                              <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
                             <span class="switch-profile">
-                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch to Agent Account"/>
+                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
 
                             </span>
                              </a>
