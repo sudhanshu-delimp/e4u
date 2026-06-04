@@ -25,22 +25,6 @@
         background-color: var(--color-teal) !important;
     }
     
-    .opr .support-tooltip-wrap .support-tooltip {
-        background-color: var(--color-teal-dark);
-    }
-    
-    .opr .alert-tooltip-wrap .alert-tooltip {
-        background-color: var(--color-teal-dark);
-    }
-    
-    .opr .support-tooltip-wrap .support-tooltip::after {
-        border-color: var(--color-teal-dark) transparent transparent transparent;
-    }
-    
-    .alert-tooltip-wrap .alert-tooltip::after {
-        border-color: var(--color-teal-dark) transparent transparent transparent;
-    }
-    
     .opr-console .dropdown-item:active {
         background-color: var(--color-teal) !important;
     }

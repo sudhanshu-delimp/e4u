@@ -139,24 +139,38 @@ background:#16385f;
                 </div>
             </div>
         </div>
-        {{-- 3 step bar --}}
-        <div class="col-lg-12">
-            <div class="progressbar">
-                <div class="step active">
-                    <div class="circle">✔</div>
-                    <p class="step-title">1. Listings</p>
-                </div>
-                <div class="step">
-                    <div class="circle"></div>
-                    <p class="step-title">2. Payment</p>
-                </div>
-                <div class="step">
-                    <div class="circle"></div>
-                    <p class="step-title">3. Completion</p>
+
+
+    </div>
+    <!-- Progress Bar -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="custom_progress_wrapper">
+                    <div class="custom_pro_container">
+                        <div class="progress_line" id="custom_progress"></div>
+
+                        <div class="custom_step">
+                            <div class="circle active current">1</div>
+                            <div class="label active">Listings</div>
+                        </div>
+
+                        <div class="custom_step">
+                            <div class="circle">2</div>
+                            <div class="label">Payment</div>
+                        </div>
+
+                        <div class="custom_step">
+                            <div class="circle">3</div>
+                            <div class="label">Completion</div>
+                        </div>
+                    </div>
+
+                    {{-- <button id="prev" disabled>Prev</button>
+                <button id="next">Next</button> --}}
                 </div>
             </div>
         </div>
-    </div>
+        {{-- end --}}
     <div class="row">
         <div class="col-md-12">
             <div class="listing-container">
@@ -164,9 +178,10 @@ background:#16385f;
                 <form id="socials_link" action="#" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <!-- Header -->
-                    <!-- <div class="listing-header" style="text-align:right; margin-bottom:15px;">
-                        <button type="button" class="nex_sterp_btn" id="add_listing" disabled>Add Listing</button>
-                    </div> -->
+                    <div class="listing-header d-flex justify-content-between gap-20 align-items-center mb-3">
+                        <h6 class="my-3" style="font-weight: 600; color:#0c223d;">Please wait while geolocation completes before you create a New Listing.</h6>
+                        
+                    </div>
             
                     <!-- Listings Area -->
                     <div class="listing_area">
@@ -282,6 +297,7 @@ background:#16385f;
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
+<script src="{{ asset('js/escort/progress_bar.js') }}"></script>
 
 <script type="text/javascript">
 let profileCount = {{ count($profiles) }};
