@@ -168,7 +168,16 @@
                             </td>
                         </tr>
                     </tbody>
-
+                     <tr>
+                        <th colspan="11" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="3" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="3" class="text-right border-0">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -181,7 +190,27 @@
 
 <script type="text/javascript" src="{{asset('assets/plugins/ajax/libs/jquery/jquery.min.js')}}"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function(e) {
+        ajaxReload();
+        let countdown = 15;
+        setInterval(() => {
+            countdown--;
+            $(".refreshSeconds").text(' '+countdown);
+
+            if (countdown <= 0) {
+                $('#mediaverifyTable').DataTable().ajax.reload(null, false);
+                countdown = 15;
+                
+            }
+
+        }, 1000);
+
+        $('#customSearch').on('keyup', function() {
+            $('#mediaverifyTable').DataTable().search(this.value).draw();
+        });
+    })
+
+    function ajaxReload() {
         var table = $("#mediaverifyTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -197,6 +226,8 @@
                 url: "{{ route('admin.media-verification-list') }}",
                 dataSrc: function(json) {
                     $('.totalInprogressTask').text(json.totalPending);
+                    $(".serverTime").text(json.server_time);
+                    $(".uptimeClass").html(json.server_up_time);
                     return json.data;
                 }
             },
@@ -272,7 +303,9 @@
             ],
             pageLength: 10,
         });
+    }
 
+    $(document).ready(function() {
         var mediaVerificationId = 0;
         var userId = 0;
         var memberId = 0;
