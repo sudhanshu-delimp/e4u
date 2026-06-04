@@ -12927,7 +12927,7 @@ button:disabled {
     position: absolute;
     left: 50%;
     top: -60%;
-    z-index: 999;
+    z-index: 9999;
     transform: translate(-50%, -50%);
     width: max-content;
     background: #ff3c5f;
