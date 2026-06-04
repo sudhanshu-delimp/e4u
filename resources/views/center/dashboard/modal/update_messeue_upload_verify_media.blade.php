@@ -40,7 +40,7 @@
 
                                     <div class="verification-type-title mb-2">
                                         <input type="radio" id="selfie" name="verification_type"
-                                            value="0" {{ optional($verification)->type == '0' ? 'checked' : '' }}>
+                                            value="0" {{ optional($verification)->type == '0' || is_null(optional($verification)->type) ? 'checked' : '' }}>
                                         <label for="selfie">Selfie</label>
                                     </div>
 
