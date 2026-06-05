@@ -1019,7 +1019,8 @@ class User extends Authenticatable
         }
 
         // Primary switched into child switch_for
-        if ($this->is_child == 1 && session()->has('parent_massage_id')  && session()->has('switch_for') && session()->has('switch_for')=='massage_to_massage') 
+        
+        if ($this->is_child == 1 && session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true) 
         {
             return true;
         }

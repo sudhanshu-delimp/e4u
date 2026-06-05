@@ -2452,3 +2452,10 @@ if (!function_exists('is_parent_massage_user_switch')) {
     }
 }
 
+if (!function_exists('canManageClass')) 
+{
+    function canManageClass()
+    {
+        return canManage() ? '' : 'hide_element';
+    }
+}
