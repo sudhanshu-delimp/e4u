@@ -6556,32 +6556,6 @@ i.fa.fa-heart-o{
                         flex-wrap: wrap;
                     }
                 }
-                /*     
-    .gallery__item {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .gallery__item>img {
-        height: 100%;
-        object-fit: cover;
-        width: 100%;
-    }
-     */
-                /* .gallery__item--hor {
-        grid-column: span 2;
-    }
-    
-    .gallery__item--vert {
-        grid-row: span 2;
-    }
-    
-    .gallery__item--lg {
-        grid-column: span 3;
-        grid-row: span 2;
-    } */
-                /*list view image size */
                 
                 .border_for_form {
                     border: 1px solid;
