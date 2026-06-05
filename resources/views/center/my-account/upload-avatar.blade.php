@@ -490,7 +490,7 @@
         $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
         // Client-side 2MB check before sending AJAX
-        var maxBytes = 2 * 1024 * 1024;
+        var maxBytes = 10 * 1024 * 1024;
         var inputEl = $('.file-upload-input')[0];
         var oversize = false;
         if (inputEl && inputEl.files && inputEl.files[0]) {
