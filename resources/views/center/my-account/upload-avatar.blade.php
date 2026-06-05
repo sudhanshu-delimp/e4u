@@ -499,7 +499,7 @@
             oversize = getBase64SizeBytes(src) > maxBytes;
         }
         if (oversize) {
-            $('.comman_msg').text('Image must be 2MB or less.');
+            $('.comman_msg').text('Image must be 10MB or less.');
             $("#comman_modal").modal('show');
             try { removeUpload(); } catch (e) {}
             return false;

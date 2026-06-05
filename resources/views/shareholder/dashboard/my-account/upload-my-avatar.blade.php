@@ -300,7 +300,7 @@
 
 
             // Client-side 2MB check before sending AJAX
-            var maxBytes = 2 * 1024 * 1024;
+            var maxBytes = 10 * 1024 * 1024;
             var inputEl = $('.file-upload-input')[0];
             var oversize = false;
             if (inputEl && inputEl.files && inputEl.files[0]) {
@@ -309,7 +309,7 @@
                 oversize = getBase64SizeBytes(src) > maxBytes;
             }
             if (oversize) {
-                $('.comman_msg').text('Image must be 2MB or less.');
+                $('.comman_msg').text('Image must be 10MB or less.');
                 $("#comman_modal").modal('show');
                 try {
                     removeUpload();
