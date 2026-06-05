@@ -235,7 +235,7 @@ console.log(endpoint.stage_names, 'stageNames....');
                         renderList(mod);
                         $(mod.inputId).val('');
                         CKEDITOR.instances['who_narration_textarea'].setData('');
-                      //  showAlert('success', 'Saved', 'Added successfully!');
+                        showAlert('success', 'Saved', 'Added successfully!');
                     } else {
                         showAlert('error', 'Error', res.message || 'Something went wrong.');
                     }
