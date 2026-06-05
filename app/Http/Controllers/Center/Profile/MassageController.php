@@ -1825,6 +1825,11 @@ class MassageController extends Controller
         return $old_availability;
     }
 
-
+   
+    public function payment_completed()
+    {
+        $redirect_url = url('center-dashboard/listing/current');
+        return view('escort.dashboard.complete-listings',compact('redirect_url'));
+    }
 
 }
