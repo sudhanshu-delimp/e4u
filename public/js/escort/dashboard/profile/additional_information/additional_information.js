@@ -22,6 +22,9 @@ $(function () {
 
 const defaultEscortName = endpoint.stage_names?.default_escort_name || '';
 const stageNames = endpoint.stage_names?.escorts_names;
+console.log(endpoint.stage_names, 'stageNames....');
+
+
 
 
     const modules = {
@@ -36,11 +39,11 @@ const stageNames = endpoint.stage_names?.escorts_names;
             deleteUrl: endpoint.stagename_delete,
             extraData: { type: 'name' },
             updateDefaultUrl: endpoint.update_default_additional,
-               data: stageNames.map(item => ({
+               data: stageNames && stageNames.length > 0 ? stageNames.map(item => ({
                 id: null,
                 value: item,
                 is_default: item === defaultEscortName ? 1 : 0
-            })),
+            })) : [],
         },
         address: {
             listId: '#stageAddress',
@@ -174,6 +177,16 @@ const stageNames = endpoint.stage_names?.escorts_names;
 
     function initSave(mod) {
         $(document).on('click', mod.saveBtn, function () {
+
+            const $input = $(mod.inputId);
+            const $error = $input.next('.error-message');
+
+
+            $error.text('');
+            $input.removeClass('is-invalid');
+
+
+
             let value = '';
             if (mod.isCkeditor) {
                 const editorInstance = CKEDITOR.instances[mod.inputId.replace('#', '')];
@@ -181,17 +194,23 @@ const stageNames = endpoint.stage_names?.escorts_names;
 
                 const plainText = value.replace(/<[^>]*>/g, '').trim();
                 if (!plainText) {
-                    showAlert('warning', 'Warning', 'Please enter a value.');
+                    //showAlert('warning', 'Warning', 'Please enter a value.');
+                    $('#who_narration_textarea-error').text('Please enter a value.');
                     return;
                 }
 
             } else {
                 value = $(mod.inputId).val().trim();
                 if (!value) {
-                    showAlert('warning', 'Warning', 'Please enter a value.');
+                    //showAlert('warning', 'Warning', 'Please enter a value.');
+                    $error.text('Please enter a value.');
+                    $input.addClass('is-invalid');
+                   // $('#emojiBtn').addClass('is-invalid');
+
                     return;
                 }
             }
+
             if (!value) {
                 showAlert('warning', 'Warning', 'Please enter a value.');
             }
@@ -212,16 +231,11 @@ const stageNames = endpoint.stage_names?.escorts_names;
                             value: getShortDesc(value),
                             is_default: 0
                         });
-                        //mod.data.push(getShortDesc(value));
-                        // if (mod.isCkeditor) {
-                        //     mod.data.push(getShortDesc(value));
-                        // } else {
-
-                        // }
+                      
                         renderList(mod);
                         $(mod.inputId).val('');
                         CKEDITOR.instances['who_narration_textarea'].setData('');
-                        showAlert('success', 'Saved', 'Added successfully!');
+                      //  showAlert('success', 'Saved', 'Added successfully!');
                     } else {
                         showAlert('error', 'Error', res.message || 'Something went wrong.');
                     }
