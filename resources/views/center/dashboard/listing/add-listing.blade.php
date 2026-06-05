@@ -165,8 +165,8 @@ background:#16385f;
                         </div>
                     </div>
 
-                    {{-- <button id="prev" disabled>Prev</button>
-                <button id="next">Next</button> --}}
+                       <button style="display: none;" id="prev" disabled>Prev</button>
+                       <button style="display: none;" id="next">Next</button> 
                 </div>
             </div>
         </div>
@@ -696,6 +696,7 @@ $(".save_profile_btn").click(function(){
 
             $("#summaryBody").html(html);
             $("#summaryModal").css("display","flex").hide().fadeIn();
+            $('#next').trigger('click');
 
             },
             error: function (xhr) {
@@ -734,7 +735,8 @@ e.preventDefault();
                     data: formData,
                     success: function(response) {
                         Swal.close();
-                        let redirect = {'time': 2000, 'url' : 'current'}
+                        let redirect = {'time': 2000, 'url' : 'payment-completed'}
+                        $('#next').trigger('click');
                         swal_success_popup(response.message,redirect);
                     },
                     error: function(xhr) {
@@ -749,14 +751,20 @@ e.preventDefault();
         });
 
     }
+    else
+    {
+        $('#prev').trigger('click');
+    }
 });
 // ########## End Listing Payment ################ //
 
 
 $(document).on("click",".close-btn",function(e){
 e.preventDefault();
+$('#prev').trigger('click');
 $("#summaryModal").hide();
 });
+
 
 </script>
 @endpush

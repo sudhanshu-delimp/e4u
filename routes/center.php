@@ -113,6 +113,8 @@ Route::post('update-open-time',[MassageController::class,'update_open_time'])->n
 Route::get('listing/add-listing', [MassageController::class, 'add_listing_page'])->name('center.add-listing');
 Route::post('listing/add-listing', [MassageController::class, 'calculate_listed_user'])->name('center.add-listing');
 Route::post('listing/listing-payment', [MassageController::class, 'listing_payment'])->name('center.listing-payment');
+Route::get('listing/payment-completed', [MassageController::class, 'payment_completed'])->name('center.payment-completed');
+
 
 Route::get('listing/current', function(){return view('center.dashboard.listing.current');})->name('center.current');
 Route::get('listing/past', function(){return view('center.dashboard.listing.past');})->name('center.past');
