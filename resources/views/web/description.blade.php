@@ -1149,7 +1149,7 @@
                                                                     <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
 
                                                                     <div class="hover-overlay">
-                                                                        <span>Click Me</span>
+                                                                        <span>Click me!</span>
                                                                     </div>
                                                                 </a>
 
@@ -1184,7 +1184,7 @@
 
                                                                             <img src="{{ asset($media->path) }}" alt="others" title="View in large">
                                                                              <div class="hover-overlay">
-                                                                                <span>Click Me</span>
+                                                                                <span>Click me!</span>
                                                                             </div>
                                                                         </a>
 

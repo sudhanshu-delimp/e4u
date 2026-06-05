@@ -171,8 +171,7 @@
     color: #fff;
     font-size: 12px;
     font-weight: 400;
-    text-transform: capitalize;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
     white-space: nowrap;
 }
 
