@@ -534,9 +534,9 @@ class ProfileInformationController extends Controller
         try {
             $escort = User::findOrFail(Auth::id());
             $name = $escort->escorts_names ?? [];
-            if (in_array($request->value, $name)) {
-                return error_response('Name already exists.', 422);
-            }
+            // if (in_array($request->value, $name)) {
+            //     return error_response('Name already exists.', 422);
+            // }
 
             $name[] =  $request->value;
             $escort->update(['escorts_names' => $name]);
@@ -569,12 +569,12 @@ class ProfileInformationController extends Controller
     {
 
         try {
-            $alreadyExist =  EscortAdditionalInformation::where('type', $request->type)
-                ->where('short_desc', 'like', '%' . $this->makeShortDescription($request) . '%')
-                ->exists();
-            if ($alreadyExist) {
-                return error_response('Value already exists in database.', 422);
-            }
+            // $alreadyExist =  EscortAdditionalInformation::where('type', $request->type)
+            //     ->where('short_desc', 'like', '%' . $this->makeShortDescription($request) . '%')
+            //     ->exists();
+            // if ($alreadyExist) {
+            //     return error_response('Value already exists in database.', 422);
+            // }
 
             $escort = new EscortAdditionalInformation();
             if ($request->type == 'title') {
