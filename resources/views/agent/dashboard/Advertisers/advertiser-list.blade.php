@@ -535,8 +535,8 @@
                         searchable: false,
                         class: 'text-center',
                         render: function(data, type, row) {
-                            if(row.status == 'Active'){
-                            return `
+                            if (row.status == 'Active') {
+                                return `
                 <div class="dropdown no-arrow archive-dropdown text-center">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -561,9 +561,9 @@
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/message/send?member_id=${row.member_id}"><i class="fa fa-comment"></i> Message</a -->
                 </div>
              </div>`;
-            } else {
-                return '';
-            }
+                            } else {
+                                return '';
+                            }
                         }
                     }
                 ],
@@ -592,13 +592,19 @@
         });
 
         async function switchAccount(url, msg) {
-      
-            const confirmed = await isConfirm({
-                action: 'Yes',
-                text: msg
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: msg,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes Switch",
+                cancelButtonText: "Cancel",
+                showDenyButton: false,
             });
 
-            if (confirmed) {
+            if (result.isConfirmed) {
                 window.location.href = url;
             }
             return false;

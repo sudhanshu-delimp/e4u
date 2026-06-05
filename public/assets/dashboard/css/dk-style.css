@@ -3870,13 +3870,17 @@ p.notes {
 .view_img_gallery .verification {
     display: flex;
     flex-direction: column;
+    width: 400px;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
 }
 
 .thumbnail img,
 .verification img {
     height: 400px;
     width: 100%;
-    object-fit: fill;
+    object-fit: contain;
+    background-color: #eee;
 }
 
 .verify_ing_masseurs table td {
@@ -12927,7 +12931,7 @@ button:disabled {
     position: absolute;
     left: 50%;
     top: -60%;
-    z-index: 999;
+    z-index: 9999;
     transform: translate(-50%, -50%);
     width: max-content;
     background: #ff3c5f;
