@@ -106,7 +106,7 @@ class MassageController extends Controller
 
     public function  get_all_massager_list(Request $request)
     {
-             
+            
             $massage = MassageProfile::with([
                 'mainPurchase',
                 'brb' => function ($query) {
@@ -119,14 +119,17 @@ class MassageController extends Controller
                 'activeUpcomingSuspend'
             ])
             ->where('user_id', auth()->user()->id)
-            ->where('default_setting', 0)
-            ->withCount(['mainPurchase as is_active']) 
+            ->where('default_setting', 0);
+           /*  if($request->isImpersonated) {
+                $massage = $massage->where('created_by', $request->impersonatedId);
+            } */
+            $massage = $massage->withCount(['mainPurchase as is_active']) 
             ->orderByDesc('is_active') 
             ->orderBy('id', 'desc')   
             ->get();
 
-           
-
+          
+        
 
             $home_state = auth()->user()->state_id;
             $localTimeZone  = config("escorts.profile.states.$home_state.timeZone");
@@ -348,7 +351,15 @@ class MassageController extends Controller
     public function getProfile(Request $request, $id)
     {
        
+       
         $user = auth()->user();
+
+        /* if($request->isImpersonated) {
+            $profile = MassageProfile::where('id', $id)->where('created_by', $request->impersonatedId)->first();
+            if(!$profile){
+                 return redirect()->route('center.dashboard')->with('error', accessDeniedMsg());
+            }
+        } */
 
         
         ########## default profile data ############
@@ -699,7 +710,6 @@ class MassageController extends Controller
         $message = "";
         $error = true;
 
-
         ######### Update profile ##########################
         if($request->type=='profile')
         {
@@ -713,7 +723,7 @@ class MassageController extends Controller
             ];
 
             $message = 'Business information updated successfully.';
-            if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
+            if($data =  MassageProfile::find($request->massage_id)->update($input)) 
             $error = false;
             massage_profile_complete_status($request->massage_id);
         }
@@ -739,7 +749,7 @@ class MassageController extends Controller
                 ];
 
             $message = 'Updated successfully.';
-            if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
+            if($data =  MassageProfile::find($request->massage_id)->update($input)) 
             $error = false;
         
             massage_profile_complete_status($request->massage_id);
@@ -756,7 +766,7 @@ class MassageController extends Controller
                 ];
 
             $message = 'Who We Are updated successfully.';
-            if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
+            if($data =  MassageProfile::find($request->massage_id)->update($input)) 
             $error = false;
         }
         ########### End Update Who We #####################
@@ -1486,6 +1496,9 @@ class MassageController extends Controller
             ])
             ->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['listed','pending'])
+            /* ->when($request->isImpersonated, function ($query) use ($request) {
+                $query->where('created_by', $request->impersonatedId);
+            }) */
             ->orderByRaw("CASE 
                 WHEN status = 'listed' THEN 1 
                 WHEN status = 'pending' THEN 2 
@@ -1568,6 +1581,9 @@ class MassageController extends Controller
             $today = Carbon::today();
             $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['expire'])
+            /* ->when($request->isImpersonated, function ($query) use ($request) {
+                $query->where('created_by', $request->impersonatedId);
+            }) */
             ->get();
 
         

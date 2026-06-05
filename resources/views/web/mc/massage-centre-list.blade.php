@@ -93,10 +93,15 @@ font-weight: bold;
 
             <div class="row">
 
+                
+                
+
                 <!-- ////// Grid View ///////////////// -->
                 <div class="col-sm-12" id="grid_view">
                     <h2 class="mc_view_title">Grid View</h2>
                     <div class="mc_card_container"></div>
+
+                    
                 </div>
 
                 <!-- ////// List View ///////////////// -->
@@ -104,6 +109,15 @@ font-weight: bold;
                     <h2 class="mc_view_title">List View</h2>
                     <div class="mc_list_container"></div>
                 </div>
+
+                <div class="col-sm-12" >
+                   <div class="no--listing"  style="display:none;">
+                        <p><i>There are no listings for your search criteria.</i></p>
+                    </div>
+                </div>
+                
+
+                
 
 
                 <div id="page_loader">
@@ -406,6 +420,12 @@ $(document).ready(function () {
                 $('.mc_card_container').html(res.grid);
                 $('.mc_list_container').html(res.list);
                 $('.total_count').html(res.total_count);
+                if(res.total_count == 0){
+                    $('.no--listing').show();
+                }
+                else{
+                    $('.no--listing').hide();
+                }
                 
 
                 

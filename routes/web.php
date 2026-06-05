@@ -48,6 +48,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Agent\ImpersonateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +69,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', function () { return redirect('/');})->name('login');
     Route::get('/advertiser-login', [AdvertiserLoginController::class,'index'])->name('advertiser.login');
     Route::get('/viewer-login', [AdvertiserLoginController::class,'indexViewer'])->name('viewer.login');
-    Route::get('/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
+    //Route::get('/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
+    Route::match(array('GET','POST'),'/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
     Route::get('/register', [GuestRegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class,'register']);
     Route::get('/staff-login', [AdvertiserLoginController::class,'indexStaff'])->name('staff.login');
@@ -246,10 +248,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/logout', [LoginController::class,'logout'])->name('logout');
         });
         ################ End All Authencated User Url #################################
-
+        Route::get('back-to-agent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
 });
-
-
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');
@@ -772,6 +772,8 @@ Route::get('/check-sms-status', [DemoController::class, 'checkMessageStatus']);
 
 Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('update-password');
+Route::post('/send/otp/notification/{user}', [WebController::class, 'sendOtpNotification'])->name('send.opt.notification');
+Route::post('/validate/otp/notification/{user}', [WebController::class, 'validateOtpNotification'])->name('validate.opt.notification');
 
 
 

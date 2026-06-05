@@ -25,12 +25,12 @@
 
                                 <!-- Page Heading -->
                                 <div class="col-md-12 p-0">
-         <div class="v-main-heading h3">Professional Products</div>
-      </div>
+                                    <div class="v-main-heading h3">Professional Products</div>
+                                </div>
                                 <div class="d-sm-flex align-items-center justify-content-between mb-3">
                                     <h3><b>Partnership</b></h3>
                                 </div>
-                                <p>Escorts4U has partnered with Condom Man ) to offer a delivery service to the
+                                <p>Escorts4U has partnered with Condom Man to offer a delivery service to the
                                     door, within the Perth CBD, and Express
                                     Post to other capital cities.</p>
 

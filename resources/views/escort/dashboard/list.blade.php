@@ -31,9 +31,9 @@
         }
 
         /* .suspension-note-list {
-                list-style-position: outside;
-                padding-left: 20px;
-            } */
+                    list-style-position: outside;
+                    padding-left: 20px;
+                } */
 
         .suspension-note-list li {
             text-indent: 4px;
@@ -52,33 +52,39 @@
             background: #0c223dcf;
             border: 1px solid #0c223dcf;
         }
+
         .add--list {
-        display: flex;
-        justify-content: space-between;
-}
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-lg {
+            max-width: 600px !important;
+        }
     </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-            
 
-            <div class="d-sm-flex align-items-center justify-content-between">
-                <div class="custom-heading-wrapper">
-                    <h1 class="h1">{{ $type == 'past' ? 'Archive' : 'Listed' }}
-                        Profiles</h1>
-                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-                </div>
-                @if (request('from') == 'dashboard')
+
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div class="custom-heading-wrapper">
+                <h1 class="h1">{{ $type == 'past' ? 'Archive' : 'Listed' }}
+                    Profiles</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                    aria-expanded="true"><b>Help?</b></span>
+            </div>
+            @if (request('from') == 'dashboard')
                 <div class="back-to-dashboard">
                     <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                         <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                     </a>
                 </div>
-                @endif
-            </div>
-            
+            @endif
+        </div>
+
         <div class="row">
-            <div class="col-md-12 mb-4 collapse" id="notes">               
+            <div class="col-md-12 mb-4 collapse" id="notes">
                 <div class="card " id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -90,7 +96,8 @@
                                 View the Profile.</li>
                             <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
                                     class="custom_links_design">View Listings</a></li>
-                            <li>When duplicating a Profile, update the Street Address if the new Profile is in a new Location.</li>
+                            <li>When duplicating a Profile, update the Street Address if the new Profile is in a new
+                                Location.</li>
                         </ol>
                     </div>
                 </div>
@@ -103,47 +110,70 @@
                         @if ($type != 'past')
                             <div>
                                 <div class="add--list listingActionButtons">
-                                <div class="">
-                                <button class="btn brb-btn" data-toggle="modal"
-                                    data-target="#add_brb" id="btn_add_brb">Add BRB</button>
-                                <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
-                                <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
-                                <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
-                                    
-                            </div>
-                                <div class="pinup-tooltip-wrapper">
-                                    <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
-                                        data-target="#pinup_profile" id="btn_pinup_profile" @if($activePinup) disabled title="" @endif>List Pin
-                                        Up</button>
-                                        @if($activePinup)
-                                        <p class="pinup-tooltip">You already have an active pinup. You can book after it expires. </span>
+                                    <div class="">
+                                        <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
+                                            data-target="#add_brb" id="btn_add_brb">Add BRB
+                                            <span class="esc-tooltip-2">Be Right Back display</span>
+                                        </button>
+                                        <button class="btn upgrade-btn esc-tooltip-wrap" data-toggle="modal"
+                                            data-target="#add_brb" id="btn_upgrade">Upgrade
+                                            <span class="esc-tooltip-2">Upgrade your Membership Type</span>
+                                        </button>
+
+
+                                        <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
+                                            data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
+                                            Extend Profile
+                                            <span class="esc-tooltip-2">Extend your Profile to a new end date</span>
+                                        </button>
+                                        <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
+                                            data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
+                                            Up
+                                            <span class="esc-tooltip-2">Bump your Profile up to the top of the Listings</span>
+                                         </button>
+                                        <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
+                                            data-toggle="modal" data-target="#suspend_profile"
+                                            id="btn_suspend_profile">Suspend Profile 
+                                            <span class="esc-tooltip-2">Take down your Profile for a set period</span>
+                                        </button>
+
+
+
+                                    </div>
+                                    <div class="pinup-tooltip-wrapper">
+                                        <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
+                                            data-target="#pinup_profile" id="btn_pinup_profile"
+                                            @if ($activePinup) disabled title="" @endif>List Pin
+                                            Up</button>
+                                        @if ($activePinup)
+                                            <p class="pinup-tooltip">You already have an active pinup. You can book after it
+                                                expires. </span>
                                         @endif
-                                </div>
+                                    </div>
                                 </div>
                             </div>
                             <br>
                         @endif
                         <div class="table-responsive">
                             <table class="table w-100" id="sailorTable">
-                            <thead id="table-sec" class="table-bg">
-                                <tr>
-                                    <th>ID</th>
-                                    <th class="w-auto">Profile Name</th>
-                                    <th class="w-auto">Location</th>
-                                    <th class="w-auto">Stage Name</th>
-                                    <th class="w-auto">Membership</th>
-                                    <th class="w-auto">Mobile Number</th>
-                                    <!-- <th class="w-auto">Competitor</th>-->
-                                    <th class="w-auto">Date Created</th>
-                                    <th>Status</th>
-                                    <!--<th>Joined E4U</th>-->
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                        </table>
+                                <thead id="table-sec" class="table-bg">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th class="w-auto">Profile Name</th>
+                                        <th class="w-auto">Location</th>
+                                        <th class="w-auto">Stage Name</th>
+                                        <th class="w-auto">Membership</th>
+                                        <th class="w-auto">Mobile Number</th>
+                                        <!-- <th class="w-auto">Competitor</th>-->
+                                        <th class="w-auto">Date Created</th>
+                                        <th>Status</th>
+                                        <!--<th>Joined E4U</th>-->
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
-                        
+
                         <div>
                         </div>
                     </div>
@@ -153,77 +183,86 @@
         <!--middle content end here-->
         <!--right side bar start from here-->
     </div>
-    
+
     <!-- extend profile modal start here -->
-    <div class="modal fade upload-modal" id="extend_profile" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+    <div class="modal fade upload-modal" id="extend_profile" tabindex="-1" role="dialog"
+        aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
+        aria-modal="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-         
+
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">
-                  <img src="{{ asset('/assets/dashboard/img/extend-profile.png') }}" class="custompopicon" alt="extend">
-                  Extend Profile
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">
-                    <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img_resize_in_smscreen">
-                  </span>
-                </button>
-              </div>
-      
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="container p-0">
-                        <form action="{{ route('escort.account.listing_checkout')}}" method="POST" id="extend_form">
-                            {{ csrf_field() }}
-                            <!-- Profile select -->
-                            <div class="form-group row">
-                                <label class="col-sm-3" for="">Profile:</label>
-                                <div class="col-sm-9">
-                                <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                        id="extendProfileId"
-                                        name="escort_id[]"
-                                        data-parsley-errors-container="#extend-profile-errors"
-                                        required
-                                        data-parsley-required-message="Select Profile">Bump
-                                    <option value="">Select Profile</option>
-                                    
-                                </select>
-                                <span id="extend-profile-errors"></span>
-                                </div>
-                            </div>
-            
-                            <!-- Extend Period -->
-                            <div class="form-group row extend--profile">
-                                <label class="col-sm-3">Extend Period:</label>
-                                <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-sm-7">
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1" disabled>
-                                    <label class="form-check-label" for="extendDay1">1 day</label>
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('/assets/dashboard/img/extend-profile.png') }}" class="custompopicon"
+                            alt="extend">
+                        Extend Profile
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="container p-0">
+                                <form action="{{ route('escort.account.listing_checkout', ['type' => 'extend']) }}"
+                                    method="POST" id="extend_form">
+                                    {{ csrf_field() }}
+                                    <!-- Profile select -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3" for="">Profile:</label>
+                                        <div class="col-sm-9">
+                                            <select
+                                                class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
+                                                id="extendProfileId" name="escort_id[]"
+                                                data-parsley-errors-container="#extend-profile-errors" required
+                                                data-parsley-required-message="Select Profile">Bump
+                                                <option value="">Select Profile</option>
+
+                                            </select>
+                                            <span id="extend-profile-errors"></span>
+                                        </div>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5" disabled>
-                                    <label class="form-check-label" for="extendDay5">5 days</label>
+
+                                    <!-- Extend Period -->
+                                    <div class="form-group row extend--profile">
+                                        <label class="col-sm-3">Extend Period:</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input extend-period" type="radio"
+                                                            name="extend_days" id="extendDay1" value="1" disabled>
+                                                        <label class="form-check-label" for="extendDay1">1 day</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input extend-period" type="radio"
+                                                            name="extend_days" id="extendDay5" value="5" disabled>
+                                                        <label class="form-check-label" for="extendDay5">5 days</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input extend-period" type="radio"
+                                                            name="extend_days" id="extendDay10" value="10" disabled>
+                                                        <label class="form-check-label" for="extendDay10">10 days</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="hidden" name="membership[]" id="extendMembership">
+                                                    <input type="hidden" name="start_date[]" id="extendStartDate">
+                                                    <input type="text" id="extendEndDate"
+                                                        class="form-control form-control-sm removebox_shdow js_datepicker"
+                                                        name="end_date[]" required disabled>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10" disabled>
-                                    <label class="form-check-label" for="extendDay10">10 days</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <input type="hidden" name="membership[]" id="extendMembership">
-                                    <input type="hidden" name="start_date[]" id="extendStartDate">
-                                    <input type="text" id="extendEndDate" class="form-control form-control-sm removebox_shdow js_datepicker" name="end_date[]" required disabled>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-            
-                            <!-- Fee -->
-                            {{-- <div class="form-group row">
+
+                                    <!-- Fee -->
+                                    {{-- <div class="form-group row">
                                 <label class="col-sm-3 col-form-label" for="">Fee:</label>
                                 <div class="col-sm-4">
                                 <div class="input-group input-group-sm">
@@ -232,34 +271,35 @@
                                 </div>
                                 </div>
                             </div> --}}
-            
-                            <hr style="background-color: #0C223D" class="mt-4">
-            
-                            <!-- Notes -->
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                <p class="mb-1"><b>Notes:</b></p>
-                                <ol class="pl-4 text-justify">
-                                    <li>The Fee is calculated according to the Membership Type.</li>
-                                    <li>You agree to your Card being debited the Fee.</li>
-                                    <li>Details of this transaction can be viewed in the Transaction Summary.</li>
-                                </ol>
-                                </div>
+
+                                    <hr style="background-color: #0C223D" class="mt-4">
+
+                                    <!-- Notes -->
+                                    <div class="form-group row">
+                                        <div class="col-lg-12">
+                                            <p class="mb-1"><b>Notes:</b></p>
+                                            <ol class="pl-4 text-justify">
+                                                <li>The Fee is calculated according to the Membership Type.</li>
+                                                <li>You agree to your Card being debited the Fee.</li>
+                                                <li>Details of this transaction can be viewed in the Transaction Summary.
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" style="text-align: right; display: block;">
+                                        <button type="submit" class="btn-success-modal">Proceed to Payment</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="modal-footer" style="text-align: right; display: block;">
-                                    <button type="submit" class="btn-success-modal">Proceed to Payment</button>
-                                </div>
-                            </form>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-      
-              
+
+
             </div>
         </div>
-      </div>      
-  <!-- end extend profile modal -->  
+    </div>
+    <!-- end extend profile modal -->
 
     <!-- suspend profile modal start here -->
     <div class="modal fade upload-modal" id="suspend_profile" tabindex="-1" role="dialog"
@@ -271,7 +311,9 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="">
-                                <img src="{{ asset('assets/app/img/deactivate.png')}}" class="custompopicon" alt="cross"> Suspend Profile</h5>
+                                <img src="{{ asset('assets/app/img/deactivate.png') }}" class="custompopicon"
+                                    alt="cross"> Suspend Profile
+                            </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
                                         src="{{ asset('assets/app/img/newcross.png') }}"
@@ -301,22 +343,22 @@
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-sm-5">
-                                                    <input type="text" id="suspendStartDate" required
-                                                        class="form-control form-control-sm removebox_shdow js_datepicker"
-                                                        name="start_date"
-                                                        data-parsley-type="" data-parsley-type-message="">
-                                                    <span id="brb-time-errors"></span>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <span>to:</span>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="text" id="suspendEndDate" required
-                                                        class="form-control form-control-sm removebox_shdow js_datepicker"
-                                                        name="end_date" data-parsley-type=""
-                                                        data-parsley-type-message="">
-                                                    <span id="brb-time-errors"></span>
-                                                </div>
+                                                        <input type="text" id="suspendStartDate" required
+                                                            class="form-control form-control-sm removebox_shdow js_datepicker"
+                                                            name="start_date" data-parsley-type=""
+                                                            data-parsley-type-message="">
+                                                        <span id="brb-time-errors"></span>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <span>to:</span>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="suspendEndDate" required
+                                                            class="form-control form-control-sm removebox_shdow js_datepicker"
+                                                            name="end_date" data-parsley-type=""
+                                                            data-parsley-type-message="">
+                                                        <span id="brb-time-errors"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -331,7 +373,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <hr style="background-color: #0C223D" class="mt-4"> 
+                                        <hr style="background-color: #0C223D" class="mt-4">
                                         <div class="form-group row">
                                             <div class="col-lg-12">
                                                 <p class="mb-1"><b>Notes:</b></p>
@@ -340,9 +382,11 @@
                                                         make changes to your Profiles. Any changes you make to a Profile
                                                         will be applied to the
                                                         Profile once the changes are saved.</li> --}}
-                                                    
-                                                    <li> To suspend a Listing, select the Profile and suspension period, then click Suspend. You will be credited with the Fees according to the suspension period.</li>
-                                                        <li> Once your Profile is suspended, it cannot be reinstated for the
+
+                                                    <li> To suspend a Listing, select the Profile and suspension period,
+                                                        then click Suspend. You will be credited with the Fees according to
+                                                        the suspension period.</li>
+                                                    <li> Once your Profile is suspended, it cannot be reinstated for the
                                                         suspended period.</li>
                                                 </ol>
                                             </div>
@@ -353,7 +397,8 @@
                         </div>
                         <div class="modal-footer" style="text-align: end; display: block;">
                             <button type="submit" class="btn-success-modal" id="save_brb" disabled>Suspend</button>
-                            <button type="submit" class="btn-cancel-modal" id="save_brb" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn-cancel-modal" id="save_brb"
+                                data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -366,9 +411,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="" style="color:white"><img src="/assets/app/img/block-user.png" class="custompopicon" alt="cross"> Delete Profile
+                    <h5 class="modal-title" id="" style="color:white"><img src="/assets/app/img/block-user.png"
+                            class="custompopicon" alt="cross"> Delete Profile
                     </h5>
-                   
+
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -384,30 +430,29 @@
                     <h5 class="popu_heading_style mb-0 mt-4 text-center"><span id="Lname"></span> </h5>
                     <h5 class="popu_heading_style mb-0 mt-4 text-center"><span id="log"></span> </h5>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                            value="close" id="close_change">No</button>
-                        <button type="button" class="btn-success-modal"
-                            id="save_change">Yes</button>
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
+                            id="close_change">No</button>
+                        <button type="button" class="btn-success-modal" id="save_change">Yes</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    
+
+
     @if ($type != 'past')
-    @include('escort.dashboard.profile.modal.index')
+        @include('escort.dashboard.profile.modal.index')
     @endif
 
     @include('escort.dashboard.partials.playmates-modal')
     @include('escort.dashboard.partials.duplicate-profile-modal')
 @endsection
-@push('script')
+@prepend('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    
+
     <script>
         var table;
 
@@ -441,81 +486,84 @@
                     $selectBumpUp.empty();
                     let $selectPinUp = $('#pinup_profile_id');
                     $selectPinUp.empty();
-                    
+
                     if (records.recordsTotal > 0) {
 
                         $select.append('<option value="">-- Select Profile --</option>');
-                        $.each(records.data, function (i, item) {
-                            if(!item.is_extended && !item.tour){
+                        $.each(records.data, function(i, item) {
+                            if (!item.is_extended && !item.tour) {
                                 $select.append(
                                     $('<option>', {
-                                    value: item.id,
-                                    text: `${item.id} - ${item.name} - ${item.state.name}`,
-                                    'data-start': item.start_date_formatted,
-                                    'data-end': item.end_date_formatted,
-                                    'data-membership':item.membership,
+                                        value: item.id,
+                                        text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                        'data-start': item.start_date_formatted,
+                                        'data-end': item.end_date_formatted,
+                                        'data-membership': item.membership,
                                     })
                                 );
                             }
                         });
 
                         $selectSuspend.append('<option value="">-- Select Profile --</option>');
-                        $.each(records.data, function (i, item) {
+                        $.each(records.data, function(i, item) {
                             $selectSuspend.append(
                                 $('<option>', {
-                                value: item.id,
-                                text: `${item.id} - ${item.name} - ${item.state.name}`,
-                                'data-start': item.start_date_formatted,
-                                'data-end': item.end_date_formatted,
-                                'data-membership':item.membership_number,
+                                    value: item.id,
+                                    text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                    'data-start': item.start_date_formatted,
+                                    'data-end': item.end_date_formatted,
+                                    'data-membership': item.membership_number,
                                 })
                             );
                         });
 
                         $selectBumpUp.append('<option value="">-- Select Profile --</option>');
-                        $.each(records.data, function (i, item) {
-                            if(item.current_active_pinup==null){
+                        $.each(records.data, function(i, item) {
+                            if (item.current_active_pinup == null) {
                                 $selectBumpUp.append(
                                     $('<option>', {
-                                    value: item.id,
-                                    text: `${item.id} - ${item.name} - ${item.state.name}`,
-                                    'data-start': item.start_date_formatted,
-                                    'data-end': item.end_date_formatted,
-                                    'data-membership':item.membership,
+                                        value: item.id,
+                                        text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                        'data-start': item.start_date_formatted,
+                                        'data-end': item.end_date_formatted,
+                                        'data-membership': item.membership,
                                     })
                                 );
                             }
                         });
 
-                        let existPinup = records.data.some(profile=>profile.latest_active_pinup!=null);
+                        let existPinup = records.data.some(profile => profile.latest_active_pinup !=
+                            null);
 
-                        if(!existPinup){
+                        if (!existPinup) {
                             $selectPinUp.append('<option value="">-- Select Profile --</option>');
-                            $.each(records.data, function (i, item) {
-                                if(item.membership=='Platinum'){
+                            $.each(records.data, function(i, item) {
+                                if (item.membership == 'Platinum') {
                                     $selectPinUp.append(
                                         $('<option>', {
-                                        value: item.id,
-                                        text: `${item.id} - ${item.name} - ${item.state.name}`,
-                                        'data-start': item.start_date_formatted,
-                                        'data-end': item.end_date_formatted,
-                                        'data-membership':item.membership,
+                                            value: item.id,
+                                            text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                            'data-start': item.start_date_formatted,
+                                            'data-end': item.end_date_formatted,
+                                            'data-membership': item.membership,
                                         })
                                     );
                                 }
                             });
+                        } else {
+                            $("#btn_pinup_profile").attr('disabled', 'disabled')
                         }
                         $(".listingActionButtons button").show();
                     }
-                    
-                    
+
+
                 },
                 initComplete: function() {
-                    if ($('#returnToReportBtn').length === 0) {
-                        $('.dataTables_filter').append(
-                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-                        );
-                    }
+                    // if ($('#returnToReportBtn').length === 0) {
+                    //     $('.dataTables_filter').append(
+                    //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                    //     );
+                    // }
                     $('#returnToReportBtn').on('click', function() {
                         var table = $('#sailorTable').DataTable();
                         table.search('').draw();
@@ -677,45 +725,47 @@
         //     return `${y}-${m}-${d}`;
         // }
 
-        var getDateAfter = function(dateStr,after=1) {
+        var getDateAfter = function(dateStr, after = 1) {
             let [day, month, year] = dateStr.split('-');
             let date = new Date(year, month - 1, day);
             date.setDate(date.getDate() + after);
             return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
         }
 
-        $(document).on('change','#extendProfileId', function () {
+        $(document).on('change', '#extendProfileId', function() {
             let previousEndDateValue = $(this).find(':selected').data('end'); //getDateAfter
             let membership = $(this).find(':selected').data('membership');
             let $membershipField = $('#extendMembership');
             let extendStartDateObject = $('#extendStartDate');
             let extendEndDateObject = $('#extendEndDate');
             let profileId = $(this).val();
-            if($.trim(profileId)!=""){
+            if ($.trim(profileId) != "") {
                 extendEndDateObject.removeAttr('disabled');
                 $("input[name='extend_days']").removeAttr('disabled');
+            } else {
+                extendEndDateObject.attr('disabled', 'disabled');
+                $("input[name='extend_days']").attr('disabled', 'disabled');
             }
-            else{
-                extendEndDateObject.attr('disabled','disabled');
-                $("input[name='extend_days']").attr('disabled','disabled');
-            }
-            switch(membership){
-                case 'Platinum':{
+            switch (membership) {
+                case 'Platinum': {
                     $membershipField.val(1);
-                }break;
-                case 'Gold':{
+                }
+                break;
+                case 'Gold': {
                     $membershipField.val(2);
-                }break;
-                case 'Silver':{
+                }
+                break;
+                case 'Silver': {
                     $membershipField.val(3);
-                }break;
-                case 'Free':{
+                }
+                break;
+                case 'Free': {
                     $membershipField.val(4);
                 }
             }
             if (previousEndDateValue) {
-                extendStartDateObject.val(getDateAfter(previousEndDateValue,1));
-                extendEndDateObject.val(getDateAfter(previousEndDateValue,2));
+                extendStartDateObject.val(getDateAfter(previousEndDateValue, 1));
+                extendEndDateObject.val(getDateAfter(previousEndDateValue, 2));
                 extendEndDateObject.datepicker('option', 'minDate', extendStartDateObject.val());
             } else {
                 extendEndDateObject.datepicker('option', 'minDate', null);
@@ -723,13 +773,13 @@
             }
         });
 
-        $('input[name="extend_days"]').on('change', function () {
+        $('input[name="extend_days"]').on('change', function() {
             let days = parseInt($(this).val(), 10);
             let previousEndDateValue = $('#extendProfileId').find(':selected').data('end');
             let extendEndDateObject = $('#extendEndDate');
 
             if (previousEndDateValue && days) {
-                extendEndDateObject.val(getDateAfter(previousEndDateValue,days+1));
+                extendEndDateObject.val(getDateAfter(previousEndDateValue, days + 1));
             } else {
                 extendEndDateObject.val('');
             }
@@ -745,40 +795,44 @@
             let endDate = $('#extendEndDate').val();
             let escortId = $('#extendProfileId').find(':selected').val();
             let formButton = document.querySelector("#extend_profile form button[type='submit']");
-            
-            if(startDate && escortId){
-                $.ajax({
-                url: '/escort-dashboard/listing/validate-date-range',
-                method: 'POST',
-                headers: {
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: {startDate,endDate,escortId},
-                beforeSend:function (){
-                    formButton.disabled = true;
-                    console.log(formButton);
-                },
-                success: function (response) {
-                    if(response.success){
-                        $('#extendEndDate').val('');
-                        Swal.fire({
-                            title: 'Listings',
-                            text: `${response.message}`,
-                            icon: 'warning'
-                        });
-                    }
-                    formButton.disabled = false;
 
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error in location filter:', error);
-                }
+            if (startDate && escortId) {
+                $.ajax({
+                    url: '/escort-dashboard/listing/validate-date-range',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: {
+                        startDate,
+                        endDate,
+                        escortId
+                    },
+                    beforeSend: function() {
+                        formButton.disabled = true;
+                        console.log(formButton);
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#extendEndDate').val('');
+                            Swal.fire({
+                                title: 'Listings',
+                                text: `${response.message}`,
+                                icon: 'warning'
+                            });
+                        }
+                        formButton.disabled = false;
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
                 });
             }
         });
 
-        
+
         $(document).on('click', '.delete-center122', function(e) {
             e.preventDefault();
             var $this = $(this);
@@ -1150,20 +1204,20 @@
             /* start handle suspend modal start and end date calendars */
             let suspendProfileObject = $('#suspendProfileId');
             let suspendStartDateObject = $('#suspendStartDate');
-            let suspendEndDateObject   = $('#suspendEndDate');
+            let suspendEndDateObject = $('#suspendEndDate');
 
             suspendStartDateObject.datepicker('setDate', +1);
             suspendStartDateObject.datepicker('option', 'minDate', +1);
-           
+
             suspendEndDateObject.datepicker('option', 'minDate', +1);
 
-            suspendStartDateObject.datepicker('option', 'onSelect', function () {
+            suspendStartDateObject.datepicker('option', 'onSelect', function() {
                 suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
                 suspendEndDateObject.datepicker('option', 'setDate', $(this).val());
                 calculateCredit();
             });
 
-            suspendEndDateObject.datepicker('option', 'onSelect', function () {
+            suspendEndDateObject.datepicker('option', 'onSelect', function() {
                 suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
                 calculateCredit();
             });
@@ -1186,35 +1240,35 @@
 
             function calculateCredit() {
                 let selectedOption = suspendProfileObject.find(':selected');
-                if(suspendEndDateObject.val() && suspendStartDateObject.val()){
+                if (suspendEndDateObject.val() && suspendStartDateObject.val()) {
                     $.ajax({
-                    url: "{{ route('suspend.calculate.credit.live') }}",
-                    method: 'POST',
-                    data: {
-                        start_date: suspendStartDateObject.val(),
-                        end_date: suspendEndDateObject.val(),
-                        profile_id: selectedOption.val(),
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $("#creditCalculationLive").html('0.00');
-                        if(response.success){
-                            $("#creditCalculationLive").html(response.refund_amount);
-                            $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                        url: "{{ route('suspend.calculate.credit.live') }}",
+                        method: 'POST',
+                        data: {
+                            start_date: suspendStartDateObject.val(),
+                            end_date: suspendEndDateObject.val(),
+                            profile_id: selectedOption.val(),
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $("#creditCalculationLive").html('0.00');
+                            if (response.success) {
+                                $("#creditCalculationLive").html(response.refund_amount);
+                                $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                            } else {
+                                $("#suspend_form").find('button[type=submit]').attr('disabled',
+                                    'disabled');
+                                Swal.fire({
+                                    icon: "error",
+                                    text: response.message
+                                });
+                            }
                         }
-                        else {
-                            $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
-                            Swal.fire({
-                                icon: "error",
-                                text: response.message
-                            });
-                        }
-                    }
-                });
+                    });
                 }
             }
 
-             /* end handle suspend modal start and end date calendars */
+            /* end handle suspend modal start and end date calendars */
         });
 
         $("#suspend_form").on('submit', function(e) {
@@ -1232,8 +1286,8 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                beforeSend: function(){
-                    $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                beforeSend: function() {
+                    $("#suspend_form").find('button[type=submit]').attr('disabled', 'disabled');
                 },
                 success: function(data) {
                     if (data.response.success) {
@@ -1266,9 +1320,8 @@
             }
             return true;
         }
-        
     </script>
     <script src="{{ asset('js/escort/pinup.js') }}"></script>
     <script src="{{ asset('js/escort/bumpup.js') }}"></script>
     <script src="{{ asset('js/escort/upgrade.js') }}"></script>
-@endpush
+@endprepend

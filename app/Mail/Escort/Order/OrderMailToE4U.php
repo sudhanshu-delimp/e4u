@@ -9,25 +9,28 @@ use Illuminate\Queue\SerializesModels;
 
 class OrderMailToE4U extends Mailable
 {
-    use Queueable, SerializesModels;
+  use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+  /**
+   * Create a new message instance.
+   *
+   * @return void
+   */
+  protected array $data;
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('view.name');
-    }
+  public function __construct(array $data)
+  {
+    $this->data = $data;
+  }
+
+  /**
+   * Build the message.
+   *
+   * @return $this
+   */
+  public function build()
+  {
+    return $this->subject('Concierge Service - Product Order')->view('emails.escort.order.order_mail_to_e4u')
+      ->with(['data' => $this->data]);  
+  }
 }

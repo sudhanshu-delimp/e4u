@@ -18,197 +18,176 @@ use App\Models\AdvertiserAgentRequestUser;
 
 class AgentRequestController extends Controller
 {
-    
-        protected $notification;
-        protected $notification_title;
 
-        public function __construct()
-        {
-            $this->notification = new Notification;
-            $this->notification_title = 'A request to appoint an Agent in your Territory remains outstanding.
-             Please visit <a href="'.config('app.url').'/agent-dashboard/Advertisers/new-requests">New Requests</a> to acknowledge.';
+    protected $notification;
+    protected $notification_title;
+
+    public function __construct()
+    {
+        $this->notification = new Notification;
+        $this->notification_title = 'A request to appoint an Agent in your Territory remains outstanding.
+             Please visit <a href="' . config('app.url') . '/agent-dashboard/Advertisers/new-requests">New Requests</a> to acknowledge.';
+    }
+
+    public function agentRequest(AgentRequest $request)
+    {
+
+        if (auth()->user()->assigned_agent_id != ""  && auth()->user()->is_agent_assign == '1')
+            return redirect()->back()->with('error', 'You have already been assigned an Agent.');
+
+
+        $agent_users = User::where('state_id', auth()->user()->state_id)
+            ->where('type', '5')
+            ->where('status', '1')
+            ->pluck('id')
+            ->unique()
+            ->toArray();
+
+        if (empty($agent_users)) {
+            return redirect()->back()->with('error', 'Agent User Not Found.');
         }
 
-        public function agentRequest(AgentRequest $request)
-        {
-           
-           if(auth()->user()->assigned_agent_id!=""  && auth()->user()->is_agent_assign=='1')
-           return redirect()->back()->with('error', 'You have already been assigned an Agent.');
+        try {
 
-           
-            $agent_users = User::where('state_id', auth()->user()->state_id)
-                ->where('type', '5')
-                ->where('status', '1')
-                ->pluck('id')
-                ->unique()
-                ->toArray();
+            $refNumber = random_string();
+            $resposne_message = "";
+            $resposne_status = "";
+            DB::transaction(function () use ($request, $agent_users, $refNumber, &$resposne_message, &$resposne_status) {
+                $agentData = [
+                    'user_id' => auth()->user()->id,
+                    'state_id' => auth()->user()->state_id,
+                    'ref_number' => $refNumber,
+                    'first_name' => $request->first_name ?? "",
+                    'last_name' => $request->last_name ?? "",
+                    'email' => $request->email ?? "",
+                    'mobile_number' => $request->mobile_number ?? "",
+                    'contact_by_email' => $request->contact_by_email ?? 0,
+                    'contact_by_mobile' => $request->contact_by_mobile ?? 0,
+                    'comments' => $request->comments ?? "",
+                    'status' => 0,
+                    'created_on' => now(),
+                ];
 
-            if (empty($agent_users)) {
-                return redirect()->back()->with('error', 'Agent User Not Found.');
-            }
 
-            try 
-            {
+                $advertiser_agent_request_users = [];
+                $agent_id = [];
 
-                $refNumber = random_string();
-                $resposne_message = "";
-                $resposne_status = "";
-                DB::transaction(function () use ($request, $agent_users,$refNumber,&$resposne_message,&$resposne_status) {
-                    $agentData = [
-                        'user_id' => auth()->user()->id,
-                        'state_id' => auth()->user()->state_id,
-                        'ref_number' => $refNumber,
-                        'first_name' => $request->first_name ?? "",
-                        'last_name' => $request->last_name ?? "",
-                        'email' => $request->email ?? "",
-                        'mobile_number' => $request->mobile_number ?? "",
-                        'contact_by_email' => $request->contact_by_email ?? 0,
-                        'contact_by_mobile' => $request->contact_by_mobile ?? 0,
-                        'comments' => $request->comments ?? "",
-                        'status' => 0,
-                        'created_on' => now(),
-                    ];
-
-                   
-                    $advertiser_agent_request_users = [];
-                    $agent_id = [] ;
-        
-                    $receiverAgentIds = AdvertiserAgentRequestUser::where('advertiser_user_id', auth()->user()->id)
+                $receiverAgentIds = AdvertiserAgentRequestUser::where('advertiser_user_id', auth()->user()->id)
                     ->where('status', '0')
                     ->whereIn('receiver_agent_id', $agent_users)
                     ->pluck('receiver_agent_id')
                     ->toArray();
 
 
-                    if (count($receiverAgentIds) === 0) 
-                    {
+                if (count($receiverAgentIds) === 0) {
 
-                            $agentRequest = AdvertiserAgentRequest::create($agentData);
+                    $agentRequest = AdvertiserAgentRequest::create($agentData);
 
-                            foreach ($agent_users as $userId) 
-                            {
-                                {
-                                    $advertiser_agent_request_users[] = [
-                                    'advertiser_agent_requests_id' => $agentRequest->id,
-                                    'advertiser_user_id' => auth()->user()->id,
-                                    'receiver_agent_id' => $userId,
-                                    'status' => 0,
-                                    'created_at' => date('Y-m-d H:i:s')
-                                    ];
-                                } 
-                                
-                                $agent_id[] = $userId;
-                                
-                            }
+                    foreach ($agent_users as $userId) { {
+                            $advertiser_agent_request_users[] = [
+                                'advertiser_agent_requests_id' => $agentRequest->id,
+                                'advertiser_user_id' => auth()->user()->id,
+                                'receiver_agent_id' => $userId,
+                                'status' => 0,
+                                'created_at' => date('Y-m-d H:i:s')
+                            ];
+                        }
 
-                            AdvertiserAgentRequestUser::insert($advertiser_agent_request_users);
-                            $resposne_message = 'Request submitted successfully.';
-                            $resposne_status = true;
+                        $agent_id[] = $userId;
+                    }
 
-                    } 
-                    else
-                    {
-                        $agent_id = array_unique($receiverAgentIds);
-                        $refNumber = "";
-                        $resposne_message = 'You already have a Request for a Support Agent logged.';
-                        $resposne_status = false;
-                    }   
+                    AdvertiserAgentRequestUser::insert($advertiser_agent_request_users);
+                    $resposne_message = 'Request submitted successfully.';
+                    $resposne_status = true;
+                } else {
+                    $agent_id = array_unique($receiverAgentIds);
+                    $refNumber = "";
+                    $resposne_message = 'You already have a Request for a Support Agent logged.';
+                    $resposne_status = false;
+                }
 
-                        $data['to_user'] = $agent_id;
-                        $data['notification_type'] = 'agent_follow_up';
-                        $data['notification_listing_type'] = 2;
-                        $data['title'] = $this->notification_title;
-                        $data['message'] = '';
-                        $this->notification->sendNotification($data);
-                         
-                });
+                $data['to_user'] = $agent_id;
+                $data['notification_type'] = 'agent_follow_up';
+                $data['notification_listing_type'] = 2;
+                $data['title'] = $this->notification_title;
+                $data['message'] = '';
+                $this->notification->sendNotification($data);
+            });
 
-                return redirect()->back()
-                    ->with('resposne_status', $resposne_status)
-                    ->with('req_ref_number', $refNumber)
-                    ->with('agent_success', $resposne_message);
-            } 
-            catch (Exception $e) {
-                return redirect()->back()->with('error', 'An error occurred while submitting the request.');
-            }
+            return redirect()->back()
+                ->with('resposne_status', $resposne_status)
+                ->with('req_ref_number', $refNumber)
+                ->with('agent_success', $resposne_message);
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while submitting the request.');
         }
+    }
 
 
 
     public function newRequest(Request $request)
     {
-            
-            $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
-                $q->where('status', 0)
+
+        $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
+            $q->where('status', 0)
                 ->where('receiver_agent_id', auth()->id());
-            })
+        })
             ->with([
                 'user',
                 'user.state',
                 'advertiser_agent_request_user' => function ($q) {
                     $q->where('status', 0)
-                    ->where('receiver_agent_id', auth()->id());
+                        ->where('receiver_agent_id', auth()->id());
                 },
             ]);
-            
-            $search = $request->query('search');
-             if (!empty($search)) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('ref_number', 'like', "%{$search}%")
-                    ->orWhereHas('user', function ($u) use ($search) {
-                    $u->where('member_id', 'like', "%{$search}%");
-                     });
-                });
-            }
-            $lists = $query->orderBy('id', 'desc')->paginate(3);
-            
-            ///dd(json_decode(json_encode($lists),true));
-            if ($request->ajax()) {
-                return view('agent.dashboard.Advertisers.agent-requests-list', compact('lists'))->render();
-            }
 
-            return view('agent.dashboard.Advertisers.new-requests', compact('lists'));   
+        $search = $request->query('search');
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('ref_number', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($u) use ($search) {
+                        $u->where('member_id', 'like', "%{$search}%");
+                    });
+            });
+        }
+        $lists = $query->orderBy('id', 'desc')->paginate(3);
+
+        ///dd(json_decode(json_encode($lists),true));
+        if ($request->ajax()) {
+            return view('agent.dashboard.Advertisers.agent-requests-list', compact('lists'))->render();
+        }
+
+        return view('agent.dashboard.Advertisers.new-requests', compact('lists'));
     }
 
     public function processRequest(Request $request)
     {
-        if((isset($request->id)) && (isset($request->request_type)))
-        {
-                
-            if($this->is_already_accepted($request->id))
-            return response()->json(['success' => false]); 
+        if ((isset($request->id)) && (isset($request->request_type))) {
+
+            if ($this->is_already_accepted($request->id))
+                return response()->json(['success' => false]);
 
 
-            if($request->request_type=='accept')
-            {   
-               $status = '1'; 
-               $response = $this->changeRequestStatus($request->id,$status); 
+            if ($request->request_type == 'accept') {
+                $status = '1';
+                $response = $this->changeRequestStatus($request->id, $status);
             }
-            
 
-            if($request->request_type=='reject')
-            {
-                 $status = '2';
-                 $response = $this->changeRequestStatus($request->id,$status);
+
+            if ($request->request_type == 'reject') {
+                $status = '2';
+                $response = $this->changeRequestStatus($request->id, $status);
             }
-           
 
-            if($response)
-            {
+
+            if ($response) {
                 return response()->json(['success' => true]);
-            }    
-            
-            else
-            {
-                return response()->json(['success' => false]); 
+            } else {
+                return response()->json(['success' => false]);
             }
-        
+        } else {
+            return response()->json(['success' => false]);
         }
-        else
-        {
-            return response()->json(['success' => false]); 
-        }
-
     }
 
 
@@ -217,41 +196,40 @@ class AgentRequestController extends Controller
     {
 
         $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
-                $q->where('status', '!=', 0)
+            $q->where('status', '!=', 0)
                 ->where('receiver_agent_id', auth()->id());
-            })
+        })
             ->with([
                 'user',
                 'user.state',
                 'advertiser_agent_request_user' => function ($q) {
                     $q->where('status', '!=', 0)
-                    ->where('receiver_agent_id', auth()->id());
+                        ->where('receiver_agent_id', auth()->id());
                 },
             ]);
-            
-            $search = $request->query('search');
-             if (!empty($search)) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('ref_number', 'like', "%{$search}%")
+
+        $search = $request->query('search');
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('ref_number', 'like', "%{$search}%")
                     ->orWhereHas('user', function ($u) use ($search) {
-                    $u->where('member_id', 'like', "%{$search}%");
-                     });
-                });
-            }
+                        $u->where('member_id', 'like', "%{$search}%");
+                    });
+            });
+        }
 
 
-            $lists = $query->orderBy('id', 'desc')->paginate(8);
+        $lists = $query->orderBy('id', 'desc')->paginate(8);
 
-            
 
-            //dd(json_decode(json_encode($lists),true));
 
-            if ($request->ajax()) {
-                return view('agent.dashboard.Advertisers.history-requests-list', compact('lists'))->render();
-            }
+        //dd(json_decode(json_encode($lists),true));
 
-            return view('agent.dashboard.Advertisers.history-requests', compact('lists')); 
+        if ($request->ajax()) {
+            return view('agent.dashboard.Advertisers.history-requests-list', compact('lists'))->render();
+        }
 
+        return view('agent.dashboard.Advertisers.history-requests', compact('lists'));
     }
 
 
@@ -259,120 +237,110 @@ class AgentRequestController extends Controller
     {
 
         $is_already_accepted = AdvertiserAgentRequestUser::where('advertiser_agent_requests_id', $request_id)
-        ->where('status', '1')
-        ->first();
+            ->where('status', '1')
+            ->first();
 
         if ($is_already_accepted)
             return true;
         else
             return false;
-
     }
 
 
-    public function changeRequestStatus($request_id,$status)
+    public function changeRequestStatus($request_id, $status)
     {
-       try 
-       {
-            
-            DB::transaction(function () use($request_id,$status) {
+        try {
+
+            DB::transaction(function () use ($request_id, $status) {
                 ########## First Update My Column ###################
 
-              $updated_data  =  AdvertiserAgentRequestUser::
-                    where('advertiser_agent_requests_id', $request_id)
+                $updated_data  =  AdvertiserAgentRequestUser::where('advertiser_agent_requests_id', $request_id)
                     ->where('receiver_agent_id', '=', auth()->id())
-                    ->update(['status'=>$status,'created_at' => date('Y-m-d H:i:s')]);
+                    ->update(['status' => $status, 'created_at' => date('Y-m-d H:i:s')]);
 
 
 
                 ##########  Update Other Agent Status  ###################
-                if($status=='1')
-                {
-                    AdvertiserAgentRequestUser::
-                    where('advertiser_agent_requests_id', $request_id)
-                    ->where('receiver_agent_id','!=', auth()->id())
-                    ->where('status','!=',2)
-                    ->update(['status'=>3,'created_at' => date('Y-m-d H:i:s')]); 
+                if ($status == '1') {
+                    AdvertiserAgentRequestUser::where('advertiser_agent_requests_id', $request_id)
+                        ->where('receiver_agent_id', '!=', auth()->id())
+                        ->where('status', '!=', 2)
+                        ->update(['status' => 3, 'created_at' => date('Y-m-d H:i:s')]);
 
-                   $advertiser = AdvertiserAgentRequestUser::
-                                     where('advertiser_agent_requests_id', $request_id)
-                                    ->where('receiver_agent_id', '=', auth()->id())
-                                    ->where('status','1')
-                                    ->first();
+                    $advertiser = AdvertiserAgentRequestUser::where('advertiser_agent_requests_id', $request_id)
+                        ->where('receiver_agent_id', '=', auth()->id())
+                        ->where('status', '1')
+                        ->first();
 
                     User::where('id', $advertiser->advertiser_user_id)
-                            ->where(function ($query) {
+                        ->where(function ($query) {
                             $query->where('type', '3')
-                            ->orWhere('type', '4');
-                            })
-                            ->update([
-                                'is_agent_assign' => '1',
-                                'agent_assign_date' => date('Y-m-d H:i:s'),
-                                'assigned_agent_id' => auth()->id(),
-                                'referred_by_agent_id' => auth()->user()->member_id
-                    ]);
+                                ->orWhere('type', '4');
+                        })
+                        ->update([
+                            'is_agent_assign' => '1',
+                            'agent_assign_date' => date('Y-m-d H:i:s'),
+                            'assigned_agent_id' => auth()->id(),
+                            'referred_by_agent_id' => auth()->user()->member_id
+                        ]);
 
-                        ######### Send Notification ################
-                        $data = [
-                            'title' => 'Your request for a Support Agent has been accepted',
-                            'to_user' => [$advertiser->advertiser_user_id],
-                            'notification_type' =>  'agent_accept',
-                            'notification_listing_type' =>  '2',
-                        ];
-                        $this->notification->sendNotification($data);
-                        ######### End Notification ################
+                    ######### Send Notification ################
+                    $data = [
+                        'title' => 'Your request for a Support Agent has been accepted',
+                        'to_user' => [$advertiser->advertiser_user_id],
+                        'notification_type' =>  'agent_accept',
+                        'notification_listing_type' =>  '2',
+                    ];
+                    $this->notification->sendNotification($data);
+                    ######### End Notification ################
 
-                        ########### Delete Other Pending Request For Agent #############
-                         $advertiser = AdvertiserAgentRequestUser::
-                                     where('advertiser_agent_requests_id', '!=', $request_id)
-                                    ->where('advertiser_user_id', '=', $advertiser->advertiser_user_id)
-                                    ->delete();
-                        ######### End Delete Other Pending Request For Agent ###########
+                    ########### Delete Other Pending Request For Agent #############
+                    $advertiser = AdvertiserAgentRequestUser::where('advertiser_agent_requests_id', '!=', $request_id)
+                        ->where('advertiser_user_id', '=', $advertiser->advertiser_user_id)
+                        ->delete();
+                    ######### End Delete Other Pending Request For Agent ###########
                 }
-                
             });
-          return true; 
-        } 
-          catch (Exception $e) {
-          Log::info($e->getMessage());  
-          return false;
-        } 
-
-      }
+            return true;
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return false;
+        }
+    }
 
 
 
-      public function allAgentRequests(Request $request)
-      {
+    public function allAgentRequests(Request $request)
+    {
 
         $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
-                $q->where('id', '>', 0);
-            })
+            $q->where('id', '>', 0);
+        })
             ->with([
                 'user:id,name,member_id,phone,state_id',
                 'user.state',
-                'agent_request_users.user:id,name,member_id,phone,state_id' ,
+                'agent_request_users.user:id,name,member_id,phone,state_id',
                 'agent_request_users' => function ($q) {
-                   $q->where('id', '>', 0);
+                    $q->where('id', '>', 0);
                 },
             ]);
-            
-            $search = $request->query('search');
-             if (!empty($search)) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('ref_number', 'like', "%{$search}%")
+
+        $search = $request->query('search');
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('ref_number', 'like', "%{$search}%")
                     ->orWhereHas('user', function ($u) use ($search) {
-                    $u->where('member_id', 'like', "%{$search}%");
-                     });
-                });
-            }
+                        $u->where('member_id', 'like', "%{$search}%");
+                    });
+            });
+        }
 
-            $lists = $query->orderBy('id', 'desc')->paginate(3);
-            //dd(json_decode(json_encode($lists),true));
+        $lists = $query->orderBy('id', 'desc')->paginate(3);
+        //dd(json_decode(json_encode($lists),true));
 
-            
-            return view('admin.reports.agent-requests', compact('lists')); 
-      }
+
+        return view('admin.reports.agent-requests', compact('lists'));
+    }
 
 
     ################### Agent Request Listing Into The Admin ########################
@@ -408,191 +376,174 @@ class AgentRequestController extends Controller
 
     private function paginatedList($start, $limit, $order_key, $dir)
     {
-        
-           $total_accepted = 0;
-           $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
-                $q->where('id', '>', 0);
-            })
+
+        $total_accepted = 0;
+        $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
+            $q->where('id', '>', 0);
+        })
             ->with([
                 'user',
                 'user.state',
-                'agent_request_users.user' ,
+                'agent_request_users.user',
                 'agent_request_users' => function ($q) {
-                   $q->where('id', '>', 0);
+                    $q->where('id', '>', 0);
                 },
             ]);
-            $query->leftJoin('users', 'users.id', '=', 'advertiser_agent_requests.user_id')
-                    ->leftJoin('states', 'states.id', '=', 'users.state_id')
-                    ->select('advertiser_agent_requests.*');
-        
-            
-            $search = request()->input('search.value');
+        $query->leftJoin('users', 'users.id', '=', 'advertiser_agent_requests.user_id')
+            ->leftJoin('states', 'states.id', '=', 'users.state_id')
+            ->select('advertiser_agent_requests.*');
 
-           if (!empty($search)) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('ref_number', 'like', "%{$search}%")
+
+        $search = request()->input('search.value');
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('ref_number', 'like', "%{$search}%")
                     ->orWhereHas('user', function ($u) use ($search) {
-                    $u->where('member_id', 'like', "%{$search}%");
-                     })
+                        $u->where('member_id', 'like', "%{$search}%");
+                    })
                     ->orWhereHas('agent_request_users.receiverAgent', function ($q) use ($search) {
                         $q->where('member_id', 'like', "%{$search}%");
                     });
-                });
+            });
+        }
+
+        switch ($order_key) {
+
+            case 0:
+                $query->orderBy('ref_number', $dir);
+                break;
+
+            case 1:
+                $query->orderBy('created_at', $dir);
+                break;
+
+            case 2:
+                $query->orderBy('users.member_id', $dir);
+                break;
+
+            case 3:
+                $query->orderBy('users.phone', $dir);
+                break;
+
+            case 4:
+                $query->orderBy('states.iso2', $dir);
+                break;
+
+            case 6:
+                $query->orderBy('states.iso2', $dir);
+                break;
+
+            default:
+                $query->orderBy('id', 'asc');
+                break;
+        }
+
+        //$totalRequest = $query->count();
+        $requestList = $query->offset($start)
+            ->limit($limit)
+            ->get();
+
+        $i = 1;
+        foreach ($requestList as $item) {
+
+
+            $agent_name = [];
+            $agent_mobile = [];
+            $agent_id = [];
+            $agent_status = [];
+            $list_arr = [];
+            $accepted_date = "";
+            $followup = "";
+
+
+            if (isset($item->agent_request_users) && count($item->agent_request_users) > 0) {
+                foreach ($item->agent_request_users as $index => $agent_user) {
+
+                    $agent_name[] = isset($agent_user->user->member_id) ? $agent_user->user->member_id : 'NA';
+                    $agent_user_id[] = isset($agent_user->user->id) ? $agent_user->user->id : 'NA';
+                }
             }
 
-            switch ($order_key) {
+            if (isset($item->agent_request_users) && count($item->agent_request_users) > 0) {
+                foreach ($item->agent_request_users as $index => $agent_user) {
 
-                    case 0:
-                    $query->orderBy('ref_number', $dir);
-                    break;
-
-                    case 1:
-                    $query->orderBy('created_at', $dir);
-                    break;
-
-                    case 2:
-                    $query->orderBy('users.member_id', $dir);
-                    break;
-
-                    case 3:
-                    $query->orderBy('users.phone', $dir);
-                    break;
-
-                    case 4:
-                    $query->orderBy('states.iso2', $dir); 
-                    break;
-
-                    case 6:
-                    $query->orderBy('states.iso2', $dir); 
-                    break;
-
-                    default:
-                    $query->orderBy('id', 'asc');
-                    break;
+                    $agent_mobile[] = isset($agent_user->user->phone) ? $agent_user->user->phone : 'NA ';
+                }
             }
 
-            //$totalRequest = $query->count();
-            $requestList = $query->offset($start)
-                            ->limit($limit)
-                            ->get();
-           
-            $i = 1;
-            foreach ($requestList as $item) {
+            if (isset($item->agent_request_users) && count($item->agent_request_users) > 0) {
+                foreach ($item->agent_request_users as $index => $agent_user) {
+                    if ($agent_user->status == 0) {
+                        $statusText = 'Open';
+                    }
+                    if ($agent_user->status == 1) {
+                        $statusText = 'Accepted';
+                    }
+                    if ($agent_user->status == 2) {
+                        $statusText = 'Rejected';
+                    }
+                    if ($agent_user->status == 3) {
+                        $statusText = 'Forfeited';
+                    }
 
-               
-                $agent_name = [];
-                $agent_mobile = [];
-                $agent_id = [];
-                $agent_status = [];
-                $list_arr = [];
-                $accepted_date = "";
-                $followup = "";
-                
-            
-                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
-                {
-                 foreach ($item->agent_request_users as $index => $agent_user)
-                 {
-
-                    $agent_name[] = isset($agent_user->user->member_id) ? $agent_user->user->member_id: 'NA';
-                    $agent_user_id[] = isset($agent_user->user->id) ? $agent_user->user->id: 'NA';
-                    
-
-                 }
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    $agent_status[] = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
                 }
+            }
 
-                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
-                {
-                 foreach ($item->agent_request_users as $index => $agent_user)
-                 {
-                   
-                    $agent_mobile[] = isset($agent_user->user->phone) ? $agent_user->user->phone: 'NA '; 
-                   
-
-                 }
-                }
-
-                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
-                {
-                    foreach ($item->agent_request_users as $index => $agent_user)
-                        {
-                            if ($agent_user->status == 0) {
-                                $statusText = 'Open';
-                            }
-                            if ($agent_user->status == 1) {
-                                $statusText = 'Accepted';
-                            }
-                            if ($agent_user->status == 2) {
-                                $statusText = 'Rejected';
-                            }
-                            if ($agent_user->status == 3) {
-                                $statusText = 'Forfeited';
-                            } 
-
-                            $badgeClass = getStatusBadgeClass($statusText);
-                            $agent_status[] = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
-                        }
-
-                }
-
-                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
-                {
-                 foreach ($item->agent_request_users as $index => $agent_user)
-                 {
-                    if($agent_user->status==1)
-                    {
-                        $accepted_date  =  date('d-m-Y',strtotime($agent_user->created_at));
+            if (isset($item->agent_request_users) && count($item->agent_request_users) > 0) {
+                foreach ($item->agent_request_users as $index => $agent_user) {
+                    if ($agent_user->status == 1) {
+                        $accepted_date  =  date('d-m-Y', strtotime($agent_user->created_at));
                         $agent_user_id = [];
                         $total_accepted++;
                         break;
                     }
-                 }
                 }
-               
+            }
 
-                $item->ref_number =  $item->ref_number;
-                $item->requested_at = date('d-m-Y',strtotime($item->created_at));
-                $item->user_member_id =  $item->user->member_id;
-                $item->phone =  $item->user->phone;
-                $item->country_code =  isset($item->user->state->iso2) ? $item->user->state->iso2 : 'NA';
-                $item->list_arr = [
-                    'agent_mobile' => $agent_mobile,
-                    'agent_status' => $agent_status,
-                    'agent_id' => $agent_name,
-                    'agent_user_id' => $agent_user_id
-                ];
-                
-                $item->accepted_date =  $accepted_date;
 
-                $view_status =  '<div class="dropdown-divider"></div><a class="dropdown-item align-item-custom current_status" href="#" data-id="' . $item->id . '"> <i class="fa fa-eye"></i> View Status</a>';
-                if($accepted_date=='')
+            $item->ref_number =  $item->ref_number;
+            $item->requested_at = date('d-m-Y', strtotime($item->created_at));
+            $item->user_member_id =  $item->user->member_id;
+            $item->phone =  $item->user->phone;
+            $item->country_code =  isset($item->user->state->iso2) ? $item->user->state->iso2 : 'NA';
+            $item->list_arr = [
+                'agent_mobile' => $agent_mobile,
+                'agent_status' => $agent_status,
+                'agent_id' => $agent_name,
+                'agent_user_id' => $agent_user_id
+            ];
+
+            $item->accepted_date =  $accepted_date;
+
+            $view_status =  '<div class="dropdown-divider"></div><a class="dropdown-item align-item-custom current_status" href="#" data-id="' . $item->id . '"> <i class="fa fa-eye"></i> View Status</a>';
+            if ($accepted_date == '')
                 $followup = '<a class="dropdown-item align-item-custom notiification-confirmation" href="#" data-id="' . $item->id . '"  data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a><div class="dropdown-divider"></div>';
 
-               
 
-                $item->action = '<div class="dropdown no-arrow">
+
+            $item->action = '<div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                 </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">'.$followup.'
-                                    <a class="dropdown-item align-item-custom view-agent-details" href="#"  data-id="' . $item->id . '" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View Request</a>'.$view_status.'
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">' . $followup . '
+                                    <a class="dropdown-item align-item-custom view-agent-details" href="#"  data-id="' . $item->id . '" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View Request</a>' . $view_status . '
                                 </div>';
 
-                // $item->view_status =  '<a href="javascript:void(0)" class="current_status" data-id="' . $item->id . '">View Status</a>';
+            // $item->view_status =  '<a href="javascript:void(0)" class="current_status" data-id="' . $item->id . '">View Status</a>';
 
 
-                $i++;
-            }
-            $totalRequest = $total_accepted;
-            return [$requestList, $totalRequest];
+            $i++;
+        }
+        $totalRequest = $total_accepted;
+        return [$requestList, $totalRequest];
     }
 
 
     public function accepted_advertiser_paginatedList($start, $limit, $order_key, $dir)
     {
-
-        
-        
         // $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
         //         $q->where('status', '=', 1)
         //         ->where('receiver_agent_id', auth()->id());
@@ -605,9 +556,8 @@ class AgentRequestController extends Controller
         //             ->where('receiver_agent_id', auth()->id());
         //         },
         //     ]);
-            
-        $query  = User::with('state')->where('assigned_agent_id',auth()->id())->where('is_agent_assign','1');
-        
+
+        $query  = User::with('state')->where('assigned_agent_id', auth()->id())->where('is_agent_assign', '1');
 
         $search = request()->input('search.value');
         if (!empty($search)) {
@@ -616,43 +566,43 @@ class AgentRequestController extends Controller
             });
         }
 
+        switch ($order_key) {
+            case 1:
+                $query->orderBy('member_id ', $dir);
+                break;
+            default:
+                $query->orderBy('created_at', 'DESC')->orderBy('created_at', 'ASC');
+                break;
+        }
 
-            switch ($order_key) {
+        $totalRequest = $query->count();
+        $requestList = $query->offset($start)->limit($limit)->get();
 
-                case 1:
-                    $query->orderBy('member_id ', $dir);
-                    break;
+        foreach ($requestList as $item) {
+            $item->joined_date =  isset($item->created_at) ? date('d-m-Y', strtotime($item->created_at)) : 'NA';
+            $item->appointed_date =  isset($item->agent_assign_date) ? date('d-m-Y', strtotime($item->agent_assign_date)) : 'NA';
+            $item->earnings =  '';
+            $item->home_state  =  isset($item->state->iso2) ? $item->state->iso2 : '';
+            $item->switch_account_route =  route('agent.switch-to-child', $item->id);
+            $type = ($item->type == '3') ? 'Escort' : 'Massage Center';
+            $item->switch_confirm_message = "Are you sure you want to switch to the " . $type . ' account?';
 
-                default:
-                    $query->orderBy('created_at', 'DESC')->orderBy('created_at', 'ASC');
-                    break;
-            }
+            $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
 
-            $totalRequest = $query->count();
-            $requestList = $query->offset($start)->limit($limit)->get();
+        }
 
-           
-
-
-          foreach ($requestList as $item) {
-
-                
-              $item->joined_date =  isset($item->created_at) ? date('d-m-Y',strtotime($item->created_at)) : 'NA';
-              $item->appointed_date =  isset($item->agent_assign_date) ? date('d-m-Y',strtotime($item->agent_assign_date)) : 'NA';
-              $item->earnings =  '';
-              $item->home_state  =  isset($item->state->iso2) ? $item->state->iso2 : '';
-              
-              
-              
-          }
-
-            return [$requestList, $totalRequest];
+        return [$requestList, $totalRequest];
     }
 
-    
+    public function advertiserList()
+    {
+        return view('agent.dashboard.Advertisers.advertiser-list');
+    }
+
+
 
     ################### accepted_advertiser_datatable ##############################
-     public function accepted_advertiser_datatable()
+    public function accepted_advertiser_datatable()
     {
         list($result, $count) = $this->accepted_advertiser_paginatedList(
             request()->get('start'),
@@ -668,11 +618,5 @@ class AgentRequestController extends Controller
         );
 
         return response()->json($data);
-
     }
-
-
-
-   
-
 }

@@ -44,8 +44,8 @@
                         <div class="form-group label_margin_zero_for_login position-relative custom--password login--eye">
                             <label for="exampleInputPassword1">{{ __('Password') }}</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder=""
-                                    name="password" required autocomplete="new-password"
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                                    name="password" required autocomplete="new-password" 
                                     data-parsley-required-message="@lang('errors/validation/required.password')"
                                     data-parsley-pattern-message="@lang('errors/validation/valid.password')">
 
@@ -193,12 +193,9 @@
         });
     });
 
-</script>
 
-<script>
     document.getElementById('email').focus();
-</script>
-<script>
+
 
     $(document).ready(function() {
         $("body").on("click","#forgotpassword",function(e){
@@ -217,53 +214,6 @@
         });
 
 
-
-        //{{--
-        //    var loginFormee = $("#loginForm2211");
-
-        //    loginFormee.submit(function(e) {
-
-        //        e.preventDefault();
-        //        var form = $(this);
-        //        var url = form.attr('action');
-        //        var formData = new FormData($("#loginFormee")[0]);
-        //        console.log(formData);
-        //        var token = $('input[name="_token"]').attr('value');
-
-        //        $.ajax({
-        //            url: url,
-        //            type: 'POST',
-        //            data: formData,
-        //            dataType: "JSON",
-        //            contentType: false,
-        //            processData: false,
-        //            headers: {
-        //                'X-CSRF-Token': token
-        //            },
-        //            success: function(data) {
-        //                 window.location.href ="{{ route('find.all') }}";
-        //                 console.log("data - "+data);
-        //            },
-        //            error: function(data) {
-
-        //                console.log("error: ", data.responseJSON.errors);
-
-
-        //                $.each(data.responseJSON.errors, function(key, value) {
-        //                  errorsHtml = '<div class="alert alert-danger"><ul>';
-        //                  errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-        //                });
-
-        //                errorsHtml += '</ul></di>';
-        //                $('#formerror').html(errorsHtml);
-        //            }
-        //        });
-        //    });--}}
-
-
-
-    
-
     var loginFormViewer = $("#loginFormViewer");
 
     loginFormViewer.submit(function(e) {
@@ -272,7 +222,7 @@
       var form = $(this);
       var url = form.attr('action');
       var formData = new FormData($("#loginFormViewer")[0]);
-      console.log(formData);
+      //console.log(formData);
       var token = $('input[name="_token"]').attr('value');
 
         $.ajax({
@@ -299,7 +249,7 @@
                 if(data.show_id != null) {
                    var show_id = data.show_id;
                 }
-                console.log('path=='+ path);
+                //console.log('path=='+ path);
                 var ph = data.phone;
                 $("#phoneId").attr('value',ph);
                 if(data.error == 1) 
@@ -320,14 +270,14 @@
                         var form = $(this);
                         $('#sendOtpSubmit').attr('disabled', true);
                         $('.wait-loader').css({'display':'block'});
-                        console.log(ph);
+                        //console.log(ph);
                         var url = "{{ route('web.checkOTP')}}";
                         var data = new FormData($('#SendOtp')[0]);
                         var phone = data.phone;
                         // var escort_id = data.escort_id;
                         //data.append("phone",phone );
                         //data.append("escort_id",escort_id );
-                        console.log("url="+url);
+                        //console.log("url="+url);
                         var token = $('input[name="_token"]').attr('value');
 
                         $.ajax({
@@ -395,9 +345,8 @@
       });
     });
 
-});
-</script>
-<script>
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
         function togglePasswordVisibility(inputId, iconId) {
             const input = document.getElementById(inputId);
@@ -426,160 +375,160 @@
     });
 
 
-        $(document).ready(function () {
-         var selectedLocation = {
-                lat : '',
-                lng : '',
-                tiemzone : ''
-            }
+    $(document).ready(function () {
+        var selectedLocation = {
+            lat : '',
+            lng : '',
+            tiemzone : ''
+        }
 
-            navigator.geolocation.getCurrentPosition(async function(position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                selectedLocation.lat = latitude;
-                selectedLocation.lng = longitude;
-                getCurrentState(selectedLocation);
-             });
+        navigator.geolocation.getCurrentPosition(async function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            selectedLocation.lat = latitude;
+            selectedLocation.lng = longitude;
+            getCurrentState(selectedLocation);
+            });
 
 
-               function getCurrentState(data) {
-                $.ajax({
-                    url: '{{ route("user.current.state") }}',
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        data: data
-                    },
-                    success: function (response) {
+            function getCurrentState(data) {
+            $.ajax({
+                url: '{{ route("user.current.state") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    data: data
+                },
+                success: function (response) {
 
-                        if (response?.data?.state == null) {
-                            alert('Your location not found');
-                        }
-                        else
-                        {
-                             console.log('response.data.state',response.data.state);
-                             $('#current_state_id').val(response.data.state);
-                           
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Error in location filter:', error);
+                    if (response?.data?.state == null) {
+                        alert('Your location not found');
                     }
-                });
-            }
+                    else
+                    {
+                            //console.log('response.data.state',response.data.state);
+                            $('#current_state_id').val(response.data.state);
+                        
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error in location filter:', error);
+                }
+            });
+        }
 
-        })
+    })
        
     
-      $("body").on("click", "#sendOtpSubmit", function(e) {
-         e.preventDefault();
-         let form = $("#SendOtp")[0];
-         let data = new FormData(form);
-         var url = "{{ route('web.checkOTP')}}";
-         data.append('forget_password' , $('#forgot_password').val());
-         data.append('email' , $('.email-val').val());
-         var token = $('input[name="_token"]').attr('value');
+    $("body").on("click", "#sendOtpSubmit", function(e) {
+        e.preventDefault();
+        let form = $("#SendOtp")[0];
+        let data = new FormData(form);
+        var url = "{{ route('web.checkOTP')}}";
+        data.append('forget_password' , $('#forgot_password').val());
+        data.append('email' , $('.email-val').val());
+        var token = $('input[name="_token"]').attr('value');
 
-         $.ajax({
-            url: url,
-            type: 'POST',
-            data: data,
-            dataType: "JSON",
-            contentType: false,
-            processData: false,
-            headers: {
-               'X-CSRF-Token': token
-            },
-            beforeSend: function () {
-               $('#sendOtpSubmit').prop('disabled', true);
-               $('#sendOtpSubmit').html('Verifying...');
-            }, 
-            success: function(data) {
-               if(data.error ==  false){
-                  var form = $(this);
-                  var url = "{{ route('web.sendMail.viewer')}}";
-                  var data = new FormData($('#forgotPasswordSend')[0]);
-                  var token = $('input[name="_token"]').attr('value');
-                     $.ajax({
-                           url: url,
-                           type: 'POST',
-                           data: data,
-                           dataType: "JSON",
-                           contentType: false,
-                           processData: false,
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           beforeSend: function () {
-                              $('#sendSubmit').prop('disabled', true);
-                              $('#sendSubmit').html('<div class="spinner-border spinner-border-sm"></div> Sending...');
-                           },
-                           success: function(data) {
-                              if(data.error == true) {
-                                 $("#comman_modal").modal('hide');
-                                 $(".comman_msg").text(data.email);
-                                 $("#recovery_modal").modal('show');
-                                 $('#sendSubmit').prop('disabled', false);
-                                 $('#sendSubmit').html('Send');
-                                 $('.email-val').val('');
-                                 $('#sendOtp_modal').modal('hide');
-                                 $('#sendOtpSubmit').prop('disabled', false);
-                                 $('#sendOtpSubmit').html('Verify');
-                                 $('#otp').val('');
-                              }
-                              if(data.error == false) { 
-                                 $("#errorNew ul").remove();
-                                 $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
-                                 $('#sendSubmit').prop('disabled', false);
-                                 $('#sendSubmit').html('Send');
-                              }
-                           },
-                           error: function(data) {
-                              console.log("error: ", data.responseJSON.errors);
-                           }
-                     }); 
-               }else if (data.error === true && !('type' in data)) {
-                     $('.otp-input').val('');
-                     $('.first_input').val('').focus().select();
-                     $("#senderror").html('');
-                     $("#senderror").append(
-                        "<ul class='parsley-errors-list filled'>" +
-                           "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
-                        "</ul>"
-                     );
+        $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        dataType: "JSON",
+        contentType: false,
+        processData: false,
+        headers: {
+            'X-CSRF-Token': token
+        },
+        beforeSend: function () {
+            $('#sendOtpSubmit').prop('disabled', true);
+            $('#sendOtpSubmit').html('Verifying...');
+        }, 
+        success: function(data) {
+            if(data.error ==  false){
+                var form = $(this);
+                var url = "{{ route('web.sendMail.viewer')}}";
+                var data = new FormData($('#forgotPasswordSend')[0]);
+                var token = $('input[name="_token"]').attr('value');
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: data,
+                        dataType: "JSON",
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'X-CSRF-Token': token
+                        },
+                        beforeSend: function () {
+                            $('#sendSubmit').prop('disabled', true);
+                            $('#sendSubmit').html('<div class="spinner-border spinner-border-sm"></div> Sending...');
+                        },
+                        success: function(data) {
+                            if(data.error == true) {
+                                $("#comman_modal").modal('hide');
+                                $(".comman_msg").text(data.email);
+                                $("#recovery_modal").modal('show');
+                                $('#sendSubmit').prop('disabled', false);
+                                $('#sendSubmit').html('Send');
+                                $('.email-val').val('');
+                                $('#sendOtp_modal').modal('hide');
+                                $('#sendOtpSubmit').prop('disabled', false);
+                                $('#sendOtpSubmit').html('Verify');
+                                $('#otp').val('');
+                            }
+                            if(data.error == false) { 
+                                $("#errorNew ul").remove();
+                                $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
+                                $('#sendSubmit').prop('disabled', false);
+                                $('#sendSubmit').html('Send');
+                            }
+                        },
+                        error: function(data) {
+                            //console.log("error: ", data.responseJSON.errors);
+                        }
+                    }); 
+            }else if (data.error === true && !('type' in data)) {
+                    $('.otp-input').val('');
+                    $('.first_input').val('').focus().select();
+                    $("#senderror").html('');
+                    $("#senderror").append(
+                    "<ul class='parsley-errors-list filled'>" +
+                        "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
+                    "</ul>"
+                    );
 
-                     $('#otp').val('');
-                     $('#sendOtpSubmit').prop('disabled', false);
-                     $('#sendOtpSubmit').html('Verify');
-               }else{
-                    if(data.type == 0) {
-                        window.location.href = "{{ route('find.all') }}";
-                    } 
-               }
-            },
-            error: function(data) {
- 
-               console.log("error otp: ", data.responseJSON.errors);
-               $.each(data.responseJSON.errors, function(key, value) {
-                  errorsHtml = '<div class="alert alert-danger"><ul>';
-                  errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-               });
-               $('#sendOtpSubmit').prop('disabled', false);
-                     $('#sendOtpSubmit').html('Verify');
-               errorsHtml += '</ul></di>';
-               $('#senderror').html(errorsHtml);
-               $('.otp-input').val('');
-               $('.first_input').val('').focus().select();
+                    $('#otp').val('');
+                    $('#sendOtpSubmit').prop('disabled', false);
+                    $('#sendOtpSubmit').html('Verify');
+            }else{
+                if(data.type == 0) {
+                    window.location.href = "{{ route('find.all') }}";
+                } 
             }
-         });
-      }); 
+        },
+        error: function(data) {
 
-        $(document).off('click' , '#resendOtpSubmit');
-        $(document).on('click' , '#resendOtpSubmit' , function(){
-            send2FAotp($('.email-val').val());
+            //console.log("error otp: ", data.responseJSON.errors);
+            $.each(data.responseJSON.errors, function(key, value) {
+                errorsHtml = '<div class="alert alert-danger"><ul>';
+                errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+            });
+            $('#sendOtpSubmit').prop('disabled', false);
+                    $('#sendOtpSubmit').html('Verify');
+            errorsHtml += '</ul></di>';
+            $('#senderror').html(errorsHtml);
+            $('.otp-input').val('');
+            $('.first_input').val('').focus().select();
+        }
         });
+    }); 
 
-        $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
+    $(document).off('click' , '#resendOtpSubmit');
+    $(document).on('click' , '#resendOtpSubmit' , function(){
+        send2FAotp($('.email-val').val());
+    });
+
+    $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
       $('#forgot_password').val(0);
       $("#senderror").html('');
    });
@@ -607,7 +556,7 @@
         },
         error: function(data) {
 
-            console.log("error otp: ", data.responseJSON.errors);
+            //console.log("error otp: ", data.responseJSON.errors);
             
         }
         });

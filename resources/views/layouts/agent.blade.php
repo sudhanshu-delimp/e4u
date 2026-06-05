@@ -13,7 +13,6 @@
             <div id="content">
 
                 @include('partials.agent.navigation')
-
                 @yield('content')
 
             </div>

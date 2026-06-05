@@ -1,75 +1,81 @@
 @extends('layouts.escort')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js?v1.1') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<style type="text/css">
-   .parsley-errors-list {
-   list-style: none;
-   color: rgb(248, 0, 0);
-   padding: 0;
-   }
-   .parsley-errors-list li {
-   font-size: 14px;
-   line-height: 18px;
-   margin-top: 6px;
-   }
-</style>
-<script>
-   function _displayGenderDependentFields(genderVal) {
-       if (['1', '3'].indexOf(genderVal) <= -1) {
-           $(".femaleFields").show();
-           $(".maleFields").hide();
-       } else if (['6', '3'].indexOf(genderVal) <= -1) {
-           $(".maleFields").show();
-           $(".femaleFields").hide();
-       } else {
-           $(".maleFields").show();
-           $(".femaleFields").show();
-       }
-   }
-   
-   function formatEscortList(data) {
-       return $(
-           '<span><img class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed" src="' +
-           data.text + '"> ' + data.name + ' || ' + data.member_id + '</span>');
-   }
-   
-   function selectEscortList(data) {
-       return $('<span><i class="fas fa-search fa-sm" style="color: #999;"></i>  Search by name OR Member ID </span>');
-   }
-</script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js?v1.1') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <style type="text/css">
+        .parsley-errors-list {
+            list-style: none;
+            color: rgb(248, 0, 0);
+            padding: 0;
+        }
+
+        .parsley-errors-list li {
+            font-size: 14px;
+            line-height: 18px;
+            margin-top: 6px;
+        }
+    </style>
+    <script>
+        function _displayGenderDependentFields(genderVal) {
+            if (['1', '3'].indexOf(genderVal) <= -1) {
+                $(".femaleFields").show();
+                $(".maleFields").hide();
+            } else if (['6', '3'].indexOf(genderVal) <= -1) {
+                $(".maleFields").show();
+                $(".femaleFields").hide();
+            } else {
+                $(".maleFields").show();
+                $(".femaleFields").show();
+            }
+        }
+
+        function formatEscortList(data) {
+            return $(
+                '<span><img class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed" src="' +
+                data.text + '"> ' + data.name + ' || ' + data.member_id + '</span>');
+        }
+
+        function selectEscortList(data) {
+            return $('<span><i class="fas fa-search fa-sm" style="color: #999;"></i>  Search by name OR Member ID </span>');
+        }
+    </script>
 @endsection
 @section('content')
-@php  
-$existDefaultService = $escort->services()->exists();
-$existAvailability = $escort->availability()->exists();
-$editMode = request()->segment(2) == 'profile' ? true:false;
-$loginAccount = auth()->user();
-@endphp
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <div class="d-sm-flex align-items-center justify-content-between">
-        <div class="custom-heading-wrapper">
-             @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
-            <h1 class="h1">New Profile</h1>
-            @else
-            <h1 class="h1">Update Profile</h1>
+    @php
+        $existDefaultService = $escort->services()->exists();
+        $existAvailability = $escort->availability()->exists();
+        $editMode = request()->segment(2) == 'profile' ? true : false;
+        $loginAccount = auth()->user();
+        $isImpersonated = false;
+        if (session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true) {
+            $isImpersonated = false;  
+        } 
+        @endphp
+    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div class="custom-heading-wrapper">
+                @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
+                    <h1 class="h1">New Profile</h1>
+                @else
+                    <h1 class="h1">Update Profile</h1>
+                @endif
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"
+                    aria-expanded="true"><b>Help?</b></span>
+            </div>
+            @if (request('from') == 'dashboard')
+                <div class="back-to-dashboard">
+                    <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                    </a>
+                </div>
             @endif
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options" aria-expanded="true"><b>Help?</b></span>
         </div>
-        @if (request('from') == 'dashboard')
-        <div class="back-to-dashboard">
-            <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-            </a>
-        </div>
-        @endif
-    </div>
-   <div class="row">
-      {{-- <div class="col-md-12 custom-heading-wrapper">
+        <div class="row">
+            {{-- <div class="col-md-12 custom-heading-wrapper">
          @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
          <h1 class="h1">New Profile</h1>
          @else
@@ -77,222 +83,239 @@ $loginAccount = auth()->user();
          @endif
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div> --}}
-      <div class="col-md-12 mb-4" id="profile_and_tour_options">
-         <div class="card collapse" id="notes">
-            <div class="card-body">
-               <h3 class="NotesHeader"><b>Notes:</b> </h3>
-               <ol>
-                  <li>Use this feature to create your Profiles. You can create as many Profiles as you
-                     like for as many Locations as you like.
-                  </li>
-                  <li>The Profiles you create will be used to create Tours.</li>
-                  <li>Each time you create a Profile, it will be pre-populated with your <a
-                     href="/escort-dashboard/profile-informations"
-                     class="custom_links_design">Profile Information</a> you have set. Take the time
-                     to set up your <a href="/escort-dashboard/profile-informations"
-                        class="custom_links_design">Profile Information</a> and <a
-                        href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>.
-                     Any changes you make in the Profile Creator will only apply to that Profile unless
-                     you click the ‘Update’ button for the section you have changed. Otherwise your
-                     Profile Information settings will not change.
-                  </li>
-               </ol>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div id="content">
-      <div class="container-fluid p-0">
-         <!--middle content-->
-         <div class="row">
-            <div class="col-md-12">
-               <div class="row">
-                  <div class="col-lg-3">
-                     <div class="form_process">
-                        <div class="steps_to_filled_from">Step 1</div>
-                        <p>About me</p>
-                     </div>
-                  </div>
-                  <div class="col-lg-3">
-                     <div class="form_process">
-                        <div class="steps_to_filled_from">Step 2</div>
-                        <p>My Services & Rates</p>
-                     </div>
-                  </div>
-                  <div class="col-lg-3">
-                     <div class="form_process">
-                        <div class="steps_to_filled_from">Step 3</div>
-                        <p>My Availability</p>
-                     </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form_process">
-                       <div class="steps_to_filled_from">Step 4</div>
-                       <p>My Playmates</p>
+            <div class="col-md-12 mb-4" id="profile_and_tour_options">
+                <div class="card collapse" id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature to create your Profiles. You can create as many Profiles as you
+                                like for as many Locations as you like.
+                            </li>
+                            <li>The Profiles you create will be used to create Tours.</li>
+                            <li>Each time you create a Profile, it will be pre-populated with your <a
+                                    href="/escort-dashboard/profile-informations" class="custom_links_design">Profile
+                                    Information</a> you have set. Take the time
+                                to set up your <a href="/escort-dashboard/profile-informations"
+                                    class="custom_links_design">Profile Information</a> and <a
+                                    href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>.
+                                Any changes you make in the Profile Creator will only apply to that Profile unless
+                                you click the ‘Update’ button for the section you have changed. Otherwise your
+                                Profile Information settings will not change.
+                            </li>
+                        </ol>
                     </div>
-                 </div>
-                  <div class="col-lg-1">
-                     <div id="percent" style="font-size: 48px;font-weight: 700;">25%</div>
-                  </div>
-               </div>
-               <div class="manage_process_bar_padding">
-                  <div class="progress define_process_bar_width">
-                     <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 25%"
-                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                     </div>
-                  </div>
-               </div>
+                </div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-lg-12">
-               <!-- Begin Page Content -->
-               @php
-                    $activeTab = request()->get('tab', 'about-me');
-               @endphp
-               <div class="row">
-                  <div class="col-md-12 remove_padding_in_ph">
-                     <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
-                        <li class="nav-item">
-                           <a class="nav-link {{$activeTab=='about-me'?'active':''}}" id="home-tab" data-toggle="tab" href="#aboutme"
-                              role="tab" aria-controls="home" aria-selected="true">About me</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services"
-                              role="tab" aria-controls="profile" aria-selected="false">My Services &
-                           Rates</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
-                              role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{$activeTab=='my-playmates'?'active':''}}" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
-                                My Playmates</a>
-                        </li>
-                     </ul>
-                     
-                    @if(!$editMode)
-                     <form id="my_escort_profile"
-                        action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
-                        enctype="multipart/form-data" data-parsley-validate>
-                        @csrf   
-                        <input type="hidden" name="user_startDate" id="user_startDate"
-                           value="{{ date('Y-m-d', strtotime($loginAccount->created_at)) }}">
-                    @endif        
-                        <div class="tab-content tab-content-bg" id="myTabContent">
-                           @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
-                           'profile_type' => 'updated',
-                           ])
-                           @include('escort.dashboard.profile.partials.services-dash-tab')
-                           @include('escort.dashboard.profile.partials.available-dash-tab')
-                           @include('escort.dashboard.profile.partials.playmates-dash-tab')
+        </div>
+        <div id="content">
+            <div class="container-fluid p-0">
+                <!--middle content-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form_process">
+                                    <div class="steps_to_filled_from">Step 1</div>
+                                    <p>About me</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form_process">
+                                    <div class="steps_to_filled_from">Step 2</div>
+                                    <p>My Services & Rates</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form_process">
+                                    <div class="steps_to_filled_from">Step 3</div>
+                                    <p>My Availability</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form_process">
+                                    <div class="steps_to_filled_from">Step 4</div>
+                                    <p>My Playmates</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div id="percent" style="font-size: 48px;font-weight: 700;">25%</div>
+                            </div>
                         </div>
-                    @if(!$editMode)
-                     </form>
-                    @endif 
-                     
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- End of Content Wrapper -->
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-   <div class="toast-header">
-      <!--<img src="..." class="rounded mr-2" alt="...">-->
-      <strong class="mr-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      </button>
-   </div>
-   <div class="toast-body">Hello, world! This is a toast message.</div>
-</div>
-<!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
-<div class="modal fade upload-modal programmatic" id="change_all" style="display: none">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">
-                <img src="{{ asset('assets/app/img/newcross.png') }}"
-                class="img-fluid img_resize_in_smscreen">
-            </span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <input type="hidden" id="current" name="current">
-            <input type="hidden" id="previous" name="previous">
-            <input type="hidden" id="label" name="label">
-            <input type="hidden" id="trigger-element">
-            <input type="hidden" id="trigger-element2">
-            <h3 class="my-2"><span id="Lname"></span> </h3>
-            <h3 class="my-2"><span id="log"></span> </h3>
-            
-         </div>
-         <div class="modal-footer justify-content-center pt-0">
-               <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
-                  value="close" id="close_change">No</button>
-               <button type="button" class="btn-success-modal" id="save_change">Yes</button>
-            </div>
-      </div>
-   </div>
-</div>
+                        <div class="manage_process_bar_padding">
+                            <div class="progress define_process_bar_width">
+                                <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 25%"
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Begin Page Content -->
+                        @php
+                            $activeTab = request()->get('tab', 'about-me');
+                        @endphp
+                        <div class="row">
+                            <div class="col-md-12 remove_padding_in_ph">
+                                <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ $activeTab == 'about-me' ? 'active' : '' }}" id="home-tab"
+                                            data-toggle="tab" href="#aboutme" role="tab" aria-controls="home"
+                                            aria-selected="true">About me</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services"
+                                            role="tab" aria-controls="profile" aria-selected="false">My Services &
+                                            Rates</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
+                                            role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ $activeTab == 'my-playmates' ? 'active' : '' }}"
+                                            id="playmates-tab" data-toggle="tab" href="#playmates" role="tab"
+                                            aria-controls="my-playmates" aria-selected="false">
+                                            My Playmates</a>
+                                    </li>
+                                </ul>
 
-<div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="emailReport"><img src="{{ asset('assets/dashboard/img/view-listing.png') }}" class="custompopicon"> Listing</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                @if (!$editMode)
+                                    <form id="my_escort_profile"
+                                        action="{{ route('escort.setting.profile', request()->segment(3)) }}"
+                                        method="post" enctype="multipart/form-data" data-parsley-validate>
+                                        @csrf
+                                        <input type="hidden" name="user_startDate" id="user_startDate"
+                                            value="{{ date('Y-m-d', strtotime($loginAccount->created_at)) }}">
+                                @endif
+                                <div class="tab-content tab-content-bg" id="myTabContent">
+                                    @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
+                                        'profile_type' => 'updated',
+                                    ])
+                                    @include('escort.dashboard.profile.partials.services-dash-tab')
+                                    @include('escort.dashboard.profile.partials.available-dash-tab')
+                                    @include('escort.dashboard.profile.partials.playmates-dash-tab')
+                                </div>
+                                @if (!$editMode)
+                                    </form>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Content Wrapper -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <!--<img src="..." class="rounded mr-2" alt="...">-->
+            <strong class="mr-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
-         </div>
-         <div class="modal-body" id="escortPopupModalBody">
-            <iframe src="{{ route('profile.description',$escort->id ? $escort->id : '' )}}" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
-         </div>
-      </div>
-   </div>
-</div>
-@include('escort.dashboard.modal.upload_gallery_image')
-@include('escort.dashboard.modal.remove_gallary_image')
-@include('escort.dashboard.modal.verify_media')
-@include('escort.dashboard.modal.upload_gallery_video')
-@include('escort.dashboard.modal.set_default_video')
-@include('escort.dashboard.modal.remove_gallary_video')
-@if (Session::has('message'))
-<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+        </div>
+        <div class="toast-body">Hello, world! This is a toast message.</div>
+    </div>
+    <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
+    @if(!$isImpersonated)
+    <div class="modal fade upload-modal programmatic" id="change_all" style="display: none">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> <img
+                            src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My
+                        Information</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="current" name="current">
+                    <input type="hidden" id="previous" name="previous">
+                    <input type="hidden" id="label" name="label">
+                    <input type="hidden" id="trigger-element">
+                    <input type="hidden" id="trigger-element2">
+                    <h3 class="my-2"><span id="Lname"></span> </h3>
+                    <h3 class="my-2"><span id="log"></span> </h3>
+
+                </div>
+                <div class="modal-footer justify-content-center pt-0">
+                    <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal" value="close"
+                        id="close_change">No</button>
+                    <button type="button" class="btn-success-modal" id="save_change">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog"
+        aria-labelledby="emailReportLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailReport"><img
+                            src="{{ asset('assets/dashboard/img/view-listing.png') }}" class="custompopicon"> Listing
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body" id="escortPopupModalBody">
+                    <iframe src="{{ route('profile.description', $escort->id ? $escort->id : '') }}"
+                        id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    @include('escort.dashboard.modal.upload_gallery_image')
+    @include('escort.dashboard.modal.remove_gallary_image')
+    @include('escort.dashboard.modal.verify_media')
+    @include('escort.dashboard.modal.upload_gallery_video')
+    @include('escort.dashboard.modal.set_default_video')
+    @include('escort.dashboard.modal.remove_gallary_video')
+    @if (Session::has('message'))
+        <div class="alert alert-info">{{ Session::get('message') }}</div>
+    @endif
+
+    @php
+     $currentNarrations = additional_information(Auth::id(), 'narration', 'value');
+
+    @endphp
 @endsection
 @push('script')
-<script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
-<script src="{{ asset('js/escort/profile_playmate.js') }}"></script>
+    <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
+    <script src="{{ asset('js/escort/profile_playmate.js') }}"></script>
     <script>
         window.App = window.App || {};
-        window.App.escortId = '{{$escort->id}}';
+        window.App.escortId = '{{ $escort->id }}';
 
-        var profile_gender = '{{auth()->user()->gender}}';
+        var profile_gender = '{{ auth()->user()->gender }}';
+        var selectNarrations = '{{additional_information(Auth::id(), 'narration', 'value')}}';
 
-        
 
-        var trans_gender = 0;    
-        
+
+        var trans_gender = 0;
+
         $(document).on('change', '#Gender', function(e) {
-        trans_gender = $.trim(this.value); 
+            trans_gender = $.trim(this.value);
         });
 
         $(document).on('click', '.gender_alert', function(e) {
-             call_gender_alert($('#Gender').val());
+            call_gender_alert($('#Gender').val());
         });
 
-        function call_gender_alert(trans_gender)
-        {
-             if($.trim(trans_gender)==3) 
-              {
+        function call_gender_alert(trans_gender) {
+            if ($.trim(trans_gender) == 3) {
 
                 //let stageName = $('#stageName').val();
                 //let message = `This stage name will be displayed as TS - (stage name).`;
@@ -309,8 +332,8 @@ $loginAccount = auth()->user();
                     confirmButtonText: 'OK'
                 });
 
-               
-              } 
+
+            }
         }
 
 
@@ -324,7 +347,7 @@ $loginAccount = auth()->user();
                 return old;
             });
         });
-        
+
         $('#select2-dropdown').select2({
             createTag: function(params) {
                 var term = $.trim(params.term);
@@ -365,7 +388,7 @@ $loginAccount = auth()->user();
             }
         });
         $('#select2_country').select2();
-    
+
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             $('#LocationInformation').parsley({});
         @endif
@@ -397,7 +420,7 @@ $loginAccount = auth()->user();
 
             var url = $(location).attr('pathname');
 
-            
+
             $('#language').change(function() {
                 var languageValue = $('#language').val();
                 $("#show_language").show();
@@ -474,8 +497,8 @@ $loginAccount = auth()->user();
                 let existRates = checkRates();
                 if (!existRates) {
                     Swal.fire('Rates',
-                    'You must complete at least one rate value to proceed.',
-                    'warning');
+                        'You must complete at least one rate value to proceed.',
+                        'warning');
                     return false;
                 }
                 var form = $(this);
@@ -569,7 +592,7 @@ $loginAccount = auth()->user();
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(data) {
-                            
+
                             if (!data.error) {
                                 Swal.fire('Updated', '', 'success');
                                 $('#aboutMeBtn').prop('disabled', false);
@@ -590,7 +613,7 @@ $loginAccount = auth()->user();
 
             $('#update_abut_who_am_i').on('submit', function(e) {
                 e.preventDefault();
-                if(!validateWhoAmIContent()){
+                if (!validateWhoAmIContent()) {
                     return false;
                 }
                 var form = $(this);
@@ -614,7 +637,7 @@ $loginAccount = auth()->user();
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                       
+
                         if (!data.error) {
                             Swal.fire('Updated', '', 'success');
                             $('#update_who_am_i').prop('disabled', false);
@@ -636,7 +659,7 @@ $loginAccount = auth()->user();
             $('#myability').on('submit', function(e) {
                 e.preventDefault();
                 let checkAvailability = validateAvailability();
-                if(checkAvailability){
+                if (checkAvailability) {
                     return false;
                 }
                 var form = $(this);
@@ -724,8 +747,8 @@ $loginAccount = auth()->user();
 
                 var form = $(this);
 
-                if(!checkProfileDynamicMedia()){
-                        return false;
+                if (!checkProfileDynamicMedia()) {
+                    return false;
                 }
 
                 if (form.parsley().isValid()) {
@@ -733,7 +756,7 @@ $loginAccount = auth()->user();
                     $('#mediaProfileBtn').html('<div class="spinner-border"></div>');
                     var url = form.attr('action');
                     var data = new FormData($('#myProfileMediaForm')[0]);
-                    
+
 
                     $.ajax({
                         method: form.attr('method'),
@@ -768,11 +791,11 @@ $loginAccount = auth()->user();
 
                 var form = $(this);
 
-                if(!checkProfileDynamicMediaVideo()){
+                if (!checkProfileDynamicMediaVideo()) {
                     Swal.fire('Media',
                         'Please attach video to this profile from the Media Repository or upload a new file',
                         'warning');
-                    return false;  
+                    return false;
                 }
 
                 if (form.parsley().isValid()) {
@@ -780,7 +803,7 @@ $loginAccount = auth()->user();
                     $('#mediaProfileVideoBtn').html('<div class="spinner-border"></div>');
                     var url = form.attr('action');
                     var data = new FormData($('#myProfileMediaVideoForm')[0]);
-                    
+
 
                     $.ajax({
                         method: form.attr('method'),
@@ -812,8 +835,8 @@ $loginAccount = auth()->user();
 
         }); // end (document).ready
 
-        if($('.js_profile_services input[name="service_id[]"]').length > 0){
-            $('.js_profile_services input[name="service_id[]"]').each((index, element)=>{
+        if ($('.js_profile_services input[name="service_id[]"]').length > 0) {
+            $('.js_profile_services input[name="service_id[]"]').each((index, element) => {
                 let value = $(element).val();
                 let tagContainer = $(element).parents('li');
                 let selectElement = tagContainer.parents('.row').slice(0, 1).prev().find('select');
@@ -821,18 +844,20 @@ $loginAccount = auth()->user();
             });
         }
 
-        $(document).on('change','.js_profile_service_tags', function(){
+        $(document).on('change', '.js_profile_service_tags', function() {
             let obj = $(this);
             let index = $('.js_profile_service_tags').index(this);
-            let tagContainer =  obj.parents('.row').slice(0, 2).next().find('ul');
+            let tagContainer = obj.parents('.row').slice(0, 2).next().find('ul');
             let selectedValue = $(this).val();
             let selectedText = $(this).find('option:selected').text();
-            let changeClass = "{{$existDefaultService?'change_default2':''}}";
+            let changeClass = "{{ $existDefaultService ? 'change_default2' : '' }}";
             let profileName = $('input[name="profile_name"]').val();
-            if(selectedValue){
+            if (selectedValue) {
                 $(this).find('option:selected').hide();
-                let string = `<li id='hideenclass${index}_${selectedValue}'><div class="my_service_anal"><span class='dollar-sign'>${selectedText}</span> <span class="d_profile_name">Status: ${profileName} <div class="make-ittool js_default_action">Add to Default</div></span>`;
-                string += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' value='0' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedValue}"><input type='hidden' name='service_id[]' value="${selectedValue}" placeholder=''><span> <small class="mytool-tip">Remove</small><i class='fas fa-times akh1' data-sname='${selectedText}' data-val="${selectedValue}"  id='id_${selectedValue}' value="${selectedValue}" >`;
+                let string =
+                    `<li id='hideenclass${index}_${selectedValue}'><div class="my_service_anal"><span class='dollar-sign'>${selectedText}</span> <span class="d_profile_name">Status: ${profileName} <div class="make-ittool js_default_action">Add to Default</div></span>`;
+                string +=
+                    `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' value='0' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedValue}"><input type='hidden' name='service_id[]' value="${selectedValue}" placeholder=''><span> <small class="mytool-tip">Remove</small><i class='fas fa-times akh1' data-sname='${selectedText}' data-val="${selectedValue}"  id='id_${selectedValue}' value="${selectedValue}" >`;
                 string += `</i></span></div></li>`;
                 tagContainer.append(` ${string} `);
                 if (changeClass === 'change_default2') {
@@ -844,7 +869,7 @@ $loginAccount = auth()->user();
         /**
          * Remove the service tag
          */
-        $(document).on('click','.js_profile_services i', function(){
+        $(document).on('click', '.js_profile_services i', function() {
             let obj = $(this);
             let tagContainer = obj.parents('li');
             let removeTagValue = tagContainer.find('input[name="service_id[]"]').val();
@@ -854,26 +879,28 @@ $loginAccount = auth()->user();
             /**
              * Remove the service tag from the default profile as well
              */
-            if(obj.hasClass('js_defaultProfileService')){
+            if (obj.hasClass('js_defaultProfileService')) {
                 Swal.fire({
-                title: 'My Services ',
-                text: "Do want to remove service from 'My information' page for future Profiles?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
+                    title: 'My Services ',
+                    text: "Do want to remove service from 'My information' page for future Profiles?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
                             type: 'POST',
                             url: "{{ route('escort.update_escort_default') }}",
                             dataType: 'json',
-                            data: {'remove_service':removeTagValue},
+                            data: {
+                                'remove_service': removeTagValue
+                            },
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(data) {
-                            
+
                             }
                         });
                     }
@@ -885,17 +912,16 @@ $loginAccount = auth()->user();
          * Change to Default and Normal Service Tag from already selected
          */
 
-         $(document).on('click','.js_default_action', function(){
+        $(document).on('click', '.js_default_action', function() {
             let obj = $(this)
             let profileName = $('input[name="profile_name"]').val();
             let priceValue = obj.parent().next('input[name="price[]"]').val();
             let serviceValue = obj.parent().next().next('input[name="service_id[]"]').val();
             let isDefault = obj.parents('li').hasClass('js_defaultProfileService');
             let data = {};
-            if(isDefault){
+            if (isDefault) {
                 data['remove_service'] = serviceValue;
-            }
-            else{
+            } else {
                 data['price[]'] = priceValue;
                 data['custom_id'] = serviceValue;
             }
@@ -905,20 +931,22 @@ $loginAccount = auth()->user();
                 dataType: 'json',
                 data: data,
                 headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    if(!response.error){
-                        isDefault?obj.parents('li').removeClass('js_defaultProfileService'):obj.parents('li').addClass('js_defaultProfileService');
-                        isDefault?obj.text('Add to Default'):obj.text('Remove from Default');
+                    if (!response.error) {
+                        isDefault ? obj.parents('li').removeClass('js_defaultProfileService') : obj
+                            .parents('li').addClass('js_defaultProfileService');
+                        isDefault ? obj.text('Add to Default') : obj.text('Remove from Default');
                         let span = obj.closest('.d_profile_name');
                         if (span.length) {
-                            span.get(0).firstChild.nodeValue = `Status: ${isDefault?profileName:'Default'}`;
+                            span.get(0).firstChild.nodeValue =
+                                `Status: ${isDefault?profileName:'Default'}`;
                         }
                     }
                 }
             });
-         });
+        });
 
         //start available //
         $('.available_to').click(function() {
@@ -1112,31 +1140,34 @@ $loginAccount = auth()->user();
             let imageSlots = document.querySelectorAll('.profile-gallery');
             let thumbnailSlot = imageSlots.item(0);
             let bannerSlot = imageSlots[imageSlots.length - 1];
-            if(['img-11.png','upload-thum-1.png'].includes(thumbnailSlot.getAttribute('src').substring(thumbnailSlot.getAttribute('src').lastIndexOf('/') + 1))){
+            if (['img-11.png', 'upload-thum-1.png'].includes(thumbnailSlot.getAttribute('src').substring(thumbnailSlot
+                    .getAttribute('src').lastIndexOf('/') + 1))) {
                 Swal.fire('Media',
                     'Please attach media to this Profile from the Media Repository or upload a new file (Thumbnail is mendatory)',
                     'warning');
                 return dynamic_image;
             }
-            if(['img-13.png','upload-3.png'].includes(bannerSlot.getAttribute('src').substring(bannerSlot.getAttribute('src').lastIndexOf('/') + 1))){
+            if (['img-13.png', 'upload-3.png'].includes(bannerSlot.getAttribute('src').substring(bannerSlot.getAttribute(
+                    'src').lastIndexOf('/') + 1))) {
                 Swal.fire('Media',
                     'Please attach media to this Profile from the Media Repository or upload a new file (Banner is mendatory)',
                     'warning');
                 return dynamic_image;
-            }
-            else{
+            } else {
                 imageSlots.forEach(img => {
                     let src = img.getAttribute('src');
                     let basename = src.substring(src.lastIndexOf('/') + 1);
-                    if (!['img-12.png', 'img-11.png', 'img-13.png', 'upload-thum-1.png', 'frame_final.png','upload-3.png'].includes(basename)) {
-                     dynamic_image++
+                    if (!['img-12.png', 'img-11.png', 'img-13.png', 'upload-thum-1.png', 'frame_final.png',
+                            'upload-3.png'
+                        ].includes(basename)) {
+                        dynamic_image++
                     }
                 });
                 if (dynamic_image < 5) {
                     dynamic_image = 0;
                     Swal.fire('Media',
-                    'Please attach media to this Profile from the Media Repository or upload a new file (Atleast 5 are mendatory including Thumbnail and Banner)',
-                    'warning');
+                        'Please attach media to this Profile from the Media Repository or upload a new file (Atleast 5 are mendatory including Thumbnail and Banner)',
+                        'warning');
                 }
                 return dynamic_image;
             }
@@ -1144,7 +1175,7 @@ $loginAccount = auth()->user();
 
         function checkProfileDynamicMediaVideo() {
             let dynamic_video = 0;
-            $("input[name^='video_position']").each(function () {
+            $("input[name^='video_position']").each(function() {
                 if ($(this).val().trim() != "") {
                     dynamic_video++;
                 }
@@ -1153,36 +1184,36 @@ $loginAccount = auth()->user();
             return dynamic_video;
         }
 
-        function checkRates(){
+        function checkRates() {
             const selectors = [
-            'input[name="massage_price[]"]',
-            'input[name="incall_price[]"]',
-            'input[name="outcall_price[]"]'
+                'input[name="massage_price[]"]',
+                'input[name="incall_price[]"]',
+                'input[name="outcall_price[]"]'
             ];
 
             let isValid = false;
-            const allInputs = selectors.flatMap(selector => 
-            Array.from(document.querySelectorAll(selector))
+            const allInputs = selectors.flatMap(selector =>
+                Array.from(document.querySelectorAll(selector))
             );
 
             for (const input of allInputs) {
-            const val = parseFloat(input.value);
-            
-            if (!isNaN(val) && val > 0) {
-                isValid = true;
-                break;
-            }
+                const val = parseFloat(input.value);
+
+                if (!isNaN(val) && val > 0) {
+                    isValid = true;
+                    break;
+                }
             }
             return isValid;
         }
 
-        function checkServicePrice(){
+        function checkServicePrice() {
             const selectors = [
-            'input[name="price[]"]'
+                'input[name="price[]"]'
             ];
 
             let isValid = true;
-            const allInputs = selectors.flatMap(selector => 
+            const allInputs = selectors.flatMap(selector =>
                 Array.from(document.querySelectorAll(selector))
             );
 
@@ -1199,33 +1230,33 @@ $loginAccount = auth()->user();
 
         function validateAvailability() {
             const dayMap = {
-            monday: 'mon',
-            tuesday: 'tue',
-            wednesday: 'wed',
-            thursday: 'thur',
-            friday: 'fri',
-            saturday: 'sat',
-            sunday: 'sun'
+                monday: 'mon',
+                tuesday: 'tue',
+                wednesday: 'wed',
+                thursday: 'thur',
+                friday: 'fri',
+                saturday: 'sat',
+                sunday: 'sun'
             };
 
             let hasError = false;
             let errorDays = [];
 
             Object.entries(dayMap).forEach(([fullDay, shortKey]) => {
-            const fromTime = document.querySelector(`[name="${shortKey}_from"]`)?.value || '';
-            const fromAMPM = document.querySelector(`[name="${shortKey}_time_from"]`)?.value || '';
-            const radioSelected = document.querySelector(`input[name="availability_time[${fullDay}]"]:checked`);
+                const fromTime = document.querySelector(`[name="${shortKey}_from"]`)?.value || '';
+                const fromAMPM = document.querySelector(`[name="${shortKey}_time_from"]`)?.value || '';
+                const radioSelected = document.querySelector(`input[name="availability_time[${fullDay}]"]:checked`);
 
-            if ((fromTime === '' || fromAMPM === '') && !radioSelected) {
-                hasError = true;
-                errorDays.push(fullDay.charAt(0).toUpperCase() + fullDay.slice(1));
-            }
+                if ((fromTime === '' || fromAMPM === '') && !radioSelected) {
+                    hasError = true;
+                    errorDays.push(fullDay.charAt(0).toUpperCase() + fullDay.slice(1));
+                }
             });
 
             if (hasError) {
                 Swal.fire('My Availability',
-                            `Please fill time or select an availability option for the following days:\n ${errorDays.join(', ')}`,
-                            'warning');
+                    `Please fill time or select an availability option for the following days:\n ${errorDays.join(', ')}`,
+                    'warning');
             }
 
             return hasError;
@@ -1235,7 +1266,7 @@ $loginAccount = auth()->user();
             const editorId = 'editor1';
             // Check if CKEditor instance exists
             if (CKEDITOR.instances[editorId]) {
-                
+
                 CKEDITOR.instances[editorId].updateElement(); // Push content to textarea
             } else {
                 console.warn("CKEditor instance NOT found for #editor1");
@@ -1243,7 +1274,7 @@ $loginAccount = auth()->user();
 
             // Debug: Show the updated textarea value
             const content = document.getElementById(editorId).value.trim();
-            
+
             showManualRequiredError(editorId);
             return (!content) ? false : true;
         }
@@ -1257,7 +1288,8 @@ $loginAccount = auth()->user();
             const value = textarea.value.trim();
 
             if (!value && errorContainer) {
-                errorContainer.innerHTML = `<ul class="parsley-errors-list filled"><li class="parsley-required">${message}</li></ul>`;
+                errorContainer.innerHTML =
+                    `<ul class="parsley-errors-list filled"><li class="parsley-required">${message}</li></ul>`;
             } else {
                 errorContainer.innerHTML = ''; // clear any previous error
             }
@@ -1285,20 +1317,21 @@ $loginAccount = auth()->user();
                     // Do soomething with the previous value after the change
 
 
-                   let inputName = $(this).attr('name');
-                   if ( inputName==='gender' && profile_gender !== "Null" && profile_gender !== "") 
-                   {
+                    let inputName = $(this).attr('name');
+
+                    if (inputName === 'gender' && profile_gender !== "Null" && profile_gender !== "") {
                         call_gender_alert(this.value);
                         return false;
-                   }
+                    }
 
-                   let step = $(this).attr('step'); /* Check step attribute validation before any operation */
-                   if (step && !this.checkValidity()) {
+                    let step = $(this).attr(
+                        'step'); /* Check step attribute validation before any operation */
+                    if (step && !this.checkValidity()) {
                         $(this).focus();
                         this.reportValidity();
                         return false;
-                   }
-                  
+                    }
+
 
                     var Current = $(this).val();
                     var original = $(this).parent().prev().text();
@@ -1345,7 +1378,7 @@ $loginAccount = auth()->user();
                         var day_key = $(this).attr('day_key_from');
                         var dayFrom = $("#" + day_key + "from").val();
                         var dayFromTime = $("#" + day_key + "fromtime").val();
-                        
+
                         if (dayFrom != "" && dayFromTime != "") {
                             Current = dayFrom + " " + dayFromTime;
                             $('#current').val(Current);
@@ -1380,7 +1413,8 @@ $loginAccount = auth()->user();
                         $('#current').val(checkedValues);
                     }
 
-                    let popupMessage = `<h5 class="custom_modal_text">Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</h5>`;
+                    let popupMessage =
+                        `<h5 class="custom_modal_text">Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</h5>`;
 
                     $("#Lname").html(popupMessage);
 
@@ -1404,7 +1438,8 @@ $loginAccount = auth()->user();
                 $('#previous').val(previous);
                 if ($(this).attr('name') == 'price[]') {
                     $('#trigger-element2').val($(this).attr('service_id'));
-                    let popupMessage = `<h5 class="custom_modal_text">Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</h5>`;
+                    let popupMessage =
+                        `<h5 class="custom_modal_text">Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</h5>`;
                     $("#Lname").html(popupMessage);
 
                     if ($(this).attr('name') != 'license' || ($(this).attr('name') == 'license' &&
@@ -1435,11 +1470,11 @@ $loginAccount = auth()->user();
             });
             $.each($("input[name^='availability_time']"), function(index, value) {
                 let p_element = $(value).attr('id');
-                if(p_element.endsWith('_til_ate')){
+                if (p_element.endsWith('_til_ate')) {
                     if ($(value).is(':checked')) {
                         var $selects = $('#' + p_element).closest('.parent-row').find('select');
-                        $selects.each(function(index){
-                            if(index >= 2){
+                        $selects.each(function(index) {
+                            if (index >= 2) {
                                 $(this).prop('disabled', true).val(0);
                             } else {
                                 $(this).prop('disabled', false);
@@ -1447,38 +1482,39 @@ $loginAccount = auth()->user();
                         });
                     }
 
-                }else{
+                } else {
                     if ($(value).is(':checked')) {
                         $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true);
                     }
                 }
 
-                
+
             });
 
             $(document).on('change',
                 'input.monday, input.tuesday, input.wednesday, input.thursday, input.friday, input.saturday, input.sunday',
                 function() {
-                    let shouldRun = "{{($editMode || $existAvailability)?true:false}}";
-                    if(!shouldRun){
+                    let shouldRun = "{{ $editMode || $existAvailability ? true : false }}";
+                    if (!shouldRun) {
                         return false;
                     }
                     var p_element = $(this).attr('id');
                     var weekName = $(this).attr('availability_time_key');
                     if ($('#' + p_element).is(":checked")) {
-                      if(p_element.endsWith('_til_ate')){
-                        var $selects = $('#' + p_element).closest('.parent-row').find('select');
-                            $selects.each(function(index){
-                                if(index >= 2){
+                        if (p_element.endsWith('_til_ate')) {
+                            var $selects = $('#' + p_element).closest('.parent-row').find('select');
+                            $selects.each(function(index) {
+                                if (index >= 2) {
                                     $(this).prop('disabled', true).val(0);
                                 } else {
                                     $(this).prop('disabled', false);
                                 }
                             });
-                      }else{
-                        $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true).val(0);
-                      }
-                        
+                        } else {
+                            $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true).val(
+                                0);
+                        }
+
                     } else {
                         $('#' + p_element).closest('.parent-row').find('select').attr('disabled', false);
                     }
@@ -1494,7 +1530,8 @@ $loginAccount = auth()->user();
                         $('#previous').val(previous);
                         if (weekName != "") {
                             $('#trigger-element2').val(weekName);
-                            let popupMessage = `<p>Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</p>`;
+                            let popupMessage =
+                                `<p>Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</p>`;
                             $("#Lname").html(popupMessage);
                             $('#change_all').modal('show');
                             previous = this.value;
@@ -1593,7 +1630,7 @@ $loginAccount = auth()->user();
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    
+
                     if (data.error == true) {
 
                         $("#img9").attr('src', data.path[9]['path']);
@@ -1623,17 +1660,17 @@ $loginAccount = auth()->user();
         window.Parsley.addValidator('atLeastOneNumber', {
             requirementType: 'string',
             validateString: function(_, parsleyInstance) {
-            // List your three fields here (use IDs, classes, or name attrs)
-            const vals = [
-                parseFloat(document.querySelector('input[name="massage_price[]"]').value) || 0,
-                parseFloat(document.querySelector('input[name="incall_price[]"]').value) || 0,
-                parseFloat(document.querySelector('input[name="outcall_price[]"]').value) || 0
-            ];
-            // Pass if any value > 0
-            return vals.some(v => v > 0);
+                // List your three fields here (use IDs, classes, or name attrs)
+                const vals = [
+                    parseFloat(document.querySelector('input[name="massage_price[]"]').value) || 0,
+                    parseFloat(document.querySelector('input[name="incall_price[]"]').value) || 0,
+                    parseFloat(document.querySelector('input[name="outcall_price[]"]').value) || 0
+                ];
+                // Pass if any value > 0
+                return vals.some(v => v > 0);
             },
             messages: {
-            en: 'Please enter a value above zero in at least one field.'
+                en: 'Please enter a value above zero in at least one field.'
             }
         });
 
@@ -1644,50 +1681,48 @@ $loginAccount = auth()->user();
             });
             let allowTabChange = false;
             const tabGroupMap = {
-            'profile-tab': 'group_one',
-            'contact-tab': 'group_two',
-            'playmates-tab': 'group_two',
-            'pricing-tab': 'group_three',
+                'profile-tab': 'group_one',
+                'contact-tab': 'group_two',
+                'playmates-tab': 'group_two',
+                'pricing-tab': 'group_three',
             };
 
-            let editMode = '{{$editMode}}';
-            
+            let editMode = '{{ $editMode }}';
+
             $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-                const tabId     = e.target.id;               // e.g. 'profile-tab'
-                const nextGroup = tabGroupMap[tabId];        // e.g. 'group_one'
-                const $target   = $(e.target);
-                if(!editMode){
+                const tabId = e.target.id; // e.g. 'profile-tab'
+                const nextGroup = tabGroupMap[tabId]; // e.g. 'group_one'
+                const $target = $(e.target);
+                if (!editMode) {
                     if (allowTabChange) {
-                    allowTabChange = false;
-                    return;
+                        allowTabChange = false;
+                        return;
                     }
 
                     e.preventDefault();
 
                     if (!nextGroup) {
-                    allowTabChange = true;
-                    return $target.tab('show');
+                        allowTabChange = true;
+                        return $target.tab('show');
                     }
                     parsleyForm.whenValidate({
                         group: nextGroup
                     }).then(function() {
-                    if(validateWhoAmIContent()){
-                        allowTabChange = true;
-                        $target.tab('show');
-                    }
-                    else{
-                        return false;
-                    }
-                    updateProgressBar(tabId);
+                        if (validateWhoAmIContent()) {
+                            allowTabChange = true;
+                            $target.tab('show');
+                        } else {
+                            return false;
+                        }
+                        updateProgressBar(tabId);
                     }, function() {
                         console.log('Validation failed');
                     });
-                }
-                else{
+                } else {
                     updateProgressBar(tabId);
                 }
             });
-            
+
         });
 
 
@@ -1699,26 +1734,27 @@ $loginAccount = auth()->user();
             $("#" + id).addClass('active');
             switch (id) {
                 case 'profile-tab': {
-                    if(!checkProfileDynamicMedia()){
+                    if (!checkProfileDynamicMedia()) {
                         return false;
                     }
-                    if(!validateWhoAmIContent()){
+                    if (!validateWhoAmIContent()) {
                         return false;
                     }
-                } break;
+                }
+                break;
                 case 'contact-tab': {
-                     let existRates = checkRates();
-                     let editMode = '{{$editMode}}';
+                    let existRates = checkRates();
+                    let editMode = '{{ $editMode }}';
                     if (!existRates && !editMode) {
                         Swal.fire('Rates',
                             'You must complete at least one rate value to proceed.',
                             'warning');
                         return false;
                     }
-                    
-                    if(!editMode){
+
+                    if (!editMode) {
                         let isValidStep = true;
-                        $(`#${activatedTab.attr('id')} input[step]`).each(function () {
+                        $(`#${activatedTab.attr('id')} input[step]`).each(function() {
                             if (!this.checkValidity()) {
                                 e.preventDefault();
                                 $(this).focus();
@@ -1730,41 +1766,47 @@ $loginAccount = auth()->user();
                         return isValidStep;
                     }
 
-                } break;
+                }
+                break;
 
-                case 'playmates-tab':{
+                case 'playmates-tab': {
                     let checkAvailability = validateAvailability();
-                    if(checkAvailability){
+                    if (checkAvailability) {
                         return false;
                     }
-                } break;
-                default:{
-                    
+                }
+                break;
+                default: {
+
                 }
             }
             updateProgressBar(id);
         });
 
-        var updateProgressBar = function(tab_id){
+        var updateProgressBar = function(tab_id) {
             let progressBar = $('.define_process_bar_color');
             let percentCont = $('#percent');
             switch (tab_id) {
                 case 'home-tab': {
                     progressBar.attr('style', 'width :25%');
                     percentCont.html('25%');
-                } break;
+                }
+                break;
                 case 'profile-tab': {
                     progressBar.attr('style', 'width :50%');
                     percentCont.html('50%');
-                } break;
+                }
+                break;
                 case 'contact-tab': {
                     progressBar.attr('style', 'width :75%');
                     percentCont.html('75%');
-                } break;
+                }
+                break;
                 case 'playmates-tab': {
                     progressBar.attr('style', 'width :100%');
                     percentCont.html('100%');
-                } break;
+                }
+                break;
             }
         }
 
@@ -1792,7 +1834,7 @@ $loginAccount = auth()->user();
         }
 
         function update_escort_default(updateButton, form_data) {
-            updateButton.prop('disabled', true).html('<div class="spinner-border"></div>');
+            // updateButton.prop('disabled', true).html('<div class="spinner-border"></div>');
             var url = "{{ route('escort.update_escort_default') }}";
             $.ajax({
                 type: 'POST',
@@ -1814,101 +1856,140 @@ $loginAccount = auth()->user();
         }
         var textarea = document.getElementById('editor1');
 
-        CKEDITOR.editorConfig = function(config) {
-            config.toolbarGroups = [{
-                    name: 'clipboard',
-                    groups: ['clipboard', 'undo']
-                },
-                {
-                    name: 'editing',
-                    groups: ['find', 'selection', 'spellchecker', 'editing']
-                },
-                {
-                    name: 'links',
-                    groups: ['links']
-                },
-                {
-                    name: 'insert',
-                    groups: ['insert']
-                },
-                {
-                    name: 'forms',
-                    groups: ['forms']
-                },
-                {
-                    name: 'tools',
-                    groups: ['tools']
-                },
-                {
-                    name: 'document',
-                    groups: ['mode', 'document', 'doctools']
-                },
-                {
-                    name: 'others',
-                    groups: ['others']
-                },
-                '/',
-                {
-                    name: 'basicstyles',
-                    groups: ['basicstyles', 'cleanup']
-                },
-                {
-                    name: 'paragraph',
-                    groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']
-                },
-                {
-                    name: 'styles',
-                    groups: ['styles']
-                },
-                {
-                    name: 'colors',
-                    groups: ['colors']
-                },
-                {
-                    name: 'about',
-                    groups: ['about']
-                }
-            ];
 
-            config.removeButtons =
-                'Underline,Subscript,Superscript,PasteText,PasteFromWord,Scayt,Anchor,Unlink,Image,Table,HorizontalRule,SpecialChar,Maximize,About,RemoveFormat,Strike';
-        };
-        let editor = CKEDITOR.replace(textarea); 
-        let deleteKey = 46;
-        let backspaceKey = 8;
-        let leftArrowKey = 37;
-        let rightArrowKey = 38;
-        let topArrowKey = 39;
-        let bottomArrowKey = 40;
-        let charLimit = 2500;
-        window.onload = function() {
-            CKEDITOR.instances.editor1.on('key', function(event) {
+        initCkEditor('editor1');
+
+        function initCkEditor(textarea, charLimit = 2500) {
+            textarea = textarea.replace('#', '');
+            if (CKEDITOR.instances[textarea]) {
+                CKEDITOR.instances[textarea].destroy(true);
+            }
+
+            let editor = CKEDITOR.replace(textarea, {
+
+                extraPlugins: 'emoji',
+
+                toolbarGroups: [{
+                        name: 'clipboard',
+                        groups: ['clipboard', 'undo']
+                    },
+                    {
+                        name: 'editing',
+                        groups: ['find', 'selection']
+                    },
+                    {
+                        name: 'links',
+                        groups: ['links']
+                    },
+                    {
+                        name: 'insert',
+                        groups: ['insert']
+                    },
+                    {
+                        name: 'tools',
+                        groups: ['tools']
+                    },
+                    {
+                        name: 'basicstyles',
+                        groups: ['basicstyles', 'cleanup']
+                    },
+                    {
+                        name: 'paragraph',
+                        groups: ['list', 'indent', 'blocks', 'align']
+                    },
+                    {
+                        name: 'styles',
+                        groups: ['styles']
+                    },
+                    {
+                        name: 'colors',
+                        groups: ['colors']
+                    }
+                ],
+
+                removeButtons: 'Underline,Subscript,Superscript,PasteText,PasteFromWord,' +
+                    'Anchor,Unlink,Image,Table,HorizontalRule,SpecialChar,' +
+                    'Maximize,About,RemoveFormat,Strike'
+            });
+
+            const allowedKeys = [8, 46, 37, 38, 39, 40];
+
+            editor.on('key', function(event) {
+
+                let content = editor.getData().replace(/<[^>]*>/g, '');
                 let keyCode = event.data.keyCode;
-                var str = CKEDITOR.instances.editor1.getData();
-                if (str.length > charLimit) {
-                    return [deleteKey, backspaceKey, leftArrowKey, rightArrowKey, topArrowKey, bottomArrowKey]
-                        .includes(keyCode);
+
+                if (content.length >= charLimit &&
+                    !allowedKeys.includes(keyCode)) {
+
+                    event.cancel();
                 }
             });
-            CKEDITOR.instances.editor1.on('paste', function(event) {
-                var keyCode = event.data.keyCode;
-                var str = CKEDITOR.instances.editor1.getData();
-                if (str.length > charLimit) {
-                    return [deleteKey, backspaceKey, leftArrowKey, rightArrowKey, topArrowKey, bottomArrowKey]
-                        .includes(keyCode);
+
+            // Character limit on paste
+            editor.on('paste', function(event) {
+
+                let content = editor.getData().replace(/<[^>]*>/g, '');
+
+                if (content.length >= charLimit) {
+                    event.cancel();
                 }
             });
-        };
+
+            return editor;
+        }
+
+        //append narration value after on change dropdown
+        $('#narration').on('change', function() {
+            let short_desc = $(this).val();
+            if (short_desc == '') {
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('escort.get.narration') }}",
+                dataType: 'json',
+                data: {
+                    short_desc: short_desc
+                },
+
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    let editor = CKEDITOR.instances['editor1'];
+                    editor.setData(response.data[0]);
+                    if (response.data) {
+                        editor.setData(response.data);
+
+                    }
+                },
+
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+
+        });
+
+
+
+
+
+
 
         $("body").on("click", "#save_change", function() {
             let profileName = $('input[name="profile_name"]').val();
             let field = $("#trigger-element").val();
             let custom_id = $("#trigger-element2").val();
             let value = $("#current").val();
-            $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).next().find('i').addClass('js_defaultProfileService');
-            $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).parents('li').addClass('js_defaultProfileService');
-            let span = $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).parent().find('.d_profile_name');
-           
+            $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).next().find('i').addClass(
+                'js_defaultProfileService');
+            $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).parents('li').addClass(
+                'js_defaultProfileService');
+            let span = $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).parent().find(
+                '.d_profile_name');
+
             if (span.length) {
                 span.get(0).firstChild.nodeValue = `Status: Default`;
                 span.find('.js_default_action').text('Remove from default');
@@ -1918,11 +1999,18 @@ $loginAccount = auth()->user();
                 custom_id: custom_id
             });
         });
+
+        function toggleDeposit(type, show) {
+            document.getElementById(type + '_input').style.display = show ? 'block' : 'none';
+        }
+
+
+        CKEDITOR.on('instanceReady', function(evt) {
+            if (evt.editor.name === 'editor1') {
+                $('#narration').trigger('change');
+            }
+        });
+
         
-    function toggleDeposit(type, show) {
-        document.getElementById(type + '_input').style.display = show ? 'block' : 'none';
-    }
-
-
     </script>
 @endpush

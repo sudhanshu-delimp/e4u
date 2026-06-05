@@ -44,6 +44,7 @@ use App\Repositories\AttemptLogin\AttemptLoginRepository;
 use App\Models\EscortNotification;
 use App\Models\AdvertiserDiscount;
 use App\Services\WalletService;
+use App\Services\PinPaymentService;
 
 class EscortController extends BaseController
 {
@@ -58,15 +59,17 @@ class EscortController extends BaseController
     protected $user;
     protected $attemptlogin;
     protected $walletService;
+    protected $pinService;
     protected $account;
 
-    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, WalletService $walletService)
+    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, WalletService $walletService, PinPaymentService $pinService)
     {
         $this->escort = $escort;
         $this->purchase = $purchase;
         $this->user = $user;
         $this->attemptlogin = $attemptlogin;
         $this->walletService = $walletService;
+        $this->pinService = $pinService;
 
         $this->middleware(function ($request, $next) {
             $this->account = auth()->user();
@@ -86,7 +89,7 @@ class EscortController extends BaseController
         $viewer_array = DashboardViewer::where('user_id', auth()->id())->first();
         $expiringListings = $this->escort->getExpiringListings(0, 2, true);
         $notification = $this->getActiveNotification();
-        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks', 'viewer_array', 'expiringListings','notification'));
+        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks', 'viewer_array', 'expiringListings', 'notification'));
     }
 
     public function customiseDashboard(Request $request)
@@ -145,13 +148,13 @@ class EscortController extends BaseController
 
 
     // function listing_checkout(UpdateEscortRequest $request) {
-    function listing_checkout(Request $request)
+    function listing_checkout(Request $request, $type)
     {
-        
-        $checkout_type = !empty($request->checkout_type)?$request->checkout_type:null;
+
+        $checkout_type = !empty($request->checkout_type) ? $request->checkout_type : null;
         $refundAmount = 0.00;
-            switch ($request->checkout_type) {
-                case 'upgrade':{
+        switch ($request->checkout_type) {
+            case 'upgrade': {
                     $escort_id = $request->input('escort_id');
                     $newMembership = $request->input('membership');
                     $escortDetail = getEscortDetail($escort_id);
@@ -168,14 +171,16 @@ class EscortController extends BaseController
                     $memberships = [$newMembership];
 
                     $refundAmount = getListingRefundAmount($escortDetail);
-                } break;
-                default:{
+                }
+                break;
+            default: {
                     $escort_ids = $request->input('escort_id');
                     $start_dates = $request->input('start_date');
                     $end_dates = $request->input('end_date');
                     $memberships = $request->input('membership');
-                } break;
-            }
+                }
+                break;
+        }
         $data = array_map(function ($escort_id, $start_date, $end_date, $membership) {
             return [
                 'escort_id' => $escort_id,
@@ -197,7 +202,31 @@ class EscortController extends BaseController
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
         //save here in session to retrieve later
         session()->put('checkout', $checkoutData);
-        return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type', 'refundAmount'));
+        return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type', 'refundAmount', 'type'));
+    }
+
+    public function listing_success(Request $request)
+    {
+        $redirect_url = null;
+
+        $sessionRoutes = [
+            'checkout' => route('escort.dashboard.listings', 'current'),
+            'tour_checkout' => route('escort.view.tour.list', 'current'),
+        ];
+
+        foreach ($sessionRoutes as $sessionKey => $route) {
+            if (session()->has($sessionKey)) {
+                session()->forget($sessionKey);
+                $redirect_url = $route;
+                break;
+            }
+        }
+
+        if (!$redirect_url) {
+            return redirect()->route('escort.dashboard');
+        }
+
+        return view('escort.dashboard.complete-listings', compact('redirect_url'));
     }
 
 
@@ -271,7 +300,7 @@ class EscortController extends BaseController
         $conditions = [];
         if ($type == 'current') {
             $conditions[] = ['end_date', '>=', date('Y-m-d')];
-            $conditions[] = ['status','listed'];
+            $conditions[] = ['status', 'listed'];
         } elseif ($type == 'past') {
             $conditions[] = ['end_date', '<', date('Y-m-d')];
         }
@@ -376,6 +405,7 @@ class EscortController extends BaseController
             //'social_links'=>$request->social_links,
             'pay_id_name' => $request->PayID_Name,
             'pay_id_no' => $request->PayID_NO,
+            'social_media_consent' => $request->social_media_consent,
 
         ];
 
@@ -801,14 +831,15 @@ class EscortController extends BaseController
         $no_of_members = config('agent.no_of_members');
         $advertings = Pricing::with('memberships')->get()->toArray();
         $discount = AdvertiserDiscount::getActiveForUser($this->account->id);
-        if($this->account->type == ESCORT && $discount){
-            $rows = array_map(function($item) use($discount){
-                if(in_array($item['membership_id'],['1','2','3'])){
+        if ($this->account->type == ESCORT && $discount) {
+            $rows = array_map(function ($item) use ($discount) {
+                if (in_array($item['membership_id'], ['1', '2', '3'])) {
                     $item['special_discount'] = $discount->value;
-                    $item['new_rate'] = number_format($discount->discountAmount($item['price']),2);
+                    $item['new_rate'] = number_format($discount->discountAmount($item['price']), 2);
+                    $item['discount_amount'] = AdvertiserDiscount::getNetDiscount((object)$item, $discount);
                 }
                 return $item;
-            },$advertings);
+            }, $advertings);
             $advertings = $rows;
         }
         $pricing_log = PricingFeeUpdateLog::get()->toArray();
@@ -831,7 +862,7 @@ class EscortController extends BaseController
             $utcStart = $localStart->copy()->setTimezone('UTC');
             $utcEnd = $localEnd->copy()->setTimezone('UTC');
 
-            EscortBumpup::create([
+            $escortBumpUp = EscortBumpup::create([
                 'user_id' => auth()->user()->id,
                 'escort_id' => $escortDetail->id,
                 'start_date' => $localStart->format('Y-m-d'),
@@ -839,6 +870,17 @@ class EscortController extends BaseController
                 'utc_start_time' => $utcStart,
                 'utc_end_time' => $utcEnd,
             ]);
+
+            if ($request->filled('payment_token')) {
+                $paymentId = decrypt($request->payment_token);
+                $payment = $this->pinService->paymentHistoryDetail($paymentId);
+                if (!empty($payment)) {
+                    $escortBumpUp->paymentItems()->create([
+                        'payment_history_id' => $payment->id,
+                        'amount' => $payment->amount
+                    ]);
+                }
+            }
 
             return response()->json([
                 'success' => true,
@@ -862,7 +904,7 @@ class EscortController extends BaseController
             $profileDetail = getEscortDetail($profileId);
             $refundAmount = getListingRefundAmount($profileDetail);
             list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
-            $net_paid_amount = number_format($newAmount-$refundAmount,2);
+            $net_paid_amount = number_format($newAmount - $refundAmount, 2);
 
             return response()->json([
                 'success' => true,
@@ -870,7 +912,6 @@ class EscortController extends BaseController
                 'newAmount' => $newAmount,
                 'message' => ''
             ]);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -880,12 +921,13 @@ class EscortController extends BaseController
         }
     }
 
-    public function upgradeList(Request $request){
+    public function upgradeList(Request $request)
+    {
         try {
             $profileId = $request->escort_id;
             $membershipId = $request->membership;
-            
-            DB::transaction(function () use ($profileId, $membershipId){
+
+            DB::transaction(function () use ($profileId, $membershipId) {
                 $user = auth()->user();
                 $profileDetail = getEscortDetail($profileId);
                 $oldPurchase = $profileDetail->mainPurchase;
@@ -912,7 +954,7 @@ class EscortController extends BaseController
                 $newPurchase->utc_start_time =  $startOfToady;
                 $newPurchase->rate = $unitAmount;
                 $newPurchase->discount_rate = $unitDiscount;
-                $newPurchase->total_rate = $profileDetail->left_listing_days*$unitAmount;
+                $newPurchase->total_rate = $profileDetail->left_listing_days * $unitAmount;
                 $newPurchase->paid_rate = $amount;
                 $newPurchase->save();
 
@@ -925,11 +967,9 @@ class EscortController extends BaseController
                     'success' => true,
                     'message' => 'Listing has been upgraded.',
                 ]);
-            }
-            else{
+            } else {
                 return redirect()->route('escort.list', 'current');
             }
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,

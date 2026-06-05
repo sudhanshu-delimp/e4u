@@ -20,15 +20,15 @@
                                     <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span>
                                 </span>
                                 <span><span class="separator">|</span>
-                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                     <b>Location time :  </b><span class="user-values live_current_time"></span>
                                 </span>
 
                                 <span>
-                                     <b>Current Location :  </b><span class="user-values live_current_location"></span> 
+                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>                                     
                                 </span>
                                 
                                 <span><span class="separator">|</span>
-                                    <b>Location time :  </b><span class="user-values live_current_time"></span>
+                                    <b>Current Location :  </b><span class="user-values live_current_location"></span>                                   
                                 </span>
 
                            </div>
@@ -93,8 +93,8 @@
 
                         <!-- //////// Notification ///////////// -->
 
-                        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">
-                            <span class="support-tooltip">Support Tickets</span>
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+                            <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
                             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="">
                                 <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
@@ -112,8 +112,8 @@
 
                         </li>
 
-                        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
-                                <span class="alert-tooltip">Alert Centre</span>
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+                                <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
                             <a class="nav-link dropdown-toggle alert_notify_bell " href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="top-icon-bg fas fa-bell fa-fw"></i>

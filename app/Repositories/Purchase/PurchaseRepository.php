@@ -91,7 +91,13 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             
             $query->selectRaw("$table.*,DATEDIFF(end_date, NOW()) as days_left")->orderBy('days_left', $dir);
         } else {
-            $query->orderBy($order_field, $dir);
+            $query->orderByRaw("
+            CASE 
+                WHEN end_date >= NOW() THEN 1
+                ELSE 2
+            END ASC,
+            end_date ASC
+        ");
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyEscorts($mainQuery->get(), $start);
@@ -102,7 +108,6 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
     {
         $i = 1;
         $locations = config('escorts.profile.states');
-        $statusBtn = '<span class="custom_badge badge_current">Current</span>';
         foreach ($result as $key => $item) {
 
             $startDate = Carbon::parse(date('d-m-Y', strtotime($item->start_date)))->startOfDay();
@@ -110,8 +115,10 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $now = Carbon::now()->startOfDay();
             if ($startDate > $now) {
                 $statusBtn = '<span class="custom_badge badge_upcoming">Upcoming</span>';
-            } else if ($endDate < $now) {
+            } elseif ($endDate < $now) {
                 $statusBtn = '<span class="custom_badge badge_suspended">Expired</span>';
+            } else {
+                $statusBtn = '<span class="custom_badge badge_current">Current</span>';
             }
             $localTimeZone = getEscortTimezone($item);
             $isExtended = $item->escort->isListingExtended();
@@ -131,9 +138,11 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $item->days_number = $item->days_number;
             $item->days_left = $item->days_left;
             // $item->status = $item->escort->enabled == 1 ?'Current':'Upcoming';
-            $statusText = $item->escort->enabled == 1 ? 'Current' : 'Upcoming';
-            $badgeClass = getStatusBadgeClass(strtolower($statusText));
-            $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            // $statusText = $item->escort->enabled == 1 ? 'Current' : 'Upcoming';
+            // $badgeClass = getStatusBadgeClass(strtolower($statusText));
+            // $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            // $item->statusBtn = $statusBtn;
+            $item->status = $statusBtn;
             $item->statusBtn = $statusBtn;
 
             $item->location = $locations[$item->escort->state_id]['stateAbbr'];

@@ -11,7 +11,9 @@
   max-width: 450px !important;   
   margin: auto;
 }
-
+#sendOtp_modal .modal-dialog {
+    max-width: 600px;
+}
 .payer-lable {
     
     display: inline-block;
@@ -201,7 +203,7 @@
                      New' button. SMS 2FA authentification is applied for any changes to your Bank
                      Account details, including the initial setup.</li>
                   <li>To display your Bank Account details to a client, select from the Action options
-‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
+                     ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
                </ol>
             </div>
          </div>
@@ -491,7 +493,7 @@
 
 {{-- enter pin modal to see your bank details --}}
 <div class="modal fade upload-modal" id="EnterPinModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-   <div class="modal-dialog modal-dialog-centered"  style="max-width: 500px;" role="document">
+   <div class="modal-dialog modal-dialog-centered"  role="document">
      <div class="modal-content">
       {{-- <div class="modal-header justify-content-center text-center">
          <!-- Title -->
@@ -557,7 +559,7 @@
 
 {{-- instruction payer  modal to see your bank details --}}
 <div class="modal fade upload-modal" id="InstructionPayerModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-   <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;" role="document">
+   <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
       <div class="modal-header">
             <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon" alt="cross"> EFT Instructions for Payer</h5>
@@ -1105,11 +1107,11 @@
             filter.add(length).wrapAll('<div class="datatable-topbar"></div>');
             filter.parent().prepend(filter);
 
-            if ($('#returnToReportBtn').length === 0) {
-               $('.dataTables_filter').append(
-                  '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-               );
-            }
+            // if ($('#returnToReportBtn').length === 0) {
+            //    $('.dataTables_filter').append(
+            //       '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+            //    );
+            // }
             $('#returnToReportBtn').on('click', function() {
                var table = $('#bankAccountTable').DataTable();
                table.search('').draw();

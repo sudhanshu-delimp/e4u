@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Mail\MessageCentr\OtherCentreRegistrationEmail;
 use App\Models\AccountSetting;
 use App\Models\Escort;
 use App\Models\MassageProfile;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Schema;
 
 class UserRepository extends BaseRepository implements UserInterface
@@ -599,12 +601,15 @@ class UserRepository extends BaseRepository implements UserInterface
             $user->phone = $data['phone'];
             $user->business_address = $data['business_address'];
             $user->business_number = $data['business_number'];
+            $user->contact_person = $data['contact_person'];
             $user->entity_name = $data['entity_name'];
             $user->created_at =  date('Y-m-d H:i:s');
             $user->contact_type =$data['contact_type'];
             $user->is_access_granted = $granted;
+            $user->enabled = 1;
             $user->parent_massage_center = auth()->user()->id;
             $user->type = '4';
+            $user->is_child = 1;
             $user->state_id = auth()->user()->state_id;
             $user->password =  Hash::make($data['confirm_password']);
             if($user->save())
@@ -615,8 +620,10 @@ class UserRepository extends BaseRepository implements UserInterface
                     $escort->default_setting = 1;
                     $escort->save();
                     }
+
+                
             }
-            return [ 'status' => true, 'message' => 'New Centre addedd Successfully'];
+            return [ 'status' => true, 'message' => 'New Centre added successfully.'];
         } 
         catch (Exception $e) {
              Log::info($e->getMessage());
@@ -624,12 +631,63 @@ class UserRepository extends BaseRepository implements UserInterface
         }    
     }
 
-     public function update_subuser_account($data)
+    public function update_subuser_account($data)
     {
+        try 
+        {
 
+            $granted = '0';
+            if( isset($data['accessGranted']) && $data['accessGranted']=='yes')
+            $granted = '1';
+
+            $user =  User::where('id',$data['center_id'])->where('created_by',auth()->user()->id)->first();
+
+            if(isset($data['name']) || $data['name']!="")
+            $user->name = $data['name'];
+
+            if(isset($data['email']) || $data['email']!="")
+            $user->email = $data['email'];
+
+            if(isset($data['phone']) || $data['phone']!="")
+            $user->phone = $data['phone'];
+
+            if(isset($data['business_address']) || $data['business_address']!="")
+            $user->business_address = $data['business_address'];
+
+            if(isset($data['business_number']) || $data['business_number']!="")
+            $user->business_number = $data['business_number'];
+
+            if(isset($data['name']) || $data['name']!="")
+            $user->entity_name = $data['entity_name'];
+
+
+            if(isset($data['contact_person']) || $data['contact_person']!="")
+            $user->contact_person = $data['contact_person'];
+
+            $user->contact_type =$data['contact_type'];
+            $user->is_access_granted = $granted;
+           
+            if(!isset($data['confirm_password']) || $data['confirm_password']!="")
+            $user->password =  Hash::make($data['confirm_password']);
+
+            $user->save();
+            return [ 'status' => true, 'message' => 'Centre updated successfully.'];
+
+            
+            
+        } 
+        catch (Exception $e) {
+             Log::info($e->getMessage());
+             return [ 'status' => false, 'message' => 'Error occured while updating Centre'];
+        }  
     }
 
 
+    function get_contact_type($contactType)
+    {
+       return  $this->user_model->ContactType($contactType);
+    }
 
+   
 
 }

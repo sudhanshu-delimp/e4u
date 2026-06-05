@@ -1,3 +1,9 @@
+ @php 
+ $hideNavBar = false;
+ if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true){
+    $hideNavBar = false;
+ }
+ @endphp
 <!-- Sidebar -->
 <ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar"
     id="accordionSidebar">
@@ -21,7 +27,7 @@
     </li>
 
     {{-- My Account --}}
-    <li class="nav-item">
+    <li class="nav-item " >
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="false" aria-controls="collapseTwo">
 
@@ -35,6 +41,20 @@
                 request()->segment(2) == 'upload-my-avatar') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
+                @if($hideNavBar)
+                 <a class="collapse-item" href="{{ route('center.profile.information') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+
+                    <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
+                        information</span></a>
+                         <a class="collapse-item" href="{{ route('center.account.edit') }}">
+
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+
+                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
+                        Account</span></a>
+                        
+               @else         
                 <a class="collapse-item" href="{{ route('center.account.edit') }}">
 
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
@@ -63,6 +83,7 @@
 
                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
                         avatar</span></a>
+             @endif           
 
             </div>
         </div>
@@ -214,7 +235,7 @@
         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}">
 
         {{-- Administration --}}
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#AdminTab">

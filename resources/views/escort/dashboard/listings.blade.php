@@ -157,11 +157,11 @@
                     }
                 },
                 initComplete: function() {
-                    if ($('#returnToReportBtn').length === 0) {
-                        $('.dataTables_filter').append(
-                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-                        );
-                    }
+                    // if ($('#returnToReportBtn').length === 0) {
+                    //     $('.dataTables_filter').append(
+                    //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                    //     );
+                    // }
                     $('#returnToReportBtn').on('click', function() {
                         var table = $('#listings').DataTable();
                         table.search('').draw();

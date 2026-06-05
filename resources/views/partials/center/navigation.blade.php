@@ -36,14 +36,26 @@
                        
                         </span>
 
-                           </div>
-                           <div class="gap-b">
-                           
                             
-                   
+
+
+                           </div>
+                           {{-- <div class="gap-b">
+
+                            @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
+                            <span>
+                                <b>Switch To Primary Account :  </b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('center.back-to-parent') }}">Switch Back</a></span>  
+                            </span>
+                            @endif
+
+                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
+                            <span>
+                                <b></b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('agent.back-to-parent') }}">Switch to Agent Account</a></span>  
+                            </span>
+                            @endif
                         
                    
-                           </div>
+                           </div> --}}
                         </div>
                     </div>
                     {{-- end --}}
@@ -105,9 +117,27 @@
                         
             
                 <!-- //////// Notification ///////////// -->
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                               
+                               @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
+                                <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span> 
+                            <a class="nav-link switch-user-btn" href="javascript:void(0)" >
+                                <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile"/></span>
+                            </a>
+                            @endif
 
-                        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">                            
-                                <span class="support-tooltip">Support Tickets</span>
+                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
+                             <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
+                             <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
+                            <span class="switch-profile">
+                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
+
+                            </span>
+                             </a>
+                            @endif
+                        </li>
+
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
+                                <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
                             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
                                 <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
@@ -125,8 +155,8 @@
 
                         </li>
 
-                        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
-                             <span class="alert-tooltip">Alert Centre</span>
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+                             <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
                             <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="top-icon-bg fas fa-bell fa-fw"></i>

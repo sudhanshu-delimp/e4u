@@ -508,23 +508,23 @@ class User extends Authenticatable
             return $memberId;
         }
         if ($this->type == 2) {
-            return 'SU' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            return 'SU' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%05d", $this->id);
         }
         if ($this->type == 0) {
-            return 'V' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            return 'V' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%05d", $this->id);
         }
         if ($this->type == 3) {
-            return 'E' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            return 'E' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%05d", $this->id);
         }
         if ($this->type == 5) {
-            return 'A' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            return 'A' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%05d", $this->id);
         }
         if ($this->type == 4) {
-            return 'M' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            return 'M' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%05d", $this->id);
         }
         //Supplier
         if ($this->type == 10) {
-            return 'P' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            return 'P' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%05d", $this->id);
         }
         // Operator
         if ($this->type == 7) {
@@ -536,7 +536,7 @@ class User extends Authenticatable
             } else {
                 $cid = $this->country_id;
             }
-            return 'O' .  $cid . sprintf("%04d", $this->id);
+            return 'O' .  $cid . sprintf("%05d", $this->id);
         }
         if ($this->type == 9) {
             $countryAbrs = config('operator.countryAbr');
@@ -547,11 +547,11 @@ class User extends Authenticatable
             } else {
                 $cid = $this->country_id;
             }
-            return 'OS' .  $cid . sprintf("%04d", $this->id);
+            return 'OS' .  $cid . sprintf("%05d", $this->id);
         }
         if ($this->type == 6) {
             $staffPrefix = config('staff.staff_member_id_prefix');
-            $memberId = $staffPrefix . $this->city_id . sprintf("%04d", $this->id);
+            $memberId = $staffPrefix . $this->city_id . sprintf("%05d", $this->id);
             $staff = User::select(['id', 'name', 'member_id'])
                 ->where('type', '6')
                 ->where('member_id', '!=', '')
@@ -927,6 +927,27 @@ class User extends Authenticatable
     }
 
 
+    public function getAccountSettings()
+    {
+        if ($this->type == '0') {
+            $settings = $this->viewer_settings;
+        } elseif ($this->type == '1') {
+            $settings = $this->staff_setting;
+        } elseif ($this->type == '3') {
+            $settings = $this->escort_settings;
+        } elseif ($this->type == '4') {
+            $settings = $this->massage_settings;
+        } elseif ($this->type == '5') {
+            $settings = $this->agent_settings;
+        } elseif ($this->type == '9') {
+            $settings = $this->operator_staff_setting;
+        } elseif ($this->type == '8') {
+            $settings = $this->shareholder_setting;
+        }
+        return $settings;
+    }
+
+
 
 
     public function update_last_login($user)
@@ -982,4 +1003,29 @@ class User extends Authenticatable
             'balance' => 0
         ]);
     }
+
+    //connection with Escort profile for additional info
+    public function additionalInfo()
+    {
+        return $this->hasMany(EscortAdditionalInformation::class);
+    }
+
+
+    public function can_manage()
+    {
+        // Primary account
+        if ($this->is_child == 0) {
+            return true;
+        }
+
+        // Primary switched into child switch_for
+        if ($this->is_child == 1 && session()->has('parent_massage_id')  && session()->has('switch_for') && session()->has('switch_for')=='massage_to_massage') 
+        {
+            return true;
+        }
+
+        // Child direct login
+        return false;
+    }
+                
 }

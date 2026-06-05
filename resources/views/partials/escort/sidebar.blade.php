@@ -1,5 +1,10 @@
 <!-- Sidebar -->
- 
+  @php 
+ $hideNavBar = false;
+ if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true){
+    $hideNavBar = false;
+ }
+ @endphp
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -43,6 +48,15 @@
                 request()->segment(2) == 'upload-my-avatar') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
+
+                @if($hideNavBar)
+                <a class="collapse-item" href="{{ route('escort.profile.information') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+
+                    <span style="{{ request()->segment(2) == 'profile-information' ? 'color: #e5365a;' : '' }}">My
+                        information</span></a>
+
+                @else   
                 <a class="collapse-item" href="{{ route('escort.account.edit') }}">
 
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
@@ -70,6 +84,7 @@
 
                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
                         avatar</span></a>
+            @endif            
 
             </div>
         </div>
@@ -118,7 +133,7 @@
                 @if (in_array(request()->segment(2), ['add-listing', 'listings'])) show @endif"
                     data-parent="#ProfileManagement">
 
-                    <a class="collapse-item {{ request()->segment(2) == 'add-listing' ? 'menu-active' : '' }}"
+                    <a class="collapse-item {{ request()->is('escort-dashboard/listings/add') ? 'menu-active' : '' }}"
                         href="{{ route('escort.account.add-listing') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/add-exot.png') }}">
                         <span>New</span>
@@ -236,7 +251,7 @@
 
 
     {{-- Administration --}}
-
+ @if(!$hideNavBar)
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management">
@@ -276,14 +291,12 @@
                     'num-tips',
                     'editmyaccount',
                     'my-information',
-                    'listings',
-                    'listing',
                     'media',
                     'profiles',
                     'tours',
                     'ticket-list',
                     'submit_ticket',
-                ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['uploads', 'guidelines',
+                ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['uploads', 'guidelines', 'listings',
                     'products','order-history'])) show @endif"
             data-parent="#accordionSidebar">
 
@@ -526,8 +539,10 @@
                 </a>
 
                 <div id="ManagementhowIsItDone"
-                    class="collapse
-                    @if (in_array(request()->segment(2), ['editmyaccount', 'my-information', 'listing', 'media', 'profiles', 'tours'])) show @endif"
+                   class="collapse @if(
+                        in_array(request()->segment(2), ['editmyaccount', 'my-information', 'media', 'profiles', 'tours']) ||
+                        request()->segment(3) == 'listings'
+                    ) show @endif"
                     data-parent="#Management">
 
                     <div class="py-0 collapse-inner rounded mb-2">
@@ -538,8 +553,8 @@
                             <span>Edit My Account</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'listing' ? 'menu-active' : '' }}"
-                            href="{{ route('escort.listing') }}">
+                        <a class="collapse-item {{ request()->segment(3) == 'listings' ? 'menu-active' : '' }}"
+                            href="{{ route('escort.listings') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png') }}" />
                             <span>Listings</span>
                         </a>
@@ -658,5 +673,6 @@
             </div>
         </div>
     </li>
+ @endif
 </ul>
 <!-- end sidebar -->

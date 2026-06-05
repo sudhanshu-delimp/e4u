@@ -1,7 +1,9 @@
 @extends('layouts.escort')
 @section('style')
 <style>
-    
+    #sendOtp_modal .modal-dialog {
+    max-width: 600px;
+}
         /* Card */
         
         .thank-you-card {
@@ -59,7 +61,7 @@
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <div class="row">
+        
             <div class="col-md-12 custom-heading-wrapper">
                 <h1 class="h1">Checkout</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
@@ -79,40 +81,54 @@
                     </div>
                 </div>
             </div>
-            {{-- 3 step bar --}}
-            <div class="col-lg-12">
-                <div class="progressbar">
-                    <div class="step active">
-                        <div class="circle">✔</div>
-                        <p class="step-title">1. Listings</p>
-                    </div>
-                    <div class="step active">
-                        <div class="circle">✔</div>
-                        <p class="step-title">2. Payment</p>
-                    </div>
-                    <div class="step active">
-                        <div class="circle">✔</div>
-                        <p class="step-title">3. Completion</p>
-                    </div>
+
+
+        
+
+        <!-- Progress Bar -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="custom_progress_wrapper">
+            <div class="custom_pro_container">
+                <div class="progress_line" id="custom_progress" style="width: 100%"></div>
+
+                <div class="custom_step">
+                    <div class="circle active">✓</div>
+                    <div class="label active">Listings</div>
+                </div>
+
+                <div class="custom_step">
+                    <div class="circle active ">✓</div>
+                    <div class="label active">Payment</div>
+                </div>
+
+                <div class="custom_step">
+                    <div class="circle active current">3</div>
+                    <div class="label active">Completion</div>
                 </div>
             </div>
-
+        </div>
+        </div>
+    </div>
+    {{-- end --}}
+        <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-center">
                     <div class="thank-you-card">
                     <!-- Replace with your image -->
-                    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="order">
+                    <img src="{{ asset('assets/dashboard/img/success.png') }}" alt="order">
 
-                    <h2>Thank You for Your Order!</h2>
-                    <p>Your Purchase is Confirmed! Get Ready for an Amazing Experience.</p>
+                    <h2>Thank you for your Oder!</h2>
+                    <p>Your purchase is confirmed, get ready for a Great Experience!</p>
 
-                    <button class="btn btn-primary" id="continueBtn">Continue Shopping</button>
+                    <a href="{{$redirect_url}}" class="btn btn-primary" id="continueBtn">Continue Shopping</a>
 
                 </div>
                 </div>
             </div>
         </div>
+    </div>        
     @endsection
-    @push('script')
-        <script type="text/javascript"></script>
+    @push('script')        
+        <script src="{{ asset('js/escort/progress_bar.js') }}"></script> 
     @endpush

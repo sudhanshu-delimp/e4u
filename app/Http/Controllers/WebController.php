@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Escort;
@@ -520,6 +521,13 @@ class WebController extends Controller
          {
                 $viewType  =  auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
          }
+
+        // Check both param names — URL param and form submit
+        if (request()->has('viewType') && in_array(request()->input('viewType'), ['grid', 'list'])) {
+            $viewType = request()->input('viewType');
+        } elseif (request()->has('view_type') && in_array(request()->input('view_type'), ['grid', 'list'])) {
+            $viewType = request()->input('view_type');
+        }
 
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag','viewType'));
     }
@@ -1585,5 +1593,85 @@ class WebController extends Controller
         return view('web.pages.blogs');
     }   
 
+    public function sendOtpNotification(Request $request, User $user){
+        try{
+            $settings = $user->getAccountSettings();
+            $action = $request->action;
+            $otp = $user->generateOTP();
+            $user->otp = $otp;
+            $user->save();
+            
+            switch($action){
+                case 'payment':{
+                    $mailTemplate = 'emails.otp.payment_otp';
+                    $mailSubject = 'Payment Otp';
+                    $smsBody = "Hello :username, your one-time payment OTP is :otp. If you didn’t request this, please ignore this message.";
+                } break;
+            }
 
+            if($settings->twofa=='1'){
+                sendLoginOtpEmail($otp, $user, $mailTemplate, $mailSubject);
+            }
+            else{
+                sendLoginOtpSms($otp, $user, $smsBody);
+            }
+
+            return response()->json([
+                'data' => $user->getAccountSettings()
+            ]);
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function validateOtpNotification(Request $request, User $user)
+    {
+        try {
+
+            $request->validate([
+                'otp' => 'required|numeric'
+            ]);
+
+            $otp = $request->otp;
+
+            if ($user->otp == $otp) {
+
+                // Clear OTP after successful verification
+                $user->otp = null;
+                $user->save();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'OTP verified successfully.'
+                ], 200);
+
+            } else {
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid OTP.'
+                ], 422);
+
+            }
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->validator->errors()->first()
+            ], 422);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+
+        }
+    }
 }

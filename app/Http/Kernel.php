@@ -22,6 +22,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\LastOnlineAt::class,
+        
+
         //\ipinfo\ipinfolaravel\ipinfolaravel::class
     ];
 
@@ -40,6 +42,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             'HeaderInfo' => \App\Http\Middleware\HeaderInfo::class,
+           
         ],
 
         'api' => [
@@ -90,5 +93,6 @@ class Kernel extends HttpKernel
         'operator' => \App\Http\Middleware\OperatorAuth::class,
         'staff' => \App\Http\Middleware\StaffAuth::class,
         'shareholder' => \App\Http\Middleware\ShareholderAuth::class,
+        'view.only' => \App\Http\Middleware\ViewOnlyMiddleware::class,
     ];
 }

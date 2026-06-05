@@ -67,73 +67,9 @@
                 });
                 $("#dashboard").click(function(e) {
                     $("#dash").css("color", "#FF3C5F");
-                    // e.preventDefault();
-                    // var url = $(this).attr('href');
-                    // $.post({
-                    // type: 'POST',
-                    // url: url,
-                    // }).done(function (data) {
-                    //     if(data.error == false) {
-                    //        console.log(data); 
-                    //     } else {
-
-                    //     }
-                    // });
-
                     console.log($(this).attr('href'));
-
                 })
-
-                //  var initJsDatePicker = function(){
-                //     $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
-                //     $(".js_datepicker").attr('autocomplete','off');
-                //     $(".js_datepicker").datepicker({
-                //         dateFormat: "dd-mm-yy",
-                //         changeMonth: true,
-                //         changeYear: true,
-                //         showAnim: "slideDown",
-                //         constrainInput: false,
-                //         onSelect: function(dateText) {
-                //             const event = new Event('change', { bubbles: true });
-                //             this.dispatchEvent(event); 
-                //         }
-                //     });
-                // }
-                // initJsDatePicker();
             });
-
-
-
-            var initJsDatePicker = function() {
-                var $inputs = $(".js_datepicker");
-                if ($inputs.length > 0) {
-                    $inputs.attr('placeholder', 'DD-MM-YYYY');
-                    $inputs.attr('autocomplete', 'off');
-                    $inputs.each(function() {
-                        let options = {
-                            dateFormat: "dd-mm-yy",
-                            changeMonth: true,
-                            changeYear: true,
-                            showAnim: "slideDown",
-                            onSelect: function(dateText) {
-                                $(this).trigger('change');
-                            }
-                        };
-                    // Start from today
-                    if ($(this).hasClass('min_today')) {
-                        options.minDate = 0;
-                    }
-                        $(this).datepicker(options);
-                    });
-                }
-            }
-
-            $(document).ready(function() {
-                initJsDatePicker();
-            });
-
-
-
         </script>
         @stack('script')
         @section('script')
@@ -277,8 +213,31 @@
         $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
             e.stopPropagation(); 
         });
-
-
         </script>  
+
+           
+        @if (Session::has('success'))
+            <script>
+                Swal.fire({
+                    title: '{{ Session::get('title') }}',
+                    text: '{{ Session::get('success') }}',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            </script>
+        @endif
+
+        @foreach (['warning', 'info', 'error'] as $alert)
+            @if (Session::has($alert))
+                <script>
+                    Swal.fire({
+                        title: '{{ ucfirst($alert) }}',
+                        text: '{{ Session::get($alert) }}',
+                        icon: '{{ $alert }}',
+                        confirmButtonText: 'OK'
+                    });
+                </script>
+            @endif
+        @endforeach
         </body>
         </html>

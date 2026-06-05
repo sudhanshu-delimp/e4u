@@ -42,8 +42,8 @@ function updateSelectOptions() {
     let escortId = row.find('select[name="escort_id[]"] option:selected').val();
     let startDate = row.find('input[name="start_date[]"]').val();
     let endDate = row.find('input[name="end_date[]"]').val();
-    if(startDate && endDate){
-        validateSelectedDateRange(row, {startDate,endDate,escortId});
+    if (startDate && endDate) {
+        validateSelectedDateRange(row, { startDate, endDate, escortId });
     }
 
     $('select[name="escort_id[]"]').each(function() {
@@ -84,8 +84,8 @@ $(document).on('change', 'input[name="start_date[]"]', function() {
     let escortId = $row.find('select[name="escort_id[]"] option:selected').val();
     endDate.datepicker('option', 'minDate', startDate);
     endDate = endDate.val();
-    if(endDate && escortId){
-        validateSelectedDateRange($row, {startDate,endDate,escortId});
+    if (endDate && escortId) {
+        validateSelectedDateRange($row, { startDate, endDate, escortId });
     }
 });
 
@@ -94,23 +94,23 @@ $(document).on('change', 'input[name="end_date[]"]', function() {
     let endDate = $(this).val();
     let startDate = row.find('input[name="start_date[]"]').val();
     let escortId = row.find('select[name="escort_id[]"] option:selected').val();
-    if(startDate && escortId){
-        validateSelectedDateRange(row, {startDate,endDate,escortId});
+    if (startDate && escortId) {
+        validateSelectedDateRange(row, { startDate, endDate, escortId });
     }
 });
 
-var validateSelectedDateRange = function(object, requestPayload){
-    console.log('requestPayload',requestPayload);
+var validateSelectedDateRange = function(object, requestPayload) {
+    console.log('requestPayload', requestPayload);
     $.ajax({
         url: '/escort-dashboard/listing/validate-date-range',
         method: 'POST',
         headers: {
-        'Accept': 'application/json',
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
         data: requestPayload,
-        success: function (response) {
-            if(response.success){
+        success: function(response) {
+            if (response.success) {
                 object.find('input[name="start_date[]"]').val('');
                 object.find('input[name="end_date[]"]').val('');
                 Swal.fire({
@@ -120,12 +120,12 @@ var validateSelectedDateRange = function(object, requestPayload){
                 });
             }
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
             console.error('Error in location filter:', error);
         }
     });
 }
 
-$(document).on('focus', 'input[name="start_date[]"].js_datepicker', function() {
-    $(this).datepicker('option', 'minDate', 0); //calnder start from today
-});
+// $(document).on('focus', 'input[name="start_date[]"].js_datepicker', function() {
+//     $(this).datepicker('option', 'minDate', 0); //calnder start from today
+// });

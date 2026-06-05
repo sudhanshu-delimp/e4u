@@ -1,0 +1,253 @@
+<!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar db-custom-topbar">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    {{-- logged in user data --}}
+                    <div class="topbar-logged-in-user-data d-flex">
+                        {{-- <div class="pr-5">
+                            <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
+                        </div> --}}
+                        <div class="d-user-info">
+                           <div class="common_top_menu">
+                            <span>
+                                <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name ? substr(auth()->user()->name, 0, 15) : '--' }}</span>  
+                            </span>
+                            <span>
+                                <span class="separator">|</span><b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
+                            </span>
+                            <span>
+                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                            </span>
+                        <span>
+                            <span class="separator">|</span><b>My Agent :</b>
+                                @if(auth()->user()->my_agent)<span class="user-values" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}"> {{ \Illuminate\Support\Str::limit(
+                                \Illuminate\Support\Str::title(
+                                    auth()->user()?->my_agent?->business_name ?? (auth()->user()?->my_agent?->name ?? ''),
+                                ),
+                                12,
+                                '..',
+                            ) }}</span>
+                                @else
+                                <span class="user-values" title="">NA</span>
+                                @endif
+                       
+                        </span>
+
+                            
+
+
+                           </div>
+                           <div class="gap-b">
+
+                            @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
+                            <span>
+                                <b>Switch To Primary Account :  </b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('center.back-to-parent') }}">Switch Back</a></span>  
+                            </span>
+                            @endif
+
+                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
+                            <span>
+                                <b>Switch To Primary Account :  </b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('agent.back-to-parent') }}">Switch Back</a></span>  
+                            </span>
+                            @endif
+                        
+                   
+                           </div>
+                        </div>
+                    </div>
+                    {{-- end --}}
+                    <!-- Topbar Search -->
+                    {{-- <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group dk-border-radius">
+                            <div class="input-group-append">
+                                <button class="btn" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+
+                        </div>
+                    </form> --}}
+
+                    <!-- Topbar Navbar -->
+                    <div class="navbar-nav">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+
+                        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
+                            <div class="input-group dk-border-radius">
+                                <div class="input-group-append">
+                                    <button class="btn" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
+                                       aria-label="Search" aria-describedby="basic-addon2">
+                
+                            </div>
+                        </form>
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        
+            
+                <!-- //////// Notification ///////////// -->
+
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap {{ canManage() ? '': 'd-none'}}">                            
+                                <span class="esc-tooltip esc-tooltip-navbar">Support Tickets</span>
+                            <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
+                                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
+                            </a>
+                            
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="ticketNotificationDropdown">
+                                    <h6 class="dropdown-header">Support Ticket Alert</h6>
+                                    <div class="support_notify_html">
+
+                                       <div class="text-center">No new notification</div>
+
+                                    </div>
+                            </div>
+
+                        </li>
+
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap {{ canManage() ? '': 'd-none'}}">
+                             <span class="esc-tooltip esc-tooltip-navbar">Alert Centre</span>
+                            <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="top-icon-bg fas fa-bell fa-fw"></i>
+                            </a>
+                          
+
+                                <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">Alerts Center</h6>
+                                    <div class="alert_notify_html">
+
+                                       <div class="text-center">No new notification</div>
+
+                                    </div>
+                                </div>
+                        </li>
+
+            
+                <!-- //////// End Notification ///////////// -->
+
+
+                        <div class=" d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
+                                <img src="{{asset(auth()->user()->avatar_url)}}" class="img-profile rounded-circle avatarName custom-profile-pic">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                    Membership ID : {{auth()->user()->member_id }}
+                                </a>
+
+                                @if(!auth()->user()->my_agent)
+                                
+                                <a class="dropdown-item" href="{{ route('agent-request') }}">
+                                @else
+                                 <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="#">   
+                                @endif    
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                        
+                                        @if(auth()->user()->my_agent)
+                                          <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
+                                        My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
+                                        @else
+                                           My Agent ID : NA
+                                        @endif
+                                        
+                                </a>
+
+
+                                 <a class="dropdown-item" href="#">
+                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                    Business Name : {{auth()->user()->name }}
+                                </a>
+                               
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit')}}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
+                                    Edit my account
+                                </a>
+
+                                <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.change.password')}}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                                    Change password
+                                </a>
+
+                                <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.profile')}}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                                    New Profile
+                                </a>
+
+                                 <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.create-new-masseur')}}">
+                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                                    New Masseur 
+                                </a>
+
+                                  <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('support-ticket.form_create')}}">
+                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
+                                    Support Ticket
+                                </a>
+
+
+                               
+                               
+                                {{-- <a class="dropdown-item" href="#">
+                                    <img src="{{asset('assets/dashboard/img/menu-icon/bell-badge.png')}}">
+                                    Notification & Features
+                                </a> --}}
+                                <!-- <a class="dropdown-item" href="{{ route('center.profile.information')}}">
+                                <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/cellphone-information.png')}}">
+                                    Profile Information
+                                </a>  -->
+                                
+                                <div class="dropdown-divider {{ canManage() ? '': 'd-none'}}"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                        </ul>
+
+                </nav>
+                <!-- End of Topbar -->

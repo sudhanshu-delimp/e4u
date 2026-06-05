@@ -10,6 +10,7 @@ use App\Http\Controllers\Center\MassageGalleryController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 use App\Http\Controllers\Center\Masseurs\MasseurController;
 use App\Http\Controllers\Center\MediaController;
+use App\Http\Controllers\Center\OtherCenterController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\MassageController;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
+Route::get('/dashboard', [CenterController::class, 'index'])->name('center.dashboard.impersonate');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
 Route::post('/profile-contact-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('center.account.profile.contact.update');
 //Route::get('profile/{id}',[CenterController::class,'updateProfile'])->name('center.update.profile');
@@ -44,10 +46,19 @@ Route::post('/change-password-expiry', [CenterController::class, 'updatePassword
 Route::get('/upload-my-avatar', [CenterController::class, 'uploadAvatar'])->name('center.profile.avatar');
 Route::post('upload-avatar/{id}',[CenterController::class,'storeMyAvatar'])->name('center.save.avatar');
 Route::post('remove-avatar',[CenterController::class,'removeMyAvatar'])->name('center.avatar.remove');
-Route::get('/update-account', [CenterController::class, 'edit'])->name('center.account.edit');
-Route::post('/update-account', [CenterController::class, 'update'])->name('center.account.update');
 
-Route::post('add-sub-account', [CenterController::class, 'add_sub_account'])->name('center.add-sub-account');
+Route::get('update-account', [CenterController::class, 'edit'])->name('center.account.edit');
+Route::post('update-account', [CenterController::class, 'update'])->name('center.account.update');
+
+
+
+
+Route::post('add-sub-account', [OtherCenterController::class, 'add_sub_account'])->name('center.add-sub-account');
+Route::post('all-other-centre-list', [OtherCenterController ::class, 'get_all_other_centre_list'])->name('center.all-other-centre-list');
+Route::post('action-account', [OtherCenterController::class, 'account_action'])->name('center.action-account');
+
+Route::get('switch-login/{id}', [OtherCenterController::class, 'switchLogin'])->name('center.switch-to-child');
+Route::get('back-to-parent', [OtherCenterController::class, 'backToParent'])->name('center.back-to-parent');
 
 //Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 //Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
@@ -175,6 +186,7 @@ Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'
 
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
 Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+
 
 
  
