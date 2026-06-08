@@ -73,6 +73,17 @@
                      </td>
                   </tr>
                 </tbody>
+
+                <tr>
+                        <th colspan="7" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="2" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="2" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="3" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                 
             </table>
         </div>
@@ -132,7 +143,23 @@
 
    // admin.advertiser-suspensions-list-ajax
    $(document).ready(function() {
-      ajaxDatatableReload();
+        ajaxDatatableReload();
+            let countdown = 15;
+            setInterval(() => {
+                countdown--;
+                $(".refreshSeconds").text(' '+countdown);
+
+                if (countdown <= 0) {
+                    $('#advertiserSuspenstionTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                    
+                }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                $('#advertiserSuspenstionTable').DataTable().search(this.value).draw();
+         });
 
       $(document).on('click', '.viewEscortSuspendedProfile', function(e) {
             e.preventDefault(); // prevent default link behavior
@@ -165,10 +192,12 @@
                type: "GET",
                dataSrc: function(json) {
                   // var totalRows = json.data.length; 
-                  var totalRows = json.recordsTotal || json.recordsFiltered; 
-                  $(".totalListing").text(totalRows);
-                  console.log(json, json.per_page, json.current_page);
-                  return json.data;
+                    var totalRows = json.recordsTotal || json.recordsFiltered; 
+                    $(".totalListing").text(totalRows);
+                    console.log(json, json.per_page, json.current_page);
+                    $(".serverTime").text(json.server_time);
+                    $(".uptimeClass").html(json.server_up_time);
+                    return json.data;
                }
          },
          columns: [

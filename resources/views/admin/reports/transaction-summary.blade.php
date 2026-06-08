@@ -89,6 +89,17 @@
                      </td>
                   </tr>
                 </tbody>
+
+                <tr>
+                    <th colspan="8" class="border-0"></th>
+                </tr>
+                <tfoot class="bg-first t-foot">
+                    <tr>
+                        <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                        <th colspan="2" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                        <th colspan="3" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                    </tr>
+                </tfoot>
                 
             </table>
         </div>
@@ -169,6 +180,23 @@
 
 <script>
    $(document).ready(function() {
+        let countdown = 15;
+        setInterval(() => {
+            countdown--;
+            $(".refreshSeconds").text(' '+countdown);
+
+            if (countdown <= 0) {
+                // $('#transactionSummaryTable').DataTable().ajax.reload(null, false);
+                countdown = 15;
+                
+            }
+
+        }, 1000);
+
+        $('#customSearch').on('keyup', function() {
+            // $('#transactionSummaryTable').DataTable().search(this.value).draw();
+        });
+
     var table = $("#transactionSummaryTable").DataTable({
          language: {
             search: "Search: _INPUT_",

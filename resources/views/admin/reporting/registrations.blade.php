@@ -132,10 +132,17 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-
-                        </tbody>
+                        <tbody></tbody>
+                         <tr>
+                        <th colspan="8" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="2" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="3" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                     </table>
                 </div>
             </div>
@@ -339,6 +346,25 @@
     {{-- <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script> --}}
 
     <script>
+            $(document).ready(function(e) {
+            let countdown = 15;
+            setInterval(() => {
+                    countdown--;
+                    $(".refreshSeconds").text(' '+countdown);
+
+                    if (countdown <= 0) {
+                    $('#RegistrationsReportTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                    
+                    }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                    $('#RegistrationsReportTable').DataTable().search(this.value).draw();
+            });
+        });
+
         var table = $("#RegistrationsReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -428,6 +454,12 @@
             multiSort: true
         });
 
+        table.on('xhr.dt', function (e, settings, json) {
+            if (json) {
+                $('.serverTime').text(json.server_time);
+                $('.uptimeClass').html(json.server_up_time);
+            }
+        });
 
         // change status via ajax
 

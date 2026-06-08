@@ -169,13 +169,13 @@
                         </tr>
                     </tbody>
                      <tr>
-                        <th colspan="11" class="border-0"></th>
+                        <th colspan="9" class="border-0"></th>
                     </tr>
                     <tfoot class="bg-first t-foot">
                         <tr>
                             <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
                             <th colspan="3" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
-                            <th colspan="3" class="text-right border-0">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                            <th colspan="3" class="text-right border-0" style="text-align:right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                         </tr>
                     </tfoot>
                 </table>

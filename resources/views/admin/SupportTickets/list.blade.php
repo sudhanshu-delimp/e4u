@@ -90,6 +90,18 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        <tbody>
+                        </tbody>
+                        <tr>
+                        <th colspan="8" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="2" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="3" class="text-right border-0" style="text-align:right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                     </table>
                 <div>
             </div>
@@ -175,6 +187,25 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
+
+    $(document).ready(function(e) {
+      let countdown = 15;
+      setInterval(() => {
+            countdown--;
+            $(".refreshSeconds").text(' '+countdown);
+
+            if (countdown <= 0) {
+               $('#supportTicketsTable').DataTable().ajax.reload(null, false);
+               countdown = 15;
+               
+            }
+
+      }, 1000);
+
+      $('#customSearch').on('keyup', function() {
+            $('#supportTicketsTable').DataTable().search(this.value).draw();
+      });
+   });
     var table;
     var ticketId = 0;
     $.ajaxSetup({
@@ -202,7 +233,12 @@
                url: "{{ route('admin.support-ticket.dataTable') }}",
                data: function (d) {
                    d.type = 'player';
-               }
+               },
+               dataSrc: function(json) {
+                    $(".serverTime").text(json.server_time);
+                    $(".uptimeClass").html(json.server_up_time);
+                    return json.data;
+                }
            },
            columns: [
                { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
