@@ -1,6 +1,6 @@
 let upgradeFrom = $(".modal-form-upgrade form");
 let upgradeFromButton = upgradeFrom.find('.modal-footer button[type="button"]');
-
+upgradeFromButton.prop('disabled', true);
 upgradeFrom.on('submit', function (e) {
     e.preventDefault();
     $.ajax({
@@ -46,6 +46,7 @@ upgradeFrom.on('submit', function (e) {
 });
 
 $('#upgrade_profile_id').on('change', function () {
+    upgradeFromButton.prop('disabled', true);
     let selectedMembership = parseInt($(this).find(':selected').data('membership'));
 
     let membershipSelect = $('#membershipId');
@@ -68,7 +69,6 @@ $('#upgrade_profile_id').on('change', function () {
 $(document).on('change', '#membershipId', function () {
     let membershipId = $(this).val();
     let escortId = $(this).parents('form').find('select[name="escort_id"]').val();
-    console.log(membershipId, escortId);
     if (membershipId) {
         return $.ajax({
             url: `${window.App.baseUrl}escort-dashboard/get-upgrade-amount`,
@@ -79,12 +79,15 @@ $(document).on('change', '#membershipId', function () {
             dataType: "json",
             data: { escortId, membershipId },
             beforeSend: function () {
-
+                upgradeFromButton.prop('disabled', true);
             },
         }).done(function (response) {
             if (response.success) {
                 upgradeFrom.find("input[name='upgrade_amount']").val(response.net_amount);
                 upgradeFromButton.attr('fee_token', response.fee_token);
+                if (response.net_amount > 0) {
+                    upgradeFromButton.prop('disabled', false);
+                }
             }
         }).fail(function (xhr, status, error) {
             console.error("Error:", error);
