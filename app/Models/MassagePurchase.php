@@ -94,4 +94,9 @@ class MassagePurchase extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
+
+    public function commissions()
+    {
+        return $this->morphMany(AgentCommission::class, 'commissionable');
+    }
 }
