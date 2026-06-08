@@ -69,8 +69,8 @@
 
         <div class="modal-footer" style="text-align: end; display: block;">
           <!-- <a id="modalPaymentButton" class="btn-success-modal text-white " href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="bumpUp">Register1</a> -->
-          <button id="modalPaymentButton" class="btn-success-modal text-white" type="button" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="bumpUp">Register</button>
-          <button type="submit" id="saveBumpupButton" class="btn-success-modal d-none">Register</button>
+          <button id="modalPaymentButton" class="btn-success-modal text-white" type="button" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="bumpUp">Proceed to Payment</button>
+          <button type="submit" id="saveBumpupButton" class="btn-success-modal d-none">Proceed to Payment</button>
         </div>
       </div>
     </form>

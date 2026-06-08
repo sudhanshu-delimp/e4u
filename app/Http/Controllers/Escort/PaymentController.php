@@ -64,6 +64,8 @@ class PaymentController extends Controller
             $checkAmount = $request->filled('checkAmount') ? $request->boolean('checkAmount') : true;
             $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
             $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
+            $feeAmount = $request->filled('fee_token') ? decrypt($request->fee_token) : 0;
+
             // At least one value is required
             if ($checkAmount == true && empty($wallet_amount) && empty($loyalty_day)) {
                 return response()->json([
@@ -95,6 +97,7 @@ class PaymentController extends Controller
                 'tour' => $this->getAmount($action),
                 'pinup' => getPinupFee(),
                 'bumpUp' => getBumpupFee(),
+                'upgrade' => $feeAmount,
                 default => null,
             };
 
@@ -131,12 +134,12 @@ class PaymentController extends Controller
             $total_amount = max(0, $total_amount);
 
             $html = view('escort.dashboard.modal.order_summary_adjustment', compact('action', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
-
+            $benefit_token = encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount'));
             return response()->json([
                 'status'         => true,
                 'lowest_plan' => $lowestPlan ?? 0,
                 'total_amount' => $total_amount,
-                'benefit_token' => encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount')),
+                'benefit_token' => $benefit_token,
                 'message' => 'Applied successfully',
                 'html' => $html,
             ]);
@@ -243,6 +246,10 @@ class PaymentController extends Controller
                         $payment_service = 'Profile Bump Up';
                     }
                     break;
+                case 'upgrade': {
+                        $payment_service = 'Profile Upgrade';
+                    }
+                    break;
 
                 default:
                     # code...
@@ -329,7 +336,7 @@ class PaymentController extends Controller
                 if (!empty($payment)) {
                     $purchaseDetail->paymentItems()->create([
                         'payment_history_id' => $payment->id,
-                        'amount' => $payment->amount
+                        'amount' => $purchaseDetail->paid_rate,
                     ]);
                 }
 
