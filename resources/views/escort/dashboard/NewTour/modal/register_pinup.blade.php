@@ -91,9 +91,9 @@
                                     <div class="form-group row custom-pin-button">
                                         <div class="col-sm-12 text-right">
                                             <input type="hidden" name="tour_location_id">
-                                            <a id="modalPaymentButton" class="btn-success-modal text-white d-none" href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="pinup">Proceed</a>
+                                            <a id="modalPaymentButton" class="btn-success-modal text-white d-none" href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="pinup">Proceed to Payment</a>
                                             <button type="submit" class="btn-success-modal"
-                                                id="savePinupButton">Register</button>
+                                                id="savePinupButton">Proceed to Payment</button>
                                         </div>
                                     </div>
                                 </form>
