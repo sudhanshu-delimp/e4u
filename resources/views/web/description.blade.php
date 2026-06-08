@@ -714,7 +714,7 @@
                         <div class="accordion-container">
                             <div class="set">
                                 <a>
-                                Fun Stuff - on Viewer
+                                Fun Stuff - on You
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -796,7 +796,7 @@
                             </div>
                             <div class="set">
                                 <a>
-                                Kinky Stuff - on Viewer
+                                Kinky Stuff - on You
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -1158,7 +1158,7 @@
                                                                 @endphp
 
                                                                 @if($media_status)
-                                                                    <div class="verify_icon">
+                                                                    <div class="verify_icon" style="border-radius: 0px 0px 10px 0px;">
                                                                         <img src="{{ $media_status['icon'] }}" >
                                                                         <span class="common_shield_tooltip">
                                                                             {{ $media_status['label'] }}
@@ -1170,43 +1170,42 @@
                                                           
                                                         </div>
 
-                                                        <div>
-                                                            <div class="sub">
+                                                        <div class="sub">
 
-                                                                {{-- Images 2,3,4 --}}
-                                                                @foreach($displayImages as $media)
+                                                            {{-- Images 2,3,4 --}}
+                                                            @foreach($displayImages as $media)
 
-                                                                    <div class="img-box">
+                                                                <div class="img-box">
 
-                                                                        <a href="{{ asset($media->path) }}"
-                                                                        class="glightbox image-wrapper"
-                                                                        data-gallery="escort-gallery">
+                                                                    <a href="{{ asset($media->path) }}"
+                                                                    class="glightbox image-wrapper"
+                                                                    data-gallery="escort-gallery">
 
-                                                                            <img src="{{ asset($media->path) }}" alt="others" title="View in large">
-                                                                             <div class="hover-overlay">
-                                                                                <span>Click me!</span>
-                                                                            </div>
-                                                                        </a>
+                                                                        <img src="{{ asset($media->path) }}" alt="others" title="View in large">
+                                                                            <div class="hover-overlay">
+                                                                            <span>Click me!</span>
+                                                                        </div>
+                                                                    </a>
 
-                                                                        @php
-                                                                            $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
-                                                                        @endphp
+                                                                    @php
+                                                                        $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
+                                                                    @endphp
 
-                                                                        @if($media_status)
-                                                                            <div class="verify_icon_sm">
-                                                                                <img src="{{ $media_status['icon'] }}">
-                                                                                <span class="gallery_shield_tooltip">
-                                                                                    {{ $media_status['label'] }}
-                                                                                </span>
-                                                                            </div>
-                                                                        @endif
+                                                                    @if($media_status)
+                                                                        <div class="verify_icon_sm">
+                                                                            <img src="{{ $media_status['icon'] }}">
+                                                                            <span class="gallery_shield_tooltip">
+                                                                                {{ $media_status['label'] }}
+                                                                            </span>
+                                                                        </div>
+                                                                    @endif
 
-                                                                    </div>
+                                                                </div>
 
-                                                                @endforeach                                                              
+                                                            @endforeach                                                              
 
-                                                            </div>
                                                         </div>
+                                                       
 
                                                         {{-- Hidden Images For Lightbox Navigation --}}
                                                         <div style="display:none;">
@@ -1342,72 +1341,70 @@
             <h2><img src="{{ asset('assets/app/img/contact_me.svg') }}"> Contacting me</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
-            <span class="span_display_block connecting_me_chat_phone">
-                You can contact me by:
-
-                    @php
-                        $contactType = $escort->contact != null ? $escort->contact : '';
-                    @endphp
-                    @if($contactType == 1)
-                    <div class="tooltip-wrapper">
-                        <img src="{{ asset('assets/app/img/email-me.png') }}">
-                        <div class="tooltip-text">Email me</div>
-                    </div>
-                    
-                    
-                    @endif
- 
-                    @if($contactType == 4 || $contactType == 5)
-                        <div class="tooltip-wrapper">
-                            <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                            <div class="tooltip-text">Call me</div>
-                            @if($contactType == 5)
-                                <span>or</span>
-                            @endif
-                        </div>
-                    @endif
-                    @if($contactType == 2 || $contactType == 5)
-                        <div class="tooltip-wrapper">
-                                <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                                <div class="tooltip-text">Text me</div>
-                        </div>
-                    @endif
-            </br>
-            @php
-
-
-            $from = $escort->phone;
-            $number = sprintf("%s-%s-%s",
-            substr($from, 0, 3),
-            substr($from, 3, 3),
-            substr($from, 6));
-            //dd($number);
-            @endphp
-            <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
-            <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> 
+            <div class="span_display_block connecting_me_chat_phone">You can contact me by:
                 @php
-                    $formattedNumber = $escort->phone;
-                    $contactTypes = $escort->contact != null ? $escort->contact : '';
-                   
+                    $contactType = $escort->contact != null ? $escort->contact : '';
                 @endphp
-            </p>    
-            <p style="line-height: 1;">
-                @if($contactTypes != '')
-                    @if($contactTypes == 1)
-                        on my email {{ $escort->user->email ?? '' }}
-                    @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                        on my number {{ $formattedNumber }}.
+                @if($contactType == 1)
+                <span class="tooltip-wrapper">
+                    <img src="{{ asset('assets/app/img/email-me.png') }}">
+                    <div class="tooltip-text">Email me</div>
+                </span>
+                
+                
+                @endif
+
+                @if($contactType == 4 || $contactType == 5)
+                    <span class="tooltip-wrapper">
+                        <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                        <div class="tooltip-text">Call me</div>
+                        @if($contactType == 5)
+                            <span>or</span>
+                        @endif
+                    </span>
+                @endif
+                @if($contactType == 2 || $contactType == 5)
+                    <span class="tooltip-wrapper">
+                            <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                            <div class="tooltip-text">Text me</div>
+                    </span>
+                @endif
+            
+                </div>        
+                @php
+
+
+                $from = $escort->phone;
+                $number = sprintf("%s-%s-%s",
+                substr($from, 0, 3),
+                substr($from, 3, 3),
+                substr($from, 6));
+                //dd($number);
+                @endphp
+                <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
+                <p class="profile_description_contect_pera">
+                    <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> 
+                    @php
+                        $formattedNumber = $escort->phone;
+                        $contactTypes = $escort->contact != null ? $escort->contact : '';
+                    
+                    @endphp
+                </p>    
+                <p style="line-height: 1;">
+                    @if($contactTypes != '')
+                        @if($contactTypes == 1)
+                            on my email {{ $escort->user->email ?? '' }}
+                        @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
+                            on my number {{ $formattedNumber }}.
+                        @else
+                            on my number --
+                        @endif
                     @else
+                        {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
                         on my number --
                     @endif
-                @else
-                    {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
-                    on my number --
-                @endif
-            </p>
-            </span>
-        </div>
+                </p>
+         </div>
     </div>
     <div class="vax-btn">
         @if($escort->getRawOriginal('covidreport') == 2)
