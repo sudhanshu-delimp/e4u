@@ -2513,10 +2513,11 @@
             <div class="form-group row tab-about-me-row-padding">
 
                 <div class="col-sm-6">
-                    @if ($hasTitles)
-                        <label class="font-weight-500" for="title">
+                     <label class="font-weight-500" for="title">
                             Title:
                         </label>
+                    @if ($hasTitles)
+                       
                         {{-- Dropdown: existing saved titles --}}
                         <select id="title" name="about_title" onclick="titleInput(this)"
                             class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"

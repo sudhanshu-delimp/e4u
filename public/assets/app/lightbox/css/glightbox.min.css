@@ -532,18 +532,18 @@ iframe.wait-autoplay {
 
 .glightbox-clean .gprev {
     position: absolute;
-    top: -100%;
+    top: 45%;
     left: 30px;
     width: 40px;
-    height: 50px
+    height: 40px
 }
 
 .glightbox-clean .gnext {
     position: absolute;
-    top: -100%;
+    top: 45%;
     right: 30px;
     width: 40px;
-    height: 50px
+    height: 40px
 }
 
 .glightbox-clean .gclose {
@@ -896,12 +896,13 @@ iframe.wait-autoplay {
     .glightbox-clean .gclose,
     .glightbox-clean .gnext,
     .glightbox-clean .gprev {
-        background-color: rgba(0, 0, 0, .32)
+        background-color: rgb(234 234 234 / 32%)
     }
     .glightbox-clean .gclose:hover,
     .glightbox-clean .gnext:hover,
     .glightbox-clean .gprev:hover {
-        background-color: rgba(0, 0, 0, .7)
+        background-color: rgb(255 255 255 / 70%);
+        color: #000;
     }
     .glightbox-clean .gprev {
         top: 45%

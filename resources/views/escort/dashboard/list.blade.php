@@ -186,7 +186,7 @@
 </div>
 
 <!-- extend profile modal start here -->
-<div class="modal fade upload-modal" id="extend_profile" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal modal-form-extend" id="extend_profile" tabindex="-1" role="dialog"
     aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
     aria-modal="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -221,7 +221,7 @@
                                             class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                             id="extendProfileId" name="escort_id[]"
                                             data-parsley-errors-container="#extend-profile-errors" required
-                                            data-parsley-required-message="Select Profile">Bump
+                                            data-parsley-required-message="Select Profile">
                                             <option value="">Select Profile</option>
 
                                         </select>
@@ -303,7 +303,7 @@
 <!-- end extend profile modal -->
 
 <!-- suspend profile modal start here -->
-<div class="modal fade upload-modal" id="suspend_profile" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal modal-form-suspend" id="suspend_profile" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
     aria-modal="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -398,7 +398,7 @@
                     </div>
                     <div class="modal-footer" style="text-align: end; display: block;">
                         <button type="submit" class="btn-success-modal" id="save_brb" disabled>Suspend</button>
-                        <button type="submit" class="btn-cancel-modal" id="save_brb"
+                        <button type="button" class="btn-cancel-modal" id="save_brb"
                             data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -752,6 +752,10 @@
         return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
     }
 
+    let extendFrom = $(".modal-form-extend form");
+    let extendFromButton = extendFrom.find('.modal-footer button[type="submit"]');
+    extendFromButton.prop('disabled', true);
+
     $(document).on('change', '#extendProfileId', function() {
         let previousEndDateValue = $(this).find(':selected').data('end'); //getDateAfter
         let membership = $(this).find(':selected').data('membership');
@@ -762,9 +766,11 @@
         if ($.trim(profileId) != "") {
             extendEndDateObject.removeAttr('disabled');
             $("input[name='extend_days']").removeAttr('disabled');
+            extendFromButton.prop('disabled', false);
         } else {
             extendEndDateObject.attr('disabled', 'disabled');
             $("input[name='extend_days']").attr('disabled', 'disabled');
+            extendFromButton.prop('disabled', true);
         }
         switch (membership) {
             case 'Platinum': {
@@ -1225,6 +1231,9 @@
         let suspendProfileObject = $('#suspendProfileId');
         let suspendStartDateObject = $('#suspendStartDate');
         let suspendEndDateObject = $('#suspendEndDate');
+        let suspendFrom = $(".modal-form-suspend");
+        let suspendFromButton = suspendFrom.find('.modal-footer button[type="submit"]');
+        suspendFromButton.prop('disabled', true);
 
         suspendStartDateObject.datepicker('setDate', +1);
         suspendStartDateObject.datepicker('option', 'minDate', +1);
@@ -1256,6 +1265,7 @@
             suspendEndDateObject.datepicker('setDate', null);
             suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
             $("#creditCalculationLive").html('0.00');
+            suspendFromButton.prop('disabled', true);
         });
 
         function calculateCredit() {
@@ -1270,11 +1280,15 @@
                         profile_id: selectedOption.val(),
                         _token: '{{ csrf_token() }}'
                     },
+                    beforeSend: function() {
+                        suspendFromButton.prop('disabled', true);
+                    },
                     success: function(response) {
                         $("#creditCalculationLive").html('0.00');
                         if (response.success) {
                             $("#creditCalculationLive").html(response.refund_amount);
                             $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                            suspendFromButton.prop('disabled', false);
                         } else {
                             $("#suspend_form").find('button[type=submit]').attr('disabled',
                                 'disabled');
