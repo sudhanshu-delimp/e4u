@@ -350,6 +350,13 @@
                         }, 2000); // 2 seconds
                     }
                     break;
+                    case 'upgrade': {
+                        displaySwal(xhr, false);
+                        setTimeout(() => {
+                            otherModalForm.trigger('submit');
+                        }, 2000); // 2 seconds
+                    }
+                    break;
 
                     default: {
                         displaySwal(xhr).then((result) => {
@@ -537,6 +544,11 @@
 
     $("#process-payment-modal").on('show.bs.modal', function(event) {
         if (event.relatedTarget) {
+            let fee_token = $(event.relatedTarget).attr('fee_token');
+            if (fee_token) {
+                addOrUpdateHiddenInput('adjustment-form', 'fee_token', fee_token);
+            }
+
             ['listing', 'tour', 'extend'].includes($(event.relatedTarget).attr('value')) ? initLoyaltySection('show') : initLoyaltySection('hide');
             adjustmentForm.find('button[type="submit"]').attr('value', $(event.relatedTarget).attr('value'));
             adjustmentForm.find('[name="wallet_amount"]').val(0);
