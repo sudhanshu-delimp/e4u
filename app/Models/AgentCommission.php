@@ -29,40 +29,40 @@ class AgentCommission extends Model
     }
 
     /**
-     * Calculate the agent commision
+     * Calculate the agent commission
      * 
      * @param decimal $total
      * @return array
      */
-    public function calculateCommision($total = 0, $feeFor = 'advertising')
+    public function calculateCommission($total = 0, $feeFor = 'advertising')
     {
-        $totalCommision = 0;
+        $totalCommission = 0;
         $amoutType = 'percent';
-        $agentCommision['total'] = 0;
-        $agentCommision['commision'] = 0;
-        $agentCommision['amoutType'] = '';
+        $agentCommission['total'] = 0;
+        $agentCommission['commission'] = 0;
+        $agentCommission['amoutType'] = '';
 
-        $commision = 0;
+        $commission = 0;
         if ($total > 0) {
             $variable =  VariablAgentOperator::where('fee_for', $feeFor)->first();
-            $commision = 5;
+            $commission = 5;
             if ($variable) {
-                $commision = $variable->amount;
+                $commission = $variable->amount;
                 $amoutType = $variable->amount_type;
             }
 
             if ($amoutType == 'percent') {
-                $totalCommision = ($total * $commision) / 100;
+                $totalCommission = ($total * $commission) / 100;
             } else {
-                $totalCommision = $commision;
+                $totalCommission = $commission;
             }
 
-            $totalCommision = number_format($totalCommision, 2, '.', '');
+            $totalCommission = number_format($totalCommission, 2, '.', '');
 
-            $agentCommision['total'] = $totalCommision;
-            $agentCommision['commision'] = $commision;
-            $agentCommision['amoutType'] = $amoutType;
+            $agentCommission['total'] = $totalCommission;
+            $agentCommission['commission'] = $commission;
+            $agentCommission['amoutType'] = $amoutType;
         }
-        return $agentCommision;
+        return $agentCommission;
     }
 }

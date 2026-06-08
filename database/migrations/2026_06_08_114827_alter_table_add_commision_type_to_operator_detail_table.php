@@ -14,8 +14,8 @@ class AlterTableAddCommisionTypeToOperatorDetailTable extends Migration
     public function up()
     {
         Schema::table('operator_details', function (Blueprint $table) {
-            $table->enum('advertising_commision_type', ['percent', 'fixed'])->default('percent')->after('commission_advertising_percent');
-            $table->enum('massge_centre_commision_type', ['percent', 'fixed'])->default('percent')->after('commission_massage_centre_percent');
+            $table->enum('advertising_commission_type', ['percent', 'fixed'])->default('percent')->after('commission_advertising_percent');
+            $table->enum('massge_centre_commission_type', ['percent', 'fixed'])->default('percent')->after('commission_massage_centre_percent');
         });
     }
 
@@ -27,8 +27,8 @@ class AlterTableAddCommisionTypeToOperatorDetailTable extends Migration
     public function down()
     {
         Schema::table('operator_details', function (Blueprint $table) {
-            $table->dropColumn('advertising_commision_type');
-            $table->dropColumn('massge_centre_commision_type');
+            $table->dropColumn('advertising_commission_type');
+            $table->dropColumn('massge_centre_commission_type');
         });
     }
 }
