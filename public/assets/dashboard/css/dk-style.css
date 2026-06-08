@@ -8419,6 +8419,10 @@ table#myTable\ price-sec {
 
 /* Bubble Arrow */
 
+.tooltip-wrapper {
+    position: relative;
+}
+
 .pinup-tooltip-wrapper {
     position: relative;
 }
