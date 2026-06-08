@@ -904,12 +904,13 @@ class EscortController extends BaseController
             $profileDetail = getEscortDetail($profileId);
             $refundAmount = getListingRefundAmount($profileDetail);
             list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
-            $net_paid_amount = number_format($newAmount - $refundAmount, 2);
+            $net_paid_amount = number_format($newAmount - $refundAmount, 2, '.', '');
 
             return response()->json([
                 'success' => true,
                 'net_amount' => $net_paid_amount,
                 'newAmount' => $newAmount,
+                'fee_token' => encrypt($net_paid_amount),
                 'message' => ''
             ]);
         } catch (Exception $e) {
@@ -924,16 +925,16 @@ class EscortController extends BaseController
     public function upgradeList(Request $request)
     {
         try {
-            $profileId = $request->escort_id;
-            $membershipId = $request->membership;
 
-            DB::transaction(function () use ($profileId, $membershipId) {
+            DB::transaction(function () use ($request) {
                 $user = auth()->user();
+                $profileId = $request->escort_id;
+                $membershipId = $request->membership;
                 $profileDetail = getEscortDetail($profileId);
                 $oldPurchase = $profileDetail->mainPurchase;
                 $newPurchase = $oldPurchase->replicate();
 
-                $refundAmount = getListingRefundAmount($profileDetail);
+                //$refundAmount = getListingRefundAmount($profileDetail);
 
                 list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days), $this->account);
                 list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
@@ -961,7 +962,21 @@ class EscortController extends BaseController
                 $profileDetail->purchase_id = $newPurchase->id;
                 $profileDetail->membership = $membershipId;
                 $profileDetail->save();
+
+                if ($request->filled('payment_token')) {
+                    $paymentId = decrypt($request->payment_token);
+                    $payment = $this->pinService->paymentHistoryDetail($paymentId);
+                    if (!empty($payment)) {
+                        $newPurchase->paymentItems()->create([
+                            'payment_history_id' => $payment->id,
+                            'amount' => $newPurchase->paid_rate,
+                        ]);
+                    }
+                }
             });
+
+
+
             if ($request->ajax()) {
                 return response()->json([
                     'success' => true,

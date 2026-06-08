@@ -1,21 +1,75 @@
-$("#upgrade_modal").on('show.bs.modal', function(event){
-    let button = $(event.relatedTarget);
-    let profileId   = button.data('id');
-    let membership = button.data('membership');
-    let select = $('#membershipId');
-    select.find('option').show();
-    select.val('');
-    if(membership==2){
-        select.find('option[value="2"]').hide();
-    }
-    $(this).find('form input[name="escort_id"]').val(profileId);
+let upgradeFrom = $(".modal-form-upgrade form");
+let upgradeFromButton = upgradeFrom.find('.modal-footer button[type="button"]');
+
+upgradeFrom.on('submit', function (e) {
+    e.preventDefault();
+    $.ajax({
+        url: upgradeFrom.attr('action'),
+        method: upgradeFrom.attr('method'),
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: upgradeFrom.serialize(),
+        beforeSend: function () {
+            showLoadingPopup();
+        },
+        success: function (response, textStatus, xhr) {
+            Swal.close();
+            if (response.success) {
+                upgradeFrom.closest('.modal').modal('hide');
+                table.draw();
+                displaySwal(xhr);
+            }
+            $("#modalPaymentButton").prop("disabled", true);
+        },
+        error: function (xhr) {
+            Swal.close();
+            if (xhr.status === 422) {
+                let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: messages
+                });
+            } else {
+                let message = JSON.parse(xhr.responseText).message;
+                Swal.fire({
+                    icon: 'error',
+                    title: xhr.statusText,
+                    text: message || 'Something went wrong.'
+                });
+            }
+            $("#modalPaymentButton").prop("disabled", false);
+        }
+    });
 });
 
-$(document).on('change','#membershipId', function(){
+$('#upgrade_profile_id').on('change', function () {
+    let selectedMembership = parseInt($(this).find(':selected').data('membership'));
+
+    let membershipSelect = $('#membershipId');
+
+    membershipSelect.find('option').each(function () {
+        let value = parseInt($(this).val());
+
+        if ($(this).val() == "") {
+            $(this).show(); // placeholder
+        } else if (value < selectedMembership) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+
+    membershipSelect.val('').trigger('change');
+});
+
+$(document).on('change', '#membershipId', function () {
     let membershipId = $(this).val();
-    let escortId = $(this).parents('form').find('input[name="escort_id"]').val();
+    let escortId = $(this).parents('form').find('select[name="escort_id"]').val();
     console.log(membershipId, escortId);
-    if(membershipId){
+    if (membershipId) {
         return $.ajax({
             url: `${window.App.baseUrl}escort-dashboard/get-upgrade-amount`,
             type: "POST",
@@ -23,51 +77,22 @@ $(document).on('change','#membershipId', function(){
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
             },
             dataType: "json",
-            data:{escortId,membershipId},
+            data: { escortId, membershipId },
             beforeSend: function () {
-                
+
             },
         }).done(function (response) {
             if (response.success) {
-                console.log(response);
-                $("#upgrade_amount").val(response.net_amount);
+                upgradeFrom.find("input[name='upgrade_amount']").val(response.net_amount);
+                upgradeFromButton.attr('fee_token', response.fee_token);
             }
         }).fail(function (xhr, status, error) {
             console.error("Error:", error);
         });
     }
-    else{
+    else {
         $("#upgrade_amount").val('0.00');
     }
 });
 
-// $(document).on('submit','#upgrade_modal_form', function(e){
-//     e.preventDefault();
-//     let form = $(this);
-//     let formData = form.serialize();
-//     $.ajax({
-//         url: form.attr('action'),
-//         type: "POST",
-//         data: formData,
-//         beforeSend: function () {
-//             form.find('button[type="submit"]').attr('disabled','disabled');
-//         },
-//         success: function (response) {
-//             console.log(response);
-//             if (response.success) {
-//                 Swal.fire({
-//                     icon: 'success',
-//                     text: response.message
-//                 });
-//                 table.draw();
-//                 form.trigger('reset');
-//                 $("#upgrade_modal").modal('hide');
-//             }
-//             form.find('button[type="submit"]').removeAttr('disabled');
-//         },
-//         error: function (xhr) {
-//             $('#saveBumpupButton').html('<span style="color:red">Error occurred</span>');
-//         }
-//     });
-// });
 
