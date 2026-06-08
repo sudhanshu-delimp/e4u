@@ -1,5 +1,8 @@
 @extends('layouts.web')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css') }}">
+<style>
 <style>
 .tooltip-wrapper {
     position: relative;
@@ -1009,8 +1012,8 @@
                         @php 
                             $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
                         @endphp
-                        <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                            {{-- <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header d-flex justify-content-between align-items-center">                                       
                                         <ul class="nav nav-tabs justify-content-center border-0">
@@ -1088,6 +1091,164 @@
                                         </div>
 
                                     </div>
+                                </div>
+                            </div> --}}
+                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
+                                        <ul class="nav nav-tabs justify-content-center border-0">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu3">My Photos</a>
+                                            </li>
+                                            @if ($galleryVideos->count()>0)
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu4">My Videos</a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="tab-content" id="myTabContent2">
+                                            <div class="tab-pane fade show active" id="menu3" role="tabpanel" aria-labelledby="profile-tab">
+                                            <div id="gallery" class="photos-grid-container gallery">
+
+                                                    @if($escort->gallary->isNotEmpty())
+
+                                                        @php
+                                                            $allImages = $escort->gallary()
+                                                                ->wherePivot('type',0)
+                                                                ->wherePivotIn('position',[1,2,3,4,5,6,7])
+                                                                ->orderBy('position','asc')
+                                                                ->get();
+
+                                                            $firstImage = $allImages->first();
+
+                                                            $displayImages = $allImages->filter(function($item){
+                                                                return in_array($item->pivot->position,[2,3,4,5,6,7]);
+                                                            });
+                                                        @endphp
+
+                                                        {{-- Main Image (Position 1) --}}
+                                                        <div class="main-photo img-box">
+
+                                                            @php
+                                                                $item = $escort->gallary()
+                                                                    ->wherePivotIn('position',[1])
+                                                                    ->first();
+                                                            @endphp
+
+                                                            @if($item)
+
+                                                                <a href="{{ asset($item->path) }}"
+                                                                class="glightbox image-wrapper"
+                                                                data-gallery="escort-gallery">
+
+                                                                    <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
+
+                                                                    <div class="hover-overlay">
+                                                                        <span>Click me!</span>
+                                                                    </div>
+                                                                </a>
+
+                                                                @php
+                                                                    $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
+                                                                @endphp
+
+                                                                @if($media_status)
+                                                                    <div class="verify_icon">
+                                                                        <img src="{{ $media_status['icon'] }}" >
+                                                                        <span class="common_shield_tooltip">
+                                                                            {{ $media_status['label'] }}
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
+                                                                 
+                                                            @endif
+                                                          
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="sub">
+
+                                                                {{-- Images 2,3,4 --}}
+                                                                @foreach($displayImages as $media)
+
+                                                                    <div class="img-box">
+
+                                                                        <a href="{{ asset($media->path) }}"
+                                                                        class="glightbox image-wrapper"
+                                                                        data-gallery="escort-gallery">
+
+                                                                            <img src="{{ asset($media->path) }}" alt="others" title="View in large">
+                                                                             <div class="hover-overlay">
+                                                                                <span>Click me!</span>
+                                                                            </div>
+                                                                        </a>
+
+                                                                        @php
+                                                                            $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
+                                                                        @endphp
+
+                                                                        @if($media_status)
+                                                                            <div class="verify_icon_sm">
+                                                                                <img src="{{ $media_status['icon'] }}">
+                                                                                <span class="gallery_shield_tooltip">
+                                                                                    {{ $media_status['label'] }}
+                                                                                </span>
+                                                                            </div>
+                                                                        @endif
+
+                                                                    </div>
+
+                                                                @endforeach                                                              
+
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Hidden Images For Lightbox Navigation --}}
+                                                        <div style="display:none;">
+
+                                                            @foreach($allImages as $media)
+
+                                                                <a href="{{ asset($media->path) }}"
+                                                                class="glightbox"
+                                                                data-gallery="escort-gallery">
+                                                               
+                                                                </a>
+                                                                
+
+                                                            @endforeach
+
+                                                        </div>
+
+                                                    @endif
+
+                                                </div>                      
+                                            </div> 
+                                            
+                                            
+                                            <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
+                                                <div class="row px-3 pb-2" id="dvSource">
+                                                    
+                                                    @foreach($galleryVideos as $key=>$media)
+                                                        <div class="col-md-4" id="dm_2">
+                                                            <a href="#">
+                                                                <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                    <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                </video>
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                        
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -1490,6 +1651,7 @@
 
 </div>
 </div>
+
 <!-- model start here 1-->
 <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @if(auth()->check() && auth()->user()->type==0)
@@ -2002,6 +2164,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
+<script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 <script>
 let myCarousel = document.querySelector('#reviewCarousel');
 let carousel = new bootstrap.Carousel(myCarousel, {
