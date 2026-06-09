@@ -91,6 +91,36 @@
         height: unset;
         object-fit: fill;
     }
+    .add--list {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 25px;
+    }
+    .add--list div {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .custom_progress_wrapper {
+        text-align: center;
+        background: #f3f3f3;
+        padding: 20px 30px;
+        margin-bottom: 50px;
+        border-radius: 5px;
+    }
+    #sailorTable_length {
+        width: 100%;
+    }
+    .dataTables_wrapper .dataTables_filter {
+        width: 100%;
+        margin-left: auto;
+    }
+    .dataTables_wrapper .dataTables_filter label input {
+        width: 75% !important;
+    }
 }
 
 @media (max-width: 768px) {
