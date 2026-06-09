@@ -13,6 +13,7 @@ class AddUpdatedByToPaymentHistoriesTable extends Migration
      */
     public function up()
     {
+        
         if (!Schema::hasColumn('payment_histories', 'updated_by')) {
             Schema::table('payment_histories', function (Blueprint $table) {
 
