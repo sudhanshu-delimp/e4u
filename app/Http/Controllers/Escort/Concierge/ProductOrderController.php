@@ -305,7 +305,7 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::with('paymentDetails', 'user')->orderBy('created_at', 'DESC');
+    $query = ProductOrder::with('paymentDetails', 'user')->where('user_id',Auth::user()->id)->orderBy('created_at', 'DESC');
     $classes = config('escorts.payment_status');
     return DataTables::of($query)
 

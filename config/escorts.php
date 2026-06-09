@@ -858,12 +858,23 @@ return [
     'cancelled' => 'badge_suspended',
     'failed'    => 'badge_suspended',
   ],
+
   'order_status' => [
-    'paid'      => 'badge_active',
     'pending'   => 'badge_available',
+    'hold'      => 'badge_pending',
+    'shipped'   => 'badge_active',
+    'delivered' => 'badge_active',
     'cancelled' => 'badge_suspended',
-    'failed'    => 'badge_suspended',
+    'returned'  => 'badge_suspended',
   ],
 
+  'order_status_labels' => [
+    'pending'   => 'Pending',
+    'hold'      => 'On Hold',
+    'shipped'   => 'Shipped',
+    'delivered' => 'Completed',
+    'cancelled' => 'Cancelled',
+    'returned'  => 'Returned',
+  ],
   'impersonate_action_allowed' => ['archives-listing', 'create-new-masseur', 'archive-view-photos', 'media-centre', 'add-listing', 'list', 'create-profile', 'archive-view-videos', 'upload-galleries', 'upload-videos-galleries', 'default_photos', 'default-videos', 'get-default-videos', 'get-default-photos', 'delete-photos', 'delete-videos', 'listing', 'country-list', 'city-list', 'select-city-list', 'state-list', 'get-account-video-gallery', 'load-default-masseur-list', 'create-check-messure-profile', 'get-notification', 'masseur-option-list', 'all-massager-list', 'all-masseur-list', 'update-masseur', 'create-action-messure-profile', 'center.massuers-media-upload-gallery', 'update-single-data', 'validate-phone', 'get-massuers-account-media-gallery', 'delete-masseur-photos', 'get-masseur-image-info', 'notification-seen', 'get-masseurs-media-count', 'upload-masseur-verification', 'get-account-media-gallery', 'get-account-media-gallery', 'profile-info', 'masseurs', 'update-profile', 'action-massage-profile', 'massage-brb', 'massage-suspend-credit', 'suspend-massage-profile', 'extend-profile-validate-date-range', 'listing/listing-payment', 'bumpup-register', 'get-transaction-summury', 'make-time-json', 'get-masseur-option-list', 'update-massage-profile', 'profile-information', 'update-account'],
 ];

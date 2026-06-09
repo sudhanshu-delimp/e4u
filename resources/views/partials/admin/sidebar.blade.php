@@ -93,7 +93,7 @@
                     'consoles',
                     'email-service-request',
                     'mobile-sim-request',
-                    'product-request',
+                    'product-order-history',
                     'visa-migration-request',
                     'manage-email','code-of-conduct','data-breach-plan','discipline-and-termination','fitness-for-work','grievance',
                     'manage-sim','health-and-safety','information-use','leave','personal-telephone-use','position-descriptions',
@@ -164,7 +164,6 @@
                     </a>
                     <div id="Concierge" class="collapse @if (request()->segment(3) == 'email-service-request' ||
                             request()->segment(3) == 'mobile-sim-request' ||
-                            request()->segment(3) == 'product-request' ||
                             request()->segment(3) == 'visa-migration-request') show @endif;"
                         data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
@@ -182,13 +181,7 @@
                                     style="{{ request()->segment(3) == 'mobile-sim-request' ? 'color: #FF3C5F;' : '' }}">SIM
                                     Requests</span>
                             </a>
-                            <a class="collapse-item" href="{{ route('product-request') }}">
-                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'product-request' ? 'color: #FF3C5F;' : '' }}">Product
-                                    Orders</span>
-                            </a>
+                         
                             <a class="collapse-item" href="{{ route('visa-migration-request') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/Migration.png') }}">
@@ -584,6 +577,7 @@
                             request()->is('*punterbox*') ||
                             request()->is('*communication*') ||
                             request()->is('*media-verification*') ||
+                            request()->is('*product-order-history*') ||
                             request()->is('*advertiser-reviews*')) show @endif;" data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
 
@@ -651,6 +645,13 @@
                                     src="{{ asset('assets/dashboard/img/menu-icon/transaction-summary.png') }}">
                                 <span
                                     style="{{ request()->is('*transaction-summary*') ? 'color: #FF3C5F;' : '' }}">Transactions</span>
+                            </a>
+                               <a class="nav-link " href="{{ route('admin.escort.orders') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'product-order-history' ? 'color: #FF3C5F;' : '' }}">Product
+                                    Orders</span>
                             </a>
                         </div>
                     </div>
