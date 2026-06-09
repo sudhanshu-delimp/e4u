@@ -125,38 +125,38 @@
    
 
         <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
-        <div class="container">
-            <div class="row">
-                <div class="overlay">
-                    @if($escort->latestActiveBrb)
-                        <div class="brb_details">
-                            <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
-                            <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
-                        </div>
-                    @endif
+        
+                <div class="row">
+                    <div class="overlay">
+                        @if($escort->latestActiveBrb)
+                            <div class="brb_details">
+                                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
+                                <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
+                            </div>
+                        @endif
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
-            
-            <div class="row">
-                @php
-
-                   if (str_contains($backToSearchButton, 'view=')) {
-                        $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
-                    } else {
-                        // If view param not present, append it properly
-                        $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
-                        $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
-                    }
+                <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
                     
-                @endphp
-                <div class="col-12">
-                    <a href="{{ $finalUrl }}" class="back--search"> <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
-                </div>
-            </div>
-        </div>
-            <div>
+                    <div class="row">
+                        @php
+
+                        if (str_contains($backToSearchButton, 'view=')) {
+                                $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
+                            } else {
+                                // If view param not present, append it properly
+                                $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
+                                $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
+                            }
+                            
+                        @endphp
+                        <div class="col-12">
+                            <a href="{{ $finalUrl }}" class="back--search"> <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
+                        </div>
+                    </div>
+                </div> 
+            
+            <div class="">
                 <div class="profile_page_title px-3">
                     @php 
                     $isPinupActive = $escort->currentActivePinup;
@@ -194,12 +194,10 @@
                         @endif
                 </div>
                 <div class="profile_page_name_and_phno px-3">
-                <p>{{$escort->city->name}} - {{  $escort->phone }}</p>
-
-
-                    
+                    <p>{{$escort->city->name}} - {{  $escort->phone }}</p>                    
                 </div>
             </div>
+
             <div class="profile_page_location_and_id px-3">
                 <ul>
                     <li>
@@ -212,8 +210,9 @@
                     </li>
                 </ul>
             </div>
-                <div class="d-flex align-items-center justify-content-start gap-10 px-3">
-                            
+
+            <div class="d-flex align-items-center justify-content-start gap-10 px-3">
+                        
 
                 <div class="d-flex align-items-center justify-content-start">
                     <div class="my-play-box-profile-icon">
@@ -232,7 +231,7 @@
                     @endif
                 </div>
                 <ul class="profile_page_social_profiles">
-               
+            
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
                         @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
                             <li class="selected-from-profile">
@@ -255,1015 +254,987 @@
 
             </div>
         </div>
-</div>
-    <div class="container-fluid px-0 next-preview-fixed">
-        <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
-                <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="text-decoration-none d-flex ">
-                <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
-                <span class="previous_text remove_in_sm">Previous</span>
-                </a>
+        <div class="row px-0 next-preview-fixed">
+            <div class="d-flex d-flex justify-content-between">
+                <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
+                    <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="text-decoration-none d-flex ">
+                    <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
+                    <span class="previous_text remove_in_sm">Previous</span>
+                    </a>
+                </div>
+                
+                <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss" >
+                    <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="text-decoration-none ">
+                    <span class="previous_text remove_in_sm">Next</span>
+                    <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
+                    </a>
+                </div>
             </div>
+        </div> 
+        <div class="container profile_contain">
+            <div class="row">
             
-            <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss" >
-                <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="text-decoration-none ">
-                <span class="previous_text remove_in_sm">Next</span>
-                <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
-                </a>
-            </div>
-        </div>
-    </div> 
-    <div class="container profile_contain">
-        <div class="row">
-           
-            <div class="col-md-8 col-xl-8 col-sm-12 col-12">
-                <div class="row mb-3">
-                    <div class="col-md-12 col-xl-12 col-sm-12 col-12">
-                        <div class="row mess_row">
-                            <div class="col-sm-12 d-flex align-items-center justify-content-between flex-wrap ">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <div class="mc_tooltip_wrap">
-                                         <img src="{{ asset('assets/app/img/handwithhart.png') }}">
-                                        <p class="mc_rate_tooltip">You come to me.</p>
-                                    </div>
-                                   
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Massage</h4>
+                <div class="col-md-8 col-xl-8 col-sm-12 col-12">
+                    <div class="row mb-3">
+                        <div class="col-md-12 col-xl-12 col-sm-12 col-12">
+                            <div class="row mess_row">
+                                <div class="col-sm-12 d-flex align-items-center justify-content-between flex-wrap ">
+                                    <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
+                                        <div class="mc_tooltip_wrap">
+                                            <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                            <p class="mc_rate_tooltip">You come to me.</p>
                                         </div>
-                                        <div class="profile_hr">
-                                            <h4>
-                                            @php  
-                                            $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
-                                            @endphp
-                                            {{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}
-                                            </h4>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                     <div class="mc_tooltip_wrap">
-                                          <img src="{{ asset('assets/app/img/areodownimg.png') }}">
-                                        <p class="mc_rate_tooltip">You come to me.</p>
-                                     </div>
-                                   
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Incalls</h4>
-                                        </div>
-                                        <div class="profile_hr">
-
-                                        <h4>
-                                        @php  
-                                        $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
-                                        @endphp
-                                        {{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}
-                                        </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
                                     
-                                     <div class="mc_tooltip_wrap">
-                                         <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
-                                        <p class="mc_rate_tooltip">I come to you.</p>
-                                     </div>
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Outcalls</h4>
-                                        </div>
-                                        <div class="profile_hr">
-                                            <h4>
-                                            @php  
-                                            $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
-                                            @endphp
-                                            {{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}
-                                            </h4>
-                                           
+                                        <div class="div_contain_text">
+                                            <div class="profile_message">
+                                                <h4>Massage</h4>
+                                            </div>
+                                            <div class="profile_hr">
+                                                <h4>
+                                                @php  
+                                                $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
+                                                @endphp
+                                                {{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}
+                                                </h4>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                {{-- button --}}
-                                <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
-                            @if(auth()->user())
-                                @if(auth()->user()->type == 0)
-                                    <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
-                                        id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
-                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                                        @if(!empty($user_type))
-                                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
-                                                <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                    <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
+                                        <div class="mc_tooltip_wrap">
+                                            <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                            <p class="mc_rate_tooltip">You come to me.</p>
+                                        </div>
+                                    
+                                        <div class="div_contain_text">
+                                            <div class="profile_message">
+                                                <h4>Incalls</h4>
+                                            </div>
+                                            <div class="profile_hr">
+
+                                            <h4>
+                                            @php  
+                                            $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
+                                            @endphp
+                                            {{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}
+                                            </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
+                                        
+                                        <div class="mc_tooltip_wrap">
+                                            <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                            <p class="mc_rate_tooltip">I come to you.</p>
+                                        </div>
+                                        <div class="div_contain_text">
+                                            <div class="profile_message">
+                                                <h4>Outcalls</h4>
+                                            </div>
+                                            <div class="profile_hr">
+                                                <h4>
+                                                @php  
+                                                $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
+                                                @endphp
+                                                {{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}
+                                                </h4>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- button --}}
+                                    <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
+                                        @if(auth()->user())
+                                            @if(auth()->user()->type == 0)
+                                                <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
+                                                    id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
+                                                    data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+                                                    @if(!empty($user_type))
+                                                        @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
+                                                            <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                                        @else
+                                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                        @endif
+                                                    @endif
+                                                </span>
                                             @else
-                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                                             @endif
+                                        @else
+                                            <span class="add_to_favrate" data-escortId="{{$escort->id}}"
+                                                data-name="{{$escort->name}}"><i class="fa fa-heart-o"
+                                                                                aria-hidden="true"></i></span>
                                         @endif
-                                    </span>
-                                @else
-                                    <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                                @endif
-                            @else
-                                <span class="add_to_favrate" data-escortId="{{$escort->id}}"
-                                      data-name="{{$escort->name}}"><i class="fa fa-heart-o"
-                                                                       aria-hidden="true"></i></span>
-                            @endif
-                            <span class="label save-my-legbox-btn">
-                                @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
-                            </span>
-                        </button>
+                                        <span class="label save-my-legbox-btn">
+                                            @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        
                     </div>
-                    {{-- <div class="col-md-12 col-xl-4 col-sm-12 text-center">
-                        <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
-                            @if(auth()->user())
-                                @if(auth()->user()->type == 0)
-                                    <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
-                                        id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
-                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                                        @if(!empty($user_type))
-                                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
-                                                <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
-                                            @else
-                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                            @endif
-                                        @endif
-                                    </span>
-                                @else
-                                    <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                                @endif
-                            @else
-                                <span class="add_to_favrate" data-escortId="{{$escort->id}}"
-                                      data-name="{{$escort->name}}"><i class="fa fa-heart-o"
-                                                                       aria-hidden="true"></i></span>
-                            @endif
-                            <span class="label save-my-legbox-btn">
-                                @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
-                            </span>
-                        </button>
-                    </div> --}}
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 mb-2 table-responsive-lg">
-                        <table class="table table_striped">
-                            <thead class="table_heading_bgcolor_color">
-                                <tr>
-                                    <th scope="col">Service</th>
-                                    <th scope="col">Massage</th>
-                                    <th scope="col">Incalls</th>
-                                    <th scope="col">Outcalls</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(!empty($escort->durations))
-                                @foreach($escort->durations as $key => $duration)
-                                <tr>
-                                    <td>{{ $duration->name }}</td>
-                                    <td>{!! ($duration->pivot->massage_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
-                                    </td>
-                                    <td>{!! ($duration->pivot->incall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
-                                    </td>
-                                    <td>{!! ($duration->pivot->outcall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->outcall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endif
-                               
-                            </tbody>
-                             <thead class="table_heading_bgcolor_color">
-                                <tr>
-                                    <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
-                                        {{ config("escorts.profile.Payments.$escort->payment_type") }}
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 mb-2 table-responsive-lg">
+                            <table class="table table_striped">
+                                <thead class="table_heading_bgcolor_color">
+                                    <tr>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Massage</th>
+                                        <th scope="col">Incalls</th>
+                                        <th scope="col">Outcalls</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(!empty($escort->durations))
+                                    @foreach($escort->durations as $key => $duration)
+                                    <tr>
+                                        <td>{{ $duration->name }}</td>
+                                        <td>{!! ($duration->pivot->massage_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        </td>
+                                        <td>{!! ($duration->pivot->incall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        </td>
+                                        <td>{!! ($duration->pivot->outcall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->outcall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                
+                                </tbody>
+                                <thead class="table_heading_bgcolor_color">
+                                    <tr>
+                                        <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
+                                            {{ config("escorts.profile.Payments.$escort->payment_type") }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
 
-                    </div>
-                    <div class="col-lg-6 col-md-12 table-width-dk">
-                        <table class="table table_striped mb-0">
-                            <thead class="table_heading_bgcolor_color">
-                                <tr>
-                                    <th class="text-center" scope="col">Arriving</th>
-                                    <th class="text-center" scope="col">Departing</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">{{Carbon\Carbon::parse($escort->start_date)->format('d-m-Y')/*->format('jS F Y ')*/ }}</td>
-                                    <td class="text-center">{{Carbon\Carbon::parse($escort->end_date)->format('d-m-Y')/*->format('jS F Y ')*/}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table_striped custom-day-table">
-                            <thead class="table_heading_bgcolor_color">
-                                <tr>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @php
-                            $days = [
-                                'Monday' => 'monday',
-                                'Tuesday' => 'tuesday',
-                                'Wednesday' => 'wednesday',
-                                'Thursday' => 'thursday',
-                                'Friday' => 'friday',
-                                'Saturday' => 'saturday',
-                                'Sunday' => 'sunday'
-                            ];
-                            @endphp
-                            @foreach($days as $cDay => $day)
-                                <tr>
-                                    <td>{{$cDay}}</td>
-                                    <td>
-                                        @if(!empty($availability->availability_time[$day]))
-                                        
-                                            @if($availability->availability_time[$day] == 'til_ate')
-
-                                            {{ Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A') }} ... Til Late
-                                            @else
-                                                {{ $availability->availability_time[$day]; }} 
-                                            @endif
+                        </div>
+                        <div class="col-lg-6 col-md-12 table-width-dk">
+                            <table class="table table_striped mb-0">
+                                <thead class="table_heading_bgcolor_color">
+                                    <tr>
+                                        <th class="text-center" scope="col">Arriving</th>
+                                        <th class="text-center" scope="col">Departing</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">{{Carbon\Carbon::parse($escort->start_date)->format('d-m-Y')/*->format('jS F Y ')*/ }}</td>
+                                        <td class="text-center">{{Carbon\Carbon::parse($escort->end_date)->format('d-m-Y')/*->format('jS F Y ')*/}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table_striped custom-day-table">
+                                <thead class="table_heading_bgcolor_color">
+                                    <tr>
+                                        <th scope="col">Day</th>
+                                        <th scope="col">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                $days = [
+                                    'Monday' => 'monday',
+                                    'Tuesday' => 'tuesday',
+                                    'Wednesday' => 'wednesday',
+                                    'Thursday' => 'thursday',
+                                    'Friday' => 'friday',
+                                    'Saturday' => 'saturday',
+                                    'Sunday' => 'sunday'
+                                ];
+                                @endphp
+                                @foreach($days as $cDay => $day)
+                                    <tr>
+                                        <td>{{$cDay}}</td>
+                                        <td>
+                                            @if(!empty($availability->availability_time[$day]))
                                             
+                                                @if($availability->availability_time[$day] == 'til_ate')
 
-                                        @elseif(!empty($availability->{$day.'_from'}) && !empty($availability->{$day.'_to'}))
-                                            {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A'): '' }} - {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_to'})->format('h:i A') : ''}}
-                                        @else
-                                            Unavailable
+                                                {{ Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A') }} ... Til Late
+                                                @else
+                                                    {{ $availability->availability_time[$day]; }} 
+                                                @endif
+                                                
+
+                                            @elseif(!empty($availability->{$day.'_from'}) && !empty($availability->{$day.'_to'}))
+                                                {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A'): '' }} - {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_to'})->format('h:i A') : ''}}
+                                            @else
+                                                Unavailable
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
+                        <div class="profile_card_border profile_page_box_heading">
+                            <h2>About me</h2>
+                        </div>
+                        <div class="padding_20_tob_btm_side">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Gender:</span> <span class="about_box_small_heading_value">{{ $escort->gender}}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Body type:</span> <span class="about_box_small_heading_value"> {{ config("escorts.profile.body-type.$escort->body_type")}}</span>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                <div class="mb-2">
+                                        <span class="about_box_small_heading">Age:</span> <span class="about_box_small_heading_value">{{ $escort->age}}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Nationality:</span> <span class="about_box_small_heading_value"> {{ ($escort->nationality) ? $escort->nationality->name : ''}}</span>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Orientation:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.orientation.$escort->orientation") }}</span>
+                                    </div>
+                                    
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Ethnicity:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.ethnicities.$escort->ethnicity")}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-12">
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Available to:</span>
+                                        @if(!empty($escort->available_to))
+                                        <span class="about_box_small_heading_value"> {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}</span>
                                         @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
-                    <div class="profile_card_border profile_page_box_heading">
-                        <h2>About me</h2>
-                    </div>
-                    <div class="padding_20_tob_btm_side">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Gender:</span> <span class="about_box_small_heading_value">{{ $escort->gender}}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Body type:</span> <span class="about_box_small_heading_value"> {{ config("escorts.profile.body-type.$escort->body_type")}}</span>
-                                </div>
-                                
-                                
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                            <div class="mb-2">
-                                    <span class="about_box_small_heading">Age:</span> <span class="about_box_small_heading_value">{{ $escort->age}}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Nationality:</span> <span class="about_box_small_heading_value"> {{ ($escort->nationality) ? $escort->nationality->name : ''}}</span>
-                                </div>
-                                
-                                
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Orientation:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.orientation.$escort->orientation") }}</span>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Ethnicity:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.ethnicities.$escort->ethnicity")}}</span>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="profile_card_border profile_page_box_heading">
+                            <h2>Statistics</h2>
+                        </div>
 
-                            <div class="col-lg-12 col-md-12 col-12">
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Available to:</span>
-                                    @if(!empty($escort->available_to))
-                                       <span class="about_box_small_heading_value"> {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}</span>
+                        
+                        <div class="padding_20_tob_btm_side">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Height:</span> <span class="about_box_small_heading_value"> {{config("escorts.profile.heights.$escort->height") }}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Eyes:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.eye-colors.$escort->eyes") }}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Shaved:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.shaved-type.$escort->shaved") }}</span>
+                                    </div>
+
+                                    @if($escort->getRawOriginal('gender') != 6)
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Endowment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.endowments.$escort->endowment") }}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Butt:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.butts.$escort->butt") }}</span>
+                                    </div>
+                                    @endif
+
+
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Contact me:</span> <span class="about_box_small_heading_value">{{ strtoupper(config("escorts.profile.contact-me.$escort->contact")) }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Hair colour:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-colour.$escort->hair_color") }}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Skin tone:</span> <span class="about_box_small_heading_value">{{config("escorts.profile.skin-tone.$escort->skin_tone") }}</span>
+                                    </div>
+                                    @if($escort->getRawOriginal('gender') != 1)
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Breast:</span> <span class="about_box_small_heading_value">{{ $escort->breast }}</span>
+                                    </div>
+                                    @endif
+                                    @if($escort->getRawOriginal('gender') != 6)
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Thickness:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.thicknesses.$escort->thickness") }}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Preference:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.preferences.$escort->preference") }}</span>
+                                    </div>
+                                    @endif
+                                    <!-- <div class="mb-2">
+                                        <span class="about_box_small_heading">Language:</span>
+                                        @if(!empty($escort->language))  @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
+                                        </div> -->
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Hair style:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-style.$escort->hair_style")}}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Weight:</span> <span class="about_box_small_heading_value">{{ $escort->weight}} Kgs</span>
+                                    </div>
+                                    @if($escort->getRawOriginal('gender') != 1)
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Dress size:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.dress-size.$escort->dress_size")}}</span>
+                                    </div>
+                                    @endif
+                                    @if($escort->getRawOriginal('gender') != 6)
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Circumcised:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.circumcises.$escort->circumcised")}}</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="about_box_small_heading">Hormones:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hormones.$escort->hormones")}}</span>
+                                    </div>
                                     @endif
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="profile_card_border profile_page_box_heading">
-                        <h2>Statistics</h2>
-                    </div>
-
-                    
-                    <div class="padding_20_tob_btm_side">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Height:</span> <span class="about_box_small_heading_value"> {{config("escorts.profile.heights.$escort->height") }}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Eyes:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.eye-colors.$escort->eyes") }}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Shaved:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.shaved-type.$escort->shaved") }}</span>
-                                </div>
-
-                                @if($escort->getRawOriginal('gender') != 6)
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Endowment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.endowments.$escort->endowment") }}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Butt:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.butts.$escort->butt") }}</span>
-                                </div>
-                                @endif
-
-
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Contact me:</span> <span class="about_box_small_heading_value">{{ strtoupper(config("escorts.profile.contact-me.$escort->contact")) }}</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Hair colour:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-colour.$escort->hair_color") }}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Skin tone:</span> <span class="about_box_small_heading_value">{{config("escorts.profile.skin-tone.$escort->skin_tone") }}</span>
-                                </div>
-                                @if($escort->getRawOriginal('gender') != 1)
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Breast:</span> <span class="about_box_small_heading_value">{{ $escort->breast }}</span>
-                                </div>
-                                @endif
-                                @if($escort->getRawOriginal('gender') != 6)
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Thickness:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.thicknesses.$escort->thickness") }}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Preference:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.preferences.$escort->preference") }}</span>
-                                </div>
-                                @endif
-                                <!-- <div class="mb-2">
-                                    <span class="about_box_small_heading">Language:</span>
-                                     @if(!empty($escort->language))  @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
-                                    </div> -->
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Hair style:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-style.$escort->hair_style")}}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Weight:</span> <span class="about_box_small_heading_value">{{ $escort->weight}} Kgs</span>
-                                </div>
-                                @if($escort->getRawOriginal('gender') != 1)
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Dress size:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.dress-size.$escort->dress_size")}}</span>
-                                </div>
-                                @endif
-                                @if($escort->getRawOriginal('gender') != 6)
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Circumcised:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.circumcises.$escort->circumcised")}}</span>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Hormones:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hormones.$escort->hormones")}}</span>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span id="y" class="">Read more&gt;&gt;</span>
-                            </div>
-                        </div>
-                        <div class="hide_data">
                             <div class="row">
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="mb-2">
-                                        <span class="about_box_small_heading">Piercing:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.piercing.$escort->piercing") }}</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <span class="about_box_small_heading">Drugs:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.drugs.$escort->drugs") }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="mb-2">
-                                        <span class="about_box_small_heading">Tattoos:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.tattooes.$escort->tattoos") }}</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <span class="about_box_small_heading">Smoke:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.smokes.$escort->smoke") }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                   <div class="mb-2">
-    <span class="about_box_small_heading">Play types:</span>
-    @if(!empty($escort->play_type))
-        <span class="about_box_small_heading_value">
-            {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
-        </span>
-    @endif
-</div>
-
-                                    <div class="mb-2">
-                                        <span class="about_box_small_heading">Payment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
-                                    </div>
+                                <div class="col-md-12">
+                                    <span id="y" class="">Read more&gt;&gt;</span>
                                 </div>
                             </div>
-                            <div class="padding_and_border_for_read_more_section mt-2">
+                            <div class="hide_data">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="mb-2">
-                                            <span class="about_box_small_heading">Travel:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.travels.$escort->travel") }}</span>
+                                            <span class="about_box_small_heading">Piercing:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.piercing.$escort->piercing") }}</span>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="col-lg-8 col-md-8 col-12">
-                                        
                                         <div class="mb-2">
-                                            <span class="about_box_small_heading">SWA License:</span> <span class="about_box_small_heading_value">{{ $escort->license}}</span>
+                                            <span class="about_box_small_heading">Drugs:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.drugs.$escort->drugs") }}</span>
                                         </div>
                                     </div>
-
-                                    <div class="col-lg-12 col-md-12 col-12">
-                                        
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="mb-2">
+                                            <span class="about_box_small_heading">Tattoos:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.tattooes.$escort->tattoos") }}</span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <span class="about_box_small_heading">Smoke:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.smokes.$escort->smoke") }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12">
                                     <div class="mb-2">
-                                            <span class="about_box_small_heading">Languages:</span> @if(!empty($escort->language)) @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
+                                            <span class="about_box_small_heading">Play types:</span>
+                                            @if(!empty($escort->play_type))
+                                                <span class="about_box_small_heading_value">
+                                                    {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <span class="about_box_small_heading">Payment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="padding_and_border_for_read_more_section mt-2">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-12">
+                                            <div class="mb-2">
+                                                <span class="about_box_small_heading">Travel:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.travels.$escort->travel") }}</span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-12">
+                                            
+                                            <div class="mb-2">
+                                                <span class="about_box_small_heading">SWA License:</span> <span class="about_box_small_heading_value">{{ $escort->license}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-12">
+                                            
+                                        <div class="mb-2">
+                                                <span class="about_box_small_heading">Languages:</span> @if(!empty($escort->language)) @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
+                                            </div>
+                                        </div>
 
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="escortId" value="{{auth()->user() ? auth()->user()->id : null}}" id="eid">
-                </div>
-                <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
-                    <div class="profile_card_border profile_page_box_heading">
-                        <h2>Who Am I?</h2>
-                    </div>
-                    <div class="padding_20_tob_btm_side who-tittle">
-                        
-                        {!! $escort->about_title !!}
-                        
-                    </div>
-                    <div class="padding_20_tob_btm_side text-justify">
-                        {!! $escort->about !!}
-                    </div>
-                </div>
-                <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
-                    <div class="profile_card_border profile_page_box_heading">
-                        <h2>My Service</h2>
-                    </div>
-                    <div class="padding_20_tob_btm_side">
-                        <p class="text-justify">Check out what I enjoy the most with you in private. Let's have some fun. Feel free to ask me any questions about my services.</p>
-                        <div class="accordion-container">
-                            <div class="set">
-                                <a>
-                                Fun Stuff - on You
-                                <i class="fa fa-angle-down"></i>
-                                </a>
-                                <div class="content">
-                                    <div class="accodien_manage_padding_content">
-                                        <div class="table-responsive">
-                                            <div class="row margin_zero_for_table table-grid"  style="{{ empty($categoryOneServices) ? ' ' : ''}}">
-                                                <div class="padding_none" style="{{ empty($categoryOneServices) ? 'padding: 1px;' : ''}}">
-                                                    
-                                                    <table class="table {{empty($categoryOneServices[0]) ? '': ' ' }}  ">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col" style="width:75%">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryOneServices[0]))
-                                                                @foreach($categoryOneServices[0] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <td colspan="2" class="let-talk-about">Let's talk about it.</td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                
-                                                <div class="padding_none" style="{{ empty($categoryOneServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[1]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col" style="width:75%">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryOneServices[1]))
-                                                                @foreach($categoryOneServices[1] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="padding_none" style="{{ empty($categoryOneServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[2]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryOneServices[2]))
-                                                                @foreach($categoryOneServices[2] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']). "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <td colspan="2" class="let-talk-about"></td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="set">
-                                <a>
-                                Kinky Stuff - on You
-                                <i class="fa fa-angle-down"></i>
-                                </a>
-                                <div class="content">
-                                    <div class="accodien_manage_padding_content">
-                                        <div class="table-responsive">
-                                            <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryTwoServices) ? ' ' : ''}}">
-                                                <div class="padding_none" style="{{ empty($categoryTwoServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[0]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col" style="width:75%">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryTwoServices[0]))
-                                                                @foreach($categoryTwoServices[0] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>"  . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="padding_none" style="{{ empty($categoryTwoServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[1]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col" style="width:75%">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryTwoServices[1]))
-                                                                @foreach($categoryTwoServices[1] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="padding_none" style="{{ empty($categoryTwoServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[2]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryTwoServices[2]))
-                                                                @foreach($categoryTwoServices[2] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <td colspan="2" class="let-talk-about"></td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="set">
-                                <a>
-                                Fun Stuff - on Me
-                                <i class="fa fa-angle-down"></i>
-                                </a>
-                                <div class="content">
-                                    <div class="accodien_manage_padding_content">
-                                        <div class="table-responsive">
-                                            <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryThreeServices) ? ' ' : ''}}">
-                                                <div class=" padding_none" style="{{ empty($categoryThreeServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table  {{ empty($categoryThreeServices[0]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col" style="width:75%">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @if(!empty($categoryThreeServices[0]))
-                                                                @foreach($categoryThreeServices[0] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class=" padding_none" style="{{ empty($categoryThreeServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryThreeServices[1]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col" style="width:75%">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryThreeServices[1]))
-                                                                @foreach($categoryThreeServices[1] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class=" padding_none" style="{{ empty($categoryThreeServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{ empty($categoryThreeServices[2]) ? '': ' ' }}">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col" style="width:75%">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if(!empty($categoryThreeServices[2]))
-                                                                @foreach($categoryThreeServices[2] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>"  . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <td colspan="2" class="let-talk-about"></td>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="escortId" value="{{auth()->user() ? auth()->user()->id : null}}" id="eid">
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4 profile-sidebar-margin-top">
-                <!-- video crousal start -->
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 px-0 profile_verify_icon ec-slider">
-                                
-                            <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
-                                <div class="carousel-inner">
-                                    
-                            @if($escort->gallary->isNotEmpty())
-                            @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
+                    <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
+                        <div class="profile_card_border profile_page_box_heading">
+                            <h2>Who Am I?</h2>
+                        </div>
+                        <div class="padding_20_tob_btm_side who-tittle">
                             
-                            <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
-                           
-                            <div class="row">
-                                <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
-                                    @php $status = $media->varified ?? "0"; @endphp
-                                   
-                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
-                                    <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
-                                    </div>
-                            </div>
-                             <div class="verify_icon">
-                                @switch($status)
-                                    @case(0)
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                        <span class="common_shield_tooltip">Media Pending</span>
-                                    @break
-                                    @case(1)
-                                        <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                        <span class="common_shield_tooltip">Media Verified</span>
-                                    @break
-                                    @case(2)
-                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                        <span class="common_shield_tooltip">Media Unverified</span>
-                                    @break
-                                @endswitch
-                            </div>
+                            {!! $escort->about_title !!}
+                            
                         </div>
-                        @endforeach
-                        @else
-                        <div class="carousel-item active " data-interval="10000">
-                            <div class="row">
-                                <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
-                                    <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
-                                    <div class="custom-tooltip">I don't have any Playbox.</div>
-                                    </div>
-                            </div>
+                        <div class="padding_20_tob_btm_side text-justify">
+                            {!! $escort->about !!}
                         </div>
-                        @endif
-                        <!-- Modal -->
-                        @php 
-                            $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
-                        @endphp
-                        <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                            {{-- <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
-                                        <ul class="nav nav-tabs justify-content-center border-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
-                                            </li>
-                                            @if ($galleryVideos->count()>0)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
-                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                                        </button>
-                                    </div>
-                                 
-                                    <div class="modal-body p-1">
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
-                                                <div class="gallery">
-                                                    @if($escort->gallary->isNotEmpty())
-
-
-                                                            <div class="gallery__item gallery__item--lg">
-                                                                <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                                                    @php 
-                                                                        $item = $escort->gallary()->wherePivotIn('position',[1])->first();
-                                                                    @endphp
-                                                                    @if($item)
-                                                                        @php $media_status =  getMediaVerificationDataBigIcon($item->varified ?? 0); @endphp
-                                                                            <div class="verify_icon">
-                                                                                <img src="{{ $media_status['icon'] }}">
-                                                                                <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
-                                                                            </div>
-                                                                    @endif
-                                                            </div>
-                                                            <div class="small-images">
-                                                            @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
-                                                            
-                                                                <div class="gallery__item">
-                                                                    <img src="{{ asset($media->path) }}" alt="">
-                                                                    @php 
-                                                                        $media_status = getMediaVerificationDataSmallIcon(($media->varified ?? 0));
-                                                                    @endphp
-                                                                     @if($media_status)
-                                                                        <div class="verify_icon_sm">
-                                                                            <img src="{{ $media_status['icon'] }}">
-                                                                            <span class="gallery_shield_tooltip">{{ $media_status['label'] }}</span>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-
-                                                            @endforeach
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
-                                                <div class="row px-3 pb-2" id="dvSource">
+                    </div>
+                    <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
+                        <div class="profile_card_border profile_page_box_heading">
+                            <h2>My Service</h2>
+                        </div>
+                        <div class="padding_20_tob_btm_side">
+                            <p class="text-justify">Check out what I enjoy the most with you in private. Let's have some fun. Feel free to ask me any questions about my services.</p>
+                            <div class="accordion-container">
+                                <div class="set">
+                                    <a>
+                                    Fun Stuff - on You
+                                    <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="content">
+                                        <div class="accodien_manage_padding_content">
+                                            <div class="table-responsive">
+                                                <div class="row margin_zero_for_table table-grid"  style="{{ empty($categoryOneServices) ? ' ' : ''}}">
+                                                    <div class="padding_none" style="{{ empty($categoryOneServices) ? 'padding: 1px;' : ''}}">
+                                                        
+                                                        <table class="table {{empty($categoryOneServices[0]) ? '': ' ' }}  ">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col" style="width:75%">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryOneServices[0]))
+                                                                    @foreach($categoryOneServices[0] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                    <td colspan="2" class="let-talk-about">Let's talk about it.</td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                     
-                                                            @foreach($galleryVideos as $key=>$media)
-                                                                <div class="col-md-4" id="dm_2">
-                                                                    <a href="#">
-                                                                        <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                            <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                                        </video>
-                                                                    </a>
-                                                                </div>
-                                                            @endforeach
-                                                      
-
+                                                    <div class="padding_none" style="{{ empty($categoryOneServices[1]) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table {{empty($categoryOneServices[1]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col" style="width:75%">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryOneServices[1]))
+                                                                    @foreach($categoryOneServices[1] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="padding_none" style="{{ empty($categoryOneServices[2]) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table {{empty($categoryOneServices[2]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryOneServices[2]))
+                                                                    @foreach($categoryOneServices[2] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']). "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                    <td colspan="2" class="let-talk-about"></td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div> --}}
-                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
-                                        <ul class="nav nav-tabs justify-content-center border-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu3">My Photos</a>
-                                            </li>
-                                            @if ($galleryVideos->count()>0)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu4">My Videos</a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
-                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                                        </button>
+                                <div class="set">
+                                    <a>
+                                    Kinky Stuff - on You
+                                    <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="content">
+                                        <div class="accodien_manage_padding_content">
+                                            <div class="table-responsive">
+                                                <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryTwoServices) ? ' ' : ''}}">
+                                                    <div class="padding_none" style="{{ empty($categoryTwoServices) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table {{empty($categoryTwoServices[0]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col" style="width:75%">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryTwoServices[0]))
+                                                                    @foreach($categoryTwoServices[0] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>"  . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="padding_none" style="{{ empty($categoryTwoServices[1]) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table {{empty($categoryTwoServices[1]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col" style="width:75%">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryTwoServices[1]))
+                                                                    @foreach($categoryTwoServices[1] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="padding_none" style="{{ empty($categoryTwoServices[2]) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table {{empty($categoryTwoServices[2]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryTwoServices[2]))
+                                                                    @foreach($categoryTwoServices[2] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                    <td colspan="2" class="let-talk-about"></td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="tab-content" id="myTabContent2">
-                                            <div class="tab-pane fade show active" id="menu3" role="tabpanel" aria-labelledby="profile-tab">
-                                            <div id="gallery" class="photos-grid-container gallery">
+                                </div>
+                                <div class="set">
+                                    <a>
+                                    Fun Stuff - on Me
+                                    <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="content">
+                                        <div class="accodien_manage_padding_content">
+                                            <div class="table-responsive">
+                                                <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryThreeServices) ? ' ' : ''}}">
+                                                    <div class=" padding_none" style="{{ empty($categoryThreeServices) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table  {{ empty($categoryThreeServices[0]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col" style="width:75%">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if(!empty($categoryThreeServices[0]))
+                                                                    @foreach($categoryThreeServices[0] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class=" padding_none" style="{{ empty($categoryThreeServices[1]) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table {{empty($categoryThreeServices[1]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col" style="width:75%">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryThreeServices[1]))
+                                                                    @foreach($categoryThreeServices[1] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class=" padding_none" style="{{ empty($categoryThreeServices[2]) ? 'padding: 1px;' : ''}}">
+                                                        <table class="table {{ empty($categoryThreeServices[2]) ? '': ' ' }}">
+                                                            <thead>
+                                                                <tr class="background_color_table_head_color">
+                                                                    <th scope="col" style="width:75%">Description</th>
+                                                                    <th scope="col">Extra</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if(!empty($categoryThreeServices[2]))
+                                                                    @foreach($categoryThreeServices[2] as $service)
+                                                                        <tr>
+                                                                            <td class="table_border_dash_left">{!!$service['name']!!}</td>
+                                                                            <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>"  . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                    <td colspan="2" class="let-talk-about"></td>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 profile-sidebar-margin-top">
+                    <!-- video crousal start -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12 px-0 profile_verify_icon ec-slider">
+                                    
+                                <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
+                                    <div class="carousel-inner">
+                                        
+                                @if($escort->gallary->isNotEmpty())
+                                @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
+                                
+                                <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
+                            
+                                <div class="row">
+                                    <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
+                                        @php $status = $media->varified ?? "0"; @endphp
+                                    
+                                        <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
+                                        <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
+                                        </div>
+                                </div>
+                                <div class="verify_icon">
+                                    @switch($status)
+                                        @case(0)
+                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                            <span class="common_shield_tooltip">Media Pending</span>
+                                        @break
+                                        @case(1)
+                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
+                                            <span class="common_shield_tooltip">Media Verified</span>
+                                        @break
+                                        @case(2)
+                                            <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
+                                            <span class="common_shield_tooltip">Media Unverified</span>
+                                        @break
+                                    @endswitch
+                                </div>
+                            </div>
+                            @endforeach
+                            @else
+                            <div class="carousel-item active " data-interval="10000">
+                                <div class="row">
+                                    <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
+                                        <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
+                                        <div class="custom-tooltip">I don't have any Playbox.</div>
+                                        </div>
+                                </div>
+                            </div>
+                            @endif
+                            <!-- Modal -->
+                            @php 
+                                $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+                            @endphp
+                            <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                {{-- <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex justify-content-between align-items-center">                                       
+                                            <ul class="nav nav-tabs justify-content-center border-0">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
+                                                </li>
+                                                @if ($galleryVideos->count()>0)
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                            <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                                                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                                            </button>
+                                        </div>
+                                    
+                                        <div class="modal-body p-1">
+                                            <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
+                                                    <div class="gallery">
+                                                        @if($escort->gallary->isNotEmpty())
 
-                                                    @if($escort->gallary->isNotEmpty())
 
-                                                        @php
-                                                            $allImages = $escort->gallary()
-                                                                ->wherePivot('type',0)
-                                                                ->wherePivotIn('position',[1,2,3,4,5,6,7])
-                                                                ->orderBy('position','asc')
-                                                                ->get();
+                                                                <div class="gallery__item gallery__item--lg">
+                                                                    <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
+                                                                        @php 
+                                                                            $item = $escort->gallary()->wherePivotIn('position',[1])->first();
+                                                                        @endphp
+                                                                        @if($item)
+                                                                            @php $media_status =  getMediaVerificationDataBigIcon($item->varified ?? 0); @endphp
+                                                                                <div class="verify_icon">
+                                                                                    <img src="{{ $media_status['icon'] }}">
+                                                                                    <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
+                                                                                </div>
+                                                                        @endif
+                                                                </div>
+                                                                <div class="small-images">
+                                                                @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
+                                                                
+                                                                    <div class="gallery__item">
+                                                                        <img src="{{ asset($media->path) }}" alt="">
+                                                                        @php 
+                                                                            $media_status = getMediaVerificationDataSmallIcon(($media->varified ?? 0));
+                                                                        @endphp
+                                                                        @if($media_status)
+                                                                            <div class="verify_icon_sm">
+                                                                                <img src="{{ $media_status['icon'] }}">
+                                                                                <span class="gallery_shield_tooltip">{{ $media_status['label'] }}</span>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
 
-                                                            $firstImage = $allImages->first();
+                                                                @endforeach
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
+                                                    <div class="row px-3 pb-2" id="dvSource">
+                                                        
+                                                                @foreach($galleryVideos as $key=>$media)
+                                                                    <div class="col-md-4" id="dm_2">
+                                                                        <a href="#">
+                                                                            <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                                <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                            </video>
+                                                                        </a>
+                                                                    </div>
+                                                                @endforeach
+                                                        
 
-                                                            $displayImages = $allImages->filter(function($item){
-                                                                return in_array($item->pivot->position,[2,3,4,5,6,7]);
-                                                            });
-                                                        @endphp
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                        {{-- Main Image (Position 1) --}}
-                                                        <div class="main-photo img-box">
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex justify-content-between align-items-center">                                       
+                                            <ul class="nav nav-tabs justify-content-center border-0">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu3">My Photos</a>
+                                                </li>
+                                                @if ($galleryVideos->count()>0)
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu4">My Videos</a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                            <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                                                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="tab-content" id="myTabContent2">
+                                                <div class="tab-pane fade show active" id="menu3" role="tabpanel" aria-labelledby="profile-tab">
+                                                <div id="gallery" class="photos-grid-container gallery">
+
+                                                        @if($escort->gallary->isNotEmpty())
 
                                                             @php
-                                                                $item = $escort->gallary()
-                                                                    ->wherePivotIn('position',[1])
-                                                                    ->first();
+                                                                $allImages = $escort->gallary()
+                                                                    ->wherePivot('type',0)
+                                                                    ->wherePivotIn('position',[1,2,3,4,5,6,7])
+                                                                    ->orderBy('position','asc')
+                                                                    ->get();
+
+                                                                $firstImage = $allImages->first();
+
+                                                                $displayImages = $allImages->filter(function($item){
+                                                                    return in_array($item->pivot->position,[2,3,4,5,6,7]);
+                                                                });
                                                             @endphp
 
-                                                            @if($item)
-
-                                                                <a href="{{ asset($item->path) }}"
-                                                                class="glightbox image-wrapper"
-                                                                data-gallery="escort-gallery">
-
-                                                                    <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
-
-                                                                    <div class="hover-overlay">
-                                                                        <span>Click me!</span>
-                                                                    </div>
-                                                                </a>
+                                                            {{-- Main Image (Position 1) --}}
+                                                            <div class="main-photo img-box">
 
                                                                 @php
-                                                                    $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
+                                                                    $item = $escort->gallary()
+                                                                        ->wherePivotIn('position',[1])
+                                                                        ->first();
                                                                 @endphp
 
-                                                                @if($media_status)
-                                                                    <div class="verify_icon" style="border-radius: 0px 0px 10px 0px;">
-                                                                        <img src="{{ $media_status['icon'] }}" >
-                                                                        <span class="common_shield_tooltip">
-                                                                            {{ $media_status['label'] }}
-                                                                        </span>
-                                                                    </div>
-                                                                @endif
-                                                                 
-                                                            @endif
-                                                          
-                                                        </div>
+                                                                @if($item)
 
-                                                        <div class="sub">
-
-                                                            {{-- Images 2,3,4 --}}
-                                                            @foreach($displayImages as $media)
-
-                                                                <div class="img-box">
-
-                                                                    <a href="{{ asset($media->path) }}"
+                                                                    <a href="{{ asset($item->path) }}"
                                                                     class="glightbox image-wrapper"
                                                                     data-gallery="escort-gallery">
 
-                                                                        <img src="{{ asset($media->path) }}" alt="others" title="View in large">
-                                                                            <div class="hover-overlay">
+                                                                        <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
+
+                                                                        <div class="hover-overlay">
                                                                             <span>Click me!</span>
                                                                         </div>
                                                                     </a>
 
                                                                     @php
-                                                                        $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
+                                                                        $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
                                                                     @endphp
 
                                                                     @if($media_status)
-                                                                        <div class="verify_icon_sm">
-                                                                            <img src="{{ $media_status['icon'] }}">
-                                                                            <span class="gallery_shield_tooltip">
+                                                                        <div class="verify_icon" style="border-radius: 0px 0px 10px 0px;">
+                                                                            <img src="{{ $media_status['icon'] }}" >
+                                                                            <span class="common_shield_tooltip">
                                                                                 {{ $media_status['label'] }}
                                                                             </span>
                                                                         </div>
                                                                     @endif
+                                                                    
+                                                                @endif
+                                                            
+                                                            </div>
 
-                                                                </div>
+                                                            <div class="sub">
 
-                                                            @endforeach                                                              
+                                                                {{-- Images 2,3,4 --}}
+                                                                @foreach($displayImages as $media)
 
-                                                        </div>
-                                                       
+                                                                    <div class="img-box">
 
-                                                        {{-- Hidden Images For Lightbox Navigation --}}
-                                                        <div style="display:none;">
+                                                                        <a href="{{ asset($media->path) }}"
+                                                                        class="glightbox image-wrapper"
+                                                                        data-gallery="escort-gallery">
 
-                                                            @foreach($allImages as $media)
+                                                                            <img src="{{ asset($media->path) }}" alt="others" title="View in large">
+                                                                                <div class="hover-overlay">
+                                                                                <span>Click me!</span>
+                                                                            </div>
+                                                                        </a>
 
-                                                                <a href="{{ asset($media->path) }}"
-                                                                class="glightbox"
-                                                                data-gallery="escort-gallery">
-                                                               
-                                                                </a>
-                                                                
+                                                                        @php
+                                                                            $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
+                                                                        @endphp
 
-                                                            @endforeach
+                                                                        @if($media_status)
+                                                                            <div class="verify_icon_sm">
+                                                                                <img src="{{ $media_status['icon'] }}">
+                                                                                <span class="gallery_shield_tooltip">
+                                                                                    {{ $media_status['label'] }}
+                                                                                </span>
+                                                                            </div>
+                                                                        @endif
 
-                                                        </div>
+                                                                    </div>
 
-                                                    @endif
+                                                                @endforeach                                                              
 
-                                                </div>                      
-                                            </div> 
-                                            
-                                            
-                                            <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
-                                                <div class="row px-3 pb-2" id="dvSource">
-                                                    
-                                                    @foreach($galleryVideos as $key=>$media)
-                                                        <div class="col-md-4" id="dm_2">
-                                                            <a href="#">
-                                                                <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                    <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                                </video>
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
+                                                            </div>
                                                         
 
+                                                            {{-- Hidden Images For Lightbox Navigation --}}
+                                                            <div style="display:none;">
+
+                                                                @foreach($allImages as $media)
+
+                                                                    <a href="{{ asset($media->path) }}"
+                                                                    class="glightbox"
+                                                                    data-gallery="escort-gallery">
+                                                                
+                                                                    </a>
+                                                                    
+
+                                                                @endforeach
+
+                                                            </div>
+
+                                                        @endif
+
+                                                    </div>                      
+                                                </div> 
+                                                
+                                                
+                                                <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
+                                                    <div class="row px-3 pb-2" id="dvSource">
+                                                        
+                                                        @foreach($galleryVideos as $key=>$media)
+                                                            <div class="col-md-4" id="dm_2">
+                                                                <a href="#">
+                                                                    <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                        <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                    </video>
+                                                                </a>
+                                                            </div>
+                                                        @endforeach
+                                                            
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                    </a>
                 </div>
             </div>
         </div>
-    </div>
     <!-- video crousal end -->
     <div class="row pt-2 eqal-bx">
         <div class="col-xl-5 col-sm-12 my-1 text-center">
@@ -1512,7 +1483,7 @@
     </div>
     <!-- tip section end here -->
 
-                <!---  new review card -->
+    <!---  new review card -->
     <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
         <div class="profile_card_border profile_page_box_heading">
             <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
