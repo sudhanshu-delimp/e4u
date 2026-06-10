@@ -49,7 +49,7 @@
         }
 
         
-}
+
         /* Card */
         
         .thank-you-card {
