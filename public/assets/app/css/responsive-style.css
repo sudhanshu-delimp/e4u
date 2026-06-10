@@ -121,6 +121,22 @@
     .dataTables_wrapper .dataTables_filter label input {
         width: 75% !important;
     }
+    .ryt_srch_btn {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .slect__btn_tab {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px 5px;
+        flex-wrap: wrap;
+    }
+    .mc_type_btn {
+        display: flex;
+        justify-content: space-between;
+        flex: auto;
+        margin-top: 5px;
+    }
 }
 
 @media (max-width: 768px) {
