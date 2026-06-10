@@ -153,8 +153,40 @@
         </div>
     </div>
     {{-- end --}}
+
+    <div class="modal fade upload-modal" id="view-details" tabindex="-1" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content basic-modal">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="view-listing">
+
+                        Order Details
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="https://e4u.local/assets/app/img/newcross.png"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="orderDetailsLoader" class="text-center my-4" style="display:none;">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2">Loading details...</p>
+                    </div>
+
+                    <div id="orderDetailsBody"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
+@include('escort.dashboard.Concierge.modal.view_order_history_modal')
 
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
@@ -250,9 +282,9 @@
                 $('#order_status').val(status);
 
                 // Completed => open modal
-                if (status === 'delivered') 
+                if (status === 'delivered')
                     return;
-                
+
 
                 // Pending / Hold => direct AJAX
                 e.preventDefault();
@@ -304,11 +336,17 @@
             // });
             $(document).on('click', '#saveCompletedOrder', function() {
 
+                const $btn = $(this);
+                $btn.prop('disabled', true).text("please wait...");
+
                 let orderId = $('#order_id').val();
                 let status = $('#order_status').val();
                 let trackingId = $('#tracking_id').val();
 
-                updateOrderStatus(orderId, status, trackingId);
+                updateOrderStatus(orderId, status, trackingId)
+                    .always(function() {
+                        $btn.prop('disabled', false).text("Save");
+                    });
             });
 
             function updateOrderStatus(orderId, status, trackingId = '') {
@@ -340,6 +378,40 @@
                     }
                 });
             }
+        });
+        $(document).on('click', '.view-order-details', function(e) {
+            e.preventDefault();
+            var orderId = $(this).data('item');
+            // Show loader, hide content
+            $("#orderDetailsLoader").show();
+            $("#orderDetailsBody").hide().html("");
+
+            $.ajax({
+                url: "{{ route('admin.escort.order.details') }}?id=" + orderId,
+                type: "GET",
+                beforeSend: function() {
+                    $("#view-details").modal("show"); // open modal immediately
+                },
+
+                success: function(response) {
+                    $("#orderDetailsLoader").hide();
+
+                    if (response.status === true) {
+                        $("#orderDetailsBody").html(response.html).fadeIn();
+                    } else {
+                        $("#orderDetailsBody").html(
+                            "<div class='alert alert-warning'>No details found.</div>"
+                        ).fadeIn();
+                    }
+                },
+
+                error: function() {
+                    $("#orderDetailsLoader").hide();
+                    $("#orderDetailsBody").html(
+                        "<div class='alert alert-danger'>Unable to load order details.</div>"
+                    ).fadeIn();
+                }
+            });
         });
     </script>
 @endpush

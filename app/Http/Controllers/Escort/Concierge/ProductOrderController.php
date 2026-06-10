@@ -307,6 +307,8 @@ class ProductOrderController extends Controller
   {
     $query = ProductOrder::with('paymentDetails', 'user')->where('user_id',Auth::user()->id)->orderBy('created_at', 'DESC');
     $classes = config('escorts.payment_status');
+       $classesOrder = config('escorts.order_status');
+    $orderStatus = config('escorts.order_status_labels');
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
@@ -327,11 +329,12 @@ class ProductOrderController extends Controller
       ->addColumn('user', function ($row) {
         return   $row->user ? $row->user->name : '0.00';
       })
-      ->addColumn('order_status', function ($row) use ($classes) {
-        $class = $classes[$row->order_status] ?? '';
-        return '<span class="custom_badge ' . $class . '">' . ucfirst($row->order_status) . '</span>';
+      ->editColumn('order_status', function ($row) use ($classesOrder, $orderStatus) {
+        $class = $classesOrder[$row->order_status] ?? '';
+
+        return '<span class="custom_badge ' . $class . '">' . $orderStatus[$row->order_status] . '</span>';
       })
-      ->addColumn('payment_status', function ($row) use ($classes) {
+      ->editColumn('payment_status', function ($row) use ($classes) {
         $class = $classes[$row->payment_status] ?? '';
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->payment_status) . '</span>';
       })

@@ -61,6 +61,7 @@
                                 Please retain this notification for your records and quote the order reference in any
                                 future correspondence regarding this order.
                             </p>
+                            
                             <p style="margin: 15px 0;">
                                 Thank you for your cooperation and continued support.
                                 <!-- email info -->

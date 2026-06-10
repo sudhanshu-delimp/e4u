@@ -19,6 +19,8 @@ use Yajra\DataTables\DataTables;
 
 class ProductOrderController extends Controller
 {
+
+
   public function orders(Request $request)
   {
     try {
@@ -90,7 +92,20 @@ class ProductOrderController extends Controller
    data-id="' . $row->id . '"
    data-status="delivered"
    data-toggle="modal"
-   data-target="#active_req"><i class="fa fa-check-circle"></i> Completed </a></div></div>';
+   data-target="#active_req"><i class="fa fa-check-circle"></i> Completed </a>
+   <div class="dropdown-divider"></div>
+
+<a class="dropdown-item view-order-details"
+   href="#"
+   data-toggle="modal"
+   data-item="' . $row->id . '"
+   data-target="#view_order_modal">
+   <i class="fa fa-eye"></i> View Details
+</a>
+   </div></div>
+   
+
+   ';
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -113,68 +128,72 @@ class ProductOrderController extends Controller
           'message' =>  "Status feild are required"
         ]);
       }
-      DB::transaction(function () use ($request) {
+      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $request->order_id)->first();
+      if (empty($order)) {
+        return response()->json([
+          'status' => false,
+          'message' =>  "Order Not Found "
+        ]);
+      }
+      if ($order->order_status == $request->status) {
+        return response()->json([
+          'status' => false,
+          'message' =>  "Status already set " . $request->status
+        ]);
+      }
+      $condommail = config('app.condom_mail');
 
+      if (empty($condommail)) {
+        return response()->json([
+          'status' => false,
+          'message' => 'Unable to send notification. Supplier email address is not configured.'
+        ]);
+      }
 
+      DB::transaction(function () use ($request, $order, $condommail) {
 
-
-        $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $request->order_id)->first();
-        if ($order->order_status == $request->status) {
-
-          return response()->json([
-            'status' => false,
-            'message' =>  "Status already set " . $request->status
-          ]);
-        }
         $order->order_status = $request->status;
         $order->tracking_id = $request->tracking_id;
         $status = $order->save();
         $mailData = [];
-        $condommail = config('app.condom_mail');
-        if (empty($condommail)) {
-          return response()->json([
-            'status' => false,
-            'message' => 'Unable to send notification. Supplier email address is not configured.'
-          ]);
-        }
 
-        if ($order->orderAddress) {
-          $mailData['id'] = $order->id;
-          $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
-          $mailData['member_id'] = $order->user ? $order->user->member_id : '';
-          $mailData['order_id'] = $order->order_id ?? "";
-          $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
-          $billing = $order->orderAddress->where('type', 'billing')->first();
 
-          $address1 = $shippingAddress->address_line1 ?? '';
-          $address2 = $shippingAddress->address_line2 ?? '';
-          $city     = $shippingAddress->city ?? '';
-          $state    = $shippingAddress->state ?? '';
-          $country  = $shippingAddress->country ?? '';
+        $mailData['id'] = $order->id;
+        $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
+        $mailData['member_id'] = $order->user ? $order->user->member_id : '';
+        $mailData['order_id'] = $order->order_id ?? "";
+        $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
+        $billing = $order->orderAddress->where('type', 'billing')->first();
 
-          $completeAddress = trim(
-            implode(', ', array_filter([
-              $address1 . ' ' . $address2,
-              $city,
-              $state,
-              $country
-            ]))
-          );
-          $mailData['delivery_address'] = $completeAddress;
-        }
+        $address1 = $shippingAddress->address_line1 ?? '';
+        $address2 = $shippingAddress->address_line2 ?? '';
+        $city     = $shippingAddress->city ?? '';
+        $state    = $shippingAddress->state ?? '';
+        $country  = $shippingAddress->country ?? '';
+
+        $completeAddress = trim(
+          implode(', ', array_filter([
+            $address1 . ' ' . $address2,
+            $city,
+            $state,
+            $country
+          ]))
+        );
+        $mailData['delivery_address'] = $completeAddress;
         if ($status && $request->status == 'delivered') {
-          // send order completed mail notification to supplier
+          // Send order completed mail notification to supplier
           Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
-          // send order completed mail notification to escort
+
+          // Send order completed mail notification to escort
           Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
         } elseif ($request->status == 'hold') {
 
-          // send order hold notification to escort
-          // Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+          // Send order hold notification to escort
+          Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
 
-          // send order hold notification to supplier
-          // Mail::to($billing->email)->send(new SendProductOrderHoldMailToSupplier($mailData));
-          // send mail to escort agent also if escort have agent
+          // Send order hold notification to supplier
+          Mail::to($billing->email)->send(new SendProductOrderHoldMailToSupplier($mailData));
+          // Send mail to escort agent also if escort have agent
           if ($order->user->is_agent_assign == 1) {
             $agent = User::where('id', $order->user->assigned_agent_id)->first();
             Mail::to($agent->email)->send(new SendProductOrderHoldMailToEscortAgent($mailData));
@@ -192,6 +211,19 @@ class ProductOrderController extends Controller
         'status' => false,
         'message' => $e->getMessage()
       ]);
+    }
+  }
+
+
+  public function getOrderDetails(Request $request)
+  {
+    try {
+      $order = ProductOrder::with(['orderAddress', 'paymentDetails', 'orderItems', 'orderItems.product'])->where('id', $request->id)->first();
+
+      $html = view('escort.dashboard.Concierge.product-order-details', compact('order'))->render();
+      return response()->json(['status' => true, 'html' => $html]);
+    } catch (Exception $e) {
+      Log::error($e->getMessage());
     }
   }
 }
