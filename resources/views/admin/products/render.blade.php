@@ -55,8 +55,11 @@
                 </select>
             </td>
 
-            <td class="theme-color text-center total-cell" data-id="{{ $product->id }}">
-                ${{ number_format($total, 2) }}
+             <td class="theme-color text-center" >
+                <div class="view_cart_total_td">
+                    <span class="total-cell" data-id="{{ $product->id }}"> ${{ number_format($total, 2) }}</span> 
+                    <span id="remove_product"><i class="fa fa-times"></i></span>
+                </div>
             </td>
         </tr>
     @endforeach

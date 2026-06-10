@@ -43,6 +43,41 @@
         .cardImage img {
             height: 40px !important;
         }
+        .modal-lg{
+            
+        max-width: 600px;
+        }
+
+        
+}
+        /* Card */
+        
+        .thank-you-card {
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        /* Image */
+        
+        .thank-you-card img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        /* Title */
+        
+        .thank-you-card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+        /* Text */
+        
+        .thank-you-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        /* Buttons */
+        
     </style>
     <script src="https://cdn.pinpayments.com/pin.v2.js"></script>
 @endsection
@@ -185,7 +220,7 @@
                                 <div class="row">
 
                                     <!-- Mobile -->
-                                    <div class="col-6">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Mobile Number</b></label>
                                         <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
                                             required data-parsley-type="digits" data-parsley-minlength="10"
@@ -195,7 +230,7 @@
                                     </div>
 
                                     <!-- Email -->
-                                    <div class="col-6">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Email</b></label>
                                         <input type="email" class="form-control" name="email"
                                             placeholder="you@domain.com.au" required
@@ -220,28 +255,28 @@
                                             data-parsley-required-message="Address 2 is required">
                                     </div>
                                     <!-- City -->
-                                    <div class="col-md-6 my-2">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                         <label><b>City</b></label>
                                         <input type="text" class="form-control" name="city" placeholder="City"
                                             required data-parsley-required-message="City is required">
                                     </div>
 
                                     <!-- Pincode -->
-                                    <div class="col-md-6 my-2">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                         <label><b>Postcode</b></label>
                                         <input type="text" class="form-control" name="pincode" placeholder="6001"
                                             required data-parsley-type="digits" maxlength="4"
                                             data-parsley-required-message="Postcode is required"
                                             data-parsley-type-message="Only digits allowed">
                                     </div>
-                                    <div class="col-md-6 my-2">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                         <label><b>Landmark</b></label>
                                         <input type="text" class="form-control" name="landmark"
                                             placeholder="Near ABC Mall">
                                     </div>
                                     <!-- Special Instructions -->
 
-                                    <div class="col-md-6 mt-5">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
                                         <input type="radio" name="delivery_type" id="door" value="door"
                                             required checked data-parsley-required-message="Choose a delivery type">
                                         <label for="door"><b>Delivery to the door</b></label>
@@ -273,7 +308,7 @@
                                     <div class="row">
 
                                         <!-- Phone -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Mobile Number</b></label>
                                             <input type="text" name="billing_phone" class="form-control"
                                                 placeholder="0145 028 758" required data-parsley-type="digits"
@@ -282,7 +317,7 @@
                                         </div>
 
                                         <!-- Email -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Email</b></label>
                                             <input type="email" name="billing_email" class="form-control"
                                                 placeholder="you@domain.com.au" required
@@ -305,7 +340,7 @@
                                         </div>
 
                                         <!-- City -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>City</b></label>
                                             <input type="text" name="billing_city" class="form-control"
                                                 placeholder="City" required
@@ -313,7 +348,7 @@
                                         </div>
 
                                         <!-- Pincode -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Postcode</b></label>
                                             <input type="text" name="billing_pincode" class="form-control"
                                                 maxlength="4" placeholder="6001" required data-parsley-type="digits"
@@ -335,7 +370,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="my-3 text-right">
+                    <div class="my-3 text-right d-flex justify-content-between flex-wrap gap-20">
 
                         <button onclick="prev()" class="btn-common" id="btnBack"> <i
                                 class="fas fa-arrow-left text-white pr-2"></i>
@@ -352,11 +387,16 @@
 
         <!-- Step 4 -->
         <div id="step3" class="step-content text-center py-5">
+            <div class="thank-you-card">
+                    <!-- Replace with your image -->
+                <img src="{{ asset('assets/dashboard/img/success.png') }}" alt="order">
+
             <h2>Order Completed</h2>
             <p>Thank you for your purchase!</p>
             <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white"> View
                     Orders</a></button>
             <button onclick="finish()" class="btn-common">Finish</button>
+            </div>
         </div>
 
 
@@ -464,7 +504,7 @@
                         </a> --}}
 
 
-                                <div class="col lapse" id="collapse Example">
+                                <div class="col lapse p-0" id="collapse Example">
                                     <div class="wallet_details">
                                         <div class="card">
                                             <div class="card-body">
