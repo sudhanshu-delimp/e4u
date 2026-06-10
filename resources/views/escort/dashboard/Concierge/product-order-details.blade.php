@@ -8,12 +8,9 @@
         font-weight: 600;
     }
 </style>
-
 <div class="p-3">
-
     <!-- ORDER DETAILS -->
     <h4 class="section-title">Order Details</h4>
-
     <table class="table table-bordered table-striped table-hover">
         <tr>
             <th>Order ID</th>

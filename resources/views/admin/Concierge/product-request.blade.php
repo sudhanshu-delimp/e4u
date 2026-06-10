@@ -160,7 +160,6 @@
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="view-listing">
-
                         Order Details
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -383,6 +382,9 @@
             e.preventDefault();
             var orderId = $(this).data('item');
             // Show loader, hide content
+
+            var productOrderId = $(this).data('orderId');
+            $("#view-listing").text('Order Details - ' + productOrderId);
             $("#orderDetailsLoader").show();
             $("#orderDetailsBody").hide().html("");
 

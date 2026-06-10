@@ -243,9 +243,7 @@ class ProductOrderController extends Controller
         'products' => json_encode($products)
       ];
       $description = "Product Purchase";
-      Log::info('inititae product order');
       if ($totalPayable > 0) {
-          Log::info('started order');
         // make payment using charge method
         $response = $pinPaymentService->charge($data['pin_token'], $totalPayable, $biilingAddress->email, $description, $metadata);
         if ($response['status'] === false) {
@@ -256,7 +254,6 @@ class ProductOrderController extends Controller
           return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
         }
       } else {
-        Log::info("Process Order");
         $customTransactionId = Str::random(20); // 20-character random string
         PaymentHistory::create(
           [
@@ -343,7 +340,7 @@ class ProductOrderController extends Controller
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
             </a>
-            <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '"  > <i class="fa fa-eye"></i> View Details </a></div></div>';
+            <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '" data-orderid="' . $row->order_id . '"   > <i class="fa fa-eye"></i> View Details </a></div></div>';
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
