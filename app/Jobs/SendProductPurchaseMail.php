@@ -87,9 +87,9 @@ class SendProductPurchaseMail implements ShouldQueue
 
         // Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
 
-        // // send mail to condom man
+        // // send mail to condom man (suppplier)
         $products = $order->orderItems;
-        $condommail = config('app.condom_mail') ;
+        $condommail = config('app.condom_mail');
         $mailData['member_name'] = $user->name;
         $mailData['products'] = $products;
         $mailData['sub_total'] = $order->paymentDetails->amount;
