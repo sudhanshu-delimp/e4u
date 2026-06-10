@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
         <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-        <title>E4U - Escorts for you</title>
+        <title> E4U - Escort Directory</title>
         <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}"/>
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/>

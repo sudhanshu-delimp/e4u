@@ -151,6 +151,11 @@
     overflow: hidden;
 }
 
+.mc_profile_img,
+.extra_img_wrapper {
+    position: relative;
+}
+
 .hover-overlay {
     position: absolute;
     top: 50%;
@@ -181,6 +186,20 @@
     width: 100%;
     height: 100%;
     opacity: 1;
+}
+
+.mc_profile_img:hover .hover-overlay {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.extra_img_wrapper:hover .hover-overlay {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    visibility: visible;
 }
 
 @media (max-width: 580px) {

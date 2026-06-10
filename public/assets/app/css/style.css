@@ -5881,6 +5881,7 @@ i.fa.fa-heart-o{
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    border-radius: 0px 0px 10px 0px;
                 }
                 
                 .extra_img_wrapper .veryfy_img img {
@@ -5896,6 +5897,7 @@ i.fa.fa-heart-o{
                     right: 0px;
                     background: var(--blue--text);
                     padding: 5px;
+                    border-radius: 0px 0px 10px 0px;
                 }
                 
                 .mc_profile_img .veryfy_img img {
