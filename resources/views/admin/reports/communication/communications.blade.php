@@ -168,7 +168,7 @@
         var table = $("#communicationsReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref"
+                searchPlaceholder: "Search by ref or email",
             },
             processing: true,
             serverSide: true,
@@ -189,7 +189,7 @@
                 {
                     data: 'to_email',
                     name: 'to_email',
-                    searchable: false,
+                    //searchable: false,
                     orderable: false,
                 },
                 {

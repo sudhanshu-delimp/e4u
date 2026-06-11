@@ -71,6 +71,9 @@ class CommunicationController extends Controller
                     $emails = json_decode($row->to, true);
                     return is_array($emails) ? implode(', ', $emails) : '';
                 })
+                ->filterColumn('to_email', function ($query, $keyword) {
+                    $query->whereRaw("JSON_CONTAINS(`to`, '\"{$keyword}\"') OR `to` LIKE ?", ["%{$keyword}%"]);
+                })
                 ->addColumn('action', function ($row) {
                     $actions = [];
                     $status = $row->status ?? null;
