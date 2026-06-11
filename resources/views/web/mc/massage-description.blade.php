@@ -826,7 +826,7 @@ margin-right: 5px;
 
                                                                 <img src="{{ $image['url'] }}"
                                                                     class="img-responsive"
-                                                                    style="width: 305px;height: 374px;object-fit: cover;border-radius:10px;">
+                                                                    >
                                                                 <div class="hover-overlay">
                                                                     <span>Click me!</span>
                                                                 </div>
