@@ -189,7 +189,6 @@ class TourRepository extends BaseRepository implements TourInterface
                     break;
                 default: {
                         if (empty($is_checkout)) {
-                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('account.checkout_tour', ['type' => 'tour', 'id' => $item->id]) . '"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
                             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="' . route('escort.delete.tour', $item->id) . '"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
                             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.store.tour', $item->id) . '"> <i class="fa fa-pen " ></i> Edit</a>';
                         } else {
