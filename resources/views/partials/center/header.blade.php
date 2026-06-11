@@ -61,5 +61,9 @@
     z-index: 2;
     color: #6c757d;
     }
+
+    .hide_element{
+        display: none !important;
+    }
  </style>
 </head>

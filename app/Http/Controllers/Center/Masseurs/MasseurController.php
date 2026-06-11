@@ -1193,15 +1193,15 @@ class MasseurController extends AppController
         $data = $masseurs->map(function ($row) use ($countries) {
 
             if($row->status==1)
-            $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Deactivate</a>';   
+            $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action '.canManageClass().'" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Deactivate</a>';   
                 else
-            $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+            $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action '.canManageClass().'" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
             
             
             if($row->is_default==1)
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default Listing</a>';   
+            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action '.canManageClass().'" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default Listing</a>';   
                 else
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default Listing</a>';     
+            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action '.canManageClass().'" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default Listing</a>';     
             
 
             
@@ -1213,7 +1213,7 @@ class MasseurController extends AppController
                                                 
                                                 
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-masseur/'.$row->id.'"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                <div class="dropdown-divider"></div>'.$status.'<div class="dropdown-divider"></div>'.$default;
+                                                <div class="dropdown-divider '.canManageClass().'"></div>'.$status.'<div class="dropdown-divider '.canManageClass().'"></div>'.$default;
                                                 
                                                 
                                                 
