@@ -151,7 +151,7 @@ class MassageCentre extends Controller
          $filter_by_location = $request->input('filter_by_location', []);
          $filter_by_feild    = $request->input('filter_by_feild', []);
          
-         $massage_users = User::where('type', 5); 
+         $massage_users = User::where('type', '4'); 
          if(!empty($mc_user_id))
          $massage_users = $massage_users->whereIn('id',$mc_user_id);
             
@@ -178,94 +178,116 @@ class MassageCentre extends Controller
                     $set_lng    = $filter_by_location['set_lng'] ?? null;
                     $per_page   = $filter_by_location['per_page'] ?? null;
 
-                
+                    $external_search_ids = [];
+                    $massage_centers_ids = [];
+                    $matched_ids = [];
                     
+
+                
                     if($location=='your_location' &&  $set_lat!="" &&  $set_lng!="")
                     {
                         $userLocation = $this->getRealTimeGeolocationOfUsers($set_lat, $set_lng);
                         $lat_state = $userLocation['state'];
                         $lng_city = $userLocation['city'];
 
+                        //$lat_state = 4021; // Testing
                         $massage_users = $massage_users->where('state_id', $lat_state); 
+                        $massage_users = $massage_users->distinct()->pluck('id')->toArray();
+                        $external_search = User::where('type', '4');
+                        if(!empty($mc_user_id))
+                        $external_search = $external_search->whereIn('id',$mc_user_id);
 
-                        if (!empty($member)) {
-                            $massage_users =  $massage_users->where(function ($query) use ($member) {
-                                $query->where('member_id', 'LIKE', "%{$member}%")
-                                    ->orWhere('name', 'LIKE', "%{$member}%");
-                            });
-                        }
-
-                        $massage_centers_ids = $massage_users->pluck('id')->toArray();
                     
-                        $massage = $massage->where(function ($query) use ($massage_centers_ids, $member) {
+                        if (!empty($member)) 
+                        {
+
+                            $external_search->where(function ($query) use ($member) {
+                                $query->where('member_id', 'like', "%{$member}%");
+                            });
+
+                            $external_search_ids = $external_search->distinct()->pluck('id')->toArray();
                             
-                            if(!empty($massage_centers_ids)){
-                                $query->whereIn('user_id', $massage_centers_ids)->where('default_setting', '!=', '1');
+                            if (!empty($external_search_ids)) {
+                                $matched_ids = array_values(array_intersect($external_search_ids, $massage_users));
+                            }
+
+                            if(!empty($matched_ids))
+                            {
+                                $massage =  $massage->where(function ($query) use ($matched_ids, $member) {
+                                    $query->whereIn('user_id', $matched_ids)->where('default_setting', '!=', '1');
+                                }); 
                             }
                             else
                             {
-                                    if (!empty($member)) {
-                                    $query->where('profile_name', 'like', "%{$member}%")->where('default_setting', '!=', '1');
-                                    }
-                                    else
-                                    $query->whereRaw('1 = 0');  
-
-                                    
+                                $massage =  $massage->where(function ($query) use ($massage_users, $member) {
+                                    $query->whereIn('user_id', $massage_users)->where('default_setting', '!=', '1')
+                                            ->where('business_name', 'like', "%{$member}%");
+                                }); 
                             }
 
-                        });
+                        }
+                        else
+                        {
+                            $external_search_ids = $external_search->distinct()->pluck('id')->toArray();
+                            if (!empty($external_search_ids)) {
+                                    $matched_ids = array_values(array_intersect($external_search_ids, $massage_users));
+                            }
 
+                           
+                            if(!empty($matched_ids))
+                            {
+                                $massage =  $massage->where(function ($query) use ($matched_ids, $member) {
+                                    $query->whereIn('user_id', $matched_ids)->where('default_setting', '!=', '1');
+                                }); 
+                            }
+                            else
+                            {
+                               $massage = $massage->whereRaw('1 = 0'); 
+                            }
+                        }
                     }
 
                     else if($location=='australia')
                     {
-                    
                         
-                        $external_search_ids = [];
-                        $massage_centers_ids = [];
-
                         if (!empty($member)) 
                         {
+                            $massage_users = $massage_users->distinct()->pluck('id')->toArray();
+                            $external_search = User::where('type', 5);
+                            if(!empty($mc_user_id))
+                            $external_search = $external_search->whereIn('id',$mc_user_id);
 
-                        $external_search = User::where('type', 5);
-                        if(!empty($mc_user_id))
-                        $external_search = $external_search->whereIn('id',$mc_user_id);
-
-                        if (!empty($member)) {
-                                $external_search->where(function ($query) use ($member) {
-                                    $query->where('member_id', 'like', "%{$member}%");
-                                });
-                            }
-
-                        $external_search_ids = $external_search->distinct()->pluck('id')->toArray();
-                        }
-
-                        $massage_users = $massage_users->distinct()->pluck('id')->toArray(); 
-                        $massage_centers_ids = array_unique(array_merge($external_search_ids, $massage_users));
-
-                    
-
-                        if (!empty($massage_centers_ids)) {
-
-                            $massage =  $massage->where(function ($query) use ($massage_centers_ids, $member) {
-
-                                $query->whereIn('user_id', $massage_centers_ids)->where('default_setting', '!=', '1');
-                                
-                                if (!empty($member)) {
-                                    $query->where('profile_name', 'like', "%{$member}%");
-                                }
-
+                            $external_search->where(function ($query) use ($member) {
+                                $query->where('member_id', 'like', "%{$member}%");
                             });
 
+                            $external_search_ids = $external_search->distinct()->pluck('id')->toArray();
                             
-                            
+                            if (!empty($external_search_ids)) {
+                                $matched_ids = array_values(array_intersect($external_search_ids, $massage_users));
+                            }
+
+                            if(!empty($matched_ids))
+                            {
+                                $massage =  $massage->where(function ($query) use ($matched_ids, $member) {
+                                    $query->whereIn('user_id', $matched_ids)->where('default_setting', '!=', '1');
+                                }); 
+                            }
+                            else
+                            {
+                                 $massage =  $massage->where(function ($query) use ($massage_users, $member) {
+                                    $query->whereIn('user_id', $massage_users)->where('default_setting', '!=', '1')
+                                            ->where('business_name', 'like', "%{$member}%");
+                                }); 
+                            }
+
                         }
                         else
                         {
-                            $massage = $massage->whereRaw('1 = 0');
+                           $massage = $massage->where('default_setting', '!=', '1');
                         }
-                    }
 
+                    }
                     else
                     {
                         $massage = $massage->whereRaw('1 = 0'); 
@@ -381,12 +403,13 @@ class MassageCentre extends Controller
             }
 
             $massage = $massage->paginate($per_page)->onEachSide(1);
+           
         }
         else
         {
             $massage = $massage->where('default_setting', '!=', '1');
 
-            if(!empty($mc_live_list))
+            if(empty($mc_live_list))
             $massage = $massage->whereIn('id', $mc_live_list);   
             else
             $massage = $massage->whereRaw('1 = 0'); 
@@ -475,7 +498,7 @@ class MassageCentre extends Controller
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
             'pagination' => view('web.mc.mc-pagination', compact('listings'))->render(),
-            'total_count' => $listings->total()
+            'total_count' => 0 //$listings->total()
         ]);
     }
     
