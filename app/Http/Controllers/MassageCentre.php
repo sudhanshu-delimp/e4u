@@ -498,7 +498,7 @@ class MassageCentre extends Controller
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
             'pagination' => view('web.mc.mc-pagination', compact('listings'))->render(),
-            'total_count' => 0 //$listings->total()
+            'total_count' => $listings->total()
         ]);
     }
     
