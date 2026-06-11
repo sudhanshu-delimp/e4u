@@ -112,7 +112,7 @@ class PinPaymentService
   public function modifyRecords($result)
   {
     foreach ($result as $key => $item) {
-      $item->completed_by_member_id = $item->completedByUser->member_id;
+      $item->completed_by_member_id = isset($item->createdBy->member_id) ? $item->createdBy->member_id : $item->completedByUser->member_id;
       $item->transaction_at = convert_aus_date_time_format($item->created_at);
       $item->type = ucfirst($item->type);
       $item->amount = formatCurrency($item->paid_amount);
@@ -172,5 +172,10 @@ class PinPaymentService
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);
     }
+  }
+
+  public function paymentHistoryDetail(int $id)
+  {
+    return PaymentHistory::findOrFail($id);
   }
 }

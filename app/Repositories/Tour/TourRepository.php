@@ -15,78 +15,76 @@ class TourRepository extends BaseRepository implements TourInterface
     use DataTablePagination;
     protected $tourLocation;
 
-    public function __construct(Tour $model,TourLocation $tourLocation)
+    public function __construct(Tour $model, TourLocation $tourLocation)
     {
         $this->model = $model;
         $this->tourLocation = $tourLocation;
     }
 
 
-    public function paginated($start, $limit, $order_key, $dir, $columns, $search = null,$user_id, $conditions = NULL)
-	{
-		$order = $this->getOrder($order_key);
-		$searchables = $this->getSearchableFields($columns);
+    public function paginated($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = NULL)
+    {
+        $order = $this->getOrder($order_key);
+        $searchables = $this->getSearchableFields($columns);
 
-		$query = $this->model
+        $query = $this->model
             //->where("transaction_Status_Code","Completed")
-            ->where(function($query) use ($user_id) {
-                $query = $query ->whereHas('tour_location', function($q) use ($user_id) {
+            ->where(function ($query) use ($user_id) {
+                $query = $query->whereHas('tour_location', function ($q) use ($user_id) {
                     $q->where('user_id', $user_id);
                 });
-
             })
             ->where($conditions)
-            ->where("transaction_Status_Code","=","Completed")
+            ->where("transaction_Status_Code", "=", "Completed")
             ->offset($start)
-		    ->limit($limit)
-		    ->orderBy($order,$dir);
+            ->limit($limit)
+            ->orderBy($order, $dir);
 
-		if($search) {
-			foreach ($searchables as $column) {
-				if(in_array($column, $this->getColumns())) {
-					$query->orWhere($column, 'LIKE', "%{$search}%");
-				}
-			}
-		}
+        if ($search) {
+            foreach ($searchables as $column) {
+                if (in_array($column, $this->getColumns())) {
+                    $query->orWhere($column, 'LIKE', "%{$search}%");
+                }
+            }
+        }
 
-		$result = $query->get();
+        $result = $query->get();
 
-		$result = $this->modifyProperties($result,$start);
-		$count =  $query->count();
+        $result = $this->modifyProperties($result, $start);
+        $count =  $query->count();
 
-		return [$result, $count];
-	}
-    
-    protected function modifyProperties($result ,$start)
+        return [$result, $count];
+    }
+
+    protected function modifyProperties($result, $start)
     {
         //dd($result);
         $location = [];
         $i = 1;
 
-        foreach($result as $key => $item) {
+        foreach ($result as $key => $item) {
             // $item->sn = $i+$start;
             //dd($item->profiles);
             $item->sn = $item->id;
 
-            $item->name = $item->name ? '<a href="/escort-dashboard/archive-tour-'.strtolower(str_replace(' ','-',$item->name)).'/'.$item->id.'">'.$item->name.' </a>': "NA";
+            $item->name = $item->name ? '<a href="/escort-dashboard/archive-tour-' . strtolower(str_replace(' ', '-', $item->name)) . '/' . $item->id . '">' . $item->name . ' </a>' : "NA";
             $item->start_dates = Carbon::parse($item->start_date)->format('d/M/Y');
             $item->end_dates = Carbon::parse($item->end_date)->format('d/M/Y');
-            $item->days = Carbon::parse($item->end_date)->diffInDays(Carbon::parse($item->start_date))+1;
+            $item->days = Carbon::parse($item->end_date)->diffInDays(Carbon::parse($item->start_date)) + 1;
             $item->total_cost = $item->price ? $item->price : "NA";
             $item->transaction_Status_Code = $item->transaction_Status_Code ? $item->transaction_Status_Code : "NA";
-            foreach(config('escorts.profile.states') as $key => $states) {
-                if(in_array($key,$item->location)) {
+            foreach (config('escorts.profile.states') as $key => $states) {
+                if (in_array($key, $item->location)) {
                     $location[] =  $states['stateName'];
                     $item->locations =  $location;
                 }
             }
-            foreach($item->profiles as $key => $name) {
+            foreach ($item->profiles as $key => $name) {
 
-                    $profileName[] =  $name['profile_name'];
-                    $escortName[] =  $name['name'];
-                    $item->pro_name =  $profileName;
-                    $item->escort_name = $escortName;
-
+                $profileName[] =  $name['profile_name'];
+                $escortName[] =  $name['name'];
+                $item->pro_name =  $profileName;
+                $item->escort_name = $escortName;
             }
             //dd($item->escort_name);
             // foreach(config('escorts.profile.cities') as $key => $city) {
@@ -95,26 +93,26 @@ class TourRepository extends BaseRepository implements TourInterface
             //         $item->locations =  $location;
             //     }
             // }
-           if(!empty(auth()->user()->tour_permissition_type) && in_array(2,auth()->user()->tour_permissition_type)) {
+            if (!empty(auth()->user()->tour_permissition_type) && in_array(2, auth()->user()->tour_permissition_type)) {
                 //$item->action = '<div class="dropdown no-arrow archive-dropdown">
                 //<a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
                 //<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> <a class="dropdown-item deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22">Delete <i class="fa fa-fw fa-trash" style="float: right;"></i> </a></div>';
-               $item->action = '<div class="dropdown no-arrow archive-dropdown">
+                $item->action = '<div class="dropdown no-arrow archive-dropdown">
                     <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> </div>';
-           } else {
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editTour" id="cdTour" href="#" data-toggle="modal" data-id=' . $item->id . ' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> </div>';
+            } else {
 
                 $item->action = '<div class="dropdown no-arrow archive-dropdown">
                 <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item  d-flex align-items-center justify-content-start gap-10" id="TourPermission" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22"><i class="fa fa-fw fa-trash"></i> Delete  </a></div>';
-           }
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item  d-flex align-items-center justify-content-start gap-10" id="TourPermission" href="#" data-toggle="modal" data-id=' . $item->id . ' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 deleteTour" href="#" id="openDeleteTour" data-id=' . $item->id . ' data-toggle="modal" data-target="#deleteModal22"><i class="fa fa-fw fa-trash"></i> Delete  </a></div>';
+            }
 
             ////////// agentmanage tour list profile_name
             //$item->pro_name = $item->profiles->profile_name ? $item->profiles->profile_name : "N/A";
 
             $item->agentManage = '<div class="dropdown no-arrow archive-dropdown">
                 <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22"><i class="fa fa-fw fa-trash"></i> Delete  </a></div>';
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editTour" id="cdTour" href="#" data-toggle="modal" data-id=' . $item->id . ' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 deleteTour" href="#" id="openDeleteTour" data-id=' . $item->id . ' data-toggle="modal" data-target="#deleteModal22"><i class="fa fa-fw fa-trash"></i> Delete  </a></div>';
 
 
             ///////end
@@ -122,7 +120,6 @@ class TourRepository extends BaseRepository implements TourInterface
             $location = [];
             $profileName = [];
             $escortName = [];
-
         }
 
         return $result;
@@ -135,21 +132,21 @@ class TourRepository extends BaseRepository implements TourInterface
         $searchables = $this->getSearchableFields($columns);
         $query = $this->model;
 
-        if($user_id){
-            $query = $query->where('user_id',$user_id);
+        if ($user_id) {
+            $query = $query->where('user_id', $user_id);
         }
-        
-        if($type=='purchased'){
+
+        if ($type == 'purchased') {
             $today = Carbon::today()->format('Y-m-d');
-            $query = $query->where([['end_date','>=',$today]]);
+            $query = $query->where([['end_date', '>=', $today]]);
             $query = $query->whereHas('tourPurchase');
         }
 
-        if(count($conditions)>0){
+        if (count($conditions) > 0) {
             $query->where($conditions);
         }
-            
-        if($search) {
+
+        if ($search) {
             $query->where(function ($q) use ($searchables, $search) {
                 foreach ($searchables as $column) {
                     $q->orWhere($column, 'LIKE', "%{$search}%");
@@ -158,18 +155,17 @@ class TourRepository extends BaseRepository implements TourInterface
         }
 
         $count =  $query->count();
-        
-        if($order_field=='days_number'){
+
+        if ($order_field == 'days_number') {
             $query->orderByRaw("DATEDIFF(end_date, start_date) $dir");
-        } 
-        else {
+        } else {
             $query->orderBy($order_field, $dir);
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyRecords($mainQuery->get(), $type);
-        
 
-        return [$result, $count, [$query->toSql(),$query->getBindings()]];
+
+        return [$result, $count, [$query->toSql(), $query->getBindings()]];
     }
 
     protected function modifyRecords($result, $type)
@@ -177,32 +173,32 @@ class TourRepository extends BaseRepository implements TourInterface
         $i = 1;
         foreach ($result as $key => $item) {
             $item->days_number = $item->days_number;
-            $item->status = Carbon::parse($item->start_date)->lte(today()->format('Y-m-d')) ?'Current':'Upcoming';
+            $item->status = Carbon::parse($item->start_date)->lte(today()->format('Y-m-d')) ? 'Current' : 'Upcoming';
             $is_checkout = $item->tourPurchase->count();
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
             switch ($type) {
-                case 'purchased':{
-                    if($item->status=='Upcoming'){
-                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="'.$item->id.'" data-item-type="tour"> <i class="fa fa-trash" ></i> Cancel</a><div class="dropdown-divider"></div>';
-                    }
-                     $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.current.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a><div class="dropdown-divider"></div>'; 
-                     $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_summary" data-item-id="'.$item->id.'" data-item-type="tour-location"> <i class="fa fa-list" ></i> Summary</a>'; 
+                case 'purchased': {
+                        if ($item->status == 'Upcoming') {
+                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="' . $item->id . '" data-item-type="tour"> <i class="fa fa-trash" ></i> Cancel</a><div class="dropdown-divider"></div>';
+                        }
+                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.current.tour', $item->id) . '"> <i class="fa fa-eye " ></i> View</a><div class="dropdown-divider"></div>';
+                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_summary" data-item-id="' . $item->id . '" data-item-type="tour-location"> <i class="fa fa-list" ></i> Summary</a>';
                     }
                     break;
-                default:{
-                    if(empty($is_checkout)){
-                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $item->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
-                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $item->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
-                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+                default: {
+                        if (empty($is_checkout)) {
+                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('account.checkout_tour', ['type' => 'tour', 'id' => $item->id]) . '"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
+                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="' . route('escort.delete.tour', $item->id) . '"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
+                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.store.tour', $item->id) . '"> <i class="fa fa-pen " ></i> Edit</a>';
+                        } else {
+                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#pinup_profile" data-tour-id="' . $item->id . '"> <i class="fa fa-arrow-up" ></i> List Pin Up</a>';
+                            //$action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#" data-tour-id="'.$item->id.'"> <i class="fa fa-trash" ></i> Summary</a>'; 
+                            $action .= ($type == 'current') ? '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.current.tour', $item->id) . '"> <i class="fa fa-eye " ></i> View</a>' : '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.past.tour', $item->id) . '"> <i class="fa fa-eye " ></i> View</a>';
+                        }
                     }
-                    else{
-                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#pinup_profile" data-tour-id="'.$item->id.'"> <i class="fa fa-arrow-up" ></i> List Pin Up</a>'; 
-                        //$action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#" data-tour-id="'.$item->id.'"> <i class="fa fa-trash" ></i> Summary</a>'; 
-                        $action .= ($type=='current')?'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.current.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>':'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.past.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
-                    }
-                } break;
+                    break;
             }
             $action .= '</div></div>';
             $badgeClass = getStatusBadgeClass(strtolower($item->status));
@@ -213,35 +209,37 @@ class TourRepository extends BaseRepository implements TourInterface
         return $result;
     }
 
-    public function getTourLocations($conditions = []){
+    public function getTourLocations($conditions = [])
+    {
         $today = Carbon::today();
         $query = $this->tourLocation->with(['state']);
-        if(!empty($conditions)){
+        if (!empty($conditions)) {
             $query = $query->where($conditions);
         }
         $tourLocations = $query
-        ->orderByRaw("
+            ->orderByRaw("
         CASE
             WHEN start_date <= ? AND end_date >= ? THEN 1   -- Current
             WHEN start_date > ? THEN 2                      -- Upcoming
             ELSE 3                                          -- Completed
         END
     ", [$today, $today, $today])
-    ->orderBy('start_date','asc')->get();
+            ->orderBy('start_date', 'asc')->get();
         return $tourLocations;
     }
 
-    public function modifyTourLocationsRecords($result){
+    public function modifyTourLocationsRecords($result)
+    {
         foreach ($result as $key => $item) {
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-            if(Carbon::today($item->time_zone)->diffInDays($item->end_date_formatted,false) > 0){
-                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="'.$item->id.'" data-item-type="tour-location"> <i class="fa fa-trash" ></i> Cancel</a>'; 
+            if (Carbon::today($item->time_zone)->diffInDays($item->end_date_formatted, false) > 0) {
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="' . $item->id . '" data-item-type="tour-location"> <i class="fa fa-trash" ></i> Cancel</a>';
             }
             $action .= '</div></div>';
             $item->action = $action;
-            $item->status = Carbon::parse($item->end_date)->lt(Carbon::today($item->time_zone)->format('Y-m-d')) ?'Completed' : (Carbon::parse($item->start_date)->lte(Carbon::today($item->time_zone)->format('Y-m-d')) ? 'Current':'Upcoming');
+            $item->status = Carbon::parse($item->end_date)->lt(Carbon::today($item->time_zone)->format('Y-m-d')) ? 'Completed' : (Carbon::parse($item->start_date)->lte(Carbon::today($item->time_zone)->format('Y-m-d')) ? 'Current' : 'Upcoming');
             $badgeClass = getStatusBadgeClass(strtolower($item->status));
             $item->status = "<span class='custom_badge {$badgeClass}'>{$item->status}</span>";
         }

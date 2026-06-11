@@ -52,10 +52,11 @@ class ImpersonateController extends Controller
 
             session()->forget([
                 'parent_agent_id',
-                'is_impersonated'
+                'is_impersonated',
+                'switch_for',
             ]);
 
-            return redirect('/agent-dashboard')->with('success', 'Successfully back to the agent account');
+            return redirect('/agent-dashboard')->with('success', 'Successfully switched back to your account.');
         } catch (Exception $e) {
             // abort(403, 'No parent session found');
             return redirect()->back()->with('error', 'Something went wrong while backt to the agent account.');
@@ -155,14 +156,14 @@ class ImpersonateController extends Controller
             ]);
 
 
-            if (($childUser->type == 3)) {
-                return redirect('/escort-dashboard')->with('success', "Successfully switch to the escort account");
+            if (($childUser->type == 3)) {                              
+                return redirect('/escort-dashboard')->with('success', "Successfully switched to the Escort account.");
             } else {
-                return redirect('/center-dashboard')->with('success', "Successfully switch to the massage center account");
+                return redirect('/center-dashboard')->with('success', "Successfully switched to the Massage centre account.");
             }
         } catch (Exception $e) {
             abort(403, 'No parent session found');
-            return redirect()->back()->with('error', 'Something went wrong while switching accounts.');
+            return redirect()->back()->with('error', 'Something went wrong while switching account.');
         }
     }
 

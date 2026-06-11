@@ -44,7 +44,10 @@
       </div>
       <div class="col-md-12">
          <div class="row">
-
+            <div class=" col-12 mb-4 d-none">
+               <button class="btn-primary" id="btn_checkout">Checkout</button>
+               <button class="btn-warning" data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin Up</button>
+            </div>
             <div class="col-md-5">
             </div>
             <div class="col-md-4">

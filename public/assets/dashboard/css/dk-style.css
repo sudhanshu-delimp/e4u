@@ -3676,6 +3676,8 @@ button.btn:focus {
 
 .upload_varification_img_wrapper {
     width: 400px;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
     height: 250px;
 }
 
@@ -3686,12 +3688,13 @@ p.notes {
 .upload_varification_img_wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: contain;
 }
 
 .has_img {
     position: relative;
     overflow: hidden;
+    background: #eeeeee;
 }
 
 .has_img .img_alert {
@@ -3867,13 +3870,17 @@ p.notes {
 .view_img_gallery .verification {
     display: flex;
     flex-direction: column;
+    width: 400px;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
 }
 
 .thumbnail img,
 .verification img {
     height: 400px;
     width: 100%;
-    object-fit: fill;
+    object-fit: contain;
+    background-color: #eee;
 }
 
 .verify_ing_masseurs table td {
@@ -6213,7 +6220,7 @@ span.removeCross {
 
 .h1 {
     font-family: Poppins;
-    font-size: 42px;
+    font-size: clamp(28px, 8vw, 42px);
     font-style: normal;
     font-weight: 700;
     line-height: 42px;
@@ -8412,6 +8419,10 @@ table#myTable\ price-sec {
 
 /* Bubble Arrow */
 
+.tooltip-wrapper {
+    position: relative;
+}
+
 .pinup-tooltip-wrapper {
     position: relative;
 }
@@ -8420,17 +8431,16 @@ table#myTable\ price-sec {
     position: absolute;
     top: 5px;
     right: 110px;
-    opacity: 0;
     background: var(--peach);
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 500;
     padding: 8px 8px;
     border-radius: 4px;
     z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    display: none;
     color: #fff;
-    font-weight: 300;
     width: max-content;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .pinup-tooltip-wrapper .pinup-tooltip::after {
@@ -8447,7 +8457,7 @@ table#myTable\ price-sec {
 }
 
 .pinup-tooltip-wrapper:hover .pinup-tooltip {
-    opacity: 1;
+    display: block;
 }
 
 .pin-up-content p {
@@ -11392,49 +11402,49 @@ border-top: 5px solid var(--peach);
 .pinup_icon {
     color: white;
     background-color: #f6c23e;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
 .suspend_icon {
     color: white;
     background-color: #4e73df;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
 .extend_icon {
     color: white;
     background-color: #1cc88a;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
 .tour_icon {
     color: white;
     background-color: #C2A68C;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
 .upgrade_icon {
     color: white;
     background-color: var(--deactivated--status);
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
 .playmate_icon {
     color: white;
     background-color: #c81c1c;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
 .bumpup_icon {
     color: white;
     background-color: #2c9faf;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
@@ -11456,7 +11466,7 @@ border-top: 5px solid var(--peach);
 .brb_icon {
     color: white;
     background-color: #e5365a;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
@@ -11660,7 +11670,7 @@ border-top: 5px solid var(--peach);
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 2;
+    z-index: 1;
     width: 36px;
 }
 
@@ -11901,99 +11911,6 @@ button:disabled {
     position: relative;
     display: inline-block;
 }
-
-
-/* alert-tooltip */
-
-.alert-tooltip-wrap .alert-tooltip {
-    visibility: hidden;
-    opacity: 0;
-    background-color: var(--peach);
-    color: #fff;
-    text-align: center;
-    padding: 0px 5px;
-    border-radius: 6px;
-    position: absolute;
-    top: 50%;
-    right: 40%;
-    transform: translate(-40%, -50%);
-    /* exact center */
-    transition: opacity 0.3s;
-    z-index: 10;
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-
-/* Arrow (optional, adjust position) */
-
-.alert-tooltip-wrap .alert-tooltip::after {
-    content: "";
-    position: absolute;
-    bottom: 6px;
-    right: 0%;
-    transform: translateX(91%) rotate(-90deg);
-    border-width: 8px;
-    border-style: solid;
-    border-color: var(--peach) transparent transparent transparent;
-}
-
-
-/* Show on hover */
-
-.alert-tooltip-wrap:hover .alert-tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
-
-/* support-tooltip */
-
-.support-tooltip-wrap .support-tooltip {
-    visibility: hidden;
-    opacity: 0;
-    background-color: var(--peach);
-    color: #fff;
-    text-align: center;
-    padding: 0px 5px;
-    border-radius: 6px;
-    position: absolute;
-    top: 50%;
-    right: 40%;
-    transform: translate(-33%, -50%);
-    /* exact center */
-    transition: opacity 0.3s;
-    z-index: 10;
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-
-/* Arrow (optional, adjust position) */
-
-.support-tooltip-wrap .support-tooltip::after {
-    content: "";
-    position: absolute;
-    bottom: 6px;
-    right: 0%;
-    transform: translateX(91%) rotate(-90deg);
-    border-width: 8px;
-    border-style: solid;
-    border-color: var(--peach) transparent transparent transparent;
-}
-
-
-/* Show on hover */
-
-.support-tooltip-wrap:hover .support-tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
-
-/* end */
 
 
 /* Tooltip */
@@ -12945,21 +12862,32 @@ button:disabled {
 }
 
 
-/* alert-tooltip */
+/* esc-tooltip */
 
-.alert-tooltip-wrap .alert-tooltip {
+
+/* Wrapper */
+
+.esc-tooltip-wrap {
+    position: relative;
+}
+
+.esc-tooltip-wrap.opr-itmes .esc-tooltip {
+    background-color: var( --color-orange) !important;
+}
+
+
+/* Common Tooltip */
+
+.esc-tooltip {
     visibility: hidden;
     opacity: 0;
     background-color: var(--peach);
     color: #fff;
     text-align: center;
-    padding: 0px 5px;
+    padding: 0 5px;
     border-radius: 6px;
     position: absolute;
     top: 50%;
-    right: 40%;
-    transform: translate(-40%, -50%);
-    /* exact center */
     transition: opacity 0.3s;
     z-index: 10;
     font-size: 12px;
@@ -12967,14 +12895,23 @@ button:disabled {
     white-space: nowrap;
 }
 
+.esc-tooltip-wrap:hover .esc-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
 
-/* Arrow (optional, adjust position) */
+.esc-tooltip-wrap.opr-itmes .esc-tooltip::after {
+    border-color: var( --color-orange) transparent transparent transparent !important;
+}
 
-.alert-tooltip-wrap .alert-tooltip::after {
+
+/* Arrow */
+
+.esc-tooltip::after {
     content: "";
     position: absolute;
     bottom: 6px;
-    right: 0%;
+    right: 0;
     transform: translateX(91%) rotate(-90deg);
     border-width: 8px;
     border-style: solid;
@@ -12982,56 +12919,51 @@ button:disabled {
 }
 
 
-/* Show on hover */
+/* Position Variants */
 
-.alert-tooltip-wrap:hover .alert-tooltip {
-    visibility: visible;
-    opacity: 1;
+.esc-tooltip-support {
+    right: 5px;
+    transform: translate(-50px, -50%);
 }
 
+.esc-tooltip-navbar {
+    right: 5px;
+    transform: translate(-50px, -50%);
+}
 
-/* support-tooltip */
-
-.support-tooltip-wrap .support-tooltip {
-    visibility: hidden;
-    opacity: 0;
-    background-color: var(--peach);
+.esc-tooltip-2 {
+    position: absolute;
+    left: 50%;
+    top: -60%;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    background: #ff3c5f;
     color: #fff;
-    text-align: center;
-    padding: 0px 5px;
-    border-radius: 6px;
-    position: absolute;
-    top: 50%;
-    right: 40%;
-    transform: translate(-33%, -50%);
-    /* exact center */
-    transition: opacity 0.3s;
-    z-index: 10;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
-    white-space: nowrap;
+    line-height: 1.4;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-/* Arrow (optional, adjust position) */
-
-.support-tooltip-wrap .support-tooltip::after {
-    content: "";
+.esc-tooltip-2::after {
     position: absolute;
-    bottom: 6px;
-    right: 0%;
-    transform: translateX(91%) rotate(-90deg);
-    border-width: 8px;
+    left: 50%;
+    top: 29px;
+    content: '';
+    border-width: 6px;
     border-style: solid;
     border-color: var(--peach) transparent transparent transparent;
+    transform: rotate(0deg) translate(-50%, 0%);
 }
 
-
-/* Show on hover */
-
-.support-tooltip-wrap:hover .support-tooltip {
-    visibility: visible;
-    opacity: 1;
+.esc-tooltip-wrap:hover .esc-tooltip-2 {
+    display: block;
 }
 
 

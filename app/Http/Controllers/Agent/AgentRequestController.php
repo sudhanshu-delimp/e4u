@@ -584,8 +584,11 @@ class AgentRequestController extends Controller
             $item->earnings =  '';
             $item->home_state  =  isset($item->state->iso2) ? $item->state->iso2 : '';
             $item->switch_account_route =  route('agent.switch-to-child', $item->id);
-            $type = ($item->type == '3') ? 'escort' : 'massage center';
+            $type = ($item->type == '3') ? 'Escort' : 'Massage Center';
             $item->switch_confirm_message = "Are you sure you want to switch to the " . $type . ' account?';
+
+            $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
+
         }
 
         return [$requestList, $totalRequest];

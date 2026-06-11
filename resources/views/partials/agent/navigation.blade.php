@@ -91,8 +91,8 @@
                         </li>
 
                          <!-- Nav Item - support tickets -->
-                         <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">                          
-                                <span class="support-tooltip">Support Tickets</span>
+                         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                          
+                                <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
                             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
@@ -110,8 +110,8 @@
 
                         </li>
 
-                        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
-                             <span class="alert-tooltip">Alert Centre</span>
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+                             <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
                             <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="top-icon-bg fas fa-bell fa-fw"></i>

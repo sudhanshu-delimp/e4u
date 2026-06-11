@@ -331,12 +331,27 @@
                 if (!response.redirect_url || response.redirect_url.trim() === '') {
                     form.closest('.modal').modal('hide');
                     otherModalForm = $(`.modal-form-${response.action}`).find('form');
+                    otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
                 }
                 switch (response.action) {
+
                     case 'pinup': {
                         displaySwal(xhr, false);
                         otherModalForm.attr('action', `{{route('pinup.register')}}`);
-                        otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+                        setTimeout(() => {
+                            otherModalForm.trigger('submit');
+                        }, 2000); // 2 seconds
+                    }
+                    break;
+                    case 'bumpUp': {
+                        displaySwal(xhr, false);
+                        setTimeout(() => {
+                            otherModalForm.trigger('submit');
+                        }, 2000); // 2 seconds
+                    }
+                    break;
+                    case 'upgrade': {
+                        displaySwal(xhr, false);
                         setTimeout(() => {
                             otherModalForm.trigger('submit');
                         }, 2000); // 2 seconds
@@ -529,7 +544,12 @@
 
     $("#process-payment-modal").on('show.bs.modal', function(event) {
         if (event.relatedTarget) {
-            $(event.relatedTarget).attr('value') != 'listing' ? initLoyaltySection('hide') : initLoyaltySection('show');
+            let fee_token = $(event.relatedTarget).attr('fee_token');
+            if (fee_token) {
+                addOrUpdateHiddenInput('adjustment-form', 'fee_token', fee_token);
+            }
+
+            ['listing', 'tour', 'extend'].includes($(event.relatedTarget).attr('value')) ? initLoyaltySection('show') : initLoyaltySection('hide');
             adjustmentForm.find('button[type="submit"]').attr('value', $(event.relatedTarget).attr('value'));
             adjustmentForm.find('[name="wallet_amount"]').val(0);
             submitAdjustmentForm(false);

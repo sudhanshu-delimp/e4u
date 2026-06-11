@@ -70,7 +70,7 @@ Route::get('/list/data-table/{type?}', [EscortController::class, 'dataTable'])->
 Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTableListing'])->name('escort.list.dataTableListing');
 
 Route::get('/listings/add', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
-Route::post('/listing/checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
+Route::post('/listing/checkout/{type}', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
 Route::get('/listing/success', [EscortController::class, 'listing_success'])->name('escort.account.listing_success');
 
 Route::get('/listings/{type}', [EscortController::class, 'listings'])->name('escort.dashboard.listings');
@@ -147,6 +147,7 @@ Route::post('my-information/stage-name/store', [ProfileInformationController::cl
 Route::post('my-information/stage-name/delete', [ProfileInformationController::class, 'deleteEscortStageName'])->name('escort.stagename.delete');
 Route::post('my-information/additional-store', [ProfileInformationController::class, 'additionalStorage'])->name('escort.additional.store');
 Route::post('my-information/additional-delete', [ProfileInformationController::class, 'additionalDelete'])->name('escort.additional.delete');
+Route::post('my-information/update-default-additional', [ProfileInformationController::class, 'updateDefaultAdditional'])->name('escort.additional.update_default');
 
 //Route::post('settings-upload-avatar',[ProfileInformationController::class,'storeSocialsLink'])->name('settings.save.avatar');
 //////////////end settings
@@ -494,7 +495,7 @@ Route::get('/get-account-locations', [TourController::class, 'getAccountLocation
 Route::get('/get-account-profiles', [TourController::class, 'getAccountProfiles'])->name('account.location_profiles');
 Route::post('/save-account-tour', [TourController::class, 'saveAccountTour'])->name('account.save_tour');
 Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountTour'])->name('account.update_tour');
-Route::get('/tour-checkout/{id}', [TourController::class, 'tourCheckout'])->name('account.checkout_tour');
+Route::get('/tour-checkout/{type}/{id}', [TourController::class, 'tourCheckout'])->name('account.checkout_tour');
 Route::post('/tour/validate-date-range', [TourController::class, 'validateDateRange'])->name('tour.validate_date_range');
 
 

@@ -23,7 +23,8 @@ return new class extends Migration
             'purchase',
             'massage_purchases',
             'massage_gallery',
-            'massage_medias'
+            'massage_medias',
+            'payment_histories',
         ];
 
         foreach ($tables as $table) {
@@ -51,7 +52,8 @@ return new class extends Migration
             'purchase',
             'massage_purchases',
             'massage_gallery',
-            'massage_medias'
+            'massage_medias',
+            'payment_histories'
         ];
 
         foreach ($tables as $table) {

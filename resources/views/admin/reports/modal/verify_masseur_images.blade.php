@@ -21,7 +21,7 @@
                             <div class="verify_icon_wrapper">
                                 <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
                                 <span class="verify_icon">
-                                    <img src="https://e4u.test/assets/app/img/pending_icon/e4u_pending-icon_REV.png" style="width:100%; height:20px;
+                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" style="width:100%; height:20px;
                                         object-fit: contain;"><span class="mc_media_tooltip">Media Pending</span>
                                 </span>
                                 <div class="upload_date">
@@ -32,7 +32,7 @@
                             <div class="verify_icon_wrapper">
                                 <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
                                 <span class="verify_icon">
-                                    <img src="https://e4u.test/assets/app/img/pending_icon/e4u_pending-icon_REV.png" style="width:100%; height:20px;
+                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" style="width:100%; height:20px;
                                             object-fit: contain;"><span class="mc_media_tooltip">Media Pending</span>
                                 </span>
                                 <div class="upload_date">
@@ -43,7 +43,7 @@
                             <div class="verify_icon_wrapper">
                                 <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
                                 <span class="verify_icon">
-                                    <img src="https://e4u.test/assets/app/img/pending_icon/e4u_pending-icon_REV.png" style="width:100%; height:20px;
+                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}" style="width:100%; height:20px;
                                     object-fit: contain;"><span class="mc_media_tooltip">Media Pending</span>
                                 </span>
                                 <div class="upload_date">

@@ -1,5 +1,7 @@
 @extends('layouts.web')
 @section('style')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css') }}">
 <style>
 .mc_profile_table .table th{
     padding: .8rem .55rem !important;
@@ -766,9 +768,8 @@ margin-right: 5px;
                                             </button>
                                         </div>
                                         <div class="modal-body">
-
                                             <div class="masseur_profile_wrapper">
-                                                <div class="mc_profile_img">
+                                                {{-- <div class="mc_profile_img ">
 
                                                    @foreach ($messure_validImages as $index => $image)
                                                         @if($loop->first)
@@ -809,8 +810,94 @@ margin-right: 5px;
                                                             @endif
                                                         @endforeach
                                                         
+                                                </div> --}}
+                                                <div class="mc_profile_img">
+
+                                                    @foreach ($messure_validImages as $index => $image)
+                                                        @if($loop->first)
+
+                                                            @php
+                                                                $status_detail = getMediaVerificationDataBigIcon($image['img_data']->varified);
+                                                            @endphp
+
+                                                            <a href="{{ $image['url'] }}"
+                                                            class="glightbox"
+                                                            data-gallery="masseure-gallery">
+
+                                                                <img src="{{ $image['url'] }}"
+                                                                    class="img-responsive"
+                                                                    style="width: 305px;height: 374px;object-fit: cover;border-radius:10px;">
+                                                                <div class="hover-overlay">
+                                                                    <span>Click me!</span>
+                                                                </div>
+                                                            </a>
+
+                                                        @endif
+                                                    @endforeach
+
+                                                    <div class="veryfy_img">
+                                                        @if(isset($status_detail['icon']))
+                                                            <img src="{{ $status_detail['icon'] }}">
+                                                            <span class="common_shield_tooltip">
+                                                                {{ $status_detail['label'] }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="masseur_extra_img">
+
+                                                    @foreach ($messure_validImages as $index => $image)
+
+                                                        @if(!$loop->first)
+
+                                                            <div class="extra_img_wrapper">
+
+                                                                <a href="{{ $image['url'] }}"
+                                                                class="glightbox"
+                                                                data-gallery="masseure-gallery">
+
+                                                                    <img src="{{ $image['url'] }}"
+                                                                        class="img-responsive"
+                                                                        style="width: 108px;height: 119px;object-fit: cover; border-radius:10px">
+                                                                        <div class="hover-overlay">
+                                                                            <span>Click me!</span>
+                                                                        </div>
+                                                                </a>
+
+                                                                <div class="veryfy_img">
+                                                                    @php
+                                                                        $status_detail = getMediaVerificationDataSmallIcon($image['img_data']->varified);
+                                                                    @endphp
+
+                                                                    <img src="{{ $status_detail['icon'] }}">
+                                                                    <h6 class="gallery_shield_tooltip">
+                                                                        {{ $status_detail['label'] }}
+                                                                    </h6>
+                                                                </div>
+
+                                                            </div>
+
+                                                        @endif
+
+                                                    @endforeach
+
+                                                </div>
+
+                                                {{-- Hidden Images For Lightbox Navigation --}}
+                                                <div style="display:none;">
+
+                                                    @foreach ($messure_validImages as $image)
+
+                                                        <a href="{{ $image['url'] }}"
+                                                        class="glightbox"
+                                                        data-gallery="masseure-gallery">
+                                                        </a>
+
+                                                    @endforeach
+
+                                                </div>
                                                 <div class="masseur_content" style="">
 
                                                     <div>
@@ -2144,7 +2231,7 @@ margin-right: 5px;
 
     {{-- My Photos --}}
 
-    <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content border-0">
                 <div class="modal-header d-flex justify-content-between align-items-center">                                       
@@ -2166,7 +2253,7 @@ margin-right: 5px;
                 <div class="modal-body p-1">
                     <div class="tab-content" id="myTabContent">
 
-                        <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
+                        {{-- <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="gallery">
 
                                 @foreach ($validImages as $index => $image)
@@ -2213,8 +2300,110 @@ margin-right: 5px;
                                         @endforeach   
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
+                        <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
 
+                            <div id="gallery" class="photos-grid-container gallery">
+
+                                @if(count($validImages))
+
+                                    {{-- Main Image --}}
+                                    @foreach ($validImages as $index => $image)
+                                        @if($loop->first)
+
+                                            <div class="main-photo img-box">
+
+                                                <a href="{{ $image['url'] }}"
+                                                class="glightbox image-wrapper"
+                                                data-gallery="escort-gallery">
+
+                                                    <img src="{{ $image['url'] }}" alt="main" title="View in large">
+
+                                                    <div class="hover-overlay">
+                                                        <span>Click me!</span>
+                                                    </div>
+
+                                                </a>
+
+                                                @php
+                                                    $media_status = getMediaVerificationDataBigIcon($image['image_data']['varified'] ?? 0);
+                                                @endphp
+
+                                                @if($media_status)
+                                                    <div class="verify_icon" style="border-radius:0px 0px 10px 0px;">
+                                                        <img src="{{ $media_status['icon'] }}">
+                                                        <span class="common_shield_tooltip">
+                                                            {{ $media_status['label'] }}
+                                                        </span>
+                                                    </div>
+                                                @endif
+
+                                            </div>
+
+                                        @endif
+                                    @endforeach
+
+                                    {{-- Sub Images --}}
+                                    <div class="sub">
+
+                                        @foreach ($validImages as $index => $image)
+
+                                            @continue($loop->first)
+
+                                            <div class="img-box">
+
+                                                <a href="{{ $image['url'] }}"
+                                                class="glightbox image-wrapper"
+                                                data-gallery="escort-gallery">
+
+                                                    <img src="{{ $image['url'] }}"
+                                                        alt="gallery image"
+                                                        title="View in large">
+
+                                                    <div class="hover-overlay">
+                                                        <span>Click me!</span>
+                                                    </div>
+
+                                                </a>
+
+                                                @php
+                                                    $media_status = getMediaVerificationDataSmallIcon($image['image_data']['varified'] ?? 0);
+                                                @endphp
+
+                                                @if($media_status)
+                                                    <div class="verify_icon_sm">
+                                                        <img src="{{ $media_status['icon'] }}">
+                                                        <span class="gallery_shield_tooltip">
+                                                            {{ $media_status['label'] }}
+                                                        </span>
+                                                    </div>
+                                                @endif
+
+                                            </div>
+
+                                        @endforeach
+
+                                    </div>
+
+                                    {{-- Hidden Images For Lightbox Navigation --}}
+                                    <div style="display:none;">
+
+                                        @foreach ($validImages as $image)
+
+                                            <a href="{{ $image['url'] }}"
+                                            class="glightbox"
+                                            data-gallery="escort-gallery">
+                                            </a>
+
+                                        @endforeach
+
+                                    </div>
+
+                                @endif
+
+                            </div>
+
+                        </div>
                         <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
                             
                             <div class="row px-3 pb-2" id="dvSource">
@@ -2343,6 +2532,8 @@ margin-right: 5px;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initMap" async defer></script>
 
+<script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
+<script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 
  <script>
 

@@ -5656,7 +5656,6 @@ i.fa.fa-heart-o{
                     height: 100%;
                     object-fit: cover;
                     border-radius: 8px;
-                    aspect-ratio: 1 / 1;
                 }
                 /* Optional: Make it responsive */
                 
@@ -5882,6 +5881,7 @@ i.fa.fa-heart-o{
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    border-radius: 0px 0px 10px 0px;
                 }
                 
                 .extra_img_wrapper .veryfy_img img {
@@ -5897,6 +5897,7 @@ i.fa.fa-heart-o{
                     right: 0px;
                     background: var(--blue--text);
                     padding: 5px;
+                    border-radius: 0px 0px 10px 0px;
                 }
                 
                 .mc_profile_img .veryfy_img img {
@@ -6556,32 +6557,6 @@ i.fa.fa-heart-o{
                         flex-wrap: wrap;
                     }
                 }
-                /*     
-    .gallery__item {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .gallery__item>img {
-        height: 100%;
-        object-fit: cover;
-        width: 100%;
-    }
-     */
-                /* .gallery__item--hor {
-        grid-column: span 2;
-    }
-    
-    .gallery__item--vert {
-        grid-row: span 2;
-    }
-    
-    .gallery__item--lg {
-        grid-column: span 3;
-        grid-row: span 2;
-    } */
-                /*list view image size */
                 
                 .border_for_form {
                     border: 1px solid;
@@ -7795,7 +7770,7 @@ i.fa.fa-heart-o{
                     position: absolute;
                     bottom: 0px;
                     right: 1px;
-                    background: rgba(12, 34, 61);
+                    background: rgb(12, 34, 61);
                     z-index: 10;
                     width: 90px;
                     height: 37px;

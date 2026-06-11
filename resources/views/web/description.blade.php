@@ -1,5 +1,8 @@
 @extends('layouts.web')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css') }}">
+<style>
 <style>
 .tooltip-wrapper {
     position: relative;
@@ -711,7 +714,7 @@
                         <div class="accordion-container">
                             <div class="set">
                                 <a>
-                                Fun Stuff - on Viewer
+                                Fun Stuff - on You
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -793,7 +796,7 @@
                             </div>
                             <div class="set">
                                 <a>
-                                Kinky Stuff - on Viewer
+                                Kinky Stuff - on You
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -1009,8 +1012,8 @@
                         @php 
                             $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
                         @endphp
-                        <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                            {{-- <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header d-flex justify-content-between align-items-center">                                       
                                         <ul class="nav nav-tabs justify-content-center border-0">
@@ -1088,6 +1091,163 @@
                                         </div>
 
                                     </div>
+                                </div>
+                            </div> --}}
+                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
+                                        <ul class="nav nav-tabs justify-content-center border-0">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu3">My Photos</a>
+                                            </li>
+                                            @if ($galleryVideos->count()>0)
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu4">My Videos</a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="tab-content" id="myTabContent2">
+                                            <div class="tab-pane fade show active" id="menu3" role="tabpanel" aria-labelledby="profile-tab">
+                                            <div id="gallery" class="photos-grid-container gallery">
+
+                                                    @if($escort->gallary->isNotEmpty())
+
+                                                        @php
+                                                            $allImages = $escort->gallary()
+                                                                ->wherePivot('type',0)
+                                                                ->wherePivotIn('position',[1,2,3,4,5,6,7])
+                                                                ->orderBy('position','asc')
+                                                                ->get();
+
+                                                            $firstImage = $allImages->first();
+
+                                                            $displayImages = $allImages->filter(function($item){
+                                                                return in_array($item->pivot->position,[2,3,4,5,6,7]);
+                                                            });
+                                                        @endphp
+
+                                                        {{-- Main Image (Position 1) --}}
+                                                        <div class="main-photo img-box">
+
+                                                            @php
+                                                                $item = $escort->gallary()
+                                                                    ->wherePivotIn('position',[1])
+                                                                    ->first();
+                                                            @endphp
+
+                                                            @if($item)
+
+                                                                <a href="{{ asset($item->path) }}"
+                                                                class="glightbox image-wrapper"
+                                                                data-gallery="escort-gallery">
+
+                                                                    <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
+
+                                                                    <div class="hover-overlay">
+                                                                        <span>Click me!</span>
+                                                                    </div>
+                                                                </a>
+
+                                                                @php
+                                                                    $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
+                                                                @endphp
+
+                                                                @if($media_status)
+                                                                    <div class="verify_icon" style="border-radius: 0px 0px 10px 0px;">
+                                                                        <img src="{{ $media_status['icon'] }}" >
+                                                                        <span class="common_shield_tooltip">
+                                                                            {{ $media_status['label'] }}
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
+                                                                 
+                                                            @endif
+                                                          
+                                                        </div>
+
+                                                        <div class="sub">
+
+                                                            {{-- Images 2,3,4 --}}
+                                                            @foreach($displayImages as $media)
+
+                                                                <div class="img-box">
+
+                                                                    <a href="{{ asset($media->path) }}"
+                                                                    class="glightbox image-wrapper"
+                                                                    data-gallery="escort-gallery">
+
+                                                                        <img src="{{ asset($media->path) }}" alt="others" title="View in large">
+                                                                            <div class="hover-overlay">
+                                                                            <span>Click me!</span>
+                                                                        </div>
+                                                                    </a>
+
+                                                                    @php
+                                                                        $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
+                                                                    @endphp
+
+                                                                    @if($media_status)
+                                                                        <div class="verify_icon_sm">
+                                                                            <img src="{{ $media_status['icon'] }}">
+                                                                            <span class="gallery_shield_tooltip">
+                                                                                {{ $media_status['label'] }}
+                                                                            </span>
+                                                                        </div>
+                                                                    @endif
+
+                                                                </div>
+
+                                                            @endforeach                                                              
+
+                                                        </div>
+                                                       
+
+                                                        {{-- Hidden Images For Lightbox Navigation --}}
+                                                        <div style="display:none;">
+
+                                                            @foreach($allImages as $media)
+
+                                                                <a href="{{ asset($media->path) }}"
+                                                                class="glightbox"
+                                                                data-gallery="escort-gallery">
+                                                               
+                                                                </a>
+                                                                
+
+                                                            @endforeach
+
+                                                        </div>
+
+                                                    @endif
+
+                                                </div>                      
+                                            </div> 
+                                            
+                                            
+                                            <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
+                                                <div class="row px-3 pb-2" id="dvSource">
+                                                    
+                                                    @foreach($galleryVideos as $key=>$media)
+                                                        <div class="col-md-4" id="dm_2">
+                                                            <a href="#">
+                                                                <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                    <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                </video>
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                        
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -1181,72 +1341,70 @@
             <h2><img src="{{ asset('assets/app/img/contact_me.svg') }}"> Contacting me</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
-            <span class="span_display_block connecting_me_chat_phone">
-                You can contact me by:
-
-                    @php
-                        $contactType = $escort->contact != null ? $escort->contact : '';
-                    @endphp
-                    @if($contactType == 1)
-                    <div class="tooltip-wrapper">
-                        <img src="{{ asset('assets/app/img/email-me.png') }}">
-                        <div class="tooltip-text">Email me</div>
-                    </div>
-                    
-                    
-                    @endif
- 
-                    @if($contactType == 4 || $contactType == 5)
-                        <div class="tooltip-wrapper">
-                            <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                            <div class="tooltip-text">Call me</div>
-                            @if($contactType == 5)
-                                <span>or</span>
-                            @endif
-                        </div>
-                    @endif
-                    @if($contactType == 2 || $contactType == 5)
-                        <div class="tooltip-wrapper">
-                                <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                                <div class="tooltip-text">Text me</div>
-                        </div>
-                    @endif
-            </br>
-            @php
-
-
-            $from = $escort->phone;
-            $number = sprintf("%s-%s-%s",
-            substr($from, 0, 3),
-            substr($from, 3, 3),
-            substr($from, 6));
-            //dd($number);
-            @endphp
-            <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
-            <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> 
+            <div class="span_display_block connecting_me_chat_phone">You can contact me by:
                 @php
-                    $formattedNumber = $escort->phone;
-                    $contactTypes = $escort->contact != null ? $escort->contact : '';
-                   
+                    $contactType = $escort->contact != null ? $escort->contact : '';
                 @endphp
-            </p>    
-            <p style="line-height: 1;">
-                @if($contactTypes != '')
-                    @if($contactTypes == 1)
-                        on my email {{ $escort->user->email ?? '' }}
-                    @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                        on my number {{ $formattedNumber }}.
+                @if($contactType == 1)
+                <span class="tooltip-wrapper">
+                    <img src="{{ asset('assets/app/img/email-me.png') }}">
+                    <div class="tooltip-text">Email me</div>
+                </span>
+                
+                
+                @endif
+
+                @if($contactType == 4 || $contactType == 5)
+                    <span class="tooltip-wrapper">
+                        <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                        <div class="tooltip-text">Call me</div>
+                        @if($contactType == 5)
+                            <span>or</span>
+                        @endif
+                    </span>
+                @endif
+                @if($contactType == 2 || $contactType == 5)
+                    <span class="tooltip-wrapper">
+                            <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                            <div class="tooltip-text">Text me</div>
+                    </span>
+                @endif
+            
+                </div>        
+                @php
+
+
+                $from = $escort->phone;
+                $number = sprintf("%s-%s-%s",
+                substr($from, 0, 3),
+                substr($from, 3, 3),
+                substr($from, 6));
+                //dd($number);
+                @endphp
+                <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
+                <p class="profile_description_contect_pera">
+                    <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> 
+                    @php
+                        $formattedNumber = $escort->phone;
+                        $contactTypes = $escort->contact != null ? $escort->contact : '';
+                    
+                    @endphp
+                </p>    
+                <p style="line-height: 1;">
+                    @if($contactTypes != '')
+                        @if($contactTypes == 1)
+                            on my email {{ $escort->user->email ?? '' }}
+                        @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
+                            on my number {{ $formattedNumber }}.
+                        @else
+                            on my number --
+                        @endif
                     @else
+                        {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
                         on my number --
                     @endif
-                @else
-                    {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
-                    on my number --
-                @endif
-            </p>
-            </span>
-        </div>
+                </p>
+         </div>
     </div>
     <div class="vax-btn">
         @if($escort->getRawOriginal('covidreport') == 2)
@@ -1490,6 +1648,7 @@
 
 </div>
 </div>
+
 <!-- model start here 1-->
 <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @if(auth()->check() && auth()->user()->type==0)
@@ -2002,6 +2161,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
+<script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 <script>
 let myCarousel = document.querySelector('#reviewCarousel');
 let carousel = new bootstrap.Carousel(myCarousel, {

@@ -52,51 +52,51 @@ $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator-
             <h6 class=" text-blue-primary">Operator Details</h6>
             <table class="table table-bordered mb-3">
                 <tr>
-                    <th width="40%">Operator ID</th>
+                    <th width="40%"><b>Operator ID</b></th>
                     <td width="60%">{{ $operator->member_id }}</td>
                 </tr>
                 <tr>
-                    <th>Date Appointed</th>
+                    <th> <b>Date Appointed </b></th>
                     <td>{{$appointedDate}}</td>
                 </tr>
                 <tr>
-                    <th>Company Name</th>
+                    <th> <b>Company Name </b></th>
                     <td>{{ $operator->name }}</td>
                 </tr>
                 <tr>
-                    <th>Business Name</th>
+                    <th> <b>Business Name </b></th>
                     <td>{{ $operator->business_name }}</td>
                 </tr>
                 <tr>
-                    <th>ABN</th>
+                    <th> <b>ABN </b></th>
                     <td>{{ $operator->abn }}</td>
                 </tr>
                 <tr>
-                    <th>Business Address</th>
+                    <th> <b>Business Address </b></th>
                     <td>{{ $operator->business_address }}</td>
                 </tr>
                 <tr>
-                    <th>Business Number</th>
+                    <th> <b>Business Number </b></th>
                     <td>{{ $operator->business_number }}</td>
                 </tr>
                 <tr>
-                    <th>Point of Contact</th>
+                    <th> <b>Point of Contact </b></th>
                     <td>{{ $operator->operator_detail->point_of_contact }}</td>
                 </tr>
                 <tr>
-                    <th>Mobile</th>
+                    <th> <b>Mobile </b></th>
                     <td>{{ $operator->phone }}</td>
                 </tr>
                 <tr>
-                    <th>Email</th>
+                    <th> <b>Email </b></th>
                     <td>{{ $operator->email }}</td>
                 </tr>
                 <tr>
-                    <th>Territory</th>
+                    <th> <b>Territory </b></th>
                     <td>{{ $countryName }}</td>
                 </tr>
                 <tr>
-                    <th>Method of Contact</th>
+                    <th> <b>Method of Contact </b></th>
                     <td>{{$contactTypesText}}</td>
                 </tr>
             </table>
@@ -104,20 +104,20 @@ $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator-
             <h6 class=" text-blue-primary">Agreement Details</h6>
             <table class="table table-bordered mb-3">
                 <tr>
-                    <th width="40%">Agreement Date</th>
+                    <th width="40%"><b>Agreement Date </b></th>
                     <td width="60%">{{$agreementDate}}</td>
                 </tr>
                 <tr>
-                    <th>Term</th>
+                    <th><b>Term </b></th>
                     <td>{{ $operator->operator_detail->term }}</td>
                 </tr>
                 <tr>
-                    <th>Fees</th>
+                    <th><b>Fees </b></th>
                     <td>{{ $operator->operator_detail->fee }}</td>
                 </tr>
                  @if(!empty($agreement_file))
                 <tr>
-                    <th>Agreement File</th>
+                    <th><b>Agreement File </b></th>
                     <td><a href="{{ asset('storage') }}/{{$agreement_file}}" target="_blank" title="Click here to dowload or view agreement file." download>View Agreement</a></td>
                 </tr>
                 @endif
@@ -126,11 +126,11 @@ $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator-
             <h6 class=" text-blue-primary">Commission</h6>
             <table class="table table-bordered mb-3">
                 <tr>
-                    <th width="60%">Advertising</th>
+                    <th width="60%"><b>Advertising</th>
                     <td width="40%">{{ $operator->operator_detail->commission_advertising_percent }}</td>
                 </tr>
                 <tr>
-                    <th>Massage Centre (Registrations)</th>
+                    <th><b>Massage Centre (Registrations)</b></th>
                     <td>{{ $operator->operator_detail->commission_massage_centre_percent }}</td>
                 </tr>
             </table>

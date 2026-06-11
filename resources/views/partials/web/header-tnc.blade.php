@@ -6,15 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
         <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-        <title>E4U - Escorts for you</title>
+        <title>E4U - Escort Directory</title>
         <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">
-        <!-- jquery ui cdn -->
-        {{-- @php
-        $url = ['/acceptable-usage-policy','/cookie-policy','/copyright-statement','/covid-19-statement','/disclaimer-statement','/law-enforcement','/privacy-policy','/refund-policy','/spam-policy','/terms-conditions','/abbreviations','/alerts','/blogs','/contact-us','/etiquette','/faqs','/feedback','/help-for-advertisers','/help-for-agents','/help-for-massage-centres','/help-for-viewers'];
-        @endphp
-        @if(in_array($_SERVER['REQUEST_URI'],$url))
-        <link rel="stylesheet" href="{{ asset('assets/app/css/custom.css') }}"/>
-        @endif --}}
 
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}"/>
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/>
@@ -32,11 +25,7 @@
         rel="stylesheet">
         <!-- google fonts -->
 
-        <!-- font awsome -->
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}"> -->
-        <title>profile description page</title>
+       
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <!-- jquery ui cdn -->

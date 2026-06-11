@@ -520,14 +520,14 @@
                 <div class="col-sm-12">
                         <!-- Details Table -->
                         <table class="table table-bordered mb-3">
-                            <tr><th>Name</th><td>${rowData.name ? rowData.name : 'NA'}</td></tr>
-                            <tr><th>Member ID</th><td>${rowData.member_id ? rowData.member_id : 'NA'}</td></tr>
-                            <tr><th>Mobile</th><td>${rowData.phone ? rowData.phone : 'NA'}</td></tr>
-                            <tr><th>Email</th><td>${rowData.email ? rowData.email : 'NA'}</td></tr>
-                            <tr><th>Home State</th><td>${rowData.territory ? rowData.territory : 'NA'}</td></tr>
-                            <tr><th>Agent ID</th><td>${rowData.referred_by_agent_id ? rowData.referred_by_agent_id : '--'}</td></tr>
-                            <tr><th>Status</th><td class="border-0">${rowData.status_name ? rowData.status_name.replace(/<[^>]*>/g, '') : 'N/A'} </td></tr>
-                            <tr><th>Date</th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
+                            <tr><th><b>Name</b></th><td>${rowData.name ? rowData.name : 'NA'}</td></tr>
+                            <tr><th><b>Member ID</b></th><td>${rowData.member_id ? rowData.member_id : 'NA'}</td></tr>
+                            <tr><th><b>Mobile</b></th><td>${rowData.phone ? rowData.phone : 'NA'}</td></tr>
+                            <tr><th><b>Email</b></th><td>${rowData.email ? rowData.email : 'NA'}</td></tr>
+                            <tr><th><b>Home State</b></th><td>${rowData.territory ? rowData.territory : 'NA'}</td></tr>
+                            <tr><th><b>Agent ID</b></th><td>${rowData.referred_by_agent_id ? rowData.referred_by_agent_id : '--'}</td></tr>
+                            <tr><th><b>Status</b></th><td class="border-0">${rowData.status_name ? rowData.status_name.replace(/<[^>]*>/g, '') : 'N/A'} </td></tr>
+                            <tr><th><b>Date</b></th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
 
 
             if (rowData.status === 'Rejected' && rowData.rejection_reason) {

@@ -30,9 +30,11 @@ class PaymentController extends Controller
         });
     }
 
-    protected function getAmount($amount = 0.00)
+    protected function getAmount($action = null)
     {
-        if (empty($amount)) {
+        $amount = 0.00;
+
+        if (in_array($action, ['listing', 'extend'])) {
             if (session()->has('checkout')) {
                 $checkout = session()->get('checkout');
                 foreach ($checkout as $startDate => $item) {
@@ -41,7 +43,7 @@ class PaymentController extends Controller
                     $amount = $amount + $total_rate;
                 }
             }
-
+        } else {
             if (session()->has('tour_checkout')) {
                 $checkout = session()->get('tour_checkout');
                 foreach ($checkout as $startDate => $item) {
@@ -62,6 +64,8 @@ class PaymentController extends Controller
             $checkAmount = $request->filled('checkAmount') ? $request->boolean('checkAmount') : true;
             $wallet_amount = $request->filled('wallet_amount') ? (float) $request->wallet_amount : 0;
             $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
+            $feeAmount = $request->filled('fee_token') ? decrypt($request->fee_token) : 0;
+
             // At least one value is required
             if ($checkAmount == true && empty($wallet_amount) && empty($loyalty_day)) {
                 return response()->json([
@@ -88,9 +92,12 @@ class PaymentController extends Controller
             }
 
             $sub_total_amount = match ($action) {
-                'listing' => $this->getAmount(),
-                'pinup' => $this->getAmount(getPinupFee()),
-                'bump-up' => $this->getAmount(getBumpupFee()),
+                'listing' => $this->getAmount($action),
+                'extend' => $this->getAmount($action),
+                'tour' => $this->getAmount($action),
+                'pinup' => getPinupFee(),
+                'bumpUp' => getBumpupFee(),
+                'upgrade' => $feeAmount,
                 default => null,
             };
 
@@ -127,12 +134,12 @@ class PaymentController extends Controller
             $total_amount = max(0, $total_amount);
 
             $html = view('escort.dashboard.modal.order_summary_adjustment', compact('action', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
-
+            $benefit_token = encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount'));
             return response()->json([
                 'status'         => true,
                 'lowest_plan' => $lowestPlan ?? 0,
                 'total_amount' => $total_amount,
-                'benefit_token' => encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount')),
+                'benefit_token' => $benefit_token,
                 'message' => 'Applied successfully',
                 'html' => $html,
             ]);
@@ -193,7 +200,7 @@ class PaymentController extends Controller
 
             $payment = PaymentHistory::create([
                 'user_id' => $this->account->id,
-                'completed_by' => $this->account->id,
+                'completed_by' => $request->isImpersonated ? $request->impersonatedId : $this->account->id,
                 'ref_no' => generateReferenceNo(PaymentHistory::class),
                 'amount' => $benefit_token['sub_total_amount'],
                 'wallet_amount' => $benefit_token['wallet_amount'],
@@ -214,21 +221,33 @@ class PaymentController extends Controller
 
             switch ($benefit_token['action']) {
                 case 'listing': {
-                        if (session()->has('checkout') && $benefit_token['action'] == 'listing') {
-                            $this->saveCheckout($payment);
-                            $payment_service = 'Profile Listing';
-                            $redirect_url = route('escort.account.listing_success');
-                        }
-
-                        if (session()->has('tour_checkout') && $benefit_token['action'] == 'listing') {
-                            $this->saveCheckout($payment);
-                            $payment_service = 'Tour';
-                            $redirect_url = route('escort.account.listing_success');
-                        }
+                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $payment_service = 'Profile Listing';
+                        $redirect_url = route('escort.account.listing_success');
+                    }
+                    break;
+                case 'tour': {
+                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $payment_service = 'Tour';
+                        $redirect_url = route('escort.account.listing_success');
+                    }
+                    break;
+                case 'extend': {
+                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $payment_service = 'Profile Extend';
+                        $redirect_url = route('escort.account.listing_success');
                     }
                     break;
                 case 'pinup': {
-                        $payment_service = 'Pin Up';
+                        $payment_service = 'Profile Pin Up';
+                    }
+                    break;
+                case 'bumpUp': {
+                        $payment_service = 'Profile Bump Up';
+                    }
+                    break;
+                case 'upgrade': {
+                        $payment_service = 'Profile Upgrade';
                     }
                     break;
 
@@ -245,7 +264,7 @@ class PaymentController extends Controller
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
 
-            if ($benefit_token['action'] === 'listing') {
+            if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {
                 $earn_days = floor($benefit_token['total_amount'] / 200);
                 if ($earn_days > 0) {
                     $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
@@ -265,7 +284,6 @@ class PaymentController extends Controller
                 'payment_id' => encrypt($payment->id),
                 'redirect_url' => $redirect_url
             ]);
-            
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
@@ -286,11 +304,11 @@ class PaymentController extends Controller
         }
     }
 
-    public function saveCheckout($payment = null)
+    public function saveCheckout($action = null, $payment = null)
     {
 
         if (session()->has('checkout') || session()->has('tour_checkout')) {
-            $checkout = session()->has('checkout') ? session()->get('checkout') : session()->get('tour_checkout');
+            $checkout = in_array($action, ['listing', 'extend']) ? session()->get('checkout') : session()->get('tour_checkout');
             $netPaidAmount = 0.00;
             foreach ($checkout as $startDate => $item) {
                 $escortDetail = getEscortDetail($item['escort_id']);
@@ -318,7 +336,7 @@ class PaymentController extends Controller
                 if (!empty($payment)) {
                     $purchaseDetail->paymentItems()->create([
                         'payment_history_id' => $payment->id,
-                        'amount' => $payment->amount
+                        'amount' => $purchaseDetail->paid_rate,
                     ]);
                 }
 

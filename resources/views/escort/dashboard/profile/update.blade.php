@@ -50,7 +50,11 @@
         $existAvailability = $escort->availability()->exists();
         $editMode = request()->segment(2) == 'profile' ? true : false;
         $loginAccount = auth()->user();
-    @endphp
+        $isImpersonated = false;
+        if (session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true) {
+            $isImpersonated = false;  
+        } 
+        @endphp
     <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
@@ -71,14 +75,6 @@
             @endif
         </div>
         <div class="row">
-            {{-- <div class="col-md-12 custom-heading-wrapper">
-         @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
-         <h1 class="h1">New Profile</h1>
-         @else
-         <h1 class="h1">Update Profile</h1>
-         @endif
-         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-      </div> --}}
             <div class="col-md-12 mb-4" id="profile_and_tour_options">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
@@ -217,6 +213,7 @@
         <div class="toast-body">Hello, world! This is a toast message.</div>
     </div>
     <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
+    @if(!$isImpersonated)
     <div class="modal fade upload-modal programmatic" id="change_all" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -249,6 +246,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="emailReportLabel" aria-hidden="true">
@@ -280,6 +278,11 @@
     @if (Session::has('message'))
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
+
+    @php
+     $currentNarrations = additional_information(Auth::id(), 'narration', 'value');
+
+    @endphp
 @endsection
 @push('script')
     <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
@@ -289,6 +292,7 @@
         window.App.escortId = '{{ $escort->id }}';
 
         var profile_gender = '{{ auth()->user()->gender }}';
+        var selectNarrations = '{{additional_information(Auth::id(), 'narration', 'value')}}';
 
 
 
@@ -1960,6 +1964,12 @@
 
         });
 
+
+
+
+
+
+
         $("body").on("click", "#save_change", function() {
             let profileName = $('input[name="profile_name"]').val();
             let field = $("#trigger-element").val();
@@ -1985,5 +1995,14 @@
         function toggleDeposit(type, show) {
             document.getElementById(type + '_input').style.display = show ? 'block' : 'none';
         }
+
+
+        CKEDITOR.on('instanceReady', function(evt) {
+            if (evt.editor.name === 'editor1') {
+                $('#narration').trigger('change');
+            }
+        });
+
+        
     </script>
 @endpush

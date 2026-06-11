@@ -78,7 +78,7 @@ $loginAccount = auth()->user();
                     </div>
 
                     <div class="text-right mt-3">
-                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="listing">Proceed</a>
+                        <a class="btn-success-modal text-white" href="#" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="{{$type}}">Proceed</a>
                     </div>
                 </div>
             </div>

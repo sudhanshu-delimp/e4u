@@ -10,14 +10,25 @@ use App\Models\Pricing;
 use App\Models\EscortPinup;
 use App\Models\TourLocation;
 use App\Models\TourProfile;
-use App\Models\PaymentHistory;
-use App\Models\EscortMedia;
 use Illuminate\Http\Request;
+use App\Services\PinPaymentService;
 use Carbon\Carbon;
 use Exception;
 
 class PinUpsController extends AppController
 {
+    protected $pinService;
+
+    public function __construct(PinPaymentService $pinService)
+    {
+        $this->pinService = $pinService;
+
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
+    }
+
     function index(Request $request)
     {
         $escort = Escort::find($request->escort_id);
@@ -146,6 +157,7 @@ class PinUpsController extends AppController
             $weeks = collect();
             $candidateStarts = [];
             $today = Carbon::now();
+
             while ($start->lte($end)) {
                 $weekStart = $start->copy();
                 $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
@@ -262,7 +274,7 @@ class PinUpsController extends AppController
 
             if ($request->filled('payment_token')) {
                 $paymentId = decrypt($request->payment_token);
-                $payment = PaymentHistory::findOrFail($paymentId);
+                $payment = $this->pinService->paymentHistoryDetail($paymentId);
                 if (!empty($payment)) {
                     $escortPinup->paymentItems()->create([
                         'payment_history_id' => $payment->id,

@@ -4,7 +4,8 @@ namespace App\Models;
 //use App\Models\State;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -728,5 +729,28 @@ class Escort extends Model
         $todayDate = getEscortLocalTime(now(), $escortTimeZone);
         $listEndDate = getEscortLocalTime($this->utc_end_time, $escortTimeZone);
         return $todayDate->diffInDays($listEndDate);
+    }
+
+    /**
+     * Indicates if the model should have created_by and updated_by fields.
+     *
+     * @var bool
+     */
+    public $createdUpdatedBy = true;
+
+    /**
+     * Get the created by that owns the details.
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    /**
+     * Get the updated by that owns the details.
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
 }

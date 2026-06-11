@@ -33,7 +33,7 @@ class EscortAuth
             
             if (!in_array(request()->segment(2), $allowedActions) && request()->segment(2) != '') {
                 //Log::info('Action: '.request()->segment(2));
-                return redirect()->route('escort.dashboard')->with('error', accessDeniedMsg());
+                //return redirect()->route('escort.dashboard')->with('error', accessDeniedMsg());
             }
         }
         
