@@ -170,7 +170,7 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item" href="{{ route('Fees.summary') }}">
+                        <a class="collapse-item" href="{{ route('agent.fees.summery') }}">
                             <img
                                 src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                             <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Fees

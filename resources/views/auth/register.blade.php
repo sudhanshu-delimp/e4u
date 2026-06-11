@@ -14,7 +14,7 @@
     <section class="section_bg_color padding_ninty_top_ninty_px padding_bottom_eight_px angle_bg_image viewer-registration">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-7 adverti_reg_page_padingto_bt-new">
+                <div class="col-lg-7 col-md-12 col-sm-12 adverti_reg_page_padingto_bt-new">
                     <div class="reg_info viewer-registration">
                         {{-- <h2>Registration - Viewer</h2> --}}
                         <div class="pl-4 pt-2 pb-5">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="reg_box_form_style col-lg-5 col-md-5">
+                <div class="reg_box_form_style col-lg-5 col-md-12 col-sm-12">
                     <div class="regstractionform">
                         <h4>Register Now - No Fees Ever!</h4>
                         <form id="register_form" action="{{ route('register') }}" method="POST">

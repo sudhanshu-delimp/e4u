@@ -24,6 +24,7 @@ use App\Listeners\MessageCentr\RegisterListnerForMassageCentr;
 use App\Listeners\Viewer\RegisterListenerForViewer;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Mail\Events\MessageSending;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -66,7 +67,7 @@ class EventServiceProvider extends ServiceProvider
             LoginFailedListener::class,
         ],
         // lisition hole email during send we store email inside the logs
-        MessageSent::class => [
+        MessageSending::class => [
             LogSentEmail::class,
         ],
     ];

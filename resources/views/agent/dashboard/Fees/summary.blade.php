@@ -22,10 +22,12 @@
             border-top: 2px solid !important;
             border-bottom: 2px solid !important;
         }
-        .table-bordered{
-         border-color: #022c3d !important; 
+
+        .table-bordered {
+            border-color: #022c3d !important;
         }
-          .custom_fees_tab li a{
+
+        .custom_fees_tab li a {
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.01em;
@@ -33,8 +35,9 @@
             background: #022c3d;
             border-radius: 3px;
             color: #fff;
-          }
-        .custom_fees_tab li a.active{
+        }
+
+        .custom_fees_tab li a.active {
             background-color: #ff3c5f !important;
             color: #fff !important;
         }
@@ -55,7 +58,6 @@
                             <li>You can apply filters within the Fees Summary to suit your query or report type.</li>
                             <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank
                                 Account. Fees is inclusive of GST.</li>
-
                         </ol>
                     </div>
                 </div>
@@ -72,10 +74,9 @@
                         <div class="col-sm-12">
                             <div class="card mb-4 border-0">
                                 <div class="tab-content" id="myTabContent">
-                                    
-
                                     {{-- 1 --}}
-                                    <div class="tab-pane fade  active show" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                    <div class="tab-pane fade  active show" id="one" role="tabpanel"
+                                        aria-labelledby="one-tab">
                                         <div class="row my-3">
                                             <div class="col-lg-3">
                                                 <div class="row">
@@ -119,32 +120,48 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="bg-first text-right"><b>Current FY</b></td>
-                                                                    <td class="text-center" id="current-fy" style="width:27%;">2025 / 2026</td>
+                                                                    <td class="text-center" id="current-fy"
+                                                                        style="width:27%;">2025 / 2026</td>
                                                                     <td class="bg-first text-right"><b>Total Earnings</b>
                                                                     </td>
-                                                                    <td class="text-right" style="width:20%;"><x-curFormat/>486.60</td>
+                                                                    <td class="text-right" style="width:20%;">
+                                                                        <x-curFormat />486.60</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="bg-first text-right"><b>Select FY</b></td>
                                                                     <td style="width:27%;">
-                                                                        <select class="rounded-0 w-100" id="select-fy" name="select-fy">
+                                                                        <select class="rounded-0 w-100" id="select-fy"
+                                                                            name="select-fy">
 
-                                                                            <option class="text-secondary" value="2025-2026">2025 / 2026</option>
-                                                                            <option class="text-secondary" value="2026-2027">2026 / 2027</option>
-                                                                            <option class="text-secondary" value="2027-2028">2027 / 2028</option>
-                                                                            <option class="text-secondary" value="2028-2029">2028 / 2029</option>
-                                                                            <option class="text-secondary" value="2029-2030">2029 / 2030</option>
-                                                                            <option class="text-secondary" value="2030-2031">2030 / 2031</option>
-                                                                            <option class="text-secondary" value="2031-2032">2031 / 2032</option>
-                                                                            <option class="text-secondary" value="2032-2033">2032 / 2033</option>
-                                                                            <option class="text-secondary" value="2033-2034">2033 / 2034</option>
-                                                                            <option class="text-secondary" value="2034-2035">2034 / 2035</option>
-                                                                            <option class="text-secondary" value="2035-2036">2035 / 2036</option>
-                                                                        </select>    
+                                                                            <option class="text-secondary"
+                                                                                value="2025-2026">2025 / 2026</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2026-2027">2026 / 2027</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2027-2028">2027 / 2028</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2028-2029">2028 / 2029</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2029-2030">2029 / 2030</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2030-2031">2030 / 2031</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2031-2032">2031 / 2032</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2032-2033">2032 / 2033</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2033-2034">2033 / 2034</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2034-2035">2034 / 2035</option>
+                                                                            <option class="text-secondary"
+                                                                                value="2035-2036">2035 / 2036</option>
+                                                                        </select>
                                                                     </td>
-                                                                    <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
+                                                                    <td class="bg-first text-right"><b>Average (P /
+                                                                            Advertiser)</b>
                                                                     </td>
-                                                                    <td class="text-right" style="width:20%;"><x-curFormat/>121.65</td>
+                                                                    <td class="text-right" style="width:20%;">
+                                                                        <x-curFormat />121.65</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="bg-first text-right"><b>Display Type</b>
@@ -203,8 +220,6 @@
                                                     <tr>
                                                 </thead>
                                                 <tbody>
-
-
                                                     <td class="text-left">E612345 </td>
                                                     <td class="text-left">Oxi Daisy</td>
                                                     <td class="text-center">01/01/2022</td>
@@ -352,10 +367,7 @@
                                         </div>
                                     </div>
                                     {{-- 2 --}}
-                                    <div class="tab-pane fade" id="two" role="tabpanel"
-                                        aria-labelledby="two-tab">
-
-
+                                    <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
                                         <div class="table-responsive membership--inner">
                                             <table class="table table-bordered text-center mb-0" id="tourStatisticTable">
                                                 <thead>
@@ -364,18 +376,17 @@
                                                         <td colspan="3" class="text-center bg-first">
                                                             <select class="rounded-0 w-75"
                                                                 style="outline:none; color: #022c3d;">
-                                                               
                                                                 <option class="text-secondary">2025 / 2026</option>
-                                                                    <option class="text-secondary">2026 / 2027</option>
-                                                                    <option class="text-secondary">2027 / 2028</option>
-                                                                    <option class="text-secondary">2028 / 2029</option>
-                                                                    <option class="text-secondary">2029 / 2030</option>
-                                                                    <option class="text-secondary">2030 / 2031</option>
-                                                                    <option class="text-secondary">2031 / 2032</option>
-                                                                    <option class="text-secondary">2032 / 2033</option>
-                                                                    <option class="text-secondary">2033 / 2034</option>
-                                                                    <option class="text-secondary">2034 / 2035</option>
-                                                                    <option class="text-secondary">2035 / 2036</option>
+                                                                <option class="text-secondary">2026 / 2027</option>
+                                                                <option class="text-secondary">2027 / 2028</option>
+                                                                <option class="text-secondary">2028 / 2029</option>
+                                                                <option class="text-secondary">2029 / 2030</option>
+                                                                <option class="text-secondary">2030 / 2031</option>
+                                                                <option class="text-secondary">2031 / 2032</option>
+                                                                <option class="text-secondary">2032 / 2033</option>
+                                                                <option class="text-secondary">2033 / 2034</option>
+                                                                <option class="text-secondary">2034 / 2035</option>
+                                                                <option class="text-secondary">2035 / 2036</option>
                                                             </select>
                                                         </td>
                                                         <td class="text-center" colspan="3"><b>This
@@ -407,28 +418,24 @@
                                                                 <span class="ml-5">
                                                                     <select class="rounded-0 w-50"
                                                                         style="outline:none; color: #022c3d;">
-                                                                    <option class="text-secondary">2025 / 2026</option>
-                                                                    <option class="text-secondary">2026 / 2027</option>
-                                                                    <option class="text-secondary">2027 / 2028</option>
-                                                                    <option class="text-secondary">2028 / 2029</option>
-                                                                    <option class="text-secondary">2029 / 2030</option>
-                                                                    <option class="text-secondary">2030 / 2031</option>
-                                                                    <option class="text-secondary">2031 / 2032</option>
-                                                                    <option class="text-secondary">2032 / 2033</option>
-                                                                    <option class="text-secondary">2033 / 2034</option>
-                                                                    <option class="text-secondary">2034 / 2035</option>
-                                                                    <option class="text-secondary">2035 / 2036</option>
+                                                                        <option class="text-secondary">2025 / 2026</option>
+                                                                        <option class="text-secondary">2026 / 2027</option>
+                                                                        <option class="text-secondary">2027 / 2028</option>
+                                                                        <option class="text-secondary">2028 / 2029</option>
+                                                                        <option class="text-secondary">2029 / 2030</option>
+                                                                        <option class="text-secondary">2030 / 2031</option>
+                                                                        <option class="text-secondary">2031 / 2032</option>
+                                                                        <option class="text-secondary">2032 / 2033</option>
+                                                                        <option class="text-secondary">2033 / 2034</option>
+                                                                        <option class="text-secondary">2034 / 2035</option>
+                                                                        <option class="text-secondary">2035 / 2036</option>
                                                                     </select>
                                                                 </span>
                                                             </b>
                                                         </td>
                                                     </tr>
-
-
                                                 </thead>
-
                                                 <tbody id="collapse-accordion">
-
                                                     <tr id="hideAlltr">
                                                         <td colspan="15" style="text-align: left; font-weight: bold;">
                                                             <div
@@ -438,7 +445,6 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
                                                     <tr class="text-center">
                                                         <td class="text-right pt-5" rowspan="2"><b>Variables</b></td>
                                                         <td class="text-center bg-first" colspan="3"><b>20/01/2026</b>
@@ -464,7 +470,6 @@
                                                         <td colspan="2">Year to Date</td>
                                                         <td colspan="3">Year to Date</td>
                                                     </tr>
-
                                                     <tr>
                                                         <td class="text-right">Advertising Escorts</td>
                                                         <td>$ 307.86</td>
@@ -685,10 +690,7 @@
                                                         <td><b>$ 347.64</b></td>
                                                         <td><b>826</b></td>
                                                     </tr>
-
-
                                                     <!-- end 1 -->
-
                                                     <!-- GROUP 2: NSW -->
                                                     <tr data-toggle="toggle-row" data-target=".group-2"
                                                         data-parent="#collapse-accordion" style="cursor: pointer;">
@@ -700,7 +702,6 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
                                                     <!-- middle Content -->
                                                     <tr class="collapse-row group-2">
                                                         <td class="text-right">Advertising</td>
@@ -781,7 +782,8 @@
 
 
                                         <div class="notes">
-                                            <h5 class="font-weight-bold my-3 d-flex justify-content-between align-items-center border p-3" style="cursor: pointer; border-color: #022c3d !important;"
+                                            <h5 class="font-weight-bold my-3 d-flex justify-content-between align-items-center border p-3"
+                                                style="cursor: pointer; border-color: #022c3d !important;"
                                                 data-toggle="collapse" data-target="#notes2" aria-expanded="true">
                                                 Notes <span class="mr-2"><i class="fa fa-chevron-down"></i></span>
                                             </h5>
@@ -1161,7 +1163,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="message-report"><img
-                            src="{{ asset('assets/dashboard/img/statement-report.png') }}" class="custompopicon"> Massage Centre Report: Lin’s Massage (Member ID: M612465)
+                            src="{{ asset('assets/dashboard/img/statement-report.png') }}" class="custompopicon"> Massage
+                        Centre Report: Lin’s Massage (Member ID: M612465)
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -1456,57 +1459,19 @@
 @push('script')
     <!-- file upload plugin start here -->
     <!-- file upload plugin end here -->
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script> --}}
+    {{-- <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script> --}}
+    {{-- <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script> --}}
+    <script type="text/javascript" src="{{asset('js/agent/management/fee/fees-summery.js')}}"></script>
 
     <script>
-        $(document).ready(function(){
-            $('#select-fy').on('change', function(){
-                const selectedFY = $(this).val();
-                $('#current-fy').text(selectedFY.replace('-', ' / '));
-            })
-        })
+        // $(document).ready(function() {
+        //     $('#select-fy').on('change', function() {
+        //         const selectedFY = $(this).val();
+        //         $('#current-fy').text(selectedFY.replace('-', ' / '));
+        //     })
+        // });
 
-        $(document).ready(function() {
-            let isHidden = false;
 
-            $('#hideAlltr').on('click', function() {
-                const $chevron = $(this).find('i');
-
-                if (!isHidden) {
-                    // Hide only visible rows, and mark them
-                    $('#hideAlltr').nextAll('tr:visible').addClass('user-hidden').hide();
-                    $chevron.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                    isHidden = true;
-                } else {
-                    // Show only those rows that were hidden by this action
-                    $('tr.user-hidden').removeClass('user-hidden').show();
-                    $chevron.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-                    isHidden = false;
-                }
-            });
-        });
-
-        $(document).ready(function() {
-            $('.collapse-row').hide(); // 🔒 Hide all groups initially
-
-            $('[data-toggle="toggle-row"]').on('click', function() {
-                const targetClass = $(this).data('target');
-                const $icon = $(this).find('i.fa');
-                const isVisible = $(targetClass).is(':visible');
-
-                $('.collapse-row').not(targetClass).hide();
-                $('[data-toggle="toggle-row"] i.fa').removeClass('fa-chevron-up').addClass(
-                    'fa-chevron-down');
-
-                if (!isVisible) {
-                    $(targetClass).show();
-                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                } else {
-                    $(targetClass).hide();
-                }
-            });
-        });
     </script>
 @endpush

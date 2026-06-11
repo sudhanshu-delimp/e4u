@@ -189,11 +189,9 @@ class TourRepository extends BaseRepository implements TourInterface
                     break;
                 default: {
                         if (empty($is_checkout)) {
-                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('account.checkout_tour', ['type' => 'tour', 'id' => $item->id]) . '"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
                             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="' . route('escort.delete.tour', $item->id) . '"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
                             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.store.tour', $item->id) . '"> <i class="fa fa-pen " ></i> Edit</a>';
                         } else {
-                            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#pinup_profile" data-tour-id="' . $item->id . '"> <i class="fa fa-arrow-up" ></i> List Pin Up</a>';
                             //$action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#" data-tour-id="'.$item->id.'"> <i class="fa fa-trash" ></i> Summary</a>'; 
                             $action .= ($type == 'current') ? '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.current.tour', $item->id) . '"> <i class="fa fa-eye " ></i> View</a>' : '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="' . route('escort.past.tour', $item->id) . '"> <i class="fa fa-eye " ></i> View</a>';
                         }

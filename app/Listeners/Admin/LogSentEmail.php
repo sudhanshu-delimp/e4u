@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Events\MessageSending;
 
 class LogSentEmail
 {
@@ -27,8 +28,9 @@ class LogSentEmail
      * @param  object  $event
      * @return void
      */
-    public function handle(MessageSent $event)
+    public function handle(MessageSending $event)
     {
+
         $message = $event->message;
         try {
             $body = $message->getBody();
@@ -44,6 +46,7 @@ class LogSentEmail
                 'body'     => $body,
                 'sent_at'  => now(),
             ]);
+            
         } catch (Exception $e) {
 
             Log::error('EmailLog Error', [
