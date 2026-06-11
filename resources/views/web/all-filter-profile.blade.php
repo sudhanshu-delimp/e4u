@@ -98,7 +98,7 @@
                                     <input type="hidden" name="viewType" id="viewType_input"
                                         value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 ">
                                                 <div class="custom-search-help mb-2 ">
                                                     <h5 class="normal_heading mb-0">Filters</h5>
                                                     <div class="display_inline_block helpquation">
@@ -109,7 +109,7 @@
                                                 </div>
                                                 <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 30 minutes.</span>
                                             </div>
-                                            <div class="col-md-8 ryt_srch_btn">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ryt_srch_btn">
                                                 <div class="display_inline_block">
                                                     <div class="location_radio_filter">
                                                         <div class="d-flex align-items-start"

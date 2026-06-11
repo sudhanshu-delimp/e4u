@@ -147,11 +147,29 @@
         width: 90% !important;
         margin: 12px 6px !important;
     }
+    .mc_profile_img .glightbox img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .trikon_style:after {
+        position: absolute;
+        top: -18px;
+    }
+    .item_dis {
+        width: 100% !important;
+    }
+    .search__filter {
+        width: 100% !important;
+    }
+    .search_btn_profile {
+        width: unset;
+    }
 }
 
 @media (max-width:768px) {
     .copy_right_footer_mange_padding {
-        padding: 10px;
+        padding: 0px 10px;
     }
     .set>a i {
         float: right;
@@ -159,6 +177,9 @@
     }
     .text-md-right {
         text-align: left !important;
+    }
+    .ryt_srch_btn div {
+        flex: content;
     }
 }
 
@@ -182,6 +203,10 @@
     }
     .js_pinup_profile {
         margin-bottom: 50px;
+    }
+    .ryt_srch_btn {
+        flex-wrap: wrap;
+        justify-content: flex-start;
     }
 }
 

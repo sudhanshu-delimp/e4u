@@ -5868,6 +5868,13 @@ i.fa.fa-heart-o{
                     position: relative;
                 }
                 
+                .mc_profile_img .glightbox img {
+                    width: 305px;
+                    height: 374px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+                
                 .extra_img_wrapper .veryfy_img {
                     position: absolute;
                     width: 25px;
@@ -6393,10 +6400,6 @@ i.fa.fa-heart-o{
                         height: 100px;
                         object-fit: fill;
                     }
-                    .mc_profile_img img {
-                        width: 100% !important;
-                        height: auto !important;
-                    }
                     .mc_profile_info {
                         flex-wrap: wrap;
                     }
@@ -6427,9 +6430,6 @@ i.fa.fa-heart-o{
                     .grid_list_part .col-12 {
                         flex-wrap: wrap;
                     }
-                    .search_btn_profile {
-                        width: 100%;
-                    }
                     .custom_total_list.dropdown {
                         border: 1px solid #5d6d7e;
                         width: 16em !important;
@@ -6439,12 +6439,6 @@ i.fa.fa-heart-o{
                     }
                     .custom-pagination ul li {
                         max-width: max-content;
-                    }
-                    .ryt_srch_btn {
-                        justify-content: flex-start;
-                    }
-                    .item_dis {
-                        width: 100% !important;
                     }
                     .slect__btn_tab {
                         display: flex;
@@ -6549,12 +6543,6 @@ i.fa.fa-heart-o{
                     align-items: center;
                     justify-content: space-between;
                     font-size: 16px !important;
-                }
-                
-                @media(max-width: 1024px) {
-                    .ryt_srch_btn {
-                        flex-wrap: wrap;
-                    }
                 }
                 
                 .border_for_form {
