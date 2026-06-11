@@ -28,7 +28,7 @@
 <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg">
     <div class="container-fluid banner_width">
         <div class="row align-items-center">
-            <div class="col-md-5 js_pinup_profile">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 js_pinup_profile">
                 <div href="#" class="tip mb-2 d_custom_home_img">
 
                     @if(config('constants.app_env')!='local')
@@ -38,17 +38,19 @@
                     @endif
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
                 <p class="primery_color normal_heading">AUSTRALIA'S SEXIEST AND MOST ACCESSIBLE ESCORTS</p>
                 <h1 class="home_heading_first">ESCORTS4U DIRECTORY OF:</h1>
-                <h1 class="home_heading_first">
+                <div class="pvt_and_msg">
+                    <h2 class="home_heading_first">
                     <img src="{{ asset('assets/app/img/home/correctsign.png') }}">
                     Private Escorts
-                </h1>
-                <h1 class="home_heading_first">
+                </h2>
+                <h2 class="home_heading_first">
                     <img src="{{ asset('assets/app/img/home/correctsign.png') }}">
                     Massage Centres
-                </h1>
+                </h2>
+                </div>
                 <p>The easiest platform to view Escorts and Massage Centres from, without all the
                     fuss.  Escorts4U prides itself on integrity, honesty and value.  The only platform where you pay by the day!
                 </p>

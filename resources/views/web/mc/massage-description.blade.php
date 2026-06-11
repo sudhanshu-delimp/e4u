@@ -752,7 +752,7 @@ margin-right: 5px;
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}"> 
+                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">

@@ -137,12 +137,79 @@
         flex: auto;
         margin-top: 5px;
     }
+    .shop-box-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .shop-box {
+        width: 90% !important;
+        margin: 12px 6px !important;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
+    .copy_right_footer_mange_padding {
+        padding: 10px;
+    }
+    .set>a i {
+        float: right;
+        margin-top: 2px !important;
+    }
+    .text-md-right {
+        text-align: left !important;
+    }
+}
+
+@media (min-width:425px) and (max-width: 991px) {
     .masseur_profile_wrapper .masseur_extra_img img {
         width: 100px;
         height: unset;
         object-fit: fill;
+    }
+    .d_custom_home_img {
+        aspect-ratio: 15 / 11;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width:1024px) {
+    div.tip div {
+        position: absolute;
+        right: 0;
+    }
+    .js_pinup_profile {
+        margin-bottom: 50px;
+    }
+}
+
+@media (min-width:768px) and (max-width:1024px) {
+    .shop-box-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .shop-box {
+        width: 30% !important;
+        margin: 12px 6px !important;
+    }
+    .footer_mange_padding {
+        padding: 0px 5px;
+    }
+}
+
+@media (min-width:991px) and (max-width: 1300px) {
+    .home_heading_first {
+        font-size: clamp(24px, 3vw, 48px) !important;
+        margin-bottom: 0px;
+    }
+    .normal_heading {
+        margin-bottom: 0px;
+    }
+    .pvt_and_msg h2 {
+        font-family: calc(20px, 4vw, 30px);
     }
 }
