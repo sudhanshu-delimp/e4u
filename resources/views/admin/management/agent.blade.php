@@ -110,6 +110,8 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
+        var adv_commissionfee =  "{{$commissionfee[0]['percent']}}";
+        var massg_commissionfee =  "{{$commissionfee[1]['percent']}}";
         $(document).ready(function(e) {
             var table = $("#agent_data_table").DataTable({
                 language: {
@@ -405,7 +407,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="abn">ABN</label>
-                                       <input type="text" class="form-control rounded-0"  name="abn" id="abn" value="${(rowData.abn ? rowData.abn : '')}">
+                                       <input type="text" class="form-control rounded-0"  name="abn" id="abn" value="${(rowData.abn ? removeAnythingExceptNumber(rowData.abn) : '')}">
                                        <span class="text-danger error-abn"></span>
                                  </div>
 
@@ -417,7 +419,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="business_number">Business Number</label>
-                                       <input type="text" class="form-control rounded-0"  name="business_number" id="business_number" value="${(rowData.business_number ? rowData.business_number : '')}">
+                                       <input type="text" class="form-control rounded-0"  name="business_number" id="business_number" value="${(rowData.business_number ? removeAnythingExceptNumber(rowData.business_number) : '')}">
                                        <span class="text-danger error-business_number"></span>
                                  </div>
 
@@ -429,7 +431,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="phone">Mobile</label>
-                                       <input type="text" class="form-control rounded-0"  name="phone" id="phone" value="${(rowData.phone ? rowData.phone : '')}">
+                                       <input type="text" class="form-control rounded-0"  name="phone" id="phone" value="${(rowData.phone ? removeAnythingExceptNumber(rowData.phone) : '')}">
                                        <span class="text-danger error-phone"></span>
                                  </div>
 
@@ -823,12 +825,12 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="commission_advertising_percent">Advertising Commission %</label>
-                                             <input class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent">
+                                             <input class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
                                        </div>
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="commission_registration_amount">Massage Centre Commission %</label>
-                                             <input class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount">
+                                             <input class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
                                        </div>
 
                                        <!-- ==================== File Uploads ==================== -->
@@ -1001,5 +1003,7 @@
                 }
             });
         });
+
+       
     </script>
 @endpush
