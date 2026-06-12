@@ -47,7 +47,7 @@ class CommunicationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = EmailLog::query()->select(['id', 'to','cc', 'bcc','subject', 'sent_at','created_at']);
+            $query = EmailLog::query()->select(['id','member_id', 'to','cc', 'bcc','subject', 'sent_at','created_at']);
             $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
@@ -75,9 +75,7 @@ class CommunicationController extends Controller
                     $query->whereRaw("JSON_CONTAINS(`to`, '\"{$keyword}\"') OR `to` LIKE ?", ["%{$keyword}%"]);
                 })
 
-                ->editColumn('member_id', function ($row) {
-                    return $row->member_id ?? '';
-                })
+                
                 ->filterColumn('member_id', function ($query, $keyword) {
                      $query->where('member_id', 'like', "%{$keyword}%");
                 })
@@ -100,7 +98,7 @@ class CommunicationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'to_email', 'ref','date_time','member_id'])
+                ->rawColumns(['action', 'to_email', 'ref','date_time'])
                 ->make(true);
         }
         return view('admin.reports.communication.communications');
