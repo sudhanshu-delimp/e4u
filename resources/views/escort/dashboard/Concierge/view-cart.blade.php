@@ -43,41 +43,45 @@
         .cardImage img {
             height: 40px !important;
         }
-        .modal-lg{
-            
-        max-width: 600px;
+
+        .modal-lg {
+
+            max-width: 600px;
         }
 
-        
+
 
         /* Card */
-        
+
         .thank-you-card {
             border-radius: 20px;
             padding: 40px 20px;
             text-align: center;
         }
+
         /* Image */
-        
+
         .thank-you-card img {
             width: 120px;
             margin-bottom: 20px;
         }
+
         /* Title */
-        
+
         .thank-you-card h2 {
             margin: 10px 0;
             font-size: 24px;
         }
+
         /* Text */
-        
+
         .thank-you-card p {
             color: #666;
             font-size: 14px;
             margin-bottom: 25px;
         }
+
         /* Buttons */
-        
     </style>
     <script src="https://cdn.pinpayments.com/pin.v2.js"></script>
 @endsection
@@ -138,13 +142,13 @@
                     </div>
                 </li>
 
-                {{-- <li id="pro-step-3">Payment
+                <li id="pro-step-3">Transaction Summary
                     <div class="pro-status-bar pro-status-bar--success">
                         <div class="pro-status-bar__bar" id="bar3"></div>
                     </div>
-                </li> --}}
+                </li>
 
-                <li id="pro-step-3">Payment Status
+                <li id="pro-step-4">Payment Status
                 </li>
             </ul>
         </div>
@@ -197,8 +201,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button class="btn-common" onclick="next()">Next <i
-                        class="fas fa-arrow-right text-white pl-2"></i></button>
+                <button class="btn-common" onclick="next()">Next <i class="fas fa-arrow-right text-white pl-2"></i></button>
             </div>
         </div>
 
@@ -373,9 +376,8 @@
                     <div class="my-3 text-right d-flex justify-content-between flex-wrap gap-20">
 
                         <button onclick="prev()" class="btn-common" id="btnBack"> <i
-                                class="fas fa-arrow-left text-white pr-2"></i>
-                            Back</button>
-                        <button onclick="next()" class="btn-common" id="processOrder">Proceed to Checkout</button>
+                                class="fas fa-arrow-left text-white pr-2"></i> Back</button>
+                        <button onclick="next()" class="btn-common">Next</button>
 
                     </div>
                 </div>
@@ -386,16 +388,65 @@
         </div>
 
         <!-- Step 4 -->
-        <div id="step3" class="step-content text-center py-5">
+        <div id="step3" class="step-content text-center py -5  border-0" style="background-color: #f3f3f3">
+            <div class="row">
+
+                <div class="col-lg-12 col-sm-12 col-md-12 right-sidebar-bg" style="background: none">
+                    <div class="card p-4">
+                        <div class="paymnt_summery mb-3 summary-bg d-flex align-items-center justify-content-between">
+                            <h4 class="mb-0">Transaction Summary</h4>
+                            <div class="member-id">
+                                <span class="pr-2 "><i class="fa fa-user"></i></span>
+                                <span>Member ID: {{ auth()->user()->member_id }}</span>
+                            </div>
+                        </div>
+                        <div id="transactionLoader"
+                            style="display:none; text-align:center; padding:20px; font-weight: 300; position: absolute;  left: 42% !important;top: 80% !important">
+                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle ">
+                                <thead class="summary-bg text-white text-left">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Product</th>
+                                        <th>Unit Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="transaction_summary">
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Replace with your image -->
+            <div class="my-3 text-right d-flex justify-content-between flex-wrap gap-20">
+                <button onclick="prev()" class="btn-common" id="btnBack"> <i
+                        class="fas fa-arrow-left text-white pr-2"></i>Back</button>
+                <button onclick="next()" class="btn-common" id="processOrder">Proceed to Checkout</button>
+
+            </div>
+        </div>
+        <div id="step4" class="step-content text-center py-5">
             <div class="thank-you-card">
-                    <!-- Replace with your image -->
+                <!-- Replace with your image -->
                 <img src="{{ asset('assets/dashboard/img/success.png') }}" alt="order">
 
-            <h2>Order Completed</h2>
-            <p>Thank you for your purchase!</p>
-            <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white"> View
-                    Orders</a></button>
-            <button onclick="finish()" class="btn-common">Finish</button>
+                <h2>Order Completed</h2>
+                <p>Thank you for your purchase!</p>
+                <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white">
+                        View
+                        Orders</a></button>
+                <button onclick="finish()" class="btn-common">Finish</button>
             </div>
         </div>
 
@@ -424,7 +475,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src=" {{asset("assets/app/img/newcross.png")}}"
+                            <img src=" {{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -447,9 +498,8 @@
     </div>
 
 
-    <div class="modal fade upload-modal" id="process-payment-modal" tabindex="-1" aria-labelledby="renew_discountLabel" data-backdrop="static"
-     data-keyboard="false"
-        aria-hidden="true">
+    <div class="modal fade upload-modal" id="process-payment-modal" tabindex="-1" aria-labelledby="renew_discountLabel"
+        data-backdrop="static" data-keyboard="false" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -469,25 +519,33 @@
                                 <!-- Order Summary -->
                                 <div class="order_summary_adjustment">
                                     <p><strong>Order Summary</strong></p>
-                                    <div class="d-flex justify-content-between mb- 2">
+                                    <div class="d-flex justify-content-between mb-2">
                                         <span>Subtotal:</span>
                                         <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                     </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Wallet Used:</span>
+                                        <span id="walletUsed"> {{ formatCurrency(0) }}</span>
+                                    </div>
+
+                                    <hr>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Total Fee:</span>
+                                        <span id="total_fee"> {{ formatCurrency(0) }}</span>
+                                    </div>
+
                                     <div class="d-flex justify-content-between align-items-center">
                                         <strong>GST (Inclusive):</strong>
                                         <strong class="taxAmount" style="border: none">$1.20</strong>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center  mb-2">
                                         <strong>Delivery Charge:</strong>
                                         <strong class="deliveryCharge"
                                             style="border-bottom:1px solid">{{ formatCurrency(0) }}</strong>
 
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb- 2">
-                                        <span>Wallet Used:</span>
-                                        <span id="walletUsed"> {{ formatCurrency(0) }}</span>
-                                    </div>
+
 
                                     <div class="d-flex justify-content-between align-items-center">
                                         <strong>Total Due:</strong>
@@ -664,7 +722,8 @@
                                         {{-- <button onclick="prev()" class="btn-common" id="btnBacklast"> <i
                                                 class="fas fa-arrow-left text-white pr-2"></i>
                                             Back</button> --}}
-                                        <button type="button" class="btn-common" id="makeOrder">Pay Now</button>
+                                        <button type="button" class="btn-success-modal btn-block" id="makeOrder">Pay
+                                            Now</button>
 
                                         {{-- <button type="submit" name="action" value="pay_now" class="btn-success-modal btn-block">
                                             Pay Now
@@ -724,6 +783,7 @@
                 success: function(response) {
                     $("#loader").hide();
                     $(".table-content").html(response.html);
+                    getCheckedCheckBox();
                     calculateTotals();
                 },
 
@@ -761,6 +821,61 @@
                 }
             });
         }
+
+
+
+        function loadTransactionSummary() {
+            let details = getDeliveryDetails();
+
+            let shipping = details.delivery_type;
+            $("#transactionLoader").show();
+            $.ajax({
+                url: "{{ route('escort.transaction.summary') }}",
+                type: "POST",
+                data: {
+                    ids: productIds,
+                    cart: cart,
+                    shipping: shipping,
+                    finalCart: finalCart,
+                    _token: "{{ csrf_token() }}"
+                },
+
+                success: function(response) {
+                    $("#transactionLoader").hide();
+                    $(".transaction_summary").html(response.html);
+                },
+                error: function(xhr, status, error) {
+                    $("#transactionLoader").hide();
+                    // Handle unauthorized
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Unauthorized",
+                            text: "Your login session expired. Please log in again."
+                        });
+                        return;
+                    }
+
+                    // Handle 500 server error
+                    if (xhr.status === 500) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Server Error",
+                            text: "Something went wrong on the server. Try again later."
+                        });
+                        return;
+                    }
+
+                    $("#transactionLoader").hide();
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Something went wrong. Please try again."
+                    });
+                }
+            });
+        }
         let steps = localStorage.getItem('checkout_step_' + loginUserId);
         // console.log(steps);
         if (steps == 1 || steps == null) {
@@ -782,6 +897,19 @@
             // Call calculation function
             calculateTotals();
         });
+
+        function removeItemFromCart(id) {
+
+            let cart = getCart(); // your function that returns cart object
+            let finalCart = getFinalCart();
+            delete cart[id];
+            delete finalCart[id];
+
+            localStorage.setItem('cart_' + loginUserId, JSON.stringify(cart));
+            localStorage.setItem('finalCart_' + loginUserId, JSON.stringify(finalCart));
+
+
+        }
 
         function calculateTotals() {
             let grandTotal = 0;
@@ -834,7 +962,6 @@
 
         $(document).on("change", ".product-check", function() {
             let finalCart = getFinalCart();
-
             let id = $(this).data("id");
             if (this.checked) {
                 if (!finalCart.includes(id))
@@ -842,13 +969,27 @@
             } else {
                 finalCart = finalCart.filter(itemId => itemId !== id);
             }
+            // getCheckedCheckBox();
             saveFinalCart(finalCart);
+
             calculateTotals();
 
         });
 
+
+        function getCheckedCheckBox() {
+            let total = $('.product-check').length;
+            let checked = $('.product-check:checked').length;
+
+            if (total > 0)
+                $('#select-all').prop('checked', total == checked);
+        }
+
+
+
         function next() {
             if (step === 1) {
+
                 let finalCart = getFinalCart();
 
                 if (Object.keys(finalCart).length === 0) {
@@ -894,6 +1035,19 @@
                 card.address_state = "{{ $state }}";
                 card.address_country = "{{ $country }}";
                 saveCardBilling(card);
+                updateOrderSummary();
+
+                loadTransactionSummary();
+                step = 3;
+                localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
+
+                step2.classList.remove("is-active");
+                bar2.style.width = "100%"; // fill progress bar
+                step2.classList.add("is-active");
+
+
+            } else if (step === 3) {
+                updateDeliveryAddress();
                 updateOrderSummary();
 
 
@@ -1030,11 +1184,11 @@
                         $(".modal-backdrop").remove();
 
                         Swal.fire(response.message, '', 'success');
-                        step = 3;
+                        step = 4;
                         localStorage.setItem("checkout_step_" + loginUserId, step);
 
-                        step2.classList.remove("is-active");
-                        bar2.style.width = "100%";
+                        step3.classList.remove("is-active");
+                        bar3.style.width = "100%";
                         step3.classList.add("is-active");
                         showStep();
                         flushLocalStorage();
@@ -1131,7 +1285,6 @@
         }
         document.addEventListener("DOMContentLoaded", function() {
             let savedStep = localStorage.getItem("checkout_step_" + loginUserId);
-
             if (savedStep) {
                 step = parseInt(savedStep);
             } else {
@@ -1149,7 +1302,9 @@
                 updateOrderSummary();
 
             }
-
+            if (savedStep == 3) {
+                loadTransactionSummary();
+            }
 
             applyStepUI(step);
         });
@@ -1218,11 +1373,10 @@
             }
 
             let total = subtotal + deliveryCharge;
-            let gst = subtotal * tax / 100; // 10% GST
-
+            let gst = subtotal * tax / 100; //GST
             // set amount details after calculation in html format
             $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
-            // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
+            $("#total_fee").text("$ " + subtotal.toFixed(2));
             $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
             $(".taxAmount").text("$" + gst.toFixed(2));
             $(".totalDue").text("$" + total.toFixed(2));
@@ -1277,9 +1431,11 @@
                 step1.classList.add("is-active");
                 bar1.style.width = "0%"; // reset bar
                 loadProducts();
+                // getCheckedCheckBox();
             } else if (step === 3) {
                 // move to 1 step because if yopu are at 3 that's mean order is completed
-
+                updateDeliveryAddress();
+                // updateOrderSummary();
                 step = 2;
                 localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
@@ -1430,7 +1586,7 @@
                 }
                 // Update UI
                 $(".taxAmount").text("$" + gst_amount.toFixed(2));
-                // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
+                $("#total_fee").text("$ " + subtotal.toFixed(2));
                 $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));
@@ -1461,5 +1617,6 @@
 
 
         })
+        getCheckedCheckBox();
     </script>
 @endpush

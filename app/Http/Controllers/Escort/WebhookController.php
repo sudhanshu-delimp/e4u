@@ -119,9 +119,12 @@ class WebhookController extends Controller
     try {
       Log::info("handle payment status");
       $paymentHistory =  PaymentHistory::where('transaction_id', $paymentObject['token'])->first();
-      $paymentHistory->status = $paymentObject['success'] ? 'success' : 'failed';
-      $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $paymentObject['created_at'];
-      $paymentHistory->save();
+      if ($paymentHistory) {
+        $paymentHistory->status = $paymentObject['success'] ? 'success' : 'failed';
+        $paymentHistory->paid_at = $handleWalletAmount['captured_at'] ?? $paymentObject['created_at'];
+        $paymentHistory->save();
+      }
+
 
       Log::info("payment status update");
       // update order status
