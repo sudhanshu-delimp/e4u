@@ -74,6 +74,13 @@ class CommunicationController extends Controller
                 ->filterColumn('to_email', function ($query, $keyword) {
                     $query->whereRaw("JSON_CONTAINS(`to`, '\"{$keyword}\"') OR `to` LIKE ?", ["%{$keyword}%"]);
                 })
+
+                ->editColumn('member_id', function ($row) {
+                    return $row->member_id ?? '';
+                })
+                ->filterColumn('member_id', function ($query, $keyword) {
+                     $query->where('member_id', 'like', "%{$keyword}%");
+                })
                 ->addColumn('action', function ($row) {
                     $actions = [];
                     $status = $row->status ?? null;
@@ -93,7 +100,7 @@ class CommunicationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'to_email', 'ref','date_time'])
+                ->rawColumns(['action', 'to_email', 'ref','date_time','member_id'])
                 ->make(true);
         }
         return view('admin.reports.communication.communications');

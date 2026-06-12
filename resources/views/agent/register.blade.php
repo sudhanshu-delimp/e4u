@@ -44,7 +44,7 @@
                                     aria-describedby="emailHelp" name="name" value="{{ old('name') }}" required
                                     autocomplete="name" placeholder="Name"
                                     data-parsley-required-message="Your Name is required"
-                                    data-parsley-pattern="/^([a-z ])+([ a-z ])+([ 0-9a-z ]+)$/i">
+                                    data-parsley-pattern="/^[a-z0-9\s\-\(\)]+$/i">
                                 <div class="termsandconditions_text_color">
                                     @error('name')
                                         <strong>{{ $message }}</strong>
