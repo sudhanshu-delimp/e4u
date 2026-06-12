@@ -55,6 +55,7 @@
                         <thead class="table-bg">
                             <tr>
                                 <th>Ref</th>
+                                <th>Member ID</th>
                                 <th>Date & Time</th>
                                 <th>Recipient</th>
                                 <th>Subject</th>
@@ -179,6 +180,12 @@
             columns: [{
                     data: 'ref',
                     name: 'ref',
+                },
+                {
+                    data: 'member_id',
+                    name: 'member_id',
+                    searchable: true,
+                    orderable: true,
                 },
                 {
                     data: 'date_time',
