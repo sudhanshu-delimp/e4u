@@ -47,7 +47,7 @@ class CommunicationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = EmailLog::query()->select(['id', 'to','cc', 'bcc','subject', 'sent_at','created_at']);
+            $query = EmailLog::query()->select(['id','member_id', 'to','cc', 'bcc','subject', 'sent_at','created_at']);
             $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
@@ -73,6 +73,11 @@ class CommunicationController extends Controller
                 })
                 ->filterColumn('to_email', function ($query, $keyword) {
                     $query->whereRaw("JSON_CONTAINS(`to`, '\"{$keyword}\"') OR `to` LIKE ?", ["%{$keyword}%"]);
+                })
+
+                
+                ->filterColumn('member_id', function ($query, $keyword) {
+                     $query->where('member_id', 'like', "%{$keyword}%");
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
