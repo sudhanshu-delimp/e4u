@@ -49,6 +49,8 @@ class AddNewAgent extends FormRequest
             'state_id'        => 'required|exists:states,id',
             'agreement_date'  => 'required|date',
             'abn'             => 'nullable|digits_between:10,20',
+            'commission_advertising_type'  => 'required',
+            'commission_registration_type'  => 'required',
         ];
     }
     
@@ -57,9 +59,11 @@ class AddNewAgent extends FormRequest
     {
         return [
             'state_id.required'  => 'Please select your territory.',
-            'state_id.exists'  => 'Please select your territory.',
+            'state_id.exists'  => 'Please select your territory2.',
             'email2.required'  => 'The e4u email field is required.',
             'email2.unique'  => 'The e4u email has already been taken.',
+            'commission_advertising_type.required'  => 'Amount type field is required.',
+             'commission_registration_type.required'  => 'Amount type field is required.',
         ];
     }
 }

@@ -110,8 +110,11 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
-        var adv_commissionfee =  "{{$commissionfee[0]['percent']}}";
-        var massg_commissionfee =  "{{$commissionfee[1]['percent']}}";
+        var adv_commissionfee =  "{{$commissionfee[0]['amount']}}";
+        var massg_commissionfee = "{{$commissionfee[1]['amount']}}";
+
+        var commissionAdvertisingType = "{{$commissionfee[0]['amount_type']}}";
+        var commissionRegistrationType = "{{$commissionfee[1]['amount_type']}}";
         $(document).ready(function(e) {
             var table = $("#agent_data_table").DataTable({
                 language: {
@@ -502,15 +505,31 @@
                                        <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                                  </div>
 
-                                 <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_advertising_percent">Advertising Commission %</label>
-                                       <input class="form-control rounded-0"  name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? ''}">
+                                 <div class="col-3 mb-3">
+                                       <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                       <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? ''}" required>
                                  </div>
+                                 <div class="col-3 mb-3">
+                                        <label  <label lass="form-label" for="commission_advertising_type">Amount Type</label>>Amount Type</label>
+                                    <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
+                                        <option value="">Amount Type</option>
+                                       <option value="percent" ${agent_details?.commission_advertising_type == 'percent' ? 'selected' : ''}>Percent</option>
+                                        <option value="fixed" ${agent_details?.commission_advertising_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                    </select> 
+                                    </div>
 
-                                 <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_registration_amount">Massage Centre Commission %</label>
-                                       <input class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? ''}">
+                                 <div class="col-3 mb-3">
+                                       <label class="form-label" for="commission_registration_amount">Massage Centre</label>
+                                       <input type="number" min="0" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? ''}" required>
                                  </div>
+                                 <div class="col-3 mb-3">
+                                        <label  <label lass="form-label" for="commission_registration_type">Amount Type</label>>Amount Type</label>
+                                    <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
+                                        <option value="">Amount Type</option>
+                                        <option value="percent" ${agent_details?.commission_registration_type == 'percent' ? 'selected' : ''}>Percent</option>
+                                        <option value="fixed" ${agent_details?.commission_registration_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                    </select> 
+                                    </div>
 
                                  <!-- ==================== File Uploads ==================== -->
                                  <div class="col-6 mb-3">
@@ -823,15 +842,33 @@
                                              <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                                        </div>
 
-                                       <div class="col-6 mb-3">
-                                             <label class="form-label" for="commission_advertising_percent">Advertising Commission %</label>
-                                             <input class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
+                                       <div class="col-3 mb-3">
+                                             <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                             <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
                                        </div>
+                                        <div class="col-3 mb-3">
+                                             <label lass="form-label" for="commission_advertising_type">Amount Type</label>
+                                            <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
+                                            <option value="">Amount Type</option>
+                                            <option value="percent" ${commissionAdvertisingType == 'percent' ? 'selected' : ''} >Percent</option>
+                                            <option value="fixed" ${commissionAdvertisingType == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                        </select> 
+                                        <span class="text-danger error-commission_advertising_type"></span>
+                                        </div>
 
-                                       <div class="col-6 mb-3">
-                                             <label class="form-label" for="commission_registration_amount">Massage Centre Commission %</label>
-                                             <input class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
+                                       <div class="col-3 mb-3">
+                                             <label class="form-label" for="commission_registration_amount">Massage Centre</label>
+                                             <input type="number" min="0" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
                                        </div>
+                                        <div class="col-3 mb-3">
+                                             <label  class="form-label" for="commission_registration_type">Amount Type</label>
+                                         <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
+                                            <option value="">Amount Type</option>
+                                            <option value="percent" ${commissionRegistrationType == 'percent' ? 'selected' : ''}>Percent</option>
+                                            <option value="fixed" ${commissionRegistrationType == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                        </select>
+                                         <span class="text-danger error-commission_registration_type"></span>
+                                        </div>
 
                                        <!-- ==================== File Uploads ==================== -->
                                        <div class="col-6 mb-3">

@@ -290,7 +290,9 @@ class AgentRepository extends BaseRepository implements AgentInterface
                     'option_peroid' => $data['option_peroid'] ?? null,
                     'option_exercised' => $data['option_exercised'] ?? null,
                     'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
+                    'commission_advertising_type' => $data['commission_advertising_type'] ?? null,
                     'commission_registration_amount' => $data['commission_registration_amount'] ?? null,
+                    'commission_registration_type' => $data['commission_registration_type'] ?? null,
                     'agreement_file' => $agreement_file,
                     'signature_file' => $signature_file,
                 ]);
