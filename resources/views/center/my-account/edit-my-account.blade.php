@@ -209,7 +209,7 @@
                                                                     @if (auth()->user()->my_agent)
                                                                         {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}
                                                                     @else
-                                                                        <a
+                                                                        <a class="request_one"
                                                                             href="{{ url('/center-dashboard/agent-request') }}">
                                                                             Request one</a>
                                                                     @endif
@@ -316,7 +316,7 @@
 
 
                             @if(!is_parent_massage_user_switch())
-                            <div class="card">
+                            <div class="card  {{ canManageClass()}}">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#other_centre"
                                         aria-expanded="false">

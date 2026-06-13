@@ -405,7 +405,7 @@
                     display: block;
                     z-index: 100;
                     right: -198px;
-                    text-decoration: none
+                    text-decoration: none;
                 }
                 
                 .manage_toolkit_font {
@@ -812,7 +812,7 @@
                 }
                 
                 .pin-up-content .home_heading_first span {
-                    font-size: 24px;
+                    font-size: calc(16px, 2vw, 24px) !important;
                     line-height: 60px;
                     letter-spacing: -0.015em;
                     color: #FF3C5F;
@@ -1511,8 +1511,7 @@
                 .home_heading_first {
                     font-family: Poppins;
                     font-style: normal;
-                    /* font-weight: 500; */
-                    font-size: 48px;
+                    font-size: clamp(28px, 4vw, 48px) !important;
                     line-height: 48px;
                     color: #0C223D;
                     margin-bottom: 20px;
@@ -5418,15 +5417,15 @@ i.fa.fa-heart-o{
                 
                 .welcone_login_page_heading h1 {
                     font-family: Poppins;
-                    /* font-weight: 900; */
-                    font-size: 48px;
+                    font-size: clamp(25px, 4vw, 48px);
+                    line-height: 1.6;
                     color: #0c213c;
                 }
                 
                 .welcome_sub_login_heading {
                     font-family: Poppins;
-                    font-size: 25px;
-                    /* font-weight: 600; */
+                    font-size: clamp(18px, 3vw, 25px);
+                    font-weight: 600;
                     line-height: 36px;
                     color: #0c213c;
                 }
@@ -5869,6 +5868,13 @@ i.fa.fa-heart-o{
                     position: relative;
                 }
                 
+                .mc_profile_img .glightbox img {
+                    width: 305px;
+                    height: 374px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+                
                 .extra_img_wrapper .veryfy_img {
                     position: absolute;
                     width: 25px;
@@ -5881,6 +5887,7 @@ i.fa.fa-heart-o{
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    border-radius: 0px 0px 10px 0px;
                 }
                 
                 .extra_img_wrapper .veryfy_img img {
@@ -5896,6 +5903,7 @@ i.fa.fa-heart-o{
                     right: 0px;
                     background: var(--blue--text);
                     padding: 5px;
+                    border-radius: 0px 0px 10px 0px;
                 }
                 
                 .mc_profile_img .veryfy_img img {
@@ -6392,10 +6400,6 @@ i.fa.fa-heart-o{
                         height: 100px;
                         object-fit: fill;
                     }
-                    .mc_profile_img img {
-                        width: 100% !important;
-                        height: auto !important;
-                    }
                     .mc_profile_info {
                         flex-wrap: wrap;
                     }
@@ -6426,9 +6430,6 @@ i.fa.fa-heart-o{
                     .grid_list_part .col-12 {
                         flex-wrap: wrap;
                     }
-                    .search_btn_profile {
-                        width: 100%;
-                    }
                     .custom_total_list.dropdown {
                         border: 1px solid #5d6d7e;
                         width: 16em !important;
@@ -6438,12 +6439,6 @@ i.fa.fa-heart-o{
                     }
                     .custom-pagination ul li {
                         max-width: max-content;
-                    }
-                    .ryt_srch_btn {
-                        justify-content: flex-start;
-                    }
-                    .item_dis {
-                        width: 100% !important;
                     }
                     .slect__btn_tab {
                         display: flex;
@@ -6548,12 +6543,6 @@ i.fa.fa-heart-o{
                     align-items: center;
                     justify-content: space-between;
                     font-size: 16px !important;
-                }
-                
-                @media(max-width: 1024px) {
-                    .ryt_srch_btn {
-                        flex-wrap: wrap;
-                    }
                 }
                 
                 .border_for_form {
@@ -6745,7 +6734,7 @@ i.fa.fa-heart-o{
                     font-family: Poppins;
                     font-style: normal;
                     /* font-weight: bold; */
-                    font-size: 48px;
+                    font-size: clamp(28px, 4vw, 48px);
                     line-height: 48px;
                     color: #0C223D;
                     margin-bottom: 50px;
@@ -7061,7 +7050,7 @@ i.fa.fa-heart-o{
                 .custom--header,
                 .header--active {
                     position: sticky;
-                    top: 0;
+                    top: -1px;
                     z-index: 999;
                 }
                 
@@ -8929,27 +8918,7 @@ i.fa.fa-heart-o{
                     .footer_mange_padding .row>div:not(:first-child) {
                         padding-right: 3% !important;
                     }
-                    div.tip div {
-                        position: relative;
-                        display: inline-block;
-                        right: auto;
-                        padding: 8px 7px !important;
-                        width: fit-content;
-                        font-size: 12px;
-                    }
-                    /* .profile-list-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        } */
                 }
-                /* @media (max-width: 1200px) {
-        .profile-list-container {
-            max-width: 1140px;
-            margin: 0 auto;
-            width: 100%;
-        }
-    } */
                 
                 @media (min-width: 1200px) {
                     .grid.list-view .col-xl-4.self-w-26 {
@@ -9118,18 +9087,12 @@ i.fa.fa-heart-o{
                     .dropdown>a[aria-expanded="true"]::after {
                         transform: rotate(178deg);
                     }
-                    .welcone_login_page_heading h1 {
-                        font-size: 30px;
-                    }
                     .login_page_pt_pb_of_outer_section {
                         padding-top: 90px;
                         padding-bottom: 90px;
                     }
                     .innersection_padding_from_all_side {
                         padding: 30px;
-                    }
-                    .welcome_sub_login_heading {
-                        font-size: 22px;
                     }
                     .blue-bg-before::before {
                         background: none;
@@ -9174,22 +9137,15 @@ i.fa.fa-heart-o{
                         padding-top: 55px;
                     }
                     .home_heading_first {
-                        font-size: 30px;
                         line-height: 32px;
                     }
                     .site_second_heading h2 {
-                        font-size: 30px;
                         line-height: 32px;
                     }
                     .normal_heading {
                         font-size: 20px;
                         line-height: 27px;
                         margin-bottom: 0.5rem;
-                    }
-                    div.tip div {
-                        position: relative;
-                        display: inline-block;
-                        right: auto;
                     }
                     .content_bottom {
                         bottom: -200px;
@@ -9303,11 +9259,11 @@ i.fa.fa-heart-o{
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        flex-direction: column;
+                        flex-wrap: wrap;
                     }
                     .shop-box {
-                        width: 90% !important;
-                        margin: 12px 4px !important;
+                        width: 45% !important;
+                        margin: 12px 6px !important;
                     }
                 }
                 /* Portrait and Landscape */
@@ -9323,9 +9279,6 @@ i.fa.fa-heart-o{
                         padding: 8px 7px !important;
                         width: fit-content;
                     }
-                    /*.homebanner_bg{
-background-image:none;
-}*/
                     .profile-sidebar-margin-top {
                         margin-top: -95px
                     }
@@ -9385,19 +9338,12 @@ background-image:none;
                 /* Portrait and Landscape */
                 
                 @media screen and (max-width: 768px) {
-                    .welcone_login_page_heading h1 {
-                        font-size: 28px;
-                        margin-top: 20px;
-                    }
                     .login_page_pt_pb_of_outer_section {
                         padding-top: 50px;
                         padding-bottom: 50px;
                     }
                     .innersection_padding_from_all_side {
                         padding: 15px;
-                    }
-                    .welcome_sub_login_heading {
-                        font-size: 20px;
                     }
                     .regstractionform {
                         position: relative;
@@ -9598,7 +9544,6 @@ background-image:none;
                     }
                     .navbar-brand img {
                         width: 100px;
-                        height: 40px;
                     }
                     .navbar-toggler {
                         font-size: 0.9rem;
@@ -9640,9 +9585,9 @@ background-image:none;
                     .nav-item {
                         padding: 5px 0px;
                     }
-                    div.tip:hover div {
+                    /* div.tip:hover div {
                         left: 15px;
-                    }
+                    } */
                     .manage_toolkit_font {
                         font-size: 12px;
                     }

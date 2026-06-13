@@ -42,7 +42,7 @@
                 request()->segment(2) == 'upload-my-avatar') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit') }}">
+                <a class="collapse-item" href="{{ route('center.account.edit') }}">
 
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
@@ -59,7 +59,7 @@
                     <span style="{{ request()->segment(2) == 'change-password' ? 'color: #e5365a;' : '' }}">Change
                         password</span></a>
 
-                <a class="collapse-item {{ canManage() ? '': 'd-none'}}" href="{{ route('centre.notifications-and-features') }}">
+                <a class="collapse-item" href="{{ route('centre.notifications-and-features') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
 
                     <span
@@ -138,11 +138,12 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item " {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
+                      {{--   <a class="collapse-item {{ canManage() ? '': 'd-none'}}" {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
                             href="{{ route('center.profile') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
                             <span>New Profile</span>
                         </a>
+                    --}}
 
                         <a class="collapse-item {{ in_array(request()->segment(2), ['list', 'profile','update-profile']) ? 'menu-active' : '' }}"
                             href="{{ route('center.list') }}">
@@ -167,7 +168,7 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'create-new-masseur' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ canManage() ? '': 'd-none'}} {{ request()->segment(2) == 'create-new-masseur' ? 'menu-active' : '' }}"
                             href="{{ route('center.create-new-masseur') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
                             <span>New</span>

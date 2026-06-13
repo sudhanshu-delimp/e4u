@@ -1,0 +1,240 @@
+/* MC Profile Listings  */
+
+@media(max-width: 425px) {
+    /* navbar */
+    .navbar-brand img {
+        width: 100px;
+        height: unset;
+    }
+    .mc_card_container {
+        grid-template-columns: 1fr;
+    }
+    .mc_list_header,
+    .mc_list_address,
+    .social_media_icons {
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .mc_list_meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .mc_list_meta span {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    /* ec profile listing */
+    .padding_20_all_side_service_provider_list_view {
+        padding: 0px;
+    }
+    .box_shdow_service_provider_list_view {
+        box-shadow: unset !important;
+    }
+    .plat-inner .col-md-4 {
+        padding: 0px !important;
+        margin-bottom: 15px;
+    }
+    .list_gender_area,
+    .prof_desc {
+        margin: 10px 0px;
+    }
+    .custom-rate-type {
+        padding-left: 0px !important;
+    }
+    .custom--gender--area .gender .filter-pad {
+        font-weight: bold;
+    }
+    .list_provide_cruise .row .col-lg-4 {
+        padding-left: 15px;
+    }
+    .platinum-escort-list-view-custom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    a.back--search {
+        position: fixed;
+        right: 15px;
+        border-radius: 3px;
+        padding: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        z-index: 2;
+        top: 10%;
+    }
+    .profile_page_title {
+        display: flex;
+        align-items: center;
+        margin: 40px 0px 10px;
+    }
+    .profile_page_title h2 {
+        font-size: 20px;
+        line-height: 1.2;
+    }
+    .profile_page_name_and_phno p {
+        line-height: 1.2em;
+        font-size: 18px;
+    }
+    .profile_page_location_and_id p {
+        font-size: 16px;
+        line-height: 1.2;
+        margin-bottom: 0px;
+    }
+    .masseur_profile_wrapper .masseur_extra_img {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .masseur_profile_wrapper .masseur_extra_img img {
+        width: 100px;
+        height: unset;
+        object-fit: fill;
+    }
+    .add--list {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 25px;
+    }
+    .add--list div {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .custom_progress_wrapper {
+        text-align: center;
+        background: #f3f3f3;
+        padding: 20px 30px;
+        margin-bottom: 50px;
+        border-radius: 5px;
+    }
+    #sailorTable_length {
+        width: 100%;
+    }
+    .dataTables_wrapper .dataTables_filter {
+        width: 100%;
+        margin-left: auto;
+    }
+    .dataTables_wrapper .dataTables_filter label input {
+        width: 75% !important;
+    }
+    .ryt_srch_btn {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .slect__btn_tab {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px 5px;
+        flex-wrap: wrap;
+    }
+    .mc_type_btn {
+        display: flex;
+        justify-content: space-between;
+        flex: auto;
+        margin-top: 5px;
+    }
+    .shop-box-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .shop-box {
+        width: 90% !important;
+        margin: 12px 6px !important;
+    }
+    .mc_profile_img .glightbox img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .trikon_style:after {
+        position: absolute;
+        top: -18px;
+    }
+    .item_dis {
+        width: 100% !important;
+    }
+    .search__filter {
+        width: 100% !important;
+    }
+    .search_btn_profile {
+        width: unset;
+    }
+}
+
+@media (max-width:768px) {
+    .copy_right_footer_mange_padding {
+        padding: 0px 10px;
+    }
+    .set>a i {
+        float: right;
+        margin-top: 2px !important;
+    }
+    .text-md-right {
+        text-align: left !important;
+    }
+    .ryt_srch_btn div {
+        flex: content;
+    }
+}
+
+@media (min-width:425px) and (max-width: 991px) {
+    .masseur_profile_wrapper .masseur_extra_img img {
+        width: 100px;
+        height: unset;
+        object-fit: fill;
+    }
+    .d_custom_home_img {
+        aspect-ratio: 15 / 11;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width:1024px) {
+    div.tip div {
+        position: absolute;
+        right: 0;
+    }
+    .js_pinup_profile {
+        margin-bottom: 50px;
+    }
+    .ryt_srch_btn {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width:768px) and (max-width:1024px) {
+    .shop-box-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .shop-box {
+        width: 30% !important;
+        margin: 12px 6px !important;
+    }
+    .footer_mange_padding {
+        padding: 0px 5px;
+    }
+}
+
+@media (min-width:991px) and (max-width: 1300px) {
+    .home_heading_first {
+        font-size: clamp(24px, 3vw, 48px) !important;
+        margin-bottom: 0px;
+    }
+    .normal_heading {
+        margin-bottom: 0px;
+    }
+    .pvt_and_msg h2 {
+        font-family: calc(20px, 4vw, 30px);
+    }
+}

@@ -20,6 +20,20 @@
                                 <form id="pinup_profile_form" action="{{route('pinup.register','validate')}}" method="POST">
                                     @csrf
                                     <div class="form-group row">
+                                        <label class="col-sm-3" for=""> Tour:</label>
+                                        <div class="col-sm-9">
+                                            <select
+                                                class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
+                                                id="escort_tour_id" name="escort_tour_id"
+                                                data-parsley-errors-container="#escort_tour_id-errors" required
+                                                data-parsley-required-message="Select Tour">
+
+                                            </select>
+                                            <span id="profile-errors"></span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-3" for=""> Location:</label>
                                         <div class="col-sm-9">
                                             <select

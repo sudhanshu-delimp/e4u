@@ -75,14 +75,6 @@
             @endif
         </div>
         <div class="row">
-            {{-- <div class="col-md-12 custom-heading-wrapper">
-         @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
-         <h1 class="h1">New Profile</h1>
-         @else
-         <h1 class="h1">Update Profile</h1>
-         @endif
-         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-      </div> --}}
             <div class="col-md-12 mb-4" id="profile_and_tour_options">
                 <div class="card collapse" id="notes">
                     <div class="card-body">

@@ -78,26 +78,7 @@
                       <label class="required">Incident Date</label>
                       <input type="date" class="form-control" name="incident_date">
                   </div>
-                    {{-- <div class="col-lg-6">
-                        <div class="form-group row"> 
-                            <label class="col-sm-4" for="exampleFormControlSelect1"><span style="color:red">* </span>Stage Name:</label>
-                            <div class="col-sm-6">
-                                <input type="txt" class="form-control form-control-sm removebox_shdow" placeholder="Name" required name="name" value="" data-parsley-required-message="Please enter name">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4" for="exampleFormControlSelect1"><span style="color:red">* </span> State:</label>
-                            <div class="col-sm-6">
-                                <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="stateId" name="state_id" data-parsley-errors-container="#state-errors" required data-parsley-required-message="Select State">
-                                    <option value="">-Select-</option>
-                                    @foreach(config('escorts.profile.states') as $key => $state)
-                                    <option value="{{$key}}">{{ $state['stateName'] }}</option>
-                                    @endforeach
-                                </select>
-                                <span id="state-errors"></span>
-                            </div>
-                        </div>
-                    </div> --}}
+                    
                   <div class="form-group">
                       <label class="required">Incident State</label>
                       <select class="custom-select" name="incident_state" >
@@ -138,17 +119,6 @@
                         <option value="Assault">Assault</option>
                      </select>
                   </div>
-      
-                  {{-- <div class="form-group">
-                      <label>Platform</label>
-                      <input type="text" class="form-control" name="platform" placeholder="If known">
-                  </div>
-      
-                  <div class="form-group">
-                      <label>Profile Link</label>
-                      <input type="text" class="form-control" name="profile_link" placeholder="Link or Membership ID or Ref">
-                  </div> --}}
-      
                   <div class="form-group">
                       <label class="required">What Happened</label>
                       <textarea class="form-control" name="what_happened" rows="4"></textarea>

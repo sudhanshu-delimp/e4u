@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-
-use Laravel\Ui\Presets\React;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Agent\AddNewAgent;
+use App\Models\User;
+use App\Models\VariablAgentOperator;
 use App\Repositories\Agent\AgentInterface;
+use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class AgentController extends BaseController
 {
@@ -54,7 +54,9 @@ class AgentController extends BaseController
         
         //$lists = User::where('type','5')->get();
         //dd($lists);
-        return view('admin.management.agent');
+        
+        $commissionfee = VariablAgentOperator::all()->toArray();
+        return view('admin.management.agent',compact('commissionfee'));
 
     }
 

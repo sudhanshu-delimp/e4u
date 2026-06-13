@@ -15,6 +15,11 @@
                 <div href="#" class="tip mb-2 pinup-summary-img d_custom_pinup_img lg_icon_wrapper">
                     <img 
                     src="{{ !empty($user->defaultPinupImage)?asset($user->defaultPinupImage->path):asset('assets/app/img/home/home-demo.png') }}">
+                     @if ($escort->latestActiveBrb)
+                        <p class="pinup_brb_strip">BRB at <span>
+                                {{ date('h:i A d-m-Y', strtotime($escort->latestActiveBrb->selected_time)) }} <br>
+                                {{ $escort->latestActiveBrb->brb_note }}</span></p>
+                    @endif
                     <span class="memmber_info"><i class="fa fa-user"></i> Member ID: {{$escort->user->member_id}}</span>
                     @php 
                         $pinup_data  = get_escort_media_id_by_path($escort->user->defaultPinupImage->path);

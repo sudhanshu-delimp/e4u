@@ -53,7 +53,7 @@
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; padding: 10px 0px;">Login url:</td>
-                                    <td style="padding: 10px 0px 10px 10px">{{ config('app.url') }}</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{ route('agent.login') }}</td>
                                 </tr>
 
                             </table>

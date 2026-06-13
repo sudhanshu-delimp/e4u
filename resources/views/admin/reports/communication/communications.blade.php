@@ -55,6 +55,7 @@
                         <thead class="table-bg">
                             <tr>
                                 <th>Ref</th>
+                                <th>Member ID</th>
                                 <th>Date & Time</th>
                                 <th>Recipient</th>
                                 <th>Subject</th>
@@ -168,7 +169,7 @@
         var table = $("#communicationsReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref"
+                searchPlaceholder: "Search by Ref No., Member ID, or Email",
             },
             processing: true,
             serverSide: true,
@@ -181,6 +182,12 @@
                     name: 'ref',
                 },
                 {
+                    data: 'member_id',
+                    name: 'member_id',
+                    searchable: true,
+                    orderable: true,
+                },
+                {
                     data: 'date_time',
                     name: 'date_time',
                     searchable: false,
@@ -189,7 +196,7 @@
                 {
                     data: 'to_email',
                     name: 'to_email',
-                    searchable: false,
+                    //searchable: false,
                     orderable: false,
                 },
                 {

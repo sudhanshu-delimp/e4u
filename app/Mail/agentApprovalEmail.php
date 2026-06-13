@@ -22,7 +22,7 @@ class agentApprovalEmail extends Mailable
     public function build()
     {
 
-        return $this->from(env('MAIL_FROM_ADDRESS'))
+        return $this->from(config('mail.from.address'))
                 ->subject('Agent Approval Notification') 
                 ->markdown('emails.agent.agent_approval_email')
                 ->with('agent', $this->body);

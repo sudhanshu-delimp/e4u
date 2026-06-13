@@ -13,7 +13,7 @@
     <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px angle_bg_image  padding_bottom_eight_px">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-7 adverti_reg_page_padingto_bt">
+                <div class="col-lg-7 col-md-12 col-sm-12 adverti_reg_page_padingto_bt">
                     <div class="reg_info agent-registration">
                         {{-- <h2>Registration - Agent</h2> --}}
                         <div class=" pt-2 pb-5">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="reg_box_form_style col-lg-5 col-md-5">
+                <div class="reg_box_form_style col-lg-5 col-md-12 col-sm-12">
                     <div class="regstractionform">
                         <h4>Register Now - Earn Additional Income!</h4>
                         <form id="escort_registration" action="{{ route('agent.register') }}" method="post">
@@ -44,7 +44,7 @@
                                     aria-describedby="emailHelp" name="name" value="{{ old('name') }}" required
                                     autocomplete="name" placeholder="Name"
                                     data-parsley-required-message="Your Name is required"
-                                    data-parsley-pattern="/^([a-z ])+([ a-z ])+([ 0-9a-z ]+)$/i">
+                                    data-parsley-pattern="/^[a-z0-9\s\-\(\)]+$/i">
                                 <div class="termsandconditions_text_color">
                                     @error('name')
                                         <strong>{{ $message }}</strong>

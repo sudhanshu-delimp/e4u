@@ -85,10 +85,10 @@ class EscortRepository extends BaseRepository implements EscortInterface
     }
 
     protected function getOrderEscort($order_key)
-	{
-		$columns = ['id','profile_name','state_name','name','membership','start_date','created_at','status'];
+    {
+        $columns = ['id', 'profile_name', 'state_name', 'name', 'membership', 'start_date', 'created_at', 'status'];
         return $columns[$order_key];
-	}
+    }
 
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [])
     {
@@ -109,10 +109,10 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->orderBy($order, $dir)
             ->orderBy('membership', 'asc');
 
-        if($user_id != null){
+        if ($user_id != null) {
             $query = $query->where('user_id', $user_id);
         }
-          
+
         if ($search) {
 
             $query = $query->where($conditions)
@@ -135,13 +135,12 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 ->where('default_setting', '!=', 1);
 
             $result = $this->modifyEscorts($result->get(), $start);
-      
-            if($user_id != null){
+
+            if ($user_id != null) {
                 $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
-            }else{
+            } else {
                 $count =  $this->model->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
             }
-            
         }
 
         return [$result, $count];
@@ -161,7 +160,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->days_left = $item->days_left;
             $item->pro_name = $item->profile_name ? '<span id="brb_' . $item->id . '" >' . $item->profile_name : "NA";
             $item->city_name = $item->city ? $item->city->name : null;
-            $item->state_name = $item->state ? $item->state->iso2: null;
+            $item->state_name = $item->state ? $item->state->iso2 : null;
             $localTimeZone = getEscortTimezone($item);
             $mainPurchase = $item->mainPurchase;
             if ($item->enabled == 1) {
@@ -172,10 +171,10 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->enabled = "Draft";
             }
 
-            if($item->gender=='Transgender')
-            $item->stage_name = 'TS-'.$item->name;
+            if ($item->gender == 'Transgender')
+                $item->stage_name = 'TS-' . $item->name;
             else
-            $item->stage_name = $item->name;
+                $item->stage_name = $item->name;
             $item->phone = $item->phone ? $item->phone : "NA";
             $item->gender = $item->gender ? $item->gender : "NA";
             $item->membership_number = $item->membership ? $item->membership : 0;
@@ -190,23 +189,23 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->joined = $item->joined ? "<span class='times_circle_icon'><i class='far fa-check-circle'></i>
             </span>" : "<span class='check_circle_icon'><i class='far fa-times-circle'></i></span>";
             $item->action = '<div class="dropdown no-arrow text-center"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
-            if($item->enabled=='Inactive'){
+            if ($item->enabled == 'Inactive') {
                 $item->action .= '<a class="dropdown-item dropdown-item d-flex align-items-center justify-content-start gap-10" data-toggle="modal" data-target="#duplicate-profile-modal" href="#" data-id="' . $item->id . '" data-state="' . $item->state_id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Duplicate</a><div class="dropdown-divider"></div>';
-            } 
-           
+            }
+
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Edit</a><div class="dropdown-divider"></div>';
-            if($item->enabled=='Active'){
-            $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
+            if ($item->enabled == 'Active') {
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
             }
-            
-            if($item->latestActivePinup && empty($item->activeUpcomingSuspend)){
+
+            if ($item->latestActivePinup && empty($item->activeUpcomingSuspend)) {
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
             }
 
-            if($item->membership_number > 1 && $item->left_listing_days > 0){
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
-            }
+            // if($item->membership_number > 1 && $item->left_listing_days > 0){
+            //     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
+            // }
 
             $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
             $item->action .= '</div>';
@@ -214,75 +213,74 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $isExtended = $item->isListingExtended();
             $isBumpUped = $item->activeBumpup;
             $item->is_extended = $isExtended->count;
-            $item->is_bumpup = !empty($isBumpUped)?true:false;
+            $item->is_bumpup = !empty($isBumpUped) ? true : false;
             $itemArray = $item->toArray();
-           
+
 
             if ($itemArray['brb']) {
-                $item->pro_name = '<span id="brb_' . $item->id . '">' . $item->profile_name . " <sup class='brb_icon listing-tag-tooltip'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['selected_time']))."</small></sup>";
+                $item->pro_name = '<span id="brb_' . $item->id . '">' . $item->profile_name . " <sup class='brb_icon listing-tag-tooltip'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['selected_time'])) . "</small></sup>";
                 $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
-                
+
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 brb-inactivate" href="' . route('escort.brb.inactive', $itemArray['brb'][0]['id']) . '" data-id="' . $itemArray['brb'][0]['id'] . '" data-category="' . ($itemArray['brb'][0]['id']) . '"><i class="fa fa-ban" aria-hidden="true"></i>Cancel BRB</a><div class="dropdown-divider"></div>';
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Edit</a><div class="dropdown-divider"></div>';
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
-                if($item->enabled=='Active'){
+                if ($item->enabled == 'Active') {
                     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
                 }
-                if($item->latestActivePinup){
+                if ($item->latestActivePinup) {
                     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer" aria-hidden="true"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
                 }
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '?brb='.$itemArray['brb'][0]['id'].'" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '?brb=' . $itemArray['brb'][0]['id'] . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
                 $item->action .= '</div></div>';
             }
 
-            if($item->latestActivePinup){
+            if ($item->latestActivePinup) {
                 $item->pro_name .= '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
-                <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to ".date("d-m-Y", strtotime($item->latestActivePinup->end_date)).'</small>
+                <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($item->latestActivePinup->end_date)) . '</small>
                 </sup>';
             }
 
-            if(!empty($item->activeUpcomingSuspend) || $item->user->status == "Suspended"){
-                if($item->user->status == "Suspended"){
-                       $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+            if (!empty($item->activeUpcomingSuspend) || $item->user->status == "Suspended") {
+                if ($item->user->status == "Suspended") {
+                    $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
                 <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
                 </sup>';
                 } else {
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
-                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)).'</small>
+                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to " . date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)) . '</small>
                 </sup>';
-                
+                }
             }
-            }
-            
-            if($isExtended->count){
+
+            if ($isExtended->count) {
                 $item->pro_name .= '<sup class="extend_icon listing-tag-tooltip ml-1">Extended
-                <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($isExtended->data->start_date)) . " to ".date("d-m-Y", strtotime($isExtended->data->end_date)).'</small>
+                <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($isExtended->data->start_date)) . " to " . date("d-m-Y", strtotime($isExtended->data->end_date)) . '</small>
                 </sup>';
             }
-            
-            if($playmates){
-                $item->pro_name .= '<sup class="playmate_icon listing-tag-tooltip ml-1">'.$playmates;
-                $item->pro_name .= $playmates == 1 ? ' Playmate':' Playmates';
+
+            if ($playmates) {
+                $item->pro_name .= '<sup class="playmate_icon listing-tag-tooltip ml-1">' . $playmates;
+                $item->pro_name .= $playmates == 1 ? ' Playmate' : ' Playmates';
                 $item->pro_name .= '</sup>';
             }
 
-            if($mainPurchase && $mainPurchase->tour_location_id!=null){
+            if ($mainPurchase && $mainPurchase->tour_location_id != null) {
                 $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
-                <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to ".date("d-m-Y", strtotime($item->end_date)).'</small>
+                <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to " . date("d-m-Y", strtotime($item->end_date)) . '</small>
                 </sup>';
                 $item->tour = true;
             }
 
-            if($mainPurchase && $mainPurchase->parent_id > 0){
+            if ($mainPurchase && $mainPurchase->parent_id > 0) {
                 $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded
-                <small class="listing-tag-tooltip-desc">Upgraded from '.$mainPurchase->previous_membership_type.' to '.$mainPurchase->membership_type.' on '.getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y').'.</small>
+                <small class="listing-tag-tooltip-desc">Upgraded from ' . $mainPurchase->previous_membership_type . ' to ' . $mainPurchase->membership_type . ' on ' . getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y') . '.</small>
                 </sup>';
                 $item->tour = true;
             }
 
-            if($item->is_bumpup){
+            if ($item->is_bumpup) {
                 $item->pro_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
-                <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
+                <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to " . getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A') . '</small>
                 </sup>';
             }
             $item->start_date_formatted = $item->start_date;
@@ -559,14 +557,12 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
             $collection = $collection->where('gender', '=', $str['gender']);
             //->orWhere('name','LIKE','%'.$str)
-        }
-        else
-        {
-           
+        } else {
+
             if (!empty($str['interest'])) {
                 $interests = array_unique($str['interest']);
                 if (is_array($interests)) {
-                  $collection = $collection->whereIn('gender', $interests);
+                    $collection = $collection->whereIn('gender', $interests);
                 }
             }
         }
@@ -645,7 +641,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
 
         if (!empty($str['string'])) {
-            $play_type = $play_type->where('name', 'LIKE', "%".$str[string]."%");
+            $play_type = $play_type->where('name', 'LIKE', "%" . $str[string] . "%");
             //->orWhere('name','LIKE','%'.$str)
         }
 
@@ -793,34 +789,33 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return  $result;
     }
 
-    public function getExpiringListings($startDays = 0, $endDays = 0, $login=false)
+    public function getExpiringListings($startDays = 0, $endDays = 0, $login = false)
     {
         $startDate = Carbon::now()->addDays($startDays)->startOfDay();
         $endDate = Carbon::now()->addDays($endDays)->endOfDay();
-        if($login){
+        if ($login) {
             return $this->model
-            ->where('enabled', 1)
-            ->where('user_id', auth()->id())
-            ->whereBetween('utc_end_time', [$startDate, $endDate])
-            ->whereDoesntHave('mainPurchase', function ($query) {
-                $query->whereNotNull('tour_location_id');
-            })
-            ->whereHas('purchase', function ($query) {
-                $query->where('utc_end_time', '>', Carbon::now());
-            }, '<', 2)
-            ->get();
-        }
-        else{
+                ->where('enabled', 1)
+                ->where('user_id', auth()->id())
+                ->whereBetween('utc_end_time', [$startDate, $endDate])
+                ->whereDoesntHave('mainPurchase', function ($query) {
+                    $query->whereNotNull('tour_location_id');
+                })
+                ->whereHas('purchase', function ($query) {
+                    $query->where('utc_end_time', '>', Carbon::now());
+                }, '<', 2)
+                ->get();
+        } else {
             return $this->model
-            ->where('enabled', 1)
-            ->whereBetween('utc_end_time', [$startDate, $endDate])
-            ->whereDoesntHave('mainPurchase', function ($query) {
-                $query->whereNotNull('tour_location_id');
-            })
-            ->whereHas('purchase', function ($query) {
-                $query->where('utc_end_time', '>', Carbon::now());
-            }, '<', 2)
-            ->get();
+                ->where('enabled', 1)
+                ->whereBetween('utc_end_time', [$startDate, $endDate])
+                ->whereDoesntHave('mainPurchase', function ($query) {
+                    $query->whereNotNull('tour_location_id');
+                })
+                ->whereHas('purchase', function ($query) {
+                    $query->where('utc_end_time', '>', Carbon::now());
+                }, '<', 2)
+                ->get();
         }
     }
 }

@@ -752,7 +752,7 @@ margin-right: 5px;
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}"> 
+                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
@@ -768,9 +768,8 @@ margin-right: 5px;
                                             </button>
                                         </div>
                                         <div class="modal-body">
-
                                             <div class="masseur_profile_wrapper">
-                                                <div class="mc_profile_img">
+                                                {{-- <div class="mc_profile_img ">
 
                                                    @foreach ($messure_validImages as $index => $image)
                                                         @if($loop->first)
@@ -811,8 +810,94 @@ margin-right: 5px;
                                                             @endif
                                                         @endforeach
                                                         
+                                                </div> --}}
+                                                <div class="mc_profile_img">
+
+                                                    @foreach ($messure_validImages as $index => $image)
+                                                        @if($loop->first)
+
+                                                            @php
+                                                                $status_detail = getMediaVerificationDataBigIcon($image['img_data']->varified);
+                                                            @endphp
+
+                                                            <a href="{{ $image['url'] }}"
+                                                            class="glightbox"
+                                                            data-gallery="masseure-gallery">
+
+                                                                <img src="{{ $image['url'] }}"
+                                                                    class="img-responsive"
+                                                                    >
+                                                                <div class="hover-overlay">
+                                                                    <span>Click me!</span>
+                                                                </div>
+                                                            </a>
+
+                                                        @endif
+                                                    @endforeach
+
+                                                    <div class="veryfy_img">
+                                                        @if(isset($status_detail['icon']))
+                                                            <img src="{{ $status_detail['icon'] }}">
+                                                            <span class="common_shield_tooltip">
+                                                                {{ $status_detail['label'] }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="masseur_extra_img">
+
+                                                    @foreach ($messure_validImages as $index => $image)
+
+                                                        @if(!$loop->first)
+
+                                                            <div class="extra_img_wrapper">
+
+                                                                <a href="{{ $image['url'] }}"
+                                                                class="glightbox"
+                                                                data-gallery="masseure-gallery">
+
+                                                                    <img src="{{ $image['url'] }}"
+                                                                        class="img-responsive"
+                                                                        style="width: 108px;height: 119px;object-fit: cover; border-radius:10px">
+                                                                        <div class="hover-overlay">
+                                                                            <span>Click me!</span>
+                                                                        </div>
+                                                                </a>
+
+                                                                <div class="veryfy_img">
+                                                                    @php
+                                                                        $status_detail = getMediaVerificationDataSmallIcon($image['img_data']->varified);
+                                                                    @endphp
+
+                                                                    <img src="{{ $status_detail['icon'] }}">
+                                                                    <h6 class="gallery_shield_tooltip">
+                                                                        {{ $status_detail['label'] }}
+                                                                    </h6>
+                                                                </div>
+
+                                                            </div>
+
+                                                        @endif
+
+                                                    @endforeach
+
+                                                </div>
+
+                                                {{-- Hidden Images For Lightbox Navigation --}}
+                                                <div style="display:none;">
+
+                                                    @foreach ($messure_validImages as $image)
+
+                                                        <a href="{{ $image['url'] }}"
+                                                        class="glightbox"
+                                                        data-gallery="masseure-gallery">
+                                                        </a>
+
+                                                    @endforeach
+
+                                                </div>
                                                 <div class="masseur_content" style="">
 
                                                     <div>

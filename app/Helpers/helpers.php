@@ -1136,8 +1136,12 @@ if (!function_exists('formatMobileNumber')) {
 
 if (!function_exists('removeSpaceFromString')) {
     function removeSpaceFromString($number)
-    {
+    {  
         $number = trim((string) $number);
+         if ($number === '') {
+            return null;
+        }
+
         return preg_replace('/[^\p{N}]/u', '', $number);
     }
 }
@@ -2452,3 +2456,10 @@ if (!function_exists('is_parent_massage_user_switch')) {
     }
 }
 
+if (!function_exists('canManageClass')) 
+{
+    function canManageClass()
+    {
+        return canManage() ? '' : 'hide_element';
+    }
+}
