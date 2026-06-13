@@ -28,19 +28,34 @@ class AgentCommission extends Model
         return $this->morphTo();
     }
 
+    public function getAssignedAgent($userId = 0)
+    {
+        $user = User::with('assignedAgent')->where('id', $userId)->where('is_agent_assign', 1)->first();
+
+        if ($user && $user->assignedAgent) {
+            return $user->assignedAgent;
+        }
+
+        return false;
+    }
+
     /**
      * Calculate the agent commission
      * 
+     * @param \App\Models\User $userId
      * @param decimal $total
+     * @param string $feeFor
+    
      * @return array
      */
-    public function calculateCommission($total = 0, $feeFor = 'advertising')
+    public function calculateCommission($userId = 0, $total = 0, $feeFor = 'advertising')
     {
         $totalCommission = 0;
-        $amoutType = 'percent';
-        $agentCommission['total'] = 0;
+        $amountType = 'percent';
+        $agentCommission['total_commission'] = 0;
         $agentCommission['commission'] = 0;
-        $agentCommission['amoutType'] = '';
+        $agentCommission['amount_type'] = '';
+        $agentCommission['purchase_amount'] = $total;
 
         $commission = 0;
         if ($total > 0) {
@@ -48,10 +63,10 @@ class AgentCommission extends Model
             $commission = 5;
             if ($variable) {
                 $commission = $variable->amount;
-                $amoutType = $variable->amount_type;
+                $amountType = $variable->amount_type;
             }
 
-            if ($amoutType == 'percent') {
+            if ($amountType == 'percent') {
                 $totalCommission = ($total * $commission) / 100;
             } else {
                 $totalCommission = $commission;
@@ -59,9 +74,9 @@ class AgentCommission extends Model
 
             $totalCommission = number_format($totalCommission, 2, '.', '');
 
-            $agentCommission['total'] = $totalCommission;
+            $agentCommission['total_commission'] = $totalCommission;
             $agentCommission['commission'] = $commission;
-            $agentCommission['amoutType'] = $amoutType;
+            $agentCommission['amount_type'] = $amountType;
         }
         return $agentCommission;
     }

@@ -1027,5 +1027,11 @@ class User extends Authenticatable
         // Child direct login
         return false;
     }
+
+
+public function assignedAgent()
+{
+    return $this->belongsTo(AgentDetail::class, 'assigned_agent_id', 'agent_id');
+}
                 
 }
