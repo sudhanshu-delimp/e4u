@@ -13,6 +13,9 @@
     z-index: 2;
     color: #6c757d;
 }
+.list_badge_class {
+    padding: 5px 10px 5px 10px !important;
+}
     </style>
 @stop
 @section('content')

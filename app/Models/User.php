@@ -2,30 +2,31 @@
 
 namespace App\Models;
 
-use Exception;
+use App\Models\AccountSetting;
+use App\Models\AgentBankDetail;
 use App\Models\AgentDetail;
 use App\Models\AgentSetting;
 use App\Models\EscortSetting;
-use App\Models\ViewerSetting;
-use App\Models\AccountSetting;
 use App\Models\MassageSetting;
-use App\Models\AgentBankDetail;
-use App\Models\PasswordSecurity;
+use App\Models\Notification;
 use App\Models\Operator;
 use App\Models\OperatorDetail;
 use App\Models\OperatorSetting;
 use App\Models\OperatorStaffDetail;
 use App\Models\OperatorStaffSetting;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Log;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
+use App\Models\PasswordSecurity;
 use App\Models\ViewerNotificationSetting;
+use App\Models\ViewerSetting;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -1027,6 +1028,12 @@ class User extends Authenticatable
 
         // Child direct login
         return false;
+    }
+
+
+    public function user_support_notification()
+    {
+         return $this->hasMany(Notification::class, 'to_user', 'id');
     }
                 
 }

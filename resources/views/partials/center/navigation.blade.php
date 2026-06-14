@@ -136,6 +136,23 @@
                             @endif
                         </li>
 
+
+                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
+                                <span class="esc-tooltip esc-tooltip-support">Other Centre Support Tickets</span>
+                            <a class="nav-link dropdown-toggle other_support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Other Centre Support tickets">
+                                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
+                            </a>
+                            
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="ticketNotificationDropdown">
+                                    <h6 class="dropdown-header">Other Centre Support Ticket Alert</h6>
+                                    <div class="other_support_notify_html">
+                                       <div class="text-center">No new notification</div>
+                                    </div>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
                                 <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
                             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
