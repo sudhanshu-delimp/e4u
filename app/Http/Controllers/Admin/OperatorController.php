@@ -111,7 +111,7 @@ class OperatorController extends BaseController
      * View operator list
      */
     public function operator_list()
-    {
+    { $commissionfee = VariablAgentOperator::all()->toArray();
         $countryNotAssignToOperator = (new Operator)->getCountryNotAssignToOperator();
         $fees = VariablAgentOperator::get();
         $feeMassage = "";
@@ -120,15 +120,15 @@ class OperatorController extends BaseController
         if($fees->count() > 0) {
             $msFee = $fees->where('id',2)->first();
             if($msFee) {
-               $feeMassage = $msFee->percent; 
+               $feeMassage = $msFee->amount; 
             }
 
             $advFee = $fees->where('id',1)->first();
             if($advFee) {
-               $feeAdvertising = $advFee->percent; 
+               $feeAdvertising = $advFee->amount; 
             }
         }
-        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising', 'countryNotAssignToOperator'));
+        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising', 'countryNotAssignToOperator', 'commissionfee'));
     }
 
     /**

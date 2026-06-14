@@ -10,7 +10,9 @@
     $countries = config('operator.country');
     $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
 
-    $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator->operator_detail->agreement_file : '';
+    $agreement_file = isset($operator->operator_detail->agreement_file)
+        ? $operator->operator_detail->agreement_file
+        : '';
 @endphp
 <style>
     /* Chrome, Safari, Edge, Opera */
@@ -25,7 +27,8 @@
         -moz-appearance: textfield;
     }
 </style>
-<form name="add_operator" id="edit_operator" method="POST" action="{{ route('admin.store-operator') }}" enctype="multipart/form-data">
+<form name="add_operator" id="edit_operator" method="POST" action="{{ route('admin.store-operator') }}"
+    enctype="multipart/form-data">
     <div class="row">
         <!-- Section: Personal Details -->
         <div class="col-12 my-2">
@@ -83,7 +86,8 @@
         <div class="col-6 mb-3">
             <label class="form-check-label" for="phone">Mobile</label>
             <input type="text" class="form-control rounded-0" name="phone" id="phone"
-                oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14" value="{{ $operator->phone }}" onfocus="this.value = this.value.replace(/\D/g,'');">
+                oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14" value="{{ $operator->phone }}"
+                onfocus="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">
@@ -162,11 +166,12 @@
         </div>
         <div class="col-6 mb-3">
             <input type="file" name="agreement_file" id="agreement_file">
-             <span class="text-danger error-agreement_file"></span>
+            <span class="text-danger error-agreement_file"></span>
         </div>
         <div class="col-6 mb-3 my-auto text-right">
-            @if(!empty($agreement_file))
-            <a href="{{ asset('storage') }}/{{$agreement_file}}" target="_blank" title="Click here to dowload or view agreement file." download>View Agreement</a>
+            @if (!empty($agreement_file))
+                <a href="{{ asset('storage') }}/{{ $agreement_file }}" target="_blank"
+                    title="Click here to dowload or view agreement file." download>View Agreement</a>
             @endif
         </div>
     </div>
@@ -176,18 +181,44 @@
             <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
         </div>
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="viewer_contact_type_1">Advertising</label>
-            <input class="form-control rounded-0" placeholder="Advertising" name="commission_advertising_percent"
+            <label class="form-label" for="commission_advertising_percent">Advertising</label>
+            <input type="number" min="0" step="0.01" class="form-control rounded-0" placeholder="Advertising" name="commission_advertising_percent"
                 id="commission_advertising_percent" maxlength="10"
                 value="{{ $operator->operator_detail->commission_advertising_percent }}">
             <span class="text-danger error-commission_advertising_percent"></span>
         </div>
+
         <div class="col-6 mb-3">
-            <label class="form-check-label" for="viewer_contact_type_1">Massage Centre (Registrations)</label>
-            <input class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
+            <label lass="form-label" for="advertising_commission_type">Amount Type</label>
+            <select class="form-control rounded-0" name="advertising_commission_type"
+                id="advertising_commission_type">
+                <option value="">Amount Type</option>
+                <option value="percent" {{$operator->operator_detail?->advertising_commission_type=='percent' ? 'selected' : '' }}>
+                    Percent</option>
+                <option value="fixed"{{$operator->operator_detail?->advertising_commission_type=='fixed' ? 'selected' : '' }}>Fixed
+                </option>
+            </select>
+            <span class="text-danger error-advertising_commission_type"></span>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="commission_massage_centre_percent">Massage Centre (Registrations)</label>
+            <input type="number" min="0" step="0.01" class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
                 name="commission_massage_centre_percent" id="commission_massage_centre_percent" maxlength="10"
                 value="{{ $operator->operator_detail->commission_massage_centre_percent }}">
             <span class="text-danger error-commission_massage_centre_percent"></span>
+        </div>
+
+         <div class="col-6 mb-3">
+            <label lass="form-label" for="massge_centre_commission_type">Amount Type</label>
+            <select class="form-control rounded-0" name="massge_centre_commission_type"
+                id="massge_centre_commission_type">
+                <option value="">Amount Type</option>
+                <option value="percent" {{$operator->operator_detail?->massge_centre_commission_type=='percent' ? 'selected' : '' }}>
+                    Percent</option>
+                <option value="fixed"{{$operator->operator_detail?->massge_centre_commission_type=='fixed' ? 'selected' : '' }}>Fixed
+                </option>
+            </select>
+            <span class="text-danger error-massge_centre_commission_type"></span>
         </div>
     </div>
 
