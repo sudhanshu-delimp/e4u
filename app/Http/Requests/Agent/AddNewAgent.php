@@ -33,7 +33,7 @@ class AddNewAgent extends FormRequest
                 'phone' => preg_replace('/\D/', '', $this->input('phone')),
             ]);
         }
-    }
+   }
 
 
     public function rules(Request $request)
@@ -49,7 +49,6 @@ class AddNewAgent extends FormRequest
             'email2'          => 'required|email|max:255|unique:users,email2,' . $agentId,
             'state_id'        => 'required|exists:states,id',
             'agreement_date'  => 'required|date',
-            'abn'             => 'nullable|digits_between:10,20',
             'commission_advertising_type'  => 'required',
             'commission_registration_type'  => 'required',
             'commission_advertising_percent' => [
@@ -73,6 +72,8 @@ class AddNewAgent extends FormRequest
                     }
                 },
             ],
+            //'abn' => 'nullable|digits_between:10,20',
+            'abn' => 'required|digits:11',
         ];
     }
 
@@ -88,6 +89,8 @@ class AddNewAgent extends FormRequest
             'commission_registration_type.required'  => 'Amount type field is required.',
             'commission_advertising_percent.required'  => 'The advertising commission field is required.',
             'commission_registration_amount.required'  => 'The registration commission field is required.',
+            'abn.digits' => 'The ABN must contain only digits (0-9) and 11 digits long.',
+            'abn.digits_between' => 'The ABN must contain only digits (0-9) and be between 10 and 20 digits long.'
         ];
     }
 }
