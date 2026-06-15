@@ -214,11 +214,8 @@ class ProductOrderController extends Controller
         OrderAddress::create($orderAddressShipping);
         OrderAddress::create($orderAddressBilling);
       }
-      DB::commit();
-
 
       // prepare metdata for product order
-
       $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $order->id)->first();
       $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
       if (empty($order))
@@ -247,16 +244,17 @@ class ProductOrderController extends Controller
         // make payment using charge method
         $response = $pinPaymentService->charge($data['pin_token'], $totalPayable, $biilingAddress->email, $description, $metadata);
         if ($response['status'] === false) {
+          DB::rollBack();
           return response()->json(['status' => false, 'message' => $response['error'], 'errors' => $response['errors']]);
         } else if ($response['status'] === true) {
           // store payment history 
+          DB::commit();
           $pinPaymentService->handlePaymentHistory($response['data']['response']);
           return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
         }
       } else {
-        
-        Log::info("wallet transaction");
 
+        // Log::info("wallet transaction");
         $customTransactionId = Str::random(20); // 20-character random string
         PaymentHistory::create(
           [
@@ -286,10 +284,12 @@ class ProductOrderController extends Controller
         // dispatch job to send product order related mail 
         $customPaymentObject['metadata']['order_id'] = $order->id;
         SendProductPurchaseMail::dispatch($customPaymentObject);
+        DB::commit();
 
         return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
       }
     } catch (\Exception $e) {
+      DB::rollBack();
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
   }
@@ -305,14 +305,17 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::with('paymentDetails', 'user')->where('user_id',Auth::user()->id)->orderBy('created_at', 'DESC');
+    $query = ProductOrder::with(['paymentDetails', 'user', 'createdBy'])->where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC');
     $classes = config('escorts.payment_status');
-       $classesOrder = config('escorts.order_status');
+    $classesOrder = config('escorts.order_status');
     $orderStatus = config('escorts.order_status_labels');
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
         return  date('d M Y, h:i A', strtotime($row->order_date));
+      })
+      ->addColumn('agent', function ($row) {
+        return  $row->createdBy ? $row->createdBy->name : '--';
       })
       ->addColumn('total_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';

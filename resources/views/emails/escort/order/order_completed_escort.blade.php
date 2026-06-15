@@ -37,7 +37,7 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;">Dear Member,</p>
+                            <p style="margin: 0 0 15px 0;"><b>Dear Member,</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
 
