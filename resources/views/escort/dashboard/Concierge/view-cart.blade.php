@@ -280,11 +280,14 @@
                                     <!-- Special Instructions -->
 
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-                                        <input type="radio" name="delivery_type" id="door" value="door"
-                                            required checked data-parsley-required-message="Choose a delivery type">
+
+                                        <input type="radio" name="delivery_type" id="door" value="door" checked
+                                            required data-parsley-errors-container="#delivery_type_error"
+                                            data-parsley-required-message="Choose a delivery type">
                                         <label for="door"><b>Delivery to the door</b></label>
                                         <input type="radio" name="delivery_type" id="post" value="post">
                                         <label for="post"><b>Post</b></label>
+                                        <div id="delivery_type_error"></div>
                                     </div>
                                     <div class="col-md-12 my-2">
                                         <label><b>Any Special Instructions?</b></label>
@@ -971,10 +974,9 @@
             } else {
                 finalCart = finalCart.filter(itemId => itemId !== id);
             }
-            getCheckedCheckBox();
-            
-            saveFinalCart(finalCart);
 
+            getCheckedCheckBox();
+            saveFinalCart(finalCart);
             calculateTotals();
 
         });
@@ -1550,9 +1552,12 @@
 
                 let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
 
+                let formatedAccountWalletAmount = remaining_wallet_balance.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
 
-                $("#walletAmount").text("$" + Number(remaining_wallet_balance)
-                    .toFixed(2));
+                $("#walletAmount").text("$" + formatedAccountWalletAmount);
                 $("#walletUsed").text("$" + Number(walletAmount).toFixed(2));
 
                 // FORCE numeric values
@@ -1611,9 +1616,13 @@
             $("#adjustment-form")[0].reset();
             updateOrderSummary();
 
-            let accountWalletAmount = "{{ Auth::user()->wallet->balance }}";
+            let accountWalletAmount = "{{ number_format(Auth::user()->wallet->balance, 2) }}";
+            let formatedAccountWalletAmount = accountWalletAmount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })
             $("#walletUsed").text("$0.00");
-            $("#walletAmount").text("$" + accountWalletAmount);
+            $("#walletAmount").text("$" + formatedAccountWalletAmount);
             let key = 'paymentDetails_' + loginUserId;
 
             let details = JSON.parse(localStorage.getItem(key)) || {};
