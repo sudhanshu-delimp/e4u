@@ -2205,7 +2205,7 @@
                 /*search filter start here*/
                 
                 .fiter_btns {
-                    padding: 5px 0px;
+                    padding: 5px 0px 0px;
                 }
                 
                 .bgtransparent {
@@ -2230,7 +2230,7 @@
                 }
                 
                 .reset_filter {
-                    padding: 7px 11px;
+                    padding: 8px 11px;
                     background: #0c223d;
                     border-radius: 4px;
                     color: var(--peach);
@@ -3810,6 +3810,13 @@ i.fa.fa-heart-o{
                     align-items: center;
                     justify-content: space-between;
                     gap: 10px;
+                    width: 100%;
+                }
+                
+                .reset_filter .badge {
+                    position: relative;
+                    top: -1px;
+                    line-height: 14px;
                 }
                 
                 .item_dis select#service_id_three {
@@ -3875,7 +3882,7 @@ i.fa.fa-heart-o{
                     padding-left: 0.75rem;
                     padding-right: 0.75rem;
                     gap: 15px;
-                    width: 304px;
+                    width: 100%;
                 }
                 
                 .search_btn_profile * {
@@ -3936,9 +3943,58 @@ i.fa.fa-heart-o{
                     color: var(--peach);
                     cursor: pointer;
                 }
+                
+                .search_filters .display_items {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    gap: 10px;
+                }
+                
+                .search_items .form-control::placeholder {
+                    color: #90a0b7;
+                    opacity: 1;
+                }
+                
+                .search_filters .display_items .item_dis select {
+                    border: 0px !important;
+                }
+                
+                .search_filters .reset_filter:hover {
+                    background-color: #091a2e;
+                    color: #f3f3f3 !important;
+                }
+                
+                .reset_filter:hover i {
+                    color: #f3f3f3;
+                }
+                
+                .grd_lst_filter_btn {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    justify-content: space-between;
+                }
+                
+                .last_filter_section {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    justify-content: space-between;
+                }
+                
+                .reshuffle_tag {
+                    color: #ff3c5f;
+                    font-size: clamp(12px, 3vw, 14px);
+                    background: #f7f7f7;
+                    padding: 2px 5px;
+                    border-radius: 5px;
+                    font-weight: 500;
+                    border: 1px solid #90a0b7;
+                }
                 /* .search_filters_inside {
-            padding: 15px;
-        } */
+                    padding: 15px;
+                } */
                 /*home search end*/
                 /*profile description Harmony page start here*/
                 
@@ -6430,10 +6486,6 @@ i.fa.fa-heart-o{
                     .grid_list_part .col-12 {
                         flex-wrap: wrap;
                     }
-                    .custom_total_list.dropdown {
-                        border: 1px solid #5d6d7e;
-                        width: 16em !important;
-                    }
                     .custom-pagination ul {
                         flex-wrap: wrap;
                     }
@@ -6443,7 +6495,7 @@ i.fa.fa-heart-o{
                     .slect__btn_tab {
                         display: flex;
                         justify-content: flex-start;
-                        gap: 10px 5px;
+                        gap: 10px;
                         flex-wrap: wrap;
                     }
                     .slect__btn_tab>div {
@@ -6451,16 +6503,13 @@ i.fa.fa-heart-o{
                         width: 121px;
                         margin: 0px !important;
                     }
-                    .custom_total_list.dropdown {
-                        width: 100% !important;
-                    }
                     .custom--service-tag {
                         gap: 0px !important;
                     }
                     .location_radio_filter {
                         width: unset;
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: flex-start;
                         flex-direction: row;
                         flex-wrap: wrap;
                         gap: 10px;
@@ -7505,13 +7554,12 @@ i.fa.fa-heart-o{
                 
                 .custom_total_list.dropdown {
                     border: 1px solid #90a0b7;
-                    width: 18em;
+                    width: 15.5em;
                     border-radius: 3px;
                     color: var(--blue--text);
                     text-decoration: none;
                     position: relative;
                     z-index: 9;
-                    height: 46px;
                     line-height: 35px;
                 }
                 
@@ -7958,8 +8006,8 @@ i.fa.fa-heart-o{
                 }
                 
                 .custom-refreshbuton .reset_filter {
-                    height: 30px;
                     display: flex;
+                    padding: 11px 20px;
                 }
                 
                 .custom-refreshbuton .reset_filter i {
@@ -9279,9 +9327,6 @@ i.fa.fa-heart-o{
                         padding: 8px 7px !important;
                         width: fit-content;
                     }
-                    .profile-sidebar-margin-top {
-                        margin-top: -95px
-                    }
                     .padding_ninty_top_ninty_px {
                         padding-top: 15px;
                     }
@@ -9648,9 +9693,6 @@ i.fa.fa-heart-o{
                     .pad_ryt {
                         margin-right: 1em;
                         padding: 5px 0px 10px;
-                    }
-                    .item_dis {
-                        width: 65%;
                     }
                     .smGlobalBtn {
                         width: 33px;
