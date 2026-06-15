@@ -229,10 +229,11 @@
             serverSide: false,
             paging: true,
             info: true,
-            lengthChange: false,
-            searching: false,
+            lengthChange: true,
+            searching: true,
             bStateSave: true,
             ordering: true,
+            pageLength: 25,
             ajax: {
                 url: "{{ route('escort.reviews-profile-by-ajax') }}",
                 type: "GET",

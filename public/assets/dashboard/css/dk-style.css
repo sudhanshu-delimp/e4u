@@ -12934,13 +12934,13 @@ button:disabled {
 .esc-tooltip-2 {
     position: absolute;
     left: 50%;
-    top: -60%;
+    top: -80%;
     z-index: 9999;
     transform: translate(-50%, -50%);
     width: max-content;
     background: #ff3c5f;
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.4;
     padding: 6px 10px;
@@ -12954,7 +12954,7 @@ button:disabled {
 .esc-tooltip-2::after {
     position: absolute;
     left: 50%;
-    top: 29px;
+    bottom: -10px;
     content: '';
     border-width: 6px;
     border-style: solid;

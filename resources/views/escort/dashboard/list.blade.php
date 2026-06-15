@@ -95,10 +95,8 @@
                             function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
                             or
                             View the Profile.</li>
-                        <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
-                                class="custom_links_design">View Listings</a></li>
-                        <li>When duplicating a Profile, update the Street Address if the new Profile is in a new
-                            Location.</li>
+                            <li>To display your Playmates avatar in any Profile, select Add Playmates from Action.  You can add multiple Playmates.  Only your Playmates in the Location the Profile is Listed at the time can be added to the Profile.  If your Playmate leaves the Location while your Profile is Active, or they Suspend their Profile, they will be automatically removed from the Profile for the suspended period and permanently if they have left the Location.</li>
+                    
                     </ol>
                 </div>
             </div>
@@ -112,45 +110,47 @@
                     <div>
                         <div class="add--list listingActionButtons">
                             <div class="">
-                                <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
-                                    data-target="#add_brb" id="btn_add_brb">Add BRB
-                                    <span class="esc-tooltip-2">Be Right Back display</span>
-                                </button>
+                                
+                            {{-- <div class="pinup-tooltip-wrapper"> --}}
+                                <button style="padding: 10px;" class="btn btn-warning esc-tooltip-wrap" data-toggle="modal"
+                                    data-target="#pinup_profile" id="btn_pinup_profile"
+                                    @if ($activePinup) disabled title="" @endif>List Pin
+                                    Up
+                                     @if ($activePinup)
+                                    <span class="esc-tooltip-2">You already have an active <br>  pinup. You can book <br>  after it
+                                    expires.</span>
+                                     @endif
+                                </button> 
+                           
                                 <button class="btn upgrade-btn esc-tooltip-wrap" data-toggle="modal"
                                     data-target="#upgrade_modal" id="btn_upgrade">Upgrade
-                                    <span class="esc-tooltip-2">Upgrade your Membership Type</span>
+                                    <span class="esc-tooltip-2">Upgrade your Membership <br> Type</span>
                                 </button>
 
 
                                 <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
                                     Extend Profile
-                                    <span class="esc-tooltip-2">Extend your Profile to a new end date</span>
+                                    <span class="esc-tooltip-2">Extend your Profile to a  <br> new end date</span>
                                 </button>
                                 <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
                                     Up
-                                    <span class="esc-tooltip-2">Bump your Profile up to the top of the Listings</span>
+                                    <span class="esc-tooltip-2">Bump your Profile up to <br> the top of the Listings</span>
                                 </button>
                                 <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#suspend_profile"
                                     id="btn_suspend_profile">Suspend Profile
-                                    <span class="esc-tooltip-2">Take down your Profile for a set period</span>
+                                    <span class="esc-tooltip-2">Take down your Profile  <br> for a set period</span>
                                 </button>
 
 
 
                             </div>
-                            <div class="pinup-tooltip-wrapper">
-                                <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
-                                    data-target="#pinup_profile" id="btn_pinup_profile"
-                                    @if ($activePinup) disabled title="" @endif>List Pin
-                                    Up</button>
-                                @if ($activePinup)
-                                <p class="pinup-tooltip">You already have an active pinup. You can book after it
-                                    expires. </span>
-                                    @endif
-                            </div>
+                             <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
+                                    data-target="#add_brb" id="btn_add_brb">Add BRB
+                                    <span class="esc-tooltip-2">Be Right Back display</span>
+                                </button>
                         </div>
                     </div>
                     <br>
@@ -665,6 +665,7 @@
                 },
             ],
             order: [1, 'asc'],
+            pageLength: 25,
         });
         //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 
