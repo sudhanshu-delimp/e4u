@@ -782,6 +782,9 @@
 
                 success: function(response) {
                     $("#loader").hide();
+                    if (response.status == true) {
+                        window.location.href = "{{ route('escort.products') }}";
+                    }
                     $(".table-content").html(response.html);
                     getCheckedCheckBox();
                     calculateTotals();
@@ -826,7 +829,7 @@
 
         function loadTransactionSummary() {
             let details = getDeliveryDetails();
-
+            let finalCart = getFinalCart();
             let shipping = details.delivery_type;
             $("#transactionLoader").show();
             $.ajax({
@@ -903,12 +906,12 @@
             let cart = getCart(); // your function that returns cart object
             let finalCart = getFinalCart();
             delete cart[id];
-            delete finalCart[id];
+            finalCart = finalCart.filter(item => item != id);
 
             localStorage.setItem('cart_' + loginUserId, JSON.stringify(cart));
             localStorage.setItem('finalCart_' + loginUserId, JSON.stringify(finalCart));
 
-
+            location.reload(true);
         }
 
         function calculateTotals() {
@@ -956,7 +959,6 @@
 
         $(document).on("change", "#select-all", function() {
             let checked = this.checked;
-
             $(".product-check").prop("checked", checked).trigger("change");
         });
 
@@ -969,7 +971,8 @@
             } else {
                 finalCart = finalCart.filter(itemId => itemId !== id);
             }
-            // getCheckedCheckBox();
+            getCheckedCheckBox();
+            
             saveFinalCart(finalCart);
 
             calculateTotals();
@@ -1035,6 +1038,8 @@
                 card.address_state = "{{ $state }}";
                 card.address_country = "{{ $country }}";
                 saveCardBilling(card);
+                updateDeliveryAddress();
+
                 updateOrderSummary();
 
                 loadTransactionSummary();
@@ -1049,6 +1054,8 @@
             } else if (step === 3) {
                 updateDeliveryAddress();
                 updateOrderSummary();
+                loadTransactionSummary();
+
 
 
                 $("#process-payment-modal").modal('show');
@@ -1431,7 +1438,6 @@
                 step1.classList.add("is-active");
                 bar1.style.width = "0%"; // reset bar
                 loadProducts();
-                // getCheckedCheckBox();
             } else if (step === 3) {
                 // move to 1 step because if yopu are at 3 that's mean order is completed
                 updateDeliveryAddress();
@@ -1558,11 +1564,13 @@
                 let subtotal = oldSubtotal - walletUsed;
                 let total_payble = oldTotalPayble - walletUsed;
 
+
                 // Update values in object
                 details.total_payble = total_payble.toFixed(2);
                 details.wallet_amount = walletUsed.toFixed(2);
 
-                // Save back to localStorage
+                // Save back to local storage
+
                 localStorage.setItem(key, JSON.stringify(details));
                 let tax = parseFloat("{{ config('escorts.product_tax') }}");
 

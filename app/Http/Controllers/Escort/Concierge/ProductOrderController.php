@@ -254,7 +254,9 @@ class ProductOrderController extends Controller
           return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
         }
       } else {
+        
         Log::info("wallet transaction");
+
         $customTransactionId = Str::random(20); // 20-character random string
         PaymentHistory::create(
           [

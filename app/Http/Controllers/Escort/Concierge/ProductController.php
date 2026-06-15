@@ -46,7 +46,7 @@ class ProductController extends Controller
         $query = $query->whereIn('id', $ids);
       }
       $products = $query->get();
-
+ 
       // Render Blade
 
       $html = view('admin.products.render', [
@@ -55,7 +55,7 @@ class ProductController extends Controller
         'finalCart' => $finalCart
       ])->render();
 
-      return response()->json(['html' => $html]);
+      return response()->json(['html' => $html, 'status' => count($cart)== 0 ? true : false]);
     } catch (Exception $e) {
       Log::error("get products" . $e->getMessage());
     }
