@@ -141,7 +141,7 @@
                         [10, 25, 50, 100],
                         [10, 25, 50, 100]
                     ],
-                    pageLength: 10,
+                    pageLength: 25,
 
                     columns: [{
                             data: 'order_id',
