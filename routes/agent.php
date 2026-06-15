@@ -26,7 +26,7 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
 use App\Http\Controllers\Agent\ProspectListController;
 use App\Http\Controllers\Agent\DatabaseCentreController;
 use App\Http\Controllers\Agent\ImpersonateController;
-use App\http\Controllers\Agent\FeesSummeryController;
+use App\Http\Controllers\Agent\FeesSummeryController;
 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
