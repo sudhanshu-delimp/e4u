@@ -45,8 +45,10 @@
       <div class="col-md-12">
          <div class="row">
             <div class=" col-12 mb-4">
+               @if($type==='current')
                <button class="btn-primary" data-toggle="modal" data-target="#escort_tour_checkout" id="btn_checkout">Checkout</button>
                <button class="btn-warning" data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin Up</button>
+               @endif
             </div>
             <div class="col-md-5">
             </div>
@@ -161,6 +163,7 @@
                         <tr>
                            <th>ID</th>
                            <th>Tour Name</th>
+                           <th>Locations</th>
                            <th>Start Date</th>
                            <th>End Date</th>
                            <th>Days</th>
@@ -268,6 +271,12 @@
                {
                   data: 'name',
                   name: 'name'
+               },
+               {
+                  data: 'locations_numbers',
+                  name: 'locations_numbers',
+                  orderable: false,
+                  searchable: false,
                },
                {
                   data: 'start_date',
