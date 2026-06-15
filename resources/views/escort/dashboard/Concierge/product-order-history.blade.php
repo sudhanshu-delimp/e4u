@@ -51,6 +51,7 @@
                         <thead class="table-bg">
                             <tr>
                                 <th>Order ID</th>
+                                <th>Agent</th>
                                 <th>User</th>
                                 <th>Sub Total</th>
                                 <th>Wallet Amount</th>
@@ -147,10 +148,10 @@
                             data: 'order_id',
                             name: 'order_id'
                         },
-
-
-
-
+                        {
+                            data: 'agent',
+                            name: 'agent'
+                        },
                         {
                             data: 'user',
                             name: 'user'

@@ -32,7 +32,7 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::with('paymentDetails', 'user')->orderBy('created_at', 'DESC');
+    $query = ProductOrder::with(['paymentDetails', 'user', 'createdBy'])->orderBy('created_at', 'DESC');
     $classes = config('escorts.payment_status');
     $classesOrder = config('escorts.order_status');
     $orderStatus = config('escorts.order_status_labels');
@@ -43,6 +43,9 @@ class ProductOrderController extends Controller
       })
       ->addColumn('total_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
+      })
+      ->addColumn('agent', function ($row) {
+        return  $row->createdBy ? $row->createdBy->name : '--';
       })
       ->addColumn('gst_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->gst_amount : '0.00';
@@ -128,7 +131,7 @@ class ProductOrderController extends Controller
           'message' =>  "Status feild are required"
         ]);
       }
-      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $request->order_id)->first();
+      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user', ''])->where('id', $request->order_id)->first();
       if (empty($order)) {
         return response()->json([
           'status' => false,

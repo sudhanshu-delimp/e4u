@@ -37,7 +37,7 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;">Dear Supplier,</p>
+                            <p style="margin: 0 0 15px 0;"><b>Dear Supplier,</b></p>
 
                             <p style="margin: 20px 0 15px 0;">We would like to inform you that the order has been placed
                                 on hold and is currently under review.</p>
