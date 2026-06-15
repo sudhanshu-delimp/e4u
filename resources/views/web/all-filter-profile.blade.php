@@ -113,46 +113,43 @@
                                                 <span class="reshuffle_tag">Listings reshuffle every
                                                     30 minutes.</span>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-lg-12">
                                                 <div class="row align-items-center">
                                                     <div class="col-lg-2 location_items mb-1">
                                                         {{-- location --}}
-                                                        <div class="display_inline_block">
-                                                            <div class="location_radio_filter">
-                                                                <div class="d-flex align-items-start"
-                                                                    @php
-// $myLocation = false;
-                                                                    // if(request()->filled('lat')){
-                                                                    //     $myLocation = true; 
-                                                                    // }
-                                                                    $searchByRadio = request()->get('search_by_radio');
-                                                                    $locationByRadio = request()->get('locationByRadio'); @endphp
-                                                                    style=" padding-top: 2px;">
-                                                                    <input type="radio" name="locationByRadio"
-                                                                        {{ $locationByRadio != 'australia' ? 'checked' : '' }}
-                                                                        value="your_location" id="yourLocation">
-                                                                    <label for="yourLocation"
-                                                                        style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                                        Your Location
-                                                                    </label>
-                                                                </div>
+                                                        <div class="location_radio_filter">
+                                                            <div class="d-flex align-items-start"
+                                                                @php
+                                                                // $myLocation = false;
+                                                                // if(request()->filled('lat')){
+                                                                //     $myLocation = true; 
+                                                                // }
+                                                                $searchByRadio = request()->get('search_by_radio');
+                                                                $locationByRadio = request()->get('locationByRadio'); @endphp
+                                                                style=" padding-top: 2px;">
+                                                                <input type="radio" name="locationByRadio"
+                                                                    {{ $locationByRadio != 'australia' ? 'checked' : '' }}
+                                                                    value="your_location" id="yourLocation">
+                                                                <label for="yourLocation"
+                                                                    style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                                                    Your Location
+                                                                </label>
+                                                            </div>
 
-                                                                <div class="d-flex align-items-start">
-                                                                    <input type="radio" name="locationByRadio"
-                                                                        value="australia" id="australia"
-                                                                        {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}>
-                                                                    <label for="australia"
-                                                                        style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                                        Australia
-                                                                    </label>
-                                                                </div>
+                                                            <div class="d-flex align-items-start">
+                                                                <input type="radio" name="locationByRadio"
+                                                                    value="australia" id="australia"
+                                                                    {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}>
+                                                                <label for="australia"
+                                                                    style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                                                    Australia
+                                                                </label>
                                                             </div>
                                                         </div>
                                                         {{-- end --}}
                                                     </div>
                                                     <div class="col-lg-4 search_items mb-1">
                                                         {{-- search --}}
-                                                        <div class="">
                                                             <div
                                                                 class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
@@ -175,7 +172,6 @@
                                                                     <i class="fa fa-search" aria-hidden="true"></i>
                                                                 </button>
                                                             </div>
-                                                        </div>
                                                         {{-- end --}}
                                                     </div>
                                                     <div class="col-lg-6 display_items mb-1">
@@ -204,10 +200,8 @@
                                                         {{-- end --}}
 
                                                         {{-- reset --}}
-
-
                                                         <div class="custom-refreshbuton">
-                                                            <div class="">
+                                                            <div>
                                                                 <input type="hidden" name="apply_pagination_rule"
                                                                     id="apply_pagination_rule" value="0">
                                                                 <button type="submit"
@@ -217,12 +211,10 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-
-
                                                         {{-- end --}}
 
                                                         {{-- view short list btn --}}
-                                                        <div class="">
+                                                        <div>
                                                             <button type="button"
                                                                 class="btn reset_filter filter-tooltip-wrap"
                                                                 id="v_wishlist">
@@ -240,6 +232,7 @@
                                                             </button>
                                                         </div>
                                                         {{-- end --}}
+
                                                         {{-- clear short --}}
                                                         <div>
                                                             @php
@@ -253,14 +246,8 @@
                                                         </div>
                                                         {{-- end --}}
                                                     </div>
-
                                                 </div>
                                                 {{-- row 2 --}}
-
-
-
-
-
                                             </div>
                                         </div>
                                         {{-- row end 1 --}}

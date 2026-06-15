@@ -184,6 +184,9 @@
     .custom--service-tag .grid_list_part {
         width: 100%;
     }
+    .item_dis {
+        width: auto;
+    }
 }
 
 @media (max-width:768px) {
@@ -200,6 +203,12 @@
     .ryt_srch_btn div {
         flex: content;
     }
+    .mc_type_btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
 }
 
 @media (min-width:425px) and (max-width: 991px) {
@@ -212,6 +221,19 @@
         aspect-ratio: 15 / 11;
         width: 100%;
         max-width: 100%;
+    }
+    .location_radio_filter {
+        width: unset;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .profile-sidebar-margin-top {
+        margin-top: 10px;
     }
 }
 

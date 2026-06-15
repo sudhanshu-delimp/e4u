@@ -3951,6 +3951,11 @@ i.fa.fa-heart-o{
                     gap: 10px;
                 }
                 
+                .search_items .form-control::placeholder {
+                    color: #90a0b7;
+                    opacity: 1;
+                }
+                
                 .search_filters .display_items .item_dis select {
                     border: 0px !important;
                 }
@@ -6504,7 +6509,7 @@ i.fa.fa-heart-o{
                     .location_radio_filter {
                         width: unset;
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: flex-start;
                         flex-direction: row;
                         flex-wrap: wrap;
                         gap: 10px;
@@ -9321,9 +9326,6 @@ i.fa.fa-heart-o{
                     .trikon_style {
                         padding: 8px 7px !important;
                         width: fit-content;
-                    }
-                    .profile-sidebar-margin-top {
-                        margin-top: -95px
                     }
                     .padding_ninty_top_ninty_px {
                         padding-top: 15px;
