@@ -12566,7 +12566,7 @@ details[open]>summary:first-of-type {
 }
 
 .header p strong {
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
 .header>p {
@@ -12627,6 +12627,25 @@ details[open]>summary:first-of-type {
     color: #fff;
     padding: 9px;
     line-height: .5;
+}
+
+.view_cart_total_td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.view_cart_total_td i {
+    background: #00000017;
+    padding: 3px 5px 2px;
+    border-radius: 2px;
+    color: var(--blue--text);
+    cursor: pointer;
+}
+
+.view_cart_total_td i:hover {
+    color: var(--peach);
 }
 
 @media (min-width:300px) and (max-width:575px) {

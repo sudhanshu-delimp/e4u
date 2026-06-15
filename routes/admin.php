@@ -42,10 +42,11 @@ use App\Http\Controllers\Admin\AgentExcelDataManageController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\ShareholderController;
 use App\Http\Controllers\Admin\CommunityController;
+use App\Http\Controllers\Admin\ProductOrderController;
+
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
-    
+  Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
 });
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
@@ -101,17 +102,17 @@ Route::get('Analytics/consoles', [ConsolesController::class, 'consoles'])->name(
 Route::get('consoles-list-all-users', [ConsolesController::class, 'allUserDatatable'])->name('admin.Analytics.consolesDataTable');
 
 
-Route::get('management/fee-discount', [FeeDiscountController::class,'index'])->name('fee-discount');
-Route::post('management/fee-discount/get-advertiser-detail', [FeeDiscountController::class,'getAdvertiserDetail'])->name('advertiser.detail');
-Route::get('management/fee-discount/search-member', [FeeDiscountController::class,'searchMember'])->name('advertiser.search_member');
-Route::post('management/fee-discount/apply', [FeeDiscountController::class,'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
-Route::post('management/fee-discount/renew', [FeeDiscountController::class,'renewFeeDiscount'])->name('advertiser.renew_fee_discount');
-Route::get('management/fee-discount/listing', [FeeDiscountController::class,'getFeeDiscountListing'])->name('advertiser.get_fee_discounts_listing');
-Route::post('management/fee-discount/cancel', [FeeDiscountController::class,'cancelFeeDiscount'])->name('advertiser.cancel_fee_discount');
-Route::get('management/fee-discount/advertiser-history', [FeeDiscountController::class,'getAdvertiserHistory'])->name('advertiser.get_advertiser_history');
+Route::get('management/fee-discount', [FeeDiscountController::class, 'index'])->name('fee-discount');
+Route::post('management/fee-discount/get-advertiser-detail', [FeeDiscountController::class, 'getAdvertiserDetail'])->name('advertiser.detail');
+Route::get('management/fee-discount/search-member', [FeeDiscountController::class, 'searchMember'])->name('advertiser.search_member');
+Route::post('management/fee-discount/apply', [FeeDiscountController::class, 'applyFeeDiscount'])->name('advertiser.apply_fee_discount');
+Route::post('management/fee-discount/renew', [FeeDiscountController::class, 'renewFeeDiscount'])->name('advertiser.renew_fee_discount');
+Route::get('management/fee-discount/listing', [FeeDiscountController::class, 'getFeeDiscountListing'])->name('advertiser.get_fee_discounts_listing');
+Route::post('management/fee-discount/cancel', [FeeDiscountController::class, 'cancelFeeDiscount'])->name('advertiser.cancel_fee_discount');
+Route::get('management/fee-discount/advertiser-history', [FeeDiscountController::class, 'getAdvertiserHistory'])->name('advertiser.get_advertiser_history');
 
 Route::get('global-monitoring', function () {
-    return view('admin.global-monitoring');
+  return view('admin.global-monitoring');
 })->name('admin.global-monitoring');
 
 //  Route::get('massage-centre-listings', function(){
@@ -155,92 +156,92 @@ Route::get('get-visitors-by-ajax', [VisitorController::class, "getVisitorsByAjax
 // OC(M) Shareholder
 
 Route::get('shareholders/annual-report', function () {
-    return view('admin.management.shareholders.annual-report');
+  return view('admin.management.shareholders.annual-report');
 })->name('admin.annual-report');
 
 Route::get('shareholders/directors', function () {
-    return view('admin.management.shareholders.directors');
+  return view('admin.management.shareholders.directors');
 })->name('admin.directors');
 
 Route::get('shareholders/portfolio', function () {
-    return view('admin.management.shareholders.portfolio');
+  return view('admin.management.shareholders.portfolio');
 })->name('admin.portfolio');
 
 Route::get('shareholders/e4u-revenue', function () {
-    return view('admin.management.shareholders.e4u-revenue');
+  return view('admin.management.shareholders.e4u-revenue');
 })->name('admin.e4u-revenue');
 
 Route::get('shareholders/registrations', function () {
-    return view('admin.management.shareholders.registrations');
+  return view('admin.management.shareholders.registrations');
 })->name('admin.registrations');
 
 Route::get('shareholders/shareholder', function () {
-    return view('admin.management.shareholders.shareholder');
+  return view('admin.management.shareholders.shareholder');
 })->name('admin.shareholder');
 
 Route::get('shareholders/share-value', function () {
-    return view('admin.management.shareholders.share-value');
+  return view('admin.management.shareholders.share-value');
 })->name('admin.share-value');
 
 Route::get('shareholders/annual-profit-and-loss', function () {
-    return view('admin.management.shareholders.annual-profit-and-loss');
+  return view('admin.management.shareholders.annual-profit-and-loss');
 })->name('admin.annual-profit-and-loss');
 
 Route::get('shareholders/balance-sheet', function () {
-    return view('admin.management.shareholders.balance-sheet');
+  return view('admin.management.shareholders.balance-sheet');
 })->name('admin.balance-sheet');
 
 Route::get('shareholders/constitution', function () {
-    return view('admin.management.shareholders.constitution');
+  return view('admin.management.shareholders.constitution');
 })->name('admin.constitution');
 
 Route::get('shareholders/minutes', function () {
-    return view('admin.management.shareholders.minutes');
+  return view('admin.management.shareholders.minutes');
 })->name('admin.minutes');
 
 Route::get('shareholders/newsletter', function () {
-    return view('admin.management.shareholders.newsletter');
+  return view('admin.management.shareholders.newsletter');
 })->name('admin.newsletter');
 
 Route::get('shareholders/shareholder-notices', function () {
-    return view('admin.management.shareholders.shareholder-notices');
+  return view('admin.management.shareholders.shareholder-notices');
 })->name('admin.shareholder-notices');
 
 Route::get('shareholders/subsidiaries-balance-sheet', function () {
-    return view('admin.management.shareholders.subsidiaries-balance-sheet');
+  return view('admin.management.shareholders.subsidiaries-balance-sheet');
 })->name('admin.subsidiaries-balance-sheet');
 
 Route::get('shareholders/subsidiaries-annual-profit-and-loss', function () {
-    return view('admin.management.shareholders.subsidiaries-annual-profit-and-loss');
+  return view('admin.management.shareholders.subsidiaries-annual-profit-and-loss');
 })->name('admin.subsidiaries-annual-profit-and-loss');
 
 Route::get('shareholders/updates', function () {
-    return view('admin.management.shareholders.updates');
+  return view('admin.management.shareholders.updates');
 })->name('admin.updates');
 
 
 
 
 Route::get('pinup-listings', function () {
-    return view('admin.pin-up-listings');
+  return view('admin.pin-up-listings');
 })->name('admin.pin-up-listings');
 
 Route::get('database', function () {
-    return view('admin.database');
+  return view('admin.database');
 })->name('admin.database');
 
 Route::get('accounting-reports', function () {
 
-    return view('admin.accounting-reports');
+  return view('admin.accounting-reports');
 })->name('admin.accounting-reports');
 
 Route::get('reporting', function () {
-    return view('admin.reporting');
+  return view('admin.reporting');
 })->name('admin.reporting');
 
 
 Route::get('cms/email-templates', function () {
-    return view('admin.management.cms.email-templates');
+  return view('admin.management.cms.email-templates');
 })->name('admin.email-templates');
 
 
@@ -271,29 +272,29 @@ Route::post('change-user-status', [ReportingController::class, 'changeUserStatus
 
 
 Route::get('management/dashboard', function () {
-    return view('admin.management.management');
+  return view('admin.management.management');
 })->name('admin.management');
 
 Route::get('management/monthly-fee-reports', function () {
-    return view('admin.management.operator.monthly-fee-reports');
+  return view('admin.management.operator.monthly-fee-reports');
 })->name('admin.monthly-fee-reports');
 
 
 
 Route::get('management/commission-summary', function () {
-    return view('admin.management.operator.commission-summary');
+  return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
 Route::get('management/tours', function () {
-    return view('admin.management.statistics.tours');
+  return view('admin.management.statistics.tours');
 })->name('admin.tours');
 
 Route::get('management/profile', function () {
-    return view('admin.management.statistics.profile');
+  return view('admin.management.statistics.profile');
 })->name('admin.profile');
 
 Route::get('/management/statistics/num', function () {
-    return view('admin.management.statistics.num');
+  return view('admin.management.statistics.num');
 })->name('admin.num');
 
 
@@ -308,7 +309,7 @@ route::post('/reports/masseurs-media-verification-tag', [MediaVerificationContro
 route::post('/reports/update-masseurs-media-verification', [MediaVerificationController::class, 'updateMasseursMediaVerification'])->name('admin.update-masseurs-media-verification');
 route::get('/masseur-gallery-pdf/{id}/{masseur_id}', [MediaVerificationController::class, 'masseurGalleryPdf'])->name('admin.masseur-gallery-pdf');
 Route::get('support-tickets', function () {
-    return view('admin.support-tickets');
+  return view('admin.support-tickets');
 })->name('admin.support-tickets');
 
 
@@ -324,44 +325,44 @@ Route::get('commision_playbox_fees', [PricingsummariesController::class, 'commis
 
 
 Route::get('database/manage-email', function () {
-    return view('admin.database.manage-email');
+  return view('admin.database.manage-email');
 })->name('manage-email');
 
 
 Route::get('database/manage-sim', function () {
-    return view('admin.database.manage-sim');
+  return view('admin.database.manage-sim');
 })->name('manage-sim');
 
 // Guidelines
 
 Route::get('guidelines/agents-guidelines', function () {
-    return view('admin.guidelines.agents-guidelines');
+  return view('admin.guidelines.agents-guidelines');
 })->name('admin.agents-guidelines');
 
 Route::get('guidelines/escorts-guidelines', function () {
-    return view('admin.guidelines.escorts-guidelines');
+  return view('admin.guidelines.escorts-guidelines');
 })->name('admin.escorts-guidelines');
 
 Route::get('guidelines/viewers-guidelines', function () {
-    return view('admin.guidelines.viewer-guidelines');
+  return view('admin.guidelines.viewer-guidelines');
 })->name('admin.viewers-guidelines');
 
 Route::get('guidelines/massage-centres-guidelines', function () {
-    return view('admin.guidelines.massage-centres-guidelines');
+  return view('admin.guidelines.massage-centres-guidelines');
 })->name('admin.massage-centres-guidelines');
 
 Route::get('guidelines/operator-guidelines', function () {
-    return view('admin.guidelines.operator-guidelines');
+  return view('admin.guidelines.operator-guidelines');
 })->name('admin.operator-guidelines');
 
 Route::get('guidelines/shareholders-guidelines', function () {
-    return view('admin.guidelines.shareholders-guidelines');
+  return view('admin.guidelines.shareholders-guidelines');
 })->name('admin.shareholders-guidelines');
 
 
 
 Route::get('reports/agent-requests', function () {
-    return view('admin.reports.agent-requests');
+  return view('admin.reports.agent-requests');
 })->name('admin.agent-requests');
 
 
@@ -379,7 +380,7 @@ Route::post('reports-num-status', [AdminNumsController::class, 'updateStatus'])-
 Route::get('reports-num-email', [AdminNumsController::class, 'viewReport'])->name('admin.num.status.email');
 
 Route::get('reports/transaction-summary', function () {
-    return view('admin.reports.transaction-summary');
+  return view('admin.reports.transaction-summary');
 })->name('admin.transaction-summary');
 
 /** Manage Suppliers */
@@ -557,7 +558,7 @@ Route::post('/publications/blog/{id}/update', [PublicationBlogController::class,
 
 //communications module
 Route::get('/reports/communication/list', [CommunicationController::class, 'index'])->name('admin.reports.communication.index');
-Route::get('/reports/communication/{id}/show',[CommunicationController::class, 'show'])->name('admin.reports.communication.show');
+Route::get('/reports/communication/{id}/show', [CommunicationController::class, 'show'])->name('admin.reports.communication.show');
 
 
 //Management Agent Date List
@@ -569,69 +570,69 @@ Route::get('management/agent-data/{id}/data-list-print', [AgentExcelDataManageCo
 
 
 
-Route::get('/e4u-policies/code-of-conduct',function(){
-    return view('admin.e4u-policies.code-of-conduct');
+Route::get('/e4u-policies/code-of-conduct', function () {
+  return view('admin.e4u-policies.code-of-conduct');
 })->name('admin.code-of-conduct');
 
 
-Route::get('/e4u-policies/data-breach-plan',function(){
-    return view('admin.e4u-policies.data-breach-plan');
+Route::get('/e4u-policies/data-breach-plan', function () {
+  return view('admin.e4u-policies.data-breach-plan');
 })->name('admin.data-breach-plan');
 
-Route::get('/e4u-policies/discipline-and-termination',function(){
-    return view('admin.e4u-policies.discipline-and-termination');
+Route::get('/e4u-policies/discipline-and-termination', function () {
+  return view('admin.e4u-policies.discipline-and-termination');
 })->name('admin.discipline-and-termination');
 
-Route::get('/e4u-policies/fitness-for-work',function(){
-    return view('admin.e4u-policies.fitness-for-work');
+Route::get('/e4u-policies/fitness-for-work', function () {
+  return view('admin.e4u-policies.fitness-for-work');
 })->name('admin.fitness-for-work');
 
-Route::get('/e4u-policies/grievance',function(){
-    return view('admin.e4u-policies.grievance');
+Route::get('/e4u-policies/grievance', function () {
+  return view('admin.e4u-policies.grievance');
 })->name('admin.grievance');
 
-Route::get('/e4u-policies/health-and-safety',function(){
-    return view('admin.e4u-policies.health-and-safety');
+Route::get('/e4u-policies/health-and-safety', function () {
+  return view('admin.e4u-policies.health-and-safety');
 })->name('admin.health-and-safety');
 
-Route::get('/e4u-policies/information-use',function(){
-    return view('admin.e4u-policies.information-use');
+Route::get('/e4u-policies/information-use', function () {
+  return view('admin.e4u-policies.information-use');
 })->name('admin.information-use');
 
-Route::get('/e4u-policies/leave',function(){
-    return view('admin.e4u-policies.leave');
+Route::get('/e4u-policies/leave', function () {
+  return view('admin.e4u-policies.leave');
 })->name('admin.leave');
 
-Route::get('/e4u-policies/personal-telephone-use',function(){
-    return view('admin.e4u-policies.personal-telephone-use');
+Route::get('/e4u-policies/personal-telephone-use', function () {
+  return view('admin.e4u-policies.personal-telephone-use');
 })->name('admin.personal-telephone-use');
 
-Route::get('/e4u-policies/position-descriptions',function(){
-    return view('admin.e4u-policies.position-descriptions');
+Route::get('/e4u-policies/position-descriptions', function () {
+  return view('admin.e4u-policies.position-descriptions');
 })->name('admin.position-descriptions');
 
-Route::get('/e4u-policies/smoking',function(){
-    return view('admin.e4u-policies.smoking');
+Route::get('/e4u-policies/smoking', function () {
+  return view('admin.e4u-policies.smoking');
 })->name('admin.smoking');
 
-Route::get('/e4u-policies/social-media',function(){
-    return view('admin.e4u-policies.social-media');
+Route::get('/e4u-policies/social-media', function () {
+  return view('admin.e4u-policies.social-media');
 })->name('admin.social-media');
 
 
 
 // Community
 
-Route::get('/community/abbreviations',function(){
-    return view('admin.community.abbreviations');
+Route::get('/community/abbreviations', function () {
+  return view('admin.community.abbreviations');
 })->name('admin.abbreviations');
 
-Route::get('/community/classification-laws',function(){
-    return view('admin.community.classification-laws');
+Route::get('/community/classification-laws', function () {
+  return view('admin.community.classification-laws');
 })->name('admin.classification-laws');
 
-Route::get('/community/local-laws',function(){
-    return view('admin.community.local-laws');
+Route::get('/community/local-laws', function () {
+  return view('admin.community.local-laws');
 })->name('admin.local-laws');
 
 
@@ -647,28 +648,28 @@ Route::get('/community/pricing-summary', [CommunityController::class, 'pricingSu
 
 // ye Operation Management Notification hai administration kanhi 
 
-Route::get('/management/notifications/global-notifications',function(){
-    return view('admin.management.notifications.global.index');
+Route::get('/management/notifications/global-notifications', function () {
+  return view('admin.management.notifications.global.index');
 })->name('admin.global-notifications');
 
-Route::get('/management/notifications/agents-notifications',function(){
-    return view('admin.management.notifications.agents.index');
+Route::get('/management/notifications/agents-notifications', function () {
+  return view('admin.management.notifications.agents.index');
 })->name('admin.agents-notifications');
 
-Route::get('/management/notifications/escorts-notifications',function(){
-    return view('admin.management.notifications.escorts.index');
+Route::get('/management/notifications/escorts-notifications', function () {
+  return view('admin.management.notifications.escorts.index');
 })->name('admin.escorts-notifications');
 
-Route::get('/management/notifications/centres-notifications',function(){
-    return view('admin.management.notifications.centres.index');
+Route::get('/management/notifications/centres-notifications', function () {
+  return view('admin.management.notifications.centres.index');
 })->name('admin.centres-notifications');
 
-Route::get('/management/notifications/shareholders-notifications',function(){
-    return view('admin.management.notifications.shareholders.index');
+Route::get('/management/notifications/shareholders-notifications', function () {
+  return view('admin.management.notifications.shareholders.index');
 })->name('admin.shareholders-notifications');
 
-Route::get('/management/notifications/viewers-notifications',function(){
-    return view('admin.management.notifications.viewers.index');
+Route::get('/management/notifications/viewers-notifications', function () {
+  return view('admin.management.notifications.viewers.index');
 })->name('admin.viewers-notifications');
 
 // end
@@ -677,56 +678,56 @@ Route::get('/management/notifications/viewers-notifications',function(){
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
 
 Route::get('/management/influencer', function () {
-    return view('admin.management.reports.influencer');
+  return view('admin.management.reports.influencer');
 })->name('admin.influencer');
 
 Route::get('/management/credits', function () {
-    return view('admin.management.reporting.credits');
+  return view('admin.management.reporting.credits');
 })->name('admin.credits');
 
 Route::get('/management/revenue', function () {
-    return view('admin.management.reporting.revenue');
+  return view('admin.management.reporting.revenue');
 })->name('admin.revenue');
 
 Route::get('/management/email-management', function () {
-    return view('admin.management.email-management');
+  return view('admin.management.email-management');
 })->name('email-management');
 
 Route::get('/management/sim-management', function () {
-    return view('admin.management.sim-management');
+  return view('admin.management.sim-management');
 })->name('sim-management');
 
 
 Route::get('/support/pricing', function () {
-    return view('admin.support.pricing');
+  return view('admin.support.pricing');
 })->name('pricing');
 
 Route::get('/support/abbreviations', function () {
-    return view('admin.support.abbreviations');
+  return view('admin.support.abbreviations');
 })->name('abbreviations');
 
 Route::get('/support/classification-laws', function () {
-    return view('admin.support.classification-laws');
+  return view('admin.support.classification-laws');
 })->name('classification-laws');
 
 Route::get('/support/laws', function () {
-    return view('admin.support.laws');
+  return view('admin.support.laws');
 })->name('laws');
 
 Route::get('/support/post', function () {
-    return view('admin.support.post');
+  return view('admin.support.post');
 })->name('post');
 
 Route::get('/website/global-notifications', function () {
-    return view('admin.website.global-notifications');
+  return view('admin.website.global-notifications');
 })->name('global-notifications');
 
 Route::get('/website/maintenance', function () {
-    return view('admin.website.maintenance');
+  return view('admin.website.maintenance');
 })->name('maintenance');
 
 Route::get('/Analytics/publicpages', function () {
-    return view('admin.Analytics.publicpages');
+  return view('admin.Analytics.publicpages');
 })->name('publicpages');
 
 // Route::get('/Analytics/consoles',function(){
@@ -734,140 +735,146 @@ Route::get('/Analytics/publicpages', function () {
 // })->name('consoles');
 
 Route::get('/Concierge/email-service-request', function () {
-    return view('admin.Concierge.email-service-request');
+  return view('admin.Concierge.email-service-request');
 })->name('email-service-request');
 
 Route::get('/Concierge/mobile-sim-request', function () {
-    return view('admin.Concierge.mobile-sim-request');
+  return view('admin.Concierge.mobile-sim-request');
 })->name('mobile-sim-request');
 
-Route::get('/Concierge/product-request', function () {
-    return view('admin.Concierge.product-request');
-})->name('product-request');
+// Route::get('/Concierge/product-request', function () {
+//     return view('admin.Concierge.product-request');
+// })->name('product-request');
 
+Route::prefix('reports')->name('admin.')->group(function () {
+Route::get('/product-order-history', [ProductOrderController::class, 'orders'])->name('escort.orders');
+Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
+Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
+Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
+});
 Route::get('/Concierge/visa-migration-request', function () {
-    return view('admin.Concierge.visa-migration-request');
+  return view('admin.Concierge.visa-migration-request');
 })->name('visa-migration-request');
 
 Route::get('/reporting/email-request', function () {
-    return view('admin.reporting.email-request');
+  return view('admin.reporting.email-request');
 })->name('admin.email-request');
 
 Route::get('/reporting/mobile-request', function () {
-    return view('admin.reporting.mobile-request');
+  return view('admin.reporting.mobile-request');
 })->name('admin.mobile-request');
 
 Route::get('/reporting/admin-product-request', function () {
-    return view('admin.reporting.admin-product-request');
+  return view('admin.reporting.admin-product-request');
 })->name('admin.admin-product-request');
 
-Route::get('reports/punterbox',function(){
-    return view('admin.reports.punterbox');
+Route::get('reports/punterbox', function () {
+  return view('admin.reports.punterbox');
 })->name('admin.punterbox');
 
 
-Route::get('/management/competitor-database',function(){
-    return view('admin.management.competitor-database');
+Route::get('/management/competitor-database', function () {
+  return view('admin.management.competitor-database');
 })->name('admin.competitor-database');
 
 Route::get('/management/memberships', function () {
-    return view('admin.management.memberships');
+  return view('admin.management.memberships');
 })->name('admin.memberships');
 
 Route::get('/management/product', function () {
-    return view('admin.management.statistics.product');
+  return view('admin.management.statistics.product');
 })->name('admin.product');
 
 Route::get('/management/email', function () {
-    return view('admin.management.statistics.email');
+  return view('admin.management.statistics.email');
 })->name('admin.email');
 
 Route::get('/management/sim', function () {
-    return view('admin.management.statistics.sim');
+  return view('admin.management.statistics.sim');
 })->name('admin.sim');
 
 Route::get('/reports/credit', function () {
-    return view('admin.reports.credit');
+  return view('admin.reports.credit');
 })->name('admin.credit');
 
 
 
 Route::get('/management/statistics/listings', function () {
-    return view('admin.management.statistics.listings');
+  return view('admin.management.statistics.listings');
 })->name('admin.listings');
 
 
 Route::get('/management/legbox-report', function () {
-    return view('admin.management.legbox-report');
+  return view('admin.management.legbox-report');
 })->name('admin.legbox-report');
 
 Route::get('/management/logs-staff', function () {
-    return view('admin.management.logs-staff');
+  return view('admin.management.logs-staff');
 })->name('admin.logs-staff');
 
- Route::get('/management/manage-influencers',function(){
-    return view('admin.management.influencer.manage-influencers');
+Route::get('/management/manage-influencers', function () {
+  return view('admin.management.influencer.manage-influencers');
 })->name('admin.manage-influencers');
 
 /*  Route::get('/management/manage-shareholders',function(){
     return view('admin.management.manage-shareholders.add-shareholder');
 })->name('admin.manage-shareholders');
  */
- Route::get('/management/dashboard',function(){
-    return view('admin.management.dashboard');
+Route::get('/management/dashboard', function () {
+  return view('admin.management.dashboard');
 })->name('admin.dashboard');
 
- Route::get('/management/concierge-payments',function(){
-    return view('admin.Concierge.payment-reconciliation');
+Route::get('/management/concierge-payments', function () {
+  return view('admin.Concierge.payment-reconciliation');
 })->name('admin.concierge-payments');
 
 Route::get('/management/application', function () {
-    return view('admin.management.logs.application');
+  return view('admin.management.logs.application');
 })->name('admin.application');
 
 Route::get('/management/revision', function () {
-    return view('admin.management.logs.revision');
+  return view('admin.management.logs.revision');
 })->name('admin.revision');
 
 Route::get('/management/security', function () {
-    return view('admin.management.logs.security');
+  return view('admin.management.logs.security');
 })->name('admin.security');
 
 
 Route::get('/management/email-management', function () {
-    return view('admin.management.email-management');
+  return view('admin.management.email-management');
 })->name('admin.email-management');
 
 Route::get('/management/escorts-templates', function () {
-    return view('admin.management.cms.escorts-templates');
+  return view('admin.management.cms.escorts-templates');
 })->name('admin.escorts-templates');
 
 Route::get('/management/centres-templates', function () {
-    return view('admin.management.cms.centres-templates');
+  return view('admin.management.cms.centres-templates');
 })->name('admin.centres-templates');
 
 Route::get('/management/operator-templates', function () {
-    return view('admin.management.cms.operator-templates');
+  return view('admin.management.cms.operator-templates');
 })->name('admin.operator-templates');
 
 Route::get('/management/agent-templates', function () {
-    return view('admin.management.cms.agent-templates');
+  return view('admin.management.cms.agent-templates');
 })->name('admin.agent-templates');
 
 Route::get('/management/shareholder-templates', function () {
-    return view('admin.management.cms.shareholder-templates');
+  return view('admin.management.cms.shareholder-templates');
 })->name('admin.shareholder-templates');
 
 Route::get('/management/viewer-templates', function () {
-    return view('admin.management.cms.viewer-templates');
+  return view('admin.management.cms.viewer-templates');
 })->name('admin.viewer-templates');
 
 Route::get('/management/e4u-templates', function () {
-    return view('admin.management.cms.e4u-templates');
+  return view('admin.management.cms.e4u-templates');
 })->name('admin.e4u-templates');
 
 Route::get('/management/post-office', function () {
-    return view('admin.management.post-office');
+  return view('admin.management.post-office');
 })->name('admin.post-office');
 
 
@@ -894,24 +901,24 @@ Route::get('/management/post-office', function () {
 // })->name('admin.blog');
 
 Route::get('publications/alerts', function () {
-    return view('admin.publications.alerts');
+  return view('admin.publications.alerts');
 })->name('admin.alerts');
 
 
 Route::get('feedback', [DashboardController::class, 'feedback'])
-    ->name('admin.feedback');
-    
+  ->name('admin.feedback');
+
 Route::get('feedback-reports-ajax', [DashboardController::class, 'getSingleFeedbacktReport'])->name('admin.feedback-reports-ajax');
 
 
 Route::get('feedback-list', [DashboardController::class, 'feedbackList'])
-    ->name('admin.feedback.dataTable');
-    
+  ->name('admin.feedback.dataTable');
+
 Route::post('feedback-status-change', [DashboardController::class, 'feedbackStatusChange'])
-    ->name('admin.feedback.status.change');
+  ->name('admin.feedback.status.change');
 
 Route::get('print-single-feedback-reports', [DashboardController::class, 'printSingleFeedbackReport'])->name('admin.print.single-feedback-reports');
 
 Route::get('/management/punterbox-reports', function () {
-    return view('admin.management.punterbox-report');
+  return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');
