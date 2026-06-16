@@ -50,8 +50,8 @@
                                  <td class="bg-first text-right"><b>Select FY </b></td>
                                  <td style="width:27%;">
                                      <select class="rounded-0 w-100" id="select-fy" name="select-fy">
-                                        @foreach($availableFYs as $year)
-                                         <option value="{{$year}}">{{$year}}</option>
+                                         @foreach ($availableFYs as $year)
+                                             <option value="{{ $year }}">{{ $year }}</option>
                                          @endforeach
                                      </select>
                                  </td>
@@ -117,36 +117,39 @@
                  </tr>
                  <tr>
              </thead>
-             <tbody>
-                 <td class="text-left">E612345 </td>
-                 <td class="text-left">Oxi Daisy</td>
-                 <td class="text-center">01/01/2022</td>
-                 <td class="text-right">$ 960.00</td>
-                 <td class="text-right">$ 336.00</td>
-                 <td class="text-right">$ 348.00</td>
-                 <td class="text-right">$ 950.00</td>
-                 <td> </td>
-                 <td class="text-right">$ 2,594.00</td>
-                 <td class="text-right">$ 129.70</td>
-                 <td class="text-center">
-                     <div class="dropdown no-arrow">
-                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                         </a>
-                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink" style="">
-                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                 href="#" data-toggle="modal" data-target="#commission-report"> <i
-                                     class="fa fa-eye"></i> View Advertiser Report
+             <tbody id="appendFeesSummaryAdvertiser">
+                 {{-- <tr>
+                     <td class="text-left">E612345 </td>
+                     <td class="text-left">Oxi Daisy</td>
+                     <td class="text-center">01/01/2022</td>
+                     <td class="text-right">$ 960.00</td>
+                     <td class="text-right">$ 336.00</td>
+                     <td class="text-right">$ 348.00</td>
+                     <td class="text-right">$ 950.00</td>
+                     <td> </td>
+                     <td class="text-right">$ 2,594.00</td>
+                     <td class="text-right">$ 129.70</td>
+                     <td class="text-center">
+                         <div class="dropdown no-arrow">
+                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                              </a>
-                             <div class="dropdown-divider"></div>
-                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                 href="#" data-toggle="modal" data-target="#">
-                                 <i class="fa fa-print"></i> Print Advertiser Report</a>
+                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                 aria-labelledby="dropdownMenuLink" style="">
+                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                     href="#" data-toggle="modal" data-target="#commission-report"
+                                    >
+                                     <i class="fa fa-eye"></i> View Advertiser Report
+                                 </a>
+                                 <div class="dropdown-divider"></div>
+                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                     href="#" data-toggle="modal" data-target="#">
+                                     <i class="fa fa-print"></i> Print Advertiser Report
+                                 </a>
+                             </div>
                          </div>
-                     </div>
-                 </td>
+                     </td>
                  </tr>
                  <tr>
                      <td class="text-left">E612356</td>
@@ -168,13 +171,15 @@
                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                  aria-labelledby="dropdownMenuLink" style="">
                                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#commission-report"> <i
-                                         class="fa fa-eye"></i> View Advertiser Report
+                                     href="#" data-toggle="modal" data-target="#commission-report">
+                                     <i class="fa fa-eye"></i> View Advertiser Report
                                  </a>
                                  <div class="dropdown-divider"></div>
                                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#"> <i class="fa fa-print"></i>
-                                     Print Advertiser Report</a>
+                                     href="#" data-toggle="modal" data-target="#">
+                                     <i class="fa fa-print"></i>
+                                     Print Advertiser Report
+                                 </a>
 
                              </div>
                          </div>
@@ -243,7 +248,7 @@
                              </div>
                          </div>
                      </td>
-                 </tr>
+                 </tr> --}}
              </tbody>
          </table>
      </div>

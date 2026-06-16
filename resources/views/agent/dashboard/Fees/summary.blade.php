@@ -672,6 +672,15 @@
         </div>
     </div>
 </div>
+
+    <div id="manage-route" data-csrf-token="{{ csrf_token() }}"
+        data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
+        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+        data-advertiser-fees-summery="{{ route('agent.advertiser.fees.summery') }}"
+  
+        ></div>
+
+
 {{-- end --}} @endsection @push('script')
 <!-- file upload plugin start here -->
 <!-- file upload plugin end here -->

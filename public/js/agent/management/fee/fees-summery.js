@@ -1,5 +1,14 @@
 
+
 $(function () {
+    const mmRoot = $('#manage-route');
+    const endpoint = {
+        csrf_token: mmRoot.data('csrf-token'),
+        success_image: mmRoot.data('success-image'),
+        error_image: mmRoot.data('error-image'),
+        advertiser_fees_summery: mmRoot.data('advertiser-fees-summery'),
+    };
+
 
 
     let isHidden = false;
@@ -34,6 +43,50 @@ $(function () {
             $(targetClass).hide();
         }
     });
+
+    // Alert Helper function
+    function showAlert(type, message) {
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: type,
+                //title: type === 'success' ? 'Success!' : type === 'error' ? 'Error!' : 'Warning!',
+                text: message,
+                timer: 2500,
+                showConfirmButton: false
+            });
+        } else {
+            alert(message);
+        }
+    }
+
+
+    function appendFeesSummaryAdvertiser() {
+        $.ajax({
+            url: endpoint.advertiser_fees_summery,
+            method: 'GET',
+            //data: { _token: endpoint.csrf_token },
+            beforeSend: function () {
+                // $('#proceedBtn').prop('disabled', true).text('Generating...');
+            },
+            success: function (res) {
+                if (res.data) {
+                    $('#appendFeesSummaryAdvertiser').html(res.data);
+                }
+            },
+            error: function (xhr) {
+                var msg = 'Failed to generate list.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    msg = xhr.responseJSON.message;
+                }
+                showAlert('error', msg);
+            },
+            complete: function () {
+                $('#proceedBtn').prop('disabled', false).text('Proceed');
+            }
+        });
+    }
+
+    appendFeesSummaryAdvertiser();
 
 });
 

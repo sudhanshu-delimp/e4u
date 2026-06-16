@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\EscortPinup;
 use App\Models\PaymentHistory;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -64,8 +65,6 @@ class FeesSummeryService
             ")
             ->orderByRaw("MIN(paid_at) DESC")  // Latest FY pehle
             ->pluck('fy_label');
-
-
     }
 
     public function resolveSelectedFY(?string $requested, Collection $availableFYs): string
@@ -97,56 +96,61 @@ class FeesSummeryService
     }
 
 
-    public function getEarnings(string $fyLabel, string $displayType = 'member_id'): Collection
-    {
-        $fy      = $this->getFYDateRange($fyLabel);
-        $orderBy = $this->getOrderBy($displayType);
+    public function getEarnings( string $fyLabel, string $displayType   = 'member_id', float  $feePercentage = 5 ) {
+        $fy         = $this->getFYDateRange($fyLabel);
+        $orderBy    = $this->getOrderBy($displayType);
+        $feeDecimal = $feePercentage / 100;
+ 
 
+        $purchaseType    = Purchase::class;   
+        $escortPinupType = EscortPinup::class; 
+ 
         return User::query()
             ->where('users.assigned_agent_id', Auth::id())
-            ->whereIn('users.type', ['3', '4'])  // 3 = Escort, 4 = Massage Centre
-
-            // PaymentHistory join
+            ->whereIn('users.type', ['3', '4'])
+ 
             ->join('payment_histories as ph', function ($join) {
                 $join->on('ph.user_id', '=', 'users.id')
-                    ->where('ph.status', '=', 'success');
+                     ->where('ph.status', '=', 'success');
             })
-
-            // PaymentItems join
             ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
 
-            // Purchases join (polymorphic)
-            ->join('purchase as pu', function ($join) {
-                $join->on('pu.id', '=', 'pi.item_id')
-                    ->where('pi.item_type', '=', Purchase::class);
-            })
-
-            //  Australia FY date range filter
+            ->leftJoin('purchase as pu', 'pu.id', '=', 'pi.item_id')
+            ->leftJoin('escort_pinups as ep', 'ep.id', '=', 'pi.item_id')
+ 
             ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']])
 
-            ->select([
-                'users.member_id as member_id',
-                'users.name as advertiser_name',
-                DB::raw("CASE WHEN users.type = '3' THEN 'E' ELSE 'MC' END as membership_type"),
-                DB::raw('DATE_FORMAT(users.created_at, "%d-%m-%Y") as joined_date'),
-                'users.type as user_type',
 
-                // Plan-wise spend
-                DB::raw('SUM(CASE WHEN pu.membership = 1 THEN ph.net_amount ELSE 0 END) as platinum_spend'),
-                DB::raw('SUM(CASE WHEN pu.membership = 2 THEN ph.net_amount ELSE 0 END) as gold_spend'),
-                DB::raw('SUM(CASE WHEN pu.membership = 3 THEN ph.net_amount ELSE 0 END) as silver_spend'),
-                DB::raw('SUM(CASE WHEN pu.membership = 6 THEN ph.net_amount ELSE 0 END) as pinup_spend'),
-                DB::raw('SUM(CASE WHEN pu.membership = 5 THEN ph.net_amount ELSE 0 END) as fixed_spend'),
+            ->selectRaw("
+                users.member_id as member_id,
+                users.name as advertiser_name,
+                CASE WHEN users.type = '3' THEN 'E' ELSE 'MC' END as membership_type,
+                DATE_FORMAT(users.created_at, '%d-%m-%Y') as joined_date,
 
-                // Total & Fees (5%)
-                DB::raw('SUM(ph.net_amount) as total_spend'),
-                DB::raw('ROUND(SUM(ph.net_amount) * 0.05, 2) as fees'),
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 1 THEN ph.net_amount ELSE 0 END) as platinum_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 2 THEN ph.net_amount ELSE 0 END) as gold_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 3 THEN ph.net_amount ELSE 0 END) as silver_spend,
+                SUM(CASE WHEN pi.item_type = ? THEN ph.net_amount ELSE 0 END) as pinup_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 5 THEN ph.net_amount ELSE 0 END) as fixed_spend,
+ 
+                SUM(ph.net_amount) as total_spend, 
+                ROUND(SUM(ph.net_amount) * ?, 2) as fees, ? as fee_percentage
+            ", [
+                $purchaseType,  
+                $purchaseType,
+                $purchaseType,
+                $escortPinupType,
+                $purchaseType,
+                $feeDecimal, 
+                $feePercentage,
             ])
-
+ 
             ->groupBy('users.member_id', 'users.name', 'users.created_at', 'users.type')
             ->orderBy($orderBy['column'], $orderBy['direction'])
             ->get();
     }
+ 
+
 
     public function getSummeryData($requestedFY = null, string $displayType = 'member_id'): array
     {
@@ -156,11 +160,11 @@ class FeesSummeryService
 
         return [
             'earnings'     => $earnings,
-            'availableFYs' => $availableFYs,  
-            'selectedFY'   => $selectedFY,    
+            'availableFYs' => $availableFYs,
+            'selectedFY'   => $selectedFY,
             'displayType'  => $displayType,
             'fyRange'      => $this->getFYDateRange($selectedFY),
-           
+
         ];
     }
 }

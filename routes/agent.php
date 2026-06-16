@@ -171,6 +171,7 @@ use App\Http\Controllers\Agent\FeesSummeryController;
 
     //Fee summary
     Route::get('fees/summery', [FeesSummeryController::class, 'feesSummery'])->name('agent.fees.summery');
+    Route::get('advertiser/fees/summery', [FeesSummeryController::class, 'fetchFeeSummeryAdvertiserData'])->name('agent.advertiser.fees.summery');
      
     Route::get('/multi-merge-report',function(){
     return view('agent.dashboard.marketing.multi-merge-report');
