@@ -45,6 +45,8 @@ use App\Models\EscortNotification;
 use App\Models\AdvertiserDiscount;
 use App\Services\WalletService;
 use App\Services\PinPaymentService;
+use App\Mail\PaymentMailer;
+use Illuminate\Support\Facades\Mail;
 
 class EscortController extends BaseController
 {
@@ -880,6 +882,11 @@ class EscortController extends BaseController
                         'amount' => $payment->amount
                     ]);
                 }
+
+                /* Send Payment Mail */
+                $mailConfig = config("payment_mail_templates.bumpUp");
+                $mainAccount = $this->account;
+                Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
             }
 
             return response()->json([
@@ -972,9 +979,12 @@ class EscortController extends BaseController
                             'amount' => $newPurchase->paid_rate,
                         ]);
                     }
+                    /* Send Payment Mail */
+                    $mailConfig = config("payment_mail_templates.upgrade");
+                    $mainAccount = $this->account;
+                    Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
                 }
             });
-
 
 
             if ($request->ajax()) {
