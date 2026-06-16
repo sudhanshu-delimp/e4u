@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
- 
+
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -20,7 +20,7 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            Concierge Service - Product Order
+                                            E4U Concierge - Product Order On Hold
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Ref: {{ $data['id'] ?? '' }}<br>
@@ -37,41 +37,36 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;"><b>Attention Operations,</b></p>
+                            <p style="margin: 0 0 15px 0;"><b>Dear Agent,</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
-                                A request for Products has been requested by:
+
+                                We would like to inform you that a product order for one of your members has been placed
+                                on hold and is currently under review.
+
                             </p>
 
-                            <table>
-                                <tr>
-                                    <th>Member Name:</th>
-                                    <td>{{ $data['member_name'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Member ID:</th>
-                                    <td>{{ $data['member_id'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Email:</th>
-                                    <td>{{ $data['email'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Mobile:</th>
-                                    <td>{{ $data['mobile'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Delivery address:</th>
-                                    <td>{{ $data['delivery_address'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Delivery type:</th>
-                                    <td>{{ ucfirst($data['delivery_type']) }}</td>
-                                </tr>
-                            </table>
-                            <!-- email info -->
-                            <x-email-info />
-                            <!-- end -->
+
+
+                            <p style="margin: 15px 0;">
+                                <strong>Member ID:</strong> {{ $data['member_id'] ?? '' }}
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                The order is temporarily on hold pending further review. We will notify you once the
+                                order status has been updated or if any additional action is required.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                Please retain this notification for your records and quote the order reference in any
+                                future correspondence regarding this order.
+                            </p>
+                            
+                            <p style="margin: 15px 0;">
+                                Thank you for your cooperation and continued support.
+                                <!-- email info -->
+                                <x-email-info />
+                                <!-- end -->
 
                         </td>
                     </tr>

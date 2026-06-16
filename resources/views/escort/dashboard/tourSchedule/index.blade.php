@@ -88,6 +88,7 @@
       table = $('#sailorTable').DataTable({
       serverSide: true,
       processing: true,
+      pageLength: 25,
        "language": {
             "zeroRecords": "There is no record of the search criteria you entered.",
             searchPlaceholder: "Search by ID or Profile Name"

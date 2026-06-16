@@ -162,7 +162,7 @@
     .search_filters .display_items {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: space-between;
         gap: 8px;
         flex-wrap: wrap;
     }
@@ -208,6 +208,13 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+    }
+}
+
+@media(min-width:768px) and (max-width:1024px) {
+    .mc_list_card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
 }
 

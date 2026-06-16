@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class EmailLog extends Model
 {
     use HasFactory;
-    protected $fillable = ['id', 'to', 'cc', 'bcc', 'subject', 'body', 'sent_at'];
+    protected $fillable = ['id','member_id', 'to', 'cc', 'bcc', 'subject', 'body', 'sent_at'];
 
 }

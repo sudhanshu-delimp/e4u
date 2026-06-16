@@ -271,7 +271,9 @@
                     { data: 'action', name: 'action', orderable: false, searchable: false, class:'text-center' } // 10
                 ],
                
-                autoWidth: false
+                autoWidth: false,
+                
+                pageLength: 25,
             });
 
             // Event to set total count

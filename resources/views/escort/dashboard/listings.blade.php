@@ -142,7 +142,7 @@
                 lengthChange: true,
                 searchable: false,
                 bStateSave: false,
-                pageLength: 10,
+                pageLength: 25,
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
                     searchPlaceholder: "Search by ID or Profile Name"

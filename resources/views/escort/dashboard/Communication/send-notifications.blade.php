@@ -341,6 +341,7 @@
                     searchPlaceholder: "Search by Viewer Name"
                 },
                 paging: true,
+                pageLength: 25,
                 columns: [{
                         data: 'check',
                         name: 'check'

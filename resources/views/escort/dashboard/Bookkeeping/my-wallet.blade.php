@@ -215,6 +215,7 @@
             { data: 'transaction_balance_after', name: 'balance_after', searchable: false, orderable:false,defaultContent: 'NA' },
         ],
         order: [0,'desc'],
+        pageLength: 25,
     });
 </script>
 @endpush
