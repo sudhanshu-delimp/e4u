@@ -25,6 +25,7 @@
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg">
     <div class="container-fluid banner_width">
         <div class="row align-items-center">
@@ -70,16 +71,18 @@
                 @endphp
                 <div class="padding">
                     <a class="btn btn_advertiser" id="view_btn_advertiser" style="font-weight:500;
-    line-height: 1;" href="{{ $url }}" role="button">View Escorts <br><small style="font-size: 70%">(Australia wide)</small></a>
-                    <a class="btn btn_advertiser" style="font-weight:500;
-    line-height: 1;" href="{{ route('find.massage.centre') }}" role="button">View Massage Centres <br><small style="font-size: 70%">(Australia wide)</small></a>
-                    <a class="btn  btn_become_pin_up" style="font-weight:500;
-    padding: 10px 25px;" href="become-a-pin-up" role="button">Become a Pin-Up</a>
+                        line-height: 1;" href="{{ $url }}" role="button">View Escorts <br><small style="font-size: 70%">(Australia wide)</small></a>
+                                        <a class="btn btn_advertiser" style="font-weight:500;
+                        line-height: 1;" href="{{ route('find.massage.centre') }}" role="button">View Massage Centres <br><small style="font-size: 70%">(Australia wide)</small></a>
+                                        <a class="btn  btn_become_pin_up" style="font-weight:500;
+                        padding: 10px 25px;" href="become-a-pin-up" role="button">Become a Pin-Up</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
 <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly angle_bg_image">
     <div class="container">
         <div class="home_welcome text-center">
