@@ -37,7 +37,7 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;">Attention Operations,</p>
+                            <p style="margin: 0 0 15px 0;"><b>Attention Operations,</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
                                 A request for Products has been requested by:
@@ -45,27 +45,27 @@
 
                             <table>
                                 <tr>
-                                    <td>Member Name:</td>
+                                    <th>Member Name:</th>
                                     <td>{{ $data['member_name'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Member ID:</td>
+                                    <th>Member ID:</th>
                                     <td>{{ $data['member_id'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Email:</td>
+                                    <th>Email:</th>
                                     <td>{{ $data['email'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mobile:</td>
+                                    <th>Mobile:</th>
                                     <td>{{ $data['mobile'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery address:</td>
+                                    <th>Delivery address:</th>
                                     <td>{{ $data['delivery_address'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery type:</td>
+                                    <th>Delivery type:</th>
                                     <td>{{ ucfirst($data['delivery_type']) }}</td>
                                 </tr>
                             </table>

@@ -32,7 +32,7 @@ class AddNewAgent extends FormRequest
                 'phone' => preg_replace('/\D/', '', $this->input('phone')),
             ]);
         }
-    }
+   }
 
 
     public function rules()
@@ -48,7 +48,8 @@ class AddNewAgent extends FormRequest
             'email2'          => 'required|email|max:255|unique:users,email2,' . $agentId,
             'state_id'        => 'required|exists:states,id',
             'agreement_date'  => 'required|date',
-            'abn'             => 'nullable|digits_between:10,20',
+            //'abn'             => 'nullable|digits_between:10,20',
+            'abn' => 'required|digits:11',
         ];
     }
     
@@ -60,6 +61,8 @@ class AddNewAgent extends FormRequest
             'state_id.exists'  => 'Please select your territory.',
             'email2.required'  => 'The e4u email field is required.',
             'email2.unique'  => 'The e4u email has already been taken.',
+            'abn.digits' => 'The ABN must contain only digits (0-9) and 11 digits long.',
+            'abn.digits_between' => 'The ABN must contain only digits (0-9) and be between 10 and 20 digits long.'
         ];
     }
 }

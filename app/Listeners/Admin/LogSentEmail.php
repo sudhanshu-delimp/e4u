@@ -31,13 +31,11 @@ class LogSentEmail
      */
     public function handle(MessageSending $event)
     {
-
         $message = $event->message;
         try {
             $body = $message->getBody();
             $toEmail = $message->getTo();
-            $memberId = User::whereIn('email', array_keys($toEmail ?? []))->select('member_id')->first();
-
+            $memberId = User::where('email', array_keys($toEmail ?? []))->select('member_id')->first();
             if (is_object($body)) {
                 $body = (string) $body;
             }
@@ -50,6 +48,17 @@ class LogSentEmail
                 'member_id' => $memberId->member_id ?? null,
                 'sent_at'  => now(),
             ]);
+
+            // Log::info('all key value', [
+            //     'to' => json_encode(array_keys($message->getTo() ?? [])),
+            //     'cc' => json_encode(array_keys($message->getCc() ?? [])),
+            //     'bcc' => json_encode(array_keys($message->getBcc() ?? [])),
+            //     'subject' => $message->getSubject(),
+            //     //'body' => $body,
+            //     'member_id' => $memberId->member_id ?? null,
+            //     'sent_at' => now(),
+            // ]);
+
             
         } catch (Exception $e) {
 

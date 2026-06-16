@@ -33,22 +33,16 @@
                                         <div class="col-sm-1"></div>
                                     </div>
                                     <hr style="background-color: #0C223D" class="mt-4">
-                                    <!-- <div class="form-group row">
+                                    <div class="form-group row">
                                         <div class="col-lg-12">
                                             <p class="mb-1"><b>Notes:</b></p>
                                             <ol class="pl-4 text-justify">
-                                                <li> You must have a Current Platinum Listing to register as a Pin Up.</li>
-                                                <li> If the date period you have selected is not available, and your
-                                                    Current Listing period
-                                                    exceeds the requested period, you will be added to the pool.</li>
-                                                <li> If a position becomes available from the pool, you will be
-                                                    automatically listed. If
-                                                    your Listed Profile has been Suspended or Cancelled, the Pin Up
-                                                    listing will also
-                                                    cancel.</li>
+                                                <li> You can apply features to any Profile in your Tour by selecting the feature you want to add to the Profile in Profiles Current.</li>
+                                                <li> To apply the Pin Up feature, you can add that by selecting View under Action, as well as selecting the specific Profile in Profiles Current.</li>
+                                                <li> Credits do not apply to amended Tours.</li>
                                             </ol>
                                         </div>
-                                    </div> -->
+                                    </div> 
                                     <div class="form-group row custom-pin-button">
                                         <div class="col-sm-12 text-right">
                                             <button type="submit" class="btn-success-modal"

@@ -214,11 +214,8 @@ class ProductOrderController extends Controller
         OrderAddress::create($orderAddressShipping);
         OrderAddress::create($orderAddressBilling);
       }
-      DB::commit();
-
 
       // prepare metdata for product order
-
       $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $order->id)->first();
       $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
       if (empty($order))
@@ -243,20 +240,21 @@ class ProductOrderController extends Controller
         'products' => json_encode($products)
       ];
       $description = "Product Purchase";
-      Log::info('inititae product order');
       if ($totalPayable > 0) {
-          Log::info('started order');
         // make payment using charge method
         $response = $pinPaymentService->charge($data['pin_token'], $totalPayable, $biilingAddress->email, $description, $metadata);
         if ($response['status'] === false) {
+          DB::rollBack();
           return response()->json(['status' => false, 'message' => $response['error'], 'errors' => $response['errors']]);
         } else if ($response['status'] === true) {
           // store payment history 
+          DB::commit();
           $pinPaymentService->handlePaymentHistory($response['data']['response']);
           return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
         }
       } else {
-        Log::info("Process Order");
+
+        // Log::info("wallet transaction");
         $customTransactionId = Str::random(20); // 20-character random string
         PaymentHistory::create(
           [
@@ -286,10 +284,12 @@ class ProductOrderController extends Controller
         // dispatch job to send product order related mail 
         $customPaymentObject['metadata']['order_id'] = $order->id;
         SendProductPurchaseMail::dispatch($customPaymentObject);
+        DB::commit();
 
         return response()->json(['status' => true, 'message' => "Order Placed Successfully."]);
       }
     } catch (\Exception $e) {
+      DB::rollBack();
       return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
   }
@@ -305,12 +305,17 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::with('paymentDetails', 'user')->orderBy('created_at', 'DESC');
+    $query = ProductOrder::with(['paymentDetails', 'user', 'createdBy'])->where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC');
     $classes = config('escorts.payment_status');
+    $classesOrder = config('escorts.order_status');
+    $orderStatus = config('escorts.order_status_labels');
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
         return  date('d M Y, h:i A', strtotime($row->order_date));
+      })
+      ->addColumn('agent', function ($row) {
+        return  $row->createdBy ? $row->createdBy->name : '--';
       })
       ->addColumn('total_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
@@ -327,11 +332,12 @@ class ProductOrderController extends Controller
       ->addColumn('user', function ($row) {
         return   $row->user ? $row->user->name : '0.00';
       })
-      ->addColumn('order_status', function ($row) use ($classes) {
-        $class = $classes[$row->order_status] ?? '';
-        return '<span class="custom_badge ' . $class . '">' . ucfirst($row->order_status) . '</span>';
+      ->editColumn('order_status', function ($row) use ($classesOrder, $orderStatus) {
+        $class = $classesOrder[$row->order_status] ?? '';
+
+        return '<span class="custom_badge ' . $class . '">' . $orderStatus[$row->order_status] . '</span>';
       })
-      ->addColumn('payment_status', function ($row) use ($classes) {
+      ->editColumn('payment_status', function ($row) use ($classes) {
         $class = $classes[$row->payment_status] ?? '';
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->payment_status) . '</span>';
       })
@@ -340,7 +346,7 @@ class ProductOrderController extends Controller
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
             </a>
-            <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '"  > <i class="fa fa-eye"></i> View Details </a></div></div>';
+            <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '" data-orderid="' . $row->order_id . '"   > <i class="fa fa-eye"></i> View Details </a></div></div>';
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';

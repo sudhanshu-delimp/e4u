@@ -156,14 +156,36 @@
         position: absolute;
         top: -18px;
     }
+}
+
+@media(max-width:486px) {
+    .search_filters .display_items {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .custom-refreshbuton .reset_filter {
+        display: flex;
+        padding: 11px 15px;
+    }
+    .last_filter_section {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .grd_lst_filter_btn {
+        justify-content: space-between;
+        width: 100%;
+    }
+    .custom_total_list.dropdown {
+        width: 100%;
+    }
+    .custom--service-tag .grid_list_part {
+        width: 100%;
+    }
     .item_dis {
-        width: 100% !important;
-    }
-    .search__filter {
-        width: 100% !important;
-    }
-    .search_btn_profile {
-        width: unset;
+        width: auto;
     }
 }
 
@@ -181,6 +203,19 @@
     .ryt_srch_btn div {
         flex: content;
     }
+    .mc_type_btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+}
+
+@media(min-width:768px) and (max-width:1024px) {
+    .mc_list_card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @media (min-width:425px) and (max-width: 991px) {
@@ -193,6 +228,19 @@
         aspect-ratio: 15 / 11;
         width: 100%;
         max-width: 100%;
+    }
+    .location_radio_filter {
+        width: unset;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .profile-sidebar-margin-top {
+        margin-top: 10px;
     }
 }
 

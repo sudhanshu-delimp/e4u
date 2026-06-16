@@ -38,7 +38,7 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;">Dear {{ $data['billing_name'] }},</p>
+                            <p style="margin: 0 0 15px 0;"><b>Dear {{ $data['billing_name'] }},</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
                                 Your order for a range of Products has been received. Please note, if your order has

@@ -1,138 +1,115 @@
 <style>
-    .nav-tabs .nav-item.show .nav-link,
-    .nav-tabs .nav-link.active {
-        color: white !important
+    .section-title {
+        background: #f8f9fa;
+        border-left: 4px solid #1f2732;
+        padding: 10px 15px;
+        margin: 20px 0 10px;
+        font-size: 18px;
+        font-weight: 600;
     }
 </style>
-<ul class="nav nav-tabs" id="orderTabs" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="order-tab" data-toggle="tab" href="#orderTab" role="tab">
-            Order Details
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="items-tab" data-toggle="tab" href="#itemsTab" role="tab">
-            Order Items
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="address-tab" data-toggle="tab" href="#addressTab" role="tab">
-            Address Details
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="payment-tab" data-toggle="tab" href="#paymentTab" role="tab">
-            Payment Details
-        </a>
-    </li>
-</ul>
+<div class="p-3">
+    <!-- ORDER DETAILS -->
+    <h4 class="section-title">Order Details</h4>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>Order ID</th>
+            <td>{{ $order->order_id ?? 'N/A' }}</td>
+        </tr>
 
-<div class="tab-content p-3" id="orderTabsContent">
+        <tr>
+            <th>Status</th>
+            <td>{{ $order->order_status ? Str::ucfirst($order->order_status) : 'N/A' }}</td>
+        </tr>
 
-    <!-- ORDER -->
-    <div class="tab-pane fade show active" id="orderTab" role="tabpanel">
+        <tr>
+            <th>Console</th>
+            <td>{{ $order->type ?? 'N/A' }}</td>
+        </tr>
+
+        <tr>
+            <th>Order Date</th>
+            <td>
+                {{ !empty($order->order_date) ? date('d M Y, h:i A', strtotime($order->order_date)) : 'N/A' }}
+            </td>
+        </tr>
+
+        <tr>
+            <th style="width:205px">Message</th>
+            <td>{{ $order->notes ?? 'N/A' }}</td>
+        </tr>
+    </table>
+
+
+    <!-- ORDER ITEMS -->
+    <h4 class="section-title">Order Items</h4>
+
+    @if (!empty($order->orderItems) && count($order->orderItems) > 0)
+
         <table class="table table-bordered table-striped table-hover">
-            <tr>
-                <th>Order ID</th>
-                <td>{{ $order->order_id ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ $order->order_status ?? 'N/A' }}</td>
-            </tr>
-            {{-- <tr>
-                <th>Payment Method</th>
-                <td>{{ $order->payment_method ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Sub Total</th>
-                <td>${{ $order->paymentDetails->amount ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Gst Amount </th>
-                <td>${{ $order->paymentDetails->gst_amount ?? 'N/A' }}</td>
-            </tr> --}}
-            <tr>
-                <th>Console</th>
-                <td>{{ $order->type ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Transaction Id</th>
-                <td>{{ $order->transaction_id ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Payment Method</th>
-                <td>{{ $order->payment_method ?? 'N/A' }}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
 
-
-
-
-            <tr>
-                <th>Order Date</th>
-                <td>{{ date('d M Y, h:i A', strtotime($order->order_date)) ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th style="width:205px">Message</th>
-                <td>{{ $order->notes ?? 'N/A' }}</td>
-            </tr>
-        </table>
-    </div>
-
-    <!-- ITEMS -->
-    <div class="tab-pane fade" id="itemsTab" role="tabpanel">
-        @if (!empty($order->orderItems) && count($order->orderItems) > 0)
-            <table class="table table-bordered table-striped table-hover">
-                <thead>
+            <tbody>
+                @foreach ($order->orderItems as $item)
                     <tr>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <td>
+                            {!! $item->product->description ?? 'Product Not Found' !!}
+                            <br>
+
+                            @if (!empty($item->size) && $item->size !== 'N/A')
+                                Size: {{ $item->size }}
+                            @endif
+                        </td>
+
+                        <td>{{ $item->quantity ?? 0 }}</td>
+
+                        <td>${{ number_format($item->price ?? 0, 2) }}</td>
+
+                        <td>
+                            ${{ number_format(($item->price ?? 0) * ($item->quantity ?? 0), 2) }}
+                        </td>
                     </tr>
-                </thead>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p class="text-muted">No items found.</p>
+    @endif
 
-                <tbody>
-                    @foreach ($order->orderItems as $item)
-                        <tr>
-                            <td>
-                                {!! $item->product->description ?? 'Product Not Found' !!} <br>
-                                {{ !empty($item->size) && $item->size !== 'N/A' ? 'Size: ' . $item->size : '' }}
-                            </td>
-                            <td>{{ $item->quantity ?? 0 }}</td>
-                            <td>${{ $item->price ?? 0 }}</td>
-                            <td>${{ ($item->price ?? 0) * ($item->quantity ?? 0) }}</td>
-                        </tr>
-                    @endforeach
 
-                </tbody>
-            </table>
-        @else
-            <p class="text-muted">No items found.</p>
-        @endif
-    </div>
+    <!-- ADDRESS DETAILS -->
+    <h4 class="section-title">Address Details</h4>
 
-    <!-- ADDRESS -->
-    <div class="tab-pane fade table-responsive" id="addressTab" role="tabpanel">
-        @if (!empty($order->orderAddress) && count($order->orderAddress) > 0)
+    @if (!empty($order->orderAddress) && count($order->orderAddress) > 0)
+
+        <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover">
+
                 <thead>
                     <tr>
                         <th>Address Type</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <th>Address1</th>
-                        <th>Address2</th>
+                        <th>Address 1</th>
+                        <th>Address 2</th>
                         <th>City</th>
                         <th>State</th>
                         <th>Pincode</th>
                         <th>Landmark</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach ($order->orderAddress as $item)
                         <tr>
-                            <td>{{ $item->type ?? 'N/A' }}</td>
+                            <td>{{ $item->type ? Str::ucfirst($item->type) : 'N/A' }}</td>
                             <td>{{ $item->phone ?? 'N/A' }}</td>
                             <td>{{ $item->email ?? 'N/A' }}</td>
                             <td>{{ $item->address_line1 ?? 'N/A' }}</td>
@@ -140,62 +117,82 @@
                             <td>{{ $item->city ?? 'N/A' }}</td>
                             <td>{{ $item->state ?? 'N/A' }}</td>
                             <td>{{ $item->pincode ?? 'N/A' }}</td>
-                            <td>{{ $item->landmark || empty($item->landmark) ? $item->landmark : 'N/A' }}</td>
+                            <td>{{ !empty($item->landmark) ? $item->landmark : 'N/A' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
+
             </table>
-        @else
-            <p class="text-muted">No address information found.</p>
-        @endif
-    </div>
+        </div>
+    @else
+        <p class="text-muted">No address information found.</p>
+    @endif
 
-    <!-- PAYMENT -->
-    <div class="tab-pane fade" id="paymentTab" role="tabpanel">
-        @php $payment = $order->paymentDetails ?? null; @endphp
 
-        @if ($payment)
-            <table class="table table-bordered table-striped table-hover">
-                <tr>
-                    <th>Transaction ID</th>
-                    <td>{{ $payment->transaction_id ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <th>Sub Total</th>
-                    <td>${{ $payment->amount ?? 'N/A' }}</td>
-                </tr>
+    <!-- PAYMENT DETAILS -->
+    <h4 class="section-title">Payment Details</h4>
 
-                <tr>
-                    <th>Wallet Amount </th>
-                    <td>${{ $payment->wallet_amount ?? 'N/A' }}</td>
-                </tr>
-                
-                <tr>
-                    <th>Delivery Type / Charge</th>
-                    <td>{{ ucfirst($order->delivery_type) ?? 'N/A' }}{{ '/$' . $payment->delivery_charge ?? 'N/A' }}
-                    </td>
-                </tr>
+    @php
+        $payment = $order->paymentDetails ?? null;
+    @endphp
 
-                <tr>
-                    <th>Gst Amount ( {{ config('escorts.product_tax') }}% of Subtotal )</th>
-                    <td>${{ $payment->gst_amount ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <th>Amount</th>
-                    <td>${{ $payment->paid_amount ?? '0.00' }}</td>
-                </tr>
-                <tr>
-                    <th>Status</th>
-                    <td>{{ $payment->status ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <th>Payment Date</th>
-                    <td>{{ $payment->paid_at ? date('d M Y, h:i A', strtotime($payment->paid_at)) : 'N/A' }}</td>
+    @if ($payment)
+        <table class="table table-bordered table-striped table-hover">
 
-                </tr>
-            </table>
-        @else
-            <p class="text-muted">No payment details found.</p>
-        @endif
-    </div>
+            <tr>
+                <th>Transaction ID</th>
+                <td>{{ $payment->transaction_id ?? 'N/A' }}</td>
+            </tr>
+
+            <tr>
+                <th>Payment Method</th>
+                <td>{{ $order->payment_method ?? 'N/A' }}</td>
+            </tr>
+
+            <tr>
+                <th>Sub Total</th>
+                <td>${{ number_format($payment->amount ?? 0, 2) }}</td>
+            </tr>
+
+            <tr>
+                <th>Wallet Amount</th>
+                <td>${{ number_format($payment->wallet_amount ?? 0, 2) }}</td>
+            </tr>
+
+            <tr>
+                <th>Delivery Type / Charge</th>
+                <td>
+                    {{ !empty($order->delivery_type) ? ucfirst($order->delivery_type) : 'N/A' }}
+                    /
+                    ${{ number_format($payment->delivery_charge ?? 0, 2) }}
+                </td>
+            </tr>
+
+            <tr>
+                <th>GST Amount ({{ config('escorts.product_tax') }}% of Subtotal)</th>
+                <td>${{ number_format($payment->gst_amount ?? 0, 2) }}</td>
+            </tr>
+
+            <tr>
+                <th>Amount Paid</th>
+                <td>${{ number_format($payment->paid_amount ?? 0, 2) }}</td>
+            </tr>
+
+            <tr>
+                <th>Status</th>
+                <td>{{ $payment->status ?? 'N/A' }}</td>
+            </tr>
+
+            <tr>
+                <th>Payment Date</th>
+                <td>
+                    {{ !empty($payment->paid_at) ? date('d M Y, h:i A', strtotime($payment->paid_at)) : 'N/A' }}
+                </td>
+            </tr>
+
+        </table>
+    @else
+        <p class="text-muted">No payment details found.</p>
+    @endif
+
 </div>
