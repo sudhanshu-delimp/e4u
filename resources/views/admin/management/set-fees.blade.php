@@ -1277,7 +1277,7 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                                       <div class="row">
                                                       <div class="col-6 mb-3">
                                                          <label>Value</label>
-                                                         <input type="number"  class="form-control rounded-0" name="amount" min='1' value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                         <input type="number"  min="0" step="0.01"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
                                                       </div>
                                                          <div class="col-6 mb-3">
                                                          <label>Amount Type</label>

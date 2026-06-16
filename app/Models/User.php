@@ -1032,7 +1032,7 @@ class User extends Authenticatable
 
 public function assignedAgent()
 {
-    return $this->belongsTo(AgentDetail::class, 'assigned_agent_id', 'agent_id');
+    return $this->belongsTo(AgentDetail::class, 'assigned_agent_id', 'agent_id')->select('id', 'agent_id', 'commission_advertising_percent', 'commission_advertising_type', 'commission_registration_amount', 'commission_registration_type');
 }
                 
 }
