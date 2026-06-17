@@ -336,22 +336,22 @@ margin-right: 5px;
 
     <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
+            <div class="previous_btn_profile next_previous_btn_pogision {{ $prevId ? '' : 'previousDisableButtonCss' }}">
                 <a  href="{{ $prevId ? route('web.massage-description', [
                                     'id' => $prevId,
                                     'ids' => json_encode($ids)
-                                ]) : 'massage-centres-list' }}" class="text-decoration-none d-flex">
+                                ]) : 'massage-centres-list' }}" class="btn_ank">
                     <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
-            <div class="next_btn_profile next_previous_btn_pogision next-dk {{ $nextId ? '' : 'previousDisableButtonCss' }}">
+            <div class="next_btn_profile next_previous_btn_pogision {{ $nextId ? '' : 'previousDisableButtonCss' }}">
                                 <a href="{{ $nextId ? route('web.massage-description', [
                                     'id' => $nextId,
                                     'ids' => json_encode($ids)
                                 ]) : 'javascript:void(0)' }}"
                                 
-                                class="text-decoration-none">
+                                class="btn_ank">
                     <span class="previous_text remove_in_sm">Next</span>
                     <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>

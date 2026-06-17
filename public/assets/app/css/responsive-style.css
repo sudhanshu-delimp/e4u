@@ -57,10 +57,6 @@
         a.back--search {
             position: relative;
             left: -15px;
-            border-radius: 3px;
-            padding: 5px;
-            font-size: 16px;
-            font-weight: 600;
             z-index: 2;
             top: 10%;
         }

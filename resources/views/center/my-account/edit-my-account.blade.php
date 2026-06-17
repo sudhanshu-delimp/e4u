@@ -1452,10 +1452,6 @@
         return day + '-' + month + '-' + year;
     }
 
-setInterval(function () {
-    $('.notification_support_ticket').fadeOut(800).fadeIn(800);
-}, 1000);
-    
-    
+
 </script>
 @endpush
