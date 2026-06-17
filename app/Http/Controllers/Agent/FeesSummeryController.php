@@ -36,6 +36,8 @@ class FeesSummeryController extends Controller
       displayType: $request->get('display_type', 'member_id')
     );
 
+    //dd($data['earnings']->count());
+
 
 
 
@@ -58,7 +60,7 @@ class FeesSummeryController extends Controller
       );
 
     $html = view('agent.dashboard.Fees.fees_summery_advertiser_table_data', compact('datas'))->render();
-    return success_response($html, 'OK', 200);
+    return success_response(['html' => $html, 'datas' => $datas], 'OK', 200);
     //return success_response('Data fetched successfully', ['html' => $html]);
 
     } catch (\Exception $e) {

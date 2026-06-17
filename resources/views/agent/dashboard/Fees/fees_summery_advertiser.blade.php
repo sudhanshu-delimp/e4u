@@ -39,7 +39,7 @@
                          <tbody>
                              <tr>
                                  <td class="bg-first text-right"><b>Current FY</b></td>
-                                 <td class="text-center" id="current-fy" style="width:27%;">2025 / 2026</td>
+                                 <td class="text-center" style="width:27%;" id="current-fy"></td>
                                  <td class="bg-first text-right"><b>Total Earnings</b>
                                  </td>
                                  <td class="text-right" style="width:20%;">
@@ -55,8 +55,7 @@
                                          @endforeach
                                      </select>
                                  </td>
-                                 <td class="bg-first text-right"><b>Average (P /
-                                         Advertiser)</b>
+                                 <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
                                  </td>
                                  <td class="text-right" style="width:20%;">
                                      <x-curFormat />121.65

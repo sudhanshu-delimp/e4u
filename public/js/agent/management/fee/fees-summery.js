@@ -70,7 +70,10 @@ $(function () {
             },
             success: function (res) {
                 if (res.data) {
-                    $('#appendFeesSummaryAdvertiser').html(res.data);
+                   // console.log(res?.data?.datas?.selectedFY, '.....');
+                    //append Current Fy 
+                    $('#current-fy').html(res?.data?.datas?.selectedFY);
+                    $('#appendFeesSummaryAdvertiser').html(res.data.html);
                 }
             },
             error: function (xhr) {
