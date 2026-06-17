@@ -13,6 +13,8 @@ use App\Services\PinPaymentService;
 use Carbon\Carbon;
 use PDF;
 use Illuminate\Support\Facades\Artisan;
+use App\Mail\PaymentMailer;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -218,22 +220,22 @@ class PaymentController extends Controller
             ]);
 
             $payment_service = '';
-
+            $mainAccount = $this->account;
             switch ($benefit_token['action']) {
                 case 'listing': {
-                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $result = $this->saveCheckout($benefit_token['action'], $payment);
                         $payment_service = 'Profile Listing';
                         $redirect_url = route('escort.account.listing_success');
                     }
                     break;
                 case 'tour': {
-                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $result = $this->saveCheckout($benefit_token['action'], $payment);
                         $payment_service = 'Tour';
                         $redirect_url = route('escort.account.listing_success');
                     }
                     break;
                 case 'extend': {
-                        $this->saveCheckout($benefit_token['action'], $payment);
+                        $result = $this->saveCheckout($benefit_token['action'], $payment);
                         $payment_service = 'Profile Extend';
                         $redirect_url = route('escort.account.listing_success');
                     }
@@ -274,6 +276,13 @@ class PaymentController extends Controller
             $payment->service = $payment_service;
             $payment->save();
 
+            /* Send Payment Mail */
+            if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {
+                $extend_days = empty($result['extend_days']) ? 0 : $result['extend_days'];
+                $mailConfig = config("payment_mail_templates.{$benefit_token['action']}");
+                Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment', 'extend_days'), $mailConfig['subject']));
+            }
+
             DB::commit();
             Artisan::queue('profile:sync-status');
             return response()->json([
@@ -306,7 +315,7 @@ class PaymentController extends Controller
 
     public function saveCheckout($action = null, $payment = null)
     {
-
+        $response = [];
         if (session()->has('checkout') || session()->has('tour_checkout')) {
             $checkout = in_array($action, ['listing', 'extend']) ? session()->get('checkout') : session()->get('tour_checkout');
             $netPaidAmount = 0.00;
@@ -362,8 +371,13 @@ class PaymentController extends Controller
                     $purchaseDetail->status = 'listed';
                     $purchaseDetail->save();
                 }
+
+                if ($action === 'extend') {
+                    $response['extend_days'] = Carbon::parse($item['start_date'])->diffInDays(Carbon::parse($item['end_date'])) + 1;
+                }
             }
         }
+        return $response;
     }
 
     public function transactionSummary(Request $request)

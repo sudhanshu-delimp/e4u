@@ -201,7 +201,6 @@
 
                                                         {{-- reset --}}
                                                         <div class="custom-refreshbuton">
-                                                            <div>
                                                                 <input type="hidden" name="apply_pagination_rule"
                                                                     id="apply_pagination_rule" value="0">
                                                                 <button type="submit"
@@ -209,12 +208,10 @@
                                                                     <span class="filter-tooltip">Apply Change</span>
                                                                     <i class="fa fa-repeat" aria-hidden="true"></i>
                                                                 </button>
-                                                            </div>
                                                         </div>
                                                         {{-- end --}}
 
                                                         {{-- view short list btn --}}
-                                                        <div>
                                                             <button type="button"
                                                                 class="btn reset_filter filter-tooltip-wrap"
                                                                 id="v_wishlist">
@@ -230,11 +227,9 @@
                                                                     <span class="filter-tooltip">View Shortlist</span>
                                                                 </a>
                                                             </button>
-                                                        </div>
                                                         {{-- end --}}
 
                                                         {{-- clear short --}}
-                                                        <div>
                                                             @php
                                                                 $query = Arr::except(request()->query(), ['ipinfo']);
                                                             @endphp
@@ -243,7 +238,6 @@
                                                                 class="btn reset_filter " data-toggle="tooltip">
                                                                 Clear Shortlist
                                                             </a>
-                                                        </div>
                                                         {{-- end --}}
                                                     </div>
                                                 </div>
