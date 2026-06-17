@@ -1751,6 +1751,10 @@
                 flex-wrap: wrap;
             }
             
+            .mess_repo_btn_wrap button {
+                font-size: 15px !important;
+            }
+            
             .add_reviews_btn:hover,
             button#legbox_btn:hover,
             .profile_message_btn_cc:hover {
