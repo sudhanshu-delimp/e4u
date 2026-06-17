@@ -196,7 +196,7 @@
 @endsection
 @push('script')
     <script>
-        let loginUserId = '{{ Auth::user()->id }}';
+      let loginUserId = "{{ session('parent_agent_id') ?? Auth::user()->id }}";
     </script>
     <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
     <script>

@@ -305,7 +305,8 @@ class ProductOrderController extends Controller
 
   public function orderList(Request $request)
   {
-    $query = ProductOrder::with(['paymentDetails', 'user', 'createdBy'])->where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC');
+    $id = session('parent_agent_id') ?? Auth::user()->id;
+    $query = ProductOrder::with(['paymentDetails', 'user', 'createdBy'])->where('created_by', $id)->orderBy('created_at', 'DESC');
     $classes = config('escorts.payment_status');
     $classesOrder = config('escorts.order_status');
     $orderStatus = config('escorts.order_status_labels');
@@ -315,7 +316,7 @@ class ProductOrderController extends Controller
         return  date('d M Y, h:i A', strtotime($row->order_date));
       })
       ->addColumn('agent', function ($row) {
-        return  $row->createdBy ? $row->createdBy->name : '--';
+        return  $row->createdBy ? $row->createdBy->member_id : '--';
       })
       ->addColumn('total_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';

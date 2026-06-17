@@ -51,6 +51,7 @@
                                 <thead class="table-bg">
                                     <tr>
                                         <th>Order ID</th>
+                                        <th>Created By</th>
                                         <th>User</th>
                                         <th>Sub Total</th>
                                         <th>Wallet Amount</th>
@@ -221,6 +222,10 @@
                 columns: [{
                         data: 'order_id',
                         name: 'order_id'
+                    },
+                    {
+                        data: 'agent',
+                        name: 'agent'
                     },
                     {
                         data: 'user',

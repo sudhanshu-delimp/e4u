@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Mail\Escort\Order;
+namespace App\Mail\Agent;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderMailToEscort extends Mailable
+class SendProductOrderCompleteConfirmationMailToAgent extends Mailable
 {
   use Queueable, SerializesModels;
+
   /**
    * Create a new message instance.
    *
@@ -29,7 +30,8 @@ class OrderMailToEscort extends Mailable
    */
   public function build()
   {
-    return $this->subject("Order Confirmation Products – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}")->view('emails.escort.order.order_mail_to_escort')
-      ->with(['data' => $this->data]); // <-- Pass to view
+    $subject = "Order Successfully Completed on Behalf of Escort – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}";
+    return $this->subject($subject)->view('emails.escort.order.order_completed_agent')
+      ->with(['data' => $this->data]);
   }
 }
