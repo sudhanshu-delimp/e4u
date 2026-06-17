@@ -1136,9 +1136,9 @@ if (!function_exists('formatMobileNumber')) {
 
 if (!function_exists('removeSpaceFromString')) {
     function removeSpaceFromString($number)
-    {  
+    {
         $number = trim((string) $number);
-         if ($number === '') {
+        if ($number === '') {
             return null;
         }
 
@@ -1386,6 +1386,8 @@ if (!function_exists('getListingRefundAmount')) {
             //$remaining_days = $escortDetail->left_listing_days;
             list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days), $escortDetail->user, $purchase);
             $refundAmount = $purchase->paid_rate - $usedAmount;
+            $gstAmount = getGSTAmount($refundAmount);
+            $refundAmount = $refundAmount + $gstAmount;
         }
         return number_format($refundAmount, 2, '.', '');
     }
@@ -1408,12 +1410,23 @@ if (!function_exists('getSuspendRefundAmount')) {
 
             $netAmount = number_format($costTillSuspendEnd - $costBeforeSuspendStart, 2, '.', '');
             $refundAmount = min($piadAmount, $netAmount);
+            $gstAmount = getGSTAmount($refundAmount);
+            $refundAmount = $refundAmount + $gstAmount;
         }
         return number_format($refundAmount, 2, '.', '');
     }
 }
 
-
+if (!function_exists('getGSTAmount')) {
+    function getGSTAmount($amount = 0.00)
+    {
+        $gstAmount = 0.00;
+        if ($amount > 0) {
+            $gstAmount = ($amount * config('app.payment.gst_percentage')) / 100;
+        }
+        return number_format($gstAmount, 2, '.', '');
+    }
+}
 
 if (!function_exists('get_working_hours')) {
     function get_working_hours($listing)
@@ -2427,21 +2440,20 @@ if (!function_exists('canManage')) {
 }
 
 
-if (!function_exists('additional_information')){
-    function additional_information($user_id, $type, $value=null)
+if (!function_exists('additional_information')) {
+    function additional_information($user_id, $type, $value = null)
     {
-        if($value){
+        if ($value) {
             return EscortAdditionalInformation::where('user_id', $user_id)
-                    ->where('type', $type)
-                    ->where('make_default', 1)
-                    ->value('value') ?? '';
-        }else{
+                ->where('type', $type)
+                ->where('make_default', 1)
+                ->value('value') ?? '';
+        } else {
             return EscortAdditionalInformation::where('user_id', $user_id)
-            ->where('type', $type)
-            ->where('make_default', 1)
-            ->value('short_desc') ?? '';
+                ->where('type', $type)
+                ->where('make_default', 1)
+                ->value('short_desc') ?? '';
         }
-   
     }
 }
 
@@ -2456,8 +2468,7 @@ if (!function_exists('is_parent_massage_user_switch')) {
     }
 }
 
-if (!function_exists('canManageClass')) 
-{
+if (!function_exists('canManageClass')) {
     function canManageClass()
     {
         return canManage() ? '' : 'hide_element';

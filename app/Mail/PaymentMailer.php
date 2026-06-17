@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 
 use PDF;
 
-class PaymentMailer extends Mailable
+class PaymentMailer extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

@@ -95,8 +95,8 @@
                             function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
                             or
                             View the Profile.</li>
-                            <li>To display your Playmates avatar in any Profile, select Add Playmates from Action.  You can add multiple Playmates.  Only your Playmates in the Location the Profile is Listed at the time can be added to the Profile.  If your Playmate leaves the Location while your Profile is Active, or they Suspend their Profile, they will be automatically removed from the Profile for the suspended period and permanently if they have left the Location.</li>
-                    
+                        <li>To display your Playmates avatar in any Profile, select Add Playmates from Action. You can add multiple Playmates. Only your Playmates in the Location the Profile is Listed at the time can be added to the Profile. If your Playmate leaves the Location while your Profile is Active, or they Suspend their Profile, they will be automatically removed from the Profile for the suspended period and permanently if they have left the Location.</li>
+
                     </ol>
                 </div>
             </div>
@@ -110,18 +110,18 @@
                     <div>
                         <div class="add--list listingActionButtons">
                             <div class="">
-                                
-                            {{-- <div class="pinup-tooltip-wrapper"> --}}
+
+                                {{-- <div class="pinup-tooltip-wrapper"> --}}
                                 <button style="padding: 10px;" class="btn btn-warning esc-tooltip-wrap" data-toggle="modal"
                                     data-target="#pinup_profile" id="btn_pinup_profile"
                                     @if ($activePinup) disabled title="" @endif>List Pin
                                     Up
-                                     @if ($activePinup)
-                                    <span class="esc-tooltip-2">You already have an active <br>  pinup. You can book <br>  after it
-                                    expires.</span>
-                                     @endif
-                                </button> 
-                           
+                                    @if ($activePinup)
+                                    <span class="esc-tooltip-2">You already have an active <br> pinup. You can book <br> after it
+                                        expires.</span>
+                                    @endif
+                                </button>
+
                                 <button class="btn upgrade-btn esc-tooltip-wrap" data-toggle="modal"
                                     data-target="#upgrade_modal" id="btn_upgrade">Upgrade
                                     <span class="esc-tooltip-2">Upgrade your Membership <br> Type</span>
@@ -131,7 +131,7 @@
                                 <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
                                     Extend Profile
-                                    <span class="esc-tooltip-2">Extend your Profile to a  <br> new end date</span>
+                                    <span class="esc-tooltip-2">Extend your Profile to a <br> new end date</span>
                                 </button>
                                 <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
@@ -141,16 +141,16 @@
                                 <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#suspend_profile"
                                     id="btn_suspend_profile">Suspend Profile
-                                    <span class="esc-tooltip-2">Take down your Profile  <br> for a set period</span>
+                                    <span class="esc-tooltip-2">Take down your Profile <br> for a set period</span>
                                 </button>
 
 
 
                             </div>
-                             <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
-                                    data-target="#add_brb" id="btn_add_brb">Add BRB
-                                    <span class="esc-tooltip-2">Be Right Back display</span>
-                                </button>
+                            <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
+                                data-target="#add_brb" id="btn_add_brb">Add BRB
+                                <span class="esc-tooltip-2">Be Right Back display</span>
+                            </button>
                         </div>
                     </div>
                     <br>
@@ -379,10 +379,6 @@
                                         <div class="col-lg-12">
                                             <p class="mb-1"><b>Notes:</b></p>
                                             <ol class="pl-4 text-justify">
-                                                {{-- <li> Use this feature to review and
-                                                        make changes to your Profiles. Any changes you make to a Profile
-                                                        will be applied to the
-                                                        Profile once the changes are saved.</li> --}}
 
                                                 <li> To suspend a Listing, select the Profile and suspension period,
                                                     then click Suspend. You will be credited with the Fees according to
@@ -1322,9 +1318,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
+                showLoadingPopup();
                 $("#suspend_form").find('button[type=submit]').attr('disabled', 'disabled');
             },
             success: function(data) {
+                Swal.close();
                 if (data.response.success) {
                     Swal.fire({
                         icon: "success",

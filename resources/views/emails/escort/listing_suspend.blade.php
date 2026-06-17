@@ -23,8 +23,8 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Listing Expiry Reminder - Escort</h1>
-                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$escort->user->member_id ?? ''}}</div>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Listing Suspension- Escort</h1>
+                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$suspendProfile->user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
                             </table>
@@ -33,15 +33,46 @@
                     <!-- Body content -->
                     <tr>
                         <td style="padding: 30px; text-align: justify;">
-                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$escort->user->name ?? ''}},</p>
+                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$suspendProfile->user->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 We would like to inform you that a suspension has been applied to your profile.
                             </p>
+                            <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Suspension Details:</b></p>
+                            <table>
+                                <tr>
+                                    <th style="text-align: left">Profile: </th>
+                                    <td>{{ $suspendProfile->escort->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: left">Start Date: </th>
+                                    <td>{{ $suspendProfile->start_date->format('d-m-Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: left">End Date:</th>
+                                    <td>{{ $suspendProfile->end_date->format('d-m-Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: left">Period: </th>
+                                    @php
+                                    $period = Carbon\Carbon::parse($suspendProfile->start_date)->diffInDays(Carbon\Carbon::parse($suspendProfile->end_date)) + 1;
+                                    @endphp
+                                    <td>{{ $period }} {{$period===1 ? 'Day':'Days'}}</td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: left">Credit:</th>
+                                    <td>{{ formatCurrency($suspendProfile->credit) }}</td>
+                                </tr>
+                            </table>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                Suspension Details:
+                                Your profile will be suspended during the above-mentioned period.
                             </p>
-
+                            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                                If the suspension start date is a future date, the suspension will become active from the scheduled start date.
+                            </p>
+                            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                                If the suspension start date is a future date, the suspension will become active from the scheduled start date.
+                            </p>
                             <!-- email info -->
                             <x-email-info />
                             <!-- end -->
@@ -64,22 +95,3 @@
 </body>
 
 </html>
-Dear [Member ID],
-
-We would like to inform you that a suspension has been applied to your profile.
-
-Suspension Details:
-
-Profile: [Profile Name]
-Suspension Start Date: [Start Date]
-Suspension End Date: [End Date]
-Suspension Period: [Number of Days] days
-
-Credit Applied: $[Credit Amount]
-
-Your profile will be suspended during the above-mentioned period.
-If the suspension start date is a future date, the suspension will become active from the scheduled start date.
-
-If you have any questions, please contact our support team.
-
-[Usual sign off]
