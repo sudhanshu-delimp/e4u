@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -24,9 +25,7 @@
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Ref: {{ $data['id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
-
                                             <br>
-
                                         </span>
                                     </td>
                                 </tr>
@@ -38,43 +37,76 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;"><b>Dear {{ $data['billing_name'] }},</b></p>
-
+                            <p style="margin: 0 0 15px 0;"><b>Dear
+                                    {{ $data['agent_name'] ?? $data['billing_name'] }},</b></p>
                             <p style="margin: 20px 0 15px 0;">
-                                Your order for a range of Products has been received. Please note, if your order has
-                                been
-                                placed before 11:00 am and you have requested a delivery, delivery will
-                                occur on the same day. If your order is by post, please allow 48 hours
-                                for the Products to arrive. We will express post your Products to your nominated
-                                delivery
-                                address.
+                                Thank you for your order. This email confirms that you have successfully placed an order
+                                for Products on behalf of
+
+                                <strong>{{ $data['escort_name'] ?? 'the Escort' }}</strong>.
+
                             </p>
 
                             <p style="margin: 15px 0;">
-                                If you do not receive your Products within 72 hours, please lodge a
-                                Support Ticket by logging onto your Dashboard and quoting your reference number
-                                {{ $data['id'] }}.
+
+                                If the order was submitted before 11:00 am and delivery was requested,
+                                delivery will occur on the same day.
+
+                                If the Products are being sent by post, please allow up to 48 hours for
+                                delivery. The Products will be
+
+                                dispatched to the nominated delivery address associated with this order.
+
                             </p>
 
+
+
                             <p style="margin: 15px 0;">
-                                We confirm payment has been made according to your instructions.
+
+                                If the Products are not received within 72 hours, please lodge a
+                                Support Ticket through your Dashboard
+
+                                and quote the reference number {{ $data['id'] }}.
+
                             </p>
+
+
+
+                            <p style="margin: 15px 0;">
+
+                                We confirm that payment for this order has been processed according to your
+                                instructions.
+
+                            </p>
+
+
 
                             <p style="margin: 20px 0 10px 0;"><strong>Notes:</strong></p>
 
+
+
                             <ol style="padding-left: 20px; margin: 0; line-height: 22px;">
+
                                 <li>
-                                    Your products will, if by post:
+
+                                    If the Products are being sent by post:
+
                                     <ul style="padding-left: 20px; margin-top: 10px;">
-                                        <li>(a) be dispatched on the next business day; and</li>
-                                        <li>(b) can be tracked.</li>
+                                        <li>(a) they will be dispatched on the next business day; and</li>
+                                        <li>(b) tracking information will be available.</li>
                                     </ul>
                                 </li>
+
                                 <li style="margin-top: 10px;">
-                                    You can view your order online by going to your Dashboard and selecting
-                                    Transaction Summary and from the Action options, select
-                                    View.
+                                    You can view this order in your Dashboard by navigating to
+                                     Transaction Summary and selecting
+                                     View  from the available actions.
                                 </li>
+
+                                {{-- <li style="margin-top: 10px;">
+                                    Please retain this reference number for any future enquiries regarding this order.
+                                </li> --}}
+
                             </ol>
 
 

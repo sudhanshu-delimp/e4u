@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
- 
+
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -20,7 +20,7 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            Concierge Service - Product Order
+                                            E4U Concierge - Product Order Completed
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Ref: {{ $data['id'] ?? '' }}<br>
@@ -36,38 +36,28 @@
                     <!-- Content Section -->
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
-                            <p style="margin: 0 0 15px 0;"><b>Attention Operations,</b></p>
 
+                            <p style="margin: 0 0 15px 0;"><b>Dear Agent,</b></p>
                             <p style="margin: 20px 0 15px 0;">
-                                A request for Products has been requested by:
+                                We are pleased to inform you that the product order you placed on behalf of the member
+                                has been successfully completed and delivered.
                             </p>
 
-                            <table>
-                                <tr>
-                                    <th style="text-align: left">Member Name:</th>
-                                    <td>{{ $data['member_name'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Member ID:</th>
-                                    <td>{{ $data['member_id'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Email:</th>
-                                    <td>{{ $data['email'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Mobile:</th>
-                                    <td>{{ $data['mobile'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Delivery address:</th>
-                                    <td>{{ $data['delivery_address'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Delivery type:</th>
-                                    <td>{{ ucfirst($data['delivery_type']) }}</td>
-                                </tr>
-                            </table>
+                            <p style="margin: 15px 0;">
+                                The order has been fulfilled in accordance with the requested requirements and has now
+                                been closed successfully.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                No further action is required at this time. Please retain this confirmation for your
+                                records and quote the order reference in any future correspondence regarding this order.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                If you have any questions or require further assistance, please contact our support
+                                team.
+                            </p>
+
                             <!-- email info -->
                             <x-email-info />
                             <!-- end -->
