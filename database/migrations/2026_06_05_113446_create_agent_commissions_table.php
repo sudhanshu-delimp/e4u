@@ -17,6 +17,8 @@ class CreateAgentCommissionsTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('agent_id');
+            $table->unsignedBigInteger('user_id')->nullable(); // Loggedin user id
+            $table->integer('user_type')->nullable();// Loggedin user type
 
             // Morph columns
             $table->morphs('commissionable');
@@ -42,6 +44,11 @@ class CreateAgentCommissionsTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->index('user_id');
+           $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');  
         });
     }
 

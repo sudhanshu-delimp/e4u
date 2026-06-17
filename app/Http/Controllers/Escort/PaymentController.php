@@ -217,6 +217,12 @@ class PaymentController extends Controller
                 'meta' => $is_bypass ? null : json_encode($response),
             ]);
 
+            /** Calulate agent commisson and save the commission */
+            $agentCommission = (new \App\Models\AgentCommission);
+            if($payment) {
+                $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['total_amount']);
+            }
+
             $payment_service = '';
 
             switch ($benefit_token['action']) {

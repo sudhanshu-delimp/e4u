@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use App\Models\VariablAgentOperator;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class AgentCommission extends Model
 {
     protected $fillable = [
         'agent_id',
+        'user_id',
+        'user_type',
         'purchase_amount',
         'commissionable_type',
         'commissionable_id',
@@ -43,7 +46,7 @@ class AgentCommission extends Model
         $user = User::with('assignedAgent')->where('id', $userId)->where('is_agent_assign', '1')->first();
 
         if ($user && $user->assignedAgent) {
-            return $user->assignedAgent;
+            return $user;
         }
 
         return false;
@@ -68,36 +71,42 @@ class AgentCommission extends Model
         $agentCommission['commission'] = 0;
         $agentCommission['amount_type'] = '';
         $agentCommission['purchase_amount'] = $total;
+        $agentCommission['user_type'] = null;
 
         $commission = 0;
         if ($total > 0) {
-            $assignedAgent = $this->getAssignedAgent($userId);
+            $user = $this->getAssignedAgent($userId);
+            $assignedAgent = $user->assignedAgent;
             if ($assignedAgent) {
+                //Log::info("Agent_details:" . json_encode($assignedAgent));
+                $agentCommission['user_type'] = $user->type;
                 $agentCommission['agent_id'] = $assignedAgent->agent_id;
-                $commission = (is_null($assignedAgent->commission_advertising_percent)) ? 0 : $assignedAgent->commission_advertising_percent;
+                //$commission = (is_null($assignedAgent->commission_advertising_percent)) ? 0 : $assignedAgent->commission_advertising_percent;
                 $amountType = $assignedAgent->commission_advertising_type;
-            }
-            if ($commission < 0.00001) {
-                $variable =  VariablAgentOperator::where('fee_for', $feeFor)->first();
-                $commission = 5;
-                if ($variable) {
-                    $commission = (is_null($variable->amount)) ? 0 : $variable->amount;
-                    $amountType = $variable->amount_type;
-                }
-            }
 
-            if ($commission > 0) {
-                if ($amountType == 'percent') {
-                    $totalCommission = ($total * $commission) / 100;
-                } else {
-                    $totalCommission = $commission;
+                if ($commission < 0.00001) {
+                    $variable =  VariablAgentOperator::where('fee_for', $feeFor)->first();
+                    $commission = 5;
+                    if ($variable) {
+                        $commission = (is_null($variable->amount)) ? 0 : $variable->amount;
+                        $amountType = $variable->amount_type;
+                    }
                 }
 
-                $totalCommission = number_format($totalCommission, 2, '.', '');
+                if ($commission > 0) {
+                    if ($amountType == 'percent') {
+                        $totalCommission = ($total * $commission) / 100;
+                    } else {
+                        $totalCommission = $commission;
+                    }
 
-                $agentCommission['total_commission'] = $totalCommission;
-                $agentCommission['commission'] = $commission;
-                $agentCommission['amount_type'] = $amountType;
+                    $totalCommission = number_format($totalCommission, 2, '.', '');
+
+                    $agentCommission['total_commission'] = $totalCommission;
+                    $agentCommission['commission'] = $commission;
+                    $agentCommission['amount_type'] = $amountType;
+                    //Log::info("Commission Calculated");
+                }
             }
         }
         return $agentCommission;
@@ -106,17 +115,45 @@ class AgentCommission extends Model
     /**
      * Save the calculated commission 
      * 
+     * @param Object $massageEscortPurchase
      * @param \App\Models\User $userId
      * @param decimal $total
      * @param string $feeFor
      * @return boolean
      */
-    public function saveCommissionData($userId, $total, $feeFor = 'advertising') 
+    public function saveCommissionData($massageEscortPurchase, $userId, $total, $feeFor = 'advertising')
     {
-        $calculateData = $this->calculateCommission($userId, $total);
-        if($calculateData['commission'] > 0 && !empty($calculateData['amount_type']) && $calculateData['agent_id'] > 0) {
-            return true;
+        try {
+            $agentCommission = $this->calculateCommission($userId, $total);
+            //Log::info("agentCommission:" . json_encode($agentCommission));
+            if ($agentCommission['commission'] > 0 && !empty($agentCommission['amount_type']) && $agentCommission['agent_id'] > 0) {
+                if ($massageEscortPurchase) {
+                    $massageEscortPurchase->commissions()->create([
+                        'agent_id' => $agentCommission['agent_id'],
+                        'user_id' => $userId,
+                        'user_type' => (int)$agentCommission['user_type'],
+                        'purchase_amount' => $total,
+                        'commission_amount' => $agentCommission['commission'],
+                        'amount_type' => $agentCommission['amount_type'],
+                        'total_commission_amount' => $agentCommission['total_commission'],
+                        'commission_date' => now(),
+                    ]);
+                   // Log::info("Agent commisson proceeded");
+                    return true;
+                }
+            }
+        } catch (Exception $e) {
+            Log::error("agentCommission Exception:" . $e->getMessage());
         }
         return false;
+    }
+
+    /**
+     * Get total earning of agent by Escort or Massage
+     */
+    public function getTotalEarning($userId = 0)
+    {
+        return self::where('user_id', $userId)
+            ->sum('total_commission_amount');
     }
 }
