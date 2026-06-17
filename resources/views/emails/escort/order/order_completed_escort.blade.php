@@ -58,7 +58,10 @@
                                If you have any questions or require further assistance, please contact our support team. </p>
 
                             <!-- email info -->
-                            <x-email-info />
+                           <p style="font-size: 15px; margin-top: 20px;">
+                                Regards,<br>
+                                <b>E4U - Operations Centre</b>
+                            </p>
                             <!-- end -->
 
                         </td>
