@@ -169,8 +169,8 @@
         }
         .next-preview-fixed>div>div {
             position: absolute;
-            top: 85px;
-            z-index: 999;
+            top: -320px;
+            z-index: 9;
         }
         .next-preview-fixed>div>div.previous_btn_profile {
             left: auto;

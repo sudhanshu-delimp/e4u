@@ -334,7 +334,7 @@ margin-right: 5px;
         
     </div>
 
-    <div class="container-fluid px-0 next-preview-fixed">
+    <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
                 <a  href="{{ $prevId ? route('web.massage-description', [
