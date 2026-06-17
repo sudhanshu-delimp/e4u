@@ -31,44 +31,40 @@ class FeesSummeryController extends Controller
 
   public function feesSummery(Request $request)
   {
-    $data = $this->feeService->getSummeryData(
-      requestedFY: $request->get('fy'),
-      displayType: $request->get('display_type', 'member_id')
+
+    $fy = $request->get('fee_summery_advertiser_fy') ?? $this->feeService->currentFYLabel();
+    $displayType =  $request->get('display_type') ?? 'member_id';
+  
+    $feeSummery = $this->feeService->getSummeryData(
+      requestedFY: $fy,
+      displayType: $displayType
     );
-
-    //dd($data['earnings']->count());
-
-
-
-
-    // foreach ($data['earnings'] as $data) {
-    //   dd($data);
-    // }
-    $availableFYs  =  $this->feeService->getAvailableFYs();
-    return  view('agent.dashboard.Fees.summary', compact('availableFYs'));
-  }
-
-  public function fetchFeeSummeryAdvertiserData(Request $request)
-  {
-    $fy = $request->get('fy');
-    $displayType = $request->display_type;
-
-    try {
-      $datas = $this->feeService->getSummeryData(
-        requestedFY: $request->get('fy'),
-        displayType: $request->get('display_type', 'member_id')
-      );
-
-    $html = view('agent.dashboard.Fees.fees_summery_advertiser_table_data', compact('datas'))->render();
-    return success_response(['html' => $html, 'datas' => $datas], 'OK', 200);
-    //return success_response('Data fetched successfully', ['html' => $html]);
-
-    } catch (\Exception $e) {
-      return error_response('Invalid financial year format.');
-    }
-
 
    
 
+
+    return  view('agent.dashboard.Fees.summary', compact('feeSummery'));
   }
+
+  // public function fetchFeeSummeryAdvertiserData(Request $request)
+  // {
+  //   $fy = $request->get('fy');
+  //   $displayType = $request->display_type;
+
+  //   try {
+  //     $datas = $this->feeService->getSummeryData(
+  //       requestedFY: $request->get('fy'),
+  //       displayType: $request->get('display_type', 'member_id')
+  //     );
+
+  //   $html = view('agent.dashboard.Fees.fees_summery_advertiser_table_data', compact('datas'))->render();
+  //   return success_response(['html' => $html, 'datas' => $datas], 'OK', 200);
+  //   //return success_response('Data fetched successfully', ['html' => $html]);
+
+  //   } catch (\Exception $e) {
+  //     return error_response('Invalid financial year format.');
+  //   }
+
+
+  // }
 }

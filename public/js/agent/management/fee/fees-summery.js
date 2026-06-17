@@ -7,7 +7,10 @@ $(function () {
         success_image: mmRoot.data('success-image'),
         error_image: mmRoot.data('error-image'),
         advertiser_fees_summery: mmRoot.data('advertiser-fees-summery'),
+        agent_fees_summery : mmRoot.data('agent-fees-summery'),
     };
+
+    console.log(endpoint.agent_fees_summery);
 
 
 
@@ -60,36 +63,12 @@ $(function () {
     }
 
 
-    function appendFeesSummaryAdvertiser() {
-        $.ajax({
-            url: endpoint.advertiser_fees_summery,
-            method: 'GET',
-            //data: { _token: endpoint.csrf_token },
-            beforeSend: function () {
-                // $('#proceedBtn').prop('disabled', true).text('Generating...');
-            },
-            success: function (res) {
-                if (res.data) {
-                   // console.log(res?.data?.datas?.selectedFY, '.....');
-                    //append Current Fy 
-                    $('#current-fy').html(res?.data?.datas?.selectedFY);
-                    $('#appendFeesSummaryAdvertiser').html(res.data.html);
-                }
-            },
-            error: function (xhr) {
-                var msg = 'Failed to generate list.';
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    msg = xhr.responseJSON.message;
-                }
-                showAlert('error', msg);
-            },
-            complete: function () {
-                $('#proceedBtn').prop('disabled', false).text('Proceed');
-            }
-        });
-    }
+$(document).on('change', '#display_type, #select-fy', function(){
+    let fy = $('#select-fy').val();
+    let displayType = $('#display_type').val();
+    window.location.href =  `${endpoint.agent_fees_summery}?fee_summery_advertiser_fy=${encodeURIComponent(fy)}&display_type=${encodeURIComponent(displayType)}`;
+});
 
-    appendFeesSummaryAdvertiser();
 
 });
 

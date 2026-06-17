@@ -16,7 +16,7 @@
                                  <td class="border-left-0 border-bottom-0 border-top-0 text-right">
                                      <b>Report Generated</b>
                                  </td>
-                                 <td class="border-0 bg-white text-left">12-12-2019</td>
+                                 <td class="border-0 bg-white text-left">{{date('d-m-Y')}}</td>
                              </tr>
                              <tr>
                                  <td class="border-left-0 border-bottom-0 border-top-0 text-right">
@@ -39,50 +39,55 @@
                          <tbody>
                              <tr>
                                  <td class="bg-first text-right"><b>Current FY</b></td>
-                                 <td class="text-center" style="width:27%;" id="current-fy"></td>
+                                 <td class="text-center" style="width:27%;" id="current-fy">{{$feeSummery['selectedFY'] ?? ''}}</td>
                                  <td class="bg-first text-right"><b>Total Earnings</b>
                                  </td>
                                  <td class="text-right" style="width:20%;">
-                                     <x-curFormat />486.60
+                                     {{formatCurrency($feeSummery['totalEarning']) ?? ''}}
                                  </td>
                              </tr>
                              <tr>
                                  <td class="bg-first text-right"><b>Select FY </b></td>
                                  <td style="width:27%;">
                                      <select class="rounded-0 w-100" id="select-fy" name="select-fy">
-                                         @foreach ($availableFYs as $year)
-                                             <option value="{{ $year }}">{{ $year }}</option>
+                                         @foreach ($feeSummery['availableFYs'] as $year)
+                                             <option {{ request('fee_summery_advertiser_fy') == $year ? 'selected' : '' }} value="{{ $year }}">{{ $year }}</option>
                                          @endforeach
                                      </select>
                                  </td>
                                  <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
                                  </td>
                                  <td class="text-right" style="width:20%;">
-                                     <x-curFormat />121.65
+                                     {{formatCurrency($feeSummery['averageEarning']) ?? 0}}
                                  </td>
                              </tr>
                              <tr>
                                  <td class="bg-first text-right"><b>Display Type</b>
                                  </td>
                                  <td style="width:27%;">
-                                     <select class="rounded-0 w-100">
-                                         <option>Member ID
-                                         </option>
-                                         <option>Membership Type
-                                         </option>
-                                         <option>Highest Spend
-                                         </option>
-                                         <option>Lowest Spend
-                                         </option>
-                                         <option>Highest Fees
-                                         </option>
-                                         <option>Lowest Fees
-                                         </option>
+                                     <select class="rounded-0 w-100" name="display_type" id="display_type">
+                                         <option value="member_id"
+                                           {{ request('display_type', 'member_id') == 'member_id' ? 'selected' : '' }}>
+                                           Member ID</option>
+                                         <option value="membership_type"
+                                         {{ request('display_type') == 'membership_type' ? 'selected' : '' }}>
+                                         Membership Type</option>
+                                         <option value="highest_spend" 
+                                         {{ request('display_type') == 'highest_spend' ? 'selected' : '' }}
+                                         >Highest Spend</option>
+                                         <option value="lowest_spend" 
+                                         {{ request('display_type') == 'lowest_spend' ? 'selected' : '' }}>
+                                         Lowest Spend</option>
+                                         <option value="highest_fee" 
+                                         {{ request('display_type') == 'highest_fee' ? 'selected' : '' }}>
+                                         Highest Fees</option>
+                                         <option  value="lowest_fee" 
+                                         {{ request('display_type') == 'lowest_fee' ? 'selected' : '' }}>
+                                         Lowest Fees</option>
                                      </select>
                                  </td>
-                                 <td class="bg-first text-right"><b>Total
-                                         Advertisers</b></td>
-                                 <td class="text-right" style="width:20%;">4</td>
+                                 <td class="bg-first text-right"><b>Total Advertisers</b></td>
+                                 <td class="text-right" style="width:20%;">{{formatCurrency($feeSummery['totalAdvertiser']) ?? 0}}</td>
                              </tr>
                          </tbody>
                      </table>
@@ -116,18 +121,20 @@
                  </tr>
                  <tr>
              </thead>
-             <tbody id="appendFeesSummaryAdvertiser">
-                 {{-- <tr>
-                     <td class="text-left">E612345 </td>
-                     <td class="text-left">Oxi Daisy</td>
-                     <td class="text-center">01/01/2022</td>
-                     <td class="text-right">$ 960.00</td>
-                     <td class="text-right">$ 336.00</td>
-                     <td class="text-right">$ 348.00</td>
-                     <td class="text-right">$ 950.00</td>
-                     <td> </td>
-                     <td class="text-right">$ 2,594.00</td>
-                     <td class="text-right">$ 129.70</td>
+             <tbody id="appendFeesSummaryAdvertiseraa">
+                @foreach($feeSummery['earnings'] as $summery)
+                
+                 <tr>
+                     <td class="text-left">{{$summery['member_id'] ?? ''}} </td>
+                     <td class="text-left">{{$summery['advertiser_name'] ?? ''}}</td>
+                     <td class="text-center">{{$summery['joined_date'] ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery['platinum_spend']) ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery['gold_spend']) ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery['silver_spend']) ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery['pinup_spend']) ?? ''}}</td>
+                     <td>{{formatCurrency($summery['fixed_spend']) ?? ''}} </td>
+                     <td class="text-right">{{formatCurrency($summery['total_spend'])}}</td>
+                     <td class="text-right">{{formatCurrency($summery['fees'])}}</td>
                      <td class="text-center">
                          <div class="dropdown no-arrow">
                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -150,73 +157,8 @@
                          </div>
                      </td>
                  </tr>
-                 <tr>
-                     <td class="text-left">E612356</td>
-                     <td class="text-left">Josephine Miller</td>
-                     <td class="text-center">01/01/2022</td>
-                     <td class="text-right">$ 960.00</td>
-                     <td class="text-right">$ 336.00</td>
-                     <td class="text-right">$ 348.00</td>
-                     <td class="text-right">$ 950.00</td>
-                     <td> </td>
-                     <td class="text-right">$ 2,594.00</td>
-                     <td class="text-right">$ 129.70</td>
-                     <td class="text-center">
-                         <div class="dropdown no-arrow">
-                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                             </a>
-                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                 aria-labelledby="dropdownMenuLink" style="">
-                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#commission-report">
-                                     <i class="fa fa-eye"></i> View Advertiser Report
-                                 </a>
-                                 <div class="dropdown-divider"></div>
-                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#">
-                                     <i class="fa fa-print"></i>
-                                     Print Advertiser Report
-                                 </a>
-
-                             </div>
-                         </div>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td class="text-left">E612398</td>
-                     <td class="text-left">Marry Smith</td>
-                     <td class="text-center">01/01/2022</td>
-                     <td class="text-right">$ 960.00</td>
-                     <td class="text-right">$ 336.00</td>
-                     <td class="text-right">$ 348.00</td>
-                     <td class="text-right">$ 950.00</td>
-                     <td> </td>
-                     <td class="text-right">$ 2,594.00</td>
-                     <td class="text-right">$ 129.70</td>
-                     <td class="text-center">
-                         <div class="dropdown no-arrow">
-                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                             </a>
-                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                 aria-labelledby="dropdownMenuLink" style="">
-                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#commission-report"> <i
-                                         class="fa fa-eye"></i> View Advertiser Report
-                                 </a>
-                                 <div class="dropdown-divider"></div>
-                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#"> <i class="fa fa-print"></i>
-                                     Print Advertiser Report</a>
-
-                             </div>
-                         </div>
-                     </td>
-                 </tr>
-                 <tr>
+                 @endforeach
+                 {{-- <tr>
                      <td class="text-left">M612465</td>
                      <td class="text-left">Lin’s Massage</td>
                      <td class="text-center">01/01/2022</td>

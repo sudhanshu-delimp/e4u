@@ -677,6 +677,7 @@
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-advertiser-fees-summery="{{ route('agent.advertiser.fees.summery') }}"
+        data-agent-fees-summery="{{route('agent.fees.summery')}}"
   
         ></div>
 

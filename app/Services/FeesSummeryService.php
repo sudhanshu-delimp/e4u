@@ -47,9 +47,10 @@ class FeesSummeryService
                     ->where('assigned_agent_id', Auth::id())
                     ->whereIn('type', ['3', '4']);
             })
+            // check australia financial year 7(Julay) 6(June) 
             ->selectRaw("
                 CASE
-                    WHEN MONTH(paid_at) >= 7
+                    WHEN MONTH(paid_at) >= 7                               
                         THEN CONCAT(YEAR(paid_at), '-', YEAR(paid_at) + 1)
                     ELSE
                         CONCAT(YEAR(paid_at) - 1, '-', YEAR(paid_at))
@@ -149,6 +150,28 @@ class FeesSummeryService
             ->orderBy($orderBy['column'], $orderBy['direction'])
             ->get();
     }
+    
+    public function totalEarning(Collection $earnings){
+        $total =  0;
+        foreach($earnings as $earning){
+            $total += $earning->total_spend;
+        }
+        return $total;
+    }
+
+    public function averageEarning(Collection $totalValue){
+        $average = 0;
+        foreach($totalValue as $value){
+            $average += $value->total_spend;
+        }
+        $averageV  = $average / $totalValue->count();
+        return $averageV;
+    }
+
+    public function totalAdvertisers(Collection $total){
+        $totalAdvertiser = $total->count() ?? 0;
+        return $totalAdvertiser;
+    }	
  
 
 
@@ -157,6 +180,10 @@ class FeesSummeryService
         $availableFYs = $this->getAvailableFYs();
         $selectedFY   = $this->resolveSelectedFY($requestedFY, $availableFYs);
         $earnings     = $this->getEarnings($selectedFY, $displayType);
+        $totalEarnings = $this->totalEarning($earnings);
+        $averageEarning = $this->averageEarning($earnings);
+        $totalAdvertiserCount = $this->totalAdvertisers($earnings);
+
 
         return [
             'earnings'     => $earnings,
@@ -164,7 +191,12 @@ class FeesSummeryService
             'selectedFY'   => $selectedFY,
             'displayType'  => $displayType,
             'fyRange'      => $this->getFYDateRange($selectedFY),
+            'totalEarning' => $totalEarnings,
+            'averageEarning' => $averageEarning,
+            'totalAdvertiser' => $totalAdvertiserCount
 
         ];
     }
+
+
 }
