@@ -197,7 +197,7 @@ class ProductOrderController extends Controller
           Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
 
           // Send order completed mail notification to escort
-          // Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+          Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
         } elseif ($request->status == 'hold') {
 
           // Send order hold notification to escort
