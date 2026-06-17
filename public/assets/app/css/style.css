@@ -1748,7 +1748,6 @@
                 display: flex;
                 justify-content: space-between;
                 gap: 10px;
-                flex-wrap: wrap;
             }
             
             .mess_repo_btn_wrap button {

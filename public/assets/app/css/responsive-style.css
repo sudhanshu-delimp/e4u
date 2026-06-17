@@ -191,6 +191,12 @@
                         width: 100%;
                         height: auto;
                     }
+                    .mess_repo_btn_wrap {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                    }
                 }
                 
                 @media(max-width:486px) {
