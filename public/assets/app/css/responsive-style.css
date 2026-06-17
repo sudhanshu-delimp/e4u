@@ -1,361 +1,388 @@
-    /* MC Profile Listings  */
-    
-    @media(max-width: 425px) {
-        /* navbar */
-        .navbar-brand img {
-            width: 100px;
-            height: unset;
-        }
-        .mc_card_container {
-            grid-template-columns: 1fr;
-        }
-        .mc_list_header,
-        .mc_list_address,
-        .social_media_icons {
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .mc_list_meta {
-            flex-direction: column;
-            gap: 10px;
-        }
-        .mc_list_meta span {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        /* ec profile listing */
-        .padding_20_all_side_service_provider_list_view {
-            padding: 0px;
-        }
-        .box_shdow_service_provider_list_view {
-            box-shadow: unset !important;
-        }
-        .plat-inner .col-md-4 {
-            padding: 0px !important;
-            margin-bottom: 15px;
-        }
-        .list_gender_area,
-        .prof_desc {
-            margin: 10px 0px;
-        }
-        .custom-rate-type {
-            padding-left: 0px !important;
-        }
-        .custom--gender--area .gender .filter-pad {
-            font-weight: bold;
-        }
-        .list_provide_cruise .row .col-lg-4 {
-            padding-left: 15px;
-        }
-        .platinum-escort-list-view-custom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        a.back--search {
-            position: relative;
-            left: -15px;
-            z-index: 2;
-            top: 10%;
-        }
-        .profile_page_title {
-            display: flex;
-            align-items: center;
-            margin: 15px 0px;
-        }
-        .profile_page_title h2 {
-            font-size: 20px;
-            line-height: 1.2;
-        }
-        .profile_page_name_and_phno p {
-            line-height: 1.2em;
-            font-size: 18px;
-        }
-        .profile_page_location_and_id p {
-            font-size: 16px;
-            line-height: 1.2;
-            margin-bottom: 0px;
-        }
-        .masseur_profile_wrapper .masseur_extra_img {
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-        .masseur_profile_wrapper .masseur_extra_img img {
-            width: 100px;
-            height: unset;
-            object-fit: fill;
-        }
-        .add--list {
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 25px;
-        }
-        .add--list div {
-            display: flex;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .custom_progress_wrapper {
-            text-align: center;
-            background: #f3f3f3;
-            padding: 20px 30px;
-            margin-bottom: 50px;
-            border-radius: 5px;
-        }
-        #sailorTable_length {
-            width: 100%;
-        }
-        .dataTables_wrapper .dataTables_filter {
-            width: 100%;
-            margin-left: auto;
-        }
-        .dataTables_wrapper .dataTables_filter label input {
-            width: 75% !important;
-        }
-        .ryt_srch_btn {
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .slect__btn_tab {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px 5px;
-            flex-wrap: wrap;
-        }
-        .mc_type_btn {
-            display: flex;
-            justify-content: space-between;
-            flex: auto;
-            margin-top: 5px;
-        }
-        .shop-box-col {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .shop-box {
-            width: 90% !important;
-            margin: 12px 6px !important;
-        }
-        .mc_profile_img .glightbox img {
-            width: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .trikon_style:after {
-            position: absolute;
-            top: -18px;
-        }
-        .custom--profile:before {
-            content: "";
-            background: #0c223dad;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            z-index: unset;
-        }
-        .next-preview-fixed>div>div {
-            position: absolute;
-            top: -320px;
-            z-index: 9;
-        }
-        .next-preview-fixed>div>div.previous_btn_profile {
-            left: auto;
-            right: 65px;
-            width: auto;
-        }
-    }
-    
-    @media(max-width:486px) {
-        .search_filters .display_items {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .custom-refreshbuton .reset_filter {
-            display: flex;
-            padding: 11px 10px;
-        }
-        .last_filter_section {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .grd_lst_filter_btn {
-            justify-content: space-between;
-            width: 100%;
-        }
-        .custom_total_list.dropdown {
-            width: 100%;
-        }
-        .custom--service-tag .grid_list_part {
-            width: 100%;
-        }
-        /* .item_dis {
-        width: auto;
-    } */
-    }
-    
-    @media (max-width:768px) {
-        .copy_right_footer_mange_padding {
-            padding: 0px 10px;
-        }
-        .set>a i {
-            float: right;
-            margin-top: 2px !important;
-        }
-        .text-md-right {
-            text-align: left !important;
-        }
-        .ryt_srch_btn div {
-            flex: content;
-        }
-        .mc_type_btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        .mc_list_card {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-        .EC__list_card {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-        .slect__btn_tab>div {
-            flex: unset;
-            width: 47%;
-            margin: 0px !important;
-        }
-        .slect__btn_tab {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .gold-profile-details-custom {
-            margin-top: 20px;
-        }
-        .all-escort-view-profile-box {
-            display: flex;
-            flex-direction: column !important;
-            gap: 10px;
-        }
-        .all-escort-view-profile-btn {
-            margin: 10px 0px;
-            align-items: center !important;
-        }
-        .list_provide_cruise .row .col-lg-4 {
-            padding: 15px;
-        }
-        .EC__list_card {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            align-items: start;
-        }
-    }
-    
-    @media(min-width:769px) and (max-width:1024px) {
-        .mc_list_card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-        .EC__list_card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-    }
-    
-    @media (min-width:425px) and (max-width: 991px) {
-        .masseur_profile_wrapper .masseur_extra_img img {
-            width: 100px;
-            height: unset;
-            object-fit: fill;
-        }
-        .d_custom_home_img {
-            aspect-ratio: 15 / 11;
-            width: 100%;
-            max-width: 100%;
-        }
-        .location_radio_filter {
-            width: unset;
-            display: flex;
-            justify-content: flex-start;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            margin-top: 10px;
-        }
-        .profile-sidebar-margin-top {
-            margin-top: 10px;
-        }
-    }
-    
-    @media(min-width:426px) and (max-width:1024px) {
-        a.back--search {
-            position: absolute;
-            right: 0px;
-            z-index: 9;
-            top: 18%;
-        }
-    }
-    
-    @media (max-width:1024px) {
-        div.tip div {
-            position: absolute;
-            right: 0;
-        }
-        .js_pinup_profile {
-            margin-bottom: 50px;
-        }
-        .ryt_srch_btn {
-            flex-wrap: wrap;
-            justify-content: flex-start;
-        }
-        .mc_list_card {
-            padding: 10px;
-        }
-    }
-    
-    @media (min-width:768px) and (max-width:1024px) {
-        .shop-box-col {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .shop-box {
-            width: 30% !important;
-            margin: 12px 6px !important;
-        }
-        .footer_mange_padding {
-            padding: 0px 5px;
-        }
-    }
-    
-    @media (min-width:991px) and (max-width: 1300px) {
-        .home_heading_first {
-            font-size: clamp(24px, 3vw, 48px) !important;
-            margin-bottom: 0px;
-        }
-        .normal_heading {
-            margin-bottom: 0px;
-        }
-        .pvt_and_msg h2 {
-            font-family: calc(20px, 4vw, 30px);
-        }
-    }
+                /* MC Profile Listings  */
+                
+                @media(max-width: 425px) {
+                    /* navbar */
+                    .navbar-brand img {
+                        width: 100px;
+                        height: unset;
+                    }
+                    .mc_card_container {
+                        grid-template-columns: 1fr;
+                    }
+                    .mc_list_header,
+                    .mc_list_address,
+                    .social_media_icons {
+                        flex-wrap: wrap;
+                        margin-bottom: 10px;
+                    }
+                    .mc_list_meta {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+                    .mc_list_meta span {
+                        display: flex;
+                        flex-wrap: wrap;
+                    }
+                    /* ec profile listing */
+                    .padding_20_all_side_service_provider_list_view {
+                        padding: 0px;
+                    }
+                    .box_shdow_service_provider_list_view {
+                        box-shadow: unset !important;
+                    }
+                    .plat-inner .col-md-4 {
+                        padding: 0px !important;
+                        margin-bottom: 15px;
+                    }
+                    .list_gender_area,
+                    .prof_desc {
+                        margin: 10px 0px;
+                    }
+                    .custom-rate-type {
+                        padding-left: 0px !important;
+                    }
+                    .custom--gender--area .gender .filter-pad {
+                        font-weight: bold;
+                    }
+                    .list_provide_cruise .row .col-lg-4 {
+                        padding-left: 15px;
+                    }
+                    .platinum-escort-list-view-custom {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+                    a.back--search {
+                        position: relative;
+                        left: 0px;
+                        z-index: 2;
+                        top: 10%;
+                    }
+                    .profile_page_title {
+                        display: flex;
+                        align-items: center;
+                        margin: 15px 0px;
+                    }
+                    .profile_page_title h2 {
+                        font-size: 20px;
+                        line-height: 1.2;
+                    }
+                    .profile_page_name_and_phno p {
+                        line-height: 1.2em;
+                        font-size: 18px;
+                    }
+                    .profile_page_location_and_id p {
+                        font-size: 16px;
+                        line-height: 1.2;
+                        margin-bottom: 0px;
+                    }
+                    .masseur_profile_wrapper .masseur_extra_img {
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                    }
+                    .masseur_profile_wrapper .masseur_extra_img img {
+                        width: 100px;
+                        height: unset;
+                        object-fit: fill;
+                    }
+                    .add--list {
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: column;
+                        gap: 10px;
+                        margin-top: 25px;
+                    }
+                    .add--list div {
+                        display: flex;
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+                    .custom_progress_wrapper {
+                        text-align: center;
+                        background: #f3f3f3;
+                        padding: 20px 30px;
+                        margin-bottom: 50px;
+                        border-radius: 5px;
+                    }
+                    #sailorTable_length {
+                        width: 100%;
+                    }
+                    .dataTables_wrapper .dataTables_filter {
+                        width: 100%;
+                        margin-left: auto;
+                    }
+                    .dataTables_wrapper .dataTables_filter label input {
+                        width: 75% !important;
+                    }
+                    .ryt_srch_btn {
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                    }
+                    .slect__btn_tab {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 10px 5px;
+                        flex-wrap: wrap;
+                    }
+                    .mc_type_btn {
+                        display: flex;
+                        justify-content: space-between;
+                        flex: auto;
+                        margin-top: 5px;
+                    }
+                    .shop-box-col {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-wrap: wrap;
+                    }
+                    .shop-box {
+                        width: 90% !important;
+                        margin: 12px 6px !important;
+                    }
+                    .mc_profile_img .glightbox img {
+                        width: 100%;
+                        object-fit: cover;
+                        border-radius: 10px;
+                    }
+                    .trikon_style:after {
+                        position: absolute;
+                        top: -18px;
+                    }
+                    .custom--profile:before {
+                        content: "";
+                        background: #0c223dad;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        z-index: unset;
+                    }
+                    .next-preview-fixed>div>div {
+                        position: absolute;
+                        top: -90px;
+                        z-index: 9;
+                    }
+                    .next-preview-fixed>div>div.previous_btn_profile {
+                        left: auto;
+                        right: 65px;
+                        width: auto;
+                    }
+                    .brb_details h1 {
+                        font-size: 18px !important;
+                    }
+                    .brb_details h3 {
+                        font-size: 16px !important;
+                    }
+                    .pinup-tooltip {
+                        left: 35px;
+                    }
+                    .profile_page_title .member_type {
+                        width: 30px;
+                        object-fit: cover;
+                        height: auto;
+                    }
+                    .profile_page_title .member_type img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                
+                @media(max-width:486px) {
+                    .search_filters .display_items {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+                        flex-wrap: wrap;
+                    }
+                    .custom-refreshbuton .reset_filter {
+                        display: flex;
+                        padding: 11px 10px;
+                    }
+                    .last_filter_section {
+                        display: flex;
+                        flex-wrap: wrap;
+                    }
+                    .grd_lst_filter_btn {
+                        justify-content: space-between;
+                        width: 100%;
+                    }
+                    .custom_total_list.dropdown {
+                        width: 100%;
+                    }
+                    .custom--service-tag .grid_list_part {
+                        width: 100%;
+                    }
+                    /* .item_dis {
+                        width: auto;
+                    } */
+                }
+                
+                @media (max-width:768px) {
+                    .copy_right_footer_mange_padding {
+                        padding: 0px 10px;
+                    }
+                    .set>a i {
+                        float: right;
+                        margin-top: 2px !important;
+                    }
+                    .text-md-right {
+                        text-align: left !important;
+                    }
+                    .ryt_srch_btn div {
+                        flex: content;
+                    }
+                    .mc_type_btn {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 10px;
+                    }
+                    .mc_list_card {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                    }
+                    .EC__list_card {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                    }
+                    .slect__btn_tab>div {
+                        flex: unset;
+                        width: 47%;
+                        margin: 0px !important;
+                    }
+                    .slect__btn_tab {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                    }
+                    .gold-profile-details-custom {
+                        margin-top: 20px;
+                    }
+                    .all-escort-view-profile-box {
+                        display: flex;
+                        flex-direction: column !important;
+                        gap: 10px;
+                    }
+                    .all-escort-view-profile-btn {
+                        margin: 10px 0px;
+                        align-items: center !important;
+                    }
+                    .list_provide_cruise .row .col-lg-4 {
+                        padding: 15px;
+                    }
+                    .EC__list_card {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: 15px;
+                        align-items: start;
+                    }
+                }
+                
+                @media(min-width:769px) and (max-width:1024px) {
+                    .mc_list_card {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                    }
+                    .EC__list_card {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                    }
+                }
+                
+                @media (min-width:425px) and (max-width: 991px) {
+                    .masseur_profile_wrapper .masseur_extra_img img {
+                        width: 100px;
+                        height: unset;
+                        object-fit: fill;
+                    }
+                    .d_custom_home_img {
+                        aspect-ratio: 15 / 11;
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                    .location_radio_filter {
+                        width: unset;
+                        display: flex;
+                        justify-content: flex-start;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        align-items: center;
+                        margin-top: 10px;
+                    }
+                    .profile-sidebar-margin-top {
+                        margin-top: 10px;
+                    }
+                    .profile_page_title .member_type {
+                        width: 50px;
+                        object-fit: cover;
+                        height: auto;
+                    }
+                    .profile_page_title .member_type img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                
+                @media(min-width:426px) and (max-width:1024px) {
+                    a.back--search {
+                        position: absolute;
+                        right: 0px;
+                        z-index: 9;
+                        top: 18%;
+                    }
+                }
+                
+                @media (max-width:1024px) {
+                    div.tip div {
+                        position: absolute;
+                        right: 0;
+                    }
+                    .js_pinup_profile {
+                        margin-bottom: 50px;
+                    }
+                    .ryt_srch_btn {
+                        flex-wrap: wrap;
+                        justify-content: flex-start;
+                    }
+                    .mc_list_card {
+                        padding: 10px;
+                    }
+                }
+                
+                @media (min-width:768px) and (max-width:1024px) {
+                    .shop-box-col {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-wrap: wrap;
+                    }
+                    .shop-box {
+                        width: 30% !important;
+                        margin: 12px 6px !important;
+                    }
+                    .footer_mange_padding {
+                        padding: 0px 5px;
+                    }
+                }
+                
+                @media (min-width:991px) and (max-width: 1300px) {
+                    .home_heading_first {
+                        font-size: clamp(24px, 3vw, 48px) !important;
+                        margin-bottom: 0px;
+                    }
+                    .normal_heading {
+                        margin-bottom: 0px;
+                    }
+                    .pvt_and_msg h2 {
+                        font-family: calc(20px, 4vw, 30px);
+                    }
+                }
