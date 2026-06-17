@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
- 
+
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -69,7 +69,10 @@
                                 </tr>
                             </table>
                             <!-- email info -->
-                            <x-email-info />
+                            <p style="font-size: 15px; margin-top: 20px;">
+                                Regards,<br>
+                                <b>E4U - Operations Centre</b>
+                            </p>
                             <!-- end -->
 
                         </td>
