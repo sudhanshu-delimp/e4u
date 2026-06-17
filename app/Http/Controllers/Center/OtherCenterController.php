@@ -125,7 +125,7 @@ class OtherCenterController extends Controller
             $label .= '<span class="playmate_icon listing-tag-tooltip ml-1">Suspended</span>';
 
 
-            $display_name = "<span class='grant-access'>".$row->name.$label."</span>";            
+            $display_name = $row->name."<p class='grant-access'>".$label."</p>";            
 
             if($row->is_access_granted)
             {
