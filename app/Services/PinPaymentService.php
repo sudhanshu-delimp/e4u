@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 class PinPaymentService
 {
   use DataTablePagination;
+  protected $walletAmount = 0.00;
   protected $totalAmount = 0.00;
   protected $gstAmount = 0.00;
   protected $totalDueAmount = 0.00;
@@ -28,9 +29,15 @@ class PinPaymentService
     return $this;
   }
 
+  public function setWalletAmount($amount)
+  {
+    $this->walletAmount = $amount;
+    return $this;
+  }
+
   public function getGSTAmount()
   {
-    $this->gstAmount = ($this->totalAmount * 10) / 100;
+    $this->gstAmount = (($this->totalAmount + $this->walletAmount) * config('app.payment.gst_percentage')) / 100;
     return number_format($this->gstAmount, 2, '.', '');
   }
 
