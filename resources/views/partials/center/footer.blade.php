@@ -172,7 +172,7 @@
                              
                                 if(other_centre_notifications.is_new)
                                 {
-                                $('.other_support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> '+other_centre_notifications?.data?.length+'</span>');
+                                $('.other_support_notify_bell').html('<i class="top-icon-bg fas fa-flag fa-fw"></i><span class="badge badge-danger badge-counter"> '+other_centre_notifications?.data?.length+'</span>');
                                 }
                             
                                 other_centre_notifications.data.forEach((notification) => {
@@ -201,7 +201,7 @@
                         }
 
                         else
-                        {       $('.other_support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>');
+                        {       $('.other_support_notify_bell').html('<i class="top-icon-bg fas fas fa-flag fa-fw"></i>');
                                 $('.other_support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                         }
                         ///////////// End Support Notification List //////////////////////////

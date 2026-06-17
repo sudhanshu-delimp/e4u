@@ -13,8 +13,21 @@
     z-index: 2;
     color: #6c757d;
 }
-.list_badge_class {
-    padding: 5px 10px 5px 10px !important;
+.brb_icon {
+    color: white;
+    background-color: #e5365a;
+    border-radius: 10px;
+    padding: 0px 8px;
+}
+
+.blink {
+    animation: blink-animation 1s infinite;
+}
+
+@keyframes blink-animation {
+    50% {
+        opacity: 0;
+    }
 }
     </style>
 @stop
@@ -1439,6 +1452,9 @@
         return day + '-' + month + '-' + year;
     }
 
+setInterval(function () {
+    $('.notification_support_ticket').fadeOut(800).fadeIn(800);
+}, 1000);
     
     
 </script>

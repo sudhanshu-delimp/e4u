@@ -137,11 +137,12 @@
                         </li>
 
 
+                       @if(auth()->check() && auth()->user()->type == '4' && ($other_centre_support_notification_count ?? 0) > 0)
                         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
                                 <span class="esc-tooltip esc-tooltip-support">Other Centre Support Tickets</span>
                             <a class="nav-link dropdown-toggle other_support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Other Centre Support tickets">
-                                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
+                                <i class="top-icon-bg  fas fa-flag "></i>
                             </a>
                             
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -152,6 +153,7 @@
                                     </div>
                             </div>
                         </li>
+                        @endif
 
                         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
                                 <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
@@ -169,7 +171,6 @@
 
                                     </div>
                             </div>
-
                         </li>
 
                         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
