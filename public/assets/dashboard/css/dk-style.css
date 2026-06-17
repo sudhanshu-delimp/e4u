@@ -6220,7 +6220,7 @@ span.removeCross {
 
 .h1 {
     font-family: Poppins;
-    font-size: 42px;
+    font-size: clamp(28px, 8vw, 42px);
     font-style: normal;
     font-weight: 700;
     line-height: 42px;
@@ -6711,7 +6711,7 @@ padding-bottom:80px;
     position: relative;
     top: 0px;
     width: max-content;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 10px;
 }
 
@@ -11466,7 +11466,7 @@ border-top: 5px solid var(--peach);
 .brb_icon {
     color: white;
     background-color: #e5365a;
-    border-radius: 15%;
+    border-radius: 10px;
     padding: 0 5px;
 }
 
@@ -12566,7 +12566,7 @@ details[open]>summary:first-of-type {
 }
 
 .header p strong {
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
 .header>p {
@@ -12627,6 +12627,25 @@ details[open]>summary:first-of-type {
     color: #fff;
     padding: 9px;
     line-height: .5;
+}
+
+.view_cart_total_td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.view_cart_total_td i {
+    background: #00000017;
+    padding: 3px 5px 2px;
+    border-radius: 2px;
+    color: var(--blue--text);
+    cursor: pointer;
+}
+
+.view_cart_total_td i:hover {
+    color: var(--peach);
 }
 
 @media (min-width:300px) and (max-width:575px) {
@@ -12934,13 +12953,13 @@ button:disabled {
 .esc-tooltip-2 {
     position: absolute;
     left: 50%;
-    top: -60%;
+    top: -80%;
     z-index: 9999;
     transform: translate(-50%, -50%);
     width: max-content;
     background: #ff3c5f;
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.4;
     padding: 6px 10px;
@@ -12954,7 +12973,7 @@ button:disabled {
 .esc-tooltip-2::after {
     position: absolute;
     left: 50%;
-    top: 29px;
+    bottom: -10px;
     content: '';
     border-width: 6px;
     border-style: solid;

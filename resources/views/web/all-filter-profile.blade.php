@@ -41,7 +41,8 @@
         .fiter_btns select {
             text-transform: capitalize;
         }
-        .swal2-popup{
+
+        .swal2-popup {
             width: auto !important;
         }
     </style>
@@ -77,10 +78,11 @@
                 <div class="card">
                     <div class="card-header all_filter_accordain" id="headingOne">
                         <h2 class="mb-0">
-                            <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
-                            Find Escorts
-                            <i class="fa fa-angle-down"></i>
-                            </button>                        
+                            <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse"
+                                data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
+                                Find Escorts
+                                <i class="fa fa-angle-down"></i>
+                            </button>
                         </h2>
                     </div>
 
@@ -90,15 +92,16 @@
                                 <div class="search_filters_inside">
                                     <form id="allfilters" method="" action="">
 
-                                    {{-- Existing line --}}
-                                    <input type="hidden" name="view_type" id="view_type"
-                                        value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
+                                        {{-- Existing line --}}
+                                        <input type="hidden" name="view_type" id="view_type"
+                                            value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
 
-                                    {{-- ADD THIS LINE below it --}}
-                                    <input type="hidden" name="viewType" id="viewType_input"
-                                        value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
+                                        {{-- ADD THIS LINE below it --}}
+                                        <input type="hidden" name="viewType" id="viewType_input"
+                                            value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div
+                                                class="col-lg-12 mb-2 d-flex align-items-center justify-content-between flex-wrap ">
                                                 <div class="custom-search-help mb-2 ">
                                                     <h5 class="normal_heading mb-0">Filters</h5>
                                                     <div class="display_inline_block helpquation">
@@ -107,114 +110,150 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 30 minutes.</span>
+                                                <span class="reshuffle_tag">Listings reshuffle every
+                                                    30 minutes.</span>
                                             </div>
-                                            <div class="col-md-8 ryt_srch_btn">
-                                                <div class="display_inline_block">
-                                                    <div class="location_radio_filter">
-                                                        <div class="d-flex align-items-start"
-                                                            @php
-                                                            // $myLocation = false;
-                                                            // if(request()->filled('lat')){
-                                                            //     $myLocation = true; 
-                                                            // }
-                                                            $searchByRadio = request()->get('search_by_radio');
-                                                            $locationByRadio = request()->get('locationByRadio'); @endphp
-                                                            style=" padding-top: 2px;">
-                                                            <input type="radio" name="locationByRadio"
-                                                                {{ $locationByRadio != 'australia' ? 'checked' : '' }} value="your_location"
-                                                                id="yourLocation">
-                                                            <label for="yourLocation"
-                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                                Your Location
-                                                            </label>
+                                            <div class="col-lg-12">
+                                                <div class="row align-items-center">
+                                                    <div class="col-lg-2 location_items mb-1">
+                                                        {{-- location --}}
+                                                        <div class="location_radio_filter">
+                                                            <div class="d-flex align-items-start"
+                                                                @php
+                                                                // $myLocation = false;
+                                                                // if(request()->filled('lat')){
+                                                                //     $myLocation = true; 
+                                                                // }
+                                                                $searchByRadio = request()->get('search_by_radio');
+                                                                $locationByRadio = request()->get('locationByRadio'); @endphp
+                                                                style=" padding-top: 2px;">
+                                                                <input type="radio" name="locationByRadio"
+                                                                    {{ $locationByRadio != 'australia' ? 'checked' : '' }}
+                                                                    value="your_location" id="yourLocation">
+                                                                <label for="yourLocation"
+                                                                    style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                                                    Your Location
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="d-flex align-items-start">
+                                                                <input type="radio" name="locationByRadio"
+                                                                    value="australia" id="australia"
+                                                                    {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}>
+                                                                <label for="australia"
+                                                                    style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                                                    Australia
+                                                                </label>
+                                                            </div>
                                                         </div>
+                                                        {{-- end --}}
+                                                    </div>
+                                                    <div class="col-lg-4 search_items mb-1">
+                                                        {{-- search --}}
+                                                            <div
+                                                                class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
-                                                        <div class="d-flex align-items-start">
-                                                            <input type="radio" name="locationByRadio" value="australia" id="australia"
-                                                                {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}>
-                                                            <label for="australia"
-                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                                Australia
-                                                            </label>
+                                                                <input type="hidden" name="search_by_radio"
+                                                                    id="search_by_radio" value="0">
+                                                                <input type="hidden" name="lat" id="set_lat"
+                                                                    value="">
+                                                                <input type="hidden" name="lng" id="set_lng"
+                                                                    value="">
+
+                                                                <input type="search" name="name"
+                                                                    class="form-control remove_border_btm rounded "
+                                                                    placeholder="Search by Member ID or Name"
+                                                                    aria-label="Search" aria-describedby="search-addon"
+                                                                    value="{{ request()->get('name') }}">
+
+                                                                <button
+                                                                    class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
+                                                                    id="search-addon" type="submit">
+                                                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
+                                                        {{-- end --}}
+                                                    </div>
+                                                    <div class="col-lg-6 display_items mb-1">
+                                                        {{-- display list --}}
+                                                        <div class="item_dis">
+                                                            <span class="item-head">Display item</span>
+                                                            <select
+                                                                class="custome_form_control_border_radus padding_five_px"
+                                                                name="limit">
+                                                                <option value="25"
+                                                                    {{ request()->get('limit') == 25 ? 'selected' : '' }}>25
+                                                                </option>
+                                                                <option value="50"
+                                                                    {{ request()->get('limit') == 50 ? 'selected' : '' }}>50
+                                                                </option>
+                                                                <option value="75"
+                                                                    {{ request()->get('limit') == 75 ? 'selected' : '' }}>75
+                                                                </option>
+                                                                <option value="100"
+                                                                    {{ request()->get('limit') == 100 ? 'selected' : '' }}>
+                                                                    100
+                                                                </option>
+                                                            </select>
+
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="display_inline_block w-100">
-                                                    <div
-                                                        class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
+                                                        {{-- end --}}
 
-                                                        <input type="hidden" name="search_by_radio" id="search_by_radio" value="0">
-                                                        <input type="hidden" name="lat" id="set_lat" value="">
-                                                        <input type="hidden" name="lng" id="set_lng" value="">
+                                                        {{-- reset --}}
+                                                        <div class="custom-refreshbuton">
+                                                                <input type="hidden" name="apply_pagination_rule"
+                                                                    id="apply_pagination_rule" value="0">
+                                                                <button type="submit"
+                                                                    class="btn reset_filter apply_pagination_button filter-tooltip-wrap">
+                                                                    <span class="filter-tooltip">Apply Change</span>
+                                                                    <i class="fa fa-repeat" aria-hidden="true"></i>
+                                                                </button>
+                                                        </div>
+                                                        {{-- end --}}
 
-                                                        <input type="search" name="name" class="form-control remove_border_btm rounded "
-                                                            placeholder="Search by Member ID or Name" aria-label="Search"
-                                                            aria-describedby="search-addon" value="{{ request()->get('name') }}">
-
-                                                        <button
-                                                            class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
-                                                            id="search-addon" type="submit">
-                                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="display_inline_block   item_dis">
-                                                    <span class="item-head">Display item</span>
-                                                    <select class="custome_form_control_border_radus padding_five_px" name="limit">
-                                                        <option value="25" {{ request()->get('limit') == 25 ? 'selected' : '' }}>25
-                                                        </option>
-                                                        <option value="50" {{ request()->get('limit') == 50 ? 'selected' : '' }}>50
-                                                        </option>
-                                                        <option value="75" {{ request()->get('limit') == 75 ? 'selected' : '' }}>75
-                                                        </option>
-                                                        <option value="100" {{ request()->get('limit') == 100 ? 'selected' : '' }}>100
-                                                        </option>
-                                                    </select>
-                                                    <div class="display_inline_block custom-refreshbuton">
-                                                        <div class="margin_btn_reset">
-                                                            <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule"
-                                                                value="0">
-                                                            <button type="submit"
-                                                                class="btn reset_filter apply_pagination_button filter-tooltip-wrap">
-                                                                <span class="filter-tooltip">Apply Change</span>
-                                                                <i class="fa fa-repeat" aria-hidden="true"></i>
+                                                        {{-- view short list btn --}}
+                                                            <button type="button"
+                                                                class="btn reset_filter filter-tooltip-wrap"
+                                                                id="v_wishlist">
+                                                                <a href="{{ route('web.show.showAddList') }}"
+                                                                    class="text-decoration-none">
+                                                                    <div
+                                                                        class="d-flex align-items-center justify-content-center gap-5">
+                                                                        <i class="fa fa-list" aria-hidden="true"
+                                                                            style="line-height: 22px;"></i>
+                                                                        <span class="badge badge-pill badge-danger"
+                                                                            id="session_count">0</span>
+                                                                    </div>
+                                                                    <span class="filter-tooltip">View Shortlist</span>
+                                                                </a>
                                                             </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        {{-- end --}}
 
-                                                <div class="display_inline_block">
-                                                    <div class="margin_btn_reset">
-                                                        <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
-                                                            <a href="{{ route('web.show.showAddList') }}" class="text-decoration-none">
-                                                                <div class="d-flex align-items-center justify-content-center gap-5">
-                                                                    <i class="fa fa-list" aria-hidden="true" style="line-height: 23px;"></i>
-                                                                    <span class="badge badge-pill badge-danger" id="session_count">0</span>
-                                                                </div>
-                                                                <span class="filter-tooltip">View Shortlist</span>
+                                                        {{-- clear short --}}
+                                                            @php
+                                                                $query = Arr::except(request()->query(), ['ipinfo']);
+                                                            @endphp
+                                                            <a type="submit"
+                                                                href="{{ route('shortlist.clear-list', $query) }}"
+                                                                class="btn reset_filter " data-toggle="tooltip">
+                                                                Clear Shortlist
                                                             </a>
-                                                        </button>
+                                                        {{-- end --}}
                                                     </div>
                                                 </div>
-                                                <div class="display_inline_block mb-1">
-                                                    @php
-                                                        $query = Arr::except(request()->query(), ['ipinfo']);
-                                                    @endphp
-                                                    <a type="submit" href="{{ route('shortlist.clear-list', $query) }}"
-                                                        class="btn reset_filter " data-toggle="tooltip">
-                                                        Clear Shortlist
-                                                    </a>
-                                                </div>
-
+                                                {{-- row 2 --}}
                                             </div>
                                         </div>
+                                        {{-- row end 1 --}}
+
+
+
+
+
                                         <div class="fiter_btns slect__btn_tab">
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id=""
-                                                    name="city">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="" name="city">
                                                     <option value="" selected>All Cities</option>
                                                     @foreach (@config('escorts.profile.cities') as $key => $city)
                                                         <option value="{{ $key }}"
@@ -224,8 +263,8 @@
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                                    name="gender">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="select2-dropdown" name="gender">
 
                                                     <option value="" selected>All Genders</option>
                                                     <option value="1"
@@ -244,41 +283,60 @@
                                                         value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
                                                         Cross Dresser</option>
                                                     <!-- <option
-                                                        value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
-                                                        Massage Centres</option> -->
+                                                            value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
+                                                            Massage Centres</option> -->
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                                    name="age">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="select2-dropdown" name="age">
                                                     <option value="" selected>All Ages</option>
-                                                    <option value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>18 -
+                                                    <option
+                                                        value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>
+                                                        18 -
                                                         25</option>
-                                                    <option value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>26 -
+                                                    <option
+                                                        value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>
+                                                        26 -
                                                         35</option>
-                                                    <option value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>36 -
+                                                    <option
+                                                        value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>
+                                                        36 -
                                                         45</option>
-                                                    <option value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>Over
+                                                    <option
+                                                        value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>
+                                                        Over
                                                         45</option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                                    name="price" value="{{ request()->get('price') }}">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="select2-dropdown" name="price"
+                                                    value="{{ request()->get('price') }}">
                                                     <option value="" selected>Any Price</option>
-                                                    <option value="300"{{ request()->get('price') == '300' ? 'selected' : '' }}>Up to
+                                                    <option
+                                                        value="300"{{ request()->get('price') == '300' ? 'selected' : '' }}>
+                                                        Up to
                                                         $ 300</option>
-                                                    <option value="500"{{ request()->get('price') == '500' ? 'selected' : '' }}>Up to
+                                                    <option
+                                                        value="500"{{ request()->get('price') == '500' ? 'selected' : '' }}>
+                                                        Up to
                                                         $ 500</option>
-                                                    <option value="800"{{ request()->get('price') == '800' ? 'selected' : '' }}>Up to
+                                                    <option
+                                                        value="800"{{ request()->get('price') == '800' ? 'selected' : '' }}>
+                                                        Up to
                                                         $ 800</option>
-                                                    <option value="800"{{ request()->get('price') == '800' ? 'selected' : '' }}>Over
+                                                    <option
+                                                        value="800"{{ request()->get('price') == '800' ? 'selected' : '' }}>
+                                                        Over
                                                         $ 800</option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                    id="" name="duration_price" value="{{ request()->get('duration_price') }}">
+                                                <select
+                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                    id="" name="duration_price"
+                                                    value="{{ request()->get('duration_price') }}">
                                                     <option value="0">All Services</option>
                                                     <option value="incall_price"
                                                         {{ request()->get('duration_price') == 'incall_price' ? 'selected' : '' }}>
@@ -296,11 +354,12 @@
                                             </div>
 
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus with_eight_em" id="playmate_status"
-                                                    name="playmate_status">
+                                                <select class="custome_form_control_border_radus with_eight_em"
+                                                    id="playmate_status" name="playmate_status">
                                                     <option value="">Playmates</option>
                                                     <option value="with_playmates"
-                                                        {{ request()->get('playmate_status') == 'with_playmates' ? 'selected' : '' }}>With
+                                                        {{ request()->get('playmate_status') == 'with_playmates' ? 'selected' : '' }}>
+                                                        With
                                                     </option>
                                                     <option value="without_playmates"
                                                         {{ request()->get('playmate_status') == 'without_playmates' ? 'selected' : '' }}>
@@ -312,19 +371,26 @@
                                                     data-toggle="tooltip" title="">
                                                     <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
                                                 </button> --}}
-                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                <select
+                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
                                                     id=""name="verify_list">
-                                                    <option value="all" {{ request()->get('verify_list') == 'all' ? 'selected' : '' }}>Verification</option>
-                                                    <option value="unverified" {{ request()->get('verify_list') == 'unverified' ? 'selected' : '' }}>Unverified</option>
-                                                    <option value="verified" {{ request()->get('verify_list') == 'verified' ? 'selected' : '' }}>Verified</option>
+                                                    <option value="all"
+                                                        {{ request()->get('verify_list') == 'all' ? 'selected' : '' }}>
+                                                        Verification</option>
+                                                    <option value="unverified"
+                                                        {{ request()->get('verify_list') == 'unverified' ? 'selected' : '' }}>
+                                                        Unverified</option>
+                                                    <option value="verified"
+                                                        {{ request()->get('verify_list') == 'verified' ? 'selected' : '' }}>
+                                                        Verified</option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1">
                                                 <input type="hidden" name="filter_button_submit" value="1">
                                                 <input type="hidden" name="view_type" id="view_type"
                                                     value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
-                                                <button type="submit" class="btn reset_filter apply-filter-btn" data-toggle="tooltip"
-                                                    title="">
+                                                <button type="submit" class="btn reset_filter apply-filter-btn"
+                                                    data-toggle="tooltip" title="">
                                                     Apply Filters
                                                 </button>
                                             </div>
@@ -345,9 +411,11 @@
                                                             <div class="content">
                                                                 <div class="accodien_manage_padding_content">
                                                                     <div class="display_inline_block mb-1 mr-1">
-                                                                        <select class="custome_form_control_border_radus padding_five_px"
+                                                                        <select
+                                                                            class="custome_form_control_border_radus padding_five_px"
                                                                             id="service_id_one">
-                                                                            <option value="">Fun Stuff - On Viewer</option>
+                                                                            <option value="">Fun Stuff - On Viewer
+                                                                            </option>
                                                                             @foreach ($service_one as $key => $service)
                                                                                 <option id="{{ $service->name }}"
                                                                                     value="{{ $service->id }}"
@@ -357,9 +425,11 @@
                                                                         </select>
                                                                     </div>
                                                                     <div class="display_inline_block mb-1 mr-1">
-                                                                        <select class="custome_form_control_border_radus padding_five_px"
+                                                                        <select
+                                                                            class="custome_form_control_border_radus padding_five_px"
                                                                             id="service_id_two">
-                                                                            <option value="">Kinky Stuff - On Viewer</option>
+                                                                            <option value="">Kinky Stuff - On Viewer
+                                                                            </option>
                                                                             @foreach ($service_two as $key => $service)
                                                                                 <option id="{{ $service->name }}"
                                                                                     value="{{ $service->id }}"
@@ -369,9 +439,11 @@
                                                                         </select>
                                                                     </div>
                                                                     <div class="display_inline_block mb-1 mr-1">
-                                                                        <select class="custome_form_control_border_radus padding_five_px"
+                                                                        <select
+                                                                            class="custome_form_control_border_radus padding_five_px"
                                                                             id="service_id_three">
-                                                                            <option value="">Fun Stuff - On Escort</option>
+                                                                            <option value="">Fun Stuff - On Escort
+                                                                            </option>
                                                                             @foreach ($service_three as $key => $service)
                                                                                 <option id="{{ $service->name }}"
                                                                                     value="{{ $service->id }}"
@@ -380,8 +452,8 @@
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
-                                                                    <input type="reset" id="resetAll" class="btn reset_filter"
-                                                                        value="Clear Tags">
+                                                                    <input type="reset" id="resetAll"
+                                                                        class="btn reset_filter" value="Clear Tags">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -390,7 +462,8 @@
 
                                                     <!-- Grid View -->
 
-                                                    <div class="row grid_list_part " id="prosud aa" style="display: block;">
+                                                    <div class="grid_list_part " id="prosud aa"
+                                                        style="display: block;">
 
                                                         @php
                                                             $memberTitle = 'Total Listings';
@@ -411,7 +484,7 @@
                                                                 $memberTitleClass = 'selected-item';
                                                             }
                                                         @endphp
-                                                        <div class="col-12 align-items-center">
+                                                        <div class="last_filter_section">
                                                             <div class="dropdown custom_total_list">
                                                                 <span class="js-link {{ $memberTitleClass }}">
                                                                     <div id="selectedListing"
@@ -439,14 +512,16 @@
                                                                         class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
                                                                         <a class="membership_list"
                                                                             href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
-                                                                            <span class="firts-text">Total Listings :</span>
+                                                                            <span class="firts-text">Total Listings
+                                                                                :</span>
                                                                             <span
-                                                                                class="firts-text">{{ array_sum($memberTotalCount) }}</span> 
+                                                                                class="firts-text">{{ array_sum($memberTotalCount) }}</span>
                                                                         </a>
                                                                     </li>
 
                                                                     <!-- Platinum -->
-                                                                    <li class="{{ request('membership_type') == '1' ? 'active' : '' }}">
+                                                                    <li
+                                                                        class="{{ request('membership_type') == '1' ? 'active' : '' }}">
                                                                         <a class="membership_list"
                                                                             href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
                                                                             <span>View Platinum Listings :</span>
@@ -455,7 +530,8 @@
                                                                     </li>
 
                                                                     <!-- Gold -->
-                                                                    <li class="{{ request('membership_type') == '2' ? 'active' : '' }}">
+                                                                    <li
+                                                                        class="{{ request('membership_type') == '2' ? 'active' : '' }}">
                                                                         <a class="membership_list" class="membership_list"
                                                                             href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
                                                                             <span>View Gold Listings :</span>
@@ -464,7 +540,8 @@
                                                                     </li>
 
                                                                     <!-- Silver -->
-                                                                    <li class="{{ request('membership_type') == '3' ? 'active' : '' }}">
+                                                                    <li
+                                                                        class="{{ request('membership_type') == '3' ? 'active' : '' }}">
                                                                         <a class="membership_list"
                                                                             href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
                                                                             <span>View Silver Listings :</span>
@@ -474,48 +551,60 @@
 
                                                                 </ul>
                                                             </div>
-
-
-                                                            <div class="grid_list_icon_box display_inline_block grid--btn"
-                                                                data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                                                                <a href="#" class="{{ $viewType == 'grid' ? 'active' : '' }}"
-                                                                    id="grid-modal" data-toggle="tooltip">
-                                                                    <span class="custom-toltip">Grid View</span>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                                                        viewBox="0 0 30 30" fill="none">
-                                                                        <path
-                                                                            d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
-                                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                        <path
-                                                                            d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
-                                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                        <path
-                                                                            d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
-                                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                        <path
-                                                                            d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
-                                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                    </svg>
-                                                                </a>
+                                                            {{-- grid and list filter Btn --}}
+                                                            <div class="grd_lst_filter_btn">
+                                                                <div class="grid_list_icon_box display_inline_block grid--btn"
+                                                                    data-toggle="modal1" data-target="#"
+                                                                    data-url="grid-escort-list">
+                                                                    <a href="#"
+                                                                        class="{{ $viewType == 'grid' ? 'active' : '' }}"
+                                                                        id="grid-modal" data-toggle="tooltip">
+                                                                        <span class="custom-toltip">Grid View</span>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="30" height="30"
+                                                                            viewBox="0 0 30 30" fill="none">
+                                                                            <path
+                                                                                d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
+                                                                                stroke="#0C223D" stroke-width="3"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round" />
+                                                                            <path
+                                                                                d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
+                                                                                stroke="#0C223D" stroke-width="3"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round" />
+                                                                            <path
+                                                                                d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
+                                                                                stroke="#0C223D" stroke-width="3"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round" />
+                                                                            <path
+                                                                                d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
+                                                                                stroke="#0C223D" stroke-width="3"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round" />
+                                                                        </svg>
+                                                                    </a>
+                                                                </div>
+                                                                <div
+                                                                    class="grid_list_icon_box display_inline_block list-btn">
+                                                                    <a href="#"
+                                                                        class="{{ $viewType == 'list' ? 'active' : '' }}"
+                                                                        id="grid-list" data-toggle="tooltip">
+                                                                        <span class="custom-toltip">List View</span>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="27" height="24"
+                                                                            viewBox="0 0 27 24" fill="none">
+                                                                            <path
+                                                                                d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
+                                                                                stroke="#0C223D" stroke-width="3"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round" />
+                                                                        </svg>
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                            <div class="grid_list_icon_box display_inline_block list-btn">
-                                                                <a href="#" class="{{ $viewType == 'list' ? 'active' : '' }}"
-                                                                    id="grid-list" data-toggle="tooltip">
-                                                                    <span class="custom-toltip">List View</span>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
-                                                                        viewBox="0 0 27 24" fill="none">
-                                                                        <path
-                                                                            d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
-                                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                    </svg>
-                                                                </a>
-                                                            </div>
-
+                                                            {{-- end --}}
                                                         </div>
 
                                                     </div>
@@ -539,9 +628,11 @@
                                                                         <p>{{ $service_tag->name }}</p><i
                                                                             class='fa fa-times-circle-o akh1'
                                                                             data-sname='{{ $service_tag->name }}'
-                                                                            data-val="{{ $service_tag->id }}" aria-hidden='true'
-                                                                            id='id_{{ $service_tag->id }}'></i> <input type='hidden'
-                                                                            name='services[]' value='{{ $service_tag->id }}'>
+                                                                            data-val="{{ $service_tag->id }}"
+                                                                            aria-hidden='true'
+                                                                            id='id_{{ $service_tag->id }}'></i> <input
+                                                                            type='hidden' name='services[]'
+                                                                            value='{{ $service_tag->id }}'>
                                                                     </li>
                                                                 @endif
                                                             @endforeach
@@ -558,8 +649,8 @@
                         </div>
                     </div>
                 </div>
-            </div> 
-            
+            </div>
+
             {{-- </div>
         <div class="profile-list-container"> --}}
 
@@ -663,7 +754,8 @@
                                             <li>You can undertake a search for an Escort within your Location, which is the
                                                 default, or Australia wide
                                                 by selecting ‘Australia’.</li>
-                                            <li>Searching by the Member ID is the most efficient way to find the Escort you are looking for. </li>
+                                            <li>Searching by the Member ID is the most efficient way to find the Escort you
+                                                are looking for. </li>
                                         </ol>
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
@@ -863,13 +955,13 @@
                                 {{ $memberTotalCount[3] }}
                                 <span class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
-                           
-                                @if ($grouped->has('3'))
-                                    @foreach ($grouped['3'] as $escort)
-                                        @include('web.partials.list.silver')
-                                    @endforeach
-                                @endif
-                           
+
+                            @if ($grouped->has('3'))
+                                @foreach ($grouped['3'] as $escort)
+                                    @include('web.partials.list.silver')
+                                @endforeach
+                            @endif
+
                         </div>
                     @endif
                     @if ($grouped->has('4'))
@@ -885,11 +977,11 @@
                                 {{ $memberTotalCount[4] }}<span
                                     class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
-                                @if ($grouped->has('4'))
-                                    @foreach ($grouped['4'] as $escort)
-                                        @include('web.partials.list.free')
-                                    @endforeach
-                                @endif
+                            @if ($grouped->has('4'))
+                                @foreach ($grouped['4'] as $escort)
+                                    @include('web.partials.list.free')
+                                @endforeach
+                            @endif
                         </div>
                     @endif
                 </div>
@@ -918,16 +1010,13 @@
                 $viewType = request()->input('viewType');
             }
 
-            $total   = $paginator->lastPage();
+            $total = $paginator->lastPage();
             $current = $paginator->currentPage();
-            $start   = max(1, $current - 2);
-            $end     = min($total, $current + 2);
+            $start = max(1, $current - 2);
+            $end = min($total, $current + 2);
 
-            $withView = fn($url) => $url 
-                ? $url . (str_contains($url, '?') ? '&' : '?') . 'viewType=' . $viewType 
-                : '#';
+            $withView = fn($url) => $url ? $url . (str_contains($url, '?') ? '&' : '?') . 'viewType=' . $viewType : '#';
 
-               
         @endphp
 
         <nav aria-label="Page navigation" class="custom-pagination">
@@ -1141,60 +1230,63 @@
         </div>
     </div>
 
-{{-- viewer Preferences when viewer change location from filter than open this modal  --}}
+    {{-- viewer Preferences when viewer change location from filter than open this modal  --}}
 
-<div class="modal fade upload-modal" id="viewerPreferences" tabindex="-1" role="dialog">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
+    <div class="modal fade upload-modal" id="viewerPreferences" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
 
-            <h5 class="modal-title text-white">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="12" fill="#FF3B57"/>
-                    <text x="12" y="17" text-anchor="middle" font-size="16" font-weight="bold" fill="white" font-family="Arial, sans-serif">!</text>
-                </svg>
-                Viewer Preferences
-            </h5>
-             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                </span>
-            </button>
-         </div>
-         <div class="modal-body text-center">
-            <input type="hidden" id="previous" name="url" value="delete-escort-bank/40">
-            <input type="hidden" id="label" name="label">
-            <input type="hidden" id="trigger-element">
-            <h5 class="mb-2 mt-3"><span id="Lname">By changing the Location filter your Preference Settings for Advertisers will be cancelled for this session.</span> </h5>
-            <h3 class="mb-4 mt-2"><span id="log"></span> </h3>
-            
-         </div>
-         <div class="modal-footer justify-content-center">
-                <button type="button" class="btn-cancel-modal">Proceed</button>
-                <button type="button" class="btn-success-modal" data-dismiss="modal">Cancel</button>  
+                    <h5 class="modal-title text-white">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="12" fill="#FF3B57" />
+                            <text x="12" y="17" text-anchor="middle" font-size="16" font-weight="bold" fill="white"
+                                font-family="Arial, sans-serif">!</text>
+                        </svg>
+                        Viewer Preferences
+                    </h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <input type="hidden" id="previous" name="url" value="delete-escort-bank/40">
+                    <input type="hidden" id="label" name="label">
+                    <input type="hidden" id="trigger-element">
+                    <h5 class="mb-2 mt-3"><span id="Lname">By changing the Location filter your Preference Settings
+                            for Advertisers will be cancelled for this session.</span> </h5>
+                    <h3 class="mb-4 mt-2"><span id="log"></span> </h3>
+
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn-cancel-modal">Proceed</button>
+                    <button type="button" class="btn-success-modal" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
-      </div>
-   </div>
-</div>
+        </div>
+    </div>
 
 
-{{-- viewer Preferences End modal here --}}
+    {{-- viewer Preferences End modal here --}}
 
     <!-- =============       pagination end here            ====================-->
 @endsection
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
-
-   window.authUser = {
-        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
-        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
-    };
+        window.authUser = {
+            isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+            auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+            myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false' }},
+        };
 
 
         $(function() {
-           // $('#viewerPreferences').modal('show');
+            // $('#viewerPreferences').modal('show');
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
 
@@ -1255,7 +1347,7 @@
         });
     </script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
 
             // Restore after refresh
             let opened = sessionStorage.getItem("accordionOpen");
@@ -1264,7 +1356,7 @@
             }
 
             // When user clicks the accordion
-            document.querySelector('[data-target="#collapseSearch"]').addEventListener("click", function () {
+            document.querySelector('[data-target="#collapseSearch"]').addEventListener("click", function() {
 
                 let isOpen = document.getElementById("collapseSearch").classList.contains("show");
 
@@ -1277,10 +1369,9 @@
 
         });
 
-        $('.btn-search').on('click', function(){
+        $('.btn-search').on('click', function() {
             $('.btn-search i').toggleClass('rotate-180');
         })
-
     </script>
     <script>
         // $('#grid-modal').on('shown.bs.modal', function (e) {
@@ -1318,7 +1409,7 @@
         if (window.authUser.isLoggedIn) {
             // First take PHP value (user settings)
             viewType = '{{ $viewType }}';
-            
+
             // Then override with URL param if present (pagination click)
             var urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('viewType')) {
@@ -1339,54 +1430,54 @@
             showListView();
         }
 
-       function showGridView() {
-    localStorage.setItem('profileViewType', 'grid');
+        function showGridView() {
+            localStorage.setItem('profileViewType', 'grid');
 
-    var url = new URL(window.location.href);
-    url.searchParams.set('viewType', 'grid');
-    window.history.replaceState({}, '', url.toString());
+            var url = new URL(window.location.href);
+            url.searchParams.set('viewType', 'grid');
+            window.history.replaceState({}, '', url.toString());
 
-    $('.custom-pagination a').each(function() {
-        var href = $(this).attr('href');
-        if (href && href !== '#') {
-            if (href.includes('viewType=')) {
-                href = href.replace(/viewType=(grid|list)/, 'viewType=grid');
-            } else {
-                href = href + (href.includes('?') ? '&' : '?') + 'viewType=grid';
+            $('.custom-pagination a').each(function() {
+                var href = $(this).attr('href');
+                if (href && href !== '#') {
+                    if (href.includes('viewType=')) {
+                        href = href.replace(/viewType=(grid|list)/, 'viewType=grid');
+                    } else {
+                        href = href + (href.includes('?') ? '&' : '?') + 'viewType=grid';
+                    }
+                    $(this).attr('href', href);
+                }
+            });
+
+            $('.preChanges').html('<h3>Escorts Grid View</h3>');
+            var val = $('#grid-modal').attr('class');
+            $('#view_type').val('grid');
+            $('#viewType_input').val('grid'); // Keep form input in sync
+            $('.otherliste').css('display', 'block');
+            $('.list-view-div').css('display', 'none');
+            if (val != "active") {
+                $('.grid').hide();
+                $('.my-wishlist').hide();
+                $('#grid-template').html(
+                    '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
+                );
+                if (view1.includes('=list')) {
+                    let newUrl = view1.replace('=list', '=grid');
+                    $('.footer_view_type_one').attr('href', newUrl);
+                }
+                if (view2.includes('=list')) {
+                    let newUrl = view2.replace('=list', '=grid');
+                    $('.footer_view_type_two').attr('href', newUrl);
+                }
+                setTimeout(function() {
+                    $('.spinner-border').css('display', 'none');
+                    $('.my-wishlist').css('display', 'none');
+                    $('.space_between_row').show();
+                    $('#grid-modal').addClass('active');
+                    $('#grid-list').removeClass('active');
+                }, 1000);
             }
-            $(this).attr('href', href);
         }
-    });
-
-    $('.preChanges').html('<h3>Escorts Grid View</h3>');
-    var val = $('#grid-modal').attr('class');
-    $('#view_type').val('grid');
-    $('#viewType_input').val('grid'); // Keep form input in sync
-    $('.otherliste').css('display', 'block');
-    $('.list-view-div').css('display', 'none');
-    if (val != "active") {
-        $('.grid').hide();
-        $('.my-wishlist').hide();
-        $('#grid-template').html(
-            '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-        );
-        if (view1.includes('=list')) {
-            let newUrl = view1.replace('=list', '=grid');
-            $('.footer_view_type_one').attr('href', newUrl);
-        }
-        if (view2.includes('=list')) {
-            let newUrl = view2.replace('=list', '=grid');
-            $('.footer_view_type_two').attr('href', newUrl);
-        }
-        setTimeout(function() {
-            $('.spinner-border').css('display', 'none');
-            $('.my-wishlist').css('display', 'none');
-            $('.space_between_row').show();
-            $('#grid-modal').addClass('active');
-            $('#grid-list').removeClass('active');
-        }, 1000);
-    }
-}
 
         function showListView() {
             localStorage.setItem('profileViewType', 'list');
@@ -1478,8 +1569,8 @@
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                        $('[name=\"gender\"]').val($genderId);
-                                                                                                    }";
+                                                                                                                    $('[name=\"gender\"]').val($genderId);
+                                                                                                                }";
             }
             ?>
         });
@@ -1728,10 +1819,12 @@
 
         $(document).on('click', '.add_to_favrate', function() {
 
-          
-            
-            if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
-                swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+
+
+            if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
+                swal_error_warning('My Legbox',
+                    'Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.'
+                    );
                 return false;
             }
 
@@ -1756,7 +1849,7 @@
                 );
                 $('#legboxId_' + Eid).html(
                     "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
-                    );
+                );
 
                 var url = "{{ route('user.save.legbox', ':id') }}";
                 url = url.replace(':id', Eid);
@@ -1783,10 +1876,10 @@
                 console.log('legboxId_' + Eid, ' hello null', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
                     "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
-                    );
+                );
                 $('#legboxId_' + Eid).html(
                     "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
-                    );
+                );
 
                 var url = "{{ route('user.delete.legbox', ':id') }} ";
                 url = url.replace(':id', Eid);
@@ -1813,12 +1906,12 @@
                 @if (auth()->user() && auth()->user()->type != 0)
                     $(".my_legbox_title").text(
                         'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
-                        );
+                    );
                     $(".my_legbox_footer").show();
                 @else
                     $(".my_legbox_title").text(
                         'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
-                        );
+                    );
                     $(".my_legbox_footer").show();
                 @endif
                 $('#my_legbox').modal('show');

@@ -539,8 +539,8 @@
                     the form of cookies. This information might be about you, your preferences or your device
                     and is mostly used to make the website work as you expect it to. The information does not
                     usually directly identify you, but it can give you a more personalised web experience.
-                </p><br>
-                <p>Because we respect your right to privacy, you can choose not to allow some types of
+                </p>
+                <p class="mt-2">Because we respect your right to privacy, you can choose not to allow some types of
                     cookies. Click on the different category headings to find out more and change our default
                     settings. However, blocking some types of cookies may impact your experience with this
                     Website and our service offering.</p>

@@ -82,7 +82,10 @@
                            </div>
                        </div>
                        <input type="hidden" name="current_state_id" id="current_state_id">
-                       <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification.</p>
+                       {{-- login note from component --}}
+                       <div>
+                            <x-login-notes />
+                       </div>
                     </form>
                </div>
                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">

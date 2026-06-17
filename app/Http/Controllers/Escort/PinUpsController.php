@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
 use Exception;
+use App\Mail\PaymentMailer;
+use Illuminate\Support\Facades\Mail;
 
 class PinUpsController extends AppController
 {
@@ -224,9 +226,7 @@ class PinUpsController extends AppController
             $escortId = $data['pinup_profile_id'];
             $escortDetail = getEscortDetail($escortId);
 
-            $profileTimezone = config(
-                "escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone"
-            );
+            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
 
             [$startDate, $endDate] = explode('|', $data['pinup_week']);
 
@@ -282,7 +282,10 @@ class PinUpsController extends AppController
                     ]);
                 }
             }
-
+            /* Send Payment Mail */
+            $mailConfig = config("payment_mail_templates.pinup");
+            $mainAccount = $this->account;
+            Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment', 'escortPinup'), $mailConfig['subject']));
             return response()->json([
                 'success' => true,
                 'message' => 'Pinup slot booked successfully!'

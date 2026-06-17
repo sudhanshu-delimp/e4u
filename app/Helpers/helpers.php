@@ -5,10 +5,12 @@
  */
 
 use App\Mail\LoginOtpMail;
+use App\Models\AdvertiserDiscount;
 use App\Models\AlertNotic;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Escort;
+use App\Models\EscortAdditionalInformation;
 use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
@@ -21,11 +23,10 @@ use App\Models\MassageService;
 use App\Models\MassageStatistics;
 use App\Models\Masseur;
 use App\Models\MasseurMedia;
+use App\Models\Notification;
 use App\Models\Purchase;
 use App\Models\State;
 use App\Models\User;
-use App\Models\AdvertiserDiscount;
-use App\Models\EscortAdditionalInformation;
 use App\Sms\SendSms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -1136,8 +1137,12 @@ if (!function_exists('formatMobileNumber')) {
 
 if (!function_exists('removeSpaceFromString')) {
     function removeSpaceFromString($number)
-    {
+    {  
         $number = trim((string) $number);
+         if ($number === '') {
+            return null;
+        }
+
         return preg_replace('/[^\p{N}]/u', '', $number);
     }
 }
@@ -2452,3 +2457,30 @@ if (!function_exists('is_parent_massage_user_switch')) {
     }
 }
 
+if (!function_exists('canManageClass')) 
+{
+    function canManageClass()
+    {
+        return canManage() ? '' : 'hide_element';
+    }
+}
+
+if (!function_exists('other_centre_support_notification_count')) 
+{
+    function other_centre_support_notification_count()
+    {
+        $userIds = User::where('created_by', auth()->id())
+                    ->where('type', '4')
+                    ->pluck('id');
+        
+        if(!empty($userIds))  
+        {
+            return Notification::where('is_seen', 0)
+            ->whereIn('to_user', $userIds)
+            ->where('notification_listing_type', '1')
+            ->count();
+        }
+        
+        return 0;   
+    }
+}

@@ -36,22 +36,20 @@
                     <!-- Content Section -->
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
-
-                            <p style="margin: 0 0 15px 0;">Dear Supplier,</p>
-
+                            <p style="margin: 0 0 15px 0;"><b>Dear Supplier,</b></p>
                             <p style="margin: 20px 0 15px 0;">
                                 We have received a request to supply products from an E4U Member. Please prepare the
                                 order accordingly. The following information was provided by the Member:
                             </p>
 
-                            <table>
+                            <table width="600" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td>Member name: </td>
                                     <td>{{ $data['member_name'] }}</td>
                                 </tr>
                                 <tr>
                                     <td>Mobile:</td>
-                                    <td>{{ $data['member_id'] }}</td>
+                                    <td>{{ $data['mobile'] }}</td>
                                 </tr>
                                 <tr>
                                     <td>Delivery address:</td>

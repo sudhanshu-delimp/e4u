@@ -276,7 +276,7 @@
     <div class="container profile_contain">
         <div class="row">
            
-            <div class="col-md-8 col-xl-8 col-sm-12 col-12">
+            <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 col-12">
                 <div class="row mb-3">
                     <div class="col-md-12 col-xl-12 col-sm-12 col-12">
                         <div class="row mess_row">
@@ -374,34 +374,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-md-12 col-xl-4 col-sm-12 text-center">
-                        <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
-                            @if(auth()->user())
-                                @if(auth()->user()->type == 0)
-                                    <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
-                                        id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
-                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                                        @if(!empty($user_type))
-                                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
-                                                <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
-                                            @else
-                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                            @endif
-                                        @endif
-                                    </span>
-                                @else
-                                    <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                                @endif
-                            @else
-                                <span class="add_to_favrate" data-escortId="{{$escort->id}}"
-                                      data-name="{{$escort->name}}"><i class="fa fa-heart-o"
-                                                                       aria-hidden="true"></i></span>
-                            @endif
-                            <span class="label save-my-legbox-btn">
-                                @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
-                            </span>
-                        </button>
-                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 mb-2 table-responsive-lg">
@@ -650,13 +622,13 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12">
                                    <div class="mb-2">
-    <span class="about_box_small_heading">Play types:</span>
-    @if(!empty($escort->play_type))
-        <span class="about_box_small_heading_value">
-            {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
-        </span>
-    @endif
-</div>
+                                        <span class="about_box_small_heading">Play types:</span>
+                                        @if(!empty($escort->play_type))
+                                            <span class="about_box_small_heading_value">
+                                                {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
+                                            </span>
+                                        @endif
+                                    </div>
 
                                     <div class="mb-2">
                                         <span class="about_box_small_heading">Payment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
@@ -958,7 +930,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 profile-sidebar-margin-top">
+            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12 col-12 profile-sidebar-margin-top">
                 <!-- video crousal start -->
                 <div class="container-fluid">
                     <div class="row">
@@ -1013,86 +985,7 @@
                             $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
                         @endphp
                         <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                            {{-- <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
-                                        <ul class="nav nav-tabs justify-content-center border-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
-                                            </li>
-                                            @if ($galleryVideos->count()>0)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
-                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                                        </button>
-                                    </div>
-                                 
-                                    <div class="modal-body p-1">
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
-                                                <div class="gallery">
-                                                    @if($escort->gallary->isNotEmpty())
-
-
-                                                            <div class="gallery__item gallery__item--lg">
-                                                                <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                                                    @php 
-                                                                        $item = $escort->gallary()->wherePivotIn('position',[1])->first();
-                                                                    @endphp
-                                                                    @if($item)
-                                                                        @php $media_status =  getMediaVerificationDataBigIcon($item->varified ?? 0); @endphp
-                                                                            <div class="verify_icon">
-                                                                                <img src="{{ $media_status['icon'] }}">
-                                                                                <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
-                                                                            </div>
-                                                                    @endif
-                                                            </div>
-                                                            <div class="small-images">
-                                                            @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
-                                                            
-                                                                <div class="gallery__item">
-                                                                    <img src="{{ asset($media->path) }}" alt="">
-                                                                    @php 
-                                                                        $media_status = getMediaVerificationDataSmallIcon(($media->varified ?? 0));
-                                                                    @endphp
-                                                                     @if($media_status)
-                                                                        <div class="verify_icon_sm">
-                                                                            <img src="{{ $media_status['icon'] }}">
-                                                                            <span class="gallery_shield_tooltip">{{ $media_status['label'] }}</span>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-
-                                                            @endforeach
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
-                                                <div class="row px-3 pb-2" id="dvSource">
-                                                    
-                                                            @foreach($galleryVideos as $key=>$media)
-                                                                <div class="col-md-4" id="dm_2">
-                                                                    <a href="#">
-                                                                        <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                            <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                                        </video>
-                                                                    </a>
-                                                                </div>
-                                                            @endforeach
-                                                      
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> --}}
+                            
                             <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header d-flex justify-content-between align-items-center">                                       
@@ -1266,13 +1159,15 @@
     </div>
     <!-- video crousal end -->
     <div class="row pt-2 eqal-bx">
-        <div class="col-xl-5 col-sm-12 my-1 text-center">
+        <div class="col-12">
+            <div class="mess_repo_btn_wrap">
             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
             <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Me</button>
-        </div>
-        <div class="col-xl-7 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Report Advertiser</button>
-        </div>
+        
+
+            </div>
+        </div>        
     </div>
     <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
         <div class="like_img">

@@ -44,9 +44,11 @@
       </div>
       <div class="col-md-12">
          <div class="row">
-            <div class=" col-12 mb-4 d-none">
-               <button class="btn-primary" id="btn_checkout">Checkout</button>
+            <div class=" col-12 mb-4">
+               @if($type==='current')
+               <button class="btn-primary" data-toggle="modal" data-target="#escort_tour_checkout" id="btn_checkout">Checkout</button>
                <button class="btn-warning" data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin Up</button>
+               @endif
             </div>
             <div class="col-md-5">
             </div>
@@ -161,6 +163,7 @@
                         <tr>
                            <th>ID</th>
                            <th>Tour Name</th>
+                           <th>Locations</th>
                            <th>Start Date</th>
                            <th>End Date</th>
                            <th>Days</th>
@@ -176,6 +179,7 @@
             </div>
          </div>
       </div>
+      @include('escort.dashboard.NewTour.modal.checkout')
       @include('escort.dashboard.NewTour.modal.register_pinup')
       @include('escort.dashboard.modal.payment_form')
       @include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
@@ -189,14 +193,59 @@
    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
    <script src="{{ asset('js/escort/pinup_tour.js') }}"></script>
    <script>
-      var table;
+      let tourcCheckoutButton = $('button#btn_checkout');
+      let table;
       $(document).ready(function() {
          table = $('#sailorTable').DataTable({
             serverSide: true,
             processing: true,
+                pageLength: 25,
             "language": {
                "zeroRecords": "There is no record of the search criteria you entered.",
                searchPlaceholder: "Search by ID or Profile Name"
+            },
+            drawCallback: function(settings) {
+               let records = settings.json;
+               let $checkoutSelect = $('#escort_tour_id');
+               $checkoutSelect.empty();
+
+               let $pinupSelect = $('.modal-form-pinup #escort_tour_id');
+               $pinupSelect.empty();
+
+               if (records.recordsTotal > 0) {
+                  $checkoutSelect.append('<option value="">-- Select Tour --</option>');
+                  $.each(records.data, function(i, item) {
+                     if (item.tour_purchase.length == 0) {
+                        $checkoutSelect.append(
+                           $('<option>', {
+                              value: item.id,
+                              text: `${item.id} - Start: ${item.start_date} - End: ${item.end_date} - ${item.name}`,
+                              'data-start': item.start_date,
+                              'data-end': item.end_date,
+                              'data-days': item.days_number,
+                           })
+                        );
+                     }
+                  });
+
+                  $pinupSelect.append('<option value="">-- Select Tour --</option>');
+                  $.each(records.data, function(i, item) {
+                     if (item.tour_purchase.length > 0) {
+                        $pinupSelect.append(
+                           $('<option>', {
+                              value: item.id,
+                              text: `${item.id} - Start: ${item.start_date} - End: ${item.end_date} - ${item.name}`,
+                              'data-start': item.start_date,
+                              'data-end': item.end_date,
+                              'data-days': item.days_number,
+                           })
+                        );
+                     }
+                  });
+               }
+               if ($checkoutSelect.find('option').length === 1 && $checkoutSelect.find('option:first').val() === '') {
+                  tourcCheckoutButton.prop('disabled', true);
+               }
             },
             initComplete: function() {
                // if ($('#returnToReportBtn').length === 0) {
@@ -223,6 +272,12 @@
                {
                   data: 'name',
                   name: 'name'
+               },
+               {
+                  data: 'locations_numbers',
+                  name: 'locations_numbers',
+                  orderable: false,
+                  searchable: false,
                },
                {
                   data: 'start_date',
@@ -311,6 +366,6 @@
                Swal.fire("Cancelled", "Your tour is safe :)", "info");
             }
          })
-      })
+      });
    </script>
    @endprepend

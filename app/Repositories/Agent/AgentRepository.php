@@ -217,9 +217,9 @@ class AgentRepository extends BaseRepository implements AgentInterface
                 // ================= USER DATA =================
                 $agentData = [
                     'business_name'       => $data['business_name'] ?? null,
-                    'abn'                 => $data['abn'] ?? null,
-                    'business_address'    => $data['business_address'] ?? null,
-                    'business_number'     => $data['business_number'] ?? null,
+                    'abn'                 => (trim($data['abn']) != "") ? trim($data['abn']) : null,
+                    'business_address'    => (trim($data['business_address']) != "") ? trim($data['business_address']) : null,
+                    'business_number'     => (trim($data['business_number']) != "") ? trim($data['business_number']) : null, 
                     'contact_person'      => $data['contact_person'] ?? null,
                     'phone'               => $data['phone'] ?? null,
                     'email'               => $data['email'] ?? null,
@@ -339,8 +339,11 @@ class AgentRepository extends BaseRepository implements AgentInterface
     public function sendApprovalEmail($user, $plainPassword)
     {
         $user['plainPassword'] = $plainPassword;
-
         logErrorLocal($user);
-        Mail::to($user->email)->send(new agentApprovalEmail($user));
+        try {
+          Mail::to($user->email)->send(new agentApprovalEmail($user));
+        } catch (Exception $e) {
+           return false;
+        }
     }
 }

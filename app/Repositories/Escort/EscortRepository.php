@@ -196,7 +196,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Edit</a><div class="dropdown-divider"></div>';
             if ($item->enabled == 'Active') {
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Add Playmates</a><div class="dropdown-divider"></div>';
             }
 
             if ($item->latestActivePinup && empty($item->activeUpcomingSuspend)) {
@@ -233,13 +233,39 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '?brb=' . $itemArray['brb'][0]['id'] . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
                 $item->action .= '</div></div>';
             }
-
+            /*Tour */
+            if ($mainPurchase && $mainPurchase->tour_location_id != null) {
+                $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
+                <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to " . date("d-m-Y", strtotime($item->end_date)) . '</small>
+                </sup>';
+                $item->tour = true;
+            }
+            /*PinUp */
             if ($item->latestActivePinup) {
                 $item->pro_name .= '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
                 <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($item->latestActivePinup->end_date)) . '</small>
                 </sup>';
             }
-
+            /*Upgrade */
+            if ($mainPurchase && $mainPurchase->parent_id > 0) {
+                $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded
+                <small class="listing-tag-tooltip-desc">Upgraded from ' . $mainPurchase->previous_membership_type . ' to ' . $mainPurchase->membership_type . ' on ' . getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y') . '.</small>
+                </sup>';
+                $item->tour = true;
+            }
+            /*Extend */
+            if ($isExtended->count) {
+                $item->pro_name .= '<sup class="extend_icon listing-tag-tooltip ml-1">Extended
+                <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($isExtended->data->start_date)) . " to " . date("d-m-Y", strtotime($isExtended->data->end_date)) . '</small>
+                </sup>';
+            }
+            /*Bump Up */
+            if ($item->is_bumpup) {
+                $item->pro_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
+                <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to " . getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A') . '</small>
+                </sup>';
+            }
+            /*Suspend */
             if (!empty($item->activeUpcomingSuspend) || $item->user->status == "Suspended") {
                 if ($item->user->status == "Suspended") {
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
@@ -252,11 +278,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 }
             }
 
-            if ($isExtended->count) {
-                $item->pro_name .= '<sup class="extend_icon listing-tag-tooltip ml-1">Extended
-                <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($isExtended->data->start_date)) . " to " . date("d-m-Y", strtotime($isExtended->data->end_date)) . '</small>
-                </sup>';
-            }
+
 
             if ($playmates) {
                 $item->pro_name .= '<sup class="playmate_icon listing-tag-tooltip ml-1">' . $playmates;
@@ -264,25 +286,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->pro_name .= '</sup>';
             }
 
-            if ($mainPurchase && $mainPurchase->tour_location_id != null) {
-                $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
-                <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to " . date("d-m-Y", strtotime($item->end_date)) . '</small>
-                </sup>';
-                $item->tour = true;
-            }
 
-            if ($mainPurchase && $mainPurchase->parent_id > 0) {
-                $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded
-                <small class="listing-tag-tooltip-desc">Upgraded from ' . $mainPurchase->previous_membership_type . ' to ' . $mainPurchase->membership_type . ' on ' . getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y') . '.</small>
-                </sup>';
-                $item->tour = true;
-            }
 
-            if ($item->is_bumpup) {
-                $item->pro_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
-                <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to " . getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A') . '</small>
-                </sup>';
-            }
+
+
+
             $item->start_date_formatted = $item->start_date;
             $item->end_date_formatted = $item->end_date;
             $item->pro_name .= '</span>';

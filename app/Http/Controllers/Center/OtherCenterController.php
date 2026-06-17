@@ -70,7 +70,18 @@ class OtherCenterController extends Controller
 
     public function  get_all_other_centre_list(Request $request)
     {
-        $userlists  = User::where('created_by', auth()->user()->id)->orderBy('id','desc')->get();
+        //$userlists  = User::where('created_by', auth()->user()->id)->orderBy('id','desc')->get();
+
+        $userlists = User::where('created_by', auth()->id())
+        ->where('type','4')
+        ->withCount([
+            'user_support_notification as notification_count' => function ($query) {
+                $query->where('is_seen', 0)
+                      ->where('notification_listing_type', '1');
+            }
+        ])
+        ->orderBy('id', 'desc')
+        ->get();
         
         $data = $userlists->map(function ($row)  {
 
@@ -91,18 +102,30 @@ class OtherCenterController extends Controller
             $badgeClass = getStatusBadgeClass($statusText);
             $row->status_text = '<span class="custom_badge '.$badgeClass.'">'.$statusText.'</span>';
 
+           
+
+            
+
             $row->access_permitted = ($row->is_access_granted) ? 'Yes' : 'No';
 
             $links = "";
             $label = "";
+
+
+            if($row->notification_count>0)
+            $label = '<span class="brb_icon listing-tag-tooltip  m-1 notification_support_ticket" style="background-color:#182333">'.$row->notification_count.' unread support ticket</span>';
+
+
             if($row->is_access_granted)
-            $label = '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Granted</sup>';
+            $label .= '<span class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Granted</span>';
+
+           
 
             if($row->status=='Suspended')
-            $label = '<sup class="playmate_icon listing-tag-tooltip ml-1">Suspended</sup>';
+            $label .= '<span class="playmate_icon listing-tag-tooltip ml-1">Suspended</span>';
 
 
-            $display_name = "<span class='grant-access'>".$row->name.$label."</span>";            
+            $display_name = $row->name."<p class='grant-access'>".$label."</p>";            
 
             if($row->is_access_granted)
             {

@@ -4,18 +4,21 @@ let pinupButton = $("#btn_pinup_profile");
 let weekSelect = $('#pinup_week');
 let locationSelect = $('#pinup_location_id');
 let profileSelect = $('#pinup_profile_id');
+let pinupTourSelect = $(".modal-form-pinup #escort_tour_id");
 pinupFromButton.prop('disabled', true);
-$("#pinup_profile").on('show.bs.modal', function (event) {
-    locationSelect.empty();
-    let button = $(event.relatedTarget);
-    let tour_id = button.data('tour-id');
+
+
+var getTourLocations = function (tour_id) {
     $.ajax({
         url: `${window.App.baseUrl}escort-dashboard/get-tour-locations`,
         type: "POST",
         dataType: "json",
-        data: { tour_id, module: 'pinup' },
+        data: {
+            tour_id: tour_id,
+            module: 'pinup'
+        },
         beforeSend: function () {
-
+            locationSelect.empty();
         },
     }).done(function (response) {
         if (response.success) {
@@ -31,13 +34,26 @@ $("#pinup_profile").on('show.bs.modal', function (event) {
                     })
                 );
             });
-        }
-        else {
+        } else {
             locationSelect.append(`<option value="">-- ${response.message}--</option>`);
         }
     }).fail(function (xhr, status, error) {
         console.error("Error:", error);
     });
+}
+
+pinupTourSelect.on('change', function () {
+    getTourLocations($(this).val());
+});
+
+$("#pinup_profile").on('show.bs.modal', function (event) {
+    locationSelect.empty();
+    let button = $(event.relatedTarget);
+    let tour_id = button.data('tour-id');
+    if (tour_id) {
+        pinupTourSelect.parents('.form-group').remove();
+        getTourLocations(tour_id);
+    }
 });
 
 locationSelect.on("change", function () {
@@ -53,20 +69,7 @@ locationSelect.on("change", function () {
 
         },
     }).done(function (response) {
-        console.log(response);
         if (response.success) {
-            weekSelect.append('<option value="">Select a week</option>');
-            response.weeks.forEach(week => {
-                weekSelect.append(
-                    $('<option>', {
-                        value: `${week.start}|${week.end}`,
-                        text: `${week.start} (Mon)  -To-  ${week.end} (Sun)`
-                    })
-                );
-            });
-            pinupFromButton.prop('disabled', false);
-            $("input[name='tour_location_id']").val(tour_location_id);
-
             profileSelect.append('<option value="">-- Select Profile --</option>');
             $.each(response.profiles, function (i, item) {
                 if (item.tour_plan == 1) {
@@ -78,6 +81,30 @@ locationSelect.on("change", function () {
                     );
                 }
             });
+
+            if (profileSelect.find('option').length === 1 && profileSelect.find('option:first').val() === '') {
+                profileSelect.empty();
+                profileSelect.append('<option value="">-- Platinum Profile does not exist --</option>');
+            }
+            else {
+                weekSelect.append('<option value="">Select a week</option>');
+                response.weeks.forEach(week => {
+                    weekSelect.append(
+                        $('<option>', {
+                            value: `${week.start}|${week.end}`,
+                            text: `${week.start} (Mon)  -To-  ${week.end} (Sun)`
+                        })
+                    );
+                });
+                if (weekSelect.find('option').length === 1 && weekSelect.find('option:first').val() === '') {
+                    weekSelect.empty();
+                    weekSelect.append('<option value="">-- Weeks does not exist --</option>');
+                }
+                else {
+                    pinupFromButton.prop('disabled', false);
+                    $("input[name='tour_location_id']").val(tour_location_id);
+                }
+            }
         }
         else {
             Swal.fire({
@@ -112,7 +139,7 @@ pinupFrom.on('submit', function (e) {
                 if (response.validation) {
                     pinupFrom.closest('.modal').modal('hide');
                     pinupFrom.find("#modalPaymentButton").trigger('click');
-                    pinupButton.prop('disabled', true);
+                    //pinupButton.prop('disabled', true);
                 }
                 else {
                     pinupFrom.closest('.modal').modal('hide');

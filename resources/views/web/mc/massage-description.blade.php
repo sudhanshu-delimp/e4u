@@ -252,106 +252,89 @@ margin-right: 5px;
         
 
         <div class="container">
-
             <div class="row">
-                <div class="overlay">
-                    @if($listing->latest_active_brb)
-                        <div class="brb_details">
-                            <h1>Closed until {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
-                            <h3>{{$listing->latest_active_brb->brb_note}}</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-            {{-- <div class="container-fluid back_to_search_btn pt-2">
-                <div class="row">
-                    <div class="col-12">
-                        <a href="../massage-centres-list" class="back--search">
-                   
-                    <span class="previous_icon">
-                        <i class="fa fa-chevron-left text-white" aria-hidden="true"></i>
-                    </span>
-
-                      Back to Search
-                </a>
-                    </div>
-                </div>               
-            </div> --}}
-
-            <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
-            
-                <div class="row">
-                    <div class="col-12">
-                        <a href="../massage-centres-list" class="back--search"> 
+                <div class="col-12 p-3">
+                    <div class="back_to_search_btn col-12">
+                        <a href="../massage-centres-list" class="back--search "> 
                             <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
                     </div>
-                </div>
-            </div>
-            
+                    <div class="row">
+                        <div class="overlay">
+                            @if($listing->latest_active_brb)
+                                <div class="brb_details">
+                                    <h1>Closed until {{date('h:i A',strtotime($listing->latest_active_brb->selected_time))}}</h1>
+                                    <h3>{{$listing->latest_active_brb->brb_note}}</h3>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
 
 
-            <div class="profile_page_title">
-                <h2 class="display_inline_block p-0">{{ $listing->business_name ?? 'N/A' }}</h2>
-                
-            </div>
+                    <div class="profile_page_title">
+                        <h2 class="display_inline_block p-0">{{ $listing->business_name ?? 'N/A' }}</h2>
+                        
+                    </div>
 
-            <div class="profile_page_name_and_phno">
-                <p> {{ get_massage_home_city($listing->user_id) .'-'.formatMobileNumber($listing->phone) }}   </p>
-            </div>
+                    <div class="profile_page_name_and_phno">
+                        <p> {{ get_massage_home_city($listing->user_id) .'-'.formatMobileNumber($listing->phone) }}   </p>
+                    </div>
 
-            <div class="profile_page_location_and_id">
-                <ul>
-                    <li>
-                        <span class="profile_location_icon">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        </span>
-                        <p class="display_inline_block">{{  $listing->address ?? 'N/A' }}</p>
-                    </li>
-                    <li>
-                        <span class="profile_location_icon">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </span>
-                        <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
-                    </li>
-                </ul>
-            </div>
+                    <div class="profile_page_location_and_id">
+                        <ul>
+                            <li>
+                                <span class="profile_location_icon">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                </span>
+                                <p class="display_inline_block">{{  $listing->address ?? 'N/A' }}</p>
+                            </li>
+                            <li>
+                                <span class="profile_location_icon">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
+                            </li>
+                        </ul>
+                    </div>
 
-            <div class="d-flex align-items-center justify-content-start gap-10">
-                <ul class="profile_page_social_profiles ml-0">
+                    <div class="social_media_wrap">
+                        <ul class="profile_page_social_profiles ml-0">
 
-                 @if(isset($social_links['facebook']) && $social_links['facebook']!="")
-                    <li class="social-media-profile">
-                        <a href="{{$social_links['facebook']}}" target="_blank">
-                            <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
-                        </a>
-                    </li>
-                 @endif   
+                        @if(isset($social_links['facebook']) && $social_links['facebook']!="")
+                            <li class="social-media-profile">
+                                <a href="{{$social_links['facebook']}}" target="_blank">
+                                    <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
+                                </a>
+                            </li>
+                        @endif   
 
-                  @if(isset($social_links['insta']) && $social_links['insta']!="")
-                    <li class="social-media-profile">
-                        <a href="{{$social_links['insta']}}" target="_blank">
-                            <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
-                        </a>
-                    </li>
-                  @endif  
+                        @if(isset($social_links['insta']) && $social_links['insta']!="")
+                            <li class="social-media-profile">
+                                <a href="{{$social_links['insta']}}" target="_blank">
+                                    <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
+                                </a>
+                            </li>
+                        @endif  
 
 
-               
-                    <li class="social-media-profile">
-                        <a href="{{ $twitter_link  }}" target="_blank">
-                            <img src="{{ asset('../assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
-                        </a>
-                    </li>
-               
                     
+                            <li class="social-media-profile">
+                                <a href="{{ $twitter_link  }}" target="_blank">
+                                    <img src="{{ asset('../assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
+                                </a>
+                            </li>
+                    
+                            
 
-                </ul>
-            </div>
+                        </ul>
+                    </div>
+                </div>
+             
+            </div>   
         </div>
         
     </div>
 
-    <div class="container-fluid px-0 next-preview-fixed">
+    <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
                 <a  href="{{ $prevId ? route('web.massage-description', [
@@ -377,7 +360,7 @@ margin-right: 5px;
     </div>
     <div class="container profile_contain">
         <div class="row">
-            <div class="col-md-8 col-xl-8 col-sm-12 col-12">
+            <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 col-12">
                 <div class="row mb-3">
                     <div class="col-md-12 col-xl-12 col-sm-12 col-12">
                         <div class="row custom_message_types">
@@ -739,9 +722,6 @@ margin-right: 5px;
                                     }
 
                             @endphp
-                            <pre>
-
-</pre>
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view_{{$masseur->id}}" >
@@ -752,7 +732,7 @@ margin-right: 5px;
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}"> 
+                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
@@ -768,9 +748,8 @@ margin-right: 5px;
                                             </button>
                                         </div>
                                         <div class="modal-body">
-
                                             <div class="masseur_profile_wrapper">
-                                                <div class="mc_profile_img">
+                                                {{-- <div class="mc_profile_img ">
 
                                                    @foreach ($messure_validImages as $index => $image)
                                                         @if($loop->first)
@@ -811,8 +790,94 @@ margin-right: 5px;
                                                             @endif
                                                         @endforeach
                                                         
+                                                </div> --}}
+                                                <div class="mc_profile_img">
+
+                                                    @foreach ($messure_validImages as $index => $image)
+                                                        @if($loop->first)
+
+                                                            @php
+                                                                $status_detail = getMediaVerificationDataBigIcon($image['img_data']->varified);
+                                                            @endphp
+
+                                                            <a href="{{ $image['url'] }}"
+                                                            class="glightbox"
+                                                            data-gallery="masseure-gallery">
+
+                                                                <img src="{{ $image['url'] }}"
+                                                                    class="img-responsive"
+                                                                    >
+                                                                <div class="hover-overlay">
+                                                                    <span>Click me!</span>
+                                                                </div>
+                                                            </a>
+
+                                                        @endif
+                                                    @endforeach
+
+                                                    <div class="veryfy_img">
+                                                        @if(isset($status_detail['icon']))
+                                                            <img src="{{ $status_detail['icon'] }}">
+                                                            <span class="common_shield_tooltip">
+                                                                {{ $status_detail['label'] }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="masseur_extra_img">
+
+                                                    @foreach ($messure_validImages as $index => $image)
+
+                                                        @if(!$loop->first)
+
+                                                            <div class="extra_img_wrapper">
+
+                                                                <a href="{{ $image['url'] }}"
+                                                                class="glightbox"
+                                                                data-gallery="masseure-gallery">
+
+                                                                    <img src="{{ $image['url'] }}"
+                                                                        class="img-responsive"
+                                                                        style="width: 108px;height: 119px;object-fit: cover; border-radius:10px">
+                                                                        <div class="hover-overlay">
+                                                                            <span>Click me!</span>
+                                                                        </div>
+                                                                </a>
+
+                                                                <div class="veryfy_img">
+                                                                    @php
+                                                                        $status_detail = getMediaVerificationDataSmallIcon($image['img_data']->varified);
+                                                                    @endphp
+
+                                                                    <img src="{{ $status_detail['icon'] }}">
+                                                                    <h6 class="gallery_shield_tooltip">
+                                                                        {{ $status_detail['label'] }}
+                                                                    </h6>
+                                                                </div>
+
+                                                            </div>
+
+                                                        @endif
+
+                                                    @endforeach
+
+                                                </div>
+
+                                                {{-- Hidden Images For Lightbox Navigation --}}
+                                                <div style="display:none;">
+
+                                                    @foreach ($messure_validImages as $image)
+
+                                                        <a href="{{ $image['url'] }}"
+                                                        class="glightbox"
+                                                        data-gallery="masseure-gallery">
+                                                        </a>
+
+                                                    @endforeach
+
+                                                </div>
                                                 <div class="masseur_content" style="">
 
                                                     <div>
@@ -1403,7 +1468,7 @@ margin-right: 5px;
          
 
 
-            <div class="col-md-4 profile-sidebar-margin-top">
+            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12 col-12 profile-sidebar-margin-top">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12 px-0 profile_verify_icon">
@@ -1464,16 +1529,17 @@ margin-right: 5px;
 
                 <!-- video crousal end -->
                 <div class="row pt-2 eqal-bx">
-                    <div class="col-5">
-                        <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
-                            data-target="#mysendmessage">
-                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Message Us
-                        </button>
-                    </div>
-                    <div class="col-7 text-right">
-                        <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal">
-                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Centre
-                        </button>
+                    <div class="col-12">
+                        <div class="mess_repo_btn_wrap">
+                            
+                            <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
+                                data-target="#mysendmessage">
+                                <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Message Us
+                            </button>
+                            <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal">
+                                <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Centre
+                            </button>
+                        </div>
                     </div>
                 </div>
 

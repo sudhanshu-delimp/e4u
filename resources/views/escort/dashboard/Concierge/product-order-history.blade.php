@@ -51,6 +51,7 @@
                         <thead class="table-bg">
                             <tr>
                                 <th>Order ID</th>
+                                <th>Agent</th>
                                 <th>User</th>
                                 <th>Sub Total</th>
                                 <th>Wallet Amount</th>
@@ -82,16 +83,13 @@
                 </div>
             </div>
         </footer>
-        <div class="modal fade upload-modal" id="view-details"  tabindex="-1"
-     data-backdrop="static" 
-     data-keyboard="false">
+        <div class="modal fade upload-modal" id="view-details" tabindex="-1" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content basic-modal">
 
                     <div class="modal-header">
                         <h5 class="modal-title" id="view-listing">
-                            {{-- <img  src="https://e4u.local/assets/dashboard/img/transaction.png" alt="alert"
-                                style="width:29px;"> --}}
+
                             Order Details
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -144,16 +142,16 @@
                         [10, 25, 50, 100],
                         [10, 25, 50, 100]
                     ],
-                    pageLength: 10,
+                    pageLength: 25,
 
                     columns: [{
                             data: 'order_id',
                             name: 'order_id'
                         },
-
-
-                       
-                        
+                        {
+                            data: 'agent',
+                            name: 'agent'
+                        },
                         {
                             data: 'user',
                             name: 'user'
@@ -170,7 +168,7 @@
                             data: 'delivery_charges',
                             name: 'delivery_charges'
                         },
-                         {
+                        {
                             data: 'gst_amount',
                             name: 'gst_amount'
                         },
@@ -207,7 +205,8 @@
             $(document).on('click', '.view-order-details', function(e) {
                 e.preventDefault();
                 var orderId = $(this).data('item');
-
+                var productOrderId = $(this).data('orderid');
+                $("#view-listing").text('Order Details - ' + productOrderId);
                 // Show loader, hide content
                 $("#orderDetailsLoader").show();
                 $("#orderDetailsBody").hide().html("");

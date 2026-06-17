@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="col-md-12 mb-3">    
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end {{canManageClass()}}">
                 <button id="add_video_button" type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
             </div>
         </div>

@@ -532,7 +532,7 @@
                                     </div>
                                 </div>
                                 <div class="row px-4 py-3">
-                                    <div class="col-4 px-0">
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 px-lg-0">
                                         <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                         <div class="plate">
                                             <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal"
