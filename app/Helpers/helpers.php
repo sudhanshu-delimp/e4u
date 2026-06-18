@@ -2475,3 +2475,23 @@ if (!function_exists('canManageClass')) {
         return canManage() ? '' : 'hide_element';
     }
 }
+
+if (!function_exists('other_centre_support_notification_count'))
+{
+    function other_centre_support_notification_count()
+    {
+        $userIds = User::where('created_by', auth()->id())
+                    ->where('type', '4')
+                    ->pluck('id');
+       
+        if(!empty($userIds))  
+        {
+            return Notification::where('is_seen', 0)
+            ->whereIn('to_user', $userIds)
+            ->where('notification_listing_type', '1')
+            ->count();
+        }
+       
+        return 0;  
+    }
+}
