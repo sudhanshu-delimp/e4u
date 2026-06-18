@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\Escort\Order\OrderMailToAgent;
 use App\Mail\Escort\Order\OrderMailToE4U;
 use App\Mail\Escort\Order\OrderMailToEscort;
 use App\Mail\Escort\Order\SendOrderMailToCondomMan;
@@ -39,28 +40,21 @@ class SendProductPurchaseMail implements ShouldQueue
   {
 
     try {
-      Log::info("working mail ");
+      // Log::info("working mail ");
       $mailData = [];
-      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user'])->where('id', $this->paymentObject['metadata']['order_id'])->first();
+      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user', 'createdBy'])->where('id', $this->paymentObject['metadata']['order_id'])->first();
       if ($order->orderAddress) {
         $mailData['id'] = $order->id;
 
+        $memberId = $order->user ? $order->user->member_id : '';
         $billingAddress = $order->orderAddress->where('type', 'billing')->first();
         $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
-        $mailData['member_id'] = $order->user ? $order->user->member_id : '';
+        $mailData['member_id'] = $memberId;
         $mailData['order_id'] = $order->order_id ?? "";
         $mailData['billing_name'] = $order->user ? $order->user->name : "";
-
-        // send email to escort
-        Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
-
-
+        $mailData['agent_name'] = $order->createdBy ? $order->createdBy->name : "";
+        $mailData['escort_name'] = $order->user ? $order->user->name : "";
         // send email to e4u
-        $user = User::where('id', $order->user_id)->first();
-        $memberId = "";
-        if ($user) {
-          $memberId = $user->member_id ?? '';
-        }
 
         $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
         $address1 = $shippingAddress->address_line1 ?? '';
@@ -78,25 +72,33 @@ class SendProductPurchaseMail implements ShouldQueue
           ]))
         );
         $mailData['member_id'] = $memberId;
-        $mailData['member_name'] = $user ? $user->name : "example@gmail.com";
+        $mailData['member_name'] = $order->user ? $order->user->name : "example@gmail.com";
         $mailData['email'] = $shippingAddress->email ? $shippingAddress->email : "example@gmail.com";
         $mailData['mobile'] = $shippingAddress->phone ? $shippingAddress->phone : "999999999999";
         $mailData['delivery_address'] = $completeAddress;
         $mailData['delivery_type'] = $order->delivery_type ? $order->delivery_type : "Door";
-        $e4uEmail = config('app.e4u_mail');
 
-        Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
-
-        // // send mail to condom man (suppplier)
         $products = $order->orderItems;
-        $condommail = config('app.condom_mail');
-        $mailData['member_name'] = $user->name;
+
         $mailData['products'] = $products;
         $mailData['sub_total'] = $order->paymentDetails->amount;
         $mailData['wallet_amount'] = $order->paymentDetails->wallet_amount;
         $mailData['grand_total'] = $order->paymentDetails->paid_amount;
         $mailData['tax_amount'] = $order->paymentDetails->gst_amount;
         $mailData['delivery_charges'] = $order->paymentDetails->delivery_charge;
+
+        // send email to escort
+        Mail::to($billingAddress->email)->send(new OrderMailToEscort($mailData));
+        if ($order->createdBy) {
+          if ($order->user_id != $order->createdBy->id)
+            Mail::to($order->createdBy->email)->send(new OrderMailToAgent($mailData));
+        }
+
+        $e4uEmail = config('app.e4u_mail');
+        Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
+        // Log::info("sent mail");
+        // // send mail to condom man (suppplier)
+        $condommail = config('app.condom_mail');
 
         Mail::to($condommail)->send(new SendOrderMailToCondomMan($mailData));
       }

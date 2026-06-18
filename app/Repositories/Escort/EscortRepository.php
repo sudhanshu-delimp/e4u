@@ -217,22 +217,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $itemArray = $item->toArray();
 
 
-            if ($itemArray['brb']) {
-                $item->pro_name = '<span id="brb_' . $item->id . '">' . $item->profile_name . " <sup class='brb_icon listing-tag-tooltip'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['selected_time'])) . "</small></sup>";
-                $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
-
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 brb-inactivate" href="' . route('escort.brb.inactive', $itemArray['brb'][0]['id']) . '" data-id="' . $itemArray['brb'][0]['id'] . '" data-category="' . ($itemArray['brb'][0]['id']) . '"><i class="fa fa-ban" aria-hidden="true"></i>Cancel BRB</a><div class="dropdown-divider"></div>';
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Edit</a><div class="dropdown-divider"></div>';
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
-                if ($item->enabled == 'Active') {
-                    $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
-                }
-                if ($item->latestActivePinup) {
-                    $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer" aria-hidden="true"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
-                }
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '?brb=' . $itemArray['brb'][0]['id'] . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
-                $item->action .= '</div></div>';
-            }
+            $item->pro_name = '<span id="brb_' . $item->id . '">' . $item->profile_name;
             /*Tour */
             if ($mainPurchase && $mainPurchase->tour_location_id != null) {
                 $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
@@ -276,6 +261,23 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to " . date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)) . '</small>
                 </sup>';
                 }
+            }
+
+            if ($itemArray['brb']) {
+                $item->pro_name .= "<sup class='brb_icon listing-tag-tooltip ml-1'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['selected_time'])) . "</small></sup>";
+                $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
+
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 brb-inactivate" href="' . route('escort.brb.inactive', $itemArray['brb'][0]['id']) . '" data-id="' . $itemArray['brb'][0]['id'] . '" data-category="' . ($itemArray['brb'][0]['id']) . '"><i class="fa fa-ban" aria-hidden="true"></i>Cancel BRB</a><div class="dropdown-divider"></div>';
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Edit</a><div class="dropdown-divider"></div>';
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
+                if ($item->enabled == 'Active') {
+                    $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
+                }
+                if ($item->latestActivePinup) {
+                    $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer" aria-hidden="true"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
+                }
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '?brb=' . $itemArray['brb'][0]['id'] . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
+                $item->action .= '</div></div>';
             }
 
 

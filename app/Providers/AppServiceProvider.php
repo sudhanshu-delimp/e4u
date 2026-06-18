@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::composer('*', function ($view) 
+        {
+            
+            $count = 0;
+            if (auth()->check() && auth()->user()->type == '4') {
+                $count = other_centre_support_notification_count();
+            }
+
+            $view->with('other_centre_support_notification_count', $count);
+
+        });
+        
+    
         app()->instance('serverStartTime', now());
 
         if (!Cache::has('app_start_time')) {

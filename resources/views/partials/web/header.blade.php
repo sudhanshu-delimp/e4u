@@ -14,7 +14,7 @@
 
 
         <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.9') }}" rel="stylesheet">
+        <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.0') }}" rel="stylesheet">
         <!-- jquery ui cdn -->
 
         <!-- google fonts -->
@@ -39,8 +39,8 @@
         <!-- font awsome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.0') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.2') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.3') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.5') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
         <script>

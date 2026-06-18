@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 //use Illuminate\Database\Eloquent\Model;
 use App\Models\Model;
+
 class Purchase extends Model
 {
     use HasFactory;
@@ -142,6 +143,9 @@ class Purchase extends Model
         } else {
             list($usedDicount, $amount) = calculateTotalFee($this->membership, $this->days_number, $this);
         }
+
+        $gstAmount = getGSTAmount($amount);
+        $amount = $amount + $gstAmount;
         return number_format($amount, 2, '.', '');
     }
 

@@ -94,7 +94,7 @@
                                                  </div>
 
                                                  <div class="custom-refreshbuton">
-                                                     <div class="margin_btn_reset">
+                                                     <div>
                                                          <input type="hidden" name="apply_pagination_rule"
                                                              id="apply_pagination_rule" value="0">
                                                          <button type="button"

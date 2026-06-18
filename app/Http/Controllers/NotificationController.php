@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BaseController;
-use App\Models\EscortViewerInteractions;
 use App\Http\Requests\NotificationRequest;
+use App\Models\EscortViewerInteractions;
+use App\Models\Notification;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class NotificationController extends BaseController
@@ -53,6 +54,8 @@ class NotificationController extends BaseController
                 $userId = Auth::id();
                 $alert_notifications = [];
                 $support_notifications = [];
+                $other_centre_notifications = [];
+
                 $notifications = $this->notification->where([
                     'to_user' => $userId,
                     'is_seen' => '0',
@@ -82,10 +85,45 @@ class NotificationController extends BaseController
     
                }
 
+                $userIds = User::where('created_by', auth()->id())
+                    ->where('type', '4')
+                    ->pluck('id');
+
+                if ($userIds->isNotEmpty())     
+                {
+                    $other_centre = Notification::whereIn('to_user', $userIds)
+                        ->where('is_seen', '0')
+                        ->where('notification_listing_type', '1')
+                        ->get();
+
+                    foreach($other_centre as $notification)
+                    {
+                        if($notification->notification_listing_type=='1')
+                        {
+                            $other_centre_notifications['data'][] = $notification;
+                            if($notification->is_seen=='0')
+                            $other_centre_notifications['is_new'] = 1;
+
+                        }
+                        
+
+                        if($notification->notification_listing_type=='2')
+                        {
+                        $other_centre_notifications['data'][] = $notification;
+                        if($notification->is_seen=='0')
+                        $other_centre_notifications['is_new'] = 1;
+                        }
+                    }
+                }
+
+                
+
+
                 return response()->json([
                     'success' => true, 
                     'support_notifications' => $support_notifications, 
-                    'alert_notifications' => $alert_notifications, 
+                    'alert_notifications' => $alert_notifications,
+                    'other_centre_notifications' => $other_centre_notifications,  
                     'message' => 'Notification List'
                 ]);
         } 

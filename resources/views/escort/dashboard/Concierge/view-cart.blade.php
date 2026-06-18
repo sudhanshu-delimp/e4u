@@ -149,6 +149,7 @@
                 </li>
 
                 <li id="pro-step-4">Payment Status
+
                 </li>
             </ul>
         </div>
@@ -752,7 +753,7 @@
     </script>
     <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
     <script>
-        let loginUserId = '{{ Auth::user()->id }}';
+        let loginUserId = "{{ session('parent_agent_id') ?? Auth::user()->id }}";
     </script>
     <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
 
@@ -952,8 +953,11 @@
         const step1 = document.getElementById('pro-step-1');
         const step2 = document.getElementById('pro-step-2');
         const step3 = document.getElementById('pro-step-3');
+        const step4 = document.getElementById('pro-step-4');
         const bar1 = document.getElementById('bar1');
         const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        const bar4 = document.getElementById('bar4');
 
         function showStep() {
             document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
@@ -1003,7 +1007,6 @@
                 }
                 updateOrderSummary();
                 updateDeliveryAddress();
-
                 step = 2;
                 localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
@@ -1011,7 +1014,6 @@
                 bar1.style.width = "100%"; // fill progress bar
                 step2.classList.add("is-active");
             } else if (step === 2) {
-
                 let isValid = true;
                 if (!validateStep2()) return false;
 
@@ -1050,25 +1052,16 @@
 
                 step2.classList.remove("is-active");
                 bar2.style.width = "100%"; // fill progress bar
-                step2.classList.add("is-active");
+                step3.classList.add("is-active");
 
 
             } else if (step === 3) {
+
                 updateDeliveryAddress();
                 updateOrderSummary();
                 loadTransactionSummary();
 
-
-
                 $("#process-payment-modal").modal('show');
-                // step = 3;
-                // localStorage.setItem("checkout_step_" + loginUserId, step);
-
-                // step2.classList.remove("is-active");
-                // bar2.style.width = "100%";
-                // step3.classList.add("is-active");
-                // showStep();
-
             }
 
             showStep();
@@ -1174,7 +1167,7 @@
                 beforeSend: function() {
                     Swal.fire({
                         title: "Processing your payment...",
-                        html: "Please wait",
+                        html: "<p>Please do not refresh page</p>",
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         didOpen: () => {
@@ -1198,12 +1191,12 @@
 
                         step3.classList.remove("is-active");
                         bar3.style.width = "100%";
-                        step3.classList.add("is-active");
+                        step4.classList.remove("is-active");
+
                         showStep();
                         flushLocalStorage();
 
                     } else {
-
                         if (response.errors && typeof response.errors === "object" && response
                             .errors && Object.keys(response.errors).length > 0) {
                             let html = '<div class="alert alert-danger"><ul>';
@@ -1215,7 +1208,6 @@
                         } else {
                             Swal.fire(response.message, '', 'error');
                         }
-
 
                     }
                 },
@@ -1247,8 +1239,21 @@
         }
 
         function validateStep2() {
-            let form = $('#deliveryAddressForm').parsley();
+            if ($('#sameAddress').is(':checked')) {
+                // Remove billing fields from Parsley validation
+                $('#billingSection')
+                    .find('input, textarea, select')
+                    .attr('data-parsley-excluded', 'true');
+            } else {
+                $('#billingSection')
+                    .find('input, textarea, select')
+                    .removeAttr('data-parsley-excluded');
+            }
+
+            var form = $('#deliveryAddressForm').parsley();
+
             form.validate();
+
             return form.isValid();
         }
 
@@ -1286,12 +1291,18 @@
         });
 
         function toggleBilling() {
+
             if ($("#sameAddress").is(":checked")) {
+                localStorage.setItem("isSameAddress_" + loginUserId, 1);
+
                 $("#billingSection").hide().find("input, textarea").attr("disabled", true);
             } else {
+                localStorage.setItem("isSameAddress_" + loginUserId, 0);
                 $("#billingSection").show().find("input, textarea").attr("disabled", false);
             }
         }
+
+
         document.addEventListener("DOMContentLoaded", function() {
             let savedStep = localStorage.getItem("checkout_step_" + loginUserId);
             if (savedStep) {
@@ -1316,6 +1327,18 @@
             }
 
             applyStepUI(step);
+
+            const isSameAddress = localStorage.getItem("isSameAddress_" + loginUserId);
+
+            if (isSameAddress == "1") {
+                $("#sameAddress").prop("checked", true);
+                $("#billingSection").hide().find("input, textarea").attr("disabled", true);
+
+            } else {
+                $("#sameAddress").prop("checked", false);
+                $("#billingSection").show().find("input, textarea").attr("disabled", false);
+
+            }
         });
 
         function applyStepUI(step) {
