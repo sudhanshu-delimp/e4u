@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
+    protected $account;
     protected $walletService;
     protected $pinService;
     protected $user;
@@ -122,6 +123,7 @@ class PaymentController extends Controller
             $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount);
 
             $this->pinService->setAmount($total_amount);
+            $this->pinService->setWalletAmount($wallet_amount);
 
             $gstAmount = $this->pinService->getGSTAmount();
             $totalDueAmount = $this->pinService->getTotalDue();
@@ -182,6 +184,7 @@ class PaymentController extends Controller
             ];
 
             $this->pinService->setAmount($benefit_token['total_amount']);
+            $this->pinService->setWalletAmount($benefit_token['wallet_amount']);
 
             $gstAmount = $this->pinService->getGSTAmount();
             $totalDueAmount = $this->pinService->getTotalDue();

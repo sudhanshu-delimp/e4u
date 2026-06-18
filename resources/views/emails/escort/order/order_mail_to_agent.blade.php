@@ -20,7 +20,7 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            E4U Concierge - Product Order Completed
+                                            Order Confirmation - Products
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Ref: {{ $data['id'] ?? '' }}<br>
@@ -37,27 +37,81 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;"><b>Dear Supplier,</b></p>
-
+                            <p style="margin: 0 0 15px 0;"><b>Dear
+                                    {{ $data['agent_name'] ?? $data['billing_name'] }},</b></p>
                             <p style="margin: 20px 0 15px 0;">
+                                Thank you for your order. This email confirms that you have successfully placed an order
+                                for Products on behalf of
 
-                                We are pleased to inform you that the order has been successfully completed and delivered.
+                                <strong>{{ $data['escort_name'] ?? 'the Escort' }}</strong>.
 
-                            </p>
-                            {{-- <p style="margin: 15px 0;">
-                                <strong>Delivery Address:</strong> {{ $data['delivery_address'] ?? '' }}
-                            </p> --}}
-
-                            <p style="margin: 15px 0;">
-                                The order has been fulfilled in accordance with the approved requirements and delivery instructions. No further action is required unless otherwise communicated.
                             </p>
 
                             <p style="margin: 15px 0;">
-                                Please retain this confirmation for your records and quote the order reference in any future correspondence regarding this order.
+
+                                If the order was submitted before 11:00 am and delivery was requested,
+                                delivery will occur on the same day.
+
+                                If the Products are being sent by post, please allow up to 48 hours for
+                                delivery. The Products will be
+
+                                dispatched to the nominated delivery address associated with this order.
+
                             </p>
+
+
+
+                            <p style="margin: 15px 0;">
+
+                                If the Products are not received within 72 hours, please lodge a
+                                Support Ticket through your Dashboard
+
+                                and quote the reference number {{ $data['id'] }}.
+
+                            </p>
+
+
+
+                            <p style="margin: 15px 0;">
+
+                                We confirm that payment for this order has been processed according to your
+                                instructions.
+
+                            </p>
+
+
+
+                            <p style="margin: 20px 0 10px 0;"><strong>Notes:</strong></p>
+
+
+
+                            <ol style="padding-left: 20px; margin: 0; line-height: 22px;">
+
+                                <li>
+
+                                    If the Products are being sent by post:
+
+                                    <ul style="padding-left: 20px; margin-top: 10px;">
+                                        <li>(a) they will be dispatched on the next business day; and</li>
+                                        <li>(b) tracking information will be available.</li>
+                                    </ul>
+                                </li>
+
+                                <li style="margin-top: 10px;">
+                                    You can view this order in your Dashboard by navigating to
+                                     Transaction Summary and selecting
+                                     View  from the available actions.
+                                </li>
+
+                                {{-- <li style="margin-top: 10px;">
+                                    Please retain this reference number for any future enquiries regarding this order.
+                                </li> --}}
+
+                            </ol>
+
 
                             <!-- email info -->
-                             <p style="font-size: 15px; margin-top: 20px;">
+                              <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
                             </p>

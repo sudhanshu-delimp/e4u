@@ -51,7 +51,7 @@
                         <thead class="table-bg">
                             <tr>
                                 <th>Order ID</th>
-                                <th>Agent</th>
+                                <th>Created By</th>
                                 <th>User</th>
                                 <th>Sub Total</th>
                                 <th>Wallet Amount</th>

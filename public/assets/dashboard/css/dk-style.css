@@ -11470,6 +11470,15 @@ border-top: 5px solid var(--peach);
     padding: 0 5px;
 }
 
+#other_centre_table p {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    line-height: 20px;
+}
+
 .grant-access sup {
     background: #ff3c5f;
     padding: 3px;

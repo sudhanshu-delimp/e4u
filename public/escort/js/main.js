@@ -58,6 +58,7 @@ function flushLocalStorage() {
   localStorage.removeItem('deliveryAddress_' + loginUserId);
   localStorage.removeItem('paymentDetails_' + loginUserId);
   localStorage.removeItem('checkout_step_' + loginUserId);
+  localStorage.removeItem('isSameAddress_' + loginUserId);
 
 }
 function getCartCount() {

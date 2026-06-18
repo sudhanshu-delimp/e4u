@@ -30,7 +30,7 @@ class EscortTourScheduleContoller extends Controller
     {
         $tourIds =  Tour::where('user_id', auth()->id())->pluck('id')->toArray();
         $tours = TourLocation::whereIn('tour_id', $tourIds)
-            ->with('state','tour')
+            ->with('state', 'tour')
             ->get()
             ->sortBy(function ($tour) {
                 $today = Carbon::today()->toDateString();
@@ -41,16 +41,16 @@ class EscortTourScheduleContoller extends Controller
                 } elseif ($tour->start_date > $today && $tour->status != 'cancelled') {
                     // Upcoming tours
                     return 2;
-                } elseif($tour->start_date < $today && $tour->status != 'cancelled') {
+                } elseif ($tour->start_date < $today && $tour->status != 'cancelled') {
                     // Completed tours
                     return 3;
-                }else{
+                } else {
                     // cancelled tours
                     return 4;
                 }
             })
             ->values();
-        return view('escort.dashboard.tourSchedule.index',['tours' => $tours]);
+        return view('escort.dashboard.tourSchedule.index', ['tours' => $tours]);
     }
 
     public function getTourScheduleByAjax(Request $request)
@@ -143,19 +143,19 @@ class EscortTourScheduleContoller extends Controller
     }
 
 
-    public function updateTourScheduleStatus(Request $request) 
+    public function updateTourScheduleStatus(Request $request)
     {
         $status = TourLocation::where('id', $request->tour_id)
             ->update(['status' => $request->status]);
 
         return response()->json([
-            'status' => $status ? 'success' : 'error', 
-            'message' => 'Your Tour has been cancelled and all Profiles associated with the Tour removed from the Website', 
+            'status' => $status ? 'success' : 'error',
+            'message' => 'Your Tour has been cancelled and all Profiles associated with the Tour removed from the Website',
             'data' => $request->status,
             'type' => 'cancel_tour'
         ]);
-    }   
-    public function getTourSummaryAjax(Request $request) 
+    }
+    public function getTourSummaryAjax(Request $request)
     {
         try {
             $response['success'] = false;
@@ -166,29 +166,6 @@ class EscortTourScheduleContoller extends Controller
             $response['tourDetail'] = $tourDetail;
             $response['html'] = $html;
             return response()->json($response);
-
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 500);
-        }
-
-    } 
-    
-    public function getTourLocationListing(Request $request){
-        try {
-            $response['success'] = false;
-            $tourId = $request->tour_id;
-            $conditions = ['tour_id'=>$tourId];
-            $result = $this->tour->getTourLocations($conditions);
-            $locations = $this->tour->modifyTourLocationsRecords($result);
-            $html = view('escort.dashboard.partials.scheduled_tour_locations', compact('locations'))->render();
-            $response['success'] = true;
-            $response['locations'] = $locations;
-            $response['html'] = $html;
-            return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -197,18 +174,40 @@ class EscortTourScheduleContoller extends Controller
         }
     }
 
-    public function cancelTourLocation(Request $request){
+    public function getTourLocationListing(Request $request)
+    {
+        try {
+            $response['success'] = false;
+            $tourId = $request->tour_id;
+            $conditions = ['tour_id' => $tourId];
+            $result = $this->tour->getTourLocations($conditions);
+            $locations = $this->tour->modifyTourLocationsRecords($result);
+            $html = view('escort.dashboard.partials.scheduled_tour_locations', compact('locations'))->render();
+            $response['success'] = true;
+            $response['locations'] = $locations;
+            $response['html'] = $html;
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function cancelTourLocation(Request $request)
+    {
         try {
             $response['success'] = false;
             $user = auth()->user();
             $itemId = $request->item_id;
             $tourLocation = TourLocation::find($itemId);
-            
+
             $tourLocationProfiles = $tourLocation->profiles();
             $items = $tourLocationProfiles->with('escort')->get();
             $refundAmount = 0.00;
-            if($tourLocation->left_listing_days < $tourLocation->days_total){
-                foreach($items as $item){
+            if ($tourLocation->left_listing_days < $tourLocation->days_total) {
+                foreach ($items as $item) {
                     $escortDetail = $item->escort;
                     $localEndDateTime = Carbon::today($escortDetail->time_zone)->endOfDay();
                     $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
@@ -219,18 +218,17 @@ class EscortTourScheduleContoller extends Controller
                     $purchase->end_date = $localEndDateTime->format('d-m-Y');
                     $purchase->utc_end_time = $utcEndTime;
                     $purchase->save();
-                    Escort::where(['id'=>$escortDetail->id])->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
-                    if(!empty($item->is_pinup)){
-                        EscortPinup::where('id', $item->is_pinup)->whereDate('end_date', '>', $localEndDateTime->format('Y-m-d'))->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
+                    Escort::where(['id' => $escortDetail->id])->update(['end_date' => $localEndDateTime->format('Y-m-d'), 'utc_end_time' => $utcEndTime]);
+                    if (!empty($item->is_pinup)) {
+                        EscortPinup::where('id', $item->is_pinup)->whereDate('end_date', '>', $localEndDateTime->format('Y-m-d'))->update(['end_date' => $localEndDateTime->format('Y-m-d'), 'utc_end_time' => $utcEndTime]);
                     }
                 }
-                $tourLocation->update(['end_date'=>$localEndDateTime->format('d-m-Y')]);
+                $tourLocation->update(['end_date' => $localEndDateTime->format('d-m-Y')]);
                 $response['refundAmount'] = $refundAmount;
-            }
-            else{
-                foreach($items as $item){
+            } else {
+                foreach ($items as $item) {
                     $escortDetail = $item->escort;
-                    $purchase = Purchase::where(['tour_location_id'=>$item->tour_location_id,'escort_id'=>$escortDetail->id])->first();
+                    $purchase = Purchase::where(['tour_location_id' => $item->tour_location_id, 'escort_id' => $escortDetail->id])->first();
 
                     $refundAmount  += $purchase->refund_amount;
 
@@ -239,8 +237,8 @@ class EscortTourScheduleContoller extends Controller
                     $purchase->utc_end_time = NULL;
                     $purchase->save();
 
-                    if(!empty($item->is_pinup)){
-                        EscortPinup::where('id', $item->is_pinup)->update(['utc_start_time'=>NULL,'utc_end_time'=>NULL]);
+                    if (!empty($item->is_pinup)) {
+                        EscortPinup::where('id', $item->is_pinup)->update(['utc_start_time' => NULL, 'utc_end_time' => NULL]);
                     }
                 }
                 $response['refundAmount'] = $refundAmount;
@@ -268,7 +266,6 @@ class EscortTourScheduleContoller extends Controller
 
             $response['success'] = true;
             return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -277,7 +274,8 @@ class EscortTourScheduleContoller extends Controller
         }
     }
 
-    public function cancelTour(Request $request){
+    public function cancelTour(Request $request)
+    {
         try {
             $response['success'] = false;
             $user = auth()->user();
@@ -286,19 +284,19 @@ class EscortTourScheduleContoller extends Controller
             $tourLocations = $tour->locations();
             $items = $tourLocations->get();
             $refundAmount = 0.00;
-            foreach($items as $item){
+            foreach ($items as $item) {
                 $tourLocationProfiles = $item->profiles();
-                foreach($tourLocationProfiles->with('escort')->get() as $locationProfile){
+                foreach ($tourLocationProfiles->with('escort')->get() as $locationProfile) {
                     $escortDetail = $locationProfile->escort;
-                    $purchase = Purchase::where(['tour_location_id'=>$locationProfile->tour_location_id,'escort_id'=>$escortDetail->id])->first();
-                    
+                    $purchase = Purchase::where(['tour_location_id' => $locationProfile->tour_location_id, 'escort_id' => $escortDetail->id])->first();
+
                     $refundAmount  += $purchase->refund_amount;
 
                     $purchase->status = 'expire';
                     $purchase->save();
 
-                    if(!empty($locationProfile->is_pinup)){
-                        EscortPinup::where('id', $locationProfile->is_pinup)->update(['utc_start_time'=>NULL,'utc_end_time'=>NULL]);
+                    if (!empty($locationProfile->is_pinup)) {
+                        EscortPinup::where('id', $locationProfile->is_pinup)->update(['utc_start_time' => NULL, 'utc_end_time' => NULL]);
                     }
                 }
                 $tourLocationProfiles->delete();
@@ -316,10 +314,9 @@ class EscortTourScheduleContoller extends Controller
             );
             $tourLocations->delete();
             $tour->delete();
-            
+
             $response['success'] = true;
             return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -327,5 +324,4 @@ class EscortTourScheduleContoller extends Controller
             ], 500);
         }
     }
-    
 }

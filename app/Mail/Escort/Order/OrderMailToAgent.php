@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderMailToE4U extends Mailable
+class OrderMailToAgent extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -16,7 +16,7 @@ class OrderMailToE4U extends Mailable
    *
    * @return void
    */
-  protected array $data;
+ protected array $data;
 
   public function __construct(array $data)
   {
@@ -30,7 +30,7 @@ class OrderMailToE4U extends Mailable
    */
   public function build()
   {
-    return $this->subject("Concierge Service Product Order – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}")->view('emails.escort.order.order_mail_to_e4u')
-      ->with(['data' => $this->data]);  
+    return $this->subject("Order Confirmation Products Ordered on Behalf of Escort – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}")->view('emails.escort.order.order_mail_to_agent')
+      ->with(['data' => $this->data]); // <-- Pass to view
   }
 }

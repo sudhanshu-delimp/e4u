@@ -432,36 +432,36 @@
             .padding_twelve_px {
                 padding: 12px;
             }
-            
-            .back_to_search_btn a {
-                font-family: Quicksand;
-                font-style: normal;
-                font-weight: normal;
+            /* .back_to_search_btn a {
                 font-size: 18px;
                 line-height: 22px;
                 color: #FFFFFF;
                 text-decoration: none;
-                background-color: rgb(12, 34, 61);
-            }
+                background-color: var(--peach);
+            } */
             
             .back_to_search_btn:hover a {
-                background-color: var(--peach);
+                background-color: var(--blue--text);
+                opacity: .9;
             }
             
             a.back--search {
                 position: absolute;
                 right: 15px;
                 border-radius: 3px;
-                padding: 5px;
+                padding: 5px 7px;
                 font-size: 16px;
-                font-weight: 600;
+                font-weight: 500;
                 z-index: 9;
-                top: 15%;
+                top: 10px;
+                line-height: 22px;
+                color: #FFFFFF;
+                text-decoration: none;
+                background-color: var(--blue--text);
             }
-            
-            a.back--search .previous_icon {
+            /* a.back--search .previous_icon {
                 background: #ff3c5f;
-            }
+            } */
             
             a.back--search .previous_icon i {
                 position: relative;
@@ -1748,7 +1748,6 @@
                 display: flex;
                 justify-content: space-between;
                 gap: 10px;
-                flex-wrap: wrap;
             }
             
             .mess_repo_btn_wrap button {
@@ -1861,8 +1860,7 @@
             .pinup-tooltip {
                 position: absolute;
                 top: 50%;
-                left: 100%;
-                /* image ke right side */
+                left: 60px;
                 transform: translateY(-50%);
                 background: var(--peach);
                 color: #fff;
@@ -4174,35 +4172,35 @@ i.fa.fa-heart-o{
                 top: 10%;
             }
             
-            .previous_btn_profile {
-                padding: 5px;
-                background: #ff3c5f;
-                display: flex;
-                flex-wrap: nowrap;
-                gap: 3px;
-            }
-            
+            .previous_btn_profile,
             .next_btn_profile {
-                padding: 5px;
+                padding: 4px 10px;
                 background: #ff3c5f;
                 display: flex;
                 flex-wrap: nowrap;
                 gap: 3px;
-                justify-content: end;
+                border-radius: 5px;
             }
             
-            .previous_icon {
-                padding: 5px 7px;
-                background: #0c223d;
-                font-size: 14px;
-                border-radius: 4px;
-                color: white;
+            .previous_btn_profile:hover,
+            .next_btn_profile:hover {
+                background-color: var(--blue--text);
             }
             
             .previous_text {
                 padding: 3px 5px;
                 color: white;
-                font-weight: 600;
+                font-weight: 500;
+            }
+            
+            .btn_ank {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                justify-content: space-between;
+                width: 100%;
+                text-decoration: none;
+                text-decoration: none !important;
             }
             
             .table th {
@@ -4865,10 +4863,6 @@ i.fa.fa-heart-o{
                 display: inline-block;
             }
             
-            .previous_btn_profile {
-                padding: 2px 1px 2px 7px;
-            }
-            
             .footer_login_btn:hover {
                 color: #2c3e50;
                 text-decoration: none;
@@ -5038,7 +5032,7 @@ i.fa.fa-heart-o{
             .next-preview-fixed>div>div {
                 position: fixed;
                 z-index: 999;
-                top: 30%;
+                top: 40%;
             }
             
             .next-preview-fixed>div>div.previous_btn_profile {
@@ -5051,14 +5045,6 @@ i.fa.fa-heart-o{
                 left: auto;
                 right: 15px;
                 width: 115px;
-            }
-            
-            .previous_btn_profile {
-                border-radius: 3px;
-            }
-            
-            .next_btn_profile {
-                border-radius: 3px;
             }
             
             .profile-sidebar-margin-top {
@@ -8069,6 +8055,10 @@ i.fa.fa-heart-o{
                 width: max-content;
             }
             
+            .brb_details h1 {
+                font-size: 30px;
+            }
+            
             .custom-gender-type-icon .icon-with-tooltip,
             .custom-available-time-icon .icon-with-tooltip {
                 position: relative;
@@ -9706,7 +9696,6 @@ i.fa.fa-heart-o{
                     line-height: 1.2;
                 }
                 .profile_description_banner {
-                    height: 300px;
                     margin-bottom: 30px;
                 }
                 .profile_page_name_and_phno p {

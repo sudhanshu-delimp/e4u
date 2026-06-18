@@ -42,21 +42,21 @@
                                 order accordingly. The following information was provided by the Member:
                             </p>
 
-                            <table width="600" cellpadding="0" cellspacing="0" border="0">
+                            <table>
                                 <tr>
-                                    <td>Member name: </td>
+                                    <th style="text-align: left">Member name: </th>
                                     <td>{{ $data['member_name'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mobile:</td>
+                                    <th style="text-align: left">Mobile:</th>
                                     <td>{{ $data['mobile'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery address:</td>
+                                    <th style="text-align: left">Delivery address:</th>
                                     <td>{{ $data['delivery_address'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery type: </td>
+                                    <th style="text-align: left">Delivery type: </th>
                                     <td>{{ ucfirst($data['delivery_type']) }}</td>
                                 </tr>
 
@@ -104,7 +104,10 @@
                             <br>
                             Payment has been made be the Member.
                             <!-- email info -->
-                            <x-email-info />
+                            <p style="font-size: 15px; margin-top: 20px;">
+                                Regards,<br>
+                                <b>E4U - Operations Centre</b>
+                            </p>
                             <!-- end -->
 
                         </td>

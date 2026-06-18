@@ -106,9 +106,7 @@
   margin: 0 auto;
   background: var(--peach);
 }
-.brb_details h1 {
-  font-size: 30px !important;
-}
+
 .location_class{
     display: flex;
     align-items: center;
@@ -253,12 +251,9 @@ margin-right: 5px;
 
         <div class="container">
             <div class="row">
-                <div class="col-12 p-3">
-                    <div class="back_to_search_btn col-12">
-                        <a href="../massage-centres-list" class="back--search "> 
-                            <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
-                    </div>
-                    <div class="row">
+                <div class="col-12 px-3">
+                    
+                    <div class="row mb-3">
                         <div class="overlay">
                             @if($listing->latest_active_brb)
                                 <div class="brb_details">
@@ -268,7 +263,10 @@ margin-right: 5px;
                             @endif
                         </div>
                     </div>
-
+                    <div class="back_to_search_btn">
+                        <a href="../massage-centres-list" class="back--search "> 
+                            <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
+                    </div>
 
                     <div class="profile_page_title">
                         <h2 class="display_inline_block p-0">{{ $listing->business_name ?? 'N/A' }}</h2>
@@ -336,28 +334,29 @@ margin-right: 5px;
 
     <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk {{ $prevId ? '' : 'previousDisableButtonCss' }}">
+            <div class="previous_btn_profile next_previous_btn_pogision {{ $prevId ? '' : 'previousDisableButtonCss' }}">
                 <a  href="{{ $prevId ? route('web.massage-description', [
                                     'id' => $prevId,
                                     'ids' => json_encode($ids)
-                                ]) : 'massage-centres-list' }}" class="text-decoration-none d-flex">
+                                ]) : 'massage-centres-list' }}" class="btn_ank">
                     <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
-            <div class="next_btn_profile next_previous_btn_pogision next-dk {{ $nextId ? '' : 'previousDisableButtonCss' }}">
+            <div class="next_btn_profile next_previous_btn_pogision {{ $nextId ? '' : 'previousDisableButtonCss' }}">
                                 <a href="{{ $nextId ? route('web.massage-description', [
                                     'id' => $nextId,
                                     'ids' => json_encode($ids)
                                 ]) : 'javascript:void(0)' }}"
                                 
-                                class="text-decoration-none">
+                                class="btn_ank">
                     <span class="previous_text remove_in_sm">Next</span>
                     <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>
             </div>
         </div>
     </div>
+    
     <div class="container profile_contain">
         <div class="row">
             <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 col-12">

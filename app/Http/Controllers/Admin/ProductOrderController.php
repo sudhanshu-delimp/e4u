@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Agent\SendProductOrderCompleteConfirmationMailToAgent;
 use App\Mail\Agent\SendProductOrderHoldMailToEscortAgent;
 use App\Mail\Escort\Order\SendProductOrderCompleteConfirmationMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderHoldMailToEscort;
@@ -45,7 +46,7 @@ class ProductOrderController extends Controller
         return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
       })
       ->addColumn('agent', function ($row) {
-        return  $row->createdBy ? $row->createdBy->name : '--';
+        return  $row->createdBy ? $row->createdBy->member_id : '--';
       })
       ->addColumn('gst_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->gst_amount : '0.00';
@@ -120,6 +121,7 @@ class ProductOrderController extends Controller
   public function orderComplete(Request $request)
   {
     try {
+
       if (empty($request->tracking_id) &&  $request->status == 'delivered') {
         return response()->json([
           'status' => false,
@@ -131,7 +133,7 @@ class ProductOrderController extends Controller
           'message' =>  "Status feild are required"
         ]);
       }
-      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user', ''])->where('id', $request->order_id)->first();
+      $order =   ProductOrder::with(['orderAddress', 'paymentDetails', 'user', 'createdBy'])->where('id', $request->order_id)->first();
       if (empty($order)) {
         return response()->json([
           'status' => false,
@@ -184,6 +186,13 @@ class ProductOrderController extends Controller
         );
         $mailData['delivery_address'] = $completeAddress;
         if ($status && $request->status == 'delivered') {
+
+          // Send order completed mail notification to agent if order was made by agent
+          if ($order->createdBy) {
+            if ($order->user_id != $order->createdBy->id)
+              Mail::to($order->createdBy->email)->send(new SendProductOrderCompleteConfirmationMailToAgent($mailData));
+          }
+
           // Send order completed mail notification to supplier
           Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
 
@@ -195,11 +204,12 @@ class ProductOrderController extends Controller
           Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
 
           // Send order hold notification to supplier
-          Mail::to($billing->email)->send(new SendProductOrderHoldMailToSupplier($mailData));
+          Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
+
           // Send mail to escort agent also if escort have agent
-          if ($order->user->is_agent_assign == 1) {
-            $agent = User::where('id', $order->user->assigned_agent_id)->first();
-            Mail::to($agent->email)->send(new SendProductOrderHoldMailToEscortAgent($mailData));
+          if ($order->createdBy) {
+            if ($order->user_id != $order->createdBy->id)
+              Mail::to($order->createdBy->email)->send(new SendProductOrderHoldMailToEscortAgent($mailData));
           }
         }
       });
