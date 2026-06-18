@@ -120,135 +120,138 @@
     <div class="profile_description_banner">
         <div class="container profile_pic_holder custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
             <div class="row">
-                <div class="col-12 px-0">                  
-                    
+                <div class="col-12 p-0">
 
                     {{-- brb banner --}}
-                        <div class="new_brb-banner">
-                            @if($escort->latestActiveBrb)
-                                <div class="brb_details">
-                                    <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
-                                    <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
-                                </div>
-                            @endif
-                        </div>
-                    {{-- end brb --}}
-
-                    {{-- back to search --}}
-                        @php
-
-                        if (str_contains($backToSearchButton, 'view=')) {
-                                $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
-                            } else {
-                                // If view param not present, append it properly
-                                $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
-                                $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
-                            }
-                            
-                        @endphp
-                        <div class="back_to_search_btn col-12">
-                            <a href="{{ $finalUrl }}" class="back--search"> 
-                                <span class="previous_icon">
-                                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
-                                </span> <span class="hide_ph">Back to Search</span> </a>
-                        </div>
-                    {{-- end --}}
-                    {{-- title --}}
-                    <div class="profile_page_title p-lg-3 px-3">
-                        @php 
-                        $isPinupActive = $escort->currentActivePinup;
-                        $membershipImage = match ($escort->membership) {
-                            '1' => $isPinupActive?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
-                            '2' => $isPinupActive?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
-                            '3' => $isPinupActive?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
-                            default => false
-                        };
-
-
-                        if($escort->gender =='Transgender')
-                        {
-                                $escortName = 'TS-'.$escort->name;
-                        }
-                        else
-                        {
-                                $escortName =  $escort->name;
-                        }
-                        
-
-                        @endphp
-
-                        @if($membershipImage)
-                        <div class="{{($isPinupActive)?'pinup-wrapper':''}} member_type">
-                                <img src="{{ $membershipImage }}">
-                                <div class="pinup-tooltip">I am your Pin Up this week!</div>
-                        </div> 
-                        @endif
-
-                        @if(strlen($escortName) <= 250)
-                            <h2 class="display_inline_block">  {{ $escortName }}</h2>
-                        @else
-                            <h3 class="display_inline_block" style="color: white;">{{ $escortName }}</h3>
-                        @endif
-                    </div>
-                    {{-- profile phone --}}
-                    <div class="profile_page_name_and_phno px-3">
-                        <p>{{$escort->city->name}} - <span> <i class="fa fa-phone"></i> </span> {{  $escort->phone }}</p>                    
-                    </div>
-                    {{-- address --}}
-                    <div class="profile_page_location_and_id px-3">
-                        <ul>
-                            <li>
-                                <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                <p class="display_inline_block ">{{ $escort->address}}</p>
-                            </li>
-                            <li>
-                                <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
-                                <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
-                            </li>
-                        </ul>
-                    </div>
-                    {{-- address --}}
-                    <div class="social_media_profile px-3">                           
-
-                        <div class="d-flex align-items-center justify-content-start">
-                            <div class="my-play-box-profile-icon">
-                                <a href="{{ url('playbox') }}" target="_blank">
-                                    <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
-                                </a>
-                                <div class="custom-tooltip">I don't have any Playbox.</div>
+                    <div class="new_brb-banner">
+                        @if($escort->latestActiveBrb)
+                            <div class="brb_details">
+                                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
+                                <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
                             </div>
-                            @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
-                                <div class="my-play-box-profile-icon">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
-                                    </a>
-                                    <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
-                                </div>
-                            @endif
+                        @endif
+                    </div>
+                    {{-- end brb --}}
+                    <div class="profile_wrap p-3 position-relative">
+                        <div class="profile_header">
+                            
+                            {{-- title --}}
+                            <div class="profile_page_title">
+                                @php 
+                                $isPinupActive = $escort->currentActivePinup;
+                                $membershipImage = match ($escort->membership) {
+                                    '1' => $isPinupActive?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
+                                    '2' => $isPinupActive?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
+                                    '3' => $isPinupActive?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
+                                    default => false
+                                };
+
+
+                                if($escort->gender =='Transgender')
+                                {
+                                        $escortName = 'TS-'.$escort->name;
+                                }
+                                else
+                                {
+                                        $escortName =  $escort->name;
+                                }
+                                
+
+                                @endphp
+
+                                @if($membershipImage)
+                                <div class="{{($isPinupActive)?'pinup-wrapper':''}} member_type">
+                                        <img src="{{ $membershipImage }}">
+                                        <div class="pinup-tooltip">I am your Pin Up this week!</div>
+                                </div> 
+                                @endif
+
+                                @if(strlen($escortName) <= 250)
+                                    <h2 class="display_inline_block">  {{ $escortName }}</h2>
+                                @else
+                                    <h3 class="display_inline_block" style="color: white;">{{ $escortName }}</h3>
+                                @endif
+                            </div>
+                            {{-- back to search --}}
+                            @php
+
+                            if (str_contains($backToSearchButton, 'view=')) {
+                                    $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
+                                } else {
+                                    // If view param not present, append it properly
+                                    $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
+                                    $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
+                                }
+                                
+                            @endphp
+                           
+                                <a href="{{ $finalUrl }}" class="back--search"> 
+                                    <span class="previous_icon">
+                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                                    </span> <span class="hide_ph">Back to Search</span>
+                                </a>
+                            
+                        {{-- end --}}
                         </div>
-                        <ul class="profile_page_social_profiles">
-                    
-                            @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
-                                @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
-                                    <li class="selected-from-profile">
-                                        <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                                        <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
-                                    </li>
+                        {{-- profile phone --}}
+                        <div class="profile_page_name_and_phno">
+                            <p>{{$escort->city->name}} - {{  $escort->phone }}</p>                    
+                        </div>
+                        {{-- address --}}
+                        <div class="profile_page_location_and_id">
+                            <ul>
+                                <li>
+                                    <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                    <p class="display_inline_block ">{{ $escort->address}}</p>
+                                </li>
+                                <li>
+                                    <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
+                                    <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        {{-- address --}}
+                        <div class="social_media_profile">                           
+
+                            <div class="d-flex align-items-center justify-content-start">
+                                <div class="my-play-box-profile-icon">
+                                    <a href="{{ url('playbox') }}" target="_blank">
+                                        <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+                                    </a>
+                                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                                </div>
+                                @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+                                    <div class="my-play-box-profile-icon">
+                                        <a href="#">
+                                            <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+                                        </a>
+                                        <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+                                    </div>
                                 @endif
-                                @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                                    <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
-                                @endif
-                                @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                                    <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                            </div>
+                            <ul class="profile_page_social_profiles">
+                        
+                                @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
+                                    @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
+                                        <li class="selected-from-profile">
+                                            <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                                            <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
+                                        </li>
+                                    @endif
+                                    @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
+                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                    @endif
+                                    @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
+                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                    @else
+                                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                    @endif
                                 @else
                                     <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                                 @endif
-                            @else
-                                <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
-                            @endif
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>

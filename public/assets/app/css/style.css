@@ -440,29 +440,27 @@
                 background-color: var(--peach);
             } */
         
-        .back_to_search_btn:hover a {
+        a.back--search:hover {
             background-color: var(--peach);
             opacity: .9;
         }
         
         a.back--search {
-            position: absolute;
-            right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
             border-radius: 5px;
             padding: 10px 16px;
             font-size: 16px;
             font-weight: 500;
             z-index: 9;
-            top: 10px;
             line-height: 22px;
             color: #FFFFFF;
             text-decoration: none;
             background: rgba(255, 255, 255, .12);
             border: 1px solid rgba(255, 255, 255, .12);
         }
-        /* a.back--search .previous_icon {
-                background: #ff3c5f;
-            } */
         
         a.back--search .previous_icon i {
             position: relative;
@@ -3371,7 +3369,8 @@ i.fa.fa-heart-o{
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            gap: 10px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         
         .profile_page_location_and_id ul li {
@@ -4130,9 +4129,18 @@ i.fa.fa-heart-o{
             color: #ff3c5f;
         }
         
+        .profile_wrap .profile_header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding-bottom: 15px;
+        }
+        
         .profile_page_title {
             display: flex;
             align-items: center;
+            gap: 15px;
         }
         
         .profile_page_title h2 {
@@ -4143,14 +4151,13 @@ i.fa.fa-heart-o{
             line-height: 59px;
             color: #ffffff;
             margin: 0;
-            padding-left: 10px;
         }
         
         .profile_page_name_and_phno p {
             font-family: Poppins;
             font-style: normal;
             font-weight: 500;
-            font-size: 20px;
+            font-size: 18px;
             color: #ffffff;
             align-items: center;
             padding: 10px 16px;
@@ -4182,8 +4189,8 @@ i.fa.fa-heart-o{
         .profile_page_location_and_id p {
             font-family: Quicksand;
             font-style: normal;
-            font-weight: 500;
-            font-size: 20px;
+            font-weight: 600;
+            font-size: 18px;
             line-height: 24px;
             color: #ffffff;
             margin-bottom: 0px;

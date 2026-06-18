@@ -55,17 +55,16 @@
                         gap: 10px;
                     }
                     a.back--search {
-                        position: absolute;
-                        right: 15px;
-                        z-index: 2;
-                        top: 10px;
                         padding: 5px;
-                        background-color: #ff3c5f;
+                        z-index: 9;
                     }
                     .profile_page_title {
                         display: flex;
                         align-items: center;
-                        margin: 45px 0px 10px;
+                        padding: 15px 0px;
+                    }
+                    .profile_wrap .profile_header {
+                        padding-top: 15px;
                     }
                     .profile_page_title h2 {
                         font-size: 20px;
@@ -315,6 +314,13 @@
                         gap: 15px;
                         align-items: start;
                     }
+                    .profile_page_location_and_id ul {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 5px;
+                        flex-wrap: wrap;
+                    }
                 }
                 
                 @media(min-width:769px) and (max-width:1024px) {
@@ -366,15 +372,6 @@
                     .profile_page_title .member_type img {
                         width: 100%;
                         height: auto;
-                    }
-                }
-                
-                @media(min-width:426px) and (max-width:1024px) {
-                    a.back--search {
-                        position: absolute;
-                        right: 15px;
-                        z-index: 9;
-                        top: 10px;
                     }
                 }
                 
