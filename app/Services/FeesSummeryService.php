@@ -164,8 +164,11 @@ class FeesSummeryService
         foreach($totalValue as $value){
             $average += $value->total_spend;
         }
+        if($average > 0){
         $averageV  = $average / $totalValue->count();
         return $averageV;
+        }
+        
     }
 
     public function totalAdvertisers(Collection $total){
@@ -198,5 +201,11 @@ class FeesSummeryService
         ];
     }
 
+
+
+    // ********************************************Single Escort Value********************************************************//
+
+
+    
 
 }

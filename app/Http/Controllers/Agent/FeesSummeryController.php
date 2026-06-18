@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Models\Escort;
 use App\Models\FeesConciergeService;
 use App\Models\PaymentHistory;
 use App\Models\PaymentItem;
