@@ -55,19 +55,24 @@
                         gap: 10px;
                     }
                     a.back--search {
-                        position: relative;
-                        left: 0px;
+                        position: absolute;
+                        right: 15px;
                         z-index: 2;
-                        top: 10%;
+                        top: 10px;
+                        padding: 5px;
+                        background-color: #ff3c5f;
                     }
                     .profile_page_title {
                         display: flex;
                         align-items: center;
-                        margin: 15px 0px;
+                        margin: 45px 0px 10px;
                     }
                     .profile_page_title h2 {
                         font-size: 20px;
                         line-height: 1.2;
+                    }
+                    .new_brb-banner .brb_details {
+                        margin-bottom: 0px;
                     }
                     .profile_page_name_and_phno p {
                         line-height: 1.2em;
@@ -169,8 +174,7 @@
                         z-index: 9;
                     }
                     .next-preview-fixed>div>div.previous_btn_profile {
-                        left: auto;
-                        right: 65px;
+                        left: 15px;
                         width: auto;
                     }
                     .brb_details h1 {
@@ -182,11 +186,6 @@
                     .pinup-tooltip {
                         left: 35px;
                     }
-                    .profile_page_title .member_type {
-                        width: 30px;
-                        object-fit: cover;
-                        height: auto;
-                    }
                     .profile_page_title .member_type img {
                         width: 100%;
                         height: auto;
@@ -196,6 +195,32 @@
                         justify-content: space-between;
                         gap: 10px;
                         flex-wrap: wrap;
+                    }
+                    .hide_ph {
+                        display: none;
+                    }
+                    .profile_page_location_and_id ul li {
+                        width: 100%;
+                    }
+                    .profile_page_location_and_id ul {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 5px;
+                        flex-wrap: wrap;
+                    }
+                    .social_media_profile {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                        margin-bottom: 60px;
+                    }
+                    .profile_page_title .member_type {
+                        width: 50px;
+                        object-fit: cover;
+                        height: auto;
                     }
                 }
                 
@@ -347,9 +372,9 @@
                 @media(min-width:426px) and (max-width:1024px) {
                     a.back--search {
                         position: absolute;
-                        right: 0px;
+                        right: 15px;
                         z-index: 9;
-                        top: 18%;
+                        top: 10px;
                     }
                 }
                 

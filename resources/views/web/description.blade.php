@@ -78,10 +78,6 @@
         border-radius: 20px;
         text-align: center;
     }
-    .brb_details {
-        color: red;
-        padding-top: 5%;
-    }
     .swal2-popup{
             width: auto !important;
         }
@@ -121,25 +117,21 @@
 @endphp
 
 
-    <div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
-        <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
+    <div class="profile_description_banner">
+        <div class="container profile_pic_holder custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
             <div class="row">
-                <div class="col-12">                     
+                <div class="col-12 px-0">                  
                     
 
                     {{-- brb banner --}}
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <div class="overlay">
-                                @if($escort->latestActiveBrb)
-                                    <div class="brb_details">
-                                        <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
-                                        <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
-                                    </div>
-                                @endif
-                            </div>
+                        <div class="new_brb-banner">
+                            @if($escort->latestActiveBrb)
+                                <div class="brb_details">
+                                    <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
+                                    <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
+                                </div>
+                            @endif
                         </div>
-                    </div>
                     {{-- end brb --}}
 
                     {{-- back to search --}}
@@ -155,11 +147,14 @@
                             
                         @endphp
                         <div class="back_to_search_btn col-12">
-                            <a href="{{ $finalUrl }}" class="back--search"> <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
+                            <a href="{{ $finalUrl }}" class="back--search"> 
+                                <span class="previous_icon">
+                                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                                </span> <span class="hide_ph">Back to Search</span> </a>
                         </div>
                     {{-- end --}}
                     {{-- title --}}
-                    <div class="profile_page_title px-3">
+                    <div class="profile_page_title p-lg-3 px-3">
                         @php 
                         $isPinupActive = $escort->currentActivePinup;
                         $membershipImage = match ($escort->membership) {
@@ -197,7 +192,7 @@
                     </div>
                     {{-- profile phone --}}
                     <div class="profile_page_name_and_phno px-3">
-                        <p>{{$escort->city->name}} - {{  $escort->phone }}</p>                    
+                        <p>{{$escort->city->name}} - <span> <i class="fa fa-phone"></i> </span> {{  $escort->phone }}</p>                    
                     </div>
                     {{-- address --}}
                     <div class="profile_page_location_and_id px-3">
@@ -207,13 +202,13 @@
                                 <p class="display_inline_block ">{{ $escort->address}}</p>
                             </li>
                             <li>
-                                <span class="profile_location_icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
                                 <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
                             </li>
                         </ul>
                     </div>
                     {{-- address --}}
-                    <div class="d-flex align-items-center justify-content-start gap-10 px-3">                           
+                    <div class="social_media_profile px-3">                           
 
                         <div class="d-flex align-items-center justify-content-start">
                             <div class="my-play-box-profile-icon">
