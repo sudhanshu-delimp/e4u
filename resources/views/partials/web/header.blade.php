@@ -39,8 +39,8 @@
         <!-- font awsome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.3') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.5') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.4') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.6') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
         <script>
