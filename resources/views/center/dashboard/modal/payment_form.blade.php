@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="card p-3 " style="border-radius:0px;">
-                                    <form action="{{ route('payment.adjustment') }}" method="post"
+                                    <form action="{{ route('center.payment.adjustment') }}" method="post"
                                         id="adjustment-form">
                                         <div class="form-row benefit_section">
                                             <div class="form-group col-6">
@@ -302,6 +302,8 @@
         }
 
     });
+
+    /*
 
     let initLoyaltySection = function(action = 'show') {
         (action == 'hide') ? $(".payment_loyalty_option").hide(): $(".payment_loyalty_option").show();
@@ -555,5 +557,6 @@
             submitAdjustmentForm(false);
         }
     });
+    */
 </script>
 @endprepend

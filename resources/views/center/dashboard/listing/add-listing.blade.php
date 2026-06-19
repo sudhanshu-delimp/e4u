@@ -119,6 +119,8 @@ background:#16385f;
 @stop
 @section('content')
 
+
+
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 ">
    <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
@@ -281,7 +283,7 @@ background:#16385f;
               
                 
                 <button type="button" class="close-btn">Close</button>
-                <button type="button" class="pay-btn">Pay</button>
+                <button type="button" class="pay-btn">Checkout</button>
             </div>
         </form>
 
@@ -289,7 +291,13 @@ background:#16385f;
      </div>
 </div>
 
+
+
 @endsection
+
+
+@include('center.dashboard.modal.payment_form')
+@include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 
 @push('script')
 <!-- file upload plugin end here -->
@@ -302,6 +310,8 @@ background:#16385f;
 <script type="text/javascript">
 let profileCount = {{ count($profiles) }};
 let live_profiles = {{ count($live_profiles) }};
+var plandata = {}; 
+
 
 
 $(document).ready(function () {
@@ -637,7 +647,7 @@ $(".save_profile_btn").click(function(){
             data: formData,
             success: function (response) {
 
-                const data = {
+               plandata = {
                 membershipName: response.membership_name,
                 normalRate: response.normalRate,
                 days: response.days,
@@ -647,16 +657,16 @@ $(".save_profile_btn").click(function(){
                 applied_discount : response.applied_discount
             };
 
-            console.log(data);
+            console.log('plandata',plandata);
 
 
-            let rate = data.normalRate;
-            let fullFee = data.normalRate * days;
-            let discount = data.total_discount;
+            let rate = plandata.normalRate;
+            let fullFee = plandata.normalRate * days;
+            let discount = plandata.total_discount;
             let finalFee = fullFee - discount;
-            let total_rate = data.total_rate;
-            let discountRate = data.discountRate;
-            let applied_discount = data.applied_discount;
+            let total_rate = plandata.total_rate;
+            let discountRate = plandata.discountRate;
+            let applied_discount = plandata.applied_discount;
             total = finalFee;
            
 
@@ -724,31 +734,45 @@ e.preventDefault();
     }
 
     $("#summaryModal").hide();
+    $('#action').val('listing');
 
     if (await isConfirm({'action': 'Proceed','text': ''})) {
-        swal_waiting_popup({'title': 'Payment in progress'});
-        let formData = $("#purchase_listing").serialize();
 
-         $.ajax({
-                    url: "{{route('center.listing-payment')}}",
-                    method: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        Swal.close();
-                        let redirect = {'time': 2000, 'url' : 'payment-completed'}
-                        $('#next').trigger('click');
-                        swal_success_popup(response.message,redirect);
-                    },
-                    error: function(xhr) {
-                        Swal.close();
-                        console.log(xhr);
-                        if (xhr.status === 422) {
-                           swal_error_popup('Error occured while adding listing.');
-                        } else {
-                            swal_error_popup(xhr.responseJSON.message ||'Something went wrong.');
-                        }
-                    }
-        });
+        swal_waiting_popup({'title': 'Processing.'});
+        let response = await make_order_summury(plandata);
+        $(".paymentSubtotal").text(response.data.paymentSubtotal);
+        $(".paymentTotal").text(response.data.total_fee);
+        $(".taxAmount").text(response.data.gstTax);
+        $('.totalDue').text(response.data.total_due);
+        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+
+        console.log('process-payment-modal');
+        Swal.close();
+        return false;
+          
+        // swal_waiting_popup({'title': 'Payment in progress'});
+        //let formData = $("#purchase_listing").serialize();
+
+        //  $.ajax({
+        //             url: "{{route('center.listing-payment')}}",
+        //             method: 'POST',
+        //             data: formData,
+        //             success: function(response) {
+        //                 Swal.close();
+        //                 let redirect = {'time': 2000, 'url' : 'payment-completed'}
+        //                 $('#next').trigger('click');
+        //                 swal_success_popup(response.message,redirect);
+        //             },
+        //             error: function(xhr) {
+        //                 Swal.close();
+        //                 console.log(xhr);
+        //                 if (xhr.status === 422) {
+        //                    swal_error_popup('Error occured while adding listing.');
+        //                 } else {
+        //                     swal_error_popup(xhr.responseJSON.message ||'Something went wrong.');
+        //                 }
+        //             }
+        // });
 
     }
     else
@@ -765,6 +789,7 @@ $('#prev').trigger('click');
 $("#summaryModal").hide();
 });
 
-
 </script>
+
+@include('center.dashboard.payment_functions')
 @endpush

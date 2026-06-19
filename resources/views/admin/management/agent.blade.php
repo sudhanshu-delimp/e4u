@@ -410,7 +410,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="abn">ABN</label>
-                                       <input type="text" class="form-control rounded-0"  name="abn" id="abn" value="${(rowData.abn ? removeAnythingExceptNumber(rowData.abn) : '')}">
+                                       <input type="text" class="form-control rounded-0" maxlength="11"  name="abn" id="abn" value="${(rowData.abn ? removeAnythingExceptNumber(rowData.abn) : '')}">
                                        <span class="text-danger error-abn"></span>
                                  </div>
 
@@ -481,7 +481,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="agreement_date">Agreement Date</label>
-                                       <input type="date" class="form-control rounded-0" name="agreement_date" id="agreement_date" value="${agent_details?.agreement_date ?? ''}">
+                                       <input type="text" class="form-control rounded-0 js_datepicker" name="agreement_date" placeholder="DD-MM-YYYY" id="agreement_date" value="${agent_details?.agreement_date ? agent_details.agreement_date.split('-').reverse().join('-') : ''}">
                                        <span class="text-danger error-agreement_date"></span>
                                  </div>
 
@@ -751,7 +751,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="abn">ABN</label>
-                                             <input type="text" class="form-control rounded-0" name="abn" id="abn">
+                                             <input type="text" class="form-control rounded-0" name="abn" id="abn" maxlength="11">
                                              <span class="text-danger error-abn"></span>
                                        </div>
 
@@ -822,7 +822,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="agreement_date">Agreement Date</label>
-                                             <input type="date" class="form-control rounded-0" name="agreement_date" id="agreement_date">
+                                             <input type="text"  class="form-control rounded-0 js_datepicker" name="agreement_date" id="agreement_date" placeholder="DD-MM-YYYY">
                                              <span class="text-danger error-agreement_date"></span>
                                        </div>
 
@@ -1047,6 +1047,14 @@
             });
         });
 
-       
+
+
+    $('#addNewAgent, #viewAgentdetails').on('shown.bs.modal', function () {
+        $('.js_datepicker').datepicker({
+            dateFormat: "dd-mm-yy",
+            minDate: 0
+        });
+    });
+        
     </script>
 @endpush
