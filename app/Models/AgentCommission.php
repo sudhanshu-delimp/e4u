@@ -45,7 +45,7 @@ class AgentCommission extends Model
     public function getAssignedAgent($userId = 0)
     {
         //Log::info("User ID:" . $userId);
-        $agentDetail =  (new AgentDetail);
+        /* $agentDetail =  (new AgentDetail);
         $user2 = User::where('id', $userId)->where('is_agent_assign', '1')->first();
         if($user2) {
             $assigned_agent_id = $user2->assigned_agent_id;
@@ -73,7 +73,7 @@ class AgentCommission extends Model
                 $agentDetail->save();
                 //Log::info("Agent detail created:");
             }
-        }
+        } */
 
         $user = User::with('assignedAgent')->where('id', $userId)->where('is_agent_assign', '1')->first();
 
