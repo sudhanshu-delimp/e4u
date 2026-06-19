@@ -581,7 +581,7 @@ class AgentRequestController extends Controller
         foreach ($requestList as $item) {
             $item->joined_date =  isset($item->created_at) ? date('d-m-Y', strtotime($item->created_at)) : 'NA';
             $item->appointed_date =  isset($item->agent_assign_date) ? date('d-m-Y', strtotime($item->agent_assign_date)) : 'NA';
-            $item->earnings =  (new \App\Models\AgentCommission)->getTotalEarning($item->id);
+            $item->earnings =  '$'.(new \App\Models\AgentCommission)->getTotalEarning($item->id);
             $item->home_state  =  isset($item->state->iso2) ? $item->state->iso2 : '';
             $item->switch_account_route =  route('agent.switch-to-child', $item->id);
             $type = ($item->type == '3') ? 'Escort' : 'Massage Center';
