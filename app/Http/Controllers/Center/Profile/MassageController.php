@@ -59,6 +59,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\AgentCommission;
 
 
 //use Illuminate\Http\Request;
@@ -1468,6 +1469,12 @@ class MassageController extends Controller
                 'total_rate'         => $total_rate,
                 'paid_rate'          => $paid_rate,
             ]);
+
+            /** Calulate agent commisson and save the commission */
+            $agentCommission = (new AgentCommission);
+            if($purchase) {
+                $agentResponse = $agentCommission->saveCommissionData($purchase, $massage_centre_id, $paid_rate);
+            }
 
             if($this->account->activeFeeDiscount){
                 $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);

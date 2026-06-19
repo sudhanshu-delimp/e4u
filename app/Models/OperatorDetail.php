@@ -19,10 +19,11 @@ class OperatorDetail extends Model
         'fee',
         'commission_advertising_percent',
         'commission_massage_centre_percent',
+        'advertising_commission_type',
+        'massge_centre_commission_type',
         'agreement_file',
         'created_at',
         'updated_at',
     ];
     protected $hidden = ['updated_at'];
-
 }

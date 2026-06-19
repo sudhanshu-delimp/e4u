@@ -52,9 +52,31 @@ class AddNewOperator extends FormRequest
             'fee' => 'required',
             //'commission_advertising_percent' => 'bail|required|integer|between:1,100',
             //'commission_massage_centre_percent' => 'bail|required|integer|between:1,100',
-            'commission_advertising_percent' => 'required',
-            'commission_massage_centre_percent' => 'required',
-            'agreement_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120'
+            'advertising_commission_type' => 'required',
+            'massge_centre_commission_type' => 'required',
+            'agreement_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'commission_advertising_percent' => [
+                'required',
+                'numeric',
+                'min:0',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->advertising_commission_type === 'percent' && $value > 100) {
+                        $fail('The advertising commission percentage cannot be greater than 100 if the amount type is Percent.');
+                    }
+                },
+            ],
+
+            'commission_massage_centre_percent' => [
+                'required',
+                'numeric',
+                'min:0',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->commission_registration_type === 'percent' && $value > 100) {
+                        $fail('The registration commission percentage cannot be greater than 100 if the amount type is Percent.');
+                    }
+                },
+            ],
+        
         ];
     }
 
@@ -95,6 +117,8 @@ class AddNewOperator extends FormRequest
             'agreement_file.file' => 'The agreement file must be a valid file.',
             'agreement_file.mimes' => 'Only PDF, JPG, JPEG, and PNG files are allowed.',
             'agreement_file.max' => 'The file size must not exceed 5MB.',
+            'advertising_commission_type.required'  => 'Amount type field is required.',
+            'massge_centre_commission_type.required'  => 'Amount type field is required.',
         ];
     }
 }

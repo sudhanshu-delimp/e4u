@@ -36,7 +36,7 @@
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$mainAccount->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                We confirm your Profile has ben extended by {{$extend_days}} days. Attached is a summary of your transactions.
+                                We confirm your Profile has been extended by {{$extend_days}} days. Attached is a summary of your transaction.
                             </p>
 
                             <!-- email info -->

@@ -36,7 +36,7 @@
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$mainAccount->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                We confirm you Upgrade has been processed. Attached is a summary of your transactions.
+                                We confirm your Upgrade has been processed. Attached is a summary of your transaction.
                             </p>
 
                             <!-- email info -->
