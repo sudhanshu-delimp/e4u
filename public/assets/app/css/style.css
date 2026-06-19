@@ -4143,6 +4143,23 @@ i.fa.fa-heart-o{
             gap: 15px;
         }
         
+        .help_icons div {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .help_icons span {
+            display: block;
+            width: 20px;
+            object-fit: cover;
+        }
+        
+        .help_icons img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
         .profile_page_title h2 {
             font-family: Poppins;
             font-style: normal;

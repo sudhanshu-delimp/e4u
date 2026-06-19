@@ -229,7 +229,11 @@
         <div id="cms" class="collapse @if (request()->segment(2) == 'communication' || request()->segment(2) == 'viewer-messages') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item  @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_direct_chatting_with_escorts!='1') inactive_li @endif" href="{{ route('user.viewer-messages') }}">
+                {{-- <a class="collapse-item  @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_direct_chatting_with_escorts!='1') inactive_li @endif" href="{{ route('user.viewer-messages') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                    <span style="{{ request()->segment(2) == 'viewer-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
+                </a> --}}
+                 <a class="collapse-item  @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_direct_chatting_with_escorts!='1') inactive_li @endif" href="javascript:void(0);">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                     <span style="{{ request()->segment(2) == 'viewer-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
                 </a>
