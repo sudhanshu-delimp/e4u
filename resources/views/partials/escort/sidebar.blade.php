@@ -399,8 +399,8 @@
                             <span>Legbox Viewer</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'agent-messages' ? 'menu-active' : '' }}"
-                           href="javascript:void(0);">
+                        <a class="collapse-item disabled-link {{ request()->segment(2) == 'agent-messages' ? 'menu-active' : '' }}"
+                            href="{{ route('escort.dashboard.agent-messages') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                             <span>Messages</span>
                         </a>

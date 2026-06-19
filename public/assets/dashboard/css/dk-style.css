@@ -11479,6 +11479,12 @@ border-top: 5px solid var(--peach);
     line-height: 20px;
 }
 
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .grant-access sup {
     background: #ff3c5f;
     padding: 3px;
