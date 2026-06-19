@@ -44,7 +44,7 @@ class AgentCommission extends Model
      */
     public function getAssignedAgent($userId = 0)
     {
-        Log::info("User ID:" . $userId);
+        //Log::info("User ID:" . $userId);
         $agentDetail =  (new AgentDetail);
         $user2 = User::where('id', $userId)->where('is_agent_assign', '1')->first();
         if($user2) {
@@ -71,8 +71,7 @@ class AgentCommission extends Model
                 $agentDetail->commission_registration_amount = $mcSignupcommission;
                 $agentDetail->commission_registration_type = $mcSignupamountType;
                 $agentDetail->save();
-                Log::info("Agent detail created:");
-
+                //Log::info("Agent detail created:");
             }
         }
 
@@ -105,14 +104,14 @@ class AgentCommission extends Model
         $agentCommission['amount_type'] = '';
         $agentCommission['purchase_amount'] = $total;
         $agentCommission['user_type'] = null;
-         Log::info("Total amount :" . $total);
+        //Log::info("Total amount :" . $total);
 
         $commission = 0;
         if ($total > 0) {
             $user = $this->getAssignedAgent($userId);
             if ($user && $user->assignedAgent) {
                 $assignedAgent = $user->assignedAgent;
-                Log::info("Agent_details:" . json_encode($assignedAgent));
+               // Log::info("Agent_details:" . json_encode($assignedAgent));
                 $agentCommission['user_type'] = $user->type;
                 $agentCommission['agent_id'] = $assignedAgent->agent_id;
                 //$commission = (is_null($assignedAgent->commission_advertising_percent)) ? 0 : $assignedAgent->commission_advertising_percent;
@@ -158,7 +157,7 @@ class AgentCommission extends Model
     public function saveCommissionData($massageEscortPurchase, $userId, $total, $feeFor = 'advertising')
     {
         try {
-            Log::info("saveCommissionData function triggered");
+           // Log::info("saveCommissionData function triggered");
             $agentCommission = $this->calculateCommission($userId, $total);
             //Log::info("agentCommission:" . json_encode($agentCommission));
             if ($agentCommission['commission'] > 0 && !empty($agentCommission['amount_type']) && $agentCommission['agent_id'] > 0) {
@@ -173,7 +172,7 @@ class AgentCommission extends Model
                         'total_commission_amount' => $agentCommission['total_commission'],
                         'commission_date' => now(),
                     ]);
-                    Log::info("Agent commisson proceeded");
+                    //Log::info("Agent commisson proceeded");
                     return true;
                 }
             }
