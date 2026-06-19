@@ -324,7 +324,7 @@
                                 style="{{ request()->segment(2) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                         </a>
                         <!-- Messages -->
-                        <a class="collapse-item" href="{{ route('agent.agent-messages') }}">
+                        <a class="collapse-item" href="javascript:void(0);">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                             <span
                                 style="{{ request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : '' }}">Messages</span>

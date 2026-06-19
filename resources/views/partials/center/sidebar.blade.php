@@ -396,7 +396,7 @@
                         </a>
 
                         <a class="collapse-item {{ request()->segment(2) == 'agent-messages' ? 'menu-active' : '' }}"
-                            href="{{ route('agent-messages') }}">
+                           href="javascript:void(0);">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                             <span>Messages</span>
                         </a>
