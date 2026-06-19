@@ -357,6 +357,7 @@
                                        <th class="text-center">Description</th>
                                        <th class="text-center">Rate</th>
                                        <th class="text-center">Value</th>
+                                       <!--th class="text-center">Amount Type</th -->
                                        <th class="text-center">
                                           Action
                                        </th>
@@ -1229,6 +1230,7 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
             { data: 'discription', name: 'discription', orderable:false, defaultContent: 'NA'},
             { data: 'rate', name: 'rate', searchable: true, orderable:false ,defaultContent: 'NA'},
             { data: 'percent', name: 'percent', searchable: false, orderable:false,defaultContent: 'NA' },
+            //{ data: 'amount_types', name: 'amount_types', searchable: true, orderable:false ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
            
       ],
@@ -1261,7 +1263,7 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                              <div class="modal-body pb-0">
                                                
                                                    <div class="row">
-                                                      <div class="col-6 mb-3">
+                                                      <div class="col-12 mb-3">
                                                          <label>Rate</label>
                                                                <select class="custom-select" name="rate" id="rate" required data-parsley-required-message="Please select state">
                                                                   <option value="">Select</option>
@@ -1271,9 +1273,19 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                                                </select>
                                                        
                                                       </div>
+                                                      </div>
+                                                      <div class="row">
                                                       <div class="col-6 mb-3">
                                                          <label>Value</label>
-                                                         <input type="text"  class="form-control rounded-0" name="percent"  value="${(rowData.percent  ? rowData.percent : '')}" required>
+                                                         <input type="number"  min="0" step="0.01"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                      </div>
+                                                         <div class="col-6 mb-3">
+                                                         <label>Amount Type</label>
+                                                      <select class="form-control rounded-0" name="amount_type" id="amount_type" required data-parsley-required-message="Please select amount type">
+                                                         <option value="">Amount Type</option>
+                                                         <option value="percent" ${rowData.amount_type == 'percent' ? 'selected' : ''}>Percent</option>
+                                                         <option value="fixed" ${rowData.amount_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                                      </select> 
                                                       </div>
 
                                                        <div class="col-12 mb-3">

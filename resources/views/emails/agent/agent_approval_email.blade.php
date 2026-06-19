@@ -44,15 +44,15 @@
                                 style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
 
                                 <tr>
-                                    <td style="font-weight: bold; padding: 10px 0px;">Mobile Number:</td>
+                                    <td style="font-weight: bold; padding: 10px 0px;width: 130px;">Mobile Number:</td>
                                     <td style="padding: 10px 0px 10px 10px">{{ $agent['phone'] ?? '' }}</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; padding: 10px 0px;">Password:</td>
+                                    <td style="font-weight: bold; padding: 10px 0px;width: 130px;">Password:</td>
                                     <td style="padding: 10px 0px 10px 10px">{{ $agent['plainPassword'] ?? '' }}</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; padding: 10px 0px;">Login url:</td>
+                                    <td style="font-weight: bold; padding: 10px 0px;width: 130px;">Login url:</td>
                                     <td style="padding: 10px 0px 10px 10px">{{ route('agent.login') }}</td>
                                 </tr>
 

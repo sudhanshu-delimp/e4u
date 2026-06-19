@@ -9,6 +9,9 @@
       font-size: 14px;
       padding: 10px;
    }
+   .swal2-title {
+      font-size: 18px !important;
+   }
 </style>
 @endsection
 

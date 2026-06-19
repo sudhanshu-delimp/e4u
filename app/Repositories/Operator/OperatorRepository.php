@@ -124,6 +124,8 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                     $agrement_file  = $operator->agreement_file;
                 }
 
+                //echo json_encode($data);die;
+
                 $operator->update([
                     'date_appointed' => !empty($data['date_appointed'])
                         ? Carbon::parse($data['date_appointed'])->format('Y-m-d')
@@ -137,8 +139,9 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                     'fee' => $data['fee'] ?? null,
                     'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
                     'commission_massage_centre_percent' => $data['commission_massage_centre_percent'] ?? null,
+                    'advertising_commission_type' => $data['advertising_commission_type'] ?? 'percent',
+                    'massge_centre_commission_type' => $data['massge_centre_commission_type'] ?? 'percent',
                     'agreement_file' => $agrement_file,
-
                 ]);
 
                 $operatorSetting = \App\Models\OperatorSetting::firstOrNew(['user_id' => $user->id]);
@@ -152,7 +155,7 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
 
                 Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
                 logErrorLocal($e);
-                $this->response = ['status' => false, 'message' => 'Error occured while making request...'];
+                $this->response = ['status' => false, 'message' => 'Error occured while making request...'.$e->getMessage()];
                 return $this->response;
             }
         });
