@@ -85,4 +85,10 @@ class PaymentHistory extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
+
+    // Agent Commission
+    public function commissions()
+    {
+        return $this->morphMany(AgentCommission::class, 'commissionable');
+    }
 }
