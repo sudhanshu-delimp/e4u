@@ -15,6 +15,7 @@ use PDF;
 use Illuminate\Support\Facades\Artisan;
 use App\Mail\PaymentMailer;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -225,6 +226,7 @@ class PaymentController extends Controller
             /** Calulate agent commisson and save the commission */
             $agentCommission = (new \App\Models\AgentCommission);
             if($payment) {
+                Log::info("saveCommissionData fuction calling from payment controller.");
                 $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['total_amount']);
             }
 
