@@ -203,7 +203,153 @@ class FeesSummeryService
 
 
 
-    // ********************************************Single Escort Value********************************************************//
+    // **********************************Single Escort Value**************************************//
+
+    protected function getStateName(?int $stateId): string
+    {
+        if (!$stateId) return 'Unknown';
+        return getStateName($stateId) ?? 'Unknown';
+    }
+
+    protected function fyLabel(string $date): string
+    {
+        $carbon = Carbon::parse($date);
+        $startYear = $carbon->month >= 7 ? $carbon->year : $carbon->year - 1;
+        return "{$startYear}-" . ($startYear + 1);
+    }
+
+    protected function fyDisplay(string $fyLabel): string
+    {
+        return str_replace('-', ' / ', $fyLabel);
+    }
+
+
+    public function getReport(int $userId): array
+    {
+        $purchaseType    = Purchase::class;
+        $escortPinupType = EscortPinup::class;
+
+        // ── Fetch purchase-based rows (Platinum / Gold / Silver / Fixed) ──────
+        $purchaseRows = \DB::table('payment_histories as ph')
+            ->join('payment_items as pi',  'pi.payment_history_id', '=', 'ph.id')
+            ->join('purchase as pu',        'pu.id',                 '=', 'pi.item_id')
+            ->join('escorts as e',          'e.id',                  '=', 'pu.escort_id')
+            ->where('ph.user_id',  $userId)
+            ->where('ph.status',   'success')
+            ->where('pi.item_type', $purchaseType)
+            ->select(
+                'ph.paid_at',
+                'ph.net_amount',
+                'pu.membership',
+                'e.state_id'
+            )
+            ->get();
+
+        // ── Fetch pinup-based rows ─────────────────────────────────────────────
+        $pinupRows = \DB::table('payment_histories as ph')
+            ->join('payment_items as pi',   'pi.payment_history_id', '=', 'ph.id')
+            ->join('escort_pinups as ep',   'ep.id',                 '=', 'pi.item_id')
+            ->join('escorts as e',          'e.id',                  '=', 'ep.escort_id')
+            ->where('ph.user_id',  $userId)
+            ->where('ph.status',   'success')
+            ->where('pi.item_type', $escortPinupType)
+            ->select(
+                'ph.paid_at',
+                'ph.net_amount',
+                'e.state_id',
+            )
+            ->get();
+
+        // ── Also fetch advertiser info ─────────────────────────────────────────
+        $user = \DB::table('users')->where('id', $userId)->first();
+
+        // ── Aggregate ─────────────────────────────────────────────────────────
+        $fyData      = [];
+        $grandTotals = $this->emptyTotals();
+
+        // Process purchase rows
+        foreach ($purchaseRows as $row) {
+            $fy        = $this->fyLabel($row->paid_at);
+            $stateName = $this->getStateName((int) $row->state_id);
+            $amount    = (float) $row->net_amount;
+
+            $this->ensureFyState($fyData, $fy, $stateName);
+
+            $col = $this->membershipColumn((int) $row->membership);
+            if ($col) {
+                $fyData[$fy]['states'][$stateName][$col] += $amount;
+                $fyData[$fy]['states'][$stateName]['total'] += $amount;
+                $fyData[$fy]['fy_totals'][$col]            += $amount;
+                $fyData[$fy]['fy_totals']['total']          += $amount;
+                $grandTotals[$col]                          += $amount;
+                $grandTotals['total']                       += $amount;
+            }
+        }
+
+        // Process pinup rows
+        foreach ($pinupRows as $row) {
+            $fy        = $this->fyLabel($row->paid_at);
+            $stateName = $this->getStateName((int) $row->state_id);
+            $amount    = (float) $row->net_amount;
+
+            $this->ensureFyState($fyData, $fy, $stateName);
+
+            $fyData[$fy]['states'][$stateName]['pinup'] += $amount;
+            $fyData[$fy]['states'][$stateName]['total'] += $amount;
+            $fyData[$fy]['fy_totals']['pinup']           += $amount;
+            $fyData[$fy]['fy_totals']['total']            += $amount;
+            $grandTotals['pinup']                         += $amount;
+            $grandTotals['total']                         += $amount;
+        }
+
+        // Sort FYs latest first, add display label
+        krsort($fyData);
+        foreach ($fyData as $fy => &$data) {
+            $data['fy_label'] = $this->fyDisplay($fy);
+            ksort($data['states']); // sort states alphabetically
+        }
+        unset($data);
+
+        return [
+            'advertiser_name' => $user->name    ?? 'Unknown',
+            'member_id'       => $user->member_id ?? '',
+            'fy_data'         => $fyData,
+            'grand_totals'    => $grandTotals,
+        ];
+    }
+
+
+    protected function emptyTotals(): array
+    {
+        return ['platinum' => 0.0, 'gold' => 0.0, 'silver' => 0.0, 'pinup' => 0.0, 'total' => 0.0];
+    }
+
+    protected function ensureFyState(array &$fyData, string $fy, string $state): void
+    {
+        if (!isset($fyData[$fy])) {
+            $fyData[$fy] = [
+                'fy_label'  => '',
+                'states'    => [],
+                'fy_totals' => $this->emptyTotals(),
+            ];
+        }
+        if (!isset($fyData[$fy]['states'][$state])) {
+            $fyData[$fy]['states'][$state] = $this->emptyTotals();
+        }
+    }
+
+    protected function membershipColumn(int $membership): ?string
+    {
+        return match ($membership) {
+            1 => 'platinum',
+            2 => 'gold',
+            3 => 'silver',
+            5 => 'silver',   // Fixed → silver; change if you want a separate "fixed" column
+            default => null,
+        };
+    }
+
+
 
 
     
