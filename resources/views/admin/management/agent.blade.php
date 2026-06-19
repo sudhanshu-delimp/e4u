@@ -507,7 +507,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                       <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" >
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" >
                                        <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
                                  <div class="col-6 mb-3">
@@ -522,7 +522,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                       <input type="number" min="0" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" >
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" >
                                        <span class="text-danger error-commission_registration_amount"></span>
                                  </div>
                                  <div class="col-6 mb-3">
@@ -848,7 +848,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                             <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
+                                             <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
                                               <span class="text-danger error-commission_advertising_percent"></span>
                                        </div>
                                         <div class="col-6 mb-3">
@@ -863,7 +863,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                             <input type="number" min="0" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
+                                             <input type="number" min="5" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
                                               <span class="text-danger error-commission_registration_amount"></span>
                                        </div>
                                         <div class="col-6 mb-3">
