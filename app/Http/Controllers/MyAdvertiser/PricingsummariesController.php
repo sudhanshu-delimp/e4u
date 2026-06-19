@@ -113,7 +113,9 @@ class PricingsummariesController extends BaseController
                                     ->update([
                                         'rate'=>$request->rate,
                                         'discription'=>$request->discription,
-                                        'percent'=>$request->percent,
+                                        'amount_type'=>$request->amount_type,
+                                        'amount'=>$request->amount,
+                                        'percent'=>($request->amount_type == 'fixed') ? '$'.$request->amount  :  $request->amount.'%',
                                     ]);
 
             PricingFeeUpdateLog::where('fee_type','variabl_agent_operators')->update(['last_updated_date'=>date('Y-m-d')]);
@@ -495,6 +497,7 @@ class PricingsummariesController extends BaseController
         foreach($fees_list as $key => $item) {
 
             $item->percent = $item->percent;
+            $item->amount_types = isset($item->amount_type) ? ucfirst($item->amount_type) : 'Percent';
             $item->rate = $item->rate == '1' ? 'Per Day' : ($item->rate == '2' ? 'Per Week' : 'Per Registration') ;
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

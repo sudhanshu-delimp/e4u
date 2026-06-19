@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('style')
     <style>
-        
+
     </style>
 @stop
 @section('content')
@@ -14,6 +14,15 @@
 
         $editAccess = staffPageAccessPermission($securityLevel, 'edit');
         $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+
+
+        $adv_commissionfee =  $commissionfee[0]['amount'];
+        $massg_commissionfee =$commissionfee[1]['amount'];
+
+        
+
+        $commissionAdvertisingType = $commissionfee[0]['amount_type'];
+        $commissionRegistrationType = $commissionfee[1]['amount_type'];
     @endphp
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
@@ -94,7 +103,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="add_operator" id="add_operator" method="POST" action="{{ route('admin.add.operator') }}" enctype="multipart/form-data">
+                    <form name="add_operator" id="add_operator" method="POST" action="{{ route('admin.add.operator') }}"
+                        enctype="multipart/form-data">
                         <div class="row">
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
@@ -148,8 +158,9 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="form-check-label" for="phone">Mobile</label>
-                                <input type="text" class="form-control rounded-0 formatMobile" name="phone" id="phone"
-                                    oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14"  onfocus="this.value = this.value.replace(/\D/g,'');">
+                                <input type="text" class="form-control rounded-0 formatMobile" name="phone"
+                                    id="phone" oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14"
+                                    onfocus="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-phone"></span>
                             </div>
                             <div class="col-6 mb-3">
@@ -214,12 +225,12 @@
                             </div>
                         </div>
                         <div class="row">
-                              <div class="col-12 my-2">
+                            <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Upload Agreement</h6>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="file" name="agreement_file" id="agreement_file">
-                                 <span class="text-danger error-agreement_file"></span>
+                                <span class="text-danger error-agreement_file"></span>
                             </div>
 
                             <div class="col-6 mb-3 my-auto text-right" id="file_preview"></div>
@@ -231,19 +242,48 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="viewer_contact_type_1">Advertising</label>
+                                <label class="form-label" for="commission_advertising_percent">Advertising</label>
                                 <input class="form-control rounded-0" placeholder="Advertising"
                                     name="commission_advertising_percent" id="commission_advertising_percent"
                                     maxlength="10" value="{{ $feeAdvertising }}">
                                 <span class="text-danger error-commission_advertising_percent"></span>
                             </div>
+
+
+
                             <div class="col-6 mb-3">
-                                <label class="form-check-label" for="viewer_contact_type_1">Massage Centre
+                                <label lass="form-label" for="commission_registration_type">Amount Type</label>
+                                <select class="form-control rounded-0" name="commission_registration_type"
+                                    id="commission_registration_type">
+                                    <option value="">Amount Type</option>
+                                    <option value="percent" {{ $commissionAdvertisingType == 'percent' ? 'selected' : '' }}>
+                                        Percent</option>
+                                    <option value="fixed"{{ $commissionAdvertisingType == 'fixed' ? 'selected' : '' }}>Fixed
+                                    </option>
+                                </select>
+                                <span class="text-danger error-commission_registration_type"></span>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label" for="commission_massage_centre_percent">Massage Centre
                                     (Registrations)</label>
                                 <input class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
                                     name="commission_massage_centre_percent" id="commission_massage_centre_percent"
                                     maxlength="10" value="{{ $feeMassage }}">
                                 <span class="text-danger error-commission_massage_centre_percent"></span>
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <label lass="form-label" for="commission_registration_type">Amount Type</label>
+                                <select class="form-control rounded-0" name="commission_registration_type"
+                                    id="commission_registration_type">
+                                    <option value="">Amount Type</option>
+                                    <option value="percent" {{ $commissionRegistrationType == 'percent' ? 'selected' : '' }}>
+                                        Percent</option>
+                                    <option value="fixed"{{ $commissionRegistrationType == 'fixed' ? 'selected' : '' }}>
+                                        Fixed
+                                    </option>
+                                </select>
+                                <span class="text-danger error-commission_registration_type"></span>
                             </div>
 
                         </div>
