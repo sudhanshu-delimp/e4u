@@ -63,7 +63,7 @@
                                         <th>Mobile</th>
                                         <th>Email</th>
                                         <th style="width: 4%">Clients</th>
-                                        <th style="width: 234px">Last Login</th>
+                                        <th style="width: 180px">Last Login</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
