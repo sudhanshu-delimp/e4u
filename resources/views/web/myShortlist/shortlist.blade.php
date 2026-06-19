@@ -562,28 +562,81 @@
                                 <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
                             </button>
                             <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon">Help</h3>
-                            <div class="modal-sec">
-                                <p class="popu_heading_style">Search Filters</p>
-                                <p>
-                                    Your Geolocation will automatically determine your Location and list
-                                    Profiles according to that Location. You can:
-                                </p>
-                                <ol class="pl-3">
-                                    <li>&nbsp;Filter the search criteria by selecting your preferred filter and then
-                                        selecting the ‘Refresh’ &nbsp;button.
+                            <div class="modal-sec help--filter">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" data-toggle="tab" href="#tabs-1" role="tab"
+                                            aria-selected="true">Search Filters</a>
                                     </li>
-                                    <li>&nbsp;Change your Location by selecting your preferred city.</li>
-                                    <li>&nbsp;Change the number of listings displayed by changing the ‘Displayed
-                                        &nbsp;item’ filter to your preferred value.
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                            aria-selected="false">Search Field</a>
                                     </li>
-                                </ol>
-
-                                <p class="popu_heading_style">Service Tags</p>
-                                <p> Selected Service Tags will be listed in the Service Tag list which will
-                                    appear below the tags. You can remove any Service Tag by clicking the
-                                    ‘X’ located on the tag, or all of the Service Tags by clicking the ‘Clear Tags’
-                                    link.
-                                </p>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                            aria-selected="false">Shortlist</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
+                                            aria-selected="false">Service Tags</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-5" role="tab"
+                                            aria-selected="false">Verification</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
+                                        <p>Your Geolocation will automatically determine your Location and list Profiles
+                                            according to that Location. You can:</p>
+                                        <ol class="pl-3">
+                                            <li>Filter the search criteria by selecting your preferred filter and then
+                                                selecting the refresh button ‘Apply Filters’.</li>
+                                            <li>Change your Location by selecting your preferred city.</li>
+                                            <li>Change the number of listings displayed by changing the ‘Displayed item’
+                                                filter to your
+                                                preferred value.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li>You can undertake a search for an Escort within your Location, which is the
+                                                default, or Australia wide
+                                                by selecting ‘Australia’.</li>
+                                            <li>Searching by the Member ID is the most efficient way to find the Escort you
+                                                are looking for. </li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
+                                        <p>The Shortlist feature will only remain current for the session. You can:</p>
+                                        <ol class="pl-3">
+                                            <li>Add or remove Profiles by clicking the Short List button displayed on the
+                                                Profile.</li>
+                                            <li>To view your Shortlist, click the List tally that is located in the Search
+                                                Filters panel.</li>
+                                            <li>To clear the Shortlist, click the ‘Clear Shortlist’ button in the Search
+                                                Filters panel.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-4" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li>Your selected Service Tags will be listed below the Service Tag selection
+                                                list in the panel.</li>
+                                            <li>You can remove any Service Tag you selected by clicking the ‘X’ located on
+                                                the tag, or all of
+                                                the Service Tags you selected by clicking the ‘Clear Tags’ link in the
+                                                panel.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-5" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification. </div></li>
+                                        </ol>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
