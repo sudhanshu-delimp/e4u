@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\VariablAgentOperator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use App\Models\AgentDetail;
 use Exception;
 
 class AgentCommission extends Model
@@ -44,6 +45,37 @@ class AgentCommission extends Model
     public function getAssignedAgent($userId = 0)
     {
         Log::info("User ID:" . $userId);
+        $agentDetail =  (new AgentDetail);
+        $user2 = User::where('id', $userId)->where('is_agent_assign', '1')->first();
+        if($user2) {
+            $assigned_agent_id = $user2->assigned_agent_id;
+            $agent =$agentDetail->where('agent_id', $assigned_agent_id)->first();
+            if(!$agent) {
+                $variable =  VariablAgentOperator::where('fee_for', 'advertising')->first();
+                $mcSignup =  VariablAgentOperator::where('fee_for', 'mc_signup')->first();
+                 $commission = 5;
+                 $amountType = 'percent';
+                 if ($variable) {
+                        $commission = (is_null($variable->amount)) ? 0 : $variable->amount;
+                        $amountType = $variable->amount_type;
+                }
+                $mcSignupcommission = 5;
+                $mcSignupamountType = 'percent';
+                if ($mcSignup) {
+                        $mcSignupcommission = (is_null($mcSignup->amount)) ? 0 : $mcSignup->amount;
+                        $mcSignupamountType = $mcSignup->amount_type;
+                }
+                $agentDetail->agent_id = $assigned_agent_id;
+                $agentDetail->commission_advertising_percent = $commission;
+                $agentDetail->commission_advertising_type = $amountType;
+                $agentDetail->commission_registration_amount = $mcSignupcommission;
+                $agentDetail->commission_registration_type = $mcSignupamountType;
+                $agentDetail->save();
+                Log::info("Agent detail created:");
+
+            }
+        }
+
         $user = User::with('assignedAgent')->where('id', $userId)->where('is_agent_assign', '1')->first();
 
         if ($user && $user->assignedAgent) {
@@ -78,8 +110,8 @@ class AgentCommission extends Model
         $commission = 0;
         if ($total > 0) {
             $user = $this->getAssignedAgent($userId);
-            $assignedAgent = $user->assignedAgent;
-            if ($assignedAgent) {
+            if ($user && $user->assignedAgent) {
+                $assignedAgent = $user->assignedAgent;
                 Log::info("Agent_details:" . json_encode($assignedAgent));
                 $agentCommission['user_type'] = $user->type;
                 $agentCommission['agent_id'] = $assignedAgent->agent_id;
