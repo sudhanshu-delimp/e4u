@@ -234,7 +234,6 @@ class ProductOrderController extends Controller
           // Send order completed mail notification to supplier
           Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
         } elseif ($request->status == 'hold') {
-
           if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
             Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
           } else {
@@ -245,8 +244,6 @@ class ProductOrderController extends Controller
             }
             $mail->send(new SendProductOrderHoldMailToEscort($mailData));
           }
-
-
           // Send order hold notification to supplier
           Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
         }
