@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\VariablAgentOperator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
-use App\Models\AgentDetail;
 use Exception;
 
 class AgentCommission extends Model
@@ -131,6 +130,9 @@ class AgentCommission extends Model
                         $totalCommission = ($total * $commission) / 100;
                     } else {
                         $totalCommission = $commission;
+                    }
+                    if($totalCommission > $total){
+                       $totalCommission = $total;
                     }
 
                     $totalCommission = number_format($totalCommission, 2, '.', '');

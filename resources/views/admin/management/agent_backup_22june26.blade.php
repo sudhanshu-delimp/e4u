@@ -4,12 +4,6 @@
    form label{
         margin-bottom: 0px;
     }
-
-    .right-sign{border-left:0 !important;margin-left: -2px;}
-    .left-sign{border-right:0 !important;margin-right: -2px !important;}
-	.avertising-input{border-right:0 !important;}
-	.registration-input{border-left:0 !important;};
-
 </style>
 @stop
 @section('content')
@@ -512,28 +506,34 @@
                                  </div>
 
                                  <div class="col-6 mb-3">
-                                    <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                    <div class="input-group mb-2">
-                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" maxlength="5">
-                                        <div class="input-group-prepend">
-                                        <div class="input-group-text form-control right-sign">%</div>
-                                        </div>
-                                         <input type="hidden" name="commission_advertising_type" value="percent"/>
-                                    </div> 
-                                     <span class="text-danger error-commission_advertising_percent"></span>
+                                       <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" >
+                                       <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
                                  <div class="col-6 mb-3">
+                                        <label lass="form-label" for="commission_advertising_type">Amount Type</label>
+                                    <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
+                                        <option value="">Amount Type</option>
+                                       <option value="percent" ${agent_details?.commission_advertising_type == 'percent' ? 'selected' : 'selected'}>Percent</option>
+                                        <option value="fixed" ${agent_details?.commission_advertising_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                    </select>
+                                     <span class="text-danger error-commission_advertising_type"></span>
+                                    </div>
+
+                                 <div class="col-6 mb-3">
                                        <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                             <div class="input-group-text form-control left-sign" >$</div>
-                                            </div>
-                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" maxlength="5">
-                                            <input type="hidden" name="commission_registration_type" value="fixed"/>
-                                         </div>
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" >
                                        <span class="text-danger error-commission_registration_amount"></span>
                                  </div>
-        
+                                 <div class="col-6 mb-3">
+                                        <label lass="form-label" for="commission_registration_type">Amount Type</label>
+                                    <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
+                                        <option value="">Amount Type</option>
+                                        <option value="percent" ${agent_details?.commission_registration_type == 'percent' ? 'selected' : 'selected'}>Percent</option>
+                                        <option value="fixed" ${agent_details?.commission_registration_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                    </select> 
+                                     <span class="text-danger error-commission_registration_type"></span>
+                                    </div>
 
                                  <!-- ==================== File Uploads ==================== -->
                                  <div class="col-6 mb-3">
@@ -847,27 +847,34 @@
                                        </div>
 
                                        <div class="col-6 mb-3">
-                                    <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                    <div class="input-group mb-2">
-                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}" maxlength="5">
-                                        <div class="input-group-prepend">
-                                        <div class="input-group-text form-control right-sign">%</div>
+                                             <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                             <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
+                                              <span class="text-danger error-commission_advertising_percent"></span>
+                                       </div>
+                                        <div class="col-6 mb-3">
+                                             <label lass="form-label" for="commission_advertising_type">Amount Type</label>
+                                            <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
+                                            <option value="">Amount Type</option>
+                                            <option value="percent" ${commissionAdvertisingType == 'percent' ? 'selected' : ''} >Percent</option>
+                                            <option value="fixed" ${commissionAdvertisingType == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                        </select> 
+                                        <span class="text-danger error-commission_advertising_type"></span>
                                         </div>
-                                         <input type="hidden" name="commission_advertising_type" value="percent"/>
-                                    </div> 
-                                     <span class="text-danger error-commission_advertising_percent"></span>
-                                 </div>
-                                 <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                             <div class="input-group-text form-control left-sign" >$</div>
-                                            </div>
-                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}" maxlength="5">
-                                            <input type="hidden" name="commission_registration_type" value="fixed"/>
-                                         </div>
-                                       <span class="text-danger error-commission_registration_amount"></span>
-                                 </div>
+
+                                       <div class="col-6 mb-3">
+                                             <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                             <input type="number" min="5" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
+                                              <span class="text-danger error-commission_registration_amount"></span>
+                                       </div>
+                                        <div class="col-6 mb-3">
+                                             <label  class="form-label" for="commission_registration_type">Amount Type</label>
+                                         <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
+                                            <option value="">Amount Type</option>
+                                            <option value="percent" ${commissionRegistrationType == 'percent' ? 'selected' : ''}>Percent</option>
+                                            <option value="fixed" ${commissionRegistrationType == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                        </select>
+                                         <span class="text-danger error-commission_registration_type"></span>
+                                        </div>
 
                                        <!-- ==================== File Uploads ==================== -->
                                        <div class="col-6 mb-3">
