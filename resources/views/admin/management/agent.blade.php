@@ -63,7 +63,7 @@
                                         <th>Mobile</th>
                                         <th>Email</th>
                                         <th style="width: 4%">Clients</th>
-                                        <th style="width: 234px">Last Login</th>
+                                        <th style="width: 180px">Last Login</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -110,6 +110,11 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
+        var adv_commissionfee =  "{{$commissionfee[0]['amount']}}";
+        var massg_commissionfee = "{{$commissionfee[1]['amount']}}";
+
+        var commissionAdvertisingType = "{{$commissionfee[0]['amount_type']}}";
+        var commissionRegistrationType = "{{$commissionfee[1]['amount_type']}}";
         $(document).ready(function(e) {
             var table = $("#agent_data_table").DataTable({
                 language: {
@@ -405,7 +410,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="abn">ABN</label>
-                                       <input type="text" class="form-control rounded-0"  name="abn" id="abn" value="${(rowData.abn ? rowData.abn : '')}">
+                                       <input type="text" class="form-control rounded-0" maxlength="11"  name="abn" id="abn" value="${(rowData.abn ? removeAnythingExceptNumber(rowData.abn) : '')}">
                                        <span class="text-danger error-abn"></span>
                                  </div>
 
@@ -417,7 +422,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="business_number">Business Number</label>
-                                       <input type="text" class="form-control rounded-0"  name="business_number" id="business_number" value="${(rowData.business_number ? rowData.business_number : '')}">
+                                       <input type="text" class="form-control rounded-0"  name="business_number" id="business_number" value="${(rowData.business_number ? removeAnythingExceptNumber(rowData.business_number) : '')}">
                                        <span class="text-danger error-business_number"></span>
                                  </div>
 
@@ -429,7 +434,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="phone">Mobile</label>
-                                       <input type="text" class="form-control rounded-0"  name="phone" id="phone" value="${(rowData.phone ? rowData.phone : '')}">
+                                       <input type="text" class="form-control rounded-0"  name="phone" id="phone" value="${(rowData.phone ? removeAnythingExceptNumber(rowData.phone) : '')}">
                                        <span class="text-danger error-phone"></span>
                                  </div>
 
@@ -476,7 +481,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="agreement_date">Agreement Date</label>
-                                       <input type="date" class="form-control rounded-0" name="agreement_date" id="agreement_date" value="${agent_details?.agreement_date ?? ''}">
+                                       <input type="text" class="form-control rounded-0 js_datepicker" name="agreement_date" placeholder="DD-MM-YYYY" id="agreement_date" value="${agent_details?.agreement_date ? agent_details.agreement_date.split('-').reverse().join('-') : ''}">
                                        <span class="text-danger error-agreement_date"></span>
                                  </div>
 
@@ -501,14 +506,34 @@
                                  </div>
 
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_advertising_percent">Advertising Commission %</label>
-                                       <input class="form-control rounded-0"  name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? ''}">
+                                       <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" >
+                                       <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
+                                 <div class="col-6 mb-3">
+                                        <label lass="form-label" for="commission_advertising_type">Amount Type</label>
+                                    <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
+                                        <option value="">Amount Type</option>
+                                       <option value="percent" ${agent_details?.commission_advertising_type == 'percent' ? 'selected' : 'selected'}>Percent</option>
+                                        <option value="fixed" ${agent_details?.commission_advertising_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                    </select>
+                                     <span class="text-danger error-commission_advertising_type"></span>
+                                    </div>
 
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_registration_amount">Massage Centre Commission %</label>
-                                       <input class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? ''}">
+                                       <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" >
+                                       <span class="text-danger error-commission_registration_amount"></span>
                                  </div>
+                                 <div class="col-6 mb-3">
+                                        <label lass="form-label" for="commission_registration_type">Amount Type</label>
+                                    <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
+                                        <option value="">Amount Type</option>
+                                        <option value="percent" ${agent_details?.commission_registration_type == 'percent' ? 'selected' : 'selected'}>Percent</option>
+                                        <option value="fixed" ${agent_details?.commission_registration_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                    </select> 
+                                     <span class="text-danger error-commission_registration_type"></span>
+                                    </div>
 
                                  <!-- ==================== File Uploads ==================== -->
                                  <div class="col-6 mb-3">
@@ -726,7 +751,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="abn">ABN</label>
-                                             <input type="text" class="form-control rounded-0" name="abn" id="abn">
+                                             <input type="text" class="form-control rounded-0" name="abn" id="abn" maxlength="11">
                                              <span class="text-danger error-abn"></span>
                                        </div>
 
@@ -797,7 +822,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="agreement_date">Agreement Date</label>
-                                             <input type="date" class="form-control rounded-0" name="agreement_date" id="agreement_date">
+                                             <input type="text"  class="form-control rounded-0 js_datepicker" name="agreement_date" id="agreement_date" placeholder="DD-MM-YYYY">
                                              <span class="text-danger error-agreement_date"></span>
                                        </div>
 
@@ -822,14 +847,34 @@
                                        </div>
 
                                        <div class="col-6 mb-3">
-                                             <label class="form-label" for="commission_advertising_percent">Advertising Commission %</label>
-                                             <input class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent">
+                                             <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                             <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
+                                              <span class="text-danger error-commission_advertising_percent"></span>
                                        </div>
+                                        <div class="col-6 mb-3">
+                                             <label lass="form-label" for="commission_advertising_type">Amount Type</label>
+                                            <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
+                                            <option value="">Amount Type</option>
+                                            <option value="percent" ${commissionAdvertisingType == 'percent' ? 'selected' : ''} >Percent</option>
+                                            <option value="fixed" ${commissionAdvertisingType == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                        </select> 
+                                        <span class="text-danger error-commission_advertising_type"></span>
+                                        </div>
 
                                        <div class="col-6 mb-3">
-                                             <label class="form-label" for="commission_registration_amount">Massage Centre Commission %</label>
-                                             <input class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount">
+                                             <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                             <input type="number" min="5" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
+                                              <span class="text-danger error-commission_registration_amount"></span>
                                        </div>
+                                        <div class="col-6 mb-3">
+                                             <label  class="form-label" for="commission_registration_type">Amount Type</label>
+                                         <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
+                                            <option value="">Amount Type</option>
+                                            <option value="percent" ${commissionRegistrationType == 'percent' ? 'selected' : ''}>Percent</option>
+                                            <option value="fixed" ${commissionRegistrationType == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                        </select>
+                                         <span class="text-danger error-commission_registration_type"></span>
+                                        </div>
 
                                        <!-- ==================== File Uploads ==================== -->
                                        <div class="col-6 mb-3">
@@ -1001,5 +1046,15 @@
                 }
             });
         });
+
+
+
+    $('#addNewAgent, #viewAgentdetails').on('shown.bs.modal', function () {
+        $('.js_datepicker').datepicker({
+            dateFormat: "dd-mm-yy",
+            minDate: 0
+        });
+    });
+        
     </script>
 @endpush

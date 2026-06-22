@@ -70,6 +70,7 @@
          <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
          @include('partials.common.footer-scripts')
         <script>
+            var edit_account_page = "{{ route('center.account.edit') }}";
             jQuery.browser = {};
             (function () {
                 jQuery.browser.msie = false;
@@ -99,8 +100,10 @@
 
                         let alert_notifications = response.alert_notifications;
                         let support_notifications = response.support_notifications;
+                        let other_centre_notifications = response.other_centre_notifications;
                         let alert_notifications_html = "";
                         let support_notify_html = "";
+                        let other_centre_notifications_html = "";
 
                             /////////// Alert Notification List ///////////////////////
                             if (alert_notifications?.data?.length > 0)
@@ -163,9 +166,43 @@
                                 support_notify_html+=`<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
                                 $('.support_notify_html').html(support_notify_html);
                         }
+
+                        if (other_centre_notifications?.data?.length > 0) 
+                        {  
+                             
+                                if(other_centre_notifications.is_new)
+                                {
+                                $('.other_support_notify_bell').html('<i class="top-icon-bg fas fa-flag fa-fw"></i><span class="badge badge-danger badge-counter"> '+other_centre_notifications?.data?.length+'</span>');
+                                }
+                            
+                                other_centre_notifications.data.forEach((notification) => {
+
+
+                                    let title = notification.title.replace(
+                                        /href="[^"]*"/,
+                                        'href="'+edit_account_page+'"'
+                                    );
+
+                                    other_centre_notifications_html+= `<span class="dropdown-item d-flex align-items-center other_support_notify_li" id="${notification.id}">
+                                                <div class="mr-3">
+                                                    <div class="icon-circle bg-success">
+                                                    ${notification.notification_icon}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="small text-gray-800"> ${notification.created_at}</div>
+                                                    ${title}
+                                                </div>
+                                            </span>`;
+                                });
+
+                                other_centre_notifications_html+=`<a class="dropdown-item text-center small text-gray-800" href="${edit_account_page}">Show All Alerts</a>`;
+                                $('.other_support_notify_html').html(other_centre_notifications_html);
+                        }
+
                         else
-                        {       $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>');
-                                $('.support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
+                        {       $('.other_support_notify_bell').html('<i class="top-icon-bg fas fas fa-flag fa-fw"></i>');
+                                $('.other_support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                         }
                         ///////////// End Support Notification List //////////////////////////
                     },
@@ -223,6 +260,17 @@
                     getNotifications();
                  }
             });
+
+            // $(document).on('click', '.other_support_notify_li', async function (e) {
+            //     const seen = await notificationSeen($(this).attr('id'));
+            //      if (seen) {
+            //         getNotifications();
+            //      }
+            // });
+
+
+            
+
         });
 
         $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
@@ -244,40 +292,7 @@
 
             </script> 
 
-
-             @if(!canManage())
-             <script type="text/javascript">
-                 $(document).ready(function() {
-
-                    $('.save_profile_btn').css({'display':'none'});
-                    $('.resetdays-icon').css({'display':'none'});
-                    $('.remove-lang').css({'display':'none'});
-   
-
-                    $('#btn_add_brb').css({'display':'none'});
-                    $('#btn_suspend_profile').css({'display':'none'});
-                    $('#btn_extend_profile').css({'display':'none'});
-                    $('#btn_bumpup_profile').css({'display':'none'});
-
-
-                    $('.allow_only_numeric').prop({'disabled':true});
-
-                    $('input[type="number"]').prop('disabled', true);
-                    $('.my_service_anal .input_border').css({'background-color':'#fff'});
-                    $('.column_class').css({'display':'none'});
-                    $('.my_service_anal #span_id').css({'display':'none'});
-
-                    
-                   
-
-                    $('input[type="text"]').prop('disabled', true);
-                    $('select').prop('disabled', true);
-                    $('input[type="checkbox"]').prop('disabled', true);
-                    $('input[type="radio"]').prop('disabled', true);
-
-                 })
-             </script>
-             @endif
+            
           
       @if (Session::has('success'))
             <script>

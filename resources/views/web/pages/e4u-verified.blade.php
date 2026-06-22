@@ -56,7 +56,7 @@
     <ol class="e4u-verify-list">
         <li> <i>Enhanced Transparency and Trust.</i> E4U Verified lets you know that when you look at
             any Advertiser's Media that displays an E4U Verified icon, the Advertiser has submitted
-            that Media and passed the verification process. You can reply on the Media's
+            that Media and passed the verification process. You can rely on the Media's
             authenticity.</li>
         <li> <i>Improved Confidence with Your Bookings.</i> This added layer of verification helps eliminate
             any uncertainty about who you will be meeting, should you undertake a booking with the
@@ -66,7 +66,7 @@
             of the Advertiser for selfies. This goes a long way in supporting privacy for the
             Advertisers whilst maintaining high standards of authenticity.</li>
         <li> <i>Enhanced Experience for everyone.</i> E4U Verified helps to foster a safer, more
-            professional environment for everyone involved. Viewers can feel assured they are
+            professional environment for everyone involved. Users can feel assured they are
             undertaking a legitimate booking with the Advertiser. And the Advertisers benefit from
             an increased perception of credibility and trust in their Profiles.</li>
         </ol>
@@ -81,12 +81,11 @@
             You can also select the E4U Verified
             option located in the Search Filters. By
             default, the filter is not enabled and you
-            will be presented with verified and
-            unverified Profiles togther.
+            will be presented with verified, pending and unverified Profiles togther.
             </p>
         </div>   
         <div class="col-lg-7">
-            <img src="{{ asset('assets/app/img/e4u_verified.png') }}" alt="e4u verified" class="w-100">
+            <img src="{{ asset('assets/app/img/e4u_verified_v2.png') }}" alt="e4u verified" class="w-100">
         </div>
     </div>
     <!-- changes to this policy -->

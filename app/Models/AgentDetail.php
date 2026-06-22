@@ -19,6 +19,7 @@ class AgentDetail extends Model
         'commission_registration_amount',
          'agreement_file',
          'signature_file',
-        
+         'commission_advertising_type',
+        'commission_registration_type',
     ];
 }

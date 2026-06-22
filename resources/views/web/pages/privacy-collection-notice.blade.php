@@ -5,28 +5,32 @@
     <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
         <div class="container">
             <h1 class="home_heading_first">Privacy Collection Notice</h1>
-            <p>This Privacy Collection Notice (<b>Collection Notice</b>) describes how Blackbox Tech Pty Ltd t/a Escorts4U (ABN 88
-                664 919 975) (<b>we,</b> <b>us</b> or <b>our</b>) collects and handles your personal information when you make
-                an enquiry with us. We collect personal information from you so that we can respond to your
-                enquiry and for related purposes set out in our <a class="c-red" href="{{ 'privacy-policy' }}"
-                    target="_blank"> Privacy Policy</a>, available on our website (or on request).</p>
+            <p>This Privacy Collection Notice describes how Blackbox Tech Pty Ltd t/a NUM (ABN 88 664
+                919 975) (<b>we,</b> <b>us</b> or <b>our</b>) collects and handles your personal information when you make
+                an
+                enquiry with us. We collect personal information from you so that we can respond to your
+                enquiry and for related purposes set out in our Privacy Policy, available on our website (or
+                on request).</p>
             <p>We may disclose this personal information to third parties, including our personnel, related
-                entities, any third parties engaged by us and acting on our behalf and as otherwise set out in
-                our Privacy Policy.</p>
+                entities, any third parties engaged by us and acting on our behalf and as otherwise set out
+                in our Privacy Policy.</p>
             <p>We store personal information in Australia. Where we disclose your personal information to
-                third parties, those third parties may store, transfer or access personal information outside of
-                Australia.
-            </p>
-            <p>If you do not provide your personal information to us, it may affect your ability to do business with you and offer our services to you.</p>
-            <p>Please see our <a class="c-red" href="{{ 'privacy-policy' }}" target="_blank"> Privacy Policy</a> for more
-                information about how we collect, store, use and
+                third parties, those third parties may store, transfer or access personal information outside
+                of Australia.</p>
+            <p>If you do not provide your personal information to us, it may affect our ability to do business
+                with you.</p>
+            <p>
+                Please see our Privacy Policy for more information about how we collect, store, use and
                 disclose your personal information, including details about overseas disclosure, access,
                 correction, how you can make a privacy-related complaint and our complaint-handling
-                process.</p>
+                process.
+            </p>
             <p>If you have questions about our privacy practices, please contact us by email at:
-                <a class="c-red" href="mailto:privacy@escorts4u.com.au" target="_blank">privacy@escorts4u.com.au</a>. By providing your personal information to us, you agree to the
-                collection, use, storage and disclosure of that information as described in this Collection
-                Notice.</p>
+                <a class="c-red" href="mailto:num@blackboxtech.com.au." target="_blank">num@blackboxtech.com.au</a>. By
+                providing your personal information to us, you agree to the
+                collection, use, storage and disclosure of that information as described in this privacy
+                collection notice.
+            </p>
 
 
 

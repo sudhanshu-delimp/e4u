@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
- 
+
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -36,8 +36,7 @@
                     <!-- Content Section -->
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
-
-                            <p style="margin: 0 0 15px 0;">Attention Operations,</p>
+                            <p style="margin: 0 0 15px 0;"><b>Attention Operations,</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
                                 A request for Products has been requested by:
@@ -45,32 +44,35 @@
 
                             <table>
                                 <tr>
-                                    <td>Member Name:</td>
+                                    <th style="text-align: left">Member Name:</th>
                                     <td>{{ $data['member_name'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Member ID:</td>
+                                    <th style="text-align: left">Member ID:</th>
                                     <td>{{ $data['member_id'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Email:</td>
+                                    <th style="text-align: left">Email:</th>
                                     <td>{{ $data['email'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mobile:</td>
+                                    <th style="text-align: left">Mobile:</th>
                                     <td>{{ $data['mobile'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery address:</td>
+                                    <th style="text-align: left">Delivery address:</th>
                                     <td>{{ $data['delivery_address'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery type:</td>
+                                    <th style="text-align: left">Delivery type:</th>
                                     <td>{{ ucfirst($data['delivery_type']) }}</td>
                                 </tr>
                             </table>
                             <!-- email info -->
-                            <x-email-info />
+                            <p style="font-size: 15px; margin-top: 20px;">
+                                Regards,<br>
+                                <b>E4U - Operations Centre</b>
+                            </p>
                             <!-- end -->
 
                         </td>

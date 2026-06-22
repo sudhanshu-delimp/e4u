@@ -17,7 +17,7 @@
                             <div class="search_filters_inside">
                                 <form method="" action="">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-lg-12 mb-2 d-flex align-items-center justify-content-between flex-wrap">
                                             <div class="custom-search-help mb-2 ">
                                                 <h5 class="normal_heading mb-0">Filters</h5>
                                                 <div class="display_inline_block helpquation">
@@ -26,109 +26,114 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every
+                                            <span class="reshuffle_tag">Listings reshuffle every
                                                 30 minutes. </span>
                                         </div>
-                                        <div class="col-md-8 ryt_srch_btn">
-                                            <div class="display_inline_block">
-                                                <div class="location_radio_filter">
-                                                    <div class="d-flex align-items-start" style="padding-top: 2px;">
-                                                        <input type="radio" name="locationByRadio" 
-                                                            value="your_location" id="yourLocation">
-                                                        <label for="yourLocation"
-                                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                            Your Location
-                                                        </label>
-                                                    </div>
+                                        <div class="col-lg-12">
+                                            <div class="row align-items-center">                                                
+                                                <div class="col-lg-2 location_items mb-1">
+                                                    <div class="location_radio_filter">
+                                                        <div class="d-flex align-items-start" style="padding-top: 2px;">
+                                                            <input type="radio" name="locationByRadio" 
+                                                                value="your_location" id="yourLocation">
+                                                            <label for="yourLocation"
+                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                                                Your Location
+                                                            </label>
+                                                        </div>
 
-                                                    <div class="d-flex align-items-start">
-                                                        <input type="radio" name="locationByRadio" value="australia" checked="checked"
-                                                            id="australia">
-                                                        <label for="australia"
-                                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                            Australia
-                                                        </label>
+                                                        <div class="d-flex align-items-start">
+                                                            <input type="radio" name="locationByRadio" value="australia" checked="checked"
+                                                                id="australia">
+                                                            <label for="australia"
+                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                                                Australia
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="display_inline_block w-100">
-                                                <div
-                                                    class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
+                                                <div class="col-lg-4 search_items mb-1">
+                                                    <div
+                                                        class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
 
-                                                    <!-- Hidden input to hold selected search type -->
-                                                    <input type="hidden" name="search_by_radio" id="search_by_radio"
-                                                        value="0">
+                                                        <!-- Hidden input to hold selected search type -->
+                                                        <input type="hidden" name="search_by_radio" id="search_by_radio"
+                                                            value="0">
 
-                                                    <!-- Search input -->
-                                                    <input type="search" name="by_name_member" id="by_name_member"
-                                                        class="form-control remove_border_btm rounded"
-                                                        placeholder="Search by Member ID or Name" aria-label="Search"
-                                                        aria-describedby="search-addon" value="">
+                                                        <!-- Search input -->
+                                                        <input type="search" name="by_name_member" id="by_name_member"
+                                                            class="form-control remove_border_btm rounded"
+                                                            placeholder="Search by Member ID or Name" aria-label="Search"
+                                                            aria-describedby="search-addon" value="">
 
-                                                    <!-- Search button -->
-                                                    <button
-                                                        class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn upper_filter"
-                                                        id="search-addon" type="submit">
-                                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                                    </button>
+                                                        <!-- Search button -->
+                                                        <button
+                                                            class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn upper_filter"
+                                                            id="search-addon" type="submit">
+                                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                                        </button>
 
-                                                        <input type="hidden" name="lat" id="set_lat" value="">
-                                                        <input type="hidden" name="lng" id="set_lng" value="">
+                                                            <input type="hidden" name="lat" id="set_lat" value="">
+                                                            <input type="hidden" name="lng" id="set_lng" value="">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="display_inline_block   item_dis">
-                                                <span class="item-head">Display item</span>
-                                                <select class="custome_form_control_border_radus padding_five_px" name="per_page" id="per_page"
-                                                    name="limit">
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="75">75</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                                <div class="display_inline_block custom-refreshbuton">
-                                                    <div class="margin_btn_reset">
-                                                        <input type="hidden" name="apply_pagination_rule"
-                                                            id="apply_pagination_rule" value="0">
-                                                        <button type="button"
-                                                            class="btn reset_filter filter-tooltip-wrap apply_pagination_button upper_filter"
-                                                            data-toggle="tooltip" title="" id="">
-                                                            <span class="filter-tooltip">Apply Change</span>
-                                                            <i class="fa fa-repeat" aria-hidden="true"></i>
+                                                <div class="col-lg-6 display_items mb-1">                                                        
+                                                    <div class="item_dis">
+                                                        <span class="item-head">Display item</span>
+                                                        <select class="custome_form_control_border_radus padding_five_px" name="per_page" id="per_page"
+                                                            name="limit">
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="75">75</option>
+                                                            <option value="100">100</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="custom-refreshbuton">
+                                                        <div>
+                                                            <input type="hidden" name="apply_pagination_rule"
+                                                                id="apply_pagination_rule" value="0">
+                                                            <button type="button"
+                                                                class="btn reset_filter filter-tooltip-wrap apply_pagination_button upper_filter"
+                                                                data-toggle="tooltip" title="" id="">
+                                                                <span class="filter-tooltip">Apply Change</span>
+                                                                <i class="fa fa-repeat" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <button type="button" class="btn reset_filter filter-tooltip-wrap"
+                                                            id="v_wishlist">
+                                                            <a href="{{ route('find.massage.shortlist') }}"
+                                                                class="text-decoration-none">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-center gap-5">
+                                                                    <i class="fa fa-list" aria-hidden="true"
+                                                                        style="line-height: 23px;"></i>
+                                                                    <span class="badge badge-pill badge-danger" id="session_count">
+
+                                                                        @if(count(session('wishlist', [])) > 0)
+                                                                            {{ count(session('wishlist', [])) }} 
+                                                                        @else
+                                                                        {{ 0 }}    
+                                                                        @endif
+
+                                                                    </span>
+                                                                </div>
+                                                                <span class="filter-tooltip">View Shortlist</span>
+                                                            </a>
                                                         </button>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="display_inline_block">
-                                                <div class="margin_btn_reset">
-                                                    <button type="button" class="btn reset_filter filter-tooltip-wrap"
-                                                        id="v_wishlist">
-                                                        <a href="{{ route('find.massage.shortlist') }}"
-                                                            class="text-decoration-none">
-                                                            <div
-                                                                class="d-flex align-items-center justify-content-center gap-5">
-                                                                <i class="fa fa-list" aria-hidden="true"
-                                                                    style="line-height: 23px;"></i>
-                                                                <span class="badge badge-pill badge-danger" id="session_count">
-
-                                                                    @if(count(session('wishlist', [])) > 0)
-                                                                        {{ count(session('wishlist', [])) }} 
-                                                                    @else
-                                                                     {{ 0 }}    
-                                                                    @endif
-
-                                                                </span>
-                                                            </div>
-                                                            <span class="filter-tooltip">View Shortlist</span>
+                                                    <div>
+                                                        <a type="submit" href="{{ route('web.massage-show-list') }}"
+                                                            class="btn reset_filter " data-toggle="tooltip" title="">
+                                                            Clear Shortlist
                                                         </a>
-                                                    </button>
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                            <div class="display_inline_block mb-1">
-                                                <a type="submit" href="{{ route('web.massage-show-list') }}"
-                                                    class="btn reset_filter " data-toggle="tooltip" title="">
-                                                    Clear Shortlist
-                                                </a>
                                             </div>
 
                                         </div>
@@ -330,6 +335,11 @@
                                     <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
                                         aria-selected="false">Service Tags</a>
                                 </li>
+                                
+                             <li class="nav-item">
+                                 <a class="nav-link" data-toggle="tab" href="#tabs-5" role="tab"
+                                     aria-selected="false">Verification</a>
+                             </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -374,6 +384,14 @@
                                             panel.</li>
                                     </ol>
                                 </div>
+                                                            
+                             <div class="tab-pane p-3" id="tabs-5" role="tabpanel">
+                                <ol class="pl-3">
+                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
+                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
+                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification. </div></li>
+                                </ol>
+                             </div>
                             </div>
                         </div>
                     </div>

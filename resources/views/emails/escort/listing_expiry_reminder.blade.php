@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Listing Expiry Reminder</title>
-    
+
 </head>
+
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -34,7 +36,7 @@
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$escort->user->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                Your Escort Profile **{{ $escort->name ?? 'on our site' }}** listing is set to expire on  {{ \Carbon\Carbon::parse($escort->end_date)->format('d-m-Y') }}.
+                                Your Escort Profile **{{ $escort->name ?? 'on our site' }}** listing is set to expire on {{ \Carbon\Carbon::parse($escort->end_date)->format('d-m-Y') }}.
                             </p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 For your Profile to continue to be Listed, please extend your Profile Listing before the expiry date.
@@ -42,9 +44,9 @@
                             <div style="text-align: center; margin:30px 0px;">
                                 <a href="{{route('escort.list','current')}}" style="background:#0c223d; font-size:14px;border-radius:5px; color:#fff; padding:10px; text-decoration:none;">Extend Now</a>
                             </div>
-                            
-                             <!-- email info -->
-                                <x-email-info/>
+
+                            <!-- email info -->
+                            <x-email-info />
                             <!-- end -->
                         </td>
                     </tr>
@@ -54,8 +56,8 @@
                 <table width="600" cellpadding="0" cellspacing="0"
                     style="background-color:#0c223d; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
-                         <td>
-                            <x-email-footer/>
+                        <td>
+                            <x-email-footer />
                         </td>
                     </tr>
                 </table>
@@ -63,4 +65,5 @@
         </tr>
     </table>
 </body>
+
 </html>

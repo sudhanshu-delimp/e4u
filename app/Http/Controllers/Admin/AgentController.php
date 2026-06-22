@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-
-use Laravel\Ui\Presets\React;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Agent\AddNewAgent;
+use App\Models\User;
+use App\Models\VariablAgentOperator;
 use App\Repositories\Agent\AgentInterface;
+use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class AgentController extends BaseController
 {
@@ -54,7 +54,9 @@ class AgentController extends BaseController
         
         //$lists = User::where('type','5')->get();
         //dd($lists);
-        return view('admin.management.agent');
+        
+        $commissionfee = VariablAgentOperator::all()->toArray();
+        return view('admin.management.agent',compact('commissionfee'));
 
     }
 
@@ -130,7 +132,8 @@ class AgentController extends BaseController
             $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login!=NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
             $item->agent_id = $item->id;
             	
-            $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
+            //$item->territory = isset($item->state->name) ? $item->state->name : 'NA';
+            $item->territory = isset($item->state->iso2) ? $item->state->iso2 : 'NA';
             $statusText = $item->status ?? 'NA';
             $badgeClass = getStatusBadgeClass($statusText);
             

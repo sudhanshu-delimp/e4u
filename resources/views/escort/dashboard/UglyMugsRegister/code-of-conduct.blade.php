@@ -23,13 +23,6 @@
          </a>
      </div>
    </div>
-   {{-- <div class="col-md-12 my-4">
-      <div class="back-to-dashboard">
-         <a href="{{ url()->previous() ?? route('user.add-report') }}">
-             <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-         </a>
-     </div>
-   </div> --}}
 </div>
    <div class="row my-5">
       <div class="col-md-10 ">

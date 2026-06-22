@@ -78,10 +78,6 @@
         border-radius: 20px;
         text-align: center;
     }
-    .brb_details {
-        color: red;
-        padding-top: 5%;
-    }
     .swal2-popup{
             width: auto !important;
         }
@@ -121,172 +117,180 @@
 @endphp
 
 
-<div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
-   
-
-        <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
-        <div class="container">
+    <div class="profile_description_banner">
+        <div class="container profile_pic_holder custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
             <div class="row">
-                <div class="overlay">
-                    @if($escort->latestActiveBrb)
-                        <div class="brb_details">
-                            <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
-                            <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
-            
-            <div class="row">
-                @php
+                <div class="col-12 p-0">
 
-                   if (str_contains($backToSearchButton, 'view=')) {
-                        $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
-                    } else {
-                        // If view param not present, append it properly
-                        $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
-                        $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
-                    }
-                    
-                @endphp
-                <div class="col-12">
-                    <a href="{{ $finalUrl }}" class="back--search"> <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
-                </div>
-            </div>
-        </div>
-            <div>
-                <div class="profile_page_title px-3">
-                    @php 
-                    $isPinupActive = $escort->currentActivePinup;
-                    $membershipImage = match ($escort->membership) {
-                        '1' => $isPinupActive?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
-                        '2' => $isPinupActive?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
-                        '3' => $isPinupActive?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
-                        default => false
-                    };
-
-
-                    if($escort->gender =='Transgender')
-                    {
-                             $escortName = 'TS-'.$escort->name;
-                    }
-                    else
-                    {
-                             $escortName =  $escort->name;
-                    }
-                       
-
-                    @endphp
-
-                    @if($membershipImage)
-                       <div class="{{($isPinupActive)?'pinup-wrapper':''}}">
-                            <img src="{{ $membershipImage }}">
-                            <div class="pinup-tooltip">I am your Pin Up this week!</div>
-                       </div> 
-                    @endif
-
-                    @if(strlen($escortName) <= 250)
-                            <h2 class="display_inline_block">  {{ $escortName }}</h2>
-                    @else
-                            <h3 class="display_inline_block" style="color: white;">{{ $escortName }}</h3>
+                    {{-- brb banner --}}
+                    <div class="new_brb-banner">
+                        @if($escort->latestActiveBrb)
+                            <div class="brb_details">
+                                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
+                                <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
+                            </div>
                         @endif
-                </div>
-                <div class="profile_page_name_and_phno px-3">
-                <p>{{$escort->city->name}} - {{  $escort->phone }}</p>
-
-
-                    
-                </div>
-            </div>
-            <div class="profile_page_location_and_id px-3">
-                <ul>
-                    <li>
-                        <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                        <p class="display_inline_block ">{{ $escort->address}}</p>
-                    </li>
-                    <li>
-                        <span class="profile_location_icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
-                    </li>
-                </ul>
-            </div>
-                <div class="d-flex align-items-center justify-content-start gap-10 px-3">
-                            
-
-                <div class="d-flex align-items-center justify-content-start">
-                    <div class="my-play-box-profile-icon">
-                        <a href="{{ url('playbox') }}" target="_blank">
-                            <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
-                        </a>
-                        <div class="custom-tooltip">I don't have any Playbox.</div>
                     </div>
-                    @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
-                        <div class="my-play-box-profile-icon">
-                            <a href="#">
-                                <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
-                            </a>
-                            <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
-                        </div>
-                    @endif
-                </div>
-                <ul class="profile_page_social_profiles">
-               
-                    @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
-                        @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
-                            <li class="selected-from-profile">
-                                <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                                <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
-                            </li>
-                        @endif
-                        @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
-                        @endif
-                        @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
-                        @else
-                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
-                        @endif
-                    @else
-                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
-                    @endif
-                </ul>
+                    {{-- end brb --}}
+                    <div class="profile_wrap p-3 position-relative">
+                        <div class="profile_header">
+                            
+                            {{-- title --}}
+                            <div class="profile_page_title">
+                                @php 
+                                $isPinupActive = $escort->currentActivePinup;
+                                $membershipImage = match ($escort->membership) {
+                                    '1' => $isPinupActive?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
+                                    '2' => $isPinupActive?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
+                                    '3' => $isPinupActive?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
+                                    default => false
+                                };
 
+
+                                if($escort->gender =='Transgender')
+                                {
+                                        $escortName = 'TS-'.$escort->name;
+                                }
+                                else
+                                {
+                                        $escortName =  $escort->name;
+                                }
+                                
+
+                                @endphp
+
+                                @if($membershipImage)
+                                <div class="{{($isPinupActive)?'pinup-wrapper':''}} member_type">
+                                        <img src="{{ $membershipImage }}">
+                                        <div class="pinup-tooltip">I am your Pin Up this week!</div>
+                                </div> 
+                                @endif
+
+                                @if(strlen($escortName) <= 250)
+                                    <h2 class="display_inline_block">  {{ $escortName }}</h2>
+                                @else
+                                    <h3 class="display_inline_block" style="color: white;">{{ $escortName }}</h3>
+                                @endif
+                            </div>
+                            {{-- back to search --}}
+                            @php
+
+                            if (str_contains($backToSearchButton, 'view=')) {
+                                    $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
+                                } else {
+                                    // If view param not present, append it properly
+                                    $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
+                                    $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
+                                }
+                                
+                            @endphp
+                           
+                                <a href="{{ $finalUrl }}" class="back--search"> 
+                                    <span class="previous_icon">
+                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                                    </span> <span class="hide_ph">Back to Search</span>
+                                </a>
+                            
+                        {{-- end --}}
+                        </div>
+                        {{-- profile phone --}}
+                        <div class="profile_page_name_and_phno">
+                            <p>{{$escort->city->name}} - {{  $escort->phone }}</p>                    
+                        </div>
+                        {{-- address --}}
+                        <div class="profile_page_location_and_id">
+                            <ul>
+                                <li>
+                                    <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                    <p class="display_inline_block ">{{ $escort->address}}</p>
+                                </li>
+                                <li>
+                                    <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
+                                    <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        {{-- address --}}
+                        <div class="social_media_profile">                           
+
+                            <div class="d-flex align-items-center justify-content-start">
+                                <div class="my-play-box-profile-icon">
+                                    <a href="{{ url('playbox') }}" target="_blank">
+                                        <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+                                    </a>
+                                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                                </div>
+                                @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+                                    <div class="my-play-box-profile-icon">
+                                        <a href="#">
+                                            <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+                                        </a>
+                                        <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+                                    </div>
+                                @endif
+                            </div>
+                            <ul class="profile_page_social_profiles">
+                        
+                                @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
+                                    @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
+                                        <li class="selected-from-profile">
+                                            <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                                            <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
+                                        </li>
+                                    @endif
+                                    @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
+                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                    @endif
+                                    @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
+                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                    @else
+                                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                    @endif
+                                @else
+                                    <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-</div>
-    <div class="container-fluid px-0 next-preview-fixed">
+    </div>  
+
+    <!--- Pagination btn -->
+    <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
-                <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="text-decoration-none d-flex ">
+            <div class="previous_btn_profile next_previous_btn_pogision  previousDisableButtonCss">
+                <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="btn_ank">
                 <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                 <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
             
-            <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss" >
-                <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="text-decoration-none ">
+            <div class="next_btn_profile next_previous_btn_pogision nextDisableButtonCss" >
+                <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="btn_ank">
                 <span class="previous_text remove_in_sm">Next</span>
                 <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>
             </div>
         </div>
     </div> 
+    <!---! end -->
+    <!--- profile Detials -->
     <div class="container profile_contain">
         <div class="row">
-           
-            <div class="col-md-8 col-xl-8 col-sm-12 col-12">
+            <!--- col-8 -->        
+            <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 col-12">
                 <div class="row mb-3">
                     <div class="col-md-12 col-xl-12 col-sm-12 col-12">
                         <div class="row mess_row">
                             <div class="col-sm-12 d-flex align-items-center justify-content-between flex-wrap ">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
                                     <div class="mc_tooltip_wrap">
-                                         <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                        <img src="{{ asset('assets/app/img/handwithhart.png') }}">
                                         <p class="mc_rate_tooltip">You come to me.</p>
                                     </div>
-                                   
+                                
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Massage</h4>
@@ -303,11 +307,11 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                     <div class="mc_tooltip_wrap">
-                                          <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                    <div class="mc_tooltip_wrap">
+                                        <img src="{{ asset('assets/app/img/areodownimg.png') }}">
                                         <p class="mc_rate_tooltip">You come to me.</p>
-                                     </div>
-                                   
+                                    </div>
+                                
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Incalls</h4>
@@ -325,10 +329,10 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
                                     
-                                     <div class="mc_tooltip_wrap">
-                                         <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                    <div class="mc_tooltip_wrap">
+                                        <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
                                         <p class="mc_rate_tooltip">I come to you.</p>
-                                     </div>
+                                    </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Outcalls</h4>
@@ -340,68 +344,40 @@
                                             @endphp
                                             {{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}
                                             </h4>
-                                           
+                                        
                                         </div>
                                     </div>
                                 </div>
                                 {{-- button --}}
                                 <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
-                            @if(auth()->user())
-                                @if(auth()->user()->type == 0)
-                                    <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
-                                        id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
-                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                                        @if(!empty($user_type))
-                                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
-                                                <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
-                                            @else
-                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                            @endif
+                                    @if(auth()->user())
+                                        @if(auth()->user()->type == 0)
+                                            <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
+                                                id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
+                                                data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+                                                @if(!empty($user_type))
+                                                    @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
+                                                        <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                                    @else
+                                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                    @endif
+                                                @endif
+                                            </span>
+                                        @else
+                                            <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                                         @endif
-                                    </span>
-                                @else
-                                    <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                                @endif
-                            @else
-                                <span class="add_to_favrate" data-escortId="{{$escort->id}}"
-                                      data-name="{{$escort->name}}"><i class="fa fa-heart-o"
-                                                                       aria-hidden="true"></i></span>
-                            @endif
-                            <span class="label save-my-legbox-btn">
-                                @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
-                            </span>
-                        </button>
+                                        @else
+                                            <span class="add_to_favrate" data-escortId="{{$escort->id}}"
+                                                data-name="{{$escort->name}}"><i class="fa fa-heart-o"
+                                                                                aria-hidden="true"></i></span>
+                                        @endif
+                                        <span class="label save-my-legbox-btn">
+                                            @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
+                                        </span>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-md-12 col-xl-4 col-sm-12 text-center">
-                        <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
-                            @if(auth()->user())
-                                @if(auth()->user()->type == 0)
-                                    <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
-                                        id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
-                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                                        @if(!empty($user_type))
-                                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
-                                                <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
-                                            @else
-                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                            @endif
-                                        @endif
-                                    </span>
-                                @else
-                                    <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                                @endif
-                            @else
-                                <span class="add_to_favrate" data-escortId="{{$escort->id}}"
-                                      data-name="{{$escort->name}}"><i class="fa fa-heart-o"
-                                                                       aria-hidden="true"></i></span>
-                            @endif
-                            <span class="label save-my-legbox-btn">
-                                @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
-                            </span>
-                        </button>
-                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 mb-2 table-responsive-lg">
@@ -428,9 +404,9 @@
                                 </tr>
                                 @endforeach
                                 @endif
-                               
+                            
                             </tbody>
-                             <thead class="table_heading_bgcolor_color">
+                            <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
                                         {{ config("escorts.profile.Payments.$escort->payment_type") }}
@@ -540,7 +516,7 @@
                                 <div class="mb-2">
                                     <span class="about_box_small_heading">Available to:</span>
                                     @if(!empty($escort->available_to))
-                                       <span class="about_box_small_heading_value"> {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}</span>
+                                    <span class="about_box_small_heading_value"> {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -600,7 +576,7 @@
                                 @endif
                                 <!-- <div class="mb-2">
                                     <span class="about_box_small_heading">Language:</span>
-                                     @if(!empty($escort->language))  @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
+                                    @if(!empty($escort->language))  @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
                                     </div> -->
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
@@ -649,14 +625,14 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12">
-                                   <div class="mb-2">
-    <span class="about_box_small_heading">Play types:</span>
-    @if(!empty($escort->play_type))
-        <span class="about_box_small_heading_value">
-            {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
-        </span>
-    @endif
-</div>
+                                <div class="mb-2">
+                                        <span class="about_box_small_heading">Play types:</span>
+                                        @if(!empty($escort->play_type))
+                                            <span class="about_box_small_heading_value">
+                                                {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
+                                            </span>
+                                        @endif
+                                    </div>
 
                                     <div class="mb-2">
                                         <span class="about_box_small_heading">Payment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
@@ -958,696 +934,610 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 profile-sidebar-margin-top">
-                <!-- video crousal start -->
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 px-0 profile_verify_icon ec-slider">
-                                
-                            <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
-                                <div class="carousel-inner">
-                                    
+
+            <!--- col-4 -->
+            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12 col-12 profile-sidebar-margin-top">
+                <!-- crousal start -->
+                <div class="profile_verify_icon ec-slider">                        
+                    <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner">
+                            
                             @if($escort->gallary->isNotEmpty())
                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
                             
-                            <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
-                           
-                            <div class="row">
-                                <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
-                                    @php $status = $media->varified ?? "0"; @endphp
-                                   
-                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
-                                    <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
-                                    </div>
-                            </div>
-                             <div class="verify_icon">
-                                @switch($status)
-                                    @case(0)
-                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                        <span class="common_shield_tooltip">Media Pending</span>
-                                    @break
-                                    @case(1)
-                                        <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                        <span class="common_shield_tooltip">Media Verified</span>
-                                    @break
-                                    @case(2)
-                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                        <span class="common_shield_tooltip">Media Unverified</span>
-                                    @break
-                                @endswitch
-                            </div>
-                        </div>
-                        @endforeach
-                        @else
-                        <div class="carousel-item active " data-interval="10000">
-                            <div class="row">
-                                <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
-                                    <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
-                                    <div class="custom-tooltip">I don't have any Playbox.</div>
-                                    </div>
-                            </div>
-                        </div>
-                        @endif
-                        <!-- Modal -->
-                        @php 
-                            $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
-                        @endphp
-                        <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                            {{-- <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
-                                        <ul class="nav nav-tabs justify-content-center border-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
-                                            </li>
-                                            @if ($galleryVideos->count()>0)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
-                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                                        </button>
-                                    </div>
-                                 
-                                    <div class="modal-body p-1">
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
-                                                <div class="gallery">
-                                                    @if($escort->gallary->isNotEmpty())
-
-
-                                                            <div class="gallery__item gallery__item--lg">
-                                                                <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                                                    @php 
-                                                                        $item = $escort->gallary()->wherePivotIn('position',[1])->first();
-                                                                    @endphp
-                                                                    @if($item)
-                                                                        @php $media_status =  getMediaVerificationDataBigIcon($item->varified ?? 0); @endphp
-                                                                            <div class="verify_icon">
-                                                                                <img src="{{ $media_status['icon'] }}">
-                                                                                <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
-                                                                            </div>
-                                                                    @endif
-                                                            </div>
-                                                            <div class="small-images">
-                                                            @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
-                                                            
-                                                                <div class="gallery__item">
-                                                                    <img src="{{ asset($media->path) }}" alt="">
-                                                                    @php 
-                                                                        $media_status = getMediaVerificationDataSmallIcon(($media->varified ?? 0));
-                                                                    @endphp
-                                                                     @if($media_status)
-                                                                        <div class="verify_icon_sm">
-                                                                            <img src="{{ $media_status['icon'] }}">
-                                                                            <span class="gallery_shield_tooltip">{{ $media_status['label'] }}</span>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-
-                                                            @endforeach
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
-                                                <div class="row px-3 pb-2" id="dvSource">
-                                                    
-                                                            @foreach($galleryVideos as $key=>$media)
-                                                                <div class="col-md-4" id="dm_2">
-                                                                    <a href="#">
-                                                                        <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                            <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                                        </video>
-                                                                    </a>
-                                                                </div>
-                                                            @endforeach
-                                                      
-
-                                                </div>
+                                <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
+                            
+                                    <div class="row">
+                                        <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
+                                            @php $status = $media->varified ?? "0"; @endphp
+                                        
+                                            <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
+                                            <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                             </div>
                                         </div>
-
+                                        <div class="verify_icon">
+                                            @switch($status)
+                                                @case(0)
+                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
+                                                    <span class="common_shield_tooltip">Media Pending</span>
+                                                @break
+                                                @case(1)
+                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
+                                                    <span class="common_shield_tooltip">Media Verified</span>
+                                                @break
+                                                @case(2)
+                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
+                                                    <span class="common_shield_tooltip">Media Unverified</span>
+                                                @break
+                                            @endswitch
+                                        </div>
                                     </div>
-                                </div>
-                            </div> --}}
-                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
-                                        <ul class="nav nav-tabs justify-content-center border-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu3">My Photos</a>
-                                            </li>
-                                            @if ($galleryVideos->count()>0)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu4">My Videos</a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
-                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                                        </button>
+                                    @endforeach
+                                    @else
+                                    <div class="carousel-item active " data-interval="10000">
+                                        <div class="row">
+                                            <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
+                                                <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
+                                                <div class="custom-tooltip">I don't have any Playbox.</div>
+                                                </div>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="tab-content" id="myTabContent2">
-                                            <div class="tab-pane fade show active" id="menu3" role="tabpanel" aria-labelledby="profile-tab">
-                                            <div id="gallery" class="photos-grid-container gallery">
+                                    @endif
+                                    <!-- Modal -->
+                                    @php 
+                                        $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+                                    @endphp
+                                    <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                        
+                                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header d-flex justify-content-between align-items-center">                                       
+                                                    <ul class="nav nav-tabs justify-content-center border-0">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu3">My Photos</a>
+                                                        </li>
+                                                        @if ($galleryVideos->count()>0)
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu4">My Videos</a>
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                    <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                                                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="tab-content" id="myTabContent2">
+                                                        <div class="tab-pane fade show active" id="menu3" role="tabpanel" aria-labelledby="profile-tab">
+                                                        <div id="gallery" class="photos-grid-container gallery">
 
-                                                    @if($escort->gallary->isNotEmpty())
-
-                                                        @php
-                                                            $allImages = $escort->gallary()
-                                                                ->wherePivot('type',0)
-                                                                ->wherePivotIn('position',[1,2,3,4,5,6,7])
-                                                                ->orderBy('position','asc')
-                                                                ->get();
-
-                                                            $firstImage = $allImages->first();
-
-                                                            $displayImages = $allImages->filter(function($item){
-                                                                return in_array($item->pivot->position,[2,3,4,5,6,7]);
-                                                            });
-                                                        @endphp
-
-                                                        {{-- Main Image (Position 1) --}}
-                                                        <div class="main-photo img-box">
-
-                                                            @php
-                                                                $item = $escort->gallary()
-                                                                    ->wherePivotIn('position',[1])
-                                                                    ->first();
-                                                            @endphp
-
-                                                            @if($item)
-
-                                                                <a href="{{ asset($item->path) }}"
-                                                                class="glightbox image-wrapper"
-                                                                data-gallery="escort-gallery">
-
-                                                                    <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
-
-                                                                    <div class="hover-overlay">
-                                                                        <span>Click me!</span>
-                                                                    </div>
-                                                                </a>
-
-                                                                @php
-                                                                    $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
-                                                                @endphp
-
-                                                                @if($media_status)
-                                                                    <div class="verify_icon" style="border-radius: 0px 0px 10px 0px;">
-                                                                        <img src="{{ $media_status['icon'] }}" >
-                                                                        <span class="common_shield_tooltip">
-                                                                            {{ $media_status['label'] }}
-                                                                        </span>
-                                                                    </div>
-                                                                @endif
-                                                                 
-                                                            @endif
-                                                          
-                                                        </div>
-
-                                                        <div class="sub">
-
-                                                            {{-- Images 2,3,4 --}}
-                                                            @foreach($displayImages as $media)
-
-                                                                <div class="img-box">
-
-                                                                    <a href="{{ asset($media->path) }}"
-                                                                    class="glightbox image-wrapper"
-                                                                    data-gallery="escort-gallery">
-
-                                                                        <img src="{{ asset($media->path) }}" alt="others" title="View in large">
-                                                                            <div class="hover-overlay">
-                                                                            <span>Click me!</span>
-                                                                        </div>
-                                                                    </a>
+                                                                @if($escort->gallary->isNotEmpty())
 
                                                                     @php
-                                                                        $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
+                                                                        $allImages = $escort->gallary()
+                                                                            ->wherePivot('type',0)
+                                                                            ->wherePivotIn('position',[1,2,3,4,5,6,7])
+                                                                            ->orderBy('position','asc')
+                                                                            ->get();
+
+                                                                        $firstImage = $allImages->first();
+
+                                                                        $displayImages = $allImages->filter(function($item){
+                                                                            return in_array($item->pivot->position,[2,3,4,5,6,7]);
+                                                                        });
                                                                     @endphp
 
-                                                                    @if($media_status)
-                                                                        <div class="verify_icon_sm">
-                                                                            <img src="{{ $media_status['icon'] }}">
-                                                                            <span class="gallery_shield_tooltip">
-                                                                                {{ $media_status['label'] }}
-                                                                            </span>
-                                                                        </div>
-                                                                    @endif
+                                                                    {{-- Main Image (Position 1) --}}
+                                                                    <div class="main-photo img-box">
 
-                                                                </div>
+                                                                        @php
+                                                                            $item = $escort->gallary()
+                                                                                ->wherePivotIn('position',[1])
+                                                                                ->first();
+                                                                        @endphp
 
-                                                            @endforeach                                                              
+                                                                        @if($item)
 
-                                                        </div>
-                                                       
+                                                                            <a href="{{ asset($item->path) }}"
+                                                                            class="glightbox image-wrapper"
+                                                                            data-gallery="escort-gallery">
 
-                                                        {{-- Hidden Images For Lightbox Navigation --}}
-                                                        <div style="display:none;">
+                                                                                <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
 
-                                                            @foreach($allImages as $media)
+                                                                                <div class="hover-overlay">
+                                                                                    <span>Click me!</span>
+                                                                                </div>
+                                                                            </a>
 
-                                                                <a href="{{ asset($media->path) }}"
-                                                                class="glightbox"
-                                                                data-gallery="escort-gallery">
-                                                               
-                                                                </a>
+                                                                            @php
+                                                                                $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
+                                                                            @endphp
+
+                                                                            @if($media_status)
+                                                                                <div class="verify_icon" style="border-radius: 0px 0px 10px 0px;">
+                                                                                    <img src="{{ $media_status['icon'] }}" >
+                                                                                    <span class="common_shield_tooltip">
+                                                                                        {{ $media_status['label'] }}
+                                                                                    </span>
+                                                                                </div>
+                                                                            @endif
+                                                                            
+                                                                        @endif
+                                                                    
+                                                                    </div>
+
+                                                                    <div class="sub">
+
+                                                                        {{-- Images 2,3,4 --}}
+                                                                        @foreach($displayImages as $media)
+
+                                                                            <div class="img-box">
+
+                                                                                <a href="{{ asset($media->path) }}"
+                                                                                class="glightbox image-wrapper"
+                                                                                data-gallery="escort-gallery">
+
+                                                                                    <img src="{{ asset($media->path) }}" alt="others" title="View in large">
+                                                                                        <div class="hover-overlay">
+                                                                                        <span>Click me!</span>
+                                                                                    </div>
+                                                                                </a>
+
+                                                                                @php
+                                                                                    $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
+                                                                                @endphp
+
+                                                                                @if($media_status)
+                                                                                    <div class="verify_icon_sm">
+                                                                                        <img src="{{ $media_status['icon'] }}">
+                                                                                        <span class="gallery_shield_tooltip">
+                                                                                            {{ $media_status['label'] }}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                @endif
+
+                                                                            </div>
+
+                                                                        @endforeach                                                              
+
+                                                                    </div>
                                                                 
 
-                                                            @endforeach
+                                                                    {{-- Hidden Images For Lightbox Navigation --}}
+                                                                    <div style="display:none;">
 
-                                                        </div>
+                                                                        @foreach($allImages as $media)
 
-                                                    @endif
+                                                                            <a href="{{ asset($media->path) }}"
+                                                                            class="glightbox"
+                                                                            data-gallery="escort-gallery">
+                                                                        
+                                                                            </a>
+                                                                            
 
-                                                </div>                      
-                                            </div> 
-                                            
-                                            
-                                            <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
-                                                <div class="row px-3 pb-2" id="dvSource">
-                                                    
-                                                    @foreach($galleryVideos as $key=>$media)
-                                                        <div class="col-md-4" id="dm_2">
-                                                            <a href="#">
-                                                                <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                    <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                                </video>
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
+                                                                        @endforeach
+
+                                                                    </div>
+
+                                                                @endif
+
+                                                            </div>                      
+                                                        </div> 
                                                         
+                                                        
+                                                        <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
+                                                            <div class="row px-3 pb-2" id="dvSource">
+                                                                
+                                                                @foreach($galleryVideos as $key=>$media)
+                                                                    <div class="col-md-4" id="dm_2">
+                                                                        <a href="#">
+                                                                            <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                                <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                            </video>
+                                                                        </a>
+                                                                    </div>
+                                                                @endforeach
+                                                                    
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                                </a>
+                    </div>
+                </div>
+                <!-- crousal end -->
 
+                <!-- message btn -->
+                <div class="pt-2 eqal-bx">
+                    <div class="mess_repo_btn_wrap">
+                        <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
+                        <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Me</button>
+                        <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Report Advertiser</button>
+                    </div>   
+                </div>
+
+                <!-- like bar -->
+                <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
+                    <div class="like_img">
+                        <i id="dislike" class="{{ $escortLike && $escortLike->like == 0 ? 'fa fa-thumbs-down' : 'fa fa-thumbs-o-down'}} " title="Dislike" aria-hidden="true"></i>
+                    <!-- <img class="likeImg" id="dislike" value='0' src="{{ asset('assets/app/img/dislike.png') }}"> -->
+                    </div>
+                    <div class="process_bar_width like_mjo">
+                        <div id="vote_bar" class="progress" style="height: 25px;">
+                            @if($lp || $dp)
+                            <div class="progress-bar bg-danger progress-bar-stripped" style="width: {{$dp}}%">
+                                {{$dp}}%
+                            </div>
+                            <div class="progress-bar bg-success" style="width: {{$lp}}%;">
+                                {{$lp}}%
+                            </div>
+                            @else
+                            <div class="progress-bar" style="width: 100%; background-color: grey;">
+                                No votes
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="like_img">
+                        {{-- {{ dd($escortLike)}} --}}
+                        <i id="like" class="{{ $escortLike && $escortLike->like == 1 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up'}}" title="Like" aria-hidden="true"></i>
+
+                    </div>
+                </div>
+
+                <!-- My Playmates-->
+                <div class="box_shadow manage_padding_margin_bg_color">
+                    <div class="profile_card_border profile_description_contect">
+                        <h2><img src="{{ asset('assets/app/img/icon_my-playmates.svg') }}" style="width: 36px">My Playmates</h2>
+                    </div>
+                    <div class="padding_20_tob_btm_side reduse_pad">
+                        @if($escort->playmates->count() > 0 && $escort->activeSuspendProfile->count()==0)
+                            <p class="profile_description_contect_pera">Message me to arrange a play date.</p>
+                            <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
+                                
+                                @foreach($escort->playmates as $playmate)
+                                    @php  
+                                        $image = $playmate->gallary()->wherePivot('position', 1)->first();
+                                    @endphp
+                                    <div>
+                                        
+                                        <a href="{{ route('profile.description',$playmate->id)}}" target="_blank">
+                                            <div class="playmates-pro-container">
+                                                <img  alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="{{$image->path ? asset($image->path) : asset('assets/app/img/icons-profile.png') }}">
+                                                <div class="custom-tooltip">
+                                                    Hi, my name is {{ $playmate->name }}. <br>
+                                                    Click to view my Profile.
+                                                </div>
+                                            </div>
+                                        
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                        <p class="profile_description_contect_pera">{{$escortName}} does not have any Playmates.</p>
+                        @endif
+                    </div>
+                </div>
+                <!--  Contacting me -->
+                <div class="box_shadow manage_padding_margin_bg_color">
+                    <div class="profile_card_border profile_description_contect">
+                        <h2><img src="{{ asset('assets/app/img/contact_me.svg') }}"> Contacting me</h2>
+                    </div>
+                    <div class="padding_20_tob_btm_side reduse_pad">
+                        <div class="span_display_block connecting_me_chat_phone">You can contact me by:
+                            @php
+                                $contactType = $escort->contact != null ? $escort->contact : '';
+                            @endphp
+                            @if($contactType == 1)
+                                <span class="tooltip-wrapper">
+                                    <img src="{{ asset('assets/app/img/email-me.png') }}">
+                                    <div class="tooltip-text">Email me</div>
+                                </span>                              
+                            
+                            @endif
+
+                            @if($contactType == 4 || $contactType == 5)
+                                <span class="tooltip-wrapper">
+                                    <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                                    <div class="tooltip-text">Call me</div>
+                                    @if($contactType == 5)
+                                        <span>or</span>
+                                    @endif
+                                </span>
+                            @endif
+                            @if($contactType == 2 || $contactType == 5)
+                                <span class="tooltip-wrapper">
+                                        <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                                        <div class="tooltip-text">Text me</div>
+                                </span>
+                            @endif
+                        
+                        </div> 
+                                
+                        @php
+
+
+                            $from = $escort->phone;
+                            $number = sprintf("%s-%s-%s",
+                            substr($from, 0, 3),
+                            substr($from, 3, 3),
+                            substr($from, 6));
+                            //dd($number);
+                        @endphp
+                        <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
+                        <p class="profile_description_contect_pera">
+                            <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> 
+                            @php
+                                $formattedNumber = $escort->phone;
+                                $contactTypes = $escort->contact != null ? $escort->contact : '';
+                            
+                            @endphp
+                        </p>    
+                        <p style="line-height: 1;">
+                            @if($contactTypes != '')
+                                @if($contactTypes == 1)
+                                    on my email {{ $escort->user->email ?? '' }}
+                                @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
+                                    on my number {{ $formattedNumber }}.
+                                @else
+                                    on my number --
+                                @endif
+                            @else
+                                {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
+                                on my number --
+                            @endif
+                        </p>
+                    </div>
+                </div>
+                <!--  vax-btn -->
+                <div class="vax-btn">
+                    @if($escort->getRawOriginal('covidreport') == 2)
+                        <button type="button" class="btn my_legbox single-prof-btn"><img src="{{ asset('assets/app/img/vaccinated.svg') }}">Vaccinated, up to date</button>
+                    @elseif($escort->getRawOriginal('covidreport') == 1)
+                        <button type="button" class="btn my_legbox single-prof-btn"><img src="{{ asset('assets/app/img/vaccinated.svg') }}">Vaccinated, not up to date</button>
+                    @else
+                        <button type="button" class="btn my_legbox single-prof-btn"><img src="{{ asset('assets/app/img/vax.svg') }}">Not Vaccinated</button>
+                    @endif
+                </div>
+                <!--  Deposit -->
+                <div class="accordion-container-new">
+                    <div class="set">
+                        <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
+                            Deposit <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="content">                        
+                            <div class="accodien_manage_padding_content">
+                                <p></p>
+                                <table class="table text-center table-bordered">
+                                    <thead class="table-bg">
+                                        <tr>
+                                            <th>Incall</th>
+                                            <th>Outcall</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center w-50"> @if($escort->incall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->incall_amount}}</div> @else NO @endif</td>
+                                            <td class="text-center w-50"> @if($escort->outcall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->outcall_amount}}</div> @else NO @endif</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set">
+                        <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
+                            My Pricing Policy <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="content">
+                            <div class="accodien_manage_padding_content">
+                                <p class="text-justify">
+                                    Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and may require a Deposit.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set">
+                        <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
+                            Disclaimer <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="content">
+                            <div class="accodien_manage_padding_content">
+                                <p class="text-justify">Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
+                                    Anything that may occur between us is our choice as consenting adults.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tips -->
+                <div class="box_shadow padding_twelve_px">
+                    <div class="profile_card_border profile_description_contect position-relative">
+                        <h2><img src="{{ asset('assets/app/img/tips.svg') }}">Tips</h2>
+                    </div>
+                    <div class="pt-2">
+                        <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="5000">
+                            <!-- Wrapper for carousel items -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item tip_carousel_item_text active item-01">
+                                    <p>Ask questions and become informed.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Protect your details, use our contact form.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>If it seems to good to be true, it probably is.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Report any suspicious Profiles.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Only meet Advertisers who seem trustworthy.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Trust your instincts.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Avoid using email, use our messaging centre.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Be cautious with external links.</p>
+                                </div>
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Do not offer any of your personal information.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- video crousal end -->
-    <div class="row pt-2 eqal-bx">
-        <div class="col-xl-5 col-sm-12 my-1 text-center">
-            <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
-            <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Me</button>
-        </div>
-        <div class="col-xl-7 col-sm-12 my-1 text-center">
-            <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Report Advertiser</button>
-        </div>
-    </div>
-    <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
-        <div class="like_img">
-            <i id="dislike" class="{{ $escortLike && $escortLike->like == 0 ? 'fa fa-thumbs-down' : 'fa fa-thumbs-o-down'}} " title="Dislike" aria-hidden="true"></i>
-        <!-- <img class="likeImg" id="dislike" value='0' src="{{ asset('assets/app/img/dislike.png') }}"> -->
-        </div>
-        <div class="process_bar_width like_mjo">
-            <div id="vote_bar" class="progress" style="height: 25px;">
-                @if($lp || $dp)
-                <div class="progress-bar bg-danger progress-bar-stripped" style="width: {{$dp}}%">
-                    {{$dp}}%
-                </div>
-                <div class="progress-bar bg-success" style="width: {{$lp}}%;">
-                    {{$lp}}%
-                </div>
-                @else
-                <div class="progress-bar" style="width: 100%; background-color: grey;">
-                    No votes
-                </div>
-                @endif
-            </div>
-        </div>
-        <div class="like_img">
-            {{-- {{ dd($escortLike)}} --}}
-            <i id="like" class="{{ $escortLike && $escortLike->like == 1 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up'}}" title="Like" aria-hidden="true"></i>
-
-        </div>
-    </div>
-
-    <div class="box_shadow manage_padding_margin_bg_color">
-        <div class="profile_card_border profile_description_contect">
-            <h2><img src="{{ asset('assets/app/img/icon_my-playmates.svg') }}" style="width: 36px">My Playmates</h2>
-        </div>
-        <div class="padding_20_tob_btm_side reduse_pad">
-            @if($escort->playmates->count() > 0 && $escort->activeSuspendProfile->count()==0)
-                <p class="profile_description_contect_pera">Message me to arrange a play date.</p>
-                <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
-                    
-                    @foreach($escort->playmates as $playmate)
-                        @php  
-                            $image = $playmate->gallary()->wherePivot('position', 1)->first();
-                        @endphp
-                    <div>
-                        
-                        <a href="{{ route('profile.description',$playmate->id)}}" target="_blank">
-                            <div class="playmates-pro-container">
-                                <img  alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="{{$image->path ? asset($image->path) : asset('assets/app/img/icons-profile.png') }}">
-                                <div class="custom-tooltip">
-                                    Hi, my name is {{ $playmate->name }}. <br>
-                                    Click to view my Profile.
-                                </div>
-                            </div>
-                           
-                        </a>
+                </div> 
+                <!--- Reviews -->
+                <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
+                    <div class="profile_card_border profile_page_box_heading">
+                        <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
                     </div>
-                    @endforeach
-                </div>
-            @else
-            <p class="profile_description_contect_pera">{{$escortName}} does not have any Playmates.</p>
-            @endif
-        </div>
-    </div>
-    <!-- jkjkgjkhf -->
-    <div class="box_shadow manage_padding_margin_bg_color">
-        <div class="profile_card_border profile_description_contect">
-            <h2><img src="{{ asset('assets/app/img/contact_me.svg') }}"> Contacting me</h2>
-        </div>
-        <div class="padding_20_tob_btm_side reduse_pad">
-            <div class="span_display_block connecting_me_chat_phone">You can contact me by:
-                @php
-                    $contactType = $escort->contact != null ? $escort->contact : '';
-                @endphp
-                @if($contactType == 1)
-                <span class="tooltip-wrapper">
-                    <img src="{{ asset('assets/app/img/email-me.png') }}">
-                    <div class="tooltip-text">Email me</div>
-                </span>
-                
-                
-                @endif
-
-                @if($contactType == 4 || $contactType == 5)
-                    <span class="tooltip-wrapper">
-                        <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                        <div class="tooltip-text">Call me</div>
-                        @if($contactType == 5)
-                            <span>or</span>
-                        @endif
-                    </span>
-                @endif
-                @if($contactType == 2 || $contactType == 5)
-                    <span class="tooltip-wrapper">
-                            <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                            <div class="tooltip-text">Text me</div>
-                    </span>
-                @endif
-            
-                </div>        
-                @php
-
-
-                $from = $escort->phone;
-                $number = sprintf("%s-%s-%s",
-                substr($from, 0, 3),
-                substr($from, 3, 3),
-                substr($from, 6));
-                //dd($number);
-                @endphp
-                <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
-                <p class="profile_description_contect_pera">
-                    <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> 
                     @php
-                        $formattedNumber = $escort->phone;
-                        $contactTypes = $escort->contact != null ? $escort->contact : '';
-                    
+                        $reviewAlreadyExist = false;
+                        $reviewExistsMessage = '';
+                        $reviewExistsStarRating = 0;
                     @endphp
-                </p>    
-                <p style="line-height: 1;">
-                    @if($contactTypes != '')
-                        @if($contactTypes == 1)
-                            on my email {{ $escort->user->email ?? '' }}
-                        @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                            on my number {{ $formattedNumber }}.
-                        @else
-                            on my number --
-                        @endif
-                    @else
-                        {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
-                        on my number --
+                    @if(count($reviews) > 0)
+                        <div class="padding_20_tob_btm_side">
+                            <!-- new-review-card -->
+                            <div class="review-card mx-auto position-relative">
+                                <!-- Carousel -->
+                                <div id="reviewCarousel" class="carousel slide carousel-slide pb-0" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        
+                                        @foreach($reviews as $key => $review)
+                                            @php
+                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->advertiser_id == $escort->id && $review->advertiser_type=='escort'){
+                                                    $reviewAlreadyExist = true;
+                                                    $reviewExistsMessage = $review->description;
+                                                    $reviewExistsStarRating = $review->star_rating;
+                                                }
+                                            @endphp
+                                            
+                                            <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <span style="font-size: 14px;"> Reviewed By </span>
+                                                    <span style="font-size: 14px;"> Review Date </span>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h5>
+                                                        @if (!empty($review->user->name))
+                                                            {{ Str::title($review->user->name) }}
+                                                        @elseif (!empty($review->user->email))
+                                                            {{ Str::title(explode('@', $review->user->email)[0]) }}
+                                                        @else
+                                                            Username
+                                                        @endif
+                                                    </h5>
+                                                    <p class="custome-text-date mb-0">{{$review->created_at->format('d-m-Y')}}</p>
+                                                </div>
+                                                <ul class="list-inline mb-0">
+                                                    @for($i=1; $i<= 5; $i++)
+                                                        @if($i <= $review->star_rating)
+                                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                        @else
+                                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                                        @endif
+                                                    @endfor
+                                                    {{--<li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li> --}}
+                                                </ul>
+                                                
+                                                <div class="review-text">
+                                                    {{ $review->description }}
+                                                </div>
+                                            </div>
+                                            
+                                        @endforeach
+
+                                    </div>
+
+                                    <!-- Custom Nav Buttons -->
+                                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper flex-wrap">
+                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                        <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
+                                            <div class="col-md-12">
+                                                @if(auth()->user())
+                                                    @if(auth()->user()->type == 0)
+                                                        @if(!$reviewAlreadyExist)
+                                                            <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                            Add Review
+                                                        </button>
+                                                        @else
+                                                            <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                                Edit Review
+                                                            </button>
+                                                        @endif
+
+                                                    @endif
+                                                    @else
+                                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                                                        </button>
+                                                    @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carousel controls -->
+                            </div>
+                        </div>
                     @endif
-                </p>
-         </div>
-    </div>
-    <div class="vax-btn">
-        @if($escort->getRawOriginal('covidreport') == 2)
-        <button type="button" class="btn my_legbox single-prof-btn"><img src="{{ asset('assets/app/img/vaccinated.svg') }}">Vaccinated, up to date</button>
-        @elseif($escort->getRawOriginal('covidreport') == 1)
-        <button type="button" class="btn my_legbox single-prof-btn"><img src="{{ asset('assets/app/img/vaccinated.svg') }}">Vaccinated, not up to date</button>
-        @else
-        <button type="button" class="btn my_legbox single-prof-btn"><img src="{{ asset('assets/app/img/vax.svg') }}">Not Vaccinated</button>
-        @endif
-    </div>
-
-    <div class="accordion-container-new">
-        <div class="set">
-            <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
-            Deposit
-            <i class="fa fa-angle-down"></i>
-            </a>
-            <div class="content">
-              
-                <div class="accodien_manage_padding_content">
-                      <p></p>
-                    <table class="table text-center table-bordered">
-                        <thead class="table-bg">
-                            <tr>
-                                <th>Incall</th>
-                                <th>Outcall</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center w-50"> @if($escort->incall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->incall_amount}}</div> @else NO @endif</td>
-                                <td class="text-center w-50"> @if($escort->outcall_enabled)  <div class="public-num-value-table w-50 mx-auto"> <span>$ </span>{{$escort->outcall_amount}}</div> @else NO @endif</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="set">
-            <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
-            My Pricing Policy
-            <i class="fa fa-angle-down"></i>
-            </a>
-            <div class="content">
-                <div class="accodien_manage_padding_content">
-                    <p class="text-justify">
-                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and may require a Deposit.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="set">
-            <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
-            Disclaimer
-            <i class="fa fa-angle-down"></i>
-            </a>
-            <div class="content">
-                <div class="accodien_manage_padding_content">
-                    <p class="text-justify">Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
-                        Anything that may occur between us is our choice as consenting adults.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="box_shadow padding_twelve_px">
-        <div class="profile_card_border profile_description_contect position-relative">
-            <h2><img src="{{ asset('assets/app/img/tips.svg') }}">Tips</h2>
-
-        </div>
-        <div class="pt-2">
-            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="5000">
-                <!-- Wrapper for carousel items -->
-                <div class="carousel-inner">
-                    <div class="carousel-item tip_carousel_item_text active item-01">
-                        <p>Ask questions and become informed.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>Protect your details, use our contact form.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>If it seems to good to be true, it probably is.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>Report any suspicious Profiles.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>Only meet Advertisers who seem trustworthy.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>Trust your instincts.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>Avoid using email, use our messaging centre.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>Be cautious with external links.</p>
-                    </div>
-                    <div class="carousel-item tip_carousel_item_text item-01">
-                        <p>Do not offer any of your personal information.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- tip section end here -->
-
-                <!---  new review card -->
-    <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
-        <div class="profile_card_border profile_page_box_heading">
-            <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
-        </div>
-        @php
-            $reviewAlreadyExist = false;
-            $reviewExistsMessage = '';
-            $reviewExistsStarRating = 0;
-        @endphp
-        @if(count($reviews) > 0)
-        <div class="padding_20_tob_btm_side">
-            <!-- new-review-card -->
-            <div class="review-card mx-auto position-relative">
-                <!-- Carousel -->
-                <div id="reviewCarousel" class="carousel slide carousel-slide pb-0" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        
-                        @foreach($reviews as $key => $review)
+                
+                    <div class="py-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
+                        <div class="col-md-12">
                             @php
-                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->advertiser_id == $escort->id && $review->advertiser_type=='escort'){
-                                    $reviewAlreadyExist = true;
-                                    $reviewExistsMessage = $review->description;
-                                    $reviewExistsStarRating = $review->star_rating;
+                                $mesageForViewer = true;
+                                if(auth()->user() && auth()->user()->type != 0){
+                                    $mesageForViewer = false;
                                 }
                             @endphp
-                            
-                            <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span style="font-size: 14px;"> Reviewed By </span>
-                                    <span style="font-size: 14px;"> Review Date </span>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h5>
-                                        @if (!empty($review->user->name))
-                                            {{ Str::title($review->user->name) }}
-                                        @elseif (!empty($review->user->email))
-                                            {{ Str::title(explode('@', $review->user->email)[0]) }}
-                                        @else
-                                            Username
-                                        @endif
-                                    </h5>
-                                    <p class="custome-text-date mb-0">{{$review->created_at->format('d-m-Y')}}</p>
-                                </div>
-                                <ul class="list-inline mb-0">
-                                    @for($i=1; $i<= 5; $i++)
-                                        @if($i <= $review->star_rating)
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                        @else
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                        @endif
-                                    @endfor
-                                    {{--<li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li> --}}
-                                </ul>
-                                
-                                <div class="review-text">
-                                    {{ $review->description }}
-                                </div>
-                            </div>
-                            
-                        @endforeach
-
-                    </div>
-
-                    <!-- Custom Nav Buttons -->
-                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper flex-wrap">
-                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
-                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
-                        <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
-                    <div class="col-md-12">
-                    @if(auth()->user())
-                            @if(auth()->user()->type == 0)
-                                @if(!$reviewAlreadyExist)
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
-                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    Add Review
-                                </button>
-                                @else
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                            <p class="testimonial">
+                                <strong>{{ $escortName }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escortName}}</strong> their first Review? @php } @endphp
+                            </p>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            @if(auth()->user())
+                                @if(auth()->user()->type == 0)
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box disabled-button">
                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                        Edit Review
+                                        Add Review
                                     </button>
                                 @endif
-
+                            @else
+                                <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                    <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                                </button>
                             @endif
-                        @else
-                            <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
-                            </button>
-                        @endif
+                        </div>
                     </div>
+                    <!-- end -->
                 </div>
-                    </div>
-                </div>
-                <!-- Carousel controls -->
-                
-
             </div>
         </div>
-        @endif
-      
-        <div class="py-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
-            <div class="col-md-12">
-                @php
-                    $mesageForViewer = true;
-                    if(auth()->user() && auth()->user()->type != 0){
-                        $mesageForViewer = false;
-                    }
-                @endphp
-                <p class="testimonial">
-                    <strong>{{ $escortName }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escortName}}</strong> their first Review? @php } @endphp
-                </p>
-            </div>
-            <div class="col-md-12 mb-4">
-            @if(auth()->user())
-                    @if(auth()->user()->type == 0)
-                        <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box disabled-button">
-                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                            Add Review
-                        </button>
-                    @endif
-                @else
-                    <button type="button" class="btn add_reviews_btn all_btn_flx">
-                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
-                    </button>
-                @endif
-            </div>
-        </div>
-        <!-- end -->
     </div>
-</div>
-
-</div>
-</div>
+    <!--- end -->
 
 <!-- model start here 1-->
 <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -2155,6 +2045,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 @endsection
 @push('scripts')

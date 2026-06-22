@@ -9,6 +9,9 @@
       font-size: 14px;
       padding: 10px;
    }
+   .swal2-title {
+      font-size: 18px !important;
+   }
 </style>
 @endsection
 
@@ -81,7 +84,11 @@
                                 <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>
                            </div>
                        </div>
-                       <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification.</p>
+                       
+                       <div>
+                           {{-- login note from component --}}
+                           <x-login-notes />
+                       </div>
                      </form>
                </div>
                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">

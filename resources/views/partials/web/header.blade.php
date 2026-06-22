@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
         <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-        <title>E4U - Escorts for you</title>
+        <title> E4U - Escort Directory</title>
         <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}"/>
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/>
@@ -14,7 +14,7 @@
 
 
         <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.9') }}" rel="stylesheet">
+        <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.0') }}" rel="stylesheet">
         <!-- jquery ui cdn -->
 
         <!-- google fonts -->
@@ -39,7 +39,8 @@
         <!-- font awsome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v1.9') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.5') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.7') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
         <script>

@@ -56,7 +56,7 @@
         class="section_bg_color padding_ninty_top_ninty_px padding_bottom_eight_px angle_bg_image advertiser-registration">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-7 adverti_reg_page_padingto_bt-new">
+                <div class="col-lg-7 col-md-12 col-sm-12 adverti_reg_page_padingto_bt-new">
                     <div class="reg_info advertiser-registration">
                         {{-- <h2>Registration - Escort</h2> --}}
                         <div class="pt-2 pb-5">
@@ -89,7 +89,7 @@
                         </ol>
                     </div>
                 </div>
-                <div class="reg_box_form_style col-lg-5 col-md-5">
+                <div class="reg_box_form_style col-lg-5 col-md-12 col-sm-12">
                     <div class="regstractionform">
                         <h4>Register now and start saving!</h4>
                         <form id="escort_registration" action="{{ route('advertiser.register') }}" method="post">
@@ -242,25 +242,16 @@
                             <div class="termsandconditions_text_color">
                                 <!-- error sms here -->
                             </div>
-                            <div class="form-row py-3">
-                                <div class="col">
+                            <div class="form-row mt-3">
+                                <div class="col-12">
                                     <button type="submit" id="submit_button" class="btn site_btn_primary">Register
                                     </button>
                                 </div>
-                                <div class="col geo-font">
-                                    <label class="form-check-label"><sup>(*)</sup>Geolocation in use.</label>
+                                <div class="col-12 component_notes">
+                                    <x-register-page-note />                                   
                                 </div>
                             </div>
-                            <div class="border p-1 border_color rounded text-justify">
-                                <small>
-                                    Any personal information submitted to this Website will be handled in accordance with
-                                    E4U's <a class="termsandconditions_text_color" href="{{ 'privacy-policy' }}"
-                                        target="_blank" style="font-size: 13px;">Privacy Policy</a> and
-                                    <a href="{{ 'privacy-collection-notice' }}" class="termsandconditions_text_color"
-                                        target="_blank" style="font-size: 13px;">Privacy Collection Notice</a>, both
-                                    available on the Website.
-                                </small>
-                            </div>
+                            
                         </form>
                     </div>
                 </div>
@@ -270,7 +261,7 @@
 
 
 
-    <section class="padding_one_thiry_top padding_bottom_eight_px">
+    <section class="padding_one_thiry_top padding_bottom_eight_px" style="margin-top:80px">
         <div class="container">
 
 

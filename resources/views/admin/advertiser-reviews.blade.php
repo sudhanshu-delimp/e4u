@@ -516,7 +516,7 @@
             var table = $('#' + tableId).DataTable({
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Escort ID"
+                    searchPlaceholder: "Search by Escort/Massage ID"
                 },
 
                 processing: true,

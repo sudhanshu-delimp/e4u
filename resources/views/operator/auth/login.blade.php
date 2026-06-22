@@ -74,7 +74,12 @@
                                             class="btn site_btn_primary">Login</button>
                                     </div>
                                 </div>
-                                <p class="mb-0 mynote mt-4"><b>Note:</b> Login is undertaken with 2FA authentification</p>
+                                
+                       
+                                <div class="mt-4">
+                                    {{-- login note from component --}}
+                                    <x-login-notes />
+                                </div>
                             </form>
                         </div>
                         <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">

@@ -43,6 +43,45 @@
         .cardImage img {
             height: 40px !important;
         }
+
+        .modal-lg {
+
+            max-width: 600px;
+        }
+
+
+
+        /* Card */
+
+        .thank-you-card {
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Image */
+
+        .thank-you-card img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        /* Title */
+
+        .thank-you-card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+
+        /* Text */
+
+        .thank-you-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Buttons */
     </style>
     <script src="https://cdn.pinpayments.com/pin.v2.js"></script>
 @endsection
@@ -103,13 +142,14 @@
                     </div>
                 </li>
 
-                {{-- <li id="pro-step-3">Payment
+                <li id="pro-step-3">Transaction Summary
                     <div class="pro-status-bar pro-status-bar--success">
                         <div class="pro-status-bar__bar" id="bar3"></div>
                     </div>
-                </li> --}}
+                </li>
 
-                <li id="pro-step-3">Payment Status
+                <li id="pro-step-4">Payment Status
+
                 </li>
             </ul>
         </div>
@@ -162,8 +202,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button class="btn-common" onclick="next()">Next <i
-                        class="fas fa-arrow-right text-white pl-2"></i></button>
+                <button class="btn-common" onclick="next()">Next <i class="fas fa-arrow-right text-white pl-2"></i></button>
             </div>
         </div>
 
@@ -185,7 +224,7 @@
                                 <div class="row">
 
                                     <!-- Mobile -->
-                                    <div class="col-6">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Mobile Number</b></label>
                                         <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
                                             required data-parsley-type="digits" data-parsley-minlength="10"
@@ -195,7 +234,7 @@
                                     </div>
 
                                     <!-- Email -->
-                                    <div class="col-6">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Email</b></label>
                                         <input type="email" class="form-control" name="email"
                                             placeholder="you@domain.com.au" required
@@ -220,33 +259,36 @@
                                             data-parsley-required-message="Address 2 is required">
                                     </div>
                                     <!-- City -->
-                                    <div class="col-md-6 my-2">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                         <label><b>City</b></label>
                                         <input type="text" class="form-control" name="city" placeholder="City"
                                             required data-parsley-required-message="City is required">
                                     </div>
 
                                     <!-- Pincode -->
-                                    <div class="col-md-6 my-2">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                         <label><b>Postcode</b></label>
                                         <input type="text" class="form-control" name="pincode" placeholder="6001"
                                             required data-parsley-type="digits" maxlength="4"
                                             data-parsley-required-message="Postcode is required"
                                             data-parsley-type-message="Only digits allowed">
                                     </div>
-                                    <div class="col-md-6 my-2">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                         <label><b>Landmark</b></label>
                                         <input type="text" class="form-control" name="landmark"
                                             placeholder="Near ABC Mall">
                                     </div>
                                     <!-- Special Instructions -->
 
-                                    <div class="col-md-6 mt-5">
-                                        <input type="radio" name="delivery_type" id="door" value="door"
-                                            required checked data-parsley-required-message="Choose a delivery type">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+
+                                        <input type="radio" name="delivery_type" id="door" value="door" checked
+                                            required data-parsley-errors-container="#delivery_type_error"
+                                            data-parsley-required-message="Choose a delivery type">
                                         <label for="door"><b>Delivery to the door</b></label>
                                         <input type="radio" name="delivery_type" id="post" value="post">
                                         <label for="post"><b>Post</b></label>
+                                        <div id="delivery_type_error"></div>
                                     </div>
                                     <div class="col-md-12 my-2">
                                         <label><b>Any Special Instructions?</b></label>
@@ -273,7 +315,7 @@
                                     <div class="row">
 
                                         <!-- Phone -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Mobile Number</b></label>
                                             <input type="text" name="billing_phone" class="form-control"
                                                 placeholder="0145 028 758" required data-parsley-type="digits"
@@ -282,7 +324,7 @@
                                         </div>
 
                                         <!-- Email -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Email</b></label>
                                             <input type="email" name="billing_email" class="form-control"
                                                 placeholder="you@domain.com.au" required
@@ -305,7 +347,7 @@
                                         </div>
 
                                         <!-- City -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>City</b></label>
                                             <input type="text" name="billing_city" class="form-control"
                                                 placeholder="City" required
@@ -313,7 +355,7 @@
                                         </div>
 
                                         <!-- Pincode -->
-                                        <div class="col-6">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Postcode</b></label>
                                             <input type="text" name="billing_pincode" class="form-control"
                                                 maxlength="4" placeholder="6001" required data-parsley-type="digits"
@@ -335,12 +377,11 @@
                             </form>
                         </div>
                     </div>
-                    <div class="my-3 text-right">
+                    <div class="my-3 text-right d-flex justify-content-between flex-wrap gap-20">
 
                         <button onclick="prev()" class="btn-common" id="btnBack"> <i
-                                class="fas fa-arrow-left text-white pr-2"></i>
-                            Back</button>
-                        <button onclick="next()" class="btn-common" id="processOrder">Proceed to Checkout</button>
+                                class="fas fa-arrow-left text-white pr-2"></i> Back</button>
+                        <button onclick="next()" class="btn-common">Next</button>
 
                     </div>
                 </div>
@@ -351,12 +392,66 @@
         </div>
 
         <!-- Step 4 -->
-        <div id="step3" class="step-content text-center py-5">
-            <h2>Order Completed</h2>
-            <p>Thank you for your purchase!</p>
-            <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white"> View
-                    Orders</a></button>
-            <button onclick="finish()" class="btn-common">Finish</button>
+        <div id="step3" class="step-content text-center py -5  border-0" style="background-color: #f3f3f3">
+            <div class="row">
+
+                <div class="col-lg-12 col-sm-12 col-md-12 right-sidebar-bg" style="background: none">
+                    <div class="card p-4">
+                        <div class="paymnt_summery mb-3 summary-bg d-flex align-items-center justify-content-between">
+                            <h4 class="mb-0">Transaction Summary</h4>
+                            <div class="member-id">
+                                <span class="pr-2 "><i class="fa fa-user"></i></span>
+                                <span>Member ID: {{ auth()->user()->member_id }}</span>
+                            </div>
+                        </div>
+                        <div id="transactionLoader"
+                            style="display:none; text-align:center; padding:20px; font-weight: 300; position: absolute;  left: 42% !important;top: 80% !important">
+                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle ">
+                                <thead class="summary-bg text-white text-left">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Product</th>
+                                        <th>Unit Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="transaction_summary">
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Replace with your image -->
+            <div class="my-3 text-right d-flex justify-content-between flex-wrap gap-20">
+                <button onclick="prev()" class="btn-common" id="btnBack"> <i
+                        class="fas fa-arrow-left text-white pr-2"></i>Back</button>
+                <button onclick="next()" class="btn-common" id="processOrder">Proceed to Checkout</button>
+
+            </div>
+        </div>
+        <div id="step4" class="step-content text-center py-5">
+            <div class="thank-you-card">
+                <!-- Replace with your image -->
+                <img src="{{ asset('assets/dashboard/img/success.png') }}" alt="order">
+
+                <h2>Order Completed</h2>
+                <p>Thank you for your purchase!</p>
+                <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white">
+                        View
+                        Orders</a></button>
+                <button onclick="finish()" class="btn-common">Finish</button>
+            </div>
         </div>
 
 
@@ -384,7 +479,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src=" {{asset("assets/app/img/newcross.png")}}"
+                            <img src=" {{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -407,9 +502,8 @@
     </div>
 
 
-    <div class="modal fade upload-modal" id="process-payment-modal" tabindex="-1" aria-labelledby="renew_discountLabel" data-backdrop="static"
-     data-keyboard="false"
-        aria-hidden="true">
+    <div class="modal fade upload-modal" id="process-payment-modal" tabindex="-1" aria-labelledby="renew_discountLabel"
+        data-backdrop="static" data-keyboard="false" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -429,25 +523,33 @@
                                 <!-- Order Summary -->
                                 <div class="order_summary_adjustment">
                                     <p><strong>Order Summary</strong></p>
-                                    <div class="d-flex justify-content-between mb- 2">
+                                    <div class="d-flex justify-content-between mb-2">
                                         <span>Subtotal:</span>
                                         <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                     </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Wallet Used:</span>
+                                        <span id="walletUsed"> {{ formatCurrency(0) }}</span>
+                                    </div>
+
+                                    <hr>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Total Fee:</span>
+                                        <span id="total_fee"> {{ formatCurrency(0) }}</span>
+                                    </div>
+
                                     <div class="d-flex justify-content-between align-items-center">
                                         <strong>GST (Inclusive):</strong>
                                         <strong class="taxAmount" style="border: none">$1.20</strong>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center  mb-2">
                                         <strong>Delivery Charge:</strong>
                                         <strong class="deliveryCharge"
                                             style="border-bottom:1px solid">{{ formatCurrency(0) }}</strong>
 
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb- 2">
-                                        <span>Wallet Used:</span>
-                                        <span id="walletUsed"> {{ formatCurrency(0) }}</span>
-                                    </div>
+
 
                                     <div class="d-flex justify-content-between align-items-center">
                                         <strong>Total Due:</strong>
@@ -464,7 +566,7 @@
                         </a> --}}
 
 
-                                <div class="col lapse" id="collapse Example">
+                                <div class="col lapse p-0" id="collapse Example">
                                     <div class="wallet_details">
                                         <div class="card">
                                             <div class="card-body">
@@ -624,7 +726,8 @@
                                         {{-- <button onclick="prev()" class="btn-common" id="btnBacklast"> <i
                                                 class="fas fa-arrow-left text-white pr-2"></i>
                                             Back</button> --}}
-                                        <button type="button" class="btn-common" id="makeOrder">Pay Now</button>
+                                        <button type="button" class="btn-success-modal btn-block" id="makeOrder">Pay
+                                            Now</button>
 
                                         {{-- <button type="submit" name="action" value="pay_now" class="btn-success-modal btn-block">
                                             Pay Now
@@ -650,7 +753,7 @@
     </script>
     <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
     <script>
-        let loginUserId = '{{ Auth::user()->id }}';
+        let loginUserId = "{{ session('parent_agent_id') ?? Auth::user()->id }}";
     </script>
     <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
 
@@ -683,7 +786,11 @@
 
                 success: function(response) {
                     $("#loader").hide();
+                    if (response.status == true) {
+                        window.location.href = "{{ route('escort.products') }}";
+                    }
                     $(".table-content").html(response.html);
+                    getCheckedCheckBox();
                     calculateTotals();
                 },
 
@@ -721,6 +828,61 @@
                 }
             });
         }
+
+
+
+        function loadTransactionSummary() {
+            let details = getDeliveryDetails();
+            let finalCart = getFinalCart();
+            let shipping = details.delivery_type;
+            $("#transactionLoader").show();
+            $.ajax({
+                url: "{{ route('escort.transaction.summary') }}",
+                type: "POST",
+                data: {
+                    ids: productIds,
+                    cart: cart,
+                    shipping: shipping,
+                    finalCart: finalCart,
+                    _token: "{{ csrf_token() }}"
+                },
+
+                success: function(response) {
+                    $("#transactionLoader").hide();
+                    $(".transaction_summary").html(response.html);
+                },
+                error: function(xhr, status, error) {
+                    $("#transactionLoader").hide();
+                    // Handle unauthorized
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Unauthorized",
+                            text: "Your login session expired. Please log in again."
+                        });
+                        return;
+                    }
+
+                    // Handle 500 server error
+                    if (xhr.status === 500) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Server Error",
+                            text: "Something went wrong on the server. Try again later."
+                        });
+                        return;
+                    }
+
+                    $("#transactionLoader").hide();
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Something went wrong. Please try again."
+                    });
+                }
+            });
+        }
         let steps = localStorage.getItem('checkout_step_' + loginUserId);
         // console.log(steps);
         if (steps == 1 || steps == null) {
@@ -742,6 +904,19 @@
             // Call calculation function
             calculateTotals();
         });
+
+        function removeItemFromCart(id) {
+
+            let cart = getCart(); // your function that returns cart object
+            let finalCart = getFinalCart();
+            delete cart[id];
+            finalCart = finalCart.filter(item => item != id);
+
+            localStorage.setItem('cart_' + loginUserId, JSON.stringify(cart));
+            localStorage.setItem('finalCart_' + loginUserId, JSON.stringify(finalCart));
+
+            location.reload(true);
+        }
 
         function calculateTotals() {
             let grandTotal = 0;
@@ -778,8 +953,11 @@
         const step1 = document.getElementById('pro-step-1');
         const step2 = document.getElementById('pro-step-2');
         const step3 = document.getElementById('pro-step-3');
+        const step4 = document.getElementById('pro-step-4');
         const bar1 = document.getElementById('bar1');
         const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        const bar4 = document.getElementById('bar4');
 
         function showStep() {
             document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
@@ -788,13 +966,11 @@
 
         $(document).on("change", "#select-all", function() {
             let checked = this.checked;
-
             $(".product-check").prop("checked", checked).trigger("change");
         });
 
         $(document).on("change", ".product-check", function() {
             let finalCart = getFinalCart();
-
             let id = $(this).data("id");
             if (this.checked) {
                 if (!finalCart.includes(id))
@@ -802,13 +978,27 @@
             } else {
                 finalCart = finalCart.filter(itemId => itemId !== id);
             }
+
+            getCheckedCheckBox();
             saveFinalCart(finalCart);
             calculateTotals();
 
         });
 
+
+        function getCheckedCheckBox() {
+            let total = $('.product-check').length;
+            let checked = $('.product-check:checked').length;
+
+            if (total > 0)
+                $('#select-all').prop('checked', total == checked);
+        }
+
+
+
         function next() {
             if (step === 1) {
+
                 let finalCart = getFinalCart();
 
                 if (Object.keys(finalCart).length === 0) {
@@ -817,7 +1007,6 @@
                 }
                 updateOrderSummary();
                 updateDeliveryAddress();
-
                 step = 2;
                 localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
@@ -825,7 +1014,6 @@
                 bar1.style.width = "100%"; // fill progress bar
                 step2.classList.add("is-active");
             } else if (step === 2) {
-
                 let isValid = true;
                 if (!validateStep2()) return false;
 
@@ -854,18 +1042,26 @@
                 card.address_state = "{{ $state }}";
                 card.address_country = "{{ $country }}";
                 saveCardBilling(card);
+                updateDeliveryAddress();
+
                 updateOrderSummary();
 
+                loadTransactionSummary();
+                step = 3;
+                localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
+
+                step2.classList.remove("is-active");
+                bar2.style.width = "100%"; // fill progress bar
+                step3.classList.add("is-active");
+
+
+            } else if (step === 3) {
+
+                updateDeliveryAddress();
+                updateOrderSummary();
+                loadTransactionSummary();
 
                 $("#process-payment-modal").modal('show');
-                // step = 3;
-                // localStorage.setItem("checkout_step_" + loginUserId, step);
-
-                // step2.classList.remove("is-active");
-                // bar2.style.width = "100%";
-                // step3.classList.add("is-active");
-                // showStep();
-
             }
 
             showStep();
@@ -971,7 +1167,7 @@
                 beforeSend: function() {
                     Swal.fire({
                         title: "Processing your payment...",
-                        html: "Please wait",
+                        html: "<p>Please do not refresh page</p>",
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         didOpen: () => {
@@ -990,17 +1186,17 @@
                         $(".modal-backdrop").remove();
 
                         Swal.fire(response.message, '', 'success');
-                        step = 3;
+                        step = 4;
                         localStorage.setItem("checkout_step_" + loginUserId, step);
 
-                        step2.classList.remove("is-active");
-                        bar2.style.width = "100%";
-                        step3.classList.add("is-active");
+                        step3.classList.remove("is-active");
+                        bar3.style.width = "100%";
+                        step4.classList.remove("is-active");
+
                         showStep();
                         flushLocalStorage();
 
                     } else {
-
                         if (response.errors && typeof response.errors === "object" && response
                             .errors && Object.keys(response.errors).length > 0) {
                             let html = '<div class="alert alert-danger"><ul>';
@@ -1012,7 +1208,6 @@
                         } else {
                             Swal.fire(response.message, '', 'error');
                         }
-
 
                     }
                 },
@@ -1044,8 +1239,21 @@
         }
 
         function validateStep2() {
-            let form = $('#deliveryAddressForm').parsley();
+            if ($('#sameAddress').is(':checked')) {
+                // Remove billing fields from Parsley validation
+                $('#billingSection')
+                    .find('input, textarea, select')
+                    .attr('data-parsley-excluded', 'true');
+            } else {
+                $('#billingSection')
+                    .find('input, textarea, select')
+                    .removeAttr('data-parsley-excluded');
+            }
+
+            var form = $('#deliveryAddressForm').parsley();
+
             form.validate();
+
             return form.isValid();
         }
 
@@ -1083,15 +1291,20 @@
         });
 
         function toggleBilling() {
+
             if ($("#sameAddress").is(":checked")) {
+                localStorage.setItem("isSameAddress_" + loginUserId, 1);
+
                 $("#billingSection").hide().find("input, textarea").attr("disabled", true);
             } else {
+                localStorage.setItem("isSameAddress_" + loginUserId, 0);
                 $("#billingSection").show().find("input, textarea").attr("disabled", false);
             }
         }
+
+
         document.addEventListener("DOMContentLoaded", function() {
             let savedStep = localStorage.getItem("checkout_step_" + loginUserId);
-
             if (savedStep) {
                 step = parseInt(savedStep);
             } else {
@@ -1109,9 +1322,23 @@
                 updateOrderSummary();
 
             }
-
+            if (savedStep == 3) {
+                loadTransactionSummary();
+            }
 
             applyStepUI(step);
+
+            const isSameAddress = localStorage.getItem("isSameAddress_" + loginUserId);
+
+            if (isSameAddress == "1") {
+                $("#sameAddress").prop("checked", true);
+                $("#billingSection").hide().find("input, textarea").attr("disabled", true);
+
+            } else {
+                $("#sameAddress").prop("checked", false);
+                $("#billingSection").show().find("input, textarea").attr("disabled", false);
+
+            }
         });
 
         function applyStepUI(step) {
@@ -1178,11 +1405,10 @@
             }
 
             let total = subtotal + deliveryCharge;
-            let gst = subtotal * tax / 100; // 10% GST
-
+            let gst = subtotal * tax / 100; //GST
             // set amount details after calculation in html format
             $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
-            // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
+            $("#total_fee").text("$ " + subtotal.toFixed(2));
             $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
             $(".taxAmount").text("$" + gst.toFixed(2));
             $(".totalDue").text("$" + total.toFixed(2));
@@ -1239,7 +1465,8 @@
                 loadProducts();
             } else if (step === 3) {
                 // move to 1 step because if yopu are at 3 that's mean order is completed
-
+                updateDeliveryAddress();
+                // updateOrderSummary();
                 step = 2;
                 localStorage.setItem("checkout_step_" + loginUserId, step); // <<< save step
 
@@ -1348,9 +1575,12 @@
 
                 let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
 
+                let formatedAccountWalletAmount = remaining_wallet_balance.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
 
-                $("#walletAmount").text("$" + Number(remaining_wallet_balance)
-                    .toFixed(2));
+                $("#walletAmount").text("$" + formatedAccountWalletAmount);
                 $("#walletUsed").text("$" + Number(walletAmount).toFixed(2));
 
                 // FORCE numeric values
@@ -1362,11 +1592,13 @@
                 let subtotal = oldSubtotal - walletUsed;
                 let total_payble = oldTotalPayble - walletUsed;
 
+
                 // Update values in object
                 details.total_payble = total_payble.toFixed(2);
                 details.wallet_amount = walletUsed.toFixed(2);
 
-                // Save back to localStorage
+                // Save back to local storage
+
                 localStorage.setItem(key, JSON.stringify(details));
                 let tax = parseFloat("{{ config('escorts.product_tax') }}");
 
@@ -1390,7 +1622,7 @@
                 }
                 // Update UI
                 $(".taxAmount").text("$" + gst_amount.toFixed(2));
-                // $(".paymentTotalAfterDiduction").text("$ " + subtotal.toFixed(2));
+                $("#total_fee").text("$ " + subtotal.toFixed(2));
                 $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));
@@ -1407,9 +1639,13 @@
             $("#adjustment-form")[0].reset();
             updateOrderSummary();
 
-            let accountWalletAmount = "{{ Auth::user()->wallet->balance }}";
+            let accountWalletAmount = "{{ number_format(Auth::user()->wallet->balance, 2) }}";
+            let formatedAccountWalletAmount = accountWalletAmount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })
             $("#walletUsed").text("$0.00");
-            $("#walletAmount").text("$" + accountWalletAmount);
+            $("#walletAmount").text("$" + formatedAccountWalletAmount);
             let key = 'paymentDetails_' + loginUserId;
 
             let details = JSON.parse(localStorage.getItem(key)) || {};
@@ -1421,5 +1657,6 @@
 
 
         })
+        getCheckedCheckBox();
     </script>
 @endpush

@@ -26,6 +26,7 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
 use App\Http\Controllers\Agent\ProspectListController;
 use App\Http\Controllers\Agent\DatabaseCentreController;
 use App\Http\Controllers\Agent\ImpersonateController;
+use App\Http\Controllers\Agent\FeesSummeryController;
 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
@@ -168,6 +169,8 @@ use App\Http\Controllers\Agent\ImpersonateController;
     Route::get('/advertiser-list', [AgentRequestController::class, 'advertiserList'])->name('agent.advertiser-list');
     Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
+    //Fee summary
+    Route::get('fees/summery', [FeesSummeryController::class, 'feesSummery'])->name('agent.fees.summery');
      
     Route::get('/multi-merge-report',function(){
     return view('agent.dashboard.marketing.multi-merge-report');
@@ -226,9 +229,9 @@ Route::get('forms',function(){
     return view('agent.dashboard.Fees.monthly-report');
 })->name('Fees.monthly-report');
 
-    Route::get('Fees/summary',function(){
-    return view('agent.dashboard.Fees.summary');
-})->name('Fees.summary');
+    //     Route::get('Fees/summary',function(){
+    //     return view('agent.dashboard.Fees.summary');
+    // })->name('Fees.summary');
 
 
 Route::get('Fees/my-income',function(){

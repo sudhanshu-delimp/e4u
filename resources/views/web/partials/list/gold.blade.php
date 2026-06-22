@@ -5,81 +5,81 @@
 <div class="listview_each_section_border_btm silver-sec brb--listing">
     <div
         class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame">
-        <div class="row plat_num_row">
-            <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 pr-3 pr-lg-0 self-w-73">
-                <div class="row plat-inner  mr-0 ml-0">
-                    <div class="col-md-4 featured-pic pl-0">
-
-                        <div class="section_wise_level_icon_img all-escort-profile-pic">
-                            <a href="{{ route('profile.description', [$escort->id, $escort->city_id]) }}?list"
-                                class="">
-                                @if ($escort->latestActiveBrb)
-                                    <div class="brb--content">
-                                        <div class="brb--wrappr">
-                                            <span class="brb-text">BRB</span> at <span
-                                                class="brb-time">{{ date('h:i A', strtotime($escort->latestActiveBrb->brb_time)) }}</span>
-                                            <span
-                                                class="brb-date">{{ date('d-m-Y', strtotime($escort->latestActiveBrb->brb_time)) }}</span>
-                                        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="EC__list_card">
+                    {{-- 1st --}}
+                    <div class="section_wise_level_icon_img all-escort-profile-pic">
+                        <a href="{{ route('profile.description', [$escort->id, $escort->city_id]) }}?list"
+                            class="">
+                            @if ($escort->latestActiveBrb)
+                                <div class="brb--content">
+                                    <div class="brb--wrappr">
+                                        <span class="brb-text">BRB</span> at <span
+                                            class="brb-time">{{ date('h:i A', strtotime($escort->latestActiveBrb->brb_time)) }}</span>
+                                        <span
+                                            class="brb-date">{{ date('d-m-Y', strtotime($escort->latestActiveBrb->brb_time)) }}</span>
                                     </div>
-                                @endif
-                                
-                                <img  src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
-                                    class="img-fluid" title="View Profile">
-
-                            </a>
-                            @if($escort->default_image)
-                                <div class="verify-image-custom">
-                                    @php 
-                                        $media_verification_status =  get_profile_verification_status($escort->id);
-                                        $media_status = getMediaVerificationDataBigIcon($media_verification_status ?? 0);
-                                    @endphp 
-                                    <img src="{{$media_status['icon']}}">
-                                    <span class="common_shield_tooltip">{{$media_status['label']}}</span>
                                 </div>
                             @endif
-                            <div class="siliver_logo_icon"><img src="{{ asset('images/gold_membership.png') }}"></div>
-                            <div class="add_to_fab_list_view_each_sec">
-                                @if (auth()->user())
-                                    @if (auth()->user()->type == 0)
-                                        <span
-                                            class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
-                                            id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
-                                            data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
-                                            data-name="{{ $escortName }}">
-                                            @if (!empty($user_type))
-                                                @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
-                                                    <i class='fa fa-heart' style='color: #ff3c5f;'
-                                                        aria-hidden='true'></i>
-                                                    <span class="custom-heart-text list-tool remove-tool">Remove from My
-                                                        Legbox</span>
-                                                @else
-                                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                                    <span class="custom-heart-text list-tool">Add to My Legbox</span>
-                                                @endif
-                                            @endif
-                                        </span>
-                                    @else
-                                        <span class="add_to_favrate custom--favourite"
-                                            data-name="{{ $escortName }}"><i class="fa fa-heart-o"
-                                                aria-hidden="true"></i> <span class="custom-heart-text list-tool">Add to
-                                                My Legbox</span></span>
-                                    @endif
-                                @else
-                                    {{-- <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
-                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"
-                                            title="Add to Legbox"></i></span> --}}
-                                    <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
-                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o"
-                                            aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My
-                                            Legbox</span></span>
-                                @endif
-                            </div>
+                            
+                            <img  src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
+                                class="img-fluid" title="View Profile">
 
+                        </a>
+                        @if($escort->default_image)
+                            <div class="verify-image-custom">
+                                @php 
+                                    $media_verification_status =  get_profile_verification_status($escort->id);
+                                    $media_status = getMediaVerificationDataBigIcon($media_verification_status ?? 0);
+                                @endphp 
+                                <img src="{{$media_status['icon']}}">
+                                <span class="common_shield_tooltip">{{$media_status['label']}}</span>
+                            </div>
+                        @endif
+                        <div class="siliver_logo_icon"><img src="{{ asset('images/gold_membership.png') }}"></div>
+                        <div class="add_to_fab_list_view_each_sec">
+                            @if (auth()->user())
+                                @if (auth()->user()->type == 0)
+                                    <span
+                                        class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
+                                        id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
+                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
+                                        data-name="{{ $escortName }}">
+                                        @if (!empty($user_type))
+                                            @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
+                                                <i class='fa fa-heart' style='color: #ff3c5f;'
+                                                    aria-hidden='true'></i>
+                                                <span class="custom-heart-text list-tool remove-tool">Remove from My
+                                                    Legbox</span>
+                                            @else
+                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                <span class="custom-heart-text list-tool">Add to My Legbox</span>
+                                            @endif
+                                        @endif
+                                    </span>
+                                @else
+                                    <span class="add_to_favrate custom--favourite"
+                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                                            aria-hidden="true"></i> <span class="custom-heart-text list-tool">Add to
+                                            My Legbox</span></span>
+                                @endif
+                            @else
+                                {{-- <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
+                                    data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"
+                                        title="Add to Legbox"></i></span> --}}
+                                <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
+                                    data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                                        aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My
+                                        Legbox</span></span>
+                            @endif
                         </div>
 
                     </div>
-                    <div class="col-md-8 p-0 gold-seven all-escort-view-profile-box">
+                    {{-- end --}}
+
+                    {{-- 2nd --}}
+                    <div class="gold-seven all-escort-view-profile-box">
                         <div class="d-flex justify-content-between gold-profile-details-custom">
                             <div class="free_profile_name_and_color">{{ $escortName }}</div>
                             <div class="age" style="margin-top: 5px;display: flex;gap: 8px;">
@@ -286,51 +286,55 @@
                         </div>
 
                     </div>
+                    {{-- end --}}
+
+                    {{-- 3rd --}}
+                    <table class="table table-striped mb-0">
+                        <thead class="table_heading_bgcolor_color">
+                            <tr>
+                                <th scope="col">Service</th>
+                                <th scope="col">Massage</th>
+                                <th scope="col">Incalls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (!empty($escort->durations))
+                                @foreach ($escort->durations as $key => $duration)
+                                    <tr>
+                                        <td>{{ $duration->name }}</td>
+
+                                        <td>{!! $duration->pivot->massage_price
+                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
+                                            : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        </td>
+
+                                        <td>{!! $duration->pivot->incall_price
+                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
+                                            : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        </td>
+                                    </tr>
+                                    @if ($loop->index == 3)
+                                        @break
+                                    @endif
+                                @endforeach
+                            @endif
+                        </tbody>
+                        <thead class="table_heading_bgcolor_color available_footer">
+                            <tr>
+                                <th class="payment_accept_text_color" scope="col" colspan="3">Available: <span
+                                        class="date_from_available">{{ date('d-m-Y', strtotime($escort->start_date)) }}</span>
+                                    to <span
+                                        class="date_from_available">{{ date('d-m-Y', strtotime($escort->end_date)) }}</span>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                    {{-- end --}}
                 </div>
             </div>
-
-            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12 self-w-26">
-                <table class="table table-striped">
-                    <thead class="table_heading_bgcolor_color">
-                        <tr>
-                            <th scope="col">Service</th>
-                            <th scope="col">Massage</th>
-                            <th scope="col">Incalls</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (!empty($escort->durations))
-                            @foreach ($escort->durations as $key => $duration)
-                                <tr>
-                                    <td>{{ $duration->name }}</td>
-
-                                    <td>{!! $duration->pivot->massage_price
-                                        ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
-                                        : "<span class='if_data_not_available'>N/A</span>" !!}
-                                    </td>
-
-                                    <td>{!! $duration->pivot->incall_price
-                                        ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
-                                        : "<span class='if_data_not_available'>N/A</span>" !!}
-                                    </td>
-                                </tr>
-                                @if ($loop->index == 3)
-                                    @break
-                                @endif
-                            @endforeach
-                        @endif
-                    </tbody>
-                    <thead class="table_heading_bgcolor_color available_footer">
-                        <tr>
-                            <th class="payment_accept_text_color" scope="col" colspan="3">Available: <span
-                                    class="date_from_available">{{ date('d-m-Y', strtotime($escort->start_date)) }}</span>
-                                to <span
-                                    class="date_from_available">{{ date('d-m-Y', strtotime($escort->end_date)) }}</span>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
         </div>
+
+
+
     </div>
 </div>

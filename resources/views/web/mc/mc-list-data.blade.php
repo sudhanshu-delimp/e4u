@@ -9,6 +9,7 @@
  @php
  $other_services = "";
  $massage_services = "";
+ 
 
  
 
@@ -91,13 +92,20 @@ $twitter_link = "https://x.com/NMugs32853";
      <div class="mc_list_content">
          <div class="mc_list_content_inner w-100">
              <div class="mc_list_header">
-                 <span class="mc_list_title">{{$listing->business_name}}</span>
+                 <span class="mc_list_title">{{$listing->business_name}} </span>
                  <span class="mc_list_rating">
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
+
+
+
+                   
+                     @for ($i = 1; $i <= 5; $i++)
+                        @if (isset($listing->star_rating) && $listing->star_rating > 0 && $i <= $listing->star_rating)
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        @else
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        @endif
+                    @endfor
+
                  </span>
              </div>
 

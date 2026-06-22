@@ -858,12 +858,23 @@ return [
     'cancelled' => 'badge_suspended',
     'failed'    => 'badge_suspended',
   ],
+
   'order_status' => [
-    'paid'      => 'badge_active',
     'pending'   => 'badge_available',
+    'hold'      => 'badge_pending',
+    'shipped'   => 'badge_active',
+    'delivered' => 'badge_active',
     'cancelled' => 'badge_suspended',
-    'failed'    => 'badge_suspended',
+    'returned'  => 'badge_suspended',
   ],
 
-  'impersonate_action_allowed' => ['archives-listing', 'create-new-masseur', 'archive-view-photos', 'media-centre', 'add-listing', 'list', 'create-profile', 'archive-view-videos', 'upload-galleries', 'upload-videos-galleries', 'default_photos', 'default-videos', 'get-default-videos', 'get-default-photos', 'delete-photos', 'delete-videos', 'listing', 'listings', 'country-list', 'city-list', 'select-city-list', 'state-list', 'get-account-video-gallery', 'load-default-masseur-list', 'create-check-messure-profile', 'get-notification', 'masseur-option-list', 'all-escort-list', 'all-masseur-list', 'update-escort', 'create-action-messure-profile', 'center.massuers-media-upload-gallery', 'update-single-data', 'validate-phone', 'get-massuers-account-media-gallery', 'delete-masseur-photos', 'get-masseur-image-info', 'notification-seen', 'get-masseurs-media-count', 'upload-masseur-verification', 'get-account-media-gallery', 'get-account-media-gallery', 'profile-info', 'masseurs', 'update-profile', 'action-escort-profile', 'escort-brb', 'escort-suspend-credit', 'suspend-escort-profile', 'extend-profile-validate-date-range', 'bumpup-register', 'get-transaction-summury', 'make-time-json', 'get-masseur-option-list', 'update_escort_default', 'profile-information', 'update-account', 'get-geolocation-data', 'get-geo-location-profiles', 'get-image-info', 'states-by-cities', 'upload-chunk', 'merge-chunks', 'get-media-count', 'setting-profile','escort-profile', 'profile', 'duplicate-profile', 'rates', 'availability', 'check-profile-name', 'delete-profile', 'next-step', 'mark-default', 'delete-media','upload-media', 'save-profile-video', 'save-profile-media', 'setting-profile', 'pin-up-data', 'pin-up-list', 'pin-up-checkout', 'register-for-pin-up', 'states-by-cities', 'remove-playmate', 'dd-playmate', 'find-playmates', 'find-playmates-id', 'playmates', 'check-profile-name', 'services', 'available-playmates-check', 'available-playmates', 'pinup-register', 'bumpup-register', 'settings-socials-link', 'settings-services', 'settings-my-rates', 'update-available-playmate', 'settings-availability', 'settings-information', 'create-tour', 'list-tour', 'archive-tours-dataTable', 'pricarchive-myplayboxing', 'sort-stage-name', 'payments', 'transaction-summary', 'get-transaction-summary', 'poli-paymentUrl','paymentUrl-status-success', 'paymentUrl-status-FailureURL', 'paymentUrl-status-CancellationURL', 'paymentUrl-status-NotificationURL', 'tour-paymentUrl', 'tour-paymentUrl-status-success', 'tour-paymentUrl-status-FailureURL', 'tour-paymentUrl-status-CancellationURL', 'tour-paymentUrl-status-NotificationURL', 'pricing', 'get-account-profiles', 'save-account-tour', 'get-account-locations'],
+  'order_status_labels' => [
+    'pending'   => 'Pending',
+    'hold'      => 'On Hold',
+    'shipped'   => 'Shipped',
+    'delivered' => 'Completed',
+    'cancelled' => 'Cancelled',
+    'returned'  => 'Returned',
+  ],
+  'impersonate_action_allowed' => ['archives-listing', 'create-new-masseur', 'archive-view-photos', 'media-centre', 'add-listing', 'list', 'create-profile', 'archive-view-videos', 'upload-galleries', 'upload-videos-galleries', 'default_photos', 'default-videos', 'get-default-videos', 'get-default-photos', 'delete-photos', 'delete-videos', 'listing', 'country-list', 'city-list', 'select-city-list', 'state-list', 'get-account-video-gallery', 'load-default-masseur-list', 'create-check-messure-profile', 'get-notification', 'masseur-option-list', 'all-massager-list', 'all-masseur-list', 'update-masseur', 'create-action-messure-profile', 'center.massuers-media-upload-gallery', 'update-single-data', 'validate-phone', 'get-massuers-account-media-gallery', 'delete-masseur-photos', 'get-masseur-image-info', 'notification-seen', 'get-masseurs-media-count', 'upload-masseur-verification', 'get-account-media-gallery', 'get-account-media-gallery', 'profile-info', 'masseurs', 'update-profile', 'action-massage-profile', 'massage-brb', 'massage-suspend-credit', 'suspend-massage-profile', 'extend-profile-validate-date-range', 'listing/listing-payment', 'bumpup-register', 'get-transaction-summury', 'make-time-json', 'get-masseur-option-list', 'update-massage-profile', 'profile-information', 'update-account'],
 ];

@@ -63,7 +63,7 @@
                                 <div class="search_filters_inside">
                                     <form id="allfilters" method="" action="">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-lg-12 mb-2 d-flex align-items-center justify-content-between flex-wrap ">
                                                 <div class="custom-search-help mb-2">
                                                     <h5 class="normal_heading mb-0">Filters</h5>
                                                     <div class="display_inline_block helpquation">
@@ -72,120 +72,114 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 30 minutes.</span>
+                                                <span class="reshuffle_tag">Listings reshuffle every 30 minutes.</span>
                                             </div>
-                                            <div class="col-md-8 ryt_srch_btn">
-                                                <div class="display_inline_block">
-                                                    <div class="location_radio_filter">
-                                                        <div class="d-flex align-items-start" style=" padding-top: 2px;">
-                                                            <input type="radio" name="locationByRadio"
-                                                                {{ $radio_location_filter != null ? 'checked' : '' }} id="yourLocation">
-                                                            <label for="yourLocation"
-                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                                Your Location
-                                                            </label>
-                                                        </div>
+                                            <div class="col-lg-12">
 
-                                                        <div class="d-flex align-items-start">
-                                                            <input type="radio" name="locationByRadio" id="australia"
-                                                                {{ $radio_location_filter == null ? 'checked' : '' }}>
-                                                            <label for="australia"
-                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                                Australia
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="display_inline_block w-100">
-                                                    {{-- old-code <div class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
-                                                    <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
-                                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                                    </button>
-                                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by Member ID or Name" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
-                                                </div> --}}
-                                                    <div
-                                                        class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
+                                                <div class="row align-items-center">
+                                                    
+                                                
 
-                                                        <input type="search" name="name" class="form-control remove_border_btm rounded "
-                                                            placeholder="Search by Member ID or Name" aria-label="Search"
-                                                            aria-describedby="search-addon" value="{{ request()->get('name') }}">
 
-                                                        <button
-                                                            class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
-                                                            id="search-addon" type="submit">
-                                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                {{-- old-code <div class="display_inline_block">
-                                                <div class="d-flex flex-column gap-2" style="width:105px">
-                                                    <div class="d-flex align-items-start"
-                                                        style=" padding-top: 2px;" title="Undertake a search within your Location only">
-                                                        <input type="radio" name="locationByRadio" {{ $radio_location_filter != null ? 'checked':'' }} id="yourLocation">
+
+                                                    <div class="col-lg-2 location_items mb-1">
+                                                        <div class="location_radio_filter">
+                                                            <div class="d-flex align-items-start" style=" padding-top: 2px;">
+                                                                <input type="radio" name="locationByRadio"
+                                                                    {{ $radio_location_filter != null ? 'checked' : '' }} id="yourLocation">
                                                                 <label for="yourLocation"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                                     Your Location
                                                                 </label>
                                                             </div>
 
-                                                            <div class="d-flex align-items-start" title="Undertake a search Australia wide">
-                                                                <input type="radio" name="locationByRadio" id="australia" {{ $radio_location_filter == null ? 'checked' : ''}}>
+                                                            <div class="d-flex align-items-start">
+                                                                <input type="radio" name="locationByRadio" id="australia"
+                                                                    {{ $radio_location_filter == null ? 'checked' : '' }}>
                                                                 <label for="australia"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                                     Australia
                                                                 </label>
                                                             </div>
-                                                    </div>
-                                                </div> --}}
-                                                <div class="display_inline_block   item_dis">
-                                                    <span class="item-head">Display item</span>
-                                                    <select class="custome_form_control_border_radus padding_five_px" name="limit">
-                                                        <option value="25">25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="75">75</option>
-                                                        <option value="100">100</option>
-                                                    </select>
-                                                    <div class="display_inline_block custom-refreshbuton">
-                                                        <div class="margin_btn_reset">
-                                                            <a type="reset" class="btn reset_filter filter-tooltip-wrap"
-                                                                href="{{ route('find.all') }}" data-toggle="tooltip" title="">
-                                                                <span class="filter-tooltip">Refresh page</span>
-                                                                <i class="fa fa-repeat" aria-hidden="true"></i>
-                                                            </a>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="display_inline_block">
-                                                    <div class="margin_btn_reset">
-                                                        <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
-                                                            {{-- auth()->user() ? route('web.show.shortlist') : --}}
-                                                            <a href="{{ route('web.show.showAddList') }}" data-toggle="tooltip"
-                                                                class="text-decoration-none">
-                                                                <div class="d-flex align-items-center justify-content-center gap-5">
-                                                                    <i class="fa fa-list" aria-hidden="true" style="line-height: 23px;"></i>
 
-                                                                    <span class="badge badge-pill badge-danger"
-                                                                        id="session_count">{{ count((array) session('cart')) }}</span>
-                                                                </div>
-                                                                <span class="filter-tooltip">View Shortlist</span>
-                                                            </a>
-                                                        </button>
+                                                    <div class="col-lg-4 search_items mb-1">
+                                                        <div
+                                                            class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
+
+                                                            <input type="search" name="name" class="form-control remove_border_btm rounded "
+                                                                placeholder="Search by Member ID or Name" aria-label="Search"
+                                                                aria-describedby="search-addon" value="{{ request()->get('name') }}">
+
+                                                            <button
+                                                                class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
+                                                                id="search-addon" type="submit">
+                                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="display_inline_block mb-1">
-                                                    @php
-                                                        $query = Arr::except(request()->query(), ['ipinfo']);
-                                                    @endphp
-                                                    <a type="submit" href="{{ route('shortlist.clear-list', $query) }}"
-                                                        class="btn reset_filter clear_shortlist_class " data-toggle="tooltip"
-                                                        title="">
-                                                        Clear Shortlist
-                                                    </a>
-                                                </div>
 
+                                                    <div class="col-lg-6 display_items mb-1">
+                                                        <div class="item_dis">
+                                                            <span class="item-head">Display item</span>
+                                                            <select class="custome_form_control_border_radus padding_five_px" name="limit">
+                                                                <option value="25">25</option>
+                                                                <option value="50">50</option>
+                                                                <option value="75">75</option>
+                                                                <option value="100">100</option>
+                                                            </select>
+                                                        </div>
+                                                    
+                                                        <div class="custom-refreshbuton">
+                                                            <div>
+                                                                <a type="reset" class="btn reset_filter filter-tooltip-wrap"
+                                                                    href="{{ route('find.all') }}" data-toggle="tooltip" title="">
+                                                                    <span class="filter-tooltip">Refresh page</span>
+                                                                    <i class="fa fa-repeat" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="">
+                                                            <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
+                                                                {{-- auth()->user() ? route('web.show.shortlist') : --}}
+                                                                <a href="{{ route('web.show.showAddList') }}" data-toggle="tooltip"
+                                                                    class="text-decoration-none">
+                                                                    <div class="d-flex align-items-center justify-content-center gap-5">
+                                                                        <i class="fa fa-list" aria-hidden="true" style="line-height: 23px;"></i>
+
+                                                                        <span class="badge badge-pill badge-danger"
+                                                                            id="session_count">{{ count((array) session('cart')) }}</span>
+                                                                    </div>
+                                                                    <span class="filter-tooltip">View Shortlist</span>
+                                                                </a>
+                                                            </button>
+                                                        </div>
+
+
+                                                        <div>
+                                                            @php
+                                                                $query = Arr::except(request()->query(), ['ipinfo']);
+                                                            @endphp
+                                                            <a type="submit" href="{{ route('shortlist.clear-list', $query) }}"
+                                                                class="btn reset_filter clear_shortlist_class " data-toggle="tooltip"
+                                                                title="">
+                                                                Clear Shortlist
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+                                                
+                                                
+                                                </div>
                                             </div>
                                         </div>
+
+
+
+
                                         <div class="fiter_btns slect__btn_tab">
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px" id=""
@@ -568,28 +562,81 @@
                                 <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
                             </button>
                             <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon">Help</h3>
-                            <div class="modal-sec">
-                                <p class="popu_heading_style">Search Filters</p>
-                                <p>
-                                    Your Geolocation will automatically determine your Location and list
-                                    Profiles according to that Location. You can:
-                                </p>
-                                <ol class="pl-3">
-                                    <li>&nbsp;Filter the search criteria by selecting your preferred filter and then
-                                        selecting the ‘Refresh’ &nbsp;button.
+                            <div class="modal-sec help--filter">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" data-toggle="tab" href="#tabs-1" role="tab"
+                                            aria-selected="true">Search Filters</a>
                                     </li>
-                                    <li>&nbsp;Change your Location by selecting your preferred city.</li>
-                                    <li>&nbsp;Change the number of listings displayed by changing the ‘Displayed
-                                        &nbsp;item’ filter to your preferred value.
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                            aria-selected="false">Search Field</a>
                                     </li>
-                                </ol>
-
-                                <p class="popu_heading_style">Service Tags</p>
-                                <p> Selected Service Tags will be listed in the Service Tag list which will
-                                    appear below the tags. You can remove any Service Tag by clicking the
-                                    ‘X’ located on the tag, or all of the Service Tags by clicking the ‘Clear Tags’
-                                    link.
-                                </p>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                            aria-selected="false">Shortlist</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
+                                            aria-selected="false">Service Tags</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-5" role="tab"
+                                            aria-selected="false">Verification</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
+                                        <p>Your Geolocation will automatically determine your Location and list Profiles
+                                            according to that Location. You can:</p>
+                                        <ol class="pl-3">
+                                            <li>Filter the search criteria by selecting your preferred filter and then
+                                                selecting the refresh button ‘Apply Filters’.</li>
+                                            <li>Change your Location by selecting your preferred city.</li>
+                                            <li>Change the number of listings displayed by changing the ‘Displayed item’
+                                                filter to your
+                                                preferred value.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li>You can undertake a search for an Escort within your Location, which is the
+                                                default, or Australia wide
+                                                by selecting ‘Australia’.</li>
+                                            <li>Searching by the Member ID is the most efficient way to find the Escort you
+                                                are looking for. </li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
+                                        <p>The Shortlist feature will only remain current for the session. You can:</p>
+                                        <ol class="pl-3">
+                                            <li>Add or remove Profiles by clicking the Short List button displayed on the
+                                                Profile.</li>
+                                            <li>To view your Shortlist, click the List tally that is located in the Search
+                                                Filters panel.</li>
+                                            <li>To clear the Shortlist, click the ‘Clear Shortlist’ button in the Search
+                                                Filters panel.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-4" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li>Your selected Service Tags will be listed below the Service Tag selection
+                                                list in the panel.</li>
+                                            <li>You can remove any Service Tag you selected by clicking the ‘X’ located on
+                                                the tag, or all of
+                                                the Service Tags you selected by clicking the ‘Clear Tags’ link in the
+                                                panel.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-5" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification. </div></li>
+                                        </ol>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

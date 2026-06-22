@@ -38,22 +38,22 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;">Dear {{ $data['billing_name'] }},</p>
+                            <p style="margin: 0 0 15px 0;"><b>Dear {{ $data['billing_name'] }},</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
                                 Your order for a range of Products has been received. Please note, if your order has
                                 been
-                                placed before <strong>11:00 am</strong> and you have requested a delivery, delivery will
-                                occur on the same day. If your order is by post, please allow <strong>48 hours</strong>
+                                placed before 11:00 am and you have requested a delivery, delivery will
+                                occur on the same day. If your order is by post, please allow 48 hours
                                 for the Products to arrive. We will express post your Products to your nominated
                                 delivery
                                 address.
                             </p>
 
                             <p style="margin: 15px 0;">
-                                If you do not receive your Products within <strong>72 hours</strong>, please lodge a
+                                If you do not receive your Products within 72 hours, please lodge a
                                 Support Ticket by logging onto your Dashboard and quoting your reference number
-                                <strong>{{ $data['id'] }}</strong>.
+                                {{ $data['id'] }}.
                             </p>
 
                             <p style="margin: 15px 0;">
@@ -72,14 +72,17 @@
                                 </li>
                                 <li style="margin-top: 10px;">
                                     You can view your order online by going to your Dashboard and selecting
-                                    <strong>Transaction Summary</strong> and from the Action options, select
-                                    <strong>View</strong>.
+                                    Transaction Summary and from the Action options, select
+                                    View.
                                 </li>
                             </ol>
 
 
                             <!-- email info -->
-                            <x-email-info />
+                              <p style="font-size: 15px; margin-top: 20px;">
+                                Regards,<br>
+                                <b>E4U - Operations Centre</b>
+                            </p>
                             <!-- end -->
 
                         </td>

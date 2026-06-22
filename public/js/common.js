@@ -290,3 +290,7 @@ var showLoadingPopup = function (title = 'Processing', text = 'Please wait...') 
 function resetUnsavedChanges(){
     formChanged = false;
 }
+
+function removeAnythingExceptNumber(value) {
+    return value.replace(/\D/g, '');
+}

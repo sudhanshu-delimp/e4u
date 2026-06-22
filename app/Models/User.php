@@ -2,30 +2,31 @@
 
 namespace App\Models;
 
-use Exception;
+use App\Models\AccountSetting;
+use App\Models\AgentBankDetail;
 use App\Models\AgentDetail;
 use App\Models\AgentSetting;
 use App\Models\EscortSetting;
-use App\Models\ViewerSetting;
-use App\Models\AccountSetting;
 use App\Models\MassageSetting;
-use App\Models\AgentBankDetail;
-use App\Models\PasswordSecurity;
+use App\Models\Notification;
 use App\Models\Operator;
 use App\Models\OperatorDetail;
 use App\Models\OperatorSetting;
 use App\Models\OperatorStaffDetail;
 use App\Models\OperatorStaffSetting;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Log;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
+use App\Models\PasswordSecurity;
 use App\Models\ViewerNotificationSetting;
+use App\Models\ViewerSetting;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -116,8 +117,8 @@ class User extends Authenticatable
     }
 
     public function getAbnAttribute($value)
-    { 
-      return formatAbnNumber($value);
+    {
+        return formatAbnNumber($value);
     }
 
     public function setAbnAttribute($value)
@@ -128,7 +129,7 @@ class User extends Authenticatable
 
     public function getBusinessNumberAttribute($value)
     {
-      return formatMobileNumber($value);
+        return formatMobileNumber($value);
     }
 
     public function setBusinessNumberAttribute($value)
@@ -194,7 +195,7 @@ class User extends Authenticatable
                 break;
             case 'shareholder':
                 $type = 8;
-                break;     
+                break;
             default:
                 $type = 0;
                 break;
@@ -243,47 +244,47 @@ class User extends Authenticatable
             case (10):
                 return "Supplier";
                 break;
-             case (8):
+            case (8):
                 return "Shareholder";
-                break;        
+                break;
         }
     }
     public function getUserTypeAttribute()
     {
         switch ($this->type) {
             case (0):
-                return 'V';//User/Viewer
+                return 'V'; //User/Viewer
                 break;
             case (1):
-                return "S";//Admin
+                return "S"; //Admin
                 break;
             case (2):
-                return "SU";//Sub-Admin
+                return "SU"; //Sub-Admin
                 break;
             case (3):
-                return "E";//Escort
+                return "E"; //Escort
                 break;
             case (4):
-                return "M";//Massage-Center
+                return "M"; //Massage-Center
                 break;
             case (5):
-                return "A";//Agent
+                return "A"; //Agent
                 break;
             case (6):
                 return "ST"; //Staff
                 break;
-            case (7)://operator
+            case (7): //operator
                 return "O";
                 break;
             case (9): // Operator's staff
                 return "OS";
                 break;
-             case (10): // Supplier
+            case (10): // Supplier
                 return "P";
-                break; 
-             case (8): // Shareholder
+                break;
+            case (8): // Shareholder
                 return "B";
-                break;        
+                break;
         }
     }
     public function getLevelTypeAttribute()
@@ -317,7 +318,7 @@ class User extends Authenticatable
                 return 6;
                 break;
             case (7):
-                return 7;//operator
+                return 7; //operator
                 break;
             case (9): // Operator's staff
                 return 9;
@@ -327,7 +328,7 @@ class User extends Authenticatable
                 break;
             case (8):
                 return 8;
-                break;    
+                break;
         }
     }
     public function agentBankDetail()
@@ -802,11 +803,11 @@ class User extends Authenticatable
             case 7: //for Operator
                 return config('constants.operator_default_icon');
             case 8: //for Supplier
-                return config('constants.shareholder_default_icon');    
+                return config('constants.shareholder_default_icon');
             case 9: //for Operator staff
                 return config('constants.operator_staff_default_icon');
-             case 10: //for Supplier
-                return config('constants.supplier_default_icon');    
+            case 10: //for Supplier
+                return config('constants.supplier_default_icon');
             case 0: // For Viewers
                 return config('constants.viewer_default_icon');
             default:
@@ -998,7 +999,7 @@ class User extends Authenticatable
         if ($this->wallet()->exists()) {
             return $this->wallet;
         }
-    
+
         return $this->wallet()->create([
             'balance' => 0
         ]);
@@ -1019,13 +1020,22 @@ class User extends Authenticatable
         }
 
         // Primary switched into child switch_for
-        if ($this->is_child == 1 && session()->has('parent_massage_id')  && session()->has('switch_for') && session()->has('switch_for')=='massage_to_massage') 
-        {
+
+        if ($this->is_child == 1 && session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true) {
             return true;
         }
 
         // Child direct login
         return false;
     }
-                
+
+
+    public function assignedAgent()
+    {
+        return $this->belongsTo(AgentDetail::class, 'assigned_agent_id', 'agent_id')->select('id', 'agent_id', 'commission_advertising_percent', 'commission_advertising_type', 'commission_registration_amount', 'commission_registration_type');
+    }
+    public function user_support_notification()
+    {
+        return $this->hasMany(Notification::class, 'to_user', 'id');
+    }
 }
