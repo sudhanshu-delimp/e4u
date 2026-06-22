@@ -124,27 +124,27 @@ class ProductOrderController extends Controller
       ->make(true);
   }
 
-    public function getAppUptime()
-    {
-        $startTime = Cache::get('app_start_time');
-        $str = '';
+  public function getAppUptime()
+  {
+    $startTime = Cache::get('app_start_time');
+    $str = '';
 
-        if (!$startTime) {
-            return 'App start time not available.';
-        }
-
-        $start = \Carbon\Carbon::parse($startTime);
-        $now = now();
-
-        $diffInSeconds = $now->diffInSeconds($start);
-
-        $days = floor($diffInSeconds / 86400);
-        $hours = floor(($diffInSeconds % 86400) / 3600);
-        $minutes = floor(($diffInSeconds % 3600) / 60);
-        $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
-
-        return $str;
+    if (!$startTime) {
+      return 'App start time not available.';
     }
+
+    $start = \Carbon\Carbon::parse($startTime);
+    $now = now();
+
+    $diffInSeconds = $now->diffInSeconds($start);
+
+    $days = floor($diffInSeconds / 86400);
+    $hours = floor(($diffInSeconds % 86400) / 3600);
+    $minutes = floor(($diffInSeconds % 3600) / 60);
+    $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
+
+    return $str;
+  }
 
   public function orderComplete(Request $request)
   {
@@ -228,6 +228,7 @@ class ProductOrderController extends Controller
             if (!empty($agent) && !empty($agent->email)) {
               $mail->cc($agent->email);
             }
+            
             $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
           }
 
