@@ -195,6 +195,7 @@ class ProductOrderController extends Controller
         $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
         $mailData['member_id'] = $order->user ? $order->user->member_id : '';
         $mailData['order_id'] = $order->order_id ?? "";
+        $mailData['member_name'] = $order->user ? $order->user->name : "";
         $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
         $billing = $order->orderAddress->where('type', 'billing')->first();
 
@@ -215,30 +216,29 @@ class ProductOrderController extends Controller
         $mailData['delivery_address'] = $completeAddress;
         if ($status && $request->status == 'delivered') {
 
-          // Send order completed mail notification to agent if order was made by agent
-          if ($order->createdBy) {
-            if ($order->user_id != $order->createdBy->id)
-              Mail::to($order->createdBy->email)->send(new SendProductOrderCompleteConfirmationMailToAgent($mailData));
+
+          if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
+            Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+          } else {
+            Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
           }
 
           // Send order completed mail notification to supplier
           Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
-
-          // Send order completed mail notification to escort
-          Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
         } elseif ($request->status == 'hold') {
 
-          // Send order hold notification to escort
-          Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+
+
+
+          if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+            Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+          } else {
+            Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+          }
+
 
           // Send order hold notification to supplier
           Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
-
-          // Send mail to escort agent also if escort have agent
-          if ($order->createdBy) {
-            if ($order->user_id != $order->createdBy->id)
-              Mail::to($order->createdBy->email)->send(new SendProductOrderHoldMailToEscortAgent($mailData));
-          }
         }
       });
 
