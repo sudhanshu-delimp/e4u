@@ -514,7 +514,7 @@
                                  <div class="col-6 mb-3">
                                     <label class="form-label" for="commission_advertising_percent">Advertising</label>
                                     <div class="input-group mb-2">
-                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" maxlength="3">
+                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" maxlength="5">
                                         <div class="input-group-prepend">
                                         <div class="input-group-text form-control right-sign">%</div>
                                         </div>
@@ -528,7 +528,7 @@
                                             <div class="input-group-prepend">
                                              <div class="input-group-text form-control left-sign" >$</div>
                                             </div>
-                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" maxlength="4">
+                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" maxlength="5">
                                             <input type="hidden" name="commission_registration_type" value="fixed"/>
                                          </div>
                                        <span class="text-danger error-commission_registration_amount"></span>
@@ -849,7 +849,7 @@
                                        <div class="col-6 mb-3">
                                     <label class="form-label" for="commission_advertising_percent">Advertising</label>
                                     <div class="input-group mb-2">
-                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}" maxlength="3">
+                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}" maxlength="5">
                                         <div class="input-group-prepend">
                                         <div class="input-group-text form-control right-sign">%</div>
                                         </div>
@@ -863,7 +863,7 @@
                                             <div class="input-group-prepend">
                                              <div class="input-group-text form-control left-sign" >$</div>
                                             </div>
-                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}" maxlength="4">
+                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}" maxlength="5">
                                             <input type="hidden" name="commission_registration_type" value="fixed"/>
                                          </div>
                                        <span class="text-danger error-commission_registration_amount"></span>
