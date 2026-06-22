@@ -65,16 +65,18 @@ $social_links = $listing->social_links;
      <!-- Middle Content -->
      <div class="mc_list_content">
          <div class="mc_list_content_inner w-100">
-             <div class="mc_list_header">
-                 <span class="mc_list_title">{{$listing->profile_name}}</span>
-                 <span class="mc_list_rating">
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                 </span>
-             </div>
+            <div class="mc_list_header">
+                <span class="mc_list_title">{{$listing->profile_name}}</span>
+                <span class="mc_list_rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if (isset($listing->star_rating) && $listing->star_rating > 0 && $i <= $listing->star_rating)
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        @else
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        @endif
+                    @endfor
+                </span>
+            </div>
 
              <div class="mc_list_address">
                  <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
