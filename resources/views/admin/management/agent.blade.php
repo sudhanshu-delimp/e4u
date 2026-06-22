@@ -507,14 +507,14 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                       <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? ''}" >
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" >
                                        <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
                                  <div class="col-6 mb-3">
                                         <label lass="form-label" for="commission_advertising_type">Amount Type</label>
                                     <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
                                         <option value="">Amount Type</option>
-                                       <option value="percent" ${agent_details?.commission_advertising_type == 'percent' ? 'selected' : ''}>Percent</option>
+                                       <option value="percent" ${agent_details?.commission_advertising_type == 'percent' ? 'selected' : 'selected'}>Percent</option>
                                         <option value="fixed" ${agent_details?.commission_advertising_type == 'fixed' ? 'selected' : ''}>Fixed</option>
                                     </select>
                                      <span class="text-danger error-commission_advertising_type"></span>
@@ -522,14 +522,14 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                       <input type="number" min="0" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? ''}" >
+                                       <input type="number" min="5" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" >
                                        <span class="text-danger error-commission_registration_amount"></span>
                                  </div>
                                  <div class="col-6 mb-3">
                                         <label lass="form-label" for="commission_registration_type">Amount Type</label>
                                     <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
                                         <option value="">Amount Type</option>
-                                        <option value="percent" ${agent_details?.commission_registration_type == 'percent' ? 'selected' : ''}>Percent</option>
+                                        <option value="percent" ${agent_details?.commission_registration_type == 'percent' ? 'selected' : 'selected'}>Percent</option>
                                         <option value="fixed" ${agent_details?.commission_registration_type == 'fixed' ? 'selected' : ''}>Fixed</option>
                                     </select> 
                                      <span class="text-danger error-commission_registration_type"></span>
@@ -848,7 +848,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                             <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
+                                             <input type="number" min="5" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
                                               <span class="text-danger error-commission_advertising_percent"></span>
                                        </div>
                                         <div class="col-6 mb-3">
@@ -863,7 +863,7 @@
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                             <input type="number" min="0" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
+                                             <input type="number" min="5" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
                                               <span class="text-danger error-commission_registration_amount"></span>
                                        </div>
                                         <div class="col-6 mb-3">

@@ -131,6 +131,16 @@
                             </tr>
 
                         </tbody>
+                         <tr>
+                        <th colspan="7" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="1" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="3" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                     </table>
                 </div>
             </div>
@@ -332,6 +342,25 @@
 
 @push('script')
  <script>
+    $(document).ready(function() {
+                 let countdown = 15;
+            setInterval(() => {
+                    countdown--;
+                    $(".refreshSeconds").text(' '+countdown);
+
+                    if (countdown <= 0) {
+                    // $('#PunterboxReportTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                    
+                    }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                    // $('#PunterboxReportTable').DataTable().search(this.value).draw();
+            });
+    });
+
         var table = $("#PunterboxReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",

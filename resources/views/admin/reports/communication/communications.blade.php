@@ -64,6 +64,16 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tr>
+                        <th colspan="6" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="1" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="2" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                     </table>
                 </div>
             </div>
@@ -154,6 +164,25 @@
 
 @push('script')
     <script>
+
+        $(document).ready(function(e) {
+            let countdown = 15;
+            setInterval(() => {
+                    countdown--;
+                    $(".refreshSeconds").text(' '+countdown);
+
+                    if (countdown <= 0) {
+                    $('#communicationsReportTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                    
+                    }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                    $('#communicationsReportTable').DataTable().search(this.value).draw();
+            });
+        })
         const mmRoot = $('#manage-route');
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
@@ -221,7 +250,12 @@
             pageLength: 10
         });
 
-
+        table.on('xhr.dt', function (e, settings, json) {
+            if (json) {
+                $('.serverTime').text(json.server_time);
+                $('.uptimeClass').html(json.server_up_time);
+            }
+        });
 
         // Event delegation for dynamic action buttons
         $(document).on('click', '.js-view', function(e) {

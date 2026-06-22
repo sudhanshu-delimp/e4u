@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\VariablAgentOperator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use App\Models\AgentDetail;
 use Exception;
 
 class AgentCommission extends Model
@@ -43,6 +44,37 @@ class AgentCommission extends Model
      */
     public function getAssignedAgent($userId = 0)
     {
+        //Log::info("User ID:" . $userId);
+        /* $agentDetail =  (new AgentDetail);
+        $user2 = User::where('id', $userId)->where('is_agent_assign', '1')->first();
+        if($user2) {
+            $assigned_agent_id = $user2->assigned_agent_id;
+            $agent =$agentDetail->where('agent_id', $assigned_agent_id)->first();
+            if(!$agent) {
+                $variable =  VariablAgentOperator::where('fee_for', 'advertising')->first();
+                $mcSignup =  VariablAgentOperator::where('fee_for', 'mc_signup')->first();
+                 $commission = 5;
+                 $amountType = 'percent';
+                 if ($variable) {
+                        $commission = (is_null($variable->amount)) ? 0 : $variable->amount;
+                        $amountType = $variable->amount_type;
+                }
+                $mcSignupcommission = 5;
+                $mcSignupamountType = 'percent';
+                if ($mcSignup) {
+                        $mcSignupcommission = (is_null($mcSignup->amount)) ? 0 : $mcSignup->amount;
+                        $mcSignupamountType = $mcSignup->amount_type;
+                }
+                $agentDetail->agent_id = $assigned_agent_id;
+                $agentDetail->commission_advertising_percent = $commission;
+                $agentDetail->commission_advertising_type = $amountType;
+                $agentDetail->commission_registration_amount = $mcSignupcommission;
+                $agentDetail->commission_registration_type = $mcSignupamountType;
+                $agentDetail->save();
+                //Log::info("Agent detail created:");
+            }
+        } */
+
         $user = User::with('assignedAgent')->where('id', $userId)->where('is_agent_assign', '1')->first();
 
         if ($user && $user->assignedAgent) {
@@ -72,13 +104,14 @@ class AgentCommission extends Model
         $agentCommission['amount_type'] = '';
         $agentCommission['purchase_amount'] = $total;
         $agentCommission['user_type'] = null;
+        //Log::info("Total amount :" . $total);
 
         $commission = 0;
         if ($total > 0) {
             $user = $this->getAssignedAgent($userId);
-            $assignedAgent = $user->assignedAgent;
-            if ($assignedAgent) {
-                //Log::info("Agent_details:" . json_encode($assignedAgent));
+            if ($user && $user->assignedAgent) {
+                $assignedAgent = $user->assignedAgent;
+               // Log::info("Agent_details:" . json_encode($assignedAgent));
                 $agentCommission['user_type'] = $user->type;
                 $agentCommission['agent_id'] = $assignedAgent->agent_id;
                 //$commission = (is_null($assignedAgent->commission_advertising_percent)) ? 0 : $assignedAgent->commission_advertising_percent;
@@ -124,6 +157,7 @@ class AgentCommission extends Model
     public function saveCommissionData($massageEscortPurchase, $userId, $total, $feeFor = 'advertising')
     {
         try {
+           // Log::info("saveCommissionData function triggered");
             $agentCommission = $this->calculateCommission($userId, $total);
             //Log::info("agentCommission:" . json_encode($agentCommission));
             if ($agentCommission['commission'] > 0 && !empty($agentCommission['amount_type']) && $agentCommission['agent_id'] > 0) {
@@ -138,12 +172,12 @@ class AgentCommission extends Model
                         'total_commission_amount' => $agentCommission['total_commission'],
                         'commission_date' => now(),
                     ]);
-                   // Log::info("Agent commisson proceeded");
+                    //Log::info("Agent commisson proceeded");
                     return true;
                 }
             }
         } catch (Exception $e) {
-            Log::error("agentCommission Exception:" . $e->getMessage());
+            Log::error("Agent Commission Exception:" . $e->getMessage());
         }
         return false;
     }

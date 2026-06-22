@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Repositories\Escort\EscortInterface;
 use App\Models\Purchase;
 use App\Models\PaymentHistory;
+use App\Models\PaymentProcess;
 use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
@@ -15,6 +16,8 @@ use PDF;
 use Illuminate\Support\Facades\Artisan;
 use App\Mail\PaymentMailer;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
@@ -138,6 +141,7 @@ class PaymentController extends Controller
             $total_amount = max(0, $total_amount);
 
             $html = view('escort.dashboard.modal.order_summary_adjustment', compact('action', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
+
             $benefit_token = encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount'));
             return response()->json([
                 'status'         => true,
@@ -189,8 +193,62 @@ class PaymentController extends Controller
             $gstAmount = $this->pinService->getGSTAmount();
             $totalDueAmount = $this->pinService->getTotalDue();
 
+            /* Insert records for the payment history table */
+            $insert = [];
+            $insert['user_id'] = $this->account->id;
+            $insert['completed_by'] = $request->isImpersonated ? $request->impersonatedId : $this->account->id;
+            $insert['ref_no'] = generateReferenceNo(PaymentHistory::class);
+            $insert['amount'] = $benefit_token['sub_total_amount'];
+            $insert['wallet_amount'] = $benefit_token['wallet_amount'];
+            $insert['loyalty_amount'] = $benefit_token['loyalty_amount'];
+            $insert['net_amount'] = $benefit_token['total_amount'];
+            $insert['gst_amount'] = $gstAmount;
+            $insert['paid_amount'] = $totalDueAmount;
+
             if (!$is_bypass) {
-                $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email);
+
+                switch ($benefit_token['action']) {
+                    case 'listing': {
+                            $payload = session()->get('checkout');
+                        }
+                        break;
+                    case 'tour': {
+                            $payload = session()->get('tour_checkout');
+                        }
+                        break;
+                    case 'extend': {
+                            $payload = session()->get('checkout');
+                        }
+                        break;
+                    case 'pinup': {
+                        }
+                        break;
+                    case 'bumpUp': {
+                        }
+                        break;
+                    case 'upgrade': {
+                        }
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+
+                $paymentProcess = PaymentProcess::create([
+                    'token' => Str::uuid(),
+                    'payload' => $payload,
+                    'type' => $benefit_token['action'],
+                ]);
+
+                $metaData = [
+                    'type' => 'escort-listing',
+                    'action' => $benefit_token['action'],
+                    'insert' => json_encode($insert),
+                    'process_token' => (string) $paymentProcess->token,
+                ];
+
+                $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email, null, $metaData);
                 if ($gatewayResponse['status']) {
                     $response = $gatewayResponse['data']['response'];
                 } else {
@@ -202,29 +260,18 @@ class PaymentController extends Controller
             }
 
             DB::beginTransaction();
-
-            $payment = PaymentHistory::create([
-                'user_id' => $this->account->id,
-                'completed_by' => $request->isImpersonated ? $request->impersonatedId : $this->account->id,
-                'ref_no' => generateReferenceNo(PaymentHistory::class),
-                'amount' => $benefit_token['sub_total_amount'],
-                'wallet_amount' => $benefit_token['wallet_amount'],
-                'loyalty_amount' => $benefit_token['loyalty_amount'],
-                'net_amount' => $benefit_token['total_amount'],
-                'gst_amount' => $gstAmount,
-                'paid_amount' => $totalDueAmount,
-                'currency' => $is_bypass ? 'AUD' : $response['currency'],
-                'payment_gateway' => 'pinpayments',
-                'transaction_id' => $is_bypass ? null : $response['token'],
-                'status' => $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed'),
-                'paid_at' => $is_bypass ? null : $response['created_at'],
-                'card' => $is_bypass ? null : $response['card']['display_number'],
-                'meta' => $is_bypass ? null : json_encode($response),
-            ]);
+            $insert['currency'] = $is_bypass ? 'AUD' : $response['currency'];
+            $insert['transaction_id'] = $is_bypass ? null : $response['token'];
+            $insert['status'] = $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed');
+            $insert['paid_at'] = $is_bypass ? null : $response['created_at'];
+            $insert['card'] = $is_bypass ? null : $response['card']['display_number'];
+            $insert['meta'] = $is_bypass ? null : json_encode($response);
+            $payment = PaymentHistory::create($insert);
 
             /** Calulate agent commisson and save the commission */
             $agentCommission = (new \App\Models\AgentCommission);
-            if($payment) {
+            if ($payment) {
+                Log::info("saveCommissionData fuction calling from payment controller.");
                 $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['total_amount']);
             }
 

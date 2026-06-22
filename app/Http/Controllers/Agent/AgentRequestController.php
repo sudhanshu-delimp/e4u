@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Http;
 use App\Models\AdvertiserAgentRequest;
 use App\Http\Requests\Agent\AgentRequest;
 use App\Models\AdvertiserAgentRequestUser;
+use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class AgentRequestController extends Controller
 {
@@ -368,10 +370,34 @@ class AgentRequestController extends Controller
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
-            "data"            => $result
+            "data"            => $result,
+            'server_up_time' => $this->getAppUptime(),
+            'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
         );
 
         return response()->json($data);
+    }
+
+     public function getAppUptime()
+    {
+        $startTime = Cache::get('app_start_time');
+        $str = '';
+
+        if (!$startTime) {
+            return 'App start time not available.';
+        }
+
+        $start = \Carbon\Carbon::parse($startTime);
+        $now = now();
+
+        $diffInSeconds = $now->diffInSeconds($start);
+
+        $days = floor($diffInSeconds / 86400);
+        $hours = floor(($diffInSeconds % 86400) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+        $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
+
+        return $str;
     }
 
     private function paginatedList($start, $limit, $order_key, $dir)
@@ -581,7 +607,7 @@ class AgentRequestController extends Controller
         foreach ($requestList as $item) {
             $item->joined_date =  isset($item->created_at) ? date('d-m-Y', strtotime($item->created_at)) : 'NA';
             $item->appointed_date =  isset($item->agent_assign_date) ? date('d-m-Y', strtotime($item->agent_assign_date)) : 'NA';
-            $item->earnings =  (new \App\Models\AgentCommission)->getTotalEarning($item->id);
+            $item->earnings =  '$'.(new \App\Models\AgentCommission)->getTotalEarning($item->id);
             $item->home_state  =  isset($item->state->iso2) ? $item->state->iso2 : '';
             $item->switch_account_route =  route('agent.switch-to-child', $item->id);
             $type = ($item->type == '3') ? 'Escort' : 'Massage Center';

@@ -125,9 +125,9 @@
                     <table class="table" id="advertiserReviewTable">
                         <thead class="table-bg">
                             <tr>
-                                <th>Ref</th>
+                                <th width="10%">Ref</th>
                                 <th>Date</th>
-                                <th>Escort/Massage ID</th>
+                                <th width="25%">Escort/Massage ID</th>
                                 <th>Viewer ID</th>
                                 <th>Mobile</th>
                                 <th>Status</th>
@@ -137,6 +137,17 @@
                         <tbody>
                             
                         </tbody>
+
+                    <tr>
+                        <th colspan="7" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="2" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="2" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="3" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                     </table>
 
                 </div>
@@ -323,6 +334,26 @@
     </script>
 
     <script>
+
+        $(document).ready(function(e) {
+            ajaxReload();
+            let countdown = 15;
+            setInterval(() => {
+                countdown--;
+                $(".refreshSeconds").text(' '+countdown);
+
+                if (countdown <= 0) {
+                    $('#advertiserReviewTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                    
+                }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                $('#advertiserReviewTable').DataTable().search(this.value).draw();
+            });
+        })
         $(document).on('click', '.close_report_btn', function(e) {
             e.preventDefault();
             $("#print-advertiser-reviews").hide();
@@ -504,6 +535,8 @@
                     url: ajaxUrl,
                     type: method,
                     dataSrc: function(json) {
+                        $(".serverTime").text(json.server_time);
+                        $(".uptimeClass").html(json.server_up_time);
                         return json.data;
                     }
                 },
