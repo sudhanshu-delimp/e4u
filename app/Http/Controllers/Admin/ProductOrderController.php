@@ -186,26 +186,36 @@ class ProductOrderController extends Controller
           ]))
         );
         $mailData['delivery_address'] = $completeAddress;
-        if ($status && $request->status == 'delivered') {
+        $agent = null;
 
+        if ($order->user->is_agent_assign == 1) {
+          $agent = User::where('id', $order->user->assigned_agent_id)->first();
+        }
+        if ($status && $request->status == 'delivered') {
 
           if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
             Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
           } else {
-            Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+            $mail = Mail::to($billing->email);
+            if (!empty($agent) && !empty($agent->email)) {
+              $mail->cc($agent->email);
+            }
+            $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
           }
 
           // Send order completed mail notification to supplier
           Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
         } elseif ($request->status == 'hold') {
 
-
-
-
           if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
             Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
           } else {
-            Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+
+            $mail = Mail::to($billing->email);
+            if (!empty($agent) && !empty($agent->email)) {
+              $mail->cc($agent->email);
+            }
+            $mail->send(new SendProductOrderHoldMailToEscort($mailData));
           }
 
 
