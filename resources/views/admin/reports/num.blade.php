@@ -124,11 +124,17 @@
                            </td>
                                 
                             </tr>
-
-                          
-
-
-                        </tbody>
+                      </tbody>
+                        <tr>
+                        <th colspan="7" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="1" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="3" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                     </table>
                 </div>
             </div>
@@ -218,23 +224,27 @@
     </div>
 @endsection
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script>
 
         $(document).ready(function() {
+            let countdown = 15;
+            setInterval(() => {
+                    countdown--;
+                    $(".refreshSeconds").text(' '+countdown);
 
-            // jQuery.extend(jQuery.fn.dataTable.ext.type.order, {
-            //     "status-pre": function (data) {
-            //         const order = {
-            //             "pending": 1,
-            //             "on_hold": 2,
-            //             "rejected": 3,
-            //             "published": 4
-            //         };
-            //         return order[data.trim()] ?? 999;
-            //     }
-            // });
+                    if (countdown <= 0) {
+                    $('#myReportListTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                    
+                    }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                    $('#myReportListTable').DataTable().search(this.value).draw();
+            });
+       
             // Initialize DataTable
             var table = $('#myReportListTable').DataTable({
                
@@ -259,12 +269,14 @@
                     url: "{{ route('admin.num.ajax') }}",
                     type: "GET",
                     dataSrc: function (json) {
-                        console.log("Received Data:", json); // ✅ Debug here
+                        console.log("Received Data:", json); // Debug here
                         $(".today_report").text(json.today);
                         $(".month_report").text(json.this_month);
                         $(".year_report").text(json.this_year);
                         $(".all_time_report").text(json.all_time);
-                        return json.data; // ✅ Return the data array for DataTables to render
+                        $('.serverTime').text(json.server_time);
+                        $('.uptimeClass').html(json.server_up_time);
+                        return json.data; // Return the data array for DataTables to render
                     }
                 },
                 columns: [{
@@ -494,6 +506,6 @@
         });
 
     </script>
-    
-    </script>
+
+
 @endpush
