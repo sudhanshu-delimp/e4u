@@ -71,7 +71,7 @@ class EscortSuspendProfileController extends Controller
         }
 
         # calculate credit
-        $refundAmount = getSuspendRefundAmount($escortProfile, $request->start_date, $request->end_date);
+        Amount = getSuspendRefundAmount($escortProfile, $request->start_date, $request->end_date);
 
         $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $requestStartDate, $escortTimezone)->setTimezone('UTC');
         $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $requestEndDate, $escortTimezone)->setTimezone('UTC');

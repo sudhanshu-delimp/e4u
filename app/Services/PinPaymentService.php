@@ -185,4 +185,19 @@ class PinPaymentService
   {
     return PaymentHistory::findOrFail($id);
   }
+
+  public function getTransactionDetail($transaction_id = null)
+  {
+    if (!empty($transaction_id)) {
+      return PaymentHistory::where('transaction_id', $transaction_id)->first();
+    } else {
+      return false;
+    }
+  }
+
+  public function saveTransaction(array $insert)
+  {
+    $payment = PaymentHistory::create($insert);
+    return $payment;
+  }
 }
