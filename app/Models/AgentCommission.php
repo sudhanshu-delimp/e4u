@@ -184,10 +184,18 @@ class AgentCommission extends Model
 
     /**
      * Get total earning of agent by Escort or Massage
+     * 
+     * @param \App\Models\User $userId
+     * @param integer $isFormatted
+     * @return integer
      */
-    public function getTotalEarning($userId = 0)
+    public function getTotalEarning($userId = 0, $isFormatted = 0)
     {
-        return self::where('user_id', $userId)
+        $price = self::where('user_id', $userId)
             ->sum('total_commission_amount');
+        if($isFormatted == 1)   {
+             $price = number_format($price, 2);
+        } 
+        return $price;
     }
 }
