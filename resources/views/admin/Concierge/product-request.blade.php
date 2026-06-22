@@ -93,8 +93,8 @@
     </a>
 
 
-    <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-modal="true"
-        role="dialog">
+    <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-hidden="true"
+        data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,7 +108,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <form>
+                    <form id="orderStatusChange">
                         <div class="row">
                             <input type="hidden" id="order_id">
                             <input type="hidden" id="order_status">
@@ -372,7 +372,7 @@
                         }
 
                         $('#active_req').modal('hide');
-
+                        $('#orderStatusChange')[0].reset();
                         toastr.success('Order status updated successfully');
 
                         table.ajax.reload(null, false);

@@ -1617,14 +1617,12 @@
                     $(".card_details").find("input, select, textarea, button").prop("disabled", false);
                     $("#makeOrder").prop("disabled", false);
                     finishPaymentForm.addClass('d-none');
-
-
-
                 }
+                
                 // Update UI
                 $(".taxAmount").text("$" + gst_amount.toFixed(2));
                 $("#total_fee").text("$" + subtotal.toFixed(2));
-                $(".totalDue").text("$" + (total_payble + taxOfWalletAmount + gst_amount).toFixed(2));
+                $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));
                 localStorage.setItem('paymentDetails_' + loginUserId, JSON.stringify(
