@@ -65,11 +65,11 @@
                         <tbody>
                         </tbody>
                         <tr>
-                        <th colspan="5" class="border-0"></th>
+                        <th colspan="6" class="border-0"></th>
                     </tr>
                     <tfoot class="bg-first t-foot">
                         <tr>
-                            <th colspan="2" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
                             <th colspan="1" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
                             <th colspan="2" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                         </tr>
