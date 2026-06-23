@@ -850,7 +850,7 @@ return [
   'escort_default_thumb' => '../../assets/app/img/service-provider/mc_default.png',
   'delivery_charge_door' => env('DELIVERY_CHARGE_DOOR'),
   'delivery_charge_post' => env('DELIVERY_CHARGE_POST'),
-  'product_tax' => env('PRODUCT_TAX'),
+  'product_tax' => env('GST_PERCENTAGE'),
   'webhook_secret_key' => env('WEBHOOK_SECRET_KEY'),
   'payment_status' => [
     'paid'      => 'badge_active',

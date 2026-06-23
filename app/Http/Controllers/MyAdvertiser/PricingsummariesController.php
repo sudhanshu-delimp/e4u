@@ -61,6 +61,7 @@ class PricingsummariesController extends BaseController
     ######### Update Pricing Data ############
     public function update_fees_data(Request $request)
     {
+        try {
 
         if(isset($request->concierge_services) && $request->concierge_services=='concierge_services')
         {
@@ -109,13 +110,17 @@ class PricingsummariesController extends BaseController
 
         if(isset($request->agent_operator_fees) && $request->agent_operator_fees=='agent_operator_fees')
         {
+            if($request->amount_type == 'percent' && $request->amount > 100) {
+                 return $this->validationError('The amount cannot be greater than 100 if the amount type is Percent.');
+            }
+            $amt = number_format($request->amount, 2, '.', '');
             $feesConciergeService = VariablAgentOperator::where('id',$request->id)
                                     ->update([
                                         'rate'=>$request->rate,
                                         'discription'=>$request->discription,
                                         'amount_type'=>$request->amount_type,
-                                        'amount'=>$request->amount,
-                                        'percent'=>($request->amount_type == 'fixed') ? '$'.$request->amount  :  $request->amount.'%',
+                                        'amount'=>$amt,
+                                        'percent'=>($request->amount_type == 'fixed') ? '$'.$amt  :  $amt.'%',
                                     ]);
 
             PricingFeeUpdateLog::where('fee_type','variabl_agent_operators')->update(['last_updated_date'=>date('Y-m-d')]);
@@ -145,7 +150,9 @@ class PricingsummariesController extends BaseController
            
         }
 
-
+    } catch(\Exception $e){
+         return $this->validationError('Error occred while updating. Please inter correct value.');
+    }
 
 
 
@@ -496,7 +503,13 @@ class PricingsummariesController extends BaseController
                
         foreach($fees_list as $key => $item) {
 
-            $item->percent = $item->percent;
+            $amount = $item->amount;
+            $formattedAmt = '<div class="num_value"><span>$</span><span>'.$amount.'</span></div>';
+            if($item->amount_type == 'percent') {
+                 $formattedAmt = '<div class="num_value"><span>'.$amount.'</span><span>%</span></div>';
+            }
+            
+            $item->percent = $formattedAmt;
             $item->amount_types = isset($item->amount_type) ? ucfirst($item->amount_type) : 'Percent';
             $item->rate = $item->rate == '1' ? 'Per Day' : ($item->rate == '2' ? 'Per Week' : 'Per Registration') ;
             $dropdown = '<div class="dropdown no-arrow">
