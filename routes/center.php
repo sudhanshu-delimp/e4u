@@ -194,6 +194,7 @@ Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?
 ############# Payment Process ####################
 Route::post('payments/make_order_summury',[PaymentController::class,'make_order_summury'])->name('center.make_order_summury');
 Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('center.payment.adjustment');
+Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('center.payment.process');
 
 
 

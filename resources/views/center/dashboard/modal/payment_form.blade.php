@@ -25,11 +25,11 @@
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Wallet Used:</span>
-                                    <span>{{ formatCurrency(0) }}</span>
+                                    <span class="wallet_amount">{{ formatCurrency(0) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Loyalty Discount:</span>
-                                    <span>{{ formatCurrency(0) }}</span>
+                                    <span class="loyalty_amount">{{ formatCurrency(0) }}</span>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -95,7 +95,8 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-end w-100 gap-10">
-                                                <button type="reset" class="reset-btn btn-cancel-modal" name="action"
+                                               
+                                                <button type="reset" class="reset-btn btn-cancel-modal reset_benifit" name="action"
                                                     value="reset">Reset</button>
                                                 <button type="submit" class="apply-btn" name="action"
                                                     value="">Apply</button>
@@ -105,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="finish-payment-form d-none mt-2">
-                                <form action="{{ route('escort.payment.process') }}" method="post"
+                                <form action="{{ route('center.payment.process') }}" method="post"
                                     id="finish-payment-form">
                                     <button type="submit" name="action" value="finish_payment"
                                         class="btn-success-modal btn-block">
@@ -132,7 +133,7 @@
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                        <form action="{{ route('escort.payment.process') }}" class="pin" method="post"
+                        <form action="{{ route('center.payment.process') }}" class="pin" method="post"
                             id="payment-form">
 
                             <div class="card p-3">
@@ -185,24 +186,24 @@
                                 <h6 class="font-weight-bold mb-0">Card Details</h6>
                                 <hr class="mt-0">
                                 <div class="form-group">
-                                    <input id="cc-number" class="form-control number" placeholder="Card Number">
+                                    <input id="cc-number" maxlength="16" class="form-control number" placeholder="Card Number">
                                 </div>
 
                                 <div class="form-group">
-                                    <input id="cc-name" class="form-control name" placeholder="Name on Card">
+                                    <input id="cc-name" maxlength="100" class="form-control name" placeholder="Name on Card">
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <input id="cc-expiry-month" class="form-control expiry_month"
+                                        <input id="cc-expiry-month" maxlength="2" class="form-control expiry_month"
                                             placeholder="MM">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input id="cc-expiry-year" class="form-control expiry_year"
+                                        <input id="cc-expiry-year" maxlength="4" class="form-control expiry_year"
                                             placeholder="YYYY">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input id="cc-cvc" class="form-control cvc" placeholder="CVC">
+                                        <input id="cc-cvc" maxlength="3" class="form-control cvc" placeholder="CVC">
                                     </div>
                                 </div>
 
@@ -234,6 +235,8 @@
             errorHeading = errorContainer.find('h3');
 
         form.submit(function(e) {
+
+            swal_waiting_popup('Please wait...');
             e.preventDefault();
             errorContainer.hide();
 
@@ -262,11 +265,26 @@
 
             paymentFormData['_token'] = `{{ csrf_token() }}`;
             paymentFormData['pin_token'] = card.token;
+            if (updatedPlanSummary?.data?.pay_data) {
+                const jsonData = JSON.stringify(updatedPlanSummary.data.pay_data);
+                const encrypted = CryptoJS.AES.encrypt(
+                    jsonData,
+                    CryptoJS.enc.Utf8.parse(secretKey),
+                    {
+                        iv: CryptoJS.enc.Utf8.parse(iv),
+                        mode: CryptoJS.mode.CBC,
+                        padding: CryptoJS.pad.Pkcs7
+                    }
+                ).toString();
 
-            if ($("input[name='benefit_token']").length > 0) {
-                paymentFormData['benefit_token'] = $("input[name='benefit_token']").val();
+                paymentFormData['benefit_token'] = encrypted;
+                paymentFormData['payload_data'] =  JSON.stringify(updatedPlanSummary.data);
+                Swal.close();
             }
 
+            
+            console.log('paymentFormData',paymentFormData)
+            
             $("#sendOtp_modal").modal({
                 backdrop: 'static',
                 keyboard: false,
@@ -298,10 +316,115 @@
                     }
                 });
             }
+            Swal.close();
             submitButton.removeAttr('disabled');
         }
 
     });
+
+
+    var processPaymentForm = function() {
+
+       
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: paymentFormData,
+            beforeSend: function() {
+            swal_waiting_popup({'title': 'Processing Payment. do not refresh or close this page'});
+            },
+            success: function(response, textStatus, xhr) {
+                //Swal.close();
+                paymentFormData = {};
+                //submitButton.removeAttr('disabled');
+                console.log('response',response);
+                let otherModalForm;
+                // if (!response.redirect_url || response.redirect_url.trim() === '') {
+                //     form.closest('.modal').modal('hide');
+                //     otherModalForm = $(`.modal-form-${response.action}`).find('form');
+                //     otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+                // }
+
+
+                // switch (response.action) {
+
+                //     case 'pinup': {
+                //         displaySwal(xhr, false);
+                //         otherModalForm.attr('action', `{{route('pinup.register')}}`);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+                //     case 'bumpUp': {
+                //         displaySwal(xhr, false);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+                //     case 'upgrade': {
+                //         displaySwal(xhr, false);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+
+                //     default: {
+                //         displaySwal(xhr).then((result) => {
+                //             if (result.isConfirmed) {
+                //                 if (response.redirect_url) {
+                //                     window.location.href = response.redirect_url;
+                //                 }
+                //             }
+                //         });
+                //     }
+                //     break;
+                // }
+            },
+            error: function(xhr) {
+                Swal.close();
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                });
+                submitButton.prop('disabled', false);
+            }
+        });
+    }
+
+    $("#sendOtp_modal").on('show.bs.modal', function() {
+        $.ajax({
+            url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
+            method: 'POST',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data: {
+                action: 'payment'
+            },
+            success: function(res, textStatus, xhr) {
+                console.log(res);
+            },
+            error: function(xhr) {
+                Swal.close();
+                let option = getStatusOption(xhr);
+                Swal.fire({
+                    icon: option.icon,
+                    title: option.title,
+                    text: option.message
+                });
+            }
+        });
+    });
+
+
 
     /*
 

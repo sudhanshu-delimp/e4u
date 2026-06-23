@@ -226,7 +226,7 @@ background:#16385f;
             
                     <!-- Footer -->
                     <div class="listing-footer" style="text-align:right; margin-top:20px;">
-                        <button type="button" class="save_profile_btn" id="escort-form-submit-btn" disabled="true">Proceed to Payment</button>
+                        <button type="button" class="save_profile_btn" id="escort-form-submit-btn" disabled="true">Proceed to Checkout</button>
                     </div>
                 </form>
 
@@ -304,6 +304,7 @@ background:#16385f;
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 
 <script src="{{ asset('js/escort/progress_bar.js') }}"></script>
 
@@ -311,6 +312,10 @@ background:#16385f;
 let profileCount = {{ count($profiles) }};
 let live_profiles = {{ count($live_profiles) }};
 var plandata = {}; 
+var updatedPlanSummary = {};
+const secretKey = "{{ config('app.aes_key') }}";
+const iv = "{{ config('app.aes_iv_string') }}";
+
 
 
 
@@ -734,45 +739,69 @@ e.preventDefault();
     }
 
     $("#summaryModal").hide();
-    $('#action').val('listing');
+    $('#adjustment-form').append(`<input type="hidden" name="action_type" value="listing">`);
 
     if (await isConfirm({'action': 'Proceed','text': ''})) {
 
-        swal_waiting_popup({'title': 'Processing.'});
-        let response = await make_order_summury(plandata);
-        $(".paymentSubtotal").text(response.data.paymentSubtotal);
-        $(".paymentTotal").text(response.data.total_fee);
-        $(".taxAmount").text(response.data.gstTax);
-        $('.totalDue').text(response.data.total_due);
-        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+        // plandata.action_type = $('[name="action_type"]').val();
+        // console.log('plandata',plandata);
+        // swal_waiting_popup({'title': 'Processing.'});
+        // let response = await make_order_summury(plandata);
+        // console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
+        // Swal.close();
+        // if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+        // $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+        // }
+    
+       // return false;
+       
 
-        console.log('process-payment-modal');
-        Swal.close();
-        return false;
+        // console.log('process-payment-modal');
+        // return false;
           
-        // swal_waiting_popup({'title': 'Payment in progress'});
-        //let formData = $("#purchase_listing").serialize();
+        swal_waiting_popup({'title': 'Processing.'});
+        let formData = $("#purchase_listing").serialize();
 
-        //  $.ajax({
-        //             url: "{{route('center.listing-payment')}}",
-        //             method: 'POST',
-        //             data: formData,
-        //             success: function(response) {
-        //                 Swal.close();
-        //                 let redirect = {'time': 2000, 'url' : 'payment-completed'}
-        //                 $('#next').trigger('click');
-        //                 swal_success_popup(response.message,redirect);
-        //             },
-        //             error: function(xhr) {
-        //                 Swal.close();
-        //                 console.log(xhr);
-        //                 if (xhr.status === 422) {
-        //                    swal_error_popup('Error occured while adding listing.');
-        //                 } else {
-        //                     swal_error_popup(xhr.responseJSON.message ||'Something went wrong.');
-        //                 }
-        //             }
-        // });
+         $.ajax({
+                    url: "{{route('center.listing-payment')}}",
+                    method: 'POST',
+                    data: formData,
+                    success:  function(response) 
+                    {
+                        Swal.close();
+                        plandata.action_type = $('[name="action_type"]').val();
+                        console.log('plandata',plandata);
+                        swal_waiting_popup({'title': 'Processing.'});
+
+                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
+                        Swal.close();
+                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        }
+                        }).fail(function(err) {
+                            console.error('Summary Function Error:', err);
+                            Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        });
+
+
+                      
+
+                        // Swal.close();
+                        // let redirect = {'time': 2000, 'url' : 'payment-completed'}
+                        // $('#next').trigger('click');
+                        // swal_success_popup(response.message,redirect);
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        console.log(xhr);
+                        if (xhr.status === 422) {
+                           swal_error_popup('Error occured while adding listing.');
+                        } else {
+                            swal_error_popup(xhr.responseJSON.message ||'Something went wrong.');
+                        }
+                }
+        });
 
     }
     else

@@ -1435,8 +1435,8 @@ class MassageController extends Controller
 
 
         
-            $parent_id          = 0;
-            $membership_id      = $request->membership_id;
+            $parent_id           = 0;
+            $membership_id       = $request->membership_id;
             $massage_profile_id  = $request->massage_profile_id;
             $massage_centre_id   =  auth()->user()->id ?? 0;
 
@@ -1454,31 +1454,49 @@ class MassageController extends Controller
             $paid_rate          = $request->total_rate ?? 0;
             $appliedDiscountAmount  = $request->applied_discount ?? 0;
 
-            $purchase = MassagePurchase::create([
-                'parent_id'          => $parent_id,
-                'membership_id'      => $membership_id,
-                'massage_centre_id'  => $massage_centre_id,
-                'massage_profile_id' => $massage_profile_id,
-                'start_date'         => $start_date,
-                'end_date'           => $end_date,
-                'utc_start_time'     => $utc_start_time,
-                'utc_end_time'       => $utc_end_time,
-                'status'             => $status,
-                'rate'               => $rate,
-                'discount_rate'      => $discount_rate,
-                'total_rate'         => $total_rate,
-                'paid_rate'          => $paid_rate,
-            ]);
+            $purchase = [
+                    'parent_id'          => $parent_id,
+                    'membership_id'      => $membership_id,
+                    'massage_centre_id'  => $massage_centre_id,
+                    'massage_profile_id' => $massage_profile_id,
+                    'start_date'         => $start_date,
+                    'end_date'           => $end_date,
+                    'utc_start_time'     => $utc_start_time,
+                    'utc_end_time'       => $utc_end_time,
+                    'status'             => $status,
+                    'rate'               => $rate,
+                    'discount_rate'      => $discount_rate,
+                    'total_rate'         => $total_rate,
+                    'paid_rate'          => $paid_rate,
+            ];
+            session()->forget('MassagePurchase');
+            session(['MassagePurchase' => $purchase]);
+
+            // $purchase = MassagePurchase::create([
+            //     'parent_id'          => $parent_id,
+            //     'membership_id'      => $membership_id,
+            //     'massage_centre_id'  => $massage_centre_id,
+            //     'massage_profile_id' => $massage_profile_id,
+            //     'start_date'         => $start_date,
+            //     'end_date'           => $end_date,
+            //     'utc_start_time'     => $utc_start_time,
+            //     'utc_end_time'       => $utc_end_time,
+            //     'status'             => $status,
+            //     'rate'               => $rate,
+            //     'discount_rate'      => $discount_rate,
+            //     'total_rate'         => $total_rate,
+            //     'paid_rate'          => $paid_rate,
+            // ]);
 
             /** Calulate agent commisson and save the commission */
-            $agentCommission = (new AgentCommission);
-            if($purchase) {
-                $agentResponse = $agentCommission->saveCommissionData($purchase, $massage_centre_id, $paid_rate);
-            }
+            // $agentCommission = (new AgentCommission);
+            // if($purchase) {
+            //     $agentResponse = $agentCommission->saveCommissionData($purchase, $massage_centre_id, $paid_rate);
+            // }
 
-            if($this->account->activeFeeDiscount){
-                $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
-            }
+            // if($this->account->activeFeeDiscount){
+            //     $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
+            // }
             
              return response()->json([
                 'success' => true,

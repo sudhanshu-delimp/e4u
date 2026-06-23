@@ -123,10 +123,13 @@
                         Swal.close();
                         submitButton.removeAttr('disabled');
                         let option = getStatusOption(xhr);
-                        sendOtpForm.closest('.modal').modal('hide');
-
-                        swal_success_popup(option.message);
-                        setTimeout(function () {
+                        Swal.fire({
+                            icon: option.icon,
+                            title: option.title,
+                            text: option.message,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
                             if ($("#in_payment_mode").length > 0) {
                                 $("#process-payment-modal").modal({
                                     backdrop: 'static',
@@ -135,7 +138,8 @@
                                 });
                                 processPaymentForm();
                             }
-                        }, 2000); 
+                        });
+                        sendOtpForm.closest('.modal').modal('hide');
                     },
                     error: function(xhr) {
                         Swal.close();
