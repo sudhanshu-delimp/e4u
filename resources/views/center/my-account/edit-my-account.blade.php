@@ -655,7 +655,7 @@
                                     <div class="form-group">
                                         <label>Point of Contact</label>
                                         <input type="text" class="form-control" name="contact_person"  id="contact_person" placeholder="Enter point of contact...">
-                                         <span class="text-danger error-point_of_contact"></span> 
+                                         <span class="text-danger error-contact_person"></span> 
                                     </div>
                                 </div>
                                
@@ -1136,6 +1136,7 @@
 
     $(document).on('submit', 'form[name="add_center_frm"]', function(e) 
     {
+
          e.preventDefault(); 
          let form = $(this);
          let formData = new FormData(this);
@@ -1282,6 +1283,8 @@
     ////// Edit Center ////////////////////
     $(document).on('click', '.edit-center-btn', function () 
     {
+        $('span.text-danger').text('');
+         $('#password-strength-wrapper').addClass('d-none');
         let row = $(this).data('row');
         $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Edit Centre`);
         console.log(row);
@@ -1331,7 +1334,9 @@
 
 
     $(document).on('click', '#open_add_center', function () {
-
+        $('#password-strength-wrapper').addClass('d-none');
+        $('#center_id').val('');
+        $('span.text-danger').text('');
         $('#add_center_frm')[0].reset();
         $('#submit_button').html('Add')
         $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Add Centre`);
