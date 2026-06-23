@@ -55,8 +55,11 @@
                         gap: 10px;
                     }
                     a.back--search {
-                        padding: 5px;
+                        padding: 8px 12px;
                         z-index: 9;
+                        position: fixed;
+                        right: 18px;
+                        top: 85px;
                     }
                     .profile_page_title {
                         display: flex;
@@ -215,6 +218,7 @@
                         gap: 10px;
                         flex-wrap: wrap;
                         margin-bottom: 60px;
+                        width: 100%;
                     }
                     .profile_page_title .member_type {
                         width: 50px;
