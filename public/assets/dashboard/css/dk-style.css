@@ -11485,6 +11485,10 @@ border-top: 5px solid var(--peach);
     cursor: not-allowed;
 }
 
+.z-in.show {
+    z-index: 9;
+}
+
 .grant-access sup {
     background: #ff3c5f;
     padding: 3px;
