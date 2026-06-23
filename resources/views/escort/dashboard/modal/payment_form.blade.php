@@ -48,7 +48,7 @@
 
                             <hr>
 
-                            <a style="color: #000;" data-toggle="collapse" href="#collapseExample" role="button"
+                            <a class="payment_wallet_option" style="color: #000;" data-toggle="collapse" href="#collapseExample" role="button"
                                 aria-expanded="false" aria-controls="collapseExample">
                                 <p class="apply_benefits"><strong>Apply Benefits</strong> <i
                                         class="fa fa-chevron-down"></i></p>
@@ -57,7 +57,7 @@
 
                             <div class="collapse" id="collapseExample">
                                 <div class="wallet_details">
-                                    <div class="card">
+                                    <div class="card payment_wallet_option">
                                         <div class="card-body">
                                             <h5><img src="{{ asset('assets/dashboard/img/wallet.png') }}"> Wallet Money
                                                 : <span>{{ formatCurrency(Auth::user()->wallet->balance) }}</span></h5>
@@ -74,7 +74,7 @@
                                     <form action="{{ route('payment.adjustment') }}" method="post"
                                         id="adjustment-form">
                                         <div class="form-row benefit_section">
-                                            <div class="form-group col-6">
+                                            <div class="form-group col-6 payment_wallet_option">
                                                 <label class="mb-0" for="Wallet">Wallet Money</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
@@ -113,7 +113,7 @@
                                     </button>
                                 </form>
                             </div>
-                            <div class="support mt-3 payment_note">
+                            <div class="support mt-3 payment_note payment_wallet_option">
                                 <p class="mb-0"><strong>Notes:</strong></p>
                                 <ol>
                                     <li>You can apply any portion of your benefits by selecting from your Wallet, to
@@ -304,9 +304,6 @@
 
     });
 
-    let initLoyaltySection = function(action = 'show') {
-        (action == 'hide') ? $(".payment_loyalty_option").hide(): $(".payment_loyalty_option").show();
-    }
 
     var processPaymentForm = function() {
         $.ajax({
@@ -544,15 +541,25 @@
         submitAdjustmentForm(false);
     });
 
+    let initLoyaltySection = function(action = 'show') {
+        (action == 'hide') ? $(".payment_loyalty_option").hide(): $(".payment_loyalty_option").show();
+    }
+
+    let initWalletSection = function(action = 'show') {
+        (action == 'hide') ? $(".payment_wallet_option").hide(): $(".payment_wallet_option").show();
+    }
+
     $("#process-payment-modal").on('show.bs.modal', function(event) {
         if (event.relatedTarget) {
-            let fee_token = $(event.relatedTarget).attr('fee_token');
+            let paymentButton = $(event.relatedTarget);
+            let fee_token = paymentButton.attr('fee_token');
             if (fee_token) {
                 addOrUpdateHiddenInput('adjustment-form', 'fee_token', fee_token);
             }
 
-            ['listing', 'tour', 'extend'].includes($(event.relatedTarget).attr('value')) ? initLoyaltySection('show') : initLoyaltySection('hide');
-            adjustmentForm.find('button[type="submit"]').attr('value', $(event.relatedTarget).attr('value'));
+            ['listing', 'tour', 'extend'].includes(paymentButton.attr('value')) ? initLoyaltySection('show') : initLoyaltySection('hide');
+            !['wallet'].includes(paymentButton.attr('value')) ? initWalletSection('show') : initWalletSection('hide');
+            adjustmentForm.find('button[type="submit"]').attr('value', paymentButton.attr('value'));
             adjustmentForm.find('[name="wallet_amount"]').val(0);
             submitAdjustmentForm(false);
         }
