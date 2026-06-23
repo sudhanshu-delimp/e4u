@@ -46,6 +46,17 @@
             text-align: center;
         }
         
+        .nz_location {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            gap: 15px;
+            padding-left: 0px;
+            list-style-type: none;
+            padding-left: 0px;
+        }
+        
         .badge_active {
             background-color: var(--active--status);
         }
