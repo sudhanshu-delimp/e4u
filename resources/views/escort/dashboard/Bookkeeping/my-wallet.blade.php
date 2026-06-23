@@ -199,7 +199,8 @@
         checkAmount();
     });
 
-    $("#confirmModal").on('show.bs.modal', function(event) {
+    $("#confirmModal").on('show.bs.modal', async function(event) {
+        let modal = $(this);
         let buttonElement = $(event.relatedTarget);
         let form = buttonElement.parents('form');
 
@@ -210,7 +211,11 @@
         }
 
         if (walletAmount && walletAmount > 0) {
-            $(this).find('.display_amount').text(formatCurrency(walletAmount, 'AU$'))
+            modal.find('.display_amount').text(formatCurrency(walletAmount, 'AU$'))
+
+            await encryptValue(walletAmount).then(function(res) {
+                modal.find('#modalPaymentButton').attr('fee_token', res.encrypted);
+            });
         }
     });
 

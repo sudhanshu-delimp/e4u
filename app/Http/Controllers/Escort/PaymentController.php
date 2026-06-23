@@ -104,6 +104,7 @@ class PaymentController extends Controller
                 'pinup' => getPinupFee(),
                 'bumpUp' => getBumpupFee(),
                 'upgrade' => $feeAmount,
+                'wallet' => $feeAmount,
                 default => null,
             };
 
