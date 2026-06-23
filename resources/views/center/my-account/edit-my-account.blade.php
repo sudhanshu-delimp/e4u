@@ -696,7 +696,7 @@
                                 <!-- Business No. -->
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+                                    <input type="password" name="password" id="password" autocomplete="off" class="form-control" placeholder="Enter Password">
                                     <span class="toggle-password" toggle="#password"><i class="fa fa-eye"></i></span>
                                     <div class="password-strength mt-2 d-none" id="password-strength-wrapper">
                                         <div class="progress" style="height:6px;">
@@ -718,7 +718,7 @@
                                 <!-- Mobile No. -->
                                 <div class="form-group">
                                     <label>Confirm Password </label>
-                                    <input type="password" name="confirm_password" id="confirm_password"  class="form-control" placeholder="Re-type password">
+                                    <input type="password" autocomplete="off" name="confirm_password" id="confirm_password"  class="form-control" placeholder="Re-type password">
                                     <span class="toggle-password" toggle="#confirm_password"><i class="fa fa-eye"></i></span>
                                     <span class="text-danger error-confirm_password"></span> 
                                 </div>
