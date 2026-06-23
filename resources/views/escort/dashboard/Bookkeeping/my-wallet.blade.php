@@ -159,11 +159,6 @@
         </div>
     </div>
 </div>
-<<<<<<< Updated upstream
- 
-</div>
-=======
->>>>>>> Stashed changes
 @endsection
 @prepend('script')
 <script>
