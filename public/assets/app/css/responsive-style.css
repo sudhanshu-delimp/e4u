@@ -300,10 +300,12 @@
                         display: flex;
                         flex-direction: column !important;
                         gap: 10px;
+                        padding: 10px;
                     }
                     .all-escort-view-profile-btn {
                         margin: 10px 0px;
                         align-items: center !important;
+                        flex-wrap: wrap;
                     }
                     .list_provide_cruise .row .col-lg-4 {
                         padding: 15px;
