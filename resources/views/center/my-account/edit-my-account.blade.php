@@ -215,7 +215,7 @@
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="email">My Agent</label>
+                                                                <label for="email">Our Agent</label>
                                                                 <label type="text" class="form-control form-back"
                                                                     placeholder=" " name="phone"
                                                                     aria-describedby="emailHelp"

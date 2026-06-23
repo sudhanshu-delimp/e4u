@@ -1381,6 +1381,7 @@
             line-height: 1.5;
             letter-spacing: -0.015em;
             margin-bottom: 14px;
+            list-style-type: none;
         }
         
         .modal-body button {
@@ -8911,6 +8912,7 @@ i.fa.fa-heart-o{
         .EC__list_card {
             display: grid;
             grid-template-columns: 300px 1fr 300px;
+            border: 1px solid #ddd;
             gap: 15px;
             align-items: start;
         }
