@@ -41,6 +41,7 @@
 
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.5') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.7') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.1') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
         <script>
