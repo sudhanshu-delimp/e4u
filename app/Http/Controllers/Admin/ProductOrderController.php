@@ -230,6 +230,7 @@ class ProductOrderController extends Controller
             if (!empty($agent) && !empty($agent->email)) {
               $mail->cc($agent->email);
             }
+            
             $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
           }
 
