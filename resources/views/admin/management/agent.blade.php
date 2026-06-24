@@ -993,12 +993,13 @@
             var rowData = $(this).data('agent');
             let user_img = rowData.avatar_img ? avatarsPath + '/' + rowData.avatar_img : defaultUser;
 
-            var printContent = `<style>table{border:1px #cccccc solid;} table th{width:30%; font-weight:bold; padding: 10px .75rem;border:1px #cccccc solid; text-align:left;} 
-                table td{width:70%; padding: 10px .75rem;border:1px #cccccc solid; white-space:nowrap;} h2{font-size: 22px;font-weight: bold;
-        }</style>
-    <div style="font-family:Arial; max-width:100%; overflow:hidden; box-sizing:border-box;">
+            var printContent = `<style>*{font-family: Arial !important; font-size: 16px !important;color: #333 !important;}
+                table{border:1px #cccccc solid;font-family:Arial !important;color: #333 !important;} table th{width:30%; padding: 10px .75rem;border:1px #cccccc solid; text-align:left;font-family:Arial;} 
+                table td{width:70%; padding: 10px .75rem;border:1px #cccccc solid; white-space:nowrap;} h2{font-size: 22px;font-weight: 800px;font-family:Arial;} body {font-family: Arial !important;font-size: 81.25%;}
+                </style>
+        <div style="font-family:Arial !important; max-width:100%; overflow:hidden; box-sizing:border-box;">
          <h2>Agent Report</h2>
-        <table style="border:none; border-collapse:collapse; width:auto; margin-bottom:5px;">
+        <table style="border:none; border-collapse:collapse; width:auto; margin-bottom:5px;font-family:Arial;">
             <tr>
                 <td style=" border:none;text-align:left; margin-left:0; padding-left:0;">
                     <img src="${user_img}" style="margin-left:0px;padding-left:0; margin-right:10px; max-height:50px; max-width:50px; object-fit:cover;">
@@ -1008,55 +1009,55 @@
                 </td>
             </tr>
         </table>
-         <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px;" border="1">
+         <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px;font-family:Arial;" border="1">
         <tr>
-            <th>Business Name</th>
+            <th><b>Business Name</b></th>
             <td>${(rowData.business_name) ? rowData.business_name : 'NA'}</td>
         </tr>
             <tr>
-               <th>ABN</th>
+               <th><b>ABN</b></th>
             <td>${(rowData.abn) ? rowData.abn : 'NA'}</td>
         </tr>
         <tr>
-            <th>Business Address</th>
+            <th><b>Business Address</b></th>
             <td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td>
         </tr>
         <tr>
-            <th>Business Number</th>
+            <th><b>Business Number</b></th>
             <td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td>
         </tr>
         <tr>
-            <th">Contact Person</th>
+            <th><b>Contact Person</b></th>
             <td>${(rowData.contact_person) ? rowData.contact_person : 'NA'}</td>
         </tr>
         <tr>
-            <th>Mobile</th>
+            <th><b>Mobile</b></th>
             <td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td>
         </tr>
         <tr>
-            <th>Private Email</th>
+            <th><b>Private Email</b></th>
             <td>${(rowData.email) ? rowData.email : 'NA'}</td></tr>
         <tr>
-            <th>E4U Email</th>
+            <th><b>E4U Email</b></th>
             <td>${(rowData.email2) ? rowData.email2 : 'NA'}</td></tr>
         <tr>
-            <th>Territory</th>
+            <th><b>Territory</b></th>
             <td>${(rowData?.state.name) ? rowData.state.name : 'NA'}</td>
         </tr>
         <tr>
-            <th>Agreement Date</th>
+            <th><b>Agreement Date</b></th>
             <td>${(rowData.agent_detail?.agreement_date) ? rowData.agent_detail.agreement_date.split('-').reverse().join('-') : 'NA'}</td>
         </tr>
         <tr>
-           <th>Term<</th>
+           <th><b>Term</b><</th>
             <td>${(rowData.agent_detail?.term) ? rowData.agent_detail.term : 'NA'}</td>
         </tr>
         <tr>
-            <th>Commission Advertising</th>
+            <th><b>Commission Advertising</b></th>
             <td>${(rowData.agent_detail?.commission_advertising_percent) ? rowData.agent_detail.commission_advertising_percent +'%': '0%'}</td>
         </tr>
         <tr>
-            <th>Commission Registration</th>
+            <th><b>Commission Registration</b></th>
             <td>${(rowData.agent_detail?.commission_registration_amount) ? '$'+rowData.agent_detail.commission_registration_amount : '$0'}</td>
         </tr>
         </table>
