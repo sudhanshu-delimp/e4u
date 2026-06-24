@@ -39,7 +39,7 @@
 
                             <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
                             <p style="font-size: 16px; margin: 35px 0 15px 0;">
-                                Dear <strong>{{$user->contact_person}}</strong>, 
+                                Dear <strong>{{ !empty($user->contact_person) ? $user->contact_person : (!empty($user->name) ? $user->name : 'Massage Centre') }}</strong>, 
                             </p>
                             <p>
                                 Your Massage Centre account was successfully created on {{$user->created_at->format('d-m-Y')}} and has now been granted access. Please find your login credentials below.

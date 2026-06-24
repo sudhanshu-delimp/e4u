@@ -621,6 +621,14 @@
                                     src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">
                                 <span style="{{ request()->is('*num*') ? 'color: #FF3C5F;' : '' }}">NUM</span>
                             </a>
+                            
+                            <a class="nav-link " href="{{ route('admin.escort.orders') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'product-order-history' ? 'color: #FF3C5F;' : '' }}">Product
+                                    Orders</span>
+                            </a>
                              <a class="nav-link collapsed" href="{{ route('admin.punterbox') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/punterbox.png') }}">
@@ -645,13 +653,6 @@
                                     src="{{ asset('assets/dashboard/img/menu-icon/transaction-summary.png') }}">
                                 <span
                                     style="{{ request()->is('*transaction-summary*') ? 'color: #FF3C5F;' : '' }}">Transactions</span>
-                            </a>
-                               <a class="nav-link " href="{{ route('admin.escort.orders') }}">
-                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'product-order-history' ? 'color: #FF3C5F;' : '' }}">Product
-                                    Orders</span>
                             </a>
                         </div>
                     </div>
