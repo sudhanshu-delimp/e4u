@@ -552,6 +552,8 @@
     $("#process-payment-modal").on('show.bs.modal', function(event) {
         if (event.relatedTarget) {
             let paymentButton = $(event.relatedTarget);
+            let primaryModalId = paymentButton.parents('.modal').attr('id');
+            $(`#${primaryModalId}`).modal('hide');
             let fee_token = paymentButton.attr('fee_token');
             if (fee_token) {
                 addOrUpdateHiddenInput('adjustment-form', 'fee_token', fee_token);

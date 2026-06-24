@@ -330,7 +330,7 @@ class PaymentController extends Controller
                             $mainAccount,
                             $totalDueAmount,
                             $payment,
-                            'Credit',
+                            'Add Money',
                             [
                                 'user_id' => $mainAccount->id
                             ]
@@ -340,6 +340,8 @@ class PaymentController extends Controller
                             'payment_history_id' => $payment->id,
                             'amount' => $payment->paid_rate,
                         ]);
+
+                        $redirect_url = route('escort.my_wallet');
                     }
                     break;
 
