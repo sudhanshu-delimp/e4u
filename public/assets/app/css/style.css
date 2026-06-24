@@ -1316,24 +1316,24 @@
             cursor: pointer;
         }
         
-        .filter-contain .my-shortlist ul {
+        .filter-contain .my-shortlist {
             display: flex;
+            width: 100%;
+            justify-content: space-between;
             list-style: none;
             align-items: center;
-            margin-left: 40px;
         }
         
-        .filter-contain .my-shortlist ul li h3 {
+        .filter-contain .my-shortlist h3 {
             font-family: Poppins;
-            font-size: 32px;
+            font-size: 24px;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 600;
             line-height: 32px;
             letter-spacing: 0em;
             text-align: left;
             text-transform: uppercase;
             margin-bottom: 0;
-            margin-right: 30px;
         }
         
         .filter-contain .my-shortlist ul li {
@@ -1344,7 +1344,7 @@
             line-height: 18px;
             letter-spacing: -0.015em;
             text-align: end;
-            color: #0C223D;
+            color: var(--blue--text);
         }
         
         .filter-contain .my-shortlist ul li a {
@@ -1357,6 +1357,33 @@
             text-align: center;
             color: #0C223D;
             text-decoration: none;
+        }
+        
+        .filter-contain .back_to_list_btn {
+            padding: 8px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        
+        .filter-contain .back_to_list_btn a {
+            color: var(--peach);
+            text-decoration: none;
+        }
+        
+        .filter-contain .back_to_list_btn a i {
+            color: var(--peach);
+        }
+        
+        .filter-contain .back_to_list_btn:hover {
+            background-color: var(--peach);
+        }
+        
+        .filter-contain .back_to_list_btn:hover a {
+            color: #fff;
+        }
+        
+        .filter-contain .back_to_list_btn:hover a i {
+            color: #fff;
         }
         
         .filter-contain .my-shortlist ul li i.fa {
@@ -2811,7 +2838,6 @@ i.fa.fa-heart-o{
         /*filter service provider list view start here*/
         /*aashish*/
         
-        .list_gender_area,
         .table.table-striped {
             font-family: Quicksand;
             font-style: normal;
@@ -2980,10 +3006,6 @@ i.fa.fa-heart-o{
             line-height: 38px;
         }
         
-        .fill_platinum_btn {
-            height: 50px;
-        }
-        
         .filter-pad {
             padding-right: 10px;
         }
@@ -3055,7 +3077,6 @@ i.fa.fa-heart-o{
         }
         
         .list-view {
-            padding-top: 10px;
             position: relative;
         }
         
@@ -3614,7 +3635,7 @@ i.fa.fa-heart-o{
         .btn_for_profile_list_view {
             background-color: var(--blue--text);
             color: white;
-            padding: 7px 8px;
+            padding: 10px;
             font-weight: 400;
             display: flex;
             align-items: center;
@@ -3846,12 +3867,16 @@ i.fa.fa-heart-o{
         }
         
         .grid_list_part {
-            margin: 1em 0 1.5em;
+            margin: 30px 0px;
         }
         
         .grid_list_part .col-12 {
             display: flex;
             gap: 15px;
+        }
+        
+        .platinum-sec {
+            margin-top: 20px;
         }
         
         .item_dis {
@@ -6333,13 +6358,18 @@ i.fa.fa-heart-o{
             margin-bottom: 15px;
         }
         
+        .mc_card_wrapper {
+            box-shadow: 0px 0px 17px 9px #d3d1d152 !important;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
         .mc_list_card {
             display: grid;
             grid-template-columns: 300px 1fr 300px;
             gap: 15px;
             background: #fff;
             border: 1px solid #ddd;
-            margin-bottom: 15px;
             align-items: start;
             min-height: 360px;
             width: 100%;
@@ -6368,6 +6398,13 @@ i.fa.fa-heart-o{
             height: 100%;
         }
         
+        .mc_list_content_inner {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            justify-content: space-between;
+        }
+        
         .mc_list_img {
             position: relative;
             height: 100%;
@@ -6385,7 +6422,7 @@ i.fa.fa-heart-o{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0px;
+            gap: 10px;
         }
         
         .mc_list_title {
@@ -6409,7 +6446,6 @@ i.fa.fa-heart-o{
         .mc_list_meta {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
             flex-wrap: wrap;
             padding: 3px 0;
         }
@@ -6460,10 +6496,6 @@ i.fa.fa-heart-o{
         
         .mc_list_time table thead th {
             padding: 13px !important;
-        }
-        
-        .mc_list_time table tbody td {
-            padding: 7px 13px !important;
         }
         
         .mc_time_header {
@@ -7087,6 +7119,7 @@ i.fa.fa-heart-o{
             font-size: 15px !important;
             font-weight: 400;
             margin-left: auto;
+            margin-top: 5px;
         }
         
         .custom-sort-filter:hover {
@@ -8358,10 +8391,6 @@ i.fa.fa-heart-o{
             display: flex;
         }
         
-        .custom--available-section {
-            padding-top: 10px;
-        }
-        
         .custom--gender--area,
         .custom--available-section {
             width: 100%;
@@ -8527,7 +8556,6 @@ i.fa.fa-heart-o{
         .gold-profile-details-custom {
             gap: 20px;
             align-items: center;
-            flex-wrap: wrap;
         }
         
         .gold-profile-details-custom .free_profile_name_and_color {

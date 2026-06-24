@@ -41,13 +41,8 @@ $twitter_link = "https://x.com/NMugs32853";
  
 @endphp
 
-
+<div class="mc_card_wrapper">
  <div class="mc_list_card">
-
-
-         
-
-
 
      <!-- Left Image -->
 
@@ -93,10 +88,35 @@ $twitter_link = "https://x.com/NMugs32853";
          <div class="mc_list_content_inner w-100">
              <div class="mc_list_header">
                  <span class="mc_list_title">{{$listing->business_name}} </span>
-                 <span class="mc_list_rating">
+
+                 @php
+                        $inWishlist = in_array($listing->id, session('wishlist', []));
+                    @endphp
 
 
+                    <span class="list_button_wrap" id="list_button_wrap_id{{ $listing->id }}">
+                        <button type="button"
+                            class="{{ $inWishlist ? 'm_removelist' : 'm_wishlist' }} btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887"
+                            data-id="{{ $listing->id }}">
 
+                            <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png">
+                            {{ $inWishlist ? 'Remove from Shortlist' : 'Add to Shortlist' }}
+                        </button>
+                    </span>
+             </div>
+             
+             <div class="mc_list_address">
+                 <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
+                 {{$listing->address}}
+                 
+             </div>
+
+             
+             <div>
+                <span class="mc_list_rating">
+
+
+                    <strong>Rating : </strong>
                    
                      @for ($i = 1; $i <= 5; $i++)
                         @if (isset($listing->star_rating) && $listing->star_rating > 0 && $i <= $listing->star_rating)
@@ -109,14 +129,10 @@ $twitter_link = "https://x.com/NMugs32853";
                  </span>
              </div>
 
-             <div class="mc_list_address">
-                 <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
-                 {{$listing->address}}
-             </div>
-
              <div class="mc_list_meta">
                  <span><strong>Parking :</strong> {{ config('escorts.profile.Parking.' . $listing->parking, 'N/A') }}</span>
                  <span><strong>Entry :</strong> {{ config('escorts.profile.Entry.' . $listing->entry, 'N/A') }}</span>
+                 
                  <span><strong>Shower :</strong> {{ config('escorts.profile.Shower.' . $listing->parking, 'N/A') }}</span>
              </div>
 
@@ -126,33 +142,35 @@ $twitter_link = "https://x.com/NMugs32853";
                  <span><strong>Security :</strong> {{ config('escorts.profile.Security.' . $listing->security, 'N/A') }}</span>
              </div>
 
-             <div class="mc_list_meta">
-                 <span><strong>Massage Services:</strong>
+             <div>
+                <div class="mc_list_meta">
+                    <span><strong>Massage Services : </strong>
 
-                     @foreach ($listing->massage_services()->where('category_id', 1)->get() as $value)
-                     @php
-                     $massage_services .= config('escorts.profile.massage-services')[$value->service_id] . ', ';
-                     @endphp
-                     @endforeach
+                        @foreach ($listing->massage_services()->where('category_id', 1)->get() as $value)
+                        @php
+                        $massage_services .= config('escorts.profile.massage-services')[$value->service_id] . ', ';
+                        @endphp
+                        @endforeach
 
-                     {{ rtrim($massage_services, ', ') }}
-                 </span>
-             </div>
-
-
-             <div class="mc_list_meta">
-                 <span><strong>Other Service Types:</strong>
-
-                     @foreach ($listing->massage_services()->where('category_id', 2)->get() as $value)
-                     @php
-                     $other_services .= config('escorts.profile.other-services')[$value->service_id] . ', ';
-                     @endphp
-                     @endforeach
-
-                     {{ rtrim($other_services, ', ') }}
+                        {{ rtrim($massage_services, ', ') }}
+                    </span>
+                </div>
 
 
-                 </span>
+                <div class="mc_list_meta">
+                    <span><strong>Other Service Types : </strong>
+
+                        @foreach ($listing->massage_services()->where('category_id', 2)->get() as $value)
+                        @php
+                        $other_services .= config('escorts.profile.other-services')[$value->service_id] . ', ';
+                        @endphp
+                        @endforeach
+
+                        {{ rtrim($other_services, ', ') }}
+
+
+                    </span>
+                </div>
              </div>
 
              <div class="mc_list_about">
@@ -176,66 +194,45 @@ $twitter_link = "https://x.com/NMugs32853";
                    
 
              </div>
-
-
          </div>
+         <div class="social_media_icons w-100">
+            <div class="social_media_wrapper">
+
+                <!-- <div class="s_icon ec_playbox_icon">
+                    <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/playbox" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/MyPlaybox.png" alt="logo"></a>
+                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                </div> -->
 
 
+                <div class="d-flex justify-content-between gap-10">
 
-             <div class="social_media_icons w-100">
-                    <div class="social_media_wrapper">
-
-                        <!-- <div class="s_icon ec_playbox_icon">
-                            <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/playbox" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/MyPlaybox.png" alt="logo"></a>
-                            <div class="custom-tooltip">I don't have any Playbox.</div>
-                        </div> -->
-
-
-                        <div class="d-flex justify-content-between gap-10">
-
-                            @if(isset($social_links['facebook']) && $social_links['facebook']!="")
-                            <div class="s_icon">
-                                <a href="{{$social_links['facebook']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" alt="logo"></a>
-                            </div>
-                            @endif
-
-                            @if(isset($social_links['insta']) && $social_links['insta']!="")
-                            <div class="s_icon">
-                                <a href="{{$social_links['insta']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" alt="logo"></a>
-                            </div>
-                            @endif
-
-                           
-                            <div class="s_icon">
-                                <a href="{{ $twitter_link  }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
-                            </div>
-                          
-
-
-                        </div>
-
+                    @if(isset($social_links['facebook']) && $social_links['facebook']!="")
+                    <div class="s_icon">
+                        <a href="{{$social_links['facebook']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" alt="logo"></a>
                     </div>
+                    @endif
 
-                    @php
-                        $inWishlist = in_array($listing->id, session('wishlist', []));
-                    @endphp
+                    @if(isset($social_links['insta']) && $social_links['insta']!="")
+                    <div class="s_icon">
+                        <a href="{{$social_links['insta']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" alt="logo"></a>
+                    </div>
+                    @endif
 
-
-                    <span class="list_button_wrap" id="list_button_wrap_id{{ $listing->id }}">
-                        <button type="button"
-                            class="{{ $inWishlist ? 'm_removelist' : 'm_wishlist' }} btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887"
-                            data-id="{{ $listing->id }}">
-
-                            <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png">
-                            {{ $inWishlist ? 'Remove from Shortlist' : 'Add to Shortlist' }}
-                        </button>
-                    </span>
-
-                
-
-             </div>
+                    
+                    <div class="s_icon">
+                        <a href="{{ $twitter_link  }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
+                    </div>
+                    
 
 
+                </div>
+
+            </div>
+
+            
+        
+
+        </div>
      </div>
 
     
@@ -260,4 +257,5 @@ $twitter_link = "https://x.com/NMugs32853";
 
 
  </div>
+</div>
  @endforeach

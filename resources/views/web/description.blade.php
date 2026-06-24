@@ -202,15 +202,11 @@
                             <p>{{$escort->city->name}} - {{  $escort->phone }}</p>                    
                         </div>
                         {{-- address --}}
-                        <div class="profile_page_location_and_id">
+                        <div class="profile_page_location_and_id mb-4">
                             <ul>
                                 <li>
                                     <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
                                     <p class="display_inline_block ">{{ $escort->address}}</p>
-                                </li>
-                                <li>
-                                    <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
-                                    <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
                                 </li>
                             </ul>
                         </div>

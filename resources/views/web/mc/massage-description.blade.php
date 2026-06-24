@@ -282,7 +282,7 @@ margin-right: 5px;
                             <p> {{ get_massage_home_city($listing->user_id) .' - '.formatMobileNumber($listing->phone) }}   </p>
                         </div>
 
-                        <div class="profile_page_location_and_id">
+                        <div class="profile_page_location_and_id mb-4">
                             <ul>
                                 <li>
                                     <span class="profile_location_icon">
@@ -293,7 +293,7 @@ margin-right: 5px;
                             </ul>
                         </div>
 
-                        <div class="social_media_profile mt-3">
+                        <div class="social_media_profile my-3">
                             <ul class="profile_page_social_profiles ml-0">
 
                                 @if(isset($social_links['facebook']) && $social_links['facebook']!="")
