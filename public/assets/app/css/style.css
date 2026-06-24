@@ -1395,7 +1395,10 @@
             line-height: 1.5;
             letter-spacing: -0.015em;
             margin-bottom: 14px;
-            list-style-type: none;
+        }
+        
+        .help_icons {
+            list-style: none;
         }
         
         .modal-body button {
