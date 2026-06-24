@@ -39,7 +39,7 @@
 
                             <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
                             <p style="font-size: 16px; margin: 35px 0 15px 0;">
-                                Dear <strong>{{$user->contact_person}}</strong>, 
+                                Dear <strong>{{ !empty($user->contact_person) ? $user->contact_person : (!empty($user->name) ? $user->name : 'Massage Centre') }}</strong>, 
                             </p>
                             <p>
                                 Your Massage Centre account was successfully created on {{$user->created_at->format('d-m-Y')}} and has now been granted access. Please find your login credentials below.
@@ -47,8 +47,9 @@
                             </p>    
 
                             <p><h3>Login Details</h3></p>
-                            <p><strong>Login id / Mobile No : </strong> {{removeSpaceFromString($user->phone)}}</p>
+                            <p><strong>Login ID / Mobile No : </strong> {{removeSpaceFromString($user->phone)}}</p>
                             <p><strong>Password : </strong> {{$userpassword}}</p>
+                            <p><strong>Login url : </strong> {{ route('advertiser.login') }}</p>
 
                             <!-- Details Table -->
                             
