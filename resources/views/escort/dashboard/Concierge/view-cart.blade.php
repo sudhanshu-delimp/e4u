@@ -539,8 +539,8 @@
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <strong>GST (Inclusive):</strong>
-                                        <strong class="taxAmount" style="border: none">$1.20</strong>
+                                        <strong>GST :</strong>
+                                        <strong class="taxAmount" style="border: none">$0.00</strong>
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center  mb-2">
@@ -1411,11 +1411,11 @@
             $("#total_fee").text("$ " + subtotal.toFixed(2));
             $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
             $(".taxAmount").text("$" + gst.toFixed(2));
-            $(".totalDue").text("$" + total.toFixed(2));
+            $(".totalDue").text("$" + (total + gst).toFixed(2));
 
             // set data to local storage for make order 
             let paymentData = {
-                total_payble: total.toFixed(2),
+                total_payble: (gst + total).toFixed(2),
                 tax_payble: gst.toFixed(2),
                 deliveryCharge: deliveryCharge.toFixed(2),
                 subtotal_payble: subtotal.toFixed(2)
@@ -1603,6 +1603,7 @@
                 let tax = parseFloat("{{ config('escorts.product_tax') }}");
 
                 let gst_amount = oldSubtotal * tax / 100;
+                let taxOfWalletAmount = walletUsed * tax / 100;
                 details.tax_payble = gst_amount.toFixed(2);
                 if (total_payble == 0) {
                     $(".card_details").find("input, select, textarea, button").prop("disabled", true);
@@ -1616,13 +1617,11 @@
                     $(".card_details").find("input, select, textarea, button").prop("disabled", false);
                     $("#makeOrder").prop("disabled", false);
                     finishPaymentForm.addClass('d-none');
-
-
-
                 }
+                
                 // Update UI
                 $(".taxAmount").text("$" + gst_amount.toFixed(2));
-                $("#total_fee").text("$ " + subtotal.toFixed(2));
+                $("#total_fee").text("$" + subtotal.toFixed(2));
                 $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));

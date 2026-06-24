@@ -3997,7 +3997,7 @@ p.notes {
 .view_img_gallery_masseur .verification img {
     height: 360px;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 @media (max-width: 768px) {
@@ -11483,6 +11483,10 @@ border-top: 5px solid var(--peach);
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.z-in.show {
+    z-index: 9;
 }
 
 .grant-access sup {

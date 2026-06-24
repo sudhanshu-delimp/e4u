@@ -128,57 +128,43 @@
    
     @include('web.mc-shortlist.mc-filter')
 
-    <div class="container my-5">
-
-
-            <div class="row grid_list_part grid_wishlist_part mb-0 filter-contain" id="v_li_wishlist" style="display: block;">
+    <div class="container mb-5">
+            <div class="row grid_list_part grid_wishlist_part filter-contain" id="v_li_wishlist" style="display: block;">
                 <div class="col-12 align-items-left">
                     <div class="my-shortlist">
-                        <ul class="mb-4 mt-1 pt-1 ml-0">
-                            <li>
-                                <h3>My Shortlist</h3>
-                            </li>
+                        <h3>My Shortlist</h3>
                             
-                            
-                             <li class="fiter_btns slect__btn_tab">
-                                <div class="display_inline_block mb-1 mr-2 ">
-                                    <a type="submit" href="./massage-centres-list" class="btn reset_filter p-1" data-toggle="tooltip">
-                                        
-                                        <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
-                                       <span class="hide-on-sm" style="margin-right: 10px;"> Back To Listings</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                        <button class="back_to_list_btn">
+                        
+                            <a type="submit" href="./massage-centres-list" data-toggle="tooltip">                                
+                                <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
+                                <span class="hide-on-sm" style="margin-right: 10px;"> Back To Listings</span>
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
-
-
+            
             <div class="row">
-
-                <!-- ////// Grid View ///////////////// -->
+                <!--- Grid View -->
                 <div class="col-sm-12" id="grid_view">
                     <h2 class="mc_view_title">Grid View</h2>
                     <div class="mc_card_container"></div>
                 </div>
 
-                <!-- ////// List View ///////////////// -->
+                <!--- List View -->
                 <div class="col-sm-12" id="list_view">
                     <h2 class="mc_view_title">List View</h2>
                     <div class="mc_list_container"></div>
                 </div>
-
-
                 <div id="page_loader">
                     <div class="loader"></div>
                 </div>
-
             </div>
 
-            <!-- ////// Pagination ///////////////// -->
+            <!--  Pagination -->
              <div id="common_pagination"></div>
-             <!-- ////// End Pagination ///////////////// -->
+             <!-- End Pagination -->
 
   </div>
 

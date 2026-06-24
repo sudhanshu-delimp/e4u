@@ -85,7 +85,7 @@
                                         <tr>
                                             <th>Member ID</th>
                                             <th>Name</th>
-                                            <th>Mobile</th>
+                                            <th style="width:78px;!important;">Mobile</th>
                                             <th>Email</th>
                                             <th>Joined</th>
                                             <th>Appointed</th>

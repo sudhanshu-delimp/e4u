@@ -69,6 +69,16 @@
                                 <tbody>
 
                                 </tbody>
+                                <tr>
+                                    <th colspan="13" class="border-0"></th>
+                                </tr>
+                                <tfoot class="bg-first t-foot">
+                                    <tr>
+                                        <th colspan="5" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                                        <th colspan="4" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                                        <th colspan="4" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -93,8 +103,8 @@
     </a>
 
 
-    <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-modal="true"
-        role="dialog">
+    <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-hidden="true"
+        data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,7 +118,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <form>
+                    <form id="orderStatusChange">
                         <div class="row">
                             <input type="hidden" id="order_id">
                             <input type="hidden" id="order_status">
@@ -196,6 +206,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            let countdown = 15;
+                setInterval(() => {
+                        countdown--;
+                        $(".refreshSeconds").text(' '+countdown);
+
+                        if (countdown <= 0) {
+                        $('#productsHistoryTable').DataTable().ajax.reload(null, false);
+                        countdown = 15;
+                        
+                        }
+
+                }, 1000);
+
+                $('#customSearch').on('keyup', function() {
+                        $('#productsHistoryTable').DataTable().search(this.value).draw();
+                });
+
             var table = $("#productsHistoryTable").DataTable({
                 processing: true,
                 serverSide: true,
@@ -276,6 +304,13 @@
                     }
                 ]
             });
+
+            table.on('xhr.dt', function (e, settings, json) {
+            if (json) {
+                $('.serverTime').text(json.server_time);
+                $('.uptimeClass').html(json.server_up_time);
+            }
+        });
 
 
             $(document).on('click', '.open-status-modal', function(e) {
@@ -372,7 +407,7 @@
                         }
 
                         $('#active_req').modal('hide');
-
+                        $('#orderStatusChange')[0].reset();
                         toastr.success('Order status updated successfully');
 
                         table.ajax.reload(null, false);

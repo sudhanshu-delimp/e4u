@@ -206,7 +206,7 @@ class PaymentController extends Controller
             $insert['paid_amount'] = $totalDueAmount;
 
             if (!$is_bypass) {
-
+                $payload = [];
                 switch ($benefit_token['action']) {
                     case 'listing': {
                             $payload = session()->get('checkout');

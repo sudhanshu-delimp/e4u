@@ -120,15 +120,15 @@
                             class="d-flex justify-content-between  flex_directiom_warp_but_list_child_not_hundred_present list_gender_area ">
                             <div class="custom--gender--area">
                                 <div class="gender">
-                                    <span class="filter-pad">Gender:</span>
+                                    <strong>Gender: </strong>
                                     <span>{{ $escort->gender ? $escort->gender : '' }}</span>
                                 </div>
                                 <div class="give_rating_after_get_servive">
-                                    <span class="filter-pad">Location:</span><span>
-                                        {{ $escort->city ? $escort->city->name : '' }}</span>
+                                    <strong>Location: </strong>
+                                    <span>{{ $escort->city ? $escort->city->name : '' }}</span>
                                 </div>
                                 <div class="give_rating_after_get_servive">
-                                    <span class="filter-pad">Rating:</span>
+                                    <strong>Rating: </strong>
                                     <span class="give_rating_after_get_servive">
                                         @for ($i = 1; $i <= 5; $i++)
                                             @if ($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
@@ -142,7 +142,7 @@
                             </div>
                             <div class="custom--available-section">
                                 <div class="available custom-gender-type-icon">
-                                    <span class="filter-pad">Available:</span>
+                                    <strong>Available: </strong>
                                     <span>
                                         @if ($escort->available_to)
                                             @foreach ($escort->available_to as $key => $available_to)
