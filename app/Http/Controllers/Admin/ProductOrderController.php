@@ -7,6 +7,7 @@ use App\Mail\Agent\SendProductOrderCompleteConfirmationMailToAgent;
 use App\Mail\Agent\SendProductOrderHoldMailToEscortAgent;
 use App\Mail\Escort\Order\SendProductOrderCompleteConfirmationMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderHoldMailToEscort;
+use App\Mail\Supplier\SendProductOrderCancelMailToSupplier;
 use App\Mail\Supplier\SendProductOrderCompleteConfirmationMailToSupplier;
 use App\Mail\Supplier\SendProductOrderHoldMailToSupplier;
 use App\Models\ProductOrder;
@@ -42,7 +43,7 @@ class ProductOrderController extends Controller
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
-        return  date('d M Y, h:i A', strtotime($row->order_date));
+        return  date('d-m-y, h:i A', strtotime($row->order_date));
       })
       ->addColumn('total_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
@@ -56,7 +57,7 @@ class ProductOrderController extends Controller
       ->addColumn('sub_total', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->amount : '0.00';
       })
-      ->addColumn('wallet_amount', function ($row) {
+      ->editColumn('wallet_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->wallet_amount : '0.00';
       })
       ->addColumn('user', function ($row) {
@@ -124,27 +125,27 @@ class ProductOrderController extends Controller
       ->make(true);
   }
 
-    public function getAppUptime()
-    {
-        $startTime = Cache::get('app_start_time');
-        $str = '';
+  public function getAppUptime()
+  {
+    $startTime = Cache::get('app_start_time');
+    $str = '';
 
-        if (!$startTime) {
-            return 'App start time not available.';
-        }
-
-        $start = \Carbon\Carbon::parse($startTime);
-        $now = now();
-
-        $diffInSeconds = $now->diffInSeconds($start);
-
-        $days = floor($diffInSeconds / 86400);
-        $hours = floor(($diffInSeconds % 86400) / 3600);
-        $minutes = floor(($diffInSeconds % 3600) / 60);
-        $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
-
-        return $str;
+    if (!$startTime) {
+      return 'App start time not available.';
     }
+
+    $start = \Carbon\Carbon::parse($startTime);
+    $now = now();
+
+    $diffInSeconds = $now->diffInSeconds($start);
+
+    $days = floor($diffInSeconds / 86400);
+    $hours = floor(($diffInSeconds % 86400) / 3600);
+    $minutes = floor(($diffInSeconds % 3600) / 60);
+    $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
+
+    return $str;
+  }
 
   public function orderComplete(Request $request)
   {
@@ -196,6 +197,7 @@ class ProductOrderController extends Controller
         $mailData['member_id'] = $order->user ? $order->user->member_id : '';
         $mailData['order_id'] = $order->order_id ?? "";
         $mailData['member_name'] = $order->user ? $order->user->name : "";
+        $mailData['cancel_reason'] = "product was first copy";
         $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
         $billing = $order->orderAddress->where('type', 'billing')->first();
 
@@ -246,6 +248,9 @@ class ProductOrderController extends Controller
           }
           // Send order hold notification to supplier
           Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
+        } else if ($request->status == 'cancelled') {
+          // send order cancelletion mail notification to supplier
+          Mail::to($condommail)->send(new SendProductOrderCancelMailToSupplier($mailData));
         }
       });
 

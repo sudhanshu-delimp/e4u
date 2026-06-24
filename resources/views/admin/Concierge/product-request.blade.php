@@ -57,9 +57,7 @@
                                         <th>Wallet Amount</th>
                                         <th>Shipping Charge</th>
                                         <th>Tax</th>
-
                                         <th>Total</th>
-                                        <th>Payment Method</th>
                                         <th>Order Date</th>
                                         <th>Order Status</th>
                                         <th>Payment Status</th>
@@ -74,9 +72,12 @@
                                 </tr>
                                 <tfoot class="bg-first t-foot">
                                     <tr>
-                                        <th colspan="5" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
-                                        <th colspan="4" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
-                                        <th colspan="4" class="text-right border-0" style="text-align: right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                                        <th colspan="5" class="text-left border-0">Server time: <span
+                                                class="serverTime">{{ date('d-m-Y h:i a') }}</span></th>
+                                        <th colspan="4" class="text-center border-0">Refresh time:<span
+                                                class="refreshSeconds"> 15</span></th>
+                                        <th colspan="4" class="text-right border-0" style="text-align: right!important;">
+                                            Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -207,22 +208,22 @@
     <script>
         $(document).ready(function() {
 
-            let countdown = 15;
-                setInterval(() => {
-                        countdown--;
-                        $(".refreshSeconds").text(' '+countdown);
+            let countdown = 1;
+            setInterval(() => {
+                countdown--;
+                $(".refreshSeconds").text(' ' + countdown);
 
-                        if (countdown <= 0) {
-                        $('#productsHistoryTable').DataTable().ajax.reload(null, false);
-                        countdown = 15;
-                        
-                        }
+                if (countdown <= 0) {
+                    $('#productsHistoryTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
 
-                }, 1000);
+                }
 
-                $('#customSearch').on('keyup', function() {
-                        $('#productsHistoryTable').DataTable().search(this.value).draw();
-                });
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                $('#productsHistoryTable').DataTable().search(this.value).draw();
+            });
 
             var table = $("#productsHistoryTable").DataTable({
                 processing: true,
@@ -280,10 +281,6 @@
                         name: 'total_amount'
                     },
                     {
-                        data: 'payment_method',
-                        name: 'payment_method'
-                    },
-                    {
                         data: 'order_date',
                         name: 'order_date'
                     },
@@ -305,18 +302,18 @@
                 ]
             });
 
-            table.on('xhr.dt', function (e, settings, json) {
-            if (json) {
-                $('.serverTime').text(json.server_time);
-                $('.uptimeClass').html(json.server_up_time);
-            }
-        });
+            table.on('xhr.dt', function(e, settings, json) {
+                if (json) {
+                    $('.serverTime').text(json.server_time);
+                    $('.uptimeClass').html(json.server_up_time);
+                }
+            });
 
 
             $(document).on('click', '.open-status-modal', function(e) {
                 let orderId = $(this).data('id');
                 let status = $(this).data('status');
-
+alert(orderId);
                 $('#order_id').val(orderId);
                 $('#order_status').val(status);
 
@@ -373,7 +370,12 @@
             //     });
 
             // });
-            $(document).on('click', '#saveCompletedOrder', function() {
+        
+
+
+        });
+
+    $(document).on('click', '#saveCompletedOrder', function() {
 
                 const $btn = $(this);
                 $btn.prop('disabled', true).text("please wait...");
@@ -386,38 +388,37 @@
                     .always(function() {
                         $btn.prop('disabled', false).text("Save");
                     });
+
             });
+        function updateOrderStatus(orderId, status, trackingId = '') {
 
-            function updateOrderStatus(orderId, status, trackingId = '') {
+            $.ajax({
+                url: "{{ route('admin.escort.order.complete') }}",
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    order_id: orderId,
+                    tracking_id: trackingId,
+                    status: status
+                },
+                success: function(response) {
 
-                $.ajax({
-                    url: "{{ route('admin.escort.order.complete') }}",
-                    type: 'POST',
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        order_id: orderId,
-                        tracking_id: trackingId,
-                        status: status
-                    },
-                    success: function(response) {
-
-                        if (!response.status) {
-                            toastr.error(response.message);
-                            return;
-                        }
-
-                        $('#active_req').modal('hide');
-                        $('#orderStatusChange')[0].reset();
-                        toastr.success('Order status updated successfully');
-
-                        table.ajax.reload(null, false);
-                    },
-                    error: function(xhr) {
-                        toastr.error(xhr.responseJSON?.message || 'Something went wrong');
+                    if (!response.status) {
+                        toastr.error(response.message);
+                        return;
                     }
-                });
-            }
-        });
+
+                    $('#active_req').modal('hide');
+                    $('#orderStatusChange')[0].reset();
+                    toastr.success('Order status updated successfully');
+
+                    table.ajax.reload(null, false);
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON?.message || 'Something went wrong');
+                }
+            });
+        }
         $(document).on('click', '.view-order-details', function(e) {
             e.preventDefault();
             var orderId = $(this).data('item');
