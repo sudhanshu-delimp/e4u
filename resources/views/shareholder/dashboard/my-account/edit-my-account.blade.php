@@ -309,7 +309,7 @@
                                         <div class="col-md-6">
 
                                             <div class="form-group">
-                                                <h5 class="border-bottom pb-1 text-blue-primary">2FA Authentication
+                                            <h5 class="border-bottom pb-1 text-blue-primary">2FA Authentification
                                                 </h5>
                                                 <p>
                                                 <div class="form-check-inline">
