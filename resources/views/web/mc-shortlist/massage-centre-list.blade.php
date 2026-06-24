@@ -185,7 +185,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="my-4 custom_modal_text user_short_list" style="text-align: center;">
+                    <h1 class="custom_modal_text user_short_list" style="text-align: center;">
                         <span id="Lname">[MC Name]</span>
                         has been added to your Shortlist.
                     </h1>
