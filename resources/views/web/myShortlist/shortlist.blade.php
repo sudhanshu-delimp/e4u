@@ -755,7 +755,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="my-4 custom_modal_text">
+                    <h1 class="custom_modal_text">
                         <span id="Lname">Please log in or Register to access your Legbox</span>
                     </h1>
                 </div>
@@ -785,7 +785,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="my-4 custom_modal_text">
+                    <h1 class="custom_modal_text">
                         <span id="Lname"></span>
                         <span class="class_msg"></span>
                     </h1>
