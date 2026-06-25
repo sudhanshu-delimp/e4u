@@ -52,7 +52,8 @@
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Created By</th>
-                                        <th>User</th>
+                                        <th>Member Id</th>
+                                        <th>Member</th>
                                         <th>Sub Total</th>
                                         <th>Wallet Amount</th>
                                         <th>Shipping Charge</th>
@@ -109,9 +110,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="active_req"><img
-                            src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert"
-                            class="custompopicon"> Tracking Details
+                    <h5 class="modal-title" id="title"><img src="{{ asset('assets/dashboard/img/order-tracking.png') }}"
+                            alt="alert" class="custompopicon"> Tracking Details
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -123,10 +123,15 @@
                         <div class="row">
                             <input type="hidden" id="order_id">
                             <input type="hidden" id="order_status">
-                            <div class="col-12 mb-3">
+                            <div class="col-12 mb-3 d-none" id="trackingId">
                                 <label for="Traking ID">Tracking ID</label>
                                 <input type="text" class="form-control rounded-0" id="tracking_id"
-                                    placeholder="Enter Tracking id ">
+                                    placeholder="Enter Tracking id">
+                            </div>
+                            <div class="col-12 mb-3 d-none" id="cancelId">
+                                <label for="Traking ID">Cancel Reason</label>
+                                <input type="text" class="form-control rounded-0" id="cancel_reason"
+                                    placeholder="Cancel Reason">
                             </div>
                         </div>
                     </form>
@@ -137,9 +142,49 @@
             </div>
         </div>
     </div>
+
+
+    {{-- <div class="modal fade upload -modal" id="acti ve_req" tabindex="-1" aria-labelledby="active_reqLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">
+
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <form id="orderStatusChange">
+                        <div class="row">
+                            <input type="hidden" id="order_id">
+                            <input type="hidden" id="order_status">
+                            <div class="col-12 mb-3 " id="trackingId">
+                                <label for="Traking ID">Tracking ID</label>
+                                <input type="text" class="form-control rounded-0" id="tracking_id"
+                                    placeholder="Enter Tracking id">
+                            </div>
+                            <div class="col-12 mb-3" id="cancelId">
+                                <label for="Traking ID">Cancel Reason</label>
+                                <input type="text" class="form-control rounded-0" id="cancel_id"
+                                    placeholder="Cancel Reason">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn-success-modal" id="saveCompletedOrder">save</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
     {{-- end --}}
     {{-- confirm_popup --}}
-    <div class="modal fade upload-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel"
+    {{-- <div class="modal fade uploa d-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel"
         aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -163,7 +208,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end --}}
 
     <div class="modal fade upload-modal" id="view-details" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -189,9 +234,7 @@
                     <div id="orderDetailsBody"></div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                </div>
+
             </div>
         </div>
     </div>
@@ -257,6 +300,10 @@
                         name: 'agent'
                     },
                     {
+                        data: 'member_id',
+                        name: 'member_id'
+                    },
+                    {
                         data: 'user',
                         name: 'user'
                     },
@@ -309,88 +356,61 @@
                 }
             });
 
+        });
 
-            $(document).on('click', '.open-status-modal', function(e) {
-                let orderId = $(this).data('id');
-                let status = $(this).data('status');
-alert(orderId);
-                $('#order_id').val(orderId);
-                $('#order_status').val(status);
-
-                // Completed => open modal
-                if (status === 'delivered')
-                    return;
+        $(document).on('click', '.open-status-modal', function(e) {
+            let orderId = $(this).data('id');
+            let status = $(this).data('status');
+            let delivery_type = $(this).data('delivery_type');
 
 
-                // Pending / Hold => direct AJAX
-                e.preventDefault();
 
-                updateOrderStatus(orderId, status, '');
-            });
+            $('#order_id').val(orderId);
+            $('#order_status').val(status);
 
-            // $(document).on('click', '#saveCompletedOrder', function() {
+            // Completed => open modal
+            if (status == 'delivered' && delivery_type == "post") {
+                $("#trackingId").removeClass("d-none");
+                $("#cancelId").addClass("d-none");
+                $("#title").html(
+                    '<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details'
+                );
+                return;
 
-            //     let $btn = $(this);
+            }
 
-            //     $btn.prop('disabled', true);
+            // else if (status == 'cancelled') {
 
-            //     let orderId = $('#order_id').val();
-            //     let trackingId = $('#tracking_id').val();
+            //     $("#cancelId").removeClass('d-none');
+            //     $("#trackingId").addClass('d-none');
+            //     $("#title").text('Cancel Product Order');
 
-            //     $.ajax({
-            //         url: "{{ route('admin.escort.order.complete') }}",
-            //         type: 'POST',
-            //         data: {
-            //             _token: $('meta[name="csrf-token"]').attr('content'),
-            //             order_id: orderId,
-            //             tracking_id: trackingId,
-            //             status: 'delivered'
-            //         },
-            //         success: function(response) {
+            //     return;
+            // }
 
-            //             if (response.status == false) {
-            //                 toastr.error(response.message);
-            //             } else {
-            //                 $('#active_req').modal('hide');
-            //                 toastr.success('Order marked as completed');
-            //                 table.ajax.reload();
-            //             }
 
-            //         },
-            //         error: function(xhr) {
+            // Pending / Hold => direct AJAX
+            e.preventDefault();
 
-            //             toastr.error(xhr.responseJSON?.message || 'Something went wrong');
+            updateOrderStatus(orderId, status, '');
+        });
 
-            //         },
-            //         complete: function() {
 
-            //             $btn.prop('disabled', false).text('Save');
+        $(document).on('click', '#saveCompletedOrder', function() {
 
-            //         }
-            //     });
+            let orderId = $('#order_id').val() ?? "";
+            let status = $('#order_status').val() ?? "";
+            let trackingId = $('#tracking_id').val() ?? "";
+            let cancel_reason = $('#cancel_reason').val() ?? "";
 
-            // });
-        
+            updateOrderStatus(orderId, status, trackingId, cancel_reason);
 
 
         });
 
-    $(document).on('click', '#saveCompletedOrder', function() {
 
-                const $btn = $(this);
-                $btn.prop('disabled', true).text("please wait...");
-
-                let orderId = $('#order_id').val();
-                let status = $('#order_status').val();
-                let trackingId = $('#tracking_id').val();
-
-                updateOrderStatus(orderId, status, trackingId)
-                    .always(function() {
-                        $btn.prop('disabled', false).text("Save");
-                    });
-
-            });
-        function updateOrderStatus(orderId, status, trackingId = '') {
+        function updateOrderStatus(orderId, status, trackingId = '', cancel_reason = "") {
+            let $btn = $("#saveCompletedOrder");
 
             $.ajax({
                 url: "{{ route('admin.escort.order.complete') }}",
@@ -399,7 +419,12 @@ alert(orderId);
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     order_id: orderId,
                     tracking_id: trackingId,
-                    status: status
+                    status: status,
+                    cancel_reason: cancel_reason
+                },
+
+                beforeSend: function() {
+                    $btn.prop("disabled", true).text("Processing...");
                 },
                 success: function(response) {
 
@@ -411,11 +436,17 @@ alert(orderId);
                     $('#active_req').modal('hide');
                     $('#orderStatusChange')[0].reset();
                     toastr.success('Order status updated successfully');
-
                     table.ajax.reload(null, false);
+
+
                 },
                 error: function(xhr) {
                     toastr.error(xhr.responseJSON?.message || 'Something went wrong');
+                },
+                complete: function() {
+                    $btn.prop("disabled", false)
+                        .text("Save");
+
                 }
             });
         }

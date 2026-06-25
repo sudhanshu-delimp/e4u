@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Agent\SendProductOrderCompleteConfirmationMailToAgent;
-use App\Mail\Agent\SendProductOrderHoldMailToEscortAgent;
 use App\Mail\Escort\Order\SendProductOrderCompleteConfirmationMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderHoldMailToEscort;
 use App\Mail\Supplier\SendProductOrderCancelMailToSupplier;
@@ -14,6 +12,7 @@ use App\Models\ProductOrder;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use App\Mail\Escort\Order\SendProductOrderCancelMailToEscort;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +60,10 @@ class ProductOrderController extends Controller
         return   $row->paymentDetails ? $row->paymentDetails->wallet_amount : '0.00';
       })
       ->addColumn('user', function ($row) {
-        return   $row->user ? $row->user->name : '0.00';
+        return   $row->user ? $row->user->name : '';
+      })
+      ->addColumn('member_id', function ($row) {
+        return   $row->user ? $row->user->member_id : '';
       })
       ->editColumn('order_status', function ($row) use ($classesOrder, $orderStatus) {
         $class = $classesOrder[$row->order_status] ?? '';
@@ -90,6 +92,7 @@ class ProductOrderController extends Controller
 <a class="dropdown-item open-status-modal"
    href="#"
    data-id="' . $row->id . '"
+      data-delivery_type="' . $row->delivery_type . '"
    data-status="hold">
     <i class="fa fa-pause-circle"></i> On Hold
 </a>
@@ -98,14 +101,17 @@ class ProductOrderController extends Controller
    href="#"
    data-id="' . $row->id . '"
    data-status="delivered"
+   data-delivery_type="' . $row->delivery_type . '"
    data-toggle="modal"
-   data-target="#active_req"><i class="fa fa-check-circle"></i> Completed </a>
+   data-target="#active_req"><i class="fa fa-check-circle"></i> Complete Order </a>
    <div class="dropdown-divider"></div>
+
 
 <a class="dropdown-item view-order-details"
    href="#"
    data-toggle="modal"
    data-item="' . $row->id . '"
+      data-delivery_type="' . $row->delivery_type . '"
    data-target="#view_order_modal">
    <i class="fa fa-eye"></i> View Details
 </a>
@@ -113,6 +119,15 @@ class ProductOrderController extends Controller
    
 
    ';
+
+
+        // <a class="dropdown-item open-status-modal"
+        //    href="#"
+        //    data-id="' . $row->id . '"
+        //    data-status="cancelled"
+        //    data-toggle="modal"
+        //    data-target="#active_req"><i class="fa fa-check-circle"></i> Cancel Order </a>
+        //    <div class="dropdown-divider"></div>
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -156,7 +171,15 @@ class ProductOrderController extends Controller
           'status' => false,
           'message' =>  "Tracnking Id is required for complete order."
         ]);
-      } elseif (empty($request->status)) {
+      }
+      if (empty($request->cancel_reason) &&  $request->status == 'cancelled') {
+        return response()->json([
+          'status' => false,
+          'message' =>  "Cancel Reason is required for cancel order."
+        ]);
+      }
+
+      if (empty($request->status)) {
         return response()->json([
           'status' => false,
           'message' =>  "Status feild are required"
@@ -186,9 +209,18 @@ class ProductOrderController extends Controller
 
       DB::transaction(function () use ($request, $order, $condommail) {
 
+
+        if ($request->status == 'delivered')
+          $order->tracking_id = $request->tracking_id;
+        if ($request->status == 'cancelled')
+          $order->cancel_reason = $request->cancel_reason;
+
+
         $order->order_status = $request->status;
-        $order->tracking_id = $request->tracking_id;
+
         $status = $order->save();
+        $status = true;
+
         $mailData = [];
 
 
@@ -197,7 +229,7 @@ class ProductOrderController extends Controller
         $mailData['member_id'] = $order->user ? $order->user->member_id : '';
         $mailData['order_id'] = $order->order_id ?? "";
         $mailData['member_name'] = $order->user ? $order->user->name : "";
-        $mailData['cancel_reason'] = "product was first copy";
+        $mailData['cancel_reason'] = $request->cancel_reason;
         $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
         $billing = $order->orderAddress->where('type', 'billing')->first();
 
@@ -221,43 +253,59 @@ class ProductOrderController extends Controller
         if ($order->user->is_agent_assign == 1) {
           $agent = User::where('id', $order->user->assigned_agent_id)->first();
         }
-        if ($status && $request->status == 'delivered') {
+        if ($status) {
 
-          if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
-            Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
-          } else {
-            $mail = Mail::to($billing->email);
-            if (!empty($agent) && !empty($agent->email)) {
-              $mail->cc($agent->email);
+          $order->refresh();
+
+          if ($request->status == 'delivered') {
+
+            if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+            } else {
+              $mail = Mail::to($billing->email);
+              if (!empty($agent) && !empty($agent->email)) {
+                $mail->cc($agent->email);
+              }
+
+              $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
             }
-            
-            $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
-          }
 
-          // Send order completed mail notification to supplier
-          Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
-        } elseif ($request->status == 'hold') {
-          if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
-            Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
-          } else {
+            // Send order completed mail notification to supplier
+            Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
+          } elseif ($request->status == 'hold') {
+            if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+            } else {
 
-            $mail = Mail::to($billing->email);
-            if (!empty($agent) && !empty($agent->email)) {
-              $mail->cc($agent->email);
+              $mail = Mail::to($billing->email);
+              if (!empty($agent) && !empty($agent->email)) {
+                $mail->cc($agent->email);
+              }
+              $mail->send(new SendProductOrderHoldMailToEscort($mailData));
             }
-            $mail->send(new SendProductOrderHoldMailToEscort($mailData));
+            // Send order hold notification to supplier
+            Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
           }
-          // Send order hold notification to supplier
-          Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
-        } else if ($request->status == 'cancelled') {
-          // send order cancelletion mail notification to supplier
-          Mail::to($condommail)->send(new SendProductOrderCancelMailToSupplier($mailData));
+          // else if ($request->status == 'cancelled') {
+          //   // send order cancelletion mail notification to supplier 
+          //   Mail::to($condommail)->send(new SendProductOrderCancelMailToSupplier($mailData));
+
+          //    if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+          //     Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCancelMailToEscort($mailData));
+          //   } else {
+          //     $mail = Mail::to($billing->email);
+          //     if (!empty($agent) && !empty($agent->email)) {
+          //       $mail->cc($agent->email);
+          //     }
+          //     $mail->send(new SendProductOrderCancelMailToEscort($mailData));
+          //   }
+          // }
         }
       });
 
       return response()->json([
         'status' => true,
-        'message' => 'Order completed successfully'
+        'message' => 'Your request has been processed successfully.'
       ]);
     } catch (Exception $e) {
       Log::info($e->getMessage(), [$e->getLine(), $e->getFile()]);
