@@ -180,7 +180,14 @@
         {{-- end --}}
     </div>
 </div>
-@include('modal.console-expiry-password')
+
+@php
+$setting = $staff->shareholder_setting ?? null;
+$setting->idle_preference_time;
+@endphp
+@if($setting && $setting->idle_preference_time < 91)
+    @include('modal.console-expiry-password')
+@endif
 @endsection
 @section('script')
 <script></script>
