@@ -116,9 +116,32 @@
     $escortName = ($escort->gender == 'Transgender') ? 'TS-' . $escort->name : $escort->name;
 @endphp
 
-
+    
     <div class="profile_description_banner">
+        <div class="back_to_list">
+            {{-- back to search --}}
+                @php
+
+                if (str_contains($backToSearchButton, 'view=')) {
+                        $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
+                    } else {
+                        // If view param not present, append it properly
+                        $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
+                        $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
+                    }
+                    
+                @endphp
+                
+                    <a href="{{ $finalUrl }}" class="back--search"> 
+                        <span class="previous_icon">
+                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                        </span> <span class="hide_ph">Back to Search</span>
+                    </a>
+                
+            {{-- end --}}
+        </div>
         <div class="container profile_pic_holder custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
+           
             <div class="row">
                 <div class="col-12 p-0">
 
@@ -172,48 +195,26 @@
                                     <h3 class="display_inline_block" style="color: white;">{{ $escortName }}</h3>
                                 @endif
                             </div>
-                            {{-- back to search --}}
-                            @php
-
-                            if (str_contains($backToSearchButton, 'view=')) {
-                                    $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
-                                } else {
-                                    // If view param not present, append it properly
-                                    $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
-                                    $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
-                                }
-                                
-                            @endphp
-                           
-                                <a href="{{ $finalUrl }}" class="back--search"> 
-                                    <span class="previous_icon">
-                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
-                                    </span> <span class="hide_ph">Back to Search</span>
-                                </a>
                             
-                        {{-- end --}}
                         </div>
                         {{-- profile phone --}}
                         <div class="profile_page_name_and_phno">
                             <p>{{$escort->city->name}} - {{  $escort->phone }}</p>                    
                         </div>
                         {{-- address --}}
-                        <div class="profile_page_location_and_id">
+                        <div class="profile_page_location_and_id mb-4">
                             <ul>
                                 <li>
                                     <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
                                     <p class="display_inline_block ">{{ $escort->address}}</p>
                                 </li>
-                                <li>
-                                    <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
-                                    <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
-                                </li>
                             </ul>
                         </div>
                         {{-- address --}}
-                        <div class="social_media_profile">                           
+                        <div class="social_media_profile mt-3">                           
 
                             <div class="d-flex align-items-center justify-content-start">
+                                <div class="d-flex align-items-center justify-content-start">
                                 <div class="my-play-box-profile-icon">
                                     <a href="{{ url('playbox') }}" target="_blank">
                                         <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
@@ -229,27 +230,38 @@
                                     </div>
                                 @endif
                             </div>
-                            <ul class="profile_page_social_profiles">
-                        
-                                @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
-                                    @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
-                                        <li class="selected-from-profile">
-                                            <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                                            <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
-                                        </li>
-                                    @endif
-                                    @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
-                                    @endif
-                                    @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+
+                                <ul class="profile_page_social_profiles">
+                            
+                                    @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
+                                        @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
+                                            <li class="selected-from-profile">
+                                                <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                                                <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
+                                            </li>
+                                        @endif
+                                        @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
+                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                        @endif
+                                        @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
+                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                        @else
+                                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                        @endif
                                     @else
                                         <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                                     @endif
-                                @else
-                                    <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
-                                @endif
-                            </ul>
+                                </ul>
+                            </div>
+
+                            <div class="profile_page_location_and_id">
+                                <ul>
+                                    <li>
+                                        <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
+                                        <p class="display_inline_block ">Member ID: {{ $escort->member_id}}</p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -262,7 +274,9 @@
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision  previousDisableButtonCss">
                 <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="btn_ank">
-                <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
+                <span class="previous_icon">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M13.2602 15.5302L9.74023 12.0002L13.2602 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </span>
                 <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
@@ -270,7 +284,9 @@
             <div class="next_btn_profile next_previous_btn_pogision nextDisableButtonCss" >
                 <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="btn_ank">
                 <span class="previous_text remove_in_sm">Next</span>
-                <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
+                <span class="previous_icon">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M10.7402 15.5302L14.2602 12.0002L10.7402 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </span>
                 </a>
             </div>
         </div>
@@ -395,7 +411,14 @@
                                 @foreach($escort->durations as $key => $duration)
                                 <tr>
                                     <td>{{ $duration->name }}</td>
-                                    <td>{!! ($duration->pivot->massage_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>
+                                        @if($duration->name == 'Blow & Go')  
+                                        @else
+                                            {!! ($duration->pivot->massage_price)
+                                                ? "<div class='public-num-value-table'><span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>"
+                                                : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        @endif
+                                    </td>
                                     </td>
                                     <td>{!! ($duration->pivot->incall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>

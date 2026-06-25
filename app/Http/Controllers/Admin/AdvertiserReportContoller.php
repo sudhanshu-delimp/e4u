@@ -141,15 +141,6 @@ class AdvertiserReportContoller extends Controller
                         <i class="fa fa-sync-alt text-dark"></i> In Progress
                         </a><div class="dropdown-divider"></div>';
                     }
-
-                    // if ($row->report_status == 'resolved') {
-                    //     $statusActionHtml += '
-                    //     <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
-                    //     data-toggle="modal" data-target="#confirm-popup" 
-                    //     data-id="' . $row->id . '" data-val="inprogress" href="#">
-                    //     <i class="fa fa-check-circle text-dark"></i> In Progress
-                    //     </a>';
-                    // }
                 }
                 return '
                     <div class="dropdown no-arrow ml-3">
@@ -176,7 +167,7 @@ class AdvertiserReportContoller extends Controller
             ->make(true);
     }
 
-    			    public function getAppUptime()
+    public function getAppUptime()
     {
         $startTime = Cache::get('app_start_time');
         $str = '';

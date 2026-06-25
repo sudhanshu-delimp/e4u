@@ -105,7 +105,7 @@ class CreateDefaultAccountSettings
                         $amountType = $variable->amount_type;
                 }
                 $mcSignupcommission = 0;
-                $mcSignupamountType = 'percent';
+                $mcSignupamountType = 'fixed';
                 if ($mcSignup) {
                     $mcSignupcommission = (is_null($mcSignup->amount)) ? 0 : $mcSignup->amount;
                     $mcSignupamountType = $mcSignup->amount_type;

@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
-
         <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.0') }}" rel="stylesheet">
         <!-- jquery ui cdn -->
@@ -41,6 +40,7 @@
 
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.5') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.7') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.1') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
         <script>
