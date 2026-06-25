@@ -65,24 +65,24 @@ class WebController extends Controller
         $query['lat'] = isset($request->data['lat']) ? $request->data['lat'] : '';
         $query['lng'] = isset($request->data['lng']) ? $request->data['lng'] : '';
 
-        if($query['lat'] == ''){
-            session()->forget('radio_location_filter'); 
+        if ($query['lat'] == '') {
+            session()->forget('radio_location_filter');
         }
 
         $url = route('find.all', $query);
         return response()->json(['status' => true, 'location' => $url]);
     }
 
-    public function applyFilterOnEscort($query,$str,$gender, $age, $location)
+    public function applyFilterOnEscort($query, $str, $gender, $age, $location)
     {
         # Exclude suspend profiles via escort and admin console
-        $query = $query->whereHas('user', function($q) {
-                    $q->where('status', 1);
-                })
-                ->whereDoesntHave('activeSuspendProfile'); 
+        $query = $query->whereHas('user', function ($q) {
+            $q->where('status', 1);
+        })
+            ->whereDoesntHave('activeSuspendProfile');
 
         # Apply check for the playmate drop down field
-        if(isset($str['playmate_status']) && $str['playmate_status'] == 'with_playmates'){
+        if (isset($str['playmate_status']) && $str['playmate_status'] == 'with_playmates') {
             $query = $query->whereHas('playmates');
         }
 
@@ -99,187 +99,169 @@ class WebController extends Controller
 
                 $status = $statusMap[$str['verification']];
 
-               $query->join('profile_verification_status as pvs', function($join) {
-                $join->on('pvs.profile_id', '=', 'escorts.id')
-                    ->where('pvs.type', '3');
+                $query->join('profile_verification_status as pvs', function ($join) {
+                    $join->on('pvs.profile_id', '=', 'escorts.id')
+                        ->where('pvs.type', '3');
                 });
 
                 $query->where('pvs.status', $status);
             }
         }
 
-        if(isset($str['playmate_status']) && $str['playmate_status'] == 'without_playmates'){
+        if (isset($str['playmate_status']) && $str['playmate_status'] == 'without_playmates') {
             $query = $query->whereDoesntHave('playmates');
-        } 
-       
+        }
+
         # Not show specific profile to viewer if specific viewer is blocked by escort
-        if(Auth::user()){
-            $blockedProfileForViewersIds = EscortViewerInteractions::where('viewer_id',Auth::user()->id)->where('escort_blocked_viewer',true)->pluck('escort_id');
-            if($blockedProfileForViewersIds && count($blockedProfileForViewersIds) > 0){
-                $query = $query->whereNotIn('id',$blockedProfileForViewersIds);
+        if (Auth::user()) {
+            $blockedProfileForViewersIds = EscortViewerInteractions::where('viewer_id', Auth::user()->id)->where('escort_blocked_viewer', true)->pluck('escort_id');
+            if ($blockedProfileForViewersIds && count($blockedProfileForViewersIds) > 0) {
+                $query = $query->whereNotIn('id', $blockedProfileForViewersIds);
             }
         }
-        $query->with(['currentActivePinup','activeBumpup']);
+        $query->with(['currentActivePinup', 'activeBumpup']);
 
         $query->withMax(['currentActivePinup as pinup_start' => function ($q) {
             $q->select('created_at');
         }], 'created_at')
-        ->orderByRaw('pinup_start IS NULL')
-        ->orderByDesc('pinup_start');
-        
+            ->orderByRaw('pinup_start IS NULL')
+            ->orderByDesc('pinup_start');
+
         $query->withMax(['activeBumpup as bump_start' => function ($q) {
             $q->select('utc_start_time');
         }], 'utc_start_time')
-        ->orderByRaw('bump_start IS NULL')
-        ->orderByDesc('bump_start');
-        
-        $query->orderBy('utc_start_time','desc');
+            ->orderByRaw('bump_start IS NULL')
+            ->orderByDesc('bump_start');
+
+        $query->orderBy('utc_start_time', 'desc');
         # Search escort by search button on the bases on radio button with search icon
-        if(isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1))
-        {
+        if (isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1)) {
             $query->where('enabled', 1);
             $radioLocation = $str['locationByRadio'];
 
-            if(!empty($str['string']))
-            {
+            if (!empty($str['string'])) {
                 $uid = $str['string'];
-                $query->where(function($q) use ($uid){
-                    $q->orWhere('name','like', '%'.$uid.'%');
-                    $q->orWhere( function($q) use ($uid){
-                        $q->whereHas('user', function($q) use ($uid){
+                $query->where(function ($q) use ($uid) {
+                    $q->orWhere('name', 'like', '%' . $uid . '%');
+                    $q->orWhere(function ($q) use ($uid) {
+                        $q->whereHas('user', function ($q) use ($uid) {
                             $q->where('member_id', $uid);
                         });
                     });
                 });
 
-                if(!empty($str['lat_state']) && $radioLocation == 'your_location')
-                {
-                    $query->where('state_id','=',$str['lat_state']);
+                if (!empty($str['lat_state']) && $radioLocation == 'your_location') {
+                    $query->where('state_id', '=', $str['lat_state']);
                 }
             }
 
             // if any search key not added then get data on state base only
-            if(!empty($str['lat_state']) && $radioLocation == 'your_location')
-            {
-                $query->where('state_id','=',$str['lat_state']);
+            if (!empty($str['lat_state']) && $radioLocation == 'your_location') {
+                $query->where('state_id', '=', $str['lat_state']);
             }
             return $query;
         }
 
 
         // $applyFilters = function ($query,$str) use ($gender, $age, $location) {
-            $age = explode('-',$str['age']);
-            if(!empty($str['age'])) {
-                $age_min = $age[0];
-                $age_max = $age[1];
-            }
+        $age = explode('-', $str['age']);
+        if (!empty($str['age'])) {
+            $age_min = $age[0];
+            $age_max = $age[1];
+        }
 
-            $query->where('enabled', 1);
-            if(!empty($gen))
-            {
-                $query->where('gender','=',$gen);
-            }
+        $query->where('enabled', 1);
+        if (!empty($gen)) {
+            $query->where('gender', '=', $gen);
+        }
 
-            if(!empty($escort_id)) {
-                $query->whereIn('id', $escort_id);
-            }
-
-            
-            if(!empty($str['duration_price']))
-            {
-
-                $duration_price = $str['duration_price'];
-
-                $query->where( function($q) use ($duration_price){
-                    $q->whereHas('durations', function($q) use ($duration_price){
-
-                        //$q->with('pivot');
-                        if($duration_price == "incall_price"){
-                            $q->Where('incall_price', '!=',null);
-
-                        }
-                        if($duration_price == "outcall_price"){
-                            $q->Where('outcall_price', '!=',null);
-
-                        }
-                        if($duration_price == "massage_price"){
-                            $q->Where('massage_price', '!=',null);
-
-                        }
+        if (!empty($escort_id)) {
+            $query->whereIn('id', $escort_id);
+        }
 
 
-                    });
-                });
-            }
-            
-            // if(!empty($str['string']))
-            // {
-            //     $uid = $str['string'];
-            //     $query->where(function($q) use ($uid){
-            //         $q->orWhere('name','like', '%'.$uid.'%');
-            //         $q->orWhere( function($q) use ($uid){
-            //             $q->whereHas('user', function($q) use ($uid){
-            //                 $q->where('member_id', $uid);
-            //             });
-            //         });
-            //     });
+        if (!empty($str['duration_price'])) {
 
-            // }
+            $duration_price = $str['duration_price'];
 
-            // if(!empty($str['state_id']))
-            // {
-            //     $query->where('state_id',$str['state_id']);
-            // } 
-            
-            if(!empty($str['city_id']))
-            {
-                $query->where('city_id','=',$str['city_id']);
-            }
+            $query->where(function ($q) use ($duration_price) {
+                $q->whereHas('durations', function ($q) use ($duration_price) {
 
-           
-        
-            if($str['gender'] != null)
-            {
-                $query->where('gender','=',$str['gender']);
-            }
-            else
-            {
-                if (!empty($str['interest'])) 
-                {
-                    $interests = array_unique($str['interest']);
-                    if (is_array($interests)) {
-                        $query->whereIn('gender', $interests);
+                    //$q->with('pivot');
+                    if ($duration_price == "incall_price") {
+                        $q->Where('incall_price', '!=', null);
                     }
+                    if ($duration_price == "outcall_price") {
+                        $q->Where('outcall_price', '!=', null);
+                    }
+                    if ($duration_price == "massage_price") {
+                        $q->Where('massage_price', '!=', null);
+                    }
+                });
+            });
+        }
+
+        // if(!empty($str['string']))
+        // {
+        //     $uid = $str['string'];
+        //     $query->where(function($q) use ($uid){
+        //         $q->orWhere('name','like', '%'.$uid.'%');
+        //         $q->orWhere( function($q) use ($uid){
+        //             $q->whereHas('user', function($q) use ($uid){
+        //                 $q->where('member_id', $uid);
+        //             });
+        //         });
+        //     });
+
+        // }
+
+        // if(!empty($str['state_id']))
+        // {
+        //     $query->where('state_id',$str['state_id']);
+        // } 
+
+        if (!empty($str['city_id'])) {
+            $query->where('city_id', '=', $str['city_id']);
+        }
+
+
+
+        if ($str['gender'] != null) {
+            $query->where('gender', '=', $str['gender']);
+        } else {
+            if (!empty($str['interest'])) {
+                $interests = array_unique($str['interest']);
+                if (is_array($interests)) {
+                    $query->whereIn('gender', $interests);
                 }
             }
+        }
 
-            if(!empty($str['age']) )
-            {
-                $query->whereBetween('age',[$age_min, $age_max]);
-            }
+        if (!empty($str['age'])) {
+            $query->whereBetween('age', [$age_min, $age_max]);
+        }
 
-            if(!empty($str['enabled'])) {
-                $query->where('enabled', $str['enabled']);
-            } 
-            
-            if($price = $str['price']) {
-                $query->whereHas('services', function($q) use($price) {
-                    if($price <= 500) {
-                        $q->where('price','<=', $price);
-                    } else {
-                        $q->where('price','>', 500);
-                    }
-                });
-            }
+        if (!empty($str['enabled'])) {
+            $query->where('enabled', $str['enabled']);
+        }
 
-            if($services = $str['services'])
-            {
-                $query->whereHas('services', function($q) use($services) {
-                    $q->whereIn('services.id', $services);
-                });
-            }
+        if ($price = $str['price']) {
+            $query->whereHas('services', function ($q) use ($price) {
+                if ($price <= 500) {
+                    $q->where('price', '<=', $price);
+                } else {
+                    $q->where('price', '>', 500);
+                }
+            });
+        }
 
-            return $query;
+        if ($services = $str['services']) {
+            $query->whereHas('services', function ($q) use ($services) {
+                $q->whereIn('services.id', $services);
+            });
+        }
+
+        return $query;
         // };
     }
 
@@ -288,9 +270,9 @@ class WebController extends Controller
         $user = 1;
 
         $array = config('escorts.profile.genders');
-        
+
         $gender_one = array_flip($array);
-        if($gender != null) {
+        if ($gender != null) {
             $gen = $gender_one[$gender];
         } else {
             $gen = null;
@@ -298,50 +280,46 @@ class WebController extends Controller
 
         $user_type = null;
         $userInterest = null;
-        if(auth()->user() && auth()->user()->type == 0) {
+        if (auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
-            if($user_type->viewer_settings && $user_type->state_id == $user_type->current_state_id)
-            {
-                if(auth()->user()->viewer_settings->interests_with_male)
-                $userInterest['gender'][] = 1;
+            if ($user_type->viewer_settings && $user_type->state_id == $user_type->current_state_id) {
+                if (auth()->user()->viewer_settings->interests_with_male)
+                    $userInterest['gender'][] = 1;
 
-                if(auth()->user()->viewer_settings->interests_with_female)
-                $userInterest['gender'][] = 6;
+                if (auth()->user()->viewer_settings->interests_with_female)
+                    $userInterest['gender'][] = 6;
 
-                if(auth()->user()->viewer_settings->interests_with_trans)
-                $userInterest['gender'][] = 3;
+                if (auth()->user()->viewer_settings->interests_with_trans)
+                    $userInterest['gender'][] = 3;
 
-                if(auth()->user()->viewer_settings->interests_with_cross_dresser)
-                $userInterest['gender'][] = 4;
+                if (auth()->user()->viewer_settings->interests_with_cross_dresser)
+                    $userInterest['gender'][] = 4;
 
-                if(auth()->user()->viewer_settings->interests_with_couples)
-                $userInterest['gender'][] = 2;
+                if (auth()->user()->viewer_settings->interests_with_couples)
+                    $userInterest['gender'][] = 2;
             }
         }
 
-        
+
 
         $userLocation = null;
-        if($request->lat != '' && $request->lng != ''){
-           $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
-           $lat_state = $userLocation['state'];
-           $lng_city = $userLocation['city'];
-           session(['radio_location_filter'=> true]);
+        if ($request->lat != '' && $request->lng != '') {
+            $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
+            $lat_state = $userLocation['state'];
+            $lng_city = $userLocation['city'];
+            session(['radio_location_filter' => true]);
         }
 
         $paramData = [];
 
-        if(isset($userInterest['gender'])  && (!empty($userInterest['gender'])))
-        {
+        if (isset($userInterest['gender'])  && (!empty($userInterest['gender']))) {
             $paramData['interest'] = $userInterest['gender'];
             $paramData['city_id'] = null;
-            $paramData['gender'] = null;  
-        }
-        else
-        {
+            $paramData['gender'] = null;
+        } else {
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
-            $paramData['gender'] = null;  
+            $paramData['gender'] = null;
         }
 
         $params = $str  = [
@@ -353,50 +331,49 @@ class WebController extends Controller
             'duration_price' => request()->get('duration_price'),
             'services' => request()->get('services'),
             'enabled' => request()->get('enabled', 1),
-            'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null) ,
-            'limit'=> request()->get('limit') ? request()->get('limit') : 25,
-            'interest'=> $paramData['interest'] ,
-            'view_type'=> request()->get('view_type'),
-            'search_by_radio'=> request()->get('search_by_radio') ,
-            'locationByRadio'=> request()->get('locationByRadio') ,
-            'playmate_status'=> request()->get('playmate_status') ,
-            'lat_state'=> $lat_state ?? '' ,
-            'lng_city'=> $lng_city ?? '' ,
-            'membership_type'=> request()->get('membership_type') ?? null,
-            'verification'=> request()->get('verify_list') ?? null,
+            'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null),
+            'limit' => request()->get('limit') ? request()->get('limit') : 25,
+            'interest' => $paramData['interest'],
+            'view_type' => request()->get('view_type'),
+            'search_by_radio' => request()->get('search_by_radio'),
+            'locationByRadio' => request()->get('locationByRadio'),
+            'playmate_status' => request()->get('playmate_status'),
+            'lat_state' => $lat_state ?? '',
+            'lng_city' => $lng_city ?? '',
+            'membership_type' => request()->get('membership_type') ?? null,
+            'verification' => request()->get('verify_list') ?? null,
         ];
 
         $radio_location_filter = session('radio_location_filter');
         $limit = $str['limit'];
 
-        if($request->get('filter_button_submit') == '1' ){
+        if ($request->get('filter_button_submit') == '1') {
             $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
         }
 
-       
+
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
         session(['is_shortlisted_profile' => false]);
 
-        if($params['city_id'] && $params['state_id']){
-            $filterStateExist = City::where('id',$params['city_id'])->where('state_id',$params['state_id'])->exists();
+        if ($params['city_id'] && $params['state_id']) {
+            $filterStateExist = City::where('id', $params['city_id'])->where('state_id', $params['state_id'])->exists();
             $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
             //$radio_location_filter = true;
         }
 
         $services = $this->services->all();
-       
+
         $escortId = [];
-        if(session('cart') && session('is_shortlisted_profile')) {
-            foreach(session('cart') as $id => $vlaue) {
+        if (session('cart') && session('is_shortlisted_profile')) {
+            foreach (session('cart') as $id => $vlaue) {
 
                 $escortId[] = $id;
             }
-
         }
 
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
-        $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null ,$gen);
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
+        $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null, $gen);
 
         //dd($escorts,$params, session('is_shortlisted_profile'));
         $locationCityId = $params['city_id'];
@@ -414,46 +391,46 @@ class WebController extends Controller
         //$perPage  = 4;
 
 
-      
 
 
-        
-        $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'),$str,$gender, $age, $location)->get();
-        $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'),$str,$gender, $age, $location)->get();
-        $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'),$str,$gender, $age, $location)->get();
-        $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'),$str,$gender, $age, $location)->get();
+
+
+        $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'), $str, $gender, $age, $location)->get();
+        $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'), $str, $gender, $age, $location)->get();
+        $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'), $str, $gender, $age, $location)->get();
+        $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'), $str, $gender, $age, $location)->get();
 
         $memberTotalCount[1] =  $platinum->count();
         $memberTotalCount[2] =  $gold->count();
         $memberTotalCount[3] =  $silver->count();
         $memberTotalCount[4] =  $free->count();
 
-        if(isset($str['membership_type']) && $str['membership_type'] != null){
+        if (isset($str['membership_type']) && $str['membership_type'] != null) {
             $platinum = $platinum->where('membership', $str['membership_type']);
             $gold = $gold->where('membership', $str['membership_type']);
             $silver = $silver->where('membership', $str['membership_type']);
-            $free = $free->where('membership', $str['membership_type']);    
+            $free = $free->where('membership', $str['membership_type']);
         }
         $merged = $platinum->concat($gold)->concat($silver);
 
-         $merged = $merged->map(function($item, $key) {
+        $merged = $merged->map(function ($item, $key) {
             //dd($item);
             # Add services with duration if exists
-            if($item->durations){
+            if ($item->durations) {
 
                 //dd( $item->durations()->where('duration_id','!=',1)->get());
 
-                $item->massage_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : null;
-                $item->incall_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : null;
-                $item->outcall_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->outcall_price : null;    
+                $item->massage_price = $item->durations()->where('name', '=', '1 Hour')->first() ? $item->durations()->where('name', '=', '1 Hour')->first()->pivot->massage_price : null;
+                $item->incall_price = $item->durations()->where('name', '=', '1 Hour')->first() ? $item->durations()->where('name', '=', '1 Hour')->first()->pivot->incall_price : null;
+                $item->outcall_price = $item->durations()->where('name', '=', '1 Hour')->first() ? $item->durations()->where('name', '=', '1 Hour')->first()->pivot->outcall_price : null;
 
-                
 
-               // $lowest_massage_price = $item->durations()->where('duration_id','!=',1)->min('massage_price') ? $item->durations()->where('duration_id','!=',1)->min('massage_price') : null;
-               // $lowest_incall_price = $item->durations()->where('duration_id','!=',1)->min('incall_price') ? $item->durations()->where('duration_id','!=',1)->min('incall_price') : null;
-               // $lowest_outcall_price = $item->durations()->where('duration_id','!=',1)->min('outcall_price') ? $item->durations()->where('duration_id','!=',1)->min('outcall_price') : null;
 
-               $lowestPriceArray = [];
+                // $lowest_massage_price = $item->durations()->where('duration_id','!=',1)->min('massage_price') ? $item->durations()->where('duration_id','!=',1)->min('massage_price') : null;
+                // $lowest_incall_price = $item->durations()->where('duration_id','!=',1)->min('incall_price') ? $item->durations()->where('duration_id','!=',1)->min('incall_price') : null;
+                // $lowest_outcall_price = $item->durations()->where('duration_id','!=',1)->min('outcall_price') ? $item->durations()->where('duration_id','!=',1)->min('outcall_price') : null;
+
+                $lowestPriceArray = [];
 
                 if ($item->massage_price  !== null) {
                     $lowestPriceArray[] = (float) $item->massage_price;
@@ -466,17 +443,17 @@ class WebController extends Controller
                 }
 
                 $lowest = !empty($lowestPriceArray) ? min($lowestPriceArray) : '';
-                
+
                 $item->lowest_rate_price = $lowest;
             }
 
             # get star rating on the bases on like and unlike
-            $total = EscortLike::where('escort_id',$item->id)->count();
-            if($total > 0) {
-                $likeCount = EscortLike::where('like',1)->where('escort_id',$item->id)->count();
-                $dislikeCount = EscortLike::where('like',0)->where('escort_id',$item->id)->count();
-                $lp = round($likeCount/$total * 100);
-                $dp = round($dislikeCount/$total * 100);
+            $total = EscortLike::where('escort_id', $item->id)->count();
+            if ($total > 0) {
+                $likeCount = EscortLike::where('like', 1)->where('escort_id', $item->id)->count();
+                $dislikeCount = EscortLike::where('like', 0)->where('escort_id', $item->id)->count();
+                $lp = round($likeCount / $total * 100);
+                $dp = round($dislikeCount / $total * 100);
             } else {
                 $lp = 0;
                 $dp = 0;
@@ -500,7 +477,7 @@ class WebController extends Controller
         })->collect();
 
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
-       
+
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
         $paginator = new LengthAwarePaginator(
             $sliced,
@@ -512,15 +489,14 @@ class WebController extends Controller
                 'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
             ]
         );
-        
+
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
-     
-         $viewType =  'grid';
-         if (auth()->check() && auth()->user()->viewer_settings) 
-         {
-                $viewType  =  auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
-         }
+
+        $viewType =  'grid';
+        if (auth()->check() && auth()->user()->viewer_settings) {
+            $viewType  =  auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
+        }
 
         // Check both param names — URL param and form submit
         if (request()->has('viewType') && in_array(request()->input('viewType'), ['grid', 'list'])) {
@@ -529,20 +505,20 @@ class WebController extends Controller
             $viewType = request()->input('view_type');
         }
 
-        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag','viewType'));
+        return view('web.all-filter-profile', compact('paginator', 'user_type', 'escortId', 'user', 'services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId', 'filterGenderId', 'memberTotalCount', 'radio_location_filter', 'all_services_tag', 'viewType'));
     }
 
     public function getRealTimeGeolocationOfUsers($lat, $lng)
     {
         try {
             $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
-        
+
             // Get location details from Google Maps Reverse Geocoding
             $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
             $response = Http::get($geoUrl);
-        
+
             $state = 'Unknown';
-        
+
             if ($response->successful()) {
                 foreach ($response['results'][0]['address_components'] as $component) {
                     if (in_array('administrative_area_level_1', $component['types'])) {
@@ -552,27 +528,26 @@ class WebController extends Controller
                 }
             }
 
-        //    $stateFromDb = State::where('name','like','%'.'Tasmania'.'%')->first();
-           $stateFromDb = State::where('name','like','%'.$state.'%')->first();
+            //    $stateFromDb = State::where('name','like','%'.'Tasmania'.'%')->first();
+            $stateFromDb = State::where('name', 'like', '%' . $state . '%')->first();
 
             $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
 
-            $parms =[
-                'state'=> $stateFromDb ? $stateFromDb->id : null,
-                'city'=> $stateCapital ? array_key_first($stateCapital['cities']) : null,
+            $parms = [
+                'state' => $stateFromDb ? $stateFromDb->id : null,
+                'city' => $stateCapital ? array_key_first($stateCapital['cities']) : null,
             ];
 
             return $parms;
         } catch (\Exception $e) {
             //throw $th;
-            $parms =[
-                'state'=>null,
-                'city'=>null,
+            $parms = [
+                'state' => null,
+                'city' => null,
             ];
 
             return $parms;
         }
-        
     }
 
     public function shortList()
@@ -588,32 +563,31 @@ class WebController extends Controller
             'services' => request()->get('services'),
         ];
 
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
 
         $escorts = $this->escort->findByPlan(50, $params, $user->id);
         $services = $this->services->all();
 
-        return view('web.all-filter-profile', compact('user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
+        return view('web.all-filter-profile', compact('user', 'services', 'service_one', 'service_two', 'service_three', 'escorts'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
     public function showAddList(Request $request)
     {
         $escortId = [];
-        if(session('cart')) {
-            foreach(session('cart') as $id => $vlaue) {
+        if (session('cart')) {
+            foreach (session('cart') as $id => $vlaue) {
                 $escortId[] = $id;
             }
-        }
-        else {
+        } else {
             //dd('hefye');
             // return redirect()->route('find.all', $query);
             $escortId[] = null;
         }
-        
+
         //$user = auth()->user();
         $user = null;
         $user_type = null;
-        if(auth()->user() && auth()->user()->type == 0) {
+        if (auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
         }
         $userid = null;
@@ -633,27 +607,27 @@ class WebController extends Controller
         session(['is_shortlisted_profile' => true]);
 
         $escorts = $this->escort->findByMyShortlist(50, $params, $userid, $escortId);
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
 
         $services = $this->services->all();
 
         $backToListing = session('search_escort_filters_url');
-        
+
         $radio_location_filter = session('radio_location_filter');
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
         $defaultViewType = 'list';
 
         $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
 
-        $escorts = $escorts->map(function($item, $key) {
+        $escorts = $escorts->map(function ($item, $key) {
             # get star rating on the bases on like and unlike
 
-            $total = EscortLike::where('escort_id',$item->id)->count();
-            if($total > 0) {
-                $likeCount = EscortLike::where('like',1)->where('escort_id',$item->id)->count();
-                $dislikeCount = EscortLike::where('like',0)->where('escort_id',$item->id)->count();
-                $lp = round($likeCount/$total * 100);
-                $dp = round($dislikeCount/$total * 100);
+            $total = EscortLike::where('escort_id', $item->id)->count();
+            if ($total > 0) {
+                $likeCount = EscortLike::where('like', 1)->where('escort_id', $item->id)->count();
+                $dislikeCount = EscortLike::where('like', 0)->where('escort_id', $item->id)->count();
+                $lp = round($likeCount / $total * 100);
+                $dp = round($dislikeCount / $total * 100);
             } else {
                 $lp = 0;
                 $dp = 0;
@@ -689,14 +663,14 @@ class WebController extends Controller
         //dd($all_services_tag);
         // dd($escorts);
         //dd($escorts->items()[1]->where(8));
-        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag','defaultViewType','memberTotalCount'));
+        return view('web.myShortlist.shortlist', compact('user_type', 'user', 'services', 'service_one', 'service_two', 'service_three', 'escorts', 'backToListing', 'radio_location_filter', 'all_services_tag', 'defaultViewType', 'memberTotalCount'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
     public function clearShortList(Request $request)
     {
-        
-        session()->forget('cart'); 
+
+        session()->forget('cart');
         $query = Arr::except(request()->query(), ['ipinfo']);
 
         // Redirect with preserved query parameters
@@ -707,14 +681,12 @@ class WebController extends Controller
     {
 
         $escortId = [];
-        if(session('mc_cart')) {
-            foreach(session('mc_cart') as $id => $vlaue) {
+        if (session('mc_cart')) {
+            foreach (session('mc_cart') as $id => $vlaue) {
 
                 $escortId[] = $id;
             }
-
-        }
-        else {
+        } else {
             $escortId[] = null;
         }
         //dd($escortId);
@@ -722,7 +694,7 @@ class WebController extends Controller
         //$user = auth()->user();
         $user = null;
         $user_type = null;
-        if(auth()->user() && auth()->user()->type == 0) {
+        if (auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
         }
         $userid = null;
@@ -737,20 +709,20 @@ class WebController extends Controller
             'other_services' => request()->get('other_services'),
         ];
 
-       // $escorts = $this->escort->findByMyShortlist(50, $params, $userid, $escortId);
+        // $escorts = $this->escort->findByMyShortlist(50, $params, $userid, $escortId);
         //$escorts = $this->massage_profile->findByMassageCentre(50, $params ,$userid, $escortId);
-        $escorts = $this->massage_profile->findByMyMassageShortListed(50, $params ,$userid, $escortId);
+        $escorts = $this->massage_profile->findByMyMassageShortListed(50, $params, $userid, $escortId);
         //dd($escorts);
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
 
 
         $services = $this->services->all();
 
-       //dd($userid);
+        //dd($userid);
         //dd($escorts->items()[1]->where(8));
         //return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
 
-        return view('web.massage-show-list', compact('escortId','user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
+        return view('web.massage-show-list', compact('escortId', 'user_type', 'user', 'services', 'service_one', 'service_two', 'service_three', 'escorts'));
 
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
@@ -768,33 +740,32 @@ class WebController extends Controller
             'other_services' => request()->get('other_services'),
         ];
 
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
         $escorts = $this->massage_profile->findByMassageCentre(50, $params);
         $services = $this->services->all();
         //$availability = $escorts->availability;
         $escortId = [];
-        if(session('mc_cart')) {
-            foreach(session('mc_cart') as $id => $vlaue) {
+        if (session('mc_cart')) {
+            foreach (session('mc_cart') as $id => $vlaue) {
 
                 $escortId[] = $id;
             }
-
         }
         $user_type = null;
-        if(auth()->user() && auth()->user()->type == 0) {
+        if (auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
         }
 
-        $escorts = collect($escorts->items())->where('end_date','>=', Carbon::now()->startOfDay());
+        $escorts = collect($escorts->items())->where('end_date', '>=', Carbon::now()->startOfDay());
 
-        
-        return view('web.massage-centre-list', compact('user_type','escortId','services', 'service_one', 'service_two', 'service_three', 'escorts'));
+
+        return view('web.massage-centre-list', compact('user_type', 'escortId', 'services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
     public function searchFilter(Request $request)
     {
         $string = $request->string;
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
         $escorts = $this->escort->findByPlan(50, $string);
         $services = $this->services->all();
         //dd($escorts);
@@ -804,7 +775,7 @@ class WebController extends Controller
 
     public function gridEscortList()
     {
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
         $escorts = $this->escort->findByPlan(50);
         $services = $this->services->all();
 
@@ -812,21 +783,19 @@ class WebController extends Controller
         //dd($escorts);
         $template = view('web.grid-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'))->render();
         return response()->json(compact('template'));
-
     }
 
     public function addToMcCart($escort_id)
     {
         //dd($escort_id);
         $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
-        if( count((array) session('mc_cart')) > 0) {
+        if (count((array) session('mc_cart')) > 0) {
             $mc_cart = session()->get('mc_cart');
-        }
-        else {
+        } else {
             $mc_cart = session()->get('mc_cart', []);
         }
 
-        if(isset($mc_cart[$escort_id])) {
+        if (isset($mc_cart[$escort_id])) {
             $mc_cart[$escort_id]['quantity']++;
             $error = 0;
         } else {
@@ -839,7 +808,7 @@ class WebController extends Controller
 
         session()->put('mc_cart', $mc_cart);
         $count_session = count(session('mc_cart'));
-        return response()->json(compact('error','mc_cart','count_session'));
+        return response()->json(compact('error', 'mc_cart', 'count_session'));
         //return redirect()->back()->with('success', 'Product added to cart successfully!');
 
 
@@ -855,41 +824,39 @@ class WebController extends Controller
         //         'escort_id' => $escort_id,
         //         ];
         $error = 0;
-        if($escort_id) {
+        if ($escort_id) {
             $mc_cart = session()->get('mc_cart');
-            if(isset($mc_cart[$escort_id])) {
+            if (isset($mc_cart[$escort_id])) {
                 unset($mc_cart[$escort_id]);
                 session()->put('mc_cart', $mc_cart);
                 $count_session = count(session('mc_cart'));
                 $error = 1;
             }
         }
-                // if(!empty($userId)) {
+        // if(!empty($userId)) {
 
-                //     if(Add_to_list::where('escort_id',$escort_id)->where('user_id', $userId)->delete())
-                //     {
-                //         $error = 1;
-                //     } else {
-                //         $error = 0;
-                //     }
-                // }
+        //     if(Add_to_list::where('escort_id',$escort_id)->where('user_id', $userId)->delete())
+        //     {
+        //         $error = 1;
+        //     } else {
+        //         $error = 0;
+        //     }
+        // }
 
 
-        return response()->json(compact('error','count_session'));
-
+        return response()->json(compact('error', 'count_session'));
     }
     public function addtocart($escort_id)
     {
         //dd($escort_id);
         $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
-        if( count((array) session('cart')) > 0) {
+        if (count((array) session('cart')) > 0) {
             $cart = session()->get('cart');
-        }
-        else {
+        } else {
             $cart = session()->get('cart', []);
         }
 
-        if(isset($cart[$escort_id])) {
+        if (isset($cart[$escort_id])) {
             $cart[$escort_id]['quantity']++;
             $error = 0;
         } else {
@@ -902,7 +869,7 @@ class WebController extends Controller
 
         session()->put('cart', $cart);
         $count_session = count(session('cart'));
-        return response()->json(compact('error','cart','count_session'));
+        return response()->json(compact('error', 'cart', 'count_session'));
         //return redirect()->back()->with('success', 'Product added to cart successfully!');
 
 
@@ -913,24 +880,22 @@ class WebController extends Controller
         $escort_id = request()->post('escortId');
         $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
         $index = [
-                'user_id' => $userId,
-                'escort_id' => $escort_id,
-                ];
+            'user_id' => $userId,
+            'escort_id' => $escort_id,
+        ];
+        $error = 0;
+        if (!empty($userId)) {
+            $result = Add_to_list::where('escort_id', $escort_id)->where('user_id', $userId)->first();
+            if (!empty($result)) {
                 $error = 0;
-                if(!empty($userId)) {
-                    $result = Add_to_list::where('escort_id',$escort_id)->where('user_id', $userId)->first();
-                    if(!empty($result))
-                    {
-                        $error = 0;
-                    } else {
-                        $data = Add_to_list::create($index);
-                        $error = 1;
-                    }
-                }
+            } else {
+                $data = Add_to_list::create($index);
+                $error = 1;
+            }
+        }
 
 
         return response()->json(compact('error'));
-
     }
     public function saveMcShortList()
     {
@@ -938,24 +903,22 @@ class WebController extends Controller
         $massage_id = request()->post('escortId');
         $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
         $index = [
-                'user_id' => $userId,
-                'massage_id' => $massage_id,
-                ];
+            'user_id' => $userId,
+            'massage_id' => $massage_id,
+        ];
+        $error = 0;
+        if (!empty($userId)) {
+            $result = Add_to_massage_shortlist::where('massage_id', $escort_id)->where('user_id', $userId)->first();
+            if (!empty($result)) {
                 $error = 0;
-                if(!empty($userId)) {
-                    $result = Add_to_massage_shortlist::where('massage_id',$escort_id)->where('user_id', $userId)->first();
-                    if(!empty($result))
-                    {
-                        $error = 0;
-                    } else {
-                        $data = Add_to_massage_shortlist::create($index);
-                        $error = 1;
-                    }
-                }
+            } else {
+                $data = Add_to_massage_shortlist::create($index);
+                $error = 1;
+            }
+        }
 
 
         return response()->json(compact('error'));
-
     }
 
     public function removeShortList()
@@ -968,29 +931,28 @@ class WebController extends Controller
         //         'user_id' => $userId,
         //         'escort_id' => $escort_id,
         //         ];
-                $error = 0;
-                if($escort_id) {
-                    $cart = session()->get('cart');
-                    if(isset($cart[$escort_id])) {
-                        unset($cart[$escort_id]);
-                        session()->put('cart', $cart);
-                        $count_session = count(session('cart'));
-                        $error = 1;
-                    }
-                }
-                // if(!empty($userId)) {
+        $error = 0;
+        if ($escort_id) {
+            $cart = session()->get('cart');
+            if (isset($cart[$escort_id])) {
+                unset($cart[$escort_id]);
+                session()->put('cart', $cart);
+                $count_session = count(session('cart'));
+                $error = 1;
+            }
+        }
+        // if(!empty($userId)) {
 
-                //     if(Add_to_list::where('escort_id',$escort_id)->where('user_id', $userId)->delete())
-                //     {
-                //         $error = 1;
-                //     } else {
-                //         $error = 0;
-                //     }
-                // }
+        //     if(Add_to_list::where('escort_id',$escort_id)->where('user_id', $userId)->delete())
+        //     {
+        //         $error = 1;
+        //     } else {
+        //         $error = 0;
+        //     }
+        // }
 
 
-        return response()->json(compact('error','count_session'));
-
+        return response()->json(compact('error', 'count_session'));
     }
 
 
@@ -999,27 +961,27 @@ class WebController extends Controller
         $escort = $this->escort->find($id);
         $availability = $escort->availability;
         $services = $this->services->all();
-        $count = round(count($this->services->all())/3);
-        $services_one = $this->services->limit(0,$count);
+        $count = round(count($this->services->all()) / 3);
+        $services_one = $this->services->limit(0, $count);
 
         $services_two = $this->services->limit($count, $count);
-        $services_three = $this->services->limit($count*2, $count);
+        $services_three = $this->services->limit($count * 2, $count);
         $escort_id =  $escort->id;
-        $services_one->map(function($service, $key) use($escort) {
+        $services_one->map(function ($service, $key) use ($escort) {
             $service->services_price = null;
-            if($escort_service = $escort->services()->where('services.id', $service->id)->first()) {
+            if ($escort_service = $escort->services()->where('services.id', $service->id)->first()) {
                 $service->services_price = $escort_service->pivot->price;
             }
             return $service;
         });
         $user_type = null;
-        if(auth()->user() && auth()->user()->type == 0) {
-          $user_type = auth()->user();
+        if (auth()->user() && auth()->user()->type == 0) {
+            $user_type = auth()->user();
         }
 
         //dd($user_type->myLegBox->pluck('id')->toArray());
-       // dd($services_one);
-        return view('web.description',compact('user_type','escort','availability','services_one','services_two','services_three'));
+        // dd($services_one);
+        return view('web.description', compact('user_type', 'escort', 'availability', 'services_one', 'services_two', 'services_three'));
     }
     public function servicesById($escort_id, $cat_id)
     {
@@ -1027,25 +989,23 @@ class WebController extends Controller
 
         $services = [];
 
-        if(!empty($escort) && $escort->services->isNotEmpty()) {
+        if (!empty($escort) && $escort->services->isNotEmpty()) {
 
 
             $rows = count($escort->services()->where('category_id', 3)->get());
 
 
-            if($rows == 1) {
+            if ($rows == 1) {
                 $services[] = $escort->services()->where('category_id', $cat_id)->get();
-            } elseif($rows == 2) {
+            } elseif ($rows == 2) {
                 $services[] = $escort->services()->where('category_id', $cat_id)->offset(0)->limit(1)->get();
                 $services[] = $escort->services()->where('category_id', $cat_id)->offset(1)->limit($rows)->get();
             } else {
-                $count1 = round($rows/3);
+                $count1 = round($rows / 3);
 
                 $services[] = $escort->services()->where('category_id', $cat_id)->offset(0)->limit($count1)->get();
                 $services[] = $escort->services()->where('category_id', $cat_id)->offset($count1)->limit($count1)->get();
-                $services[] = $escort->services()->where('category_id', $cat_id)->offset($count1*2)->limit($count1*10)->get();
-
-
+                $services[] = $escort->services()->where('category_id', $cat_id)->offset($count1 * 2)->limit($count1 * 10)->get();
             }
         }
 
@@ -1054,25 +1014,25 @@ class WebController extends Controller
 
         return $services;
     }
-    public function profileDescription(Request $request, $id, $city=null, $membershipId =null, $viewType='grid')
+    public function profileDescription(Request $request, $id, $city = null, $membershipId = null, $viewType = 'grid')
     {
-        $escort = Escort::where('id',$id)->with(['reviews' => function($q){
-            $q->where('status','published');
-        },'reviews.user'])->first();
+        $escort = Escort::where('id', $id)->with(['reviews' => function ($q) {
+            $q->where('status', 'published');
+        }, 'reviews.user'])->first();
 
         $media = $this->escortMedia->get_videos($escort->user_id);
-        $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
+        $path = $this->escortMedia->findByVideoposition($escort->user_id, 1)['path'];
 
         //dd($escort);
 
         # add statistics for escort profile view
-        saving_escort_stats($escort->user_id, $id,'profile_views_count');
+        saving_escort_stats($escort->user_id, $id, 'profile_views_count');
 
-        $escortId =[];
+        $escortId = [];
 
         $filterEscortsParams = session('search_escort_filters');
 
-        if($filterEscortsParams == null){
+        if ($filterEscortsParams == null) {
             $filterEscortsParams  = [
                 'string' => request()->get('name'),
                 'city_id' => request()->get('city'),
@@ -1083,12 +1043,12 @@ class WebController extends Controller
                 'services' => request()->get('services'),
                 'enabled' => request()->get('enabled', 1),
                 'state_id' => request()->get('state-id') ? request()->get('state-id') : Session::get('session_state_id'),
-                'limit'=> request()->get('limit'),
-                'view_type'=> request()->get('view_type'),
+                'limit' => request()->get('limit'),
+                'view_type' => request()->get('view_type'),
             ];
         }
 
-        if(isset($filterEscortsParams['limit'])) {
+        if (isset($filterEscortsParams['limit'])) {
             $limit = $filterEscortsParams['limit'];
         } else {
             $limit = 25;
@@ -1096,7 +1056,7 @@ class WebController extends Controller
 
         $backToSearchButton = session('search_escort_filters_url');
 
-        if(session('is_shortlisted_profile') == true && session('cart') == true){
+        if (session('is_shortlisted_profile') == true && session('cart') == true) {
             $cartKeys = array_keys(session('cart'));
             if (count($cartKeys) > 0) {
                 sort($cartKeys); // Sort the array in ascending order
@@ -1112,31 +1072,31 @@ class WebController extends Controller
 
         $location = request()->get('location');
 
-        $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
-        $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
-        $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
-        $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
-        
+        $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+
         $filterEscorts = $platinum->concat($gold)->concat($silver);
 
-        if(session('is_shortlisted_profile') == true){
+        if (session('is_shortlisted_profile') == true) {
             $filterEscorts = $filterEscorts->sortBy('id')->values();
         }
-        
+
         list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/
-        if(request()->has('list') || request()->get('view_type') == 'list'){
+        if (request()->has('list') || request()->get('view_type') == 'list') {
             $viewType = 'list';
-            $next = $next. '?'.$viewType;
-            $previous = $previous. '?'.$viewType;
+            $next = $next . '?' . $viewType;
+            $previous = $previous . '?' . $viewType;
 
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToSearchButton);
-        }else{
+        } else {
             $viewType = 'grid';
-            $next = $next. '?'.$viewType;
-            $previous = $previous. '?'.$viewType;
+            $next = $next . '?' . $viewType;
+            $previous = $previous . '?' . $viewType;
 
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToSearchButton);
         }
@@ -1148,39 +1108,36 @@ class WebController extends Controller
         $cat1_services_two = null;
         $cat1_services_three = null;
 
-       
+
         $categoryOneServices = $escort->services()->where('category_id', 1)->get();
         $categoryTwoServices = $escort->services()->where('category_id', 2)->get();
         $categoryThreeServices = $escort->services()->where('category_id', 3)->get();
-        if(!empty($categoryOneServices->toArray())){
+        if (!empty($categoryOneServices->toArray())) {
             $chunks = $this->getServiceChunks($categoryOneServices->toArray());
             $categoryOneServices = $chunks;
-        }
-        else{
+        } else {
             $categoryOneServices = [];
-        }    
-        if(!empty($categoryTwoServices->toArray())){
+        }
+        if (!empty($categoryTwoServices->toArray())) {
             $chunks = $this->getServiceChunks($categoryTwoServices->toArray());
             $categoryTwoServices = $chunks;
-        }
-        else{
+        } else {
             $categoryTwoServices = [];
         }
-        if(!empty($categoryThreeServices->toArray())){
+        if (!empty($categoryThreeServices->toArray())) {
             $chunks = $this->getServiceChunks($categoryThreeServices->toArray());
             $categoryThreeServices = $chunks;
-        }
-        else{
+        } else {
             $categoryThreeServices = [];
         }
-        
-        if(isset($services1[0])) {
+
+        if (isset($services1[0])) {
             $cat1_services_one = $services1[0];
         }
-        if(isset($services1[1])) {
+        if (isset($services1[1])) {
             $cat1_services_two = $services1[1];
         }
-        if(isset($services1[2])) {
+        if (isset($services1[2])) {
             $cat1_services_three = $services1[2];
         }
         $services2 = $this->servicesById($id, 2);
@@ -1188,13 +1145,13 @@ class WebController extends Controller
         $cat2_services_one = null;
         $cat2_services_two = null;
         $cat2_services_three = null;
-        if(isset($services2[0])) {
+        if (isset($services2[0])) {
             $cat2_services_one = $services2[0];
         }
-        if(isset($services2[1])) {
+        if (isset($services2[1])) {
             $cat2_services_two = $services2[1];
         }
-        if(isset($services2[2])) {
+        if (isset($services2[2])) {
             $cat2_services_three = $services2[2];
         }
         // $cat2_services_one = $services2[0];
@@ -1206,13 +1163,13 @@ class WebController extends Controller
         $cat3_services_one = null;
         $cat3_services_two = null;
         $cat3_services_three = null;
-        if(isset($services3[0])) {
+        if (isset($services3[0])) {
             $cat3_services_one = $services3[0];
         }
-        if(isset($services3[1])) {
+        if (isset($services3[1])) {
             $cat3_services_two = $services3[1];
         }
-        if(isset($services3[2])) {
+        if (isset($services3[2])) {
             $cat3_services_three = $services3[2];
         }
 
@@ -1221,16 +1178,15 @@ class WebController extends Controller
         $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
         $escortLike = $this->_getUserLikeDislike($id, $request->ip(), $userId);
         //dd($escortLike);
-        if(auth()->user() && auth()->user()->type == 0) {
-          $user_type = auth()->user();
-
+        if (auth()->user() && auth()->user()->type == 0) {
+            $user_type = auth()->user();
         }
-        $total = EscortLike::where('escort_id',$id)->count();
-        if($total > 0) {
-            $likeCount = EscortLike::where('like',1)->where('escort_id',$id)->count();
-            $dislikeCount = EscortLike::where('like',0)->where('escort_id',$id)->count();
-            $lp = round($likeCount/$total * 100);
-            $dp = round($dislikeCount/$total * 100);
+        $total = EscortLike::where('escort_id', $id)->count();
+        if ($total > 0) {
+            $likeCount = EscortLike::where('like', 1)->where('escort_id', $id)->count();
+            $dislikeCount = EscortLike::where('like', 0)->where('escort_id', $id)->count();
+            $lp = round($likeCount / $total * 100);
+            $dp = round($dislikeCount / $total * 100);
         } else {
             $lp = 0;
             $dp = 0;
@@ -1246,11 +1202,11 @@ class WebController extends Controller
 
         // $reviews = Reviews::where('escort_id',$id)->where('status','approved')->with('user')->get()->unique('user_id');
         //dd($viewType);
-        $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
+        $user = DB::table('users')->where('id', (int)$escort->user_id)->select('contact_type')->first();
         $spamReportAdvertiser = collect();
 
-        if(Auth::user() && Auth::user()->type == 0){
-            $spamReportAdvertiser = ReportEscortProfile::where('viewer_id',Auth::user()->id)->first();
+        if (Auth::user() && Auth::user()->type == 0) {
+            $spamReportAdvertiser = ReportEscortProfile::where('viewer_id', Auth::user()->id)->first();
         }
 
         # Not show specific profile to viewer if specific viewer is blocked by escort
@@ -1263,13 +1219,14 @@ class WebController extends Controller
                 $escort = collect(); // or null, based on your use-case
             }
         }
-        if(empty($backToSearchButton)){
+        if (empty($backToSearchButton)) {
             $backToSearchButton = route('find.all');
         }
-        return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews','spamReportAdvertiser'));
+        return view('web.description', compact('categoryOneServices', 'categoryTwoServices', 'categoryThreeServices', 'path', 'media', 'escortLike', 'lp', 'dp', 'user_type', 'next', 'previous', 'escort', 'availability', 'backToSearchButton', 'user', 'viewType', 'reviews', 'spamReportAdvertiser'));
     }
 
-    public function getServiceChunks($array=[],$chunkLenth=3){
+    public function getServiceChunks($array = [], $chunkLenth = 3)
+    {
         $chunkSize = ceil(count($array) / $chunkLenth);
         $chunks = array_chunk($array, $chunkSize);
         while (count($chunks) < 3) {
@@ -1282,7 +1239,7 @@ class WebController extends Controller
         unset($chunk);
         return $chunks;
     }
-    
+
     public function centerProfileDescription($id)
     {
 
@@ -1292,76 +1249,76 @@ class WebController extends Controller
         $availability = $escort->availability;
         /*new functionality*/
 
-        $services1 = [];//$this->servicesById($id, 1);
+        $services1 = []; //$this->servicesById($id, 1);
         $cat1_services_three = null;
         $cat1_services_two = null;
         $cat1_services_three = null;
 
 
-        if(isset($services1[0])) {
+        if (isset($services1[0])) {
             $cat1_services_one = $services1[0];
         }
-        if(isset($services1[1])) {
+        if (isset($services1[1])) {
             $cat1_services_two = $services1[1];
         }
-        if(isset($services1[2])) {
+        if (isset($services1[2])) {
             $cat1_services_three = $services1[2];
         }
-        $services2 = [];//$this->servicesById($id, 2);
+        $services2 = []; //$this->servicesById($id, 2);
         $cat2_services_three = null;
         $cat2_services_two = null;
         $cat2_services_three = null;
-        if(isset($services2[0])) {
+        if (isset($services2[0])) {
             $cat2_services_one = $services2[0];
         }
-        if(isset($services2[1])) {
+        if (isset($services2[1])) {
             $cat2_services_two = $services2[1];
         }
-        if(isset($services2[2])) {
+        if (isset($services2[2])) {
             $cat2_services_three = $services2[2];
         }
         // $cat2_services_one = $services2[0];
         // $cat2_services_two = $services2[1];
         // $cat2_services_three = $services2[2];
-        $services3 = [];//$this->servicesById($id, 3);
+        $services3 = []; //$this->servicesById($id, 3);
         $cat3_services_three = null;
         $cat3_services_two = null;
         $cat3_services_three = null;
-        if(isset($services3[0])) {
+        if (isset($services3[0])) {
             $cat3_services_one = $services3[0];
         }
-        if(isset($services3[1])) {
+        if (isset($services3[1])) {
             $cat3_services_two = $services3[1];
         }
-        if(isset($services3[2])) {
+        if (isset($services3[2])) {
             $cat3_services_three = $services3[2];
         }
 
 
         $user_type = null;
-        if(auth()->user() && auth()->user()->type == 0) {
-          $user_type = auth()->user();
+        if (auth()->user() && auth()->user()->type == 0) {
+            $user_type = auth()->user();
         }
 
 
         $massageLike = null;
-        if(auth()->user()) {
-                $massageLike = MassageLike::where('massage_id',$id)->where('user_id',auth()->user()->id)->first();
+        if (auth()->user()) {
+            $massageLike = MassageLike::where('massage_id', $id)->where('user_id', auth()->user()->id)->first();
         }
 
-        $total = MassageLike::where('massage_id',$id)->count();
-        if($total > 0) {
-            $likeCount = MassageLike::where('like',1)->where('massage_id',$id)->count();
-            $dislikeCount = MassageLike::where('like',0)->where('massage_id',$id)->count();
-            $lp = round($likeCount/$total * 100);
-            $dp = round($dislikeCount/$total * 100);
+        $total = MassageLike::where('massage_id', $id)->count();
+        if ($total > 0) {
+            $likeCount = MassageLike::where('like', 1)->where('massage_id', $id)->count();
+            $dislikeCount = MassageLike::where('like', 0)->where('massage_id', $id)->count();
+            $lp = round($likeCount / $total * 100);
+            $dp = round($dislikeCount / $total * 100);
         } else {
             $lp = 0;
             $dp = 0;
         }
 
         //dd($user_type->myLegBox);
-        return view('web.massage-description',compact('massageLike','lp','dp','user_type','next','previous','escort','availability'));
+        return view('web.massage-description', compact('massageLike', 'lp', 'dp', 'user_type', 'next', 'previous', 'escort', 'availability'));
     }
 
     public function showFooterLink($slug)
@@ -1369,29 +1326,29 @@ class WebController extends Controller
 
         $page = $this->page->viewPage($slug);
 
-		return view('admin.pages.view', compact('page'));
+        return view('admin.pages.view', compact('page'));
     }
     public function usagePolicy(Request $request)
     {
 
         //dd( $request->cookie());
-    return view('web.pages.acceptable-use-policy');
+        return view('web.pages.acceptable-use-policy');
     }
     public function likeDislike(Request $request)
     {
-        
+
         $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
         // if(!$userId){
         //     return response()->json(['error' => true ]);
         // }
         $ipAddress = AttemptLogin::Where('user_id', $userId)->first();
 
-        if($ipAddress == null){
-           $ipAddress = $this->getClientIP();
-        }else{
-            $ipAddress = $ipAddress->ip_address; 
+        if ($ipAddress == null) {
+            $ipAddress = $this->getClientIP();
+        } else {
+            $ipAddress = $ipAddress->ip_address;
         }
-       
+
         $escort_id = $request->escortId;
         $like = $request->vote;
         //request()->post('userId');
@@ -1405,54 +1362,55 @@ class WebController extends Controller
         $todayVote = $this->_getUserLikeDislike($escort_id, $ipAddress, $userId);
 
         $error = 0;
-        if($todayVote) {
+        if ($todayVote) {
             $todayVote->like = $like;
-            if(!$todayVote->save()) {
+            if (!$todayVote->save()) {
                 $error = 1;
             }
         } else {
             $votingData = EscortLike::create($votingData);
-            if(!$votingData) {
+            if (!$votingData) {
                 $error = 1;
             }
         }
 
         # add stats after like
         $escortUser = Escort::where('id', $escort_id)->first();
-        if($escortUser != null) {
+        if ($escortUser != null) {
             saving_escort_stats($escortUser->user_id, $escort_id, 'recommendation_count');
-        }   
-        
+        }
+
 
         $total = EscortLike::where('escort_id', $escort_id)->count();
-        if($total > 0) {
-            $likeCount = EscortLike::where('like',1)->where('escort_id',$escort_id)->count();
-            $dislikeCount = EscortLike::where('like',0)->where('escort_id',$escort_id)->count();
-            $lp = round($likeCount/$total * 100);
-            $dp = round($dislikeCount/$total * 100);
+        if ($total > 0) {
+            $likeCount = EscortLike::where('like', 1)->where('escort_id', $escort_id)->count();
+            $dislikeCount = EscortLike::where('like', 0)->where('escort_id', $escort_id)->count();
+            $lp = round($likeCount / $total * 100);
+            $dp = round($dislikeCount / $total * 100);
         } else {
             $lp = 0;
             $dp = 0;
         }
 
-        return response()->json(compact('error','lp','dp', 'like'));
+        return response()->json(compact('error', 'lp', 'dp', 'like'));
     }
 
-    function getClientIP() {
+    function getClientIP()
+    {
         $ipaddress = '';
         if (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ipaddress = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]; // first IP if multiple
-        } elseif(isset($_SERVER['HTTP_X_FORWARDED'])) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED'])) {
             $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        } elseif(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
+        } elseif (isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
             $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-        } elseif(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+        } elseif (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
             $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        } elseif(isset($_SERVER['HTTP_FORWARDED'])) {
+        } elseif (isset($_SERVER['HTTP_FORWARDED'])) {
             $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        } elseif(isset($_SERVER['REMOTE_ADDR'])) {
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ipaddress = $_SERVER['REMOTE_ADDR'];
         } else {
             $ipaddress = 'UNKNOWN';
@@ -1468,12 +1426,12 @@ class WebController extends Controller
         $conditions = [
             ['ip_address', $ip]
         ];
-        if($userId) {
+        if ($userId) {
             $conditions[] = ['user_id', $userId];
         }
-        $result = $result->where(function($q) use ($ip, $userId) {
+        $result = $result->where(function ($q) use ($ip, $userId) {
             $q->where('ip_address', $ip);
-            if($userId) {
+            if ($userId) {
                 $q->orWhere('user_id', $userId);
             }
         })->first();
@@ -1504,8 +1462,8 @@ class WebController extends Controller
             // }else{
             //     LoginAttempt::Create($data);
             // }
-           // LoginAttempt::Create($data);
-        }else{
+            // LoginAttempt::Create($data);
+        } else {
             return response()->json(['status' => 'User logged not yet.'], 401);
         }
 
@@ -1520,69 +1478,65 @@ class WebController extends Controller
         $like = $request->like;
         //request()->post('userId');
         $index = [
-                'user_id' => $userId,
-                'massage_id' => $massage_id,
-                'like' => $like,
-                ];
-                $error = 0;
-                if(!empty($userId)) {
-                    $result = MassageLike::where('massage_id',$massage_id)->where('user_id', $userId)->first();
-                    if(!empty($result))
-                    {
-                        if($result->like == $like) {
-                            $result->delete();
-                            $error = 2;
-                        } else {
-                            $result->like = $like;
-                            $result->save();
-                            $error = 0;
-                        }
-
-
-                    } else {
-                        $data = MassageLike::create($index);
-                        $error = 1;
-                    }
-                }
-                $total = MassageLike::where('massage_id',$massage_id)->count();
-                if($total > 0) {
-                    $likeCount = MassageLike::where('like',1)->where('massage_id',$massage_id)->count();
-                    $dislikeCount = MassageLike::where('like',0)->where('massage_id',$massage_id)->count();
-                    $lp = round($likeCount/$total * 100);
-                    $dp = round($dislikeCount/$total * 100);
+            'user_id' => $userId,
+            'massage_id' => $massage_id,
+            'like' => $like,
+        ];
+        $error = 0;
+        if (!empty($userId)) {
+            $result = MassageLike::where('massage_id', $massage_id)->where('user_id', $userId)->first();
+            if (!empty($result)) {
+                if ($result->like == $like) {
+                    $result->delete();
+                    $error = 2;
                 } else {
-                    $lp = 0;
-                    $dp = 0; 
-
+                    $result->like = $like;
+                    $result->save();
+                    $error = 0;
                 }
+            } else {
+                $data = MassageLike::create($index);
+                $error = 1;
+            }
+        }
+        $total = MassageLike::where('massage_id', $massage_id)->count();
+        if ($total > 0) {
+            $likeCount = MassageLike::where('like', 1)->where('massage_id', $massage_id)->count();
+            $dislikeCount = MassageLike::where('like', 0)->where('massage_id', $massage_id)->count();
+            $lp = round($likeCount / $total * 100);
+            $dp = round($dislikeCount / $total * 100);
+        } else {
+            $lp = 0;
+            $dp = 0;
+        }
 
-        return response()->json(compact('error','lp','dp'));
-
+        return response()->json(compact('error', 'lp', 'dp'));
     }
 
     public function saveAdvertiserStats(Request $request)
     {
         //dd($request->all());
-        if($request->has(['escort_id', 'user_id'])) {
-            saving_escort_stats($request->user_id, $request->escort_id,'media_views_count'); 
+        if ($request->has(['escort_id', 'user_id'])) {
+            saving_escort_stats($request->user_id, $request->escort_id, 'media_views_count');
         }
 
-        
 
-        return response()->json(['status' => true, 'stats'=>'Stats saved succsessfully.']);  
+
+        return response()->json(['status' => true, 'stats' => 'Stats saved succsessfully.']);
     }
 
 
 
     public function help_for_escort(Request $request)
     {
-         $advertings = Pricing::with('memberships')->get()->toArray();
-        return view('web.pages.help-for-advertisers',compact('advertings'));    
+        $advertings = Pricing::with('memberships')->get()->toArray();
+        return view('web.pages.help-for-advertisers', compact('advertings'));
     }
 
-    public function alerts(){
-        $alertData = PublicationAlert::where('status','Published')->get()->groupBy('alert_type');;
-       return view('web.pages.alerts', compact('alertData'));
+    public function alerts()
+    {
+        $alertData = PublicationAlert::where('status', 'Published')->get()->groupBy('alert_type');;
+        return view('web.pages.alerts', compact('alertData'));
     }
 
     //Blog Public url
@@ -1591,36 +1545,36 @@ class WebController extends Controller
     {
         //$blogs = Blog::where('status', 'published')->latest()->paginate(10);
         return view('web.pages.blogs');
-    }   
+    }
 
-    public function sendOtpNotification(Request $request, User $user){
-        try{
+    public function sendOtpNotification(Request $request, User $user)
+    {
+        try {
             $settings = $user->getAccountSettings();
             $action = $request->action;
             $otp = $user->generateOTP();
             $user->otp = $otp;
             $user->save();
-            
-            switch($action){
-                case 'payment':{
-                    $mailTemplate = 'emails.otp.payment_otp';
-                    $mailSubject = 'Payment Otp';
-                    $smsBody = "Hello :username, your one-time payment OTP is :otp. If you didn’t request this, please ignore this message.";
-                } break;
+
+            switch ($action) {
+                case 'payment': {
+                        $mailTemplate = 'emails.otp.payment_otp';
+                        $mailSubject = 'Payment Otp';
+                        $smsBody = "Hello :username, your one-time payment OTP is :otp. If you didn’t request this, please ignore this message.";
+                    }
+                    break;
             }
 
-            if($settings->twofa=='1'){
+            if ($settings->twofa == '1') {
                 sendLoginOtpEmail($otp, $user, $mailTemplate, $mailSubject);
-            }
-            else{
+            } else {
                 sendLoginOtpSms($otp, $user, $smsBody);
             }
 
             return response()->json([
                 'data' => $user->getAccountSettings()
             ]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 500,
                 'message' => $e->getMessage(),
@@ -1648,30 +1602,25 @@ class WebController extends Controller
                     'success' => true,
                     'message' => 'OTP verified successfully.'
                 ], 200);
-
             } else {
 
                 return response()->json([
                     'success' => false,
                     'message' => 'Invalid OTP.'
                 ], 422);
-
             }
-
         } catch (\Illuminate\Validation\ValidationException $e) {
 
             return response()->json([
                 'success' => false,
                 'message' => $e->validator->errors()->first()
             ], 422);
-
         } catch (\Exception $e) {
 
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
             ], 500);
-
         }
     }
 }
