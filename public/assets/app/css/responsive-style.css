@@ -342,10 +342,12 @@
             .mc_list_card {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
+                padding: 10px;
             }
             .EC__list_card {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
+                padding: 10px;
             }
             .mess_repo_btn_wrap {
                 display: flex;
