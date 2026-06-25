@@ -320,9 +320,11 @@ return [
       "6235" => "Melbourne",
       "6839" => "Perth",
       "7408" => "Sydney",
-      "57601" => "Agra",
-      "131679" => "Delhi",
-      "50859" => "Patna",
+    ],
+
+    'nz_cities' => [
+      "4059" => "North Island",
+      "4071" => " South Island",
     ],
     // 'state-cities' => [
     // 	'3904'=>'South Australia'=>["3919" => "Adelaide"],
