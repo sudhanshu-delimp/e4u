@@ -371,37 +371,7 @@
                 {{-- end --}}
 
 
-                {{-- Support Services --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Support"
-                    aria-expanded="true" aria-controls="collapseten">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/support-services.png') }}">
-                    <span>Support Services</span>
-                </a>
-                <div id="Support" class=" collapse  @if (request()->segment(3) == 'finance-report' || request()->segment(3) == 'payment' || request()->segment(3) == 'summary') show @endif;"
-                    data-parent="#Administration">
-                    <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item show" href="javascript:void(0)">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/financials.png') }}">
-                            <span
-                                style="{{ request()->segment(3) == 'finance-report' ? 'color: #e5365a;' : '' }}">Financial Report
-                            </span>
-                        </a>
-                        <a class="collapse-item show" href="javascript:void(0)">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/payment.png') }}">
-                            <span
-                                style="{{ request()->segment(3) == 'payment' ? 'color: #e5365a;' : '' }}">Payment
-                            </span>
-                        </a>
-                        <a class="collapse-item show" href="javascript:void(0)">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/pricing-summary.png') }}">
-                            <span
-                                style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Summary
-                            </span>
-                        </a>
-
-                    </div>
-                </div>
-                {{-- end --}}
+                
 
                 {{-- Support tickets --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets"
