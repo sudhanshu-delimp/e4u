@@ -226,7 +226,7 @@
                                     <!-- Mobile -->
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Mobile Number</b></label>
-                                        <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
+                                        <input type="text" class="form-control" name="phone" placeholder="0145028758"
                                             required data-parsley-type="digits" data-parsley-minlength="10"
                                             data-parsley-required-message="Mobile number is required"
                                             data-parsley-type-message="Only digits allowed"
@@ -236,7 +236,7 @@
                                     <!-- Email -->
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Email</b></label>
-                                        <input type="email" class="form-control" name="email"
+                                        <input type="text" class="form-control" name="email"
                                             placeholder="you@domain.com.au" required
                                             data-parsley-required-message="Email is required"
                                             data-parsley-type-message="Enter a valid email address">
@@ -246,16 +246,18 @@
                                     <!-- Address -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address</b></label>
-                                        <input type="text" class="form-control" name="address"
-                                            placeholder="Unit 1, 1 The Street" required
+                                        <input type="text" autocomplete="off" class="form-control address-picker" name="address"
+                                            placeholder="Unit 1, 1 The Street" required            
+
                                             data-parsley-required-message="Address is required">
                                     </div>
 
                                     <!-- Address 2 (Optional) -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address 2 (Optional)</b></label>
-                                        <input type="text" class="form-control" name="address_2"
+                                        <input type="text" autocomplete="off" class="form-control address-picker" name="address_2"
                                             placeholder="Suburb WA 6000"
+
                                             data-parsley-required-message="Address 2 is required">
                                     </div>
                                     <!-- City -->
@@ -326,7 +328,7 @@
                                         <!-- Email -->
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Email</b></label>
-                                            <input type="email" name="billing_email" class="form-control"
+                                            <input type="text" name="billing_email" class="form-control"
                                                 placeholder="you@domain.com.au" required
                                                 data-parsley-required-message="Billing email is required">
                                         </div>
@@ -334,15 +336,15 @@
                                         <!-- Address Line 1 -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 1</b></label>
-                                            <input type="text" name="billing_address_line1" class="form-control"
-                                                placeholder="Unit 1, 1 The Street" required
+                                            <input type="text" name="billing_address_line1" class="form-control address-picker"
+                                                placeholder="Unit 1, 1 The Street" required  
                                                 data-parsley-required-message="Billing address line 1 is required">
                                         </div>
 
                                         <!-- Address Line 2 (optional) -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 2</b></label>
-                                            <input type="text" name="billing_address_line2" class="form-control"
+                                            <input type="text" name="billing_address_line2" class="form-control address-picker"
                                                 placeholder="Apartment, suite, etc (optional)">
                                         </div>
 
@@ -447,7 +449,7 @@
 
                 <h2>Order Completed</h2>
                 <p>Thank you for your purchase!</p>
-                <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white">
+                <button type="button" class="btn-common"> <a href="{{ route('bookkeeping.product.orders') }}" class="text-white">
                         View
                         Orders</a></button>
                 <button onclick="finish()" class="btn-common">Finish</button>
@@ -479,7 +481,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src=" {{ asset('assets/app/img/newcross.png') }}"
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -748,7 +750,11 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
+<script
+    src="https://maps.googleapis.com/maps/api/js?key={{config('services.google_map.api_key')}}&libraries=places&callback=initAddressPicker"
+    async
+    defer>
+</script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
@@ -767,7 +773,9 @@
         // localStorage.setItem('checkout_step_' + loginUserId, step);
         let isDirty = false;
 
-
+$(document).ready(function () {
+    initAddressPicker();
+});
 
 
 
@@ -1618,7 +1626,7 @@
                     $("#makeOrder").prop("disabled", false);
                     finishPaymentForm.addClass('d-none');
                 }
-                
+
                 // Update UI
                 $(".taxAmount").text("$" + gst_amount.toFixed(2));
                 $("#total_fee").text("$" + subtotal.toFixed(2));
@@ -1657,5 +1665,39 @@
 
         })
         getCheckedCheckBox();
+
+
+        function initAddressPicker(selector = '.address-picker') {
+            $(selector).each(function() {
+                const input = this;
+
+                // Prevent duplicate Google autocomplete initialization
+                if ($(input).data('address-picker-initialized')) {
+                    return;
+                }
+
+                const autocomplete = new google.maps.places.Autocomplete(input, {
+                    componentRestrictions: {
+                        country: 'au'
+                    },
+                    fields: ['address_components', 'formatted_address', 'geometry'],
+                    types: ['address']
+                });
+
+                $(input).data('address-picker-initialized', true);
+
+                autocomplete.addListener('place_changed', function() {
+                    const place = autocomplete.getPlace();
+
+                    if (!place || !place.address_components) {
+                        return;
+                    }
+                    const $form = $(input).closest('form');
+                    // Put full selected address in Address field
+                    $(input).val(place.formatted_address);
+ 
+                });
+            });
+        }
     </script>
 @endpush

@@ -35,7 +35,8 @@ class ShareholderController extends Controller
     public function index()
     {
         $agentNotifications = $this->shareHolderNotification();
-        return view('shareholder.dashboard.index', compact('agentNotifications'));
+        $staff = Shareholder::where("id", auth()->user()->id)->first();
+        return view('shareholder.dashboard.index', compact('agentNotifications', 'staff'));
     }
 
     //get Shareholder Notificaiton

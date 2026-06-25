@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Escort\Concierge;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductOrder;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -46,7 +47,7 @@ class ProductController extends Controller
         $query = $query->whereIn('id', $ids);
       }
       $products = $query->get();
- 
+
       // Render Blade
 
       $html = view('admin.products.render', [
@@ -55,7 +56,7 @@ class ProductController extends Controller
         'finalCart' => $finalCart
       ])->render();
 
-      return response()->json(['html' => $html, 'status' => count($cart)== 0 ? true : false]);
+      return response()->json(['html' => $html, 'status' => count($cart) == 0 ? true : false]);
     } catch (Exception $e) {
       Log::error("get products" . $e->getMessage());
     }
@@ -94,4 +95,7 @@ class ProductController extends Controller
       Log::error("get products" . $e->getMessage());
     }
   }
+
+
+ 
 }

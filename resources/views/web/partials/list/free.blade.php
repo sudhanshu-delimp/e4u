@@ -3,7 +3,7 @@
 @endphp
     
 <div class="listview_each_section_border_btm silver-sec brb--listing">
-    <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
+    <div class="manage_listview_margin_gold_section  list_provide_cruise plat_list_frame">
         
 
         
