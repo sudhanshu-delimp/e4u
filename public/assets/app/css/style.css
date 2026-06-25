@@ -4290,7 +4290,7 @@ i.fa.fa-heart-o{
         .previous_btn_profile,
         .next_btn_profile {
             padding: 8px 12px;
-            background: var(--blue--text);
+            background: var(--peach);
             display: flex;
             flex-wrap: nowrap;
             gap: 3px;
@@ -4299,7 +4299,7 @@ i.fa.fa-heart-o{
         
         .previous_btn_profile:hover,
         .next_btn_profile:hover {
-            background-color: var(--peach);
+            background-color: var(--blue--text);
         }
         
         .previous_text {
