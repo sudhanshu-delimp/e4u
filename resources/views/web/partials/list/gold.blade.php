@@ -303,9 +303,13 @@
                                     <tr>
                                         <td>{{ $duration->name }}</td>
 
-                                        <td>{!! $duration->pivot->massage_price
-                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
-                                            : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        <td>
+                                            @if($duration->name == 'Blow & Go')
+                                            @else
+                                                {!! $duration->pivot->massage_price
+                                                    ? "<div class='public-num-value-table'><span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>"
+                                                    : "<span class='if_data_not_available'>N/A</span>" !!}
+                                            @endif
                                         </td>
 
                                         <td>{!! $duration->pivot->incall_price

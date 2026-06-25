@@ -134,12 +134,17 @@ class PaymentController extends Controller
 
                 $gstAmount = $this->pinService->getGSTAmount();
                 $totalDueAmount = $this->pinService->getTotalDue();
+                $total_amount = max(0, $this->pinService->getDefaultTotalDue());
             } else {
                 $gstAmount = 0;
                 $totalDueAmount = $sub_total_amount;
+                $total_amount = max(0, $sub_total_amount);
             }
 
-            if ($this->pinService->getDefaultTotalDue() < ($wallet_amount + $loyalty_amount)) {
+
+
+
+            if ($total_amount < ($wallet_amount + $loyalty_amount)) {
                 return response()->json([
                     'status'  => false,
                     'totalDefaultTotalDue' => $this->pinService->getDefaultTotalDue(),
@@ -148,7 +153,6 @@ class PaymentController extends Controller
                 ], 422);
             }
 
-            $total_amount = max(0, $total_amount);
 
             $html = view('escort.dashboard.modal.order_summary_adjustment', compact('action', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
 

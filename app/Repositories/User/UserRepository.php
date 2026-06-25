@@ -634,7 +634,7 @@ class UserRepository extends BaseRepository implements UserInterface
                     $new_password = $user_password;
                     try {
                     Mail::to($user->email)->send( new OtherCentreRegistrationEmail($user,$new_password));
-                    $user->is_access_grant_notified ='1'; 
+                    $user->is_access_grant_notified = '1'; 
                     $user->save();
                     } 
                     catch (Exception $e) {
@@ -697,6 +697,8 @@ class UserRepository extends BaseRepository implements UserInterface
                     $new_password = $data['confirm_password'];
                     try {
                     Mail::to($user->email)->send( new OtherCentreRegistrationEmail($user,$new_password));
+                    $user->is_access_grant_notified = '1'; 
+                    $user->save();
                     } 
                     catch (Exception $e) {
                     Log::error('Other Massage Center Email sending failed: ' . $e->getMessage());
