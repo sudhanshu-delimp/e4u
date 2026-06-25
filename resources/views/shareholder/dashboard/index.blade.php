@@ -186,7 +186,7 @@ $user = auth()->user();
  
 $password_expiry_days = $user?->account_setting?->password_expiry_days;
 @endphp
-@if($password_expiry_days!='never') {{"pass:".$password_expiry_days}}
+@if($password_expiry_days!='never')
     @include('modal.console-expiry-password')
 @endif
 @endsection
