@@ -80,7 +80,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">AU$</span>
                                                     </div>
-                                                    <input type="text" class="form-control only_digits" name="wallet_amount"
+                                                    <input type="text" class="form-control only_digits_decimal" name="wallet_amount"
                                                         placeholder="Enter amount.">
                                                 </div>
                                             </div>
@@ -439,7 +439,8 @@
                 if (res.status) {
                     $(".order_summary_adjustment").html(res.html);
                     addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
-                    if (res.total_amount) {
+
+                    if (res.totalDueAmount > 0) {
                         $("#payment-form").find('input, button, select, textarea').prop('disabled',
                             false);
                         finishPaymentForm.find('input, button, select, textarea').prop('disabled',

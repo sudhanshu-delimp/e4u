@@ -19,13 +19,13 @@ class PinPaymentService
 {
   use DataTablePagination;
   protected $walletAmount = 0.00;
-  protected $totalAmount = 0.00;
+  protected $amount = 0.00;
   protected $gstAmount = 0.00;
   protected $totalDueAmount = 0.00;
 
   public function setAmount($amount)
   {
-    $this->totalAmount = $amount;
+    $this->amount = $amount;
     return $this;
   }
 
@@ -37,13 +37,20 @@ class PinPaymentService
 
   public function getGSTAmount()
   {
-    $this->gstAmount = (($this->totalAmount + $this->walletAmount) * config('app.payment.gst_percentage')) / 100;
+    //$this->gstAmount = (($this->totalAmount + $this->walletAmount) * config('app.payment.gst_percentage')) / 100;
+    $this->gstAmount = ($this->amount * config('app.payment.gst_percentage')) / 100;
     return number_format($this->gstAmount, 2, '.', '');
   }
 
   public function getTotalDue()
   {
-    $this->totalDueAmount = $this->totalAmount + $this->gstAmount;
+    $this->totalDueAmount = $this->amount + $this->gstAmount - $this->walletAmount;
+    return number_format($this->totalDueAmount, 2, '.', '');
+  }
+
+  public function getDefaultTotalDue()
+  {
+    $this->totalDueAmount = $this->amount + $this->gstAmount;
     return number_format($this->totalDueAmount, 2, '.', '');
   }
 
