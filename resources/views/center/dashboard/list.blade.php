@@ -413,6 +413,9 @@ background:#16385f;
 <script>
 let expanded = false;
 var is_load_first = 1;
+var plandata = {};
+
+
 function showCheckboxes() {
   let checkboxes = document.getElementById("checkboxes");
   if (!expanded) {
@@ -424,10 +427,10 @@ function showCheckboxes() {
   }
 }
 </script>
-</script>
-<script>
-   
 
+
+
+<script>
 var table = $("#massage_list").DataTable({
     info: true,
     paging: true,
@@ -945,25 +948,25 @@ $(document).on('click', '.transaction_summury', function(e) {
             Swal.close();
             if(response.success) 
             {
-                  let data = response.data;
-                  make_form_values(data);
+                  plandata = response.data;
+                  make_form_values(plandata);
                   let row = `
                      <tr>
-                        <td>${data.listing}</td>
-                        <td>${data.business_name}</td>
-                        <td>${data.start_date}</td>
-                        <td>${data.end_date}</td>
-                        <td>${data.days}</td>
-                        <td><span class="mr-2">$</span>${data.rate}</td>
-                        <td><span class="mr-2">$</span>${data.full_fee}</td>
-                        <td><span class="mr-2">$</span>${data.discount}</td>
-                        <td><span class="mr-2">$</span>${data.discount_fee}</td>
+                        <td>${plandata.listing}</td>
+                        <td>${plandata.business_name}</td>
+                        <td>${plandata.start_date}</td>
+                        <td>${plandata.end_date}</td>
+                        <td>${plandata.days}</td>
+                        <td><span class="mr-2">$</span>${plandata.rate}</td>
+                        <td><span class="mr-2">$</span>${plandata.full_fee}</td>
+                        <td><span class="mr-2">$</span>${plandata.discount}</td>
+                        <td><span class="mr-2">$</span>${plandata.discount_fee}</td>
                      </tr>
                      
                      <tr>
                         <td colspan="7" class="border-0"></td>
                         <td  class="text-center"><b>Total Fees:</b></td>
-                        <td class="text-center"><span class="mr-2">$</span> ${data.discount_fee}</td>
+                        <td class="text-center"><span class="mr-2">$</span> ${plandata.discount_fee}</td>
                      </tr>`;
 
                      
@@ -1003,8 +1006,14 @@ e.preventDefault();
     $("#summaryModal").hide();
 
     if (await isConfirm({'action': 'Proceed','text': ''})) {
-        swal_waiting_popup({'title': 'Payment in progress'});
-        let formData = $("#purchase_listing").serialize();
+
+      let formData = $("#purchase_listing").serialize();
+     
+
+
+         console.log('plandata',plandata);
+
+        return false;
 
          $.ajax({
                     url: "{{route('center.listing-payment')}}",

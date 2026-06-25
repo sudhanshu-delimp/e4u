@@ -360,54 +360,54 @@
             swal_waiting_popup({'title': 'Processing Payment. do not refresh or close this page'});
             },
             success: function(response, textStatus, xhr) {
-                //Swal.close();
+                Swal.close();
                 paymentFormData = {};
                 //submitButton.removeAttr('disabled');
                 console.log('response',response);
                 let otherModalForm;
-                // if (!response.redirect_url || response.redirect_url.trim() === '') {
-                //     form.closest('.modal').modal('hide');
-                //     otherModalForm = $(`.modal-form-${response.action}`).find('form');
-                //     otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
-                // }
+                if (!response.redirect_url || response.redirect_url.trim() === '') {
+                    form.closest('.modal').modal('hide');
+                    otherModalForm = $(`.modal-form-${response.action}`).find('form');
+                    otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+                }
 
 
-                // switch (response.action) {
+                switch (response.action) {
 
-                //     case 'pinup': {
-                //         displaySwal(xhr, false);
-                //         otherModalForm.attr('action', `{{route('pinup.register')}}`);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-                //     case 'bumpUp': {
-                //         displaySwal(xhr, false);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-                //     case 'upgrade': {
-                //         displaySwal(xhr, false);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
+                    case 'pinup': {
+                        displaySwal(xhr, false);
+                        otherModalForm.attr('action', `{{route('pinup.register')}}`);
+                        setTimeout(() => {
+                            otherModalForm.trigger('submit');
+                        }, 2000); // 2 seconds
+                    }
+                    break;
+                    case 'bumpUp': {
+                        displaySwal(xhr, false);
+                        setTimeout(() => {
+                            otherModalForm.trigger('submit');
+                        }, 2000); // 2 seconds
+                    }
+                    break;
+                    case 'upgrade': {
+                        displaySwal(xhr, false);
+                        setTimeout(() => {
+                            otherModalForm.trigger('submit');
+                        }, 2000); // 2 seconds
+                    }
+                    break;
 
-                //     default: {
-                //         displaySwal(xhr).then((result) => {
-                //             if (result.isConfirmed) {
-                //                 if (response.redirect_url) {
-                //                     window.location.href = response.redirect_url;
-                //                 }
-                //             }
-                //         });
-                //     }
-                //     break;
-                // }
+                    default: {
+                        displaySwal(xhr).then((result) => {
+                            if (result.isConfirmed) {
+                                if (response.redirect_url) {
+                                    window.location.href = response.redirect_url;
+                                }
+                            }
+                        });
+                    }
+                    break;
+                }
             },
             error: function(xhr) {
                 Swal.close();

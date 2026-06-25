@@ -46,7 +46,7 @@
 
                             </p>    
 
-                            <p><h3>Login Details</h3></p>
+                           
                             <p><strong>Login ID / Mobile No : </strong> {{removeSpaceFromString($user->phone)}}</p>
                             <p><strong>Password : </strong> {{$userpassword}}</p>
                             <p><strong>Login url : </strong> {{ route('advertiser.login') }}</p>

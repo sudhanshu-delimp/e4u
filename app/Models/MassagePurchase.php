@@ -99,4 +99,11 @@ class MassagePurchase extends Model
     {
         return $this->morphMany(AgentCommission::class, 'commissionable');
     }
+
+    public function paymentItems()
+    {
+        return $this->morphMany(PaymentItem::class, 'item');
+    }
 }
+
+

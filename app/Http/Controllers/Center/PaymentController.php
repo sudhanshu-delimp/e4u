@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Center;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Mail\PaymentMailer;
+use App\Models\MassagePurchase;
 use App\Models\PaymentHistory;
 use App\Models\PaymentProcess;
 use App\Repositories\Message\MessageRepository;
@@ -75,8 +76,8 @@ class PaymentController extends BaseController
         $wallet_amount = isset($request->wallet_discount) ? $request->wallet_discount : 0;
         $loyalty_amount = isset($request->loyalty_discount) ? $request->loyalty_discount : 0;
 
-        $loyalty_format = formatCurrency($wallet_amount);
-        $wallet_format = formatCurrency($loyalty_amount);
+        $loyalty_format = formatCurrency($loyalty_amount);
+        $wallet_format = formatCurrency($wallet_amount);
         
 
         $total_fee = $total_rate;
@@ -113,6 +114,7 @@ class PaymentController extends BaseController
                 'loyalty_use' => $loyalty_format,
              ],
              'pay_data' => [
+                'normalRate' =>  $plan_rate,
                 'sub_total_amount' => $total_rate,
                 'total_amount' =>  (float)  $total_due,
                 'loyalty_amount' => $loyalty_day,
@@ -189,13 +191,12 @@ class PaymentController extends BaseController
             }
             
 
-             $total_due_amount = ($total_final_amount-$total_points);
+            if($total_final_amount >$total_points)
+            $total_due_amount = ($total_final_amount-$total_points);    
+            else
+            $total_due_amount = ($total_points - $total_final_amount);
 
-            Log::info('$total_due_amount==>>>'.$total_due_amount);
-            Log::info('$total_final_amount===>'.$total_final_amount);
-
-           
-          
+    
             if($total_points>$total_final_amount)
             return response()->json([
                 'status'  => false,
@@ -224,6 +225,7 @@ class PaymentController extends BaseController
                 'loyalty_day' => $loyalty_day,
                 'total_amount' =>  $total_final_amount, 
                 'total_due_amount' => $total_due_amount,
+                
             
             ],200);
 
@@ -253,16 +255,15 @@ class PaymentController extends BaseController
             $benefit_token = json_decode($decrypted, true);
             $payload_data  = $request->payload_data;
 
-            
+            $plan_rate = isset($benefit_token['normalRate']) ? $benefit_token['normalRate'] : 0; 
+            $loyalty_day = isset($benefit_token['loyalty_amount']) ? $benefit_token['loyalty_amount'] : 0; 
+            $wallet_amount = isset($benefit_token['wallet_amount']) ? $benefit_token['wallet_amount'] : 0; 
 
+             
            
             $is_bypass = $pin_token == 'without_pay_now';
 
-            Log::info('benefit_token');
-            Log::info($benefit_token);
-
-
-
+        
             $redirect_url = '';
             $gatewayResponse['status'] = true;
             $amount = $benefit_token['sub_total_amount'];
@@ -274,7 +275,18 @@ class PaymentController extends BaseController
             $gstAmount = $this->pinService->getGSTAmount();
             $totalDueAmount = $this->pinService->getTotalDue();
 
-            dd($totalDueAmount);
+            
+            ########### Total Points ################
+            $loyality_amount = $plan_rate*$loyalty_day;
+            $total_points = $wallet_amount + $loyality_amount;
+
+           
+            if($benefit_token['sub_total_amount']>$total_points)
+            $net_amount = max(0, (float) $benefit_token['sub_total_amount'] - (float) $total_points);
+            else
+            $net_amount = max(0, (float) $total_points) - (float) $benefit_token['sub_total_amount'];
+
+          
 
             /* Insert records for the payment history table */
             $insert = [];
@@ -282,11 +294,12 @@ class PaymentController extends BaseController
             $insert['completed_by'] = $request->isImpersonated ? $request->impersonatedId : $this->account->id;
             $insert['ref_no'] = generateReferenceNo(PaymentHistory::class);
             $insert['amount'] = $benefit_token['sub_total_amount'];
-            $insert['wallet_amount'] = $benefit_token['wallet_amount'];
-            $insert['loyalty_amount'] = $benefit_token['loyalty_amount'];
-            $insert['net_amount'] = $benefit_token['total_amount'];
+            $insert['wallet_amount'] = $wallet_amount;
+            $insert['loyalty_amount'] = $loyality_amount;
+            $insert['net_amount'] = $net_amount;
             $insert['gst_amount'] = $gstAmount;
             $insert['paid_amount'] = $totalDueAmount;
+            $insert['total_payable_amount'] = $gstAmount + $benefit_token['sub_total_amount'];
 
 
             if (!$is_bypass) 
@@ -363,21 +376,21 @@ class PaymentController extends BaseController
             $insert['meta'] = $is_bypass ? null : json_encode($response);
             $payment = PaymentHistory::create($insert);
 
-            Log::info('payment');
-            Log::info($payment);
-
+        
             /** Calulate agent commisson and save the commission */
             $agentCommission = (new \App\Models\AgentCommission);
             if ($payment) {
                 Log::info("saveCommissionData fuction calling from payment controller.");
-                $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['total_amount']);
-            }
+                $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['sub_total_amount']);
+                
+            }      
 
             $payment_service = '';
             $mainAccount = $this->account;
             switch ($benefit_token['action']) {
                 case 'listing': {
                         $payment_service = 'Profile Listing';
+                        $result = $this->saveCheckout($benefit_token['action'], $payment);
                         $redirect_url = route('center.payment-completed');
                     }
                     break;
@@ -417,7 +430,7 @@ class PaymentController extends BaseController
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
 
-            if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {
+            if (in_array($benefit_token['action'], ['listing', 'extend'])) {
                 $earn_days = floor($benefit_token['total_amount'] / 200);
                 if ($earn_days > 0) {
                     $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
@@ -428,7 +441,7 @@ class PaymentController extends BaseController
             $payment->save();
 
             /* Send Payment Mail */
-            if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {
+            if (in_array($benefit_token['action'], ['listing', 'extend'])) {
                 $extend_days = empty($result['extend_days']) ? 0 : $result['extend_days'];
                 $mailConfig = config("payment_mail_templates.{$benefit_token['action']}");
                 Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment', 'extend_days'), $mailConfig['subject']));
@@ -498,6 +511,25 @@ class PaymentController extends BaseController
 
 
   
+   public function saveCheckout($action = null, $payment = null)
+    {
+
+         $response = [];
+         if($action == 'listing')
+         {
+            $purchaseData = session()->get('MassagePurchase');
+            $purchaseDetail = MassagePurchase::create($purchaseData);
+            if (!empty($payment)) {
+                    $purchaseDetail->paymentItems()->create([
+                        'payment_history_id' => $payment->id,
+                        'amount' => $purchaseDetail->paid_rate,
+                    ]);
+            }
+
+
+         }
+         return $response;
+    }
 
 
 

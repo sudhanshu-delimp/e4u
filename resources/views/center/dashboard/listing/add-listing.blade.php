@@ -743,25 +743,9 @@ e.preventDefault();
 
     if (await isConfirm({'action': 'Proceed','text': ''})) {
 
-        // plandata.action_type = $('[name="action_type"]').val();
-        // console.log('plandata',plandata);
-        // swal_waiting_popup({'title': 'Processing.'});
-        // let response = await make_order_summury(plandata);
-        // console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
-        // Swal.close();
-        // if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
-        // $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
-        // }
-    
-       // return false;
-       
-
-        // console.log('process-payment-modal');
-        // return false;
-          
         swal_waiting_popup({'title': 'Processing.'});
         let formData = $("#purchase_listing").serialize();
-
+        
          $.ajax({
                     url: "{{route('center.listing-payment')}}",
                     method: 'POST',
@@ -778,20 +762,14 @@ e.preventDefault();
                         console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
                         Swal.close();
                         if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $('#adjustment-form')[0].reset();
+                        $('#payment-form')[0].reset();
                         $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
                         }
                         }).fail(function(err) {
                             console.error('Summary Function Error:', err);
                             Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
                         });
-
-
-                      
-
-                        // Swal.close();
-                        // let redirect = {'time': 2000, 'url' : 'payment-completed'}
-                        // $('#next').trigger('click');
-                        // swal_success_popup(response.message,redirect);
                     },
                     error: function(xhr) {
                         Swal.close();
