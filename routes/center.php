@@ -117,6 +117,7 @@ Route::post('listing/listing-payment', [MassageController::class, 'listing_payme
 Route::get('listing/payment-completed', [MassageController::class, 'payment_completed'])->name('center.payment-completed');
 
 
+
 Route::get('listing/current', function(){return view('center.dashboard.listing.current');})->name('center.current');
 Route::get('listing/past', function(){return view('center.dashboard.listing.past');})->name('center.past');
 
@@ -195,6 +196,7 @@ Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?
 Route::post('payments/make_order_summury',[PaymentController::class,'make_order_summury'])->name('center.make_order_summury');
 Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('center.payment.adjustment');
 Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('center.payment.process');
+Route::post('payments/payment-session', [PaymentController::class, 'checkPaymentSession'])->name('center.check-payment-session');
 
 
 

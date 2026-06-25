@@ -227,74 +227,100 @@
     let card = {};
     let paymentFormData = {};
     let form = $('form.pin');
-    $(function() {
+
+
+ $(function() {
 
         var pinApi = new Pin.Api(`{{ config('app.payment.publish_key') }}`, 'test');
         var submitButton = form.find(":submit"),
-            errorContainer = form.find('.errors'),
-            errorHeading = errorContainer.find('h3');
+        errorContainer = form.find('.errors'),
+        errorHeading = errorContainer.find('h3');
 
-        form.submit(function(e) {
 
-            swal_waiting_popup('Please wait...');
+        form.submit(async function(e) 
+        {
+
             e.preventDefault();
-            errorContainer.hide();
 
-            $('.is-invalid').removeClass('is-invalid');
-            $('.invalid-feedback').remove();
+            try {
 
-            submitButton.attr({
-                disabled: true
-            });
+                const response = await checkSessionData();
 
-            card['number'] = $('#cc-number').val();
-            card['name'] = $('#cc-name').val();
-            card['expiry_month'] = $('#cc-expiry-month').val();
-            card['expiry_year'] = $('#cc-expiry-year').val();
-            card['cvc'] = $('#cc-cvc').val();
-            card['address_line1'] = $('#address-line1').val();
-            card['address_line2'] = $('#address-line2').val();
-            card['address_city'] = $('#address-city').val();
-            card['address_state'] = $('#address-state').val();
-            card['address_postcode'] = $('#address-postcode').val();
-            card['address_country'] = $('#address-country').val();
-            pinApi.createCardToken(card).then(handleSuccess, handleError).done();
-        });
+                if (!response.success) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Session Expired',
+                        text: response.message
+                    });
+                    return;
+                }
 
-        function handleSuccess(card) {
+                swal_waiting_popup('Please wait...');
+                errorContainer.hide();
+
+                $('.is-invalid').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+
+                submitButton.attr({ disabled: true });
+
+                card['number'] = $('#cc-number').val();
+                card['name'] = $('#cc-name').val();
+                card['expiry_month'] = $('#cc-expiry-month').val();
+                card['expiry_year'] = $('#cc-expiry-year').val();
+                card['cvc'] = $('#cc-cvc').val();
+                card['address_line1'] = $('#address-line1').val();
+                card['address_line2'] = $('#address-line2').val();
+                card['address_city'] = $('#address-city').val();
+                card['address_state'] = $('#address-state').val();
+                card['address_postcode'] = $('#address-postcode').val();
+                card['address_country'] = $('#address-country').val();
+
+                pinApi.createCardToken(card)
+                    .then(handleSuccess, handleError)
+                    .done();
+
+            } catch (error) {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Unable to verify session.'
+                });
+
+            }
+        });   
+
+            
+
+        async function handleSuccess(card) 
+        {
 
             paymentFormData['_token'] = `{{ csrf_token() }}`;
             paymentFormData['pin_token'] = card.token;
             if (updatedPlanSummary?.data?.pay_data) {
-                const jsonData = JSON.stringify(updatedPlanSummary.data.pay_data);
-                const encrypted = CryptoJS.AES.encrypt(
-                    jsonData,
-                    CryptoJS.enc.Utf8.parse(secretKey),
-                    {
-                        iv: CryptoJS.enc.Utf8.parse(iv),
-                        mode: CryptoJS.mode.CBC,
-                        padding: CryptoJS.pad.Pkcs7
-                    }
-                ).toString();
+
+                const encrypted =  encryptBenefitData(
+                    updatedPlanSummary.data.pay_data
+                );
 
                 paymentFormData['benefit_token'] = encrypted;
                 paymentFormData['payload_data'] =  JSON.stringify(updatedPlanSummary.data);
                 Swal.close();
             }
 
-            
-            console.log('paymentFormData',paymentFormData)
-            
-            $("#sendOtp_modal").modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: true
-            });
+                console.log('paymentFormData',paymentFormData)
+                
+                $("#sendOtp_modal").modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
 
-            form.closest('.modal').modal('hide');
+                form.closest('.modal').modal('hide');
         }
 
-        function handleError(response) {
+        function handleError(response) 
+        {
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').remove();
 
@@ -426,260 +452,11 @@
 
 
 
-    /*
+   
 
-    let initLoyaltySection = function(action = 'show') {
-        (action == 'hide') ? $(".payment_loyalty_option").hide(): $(".payment_loyalty_option").show();
-    }
 
-    var processPaymentForm = function() {
-        $.ajax({
-            url: form.attr('action'),
-            method: 'POST',
-            data: paymentFormData,
-            beforeSend: function() {
-                Swal.fire({
-                    title: 'Processing Payment',
-                    text: 'Do not refresh or close this page.',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-            },
-            success: function(response, textStatus, xhr) {
-                Swal.close();
-                paymentFormData = {};
-                //submitButton.removeAttr('disabled');
-                let otherModalForm;
-                if (!response.redirect_url || response.redirect_url.trim() === '') {
-                    form.closest('.modal').modal('hide');
-                    otherModalForm = $(`.modal-form-${response.action}`).find('form');
-                    otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
-                }
-                switch (response.action) {
 
-                    case 'pinup': {
-                        displaySwal(xhr, false);
-                        otherModalForm.attr('action', `{{route('pinup.register')}}`);
-                        setTimeout(() => {
-                            otherModalForm.trigger('submit');
-                        }, 2000); // 2 seconds
-                    }
-                    break;
-                    case 'bumpUp': {
-                        displaySwal(xhr, false);
-                        setTimeout(() => {
-                            otherModalForm.trigger('submit');
-                        }, 2000); // 2 seconds
-                    }
-                    break;
-                    case 'upgrade': {
-                        displaySwal(xhr, false);
-                        setTimeout(() => {
-                            otherModalForm.trigger('submit');
-                        }, 2000); // 2 seconds
-                    }
-                    break;
-
-                    default: {
-                        displaySwal(xhr).then((result) => {
-                            if (result.isConfirmed) {
-                                if (response.redirect_url) {
-                                    window.location.href = response.redirect_url;
-                                }
-                            }
-                        });
-                    }
-                    break;
-                }
-            },
-            error: function(xhr) {
-                Swal.close();
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                });
-                submitButton.prop('disabled', false);
-            }
-        });
-    }
-
-    $("#sendOtp_modal").on('show.bs.modal', function() {
-        $.ajax({
-            url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
-            method: 'POST',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            data: {
-                action: 'payment'
-            },
-            success: function(res, textStatus, xhr) {
-                console.log(res);
-            },
-            error: function(xhr) {
-                Swal.close();
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message
-                });
-            }
-        });
-    });
-
-    var adjustmentForm = $('#adjustment-form');
-    var finishPaymentForm = $('#finish-payment-form');
-    var submitAdjustmentForm = function(checkAmount = true) {
-        let submitButton = adjustmentForm.find('button[type="submit"]');
-        $.ajax({
-            url: adjustmentForm.attr('action'),
-            method: 'POST',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            data: `${adjustmentForm.serialize()}&${submitButton.attr('name')}=${submitButton.attr('value')}&checkAmount=${checkAmount}`,
-            beforeSend: function() {
-                Swal.fire({
-                    title: 'Please wait...',
-                    text: 'Applying adjustment',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-            },
-            success: function(res, textStatus, xhr) {
-                Swal.close();
-                let option = getStatusOption(xhr);
-                if (res.status) {
-                    $(".order_summary_adjustment").html(res.html);
-                    addOrUpdateHiddenInput('adjustment-form', 'benefit_token', res.benefit_token)
-                    if (res.total_amount) {
-                        $("#payment-form").find('input, button, select, textarea').prop('disabled',
-                            false);
-                        finishPaymentForm.find('input, button, select, textarea').prop('disabled',
-                            true);
-                        finishPaymentForm.parent().addClass('d-none');
-                    } else {
-                        $("#payment-form").find('input, button, select, textarea').prop('disabled',
-                            true);
-                        finishPaymentForm.find('input, button, select, textarea').prop('disabled',
-                            false);
-                        finishPaymentForm.parent().removeClass('d-none');
-                    }
-                } else {
-                    Swal.fire({
-                        icon: option.icon,
-                        title: option.title,
-                        text: option.message
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.close();
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message
-                });
-            }
-        });
-    }
-
-    adjustmentForm.submit(function(e) {
-        e.preventDefault();
-        submitAdjustmentForm();
-    });
-
-    finishPaymentForm.submit(function(e) {
-        e.preventDefault();
-        let submitButton = finishPaymentForm.find(":submit");
-        submitButton.attr({
-            disabled: true
-        });
-        let data = {};
-        data['_token'] = `{{ csrf_token() }}`;
-        data['pin_token'] = `{{ encrypt('without_pay_now') }}`;
-        if ($("input[name='benefit_token']").length > 0) {
-            data['benefit_token'] = $("input[name='benefit_token']").val();
-        }
-        $.ajax({
-            url: finishPaymentForm.attr('action'),
-            method: 'POST',
-            data: data,
-            beforeSend: function() {
-                Swal.fire({
-                    title: 'Processing Payment',
-                    text: 'Do not refresh or close this page.',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-            },
-            success: function(response, textStatus, xhr) {
-                // console.log(response);
-                Swal.close();
-                submitButton.removeAttr('disabled');
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = response.redirect_url;
-                    }
-                });
-            },
-            error: function(xhr) {
-                Swal.close();
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                });
-                submitButton.removeAttr('disabled');
-            }
-        });
-    });
-
-    adjustmentForm.on('click', '.reset-btn', function(e) {
-        adjustmentForm[0].reset();
-        submitAdjustmentForm(false);
-    });
-
-    $("#process-payment-modal").on('show.bs.modal', function(event) {
-        if (event.relatedTarget) {
-            let fee_token = $(event.relatedTarget).attr('fee_token');
-            if (fee_token) {
-                addOrUpdateHiddenInput('adjustment-form', 'fee_token', fee_token);
-            }
-
-            ['listing', 'tour', 'extend'].includes($(event.relatedTarget).attr('value')) ? initLoyaltySection('show') : initLoyaltySection('hide');
-            adjustmentForm.find('button[type="submit"]').attr('value', $(event.relatedTarget).attr('value'));
-            adjustmentForm.find('[name="wallet_amount"]').val(0);
-            submitAdjustmentForm(false);
-        }
-    });
-    */
+    
+   
 </script>
 @endprepend

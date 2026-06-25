@@ -769,8 +769,9 @@ e.preventDefault();
                     success:  function(response) 
                     {
                         Swal.close();
+                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
                         plandata.action_type = $('[name="action_type"]').val();
-                        console.log('plandata',plandata);
+                        console.log('plandata=>>>>>>',plandata);
                         swal_waiting_popup({'title': 'Processing.'});
 
                         let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {

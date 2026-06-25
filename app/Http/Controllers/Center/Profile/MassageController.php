@@ -1453,9 +1453,11 @@ class MassageController extends Controller
             $total_rate         = $request->total_fee;
             $paid_rate          = $request->total_rate ?? 0;
             $appliedDiscountAmount  = $request->applied_discount ?? 0;
+            $checkout_number = md5(time());
 
             $purchase = [
                     'parent_id'          => $parent_id,
+                    'checkout_number'    => $checkout_number,
                     'membership_id'      => $membership_id,
                     'massage_centre_id'  => $massage_centre_id,
                     'massage_profile_id' => $massage_profile_id,
@@ -1471,7 +1473,7 @@ class MassageController extends Controller
             ];
             session()->forget('MassagePurchase');
             session(['MassagePurchase' => $purchase]);
-
+            $checkout_data['checkout_number'] = $purchase['checkout_number'];
             // $purchase = MassagePurchase::create([
             //     'parent_id'          => $parent_id,
             //     'membership_id'      => $membership_id,
@@ -1499,6 +1501,7 @@ class MassageController extends Controller
             // }
             
              return response()->json([
+                'data' => $checkout_data,
                 'success' => true,
                 'message' => 'Transaction completed successfully.'
             ]);
