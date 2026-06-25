@@ -227,7 +227,7 @@
         </div>
     </section>
     <section class="copy_right_footer_mange_padding">
-        <div class="footer_copy_right">
+        <div class="footer_copy_right container-fluid">
             <div class="row">
                 <div class="col-lg-8 col-md-8 footer_text_color_white">
                     <div class="custom--copyryt">
