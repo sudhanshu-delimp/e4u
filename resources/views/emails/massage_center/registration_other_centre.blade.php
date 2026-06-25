@@ -44,12 +44,30 @@
                             <p>
                                 Your Massage Centre account was successfully created on {{$user->created_at->format('d-m-Y')}} and has now been granted access. Please find your login credentials below.
 
-                            </p>    
+                            </p> 
+                            
+                            
 
-                            <p><h3>Login Details</h3></p>
-                            <p><strong>Login ID / Mobile No : </strong> {{removeSpaceFromString($user->phone)}}</p>
-                            <p><strong>Password : </strong> {{$userpassword}}</p>
-                            <p><strong>Login url : </strong> {{ route('advertiser.login') }}</p>
+                            <table width="100%" cellpadding="5" cellspacing="0"
+                                style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
+
+                                <tr>
+                                    <td style="font-weight: bold; padding: 10px 0px;width: 160px;">Login ID / Mobile No :</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{removeSpaceFromString($user->phone)}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 10px 0px;width: 160px;">Password :</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{$userpassword}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 10px 0px;width: 160px;">Login url :</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{ route('advertiser.login') }}</td>
+                                </tr>
+
+                            </table>
+
+                           
+                          
 
                             <!-- Details Table -->
                             
