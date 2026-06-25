@@ -198,9 +198,11 @@ class PaymentController extends Controller
                 'total_amount' => $amount,
             ];
 
+
             if (!in_array($benefit_token['action'], ['wallet'])) {
-                $this->pinService->setAmount($benefit_token['total_amount']);
+                $this->pinService->setAmount($benefit_token['sub_total_amount']);
                 $this->pinService->setWalletAmount($benefit_token['wallet_amount']);
+                $this->pinService->setLoyaltyAmount($benefit_token['loyalty_amount']);
 
                 $gstAmount = $this->pinService->getGSTAmount();
                 $totalDueAmount = $this->pinService->getTotalDue();

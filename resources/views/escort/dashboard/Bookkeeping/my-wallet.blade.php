@@ -143,7 +143,7 @@
                 <p>Are you sure that is the correct amount? If the amount is correct click <strong>Proceed</strong> to
                     complete your payment.</p>
 
-                <div class="mt-3 p-2 bg-light rounded">
+                <!-- <div class="mt-3 p-2 bg-light rounded">
                     <h5>Never Worry About Running Out of Credit</h5>
                     <p>Would you like to enable Auto-recharge?</p>
                     <div class="form-check form-check-inline">
@@ -152,7 +152,7 @@
                     </div>
                     <small class="d-block text-muted mt-2">If enabled, the recharge will occur automatically when
                         balance falls below AU$100.00.</small>
-                </div>
+                </div> -->
 
             </div>
 
