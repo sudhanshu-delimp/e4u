@@ -134,12 +134,15 @@ class PaymentController extends Controller
 
                 $gstAmount = $this->pinService->getGSTAmount();
                 $totalDueAmount = $this->pinService->getTotalDue();
+                $total_amount = max(0, $this->pinService->getDefaultTotalDue());
             } else {
                 $gstAmount = 0;
                 $totalDueAmount = $sub_total_amount;
+                $total_amount = max(0, $sub_total_amount);
             }
 
-            $total_amount = max(0, $this->pinService->getDefaultTotalDue());
+
+
 
             if ($total_amount < ($wallet_amount + $loyalty_amount)) {
                 return response()->json([
