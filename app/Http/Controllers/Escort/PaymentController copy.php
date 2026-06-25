@@ -73,6 +73,7 @@ class PaymentController extends Controller
             $feeAmount = $request->filled('fee_token') ? decrypt($request->fee_token) : 0;
 
 
+
             // At least one value is required
             if ($checkAmount == true && empty($wallet_amount) && empty($loyalty_day)) {
                 return response()->json([
@@ -128,9 +129,8 @@ class PaymentController extends Controller
             $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount);
 
             if (!in_array($action, ['wallet'])) {
-                $this->pinService->setAmount($sub_total_amount);
+                $this->pinService->setAmount($total_amount);
                 $this->pinService->setWalletAmount($wallet_amount);
-                $this->pinService->setLoyaltyAmount($loyalty_amount);
 
                 $gstAmount = $this->pinService->getGSTAmount();
                 $totalDueAmount = $this->pinService->getTotalDue();
@@ -139,12 +139,10 @@ class PaymentController extends Controller
                 $totalDueAmount = $sub_total_amount;
             }
 
-            if ($this->pinService->getDefaultTotalDue() < ($wallet_amount + $loyalty_amount)) {
+            if ($total_amount < 0) {
                 return response()->json([
                     'status'  => false,
-                    'totalDefaultTotalDue' => $this->pinService->getDefaultTotalDue(),
-                    'appyAmount' => ($wallet_amount + $loyalty_amount),
-                    'message' => 'Wallet amount and Loyalty discount exceed total due.',
+                    'message' => 'Wallet amount and Loyalty discount exceed subtotal',
                 ], 422);
             }
 
@@ -152,12 +150,11 @@ class PaymentController extends Controller
 
             $html = view('escort.dashboard.modal.order_summary_adjustment', compact('action', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
 
-            $benefit_token = encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'totalDueAmount'));
+            $benefit_token = encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount'));
             return response()->json([
                 'status'         => true,
                 'lowest_plan' => $lowestPlan ?? 0,
                 'total_amount' => $total_amount,
-                'totalDueAmount' => $totalDueAmount,
                 'benefit_token' => $benefit_token,
                 'message' => 'Applied successfully',
                 'html' => $html,
@@ -198,11 +195,9 @@ class PaymentController extends Controller
                 'total_amount' => $amount,
             ];
 
-
             if (!in_array($benefit_token['action'], ['wallet'])) {
-                $this->pinService->setAmount($benefit_token['sub_total_amount']);
+                $this->pinService->setAmount($benefit_token['total_amount']);
                 $this->pinService->setWalletAmount($benefit_token['wallet_amount']);
-                $this->pinService->setLoyaltyAmount($benefit_token['loyalty_amount']);
 
                 $gstAmount = $this->pinService->getGSTAmount();
                 $totalDueAmount = $this->pinService->getTotalDue();

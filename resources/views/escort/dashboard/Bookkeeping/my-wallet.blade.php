@@ -16,7 +16,7 @@
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
     </div>
- 
+
     <div class="row collapse" id="notes">
         <div class="col-md-12 mb-4">
             <div class="card">
@@ -33,10 +33,10 @@
             </div>
         </div>
     </div>
- 
+
     <div class="row">
         <div class="col-lg-12">
- 
+
             <div class="wallet-card">
                 <div class="wallet-header">
                     <h5>Add Money</h5>
@@ -49,8 +49,8 @@
                         </div>
                     </div>
                 </div>
- 
- 
+
+
                 <div class="add-money-box mb-4">
                     <form id="walletForm" action="#" method=" POST">
                         <div class="form-row align-items-end">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-md-3 my-1">
                                 <label>Enter Amount</label>
- 
+
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">AU$</span>
@@ -76,9 +76,9 @@
                                     <input type="text" name="custom_amount" id="custom_amount" class="form-control" placeholder="Enter amount e.g. 1,000"
                                         disabled>
                                 </div>
- 
+
                             </div>
- 
+
                             <div class="col-md-2 my-1">
                                 <button type="button" class="btn-success-modal btn-block" data-toggle="modal" data-target="#confirmModal" data-backdrop="static" data-keyboard="false">
                                     Add Money
@@ -89,13 +89,13 @@
                 </div>
                 @include('escort.dashboard.modal.payment_form')
                 @include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
- 
+
                 <!-- Transaction History -->
- 
+
                 <h5 class="mb-3">Transaction History</h5>
- 
+
                 <div class="table-responsive">
- 
+
                     <table class="table w-100" id="TransactionTable">
                         <thead class="table-bg">
                             <tr>
@@ -106,35 +106,35 @@
                                 <th>Balance</th>
                             </tr>
                         </thead>
- 
+
                         <tbody> </tbody>
- 
+
                     </table>
- 
+
                 </div>
- 
+
             </div>
- 
+
         </div>
     </div>
 </div>
- 
+
 <!-- Modal -->
 <div class="modal fade upload-modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content basic-modal">
- 
+
             <div class="modal-header">
                 <h5 class="modal-title" id="confirmModalLabel"><img src="/assets/dashboard/img/add-credit.png"
                         class="custompopicon" alt="cross"> Add Credit to My Account</h5>
- 
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
- 
+
             <div class="modal-body text-center">
                 <!-- <div class="spinner-border text-primary my-3" role="status">
                     <span class="sr-only">Loading...</span>
@@ -142,8 +142,8 @@
                 <p class="lead">You have opted to top up your Account in the amount of <strong class="display_amount"></strong>.</p>
                 <p>Are you sure that is the correct amount? If the amount is correct click <strong>Proceed</strong> to
                     complete your payment.</p>
- 
-                <div class="mt-3 p-2 bg-light rounded">
+
+                <!-- <div class="mt-3 p-2 bg-light rounded">
                     <h5>Never Worry About Running Out of Credit</h5>
                     <p>Would you like to enable Auto-recharge?</p>
                     <div class="form-check form-check-inline">
@@ -152,18 +152,18 @@
                     </div>
                     <small class="d-block text-muted mt-2">If enabled, the recharge will occur automatically when
                         balance falls below AU$100.00.</small>
-                </div>
- 
+                </div> -->
+
             </div>
- 
+
             <div class="modal-footer">
                 <button id="modalPaymentButton" class="btn-success-modal text-white" type="button" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="wallet">Proceed to Payment</button>
             </div>
- 
+
         </div>
     </div>
 </div>
- 
+
 </div>
 @endsection
 @prepend('script')
@@ -172,7 +172,7 @@
     var table;
     var walletForm = $("#walletForm");
     var walletFormButton = walletForm.find(':button');
- 
+
     walletFormButton.prop('disabled', true);
     $(document).ready(function() {
         $('#amount').on('change', function() {
@@ -183,42 +183,42 @@
             }
         })
     });
- 
+
     var checkAmount = function() {
         let selectAmount = walletForm.find('select[name="amount"]').val();
         let customAmount = walletForm.find('input[name="custom_amount"]').val();
- 
+
         if ((selectAmount && selectAmount !== 'other') || (customAmount.trim() !== '' && customAmount.trim() > 0)) {
             walletFormButton.prop('disabled', false);
         } else {
             walletFormButton.prop('disabled', true);
         }
     }
- 
+
     walletForm.find('select[name="amount"], input[name="custom_amount"]').on('change keyup', function() {
         checkAmount();
     });
- 
+
     $("#confirmModal").on('show.bs.modal', async function(event) {
         let modal = $(this);
         let buttonElement = $(event.relatedTarget);
         let form = buttonElement.parents('form');
- 
+
         walletAmount = form.find('select[name="amount"]').val();
- 
+
         if (walletAmount === 'other') {
             walletAmount = form.find('input[name="custom_amount"]').val();
         }
- 
+
         if (walletAmount && walletAmount > 0) {
             modal.find('.display_amount').text(formatCurrency(walletAmount, 'AU$'))
- 
+
             await encryptValue(walletAmount).then(function(res) {
                 modal.find('#modalPaymentButton').attr('fee_token', res.encrypted);
             });
         }
     });
- 
+
     table = $('#TransactionTable').DataTable({
         serverSide: true,
         processing: true,
@@ -236,11 +236,11 @@
                 table.search('').draw();
             });
         },
- 
+
         ajax: {
             url: "{{ route('escort.wallet_transaction') }}",
             data: function(d) {
- 
+
             }
         },
         columns: [{

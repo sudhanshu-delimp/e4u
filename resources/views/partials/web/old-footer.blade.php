@@ -1,50 +1,51 @@
 @section('style')
-<style type="text/css">
-    .parsley-errors-list {
-        list-style: none;
-        color: rgb(248, 0, 0)
-    }
-</style>
+    <style type="text/css">
+        .parsley-errors-list {
+            list-style: none;
+            color: rgb(248, 0, 0)
+        }
+    </style>
 @endsection
 <!-- Preloader -->
 
 <div id="preloader" class="{{ View::hasSection('enable_loader') ? 'pre-active' : '' }}">
     <div class="loader"></div>
 </div>
+
 <footer class="footer_bg_color padding_fifty_top_and_btm custom--footer">
     <section class="footer_mange_padding">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"
+                    <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}" 
                             alt="logo"></a>
                 </div>
                 <div class="col-md-6">
                     @if (!auth()->user())
-                    <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
-                        <li class="dropdown">
-                            <a style="padding: 5px 15px;width:120px; text-align: center;"
-                                class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                href="{{ route('register') }}">Register</a>
-                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
-                                <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
-                                <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a style="padding: 5px 15px; width:120px; text-align: center;"
-                                class="nav-link dropdown-toggle   footer_login_btn primery_color"
-                                id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" href="{{ route('register') }}">Log in</a>
-                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
-                                <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
-                                <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
-                            </div>
-                        </li>
-                    </ul>
+                        <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px;width:120px; text-align: center;"
+                                    class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    href="{{ route('register') }}">Register</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
+                                    <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
+                                    <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px; width:120px; text-align: center;"
+                                    class="nav-link dropdown-toggle   footer_login_btn primery_color"
+                                    id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" href="{{ route('register') }}">Log in</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
+                                    <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
+                                    <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
+                                </div>
+                            </li>
+                        </ul>
                     @endif
                 </div>
             </div>
@@ -63,10 +64,10 @@
                     <p>Further details may be found in the Terms and Conditions.</p>
                 </div>
                 @php
-                $viewType = 'grid';
-                if (request()->get('view_type') === 'list') {
-                $viewType = 'list';
-                }
+                    $viewType = 'grid';
+                    if (request()->get('view_type') === 'list') {
+                        $viewType = 'list';
+                    }
                 @endphp
                 <div class="col footer_text_color_white">
                     <h4 class="custom-mt">Location </h4>
@@ -75,75 +76,59 @@
                             <ul class="list-group footer_list_style_none">
                                 @foreach (config('escorts.profile.cities') as $key => $city)
                                 @php
-                                $query = request()->query();
-                                $query['city'] = $key;
-                                $query['gender'] = '';
+                                    $query = request()->query();
+                                    $query['city'] = $key;
+                                    $query['gender'] = '';
                                 @endphp
+                               
+                                    {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                            class="footer_view_type_one"
+                                            id="{{ $key }}">{{ $city }}</a></li> --}}
 
-                                {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
-                                class="footer_view_type_one"
-                                id="{{ $key }}">{{ $city }}</a></li> --}}
-
-                                <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
+                                            <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
                                                 'city' => $key,
                                                 'gender' => '',
                                                 'view_type' => $viewType
                                             ])) }}"
-                                        class="footer_view_type_one"
-                                        id="{{ $key }}">{{ $city }}</a></li>
-                                @if ($loop->iteration == 4)
-                                @break
-                                @endif
+                                            class="footer_view_type_one"
+                                            id="{{ $key }}">{{ $city }}</a></li>
+                                    @if ($loop->iteration == 4)
+                                        @break
+                                    @endif
                                 @endforeach
-
+                                    {{--
+                                    <li><a href="{{ url('all-escorts-list') }}">Brisbane</a></li>
+                                    <li><a href="{{ url('all-escorts-list') }}">Canberra</a></li>
+                                    <li><a href="{{ url('all-escorts-list') }}">Darwin</a></li>
+                                    --}}
                             </ul>
 
                         </div>
                         <div class="wcustom-50">
                             <ul class="list-group footer_list_style_none">
                                 @foreach (config('escorts.profile.cities') as $key => $city)
-                                @if ($loop->iteration > 4)
-                                {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
-                                class="city_id footer_view_type_two"
-                                id="{{ $key }}">{{ $city }}</a></li> --}}
-                                <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
+                                    @if ($loop->iteration > 4)
+                                        {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                                class="city_id footer_view_type_two"
+                                                id="{{ $key }}">{{ $city }}</a></li> --}}
+                                                 <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
                                                     'city' => $key,
                                                     'gender' => '',
                                                     'view_type' => $viewType
                                                 ])) }}"
-                                        class="city_id footer_view_type_two"
-                                        id="{{ $key }}">{{ $city }}</a></li>
-                                @endif
+                                                class="city_id footer_view_type_two"
+                                                id="{{ $key }}">{{ $city }}</a></li>
+                                    @endif
                                 @endforeach
                                 {{--
                         <li><a href="{{ url('all-escorts-list') }}">Melbourne</a></li>
-                                <li><a href="{{ url('all-escorts-list') }}">Perth</a></li>
-                                <li><a href="{{ url('all-escorts-list') }}">Sydney</a></li>
-                                --}}
+                        <li><a href="{{ url('all-escorts-list') }}">Perth</a></li>
+                        <li><a href="{{ url('all-escorts-list') }}">Sydney</a></li>
+                        --}}
                             </ul>
                         </div>
                     </div>
-                    <h4 class="custom-mt">Location - NZ </h4>
-                    <div class="d-flex">
-                        <div class="">
-                            <ul class="nz_location">
-                                @foreach (config('escorts.profile.nz_cities') as $key => $city)
-                                @php
-                                $query = request()->query();
-                                $query['city'] = $key;
-                                $query['gender'] = '';
-                                @endphp
 
-                                <li><a href="javascript:void(0);">{{ $city }}</a></li>
-                                @if ($loop->iteration == 4)
-                                @break
-                                @endif
-                                @endforeach
-
-                            </ul>
-
-                        </div>
-                    </div>
                 </div>
                 <div class="col footer_text_color_white">
                     <h4>Legal</h4>
@@ -201,19 +186,15 @@
                         <div class="wcustom-100">
                             <ul class="list-group footer_list_style_none resources_list">
                                 <li> <a href="{{ 'https://agencymanagement.com.au' }}" target="_blank">
-                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div> Agency Management
-                                    </a></li>
-                                <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank">
-                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM
-                                    </a>
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div> Agency Management</a></li>
+                                <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank"> 
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM</a>
                                 </li>
-                                <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank">
-                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
-                                        Australia
-                                    </a></li>
-                                <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank">
-                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div> Punterbox
-                                    </a>
+                                <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank"> 
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
+                                        Australia</a></li>
+                                <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank"> 
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div> Punterbox</a>
                                 </li>
 
                             </ul>
@@ -249,10 +230,10 @@
                             class="admin-login" href="{{ url('parent-control') }} ">Parent Control</a>
                         {{--@if (!auth()->user())
                             <span>|</span><a class="admin-login" href="{{ route('admin.login') }}">Management Login</a>
-                        <span>|</span><a class="admin-login" href="{{ route('operator.login')}}">Operator Login</a>
-                        <span>|</span><a class="admin-login" href="{{ route('shareholder.login')}}">Shareholder Login</a>
-                        <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>
-
+                         <span>|</span><a class="admin-login" href="{{ route('operator.login')}}">Operator Login</a>
+                         <span>|</span><a class="admin-login" href="{{ route('shareholder.login')}}">Shareholder Login</a>
+                         <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>
+                         
                         @endif --}}
                     </div>
                 </div>
@@ -378,21 +359,21 @@
                <h5 class="modal-title text-white" id="cookies_notice">Cookie Notice</h5>
                <button type="button" class="main_bg_color border-0" data-dismiss="modal" aria-label="Close">
                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-    </button>
-    </div>
-    <div class="modal-body">
-        When you visit this Website, it will store or retrieve information on your browser. This
-        information might be about you, your preferences or your device and is mostly used to
-        make the Website work as you expect it to. The information does not usually directly
-        identify you, but it can give you a more personalized web experiences.
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="termsandconditions_text_color" style="position: absolute;left: 15px;" data-toggle="modal" data-target="#manage-consent">Read more about our Cookie Policy</a>
-        <button type="button" class="btn main_bg_color site_btn_primary acceptCookies">Accept All Cookies</button>
-    </div>
-    </div>
-    </div>
-    </div> --}}
+               </button>
+            </div>
+            <div class="modal-body"> 
+               When you visit this Website, it will store or retrieve information on your browser. This
+               information might be about you, your preferences or your device and is mostly used to
+               make the Website work as you expect it to. The information does not usually directly
+               identify you, but it can give you a more personalized web experiences.
+            </div>
+            <div class="modal-footer">
+               <a href="#" class="termsandconditions_text_color" style="position: absolute;left: 15px;" data-toggle="modal" data-target="#manage-consent">Read more about our Cookie Policy</a>
+               <button type="button" class="btn main_bg_color site_btn_primary acceptCookies">Accept All Cookies</button>
+            </div>
+         </div>
+      </div>
+   </div> --}}
     <div class="modal fade upload-modal defult-modal" id="manage-consent" tabindex="-1" role="dialog"
         aria-labelledby="cookies-notice" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
@@ -513,9 +494,8 @@
                                 <option style="font-weight: 500;" value="" disabled selected>No State Selected
                                 </option>
                                 @foreach (config('escorts.profile.states') as $key => $state)
-                                <option style="font-weight: 500;" value="{{ $key }}">
-                                    {{ $state['stateName'] }}
-                                </option>
+                                    <option style="font-weight: 500;" value="{{ $key }}">
+                                        {{ $state['stateName'] }} </option>
                                 @endforeach
                             </select>
                             <span id="ch_lock"></span>
@@ -672,15 +652,15 @@
 
     });
     $(document).ready(function() {
-        @if(View::hasSection('enable_navigator'))
-        navigator.geolocation.getCurrentPosition(async function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            getPinupProfile(latitude, longitude);
-            const newUrl = "{{ route('find.all') }}" + `/?lat=${latitude}&lng=${longitude}`;
-            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-        });
+        @if (View::hasSection('enable_navigator'))
+            navigator.geolocation.getCurrentPosition(async function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                getPinupProfile(latitude, longitude);
+                const newUrl = "{{ route('find.all') }}" + `/?lat=${latitude}&lng=${longitude}`;
+                let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+                document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+            });
         @endif
 
         var loginForm = $("#loginForm");
@@ -980,22 +960,22 @@
         $('a.cook--seting').click(function() {
             $('.custom--cookie--popup').addClass('cookie--activate');
 
-            if ($.cookie('Functional-Cookies') === 'on') {
-                $('.functionalCookie').prop('checked', true);
-            } else {
-                $('.functionalCookie').prop('checked', false);
+            if ($.cookie('Functional-Cookies') === 'on'){
+                  $('.functionalCookie').prop('checked', true);
+            }else{
+                  $('.functionalCookie').prop('checked', false);
             }
 
-            if ($.cookie('Targeting-Cookies') === 'on') {
-                $('.targetingCookie').prop('checked', true);
-            } else {
-                $('.targetingCookie').prop('checked', false);
+            if ($.cookie('Targeting-Cookies') === 'on'){
+                  $('.targetingCookie').prop('checked', true);
+            }else{
+                  $('.targetingCookie').prop('checked', false);
             }
 
-            if ($.cookie('Performance-Cookies') === 'on') {
-                $('.performanceCookie').prop('checked', true);
-            } else {
-                $('.performanceCookie').prop('checked', false);
+            if ($.cookie('Performance-Cookies') === 'on'){
+                  $('.performanceCookie').prop('checked', true);
+            }else{
+                  $('.performanceCookie').prop('checked', false);
             }
 
             $('.saveAllCookiesSetting').text('Confirm My Choices');
@@ -1007,14 +987,14 @@
     if ($.cookie('onloadpopup') === 'cooki-policy') {
         $('.custom--cookie--popup').removeClass('cookie--activate');
     } else {
-        if ($.cookie('user-agreement') === 'true') {
+         if ($.cookie('user-agreement') === 'true') {
             $('.custom--cookie--popup').addClass('cookie--activate');
-        }
+         }
     }
 
     $("body").on('click', '.saveAllCookiesSetting', function() {
-        $(this).text('Saving...');
-        saveAllCookies('save');
+         $(this).text('Saving...');
+         saveAllCookies('save');
     });
 
     $("body").on('click', '.close-popup', function() {
@@ -1022,8 +1002,8 @@
     });
 
     $("body").on('click', '.rejectAllCookies', function() {
-        $(this).text('Rejecting...');
-        $(".functionalCookie").prop('checked', false);
+         $(this).text('Rejecting...');
+         $(".functionalCookie").prop('checked', false);
         $(".performanceCookie").prop('checked', false);
         $(".targetingCookie").prop('checked', false);
         saveAllCookies('reject');
@@ -1127,25 +1107,25 @@
                 expires: 5
             });
 
-            $.cookie('Targeting-Cookies-info', 'empty', {
+             $.cookie('Targeting-Cookies-info', 'empty', {
                 expires: 5
             });
         }
 
-        if (savingType != 'allow') {
+        if(savingType != 'allow'){
             setTimeout(function() {
-                $('.custom--cookie--popup').removeClass('cookie--activate');
-                if (savingType == 'save') {
-                    $('.saveAllCookiesSetting').text('Confirm My Choices');
-                }
+               $('.custom--cookie--popup').removeClass('cookie--activate');
+               if(savingType == 'save'){
+                  $('.saveAllCookiesSetting').text('Confirm My Choices');
+               }
 
-                if (savingType == 'reject') {
-                    $('.rejectAllCookies').text('Reject All');
-                }
+               if(savingType == 'reject'){
+                  $('.rejectAllCookies').text('Reject All');
+               }
             }, 500);
-        }
-
-
+         }
+        
+        
     }
 
     $(".accordion-header").on("click", function() {

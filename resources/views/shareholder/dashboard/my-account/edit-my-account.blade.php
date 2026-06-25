@@ -1,6 +1,11 @@
 @extends('layouts.shareholder')
 @section('content')
 @section('style')
+<style>
+    i{
+        font-size: 16px;
+    }
+</style>
 @endsection
 @php
     $setting = $staff->shareholder_setting ?? null;
@@ -58,13 +63,13 @@
                         <form id="userProfile" class="v-form-design"
                             action="{{ route('shareholder.account.update', [$staff->id]) }}" method="POST">
                             @csrf
-                            <!-- Start Personal Details -->
+                            <!-- Start Shareholder Details -->
                             <input type="hidden" name="user_id" value="{{ $staff->id }}">
 
-                            <!-- Personal Details -->
+                            <!-- Shareholder Details -->
                             <div class="row">
                                 <div class=" mb-3 w-100">
-                                    <h5 class="border-bottom pb-1 text-blue-primary">Personal Details</h5>
+                                    <h5 class="border-bottom pb-1 text-blue-primary">Shareholder Details</h5>
                                 </div>
                             </div>
 
@@ -245,7 +250,6 @@
                                                         @if (!empty($contactType)) {{ in_array(4, $contactType) ? 'checked' : null }} @endif>
                                                     <label class="form-check-label" for="Method_Call">Call me</label>
                                                 </div>
-                                              
                                             </div>
                                               <span class="text-danger error-contact_type"></span>
                                         </div>
@@ -300,6 +304,10 @@
                                                         for="edit_idle_preference_time_never">Never</label>
                                                 </div>
                                                 </p>
+                                                
+                                                <div class="pt-1">
+                                                    <i>Set the Idle time before you are logged out of your Console.</i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -326,6 +334,9 @@
                                                     <label class="form-check-label" for="edit_twofa_2">Text</label>
                                                 </div>
                                                 </p>
+                                                <div class="pt-1">
+                                                    <i>How your authentication code will be sent to you.</i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

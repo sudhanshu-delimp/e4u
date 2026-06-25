@@ -108,7 +108,7 @@
 
 
             {{-- AUTO RECHARGE --}}
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <h3 class="h3">Auto-Recharge options</h3>
 
                 <div class="form-check">
@@ -143,7 +143,7 @@
                 <div class="pt-1">
                     <i>Select your preferred top up value to be applied to your Wallet.</i>
                 </div>
-            </div>
+            </div> --}}
 
 
             {{-- AGENT --}}

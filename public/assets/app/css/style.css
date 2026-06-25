@@ -467,7 +467,6 @@
             border-radius: 5px;
             padding: 8px 12px;
             font-size: 14px;
-            font-weight: 500;
             z-index: 9;
             line-height: 22px;
             color: #FFFFFF;
@@ -3439,6 +3438,10 @@ i.fa.fa-heart-o{
             margin-bottom: 0px;
         }
         
+        .profile_page_social_profiles li {
+            margin-bottom: 0px !important;
+        }
+        
         .profile_page_social_profiles .by-default:hover {
             background-color: var(--peach);
         }
@@ -4285,8 +4288,8 @@ i.fa.fa-heart-o{
         
         .previous_btn_profile,
         .next_btn_profile {
-            padding: 4px 10px;
-            background: #ff3c5f;
+            padding: 8px 12px;
+            background: var(--peach);
             display: flex;
             flex-wrap: nowrap;
             gap: 3px;
@@ -4299,7 +4302,6 @@ i.fa.fa-heart-o{
         }
         
         .previous_text {
-            padding: 3px 5px;
             color: white;
             font-weight: 500;
         }
@@ -4308,6 +4310,8 @@ i.fa.fa-heart-o{
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
             justify-content: space-between;
             width: 100%;
             text-decoration: none;
