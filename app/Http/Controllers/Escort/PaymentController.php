@@ -130,6 +130,7 @@ class PaymentController extends Controller
             if (!in_array($action, ['wallet'])) {
                 $this->pinService->setAmount($sub_total_amount);
                 $this->pinService->setWalletAmount($wallet_amount);
+                $this->pinService->setLoyaltyAmount($loyalty_amount);
 
                 $gstAmount = $this->pinService->getGSTAmount();
                 $totalDueAmount = $this->pinService->getTotalDue();
