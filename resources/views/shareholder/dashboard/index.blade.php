@@ -182,10 +182,11 @@
 </div>
 
 @php
-$setting = $staff->shareholder_setting ?? null;
-$setting->idle_preference_time;
+$user = auth()->user();
+ 
+$password_expiry_days = $user?->account_setting?->password_expiry_days;
 @endphp
-@if($setting && $setting->idle_preference_time < 91)
+@if($password_expiry_days!='never')
     @include('modal.console-expiry-password')
 @endif
 @endsection

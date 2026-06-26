@@ -458,6 +458,9 @@
                         text: option.message
                     });
                 }
+                if (!checkAmount) {
+                    adjustmentForm.find('[name="wallet_amount"]').val('');
+                }
             },
             error: function(xhr) {
                 Swal.close();
