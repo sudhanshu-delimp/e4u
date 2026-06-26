@@ -1281,12 +1281,16 @@
     $(document).on('click', '.edit-center-btn', function () 
     {
         $('span.text-danger').text('');
-         $('#password-strength-wrapper').addClass('d-none');
+        $('#password-strength-wrapper').addClass('d-none');
         let row = $(this).data('row');
         $('#add_center .modal-title').html(`<img src="/assets/dashboard/img/add-center.png" class="custompopicon" alt="">Edit Centre`);
         console.log(row);
 
         $('.modal-title').html('Add Centre');
+        
+        $('#password').val('');
+        $('#confirm_password').val('');
+
         $('#center_id').val(row.id);
         $('#member_id').val(row.member_id);
         $('#name').val(row.name);

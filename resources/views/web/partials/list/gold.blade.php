@@ -4,7 +4,7 @@
 
 <div class="listview_each_section_border_btm silver-sec brb--listing">
     <div
-        class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame">
+        class="manage_listview_margin_gold_section  gold_list_frame">
         <div class="row">
             <div class="col-lg-12">
                 <div class="EC__list_card">
@@ -303,9 +303,13 @@
                                     <tr>
                                         <td>{{ $duration->name }}</td>
 
-                                        <td>{!! $duration->pivot->massage_price
-                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
-                                            : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        <td>
+                                            @if($duration->name == 'Blow & Go')
+                                            @else
+                                                {!! $duration->pivot->massage_price
+                                                    ? "<div class='public-num-value-table'><span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>"
+                                                    : "<span class='if_data_not_available'>N/A</span>" !!}
+                                            @endif
                                         </td>
 
                                         <td>{!! $duration->pivot->incall_price

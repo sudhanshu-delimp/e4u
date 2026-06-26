@@ -3,7 +3,7 @@
 @endphp
     
 <div class="listview_each_section_border_btm silver-sec brb--listing">
-    <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
+    <div class="manage_listview_margin_gold_section  list_provide_cruise plat_list_frame">
         
 
         
@@ -26,7 +26,7 @@
                             <img src="{{ $escort->default_image ? asset('assets/app/img/service-provider/Frame-408.png') : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                 class="img-fluid" title="View Profile">
                         </a>
-                        <div class="siliver_logo_icon"><img src="{{ asset('images/platinum_membership.png') }}">
+                        <div class="siliver_logo_icon"><img src="{{ asset('images/silver_membership.png') }}">
                         </div>
                         <div class="add_to_fab_list_view_each_sec">
                             @if (auth()->user())
@@ -316,9 +316,13 @@
                                 @foreach ($escort->durations as $key => $duration)
                                     <tr>
                                         <td>{{ $duration->name }} </td>
-                                        <td>{!! $duration->pivot->massage_price
-                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
-                                            : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        <td>
+                                            @if($duration->name == 'Blow & Go')
+                                            @else
+                                                {!! $duration->pivot->massage_price
+                                                    ? "<div class='public-num-value-table'><span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>"
+                                                    : "<span class='if_data_not_available'>N/A</span>" !!}
+                                            @endif
                                         </td>
                                         <td>{!! $duration->pivot->incall_price
                                             ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'

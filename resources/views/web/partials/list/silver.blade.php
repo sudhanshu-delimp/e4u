@@ -7,7 +7,7 @@
 
  <div class="listview_each_section_border_btm silver-sec brb--listing">
      <div
-         class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
+         class="manage_listview_margin_gold_section plat_list_frame">
 
          <div class="row">
              <div class="col-lg-12">
@@ -317,10 +317,14 @@
                                  @foreach ($escort->durations as $key => $duration)
                                      <tr>
                                          <td>{{ $duration->name }} </td>
-                                         <td>{!! $duration->pivot->massage_price
-                                             ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
-                                             : "<span class='if_data_not_available'>N/A</span>" !!}
-                                         </td>
+                                         <td>
+                                            @if($duration->name == 'Blow & Go')
+                                            @else
+                                                {!! $duration->pivot->massage_price
+                                                    ? "<div class='public-num-value-table'><span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>"
+                                                    : "<span class='if_data_not_available'>N/A</span>" !!}
+                                            @endif
+                                        </td>
                                          <td>{!! $duration->pivot->incall_price
                                              ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
                                              : "<span class='if_data_not_available'>N/A</span>" !!}

@@ -247,6 +247,21 @@
         {{-- box start --}}
         <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
+                <a href="{{ route('escort.my_wallet', ['from'=>'dashboard']) }}">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/wallet.png') }}" alt="My Wallet">
+                    </div>
+                    <h2>
+                        My Wallet
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
                 <a href="{{ route('logs.and.status') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
