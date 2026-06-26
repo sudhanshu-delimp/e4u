@@ -5,6 +5,9 @@
     .parsley-errors-list {
         list-style: none;
     }
+        .modal-lg {
+        max-width: 600px !important;
+    }
 </style>
 @endsection
 @section('content')
@@ -102,7 +105,7 @@
 
                 <!-- Transaction History -->
 
-                <h5 class="mb-3">Transaction History</h5>
+                <h5 class="my-4">Transaction History</h5>
 
                 <div class="table-responsive">
 

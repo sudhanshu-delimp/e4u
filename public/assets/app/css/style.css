@@ -1204,7 +1204,6 @@
         
         .adverti_reg_page_padingto_bt .reg_info.agent-registration p {
             font-size: 16px;
-            line-height: 20px;
         }
         
         .adverti_reg_page_padingto_bt {
@@ -2409,8 +2408,12 @@
         }
         
         .content_wrapper .content_details h3 {
-            font-size: 20px !important;
+            font-size: 20px;
             color: var(--blue--text);
+        }
+        
+        .content p {
+            font-size: 16px;
         }
         
         .content_wrapper.tab_content h3 {
@@ -9616,8 +9619,7 @@ i.fa.fa-heart-o{
                 max-height: 30px;
             }
             p {
-                font-size: 12px;
-                line-height: 20px;
+                font-size: 14px;
             }
             .our_aim ul#our_aim_list p {
                 font-size: 12px;
@@ -9910,7 +9912,7 @@ i.fa.fa-heart-o{
             }
             #myFrontpop p,
             li {
-                font-size: 12px !important;
+                font-size: 14px !important;
                 margin-bottom: 5px;
                 line-height: 22px;
             }
