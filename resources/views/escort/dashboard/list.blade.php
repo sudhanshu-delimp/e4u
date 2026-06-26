@@ -102,7 +102,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="content">
         <div class="row">
             <div class="col-md-12">
@@ -803,7 +803,7 @@
         let extendEndDateObject = $('#extendEndDate');
 
         if (previousEndDateValue && days) {
-            extendEndDateObject.val(getDateAfter(previousEndDateValue, days + 1));
+            extendEndDateObject.val(getDateAfter(previousEndDateValue, days));
         } else {
             extendEndDateObject.val('');
         }
