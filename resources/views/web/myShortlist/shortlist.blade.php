@@ -511,39 +511,30 @@
             <!-- ================     service provider start here     ========================= -->
 
             {{-- dd(count($escorts)) --}}
-            <div class="row grid_list_part grid_wishlist_part mb-0" id="v_li_wishlist" style="display: block;">
+            <div class="row grid_list_part grid_wishlist_part" id="v_li_wishlist" style="display: block;">
                 {{-- @if (count($escorts) > 0) --}}
                 <div class="col-12 align-items-left">
                     <div class="my-shortlist">
-                        <ul class="mb-0 mt-1 pt-1 ml-0">
-                            <li>
-                                <h3>My Shortlist</h3>
-                            </li>
-                            {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li> --}}
-                            {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Back To Listings">Back To Listings</a></li> --}}
-                            @php
+                        <h3>My Shortlist</h3>
+                        @php
 
-                                if (str_contains($backToListing, 'view=')) {
-                                    $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToListing);
-                                } else {
-                                    // If view param not present, append it properly
-                                    $separator = str_contains($backToListing, '?') ? '&' : '?';
-                                    $finalUrl = $backToListing . $separator . 'view=' . $viewType;
-                                }
+                            if (str_contains($backToListing, 'view=')) {
+                                $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToListing);
+                            } else {
+                                // If view param not present, append it properly
+                                $separator = str_contains($backToListing, '?') ? '&' : '?';
+                                $finalUrl = $backToListing . $separator . 'view=' . $viewType;
+                            }
 
-                            @endphp
-                            <li class="fiter_btns slect__btn_tab">
-                                <div class="display_inline_block mb-1 mr-2 ">
-                                    <a type="submit" href="{{ $finalUrl }}" class="btn reset_filter p-1"
-                                        data-toggle="tooltip">
-                                        {{-- <i class="fa fa-back" aria-hidden="true"></i> --}}
-                                        <i class="fa fa-arrow-left ml-0" aria-hidden="true"
-                                            style="padding: 5px;font-size: 16px;"></i>
-                                       <span class="hide-on-sm"> Back To Listings</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                        @endphp
+                        <button class="back_to_list_btn">
+                            
+                            <a type="submit" href="{{ $finalUrl }}" data-toggle="tooltip">
+                                <i class="fa fa-arrow-left ml-0" aria-hidden="true"
+                                    style="padding: 5px;font-size: 16px;"></i>
+                                <span class="hide-on-sm"> Back To Listings</span>
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -633,7 +624,7 @@
                                         <ol class="pl-3">
                                             <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
                                             <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
-                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification, or has been rejected. </div></li>
                                         </ol>
                                     </div>
                                 </div>
@@ -653,7 +644,7 @@
 
         </div>
 
-        <div class="otherliste container" style="display: none;">
+        <div class="otherliste" style="display: none;">
 
             <div class="space_between_row" style="display:{{ $viewType == 'grid' ? 'block' : 'none' }}">
 
@@ -665,9 +656,8 @@
                     @endforeach
                 </div>
             </div>
-
-
         </div>
+        
         <div class="grid list-view" style="display: none;">
 
             @foreach ($escorts as $escort)
@@ -765,7 +755,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="my-4 custom_modal_text">
+                    <h1 class="custom_modal_text">
                         <span id="Lname">Please log in or Register to access your Legbox</span>
                     </h1>
                 </div>
@@ -795,7 +785,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="my-4 custom_modal_text">
+                    <h1 class="custom_modal_text">
                         <span id="Lname"></span>
                         <span class="class_msg"></span>
                     </h1>

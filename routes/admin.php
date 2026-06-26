@@ -824,6 +824,22 @@ Route::get('/management/dashboard', function () {
   return view('admin.management.dashboard');
 })->name('admin.dashboard');
 
+Route::get('reference-lookup', function () {
+  return view('admin.reference-lookup.index');
+})->name('admin.reference-lookup');
+
+Route::get('support-services/financial-report', function () {
+  return view('admin.support-services.financial-report');
+})->name('admin.financial-report');
+
+Route::get('support-services/payment', function () {
+  return view('admin.support-services.payment');
+})->name('admin.payment');
+
+Route::get('support-services/summary', function () {
+  return view('admin.support-services.summary');
+})->name('admin.summary');
+
 Route::get('/management/concierge-payments', function () {
   return view('admin.Concierge.payment-reconciliation');
 })->name('admin.concierge-payments');

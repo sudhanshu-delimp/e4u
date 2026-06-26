@@ -29,6 +29,7 @@ $social_links = $listing->social_links;
 @endphp
 
 
+<div class="mc_card_wrapper">
  <div class="mc_list_card" id="list_view_{{$listing->id}}">
 
      <!-- Left Image -->
@@ -67,20 +68,48 @@ $social_links = $listing->social_links;
          <div class="mc_list_content_inner w-100">
              <div class="mc_list_header">
                  <span class="mc_list_title">{{$listing->profile_name}}</span>
-                 <span class="mc_list_rating">
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                     <i class="fa fa-star-o"></i>
-                 </span>
+                
+
+                    @php
+                        $inWishlist = in_array($listing->id, session('wishlist', []));
+                    @endphp
+
+
+                    <span class="list_button_wrap" id="list_button_wrap_id{{ $listing->id }}">
+                        <button type="button"
+                            class="{{ $inWishlist ? 'm_removelist' : 'm_wishlist' }} btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887"
+                            data-id="{{ $listing->id }}">
+
+                            <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png">
+                            {{ $inWishlist ? 'Remove from Shortlist' : 'Add to Shortlist' }}
+                        </button>
+                    </span>
+
              </div>
 
              <div class="mc_list_address">
                  <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
                  {{$listing->address}}
              </div>
+             
 
+             
+             <div>
+                <span class="mc_list_rating">
+
+
+                    <strong>Rating : </strong>
+                   
+                     @for ($i = 1; $i <= 5; $i++)
+                        @if (isset($listing->star_rating) && $listing->star_rating > 0 && $i <= $listing->star_rating)
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        @else
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        @endif
+                    @endfor
+
+                 </span>
+             </div>
              <div class="mc_list_meta">
                  <span><strong>Parking :</strong> {{ config('escorts.profile.Parking.' . $listing->parking, 'N/A') }}</span>
                  <span><strong>Entry :</strong> {{ config('escorts.profile.Entry.' . $listing->entry, 'N/A') }}</span>
@@ -94,7 +123,7 @@ $social_links = $listing->social_links;
              </div>
 
              <div class="mc_list_meta">
-                 <span><strong>Massage Services:</strong>
+                 <span><strong>Massage Services : </strong>
 
                      @foreach ($listing->massage_services()->where('category_id', 1)->get() as $value)
                      @php
@@ -108,7 +137,7 @@ $social_links = $listing->social_links;
 
 
              <div class="mc_list_meta">
-                 <span><strong>Other Service Types:</strong>
+                 <span><strong>Other Service Types : </strong>
 
                      @foreach ($listing->massage_services()->where('category_id', 2)->get() as $value)
                      @php
@@ -182,22 +211,6 @@ $social_links = $listing->social_links;
                         </div>
 
                     </div>
-
-                    @php
-                        $inWishlist = in_array($listing->id, session('wishlist', []));
-                    @endphp
-
-
-                    <span class="list_button_wrap" id="list_button_wrap_id{{ $listing->id }}">
-                        <button type="button"
-                            class="{{ $inWishlist ? 'm_removelist' : 'm_wishlist' }} btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887"
-                            data-id="{{ $listing->id }}">
-
-                            <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png">
-                            {{ $inWishlist ? 'Remove from Shortlist' : 'Add to Shortlist' }}
-                        </button>
-                    </span>
-
                 
 
              </div>
@@ -227,6 +240,7 @@ $social_links = $listing->social_links;
 
 
  </div>
+</div>
  @endforeach
 
 

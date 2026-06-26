@@ -119,8 +119,8 @@
                     'advertiser-suspensions',
                     'registrations-reports',
                     'advertiser-reports',
-                    'advertiser-reviews',                    
-                ]) || in_array(request()->segment(2), ['support_tickets','submit_ticket'])) show @endif"
+                    'advertiser-reviews', 'financial-report', 'payment', 'summary',                   
+                ]) || in_array(request()->segment(2), ['support_tickets','submit_ticket','reference-lookup',])) show @endif"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                 <div class="py-0 collapse-inner rounded mb-2">
@@ -564,7 +564,11 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                         <span>Reports </span>
                     </a>
-
+                    <a class="nav-link" href="{{ route('admin.reference-lookup') }}">
+                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/lookup.png') }}">
+                        <span style="{{ request()->segment(2) == 'reference-lookup' ? 'color: #FF3C5F;' : '' }}">Reference Lookup</span>
+                    </a>
 
 
                     <div id="Reports" class="collapse @if (request()->is('*credit*') ||
@@ -621,6 +625,14 @@
                                     src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">
                                 <span style="{{ request()->is('*num*') ? 'color: #FF3C5F;' : '' }}">NUM</span>
                             </a>
+                            
+                            <a class="nav-link " href="{{ route('admin.escort.orders') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'product-order-history' ? 'color: #FF3C5F;' : '' }}">Product
+                                    Orders</span>
+                            </a>
                              <a class="nav-link collapsed" href="{{ route('admin.punterbox') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/punterbox.png') }}">
@@ -646,30 +658,51 @@
                                 <span
                                     style="{{ request()->is('*transaction-summary*') ? 'color: #FF3C5F;' : '' }}">Transactions</span>
                             </a>
-                               <a class="nav-link " href="{{ route('admin.escort.orders') }}">
-                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'product-order-history' ? 'color: #FF3C5F;' : '' }}">Product
-                                    Orders</span>
-                            </a>
                         </div>
                     </div>
 
-                    {{-- <a class="nav-link collapsed {{ request()->routeIs('admin.support-ticket.list') ? 'menu-active' : '' }}" href="{{ route('admin.support-ticket.list') }}">   
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                        <span>Support Tickets </span>
-                    </a> --}}
+                    {{-- Support Services --}}
+                    <a class="nav-link  {{ in_array(request()->segment(3), ['financial-report','payment','summary'])  ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#supportServices"
+                        aria-expanded="false" aria-controls="supportServices">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/support-services.png') }}">
+                        <span>Support Services</span>
+                    </a>
+                    <div id="supportServices" class=" collapse  @if (request()->segment(3) == 'financial-report' || request()->segment(3) == 'payment' || request()->segment(3) == 'summary') show @endif"
+                         data-parent="#Administration">
+                        <div class="py-0 collapse-inner rounded mb-2">
+                            <a class="collapse-item show" href="{{ route('admin.financial-report') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/financials.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'financial-report' ? 'color: #e5365a;' : '' }}">Financial Report
+                                </span>
+                            </a>
+                            <a class="collapse-item show" href="{{ route('admin.payment') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/payment.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'payment' ? 'color: #e5365a;' : '' }}">Payment
+                                </span>
+                            </a>
+                            <a class="collapse-item show" href="{{ route('admin.summary') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/pricing-summary.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Summary
+                                </span>
+                            </a>
+
+                        </div>
+                    </div>
+                    {{-- end --}}
+
                      <a class="nav-link  {{ in_array(request()->segment(2), ['support_tickets','submit_ticket'])  ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
                         data-target="#SupportTickets">
                         <img src="{{ asset('assets/app/img/ticket.png') }}">
                         <span>Support Tickets </span>
-                    </a>
+                     </a>
 
                     <div id="SupportTickets"
                         class="collapse
                         @if (in_array(request()->segment(2), ['support_tickets']) || request()->segment(2) == 'submit_ticket') show @endif"
-                        data-parent="#Management">
+                        data-parent="#Administration">
 
                         <a class="collapse-item {{ request()->segment(2) == 'submit_ticket' ? 'menu-active' : '' }}"
                             href="{{ route('support-ticket.create.admin') }}">
@@ -682,6 +715,8 @@
                             <span>View & Reply</span>
                         </a>
                     </div>
+
+                   
                 </div>
             </div>
         </li>

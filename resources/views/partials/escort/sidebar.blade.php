@@ -353,17 +353,21 @@
                         class="collapse
                     @if (in_array(request()->segment(2), ['bank_account', 'my-wallet', 'transaction-summary','order-history'])) show @endif"
                         data-parent="#Management">
-
+<a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
+                            href="{{ route('escort.bank_account') }}">
+                            <img src="{{ asset('assets/app/img/sales-performance.png') }}">
+                            <span>Bank Account</span>
+                        </a>
 
                         <a class="collapse-item {{ request()->segment(2) == 'my-wallet' ? 'menu-active' : '' }}"
                             href="{{ route('escort.my_wallet') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
                             <span>My Wallet</span>
                         </a>
-                        <a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
-                            href="{{ route('escort.bank_account') }}">
-                            <img src="{{ asset('assets/app/img/sales-performance.png') }}">
-                            <span>Bank Account</span>
+                         <a class="collapse-item {{ request()->segment(2) == 'order-history' ? 'menu-active' : '' }}"
+                            href="{{ route('bookkeeping.product.orders') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/order-confirmation.png') }}" />
+                            <span>Orders</span>
                         </a>
                         <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
                             href="{{ route('escort.payment.transaction_summary') }}">
@@ -371,11 +375,7 @@
                             <span>Transaction Summary</span></a>
 
 
-                        <a class="collapse-item {{ request()->segment(2) == 'order-history' ? 'menu-active' : '' }}"
-                            href="{{ route('bookkeeping.product.orders') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/order-confirmation.png') }}" />
-                            <span>Orders</span>
-                        </a>
+                       
                     </div>
 
                     {{-- Communication --}}

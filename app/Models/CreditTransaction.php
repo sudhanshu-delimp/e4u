@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -6,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class CreditTransaction extends Model
 {
     protected $fillable = [
-        'wallet_id','type','amount','balance_after','description','meta','transactionable_id','transactionable_type'
+        'wallet_id',
+        'type',
+        'amount',
+        'balance_after',
+        'description',
+        'meta',
+        'transactionable_id',
+        'transactionable_type'
     ];
 
     protected $casts = [
@@ -21,5 +29,10 @@ class CreditTransaction extends Model
     public function transactionable()
     {
         return $this->morphTo();
+    }
+
+    public function paymentItems()
+    {
+        return $this->morphMany(PaymentItem::class, 'item');
     }
 }

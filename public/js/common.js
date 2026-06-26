@@ -8,7 +8,7 @@ var initJsDatePicker = function () {
         $inputs.each(function () {
             let options = {
                 dateFormat: "dd-mm-yy",
-                changeMonth: true,formChanged,
+                changeMonth: true, formChanged,
                 changeYear: true,
                 showAnim: "slideDown",
                 constrainInput: false,
@@ -287,10 +287,32 @@ var showLoadingPopup = function (title = 'Processing', text = 'Please wait...') 
 
 
 
-function resetUnsavedChanges(){
+function resetUnsavedChanges() {
     formChanged = false;
 }
 
 function removeAnythingExceptNumber(value) {
     return value.replace(/\D/g, '');
+}
+
+function formatCurrency(amount, currency = '$') {
+    amount = parseFloat(amount).toFixed(2);
+
+    let parts = amount.split('.');
+    let intPart = parts[0];
+    let decimalPart = parts[1];
+
+    let lastThree = intPart.slice(-3);
+    let restUnits = intPart.slice(0, -3);
+
+    let formatted;
+
+    if (restUnits !== '') {
+        restUnits = restUnits.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+        formatted = restUnits + ',' + lastThree;
+    } else {
+        formatted = lastThree;
+    }
+
+    return currency + formatted + '.' + decimalPart;
 }
