@@ -76,9 +76,10 @@ class ProductOrderController extends Controller
       })
       ->addColumn('action', function ($row) {
         $html = "";
-        if (strtolower($row->delivery_type) === "post") {
-          $html = "data-toggle='modal' data-target='#active_req'>";
-        }
+       
+if (strtolower($row->delivery_type) === 'post') {
+    $html = 'data-toggle="modal" data-target="#active_req"';
+}
         // dd($html);
         return '<div class="dropdown no-arrow">
                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -106,7 +107,8 @@ class ProductOrderController extends Controller
    href="#"
    data-id="' . $row->id . '"
    data-status="delivered"
-   data-delivery_type="' . $row->delivery_type . '"' . $html . '
+   data-delivery_type="' . $row->delivery_type . '"
+   ' . $html . '>
     <i class="fa fa-check-circle"></i> Complete Order
 </a>
    <div class="dropdown-divider"></div>
