@@ -412,6 +412,7 @@ background:#16385f;
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <script>
 let expanded = false;
 var is_load_first = 1;
@@ -1036,29 +1037,29 @@ e.preventDefault();
                     success: function(response) {
 
                      Swal.close();
-                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
-                        plandata.action_type = $('[name="action_type"]').val();
-                        console.log('plandata=>>>>>>',plandata);
-                        swal_waiting_popup({'title': 'Processing.'});
+                        // plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
+                        // plandata.action_type = $('[name="action_type"]').val();
+                        // console.log('plandata=>>>>>>',plandata);
+                        // swal_waiting_popup({'title': 'Processing.'});
 
-                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
-                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
-                        Swal.close();
-                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
-                        $('#adjustment-form')[0].reset();
-                        $('#payment-form')[0].reset();
-                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
-                        }
-                        }).fail(function(err) {
-                            console.error('Summary Function Error:', err);
-                            Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
-                        });
-
-                        // table.ajax.reload(null, false);
+                        // let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        // console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
                         // Swal.close();
-                        // swal_success_popup(response.message);
-                        /// let redirect = {'time': 2000, 'url' : 'listing/current'}
-                        /// swal_success_popup(response.message,redirect);
+                        // if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        // $('#adjustment-form')[0].reset();
+                        // $('#payment-form')[0].reset();
+                        // $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        // }
+                        // }).fail(function(err) {
+                        //     console.error('Summary Function Error:', err);
+                        //     Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        // });
+
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        swal_success_popup(response.message);
+                        let redirect = {'time': 2000, 'url' : 'listing/current'}
+                        swal_success_popup(response.message,redirect);
                     },
                     error: function(xhr) {
                         Swal.close();

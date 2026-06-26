@@ -214,7 +214,7 @@ finishPaymentForm.submit(function(e) {
                 });
             },
             success: function(response, textStatus, xhr) {
-                // console.log(response);
+                console.log('response' , response);
                 Swal.close();
                 submitButton.removeAttr('disabled');
                 let option = getStatusOption(xhr);

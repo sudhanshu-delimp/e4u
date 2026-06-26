@@ -11,6 +11,7 @@ use App\Models\PaymentProcess;
 use App\Repositories\Message\MessageRepository;
 use App\Services\PinPaymentService;
 use App\Services\WalletService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -259,8 +260,7 @@ class PaymentController extends BaseController
             $loyalty_day = isset($benefit_token['loyalty_amount']) ? $benefit_token['loyalty_amount'] : 0; 
             $wallet_amount = isset($benefit_token['wallet_amount']) ? $benefit_token['wallet_amount'] : 0; 
 
-             
-           
+          
             $is_bypass = $pin_token == 'without_pay_now';
 
         
@@ -309,28 +309,16 @@ class PaymentController extends BaseController
                     case 'listing': {
                             $payload = session()->get('MassagePurchase');
                         }
-                        break;
-                    case 'tour': {
-                            $payload = session()->get('MassagePurchase');
-                        }
-                        break;
+                    break;
+
                     case 'extend': {
                             $payload = session()->get('MassagePurchase');
                         }
-                        break;
-                    case 'pinup': {
-                        }
-                        break;
-                    case 'bumpUp': {
-                        }
-                        break;
-                    case 'upgrade': {
-                        }
-                        break;
+                    break;
 
                     default:
                         # code...
-                        break;
+                    break;
                 }
 
                 $paymentProcess = PaymentProcess::create([
@@ -339,10 +327,7 @@ class PaymentController extends BaseController
                     'type' => $benefit_token['action'],
                 ]);
 
-                Log::info('paymentProcess');
-                Log::info($paymentProcess);
-
-
+             
                 $metaData = [
                     'type' => 'massage-listing',
                     'action' => $benefit_token['action'],
@@ -350,11 +335,7 @@ class PaymentController extends BaseController
                     'process_token' => (string) $paymentProcess->token,
                 ];
 
-                Log::info('metaData');
-                Log::info($metaData);
-
-
-
+               
                 $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email, null, $metaData);
                 if ($gatewayResponse['status']) {
                     $response = $gatewayResponse['data']['response'];
@@ -388,38 +369,20 @@ class PaymentController extends BaseController
             $payment_service = '';
             $mainAccount = $this->account;
             switch ($benefit_token['action']) {
-                case 'listing': {
-                        $payment_service = 'Profile Listing';
-                        $result = $this->saveCheckout($benefit_token['action'], $payment);
-                        $redirect_url = route('center.payment-completed');
-                    }
-                    break;
-                case 'tour': {
-                        $payment_service = 'Tour';
-                        $redirect_url = route('center.payment-completed');
-                    }
-                    break;
-                case 'extend': {
-                        $payment_service = 'Profile Extend';
-                        $redirect_url = route('center.payment-completed');
-                    }
-                    break;
-                case 'pinup': {
-                        $payment_service = 'Profile Pin Up';
-                    }
-                    break;
-                case 'bumpUp': {
-                        $payment_service = 'Profile Bump Up';
-                    }
-                    break;
-                case 'upgrade': {
-                        $payment_service = 'Profile Upgrade';
-                    }
-                    break;
+
+                case 'listing': 
+                $payment_service = 'Profile Listing';
+                $result = $this->saveCheckout($benefit_token['action'], $payment);
+                $redirect_url = route('center.payment-completed');
+                break;
+
+                case 'extend': 
+                $result = $this->saveCheckout($benefit_token['action'], $payment);    
+                $payment_service = 'Profile Extend';
+                break;
 
                 default:
-                    # code...
-                    break;
+                break;
             }
 
             if (!empty($benefit_token['wallet_amount']) && $benefit_token['wallet_amount'] > 0) {
@@ -513,9 +476,10 @@ class PaymentController extends BaseController
   
    public function saveCheckout($action = null, $payment = null)
     {
+         Log::info('action===>'.$action);
 
          $response = [];
-         if($action == 'listing')
+         if($action == 'listing' || $action == 'extend')
          {
             $purchaseData = session()->get('MassagePurchase');
             $purchaseDetail = MassagePurchase::create($purchaseData);
@@ -526,8 +490,18 @@ class PaymentController extends BaseController
                     ]);
             }
 
-
          }
+
+         if ($action === 'extend') 
+         {
+            $item = [];
+            $item['start_date'] = isset($purchaseData['start_date']) ? $purchaseData['start_date'] : "";
+            $item['end_date'] = isset($purchaseData['end_date']) ? $purchaseData['end_date'] : "";
+
+            if( $item['start_date']!="" &&  $item['end_date']!="" )
+            $response['extend_days'] = Carbon::parse($item['start_date'])->diffInDays(Carbon::parse($item['end_date'])) + 1;
+         }
+
          return $response;
     }
 
