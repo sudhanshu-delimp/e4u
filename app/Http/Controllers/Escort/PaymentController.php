@@ -350,6 +350,9 @@ class PaymentController extends Controller
                             'amount' => $payment->paid_rate,
                         ]);
 
+                        $mailConfig = config("payment_mail_templates.{$benefit_token['action']}");
+                        Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
+
                         $redirect_url = route('escort.my_wallet');
                     }
                     break;
