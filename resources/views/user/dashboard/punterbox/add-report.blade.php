@@ -6,7 +6,8 @@
 <style type="text/css">
    .parsley-errors-list {
    list-style: none;
-   color: rgb(248, 0, 0)
+   color: rgb(248, 0, 0);
+   padding-left: 0px;
    }
 </style>
 @endsection
@@ -72,78 +73,77 @@
   <!-- Page Heading -->
    <div class="row">
       <div class="col-md-9 add-punterbox-report">
-         <form>
+         <form id="punterbox-reports">
             <div class="form-group">
                 <label class="required">Incident Date</label>
-                <input type="date" class="form-control">
+                <input type="date" class="form-control" name="incident_date" required>
             </div>
             <div class="form-group">
                 <label class="required">Incident State</label>
-                <select class="custom-select">
-                        <option selected>Please Choose</option>
-                        <option>NSW</option>
-                        <option>VIC</option>
-                        <option>QLD</option>
+                <select class="custom-select" name="incident_state" required>
+                         @foreach ($states as $key => $state)
+                              <option value="{{ $key }}" {{$key == auth()->user()->state_id ? 'selected' : ''}}>{{ $state['stateName'] }}</option>
+                        @endforeach
                     </select>
             </div>
 
             <div class="form-group">
                 <label class="required">Incident Location</label>
-                <input type="text" class="form-control" placeholder="Which city were you in">
+                <input type="text" class="form-control" placeholder="Which city were you in" name="incident_location" required>
             </div>
 
             <div class="form-group">
                 <label>Escort's Name</label>
-                <input type="text" class="form-control" placeholder="If known">
+                <input type="text" class="form-control" placeholder="If known" name="escorts_name">
             </div>
 
             <div class="form-group">
                 <label class="required">Escort's Mobile</label>
-                <input type="text" class="form-control" placeholder="No spaces or any other characters - just numbers">
+                <input type="text" class="form-control" name="escorts_mobile" required placeholder="No spaces or any other characters - just numbers">
             </div>
 
             <div class="form-group">
                 <label>Escort's Email</label>
-                <input type="email" class="form-control" placeholder="If known">
+                <input type="email" class="form-control"  name="escorts_email" placeholder="If known">
             </div>
 
             <div class="form-group">
                 <label class="required">Incident Nature</label>
-                <select class="custom-select">
-                  <option selected>Please Choose</option>
-                  <option>Fraud</option>
-                  <option>No Show</option>
-                  <option>Violence</option>
+                <select class="custom-select" name="incident_nature" required>
+                  <option selected value="">Please Choose</option>
+                  <option value="Fraud">Fraud</option>
+                  <option value="No Show">No Show</option>
+                  <option value="Violence">Violence</option>
                </select>
             </div>
 
             <div class="form-group">
                 <label>Platform</label>
-                <input type="text" class="form-control" placeholder="If known">
+                <input type="text" class="form-control" placeholder="If known" name="platform">
             </div>
 
             <div class="form-group">
                 <label>Profile Link</label>
-                <input type="text" class="form-control" placeholder="Link or Membership ID or Ref">
+                <input type="text" class="form-control" name="profile_link" placeholder="Link or Membership ID or Ref">
             </div>
 
             <div class="form-group">
                 <label class="required">What Happened</label>
-                <textarea class="form-control" rows="4"></textarea>
+                <textarea class="form-control" rows="4" name="what_happened" required></textarea>
             </div>
 
             <div class="form-group">
                 <label class="required d-block">Rating</label>
                 <div class="form-check d-flex align-items-center">
-                    <input class="form-check-input" type="radio" name="rating" id="rate1">
+                    <input class="form-check-input" value="Do not book" checked type="radio" name="rating" id="rate1">
                     <label class="form-check-label" for="rate1">Do not book</label>
                 </div>
                 <div class="form-check d-flex align-items-center">
-                    <input class="form-check-input" type="radio" name="rating" id="rate2">
+                    <input class="form-check-input" value="Exercise caution"  type="radio" name="rating" id="rate2">
                     <label class="form-check-label" for="rate2">Exercise caution</label>
                 </div>
                 <div class="form-check d-flex align-items-center">
-                    <input class="form-check-input" type="radio" name="rating" id="rate3">
+                    <input class="form-check-input" value="Safe" type="radio" name="rating" id="rate3">
                     <label class="form-check-label" for="rate3">Safe</label>
                 </div>
             </div>
@@ -162,4 +162,69 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+
+<script>
+    $('#punterbox-reports').parsley({});
+
+    $("#punterbox-reports").on('submit', function(e){
+        e.preventDefault();
+
+        var form = $(this);
+        if (form) {
+            $("#submit").hide();
+            $(".spinner-border").attr('hidden', false);
+            var url = "{{route('user.store-report')}}";
+            var data = new FormData(form[0]);
+            $.ajax({
+                method: 'POST',
+                url: url,
+                dataType: "json",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    console.log('data', data);
+                    
+                    if (data.status) {
+                        swal.fire(
+                            'Punterbox registration',
+                            'Punterbox registered successfully',
+                            'success'
+                        );
+                        form[0].reset();
+                    } else {
+                        swal.fire(
+                            'Punterbox registration',
+                            'Oops.. something wrong Please try again',
+                            'error'
+                        );
+                    }
+                    $(".spinner-border").attr('hidden', true);
+                    $(".error_text").text('');
+                    $("#submit").show();
+                },
+                error: function(xhr){
+                    console.log(xhr.status, );
+                    
+                    if(xhr.status === 422){
+                        let errors = JSON.parse(xhr.responseText).errors;
+                        $('.error-text').remove(); // remove old errors
+                        $.each(errors, function(key, value){
+                            let input = $('[name="'+key+'"]');
+                            input.after('<span class="text-danger error-text error_text">'+value[0]+'</span>');
+                        });
+                    } else {
+                        swal.fire(
+                            'Punterbox registration',
+                            'Oops.. something wrong Please try again',
+                            'error'
+                        );
+                    }
+                }
+
+            });
+        }
+    });
+</script>
 @endpush

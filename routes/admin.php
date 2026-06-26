@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\EscortNotificationController;
 use App\Http\Controllers\Admin\GlobalNotificationController;
 use App\Http\Controllers\Admin\ViewerNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
+use App\Http\Controllers\Admin\AdminPunterBoxController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
@@ -43,6 +44,7 @@ use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\ShareholderController;
 use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\ProductOrderController;
+use App\Http\Controllers\Viewer\PunterBoxController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -312,6 +314,8 @@ Route::get('support-tickets', function () {
   return view('admin.support-tickets');
 })->name('admin.support-tickets');
 
+
+Route::get('reports-punterbox-ajax', [AdminPunterBoxController::class, 'showReportOnDashboardAjax'])->name('admin.punterbox.ajax');
 
 Route::post('update-pricing-detail', [PricingsummariesController::class, 'storePricingDetail'])->name('admin.save.pricing.details');
 Route::get('pricingsummaries-datatable', [PricingsummariesController::class, 'PricingDataTable'])->name('admin.myPricing.dataTable');

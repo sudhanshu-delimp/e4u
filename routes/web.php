@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\ImpersonateController;
+use App\Http\Controllers\Viewer\PunterBoxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -232,9 +233,8 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.punterbox.dashboard');
         })->name('user.punterbox.dashboard');
 
-        Route::get('/punterbox/add-report', function () {
-            return view('user.dashboard.punterbox.add-report');
-        })->name('user.add-report');
+        Route::get('/punterbox/add-report', [PunterBoxController::class, 'addReport'])->name('user.add-report');
+        Route::post('add-report', [PunterBoxController::class, 'storeReport'])->name('user.store-report');
 
         Route::get('/punterbox/my-report', function () {
             return view('user.dashboard.punterbox.my-report');
