@@ -27,6 +27,8 @@ class ProductOrder extends Model
     'wallet_amount',
     'delivery_charges',
     'notes',
+    'cancel_reason',
+    'cancelled_by',
   ];
   protected $primaryKey = 'id';
 
@@ -53,26 +55,25 @@ class ProductOrder extends Model
   }
 
   /**
-     * Indicates if the model should have created_by and updated_by fields.
-     *
-     * @var bool
-     */
-    public $createdUpdatedBy = true;
- 
-    /**
-     * Get the created by that owns the details.
-     */
-    public function createdBy()
-    {
-        return $this->belongsTo('App\Models\User', 'created_by');
-    }
- 
-    /**
-     * Get the updated by that owns the details.
-     */
-    public function updatedBy()
-    {
-        return $this->belongsTo('App\Models\User', 'updated_by');
-    }
- 
+   * Indicates if the model should have created_by and updated_by fields.
+   *
+   * @var bool
+   */
+  public $createdUpdatedBy = true;
+
+  /**
+   * Get the created by that owns the details.
+   */
+  public function createdBy()
+  {
+    return $this->belongsTo('App\Models\User', 'created_by');
+  }
+
+  /**
+   * Get the updated by that owns the details.
+   */
+  public function updatedBy()
+  {
+    return $this->belongsTo('App\Models\User', 'updated_by');
+  }
 }

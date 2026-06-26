@@ -397,6 +397,8 @@ background:#16385f;
 </div>
 
 
+@include('center.dashboard.modal.payment_form')
+@include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 
 @endsection
 
@@ -414,7 +416,8 @@ background:#16385f;
 let expanded = false;
 var is_load_first = 1;
 var plandata = {};
-
+const secretKey = "{{ config('app.aes_key') }}";
+const iv = "{{ config('app.aes_iv_string') }}";
 
 function showCheckboxes() {
   let checkboxes = document.getElementById("checkboxes");
@@ -948,25 +951,37 @@ $(document).on('click', '.transaction_summury', function(e) {
             Swal.close();
             if(response.success) 
             {
-                  plandata = response.data;
-                  make_form_values(plandata);
+                  let resposne_data = response.data;
+                  plandata = {
+                     'membershipName' : 'Massage Centre',
+                     'days' : resposne_data.days,
+                     'normalRate' : resposne_data.rate,
+                     'total_rate' : resposne_data.full_fee,
+                     'total_discount' : resposne_data.discount,
+                     'discountRate' : resposne_data.discount_fee,
+                     'start_date' : resposne_data.start_date,
+                     'end_date' : resposne_data.end_date,
+
+                  }
+                  
+                  make_form_values(resposne_data);
                   let row = `
                      <tr>
-                        <td>${plandata.listing}</td>
-                        <td>${plandata.business_name}</td>
-                        <td>${plandata.start_date}</td>
-                        <td>${plandata.end_date}</td>
-                        <td>${plandata.days}</td>
-                        <td><span class="mr-2">$</span>${plandata.rate}</td>
-                        <td><span class="mr-2">$</span>${plandata.full_fee}</td>
-                        <td><span class="mr-2">$</span>${plandata.discount}</td>
-                        <td><span class="mr-2">$</span>${plandata.discount_fee}</td>
+                        <td>${resposne_data.listing}</td>
+                        <td>${resposne_data.business_name}</td>
+                        <td>${resposne_data.start_date}</td>
+                        <td>${resposne_data.end_date}</td>
+                        <td>${resposne_data.days}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.rate}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.full_fee}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.discount}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.discount_fee}</td>
                      </tr>
                      
                      <tr>
                         <td colspan="7" class="border-0"></td>
                         <td  class="text-center"><b>Total Fees:</b></td>
-                        <td class="text-center"><span class="mr-2">$</span> ${plandata.discount_fee}</td>
+                        <td class="text-center"><span class="mr-2">$</span> ${resposne_data.discount_fee}</td>
                      </tr>`;
 
                      
@@ -1008,21 +1023,40 @@ e.preventDefault();
     if (await isConfirm({'action': 'Proceed','text': ''})) {
 
       let formData = $("#purchase_listing").serialize();
+      $('#adjustment-form').append(`<input type="hidden" name="action_type" value="extend">`);
      
-
-
          console.log('plandata',plandata);
-
-        return false;
+         //return false;
+       
 
          $.ajax({
                     url: "{{route('center.listing-payment')}}",
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        table.ajax.reload(null, false);
+
+                     Swal.close();
+                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
+                        plandata.action_type = $('[name="action_type"]').val();
+                        console.log('plandata=>>>>>>',plandata);
+                        swal_waiting_popup({'title': 'Processing.'});
+
+                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
                         Swal.close();
-                        swal_success_popup(response.message);
+                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $('#adjustment-form')[0].reset();
+                        $('#payment-form')[0].reset();
+                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        }
+                        }).fail(function(err) {
+                            console.error('Summary Function Error:', err);
+                            Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        });
+
+                        // table.ajax.reload(null, false);
+                        // Swal.close();
+                        // swal_success_popup(response.message);
                         /// let redirect = {'time': 2000, 'url' : 'listing/current'}
                         /// swal_success_popup(response.message,redirect);
                     },
@@ -1176,4 +1210,5 @@ document.getElementById('iframeModal').addEventListener('hidden.bs.modal', funct
 // ########### End Bumpup Profile #########################
        
 </script>
+@include('center.dashboard.payment_functions')
 @endpush
