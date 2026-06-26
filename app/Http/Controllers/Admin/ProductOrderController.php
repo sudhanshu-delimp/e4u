@@ -77,7 +77,7 @@ class ProductOrderController extends Controller
       ->addColumn('action', function ($row) {
         $html = "";
         if (strtolower($row->delivery_type) === "post") {
-          $html = "data-toggle='modal' data-target='#active_req'";
+          $html = "data-toggle='modal' data-target='#active_req'>";
         }
         // dd($html);
         return '<div class="dropdown no-arrow">
