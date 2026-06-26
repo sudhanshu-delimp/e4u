@@ -9,6 +9,13 @@
     th {
         text-align: justify;
     }
+    .table-bordered{
+        border: 1px solid #dee2e6;
+    }
+    .table thead th {
+    border-top: 1px solid #dee2e6 !important;
+}
+
 </style>
 @section('content')
     <section class="section_bg_color padding_ninty_top_ninty_px padding_bottom_eight_px angle_bg_image viewer-registration">
@@ -252,9 +259,8 @@
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <div class="content">
-                        <div class="accodien_manage_padding_content">
-                            <p></p>
-                            <table class="table table-borderless table_border_remove text-justify">
+                        <div class="accodien_manage_padding_content table-responsive">
+                            <table class="table table-bordered text-justify">
                                 <thead>
                                     <tr>
                                         <th scope="col" class="accordien_color_table"><b>Features</b></th>

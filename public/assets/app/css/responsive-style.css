@@ -231,6 +231,27 @@
                 .footer_login_btn {
                     width: 100% !important;
                 }
+                .content_wrapper.influencer-modal.p-4 {
+                    padding: 10px 0px !important;
+                }
+                .content_wrapper .content_details h3 {
+                    font-size: 16px !important;
+                }
+                .set .content .row p {
+                    font-size: 14px !important;
+                }
+                .footer-links-si p,
+                .footer-links-si ul li,
+                .footer-links-si span,
+                .footer-links-si .set ul li {
+                    font-size: 14px !important;
+                }
+                .content p {
+                    font-size: 14px;
+                }
+                .primery_color.normal_heading {
+                    font-size: 16px;
+                }
             }
             
             @media(max-width:486px) {
