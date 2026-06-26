@@ -1149,16 +1149,18 @@
                                                         
                                                         
                                                         <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
-                                                            <div class="row px-3 pb-2" id="dvSource">
+                                                            <div class="profile_video_wrap" id="dvSource">
                                                                 
                                                                 @foreach($galleryVideos as $key=>$media)
-                                                                    <div class="col-md-4" id="dm_2">
-                                                                        <a href="#">
-                                                                            <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                                <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                                            </video>
-                                                                        </a>
-                                                                    </div>
+                                                                   
+                                                                        <div id="dm_2">
+                                                                            <a href="#">
+                                                                                <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                                    <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                                </video>
+                                                                            </a>
+                                                                        </div>
+                                                                    
                                                                 @endforeach
                                                                     
 

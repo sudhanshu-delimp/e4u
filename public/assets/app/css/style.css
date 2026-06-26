@@ -9032,17 +9032,21 @@ i.fa.fa-heart-o{
             color: #4e73df !important;
             text-decoration: revert;
         }
-        /* .profile_video_wrap {
+        
+        .profile_video_wrap {
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            width: 100%;
             gap: 20px;
-            padding: 0px 20px;
         }
         
-        .profile_video_wrap #dm_2 {
-            width: 100%;
-        } */
+        .profile_video_wrap>div {
+            flex: 0 0 90%;
+            scroll-snap-align: start;
+        }
         
         @media (max-width: 768px) {
             .blog-title {
