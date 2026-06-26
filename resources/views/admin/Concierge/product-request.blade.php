@@ -105,6 +105,36 @@
     </a>
 
 
+    <div class="modal fade upload-modal" id="processingModal" tabindex="-1" aria-labelledby="active_reqLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title"> Request Status
+                    </h5>
+
+                </div>
+                <div class="modal-body pb-0 text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
+                    </div>
+
+                    <h5 class="mb-2">Please Wait</h5>
+
+                    <p class="text-muted mb-0">
+                        Your request is being processed.<br>
+                        Please do not close or refresh this page.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-hidden="true"
         data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -123,6 +153,7 @@
                         <div class="row">
                             <input type="hidden" id="order_id">
                             <input type="hidden" id="order_status">
+                            <input type="hidden" id="delivery_type">
                             <div class="col-12 mb-3 d-none" id="trackingId">
                                 <label for="Traking ID">Tracking ID</label>
                                 <input type="text" class="form-control rounded-0" id="tracking_id"
@@ -144,47 +175,9 @@
     </div>
 
 
-    {{-- <div class="modal fade upload -modal" id="acti ve_req" tabindex="-1" aria-labelledby="active_reqLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="title">
-
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-0">
-                    <form id="orderStatusChange">
-                        <div class="row">
-                            <input type="hidden" id="order_id">
-                            <input type="hidden" id="order_status">
-                            <div class="col-12 mb-3 " id="trackingId">
-                                <label for="Traking ID">Tracking ID</label>
-                                <input type="text" class="form-control rounded-0" id="tracking_id"
-                                    placeholder="Enter Tracking id">
-                            </div>
-                            <div class="col-12 mb-3" id="cancelId">
-                                <label for="Traking ID">Cancel Reason</label>
-                                <input type="text" class="form-control rounded-0" id="cancel_id"
-                                    placeholder="Cancel Reason">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn-success-modal" id="saveCompletedOrder">save</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     {{-- end --}}
     {{-- confirm_popup --}}
-    {{-- <div class="modal fade uploa d-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel"
+    <div class="modal fade upload-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel"
         aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -208,7 +201,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     {{-- end --}}
 
     <div class="modal fade upload-modal" id="view-details" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -364,9 +357,9 @@
             let delivery_type = $(this).data('delivery_type');
 
 
-
             $('#order_id').val(orderId);
             $('#order_status').val(status);
+            $('#delivery_type').val(delivery_type);
 
             // Completed => open modal
             if (status == 'delivered' && delivery_type == "post") {
@@ -391,7 +384,6 @@
 
             // Pending / Hold => direct AJAX
             e.preventDefault();
-
             updateOrderStatus(orderId, status, '');
         });
 
@@ -411,6 +403,7 @@
 
         function updateOrderStatus(orderId, status, trackingId = '', cancel_reason = "") {
             let $btn = $("#saveCompletedOrder");
+            let delivery_type = $("#delivery_type").val();
 
             $.ajax({
                 url: "{{ route('admin.escort.order.complete') }}",
@@ -420,10 +413,12 @@
                     order_id: orderId,
                     tracking_id: trackingId,
                     status: status,
-                    cancel_reason: cancel_reason
+                    cancel_reason: cancel_reason,
+                    delivery_type: delivery_type,
                 },
 
                 beforeSend: function() {
+                    $('#processingModal').modal('show');
                     $btn.prop("disabled", true).text("Processing...");
                 },
                 success: function(response) {
@@ -432,8 +427,11 @@
                         toastr.error(response.message);
                         return;
                     }
-
+                    $('#processingModal').modal('hide');
                     $('#active_req').modal('hide');
+                    if (status == 'delivered' && delivery_type == "post")
+                        $('#confirm_popup').modal('show');
+
                     $('#orderStatusChange')[0].reset();
                     toastr.success('Order status updated successfully');
                     table.ajax.reload(null, false);
@@ -441,6 +439,7 @@
 
                 },
                 error: function(xhr) {
+                    $('#processingModal').modal('hide');
                     toastr.error(xhr.responseJSON?.message || 'Something went wrong');
                 },
                 complete: function() {

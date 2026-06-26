@@ -75,6 +75,11 @@ class ProductOrderController extends Controller
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->payment_status) . '</span>';
       })
       ->addColumn('action', function ($row) {
+        $html = "";
+        if (strtolower($row->delivery_type) === "post") {
+          $html = "data-toggle='modal' data-target='#active_req'";
+        }
+        // dd($html);
         return '<div class="dropdown no-arrow">
                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -101,9 +106,9 @@ class ProductOrderController extends Controller
    href="#"
    data-id="' . $row->id . '"
    data-status="delivered"
-   data-delivery_type="' . $row->delivery_type . '"
-   data-toggle="modal"
-   data-target="#active_req"><i class="fa fa-check-circle"></i> Complete Order </a>
+   data-delivery_type="' . $row->delivery_type . '"' . $html . '
+    <i class="fa fa-check-circle"></i> Complete Order
+</a>
    <div class="dropdown-divider"></div>
 
 
@@ -166,7 +171,7 @@ class ProductOrderController extends Controller
   {
     try {
 
-      if (empty($request->tracking_id) &&  $request->status == 'delivered') {
+      if (empty($request->tracking_id) &&  $request->status == 'delivered' && $request->delivery_type=="post") {
         return response()->json([
           'status' => false,
           'message' =>  "Tracnking Id is required for complete order."
