@@ -182,7 +182,7 @@
 </div>
 
 @php
- $user = auth()->user();
+$user = auth()->user();
  
 $password_expiry_days = $user?->account_setting?->password_expiry_days;
 @endphp
