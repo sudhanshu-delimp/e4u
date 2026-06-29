@@ -4377,6 +4377,7 @@ i.fa.fa-heart-o{
         .like_and_process_bar_padding {
             padding: 7px;
             background: #0c223d;
+            border-radius: 5px;
         }
         
         .like_img i.fa {
