@@ -252,6 +252,13 @@
                 .primery_color.normal_heading {
                     font-size: 16px;
                 }
+                .v-path {
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                }
             }
             
             @media(max-width:486px) {
