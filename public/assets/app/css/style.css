@@ -6589,6 +6589,7 @@ i.fa.fa-heart-o{
             width: 35px;
             height: 35px;
             border-radius: 3px;
+            visibility: hidden;
         }
         
         .swiper-button-next:hover,
@@ -6600,6 +6601,11 @@ i.fa.fa-heart-o{
         .swiper-button-prev svg {
             fill: #ff3c5f !important;
             filter: hue-rotate(130deg);
+        }
+        
+        .swiper.mySwiper:hover .swiper-button-next,
+        .swiper.mySwiper:hover .swiper-button-prev {
+            visibility: visible;
         }
         /* end */
         
