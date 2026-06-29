@@ -295,6 +295,9 @@
                     span.footer_text_color_white {
                         font-size: 13px;
                     }
+                    .grid_list_icon_box {
+                        font-size: 25px !important;
+                    }
                 }
                 
                 @media(max-width:486px) {
