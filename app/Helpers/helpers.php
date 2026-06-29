@@ -1899,10 +1899,13 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
     {
         $refundAmount = 0.00;
         $discountDay = 21;
+        $discountPercentage = 6;
+
         $purchase  = MassagePurchase::where('status', 'listed')->where('massage_profile_id', $profile)->first();
+        
 
         $normalRate   = $purchase->rate;
-        $discountRate = $purchase->discount_rate;
+        $discountRate = $purchase->paid_rate;
 
         $purchaseStart = Carbon::parse($purchase->start_date);
         $purchaseEnd   = Carbon::parse($purchase->end_date);
@@ -1916,11 +1919,9 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
         }
 
         $refundAmount = 0;
-
-        // Overall day number of refund start
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
-        // Refund days
+      
         $refundDays = $refundStart->diffInDays($refundEnd) + 1;
 
         for ($i = 0; $i < $refundDays; $i++) {
@@ -1930,41 +1931,20 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
             if ($currentDay <= $discountDay) {
                 $refundAmount += $normalRate;
             } else {
-                $refundAmount += $discountRate;
+                $discountedRate = $purchase->discount_rate;
+                $refundAmount += $discountedRate;
             }
         }
 
-       return number_format($refundAmount, 2, '.', '');
+        
+        return number_format((float) $refundAmount, 2, '.', '');
        
     }
 }
 
-// if (!function_exists('getMassageSuspendRefundAmount')) {
-//     function getMassageSuspendRefundAmount($profile, $startDate = null, $endDate = null)
-//     {
-//         $refundAmount = 0.00;
-//         if (!empty($startDate)  && !empty($endDate)) {
-//             $profileDetail = is_object($profile) ? $profile : getMassageDetail($profile);
-//             $purchase = $profileDetail->mainPurchase;
-
-//             Log::info('purchase');
-//             Log::info($purchase);
 
 
-//             $piadAmount = $purchase->paid_rate;
 
-//             $dayBeforeSuspendStart = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($startDate));
-//             $dayTillSuspendEnd = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($endDate)) + 1;
-//             /* In calculateTotalFee third param is optional , to ignore later paln price updates */
-//             [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $profileDetail->user, $purchase);
-//             [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $profileDetail->user, $purchase);
-
-//             $netAmount = number_format($costTillSuspendEnd - $costBeforeSuspendStart, 2, '.', '');
-//             $refundAmount = min($piadAmount, $netAmount);
-//         }
-//         return number_format($refundAmount, 2, '.', '');
-//     }
-// }
 if (!function_exists('get_media_by_id')) {
     function get_media_by_id($media_id, $type = 'escort')
     {
@@ -2528,5 +2508,21 @@ if (!function_exists('other_centre_support_notification_count'))
         }
        
         return 0;  
+    }
+}
+
+if (!function_exists('formatToFloat'))
+{
+    function formatToFloat($value) {
+    
+        if (empty($value)) {
+            return 0.00;
+        }
+        
+        if (is_string($value)) {
+            $value = str_replace(',', '', $value);
+        }
+        
+        return number_format((float)$value, 2, '.', '');
     }
 }

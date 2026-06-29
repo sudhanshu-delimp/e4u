@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\SendProductPurchaseMail;
+use App\Jobs\MassagePaymentWebhook;
 use App\Jobs\ProcessPaymentWebhook;
+use App\Jobs\SendProductPurchaseMail;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
 use App\Services\PinPaymentService;
@@ -88,6 +89,12 @@ class WebhookController extends Controller
           case 'escort-listing': {
               ProcessPaymentWebhook::dispatch($paymentObject);
             }
+
+            case 'massage-listing': {
+              MassagePaymentWebhook::dispatch($paymentObject);
+            }
+
+  
             break;
           default:
             // Unknown type handling

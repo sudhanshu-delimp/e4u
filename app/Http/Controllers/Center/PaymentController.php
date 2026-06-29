@@ -60,18 +60,18 @@ class PaymentController extends BaseController
         $action = $request->filled('action_type') ? $request->action_type : '';
         $checkout_number = isset($request->checkout_number) ? $request->checkout_number : "";
 
-        $total_rate = isset($request->total_rate) ? $request->total_rate : 0;
-        $total_discount = isset($request->total_discount) ? $request->total_discount : 0;
+        $total_rate = isset($request->discountRate) ? formatToFloat($request->discountRate) : 0;
+        $total_discount = isset($request->total_discount) ? formatToFloat($request->total_discount) : 0;
         $total_days = isset($request->days) ? $request->days : 0;
-        $plan_rate = isset($request->normalRate) ? $request->normalRate: 0;
-        $gstTax = isset($request->total_rate) ? getGSTAmount($request->total_rate) : 0;
+        $plan_rate = isset($request->normalRate) ? formatToFloat($request->normalRate): 0;
+        $gstTax = isset($request->discountRate) ? getGSTAmount(formatToFloat($request->discountRate)) : 0;
 
 
 
-        $total_rate_format = isset($request->total_rate) ? formatCurrency($total_rate) : 0;
+        $total_rate_format = isset($request->discountRate) ? formatCurrency($total_rate) : 0;
         $total_discount_format = isset($request->total_discount) ? formatCurrency($total_discount) : 0;
         $normal_rate_format = isset($request->normalRate) ? formatCurrency($plan_rate) : 0;
-        $gstTax_format = isset($request->total_rate) ? '$'.getGSTAmount($total_rate) : '$0.00';
+        $gstTax_format = isset($request->discountRate) ? '$'.getGSTAmount($total_rate) : '$0.00';
 
 
 
@@ -338,6 +338,7 @@ class PaymentController extends BaseController
                     'type' => 'massage-listing',
                     'action' => $benefit_token['action'],
                     'insert' => json_encode($insert),
+                    'purchaseData' => session()->get('MassagePurchase'),
                     'process_token' => (string) $paymentProcess->token,
                 ];
 

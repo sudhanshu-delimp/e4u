@@ -691,8 +691,23 @@ $(document).ready(function() {
       });
 
       suspendEndDateObject.on('change', function () {
-         let selectedDate = $(this).val();
-         suspendStartDateObject.datepicker('option', 'maxDate', selectedDate);
+         const startDate = suspendStartDateObject.datepicker('getDate');
+         const endDate = suspendEndDateObject.datepicker('getDate');
+
+         if (!endDate) {
+            alert('Please select an end date.');
+            $(this).val('');
+            return;
+         }
+
+         if (endDate < startDate) {
+            alert('End date must be greater than start date.');
+            $(this).val('');
+            calculateCredit();
+            return;
+         }
+
+         suspendStartDateObject.datepicker('option', 'maxDate', endDate);
          calculateCredit();
       });
 
@@ -702,6 +717,9 @@ $(document).ready(function() {
 
          let start = option.data('start');
          let end   = option.data('end');
+
+         const tomorrow = new Date();
+         tomorrow.setDate(tomorrow.getDate() + 1);
 
          let profileId = option.val();
          let listingMembership = option.data('membership');
@@ -713,12 +731,16 @@ $(document).ready(function() {
          let startDate = $.datepicker.parseDate('dd-mm-yy', start);
          let endDate   = $.datepicker.parseDate('dd-mm-yy', end);
 
-         suspendStartDateObject.datepicker('option', 'minDate', startDate);
+         suspendStartDateObject.datepicker('option', 'minDate', tomorrow);
          suspendStartDateObject.datepicker('option', 'maxDate', endDate);
-         ///suspendStartDateObject.datepicker('setDate', startDate); 
+         suspendStartDateObject.datepicker('setDate', tomorrow);
 
-         suspendEndDateObject.datepicker('option', 'minDate', startDate);
+         // suspendEndDateObject.datepicker('option', 'minDate', startDate);
+         // suspendEndDateObject.datepicker('option', 'maxDate', endDate);
+
+         suspendEndDateObject.datepicker('option', 'minDate', tomorrow);
          suspendEndDateObject.datepicker('option', 'maxDate', endDate);
+
          ///suspendEndDateObject.datepicker('setDate', endDate);
 
          $("#creditCalculationLive").html('0.00');
@@ -742,7 +764,7 @@ $(document).ready(function() {
                success: function(response) {
                   $("#creditCalculationLive").html('0.00');
                   if(response.success){
-                        $("#creditCalculationLive").html(response.refund_amount);
+                        $("#creditCalculationLive").html(response.refundAmountWithGst);
                         $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
                   }
                   else {

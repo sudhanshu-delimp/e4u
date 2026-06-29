@@ -101,10 +101,8 @@ class MassageController extends Controller
         // $active_profile = get_massage_listed_profile();
         // else
         // $active_profile = [];
+        
         $active_profile = get_massage_listed_profile();
-       
-
-       
         return view('center.dashboard.list',compact('active_profile'));
     }
 
@@ -1405,9 +1403,13 @@ class MassageController extends Controller
         list($total_discount, $total_rate, $normalRate, $discountRate,$appliedDiscountAmount) =
                 calculateTotalFee($request->membership_id, $days, $this->account,Null);
        
+     $total_discount = formatToFloat($total_discount);
+     $full_fee = $days*$normalRate;
+     $discountRate = $total_rate;
 
       return response()->json([
                 'total_rate' => $total_rate,
+                'full_fee' => $full_fee,
                 'normalRate' => $normalRate,
                 'discountRate' => $discountRate,
                 'days' => $days,
@@ -1428,6 +1430,11 @@ class MassageController extends Controller
             $home_state = auth()->user()->state_id;
     
             $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+
+            $pricing = Pricing::where('membership_id', $request->membership_id)
+                    ->with('memberships')
+                    ->first();
+
 
 
             $start_date = Carbon::createFromFormat('Y-m-d', $payload_start_date)->format('Y-m-d').' 00:00:00';
@@ -1455,10 +1462,20 @@ class MassageController extends Controller
 
             $status             = 'pending';
 
+            $total_discount      = $request->total_discount;
+            $paid_rate           = $request->total_fee;
+            
+
             $rate               = $request->rate ?? 0;
-            $discount_rate      = $request->discountRate ?? 0;
-            $total_rate         = $request->total_fee;
-            $paid_rate          = $request->total_rate ?? 0;
+
+            $discount_rate      = $rate - (($rate * $pricing->percentage ) / 100);
+            $applied_dicount    = $total_discount ?? 0;
+            $total_rate         = $request->total_rate;
+            $paid_rate          = $paid_rate;
+
+            $gstAmount = getGSTAmount($paid_rate);
+            $final_amount = $paid_rate + $gstAmount;
+
             $appliedDiscountAmount  = $request->applied_discount ?? 0;
             $checkout_number = md5(time());
 
@@ -1475,8 +1492,10 @@ class MassageController extends Controller
                     'status'             => $status,
                     'rate'               => $rate,
                     'discount_rate'      => $discount_rate,
+                    'total_discount'     => $applied_dicount,
                     'total_rate'         => $total_rate,
                     'paid_rate'          => $paid_rate,
+                    'final_amount'       => $final_amount,
             ];
             session()->forget('MassagePurchase');
             session(['MassagePurchase' => $purchase]);
@@ -1864,7 +1883,7 @@ class MassageController extends Controller
     public function payment_completed()
     {
         $redirect_url = url('center-dashboard/listing/current');
-        return view('escort.dashboard.complete-listings',compact('redirect_url'));
+        return view('center.dashboard.complete-listings',compact('redirect_url'));
     }
 
 }

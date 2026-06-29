@@ -27,8 +27,10 @@ class MassagePurchase extends Model
         'status',
         'rate',
         'discount_rate',
+        'total_discount',
         'total_rate',
         'paid_rate',
+        'final_amount',
     ];
 
 

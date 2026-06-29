@@ -100,6 +100,13 @@ class MassageProfileActionController extends BaseController
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getMassageSuspendRefundAmount($profileId, $startDate, $endDate);
+
+            if($refund)
+            {
+                $gstAmount = getGSTAmount($refund);
+                $refundAmountWithGst = $refund + $gstAmount;
+            }
+
             $existSuspendedDate = $massageProfile->suspendProfile()->overlapping($startDate, $endDate)->exists();
             if ($existSuspendedDate) {
                 return response()->json([
@@ -110,6 +117,7 @@ class MassageProfileActionController extends BaseController
                 return response()->json([
                     'success' => true,
                     'refund_amount' => $refund,
+                    'refundAmountWithGst' => $refundAmountWithGst
                 ]);
             }
         } catch (\Exception $e) {
@@ -136,7 +144,14 @@ class MassageProfileActionController extends BaseController
         }
 
         # calculate credit
-        $refundAmount = getMassageSuspendRefundAmount($massageProfile, $request->start_date, $request->end_date);
+        
+        $refundAmount = getMassageSuspendRefundAmount($request->suspend_profile_id, $request->start_date, $request->end_date);
+
+        if($refundAmount)
+        {
+            $gstAmount = getGSTAmount($refundAmount);
+            $refundAmountWithGst = $refundAmount + $gstAmount;
+        }
 
         $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $requestStartDate, $escortTimezone)->setTimezone('UTC');
         $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $requestEndDate, $escortTimezone)->setTimezone('UTC');
@@ -151,7 +166,7 @@ class MassageProfileActionController extends BaseController
                 'utc_start_date' => $utcStart,
                 'end_date' => Carbon::parse($request->end_date),
                 'utc_end_date' => $utcEnd,
-                'credit' => $refundAmount,
+                'credit' => $refundAmountWithGst,
                 'note' => null,
             ]
         );
@@ -159,7 +174,7 @@ class MassageProfileActionController extends BaseController
         if ($suspendProfile) {
             $this->walletService->credit(
                 $user,
-                $refundAmount,
+                $refundAmountWithGst,
                 $suspendProfile,
                 'Suspend Profile.',
                 [

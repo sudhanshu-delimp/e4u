@@ -657,7 +657,7 @@ $(".save_profile_btn").click(function(){
                 normalRate: response.normalRate,
                 days: response.days,
                 total_discount:response.total_discount,
-                total_rate:response.total_rate,
+                total_rate:response.full_fee,
                 discountRate : response.discountRate,
                 applied_discount : response.applied_discount
             };
@@ -695,9 +695,9 @@ $(".save_profile_btn").click(function(){
                 <td>${formatDateToDDMMYYYY(end)}</td>
                 <td>${days}</td>
                 <td>$ ${rate}</td>
-                <td>$ ${formatIndianNumber(fullFee.toFixed(2))}</td>
-                <td>$ ${formatIndianNumber(discount.toFixed(2))}</td>
-                <td>$ ${formatIndianNumber(finalFee.toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(parseFloat(fullFee).toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(parseFloat(discount).toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(parseFloat(finalFee).toFixed(2))}</td>
             </tr>
             `;
 
@@ -706,7 +706,7 @@ $(".save_profile_btn").click(function(){
             <tr>
                 <td colspan="7"></td>
                 <td><strong>Total Fees</strong></td>
-                <td><strong>$ ${formatIndianNumber(total.toFixed(2))}</strong></td>
+                <td><strong>$ ${formatIndianNumber(parseFloat(total).toFixed(2))}</strong></td>
             </tr>`;
 
             $("#summaryBody").html(html);
