@@ -300,9 +300,11 @@ class EscortController extends BaseController
     public function dataTableListing($type = NULL)
     {
         $conditions = [];
+        $conditionsIn = [];
         if ($type == 'current') {
             $conditions[] = ['end_date', '>=', date('Y-m-d')];
-            $conditions[] = ['status', 'listed'];
+            $conditionsIn['column'] = 'status';
+            $conditionsIn['condition'] = ['listed', 'pending'];
         } elseif ($type == 'past') {
             $conditions[] = ['end_date', '<', date('Y-m-d')];
         }
