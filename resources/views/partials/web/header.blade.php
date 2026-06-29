@@ -38,13 +38,13 @@
         <!-- font awsome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.6') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.8') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.7') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.9') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.1') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-        <script>
-        </script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+       
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
         @section('style')

@@ -58,38 +58,38 @@ class PaymentHistory extends Model
       return 'N/A';
     }
 
-    $tz = config('app.escort_server_timezone');
+    $tz = config('common.local_timezone');
     return \Carbon\Carbon::parse($this->paid_at)
       ->timezone($tz)
       ->format('Y-m-d h:i A');
   }
 
-    /**
-     * Indicates if the model should have created_by and updated_by fields.
-     *
-     * @var bool
-     */
-    public $createdUpdatedBy = true;
+  /**
+   * Indicates if the model should have created_by and updated_by fields.
+   *
+   * @var bool
+   */
+  public $createdUpdatedBy = true;
 
-    /**
-     * Get the created by that owns the details.
-     */
-    public function createdBy()
-    {
-        return $this->belongsTo('App\Models\User', 'created_by');
-    }
+  /**
+   * Get the created by that owns the details.
+   */
+  public function createdBy()
+  {
+    return $this->belongsTo('App\Models\User', 'created_by');
+  }
 
-    /**
-     * Get the updated by that owns the details.
-     */
-    public function updatedBy()
-    {
-        return $this->belongsTo('App\Models\User', 'updated_by');
-    }
+  /**
+   * Get the updated by that owns the details.
+   */
+  public function updatedBy()
+  {
+    return $this->belongsTo('App\Models\User', 'updated_by');
+  }
 
-    // Agent Commission
-    public function commissions()
-    {
-        return $this->morphMany(AgentCommission::class, 'commissionable');
-    }
+  // Agent Commission
+  public function commissions()
+  {
+    return $this->morphMany(AgentCommission::class, 'commissionable');
+  }
 }
