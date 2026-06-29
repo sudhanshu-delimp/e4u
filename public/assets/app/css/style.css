@@ -819,13 +819,11 @@
         }
         
         .pin-up-content .home_heading_first {
-            line-height: 46px;
             margin-bottom: 0px;
         }
         
         .pin-up-content .pinup_age {
             font-size: clamp(18px, 4vw, 30px) !important;
-            line-height: 60px;
             color: var(--peach);
         }
         
@@ -894,7 +892,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
         
         .pin-up-content .media .media-body h4 {
@@ -1570,6 +1568,7 @@
             line-height: 48px;
             color: #0C223D;
             margin-bottom: 20px;
+            font-weight: 500;
         }
         
         a.btn-common {
