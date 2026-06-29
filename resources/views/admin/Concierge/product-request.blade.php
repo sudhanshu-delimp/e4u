@@ -47,17 +47,17 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="table-responsive custom-badge">
-                            <table class="table w-100" id="productsHistoryTable">
+                            <table class="table w-100" id="productsHistoryTable"  >
                                 <thead class="table-bg">
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Created By</th>
                                         <th>Member Id</th>
                                         <th>Member</th>
-                                        <th>Sub Total</th>
+                                        {{-- <th>Sub Total</th>
                                         <th>Wallet Amount</th>
                                         <th>Shipping Charge</th>
-                                        <th>Tax</th>
+                                        <th>Tax</th> --}}
                                         <th>Total</th>
                                         <th>Order Date</th>
                                         <th>Order Status</th>
@@ -69,15 +69,15 @@
 
                                 </tbody>
                                 <tr>
-                                    <th colspan="13" class="border-0"></th>
+                                    <th colspan="9" class="border-0"></th>
                                 </tr>
                                 <tfoot class="bg-first t-foot">
                                     <tr>
-                                        <th colspan="5" class="text-left border-0">Server time: <span
+                                        <th colspan="3" class="text-left border-0">Server time: <span
                                                 class="serverTime">{{ date('d-m-Y h:i a') }}</span></th>
-                                        <th colspan="4" class="text-center border-0">Refresh time:<span
+                                        <th colspan="3" class="text-center border-0">Refresh time:<span
                                                 class="refreshSeconds"> 15</span></th>
-                                        <th colspan="4" class="text-right border-0" style="text-align: right!important;">
+                                        <th colspan="3" class="text-right border-0" style="text-align: right!important;">
                                             Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                                     </tr>
                                 </tfoot>
@@ -300,22 +300,22 @@
                         data: 'user',
                         name: 'user'
                     },
-                    {
-                        data: 'sub_total',
-                        name: 'sub_total'
-                    },
-                    {
-                        data: 'wallet_amount',
-                        name: 'wallet_amount'
-                    },
-                    {
-                        data: 'delivery_charges',
-                        name: 'delivery_charges'
-                    },
-                    {
-                        data: 'gst_amount',
-                        name: 'gst_amount'
-                    },
+                    // {
+                    //     data: 'sub_total',
+                    //     name: 'sub_total'
+                    // },
+                    // {
+                    //     data: 'wallet_amount',
+                    //     name: 'wallet_amount'
+                    // },
+                    // {
+                    //     data: 'delivery_charges',
+                    //     name: 'delivery_charges'
+                    // },
+                    // {
+                    //     data: 'gst_amount',
+                    //     name: 'gst_amount'
+                    // },
                     {
                         data: 'total_amount',
                         name: 'total_amount'
@@ -449,7 +449,7 @@
             var orderId = $(this).data('item');
             // Show loader, hide content
 
-            var productOrderId = $(this).data('orderId');
+            var productOrderId = $(this).data('orderid');
             $("#view-listing").text('Order Details - ' + productOrderId);
             $("#orderDetailsLoader").show();
             $("#orderDetailsBody").hide().html("");

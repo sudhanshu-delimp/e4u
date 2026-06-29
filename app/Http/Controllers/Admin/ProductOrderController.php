@@ -93,6 +93,7 @@ class ProductOrderController extends Controller
         <a class="dropdown-item open-status-modal"
            href="#"
            data-id="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
            data-status="pending">
             <i class="fa fa-hourglass-half"></i> Pending
         </a>
@@ -102,6 +103,7 @@ class ProductOrderController extends Controller
         <a class="dropdown-item open-status-modal  "
            href="#"
            data-id="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
            data-delivery_type="' . $row->delivery_type . '"
            data-status="hold">
             <i class="fa fa-pause-circle"></i> On Hold
@@ -113,6 +115,7 @@ class ProductOrderController extends Controller
            href="#"
            data-id="' . $row->id . '"
            data-status="delivered"
+           data-orderid="' . $row->order_id . '"
            data-delivery_type="' . $row->delivery_type . '"
            ' . $html . '>
             <i class="fa fa-check-circle"></i> Complete Order
@@ -125,6 +128,7 @@ class ProductOrderController extends Controller
            data-id="' . $row->id . '"
          data-status="rejected"
            data-delivery_type="' . $row->delivery_type . '"
+           data-orderid="' . $row->order_id . '"
            data-toggle="modal"
            data-target="#active_req">
             <i class="fa fa-times-circle"></i> Reject Order
@@ -136,6 +140,7 @@ class ProductOrderController extends Controller
            href="#"
            data-toggle="modal"
            data-item="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
            data-delivery_type="' . $row->delivery_type . '"
            data-target="#view_order_modal">
             <i class="fa fa-eye"></i> View Details
