@@ -110,7 +110,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="title"> Request Status
+                    <h5 class="modal-title"> Request Status
                     </h5>
 
                 </div>
@@ -159,10 +159,10 @@
                                 <input type="text" class="form-control rounded-0" id="tracking_id"
                                     placeholder="Enter Tracking id">
                             </div>
-                            <div class="col-12 mb-3 d-none" id="cancelId">
-                                <label for="Traking ID">Cancel Reason</label>
-                                <input type="text" class="form-control rounded-0" id="cancel_reason"
-                                    placeholder="Cancel Reason">
+                            <div class="col-12 mb-3 d-none" id="rejectedId">
+                                <label for="Reject ID">Reject Reason</label>
+                                <input type="text" class="form-control rounded-0" id="reject_reason"
+                                    placeholder="Reject Reason">
                             </div>
                         </div>
                     </form>
@@ -351,7 +351,7 @@
 
         });
 
-        $(document).on('click', '.open-status-modal', function(e) {
+        $(document).on('click', '.open-status-modal', function() {
             let orderId = $(this).data('id');
             let status = $(this).data('status');
             let delivery_type = $(this).data('delivery_type');
@@ -364,26 +364,20 @@
             // Completed => open modal
             if (status == 'delivered' && delivery_type == "post") {
                 $("#trackingId").removeClass("d-none");
-                $("#cancelId").addClass("d-none");
+                $("#rejectedId").addClass("d-none");
                 $("#title").html(
                     '<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details'
                 );
                 return;
 
+            } else if (status == 'rejected') {
+
+                $("#rejectedId").removeClass('d-none');
+                $("#trackingId").addClass('d-none');
+                $("#title").text('Reject Product Order');
+
+                return;
             }
-
-            // else if (status == 'cancelled') {
-
-            //     $("#cancelId").removeClass('d-none');
-            //     $("#trackingId").addClass('d-none');
-            //     $("#title").text('Cancel Product Order');
-
-            //     return;
-            // }
-
-
-            // Pending / Hold => direct AJAX
-            e.preventDefault();
             updateOrderStatus(orderId, status, '');
         });
 
@@ -393,15 +387,15 @@
             let orderId = $('#order_id').val() ?? "";
             let status = $('#order_status').val() ?? "";
             let trackingId = $('#tracking_id').val() ?? "";
-            let cancel_reason = $('#cancel_reason').val() ?? "";
+            let reject_reason = $('#reject_reason').val() ?? "";
 
-            updateOrderStatus(orderId, status, trackingId, cancel_reason);
+            updateOrderStatus(orderId, status, trackingId, reject_reason);
 
 
         });
 
 
-        function updateOrderStatus(orderId, status, trackingId = '', cancel_reason = "") {
+        function updateOrderStatus(orderId, status, trackingId = '', reject_reason = "") {
             let $btn = $("#saveCompletedOrder");
             let delivery_type = $("#delivery_type").val();
 
@@ -413,12 +407,14 @@
                     order_id: orderId,
                     tracking_id: trackingId,
                     status: status,
-                    cancel_reason: cancel_reason,
+                    reject_reason: reject_reason,
                     delivery_type: delivery_type,
                 },
 
                 beforeSend: function() {
-                    $('#processingModal').modal('show');
+                    if (delivery_type != "post")
+                        $('#processingModal').modal('show');
+
                     $btn.prop("disabled", true).text("Processing...");
                 },
                 success: function(response) {
@@ -427,22 +423,21 @@
                         toastr.error(response.message);
                         return;
                     }
-                    $('#processingModal').modal('hide');
                     $('#active_req').modal('hide');
                     if (status == 'delivered' && delivery_type == "post")
                         $('#confirm_popup').modal('show');
 
                     $('#orderStatusChange')[0].reset();
                     toastr.success('Order status updated successfully');
-                    table.ajax.reload(null, false);
-
+                    $("#productsHistoryTable").DataTable().ajax.reload(null, false);
 
                 },
                 error: function(xhr) {
-                    $('#processingModal').modal('hide');
+                    // $('#processingModal').modal('hide');
                     toastr.error(xhr.responseJSON?.message || 'Something went wrong');
                 },
                 complete: function() {
+                    $('#processingModal').modal('hide');
                     $btn.prop("disabled", false)
                         .text("Save");
 
