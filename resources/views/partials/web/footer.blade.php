@@ -666,6 +666,8 @@
 <script type="text/javascript" src="{{ asset('assets/app/js/jqueryuijs.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 @include('partials.common.footer-scripts')
 <script>
     $('#agreeMyForm').parsley({
@@ -900,6 +902,65 @@
     });
     console.log($.cookie('user-agreement'));
     ////////////
+
+
+    
+// video slider of EC and MC for profile page.
+    const swipers = [];
+
+    document.querySelectorAll('.mySwiper').forEach(function(el){
+
+        const swiper = new Swiper(el,{
+            pagination:{
+                el: el.querySelector('.swiper-pagination'),
+                type:'fraction'
+            },
+            navigation:{
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev')
+            },
+            observer: true,
+            observeParents: true,
+            resizeObserver: true,
+
+            on: {
+                slideChange: function () {
+
+                    // Stop & Reload all videos of current slider
+                    el.querySelectorAll('video').forEach(function(video){
+                        video.pause();
+                        video.currentTime = 0;
+                        video.load();
+                    });
+
+                    // Refresh Swiper
+                    this.update();
+                    this.updateSize();
+                    this.updateSlides();
+                }
+            }
+        });
+
+        swipers.push(swiper);
+
+    });
+
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+
+    swipers.forEach(function(swiper){
+
+        swiper.update();
+        swiper.updateSize();
+        swiper.updateSlides();
+
+        // Reload videos after tab becomes visible
+        swiper.el.querySelectorAll('video').forEach(function(video){
+            video.load();
+        });
+
+    });
+
+});
 </script>
 <script>
     $(document).ready(function() {

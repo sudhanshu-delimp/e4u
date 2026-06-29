@@ -2250,7 +2250,7 @@ margin-right: 5px;
                     </button>
                 </div>
                 
-                <div class="modal-body p-1">
+                <div class="modal-body">
                     <div class="tab-content" id="myTabContent">
 
                         {{-- <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
@@ -2406,19 +2406,22 @@ margin-right: 5px;
                         </div>
                         <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
                             
-                            <div class="row px-3 pb-2" id="dvSource">
-                                
+                            <div class="swiper mySwiper" id="dvSource">
+                                <div class="swiper-wrapper">
                                         @foreach($galleryVideos as $key=>$media) 
-                                            <div class="col-md-4" id="dm_2">
-                                                <a href="#">
-                                                    <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                        <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                    </video> 
-                                                </a>
+                                           <div class="swiper-slide">
+                                                <div id="dm_{{ $key }}" class="w-100">
+                                                    <a href="#">
+                                                        <video style="z-index: 1" controls="" id="videoId_{{ $key }}" src="{{ asset($media->path) }}">
+                                                            <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                        </video> 
+                                                    </a>
+                                                </div>
                                             </div>
                                         @endforeach 
-                                    
-
+                                </div>    
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
                             </div>
                         </div>
                     </div>
