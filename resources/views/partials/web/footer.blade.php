@@ -229,7 +229,7 @@
     <section class="copy_right_footer_mange_padding">
         <div class="footer_copy_right container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-md-8 footer_text_color_white">
+                <div class="col-lg-8 col-md-8 footer_text_color_white p-0">
                     <div class="custom--copyryt">
                         <span><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 stroke="#fff">
@@ -256,7 +256,7 @@
                         @endif --}}
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right">
+                <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right p-0">
                     <span class="footer_text_color_white">Last revision: 1st June 2025&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                     <span class="footer_text_color_white">Follow us:</span>
                     <ul class="footer_social_icons">
