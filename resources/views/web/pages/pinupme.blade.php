@@ -11,7 +11,7 @@
     <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg js_pinup_summary">
     <div class="container-fluid banner_width">
         <div class="row align-items-center">
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-5 col-sm-12">
                 <div href="#" class="tip mb-2 pinup-summary-img d_custom_pinup_img lg_icon_wrapper">
                     <img 
                     src="{{ !empty($user->defaultPinupImage)?asset($user->defaultPinupImage->path):asset('assets/app/img/home/home-demo.png') }}">
@@ -33,68 +33,65 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-7 col-sm-12">
     
-                <div class="row go-to-index">
-                    <div class="col-md-6 ml-auto d-block">
-                        <div class="mycont custom-cross-back pl-5">
-                            <a href="{{ route('home') }}"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="" alt="cross"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="pin-up-content pl-5">
-                    <h1 class="home_heading_first mb-0 pin-head-custom">{{$escortName}} <span>
+                
+                <div class="pin-up-content pl-lg-5">
+                    <div class="pin-head-custom">
+                         <h1 class="home_heading_first ">{{$escortName}} 
+                            @php 
+                            $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+                            @endphp
+                            @if($galleryVideos->count()>0)
+                                <div class="custom-video-wraper">
+                                    <div class="video--icon">
+                                        <a href="#">
+                                            <img src="/assets/app/img/video_play.svg" class="" alt="logo">
+                                            <small class="video-tooltip">I have Video</small>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+                        </h1>
+                        <span class="pinup_age">
                             <div class="pin-age">Age: <span>{{$escort->age}}</span></div>
                         </span>
-                        @php 
-                           $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
-                        @endphp
-                        @if($galleryVideos->count()>0)
-                            <div class="custom-video-wraper">
-                                <div class="video--icon">
-                                    <a href="#">
-                                        <img src="/assets/app/img/video_play.svg" class="" alt="logo">
-                                        <small class="video-tooltip">I have Video</small>
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
-                    </h1>
-                    <div class="row v-path">
-                        <div class="col-sm-12 d-flex justify-content-between align-items-center gap-10 flex-wrap">
-                            <h3 class="mb-0">{{$escort->city->name}}</h3>
-                            <div class="align-self-center">
-                                <ul
-                                    class="d-flex list-unstyled pl-0 mb-0 justify-content-end mr-5  meet-with custom-meet-pin">
-                                    <li class="mb-0">Meet with:</li>
-                                    <li class="{{!empty($escort->available_to) && in_array(1 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/woman-avatar-big.png') }}"
-                                                class="" alt="logo">
-                                            <span class="custom-icon-hover-tooltip">Female</span>
-                                        </a></li>
-                                    <li class="{{!empty($escort->available_to) && in_array(2 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/male-user.png') }}"
-                                                class="" alt="logo">
-                                            <span class="custom-icon-hover-tooltip">Male</span>
-                                        </a></li>
-                                    <li class="{{!empty($escort->available_to) && in_array(3 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/transgender-big.png') }}"
-                                                class="" alt="logo">
-                                            <span class="custom-icon-hover-tooltip">Transgender</span>
-                                        </a></li>
-                                    <li class="{{!empty($escort->available_to) && in_array(4 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/couple.png') }}" class=""
-                                                alt="logo">
-                                            <span class="custom-icon-hover-tooltip">Couples</span>
-                                        </a></li>
-                                    <li class="{{!empty($escort->available_to) && in_array(5 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/icon_disabled.png') }}" class=""
-                                            alt="logo">
-                                        <span class="custom-icon-hover-tooltip">Disabled</span>
-                                    </a></li>
-                                    <li class="{{!empty($escort->available_to) && in_array(6 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/icon_groups.png') }}" class=""
-                                            alt="logo">
-                                        <span class="custom-icon-hover-tooltip">Groups/Parties</span>
-                                    </a></li>
-                                </ul>
-                            </div>
+                         <div class="go-to-index">
+                             <a href="{{ route('home') }}">
+                                <img src="{{ asset('assets/app/img/newcross.png') }}" alt="cross">
+                            </a>
                         </div>
+                    </div>
+                   
+                    <div class="v-path">
+                        <h3 class="mb-0">{{$escort->city->name}}</h3>
+                        <ul class="meet-with custom-meet-pin">
+                            <h5 class="mb-0"><strong>Meet with:</strong></h5>
+                            <li class="{{!empty($escort->available_to) && in_array(1 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/woman-avatar-big.png') }}"
+                                        class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Female</span>
+                                </a></li>
+                            <li class="{{!empty($escort->available_to) && in_array(2 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/male-user.png') }}"
+                                        class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Male</span>
+                                </a></li>
+                            <li class="{{!empty($escort->available_to) && in_array(3 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/transgender-big.png') }}"
+                                        class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Transgender</span>
+                                </a></li>
+                            <li class="{{!empty($escort->available_to) && in_array(4 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/couple.png') }}" class=""
+                                        alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Couples</span>
+                                </a></li>
+                            <li class="{{!empty($escort->available_to) && in_array(5 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/icon_disabled.png') }}" class=""
+                                    alt="logo">
+                                <span class="custom-icon-hover-tooltip">Disabled</span>
+                            </a></li>
+                            <li class="{{!empty($escort->available_to) && in_array(6 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/icon_groups.png') }}" class=""
+                                    alt="logo">
+                                <span class="custom-icon-hover-tooltip">Groups/Parties</span>
+                            </a></li>
+                        </ul>
                     </div>
                     @php
                         $about = html_entity_decode(strip_tags($escort->about));
@@ -102,116 +99,93 @@
                         $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
                         $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
                     @endphp
-                    <h5>About Me</h5>
-                    <p class="pin-description text-justify">{{ $about }}</p>
-                    <div class="row">
-                        <div class="col-sm-12 d-flex align-items-center justify-content-between gap-10 flex-wrap ">
-                            <div class="media align-items-center justify-content-start gap-20">
-                                <div class="mc_tooltip_wrap">
-                                    <img src="{{ asset('assets/app/img/handwithhart.png') }}">
-                                    <span class="mc_rate_tooltip">You come to me.</span>
-                                </div>
+                    <div>
+                         <h5 class="mb-0"><strong>About Me</strong></h5>
+                         <p class="pin-description text-justify mb-0">{{ $about }}</p>
+                    </div>
 
-                                <div class="media-body">
-                                    <h4>Massage</h4>
-                                    <p class="mb-0">{{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}</p>
-                                </div>
+                    <div class="d-flex align-items-center justify-content-between gap-20 flex-wrap ">
+                        <div class="media align-items-center justify-content-start gap-20">
+                            <div class="mc_tooltip_wrap">
+                                <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                <span class="mc_rate_tooltip">You come to me.</span>
                             </div>
-                            <div class="media align-items-center justify-content-start gap-20">
-                                <div class="mc_tooltip_wrap">
-                                          <img src="{{ asset('assets/app/img/areodownimg.png') }}">
-                                        <span class="mc_rate_tooltip">You come to me.</span>
-                                     </div>
-                                <div class="media-body">
-                                    <h4>Incalls</h4>
-                                    <p class="mb-0">{{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}</p>
-                                </div>
+
+                            <div class="media-body">
+                                <h4>Massage</h4>
+                                <p class="mb-0">{{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}</p>
                             </div>
-                            <div class="media align-items-center justify-content-start gap-20">
-                                <div class="mc_tooltip_wrap">
-                                         <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
-                                        <span class="mc_rate_tooltip">I come to you.</span>
-                                     </div>
-                                <div class="media-body">
-                                    <h4>Outcalls</h4>
-                                    <p class="mb-0">{{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}</p>
-                                </div>
+                        </div>
+                        <div class="media align-items-center justify-content-start gap-20">
+                            <div class="mc_tooltip_wrap">
+                                        <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                    <span class="mc_rate_tooltip">You come to me.</span>
+                                    </div>
+                            <div class="media-body">
+                                <h4>Incalls</h4>
+                                <p class="mb-0">{{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center justify-content-start gap-20">
+                            <div class="mc_tooltip_wrap">
+                                        <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                    <span class="mc_rate_tooltip">I come to you.</span>
+                                    </div>
+                            <div class="media-body">
+                                <h4>Outcalls</h4>
+                                <p class="mb-0">{{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="row my-4">
-                        <div class="col-sm-12 d-flex align-items-center justify-content-between gap-10 flex-wrap">
-                            <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
-                                 <div class="my-play-box-profile-icon">
-                                    <a href="{{ url('playbox') }}" target="_blank">
-                                        <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
-                                    </a>
-                                    <div class="custom-tooltip">My Playbox</div>
-                                </div>
-                                 @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
-                                    <div class="my-play-box-profile-icon">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
-                                        </a>
-                                        <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
-                                    </div>
-                                @endif
 
-                                {{-- @if(!empty($user->profile_creator) && in_array(3,$user->profile_creator))
-                                    <ul class="profile_page_social_profiles">
-                                        @if($user->social_links && $escort->user->social_links['facebook'] !== null)
-                                            <li><a href="{{$user->social_links['facebook']}}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                        @endif
-                                        @if($user->social_links && $user->social_links['insta'] !== null)
-                                            <li><a href="{{$user->social_links['insta']}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                        @endif
-                                        @if($user->social_links && $user->social_links['twitter'] !== null)
-                                            <li><a href="{{$user->social_links['twitter']}}" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
-                                        @else
-                                            <li><a href="https://x.com/NMugs32853" class="by-default" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
-                                        @endif
-                                    </ul>
-                                    @else
-                                        <ul class="d-flex list-unstyled pl-0 mb-0 custom--socialpin">
-                                            <li><a href="https://x.com/NMugs32853" class="by-default" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
-                                        </ul>
-                                @endif --}}
-                                <ul class="profile_page_social_profiles">
-               
-                                    @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
-                                        @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
-                                            <li class="selected-from-profile">
-                                                <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                                                <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
-                                            </li>
-                                        @endif
-                                        @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
-                                        @endif
-                                        @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
-                                        @else
-                                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
-                                        @endif
+                    <div class="d-flex align-items-center justify-content-between gap-20 flex-wrap">
+                        <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
+                                <div class="my-play-box-profile-icon">
+                                <a href="{{ url('playbox') }}" target="_blank">
+                                    <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+                                </a>
+                                <div class="custom-tooltip">My Playbox</div>
+                            </div>
+                                @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+                                <div class="my-play-box-profile-icon">
+                                    <a href="#">
+                                        <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+                                    </a>
+                                    <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+                                </div>
+                            @endif
+
+                            <ul class="profile_page_social_profiles mb-lg-0 mb-1">
+            
+                                @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
+                                    @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
+                                        <li class="selected-from-profile">
+                                            <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                                            <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
+                                        </li>
+                                    @endif
+                                    @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
+                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                    @endif
+                                    @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
+                                        <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                                     @else
                                         <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                                     @endif
-                                </ul>
-                            </div>
-                            <div class="">
-                                <a href="{{ route('profile.description', $escort->id) }}" class="btn-common">View Profile</a>
-                            </div>
+                                @else
+                                    <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                @endif
+                            </ul>
                         </div>
-                       
-                                    
-                        
+                        <div class="">
+                            <a href="{{ route('profile.description', $escort->id) }}" class="btn-common">View Profile</a>
+                        </div>
                     </div>
+                    
                     @if($escort->address)
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="pinup_address">
                             <p><img src="{{ asset('assets/app/img/gps.png') }}" alt="location"  class="custompopicon"> {{$escort->address}}</p>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>

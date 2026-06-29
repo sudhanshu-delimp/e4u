@@ -820,23 +820,28 @@
         
         .pin-up-content .home_heading_first {
             line-height: 46px;
-            letter-spacing: -0.015em;
+            margin-bottom: 0px;
         }
         
-        .pin-up-content .home_heading_first span {
-            font-size: calc(16px, 2vw, 24px) !important;
+        .pin-up-content .pinup_age {
+            font-size: clamp(18px, 4vw, 30px) !important;
             line-height: 60px;
-            letter-spacing: -0.015em;
-            color: #FF3C5F;
-            margin-left: 52px;
+            color: var(--peach);
         }
         
-        .pin-head-custom {
-            margin-bottom: 1rem !important;
+        .pinup_age .pin-age {
+            font-weight: 500;
         }
         
         .custom-meet-pin i {
-            color: #ff3c5f;
+            color: var(--peach);
+        }
+        
+        .v-path {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
         }
         
         .pin-up-content .v-path h3 {
@@ -848,6 +853,15 @@
             letter-spacing: -0.015em;
             text-align: left;
             color: #FF3C5F;
+        }
+        
+        .v-path ul.meet-with {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+            align-items: center;
+            padding-left: 0px;
+            margin-bottom: 0px;
         }
         
         .pin-up-content .v-path ul.meet-with li {
@@ -873,15 +887,14 @@
             font-weight: 400;
             line-height: 28px;
             text-align: left;
+            margin-bottom: 0px;
         }
         
         .pin-up-content {
-            max-width: 633px;
             width: 100%;
-        }
-        
-        .pin-up-content .v-path {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         
         .pin-up-content .media .media-body h4 {
@@ -2081,6 +2094,8 @@
         
         .pin-head-custom {
             display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .pin-age span {
@@ -3465,7 +3480,7 @@ i.fa.fa-heart-o{
         }
         
         img.custompopicon {
-            max-width: 28px;
+            max-width: 40px;
             margin-right: 0.5rem;
         }
         /*profile end*/
@@ -5338,15 +5353,8 @@ i.fa.fa-heart-o{
             color: #0C223D;
         }
         
-        .go-to-index a {
-            font-family: Quicksand;
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 25px;
-            letter-spacing: -0.015em;
-            text-align: left;
-            color: #5D6D7E;
+        .go-to-index img {
+            width: 32px;
         }
         
         .blue-bg-before::before {
