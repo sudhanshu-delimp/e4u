@@ -285,6 +285,7 @@ class WebController extends Controller
 
     public function allEscortList(Request $request, $gender = null)
     {
+
         $user = 1;
 
         $array = config('escorts.profile.genders');
@@ -395,8 +396,10 @@ class WebController extends Controller
 
         }
 
+
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
         $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null ,$gen);
+
 
         //dd($escorts,$params, session('is_shortlisted_profile'));
         $locationCityId = $params['city_id'];
@@ -416,8 +419,6 @@ class WebController extends Controller
 
       
 
-
-        
         $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'),$str,$gender, $age, $location)->get();
         $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'),$str,$gender, $age, $location)->get();
         $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'),$str,$gender, $age, $location)->get();
@@ -427,6 +428,8 @@ class WebController extends Controller
         $memberTotalCount[2] =  $gold->count();
         $memberTotalCount[3] =  $silver->count();
         $memberTotalCount[4] =  $free->count();
+        //dd($memberTotalCount);
+
 
         if(isset($str['membership_type']) && $str['membership_type'] != null){
             $platinum = $platinum->where('membership', $str['membership_type']);
@@ -500,8 +503,12 @@ class WebController extends Controller
         })->collect();
 
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
+     
        
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
+
+ 
+
         $paginator = new LengthAwarePaginator(
             $sliced,
             $merged->count(),
@@ -512,8 +519,11 @@ class WebController extends Controller
                 'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
             ]
         );
+
         
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
+
+  
 
      
          $viewType =  'grid';

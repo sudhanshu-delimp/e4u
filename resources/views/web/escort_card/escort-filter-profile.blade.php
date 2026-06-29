@@ -120,10 +120,7 @@
                                                         <div class="location_radio_filter">
                                                             <div class="d-flex align-items-start"
                                                                 @php
-                                                                // $myLocation = false;
-                                                                // if(request()->filled('lat')){
-                                                                //     $myLocation = true; 
-                                                                // }
+                                                               
                                                                 $searchByRadio = request()->get('search_by_radio');
                                                                 $locationByRadio = request()->get('locationByRadio'); @endphp
                                                                 style=" padding-top: 2px;">
@@ -246,10 +243,6 @@
                                         </div>
                                         {{-- row end 1 --}}
 
-
-
-
-
                                         <div class="fiter_btns slect__btn_tab">
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px"
@@ -347,9 +340,6 @@
                                                     <option value="massage_price"
                                                         {{ request()->get('duration_price') == 'massage_price' ? 'selected' : '' }}>
                                                         Massage</option>
-                                                    {{-- @foreach ($services as $key => $service)
-                                                <option value="{{$service->id}}">{{$service->name}}</option>
-                                                @endforeach --}}
                                                 </select>
                                             </div>
 
@@ -367,10 +357,6 @@
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                {{-- <button type="button" class="btn verified_btn_bg_color verified_text_color"
-                                                    data-toggle="tooltip" title="">
-                                                    <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
-                                                </button> --}}
                                                 <select
                                                     class="custome_form_control_border_radus padding_five_px with_eight_em"
                                                     id=""name="verify_list">
@@ -650,9 +636,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- </div>
-        <div class="profile-list-container"> --}}
 
             <!-- ================     service provider start here     ========================= -->
             @if ($user != '1')
@@ -992,13 +975,6 @@
             @endif
         </div>
 
-        <!-- <div class="page-sec mb-5 mt-4">{!! $escorts->links('pagination::bootstrap-4') !!}</div> -->
-
-        {{-- Custom Pagination with Bootstrap --}}
-        {{-- <div class="page-sec mb-5 mt-4">
-            {{ $paginator->links('pagination::custom-bootstrap') }}
-        </div> --}}
-
 
         {{-- OR use fully custom pagination --}}
         @php
@@ -1099,44 +1075,10 @@
             </div>
 
         </nav>
-
-
         </div>
         </div>
-
-
-
-
-
     </section>
-    <!-- ================       service provider end here        ========================= -->
-    <!-- ==============        pagination start here            ====================-->
-    {{-- <section class="padding_ninty_btm_ninty_px">
-    <div class="container">
-        <div class="space_between_row">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item change_pagination_style">
-                        <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="{#}">1</a></li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item change_pagination_style">
-                        <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</section> --}}
-    <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
+
     <div class="modal fade upload-modal hh" id="my_legbox" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

@@ -24,7 +24,7 @@
 
         </span>
         @if (auth()->user())
-            @if (auth()->user()->type == 0)
+            @if (auth()->user()->type == 0) 
                 <span
                     class="add_to_favrate @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
                     id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
