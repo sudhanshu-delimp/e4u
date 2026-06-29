@@ -419,6 +419,8 @@ var is_load_first = 1;
 var plandata = {};
 const secretKey = "{{ config('app.aes_key') }}";
 const iv = "{{ config('app.aes_iv_string') }}";
+const $form = $('#adjustment-form');
+const $actionType = $form.find('input[name="action_type"]');
 
 function showCheckboxes() {
   let checkboxes = document.getElementById("checkboxes");
@@ -675,92 +677,91 @@ messages: {
          /////////// Suspend Profile ////////////////////
 
 
-       $(document).ready(function() {   
+$(document).ready(function() {   
 
-         let suspendProfileObject = $('#suspendProfileId');
-         let suspendStartDateObject = $('#suspendStartDate');
-         let suspendEndDateObject   = $('#suspendEndDate');
+   let suspendProfileObject = $('#suspendProfileId');
+   let suspendStartDateObject = $('#suspendStartDate');
+   let suspendEndDateObject   = $('#suspendEndDate');
 
-   
-         suspendStartDateObject.datepicker('setDate', +1);
-         suspendStartDateObject.datepicker('option', 'minDate', +1);
-         suspendEndDateObject.datepicker('option', 'minDate', +1);
-
-
-            suspendStartDateObject.on('change', function () {
-               let selectedDate = $(this).val();
-               suspendEndDateObject.datepicker('option', 'minDate', selectedDate);
-               suspendEndDateObject.datepicker('setDate', selectedDate);
-               calculateCredit();
-            });
-
-            suspendEndDateObject.on('change', function () {
-               let selectedDate = $(this).val();
-
-               suspendStartDateObject.datepicker('option', 'maxDate', selectedDate);
-
-               calculateCredit();
-            });
-
-
-            suspendProfileObject.on('change', function() {
-                  let selectedOption = $(this).find(':selected');
-                  let listingMembership = selectedOption.data('membership');
-                  let listingStartDate = selectedOption.data('start');
-                  let listingEndDate = selectedOption.data('end');
-                  let profileId = selectedOption.val();
-
-                  suspendStartDateObject.datepicker('setDate', +1);
-                  suspendStartDateObject.datepicker('option', 'minDate', +1);
-                  suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
-
-                  suspendEndDateObject.datepicker('setDate', null);
-                  suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
-                  $("#creditCalculationLive").html('0.00');
-            });
-
-
-
-
-            function calculateCredit() 
-            {
-                  let selectedOption = suspendProfileObject.find(':selected');
-                  if(suspendEndDateObject.val() && suspendStartDateObject.val()){
-                     $.ajax({
-                     url: "{{ route('center.massage-suspend-credit') }}",
-                     method: 'POST',
-                     data: {
-                        start_date: suspendStartDateObject.val(),
-                        end_date: suspendEndDateObject.val(),
-                        profile_id: selectedOption.val(),
-                        
-                     },
-                     success: function(response) {
-                        $("#creditCalculationLive").html('0.00');
-                        if(response.success){
-                              $("#creditCalculationLive").html(response.refund_amount);
-                              $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
-                        }
-                        else {
-                              $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
-                              Swal.fire({
-                                 icon: "error",
-                                 text: response.message
-                              });
-                        }
-                     }
-                  });
-                  }
-            }
-
-
+      suspendStartDateObject.on('change', function () {
+         let selectedDate = $(this).val();
+         suspendEndDateObject.datepicker('option', 'minDate', selectedDate);
+         suspendEndDateObject.datepicker('setDate', selectedDate);
+         calculateCredit();
       });
+
+      suspendEndDateObject.on('change', function () {
+         let selectedDate = $(this).val();
+         suspendStartDateObject.datepicker('option', 'maxDate', selectedDate);
+         calculateCredit();
+      });
+
+      $('#suspendProfileId').on('change', function () {
+
+         let option = $(this).find(':selected');
+
+         let start = option.data('start');
+         let end   = option.data('end');
+
+         let profileId = option.val();
+         let listingMembership = option.data('membership');
+
+         if (!start || !end) {
+            return;
+         }
+
+         let startDate = $.datepicker.parseDate('dd-mm-yy', start);
+         let endDate   = $.datepicker.parseDate('dd-mm-yy', end);
+
+         suspendStartDateObject.datepicker('option', 'minDate', startDate);
+         suspendStartDateObject.datepicker('option', 'maxDate', endDate);
+         ///suspendStartDateObject.datepicker('setDate', startDate); 
+
+         suspendEndDateObject.datepicker('option', 'minDate', startDate);
+         suspendEndDateObject.datepicker('option', 'maxDate', endDate);
+         ///suspendEndDateObject.datepicker('setDate', endDate);
+
+         $("#creditCalculationLive").html('0.00');
+      });
+
+     
+
+      function calculateCredit() 
+      {
+            let selectedOption = suspendProfileObject.find(':selected');
+            if(suspendEndDateObject.val() && suspendStartDateObject.val()){
+               $.ajax({
+               url: "{{ route('center.massage-suspend-credit') }}",
+               method: 'POST',
+               data: {
+                  start_date: suspendStartDateObject.val(),
+                  end_date: suspendEndDateObject.val(),
+                  profile_id: selectedOption.val(),
+                  
+               },
+               success: function(response) {
+                  $("#creditCalculationLive").html('0.00');
+                  if(response.success){
+                        $("#creditCalculationLive").html(response.refund_amount);
+                        $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                  }
+                  else {
+                        $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                        Swal.fire({
+                           icon: "error",
+                           text: response.message
+                        });
+                  }
+               }
+            });
+            }
+      }
+
+
+});
 
 
             
-
-
-
 $("#suspend_form").on('submit', async function(e) 
 {
    e.preventDefault();
@@ -952,7 +953,7 @@ $(document).on('click', '.transaction_summury', function(e) {
             Swal.close();
             if(response.success) 
             {
-                  let resposne_data = response.data;
+                 let resposne_data = response.data;
                   plandata = {
                      'membershipName' : 'Massage Centre',
                      'days' : resposne_data.days,
@@ -1024,42 +1025,39 @@ e.preventDefault();
     if (await isConfirm({'action': 'Proceed','text': ''})) {
 
       let formData = $("#purchase_listing").serialize();
-      $('#adjustment-form').append(`<input type="hidden" name="action_type" value="extend">`);
+      if ($actionType.length) {
+         $actionType.val('bumpup');
+      } else {
+         $form.append('<input type="hidden" name="action_type" value="extend">');
+      }
+            
      
-         console.log('plandata',plandata);
+         //console.log('plandata',plandata);
          //return false;
-       
 
          $.ajax({
                     url: "{{route('center.listing-payment')}}",
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-
-                     Swal.close();
-                        // plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
-                        // plandata.action_type = $('[name="action_type"]').val();
-                        // console.log('plandata=>>>>>>',plandata);
-                        // swal_waiting_popup({'title': 'Processing.'});
-
-                        // let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
-                        // console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
-                        // Swal.close();
-                        // if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
-                        // $('#adjustment-form')[0].reset();
-                        // $('#payment-form')[0].reset();
-                        // $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
-                        // }
-                        // }).fail(function(err) {
-                        //     console.error('Summary Function Error:', err);
-                        //     Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
-                        // });
-
-                        table.ajax.reload(null, false);
                         Swal.close();
-                        swal_success_popup(response.message);
-                        let redirect = {'time': 2000, 'url' : 'listing/current'}
-                        swal_success_popup(response.message,redirect);
+                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
+                        plandata.action_type = $('[name="action_type"]').val();
+                        console.log('plandata=>>>>>>',plandata);
+                        swal_waiting_popup({'title': 'Processing.'});
+
+                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
+                        Swal.close();
+                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $('#adjustment-form')[0].reset();
+                        $('#payment-form')[0].reset();
+                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        }
+                        }).fail(function(err) {
+                            console.error('Summary Function Error:', err);
+                            Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        });
                     },
                     error: function(xhr) {
                         Swal.close();
@@ -1130,6 +1128,12 @@ $("#bumpup_profile_form").on('submit', async function(e)
                 'title': 'Bumping Up Your Profile.'
             });
            
+            if ($actionType.length) {
+               $actionType.val('bumpup');
+            } else {
+               $form.append('<input type="hidden" name="action_type" value="bumpup">');
+            }
+           
 
             $.ajax({
                method: 'POST',
@@ -1143,13 +1147,46 @@ $("#bumpup_profile_form").on('submit', async function(e)
                beforeSend: function(){
                   $("#saveBumpupButton").find('button[type=submit]').attr('disabled','disabled');
                },
-               success: function(data) {
+               success: function(response) {
                      Swal.close();
-                     
-                     if (data.success) {
-                        table.ajax.reload(null, false);
-                        swal_success_popup(data.message);
-                        $("#bumpup_profile").modal('hide');
+                     if (response.success) {
+                      
+                     let resposne_data = response.data;
+                     let bump_value = "{{ getBumpupFee() }}";
+                     plandata = {
+                        'membershipName' : 'Massage Centre',
+                        'days' : 1,
+                        'normalRate' : bump_value,
+                        'total_rate' : bump_value,
+                        'total_discount' : 0,
+                        'discountRate' : bump_value,
+                        'start_date' : resposne_data.start_date,
+                        'end_date' : resposne_data.end_date,
+                       }
+
+
+                        console.log('data',plandata);
+                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
+                        plandata.action_type = $('[name="action_type"]').val();
+                        console.log('plandata=>>>>>>',plandata);
+                        swal_waiting_popup({'title': 'Processing.'});
+
+                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
+                        Swal.close();
+                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $('#adjustment-form')[0].reset();
+                        $('#payment-form')[0].reset();
+                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        }
+                        }).fail(function(err) {
+                              console.error('Summary Function Error:', err);
+                              Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        });
+
+                        // table.ajax.reload(null, false);
+                        // swal_success_popup(data.message);
+                        // $("#bumpup_profile").modal('hide');
                       
                      
                      }

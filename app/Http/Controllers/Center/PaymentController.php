@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Center;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Mail\PaymentMailer;
+use App\Models\MassageBumpup;
 use App\Models\MassagePurchase;
 use App\Models\PaymentHistory;
 use App\Models\PaymentProcess;
@@ -67,10 +68,10 @@ class PaymentController extends BaseController
 
 
 
-        $total_rate_format = isset($request->total_rate) ? formatCurrency($request->total_rate) : 0;
-        $total_discount_format = isset($request->total_discount) ? formatCurrency($request->total_discount) : 0;
-        $normal_rate_format = isset($request->normalRate) ? formatCurrency($request->normalRate) : 0;
-        $gstTax_format = isset($request->total_rate) ? '$'.getGSTAmount($request->total_rate) : '$0.00';
+        $total_rate_format = isset($request->total_rate) ? formatCurrency($total_rate) : 0;
+        $total_discount_format = isset($request->total_discount) ? formatCurrency($total_discount) : 0;
+        $normal_rate_format = isset($request->normalRate) ? formatCurrency($plan_rate) : 0;
+        $gstTax_format = isset($request->total_rate) ? '$'.getGSTAmount($total_rate) : '$0.00';
 
 
 
@@ -306,15 +307,20 @@ class PaymentController extends BaseController
             {
 
                 switch ($benefit_token['action']) {
-                    case 'listing': {
-                            $payload = session()->get('MassagePurchase');
-                        }
+
+                    case 'listing': 
+                    $payload = session()->get('MassagePurchase');
                     break;
 
-                    case 'extend': {
-                            $payload = session()->get('MassagePurchase');
-                        }
+                    case 'extend': 
+                    $payload = session()->get('MassagePurchase');
                     break;
+
+
+                    case 'bumpup': 
+                    $payload = session()->get('MassagePurchase');
+                    break;
+
 
                     default:
                         # code...
@@ -379,6 +385,13 @@ class PaymentController extends BaseController
                 case 'extend': 
                 $result = $this->saveCheckout($benefit_token['action'], $payment);    
                 $payment_service = 'Profile Extend';
+                $redirect_url = route('center.current');
+                break; 
+
+                case 'bumpup': 
+                $result = $this->saveCheckout($benefit_token['action'], $payment);    
+                $payment_service = 'Profile Bump Up';
+                $redirect_url = '';
                 break;
 
                 default:
@@ -491,6 +504,19 @@ class PaymentController extends BaseController
             }
 
          }
+
+         if($action == 'bumpup')
+         {
+            $purchaseData = session()->get('MassagePurchase');
+            $purchaseDetail = MassageBumpup::create($purchaseData);
+            if (!empty($payment)) {
+                    $purchaseDetail->paymentItems()->create([
+                        'payment_history_id' => $payment->id,
+                        'amount' => $purchaseDetail->paid_rate,
+                    ]);
+            }
+         }
+         
 
          if ($action === 'extend') 
          {

@@ -218,17 +218,53 @@ finishPaymentForm.submit(function(e) {
                 Swal.close();
                 submitButton.removeAttr('disabled');
                 let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = response.redirect_url;
-                    }
-                });
+                
+                switch (response.action) 
+                {
+                    case 'listing': 
+                    displaySwal(xhr).then((result) => {
+                            if (result.isConfirmed) {
+                                if (response.redirect_url) {
+                                    window.location.href = response.redirect_url;
+                                }
+                            }
+                        });
+
+                     break;   
+                    
+                
+                    case 'extend': 
+                    displaySwal(xhr).then((result) => {
+                            if (result.isConfirmed) {
+                                if (response.redirect_url) {
+                                    window.location.href = response.redirect_url;
+                                }
+                            }
+                        });
+                    break; 
+
+                    case 'bumpup': 
+                    table.ajax.reload(null, false);
+                    $('.modal').modal('hide');
+                    swal_success_popup(option.message);
+                    setTimeout(function () {
+                    Swal.close();       
+                    }, 3000);
+                    break; 
+                    
+
+                    default: 
+                    displaySwal(xhr).then((result) => {
+                        if (result.isConfirmed) {
+                            if (response.redirect_url) {
+                                window.location.href = response.redirect_url;
+                            }
+                        }
+                    });
+                    break;
+                }
+
+                
             },
             error: function(xhr) {
                 Swal.close();

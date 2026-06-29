@@ -17,7 +17,8 @@
                     <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="card p-3">
                             <!-- Order Summary -->
-                            <div class="order_summary_adjustment">
+
+                         <div class="order_summary_adjustment">
                                 <p><strong>Order Summary</strong></p>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal:</span>
@@ -44,7 +45,7 @@
                                     <strong>Total Due:</strong>
                                     <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
                                 </div>
-                            </div>
+                            </div>   
 
                             <hr>
 
@@ -80,7 +81,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">AU$</span>
                                                     </div>
-                                                    <input type="text" class="form-control only_digits" name="wallet_amount"
+                                                    <input type="text" class="form-control only_digits_decimal" name="wallet_amount"
                                                         placeholder="Enter amount.">
                                                 </div>
                                             </div>
@@ -199,9 +200,15 @@
                                             placeholder="MM">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input id="cc-expiry-year" maxlength="4" class="form-control expiry_year"
-                                            placeholder="YYYY">
+
+                                        <select id="cc-expiry-year" class="form-control expiry_year">
+                                            @for ($year = date('Y'); $year <= date('Y') + 10; $year++)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endfor
+                                        </select>
                                     </div>
+
+                                    
                                     <div class="form-group col-md-4">
                                         <input id="cc-cvc" maxlength="3" class="form-control cvc" placeholder="CVC">
                                     </div>
@@ -364,34 +371,50 @@
                 paymentFormData = {};
                 //submitButton.removeAttr('disabled');
                 console.log('response',response);
+                let option = getStatusOption(xhr);
+                console.log('response.action',response.action);
                 switch (response.action) {
 
-                    case 'listing': {
-                        displaySwal(xhr).then((result) => {
+                    case 'listing': 
+                    displaySwal(xhr).then((result) => {
                             if (result.isConfirmed) {
                                 if (response.redirect_url) {
                                     window.location.href = response.redirect_url;
                                 }
                             }
                         });
-                    }
-                    break;
 
-                    case 'extend': {
-                     displaySwal(xhr, false);
-                     table.ajax.reload(null, false);
-                    }
-                    break;
-
-                    default: {
-                        displaySwal(xhr).then((result) => {
+                     break;   
+                    
+                
+                    case 'extend': 
+                    displaySwal(xhr).then((result) => {
                             if (result.isConfirmed) {
                                 if (response.redirect_url) {
                                     window.location.href = response.redirect_url;
                                 }
                             }
                         });
-                    }
+                    break; 
+
+                    case 'bumpup': 
+                    table.ajax.reload(null, false);
+                    $('.modal').modal('hide');
+                    swal_success_popup(option.message);
+                    setTimeout(function () {
+                    Swal.close();       
+                    }, 3000);
+                    break; 
+                    
+
+                    default: 
+                    displaySwal(xhr).then((result) => {
+                        if (result.isConfirmed) {
+                            if (response.redirect_url) {
+                                window.location.href = response.redirect_url;
+                            }
+                        }
+                    });
                     break;
                 }
             },

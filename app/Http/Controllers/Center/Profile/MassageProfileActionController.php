@@ -99,7 +99,7 @@ class MassageProfileActionController extends BaseController
 
             $startDate = $request->start_date;
             $endDate = $request->end_date;
-            $refund = getMassageSuspendRefundAmount($massageProfile, $startDate, $endDate);
+            $refund = getMassageSuspendRefundAmount($profileId, $startDate, $endDate);
             $existSuspendedDate = $massageProfile->suspendProfile()->overlapping($startDate, $endDate)->exists();
             if ($existSuspendedDate) {
                 return response()->json([
@@ -305,18 +305,37 @@ class MassageProfileActionController extends BaseController
                         ], 422);
                     }
 
-                MassageBumpup::create([
-                    'user_id' => auth()->id(),
-                    'massage_id' => $request->massage_id,
-                    'start_date' => $localStart->format('Y-m-d'),
-                    'end_date' => $localEnd->format('Y-m-d'),
-                    'utc_start_time' => $utcStart,
-                    'utc_end_time' => $utcEnd,
-                ]);
+
+                $checkout_number = md5(time());
+                $purchase = [
+                'checkout_number'  => $checkout_number,
+                'user_id' => auth()->id(),
+                'massage_id' => $request->massage_id,
+                'start_date' => $localStart->format('Y-m-d'),
+                'end_date' => $localEnd->format('Y-m-d'),
+                'utc_start_time' => $utcStart,
+                'utc_end_time' => $utcEnd,
+                ];
+
+                session()->forget('MassagePurchase');
+                session(['MassagePurchase' => $purchase]);
+                $checkout_data['checkout_number'] = $purchase['checkout_number'];
+                $checkout_data['start_date'] = $purchase['start_date'];
+                $checkout_data['end_date'] = $purchase['end_date'];
+
+                // MassageBumpup::create([
+                //     'user_id' => auth()->id(),
+                //     'massage_id' => $request->massage_id,
+                //     'start_date' => $localStart->format('Y-m-d'),
+                //     'end_date' => $localEnd->format('Y-m-d'),
+                //     'utc_start_time' => $utcStart,
+                //     'utc_end_time' => $utcEnd,
+                // ]);
 
                 return response()->json([
+                    'data' => $checkout_data,
                     'success' => true,
-                    'message' => 'Profile ID ' . $request->massage_id . ' has been Bumped Up.'
+                    'message' => 'Validated successfully.'
                 ]);
 
         } catch (Exception $e) {
