@@ -259,6 +259,9 @@
                     align-items: flex-start;
                     gap: 10px;
                 }
+                .home_heading_first {
+                    font-weight: 600;
+                }
             }
             
             @media(max-width:486px) {
@@ -464,6 +467,7 @@
                 .home_heading_first {
                     font-size: clamp(24px, 3vw, 48px) !important;
                     margin-bottom: 0px;
+                    font-weight: 500;
                 }
                 .normal_heading {
                     margin-bottom: 0px;
