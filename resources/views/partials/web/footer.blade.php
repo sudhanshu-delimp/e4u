@@ -69,7 +69,7 @@
                 }
                 @endphp
                 <div class="col footer_text_color_white">
-                    <h4 class="custom-mt">Location </h4>
+                    <h4 class="custom-mt">Location - AUS </h4>
                     <div class="d-flex">
                         <div class="wcustom-50">
                             <ul class="list-group footer_list_style_none">

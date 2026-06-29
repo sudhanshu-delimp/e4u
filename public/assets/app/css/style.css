@@ -1553,7 +1553,7 @@
         .home_heading_first {
             font-family: Poppins;
             font-style: normal;
-            font-size: clamp(28px, 4vw, 48px) !important;
+            font-size: clamp(21px, 4vw, 48px) !important;
             line-height: 48px;
             color: #0C223D;
             margin-bottom: 20px;
@@ -1609,8 +1609,7 @@
         
         .site_second_heading h2 {
             font-family: Poppins;
-            /* font-weight: 500; */
-            font-size: 48px;
+            font-size: clamp(21px, 4vw, 48px) !important;
             line-height: 72px;
         }
         
@@ -6573,6 +6572,7 @@ i.fa.fa-heart-o{
             justify-content: center;
             align-items: center;
             color: #fff;
+            width: 100%;
         }
         
         .swiper-slide img {
@@ -9709,10 +9709,6 @@ i.fa.fa-heart-o{
             }
             .copy_right_footer_mange_padding {
                 padding: 0px 15px;
-            }
-            .site_second_heading h2 {
-                font-size: 24px;
-                line-height: 28px;
             }
             .btn_advertiser {
                 font-size: 14px;
