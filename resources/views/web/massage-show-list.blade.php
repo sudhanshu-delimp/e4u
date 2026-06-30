@@ -259,7 +259,7 @@
                                                 <strong>Total Listings:</strong>
                                                 <span>{{ count($escorts) }}</span>
                                             </div>
-                                            <div>
+                                            <div class="grd_lst_filter_btn">
                                                 <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1"
                                                 data-target="#" data-url="grid-escort-list">
                                                 <a href="#" class="active" id="grid-modal" data-toggle="tooltip">

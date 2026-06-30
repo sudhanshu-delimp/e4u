@@ -261,7 +261,7 @@
                                             <strong>Total Listings:</strong>
                                             <span class="total_count"></span>
                                         </div>
-                                        <div>
+                                        <div class="grd_lst_filter_btn">
                                             <div class="grid_list_icon_box display_inline_block grid--btn">
                                                 <a href="javascript:void(0)" class="" id="view_grid">
                                                     <span class="custom-toltip">Grid View</span>
