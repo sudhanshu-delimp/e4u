@@ -1494,7 +1494,7 @@ margin-right: 5px;
                             <div id="carouselExampleInterval" class="carousel slide mc_view_media" data-ride="carousel"
                                 data-interval="false">
                                     
-                                <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
+                                <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view Our Media.</span>
                                 <div class="carousel-inner">
                                     
                                     <!-- Carousel Item 1 -->

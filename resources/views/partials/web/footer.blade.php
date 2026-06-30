@@ -257,7 +257,9 @@
                         <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>
 
                         @endif --}}
+                        
                     </div>
+                    
                 </div>
                 <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right p-0">
                     <span class="footer_text_color_white">Last revision: 1st June 2025&nbsp;&nbsp;|&nbsp;&nbsp;</span>
@@ -267,6 +269,11 @@
                                     src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"
                                     alt="logo"></a></li>
                     </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 delimp_copyright">
+                    <span><img src="{{ asset('assets/app/img/delimp-technology.png') }}" alt="Delimp Technology Pvt. Ltd."> Developed By  <a href="https://delimp.com/" target="_blank"> Delimp Technology Pvt. Ltd. </a></span>
                 </div>
             </div>
         </div>
