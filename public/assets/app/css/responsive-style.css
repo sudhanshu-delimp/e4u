@@ -336,16 +336,6 @@
                     .dropdown-menu {
                         min-width: 10rem;
                     }
-                    .all-escort-profile-pic {
-                        position: relative;
-                        height: auto;
-                        width: 100%;
-                        object-fit: cover;
-                    }
-                    .all-escort-profile-pic a img {
-                        height: auto !important;
-                        min-height: auto !important;
-                    }
                     .list_view_profile_pera_font_size {
                         overflow: hidden;
                         text-overflow: ellipsis;
