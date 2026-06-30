@@ -338,6 +338,15 @@
             width: 100%;
         }
         
+        .footer_login_area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
         .footer_logo {
             display: inline-block;
             max-width: 195px;
@@ -539,6 +548,8 @@
         
         .dropdown-menu {
             min-width: 12rem;
+            left: unset;
+            right: 0px;
         }
         
         .nav-item {
@@ -1517,7 +1528,7 @@
         .normal_heading {
             font-family: Poppins;
             font-weight: 500;
-            font-size: 22px;
+            font-size: clamp(16px, 4vw, 22px);
             line-height: 36px;
             color: #0C223D;
         }
@@ -3542,9 +3553,6 @@ i.fa.fa-heart-o{
         .all-escort-profile-pic a img {
             min-height: 400px !important;
         }
-        /* .gold-seven {
-                    padding-left: 0;
-                } */
         
         .five_column_bottom_content>div,
         .six_column_bottom_content>div,
@@ -3701,6 +3709,7 @@ i.fa.fa-heart-o{
             display: -webkit-box;
             -webkit-line-clamp: 5;
             -webkit-box-orient: vertical;
+            margin-bottom: 0px;
         }
         
         .video_icon img {
@@ -3805,7 +3814,7 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 600;
-            font-size: 22px;
+            font-size: clamp(18px, 4vw, 22px);
             color: var(--peach);
             text-transform: capitalize;
         }
@@ -5061,6 +5070,7 @@ i.fa.fa-heart-o{
             display: flex;
             gap: 10px;
             flex-direction: row-reverse;
+            margin-bottom: 0px;
         }
         
         .wcustom-100 {
@@ -6365,7 +6375,7 @@ i.fa.fa-heart-o{
         /* mc_list_card */
         
         .mc_view_title {
-            font-size: 24px;
+            font-size: clamp(18px, 4vw, 24px);
             font-weight: 500;
             color: #0c223d;
             border-bottom: 1px solid #022c3d;
@@ -6440,7 +6450,7 @@ i.fa.fa-heart-o{
         }
         
         .mc_list_title {
-            font-size: 22px;
+            font-size: clamp(18px, 4vw, 24px) !important;
             font-weight: bold;
             color: var(--peach);
         }
@@ -6706,9 +6716,6 @@ i.fa.fa-heart-o{
             }
             .total--list {
                 width: 100% !important;
-            }
-            .all_filter_accordain .btn-search {
-                font-size: 20px !important;
             }
             .custom-accordion-title {
                 padding: 12px 5px !important;
@@ -7641,7 +7648,7 @@ i.fa.fa-heart-o{
         
         .apply-filter-btn,
         .reset_filter {
-            font-size: 15px !important;
+            font-size: clamp(12px, 4vw, 15px) !important;
         }
         
         .all_filter_accordain {
@@ -7653,7 +7660,7 @@ i.fa.fa-heart-o{
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 24px;
+            font-size: clamp(16px, 4vw, 24px);
             color: #0c223d;
             font-weight: 500;
             padding: 0px;
@@ -8576,6 +8583,10 @@ i.fa.fa-heart-o{
             height: 100%;
         }
         
+        .EC__list_card .table thead th {
+            border-bottom: 0px solid !important;
+        }
+        
         .all-escort-view-profile-btn {
             display: flex;
             align-items: flex-end !important;
@@ -9285,7 +9296,7 @@ i.fa.fa-heart-o{
                 font-size: 15px;
             }
             .nav-item {
-                padding: 5px 4px;
+                padding: 0px;
             }
         }
         
@@ -9352,7 +9363,6 @@ i.fa.fa-heart-o{
                 line-height: 32px;
             }
             .normal_heading {
-                font-size: 20px;
                 line-height: 27px;
                 margin-bottom: 0.5rem;
             }
@@ -9699,7 +9709,6 @@ i.fa.fa-heart-o{
                 object-fit: cover;
             }
             .normal_heading {
-                font-size: 18px;
                 margin-bottom: 0;
             }
             .homebanner_bg {

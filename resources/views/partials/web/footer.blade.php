@@ -15,38 +15,41 @@
     <section class="footer_mange_padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
-                    <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"
-                            alt="logo"></a>
+                <div class="col-12 footer_login_area">
+                     <div class="">
+                        <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"
+                                alt="logo"></a>
+                    </div>
+                    <div class="">
+                        @if (!auth()->user())
+                        <ul class="footer_list_style_none pl-0 custom--foter-login">
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px;width:120px; text-align: center;"
+                                    class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    href="{{ route('register') }}">Register</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
+                                    <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
+                                    <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px; width:120px; text-align: center;"
+                                    class="nav-link dropdown-toggle   footer_login_btn primery_color"
+                                    id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" href="{{ route('register') }}">Log in</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
+                                    <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
+                                    <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
+                                </div>
+                            </li>
+                        </ul>
+                        @endif
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    @if (!auth()->user())
-                    <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
-                        <li class="dropdown">
-                            <a style="padding: 5px 15px;width:120px; text-align: center;"
-                                class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                href="{{ route('register') }}">Register</a>
-                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
-                                <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
-                                <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a style="padding: 5px 15px; width:120px; text-align: center;"
-                                class="nav-link dropdown-toggle   footer_login_btn primery_color"
-                                id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" href="{{ route('register') }}">Log in</a>
-                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
-                                <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
-                                <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
-                            </div>
-                        </li>
-                    </ul>
-                    @endif
-                </div>
+               
             </div>
             <div class="row">
                 <div class="col footer_text_color_white" align="justify">

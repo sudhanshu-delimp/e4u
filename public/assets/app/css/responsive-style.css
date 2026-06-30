@@ -221,9 +221,6 @@
                         flex-wrap: wrap;
                         margin-bottom: 75px !important;
                     }
-                    .custom--foter-login {
-                        flex-direction: column;
-                    }
                     ul.footerbtn-flex li {
                         margin-top: 0px;
                     }
@@ -311,9 +308,66 @@
                         border-radius: 3px;
                         visibility: hidden;
                     }
+                    .footer_logo img {
+                        width: 100px;
+                    }
+                    .footer_mange_padding img {
+                        padding-bottom: 0px !important;
+                    }
+                    .footer_login_area {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: baseline;
+                        justify-content: flex-start;
+                        gap: 25px;
+                        margin-bottom: 20px;
+                    }
+                    .nz_location {
+                        display: flex;
+                        align-items: baseline;
+                        justify-content: space-between;
+                        flex-direction: column;
+                        gap: 0px;
+                        padding-left: 0px;
+                        list-style-type: none;
+                        padding-left: 0px;
+                        margin-bottom: 0px;
+                    }
+                    .dropdown-menu {
+                        min-width: 10rem;
+                    }
+                    .all-escort-profile-pic {
+                        position: relative;
+                        height: auto;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                    .all-escort-profile-pic a img {
+                        height: auto !important;
+                        min-height: auto !important;
+                    }
+                    .list_view_profile_pera_font_size {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 7;
+                        -webkit-box-orient: vertical;
+                        margin-bottom: 0px;
+                    }
                 }
                 
                 @media(max-width:486px) {
+                    #collapseSearch .card-body {
+                        padding: 10px 7px;
+                    }
+                    .all_filter_accordain {
+                        background: #fff;
+                        padding: 7px;
+                    }
+                    .header_logo {
+                        max-width: 100px;
+                        width: 100%;
+                    }
                     .search_filters .display_items {
                         display: flex;
                         align-items: center;
@@ -323,7 +377,10 @@
                     }
                     .custom-refreshbuton .reset_filter {
                         display: flex;
-                        padding: 11px 10px;
+                        padding: 8px 10px;
+                    }
+                    #v_wishlist {
+                        padding: 5px 10px;
                     }
                     .last_filter_section {
                         display: flex;
@@ -339,9 +396,6 @@
                     .custom--service-tag .grid_list_part {
                         width: 100%;
                     }
-                    /* .item_dis {
-                        width: auto;
-                    } */
                 }
                 
                 @media (max-width:768px) {
@@ -368,10 +422,6 @@
                         display: grid;
                         grid-template-columns: 1fr;
                     }
-                    .EC__list_card {
-                        display: grid;
-                        grid-template-columns: 1fr;
-                    }
                     .slect__btn_tab>div {
                         flex: unset;
                         width: 47%;
@@ -391,6 +441,7 @@
                         display: flex;
                         flex-direction: column !important;
                         gap: 10px;
+                        padding: 0px 3px;
                     }
                     .all-escort-view-profile-btn {
                         margin: 10px 0px;
@@ -405,7 +456,10 @@
                         grid-template-columns: 1fr;
                         gap: 15px;
                         align-items: start;
-                        padding: 10px;
+                        padding: 0px;
+                    }
+                    .mc_list_content {
+                        padding: clamp(3px, 2vw, 10px);
                     }
                     .profile_page_location_and_id ul {
                         display: flex;
@@ -416,6 +470,16 @@
                     }
                     .social_media_profile {
                         width: 100%;
+                    }
+                }
+                
+                @media(min-width:426px) and (max-width:768px) {
+                    .footer_login_area {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 100px;
+                        margin-bottom: 20px;
                     }
                     .custom--foter-login {
                         display: flex;
@@ -441,6 +505,13 @@
                         justify-content: space-between;
                         gap: 10px;
                         flex-wrap: wrap;
+                    }
+                    .footer_login_area {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 100px;
+                        margin-bottom: 20px;
                     }
                 }
                 
@@ -491,9 +562,6 @@
                         flex-wrap: wrap;
                         justify-content: flex-start;
                     }
-                    .mc_list_card {
-                        padding: 10px;
-                    }
                 }
                 
                 @media (min-width:768px) and (max-width:1024px) {
@@ -507,7 +575,8 @@
                         width: 30% !important;
                         margin: 12px 6px !important;
                     }
-                    .footer_mange_padding {
+                    .footer_mange_padding,
+                    .copy_right_footer_mange_padding {
                         padding: 0px 5px;
                     }
                 }
@@ -523,5 +592,28 @@
                     }
                     .pvt_and_msg h2 {
                         font-family: calc(20px, 4vw, 30px);
+                    }
+                }
+                
+                @media (min-width: 992px) and (max-width:1126px) {
+                    .navbar-expand-lg>.container,
+                    .navbar-expand-lg>.container-fluid {
+                        flex-wrap: wrap !important;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .navbar-light .navbar-nav .header_login_btn {
+                        padding: 3px 10px;
+                    }
+                    .navbar-light .navbar-nav .header_reg_btn {
+                        padding: 3px 10px;
+                    }
+                    .header_logo {
+                        max-width: 120px;
+                        width: 100%;
+                    }
+                    .footer_logo img {
+                        width: 120px !important;
+                        width: 100%;
                     }
                 }
