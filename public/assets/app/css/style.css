@@ -1803,8 +1803,8 @@
             font-family: Poppins;
             font-style: normal;
             font-weight: bold;
-            font-size: 16px;
-            line-height: 16px;
+            font-size: clamp(13px, 4vw, 18px);
+            line-height: clamp(13px, 4vw, 16px);
             color: #0c223d;
         }
         
@@ -1812,10 +1812,6 @@
             display: flex;
             justify-content: space-between;
             gap: 10px;
-        }
-        
-        .mess_repo_btn_wrap button {
-            font-size: 15px !important;
         }
         
         .add_reviews_btn:hover,
@@ -1838,7 +1834,7 @@
             font-family: Poppins;
             font-style: normal;
             font-weight: bold;
-            font-size: 16px;
+            font-size: clamp(13px, 4vw, 16px);
             line-height: 6px;
             color: var(--peach);
         }
@@ -3359,7 +3355,8 @@ i.fa.fa-heart-o{
             height: 50px;
             font-family: Poppins;
             font-style: normal;
-            font-size: 16px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
         }
         
         .eqal-bx {
@@ -4168,8 +4165,8 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 400;
-            font-size: 16px;
-            line-height: 35px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
             background: var(--blue--text);
             text-align: center;
             color: #ffffff;
@@ -4193,8 +4190,8 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 400;
-            font-size: 16px;
-            line-height: 27px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
             background: var(--blue--text);
             text-align: center;
             color: #ffffff;
@@ -4254,7 +4251,7 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 500;
-            font-size: 18px;
+            font-size: clamp(14px, 4vw, 18px);
             color: #ffffff;
             align-items: center;
             padding: 10px 16px;
@@ -4287,8 +4284,8 @@ i.fa.fa-heart-o{
             font-family: Quicksand;
             font-style: normal;
             font-weight: 600;
-            font-size: 18px;
-            line-height: 24px;
+            font-size: clamp(14px, 4vw, 18px);
+            line-height: clamp(16px, 4vw, 24px);
             color: #ffffff;
             margin-bottom: 0px;
         }
@@ -4481,8 +4478,8 @@ i.fa.fa-heart-o{
         .profile_page_box_heading h2 {
             font-family: Poppins;
             font-weight: 700;
-            font-size: 24px;
-            /* line-height: 45px; */
+            font-size: clamp(18px, 4vw, 24px);
+            line-height: clamp(30px, 4vw, 35px);
             color: #0c223d;
         }
         
@@ -4506,8 +4503,8 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: bold;
-            font-size: 24px;
-            line-height: 36px;
+            font-size: clamp(18px, 4vw, 24px);
+            line-height: clamp(30px, 4vw, 35px);
             color: #0c223d;
         }
         
@@ -4740,8 +4737,8 @@ i.fa.fa-heart-o{
         .add_reviews_btn a {
             font-family: Poppins;
             font-style: normal;
-            font-size: 16px;
-            line-height: 27px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
             text-decoration: none;
         }
         
@@ -7187,7 +7184,7 @@ i.fa.fa-heart-o{
         
         .custom-sort-filter {
             color: #fff;
-            font-size: 15px !important;
+            font-size: clamp(12px, 4vw, 15px) !important;
             font-weight: 400;
             margin-left: auto;
             margin-top: 5px;
@@ -9572,8 +9569,8 @@ i.fa.fa-heart-o{
             }
             .set>a {
                 padding: 10px 10px;
-                font-size: 16px;
-                line-height: 18.5px;
+                font-size: clamp(13px, 4vw, 16px);
+                line-height: 18px;
             }
             .padding_three_hundred {
                 padding-top: 90px;

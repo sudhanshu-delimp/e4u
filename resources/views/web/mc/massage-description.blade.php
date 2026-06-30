@@ -440,7 +440,7 @@ margin-right: 5px;
                 </div>
 
                 <div class="row mc_profile_table">
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-12 table-responsive">
                         <table class="table table_striped">
                             <thead>
                                 <tr>
@@ -546,7 +546,7 @@ margin-right: 5px;
                         
                     </div>
 
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-12 table-responsive">
                         <table class="table table_striped timing_data">
                             <thead>
                                 <tr>
