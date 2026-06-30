@@ -294,7 +294,7 @@
                                                 <strong>Total Listings:</strong>
                                                 <span>{{ count($escorts) }}</span>
                                             </div>
-                                            <div>
+                                            <div class="grd_lst_filter_btn">
                                                 <div class="grid_list_icon_box display_inline_block grid--btn">
                                                     <a href="#" class="active" id="view_grid">
                                                         <span class="custom-toltip">Grid View</span>
