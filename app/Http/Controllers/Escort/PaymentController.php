@@ -185,6 +185,7 @@ class PaymentController extends Controller
             ]);
 
             $pin_token = str_contains($request->pin_token, 'card') ? $request->pin_token : decrypt($request->pin_token);
+            $payload_token = $request->filled('payload_token') ? $request->payload_token : '';
 
             $is_bypass = $pin_token == 'without_pay_now';
 
@@ -243,12 +244,15 @@ class PaymentController extends Controller
                         }
                         break;
                     case 'pinup': {
+                            parse_str($payload_token, $payload);
                         }
                         break;
                     case 'bumpUp': {
+                            parse_str($payload_token, $payload);
                         }
                         break;
                     case 'upgrade': {
+                            parse_str($payload_token, $payload);
                         }
                         break;
                     case 'wallet': {
@@ -259,7 +263,7 @@ class PaymentController extends Controller
                         # code...
                         break;
                 }
-
+                dd($payload);
                 $paymentProcess = PaymentProcess::create([
                     'token' => Str::uuid(),
                     'payload' => $payload,
