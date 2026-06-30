@@ -1,41 +1,38 @@
 @extends('layouts.web')
 <style>
-    .table2 {
+    .table {
         width: 100%;
         max-width: 100%;
         margin-bottom: 1rem;
         background-color: transparent;
     }
 
-    .table2 th {
+    .table th {
         padding: 0.55rem;
     }
 
-    .table2 tbody td {
+    .table tbody td {
         color: #192A3E;
         font-family: 'Poppins';
         font-weight: normal;
         font-size: 16px;
     }
 
-    .table2 td {
+    .table td {
         padding: 0.75rem;
         vertical-align: top;
-        border-top: 1px solid #dee2e6;
+        border: 1px solid #dee2e6;
         text-align: justify;
     }
 
-    .table2 thead {
-        border-bottom: 2px solid #000000;
-    }
 
-    .table2 th {
+    .table th {
         padding: 0.75rem;
         vertical-align: top;
-        border-top: none;
+        border-top: 1px solid #dee2e6 !important;
     }
 
-    .table2 td:first-child {
+    .table td:first-child {
         font-weight: bold;
     }
 
@@ -329,18 +326,19 @@
                                     class="termsandconditions_text_color">help for Escorts</a> for details on
                                 Membership Packages associated with each Membership Type.</p>
 
-                            <table class="table2">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">Type</th>
-                                    <th scope="col" style="border-left: 2px solid #000000;">Description</th>
+                                    <th scope="col">Description</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
 
                                     <td>Platinum<br>Gold<br>Silver</td>
-                                    <td style="border-left: 2px solid #000000;">
+                                    <td>
                                         <p>Platinum Membership always ranks at the top of the Escort Listing Page, followed by Gold, Silver and then Free.</p>
                                         <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Location, age, hourly rates, review
                                             rating, available to, Services hourly rate summary, video availability, 
@@ -356,7 +354,7 @@
                                 </tr>
 
                                 <td>Free</td>
-                                    <td style="border-left: 2px solid #000000;">
+                                    <td>
                                         <p>Free Membership ranks behind Silver</p>
                                         <p>Escort Listing Page: You will appear after paid listings in all Search Page
                                             results and Profile shortlist displays.</p>
@@ -379,6 +377,8 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            </div>
+
                                 <p>If you upgrade your Membership Type you will not lose any remaining days you have paid
                                 for. They will be applied automatically if you do not continue at the higher Membership
                                 Type.</p>

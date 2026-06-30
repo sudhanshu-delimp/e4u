@@ -4,7 +4,7 @@
 
 <div class="listview_each_section_border_btm silver-sec brb--listing">
     <div
-        class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
+        class="manage_listview_margin_gold_section  plat_list_frame">
         
 
         <div class="row">
@@ -120,15 +120,15 @@
                             class="d-flex justify-content-between  flex_directiom_warp_but_list_child_not_hundred_present list_gender_area ">
                             <div class="custom--gender--area">
                                 <div class="gender">
-                                    <span class="filter-pad">Gender:</span>
+                                    <strong>Gender : </strong> 
                                     <span>{{ $escort->gender ? $escort->gender : '' }}</span>
                                 </div>
                                 <div class="give_rating_after_get_servive">
-                                    <span class="filter-pad">Location:</span><span>
+                                    <strong>Location : </strong> <span>
                                         {{ $escort->city ? $escort->city->name : '' }}</span>
                                 </div>
                                 <div class="give_rating_after_get_servive">
-                                    <span class="filter-pad">Rating:</span>
+                                    <strong>Rating : </strong>
                                     <span class="give_rating_after_get_servive">
                                         @for ($i = 1; $i <= 5; $i++)
                                             @if ($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
@@ -142,7 +142,7 @@
                             </div>
                             <div class="custom--available-section">
                                 <div class="available custom-gender-type-icon">
-                                    <span class="filter-pad">Available:</span>
+                                    <strong>Available : </strong>
                                     <span>
                                         @if ($escort->available_to)
                                             @foreach ($escort->available_to as $key => $available_to)
@@ -316,9 +316,13 @@
                                 @foreach ($escort->durations as $key => $duration)
                                     <tr>
                                         <td>{{ $duration->name }} </td>
-                                        <td>{!! $duration->pivot->massage_price
-                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
-                                            : "<span class='if_data_not_available'>N/A</span>" !!}
+                                        <td>
+                                            @if($duration->name == 'Blow & Go')
+                                            @else
+                                                {!! $duration->pivot->massage_price
+                                                    ? "<div class='public-num-value-table'><span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>"
+                                                    : "<span class='if_data_not_available'>N/A</span>" !!}
+                                            @endif
                                         </td>
                                         <td>{!! $duration->pivot->incall_price
                                             ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'

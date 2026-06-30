@@ -561,7 +561,7 @@
                                                                 and what happens next
                                                                 <p>Step 1: Contact our privacy officer</p>
                                                                 <ul class="my-3">
-                                                                    <li>Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:privacy@escorts4u.com.au">privacy@escorts4u.com.au</a></li>
+                                                                    <li>Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:privacy@escorts4u.com.au" style="word-break: break-all;">privacy@escorts4u.com.au</a></li>
                                                                     <li>Phone: &nbsp;&nbsp;&nbsp;&nbsp; 1300 700 444</li>
                                                                     <li>Post: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GPO Box T1756 Perth WA 6845</li>
                                                                 </ul>
@@ -825,10 +825,13 @@
                                                             how Google uses your
                                                             data and your available options on Google's privacy pages.</p>
                                                     </div>
+
+                                                     <div class="content_align">
+                                                        <span></span>
+                                                        <p>You can control Google Analytics tracking by:</p>
+                                                    </div>
                                                     <div class="content_align">
                                                         <span></span>
-                                                        <div>
-                                                            <p>You can control Google Analytics tracking by:</p>
                                                             <ul class="my-3">
 
                                                                 <li>Adjusting your browser settings to refuse cookies
@@ -836,8 +839,7 @@
                                                                 <li>Downloading and installing the Google Analytics
                                                                     Opt-out Browser Add-on for your
                                                                     web browser:
-                                                                    <a
-                                                                        href="http://tools.google.com/dlpage/gaoptout?hl=en">http://tools.google.com/dlpage/gaoptout?hl=en</a>
+                                                                    <a href="http://tools.google.com/dlpage/gaoptout?hl=en" style="word-break: break-all;">http://tools.google.com/dlpage/gaoptout?hl=en</a>
                                                                 </li>
                                                                 <li>Configuring your Google account settings to control
                                                                     how your data is used for
@@ -845,14 +847,16 @@
                                                                 <li>Using your device's privacy settings to manage ad
                                                                     tracking</li>
                                                             </ul>
-                                                            <p>Please note that if you refuse all cookies by adjusting your
-                                                                browser settings, you may not be able to use the full
-                                                                functionality of the Website.</p>
-                                                        </div>
+                                                           
 
 
                                                     </div>
-
+                                                     <div class="content_align">
+                                                        <span></span>
+                                                         <p>Please note that if you refuse all cookies by adjusting your
+                                                                browser settings, you may not be able to use the full
+                                                                functionality of the Website.</p>
+                                                    </div>
 
                                                 </div>
                                                 {{-- end --}}

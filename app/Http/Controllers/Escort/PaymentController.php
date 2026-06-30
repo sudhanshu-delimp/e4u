@@ -72,6 +72,7 @@ class PaymentController extends Controller
             $loyalty_day = $request->filled('loyalty_day') ? (int) $request->loyalty_day : 0;
             $feeAmount = $request->filled('fee_token') ? decrypt($request->fee_token) : 0;
 
+
             // At least one value is required
             if ($checkAmount == true && empty($wallet_amount) && empty($loyalty_day)) {
                 return response()->json([
@@ -104,6 +105,7 @@ class PaymentController extends Controller
                 'pinup' => getPinupFee(),
                 'bumpUp' => getBumpupFee(),
                 'upgrade' => $feeAmount,
+                'wallet' => $feeAmount,
                 default => null,
             };
 
@@ -125,28 +127,41 @@ class PaymentController extends Controller
 
             $total_amount = ($sub_total_amount - $wallet_amount - $loyalty_amount);
 
-            $this->pinService->setAmount($total_amount);
-            $this->pinService->setWalletAmount($wallet_amount);
+            if (!in_array($action, ['wallet'])) {
+                $this->pinService->setAmount($sub_total_amount);
+                $this->pinService->setWalletAmount($wallet_amount);
+                $this->pinService->setLoyaltyAmount($loyalty_amount);
 
-            $gstAmount = $this->pinService->getGSTAmount();
-            $totalDueAmount = $this->pinService->getTotalDue();
+                $gstAmount = $this->pinService->getGSTAmount();
+                $totalDueAmount = $this->pinService->getTotalDue();
+                $total_amount = max(0, $this->pinService->getDefaultTotalDue());
+            } else {
+                $gstAmount = 0;
+                $totalDueAmount = $sub_total_amount;
+                $total_amount = max(0, $sub_total_amount);
+            }
 
-            if ($total_amount < 0) {
+
+
+
+            if ($total_amount < ($wallet_amount + $loyalty_amount)) {
                 return response()->json([
                     'status'  => false,
-                    'message' => 'Wallet amount and Loyalty discount exceed subtotal',
+                    'totalDefaultTotalDue' => $this->pinService->getDefaultTotalDue(),
+                    'appyAmount' => ($wallet_amount + $loyalty_amount),
+                    'message' => 'Wallet amount and Loyalty discount exceed total due.',
                 ], 422);
             }
 
-            $total_amount = max(0, $total_amount);
 
             $html = view('escort.dashboard.modal.order_summary_adjustment', compact('action', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'gstAmount', 'totalDueAmount'))->render();
 
-            $benefit_token = encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount'));
+            $benefit_token = encrypt(compact('action', 'loyalty_day', 'sub_total_amount', 'wallet_amount', 'loyalty_amount', 'total_amount', 'totalDueAmount'));
             return response()->json([
                 'status'         => true,
                 'lowest_plan' => $lowestPlan ?? 0,
                 'total_amount' => $total_amount,
+                'totalDueAmount' => $totalDueAmount,
                 'benefit_token' => $benefit_token,
                 'message' => 'Applied successfully',
                 'html' => $html,
@@ -187,11 +202,18 @@ class PaymentController extends Controller
                 'total_amount' => $amount,
             ];
 
-            $this->pinService->setAmount($benefit_token['total_amount']);
-            $this->pinService->setWalletAmount($benefit_token['wallet_amount']);
 
-            $gstAmount = $this->pinService->getGSTAmount();
-            $totalDueAmount = $this->pinService->getTotalDue();
+            if (!in_array($benefit_token['action'], ['wallet'])) {
+                $this->pinService->setAmount($benefit_token['sub_total_amount']);
+                $this->pinService->setWalletAmount($benefit_token['wallet_amount']);
+                $this->pinService->setLoyaltyAmount($benefit_token['loyalty_amount']);
+
+                $gstAmount = $this->pinService->getGSTAmount();
+                $totalDueAmount = $this->pinService->getTotalDue();
+            } else {
+                $gstAmount = 0;
+                $totalDueAmount = $benefit_token['sub_total_amount'];
+            }
 
             /* Insert records for the payment history table */
             $insert = [];
@@ -227,6 +249,9 @@ class PaymentController extends Controller
                         }
                         break;
                     case 'upgrade': {
+                        }
+                        break;
+                    case 'wallet': {
                         }
                         break;
 
@@ -306,6 +331,29 @@ class PaymentController extends Controller
                     break;
                 case 'upgrade': {
                         $payment_service = 'Profile Upgrade';
+                    }
+                    break;
+                case 'wallet': {
+                        $payment_service = 'Wallet Credit';
+                        $creditTransaction = $this->walletService->credit(
+                            $mainAccount,
+                            $totalDueAmount,
+                            $payment,
+                            'Add Money',
+                            [
+                                'user_id' => $mainAccount->id
+                            ]
+                        );
+
+                        $creditTransaction->paymentItems()->create([
+                            'payment_history_id' => $payment->id,
+                            'amount' => $payment->paid_rate,
+                        ]);
+
+                        $mailConfig = config("payment_mail_templates.{$benefit_token['action']}");
+                        Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
+
+                        $redirect_url = route('escort.my_wallet');
                     }
                     break;
 
