@@ -53,10 +53,10 @@
                                 <th>Order ID</th>
                                 <th>Created By</th>
                                 <th>User</th>
-                                <th>Sub Total</th>
+                                {{-- <th>Sub Total</th>
                                 <th>Wallet Amount</th>
                                 <th>Shipping Charge</th>
-                                <th>Tax</th>
+                                <th>Tax</th> --}}
                                 <th>Total</th>
                                 <th>Order Date</th>
                                 <th>Order Status</th>
@@ -150,22 +150,22 @@
                             data: 'user',
                             name: 'user'
                         },
-                        {
-                            data: 'sub_total',
-                            name: 'sub_total'
-                        },
-                        {
-                            data: 'wallet_amount',
-                            name: 'wallet_amount'
-                        },
-                        {
-                            data: 'delivery_charges',
-                            name: 'delivery_charges'
-                        },
-                        {
-                            data: 'gst_amount',
-                            name: 'gst_amount'
-                        },
+                        // {
+                        //     data: 'sub_total',
+                        //     name: 'sub_total'
+                        // },
+                        // {
+                        //     data: 'wallet_amount',
+                        //     name: 'wallet_amount'
+                        // },
+                        // {
+                        //     data: 'delivery_charges',
+                        //     name: 'delivery_charges'
+                        // },
+                        // {
+                        //     data: 'gst_amount',
+                        //     name: 'gst_amount'
+                        // },
                         {
                             data: 'total_amount',
                             name: 'total_amount'

@@ -17,10 +17,13 @@ class PaymentProcess extends Model
         'payload',
         'status',
         'type',
+        'benefit_token'
     ];
 
     protected $casts = [
         'payload' => 'encrypted:array',
+        'benefit_token' => 'encrypted:array',
+
     ];
 
 

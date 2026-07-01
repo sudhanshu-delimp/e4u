@@ -33,6 +33,18 @@
         }
         /* custome badge */
         
+        .delimp_copyright {
+            text-align: center;
+        }
+        
+        .delimp_copyright span {
+            color: #fff;
+        }
+        
+        .delimp_copyright span a {
+            color: var(--peach);
+        }
+        
         .custom_badge {
             padding: 7px 8px;
             border-radius: 5px;
@@ -47,11 +59,6 @@
         }
         
         .nz_location {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-direction: row;
-            gap: 15px;
             padding-left: 0px;
             list-style-type: none;
             padding-left: 0px;
@@ -338,6 +345,15 @@
             width: 100%;
         }
         
+        .footer_login_area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
         .footer_logo {
             display: inline-block;
             max-width: 195px;
@@ -423,8 +439,8 @@
             font-family: Poppins;
             font-style: normal;
             font-weight: 600;
-            font-size: 20px;
-            line-height: 30px;
+            font-size: clamp(16px, 4vw, 20px);
+            line-height: 24px;
             color: #2C3E50;
         }
         
@@ -539,6 +555,8 @@
         
         .dropdown-menu {
             min-width: 12rem;
+            left: unset;
+            right: 0px;
         }
         
         .nav-item {
@@ -819,24 +837,27 @@
         }
         
         .pin-up-content .home_heading_first {
-            line-height: 46px;
-            letter-spacing: -0.015em;
+            margin-bottom: 0px;
         }
         
-        .pin-up-content .home_heading_first span {
-            font-size: calc(16px, 2vw, 24px) !important;
-            line-height: 60px;
-            letter-spacing: -0.015em;
-            color: #FF3C5F;
-            margin-left: 52px;
+        .pin-up-content .pinup_age {
+            font-size: clamp(18px, 4vw, 30px) !important;
+            color: var(--peach);
         }
         
-        .pin-head-custom {
-            margin-bottom: 1rem !important;
+        .pinup_age .pin-age {
+            font-weight: 500;
         }
         
         .custom-meet-pin i {
-            color: #ff3c5f;
+            color: var(--peach);
+        }
+        
+        .v-path {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
         }
         
         .pin-up-content .v-path h3 {
@@ -848,6 +869,15 @@
             letter-spacing: -0.015em;
             text-align: left;
             color: #FF3C5F;
+        }
+        
+        .v-path ul.meet-with {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+            align-items: center;
+            padding-left: 0px;
+            margin-bottom: 0px;
         }
         
         .pin-up-content .v-path ul.meet-with li {
@@ -873,15 +903,14 @@
             font-weight: 400;
             line-height: 28px;
             text-align: left;
+            margin-bottom: 0px;
         }
         
         .pin-up-content {
-            max-width: 633px;
             width: 100%;
-        }
-        
-        .pin-up-content .v-path {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         
         .pin-up-content .media .media-body h4 {
@@ -1364,7 +1393,7 @@
         }
         
         .filter-contain .back_to_list_btn a {
-            color: var(--peach);
+            color: #fff;
             text-decoration: none;
         }
         
@@ -1506,7 +1535,7 @@
         .normal_heading {
             font-family: Poppins;
             font-weight: 500;
-            font-size: 22px;
+            font-size: clamp(16px, 4vw, 22px);
             line-height: 36px;
             color: #0C223D;
         }
@@ -1557,6 +1586,7 @@
             line-height: 48px;
             color: #0C223D;
             margin-bottom: 20px;
+            font-weight: 500;
         }
         
         a.btn-common {
@@ -1780,8 +1810,8 @@
             font-family: Poppins;
             font-style: normal;
             font-weight: bold;
-            font-size: 16px;
-            line-height: 16px;
+            font-size: clamp(13px, 4vw, 18px);
+            line-height: clamp(13px, 4vw, 16px);
             color: #0c223d;
         }
         
@@ -1789,10 +1819,6 @@
             display: flex;
             justify-content: space-between;
             gap: 10px;
-        }
-        
-        .mess_repo_btn_wrap button {
-            font-size: 15px !important;
         }
         
         .add_reviews_btn:hover,
@@ -1815,7 +1841,7 @@
             font-family: Poppins;
             font-style: normal;
             font-weight: bold;
-            font-size: 16px;
+            font-size: clamp(13px, 4vw, 16px);
             line-height: 6px;
             color: var(--peach);
         }
@@ -2081,6 +2107,8 @@
         
         .pin-head-custom {
             display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .pin-age span {
@@ -3334,7 +3362,8 @@ i.fa.fa-heart-o{
             height: 50px;
             font-family: Poppins;
             font-style: normal;
-            font-size: 16px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
         }
         
         .eqal-bx {
@@ -3465,7 +3494,7 @@ i.fa.fa-heart-o{
         }
         
         img.custompopicon {
-            max-width: 28px;
+            max-width: 40px;
             margin-right: 0.5rem;
         }
         /*profile end*/
@@ -3528,9 +3557,6 @@ i.fa.fa-heart-o{
         .all-escort-profile-pic a img {
             min-height: 400px !important;
         }
-        /* .gold-seven {
-                    padding-left: 0;
-                } */
         
         .five_column_bottom_content>div,
         .six_column_bottom_content>div,
@@ -3687,6 +3713,7 @@ i.fa.fa-heart-o{
             display: -webkit-box;
             -webkit-line-clamp: 5;
             -webkit-box-orient: vertical;
+            margin-bottom: 0px;
         }
         
         .video_icon img {
@@ -3791,7 +3818,7 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 600;
-            font-size: 22px;
+            font-size: clamp(18px, 4vw, 22px);
             color: var(--peach);
             text-transform: capitalize;
         }
@@ -4145,8 +4172,8 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 400;
-            font-size: 16px;
-            line-height: 35px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
             background: var(--blue--text);
             text-align: center;
             color: #ffffff;
@@ -4170,8 +4197,8 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 400;
-            font-size: 16px;
-            line-height: 27px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
             background: var(--blue--text);
             text-align: center;
             color: #ffffff;
@@ -4231,7 +4258,7 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 500;
-            font-size: 18px;
+            font-size: clamp(14px, 4vw, 18px);
             color: #ffffff;
             align-items: center;
             padding: 10px 16px;
@@ -4264,8 +4291,8 @@ i.fa.fa-heart-o{
             font-family: Quicksand;
             font-style: normal;
             font-weight: 600;
-            font-size: 18px;
-            line-height: 24px;
+            font-size: clamp(14px, 4vw, 18px);
+            line-height: clamp(16px, 4vw, 24px);
             color: #ffffff;
             margin-bottom: 0px;
         }
@@ -4363,6 +4390,7 @@ i.fa.fa-heart-o{
         .like_and_process_bar_padding {
             padding: 7px;
             background: #0c223d;
+            border-radius: 5px;
         }
         
         .like_img i.fa {
@@ -4457,8 +4485,8 @@ i.fa.fa-heart-o{
         .profile_page_box_heading h2 {
             font-family: Poppins;
             font-weight: 700;
-            font-size: 24px;
-            /* line-height: 45px; */
+            font-size: clamp(18px, 4vw, 24px);
+            line-height: clamp(30px, 4vw, 35px);
             color: #0c223d;
         }
         
@@ -4482,8 +4510,8 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: bold;
-            font-size: 24px;
-            line-height: 36px;
+            font-size: clamp(18px, 4vw, 24px);
+            line-height: clamp(30px, 4vw, 35px);
             color: #0c223d;
         }
         
@@ -4716,8 +4744,8 @@ i.fa.fa-heart-o{
         .add_reviews_btn a {
             font-family: Poppins;
             font-style: normal;
-            font-size: 16px;
-            line-height: 27px;
+            font-size: clamp(13px, 4vw, 16px);
+            line-height: clamp(30px, 4vw, 35px);
             text-decoration: none;
         }
         
@@ -5046,6 +5074,7 @@ i.fa.fa-heart-o{
             display: flex;
             gap: 10px;
             flex-direction: row-reverse;
+            margin-bottom: 0px;
         }
         
         .wcustom-100 {
@@ -5338,15 +5367,8 @@ i.fa.fa-heart-o{
             color: #0C223D;
         }
         
-        .go-to-index a {
-            font-family: Quicksand;
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 25px;
-            letter-spacing: -0.015em;
-            text-align: left;
-            color: #5D6D7E;
+        .go-to-index img {
+            width: 32px;
         }
         
         .blue-bg-before::before {
@@ -6357,7 +6379,7 @@ i.fa.fa-heart-o{
         /* mc_list_card */
         
         .mc_view_title {
-            font-size: 24px;
+            font-size: clamp(18px, 4vw, 24px);
             font-weight: 500;
             color: #0c223d;
             border-bottom: 1px solid #022c3d;
@@ -6432,7 +6454,7 @@ i.fa.fa-heart-o{
         }
         
         .mc_list_title {
-            font-size: 22px;
+            font-size: clamp(18px, 4vw, 24px) !important;
             font-weight: bold;
             color: var(--peach);
         }
@@ -6586,8 +6608,8 @@ i.fa.fa-heart-o{
         .swiper-button-prev {
             background-color: rgb(234 234 234 / 75%);
             padding: 10px;
-            width: 35px;
-            height: 35px;
+            width: 35px !important;
+            height: 35px !important;
             border-radius: 3px;
             visibility: hidden;
         }
@@ -6698,9 +6720,6 @@ i.fa.fa-heart-o{
             }
             .total--list {
                 width: 100% !important;
-            }
-            .all_filter_accordain .btn-search {
-                font-size: 20px !important;
             }
             .custom-accordion-title {
                 padding: 12px 5px !important;
@@ -7172,7 +7191,7 @@ i.fa.fa-heart-o{
         
         .custom-sort-filter {
             color: #fff;
-            font-size: 15px !important;
+            font-size: clamp(12px, 4vw, 15px) !important;
             font-weight: 400;
             margin-left: auto;
             margin-top: 5px;
@@ -7633,7 +7652,7 @@ i.fa.fa-heart-o{
         
         .apply-filter-btn,
         .reset_filter {
-            font-size: 15px !important;
+            font-size: clamp(12px, 4vw, 15px) !important;
         }
         
         .all_filter_accordain {
@@ -7645,7 +7664,7 @@ i.fa.fa-heart-o{
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 24px;
+            font-size: clamp(16px, 4vw, 24px);
             color: #0c223d;
             font-weight: 500;
             padding: 0px;
@@ -8568,6 +8587,10 @@ i.fa.fa-heart-o{
             height: 100%;
         }
         
+        .EC__list_card .table thead th {
+            border-bottom: 0px solid !important;
+        }
+        
         .all-escort-view-profile-btn {
             display: flex;
             align-items: flex-end !important;
@@ -8575,7 +8598,7 @@ i.fa.fa-heart-o{
         }
         
         .all-escort-view-profile-btn a {
-            font-size: 16px !important;
+            font-size: clamp(13px, 4vw, 16px) !important;
             padding: 7px 8px;
             font-weight: 400 !important;
         }
@@ -9042,6 +9065,9 @@ i.fa.fa-heart-o{
             height: 100%;
             object-fit: cover;
         }
+        /* .homebanner_bg {
+            padding: 15px 0px 40px 0px;
+        } */
         
         @media (max-width: 768px) {
             .single-blog-item h2 {
@@ -9277,7 +9303,7 @@ i.fa.fa-heart-o{
                 font-size: 15px;
             }
             .nav-item {
-                padding: 5px 4px;
+                padding: 0px;
             }
         }
         
@@ -9344,7 +9370,6 @@ i.fa.fa-heart-o{
                 line-height: 32px;
             }
             .normal_heading {
-                font-size: 20px;
                 line-height: 27px;
                 margin-bottom: 0.5rem;
             }
@@ -9473,11 +9498,8 @@ i.fa.fa-heart-o{
             div.tip:hover div {
                 left: 15px;
             }
-            .manage_toolkit_font {
-                font-size: 12px;
-            }
             .trikon_style {
-                padding: 8px 7px !important;
+                padding: 20px !important;
                 width: fit-content;
             }
             .padding_ninty_top_ninty_px {
@@ -9554,8 +9576,8 @@ i.fa.fa-heart-o{
             }
             .set>a {
                 padding: 10px 10px;
-                font-size: 16px;
-                line-height: 18.5px;
+                font-size: clamp(13px, 4vw, 16px);
+                line-height: 18px;
             }
             .padding_three_hundred {
                 padding-top: 90px;
@@ -9691,11 +9713,7 @@ i.fa.fa-heart-o{
                 object-fit: cover;
             }
             .normal_heading {
-                font-size: 18px;
                 margin-bottom: 0;
-            }
-            .homebanner_bg {
-                padding-bottom: 40px;
             }
             .angle_bg_image {
                 padding-top: 50px;

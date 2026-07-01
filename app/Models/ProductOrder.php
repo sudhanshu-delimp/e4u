@@ -29,6 +29,7 @@ class ProductOrder extends Model
     'notes',
     'cancel_reason',
     'cancelled_by',
+    'reject_reason',
   ];
   protected $primaryKey = 'id';
 

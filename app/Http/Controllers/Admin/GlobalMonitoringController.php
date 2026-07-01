@@ -280,8 +280,8 @@ class GlobalMonitoringController extends Controller
         $start  = request()->input('start', 0);
         $length = request()->input('length', 10);
         $draw   = intval(request()->input('draw'));
-         $massagePurchaseTableName = (new MassagePurchase)->getTable();
-         $userTableName = (new User())->getTable();
+        $massagePurchaseTableName = (new MassagePurchase)->getTable();
+        $userTableName = (new User())->getTable();
         $massagers = MassagePurchase::with([
             'brb' => function ($query) {
                 $query->where('brb_time', '>', Carbon::now('UTC'))
@@ -292,9 +292,9 @@ class GlobalMonitoringController extends Controller
             'user:id,status,member_id,name,email,phone,status,state_id',
             'activeUpcomingSuspend',
         ])
-            ->leftJoin($userTableName, $userTableName.'.id', '=', $massagePurchaseTableName.'.massage_centre_id')
-            ->select($massagePurchaseTableName.'.*')
-            ->whereIn($massagePurchaseTableName.'.status', ['listed', 'expire'])
+            ->leftJoin($userTableName, $userTableName . '.id', '=', $massagePurchaseTableName . '.massage_centre_id')
+            ->select($massagePurchaseTableName . '.*')
+            ->whereIn($massagePurchaseTableName . '.status', ['listed', 'expire'])
             ->where(
                 function ($q) use ($search) {
                     if (!empty($search)) {
@@ -330,25 +330,25 @@ class GlobalMonitoringController extends Controller
             END ASC,
             end_date ASC
         ");
-            
+
         switch ($order_key) {
-           
+
             case 0:
-                $massagers = $massagers->orderBy($userTableName.'.member_id', $dir);
+                $massagers = $massagers->orderBy($userTableName . '.member_id', $dir);
                 break;
 
             case 1:
-                $massagers = $massagers->orderBy($userTableName.'.name', $dir);
+                $massagers = $massagers->orderBy($userTableName . '.name', $dir);
                 break;
-             
-             case 7:
+
+            case 7:
                 //$massagers = $massagers->orderByRaw("DATEDIFF(end_date, NOW()) DESC");
                 $massagers = $massagers->selectRaw("
                     massage_purchases.*,
                     DATEDIFF(end_date,start_date) as days
                 ")
-                ->orderBy('days', $dir);
-                break;    
+                    ->orderBy('days', $dir);
+                break;
 
             case 8:
                 //$massagers = $massagers->orderByRaw("DATEDIFF(end_date, NOW()) DESC");
@@ -356,7 +356,7 @@ class GlobalMonitoringController extends Controller
                     massage_purchases.*,
                     DATEDIFF(end_date, NOW()) as days_left
                 ")
-                ->orderBy('days_left', $dir);
+                    ->orderBy('days_left', $dir);
                 break;
 
 
@@ -509,7 +509,7 @@ class GlobalMonitoringController extends Controller
 
             ];
         });
-        
+
         $listedCount = $massagers->where('status', 'listed')->count();
         $data = array(
             "draw"            => $draw,
@@ -727,7 +727,7 @@ class GlobalMonitoringController extends Controller
         $conditions = [];
         $conditionsIn = [];
         $conditionsIn['column'] = 'status';
-        $conditionsIn['condition'] = ['listed', 'expire'];
+        $conditionsIn['condition'] = ['listed', 'pending', 'expire'];
         $userId = null;
         //list($result, $count) = $this->escort->paginatedList(
         list($result, $count) = $this->purchase->paginatedList(

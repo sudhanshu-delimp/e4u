@@ -54,10 +54,11 @@
                                         <th>Created By</th>
                                         <th>Member Id</th>
                                         <th>Member</th>
-                                        <th>Sub Total</th>
-                                        <th>Wallet Amount</th>
+                                        <th>Delivery Type</th>
+                                        {{-- <th>Sub Total</th>
+                                      
                                         <th>Shipping Charge</th>
-                                        <th>Tax</th>
+                                        <th>Tax</th> --}}
                                         <th>Total</th>
                                         <th>Order Date</th>
                                         <th>Order Status</th>
@@ -69,15 +70,15 @@
 
                                 </tbody>
                                 <tr>
-                                    <th colspan="13" class="border-0"></th>
+                                    <th colspan="10" class="border-0"></th>
                                 </tr>
                                 <tfoot class="bg-first t-foot">
                                     <tr>
-                                        <th colspan="5" class="text-left border-0">Server time: <span
+                                        <th colspan="3" class="text-left border-0">Server time: <span
                                                 class="serverTime">{{ date('d-m-Y h:i a') }}</span></th>
                                         <th colspan="4" class="text-center border-0">Refresh time:<span
                                                 class="refreshSeconds"> 15</span></th>
-                                        <th colspan="4" class="text-right border-0" style="text-align: right!important;">
+                                        <th colspan="3" class="text-right border-0" style="text-align: right!important;">
                                             Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                                     </tr>
                                 </tfoot>
@@ -110,7 +111,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="title"> Request Status
+                    <h5 class="modal-title"> Request Status
                     </h5>
 
                 </div>
@@ -159,10 +160,10 @@
                                 <input type="text" class="form-control rounded-0" id="tracking_id"
                                     placeholder="Enter Tracking id">
                             </div>
-                            <div class="col-12 mb-3 d-none" id="cancelId">
-                                <label for="Traking ID">Cancel Reason</label>
-                                <input type="text" class="form-control rounded-0" id="cancel_reason"
-                                    placeholder="Cancel Reason">
+                            <div class="col-12 mb-3 d-none" id="rejectedId">
+                                <label for="Reject ID">Reject Reason</label>
+                                <input type="text" class="form-control rounded-0" id="reject_reason"
+                                    placeholder="Reject Reason">
                             </div>
                         </div>
                     </form>
@@ -300,22 +301,25 @@
                         data: 'user',
                         name: 'user'
                     },
+                    // {
+                    //     data: 'sub_total',
+                    //     name: 'sub_total'
+                    // },
+                    // {
+                    //     data: 'wallet_amount',
+                    //     name: 'wallet_amount'
+                    // },
                     {
-                        data: 'sub_total',
-                        name: 'sub_total'
+                        data: 'delivery_type',
+                        name: 'delivery_type',
+                        render: function(data) {
+                            return data ? data.charAt(0).toUpperCase() + data.slice(1) : '';
+                        }
                     },
-                    {
-                        data: 'wallet_amount',
-                        name: 'wallet_amount'
-                    },
-                    {
-                        data: 'delivery_charges',
-                        name: 'delivery_charges'
-                    },
-                    {
-                        data: 'gst_amount',
-                        name: 'gst_amount'
-                    },
+                    // {
+                    //     data: 'gst_amount',
+                    //     name: 'gst_amount'
+                    // },
                     {
                         data: 'total_amount',
                         name: 'total_amount'
@@ -351,7 +355,7 @@
 
         });
 
-        $(document).on('click', '.open-status-modal', function(e) {
+        $(document).on('click', '.open-status-modal', function() {
             let orderId = $(this).data('id');
             let status = $(this).data('status');
             let delivery_type = $(this).data('delivery_type');
@@ -364,26 +368,20 @@
             // Completed => open modal
             if (status == 'delivered' && delivery_type == "post") {
                 $("#trackingId").removeClass("d-none");
-                $("#cancelId").addClass("d-none");
+                $("#rejectedId").addClass("d-none");
                 $("#title").html(
                     '<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details'
                 );
                 return;
 
+            } else if (status == 'rejected') {
+
+                $("#rejectedId").removeClass('d-none');
+                $("#trackingId").addClass('d-none');
+                $("#title").text('Reject Product Order');
+
+                return;
             }
-
-            // else if (status == 'cancelled') {
-
-            //     $("#cancelId").removeClass('d-none');
-            //     $("#trackingId").addClass('d-none');
-            //     $("#title").text('Cancel Product Order');
-
-            //     return;
-            // }
-
-
-            // Pending / Hold => direct AJAX
-            e.preventDefault();
             updateOrderStatus(orderId, status, '');
         });
 
@@ -393,18 +391,18 @@
             let orderId = $('#order_id').val() ?? "";
             let status = $('#order_status').val() ?? "";
             let trackingId = $('#tracking_id').val() ?? "";
-            let cancel_reason = $('#cancel_reason').val() ?? "";
+            let reject_reason = $('#reject_reason').val() ?? "";
 
-            updateOrderStatus(orderId, status, trackingId, cancel_reason);
+            updateOrderStatus(orderId, status, trackingId, reject_reason);
 
 
         });
 
 
-        function updateOrderStatus(orderId, status, trackingId = '', cancel_reason = "") {
+        function updateOrderStatus(orderId, status, trackingId = '', reject_reason = "") {
             let $btn = $("#saveCompletedOrder");
             let delivery_type = $("#delivery_type").val();
-
+            let $process = $('#processingModal');
             $.ajax({
                 url: "{{ route('admin.escort.order.complete') }}",
                 type: 'POST',
@@ -413,36 +411,35 @@
                     order_id: orderId,
                     tracking_id: trackingId,
                     status: status,
-                    cancel_reason: cancel_reason,
+                    reject_reason: reject_reason,
                     delivery_type: delivery_type,
                 },
-
                 beforeSend: function() {
-                    $('#processingModal').modal('show');
+
+                    if (delivery_type !== "post")
+                        $process.modal('show');
+
                     $btn.prop("disabled", true).text("Processing...");
                 },
                 success: function(response) {
-
                     if (!response.status) {
                         toastr.error(response.message);
                         return;
                     }
-                    $('#processingModal').modal('hide');
-                    $('#active_req').modal('hide');
+
                     if (status == 'delivered' && delivery_type == "post")
                         $('#confirm_popup').modal('show');
 
                     $('#orderStatusChange')[0].reset();
                     toastr.success('Order status updated successfully');
-                    table.ajax.reload(null, false);
-
-
+                    $("#productsHistoryTable").DataTable().ajax.reload(null, false);
                 },
                 error: function(xhr) {
-                    $('#processingModal').modal('hide');
                     toastr.error(xhr.responseJSON?.message || 'Something went wrong');
                 },
                 complete: function() {
+                    $('#active_req').modal('hide');
+                    $process.modal('hide');
                     $btn.prop("disabled", false)
                         .text("Save");
 
@@ -454,7 +451,7 @@
             var orderId = $(this).data('item');
             // Show loader, hide content
 
-            var productOrderId = $(this).data('orderId');
+            var productOrderId = $(this).data('orderid');
             $("#view-listing").text('Order Details - ' + productOrderId);
             $("#orderDetailsLoader").show();
             $("#orderDetailsBody").hide().html("");

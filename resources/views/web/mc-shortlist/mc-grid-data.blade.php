@@ -65,12 +65,14 @@
                 <div class="mc_card_content">
                     <div class="items">
                         <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
-                        <span class="mc_star">
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
+                          <span class="mc_star">
+                            @for($i=1; $i<= 5; $i++)
+                                @if($listing->star_rating && $listing->star_rating > 0 && $i <= $listing->star_rating)
+                                    <i class="fa fa-star" aria-hidden="true" ></i>
+                                @else
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                @endif
+                            @endfor
                         </span>
                     </div>
 

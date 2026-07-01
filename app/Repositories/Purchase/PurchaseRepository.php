@@ -32,17 +32,21 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
 
     protected function getOrderPurchase($order_key, $conditionsIn)
     {
-        if(count($conditionsIn) > 0) {
+        if (count($conditionsIn) > 0) {
             $columns = ['escort_id', 'name', 'location', 'profile_name', 'membership', 'start_date', 'end_date', 'days_number', 'remaining_days',  'status'];
         } else {
-        $columns = ['escort_id', 'profile_name', 'location', 'name', 'start_date', 'end_date', 'days_number', 'membership', 'status', 'fee'];
+            $columns = ['escort_id', 'profile_name', 'location', 'name', 'start_date', 'end_date', 'days_number', 'membership', 'status', 'fee'];
         }
+
+        $columns = ['escort_id', 'profile_name', 'location', 'name', 'start_date', 'end_date', 'days_number', 'membership', 'status', 'fee'];
         return isset($columns[$order_key]) ? $columns[$order_key] :  'escort_id';
     }
 
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [], $conditionsIn = [])
     {
-        $order_field = $this->getOrderPurchase($order_key, $conditionsIn);
+        // $order_field = $this->getOrderPurchase($order_key, $conditionsIn);
+
+        $order_field = $columns[$order_key]['name'];
         $searchables = $this->getSearchableFields($columns);
         $table = $this->model->getTable();
         $query = $this->model
@@ -88,16 +92,15 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         } else if ($order_field == 'days_number') {
             $query->orderByRaw("DATEDIFF(end_date, start_date) $dir");
         } else if ($order_field == 'remaining_days') {
-            
+
             $query->selectRaw("$table.*,DATEDIFF(end_date, NOW()) as days_left")->orderBy('days_left', $dir);
         } else {
             $query->orderByRaw("
-            CASE 
-                WHEN end_date >= NOW() THEN 1
-                ELSE 2
-            END ASC,
-            end_date ASC
-        ");
+            CASE
+            WHEN end_date >= CURDATE() THEN 0
+            ELSE 1
+            END ASC
+            ")->orderBy($order_field, $dir);
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyEscorts($mainQuery->get(), $start);
@@ -132,7 +135,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $item->member_id = $item->escort->member_id;
             $item->name = $item->escort->user->name;
             $item->profile_name = $item->escort->profile_name;
-            $item->pro_name = $item->profile_name.'<br/>';
+            $item->pro_name = $item->profile_name . '<br/>';
             $item->stage_name = $item->escort->gender == 'Transgender' ? 'TS - ' . $item->escort->name : $item->escort->name;
             $item->days_number = $item->days_number;
             $item->days_number = $item->days_number;
@@ -156,7 +159,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $endpoint = ['id' => $item->escort->id];
             $profileUrl = route('profile.description', $endpoint);
             $item->profileUrl = $profileUrl;
-            
+
 
             if ($itemArray['brb']) {
                 $item->pro_name = '<span id="brb_' . $item->escort->id . '">' . $item->escort->profile_name . " <br/><sup class='brb_icon listing-tag-tooltip'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['selected_time'])) . "</small></sup>";
@@ -168,12 +171,12 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
                 <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
                 </sup>';
-                $tagCount++;
+                    $tagCount++;
                 } else {
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
                 <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->escort->activeUpcomingSuspend->start_date)) . " to " . date("d-m-Y", strtotime($item->escort->activeUpcomingSuspend->end_date)) . '</small>
                 </sup>';
-                $tagCount++;
+                    $tagCount++;
                 }
             }
 
@@ -192,13 +195,13 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             }
 
             if ($item->is_bumpup) {
-                 $brTag = "";
-                 $tagClass = 'ml-1';
-                if($tagCount > 3) {
+                $brTag = "";
+                $tagClass = 'ml-1';
+                if ($tagCount > 3) {
                     $brTag = "<br/>";
-                     $tagClass = '';
+                    $tagClass = '';
                 }
-                $item->pro_name .=  $brTag.'<sup class="bumpup_icon listing-tag-tooltip '.$tagClass.'">Bumped Up
+                $item->pro_name .=  $brTag . '<sup class="bumpup_icon listing-tag-tooltip ' . $tagClass . '">Bumped Up
                 <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to " . getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A') . '</small>
                 </sup>';
             }

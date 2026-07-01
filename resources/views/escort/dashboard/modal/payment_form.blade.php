@@ -267,6 +267,10 @@
                 paymentFormData['benefit_token'] = $("input[name='benefit_token']").val();
             }
 
+            if ($("input[name='payload_token']").length > 0) {
+                paymentFormData['payload_token'] = $("input[name='payload_token']").val();
+            }
+
             $("#sendOtp_modal").modal({
                 backdrop: 'static',
                 keyboard: false,
@@ -565,8 +569,18 @@
             !['wallet'].includes(paymentButton.attr('value')) ? initWalletSection('show') : initWalletSection('hide');
             adjustmentForm.find('button[type="submit"]').attr('value', paymentButton.attr('value'));
             adjustmentForm.find('[name="wallet_amount"]').val(0);
+            if (!['listing', 'tour', 'extend'].includes(paymentButton.attr('value'))) {
+                getActiveModelFormData(paymentButton);
+            }
             submitAdjustmentForm(false);
         }
     });
+
+    let getActiveModelFormData = function(paymentButton) {
+        var form = paymentButton.parents('form');
+        var formData = form.serialize();
+        addOrUpdateHiddenInput('adjustment-form', 'payload_token', formData)
+        console.log(formData);
+    }
 </script>
 @endprepend
