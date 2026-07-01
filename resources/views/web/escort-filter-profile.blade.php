@@ -67,10 +67,6 @@
 @endphp
 @section('content')
 
-    @php
-        //dd($escorts);
-        $grouped = $paginator->getCollection()->groupBy('membership');
-    @endphp
     <section class="">
         <div class="container filter-contain mt-3">
 
@@ -120,8 +116,7 @@
                                                         <div class="location_radio_filter">
                                                             <div class="d-flex align-items-start"
                                                                 @php
-                                                               
-                                                                $searchByRadio = request()->get('search_by_radio');
+                                                                    $searchByRadio = request()->get('search_by_radio');
                                                                 $locationByRadio = request()->get('locationByRadio'); @endphp
                                                                 style=" padding-top: 2px;">
                                                                 <input type="radio" name="locationByRadio"
@@ -147,28 +142,28 @@
                                                     </div>
                                                     <div class="col-lg-4 search_items mb-1">
                                                         {{-- search --}}
-                                                            <div
-                                                                class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
+                                                        <div
+                                                            class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
-                                                                <input type="hidden" name="search_by_radio"
-                                                                    id="search_by_radio" value="0">
-                                                                <input type="hidden" name="lat" id="set_lat"
-                                                                    value="">
-                                                                <input type="hidden" name="lng" id="set_lng"
-                                                                    value="">
+                                                            <input type="hidden" name="search_by_radio"
+                                                                id="search_by_radio" value="0">
+                                                            <input type="hidden" name="lat" id="set_lat"
+                                                                value="">
+                                                            <input type="hidden" name="lng" id="set_lng"
+                                                                value="">
 
-                                                                <input type="search" name="name"
-                                                                    class="form-control remove_border_btm rounded "
-                                                                    placeholder="Search by Member ID or Name"
-                                                                    aria-label="Search" aria-describedby="search-addon"
-                                                                    value="{{ request()->get('name') }}">
+                                                            <input type="search" name="name"
+                                                                class="form-control remove_border_btm rounded "
+                                                                placeholder="Search by Member ID or Name"
+                                                                aria-label="Search" aria-describedby="search-addon"
+                                                                value="{{ request()->get('name') }}">
 
-                                                                <button
-                                                                    class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
-                                                                    id="search-addon" type="submit">
-                                                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button
+                                                                class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
+                                                                id="search-addon" type="submit">
+                                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
                                                         {{-- end --}}
                                                     </div>
                                                     <div class="col-lg-6 display_items mb-1">
@@ -198,43 +193,42 @@
 
                                                         {{-- reset --}}
                                                         <div class="custom-refreshbuton">
-                                                                <input type="hidden" name="apply_pagination_rule"
-                                                                    id="apply_pagination_rule" value="0">
-                                                                <button type="submit"
-                                                                    class="btn reset_filter apply_pagination_button filter-tooltip-wrap">
-                                                                    <span class="filter-tooltip">Apply Change</span>
-                                                                    <i class="fa fa-repeat" aria-hidden="true"></i>
-                                                                </button>
+                                                            <input type="hidden" name="apply_pagination_rule"
+                                                                id="apply_pagination_rule" value="0">
+                                                            <button type="submit"
+                                                                class="btn reset_filter apply_pagination_button filter-tooltip-wrap">
+                                                                <span class="filter-tooltip">Apply Change</span>
+                                                                <i class="fa fa-repeat" aria-hidden="true"></i>
+                                                            </button>
                                                         </div>
                                                         {{-- end --}}
 
                                                         {{-- view short list btn --}}
-                                                            <button type="button"
-                                                                class="btn reset_filter filter-tooltip-wrap"
-                                                                id="v_wishlist">
-                                                                <a href="{{ route('web.show.showAddList') }}"
-                                                                    class="text-decoration-none">
-                                                                    <div
-                                                                        class="d-flex align-items-center justify-content-center gap-5">
-                                                                        <i class="fa fa-list" aria-hidden="true"
-                                                                            style="line-height: 22px;"></i>
-                                                                        <span class="badge badge-pill badge-danger"
-                                                                            id="session_count">0</span>
-                                                                    </div>
-                                                                    <span class="filter-tooltip">View Shortlist</span>
-                                                                </a>
-                                                            </button>
+                                                        <button type="button"
+                                                            class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
+                                                            <a href="{{ route('web.show.showAddList') }}"
+                                                                class="text-decoration-none">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-center gap-5">
+                                                                    <i class="fa fa-list" aria-hidden="true"
+                                                                        style="line-height: 22px;"></i>
+                                                                    <span class="badge badge-pill badge-danger"
+                                                                        id="session_count">0</span>
+                                                                </div>
+                                                                <span class="filter-tooltip">View Shortlist</span>
+                                                            </a>
+                                                        </button>
                                                         {{-- end --}}
 
                                                         {{-- clear short --}}
-                                                            @php
-                                                                $query = Arr::except(request()->query(), ['ipinfo']);
-                                                            @endphp
-                                                            <a type="submit"
-                                                                href="{{ route('shortlist.clear-list', $query) }}"
-                                                                class="btn reset_filter " data-toggle="tooltip">
-                                                                Clear Shortlist
-                                                            </a>
+                                                        @php
+                                                            $query = Arr::except(request()->query(), ['ipinfo']);
+                                                        @endphp
+                                                        <a type="submit"
+                                                            href="{{ route('shortlist.clear-list', $query) }}"
+                                                            class="btn reset_filter " data-toggle="tooltip">
+                                                            Clear Shortlist
+                                                        </a>
                                                         {{-- end --}}
                                                     </div>
                                                 </div>
@@ -276,8 +270,8 @@
                                                         value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
                                                         Cross Dresser</option>
                                                     <!-- <option
-                                                            value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
-                                                            Massage Centres</option> -->
+                                                                    value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
+                                                                    Massage Centres</option> -->
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
@@ -448,8 +442,7 @@
 
                                                     <!-- Grid View -->
 
-                                                    <div class="grid_list_part " id="prosud aa"
-                                                        style="display: block;">
+                                                    <div class="grid_list_part " id="prosud aa" style="display: block;">
 
                                                         @php
                                                             $memberTitle = 'Total Listings';
@@ -779,205 +772,28 @@
 
             </div>
 
-            @if (!$grouped->isEmpty())
-                <div class="otherliste" style="display: none;">
-                    @if ($grouped->has('1'))
-                        <div class="space_between_row" style="display:{{ $viewType == 'grid' ? 'block' : 'none' }}">
-                            <div class="bod_image">
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('images/platinum_membership.png') }}">
-                                    <span class="ec_type_tooltip">Platinum Members - {{ $memberTotalCount[1] }}
-                                        {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
-                                </div>
-                                {{ $memberTotalCount[1] }}
-                                <span class="bordertopp">
-                                    {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-                            <div class="row responsive_colums_in_lg_five_col escost_list">
-                                @if ($grouped->has('1'))
-                                    @foreach ($grouped['1'] as $escort)
-                                        @include('web.partials.grid.platinum')
-                                    @endforeach
-                                @endif
+            {{-- Grid view using ajax --}}
+            <div class="otherliste" id="appendGridView" style="display: none;">
 
-                            </div>
-                        </div>
-                    @endif
-                    @if ($grouped->has('2'))
-                        <div class="space_between_row" style="display:{{ $viewType == 'grid' ? 'block' : 'none' }}">
-                            <div class="bod_image">
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('images/gold_membership.png') }}">
-                                    <span class="ec_type_tooltip">
-                                        Gold Members - {{ $memberTotalCount[2] }}
-                                        {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
-                                    </span>
-                                </div>
-                                {{ $memberTotalCount[2] }}
-                                <span class="bordertopp">
-                                    {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-                            <div class="row responsive_colums_in_lg_five_col escost_list">
-                                @if ($grouped->has('2'))
-                                    @foreach ($grouped['2'] as $escort)
-                                        @include('web.partials.grid.gold')
-                                    @endforeach
-                                @endif
+            </div>
 
-                            </div>
-                        </div>
-                    @endif
-                    @if ($grouped->has('3'))
-                        <div class="space_between_row" style="display:{{ $viewType == 'grid' ? 'block' : 'none' }}">
-                            <div class="bod_image">
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('images/silver_membership.png') }}">
-                                    <span class="ec_type_tooltip">
-                                        Silver Members - {{ $memberTotalCount[3] }}
-                                        {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}
-                                    </span>
-                                </div>
-                                {{ $memberTotalCount[3] }}
-                                <span class="bordertopp">
-                                    {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-                            <div class="row responsive_colums_in_lg_five_col escost_list">
-                                @if ($grouped->has('3'))
-                                    @foreach ($grouped['3'] as $escort)
-                                        @include('web.partials.grid.silver')
-                                    @endforeach
-                                @endif
+            {{-- List view using ajax --}}
+            <div class="grid list-view list-view-div" id="appendListView" style="display: none;">
 
-                            </div>
-                        </div>
-                    @endif
-                    @if ($grouped->has('4'))
-                        <div class="space_between_row" style="display:{{ $viewType == 'grid' ? 'block' : 'none' }}">
-                            <div class="bod_image">
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('assets/app/img/Group 153.png') }}">
-                                    <span class="ec_type_tooltip">
-                                        Free Members -{{ $memberTotalCount[4] }}
-                                        {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}
-                                    </span>
-                                </div>
-                                {{ $memberTotalCount[4] }}
-                                <span class="bordertopp">
-                                    {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-                            <div class="row responsive_colums_in_lg_five_col escost_list">
-                                @if ($grouped->has('4'))
-                                    @foreach ($grouped['4'] as $escort)
-                                        @include('web.partials.grid.free')
-                                    @endforeach
-                                @endif
+            </div>
 
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <div class="grid list-view list-view-div" style="display: none;">
-                    @if ($grouped->has('1'))
-                        <div class="platinum-sec">
-                            <div class="bod_image">
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('images/platinum_membership.png') }}">
-                                    <span class="ec_type_tooltip">
-                                        Platinum Members - {{ $memberTotalCount[1] }}
-                                        {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}
-                                    </span>
-                                </div>
-                                {{ $memberTotalCount[1] }}
-                                <span class="bordertopp">
-                                    {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-                            <div class="text">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}
-                            </div>
-                            @if ($grouped->has('1'))
-                                @foreach ($grouped['1'] as $escort)
-                                    @include('web.partials.list.platinum')
-                                @endforeach
-                            @endif
-                        </div>
-                    @endif
-                    @if ($grouped->has('2'))
-                        <div class="platinum-sec gold">
-                            <div class="bod_image">
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('images/gold_membership.png') }}">
-                                    <span class="ec_type_tooltip">
-                                        Gold Members - {{ $memberTotalCount[2] }}
-                                        {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
-                                    </span>
-                                </div>
-                                {{ $memberTotalCount[2] }}
-                                <span class="bordertopp">{{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-                            <div class="text gold">
-                                {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
-                            </div>
-                            @if ($grouped->has('2'))
-                                @foreach ($grouped['2'] as $escort)
-                                    @include('web.partials.list.gold')
-                                @endforeach
-                            @endif
-                        </div>
-                    @endif
-                    @if ($grouped->has('3'))
-                        <div class="listview_each_section_border_btm silver_card">
-                            <div class="bod_image custom-mb">
-
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('images/silver_membership.png') }}">
-                                    <span class="ec_type_tooltip">
-                                        Silver Members - {{ $memberTotalCount[3] }}
-                                        {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}
-                                    </span>
-                                </div>
-                                {{ $memberTotalCount[3] }}
-                                <span class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-
-                            @if ($grouped->has('3'))
-                                @foreach ($grouped['3'] as $escort)
-                                    @include('web.partials.list.silver')
-                                @endforeach
-                            @endif
-
-                        </div>
-                    @endif
-                    @if ($grouped->has('4'))
-                        <div class="free_card">
-                            <div class="bod_image custom-mb">
-                                <div class="ec_tooltip">
-                                    <img src="{{ asset('assets/app/img/free.png') }}">
-                                    <span class="ec_type_tooltip">
-                                        Free Members - {{ $memberTotalCount[4] }}
-                                        {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}
-                                    </span>
-                                </div>
-                                {{ $memberTotalCount[4] }}<span
-                                    class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
-                            </div>
-                            @if ($grouped->has('4'))
-                                @foreach ($grouped['4'] as $escort)
-                                    @include('web.partials.list.free')
-                                @endforeach
-                            @endif
-                        </div>
-                    @endif
-                </div>
-            @else
-                <div class="no--listing">
+            {{-- <div class="no--listing">
                     <p><i>There are no listings for your search criteria.</i></p>
-                </div>
-            @endif
+                </div> --}}
+
         </div>
 
 
         {{-- OR use fully custom pagination --}}
-        @php
+        <div id='custom_pagenation'></div>
+
+        {{-- php code comment by SKS if in feature no need then i remove --}}
+        {{-- @php
             $viewType = 'grid';
             if (auth()->check() && auth()->user()->viewer_settings) {
                 $viewType = auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
@@ -993,12 +809,12 @@
 
             $withView = fn($url) => $url ? $url . (str_contains($url, '?') ? '&' : '?') . 'viewType=' . $viewType : '#';
 
-        @endphp
+        @endphp --}}
 
-        <nav aria-label="Page navigation" class="custom-pagination">
+        {{-- <nav aria-label="Page navigation" class="custom-pagination">
             <ul class="list-unstyled">
 
-                {{-- First Page --}}
+               
                 <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
                     <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->url(1)) }}"
                         style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
@@ -1006,7 +822,7 @@
                     </a>
                 </li>
 
-                {{-- Previous Page --}}
+               
                 <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
                     <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->previousPageUrl()) }}"
                         style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
@@ -1014,7 +830,7 @@
                     </a>
                 </li>
 
-                {{-- Page Number Logic --}}
+               
                 @php
                     $total = $paginator->lastPage();
                     $current = $paginator->currentPage();
@@ -1024,7 +840,7 @@
                     $end = min($total, $current + 2);
                 @endphp
 
-                {{-- Left Ellipsis (jump back 5 pages) --}}
+                
                 @if ($start > 1)
                     @php $jumpBack = max(1, $current - 5); @endphp
                     <li class="mx-1">
@@ -1032,7 +848,7 @@
                     </li>
                 @endif
 
-                {{-- Page Numbers --}}
+                
                 @for ($i = $start; $i <= $end; $i++)
                     <li>
                         <a href="{{ $withView($paginator->url($i)) }}"
@@ -1042,7 +858,7 @@
                     </li>
                 @endfor
 
-                {{-- Right Ellipsis (jump forward 5 pages) --}}
+                
                 @if ($end < $total)
                     @php $jumpForward = min($total, $current + 5); @endphp
                     <li class="mx-1">
@@ -1050,7 +866,7 @@
                     </li>
                 @endif
 
-                {{-- Next Page --}}
+               
                 <li class="mx-1 {{ !$paginator->hasMorePages() ? 'disabled' : '' }}">
                     <a href="{{ $paginator->hasMorePages() ? $withView($paginator->nextPageUrl()) : '#' }}"
                         style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
@@ -1058,7 +874,7 @@
                     </a>
                 </li>
 
-                {{-- Last Page --}}
+               
                 <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
                     <a href="{{ $current == $total ? '#' : $withView($paginator->url($total)) }}"
                         style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
@@ -1067,14 +883,14 @@
                 </li>
 
             </ul>
-            {{-- Page Info Below --}}
             <div class="text-center mt-2 mb-5 col-sm-12" style="color: #ff3c5f; font-weight: 400;">
                 Page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }} |
                 Showing {{ $paginator->firstItem() ?? 0 }} to {{ $paginator->lastItem() ?? 0 }} of
                 {{ $paginator->total() }} Listings
             </div>
 
-        </nav>
+        </nav> --}}
+        
         </div>
         </div>
     </section>
@@ -1217,41 +1033,42 @@
     <!-- =============       pagination end here            ====================-->
 @endsection
 @push('scripts')
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
     <script>
+        let url = window.location.href;
 
-         let url = window.location.href;
         function loadEscort(url = null) {
             $.ajax({
-                    url: url,
-                    type: 'GET',
-                    data: $('#escortFilterForm').serialize(),
+                url: url,
+                type: 'GET',
+                data: $('#escortFilterForm').serialize(),
 
-                    beforeSend: function () {
-                        //$('.loader').show();
-                    },
+                beforeSend: function() {
+                    //$('.loader').show();
+                },
 
-                    success: function (response) {
-                        console.log(response);
+                success: function(response) {
+                    console.log(response, 'sdfsdf');
+                    $('#appendGridView').html(response.grid);
+                    
+                    $('#appendListView').html(response.list);
 
-                        // $('#escort-listing')
-                        //     .html(response.cards);
+                    $('#custom_pagenation').html(response.pagination);
 
-                        // $('#escort-pagination')
-                        //     .html(response.pagination);
 
-                        // $('.loader').hide();
-                    },
+                    // $('.loader').hide();
+                },
 
-                    error: function () {
-                        $('.loader').hide();
-                    }
-                });
-            }
+                error: function() {
+                    $('.loader').hide();
+                }
+            });
+        }
 
-            loadEscort(url);
+        loadEscort(url);
     </script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
     <script>
         window.authUser = {
             isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
@@ -1259,9 +1076,7 @@
             myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false' }},
         };
 
-
         $(function() {
-            // $('#viewerPreferences').modal('show');
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
 
@@ -1321,9 +1136,9 @@
                 .catch(error => console.error("Error:", error));
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-
             // Restore after refresh
             let opened = sessionStorage.getItem("accordionOpen");
             if (opened === "collapseSearch") {
@@ -1332,7 +1147,6 @@
 
             // When user clicks the accordion
             document.querySelector('[data-target="#collapseSearch"]').addEventListener("click", function() {
-
                 let isOpen = document.getElementById("collapseSearch").classList.contains("show");
 
                 if (!isOpen) {
@@ -1348,34 +1162,8 @@
             $('.btn-search i').toggleClass('rotate-180');
         })
     </script>
+
     <script>
-        // $('#grid-modal').on('shown.bs.modal', function (e) {
-        //    var source = e.relatedTarget;
-        //    console.log($(source).data('url'));
-        //     $.ajax({
-        //         url: $(source).data('url'),
-        //         success: function (data) {
-        //             $('#grid-template').html(data);
-        //         }
-        //     });
-        // });
-
-        // $('#grid-modal').on('hidden.bs.modal', function (e) {
-        //     $('#grid-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
-
-        // });
-
-        // $('#grid-modal').on('click', function (e) {
-        //    var source = e.relatedTarget;
-        //    console.log($(source).data('url'));
-        //     $.ajax({
-        //         url: $(source).data('url'),
-        //         success: function (data) {
-        //             $('#grid-template').html(data);
-        //         }
-        //     });
-        // });
-
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
@@ -1395,8 +1183,6 @@
             var urlParams = new URLSearchParams(window.location.search);
             viewType = urlParams.get('viewType') || localStorage.getItem('profileViewType') || 'grid';
         }
-
-        console.log(viewType);
 
         // Now trigger correct view on page load
         if (viewType === 'grid') {
@@ -1544,8 +1330,8 @@
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                                    $('[name=\"gender\"]').val($genderId);
-                                                                                                                }";
+                                                                                                                                            $('[name=\"gender\"]').val($genderId);
+                                                                                                                                        }";
             }
             ?>
         });
@@ -1793,18 +1579,12 @@
         });
 
         $(document).on('click', '.add_to_favrate', function() {
-
-
-
             if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
                 swal_error_warning('My Legbox',
                     'Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.'
-                    );
+                );
                 return false;
             }
-
-
-
 
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
@@ -1812,7 +1592,6 @@
             var cidcl = $(this).attr('class');
             var cid = cidcl.split(' ');
 
-            console.log(cid, cid.includes('fill'), Eid, ' he');
 
             // if (cid[1] == 'fill') {
             if (cid.includes('fill')) {
@@ -1875,8 +1654,6 @@
                 });
                 console.log("null");
             } else {
-                console.log('cid else');
-
 
                 @if (auth()->user() && auth()->user()->type != 0)
                     $(".my_legbox_title").text(
@@ -1903,11 +1680,6 @@
                 $('#loginUrl').attr('href', loginurl2)
                 $('#regUrl').attr('href', regurl)
             }
-
-
-
-            console.log(cid[1] + "-" + Eid);
-            console.log(cidcl);
 
         });
 
@@ -1940,28 +1712,20 @@
         });
 
         $(document).ready(function() {
-
             let RadioButton = $("#search_by_radio").val();
             if (RadioButton != '' || RadioButton == '1' || RadioButton == 1) {
-
                 navigator.geolocation.getCurrentPosition(async function(position) {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
-
                     $("#set_lat").val(latitude);
                     $("#set_lng").val(longitude);
-
                 });
             }
 
             $('input[name="locationByRadio"]').on('change', function() {
                 let selectedLocation = {};
                 selectedLocation.location = $(this).attr('id'); // "yourLocation" or "australia" 
-                //$('input[name="locationByRadio"]').prop('disabled', true);
-
-                //console.log(selectedLocation.location, ' out if')
                 if (selectedLocation.location == 'yourLocation') {
-
                     navigator.geolocation.getCurrentPosition(async function(position) {
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
@@ -1973,16 +1737,12 @@
 
                         console.log(longitude, latitude, ' jitendera')
                         sendLocationData(selectedLocation);
-
                     });
-
                 } else {
                     selectedLocation.lat = '';
                     selectedLocation.lng = '';
                     sendLocationData(selectedLocation);
                 }
-
-
             });
 
             function sendLocationData(data) {
@@ -2007,13 +1767,5 @@
             }
         });
 
-
-
-        // disable the radio buttons when the page is not fully loaded added
-        // $('input[name="locationByRadio"]').prop('disabled', true); 
-        // $(document).ready(function () {
-        //     // Enable the radio buttons when the page is fully loaded
-        //     $('input[name="locationByRadio"]').prop('disabled', false); 
-        // });
     </script>
 @endpush

@@ -70,6 +70,7 @@
     @php
         //dd($escorts);
         $grouped = $paginator->getCollection()->groupBy('membership');
+
     @endphp
     <section class="">
         <div class="container filter-contain mt-3">

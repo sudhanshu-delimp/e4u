@@ -25,7 +25,6 @@ class EscortListingController extends Controller
     {
         $this->services = $services;
         $this->escort = $escort;
-
     }
 
 
@@ -43,16 +42,13 @@ class EscortListingController extends Controller
             $gen = null;
         }
 
-      $user_type = null;
-        if(auth()->user() && auth()->user()->type == 0) {
-            $user_type = auth()->user();
+        $user_type = null;
+        if (auth()->user() && auth()->user()->type == 0) {
+            $user_type = auth()->user()->myLegBox->pluck('id')->toArray();
         }
 
 
-
-
-
-      $userInterest = $this->getUserInterest();
+        $userInterest = $this->getUserInterest();
 
         $userLocation = null;
         if ($request->lat != '' && $request->lng != '') {
@@ -106,52 +102,47 @@ class EscortListingController extends Controller
 
         $location = request()->get('location');
 
-       // un orgnise code only use for running project
+        // un orgnise code only use for running project
         $radio_location_filter = session('radio_location_filter');
         $limit = $str['limit'];
 
-        if($request->get('filter_button_submit') == '1' ){
+        if ($request->get('filter_button_submit') == '1') {
             $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
         }
 
         $services = $this->services->all();
-       
+
+
+        // if no need then i remove below code.
         $escortId = [];
-        if(session('cart') && session('is_shortlisted_profile')) {
-            foreach(session('cart') as $id => $vlaue) {
+        if (session('cart') && session('is_shortlisted_profile')) {
+            foreach (session('cart') as $id => $vlaue) {
 
                 $escortId[] = $id;
             }
-
         }
+        $viewerAuth = Auth::user();
 
 
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
-        $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null ,$gen);
+
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
+        $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null, $gen);
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
 
-       
+
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
         session(['is_shortlisted_profile' => false]);
 
-        if($params['city_id'] && $params['state_id']){
-            $filterStateExist = City::where('id',$params['city_id'])->where('state_id',$params['state_id'])->exists();
+        if ($params['city_id'] && $params['state_id']) {
+            $filterStateExist = City::where('id', $params['city_id'])->where('state_id', $params['state_id'])->exists();
             $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
             //$radio_location_filter = true;
         }
 
         $services = $this->services->all();
-       
-        $escortId = [];
-        if(session('cart') && session('is_shortlisted_profile')) {
-            foreach(session('cart') as $id => $vlaue) {
 
-                $escortId[] = $id;
-            }
-
-        }
 
         $locationCityId = $params['city_id'];
         $filterGenderId = $params['gender'];
@@ -159,7 +150,7 @@ class EscortListingController extends Controller
 
 
 
-    // un orgnise code only use for running project
+        // un orgnise code only use for running project
 
 
 
@@ -211,8 +202,8 @@ class EscortListingController extends Controller
 
 
 
-        $groups = $escorts->groupBy('membership');
 
+       $groups = $escorts->groupBy('membership');
 
         $platinum = $groups->get(1, collect());
         $gold     = $groups->get(2, collect());
@@ -221,40 +212,26 @@ class EscortListingController extends Controller
 
         // this code for testing perpes
 
-        $memberTotalCount[1] =  $platinum->count();
-        $memberTotalCount[2] =  $gold->count();
-        $memberTotalCount[3] =  $silver->count();
-        $memberTotalCount[4] =  $free->count();
-
+        $memberTotalCount = [
+                1 => $platinum->count(),
+                2 => $gold->count(),
+                3 => $silver->count(),
+                4 => $free->count(),
+            ];
 
         // this code for testing perpes
-
-
-
-
-
-
-
         $result = collect();
         $result = $result->merge($this->prepareMembership($platinum))
             ->merge($this->prepareMembership($gold))
             ->merge($this->prepareMembership($silver))
             ->merge($this->prepareMembership($free));
-
-
-        $page = request()->get('page', 1);
+   
+        $page = request('page', 1);
         $perPage = $limit;
 
-        $totalCounts = [
-            'platinum' => $platinum->count(),
-            'gold'     => $gold->count(),
-            'silver'   => $silver->count(),
-            'free'     => $free->count(),
-        ];
+       $grouped =  $result->groupBy('membership'); // this value pass inside the blade template
 
         $currentItems = $result->forPage($page, $perPage)->values();
-
-
 
         $paginator = new LengthAwarePaginator(
             $currentItems,
@@ -268,24 +245,41 @@ class EscortListingController extends Controller
         );
 
         $viewType =  'grid';
+        $memberTypes  = $this->getMemberType();
 
+
+
+        //*************************************Start Pass ajax request blade data****************************/
         if ($request->ajax()) {
 
             return response()->json([
-                'cards' => 'tesing data asdfasdfsdf'
+
+                'grid' => view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type','viewerAuth'))->render(),
+
+                'list' => view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render(),
+
+                'pagination' => view('web.escort.partials.pagination', compact('paginator'))->render()
 
             ]);
         }
 
+        //*************************************End Pass ajax request blade data****************************/
+
 
         return view('web.escort-filter-profile', compact(
-            'paginator','user_type','escortId','user',
-            'services', 'service_one', 'service_two', 
-            'service_three', 'escorts', 'locationCityId',
-            'filterGenderId','memberTotalCount',
-            'radio_location_filter','all_services_tag',
+            'user',
+            'services',
+            'service_one',
+            'service_two',
+            'service_three',
+            'escorts',
+            'locationCityId',
+            'filterGenderId',
+            'memberTotalCount',
+            'radio_location_filter',
+            'all_services_tag',
             'viewType'
-            ));
+        ));
     }
 
     public function applyFilterOnEscort(
@@ -501,5 +495,32 @@ class EscortListingController extends Controller
         }
 
         return $userInterest;
+    }
+
+    public function getMemberType()
+    {
+        $memberTypes = [
+            1 => [
+                'title' => 'Platinum',
+                'icon' => asset('images/platinum_membership.png'),
+                'class' => 'platinum'
+            ],
+            2 => [
+                'title' => 'Gold',
+                'icon' => asset('images/gold_membership.png'),
+                'class' => 'gold'
+            ],
+            3 => [
+                'title' => 'Sliver',
+                'icon' => asset('images/silver_membership.png'),
+                'class' => 'sliver'
+            ],
+            4 => [
+                'title' => 'Free',
+                'icon' => asset('assets/app/img/free.png'),
+                'class' => 'free'
+            ],
+        ];
+        return $memberTypes;
     }
 }

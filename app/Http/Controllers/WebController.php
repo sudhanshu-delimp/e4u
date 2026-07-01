@@ -288,6 +288,7 @@ class WebController extends Controller
 
         $user = 1;
 
+         DB::enableQueryLog();
         $array = config('escorts.profile.genders');
         
         $gender_one = array_flip($array);
@@ -503,6 +504,8 @@ class WebController extends Controller
         })->collect();
 
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
+       // $queryLog = DB::getQueryLog();
+       // dd($queryLog);
      
        
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
