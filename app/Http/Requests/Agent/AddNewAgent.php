@@ -57,7 +57,7 @@ class AddNewAgent extends FormRequest
                 'min:0',
                 function ($attribute, $value, $fail) use ($request) {
                     if ($request->commission_advertising_type === 'percent' && $value > 100) {
-                        $fail('The advertising commission percentage cannot be greater than 100 if the amount type is Percent.');
+                        $fail('The advertising commission percentage cannot be greater than 100.');
                     }
                 },
             ],
@@ -68,7 +68,7 @@ class AddNewAgent extends FormRequest
                 'min:0',
                 function ($attribute, $value, $fail) use ($request) {
                     if ($request->commission_registration_type === 'percent' && $value > 100) {
-                        $fail('The registration commission percentage cannot be greater than 100 if the amount type is Percent.');
+                        $fail('The registration commission percentage cannot be greater than 100.');
                     }
                 },
             ],
@@ -90,6 +90,11 @@ class AddNewAgent extends FormRequest
             'commission_advertising_percent.required'  => 'The advertising commission field is required.',
             'commission_registration_amount.required'  => 'The registration commission field is required.',
             'abn.digits' => 'The ABN must contain only digits (0-9) and 11 digits long.',
+
+            'commission_advertising_percent.numeric'  => 'The advertising commission must be a number.',
+            'commission_registration_amount.numeminric'  => 'The registration commission must be a number.',
+            'commission_advertising_percent.min'  => 'The advertising commission must be at least 0.',
+            'commission_registration_amount.min'  => 'The registration commission must be at least 0.',
             'abn.digits_between' => 'The ABN must contain only digits (0-9) and be between 10 and 20 digits long.'
         ];
     }

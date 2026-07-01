@@ -226,7 +226,7 @@
                                     <!-- Mobile -->
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Mobile Number</b></label>
-                                        <input type="text" class="form-control" name="phone" placeholder="0145 028 758"
+                                        <input type="text" class="form-control" name="phone" placeholder="0145028758"
                                             required data-parsley-type="digits" data-parsley-minlength="10"
                                             data-parsley-required-message="Mobile number is required"
                                             data-parsley-type-message="Only digits allowed"
@@ -236,7 +236,7 @@
                                     <!-- Email -->
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                         <label><b>Email</b></label>
-                                        <input type="email" class="form-control" name="email"
+                                        <input type="text" class="form-control" name="email"
                                             placeholder="you@domain.com.au" required
                                             data-parsley-required-message="Email is required"
                                             data-parsley-type-message="Enter a valid email address">
@@ -246,16 +246,16 @@
                                     <!-- Address -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address</b></label>
-                                        <input type="text" class="form-control" name="address"
-                                            placeholder="Unit 1, 1 The Street" required
+                                        <input type="text" autocomplete="off" class="form-control address-picker"
+                                            name="address" placeholder="Unit 1, 1 The Street" required
                                             data-parsley-required-message="Address is required">
                                     </div>
 
                                     <!-- Address 2 (Optional) -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address 2 (Optional)</b></label>
-                                        <input type="text" class="form-control" name="address_2"
-                                            placeholder="Suburb WA 6000"
+                                        <input type="text" autocomplete="off" class="form-control address-picker"
+                                            name="address_2" placeholder="Suburb WA 6000"
                                             data-parsley-required-message="Address 2 is required">
                                     </div>
                                     <!-- City -->
@@ -326,7 +326,7 @@
                                         <!-- Email -->
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <label><b>Email</b></label>
-                                            <input type="email" name="billing_email" class="form-control"
+                                            <input type="text" name="billing_email" class="form-control"
                                                 placeholder="you@domain.com.au" required
                                                 data-parsley-required-message="Billing email is required">
                                         </div>
@@ -334,15 +334,17 @@
                                         <!-- Address Line 1 -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 1</b></label>
-                                            <input type="text" name="billing_address_line1" class="form-control"
-                                                placeholder="Unit 1, 1 The Street" required
+                                            <input type="text" name="billing_address_line1"
+                                                class="form-control address-picker" placeholder="Unit 1, 1 The Street"
+                                                required
                                                 data-parsley-required-message="Billing address line 1 is required">
                                         </div>
 
                                         <!-- Address Line 2 (optional) -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 2</b></label>
-                                            <input type="text" name="billing_address_line2" class="form-control"
+                                            <input type="text" name="billing_address_line2"
+                                                class="form-control address-picker"
                                                 placeholder="Apartment, suite, etc (optional)">
                                         </div>
 
@@ -447,7 +449,8 @@
 
                 <h2>Order Completed</h2>
                 <p>Thank you for your purchase!</p>
-                <button type="button" class="btn-common"> <a href="{{ route('escort.orders') }}" class="text-white">
+                <button type="button" class="btn-common"> <a href="{{ route('bookkeeping.product.orders') }}"
+                        class="text-white">
                         View
                         Orders</a></button>
                 <button onclick="finish()" class="btn-common">Finish</button>
@@ -479,7 +482,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src=" {{ asset('assets/app/img/newcross.png') }}"
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -527,31 +530,32 @@
                                         <span>Subtotal:</span>
                                         <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span>Wallet Used:</span>
-                                        <span id="walletUsed"> {{ formatCurrency(0) }}</span>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong>GST :</strong>
+                                        <strong class="taxAmount" style="border: none;padding:0px">$0.00</strong>
                                     </div>
 
+
                                     <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <span>Total Fee:</span>
                                         <span id="total_fee"> {{ formatCurrency(0) }}</span>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <strong>GST (Inclusive):</strong>
-                                        <strong class="taxAmount" style="border: none">$1.20</strong>
-                                    </div>
 
-                                    <div class="d-flex justify-content-between align-items-center  mb-2">
+
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <strong>Delivery Charge:</strong>
                                         <strong class="deliveryCharge"
-                                            style="border-bottom:1px solid">{{ formatCurrency(0) }}</strong>
+                                            >{{ formatCurrency(0) }}</strong>
 
                                     </div>
 
-
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
+                                        <span>Wallet Used:</span>
+                                        <span id="walletUsed" style="border-bottom:1px solid"   > -{{ formatCurrency(0) }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <strong>Total Due:</strong>
                                         <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
                                     </div>
@@ -748,7 +752,9 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initAddressPicker"
+        async defer></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
@@ -767,7 +773,9 @@
         // localStorage.setItem('checkout_step_' + loginUserId, step);
         let isDirty = false;
 
-
+        $(document).ready(function() {
+            initAddressPicker();
+        });
 
 
 
@@ -1408,14 +1416,14 @@
             let gst = subtotal * tax / 100; //GST
             // set amount details after calculation in html format
             $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
-            $("#total_fee").text("$ " + subtotal.toFixed(2));
+            $("#total_fee").text("$ " + (gst+subtotal).toFixed(2));
             $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
             $(".taxAmount").text("$" + gst.toFixed(2));
-            $(".totalDue").text("$" + total.toFixed(2));
+            $(".totalDue").text("$" + (total + gst).toFixed(2));
 
             // set data to local storage for make order 
             let paymentData = {
-                total_payble: total.toFixed(2),
+                total_payble: (gst + total).toFixed(2),
                 tax_payble: gst.toFixed(2),
                 deliveryCharge: deliveryCharge.toFixed(2),
                 subtotal_payble: subtotal.toFixed(2)
@@ -1533,9 +1541,7 @@
         var finishPaymentForm = $('.finish-payment-form');
 
 
-        $(document).ready(function() {
-
-            $(document).on("click", "#applyWallet", function(e) {
+        $(document).on("click", "#applyWallet", function(e) {
                 e.preventDefault(); // Stop normal form submit
                 updateOrderSummary();
 
@@ -1581,7 +1587,7 @@
                 });
 
                 $("#walletAmount").text("$" + formatedAccountWalletAmount);
-                $("#walletUsed").text("$" + Number(walletAmount).toFixed(2));
+                $("#walletUsed").text("- $" + Number(walletAmount).toFixed(2));
 
                 // FORCE numeric values
                 let oldSubtotal = Number(details.subtotal_payble) || 0;
@@ -1603,6 +1609,7 @@
                 let tax = parseFloat("{{ config('escorts.product_tax') }}");
 
                 let gst_amount = oldSubtotal * tax / 100;
+                let taxOfWalletAmount = walletUsed * tax / 100;
                 details.tax_payble = gst_amount.toFixed(2);
                 if (total_payble == 0) {
                     $(".card_details").find("input, select, textarea, button").prop("disabled", true);
@@ -1616,13 +1623,11 @@
                     $(".card_details").find("input, select, textarea, button").prop("disabled", false);
                     $("#makeOrder").prop("disabled", false);
                     finishPaymentForm.addClass('d-none');
-
-
-
                 }
+
                 // Update UI
                 $(".taxAmount").text("$" + gst_amount.toFixed(2));
-                $("#total_fee").text("$ " + subtotal.toFixed(2));
+                $("#total_fee").text("$" + (gst_amount+subtotal).toFixed(2));
                 $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));
@@ -1633,8 +1638,6 @@
 
             });
 
-        });
-
         $("#resetWallet").on("click", function() {
             $("#adjustment-form")[0].reset();
             updateOrderSummary();
@@ -1644,7 +1647,7 @@
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })
-            $("#walletUsed").text("$0.00");
+            $("#walletUsed").text("- $0.00");
             $("#walletAmount").text("$" + formatedAccountWalletAmount);
             let key = 'paymentDetails_' + loginUserId;
 
@@ -1658,5 +1661,39 @@
 
         })
         getCheckedCheckBox();
+
+
+        function initAddressPicker(selector = '.address-picker') {
+            $(selector).each(function() {
+                const input = this;
+
+                // Prevent duplicate Google autocomplete initialization
+                if ($(input).data('address-picker-initialized')) {
+                    return;
+                }
+
+                const autocomplete = new google.maps.places.Autocomplete(input, {
+                    componentRestrictions: {
+                        country: 'au'
+                    },
+                    fields: ['address_components', 'formatted_address', 'geometry'],
+                    types: ['address']
+                });
+
+                $(input).data('address-picker-initialized', true);
+
+                autocomplete.addListener('place_changed', function() {
+                    const place = autocomplete.getPlace();
+
+                    if (!place || !place.address_components) {
+                        return;
+                    }
+                    const $form = $(input).closest('form');
+                    // Put full selected address in Address field
+                    $(input).val(place.formatted_address);
+
+                });
+            });
+        }
     </script>
 @endpush

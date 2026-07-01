@@ -7,6 +7,103 @@
         font-size: 18px;
         font-weight: 600;
     }
+
+
+    body {
+        font-size: 12px;
+        color: #212529;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Base Bootstrap-like table */
+    .table {
+        width: 100%;
+        margin-bottom: 16px;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .table th,
+    .table td {
+        border-top: 0px solid #dee2e6;
+
+        padding: 8px;
+        text-align: left;
+
+        vertical-align: middle !important;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+        font-weight: bold;
+    }
+
+    /* table-bordered */
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered thead th,
+    .table-bordered thead td {
+        border-bottom-width: 2px;
+    }
+
+    /* table-striped */
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa;
+    }
+
+    /* table-hover
+       DomPDF cannot show real hover behavior, so this is intentionally empty. */
+    .table-hover tbody tr:hover {
+        background-color: transparent;
+    }
+
+    /* table-responsive */
+    .table-responsive {
+        width: 100%;
+    }
+
+    /* Optional Bootstrap utility classes */
+    .text-muted {
+        color: #6c757d;
+    }
+
+    .p-3 {
+        padding: 16px;
+    }
+
+    /* Your section heading */
+    .section-title {
+        background: #f8f9fa;
+        border-left: 4px solid #1f2732;
+        padding: 10px 15px;
+        margin: 20px 0 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Prevent rows splitting across PDF pages */
+    tr {
+        page-break-inside: avoid;
+    }
+
+    /* Repeat table header on next PDF page */
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
 </style>
 <div class="p-3">
     <!-- ORDER DETAILS -->
@@ -30,7 +127,7 @@
         <tr>
             <th>Order Date</th>
             <td>
-                {{ !empty($order->order_date) ? date('d M Y, h:i A', strtotime($order->order_date)) : 'N/A' }}
+                {{ !empty($order->order_date) ? date('d-m-y, h:i A', strtotime($order->order_date)) : 'N/A' }}
             </td>
         </tr>
 
@@ -186,7 +283,7 @@
             <tr>
                 <th>Payment Date</th>
                 <td>
-                    {{ !empty($payment->paid_at) ? date('d M Y, h:i A', strtotime($payment->paid_at)) : 'N/A' }}
+                    {{ !empty($payment->paid_at) ? date('d-m-Y, h:i A', strtotime($payment->paid_at)) : 'N/A' }}
                 </td>
             </tr>
 
@@ -196,3 +293,18 @@
     @endif
 
 </div>
+
+
+@if (!@$print)
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary"> <a
+                href="{{ route('escort.print.order.details', Crypt::encrypt($order->id)) }}" target="_blank">
+                🖨️ Print
+            </a>
+        </button>
+
+        <button type="button" class="btn btn-secondary btn-cancel-modal" data-dismiss="modal">
+            Close
+        </button>
+    </div>
+@endif

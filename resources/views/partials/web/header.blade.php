@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
-
         <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.0') }}" rel="stylesheet">
         <!-- jquery ui cdn -->
@@ -39,12 +38,13 @@
         <!-- font awsome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.4') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.6') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v1.1') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v1.1') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.1') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-        <script>
-        </script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+       
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
         @section('style')

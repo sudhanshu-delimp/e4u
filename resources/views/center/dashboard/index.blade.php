@@ -50,7 +50,7 @@
     </div>
     <div class="row">
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('cen.archive-view-photos') }}?from=dashboard">
                     <div class="box-icon">
@@ -68,7 +68,7 @@
 
         
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.dashboard.manage-masseurs') }}">
                     <div class="box-icon">
@@ -86,7 +86,7 @@
 
 
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('masseurs') }}?from=dashboard">
                     <div class="box-icon">
@@ -102,7 +102,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.dashboard.our-statistics') }}">
                     <div class="box-icon">
@@ -118,7 +118,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.dashboard.task-list') }}">
                     <div class="box-icon">
@@ -136,7 +136,7 @@
 
         
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.dashboard.centre-statistics') }}">
                     <div class="box-icon">
@@ -152,7 +152,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.dashboard.our-spend') }}">
                     <div class="box-icon">
@@ -168,7 +168,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.dashboard.legbox-viewer') }}">
                     <div class="box-icon">
@@ -184,7 +184,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.profile.information') }}?from=dashboard">
                     <div class="box-icon">
@@ -199,15 +199,15 @@
         </div>
         {{-- end --}}
 
-         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        {{-- box start --}}
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="">
+                <a href="javascript:void(0)">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/center/media-views-today.png') }}" alt="Media Views">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/wallet.png') }}" alt="My Wallet">
                     </div>
                     <h2>
-                        Media Views
+                        My Wallet
                     </h2>
                 </a>
 
@@ -216,7 +216,7 @@
         {{-- end --}}
 
          {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('support-ticket.form_create') }}?from=dashboard">
                     <div class="box-icon">
@@ -232,7 +232,7 @@
         {{-- end --}}
 
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('center.logs-and-status') }}">
                     <div class="box-icon">

@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Agent\SendProductOrderCompleteConfirmationMailToAgent;
-use App\Mail\Agent\SendProductOrderHoldMailToEscortAgent;
 use App\Mail\Escort\Order\SendProductOrderCompleteConfirmationMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderHoldMailToEscort;
+use App\Mail\Escort\Order\SendProductOrderRejectMailToEscort;
 use App\Mail\Supplier\SendProductOrderCompleteConfirmationMailToSupplier;
 use App\Mail\Supplier\SendProductOrderHoldMailToSupplier;
+use App\Mail\Supplier\SendProductOrderRejectMailToSupplier;
 use App\Models\ProductOrder;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -40,7 +42,7 @@ class ProductOrderController extends Controller
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
-        return  date('d M Y, h:i A', strtotime($row->order_date));
+        return  date('d-m-y, h:i A', strtotime($row->order_date));
       })
       ->addColumn('total_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
@@ -54,11 +56,14 @@ class ProductOrderController extends Controller
       ->addColumn('sub_total', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->amount : '0.00';
       })
-      ->addColumn('wallet_amount', function ($row) {
+      ->editColumn('wallet_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->wallet_amount : '0.00';
       })
       ->addColumn('user', function ($row) {
-        return   $row->user ? $row->user->name : '0.00';
+        return   $row->user ? $row->user->name : '';
+      })
+      ->addColumn('member_id', function ($row) {
+        return   $row->user ? $row->user->member_id : '';
       })
       ->editColumn('order_status', function ($row) use ($classesOrder, $orderStatus) {
         $class = $classesOrder[$row->order_status] ?? '';
@@ -70,64 +75,140 @@ class ProductOrderController extends Controller
         return '<span class="custom_badge ' . $class . '">' . ucfirst($row->payment_status) . '</span>';
       })
       ->addColumn('action', function ($row) {
+
+        $html = "";
+
+        if (strtolower($row->delivery_type) === 'post') {
+          $html = 'data-toggle="modal" data-target="#active_req"';
+        }
+        // dd($html);
         return '<div class="dropdown no-arrow">
-                               <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                               </a>
-                               <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                 <a class="dropdown-item open-status-modal"
-   href="#"
-   data-id="' . $row->id . '"
-   data-status="pending">
-    <i class="fa fa-hourglass-half"></i> Pending
-</a>
+    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+    </a>
 
-<div class="dropdown-divider"></div>
+    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
 
-<a class="dropdown-item open-status-modal"
-   href="#"
-   data-id="' . $row->id . '"
-   data-status="hold">
-    <i class="fa fa-pause-circle"></i> On Hold
-</a>
-<div class="dropdown-divider"></div>
-<a class="dropdown-item open-status-modal"
-   href="#"
-   data-id="' . $row->id . '"
-   data-status="delivered"
-   data-toggle="modal"
-   data-target="#active_req"><i class="fa fa-check-circle"></i> Completed </a>
-   <div class="dropdown-divider"></div>
+        <a class="dropdown-item open-status-modal"
+           href="#"
+           data-id="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
+           data-status="pending">
+            <i class="fa fa-hourglass-half"></i> Pending
+        </a>
 
-<a class="dropdown-item view-order-details"
-   href="#"
-   data-toggle="modal"
-   data-item="' . $row->id . '"
-   data-target="#view_order_modal">
-   <i class="fa fa-eye"></i> View Details
-</a>
-   </div></div>
-   
+        <div class="dropdown-divider"></div>
 
-   ';
+        <a class="dropdown-item open-status-modal  "
+           href="#"
+           data-id="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
+           data-delivery_type="' . $row->delivery_type . '"
+           data-status="hold">
+            <i class="fa fa-pause-circle"></i> On Hold
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item open-status-modal"
+           href="#"
+           data-id="' . $row->id . '"
+           data-status="delivered"
+           data-orderid="' . $row->order_id . '"
+           data-delivery_type="' . $row->delivery_type . '"
+           ' . $html . '>
+            <i class="fa fa-check-circle"></i> Complete Order
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item open-status-modal"
+           href="#"
+           data-id="' . $row->id . '"
+         data-status="rejected"
+           data-delivery_type="' . $row->delivery_type . '"
+           data-orderid="' . $row->order_id . '"
+           data-toggle="modal"
+           data-target="#active_req">
+            <i class="fa fa-times-circle"></i> Reject Order
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item view-order-details"
+           href="#"
+           data-toggle="modal"
+           data-item="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
+           data-delivery_type="' . $row->delivery_type . '"
+           data-target="#view_order_modal">
+            <i class="fa fa-eye"></i> View Details
+        </a>
+
+    </div>
+</div>';
+
+
+        // <a class="dropdown-item open-status-modal"
+        //    href="#"
+        //    data-id="' . $row->id . '"
+        //    data-status="cancelled"
+        //    data-toggle="modal"
+        //    data-target="#active_req"><i class="fa fa-check-circle"></i> Cancel Order </a>
+        //    <div class="dropdown-divider"></div>
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
       })
+      ->with([
+        'server_up_time' => $this->getAppUptime(),
+        'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+      ])
       ->rawColumns(['order_status', 'action', 'payment_status'])
       ->make(true);
+  }
+
+  public function getAppUptime()
+  {
+    $startTime = Cache::get('app_start_time');
+    $str = '';
+
+    if (!$startTime) {
+      return 'App start time not available.';
+    }
+
+    $start = \Carbon\Carbon::parse($startTime);
+    $now = now();
+
+    $diffInSeconds = $now->diffInSeconds($start);
+
+    $days = floor($diffInSeconds / 86400);
+    $hours = floor(($diffInSeconds % 86400) / 3600);
+    $minutes = floor(($diffInSeconds % 3600) / 60);
+    $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
+
+    return $str;
   }
 
   public function orderComplete(Request $request)
   {
     try {
 
-      if (empty($request->tracking_id) &&  $request->status == 'delivered') {
+      if (empty($request->tracking_id) &&  $request->status == 'delivered' && $request->delivery_type == "post") {
         return response()->json([
           'status' => false,
           'message' =>  "Tracnking Id is required for complete order."
         ]);
-      } elseif (empty($request->status)) {
+      }
+      if (empty($request->reject_reason) &&  $request->status == 'rejected') {
+        return response()->json([
+          'status' => false,
+          'message' =>  "Reject Reason is required for reject order."
+        ]);
+      }
+
+      if (empty($request->status)) {
         return response()->json([
           'status' => false,
           'message' =>  "Status feild are required"
@@ -157,9 +238,17 @@ class ProductOrderController extends Controller
 
       DB::transaction(function () use ($request, $order, $condommail) {
 
+
+        if ($request->status == 'delivered')
+          $order->tracking_id = $request->tracking_id;
+        if ($request->status == 'rejected')
+          $order->reject_reason = $request->reject_reason;
+
         $order->order_status = $request->status;
-        $order->tracking_id = $request->tracking_id;
+
         $status = $order->save();
+        $status = true;
+
         $mailData = [];
 
 
@@ -167,6 +256,10 @@ class ProductOrderController extends Controller
         $mailData['ref'] = $order->paymentDetails->ref_no ?? '';
         $mailData['member_id'] = $order->user ? $order->user->member_id : '';
         $mailData['order_id'] = $order->order_id ?? "";
+        $mailData['member_name'] = $order->user ? $order->user->name : "";
+        $mailData['reject_reason'] = $request->reject_reason;
+        $mailData['dispatch_date'] = $request->dispatch_date;
+        $mailData['tracking_id'] = $request->tracking_id ?? '';
         $shippingAddress = $order->orderAddress->where('type', 'shipping')->first();
         $billing = $order->orderAddress->where('type', 'billing')->first();
 
@@ -185,38 +278,63 @@ class ProductOrderController extends Controller
           ]))
         );
         $mailData['delivery_address'] = $completeAddress;
-        if ($status && $request->status == 'delivered') {
+        $agent = null;
 
-          // Send order completed mail notification to agent if order was made by agent
-          if ($order->createdBy) {
-            if ($order->user_id != $order->createdBy->id)
-              Mail::to($order->createdBy->email)->send(new SendProductOrderCompleteConfirmationMailToAgent($mailData));
-          }
+        if ($order->user->is_agent_assign == 1) {
+          $agent = User::where('id', $order->user->assigned_agent_id)->first();
+        }
+        if ($status) {
 
-          // Send order completed mail notification to supplier
-          Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
+          $order->refresh();
 
-          // Send order completed mail notification to escort
-          Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
-        } elseif ($request->status == 'hold') {
+          if ($request->status == 'delivered') {
 
-          // Send order hold notification to escort
-          Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+            if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+            } else {
+              $mail = Mail::to($billing->email);
+              if (!empty($agent) && !empty($agent->email)) {
+                $mail->cc($agent->email);
+              }
 
-          // Send order hold notification to supplier
-          Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
+              $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+            }
 
-          // Send mail to escort agent also if escort have agent
-          if ($order->createdBy) {
-            if ($order->user_id != $order->createdBy->id)
-              Mail::to($order->createdBy->email)->send(new SendProductOrderHoldMailToEscortAgent($mailData));
+            // Send order completed mail notification to supplier
+            Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
+          } elseif ($request->status == 'hold') {
+            if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
+            } else {
+
+              $mail = Mail::to($billing->email);
+              if (!empty($agent) && !empty($agent->email)) {
+                $mail->cc($agent->email);
+              }
+              $mail->send(new SendProductOrderHoldMailToEscort($mailData));
+            }
+            // Send order hold notification to supplier
+            Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
+          } else if ($request->status == 'rejected') {
+            // send order rejection mail notification to supplier 
+            Mail::to($condommail)->send(new SendProductOrderRejectMailToSupplier($mailData));
+
+            if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+               Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderRejectMailToEscort($mailData));
+            } else {
+              $mail = Mail::to($billing->email);
+              if (!empty($agent) && !empty($agent->email)) {
+                $mail->cc($agent->email);
+              }
+              $mail->send(new SendProductOrderRejectMailToEscort($mailData));
+            }
           }
         }
       });
 
       return response()->json([
         'status' => true,
-        'message' => 'Order completed successfully'
+        'message' => 'Your request has been processed successfully.'
       ]);
     } catch (Exception $e) {
       Log::info($e->getMessage(), [$e->getLine(), $e->getFile()]);

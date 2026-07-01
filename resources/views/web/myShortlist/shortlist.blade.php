@@ -511,39 +511,30 @@
             <!-- ================     service provider start here     ========================= -->
 
             {{-- dd(count($escorts)) --}}
-            <div class="row grid_list_part grid_wishlist_part mb-0" id="v_li_wishlist" style="display: block;">
+            <div class="row grid_list_part grid_wishlist_part" id="v_li_wishlist" style="display: block;">
                 {{-- @if (count($escorts) > 0) --}}
                 <div class="col-12 align-items-left">
                     <div class="my-shortlist">
-                        <ul class="mb-0 mt-1 pt-1 ml-0">
-                            <li>
-                                <h3>My Shortlist</h3>
-                            </li>
-                            {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li> --}}
-                            {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Back To Listings">Back To Listings</a></li> --}}
-                            @php
+                        <h3>My Shortlist</h3>
+                        @php
 
-                                if (str_contains($backToListing, 'view=')) {
-                                    $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToListing);
-                                } else {
-                                    // If view param not present, append it properly
-                                    $separator = str_contains($backToListing, '?') ? '&' : '?';
-                                    $finalUrl = $backToListing . $separator . 'view=' . $viewType;
-                                }
+                            if (str_contains($backToListing, 'view=')) {
+                                $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToListing);
+                            } else {
+                                // If view param not present, append it properly
+                                $separator = str_contains($backToListing, '?') ? '&' : '?';
+                                $finalUrl = $backToListing . $separator . 'view=' . $viewType;
+                            }
 
-                            @endphp
-                            <li class="fiter_btns slect__btn_tab">
-                                <div class="display_inline_block mb-1 mr-2 ">
-                                    <a type="submit" href="{{ $finalUrl }}" class="btn reset_filter p-1"
-                                        data-toggle="tooltip">
-                                        {{-- <i class="fa fa-back" aria-hidden="true"></i> --}}
-                                        <i class="fa fa-arrow-left ml-0" aria-hidden="true"
-                                            style="padding: 5px;font-size: 16px;"></i>
-                                       <span class="hide-on-sm"> Back To Listings</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                        @endphp
+                        <button class="back_to_list_btn">
+                            
+                            <a type="submit" href="{{ $finalUrl }}" data-toggle="tooltip">
+                               <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                
+                                <span class="hide-on-sm"> Back To Listings</span>
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -562,28 +553,81 @@
                                 <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
                             </button>
                             <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon">Help</h3>
-                            <div class="modal-sec">
-                                <p class="popu_heading_style">Search Filters</p>
-                                <p>
-                                    Your Geolocation will automatically determine your Location and list
-                                    Profiles according to that Location. You can:
-                                </p>
-                                <ol class="pl-3">
-                                    <li>&nbsp;Filter the search criteria by selecting your preferred filter and then
-                                        selecting the ‘Refresh’ &nbsp;button.
+                            <div class="modal-sec help--filter">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" data-toggle="tab" href="#tabs-1" role="tab"
+                                            aria-selected="true">Search Filters</a>
                                     </li>
-                                    <li>&nbsp;Change your Location by selecting your preferred city.</li>
-                                    <li>&nbsp;Change the number of listings displayed by changing the ‘Displayed
-                                        &nbsp;item’ filter to your preferred value.
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                            aria-selected="false">Search Field</a>
                                     </li>
-                                </ol>
-
-                                <p class="popu_heading_style">Service Tags</p>
-                                <p> Selected Service Tags will be listed in the Service Tag list which will
-                                    appear below the tags. You can remove any Service Tag by clicking the
-                                    ‘X’ located on the tag, or all of the Service Tags by clicking the ‘Clear Tags’
-                                    link.
-                                </p>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                            aria-selected="false">Shortlist</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
+                                            aria-selected="false">Service Tags</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabs-5" role="tab"
+                                            aria-selected="false">Verification</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
+                                        <p>Your Geolocation will automatically determine your Location and list Profiles
+                                            according to that Location. You can:</p>
+                                        <ol class="pl-3">
+                                            <li>Filter the search criteria by selecting your preferred filter and then
+                                                selecting the refresh button ‘Apply Filters’.</li>
+                                            <li>Change your Location by selecting your preferred city.</li>
+                                            <li>Change the number of listings displayed by changing the ‘Displayed item’
+                                                filter to your
+                                                preferred value.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li>You can undertake a search for an Escort within your Location, which is the
+                                                default, or Australia wide
+                                                by selecting ‘Australia’.</li>
+                                            <li>Searching by the Member ID is the most efficient way to find the Escort you
+                                                are looking for. </li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
+                                        <p>The Shortlist feature will only remain current for the session. You can:</p>
+                                        <ol class="pl-3">
+                                            <li>Add or remove Profiles by clicking the Short List button displayed on the
+                                                Profile.</li>
+                                            <li>To view your Shortlist, click the List tally that is located in the Search
+                                                Filters panel.</li>
+                                            <li>To clear the Shortlist, click the ‘Clear Shortlist’ button in the Search
+                                                Filters panel.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-4" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li>Your selected Service Tags will be listed below the Service Tag selection
+                                                list in the panel.</li>
+                                            <li>You can remove any Service Tag you selected by clicking the ‘X’ located on
+                                                the tag, or all of
+                                                the Service Tags you selected by clicking the ‘Clear Tags’ link in the
+                                                panel.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane p-3" id="tabs-5" role="tabpanel">
+                                        <ol class="pl-3">
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification, or has been rejected. </div></li>
+                                        </ol>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -600,7 +644,7 @@
 
         </div>
 
-        <div class="otherliste container" style="display: none;">
+        <div class="otherliste" style="display: none;">
 
             <div class="space_between_row" style="display:{{ $viewType == 'grid' ? 'block' : 'none' }}">
 
@@ -612,9 +656,8 @@
                     @endforeach
                 </div>
             </div>
-
-
         </div>
+        
         <div class="grid list-view" style="display: none;">
 
             @foreach ($escorts as $escort)
@@ -712,7 +755,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="my-4 custom_modal_text">
+                    <h1 class="custom_modal_text">
                         <span id="Lname">Please log in or Register to access your Legbox</span>
                     </h1>
                 </div>
@@ -742,7 +785,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <h1 class="my-4 custom_modal_text">
+                    <h1 class="custom_modal_text">
                         <span id="Lname"></span>
                         <span class="class_msg"></span>
                     </h1>

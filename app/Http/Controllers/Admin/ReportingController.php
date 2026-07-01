@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserStatusUpdatedMail;
 use Barryvdh\Debugbar\Controllers\BaseController;
+use Illuminate\Support\Facades\Cache;
 
 class ReportingController extends BaseController
 {
@@ -65,10 +66,34 @@ class ReportingController extends BaseController
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
-            "data"            => $result
+            "data"            => $result,
+            'server_up_time' => $this->getAppUptime(),
+            'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
         );
 
         return response()->json($data);
+    }
+
+    public function getAppUptime()
+    {
+        $startTime = Cache::get('app_start_time');
+        $str = '';
+
+        if (!$startTime) {
+            return 'App start time not available.';
+        }
+
+        $start = \Carbon\Carbon::parse($startTime);
+        $now = now();
+
+        $diffInSeconds = $now->diffInSeconds($start);
+
+        $days = floor($diffInSeconds / 86400);
+        $hours = floor(($diffInSeconds % 86400) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+        $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
+
+        return $str;
     }
 
 

@@ -53,13 +53,11 @@
                                 <th>Order ID</th>
                                 <th>Created By</th>
                                 <th>User</th>
-                                <th>Sub Total</th>
+                                {{-- <th>Sub Total</th>
                                 <th>Wallet Amount</th>
                                 <th>Shipping Charge</th>
-                                <th>Tax</th>
-
+                                <th>Tax</th> --}}
                                 <th>Total</th>
-                                <th>Payment Method</th>
                                 <th>Order Date</th>
                                 <th>Order Status</th>
                                 <th>Payment Status</th>
@@ -93,25 +91,21 @@
                             Order Details
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><img src="https://e4u.local/assets/app/img/newcross.png"
+                            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                     class="img-fluid img_resize_in_smscreen"></span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div id="orderDetailsLoader" class="text-center my-4" style="display:none;">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2">Loading details...</p>
+                    </div>
+                    <div class="modal-body" id="orderDetailsBody">
 
-                        <div id="orderDetailsLoader" class="text-center my-4" style="display:none;">
-                            <div class="spinner-border text-primary" role="status"></div>
-                            <p class="mt-2">Loading details...</p>
-                        </div>
 
-                        <div id="orderDetailsBody"></div>
+
                     </div>
 
-                    <div class="modal-footer">
-                        {{-- <a href="https://e4u.local/escort-dashboard/payments/28/print"
-                            class="btn btn-success-modal nex_sterp_btn print_payment_summary">🖨️ Print Report</a> --}}
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -156,29 +150,25 @@
                             data: 'user',
                             name: 'user'
                         },
-                        {
-                            data: 'sub_total',
-                            name: 'sub_total'
-                        },
-                        {
-                            data: 'wallet_amount',
-                            name: 'wallet_amount'
-                        },
-                        {
-                            data: 'delivery_charges',
-                            name: 'delivery_charges'
-                        },
-                        {
-                            data: 'gst_amount',
-                            name: 'gst_amount'
-                        },
+                        // {
+                        //     data: 'sub_total',
+                        //     name: 'sub_total'
+                        // },
+                        // {
+                        //     data: 'wallet_amount',
+                        //     name: 'wallet_amount'
+                        // },
+                        // {
+                        //     data: 'delivery_charges',
+                        //     name: 'delivery_charges'
+                        // },
+                        // {
+                        //     data: 'gst_amount',
+                        //     name: 'gst_amount'
+                        // },
                         {
                             data: 'total_amount',
                             name: 'total_amount'
-                        },
-                        {
-                            data: 'payment_method',
-                            name: 'payment_method'
                         },
                         {
                             data: 'order_date',

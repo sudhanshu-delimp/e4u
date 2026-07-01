@@ -170,7 +170,7 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item" href="{{ route('agent.fees.summery') }}">
+                        <a class="collapse-item" href="{{ route('agent.fees.summary') }}">
                             <img
                                 src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                             <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Fees
@@ -324,7 +324,7 @@
                                 style="{{ request()->segment(2) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                         </a>
                         <!-- Messages -->
-                        <a class="collapse-item" href="{{ route('agent.agent-messages') }}">
+                        <a class="collapse-item disabled-link" href="{{ route('agent.agent-messages') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                             <span
                                 style="{{ request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
@@ -369,6 +369,10 @@
                     </div>
                 </div>
                 {{-- end --}}
+
+
+                
+
                 {{-- Support tickets --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets"
                     aria-expanded="true" aria-controls="collapseten">

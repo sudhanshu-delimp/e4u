@@ -4,11 +4,13 @@ namespace App\Listeners;
 
 
 use App\Models\User;
+use App\Models\AgentDetail;
 use App\Models\AgentSetting;
 use App\Models\EscortSetting;
 use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
 use App\Models\MassageSetting;
+use App\Models\VariablAgentOperator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\InteractsWithQueue;
@@ -93,6 +95,30 @@ class CreateDefaultAccountSettings
                         'advertiser_email'=>'1',  
                         'idle_preference_time' => '60'             
                     ]);
+
+                $variable =  VariablAgentOperator::where('fee_for', 'advertising')->first();
+                $mcSignup =  VariablAgentOperator::where('fee_for', 'mc_signup')->first();
+                 $commission = 0;
+                 $amountType = 'percent';
+                 if ($variable) {
+                        $commission = (is_null($variable->amount)) ? 0 : $variable->amount;
+                        $amountType = $variable->amount_type;
+                }
+                $mcSignupcommission = 0;
+                $mcSignupamountType = 'fixed';
+                if ($mcSignup) {
+                    $mcSignupcommission = (is_null($mcSignup->amount)) ? 0 : $mcSignup->amount;
+                    $mcSignupamountType = $mcSignup->amount_type;
+                }
+
+                AgentDetail::create([
+                    'agent_id'=>$user['id'],
+                    'commission_advertising_percent'=> $commission,  
+                    'commission_advertising_type' => $amountType,
+                    'commission_registration_amount'=> $mcSignupcommission,  
+                    'commission_registration_type' => $mcSignupamountType,
+                                    
+                ]);
                }
 
                ############ End For Agent ####################

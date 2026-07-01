@@ -38,8 +38,13 @@ $countries = config('operator.country');
 $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
 $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator->operator_detail->agreement_file : '';
 @endphp
+<style>
+    .view_agent_details .table td, .view_agent_details .table th {
+   padding: 10px .75rem !important;
+}
+</style>
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 view_agent_details">
         {{-- <div class="card mb-3 p-3"> --}}
             <!-- Avatar + Name -->
             <div class="d-flex align-items-center mb-3">

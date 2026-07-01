@@ -4,6 +4,16 @@
    form label{
         margin-bottom: 0px;
     }
+
+    .right-sign{border-left:0 !important;margin-left: -2px;}
+    .left-sign{border-right:0 !important;margin-right: -2px !important;}
+	.avertising-input{border-right:0 !important;}
+	.registration-input{border-left:0 !important;};
+    .view_agent_details .table td {padding: 10px .75rem !important;}
+    .view_agent_details .table td, .view_agent_details .table th {
+   padding: 10px .75rem !important;
+}
+
 </style>
 @stop
 @section('content')
@@ -267,23 +277,32 @@
                                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                                     </button>
                                  </div>
-                                 <div class="modal-body pb-0">
+                                 <div class="modal-body pb-0 ">
                                        <div class="row">
-                                          <div class="col-sm-12">
+                                          <div class="col-sm-12 view_agent_details">
                                                 
                                                 <!-- Avatar -->
                                                 <div class="d-flex align-items-center mb-3">
                                                    <img src="${user_img}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
-                                                   <h6 class="mb-0">${(rowData.contact_person ? rowData.contact_person : 'NA')}</h6>
+                                                   <h6 class="mb-0">${(rowData.member_id ? rowData.member_id : 'NA')}</h6>
                                                 </div>
                                        
                                                 <!-- Details Table -->
                                                 <table class="table table-bordered mb-3">
-                                                   <tr><th><b>Business Name</b></th><td>${(rowData.business_name) ? rowData.business_name : 'NA'}</td></tr>
+                                                   <tr><th style="width:40px;"><b>Business Name</b></th><td style="width:60px;">${(rowData.business_name) ? rowData.business_name : 'NA'}</td></tr>
+                                                      <tr><th><b>ABN</b></th><td>${(rowData.abn) ? rowData.abn : 'NA'}</td></tr>
+                                                       <tr><th><b>Business Address</b></th><td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td></tr>
+                                                    <tr><th><b>Business Number</b></th><td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td></tr>
+                                                     <tr><th><b>Contact Person</b></th><td>${(rowData.contact_person) ? rowData.contact_person : 'NA'}</td></tr>
                                                    <tr><th><b>Mobile</b></th><td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td></tr>
-                                                   <tr><th><b>Email</b></th><td>${(rowData.email) ? rowData.email : 'NA'}</td></tr>
-                                                   <tr><th><b>ABN</b></th><td>${(rowData.abn) ? rowData.abn : 'NA'}</td></tr>
-                                                   <tr><th><b>Address</b></th><td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td></tr>
+                                                   <tr><th><b>Private Email</b></th><td>${(rowData.email) ? rowData.email : 'NA'}</td></tr>
+                                                    <tr><th><b>E4U Email</b></th><td>${(rowData.email2) ? rowData.email2 : 'NA'}</td></tr>
+                                                     <tr><th><b>Territory</b></th><td>${(rowData?.state.name) ? rowData.state.name : 'NA'}</td></tr>
+
+                                                      <tr><th><b>Agreement Date</b></th><td>${(rowData.agent_detail?.agreement_date) ? rowData.agent_detail.agreement_date.split('-').reverse().join('-') : 'NA'}</td></tr>
+                                                       <tr><th><b>Term</b></th><td>${(rowData.agent_detail?.term) ? rowData.agent_detail.term : 'NA'}</td></tr>
+                                                        <tr><th><b>Commission Advertising</b></th><td>${(rowData.agent_detail?.commission_advertising_percent) ? rowData.agent_detail.commission_advertising_percent +'%': '0%'}</td></tr>
+                                                         <tr><th><b>Commission Registration</b></th><td>${(rowData.agent_detail?.commission_registration_amount) ? '$'+rowData.agent_detail.commission_registration_amount : '$0'}</td></tr>
                                                 </table>
                                        
                                                 
@@ -506,34 +525,28 @@
                                  </div>
 
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                       <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? ''}" >
-                                       <span class="text-danger error-commission_advertising_percent"></span>
+                                    <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details?.commission_advertising_percent ?? adv_commissionfee}" maxlength="5">
+                                        <div class="input-group-prepend">
+                                        <div class="input-group-text form-control right-sign">%</div>
+                                        </div>
+                                         <input type="hidden" name="commission_advertising_type" value="percent"/>
+                                    </div> 
+                                     <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
-                                 <div class="col-6 mb-3">
-                                        <label lass="form-label" for="commission_advertising_type">Amount Type</label>
-                                    <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
-                                        <option value="">Amount Type</option>
-                                       <option value="percent" ${agent_details?.commission_advertising_type == 'percent' ? 'selected' : ''}>Percent</option>
-                                        <option value="fixed" ${agent_details?.commission_advertising_type == 'fixed' ? 'selected' : ''}>Fixed</option>
-                                    </select>
-                                     <span class="text-danger error-commission_advertising_type"></span>
-                                    </div>
-
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                       <input type="number" min="0" step="0.01" class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? ''}" >
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                             <div class="input-group-text form-control left-sign" >$</div>
+                                            </div>
+                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${agent_details?.commission_registration_amount ?? massg_commissionfee}" maxlength="5">
+                                            <input type="hidden" name="commission_registration_type" value="fixed"/>
+                                         </div>
                                        <span class="text-danger error-commission_registration_amount"></span>
                                  </div>
-                                 <div class="col-6 mb-3">
-                                        <label lass="form-label" for="commission_registration_type">Amount Type</label>
-                                    <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
-                                        <option value="">Amount Type</option>
-                                        <option value="percent" ${agent_details?.commission_registration_type == 'percent' ? 'selected' : ''}>Percent</option>
-                                        <option value="fixed" ${agent_details?.commission_registration_type == 'fixed' ? 'selected' : ''}>Fixed</option>
-                                    </select> 
-                                     <span class="text-danger error-commission_registration_type"></span>
-                                    </div>
+        
 
                                  <!-- ==================== File Uploads ==================== -->
                                  <div class="col-6 mb-3">
@@ -847,34 +860,27 @@
                                        </div>
 
                                        <div class="col-6 mb-3">
-                                             <label class="form-label" for="commission_advertising_percent">Advertising</label>
-                                             <input type="number" min="0" step="0.01" class="form-control rounded-0" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}">
-                                              <span class="text-danger error-commission_advertising_percent"></span>
-                                       </div>
-                                        <div class="col-6 mb-3">
-                                             <label lass="form-label" for="commission_advertising_type">Amount Type</label>
-                                            <select class="form-control rounded-0" name="commission_advertising_type" id="commission_advertising_type" data-parsley-required-message="Please select amount type">
-                                            <option value="">Amount Type</option>
-                                            <option value="percent" ${commissionAdvertisingType == 'percent' ? 'selected' : ''} >Percent</option>
-                                            <option value="fixed" ${commissionAdvertisingType == 'fixed' ? 'selected' : ''}>Fixed</option>
-                                        </select> 
-                                        <span class="text-danger error-commission_advertising_type"></span>
+                                    <label class="form-label" for="commission_advertising_percent">Advertising</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control avertising-input" name="commission_advertising_percent" id="commission_advertising_percent" value="${adv_commissionfee}" maxlength="5">
+                                        <div class="input-group-prepend">
+                                        <div class="input-group-text form-control right-sign">%</div>
                                         </div>
-
-                                       <div class="col-6 mb-3">
-                                             <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
-                                             <input type="number" min="0" step="0.01"  class="form-control rounded-0"  name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}">
-                                              <span class="text-danger error-commission_registration_amount"></span>
-                                       </div>
-                                        <div class="col-6 mb-3">
-                                             <label  class="form-label" for="commission_registration_type">Amount Type</label>
-                                         <select class="form-control rounded-0" name="commission_registration_type" id="commission_registration_type" data-parsley-required-message="Please select amount type">
-                                            <option value="">Amount Type</option>
-                                            <option value="percent" ${commissionRegistrationType == 'percent' ? 'selected' : ''}>Percent</option>
-                                            <option value="fixed" ${commissionRegistrationType == 'fixed' ? 'selected' : ''}>Fixed</option>
-                                        </select>
-                                         <span class="text-danger error-commission_registration_type"></span>
-                                        </div>
+                                         <input type="hidden" name="commission_advertising_type" value="percent"/>
+                                    </div> 
+                                     <span class="text-danger error-commission_advertising_percent"></span>
+                                 </div>
+                                 <div class="col-6 mb-3">
+                                       <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                             <div class="input-group-text form-control left-sign" >$</div>
+                                            </div>
+                                            <input type="text" class="form-control rounded-0 registration-input" name="commission_registration_amount" id="commission_registration_amount" value="${massg_commissionfee}" maxlength="5">
+                                            <input type="hidden" name="commission_registration_type" value="fixed"/>
+                                         </div>
+                                       <span class="text-danger error-commission_registration_amount"></span>
+                                 </div>
 
                                        <!-- ==================== File Uploads ==================== -->
                                        <div class="col-6 mb-3">
@@ -987,39 +993,73 @@
             var rowData = $(this).data('agent');
             let user_img = rowData.avatar_img ? avatarsPath + '/' + rowData.avatar_img : defaultUser;
 
-            var printContent = `
-    <div style="font-family:Arial; max-width:100%; overflow:hidden; box-sizing:border-box;">
-        <table style="border:none; border-collapse:collapse; width:auto; margin-bottom:5px;">
+            var printContent = `<style>*{font-family: Arial !important; font-size: 16px !important;color: #333 !important;}
+                table{border:1px #cccccc solid;font-family:Arial !important;color: #333 !important;} table th{width:30%; padding: 10px .75rem;border:1px #cccccc solid; text-align:left;font-family:Arial;} 
+                table td{width:70%; padding: 10px .75rem;border:1px #cccccc solid; white-space:nowrap;} h2{font-size: 22px;font-weight: 800px;font-family:Arial;} body {font-family: Arial !important;font-size: 81.25%;}
+                </style>
+        <div style="font-family:Arial !important; max-width:100%; overflow:hidden; box-sizing:border-box;">
+         <h2>Agent Report</h2>
+        <table style="border:none; border-collapse:collapse; width:auto; margin-bottom:5px;font-family:Arial;">
             <tr>
-                <td style="vertical-align:middle; border:none;">
-                    <img src="${user_img}" style="margin-right:10px; max-height:50px; max-width:50px; object-fit:cover;">
+                <td style=" border:none;text-align:left; margin-left:0; padding-left:0;">
+                    <img src="${user_img}" style="margin-left:0px;padding-left:0; margin-right:10px; max-height:50px; max-width:50px; object-fit:cover;">
                 </td>
-                <td style="vertical-align:middle; border:none;">
-                    <h4 style="margin:0; font-size:16px;">${rowData.contact_person || 'NA'}</h4>
+                <td style=" border:none;padding-left:0;">
+                    <h4 style="padding-left:0;margin:0; font-size:16px;">${rowData.member_id || 'NA'}</h4>
                 </td>
             </tr>
         </table>
-        <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px;" border="1">
+         <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px;font-family:Arial;" border="1">
+        <tr>
+            <th><b>Business Name</b></th>
+            <td>${(rowData.business_name) ? rowData.business_name : 'NA'}</td>
+        </tr>
             <tr>
-                <th style="width:30%; font-weight:bold; padding:6px;">Business Name</th>
-                <td style="width:70%; padding:6px; white-space:nowrap;">${rowData.business_name || 'NA'}</td>
-            </tr>
-            <tr>
-                <th style="font-weight:bold; padding:6px;">Mobile</th>
-                <td style="padding:6px; white-space:nowrap;">${rowData.business_number || 'NA'}</td>
-            </tr>
-            <tr>
-                <th style="font-weight:bold; padding:6px;">Email</th>
-                <td style="padding:6px;"><div style="word-wrap:break-word; overflow-wrap:anywhere;">${rowData.email || 'NA'}</div></td>
-            </tr>
-            <tr>
-                <th style="font-weight:bold; padding:6px;">ABN</th>
-                <td style="padding:6px; white-space:nowrap;">${rowData.abn || 'NA'}</td>
-            </tr>
-            <tr>
-                <th style="font-weight:bold; padding:6px;">Address</th>
-                <td style="padding:6px;"><div style="word-wrap:break-word; overflow-wrap:anywhere;">${rowData.business_address || 'NA'}</div></td>
-            </tr>
+               <th><b>ABN</b></th>
+            <td>${(rowData.abn) ? rowData.abn : 'NA'}</td>
+        </tr>
+        <tr>
+            <th><b>Business Address</b></th>
+            <td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td>
+        </tr>
+        <tr>
+            <th><b>Business Number</b></th>
+            <td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td>
+        </tr>
+        <tr>
+            <th><b>Contact Person</b></th>
+            <td>${(rowData.contact_person) ? rowData.contact_person : 'NA'}</td>
+        </tr>
+        <tr>
+            <th><b>Mobile</b></th>
+            <td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td>
+        </tr>
+        <tr>
+            <th><b>Private Email</b></th>
+            <td>${(rowData.email) ? rowData.email : 'NA'}</td></tr>
+        <tr>
+            <th><b>E4U Email</b></th>
+            <td>${(rowData.email2) ? rowData.email2 : 'NA'}</td></tr>
+        <tr>
+            <th><b>Territory</b></th>
+            <td>${(rowData?.state.name) ? rowData.state.name : 'NA'}</td>
+        </tr>
+        <tr>
+            <th><b>Agreement Date</b></th>
+            <td>${(rowData.agent_detail?.agreement_date) ? rowData.agent_detail.agreement_date.split('-').reverse().join('-') : 'NA'}</td>
+        </tr>
+        <tr>
+           <th><b>Term</b><</th>
+            <td>${(rowData.agent_detail?.term) ? rowData.agent_detail.term : 'NA'}</td>
+        </tr>
+        <tr>
+            <th><b>Commission Advertising</b></th>
+            <td>${(rowData.agent_detail?.commission_advertising_percent) ? rowData.agent_detail.commission_advertising_percent +'%': '0%'}</td>
+        </tr>
+        <tr>
+            <th><b>Commission Registration</b></th>
+            <td>${(rowData.agent_detail?.commission_registration_amount) ? '$'+rowData.agent_detail.commission_registration_amount : '$0'}</td>
+        </tr>
         </table>
     </div>`;
 

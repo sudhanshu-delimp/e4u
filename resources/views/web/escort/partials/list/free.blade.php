@@ -3,7 +3,7 @@
 @endphp
     
 <div class="listview_each_section_border_btm silver-sec brb--listing">
-    <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
+    <div class="manage_listview_margin_gold_section  list_provide_cruise plat_list_frame">
         
 
         
@@ -32,12 +32,12 @@
                             @if (auth()->user())
                                 @if (auth()->user()->type == 0)
                                     <span
-                                        class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
+                                        class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
                                         id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                                         data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
                                         data-name="{{ $escortName }}">
                                         @if (!empty($user_type))
-                                            @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
+                                            @if (in_array($escort->id, $user_type))
                                                 <i class='fa fa-heart' style='color: #ff3c5f;'
                                                     aria-hidden='true'></i>
                                                 <span class="custom-heart-text list-tool remove-tool">Remove from My

@@ -982,7 +982,36 @@ class MassageCentre extends Controller
         }
         ######### End Upper Filter ##################### 
 
-     
+        $massage->getCollection()->transform(function ($item) {
+
+                $total = MassageLike::where('massage_id',$item->id)->count();
+                if($total > 0) {
+                    $likeCount = MassageLike::where('like',1)->where('massage_id',$item->id)->count();
+                    $dislikeCount = MassageLike::where('like',0)->where('massage_id',$item->id)->count();
+                    $lp = round($likeCount/$total * 100);
+                    $dp = round($dislikeCount/$total * 100);
+                } else {
+                    $lp = 0;
+                    $dp = 0;
+                }
+                if ($lp == 100) {
+                    $item->star_rating = 5;
+                } elseif ($lp > 80) {
+                    $item->star_rating = 4;
+                } elseif ($lp > 60) {
+                    $item->star_rating = 3;
+                } elseif ($lp > 40) {
+                    $item->star_rating= 2;
+                } elseif ($lp > 20) {
+                    $item->star_rating = 1;
+                } else {
+                    $item->star_rating = 0;
+                }
+            return $item;
+            });
+
+
+        
         
       
        $media = $this->media;

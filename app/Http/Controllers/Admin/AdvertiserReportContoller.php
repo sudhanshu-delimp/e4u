@@ -10,6 +10,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class AdvertiserReportContoller extends Controller
 {
@@ -140,15 +141,6 @@ class AdvertiserReportContoller extends Controller
                         <i class="fa fa-sync-alt text-dark"></i> In Progress
                         </a><div class="dropdown-divider"></div>';
                     }
-
-                    // if ($row->report_status == 'resolved') {
-                    //     $statusActionHtml += '
-                    //     <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
-                    //     data-toggle="modal" data-target="#confirm-popup" 
-                    //     data-id="' . $row->id . '" data-val="inprogress" href="#">
-                    //     <i class="fa fa-check-circle text-dark"></i> In Progress
-                    //     </a>';
-                    // }
                 }
                 return '
                     <div class="dropdown no-arrow ml-3">
@@ -168,9 +160,33 @@ class AdvertiserReportContoller extends Controller
             })
             ->rawColumns(['action','status'])
             ->with([
-                'reports' => $reports
+                'reports' => $reports,
+	            'server_up_time' => $this->getAppUptime(),
+                'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
             ])
             ->make(true);
+    }
+
+    public function getAppUptime()
+    {
+        $startTime = Cache::get('app_start_time');
+        $str = '';
+
+        if (!$startTime) {
+            return 'App start time not available.';
+        }
+
+        $start = \Carbon\Carbon::parse($startTime);
+        $now = now();
+
+        $diffInSeconds = $now->diffInSeconds($start);
+
+        $days = floor($diffInSeconds / 86400);
+        $hours = floor(($diffInSeconds % 86400) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+        $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
+
+        return $str;
     }
 
     private function getAdvertiserReports()

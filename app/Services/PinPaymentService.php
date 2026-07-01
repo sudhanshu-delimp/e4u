@@ -19,13 +19,14 @@ class PinPaymentService
 {
   use DataTablePagination;
   protected $walletAmount = 0.00;
-  protected $totalAmount = 0.00;
+  protected $loyaltyAmount = 0.00;
+  protected $amount = 0.00;
   protected $gstAmount = 0.00;
   protected $totalDueAmount = 0.00;
 
   public function setAmount($amount)
   {
-    $this->totalAmount = $amount;
+    $this->amount = $amount;
     return $this;
   }
 
@@ -35,15 +36,29 @@ class PinPaymentService
     return $this;
   }
 
+
+  public function setLoyaltyAmount($amount)
+  {
+    $this->loyaltyAmount = $amount;
+    return $this;
+  }
+
   public function getGSTAmount()
   {
-    $this->gstAmount = (($this->totalAmount + $this->walletAmount) * config('app.payment.gst_percentage')) / 100;
+    //$this->gstAmount = (($this->totalAmount + $this->walletAmount) * config('app.payment.gst_percentage')) / 100;
+    $this->gstAmount = ($this->amount * config('app.payment.gst_percentage')) / 100;
     return number_format($this->gstAmount, 2, '.', '');
   }
 
   public function getTotalDue()
   {
-    $this->totalDueAmount = $this->totalAmount + $this->gstAmount;
+    $this->totalDueAmount = $this->amount + $this->gstAmount - $this->walletAmount - $this->loyaltyAmount;
+    return number_format($this->totalDueAmount, 2, '.', '');
+  }
+
+  public function getDefaultTotalDue()
+  {
+    $this->totalDueAmount = $this->amount + $this->gstAmount;
     return number_format($this->totalDueAmount, 2, '.', '');
   }
 
@@ -184,5 +199,20 @@ class PinPaymentService
   public function paymentHistoryDetail(int $id)
   {
     return PaymentHistory::findOrFail($id);
+  }
+
+  public function getTransactionDetail($transaction_id = null)
+  {
+    if (!empty($transaction_id)) {
+      return PaymentHistory::where('transaction_id', $transaction_id)->first();
+    } else {
+      return false;
+    }
+  }
+
+  public function saveTransaction(array $insert)
+  {
+    $payment = PaymentHistory::create($insert);
+    return $payment;
   }
 }

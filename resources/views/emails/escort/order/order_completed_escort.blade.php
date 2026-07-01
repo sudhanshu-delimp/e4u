@@ -37,7 +37,7 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
-                            <p style="margin: 0 0 15px 0;"><b>Dear Member,</b></p>
+                            <p style="margin: 0 0 15px 0;"><b>Dear {{ $data['member_name'] }},</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
 
@@ -55,10 +55,11 @@
                                 Please retain this confirmation for your records and quote the order reference in any
                                 future correspondence regarding this order. </p>
                             <p style="margin: 15px 0;">
-                               If you have any questions or require further assistance, please contact our support team. </p>
+                                If you have any questions or require further assistance, please contact our support
+                                team. </p>
 
                             <!-- email info -->
-                           <p style="font-size: 15px; margin-top: 20px;">
+                            <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
                             </p>

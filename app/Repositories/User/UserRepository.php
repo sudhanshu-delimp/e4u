@@ -591,6 +591,7 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         try 
         {
+            $user_password = isset($data['confirm_password']) ? $data['confirm_password'] : "";
             $granted = '0';
             if( isset($data['accessGranted']) && $data['accessGranted']=='yes')
             $granted = '1';
@@ -611,18 +612,37 @@ class UserRepository extends BaseRepository implements UserInterface
             $user->type = '4';
             $user->is_child = 1;
             $user->state_id = auth()->user()->state_id;
-            $user->password =  Hash::make($data['confirm_password']);
+
+            if(isset($data['confirm_password']) && $data['confirm_password']!="")
+            {
+                $user->password =  Hash::make($user_password);
+            }
+            
+
             if($user->save())
             {
-                 if (!MassageProfile::where('user_id', $user->id)->exists()) {
-                    $escort = new MassageProfile();
-                    $escort->user_id = $user->id;
-                    $escort->default_setting = 1;
-                    $escort->save();
-                    }
+                if (!MassageProfile::where('user_id', $user->id)->exists()) {
+                $escort = new MassageProfile();
+                $escort->user_id = $user->id;
+                $escort->default_setting = 1;
+                $escort->save();
+                }
 
-                
+
+                if($granted=='1' && $user_password!="")
+                {
+                    $new_password = $user_password;
+                    try {
+                    Mail::to($user->email)->send( new OtherCentreRegistrationEmail($user,$new_password));
+                    $user->is_access_grant_notified = '1'; 
+                    $user->save();
+                    } 
+                    catch (Exception $e) {
+                    Log::error('Other Massage Center Email sending failed: ' . $e->getMessage());
+                    }
+                }    
             }
+
             return [ 'status' => true, 'message' => 'New Centre added successfully.'];
         } 
         catch (Exception $e) {
@@ -670,7 +690,23 @@ class UserRepository extends BaseRepository implements UserInterface
             if(!isset($data['confirm_password']) || $data['confirm_password']!="")
             $user->password =  Hash::make($data['confirm_password']);
 
-            $user->save();
+            if($user->save())
+            {
+                if($granted=='1' && $user->is_access_grant_notified=='0')
+                {
+                    $new_password = $data['confirm_password'];
+                    try {
+                    Mail::to($user->email)->send( new OtherCentreRegistrationEmail($user,$new_password));
+                    $user->is_access_grant_notified = '1'; 
+                    $user->save();
+                    } 
+                    catch (Exception $e) {
+                    Log::error('Other Massage Center Email sending failed: ' . $e->getMessage());
+                    }
+                }
+                
+            }
+
             return [ 'status' => true, 'message' => 'Centre updated successfully.'];
 
             

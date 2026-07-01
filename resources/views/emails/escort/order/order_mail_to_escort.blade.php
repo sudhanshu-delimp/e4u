@@ -65,15 +65,13 @@
                             <ol style="padding-left: 20px; margin: 0; line-height: 22px;">
                                 <li>
                                     Your products will, if by post:
-                                    <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <ul style="padding-left: 20px; margin-top: 10px; list-style: none">
                                         <li>(a) be dispatched on the next business day; and</li>
                                         <li>(b) can be tracked.</li>
                                     </ul>
                                 </li>
                                 <li style="margin-top: 10px;">
-                                    You can view your order online by going to your Dashboard and selecting
-                                    Transaction Summary and from the Action options, select
-                                    View.
+                                    You can view your order online by going to your Dashboard and selecting Orders within the Bookkeeping group.
                                 </li>
                             </ol>
 

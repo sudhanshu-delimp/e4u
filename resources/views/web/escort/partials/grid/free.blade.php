@@ -59,9 +59,9 @@
             </span>
             @if(auth()->user())
                 @if(auth()->user()->type == 0)
-                    <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}} ">
+                    <span class="add_to_favrate @if(in_array($escort->id,$user_type)){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}} ">
                         @if(!empty($user_type))
-                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
+                            @if(in_array($escort->id,$user_type))
                                 <i class='fa fa-heart' style='color: #ff3c5f;'  aria-hidden='true'></i>
                                 <span class="custom-heart-text">Remove from My Legbox</span>
                             @else

@@ -248,7 +248,14 @@ margin-right: 5px;
             background-repeat: no-repeat; background-size:cover;">
 
         
-
+        <div class="back_to_list">
+             <a href="../massage-centres-list" class="back--search "> 
+                <span class="previous_icon">
+                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                
+                </span> <span class="hide_ph">Back to Search</span>  
+            </a>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-12 p-0">                    
@@ -267,15 +274,7 @@ margin-right: 5px;
                         <div class="profile_header">
                             <div class="profile_page_title">
                                 <h2 class="display_inline_block">{{ $listing->business_name ?? 'N/A' }}</h2>                                
-                            </div>
-                            <a href="../massage-centres-list" class="back--search "> 
-                                <span class="previous_icon">
-                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
-                                
-                                </span> <span class="hide_ph">Back to Search</span>  
-                            </a>
-
-                            
+                            </div> 
                         </div>
                         
 
@@ -283,7 +282,7 @@ margin-right: 5px;
                             <p> {{ get_massage_home_city($listing->user_id) .' - '.formatMobileNumber($listing->phone) }}   </p>
                         </div>
 
-                        <div class="profile_page_location_and_id">
+                        <div class="profile_page_location_and_id mb-4">
                             <ul>
                                 <li>
                                     <span class="profile_location_icon">
@@ -291,33 +290,27 @@ margin-right: 5px;
                                     </span>
                                     <p class="display_inline_block">{{  $listing->address ?? 'N/A' }}</p>
                                 </li>
-                                <li>
-                                    <span class="profile_location_icon">
-                                        <i class="fa fa-id-card" aria-hidden="true"></i>
-                                    </span>
-                                    <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
-                                </li>
                             </ul>
                         </div>
 
-                        <div class="social_media_profile">
+                        <div class="social_media_profile my-3">
                             <ul class="profile_page_social_profiles ml-0">
 
-                            @if(isset($social_links['facebook']) && $social_links['facebook']!="")
-                                <li class="social-media-profile">
-                                    <a href="{{$social_links['facebook']}}" target="_blank">
-                                        <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
-                                    </a>
-                                </li>
-                            @endif   
+                                @if(isset($social_links['facebook']) && $social_links['facebook']!="")
+                                    <li class="social-media-profile">
+                                        <a href="{{$social_links['facebook']}}" target="_blank">
+                                            <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
+                                        </a>
+                                    </li>
+                                @endif   
 
-                            @if(isset($social_links['insta']) && $social_links['insta']!="")
-                                <li class="social-media-profile">
-                                    <a href="{{$social_links['insta']}}" target="_blank">
-                                        <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
-                                    </a>
-                                </li>
-                            @endif  
+                                @if(isset($social_links['insta']) && $social_links['insta']!="")
+                                    <li class="social-media-profile">
+                                        <a href="{{$social_links['insta']}}" target="_blank">
+                                            <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
+                                        </a>
+                                    </li>
+                                @endif  
 
 
                         
@@ -330,6 +323,16 @@ margin-right: 5px;
                                 
 
                             </ul>
+                             <div class="profile_page_location_and_id">
+                                <ul>
+                                    <li>
+                                        <span class="profile_location_icon">
+                                            <i class="fa fa-id-card" aria-hidden="true"></i>
+                                        </span>
+                                        <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -348,7 +351,11 @@ margin-right: 5px;
                                     'id' => $prevId,
                                     'ids' => json_encode($ids)
                                 ]) : 'massage-centres-list' }}" class="btn_ank">
-                    <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
+                    <span class="previous_icon">
+                        
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M13.2602 15.5302L9.74023 12.0002L13.2602 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                
+                    </span>
                     <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
@@ -360,7 +367,11 @@ margin-right: 5px;
                                 
                                 class="btn_ank">
                     <span class="previous_text remove_in_sm">Next</span>
-                    <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
+                    <span class="previous_icon">
+                        
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M10.7402 15.5302L14.2602 12.0002L10.7402 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                
+                    </span>
                 </a>
             </div>
         </div>
@@ -429,7 +440,7 @@ margin-right: 5px;
                 </div>
 
                 <div class="row mc_profile_table">
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-12 table-responsive">
                         <table class="table table_striped">
                             <thead>
                                 <tr>
@@ -535,7 +546,7 @@ margin-right: 5px;
                         
                     </div>
 
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-12 table-responsive">
                         <table class="table table_striped timing_data">
                             <thead>
                                 <tr>
@@ -1483,7 +1494,7 @@ margin-right: 5px;
                             <div id="carouselExampleInterval" class="carousel slide mc_view_media" data-ride="carousel"
                                 data-interval="false">
                                     
-                                <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
+                                <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view Our Media.</span>
                                 <div class="carousel-inner">
                                     
                                     <!-- Carousel Item 1 -->
@@ -2239,7 +2250,7 @@ margin-right: 5px;
                     </button>
                 </div>
                 
-                <div class="modal-body p-1">
+                <div class="modal-body">
                     <div class="tab-content" id="myTabContent">
 
                         {{-- <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
@@ -2395,19 +2406,22 @@ margin-right: 5px;
                         </div>
                         <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
                             
-                            <div class="row px-3 pb-2" id="dvSource">
-                                
+                            <div class="swiper mySwiper" id="dvSource">
+                                <div class="swiper-wrapper">
                                         @foreach($galleryVideos as $key=>$media) 
-                                            <div class="col-md-4" id="dm_2">
-                                                <a href="#">
-                                                    <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                        <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                    </video> 
-                                                </a>
+                                           <div class="swiper-slide">
+                                                <div id="dm_{{ $key }}" class="w-100">
+                                                    <a href="#">
+                                                        <video style="z-index: 1" controls="" id="videoId_{{ $key }}" src="{{ asset($media->path) }}">
+                                                            <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                        </video> 
+                                                    </a>
+                                                </div>
                                             </div>
                                         @endforeach 
-                                    
-
+                                </div>    
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
                             </div>
                         </div>
                     </div>

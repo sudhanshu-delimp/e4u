@@ -372,6 +372,8 @@ Route::get('mobile-read-sim', function () {
   return view('escort.dashboard.Concierge.mobile-read-sim');
 });
 
+Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('bookkeeping.product.orders');
+
 Route::prefix('concierge')->name('escort.')->group(function () {
   Route::get('/products', [ProductController::class, 'index'])->name('products');
   Route::get('concierge/view-cart', [ProductController::class, 'cartListing'])->name('view-cart');
@@ -379,11 +381,12 @@ Route::prefix('concierge')->name('escort.')->group(function () {
   Route::post('transaction/summary', [ProductController::class, 'getTransactionSummary'])->name('transaction.summary');
   Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');
   Route::post('make/order/payment', [ProductOrderController::class, 'makeOrderPayment'])->name('make.order.payment');
-  Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('orders');
   // Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
   Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('order.details');
+  Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
 });
+
 
 
 Route::get('concierge/', function () {

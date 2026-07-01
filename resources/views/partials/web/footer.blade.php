@@ -1,10 +1,10 @@
 @section('style')
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0)
-        }
-    </style>
+<style type="text/css">
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0)
+    }
+</style>
 @endsection
 <!-- Preloader -->
 
@@ -15,13 +15,14 @@
     <section class="footer_mange_padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
-                    <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}" 
-                            alt="logo"></a>
-                </div>
-                <div class="col-md-6">
-                    @if (!auth()->user())
-                        <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
+                <div class="col-12 footer_login_area">
+                     <div class="">
+                        <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"
+                                alt="logo"></a>
+                    </div>
+                    <div class="">
+                        @if (!auth()->user())
+                        <ul class="footer_list_style_none pl-0 custom--foter-login">
                             <li class="dropdown">
                                 <a style="padding: 5px 15px;width:120px; text-align: center;"
                                     class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
@@ -45,8 +46,10 @@
                                 </div>
                             </li>
                         </ul>
-                    @endif
+                        @endif
+                    </div>
                 </div>
+               
             </div>
             <div class="row">
                 <div class="col footer_text_color_white" align="justify">
@@ -63,71 +66,87 @@
                     <p>Further details may be found in the Terms and Conditions.</p>
                 </div>
                 @php
-                    $viewType = 'grid';
-                    if (request()->get('view_type') === 'list') {
-                        $viewType = 'list';
-                    }
+                $viewType = 'grid';
+                if (request()->get('view_type') === 'list') {
+                $viewType = 'list';
+                }
                 @endphp
                 <div class="col footer_text_color_white">
-                    <h4 class="custom-mt">Location </h4>
+                    <h4 class="custom-mt">Location - AUS </h4>
                     <div class="d-flex">
                         <div class="wcustom-50">
                             <ul class="list-group footer_list_style_none">
                                 @foreach (config('escorts.profile.cities') as $key => $city)
                                 @php
-                                    $query = request()->query();
-                                    $query['city'] = $key;
-                                    $query['gender'] = '';
+                                $query = request()->query();
+                                $query['city'] = $key;
+                                $query['gender'] = '';
                                 @endphp
-                               
-                                    {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
-                                            class="footer_view_type_one"
-                                            id="{{ $key }}">{{ $city }}</a></li> --}}
 
-                                            <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
+                                {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                class="footer_view_type_one"
+                                id="{{ $key }}">{{ $city }}</a></li> --}}
+
+                                <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
                                                 'city' => $key,
                                                 'gender' => '',
                                                 'view_type' => $viewType
                                             ])) }}"
-                                            class="footer_view_type_one"
-                                            id="{{ $key }}">{{ $city }}</a></li>
-                                    @if ($loop->iteration == 4)
-                                        @break
-                                    @endif
+                                        class="footer_view_type_one"
+                                        id="{{ $key }}">{{ $city }}</a></li>
+                                @if ($loop->iteration == 4)
+                                @break
+                                @endif
                                 @endforeach
-                                {{--
-                        <li><a href="{{ url('all-escorts-list') }}">Brisbane</a></li>
-                        <li><a href="{{ url('all-escorts-list') }}">Canberra</a></li>
-                        <li><a href="{{ url('all-escorts-list') }}">Darwin</a></li>
-                        --}}
+
                             </ul>
 
                         </div>
                         <div class="wcustom-50">
                             <ul class="list-group footer_list_style_none">
                                 @foreach (config('escorts.profile.cities') as $key => $city)
-                                    @if ($loop->iteration > 4)
-                                        {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
-                                                class="city_id footer_view_type_two"
-                                                id="{{ $key }}">{{ $city }}</a></li> --}}
-                                                 <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
+                                @if ($loop->iteration > 4)
+                                {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                class="city_id footer_view_type_two"
+                                id="{{ $key }}">{{ $city }}</a></li> --}}
+                                <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
                                                     'city' => $key,
                                                     'gender' => '',
                                                     'view_type' => $viewType
                                                 ])) }}"
-                                                class="city_id footer_view_type_two"
-                                                id="{{ $key }}">{{ $city }}</a></li>
-                                    @endif
+                                        class="city_id footer_view_type_two"
+                                        id="{{ $key }}">{{ $city }}</a></li>
+                                @endif
                                 @endforeach
                                 {{--
                         <li><a href="{{ url('all-escorts-list') }}">Melbourne</a></li>
-                        <li><a href="{{ url('all-escorts-list') }}">Perth</a></li>
-                        <li><a href="{{ url('all-escorts-list') }}">Sydney</a></li>
-                        --}}
+                                <li><a href="{{ url('all-escorts-list') }}">Perth</a></li>
+                                <li><a href="{{ url('all-escorts-list') }}">Sydney</a></li>
+                                --}}
                             </ul>
                         </div>
                     </div>
+                    <h4 class="custom-mt">Location - NZ </h4>
+                    <div class="d-flex">
+                        <div class="">
+                            <ul class="nz_location">
+                                @foreach (config('escorts.profile.nz_cities') as $key => $city)
+                                @php
+                                $query = request()->query();
+                                $query['city'] = $key;
+                                $query['gender'] = '';
+                                @endphp
 
+                                <li><a href="javascript:void(0);">{{ $city }}</a></li>
+                                @if ($loop->iteration == 4)
+                                @break
+                                @endif
+                                @endforeach
+
+                            </ul>
+
+                        </div>
+                    </div>
                 </div>
                 <div class="col footer_text_color_white">
                     <h4>Legal</h4>
@@ -185,15 +204,19 @@
                         <div class="wcustom-100">
                             <ul class="list-group footer_list_style_none resources_list">
                                 <li> <a href="{{ 'https://agencymanagement.com.au' }}" target="_blank">
-                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div> Agency Management</a></li>
-                                <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank"> 
-                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM</a>
+                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div> Agency Management
+                                    </a></li>
+                                <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank">
+                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM
+                                    </a>
                                 </li>
-                                <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank"> 
-                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
-                                        Australia</a></li>
-                                <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank"> 
-                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div> Punterbox</a>
+                                <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank">
+                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
+                                        Australia
+                                    </a></li>
+                                <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank">
+                                        <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div> Punterbox
+                                    </a>
                                 </li>
 
                             </ul>
@@ -207,9 +230,9 @@
         </div>
     </section>
     <section class="copy_right_footer_mange_padding">
-        <div class="footer_copy_right">
+        <div class="footer_copy_right container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-md-8 footer_text_color_white">
+                <div class="col-lg-8 col-md-8 footer_text_color_white p-0">
                     <div class="custom--copyryt">
                         <span><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 stroke="#fff">
@@ -229,14 +252,16 @@
                             class="admin-login" href="{{ url('parent-control') }} ">Parent Control</a>
                         {{--@if (!auth()->user())
                             <span>|</span><a class="admin-login" href="{{ route('admin.login') }}">Management Login</a>
-                         <span>|</span><a class="admin-login" href="{{ route('operator.login')}}">Operator Login</a>
-                         <span>|</span><a class="admin-login" href="{{ route('shareholder.login')}}">Shareholder Login</a>
-                         <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>
-                         
+                        <span>|</span><a class="admin-login" href="{{ route('operator.login')}}">Operator Login</a>
+                        <span>|</span><a class="admin-login" href="{{ route('shareholder.login')}}">Shareholder Login</a>
+                        <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>
+
                         @endif --}}
+                        
                     </div>
+                    
                 </div>
-                <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right">
+                <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right p-0">
                     <span class="footer_text_color_white">Last revision: 1st June 2025&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                     <span class="footer_text_color_white">Follow us:</span>
                     <ul class="footer_social_icons">
@@ -244,6 +269,11 @@
                                     src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"
                                     alt="logo"></a></li>
                     </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 delimp_copyright">
+                    <span><img src="{{ asset('assets/app/img/delimp-technology.png') }}" alt="Delimp Technology Pvt. Ltd."> Built by  <a href="https://delimp.com/" target="_blank"> Delimp Technology Pvt. Ltd. </a></span>
                 </div>
             </div>
         </div>
@@ -358,21 +388,21 @@
                <h5 class="modal-title text-white" id="cookies_notice">Cookie Notice</h5>
                <button type="button" class="main_bg_color border-0" data-dismiss="modal" aria-label="Close">
                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-               </button>
-            </div>
-            <div class="modal-body"> 
-               When you visit this Website, it will store or retrieve information on your browser. This
-               information might be about you, your preferences or your device and is mostly used to
-               make the Website work as you expect it to. The information does not usually directly
-               identify you, but it can give you a more personalized web experiences.
-            </div>
-            <div class="modal-footer">
-               <a href="#" class="termsandconditions_text_color" style="position: absolute;left: 15px;" data-toggle="modal" data-target="#manage-consent">Read more about our Cookie Policy</a>
-               <button type="button" class="btn main_bg_color site_btn_primary acceptCookies">Accept All Cookies</button>
-            </div>
-         </div>
-      </div>
-   </div> --}}
+    </button>
+    </div>
+    <div class="modal-body">
+        When you visit this Website, it will store or retrieve information on your browser. This
+        information might be about you, your preferences or your device and is mostly used to
+        make the Website work as you expect it to. The information does not usually directly
+        identify you, but it can give you a more personalized web experiences.
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="termsandconditions_text_color" style="position: absolute;left: 15px;" data-toggle="modal" data-target="#manage-consent">Read more about our Cookie Policy</a>
+        <button type="button" class="btn main_bg_color site_btn_primary acceptCookies">Accept All Cookies</button>
+    </div>
+    </div>
+    </div>
+    </div> --}}
     <div class="modal fade upload-modal defult-modal" id="manage-consent" tabindex="-1" role="dialog"
         aria-labelledby="cookies-notice" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
@@ -493,8 +523,9 @@
                                 <option style="font-weight: 500;" value="" disabled selected>No State Selected
                                 </option>
                                 @foreach (config('escorts.profile.states') as $key => $state)
-                                    <option style="font-weight: 500;" value="{{ $key }}">
-                                        {{ $state['stateName'] }} </option>
+                                <option style="font-weight: 500;" value="{{ $key }}">
+                                    {{ $state['stateName'] }}
+                                </option>
                                 @endforeach
                             </select>
                             <span id="ch_lock"></span>
@@ -645,21 +676,23 @@
 <script type="text/javascript" src="{{ asset('assets/app/js/jqueryuijs.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 @include('partials.common.footer-scripts')
 <script>
     $('#agreeMyForm').parsley({
 
     });
     $(document).ready(function() {
-        @if (View::hasSection('enable_navigator'))
-            navigator.geolocation.getCurrentPosition(async function(position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                getPinupProfile(latitude, longitude);
-                const newUrl = "{{ route('find.all') }}" + `/?lat=${latitude}&lng=${longitude}`;
-                let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-                document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-            });
+        @if(View::hasSection('enable_navigator'))
+        navigator.geolocation.getCurrentPosition(async function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            getPinupProfile(latitude, longitude);
+            const newUrl = "{{ route('find.all') }}" + `/?lat=${latitude}&lng=${longitude}`;
+            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+        });
         @endif
 
         var loginForm = $("#loginForm");
@@ -879,6 +912,65 @@
     });
     console.log($.cookie('user-agreement'));
     ////////////
+
+
+    
+// video slider of EC and MC for profile page.
+    const swipers = [];
+
+    document.querySelectorAll('.mySwiper').forEach(function(el){
+
+        const swiper = new Swiper(el,{
+            pagination:{
+                el: el.querySelector('.swiper-pagination'),
+                type:'fraction'
+            },
+            navigation:{
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev')
+            },
+            observer: true,
+            observeParents: true,
+            resizeObserver: true,
+
+            on: {
+                slideChange: function () {
+
+                    // Stop & Reload all videos of current slider
+                    el.querySelectorAll('video').forEach(function(video){
+                        video.pause();
+                        video.currentTime = 0;
+                        video.load();
+                    });
+
+                    // Refresh Swiper
+                    this.update();
+                    this.updateSize();
+                    this.updateSlides();
+                }
+            }
+        });
+
+        swipers.push(swiper);
+
+    });
+
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+
+    swipers.forEach(function(swiper){
+
+        swiper.update();
+        swiper.updateSize();
+        swiper.updateSlides();
+
+        // Reload videos after tab becomes visible
+        swiper.el.querySelectorAll('video').forEach(function(video){
+            video.load();
+        });
+
+    });
+
+});
 </script>
 <script>
     $(document).ready(function() {
@@ -959,22 +1051,22 @@
         $('a.cook--seting').click(function() {
             $('.custom--cookie--popup').addClass('cookie--activate');
 
-            if ($.cookie('Functional-Cookies') === 'on'){
-                  $('.functionalCookie').prop('checked', true);
-            }else{
-                  $('.functionalCookie').prop('checked', false);
+            if ($.cookie('Functional-Cookies') === 'on') {
+                $('.functionalCookie').prop('checked', true);
+            } else {
+                $('.functionalCookie').prop('checked', false);
             }
 
-            if ($.cookie('Targeting-Cookies') === 'on'){
-                  $('.targetingCookie').prop('checked', true);
-            }else{
-                  $('.targetingCookie').prop('checked', false);
+            if ($.cookie('Targeting-Cookies') === 'on') {
+                $('.targetingCookie').prop('checked', true);
+            } else {
+                $('.targetingCookie').prop('checked', false);
             }
 
-            if ($.cookie('Performance-Cookies') === 'on'){
-                  $('.performanceCookie').prop('checked', true);
-            }else{
-                  $('.performanceCookie').prop('checked', false);
+            if ($.cookie('Performance-Cookies') === 'on') {
+                $('.performanceCookie').prop('checked', true);
+            } else {
+                $('.performanceCookie').prop('checked', false);
             }
 
             $('.saveAllCookiesSetting').text('Confirm My Choices');
@@ -986,14 +1078,14 @@
     if ($.cookie('onloadpopup') === 'cooki-policy') {
         $('.custom--cookie--popup').removeClass('cookie--activate');
     } else {
-         if ($.cookie('user-agreement') === 'true') {
+        if ($.cookie('user-agreement') === 'true') {
             $('.custom--cookie--popup').addClass('cookie--activate');
-         }
+        }
     }
 
     $("body").on('click', '.saveAllCookiesSetting', function() {
-         $(this).text('Saving...');
-         saveAllCookies('save');
+        $(this).text('Saving...');
+        saveAllCookies('save');
     });
 
     $("body").on('click', '.close-popup', function() {
@@ -1001,8 +1093,8 @@
     });
 
     $("body").on('click', '.rejectAllCookies', function() {
-         $(this).text('Rejecting...');
-         $(".functionalCookie").prop('checked', false);
+        $(this).text('Rejecting...');
+        $(".functionalCookie").prop('checked', false);
         $(".performanceCookie").prop('checked', false);
         $(".targetingCookie").prop('checked', false);
         saveAllCookies('reject');
@@ -1106,25 +1198,25 @@
                 expires: 5
             });
 
-             $.cookie('Targeting-Cookies-info', 'empty', {
+            $.cookie('Targeting-Cookies-info', 'empty', {
                 expires: 5
             });
         }
 
-        if(savingType != 'allow'){
+        if (savingType != 'allow') {
             setTimeout(function() {
-               $('.custom--cookie--popup').removeClass('cookie--activate');
-               if(savingType == 'save'){
-                  $('.saveAllCookiesSetting').text('Confirm My Choices');
-               }
+                $('.custom--cookie--popup').removeClass('cookie--activate');
+                if (savingType == 'save') {
+                    $('.saveAllCookiesSetting').text('Confirm My Choices');
+                }
 
-               if(savingType == 'reject'){
-                  $('.rejectAllCookies').text('Reject All');
-               }
+                if (savingType == 'reject') {
+                    $('.rejectAllCookies').text('Reject All');
+                }
             }, 500);
-         }
-        
-        
+        }
+
+
     }
 
     $(".accordion-header").on("click", function() {

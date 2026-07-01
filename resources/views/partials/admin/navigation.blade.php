@@ -124,14 +124,15 @@ $position = $positions[$postionKey] ?? "";
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                     Member ID: {{ auth()->user()->member_id }}
                 </a>
+                 <a class="dropdown-item" href="#">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                    User Name: {{ auth()->user()->name }}
+                </a>
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                    Position: {{ $position }}
                 </a>
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    User Name: {{ auth()->user()->name }}
-                </a>
+               
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('admin.account.edit') }}">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
@@ -141,6 +142,16 @@ $position = $positions[$postionKey] ?? "";
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                     Change Password
                 </a>
+                 {{-- <div class="dropdown-divider"></div>
+
+                 <a class="dropdown-item" href="{{ route('admin.escort-listings') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}"> Escort Listings
+                    </a>
+
+                    <a class="dropdown-item" href="{{ route('admin.massage-centre-listings') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
+                        Massage Centre Listings
+                    </a> --}}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">

@@ -1250,6 +1250,26 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                      rewardOptions += `<option value="${i}" ${selected}>${i}</option>`;
                   }
 
+                   let rates = `<option value="1" ${rowData.rate == 'Per Day' ? 'selected' : ''}>Per Day</option>
+                           <option value="2" ${rowData.rate == 'Per Week' ? 'selected' : ''}>Per Week</option>
+                           <option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>`;
+
+
+                 let paymentTypeOptons = `<option value="">Amount Type</option>
+                     <option value="percent" ${rowData.amount_type == 'percent' ? 'selected' : ''}>Percent(%)</option>
+                     <option value="fixed" ${rowData.amount_type == 'fixed' ? 'selected' : ''}>Fixed($)</option>`;
+                  let maxValue = 999;
+                  if(rowData.fee_for == 'advertising') {
+                     paymentTypeOptons = `<option value="percent" ${rowData.amount_type == 'percent' ? 'selected' : ''}>Percent(%)</option>`;
+                     maxValue = 100;
+                     rates = `<option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>`;
+
+                  } else if(rowData.fee_for == 'mc_signup') {
+                   paymentTypeOptons = `<option value="fixed" ${rowData.amount_type == 'fixed' ? 'selected' : ''}>Fixed($)</option>`;
+                   rates = `<option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>`;
+                  }
+                  
+                 
 
                   var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
                                        <form name="agent_operator_fees_frm" method="post">
@@ -1265,11 +1285,9 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                                    <div class="row">
                                                       <div class="col-12 mb-3">
                                                          <label>Rate</label>
-                                                               <select class="custom-select" name="rate" id="rate" required data-parsley-required-message="Please select state">
+                                                               <select class="custom-select" name="rate" id="rate" required data-parsley-required-message="Please select rate">
                                                                   <option value="">Select</option>
-                                                                  <option value="1" ${rowData.rate == 'Per Day' ? 'selected' : ''}>Per Day</option>
-                                                                  <option value="2" ${rowData.rate == 'Per Week' ? 'selected' : ''}>Per Week</option>
-                                                                  <option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>
+                                                                  ${rates}
                                                                </select>
                                                        
                                                       </div>
@@ -1277,14 +1295,12 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                                       <div class="row">
                                                       <div class="col-6 mb-3">
                                                          <label>Value</label>
-                                                         <input type="number"  min="0" step="0.01"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                         <input type="number"  min="0" max="${maxValue}" step="0.01"  class="form-control rounded-0" name="amount" maxlength="4"  value="${(rowData.amount  ? rowData.amount : '')}" required>
                                                       </div>
                                                          <div class="col-6 mb-3">
                                                          <label>Amount Type</label>
                                                       <select class="form-control rounded-0" name="amount_type" id="amount_type" required data-parsley-required-message="Please select amount type">
-                                                         <option value="">Amount Type</option>
-                                                         <option value="percent" ${rowData.amount_type == 'percent' ? 'selected' : ''}>Percent</option>
-                                                         <option value="fixed" ${rowData.amount_type == 'fixed' ? 'selected' : ''}>Fixed</option>
+                                                        ${paymentTypeOptons}
                                                       </select> 
                                                       </div>
 

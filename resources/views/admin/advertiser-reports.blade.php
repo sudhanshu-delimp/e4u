@@ -88,7 +88,7 @@ table td,th{
                             <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
                             <div class="stat-label">Today</div>
                         </div>
-                        <div class="stat-number">{{$reports['today']}}</div>
+                        <div class="stat-number today-rep-cnt">{{$reports['today']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -96,7 +96,7 @@ table td,th{
                             <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
                             <div class="stat-label">This Month</div>
                         </div>
-                        <div class="stat-number">{{$reports['month']}}</div>
+                        <div class="stat-number month-rep-cnt">{{$reports['month']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -104,7 +104,7 @@ table td,th{
                             <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                             <div class="stat-label">This Year</div>
                         </div>
-                        <div class="stat-number">{{$reports['year']}}</div>
+                        <div class="stat-number year-rep-cnt">{{$reports['year']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -112,7 +112,7 @@ table td,th{
                             <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
                             <div class="stat-label">All Time</div>
                         </div>
-                        <div class="stat-number">{{$reports['all_time']}}</div>
+                        <div class="stat-number all-time-rep-cnt">{{$reports['all_time']}}</div>
                     </div>
                 </div>
             </div> 
@@ -158,6 +158,17 @@ table td,th{
                     <tbody class="table-content">
                         
                     </tbody>
+
+                    <tr>
+                        <th colspan="11" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                            <th colspan="3" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="2" class="text-right border-0">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -409,6 +420,24 @@ table td,th{
     
 <script>
 $(document).ready(function() {
+     ajaxReload();
+    let countdown = 15;
+        setInterval(() => {
+            countdown--;
+            $(".refreshSeconds").text(' '+countdown);
+
+            if (countdown <= 0) {
+                $('#AdvertiserReportTable').DataTable().ajax.reload(null, false);
+                countdown = 15;
+                
+            }
+
+        }, 1000);
+
+        $('#customSearch').on('keyup', function() {
+            $('#AdvertiserReportTable').DataTable().search(this.value).draw();
+        });
+
     $(document).on('click', '.print-btns', function(e) {
         e.preventDefault();
         
@@ -563,6 +592,13 @@ $(document).ready(function() {
                 url: ajaxUrl,
                 type: method,
                 dataSrc: function(json) {
+                    console.log(json.reports.month)
+                    $('.today-rep-cnt').html(json.reports.today)
+                    $('.month-rep-cnt').html(json.reports.month)
+                    $('.year-rep-cnt').html(json.reports.year)
+                    $('.all-time-rep-cnt').html(json.reports.all_time)
+                    $(".serverTime").text(json.server_time);
+                    $(".uptimeClass").html(json.server_up_time)
                     return json.data;
                 }
             },

@@ -53,11 +53,13 @@
                 <div class="d-flex justify-content-between five_column_fonts">
                    <span>{{ $escort->city ? $escort->city->name : "" }}</span>
                     <span class="give_rating_after_get_servive">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
+                        @for($i=1; $i<= 5; $i++)
+                            @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
+                                <i class="fa fa-star" aria-hidden="true" ></i>
+                            @else
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            @endif
+                        @endfor
                     </span>
                 </div>
                 <div class="d-flex justify-content-between five_column_fonts">

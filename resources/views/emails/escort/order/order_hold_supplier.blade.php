@@ -41,9 +41,6 @@
 
                             <p style="margin: 20px 0 15px 0;">We would like to inform you that the order has been placed
                                 on hold and is currently under review.</p>
-                            {{-- <p style="margin: 15px 0;">
-                                <strong>Delivery Address:</strong> {{ $data['delivery_address'] ?? '' }}
-                            </p> --}}
 
                             <p style="margin: 15px 0;">
                                 Please do not proceed with any further processing, fulfillment, or delivery activities

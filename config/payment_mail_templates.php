@@ -32,4 +32,9 @@ return [
         'subject' => 'Upgrade Payment Confirmation',
     ],
 
+    'wallet' => [
+        'template' => 'emails.payment.escort.wallet',
+        'subject' => 'Wallet Top Up Confirmation',
+    ],
+
 ];

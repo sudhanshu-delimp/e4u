@@ -285,13 +285,24 @@
                                     <div class="form-group">
                                        <label for="membership_num">Advertiser
                                        </label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail) ? $user->agent_detail->commission_advertising_percent : '' }}</span>
+                                       @if($user->agent_detail->commission_advertising_type == 'percent')
+                                       <span class="form-control form-back">{{ ($user->agent_detail) ? $user->agent_detail->commission_advertising_percent."%" : '' }}</span>
+                                       @else 
+                                        <span class="form-control form-back">{{ ($user->agent_detail) ? "$".$user->agent_detail->commission_advertising_percent : '' }}</span>
+                                        @endif
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Massage Centres (Signed Up)</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{ ($user->agent_detail) ? $user->agent_detail->commission_registration_amount : '' }}</label>
+                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">
+                                           @if($user->agent_detail->commission_registration_type == 'percent')
+                                          {{ ($user->agent_detail) ? $user->agent_detail->commission_registration_amount ."%": '' }}
+                                          @else
+                                             {{ ($user->agent_detail) ? "$".$user->agent_detail->commission_registration_amount : '' }}
+                                          @endif
+
+                                       </label>
                                     </div>
                                  </div>
                               </div>

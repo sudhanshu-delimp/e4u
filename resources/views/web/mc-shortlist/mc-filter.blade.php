@@ -261,7 +261,7 @@
                                             <strong>Total Listings:</strong>
                                             <span class="total_count"></span>
                                         </div>
-                                        <div>
+                                        <div class="grd_lst_filter_btn">
                                             <div class="grid_list_icon_box display_inline_block grid--btn">
                                                 <a href="javascript:void(0)" class="" id="view_grid">
                                                     <span class="custom-toltip">Grid View</span>
@@ -335,6 +335,11 @@
                                     <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
                                         aria-selected="false">Service Tags</a>
                                 </li>
+                                
+                             <li class="nav-item">
+                                 <a class="nav-link" data-toggle="tab" href="#tabs-5" role="tab"
+                                     aria-selected="false">Verification</a>
+                             </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -379,6 +384,14 @@
                                             panel.</li>
                                     </ol>
                                 </div>
+                                                            
+                             <div class="tab-pane p-3" id="tabs-5" role="tabpanel">
+                                <ol class="pl-3">
+                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
+                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
+                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification, or has been rejected. </div></li>
+                                </ol>
+                             </div>
                             </div>
                         </div>
                     </div>
