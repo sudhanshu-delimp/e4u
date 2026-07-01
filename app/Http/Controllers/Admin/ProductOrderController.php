@@ -341,11 +341,11 @@ class ProductOrderController extends Controller
             }
           } else if ($request->status == 'shipped') {
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
-              Mail::to("ashish.kumar+34@delimp.com")->cc("ashish.kumar+34@delimp.com")->send(new SendProductOrderShippedMailToEscort($mailData));
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderShippedMailToEscort($mailData));
             } else {
-              $mail = Mail::to("ashish.kumar+34@delimp.com");
+              $mail = Mail::to($billing->email);
               if (!empty($agent) && !empty($agent->email)) {
-                $mail->cc("ashish.kumar+34@delimp.com");
+                $mail->cc($agent->email);
               }
               $mail->send(new SendProductOrderShippedMailToEscort($mailData));
             }
