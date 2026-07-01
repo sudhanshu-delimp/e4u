@@ -427,12 +427,39 @@ margin-right: 5px;
                                         </div>
                                     </div>
                                 </div>
-                                 <button type="button" class="btn mc_my_legbox_btn" data-target="#my_legbox" data-toggle="modal">
-                                    <span class="add_to_favrate">
-                                        <i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i>
-                                    </span>
-                                    Save to My Legbox
+                                <div class="col-md-12 col-xl-4 col-sm-12 text-center">
+                                <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
+                                     @php 
+                                        $user_type = auth()->user();
+                                    @endphp
+                                    @if(auth()->user())
+                                   
+                                        @if(auth()->user()->type == 0)
+                                            <span class="add_to_favrate @if(is_object($user_type) && in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
+                                                id="legboxId_{{$listing->id}}" data-escortId="{{$listing->id}}"
+                                                data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+                                                @if(!empty($user_type))
+                                                    @if(in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray()))
+                                                        <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                                    @else
+                                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                    @endif
+                                                @endif
+                                            </span>
+                                        @else
+                                            <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                                        @endif
+                                        @else
+                                            <span class="add_to_favrate" data-escortId="{{$listing->id}}"
+                                                data-name="{{$listing->business_name}}"><i class="fa fa-heart-o"
+                                                                                aria-hidden="true"></i></span>
+                                        @endif
+                                        <span class="label save-my-legbox-btn">
+                                            @if(is_object($user_type) && in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
+                                        </span>
                                 </button>
+                 
+                    </div>
                             </div>
 
                         </div>
@@ -2435,12 +2462,12 @@ margin-right: 5px;
 
     {{-- my legbox --}}
 
-    <div class="modal fade upload-modal" id="my_legbox" style="display: none;">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade upload-modal" id="my_legbox" style="display: none;" aria-labelledby="myLegbox" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/my-legbox.png')}}" class="custompopicon"> My Legbox</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title popup_modal_title_new" id="myLegbox"> <img src="{{ asset('assets/app/img/my-legbox.png')}}" class="custompopicon"> My Legbox</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                     </span>
@@ -3077,6 +3104,67 @@ function getStars(rating) {
 
     return stars;
 }
+    $(document).on('click', '#legbox_btn', function () {
+
+
+          if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
+            swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        }
+
+        var addToFebIcon = $(this).find('.add_to_favrate');
+        var Eid = addToFebIcon.attr('data-escortId');
+        var Uid = addToFebIcon.attr('data-userId');
+        var cidcl = addToFebIcon.attr('class');
+        var cid = cidcl.split(' ');
+        if (cid[1] == 'fill') {
+            addToFebIcon.removeClass('fill');
+            addToFebIcon.addClass('null');
+            $('#legboxId_' + Eid).html("<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>");
+            $('#legbox_btn').find("span.label").text("Remove from Legbox");
+            var url = "{{ route('user.save.massage.legbox' ,':id')}} ";
+            url = url.replace(':id', Eid);
+            $.ajax({
+                type: "post",
+                url: url,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function (data) {
+
+                }
+            });
+        } else if (cid[1] == 'null') {
+            addToFebIcon.removeClass('null');
+            addToFebIcon.addClass('fill');
+            $('#legboxId_' + Eid).html("<i class='fa fa-heart-o' aria-hidden='true'></i>");
+            $('#legbox_btn').find("span.label").text("Save to My Legbox");
+            var url = "{{ route('user.delete.massage.legbox' ,':id')}} ";
+            url = url.replace(':id', Eid);
+            $.ajax({
+                type: "post",
+                url: url,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function (data) {
+
+                }
+            });
+        } else {
+            $('#my_legbox').modal('show');
+            var login_url = "{!! route('viewer.login',[':id','path'=>'escort-profile']) !!}";
+            var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
+            // console.log(loginurl);
+
+
+            var regurl = "{{ route('register',':id') }}";
+
+            regurl = regurl.replace(':id', 'legboxId=' + Eid);
+            $('#loginUrl').attr('href', loginurl);
+            $('#regUrl').attr('href', regurl)
+        }
+
+
+        console.log(cid[1] + "-" + Eid);
+        console.log(cidcl);
+    });
 
 
 
