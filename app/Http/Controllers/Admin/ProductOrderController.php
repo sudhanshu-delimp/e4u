@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Mail\Escort\Order\SendProductOrderCompleteConfirmationMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderHoldMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderRejectMailToEscort;
+use App\Mail\Escort\Order\SendProductOrderShippedMailToEscort;
 use App\Mail\Supplier\SendProductOrderCompleteConfirmationMailToSupplier;
 use App\Mail\Supplier\SendProductOrderHoldMailToSupplier;
 use App\Mail\Supplier\SendProductOrderRejectMailToSupplier;
+use App\Mail\Supplier\SendProductOrderShippedMailToSupplier;
 use App\Models\ProductOrder;
 use App\Models\User;
 use Carbon\Carbon;
@@ -99,7 +101,16 @@ class ProductOrderController extends Controller
         </a>
 
         <div class="dropdown-divider"></div>
+     <a class="dropdown-item open-status-modal  "
+           href="#"
+           data-id="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
+           data-delivery_type="' . $row->delivery_type . '"
+           data-status="shipped">
+            <i class="fa fa-pause-circle"></i> Dispatch
+        </a>
 
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item open-status-modal  "
            href="#"
            data-id="' . $row->id . '"
@@ -320,13 +331,23 @@ class ProductOrderController extends Controller
             Mail::to($condommail)->send(new SendProductOrderRejectMailToSupplier($mailData));
 
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
-               Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderRejectMailToEscort($mailData));
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderRejectMailToEscort($mailData));
             } else {
               $mail = Mail::to($billing->email);
               if (!empty($agent) && !empty($agent->email)) {
                 $mail->cc($agent->email);
               }
               $mail->send(new SendProductOrderRejectMailToEscort($mailData));
+            }
+          } else if ($request->status == 'shipped') {
+            if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+              Mail::to("ashish.kumar+34@delimp.com")->cc("ashish.kumar+34@delimp.com")->send(new SendProductOrderShippedMailToEscort($mailData));
+            } else {
+              $mail = Mail::to("ashish.kumar+34@delimp.com");
+              if (!empty($agent) && !empty($agent->email)) {
+                $mail->cc("ashish.kumar+34@delimp.com");
+              }
+              $mail->send(new SendProductOrderShippedMailToEscort($mailData));
             }
           }
         }
