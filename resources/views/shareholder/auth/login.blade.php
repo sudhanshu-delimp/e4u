@@ -21,7 +21,7 @@
                                 <h1>WELCOME TO</h1>
                             </div>
 
-                            <h2 class="welcome_sub_login_heading">Shareholoder Login</h2>
+                            <h2 class="welcome_sub_login_heading">Shareholder Login</h2>
                             <form id="admin_login" action="{{ route('admin.login') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="type_shareholder" value="8">
