@@ -5678,7 +5678,7 @@ i.fa.fa-heart-o{
         
         .welcome_sub_login_heading {
             font-family: Poppins;
-            font-size: clamp(18px, 3vw, 40px);
+            font-size: clamp(22px, 3vw, 40px);
             font-weight: 500;
             line-height: 36px;
             color: var(--blue--text);
