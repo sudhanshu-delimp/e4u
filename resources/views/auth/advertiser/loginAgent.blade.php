@@ -18,14 +18,13 @@
 @section('content')
 
 <div class="container">
-      <section class="login_page_pt_pb_of_outer_section">
-         <section class="innersection_padding_from_all_side box_shdow_of_login_form">
-            <div class="row align-items-center">
+         <section class="common_login_page">
+            <div class="row">
                <div class="col-md-6 order-md-0 order-sm-1 order-1">
                   <div class="welcone_login_page_heading">
-                     <h1 class="text-uppercase">WELCOME TO E4U</h1>
+                     <h1>WELCOME TO E4U</h1>
                   </div>
-                  <h4 class="welcome_sub_login_heading"><strong>AGENT LOGIN</strong></h4>
+                  <h2 class="welcome_sub_login_heading">AGENT LOGIN</h2>
                   <form id="escort_login" action="{{ route('advertiser.login')}}" method="post">
                       @csrf
                         <input type="hidden" name="type" value="5">
@@ -85,18 +84,17 @@
                            </div>
                        </div>
                        
-                       <div>
+                       <div class="common_login_note">
                            {{-- login note from component --}}
                            <x-login-notes />
                        </div>
                      </form>
                </div>
-               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
+               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
                   <img src="{{ asset('assets/app/img/login-profile/agent-login.png')}}" class="img-fluid">
                </div>
             </div>
          </section>
-      </section>
       <div class="modal upload-modal fade" id="comman_modal" style="display: none">
          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

@@ -357,6 +357,13 @@
                             justify-content: center;
                             flex-direction: column;
                         }
+                        .welcome_sub_login_heading {
+                            line-height: 1.4;
+                            margin-bottom: 0px;
+                        }
+                        .welcone_login_page_heading {
+                            margin-top: 25px;
+                        }
                     }
                     
                     @media(max-width:486px) {
