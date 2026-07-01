@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\MassagePaymentWebhook;
 use App\Jobs\ProcessPaymentWebhook;
 use App\Jobs\SendProductPurchaseMail;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
+use App\Services\Massage\MassagePaymentWebhookService;
 use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+
 
 class WebhookController extends Controller
 {
@@ -111,7 +112,7 @@ class WebhookController extends Controller
             }
 
             case 'massage-listing': {
-              MassagePaymentWebhook::dispatch($paymentObject);
+              app(MassagePaymentWebhookService::class)->process($paymentObject);
             }
 
   
