@@ -15,38 +15,41 @@
     <section class="footer_mange_padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
-                    <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"
-                            alt="logo"></a>
+                <div class="col-12 footer_login_area">
+                     <div class="">
+                        <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"
+                                alt="logo"></a>
+                    </div>
+                    <div class="">
+                        @if (!auth()->user())
+                        <ul class="footer_list_style_none pl-0 custom--foter-login">
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px;width:120px; text-align: center;"
+                                    class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    href="{{ route('register') }}">Register</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
+                                    <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
+                                    <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px; width:120px; text-align: center;"
+                                    class="nav-link dropdown-toggle   footer_login_btn primery_color"
+                                    id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" href="{{ route('register') }}">Log in</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
+                                    <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
+                                    <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
+                                </div>
+                            </li>
+                        </ul>
+                        @endif
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    @if (!auth()->user())
-                    <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
-                        <li class="dropdown">
-                            <a style="padding: 5px 15px;width:120px; text-align: center;"
-                                class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                href="{{ route('register') }}">Register</a>
-                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
-                                <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
-                                <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a style="padding: 5px 15px; width:120px; text-align: center;"
-                                class="nav-link dropdown-toggle   footer_login_btn primery_color"
-                                id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" href="{{ route('register') }}">Log in</a>
-                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
-                                <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
-                                <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
-                            </div>
-                        </li>
-                    </ul>
-                    @endif
-                </div>
+               
             </div>
             <div class="row">
                 <div class="col footer_text_color_white" align="justify">
@@ -69,7 +72,7 @@
                 }
                 @endphp
                 <div class="col footer_text_color_white">
-                    <h4 class="custom-mt">Location </h4>
+                    <h4 class="custom-mt">Location - AUS </h4>
                     <div class="d-flex">
                         <div class="wcustom-50">
                             <ul class="list-group footer_list_style_none">
@@ -229,7 +232,7 @@
     <section class="copy_right_footer_mange_padding">
         <div class="footer_copy_right container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-md-8 footer_text_color_white">
+                <div class="col-lg-8 col-md-8 footer_text_color_white p-0">
                     <div class="custom--copyryt">
                         <span><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 stroke="#fff">
@@ -254,9 +257,11 @@
                         <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>
 
                         @endif --}}
+                        
                     </div>
+                    
                 </div>
-                <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right">
+                <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right p-0">
                     <span class="footer_text_color_white">Last revision: 1st June 2025&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                     <span class="footer_text_color_white">Follow us:</span>
                     <ul class="footer_social_icons">
@@ -264,6 +269,11 @@
                                     src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"
                                     alt="logo"></a></li>
                     </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 delimp_copyright">
+                    <span><img src="{{ asset('assets/app/img/delimp-technology.png') }}" alt="Delimp Technology Pvt. Ltd."> Built by  <a href="https://delimp.com/" target="_blank"> Delimp Technology Pvt. Ltd. </a></span>
                 </div>
             </div>
         </div>
@@ -666,6 +676,8 @@
 <script type="text/javascript" src="{{ asset('assets/app/js/jqueryuijs.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 @include('partials.common.footer-scripts')
 <script>
     $('#agreeMyForm').parsley({
@@ -900,6 +912,65 @@
     });
     console.log($.cookie('user-agreement'));
     ////////////
+
+
+    
+// video slider of EC and MC for profile page.
+    const swipers = [];
+
+    document.querySelectorAll('.mySwiper').forEach(function(el){
+
+        const swiper = new Swiper(el,{
+            pagination:{
+                el: el.querySelector('.swiper-pagination'),
+                type:'fraction'
+            },
+            navigation:{
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev')
+            },
+            observer: true,
+            observeParents: true,
+            resizeObserver: true,
+
+            on: {
+                slideChange: function () {
+
+                    // Stop & Reload all videos of current slider
+                    el.querySelectorAll('video').forEach(function(video){
+                        video.pause();
+                        video.currentTime = 0;
+                        video.load();
+                    });
+
+                    // Refresh Swiper
+                    this.update();
+                    this.updateSize();
+                    this.updateSlides();
+                }
+            }
+        });
+
+        swipers.push(swiper);
+
+    });
+
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+
+    swipers.forEach(function(swiper){
+
+        swiper.update();
+        swiper.updateSize();
+        swiper.updateSlides();
+
+        // Reload videos after tab becomes visible
+        swiper.el.querySelectorAll('video').forEach(function(video){
+            video.load();
+        });
+
+    });
+
+});
 </script>
 <script>
     $(document).ready(function() {

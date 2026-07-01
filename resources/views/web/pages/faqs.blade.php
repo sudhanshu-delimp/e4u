@@ -19,6 +19,10 @@
    0% { transform: rotate(0deg); }
    100% { transform: rotate(360deg); }
    }
+   .table thead th {
+    vertical-align: bottom;
+    border: 1px solid #dee2e6;
+}
 </style>
 @endsection
 @section('content')
@@ -62,7 +66,7 @@
                      your SWA number where your Home State or the Profile is designated as Victoria.</p><br>
                   <p>If you do not currently have a SWA number, but would prefer to do so, you will need to register with the Business Licensing
                      Authority (BLA). For more information, contact the BLA at:</p>
-                  <p><a href="www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers">www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers
+                  <p><a href="www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers" style="word-break: break-all;">www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers
                      </a></p><br>
                   <p><b>Q:Can I have a default Profile - can I create other Profiles from my default Profile when I
                      want to Tour?</b></p>
@@ -83,14 +87,14 @@
                </div>
             </div>
          </div>
-<div class="set">
+         <div class="set">
             <a id="Local_Laws">
             Local Laws
             <i class="fa fa-angle-down"></i>
             </a>
             <div class="content">
-               <div class="accodien_manage_padding_content">
-                  <table class="table color-black">
+               <div class="accodien_manage_padding_content table-responsive">
+                  <table class="table color-black table-bordered">
                      <tbody>
                         <tr>
                            <td class="font-weight-bold" style="width: 10%;">State
@@ -383,7 +387,8 @@
                      features enabled.</p><br>
                   <p>Each Membership Type enjoys certain benefits according to the Membership Type.  The following table 
                      summarises the distinctions between each Membership Type according to the format:</p>
-                  <table class="table faq--table">
+                 <div class="table-responsive">
+                   <table class="table faq--table table-bordered">
                      <thead>
                         <tr>
                            <th>Type</th>
@@ -449,6 +454,7 @@
                         </tr>
                      </tbody>
                   </table>
+                 </div>
                   <p><b>Q: What do I have to do to create a Profile?</b></p>
                   <p>There are two steps to creating your Profile. First you set up your Account, including
                      your Additional Information, which we referr to as My Account, and then from within

@@ -7435,7 +7435,7 @@ option.form-control {
 }
 
 li.parsley-required {
-    color: #e5365a;
+    color: var(--peach);
     text-transform: capitalize;
     font-size: small;
 }
@@ -8462,7 +8462,7 @@ table#myTable\ price-sec {
 
 .pin-up-content p {
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

@@ -1,78 +1,78 @@
 @extends('layouts.escort')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0)
-        }
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+<style type="text/css">
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0)
+    }
 
-        .select2-container .select2-choice,
-        .select2-result-label {
-            font-size: 1.5em;
-            height: 52px !important;
-            overflow: auto;
-        }
+    .select2-container .select2-choice,
+    .select2-result-label {
+        font-size: 1.5em;
+        height: 52px !important;
+        overflow: auto;
+    }
 
-        .select2-arrow,
-        .select2-chosen {
-            padding-top: 6px;
-        }
+    .select2-arrow,
+    .select2-chosen {
+        padding-top: 6px;
+    }
 
-        span.select2.select2-container.select2-container--default>span.selection>span {
-            height: 52px !important;
-        }
+    span.select2.select2-container.select2-container--default>span.selection>span {
+        height: 52px !important;
+    }
 
-        #listings_length {
-            width: 30%;
-            top: 40px;
-            position: relative;
-        }
+    #listings_length {
+        width: 30%;
+        top: 40px;
+        position: relative;
+    }
 
-        .brb_icon {
-            color: white;
-            background-color: #e5365a;
-            border-radius: 15%;
-            padding: 0 5px;
-        }
+    .brb_icon {
+        color: white;
+        background-color: #e5365a;
+        border-radius: 15%;
+        padding: 0 5px;
+    }
 
-        .list-sec td {
-            font-size: 16px !important;
-        }
-    </style>
+    .list-sec td {
+        font-size: 16px !important;
+    }
+</style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                <h1 class="h1">{{ ucfirst($type) }} Listings</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-            </div>
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="row">
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">{{ ucfirst($type) }} Listings</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
-        <div class="row">
-            <div class="col-md-12" id="profile_and_tour_options">
-                <div class="row collapse" id="notes">
-                    <div class="col-md-12 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <?php
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="profile_and_tour_options">
+            <div class="row collapse" id="notes">
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <?php
                             if ($type == "current") {
                             ?>
-                            <h3 class="NotesHeader"><b>Notes:</b></h3>
-                            <ol>
-                                <li>Use this feature to check all of your current and upcoming listings, no matter the
-                                    Location. This report includes listings associated with a Tour (usually the upcoming
-                                    Listings across your selected Locations).
-                                </li>
-                                <li>To change the Listing period, click the 'Change Listing' button and adjust the dates
-                                    accordingly.
-                                </li>
-                                <li>To Suspend or activate the BRB features, click <a href="{{route('escort.list','current')}}">here</a>. Where
-                                    you suspend a Listing that is currently posted, you will receive a Credit.
-                                </li>
-                            </ol>
+                                <h3 class="NotesHeader"><b>Notes:</b></h3>
+                                <ol>
+                                    <li>Use this feature to check all of your current and upcoming listings, no matter the
+                                        Location. This report includes listings associated with a Tour (usually the upcoming
+                                        Listings across your selected Locations).
+                                    </li>
+                                    <li>To change the Listing period, click the 'Change Listing' button and adjust the dates
+                                        accordingly.
+                                    </li>
+                                    <li>To Suspend or activate the BRB features, click <a href="{{route('escort.list','current')}}">here</a>. Where
+                                        you suspend a Listing that is currently posted, you will receive a Credit.
+                                    </li>
+                                </ol>
                             <?php
                             } else if ($type == "past") {
                             ?>
@@ -84,148 +84,159 @@
                                         the Profile has not been active for 2 years.
                                     </li>
                                 </ol>
-                                <?php
+                            <?php
                             }
                             ?>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table id="listings" class="table w-100 custom--common-table">
-                                <thead  id="table-sec" class="table-bg">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Profile Name</th>
-                                        <th>Location</th>
-                                        <th>Stage Name</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Days</th>
-                                        <th>Membership</th>
-                                        <th>Status</th>
-                                        <th>Fee @if ($type == 'past')
-                                                Paid
-                                            @endif
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $i = 1;
-                                        $dataTableData = [];
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="listings" class="table w-100 custom--common-table">
+                            <thead id="table-sec" class="table-bg">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Profile Name</th>
+                                    <th>Location</th>
+                                    <th>Stage Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Days</th>
+                                    <th>Membership</th>
+                                    <th>Status</th>
+                                    <th>Fee @if ($type == 'past')
+                                        Paid
+                                        @endif
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $i = 1;
+                                $dataTableData = [];
 
-                                        
-                                    @endphp
 
-                                </tbody>
-                            </table>
-                        </div>
+                                @endphp
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
 @push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function(e) {
-            var table = $("#listings").DataTable({
-                processing: true,
-                serverSide: true,
-                lengthChange: true,
-                searchable: false,
-                bStateSave: false,
-                pageLength: 25,
-                "language": {
-                    "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by ID or Profile Name"
-                },
-                drawCallback: function(settings) {
-                    var api = this.api();
-                    var length = table.page.info().recordsTotal;
-                    if (length <= 10) {
-                       $('.dataTables_paginate').show();
-                    } else {
-                       $('.dataTables_paginate').show();
-                    }
-                },
-                initComplete: function() {
-                    // if ($('#returnToReportBtn').length === 0) {
-                    //     $('.dataTables_filter').append(
-                    //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-                    //     );
-                    // }
-                    $('#returnToReportBtn').on('click', function() {
-                        var table = $('#listings').DataTable();
-                        table.search('').draw();
-                    });
-                },
-                ajax: {
-                    url: "{{ route('escort.list.dataTableListing', $type) }}",
-                    data: function(d) {
-                        d.type = 'player';
-                    }
-                },
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+</script>
+<script type="text/javascript">
+    $(document).ready(function(e) {
+        var table = $("#listings").DataTable({
+            processing: true,
+            serverSide: true,
+            lengthChange: true,
+            searchable: false,
+            bStateSave: false,
+            pageLength: 25,
+            "language": {
+                "zeroRecords": "There is no record of the search criteria you entered.",
+                searchPlaceholder: "Search by ID or Profile Name"
+            },
+            drawCallback: function(settings) {
+                var api = this.api();
+                var length = table.page.info().recordsTotal;
+                if (length <= 10) {
+                    $('.dataTables_paginate').show();
+                } else {
+                    $('.dataTables_paginate').show();
+                }
+            },
+            initComplete: function() {
+                // if ($('#returnToReportBtn').length === 0) {
+                //     $('.dataTables_filter').append(
+                //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                //     );
+                // }
+                $('#returnToReportBtn').on('click', function() {
+                    var table = $('#listings').DataTable();
+                    table.search('').draw();
+                });
+            },
+            ajax: {
+                url: "{{ route('escort.list.dataTableListing', $type) }}",
+                data: function(d) {
+                    d.type = 'player';
+                }
+            },
 
-                columns: [{
-                        data: 'escort_id',
-                        searchable: true,
-                        orderable: true
-                    },
-                    {
-                        data: 'profile_name',
-                        orderable: true
-                    },
-                    {
-                        data: 'location',
-                        searchable: false,
-                        orderable: false
-                    },
-                    {
-                        data: 'stage_name',
-                        searchable: false,
-                        orderable: true
-                    },
-                    {
-                        data: 'start_date',
-                        searchable: false,
-                    },
-                    {
-                        data: 'end_date',
-                        searchable: false,
-                    },
-                    {
-                        data: 'days_number',
-                        searchable: false,
-                        orderable: true
-                    },
-                    { 
-                        data: 'membership',
-                        searchable: false, 
-                        orderable:false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'status',
-                        searchable: false,
-                        orderable: false,
-                        visible: '{{$type == "past"?false:true}}'
-                    },
-                    {
-                        data: 'net_amount',
-                        searchable: false,
-                        orderable: false
-                    }
-                ]
-            });
-            
-        })
-    </script>
+            columns: [{
+                    data: 'escort_id',
+                    name: 'escort_id',
+                    searchable: true,
+                    orderable: true
+                },
+                {
+                    data: 'profile_name',
+                    name: 'profile_name',
+                    orderable: true
+                },
+                {
+                    data: 'location',
+                    name: 'location',
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: 'stage_name',
+                    name: 'stage_name',
+                    searchable: false,
+                    orderable: true
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date',
+                    searchable: false,
+                },
+                {
+                    data: 'end_date',
+                    name: 'end_date',
+                    searchable: false,
+                },
+                {
+                    data: 'days_number',
+                    name: 'days_number',
+                    searchable: false,
+                    orderable: true
+                },
+                {
+                    data: 'membership',
+                    name: 'membership',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    searchable: false,
+                    orderable: false,
+                    visible: '{{$type == "past"?false:true}}'
+                },
+                {
+                    data: 'net_amount',
+                    name: 'net_amount',
+                    searchable: false,
+                    orderable: false
+                }
+            ],
+            order: [4, 'asc'],
+        });
+
+    })
+</script>
 @endpush

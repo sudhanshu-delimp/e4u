@@ -474,7 +474,7 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
+                        <a class="collapse-item disabled-link{{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
                             href="{{ route('center.accommodation') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/acomdation.png') }}">
                             <span>Accommodation</span>
@@ -498,7 +498,7 @@
                             <span>Products</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'travel' ? 'menu-active' : '' }}"
+                        <a class="collapse-item disabled-link {{ request()->segment(2) == 'travel' ? 'menu-active' : '' }}"
                             href="{{ route('center.travel') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/visa-mig.png') }}">
                             <span>Travel</span>
