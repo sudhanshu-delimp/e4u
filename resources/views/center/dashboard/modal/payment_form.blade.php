@@ -252,7 +252,6 @@
             try {
 
                 const response = await checkSessionData();
-
                 if (!response.success) {
                     Swal.fire({
                         icon: 'error',

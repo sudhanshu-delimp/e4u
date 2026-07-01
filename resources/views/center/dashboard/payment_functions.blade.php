@@ -186,8 +186,20 @@ async function checkSessionData()
     ).toString();
 }
 
-finishPaymentForm.submit(function(e) {
+finishPaymentForm.submit(async function(e) {
+
         e.preventDefault();
+        const response = await checkSessionData();
+
+        if (!response.success) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Session Expired',
+                text: response.message
+            });
+            return;
+        }
+        
         let submitButton = finishPaymentForm.find(":submit");
         submitButton.attr({
             disabled: true

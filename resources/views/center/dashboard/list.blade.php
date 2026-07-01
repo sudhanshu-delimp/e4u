@@ -1048,7 +1048,7 @@ e.preventDefault();
 
       let formData = $("#purchase_listing").serialize();
       if ($actionType.length) {
-         $actionType.val('bumpup');
+         $actionType.val('extend');
       } else {
          $form.append('<input type="hidden" name="action_type" value="extend">');
       }

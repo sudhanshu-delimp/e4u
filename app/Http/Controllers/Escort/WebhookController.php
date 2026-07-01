@@ -18,61 +18,81 @@ class WebhookController extends Controller
   function handle(Request $request, PinPaymentService $pinPaymentService)
   {
 
-    $signatureHeader = $request->header('Pin-Signature');
+        $payload = $request->getContent();
+
+        // Log::info('paylaod');
+        // Log::info($payload);
+        // exit;
+
+    // $signatureHeader = $request->header('Pin-Signature');
 
 
-    if (!$signatureHeader)
-      return response()->json(['status' => ' signature not found '], 500);
+    // if (!$signatureHeader)
+    //   return response()->json(['status' => ' signature not found '], 500);
 
-    $signingKey = config('escorts.webhook_secret_key');
-    //  return "djfgdjhfg";
+    // $signingKey = config('escorts.webhook_secret_key');
+    // //  return "djfgdjhfg";
 
-    // Parse header: t=timestamp,v1=signature
+    // // Parse header: t=timestamp,v1=signature
 
-    $parts = [];
-    foreach (explode(',', $signatureHeader) as $part) {
-      [$key, $value] = explode('=', $part, 2);
-      $parts[$key] = $value;
-    }
+    // $parts = [];
+    // foreach (explode(',', $signatureHeader) as $part) {
+    //   [$key, $value] = explode('=', $part, 2);
+    //   $parts[$key] = $value;
+    // }
 
-    $timestamp = $parts['t'] ?? null;
-    $signature = $parts['v1'] ?? null;
+    // $timestamp = $parts['t'] ?? null;
+    // $signature = $parts['v1'] ?? null;
 
-    if (!$timestamp || !$signature)
-      return response()->json(['status' => 'timestamp or signature not found '], 500);
-
-
-
-    // IMPORTANT: get raw body exactly as received
-    $rawBody = $request->getContent();
-    $payload = $timestamp . '.' . $rawBody;
-
-    // Generate expected signature
-    $expected = hash_hmac('sha256', $payload, $signingKey);
-
-
-    // Constant-time comparison
-    if (!hash_equals($expected, $signature))
-      return response()->json(['status' => 'signature noty verified'], 500);
+    // if (!$timestamp || !$signature)
+    //   return response()->json(['status' => 'timestamp or signature not found '], 500);
 
 
 
-    // Optional: timestamp tolerance check (e.g. 5 minutes)
-    $tolerance = 300; // seconds
-    if (abs(time() - (int)$timestamp) > $tolerance)
-      return response()->json(['status' => 'timestamp tolerance check '], 500);
+    // // IMPORTANT: get raw body exactly as received
+    // $rawBody = $request->getContent();
+    // $payload = $timestamp . '.' . $rawBody;
+
+    // // Generate expected signature
+    // $expected = hash_hmac('sha256', $payload, $signingKey);
+
+
+    // // Constant-time comparison
+    // if (!hash_equals($expected, $signature))
+    //   return response()->json(['status' => 'signature noty verified'], 500);
+
+
+
+    // // Optional: timestamp tolerance check (e.g. 5 minutes)
+    // $tolerance = 300; // seconds
+    // if (abs(time() - (int)$timestamp) > $tolerance)
+    //   return response()->json(['status' => 'timestamp tolerance check '], 500);
 
     try {
 
       // Convert JSON after verification
-      [$timestamp, $jsonPayload] = explode('.', $payload, 2);
-      $data = json_decode($jsonPayload, true);
+     // [$timestamp, $jsonPayload] = explode('.', $payload, 2);
+     // $data = json_decode($jsonPayload, true);
       // webhook event type
+
+      //[$timestamp, $jsonPayload] = explode('.', $payload, 2);
+      //$data = json_decode($jsonPayload, true);
+
+
+      $data = json_decode($payload, true);
+      //Log::info($data);
+     
+
       $event = $data['type'] ?? null;
       $paymentObject = $data['data'];
 
       // type for identify wor what payment was made
       $type = $paymentObject['metadata']['type'] ?? '';
+
+
+
+
+
       // Example: payment success
       if ($event == 'charge.captured') {
         // start swithc case

@@ -40,7 +40,8 @@ class PaymentController extends BaseController
         $this->massage = $massage;
         $this->walletService = $walletService;
         $this->pinService = $pinService;
-     
+
+        $this->middleware('auth');
         $this->middleware(function ($request, $next) {
             $this->account = auth()->user();
             return $next($request);
@@ -118,7 +119,7 @@ class PaymentController extends BaseController
              'pay_data' => [
                 'normalRate' =>  $plan_rate,
                 'sub_total_amount' => $total_rate,
-                'total_amount' =>  (float)  $total_due,
+                'total_amount' =>  (float)  ($total_fee + $gstTax),
                 'loyalty_amount' => $loyalty_day,
                 'wallet_amount' => (float)  $wallet_amount,
                 'gstTax' =>  (float)  $gstTax,
@@ -338,7 +339,6 @@ class PaymentController extends BaseController
                     'type' => 'massage-listing',
                     'action' => $benefit_token['action'],
                     'insert' => json_encode($insert),
-                    'purchaseData' => session()->get('MassagePurchase'),
                     'process_token' => (string) $paymentProcess->token,
                 ];
 
@@ -468,7 +468,7 @@ class PaymentController extends BaseController
          $decrypted_checkout_number= openssl_decrypt($request->checkout_number,$this->aes_value,$this->secretKey,0,$this->iv);
          $decrypted_checkout_number = json_decode($decrypted_checkout_number, true);
 
-        //Log::info('decrypted_checkout_number'.$decrypted_checkout_number);
+        Log::info('decrypted_checkout_number'.$decrypted_checkout_number);
 
         if (isset($purchase['checkout_number']) && $purchase['checkout_number'] == $decrypted_checkout_number) {
             return response()->json([
@@ -490,7 +490,7 @@ class PaymentController extends BaseController
   
    public function saveCheckout($action = null, $payment = null)
     {
-         Log::info('action===>'.$action);
+         
 
          $response = [];
          if($action == 'listing' || $action == 'extend')
@@ -529,6 +529,7 @@ class PaymentController extends BaseController
             $response['extend_days'] = Carbon::parse($item['start_date'])->diffInDays(Carbon::parse($item['end_date'])) + 1;
          }
 
+         session()->forget('MassagePurchase');
          return $response;
     }
 
