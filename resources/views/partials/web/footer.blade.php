@@ -273,7 +273,7 @@
             </div>
             <div class="row">
                 <div class="col-12 delimp_copyright">
-                    <span><img src="{{ asset('assets/app/img/delimp-technology.png') }}" alt="Delimp Technology Pvt. Ltd."> Developed By  <a href="https://delimp.com/" target="_blank"> Delimp Technology Pvt. Ltd. </a></span>
+                    <span><img src="{{ asset('assets/app/img/delimp-technology.png') }}" alt="Delimp Technology Pvt. Ltd."> Built by  <a href="https://delimp.com/" target="_blank"> Delimp Technology Pvt. Ltd. </a></span>
                 </div>
             </div>
         </div>
