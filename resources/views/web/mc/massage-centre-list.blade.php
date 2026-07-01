@@ -262,7 +262,123 @@ font-weight: bold;
 
 @push('scripts')
 <script>
+ window.authUser = {
+    isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+    auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+    myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false' }},
+};
+
 window.is_page_reload = 0;
+
+$(document).on('click', '.add_to_favrate', function() {
+    if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
+        swal_error_warning('My Legbox',
+            'Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.'
+            );
+        return false;
+    }
+
+    var name = $(this).attr('data-name');
+    var Eid = $(this).attr('data-massageId');
+    var Uid = $(this).attr('data-userId');
+    var cidcl = $(this).attr('class');
+    var cid = cidcl.split(' ');
+
+    //console.log(cid, cid.includes('fill'), Eid, ' he');
+  
+
+    if (cid.includes('fill')) {
+        $(this).removeClass('fill');
+        $(this).addClass('null');
+        console.log('legboxId_' + Eid, ' hello', $('#legboxId_' + Eid).html())
+        $('.legboxClass_' + Eid).html(
+            "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
+        );
+        $('#legboxId_' + Eid).html(
+            "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
+        );
+
+        var url = "{{ route('user.save.massage.legbox', ':id') }}";
+        url = url.replace(':id', Eid);
+        $('.user_short_list').html( `<span id="Lname">${name}</span> has been added to your Legbox.`);
+        $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
+        $('#add_wishlist').modal('show');
+        $.ajax({
+            type: "post",
+            url: url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                console.log(data);
+
+            }
+        });
+
+    } else if (cid.includes('null')) {
+        $(this).removeClass('null');
+        $(this).addClass('fill');
+
+        // <i class="fa fa-heart-o" aria-hidden="true"></i>
+        console.log('legboxId_' + Eid, ' hello null', $('#legboxId_' + Eid).html())
+        $('.legboxClass_' + Eid).html(
+            "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
+        );
+        $('#legboxId_' + Eid).html(
+            "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
+        );
+
+        var url = "{{ route('user.delete.massage.legbox', ':id') }} ";
+        url = url.replace(':id', Eid);
+        $('.user_short_list').html( `<span id="Lname">${name}</span> has been removed from your Legbox.`);
+        $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
+        $('#add_wishlist').modal('show');
+        $.ajax({
+            type: "post",
+            url: url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                console.log(data);
+
+            }
+        });
+
+    } else {
+        console.log('cid else');
+
+
+        @if (auth()->user() && auth()->user()->type != 0)
+            $(".my_legbox_title").text(
+                'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
+            );
+            $(".my_legbox_footer").show();
+        @else
+            $(".my_legbox_title").text(
+                'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
+            );
+            $(".my_legbox_footer").show();
+        @endif
+        $('#my_legbox').modal('show');
+
+        var login_url = "{{ route('viewer.login', ':id') }}";
+        var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
+        var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
+        console.log(loginurl2);
+
+
+        var regurl = "{{ route('register', ':id') }}";
+        //{{-- loginurl = loginurl.replace(':id','legboxId='+Eid) --}}
+        regurl = regurl.replace(':id', 'legboxId=' + Eid)
+        $('#loginUrl').attr('href', loginurl2)
+        $('#regUrl').attr('href', regurl)
+    }
+
+    console.log(cid[1] + "-" + Eid);
+    console.log(cidcl);
+});
+
 $(document).ready(function () {
     
     var activeView = 'grid';

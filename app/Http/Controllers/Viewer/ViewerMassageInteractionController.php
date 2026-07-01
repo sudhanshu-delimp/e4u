@@ -69,7 +69,7 @@ class ViewerMassageInteractionController extends Controller
             ->where('viewer_id',Auth::user()->id)
             ->update([
                 'viewer_disabled_contact' => $viewer_disabled_contact,
-                'viewer_disabled_notification' => $viewer_disabled_notification ,
+                'viewer_disabled_notification' => $viewer_disabled_notification,
                 'viewer_blocked_massage' => $is_blocked,
                 'viewer_rate_massage' => $viewer_rate_massage,
             ]);
@@ -138,7 +138,9 @@ class ViewerMassageInteractionController extends Controller
         if (auth()->user()) {
             $myMassageLegbboxIds = MyMassageLegbox::where('user_id', auth()->user()->id)->pluck('massage_id');
 
-            $massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->where('enabled',1)->with(['city','state','user','messageViewerInteraction']);
+            //$massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->where('enabled',1)->with(['city','state','user','messageViewerInteraction']);
+
+             $massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->with(['city','state','user','messageViewerInteraction']);
 
              return DataTables::of($massageCenters)
                 ->filter(function ($query) use ($request) {
@@ -161,8 +163,9 @@ class ViewerMassageInteractionController extends Controller
                     $stateCode = $state->state_code ?? '-';
                     return $stateCode;
                 })
+                
                 ->addColumn('business_name', function($row){  
-                    return Str::title($row->name);
+                    return Str::title($row->business_name);
                  })
                 ->addColumn('open_now', function($row){  
 
@@ -256,6 +259,25 @@ class ViewerMassageInteractionController extends Controller
                         }
                     }
                     return $row->phone;
+                })
+                 ->addColumn('is_blocked', function ($row) {
+                    
+                    # If escort blocked viewer
+                    $escortViewerInteractions = MassageViewerInteractions::where('user_id',$row->user_id)->where('massage_id',$row->id)->where('viewer_id',Auth::user()->id)->first();
+
+                    if($escortViewerInteractions){
+                        $isChecked = $escortViewerInteractions->viewer_blocked_massage ? 'checked' : '';
+                    }else{
+                        $isChecked = '';
+                    }
+
+                    $isBlocked = '<div class="custom-control custom-switch text-center">
+                                        <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedMassageButton" id="customSwitch'.$row->id.'">
+                                        <label class="custom-control-label" for="customSwitch'.$row->id.'"></label>
+                                    </div>';
+
+                
+                    return $isBlocked;
                 })
 
                 ->addColumn('action', function ($row) {
@@ -352,7 +374,7 @@ class ViewerMassageInteractionController extends Controller
                     return $actionButtons;
                 })
 
-                ->rawColumns(['massage_id', 'massage_communication', 'action','business_name'])
+                ->rawColumns(['massage_id', 'massage_communication', 'is_blocked', 'action','business_name'])
                 ->make(true);
         }
     }
