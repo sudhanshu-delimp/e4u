@@ -351,6 +351,12 @@
                         .trikon_style {
                             padding: 10px !important;
                         }
+                        .delimp_copyright span {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+                        }
                     }
                     
                     @media(max-width:486px) {
