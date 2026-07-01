@@ -47,15 +47,16 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="table-responsive custom-badge">
-                            <table class="table w-100" id="productsHistoryTable"  >
+                            <table class="table w-100" id="productsHistoryTable">
                                 <thead class="table-bg">
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Created By</th>
                                         <th>Member Id</th>
                                         <th>Member</th>
+                                        <th>Delivery Type</th>
                                         {{-- <th>Sub Total</th>
-                                        <th>Wallet Amount</th>
+                                      
                                         <th>Shipping Charge</th>
                                         <th>Tax</th> --}}
                                         <th>Total</th>
@@ -308,10 +309,10 @@
                     //     data: 'wallet_amount',
                     //     name: 'wallet_amount'
                     // },
-                    // {
-                    //     data: 'delivery_charges',
-                    //     name: 'delivery_charges'
-                    // },
+                    {
+                        data: 'delivery_type',
+                        name: 'delivery_type'
+                    },
                     // {
                     //     data: 'gst_amount',
                     //     name: 'gst_amount'
@@ -398,7 +399,7 @@
         function updateOrderStatus(orderId, status, trackingId = '', reject_reason = "") {
             let $btn = $("#saveCompletedOrder");
             let delivery_type = $("#delivery_type").val();
-
+            let $process = $('#processingModal');
             $.ajax({
                 url: "{{ route('admin.escort.order.complete') }}",
                 type: 'POST',
@@ -410,34 +411,32 @@
                     reject_reason: reject_reason,
                     delivery_type: delivery_type,
                 },
-
                 beforeSend: function() {
-                    if (delivery_type != "post")
-                        $('#processingModal').modal('show');
+
+                    if (delivery_type !== "post")
+                        $process.modal('show');
 
                     $btn.prop("disabled", true).text("Processing...");
                 },
                 success: function(response) {
-
                     if (!response.status) {
                         toastr.error(response.message);
                         return;
                     }
-                    $('#active_req').modal('hide');
+
                     if (status == 'delivered' && delivery_type == "post")
                         $('#confirm_popup').modal('show');
 
                     $('#orderStatusChange')[0].reset();
                     toastr.success('Order status updated successfully');
                     $("#productsHistoryTable").DataTable().ajax.reload(null, false);
-
                 },
                 error: function(xhr) {
-                    // $('#processingModal').modal('hide');
                     toastr.error(xhr.responseJSON?.message || 'Something went wrong');
                 },
                 complete: function() {
-                    $('#processingModal').modal('hide');
+                    $('#active_req').modal('hide');
+                    $process.modal('hide');
                     $btn.prop("disabled", false)
                         .text("Save");
 
