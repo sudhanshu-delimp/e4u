@@ -107,7 +107,7 @@ class ProductOrderController extends Controller
            data-orderid="' . $row->order_id . '"
            data-delivery_type="' . $row->delivery_type . '"
            data-status="shipped">
-            <i class="fa fa-pause-circle"></i> Dispatch
+            <i class="fa fa-truck" aria-hidden="true"></i> Dispatch
         </a>
 
         <div class="dropdown-divider"></div>
