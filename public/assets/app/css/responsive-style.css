@@ -364,6 +364,12 @@
                         .welcone_login_page_heading {
                             margin-top: 25px;
                         }
+                        .btn_for_profile_list_view {
+                            justify-content: center;
+                        }
+                        .list_button_wrap {
+                            width: 100%;
+                        }
                     }
                     
                     @media(max-width:486px) {

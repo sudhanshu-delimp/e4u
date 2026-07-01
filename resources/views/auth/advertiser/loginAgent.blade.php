@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group label_margin_zero_for_login" style="position: relative;">
                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                           <input type="password" class="form-control" id="exampleInputPassword1" placeholder=""
+                           <input type="password" class="form-control" placeholder="Please Enter Your Password" id="exampleInputPassword1" placeholder=""
                               name="password" required autocomplete="new-password"
                               data-parsley-required-message="@lang('errors/validation/required.password')"
                               data-parsley-pattern-message="@lang('errors/validation/valid.password')">

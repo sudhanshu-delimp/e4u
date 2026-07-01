@@ -38,7 +38,7 @@
                             <label for="exampleInputPassword1">{{ __('Password') }}</label>
 
                             <div class="input-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder=""
+                                <input type="password" class="form-control" placeholder="Please Enter Your Password" id="exampleInputPassword1" placeholder=""
                                     name="password" required autocomplete="new-password"
                                     data-parsley-required-message="@lang('errors/validation/required.password')"
                                     data-parsley-pattern-message="@lang('errors/validation/valid.password')">

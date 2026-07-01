@@ -26,9 +26,9 @@
                                         class="img-fluid" alt="logo"></a>
                             </div>
                         </div>
-                        <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong>
+                        <h4 class="welcome_sub_login_heading text-center my-3"><strong>Account Protection</strong>
                         </h4>
-                        <ol class="pb-2 pl-3 text-justify">
+                        <ol class="fa_notes">
                             <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign
                                 in.</li>
                             <li>Your six digit authentification code has been sent to your mobile/email
