@@ -18,7 +18,7 @@ class EscortListingFeatureService
 
     public function registerBumpUp(?Request $request = null, array $data = [])
     {
-        print_r($data);
+        print_this($data);
         $escortId = $this->getValue($request, $data, 'escort_id');
 
         $escortDetail = getEscortDetail($escortId);
