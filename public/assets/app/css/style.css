@@ -1292,7 +1292,7 @@
             font-size: 11px;
             line-height: 16.5px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--blue--text);
             padding-bottom: 5px;
         }
         
@@ -5605,20 +5605,85 @@ i.fa.fa-heart-o{
         .box_shdow_of_login_form {
             box-shadow: 0px 0px 20px 8px #d3d1d1;
         }
+        /* common_login_page */
+        
+        .common_login_page {
+            padding: clamp(10px, 4vw, 50px);
+            box-shadow: 0px 0px 20px 8px #d3d1d1;
+            border-radius: 10px;
+            margin: clamp(25px, 4vw, 75px) 0;
+        }
+        
+        .common_login_page .form-control {
+            border: 1px solid #ccc !important;
+            border-radius: 5px;
+        }
+        
+        .common_login_page .form-control:focus {
+            background-color: #fff;
+            outline: 0;
+            box-shadow: none;
+            border: 1px solid var(--blue--text) !important;
+        }
+        
+        .common_login_page .form-control:active {
+            background-color: #fff;
+            outline: 0;
+            box-shadow: none;
+            border: 1px solid var(--blue--text) !important;
+        }
+        
+        .common_login_page form input {
+            border-radius: 5px !important;
+        }
+        
+        .common_login_img img {
+            border-radius: 5px;
+        }
+        
+        .common_login_page .form-control input:focus {
+            border-color: var(--peach);
+        }
+        
+        .common_login_note {
+            text-align: justify;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background: #f9f9f9;
+            margin-top: 15px;
+        }
+        
+        .common_login_note p {
+            margin-bottom: 12px;
+        }
+        
+        .common_login_note ol li {
+            font-size: 14px;
+            text-align: justify;
+        }
+        
+        #forgotpassword {
+            color: var(--peach);
+        }
+        /* end */
         
         .welcone_login_page_heading h1 {
             font-family: Poppins;
-            font-size: clamp(25px, 4vw, 48px);
-            line-height: 1.6;
-            color: #0c213c;
+            font-size: clamp(18px, 4vw, 24px);
+            line-height: .9;
+            color: var(--peach);
+            text-transform: uppercase;
         }
         
         .welcome_sub_login_heading {
             font-family: Poppins;
-            font-size: clamp(18px, 3vw, 25px);
-            font-weight: 600;
+            font-size: clamp(18px, 3vw, 40px);
+            font-weight: 500;
             line-height: 36px;
-            color: #0c213c;
+            color: var(--blue--text);
+            margin-bottom: 20px;
+            text-transform: capitalize;
         }
         
         .label_margin_zero_for_login label {
@@ -7117,7 +7182,7 @@ i.fa.fa-heart-o{
         }
         
         .alert-danger {
-            color: #e5365a;
+            color: var(--peach);
             background-color: #fff;
             border-color: #fff;
             padding: 0;
@@ -8202,6 +8267,7 @@ i.fa.fa-heart-o{
         
         .login--eye .custom--eye {
             top: 12px;
+            right: 15px;
         }
         
         img.twitter-x-logo {

@@ -14,14 +14,13 @@
 </style>
 @endsection
 <div class="container">
-      <section class="login_page_pt_pb_of_outer_section">
-         <section class="innersection_padding_from_all_side box_shdow_of_login_form">
-            <div class="row align-items-center">
+         <section class="common_login_page">
+            <div class="row">
                <div class="col-md-6 order-md-0 order-sm-1 order-1">
                   <div class="welcone_login_page_heading">
-                     <h1 class="text-uppercase">WELCOME TO E4U</h1>
+                     <h1>WELCOME TO E4U</h1>
                   </div>
-                  <h4 class="welcome_sub_login_heading text-uppercase"><strong>Advertiser LOGIN</strong></h4>
+                  <h2 class="welcome_sub_login_heading">Advertiser Login</h2>
                   <form id="escort_login" action="{{ route('advertiser.login')}}" method="post">
                       @csrf
                         <input type="hidden" name="type" value="3">
@@ -75,14 +74,14 @@
                                 <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>       
                            </div>
                        </div>
-                       <div>
+                       <div class="common_login_note">
                            {{-- login note from component --}}
                            <x-login-notes />
                        </div>
                         
                     </form>
                </div>
-               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
+               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
                 @if(config('constants.app_env')!='local')
                   <img src="{{ asset('assets/app/img/login-profile/escort-login.png')}}" class="img-fluid">
                 @else
@@ -92,7 +91,6 @@
                </div>
             </div>
          </section>
-      </section>
 
       @include('modal.two-step-verification')
         <!-- <div class="modal" id="sendOtp_modal" style="display: none">
