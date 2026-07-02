@@ -185,6 +185,7 @@ class PaymentController extends Controller
             ]);
 
             $pin_token = str_contains($request->pin_token, 'card') ? $request->pin_token : decrypt($request->pin_token);
+            $payload_token = $request->filled('payload_token') ? $request->payload_token : '';
 
             $is_bypass = $pin_token == 'without_pay_now';
 
@@ -202,30 +203,23 @@ class PaymentController extends Controller
                 'total_amount' => $amount,
             ];
 
+            $this->pinService->setAmount($benefit_token['sub_total_amount']);
+            $this->pinService->setWalletAmount($benefit_token['wallet_amount']);
+            $this->pinService->setLoyaltyAmount($benefit_token['loyalty_amount']);
 
-            if (!in_array($benefit_token['action'], ['wallet'])) {
-                $this->pinService->setAmount($benefit_token['sub_total_amount']);
-                $this->pinService->setWalletAmount($benefit_token['wallet_amount']);
-                $this->pinService->setLoyaltyAmount($benefit_token['loyalty_amount']);
-
-                $gstAmount = $this->pinService->getGSTAmount();
-                $totalDueAmount = $this->pinService->getTotalDue();
-            } else {
-                $gstAmount = 0;
-                $totalDueAmount = $benefit_token['sub_total_amount'];
-            }
-
+            $mailConfig = config("payment_mail_templates.{$benefit_token['action']}");
             /* Insert records for the payment history table */
             $insert = [];
             $insert['user_id'] = $this->account->id;
             $insert['completed_by'] = $request->isImpersonated ? $request->impersonatedId : $this->account->id;
             $insert['ref_no'] = generateReferenceNo(PaymentHistory::class);
+            $insert['service'] = $mailConfig['service_title'];
             $insert['amount'] = $benefit_token['sub_total_amount'];
             $insert['wallet_amount'] = $benefit_token['wallet_amount'];
             $insert['loyalty_amount'] = $benefit_token['loyalty_amount'];
-            $insert['net_amount'] = $benefit_token['total_amount'];
-            $insert['gst_amount'] = $gstAmount;
-            $insert['paid_amount'] = $totalDueAmount;
+            $insert['net_amount'] = $this->pinService->getNetAmount();
+            $insert['gst_amount'] = !in_array($benefit_token['action'], ['wallet']) ? $this->pinService->getGSTAmount() : $this->pinService->getGSTAmount(0);
+            $insert['paid_amount'] = $this->pinService->getTotalDue();
 
             if (!$is_bypass) {
                 $payload = [];
@@ -243,12 +237,15 @@ class PaymentController extends Controller
                         }
                         break;
                     case 'pinup': {
+                            parse_str($payload_token, $payload);
                         }
                         break;
                     case 'bumpUp': {
+                            parse_str($payload_token, $payload);
                         }
                         break;
                     case 'upgrade': {
+                            parse_str($payload_token, $payload);
                         }
                         break;
                     case 'wallet': {
@@ -264,6 +261,7 @@ class PaymentController extends Controller
                     'token' => Str::uuid(),
                     'payload' => $payload,
                     'type' => $benefit_token['action'],
+                    'benefit_token' => $benefit_token,
                 ]);
 
                 $metaData = [
@@ -273,7 +271,8 @@ class PaymentController extends Controller
                     'process_token' => (string) $paymentProcess->token,
                 ];
 
-                $gatewayResponse = $this->pinService->charge($pin_token, $totalDueAmount, $this->account->email, null, $metaData);
+                $gatewayResponse = $this->pinService->charge($pin_token, $this->pinService->getTotalDue(), $this->account->email, null, $metaData);
+                return false;
                 if ($gatewayResponse['status']) {
                     $response = $gatewayResponse['data']['response'];
                 } else {
@@ -337,7 +336,7 @@ class PaymentController extends Controller
                         $payment_service = 'Wallet Credit';
                         $creditTransaction = $this->walletService->credit(
                             $mainAccount,
-                            $totalDueAmount,
+                            $this->pinService->getTotalDue(),
                             $payment,
                             'Add Money',
                             [
@@ -349,6 +348,8 @@ class PaymentController extends Controller
                             'payment_history_id' => $payment->id,
                             'amount' => $payment->paid_rate,
                         ]);
+
+                        Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
 
                         $redirect_url = route('escort.my_wallet');
                     }
@@ -373,9 +374,6 @@ class PaymentController extends Controller
                     $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
                 }
             }
-
-            $payment->service = $payment_service;
-            $payment->save();
 
             /* Send Payment Mail */
             if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {

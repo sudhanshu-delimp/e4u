@@ -836,9 +836,9 @@ Route::get('support-services/financial-report', function () {
   return view('admin.support-services.financial-report');
 })->name('admin.financial-report');
 
-Route::get('support-services/payment', function () {
-  return view('admin.support-services.payment');
-})->name('admin.payment');
+Route::get('support-services/process-payment', function () {
+  return view('admin.support-services.process-payment');
+})->name('admin.process-payment');
 
 Route::get('support-services/summary', function () {
   return view('admin.support-services.summary');

@@ -20,7 +20,7 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            E4U Concierge - Product Order Hold
+                                            E4U Concierge - Product Order Rejected
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Ref: {{ $data['id'] ?? '' }}<br>
@@ -37,28 +37,36 @@
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
 
+
                             <p style="margin: 0 0 15px 0;"><b>Dear Supplier,</b></p>
+                            <p style="margin: 20px 0 15px 0;">
+                                This is to notify you that the following product order has been marked as
+                                <strong>Rejected</strong>.
+                            </p>
 
-                            <p style="margin: 20px 0 15px 0;">We would like to inform you that the order has been placed
-                                on hold and is currently under review.</p>
+                            @if (!empty($data['reject_reason']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Reason for Rejection:</strong> {{ $data['reject_reason'] }}
+                                </p>
+                            @endif
 
                             <p style="margin: 15px 0;">
-                                Please do not proceed with any further processing, fulfillment, or delivery activities
-                                relating to this order until further notice.</p>
-                            <p style="margin: 15px 0;">
-                                We will provide an update once the order status changes or additional instructions
-                                become available. </p>
-                            <p style="margin: 15px 0;">
-                                Please retain this notification for your records and quote the order reference in any
-                                future correspondence regarding this order. </p>
+                                The order has been updated successfully in the system.
+                            </p>
 
-                            <!-- email info -->
-                              <p style="font-size: 15px; margin-top: 20px;">
+                            <p style="margin: 15px 0;">
+                                Please keep this notification for your records and refer to the order reference in any
+                                future correspondence regarding this order.
+                            </p>
+
+                            <p style="margin: 15px 0;">
+                                If you have any questions, please contact the E4U Operations Centre.
+                            </p>
+
+                            <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
                             </p>
-                            <!-- end -->
-
                         </td>
                     </tr>
                 </table>

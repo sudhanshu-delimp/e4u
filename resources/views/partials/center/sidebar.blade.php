@@ -276,7 +276,8 @@
                             'add-report',
                             'my-reports',
                             'num-tips',
-                            'ticket-list','masseurs'
+                            'ticket-list','masseurs',
+                            'view-reviews'
                         ]) ||
                         in_array(request()->segment(1), ['submit_ticket'])) show @endif"
             data-parent="#accordionSidebar">
@@ -371,6 +372,7 @@
                                 'legbox-notification',
                                 'viewer-notes',
                                 'legbox-viewers',
+                                'view-reviews'
                             ])) show @endif"
                     data-parent="#AdminTab">
 
@@ -400,6 +402,12 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                             <span>Messages</span>
                         </a>
+
+                        <a class="collapse-item {{ request()->segment(2) == 'view-reviews' ? 'menu-active' : '' }}"
+                                href="{{ route('center.view-reviews') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png') }}">
+                                <span>My Reviews</span>
+                            </a>
 
                     </div>
                 </div>
@@ -466,7 +474,7 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
+                        <a class="collapse-item disabled-link{{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
                             href="{{ route('center.accommodation') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/acomdation.png') }}">
                             <span>Accommodation</span>
@@ -490,7 +498,7 @@
                             <span>Products</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'travel' ? 'menu-active' : '' }}"
+                        <a class="collapse-item disabled-link {{ request()->segment(2) == 'travel' ? 'menu-active' : '' }}"
                             href="{{ route('center.travel') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/visa-mig.png') }}">
                             <span>Travel</span>

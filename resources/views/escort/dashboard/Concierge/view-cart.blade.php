@@ -246,18 +246,16 @@
                                     <!-- Address -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address</b></label>
-                                        <input type="text" autocomplete="off" class="form-control address-picker" name="address"
-                                            placeholder="Unit 1, 1 The Street" required            
-
+                                        <input type="text" autocomplete="off" class="form-control address-picker"
+                                            name="address" placeholder="Unit 1, 1 The Street" required
                                             data-parsley-required-message="Address is required">
                                     </div>
 
                                     <!-- Address 2 (Optional) -->
                                     <div class="col-md-12 my-2">
                                         <label><b>Address 2 (Optional)</b></label>
-                                        <input type="text" autocomplete="off" class="form-control address-picker" name="address_2"
-                                            placeholder="Suburb WA 6000"
-
+                                        <input type="text" autocomplete="off" class="form-control address-picker"
+                                            name="address_2" placeholder="Suburb WA 6000"
                                             data-parsley-required-message="Address 2 is required">
                                     </div>
                                     <!-- City -->
@@ -336,15 +334,17 @@
                                         <!-- Address Line 1 -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 1</b></label>
-                                            <input type="text" name="billing_address_line1" class="form-control address-picker"
-                                                placeholder="Unit 1, 1 The Street" required  
+                                            <input type="text" name="billing_address_line1"
+                                                class="form-control address-picker" placeholder="Unit 1, 1 The Street"
+                                                required
                                                 data-parsley-required-message="Billing address line 1 is required">
                                         </div>
 
                                         <!-- Address Line 2 (optional) -->
                                         <div class="col-md-12 my-2">
                                             <label><b>Address Line 2</b></label>
-                                            <input type="text" name="billing_address_line2" class="form-control address-picker"
+                                            <input type="text" name="billing_address_line2"
+                                                class="form-control address-picker"
                                                 placeholder="Apartment, suite, etc (optional)">
                                         </div>
 
@@ -449,7 +449,8 @@
 
                 <h2>Order Completed</h2>
                 <p>Thank you for your purchase!</p>
-                <button type="button" class="btn-common"> <a href="{{ route('bookkeeping.product.orders') }}" class="text-white">
+                <button type="button" class="btn-common"> <a href="{{ route('bookkeeping.product.orders') }}"
+                        class="text-white">
                         View
                         Orders</a></button>
                 <button onclick="finish()" class="btn-common">Finish</button>
@@ -529,31 +530,32 @@
                                         <span>Subtotal:</span>
                                         <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span>Wallet Used:</span>
-                                        <span id="walletUsed"> {{ formatCurrency(0) }}</span>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong>GST :</strong>
+                                        <strong class="taxAmount" style="border: none;padding:0px">$0.00</strong>
                                     </div>
 
+
                                     <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <span>Total Fee:</span>
                                         <span id="total_fee"> {{ formatCurrency(0) }}</span>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <strong>GST :</strong>
-                                        <strong class="taxAmount" style="border: none">$0.00</strong>
-                                    </div>
 
-                                    <div class="d-flex justify-content-between align-items-center  mb-2">
+
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <strong>Delivery Charge:</strong>
                                         <strong class="deliveryCharge"
-                                            style="border-bottom:1px solid">{{ formatCurrency(0) }}</strong>
+                                            >{{ formatCurrency(0) }}</strong>
 
                                     </div>
 
-
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
+                                        <span>Wallet Used:</span>
+                                        <span id="walletUsed" style="border-bottom:1px solid"   > -{{ formatCurrency(0) }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <strong>Total Due:</strong>
                                         <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
                                     </div>
@@ -750,11 +752,9 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key={{config('services.google_map.api_key')}}&libraries=places&callback=initAddressPicker"
-    async
-    defer>
-</script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initAddressPicker"
+        async defer></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
@@ -773,9 +773,9 @@
         // localStorage.setItem('checkout_step_' + loginUserId, step);
         let isDirty = false;
 
-$(document).ready(function () {
-    initAddressPicker();
-});
+        $(document).ready(function() {
+            initAddressPicker();
+        });
 
 
 
@@ -1416,7 +1416,7 @@ $(document).ready(function () {
             let gst = subtotal * tax / 100; //GST
             // set amount details after calculation in html format
             $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
-            $("#total_fee").text("$ " + subtotal.toFixed(2));
+            $("#total_fee").text("$ " + (gst+subtotal).toFixed(2));
             $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
             $(".taxAmount").text("$" + gst.toFixed(2));
             $(".totalDue").text("$" + (total + gst).toFixed(2));
@@ -1541,9 +1541,7 @@ $(document).ready(function () {
         var finishPaymentForm = $('.finish-payment-form');
 
 
-        $(document).ready(function() {
-
-            $(document).on("click", "#applyWallet", function(e) {
+        $(document).on("click", "#applyWallet", function(e) {
                 e.preventDefault(); // Stop normal form submit
                 updateOrderSummary();
 
@@ -1589,7 +1587,7 @@ $(document).ready(function () {
                 });
 
                 $("#walletAmount").text("$" + formatedAccountWalletAmount);
-                $("#walletUsed").text("$" + Number(walletAmount).toFixed(2));
+                $("#walletUsed").text("- $" + Number(walletAmount).toFixed(2));
 
                 // FORCE numeric values
                 let oldSubtotal = Number(details.subtotal_payble) || 0;
@@ -1629,7 +1627,7 @@ $(document).ready(function () {
 
                 // Update UI
                 $(".taxAmount").text("$" + gst_amount.toFixed(2));
-                $("#total_fee").text("$" + subtotal.toFixed(2));
+                $("#total_fee").text("$" + (gst_amount+subtotal).toFixed(2));
                 $(".totalDue").text("$" + total_payble.toFixed(2));
                 // Save back to localStorage
                 localStorage.setItem(key, JSON.stringify(details));
@@ -1640,8 +1638,6 @@ $(document).ready(function () {
 
             });
 
-        });
-
         $("#resetWallet").on("click", function() {
             $("#adjustment-form")[0].reset();
             updateOrderSummary();
@@ -1651,7 +1647,7 @@ $(document).ready(function () {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })
-            $("#walletUsed").text("$0.00");
+            $("#walletUsed").text("- $0.00");
             $("#walletAmount").text("$" + formatedAccountWalletAmount);
             let key = 'paymentDetails_' + loginUserId;
 
@@ -1695,7 +1691,7 @@ $(document).ready(function () {
                     const $form = $(input).closest('form');
                     // Put full selected address in Address field
                     $(input).val(place.formatted_address);
- 
+
                 });
             });
         }

@@ -60,6 +60,7 @@
  .swal2-popup{
             width: auto !important;
         }
+
 </style>
 
 
@@ -1149,19 +1150,22 @@
                                                         
                                                         
                                                         <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="contact-tab">
-                                                            <div class="row px-3 pb-2" id="dvSource">
-                                                                
-                                                                @foreach($galleryVideos as $key=>$media)
-                                                                    <div class="col-md-4" id="dm_2">
-                                                                        <a href="#">
-                                                                            <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                                <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                                            </video>
-                                                                        </a>
-                                                                    </div>
-                                                                @endforeach
-                                                                    
-
+                                                            <div class="swiper mySwiper" id="dvSource">
+                                                                <div class="swiper-wrapper">
+                                                                      @foreach($galleryVideos as $key=>$media)
+                                                                        <div class="swiper-slide">
+                                                                            <div id="dm_{{ $key }}" class="w-100">
+                                                                                <a href="#">
+                                                                                    <video style="z-index: 1" controls="" id="videoId_{{ $key }}" src="{{ asset($media->path) }}">
+                                                                                        <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                                    </video>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                      @endforeach
+                                                                </div>
+                                                                    <div class="swiper-button-next"></div>
+                                                                    <div class="swiper-button-prev"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2079,6 +2083,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
 <script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 <script>
 let myCarousel = document.querySelector('#reviewCarousel');
 let carousel = new bootstrap.Carousel(myCarousel, {

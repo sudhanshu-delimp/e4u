@@ -12,6 +12,9 @@
             case $escort->membership == '3':
                 $imagePath = asset('images/silver_membership.png');
                 break;
+            case $escort->membership == '4':
+                $imagePath = asset('images/free_membership.png');
+                break;
             
             default:
                 $imagePath =  asset('assets/app/img/service-provider/Frame-408.png');
@@ -22,7 +25,7 @@
 @endphp
 
 <div class="listview_each_section_border_btm">
-    <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame"> 
+    <div class="manage_listview_margin_gold_section gold_list_frame"> 
         <div class="row">
             <div class="col-lg-12">
                 <div class="EC__list_card">
@@ -42,7 +45,7 @@
                             <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                 class="img-fluid" title="View Profile">
                         </a>
-                    <div class="siliver_logo_icon"><img src="{{ $imagePath }}">
+                        <div class="siliver_logo_icon"><img src="{{ $imagePath }}">
                                     </div>
                         <div class="add_to_fab_list_view_each_sec">
                             @if (auth()->user())

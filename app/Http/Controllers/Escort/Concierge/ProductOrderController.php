@@ -125,10 +125,26 @@ class ProductOrderController extends Controller
           'message' => "The final payable amount is incorrect. Please recheck and continue."
         ]);
       }
+      //  dd();
+      //  [LocationPrefix]
 
 
+      $stateId = $this->account->current_state_id ? $this->account->current_state_id : $this->account->state_id;
+      $currentLocationId = "";
+      $locationPrefix = "";
+      if ($stateId) {
+        $stateName  = config("escorts.profile.states.$stateId.stateName");
+        $currentLocationId  = config("escorts.profile.statesName.$stateName");
+      }
+
+      $nextNumber = sprintf('%04d', ProductOrder::max('id') + 1);
+
+      if (!empty($currentLocationId))
+        $locationPrefix = sprintf('%02d', $currentLocationId);
+
+      $orderId = $this->account->member_id ." ". date('dmY') ." ". $locationPrefix ." ". $nextNumber;
       $orderData = [
-        'order_id' => generateReferenceNo(ProductOrder::class),
+        'order_id' => $orderId,
         'type' => 'EC',
         'user_id' => Auth::user()->id,
         'order_date' => date('Y-m-d H:i:s'),
@@ -355,7 +371,7 @@ class ProductOrderController extends Controller
             </a>
             <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '" data-orderid="' . $row->order_id . '"   > <i class="fa fa-eye"></i> View Details </a></div></div>';
       })
-     
+
       ->rawColumns(['order_status', 'action', 'payment_status'])
       ->make(true);
   }
@@ -383,9 +399,9 @@ class ProductOrderController extends Controller
   }
 
 
-   public function printOrderDetail(Request $request)
+  public function printOrderDetail(Request $request)
   {
-    
+
     $order = ProductOrder::with(['orderAddress', 'paymentDetails', 'orderItems', 'orderItems.product'])->where('id', Crypt::decrypt($request->id))->first();
     $print = true;
     $pdf = FacadePdf::loadView('escort.dashboard.Concierge.product-order-details', compact('order', 'print'));
