@@ -86,16 +86,20 @@ class WebhookController extends Controller
               $pinPaymentService->handleWalletAmount($paymentObject['metadata']['user_id'], $paymentObject['metadata']['wallet_amount']);
             }
             break;
-          case 'escort-listing': {
+            case 'escort-listing': {
               ProcessPaymentWebhook::dispatch($paymentObject);
-            }
-
-             case 'massage-listing': {
-              app(MassagePaymentWebhookService::class)->process($paymentObject);
+              break;
             }
 
 
+            ############ Massage Centre ##############################
+            case 'massage-listing': 
+            app(MassagePaymentWebhookService::class)->process($paymentObject);
             break;
+            ############ End Massage Centre ##########################
+
+
+            
           default:
             // Unknown type handling
             Log::warning('Unknown event', ['type' => $event,  'response' => $paymentObject]);

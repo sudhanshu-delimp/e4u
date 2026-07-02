@@ -130,6 +130,7 @@ class MassagePaymentWebhookService
 
                     $payment->service = $payment_service;
                     $payment->save();
+                    $process->delete();
                 }
 
                 Log::info("MassagePaymentWebhookService: Webhook processed successfully");
