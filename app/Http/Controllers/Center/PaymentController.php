@@ -288,6 +288,10 @@ class PaymentController extends BaseController
             else
             $net_amount = max(0, (float) $total_points) - (float) $benefit_token['sub_total_amount'];
 
+
+            $total_payable_amount = $gstAmount + $benefit_token['sub_total_amount'];
+            $paid_amount = $total_payable_amount - $total_points;
+
           
 
             /* Insert records for the payment history table */
@@ -300,8 +304,8 @@ class PaymentController extends BaseController
             $insert['loyalty_amount'] = $loyality_amount;
             $insert['net_amount'] = $net_amount;
             $insert['gst_amount'] = $gstAmount;
-            $insert['paid_amount'] = $totalDueAmount;
-            $insert['total_payable_amount'] = $gstAmount + $benefit_token['sub_total_amount'];
+            $insert['paid_amount'] = $paid_amount;
+            $insert['total_payable_amount'] = $total_payable_amount;
 
 
             if (!$is_bypass) 
@@ -332,6 +336,7 @@ class PaymentController extends BaseController
                     'token' => Str::uuid(),
                     'payload' => $payload,
                     'type' => $benefit_token['action'],
+                    'benefit_token' => $benefit_token,
                 ]);
 
              
@@ -364,7 +369,7 @@ class PaymentController extends BaseController
             $insert['meta'] = $is_bypass ? null : json_encode($response);
             $payment = PaymentHistory::create($insert);
 
-        
+           
             /** Calulate agent commisson and save the commission */
             $agentCommission = (new \App\Models\AgentCommission);
             if ($payment) {
