@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('style')
-    <style type="text/css"></style>
+    <style type="text/css">
+    .table td,
+    .table th {
+        vertical-align: baseline !important;
+    }
+    </style>
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">

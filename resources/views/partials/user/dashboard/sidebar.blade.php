@@ -194,7 +194,7 @@
                 src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox-2.png') }}">
             <span>Punterbox</span>
         </a>
-        <div id="ugly" class=" collapse  @if (request()->segment(3) == 'my-report' || request()->segment(3) == 'dashboard' || request()->segment(3) == 'add-report') show @endif;"
+        <div id="ugly" class=" collapse  @if (request()->segment(3) == 'my-report' || request()->is('user-dashboard/edit-my-reports/*') || request()->segment(3) == 'dashboard' || request()->segment(3) == 'add-report') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
                
@@ -208,7 +208,7 @@
                 </a>
                 <a class="collapse-item" href="{{ route('user.my-report') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/my-report.png') }}">
-                    <span style="{{ request()->segment(3) == 'my-report' ? 'color: #e5365a;' : '' }}">My Report</span>
+                    <span style="{{ request()->segment(3) == 'my-report' || request()->is('user-dashboard/edit-my-reports/*') ? 'color: #e5365a;' : '' }}">My Report</span>
                 </a>
 
             </div>

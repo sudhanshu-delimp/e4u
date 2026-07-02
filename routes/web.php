@@ -235,6 +235,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/punterbox/add-report', [PunterBoxController::class, 'addReport'])->name('user.add-report');
         Route::post('add-report', [PunterBoxController::class, 'storeReport'])->name('user.store-report');
+        Route::get('my-reports', [PunterBoxController::class, 'showMyReportByAjax'])->name('user.my-reports');
+        Route::get('edit-my-reports/{id}', [PunterBoxController::class, 'editMyReport'])->name('user.edit-my-reports');
+        Route::post('update-my-reports', [PunterBoxController::class, 'updateMyReportByAjax'])->name('user.update-my-reports');
+        Route::delete('my-report/{id}', [PunterBoxController::class, 'destroy'])->name('user.my-report.delete');
+        Route::get('num-dashboard', [PunterBoxController::class, 'showReportOnDashboardAjax'])->name('user.punterboxdashboard');
+
 
         Route::get('/punterbox/my-report', function () {
             return view('user.dashboard.punterbox.my-report');

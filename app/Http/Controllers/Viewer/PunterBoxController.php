@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Viewer;
 
 use App\Http\Controllers\Controller;
-use App\Mail\nums\num_confirmation_email;
+use App\Mail\punterbox\punterbox_confirmation_email;
 use App\Models\Punterbox;
 use App\Models\State;
 use Carbon\Carbon;
@@ -51,7 +51,7 @@ class PunterBoxController extends Controller
 
         $incidentDate = Carbon::parse($request->incident_date)->setTimezone($timeZone['timeZone'])->format('Y-m-d');
 
-        $num = Punterbox::create([
+        $punterbox = Punterbox::create([
             'user_id'    => Auth::user()->id,
             'incident_date'    => $incidentDate,
             'incident_state'    => $request->incident_state,
@@ -69,33 +69,32 @@ class PunterBoxController extends Controller
         ]);
 
         $body = [
-            'ref' => '#' . $num->id,
-            'name' => Auth::user()->name ?? 'UserID',
+            'ref' => '#' . $punterbox->id,
+            'name' => Auth::user()->name ?? Auth::user()->email,
             'member_id' => Auth::user()->member_id ?? 'MemberID',
             'report_date' => now()->setTimezone($timeZone['timeZone'])->format('d-m-Y'),
-            'subject' => 'Confirmation of New Report',
+            'subject' => 'Confirmation of New Report - Punterbox',
             'status' => 'pending',
         ];
 
-        // if($num->status == 'pending'){
-
-        //     try {
-        //         Mail::to(Auth::user()->email)->send(new num_confirmation_email($body));
-        //     } catch (\Exception $e) {
-        //         Log::info('NUM On Hold Email sending failed: ' . $e->getMessage());
-        //     }
-        // }
+        if ($punterbox->status == 'pending') {
+            try {
+                Mail::to(Auth::user()->email)
+                    ->queue(new punterbox_confirmation_email($body));
+            } catch (\Exception $e) {
+                Log::error('Email Queue Failed: ' . $e->getMessage());
+            }
+        }
 
         return response()->json([
             'status'  => true,
             'message' => 'Incident report submitted successfully!',
-            'data'    => $num
+            'data'    => $punterbox
         ]);
     }
 
     public function showReportOnDashboardAjax(Request $request)
     {
-        $userId = Auth::user()->id;
         $punterbox = PunterBox::where('status', 'published')->with('state')->orderBy('incident_date', 'desc')->get();
 
         if ($request->ajax()) {
@@ -103,7 +102,7 @@ class PunterBoxController extends Controller
             return DataTables::of($punterbox)
                 ->addColumn('ref', fn($row) => '#' . $row->id)
                 ->addColumn('escorts_mobile', function ($row) {
-                    return formatPhone($row->offender_mobile);
+                    return formatPhone($row->escorts_mobile);
                 })
                 ->addColumn('incident_nature', fn($row) => formatLabelAttribute($row->incident_nature))
                 ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
@@ -124,18 +123,17 @@ class PunterBoxController extends Controller
                                 <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
                             </a>';
                 })
-                ->rawColumns(['ref', 'actions']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref', 'status', 'actions'])
                 ->make(true);
         }
 
-        return view('admin.reports.punterbox', ['punterbox' => $punterbox]);
+        return view('user.dashboard.punterbox.dashboard', ['punterbox' => $punterbox]);
     }
 
     public function showMyReportByAjax(Request $request)
     {
         $userId = Auth::user()->id;
-        $nums = Punterbox::where('user_id', $userId)->whereNotIn('status', ['pending'])->with('state')->orderBy('incident_date', 'desc')->get();
-        // $nums = Punterbox::where('user_id',$userId)->whereNotIn('status', ['pending'])->with('state')->get();
+        $punterbox = Punterbox::where('user_id', $userId)->whereNotIn('status', ['pending'])->with('state')->orderBy('incident_date', 'desc')->get();
         $timeZone = config('escorts.profile.states')[Auth::user()->state_id] ?? 'UTC';
 
         # Date Filters
@@ -145,7 +143,6 @@ class PunterBoxController extends Controller
         $yearStart = $now->copy()->startOfYear();
 
         # Summary Counts
-        // dd($yearStart->format('Y-m-d') , $now->format('Y-m-d'));
         $counts = [
             'today' => Punterbox::where('user_id', $userId)->whereNotIn('status', ['pending'])
                 ->whereDate('incident_date', $today->format('Y-m-d'))
@@ -156,7 +153,6 @@ class PunterBoxController extends Controller
                 ->count(),
 
             'this_year' => Punterbox::where('user_id', $userId)->whereNotIn('status', ['pending'])
-                // ->whereBetween('incident_date', [$yearStart->format('Y-m-d'), $now->format('Y-m-d')])
                 ->whereYear('incident_date', $now->year)
                 ->count(),
 
@@ -165,11 +161,10 @@ class PunterBoxController extends Controller
 
         if ($request->ajax()) {
 
-            return DataTables::of($nums)
+            return DataTables::of($punterbox)
                 ->addColumn('ref', fn($row) => '#' . $row->id)
-                // ->addColumn('offender_mobile', fn($row) => $row->offender_mobile)
-                ->addColumn('offender_mobile', function ($row) {
-                    return formatPhone($row->offender_mobile);
+                ->addColumn('escorts_mobile', function ($row) {
+                    return formatPhone($row->escorts_mobile);
                 })
                 ->addColumn('incident_nature', fn($row) => formatLabelAttribute($row->incident_nature))
                 ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
@@ -198,23 +193,27 @@ class PunterBoxController extends Controller
                   <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> 
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report" href="' . route('escort.edit-my-reports', $row->id) . '" data-id="' . $row->id . '"> <i class="fa fa-pen"></i> Edit</a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report" href="' . route('user.edit-my-reports', $row->id) . '" data-id="' . $row->id . '"> <i class="fa fa-pen"></i> Edit</a>
+                    
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete_report" href="#" data-id="' . $row->id . '"> <i class="fa fa-trash"></i> Delete</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view_report" href="#" data-id="' . $row->id . '"> <i class="fa fa-eye"></i> View</a>
                   </div></div>';
                 })
-                ->rawColumns(['ref', 'actions', 'status']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref', 'actions', 'status'])
                 ->with($counts)
                 ->make(true);
         }
-
-        return view('escort.dashboard.UglyMugsRegister.my-reports', ['nums' => $nums, 'counts' => $counts]);
     }
 
     public function editMyReport(Request $request, $id)
     {
         $states = config('escorts.profile.states');
-        $num = Punterbox::where('id', $id)->where('user_id', Auth::user()->id)->with('state')->first();
+        $punterbox = Punterbox::where('id', $id)->where('user_id', Auth::user()->id)->with('state')->first();
 
-        return view('escort.dashboard.UglyMugsRegister.edit-report', ['num' => $num, 'states' => $states]);
+        return view('user.dashboard.punterbox.edit-report', ['punterbox' => $punterbox, 'states' => $states]);
     }
 
     public function updateMyReportByAjax(Request $request)
@@ -223,7 +222,7 @@ class PunterBoxController extends Controller
             'incident_state'    => 'required',
             'incident_date'    => 'required',
             'incident_location' => 'required',
-            'offender_mobile'   => 'required|min:8|max:10',
+            'escorts_mobile'   => 'required|min:8|max:10',
             'incident_nature'   => 'required',
             'profile_link'      => 'nullable',
             'what_happened'     => 'required|string',
@@ -237,17 +236,17 @@ class PunterBoxController extends Controller
             ], 422);
         }
 
-        $num = Punterbox::where('id', $request->id)->where('user_id', Auth::user()->id)
+        $punterbox = Punterbox::where('id', $request->id)->where('user_id', Auth::user()->id)
             ->update([
                 'incident_state'    => $request->incident_state,
                 'incident_date'    => $request->incident_date,
                 'incident_location' => $request->incident_location,
-                'offender_name'     => $request->offender_name,
-                'offender_mobile'   => $request->offender_mobile,
-                'offender_email'    => $request->offender_email,
+                'escorts_name'     => $request->escorts_name,
+                'escorts_mobile'   => $request->escorts_mobile,
+                'escorts_email'    => $request->escorts_email,
                 'incident_nature'   => $request->incident_nature,
-                'platform'          => $request->platform ?? null, // remove this field after discussion with wayne
-                'profile_link'      => $request->profile_link ?? null, // remove this field after discussion with wayne
+                'platform'          => $request->platform ?? null,
+                'profile_link'      => $request->profile_link ?? null,
                 'what_happened'     => $request->what_happened,
                 'rating'            => $request->rating,
                 'status'            => 'pending',
@@ -256,9 +255,29 @@ class PunterBoxController extends Controller
         return response()->json([
             'status'  => true,
             'message' => 'Incident report updated successfully!',
-            'data'    => $num
+            'data'    => $punterbox
         ]);
+    }
 
-        return view('escort.dashboard.UglyMugsRegister.edit-report', ['num' => $num, 'states' => $states]);
+
+    public function destroy($id)
+    {
+        $report = PunterBox::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if (!$report) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Report not found.'
+            ], 404);
+        }
+
+        $report->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Report deleted successfully.'
+        ]);
     }
 }
