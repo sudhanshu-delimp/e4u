@@ -135,7 +135,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
                                 <img src="{{ asset(auth()->user()->avatar_url)}}" class="img-profile rounded-circle avatarName">
@@ -143,15 +143,16 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}"> 
-                                    Member ID: {{auth()->user()->member_id }}
+                                <div class="highlight-menu">
+                                <a class="dropdown-item menu-profile" href="javascript:void(0);">
+                                    <span>{{auth()->user()->business_name }}</span> <br> {{auth()->user()->member_id }}
+                                    
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                {{-- <a class="dropdown-item" href="#">
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                                    User Name: {{auth()->user()->business_name }}
-                                </a>
-                                        <div class="dropdown-divider"></div>
+                                    User Name : {{auth()->user()->business_name }}
+                                </a> --}}
+                                </div>            
                                 <a class="dropdown-item" href="{{ route('agent.account.edit') }}">
                                       <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                                     Edit My Account
@@ -171,7 +172,7 @@
                                     Monthly Report
                                 </a>
                                 
-                                <div class="dropdown-divider"></div>
+                               
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                                     Logout

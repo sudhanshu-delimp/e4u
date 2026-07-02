@@ -300,8 +300,63 @@ body {
     background-color: #F2F2F2 !important;
 }
 
+.custom-nav-dropdown.dropdown-menu {
+    padding: 0px !important;
+}
+
+.custom-nav-dropdown .highlight-menu {
+    background-color: var(--peach);
+    border-bottom: 1px solid #fff;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item {
+    color: #fff;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item .profile_icons {
+    width: 20px;
+    margin-right: 10px;
+    filter: brightness(33.5);
+}
+
+.custom-nav-dropdown .highlight-menu .menu-profile span {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.custom-nav-dropdown .highlight-menu .menu-profile {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 .custom-nav-dropdown .dropdown-item:hover {
-    background-color: #dfdfdf;
+    background-color: #ff3c5f !important;
+    color: #fff;
+}
+
+.custom-nav-dropdown .dropdown-item:hover .profile_icons {
+    filter: brightness(33.5);
+}
+
+.custom-nav-dropdown::after {
+    content: "";
+    position: absolute;
+    top: -25px;
+    right: 15px;
+    transform: translateX(1px) rotate(180deg);
+    border-width: 13px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
+.custom-nav-dropdown .req {
+    background-color: #d5ffd4;
+    padding: 0px 5px;
+    font-size: 11px;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 .bg-second {

@@ -112,11 +112,10 @@ class ProductOrderController extends Controller
         $netAmount = $calculatedSubtotal - $walletAmount;
         $calculatedTotal -= $walletAmount;
         // gst on wallet amount
-        $calculatedTotal += $walletAmount * $tax / 100;
+        // $calculatedTotal += $walletAmount * $tax / 100;
       }
 
       $calculatedTotal += $gst_amount;
-
 
       // 4. Check final total mismatch
       if (number_format($calculatedTotal, 2) != number_format($totalPayable, 2)) {

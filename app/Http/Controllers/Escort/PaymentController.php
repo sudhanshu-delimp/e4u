@@ -111,14 +111,14 @@ class PaymentController extends Controller
 
             $loyalty_amount = 0;
 
-            if (session()->has('checkout')) {
+            if (in_array($action, ['listing', 'extend']) && session()->has('checkout')) {
                 $checkout = session()->get('checkout');
                 $lowestPlan = collect($checkout)->max('membership');
                 $planFee = getPlanFee($lowestPlan);
                 $loyalty_amount = ($planFee * $loyalty_day);
             }
 
-            if (session()->has('tour_checkout')) {
+            if (in_array($action, ['tour']) && session()->has('tour_checkout')) {
                 $checkout = session()->get('tour_checkout');
                 $lowestPlan = collect($checkout)->max('membership');
                 $planFee = getPlanFee($lowestPlan);
@@ -272,7 +272,7 @@ class PaymentController extends Controller
                 ];
 
                 $gatewayResponse = $this->pinService->charge($pin_token, $this->pinService->getTotalDue(), $this->account->email, null, $metaData);
-                return false;
+                //return false;
                 if ($gatewayResponse['status']) {
                     $response = $gatewayResponse['data']['response'];
                 } else {
@@ -346,7 +346,7 @@ class PaymentController extends Controller
 
                         $creditTransaction->paymentItems()->create([
                             'payment_history_id' => $payment->id,
-                            'amount' => $payment->paid_rate,
+                            'amount' => $payment->amount,
                         ]);
 
                         Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
