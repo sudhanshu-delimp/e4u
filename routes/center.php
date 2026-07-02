@@ -23,6 +23,7 @@ use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Center\CenterReviewsController;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
@@ -537,10 +538,13 @@ Route::get('reccomendations',function(){
     return view('center.dashboard.Reviews.reccomendations');
 })->name('center.reccomendations');
 
-Route::get('view-reviews',function(){
+/* Route::get('view-reviews',function(){
     return view('center.dashboard.Reviews.view-reviews');
-})->name('center.view-reviews');
-
+})->name('center.view-reviews'); */
+Route::get('view-reviews', [CenterReviewsController::class, 'viewReviews'])->name('center.view-reviews');
+Route::get('reviews-by-ajax', [CenterReviewsController::class, 'getCenterProfileReviewsByAjax'])->name('center.reviews-profile-by-ajax');
+Route::post('user-review-status-update', [CenterReviewsController::class, "updateUserReviewStatus"])->name('center.user-review-status-update');
+Route::get('get-user-review-details/{id}', [CenterReviewsController::class, "getSingleUserReviewDetails"])->name('center.get-single-user-review-details');
 Route::get('lookup',function(){
     return view('center.dashboard.UglyMugsRegister.lookup');
 })->name('lookup');

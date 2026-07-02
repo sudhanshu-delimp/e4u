@@ -125,7 +125,7 @@ class MassageCentre extends Controller
     public function mcAjaxList(Request $request)
     {
         $per_page = 25;
-
+        $logedInUpser = auth()->user();
         // $massage_live_ids =   MassagePurchase::where('status', 'listed')
         //     ->whereHas('user', function ($q) {
         //         $q->where('status', 1);
@@ -495,8 +495,8 @@ class MassageCentre extends Controller
         
         
         return response()->json([
-            'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
-            'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
+            'grid' => view('web.mc.mc-grid-data', compact('listings','media','logedInUpser'))->render(),
+            'list' => view('web.mc.mc-list-data', compact('listings','logedInUpser'))->render(),
             'pagination' => view('web.mc.mc-pagination', compact('listings'))->render(),
             'total_count' => $listings->total()
         ]);

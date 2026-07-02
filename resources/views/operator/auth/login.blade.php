@@ -11,18 +11,17 @@
             padding: 10px;
         }
     </style>
-    <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px">
+    <section>
 
         <div class="container">
-            <section class="login_page_pt_pb_of_outer_section">
-                <section class="innersection_padding_from_all_side box_shdow_of_login_form">
+                <section class="common_login_page">
                     <div class="row align-items-center">
                         <div class="col-md-6 order-md-0 order-sm-1 order-1">
                             <div class="welcone_login_page_heading">
-                                <h1 class="text-uppercase">WELCOME TO</h1>
+                                <h1>WELCOME TO</h1>
                             </div>
 
-                            <h4 class="welcome_sub_login_heading text-uppercase"><strong>Operator LOGIN</strong></h4>
+                            <h2 class="welcome_sub_login_heading ">Operator Login</h2>
                             <form id="admin_login" action="{{ route('admin.login') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="type_operator" value="9">
@@ -76,18 +75,17 @@
                                 </div>
                                 
                        
-                                <div class="mt-4">
+                                <div class="common_login_note">
                                     {{-- login note from component --}}
                                     <x-login-notes />
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
+                        <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
                             <img src="{{ asset('assets/app/img/operator-login.jpg') }}" class="img-fluid">
                         </div>
                     </div>
                 </section>
-            </section>
             <div class="modal upload-modal opr-modal" id="comman_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">

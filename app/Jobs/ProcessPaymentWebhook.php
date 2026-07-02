@@ -41,64 +41,6 @@ class ProcessPaymentWebhook implements ShouldQueue
      *
      * @return void
      */
-    // public function handle(PinPaymentService $paymentService, EscortListingFeatureService $featureService)
-    // {
-    //     echo "Webhook processing started\n";
-    //     $metadata = $this->payload['metadata'];
-
-    //     $process = PaymentProcess::where('token', $metadata['process_token'])->first();
-    //     print_this($process->type);
-    //     print_this($process->payload);
-    //     $transaction = $paymentService->getTransactionDetail($this->payload['token']);
-
-    //     if ($transaction) {
-    //         $itemsCount = $transaction->items->count();
-    //         if ($itemsCount == 0) {
-    //             if (in_array($process->type, ['listing', 'tour', 'extend'])) {
-    //                 $this->saveCheckout($process->type, $process->payload, $transaction);
-    //             }
-    //         }
-    //         echo "Transaction Items: {$itemsCount} \n";
-    //     } else {
-    //         $insert = json_decode($metadata['insert']);
-    //         $insert['currency'] = $this->payload['currency'];
-    //         $insert['transaction_id'] = $this->payload['token'];
-    //         $insert['status'] = $this->payload['success'] ? 'success' : 'failed';
-    //         $insert['paid_at'] = $this->payload['created_at'];
-    //         $insert['card'] = $this->payload['card']['display_number'];
-    //         $insert['meta'] = json_encode($this->payload);
-    //         $payment = $paymentService->saveTransaction($insert);
-
-    //         if (in_array($process->type, ['listing', 'tour', 'extend'])) {
-    //             $this->saveCheckout($process->type, $process->payload, $payment);
-    //         }
-    //         switch ($process->type) {
-    //             case 'bumpUp': {
-    //                     $escortBumpUp = $featureService->registerBumpUp(null, $process->payload);
-    //                     if (!empty($payment)) {
-    //                         $escortBumpUp->paymentItems()->create([
-    //                             'payment_history_id' => $payment->id,
-    //                             'amount' => $payment->amount
-    //                         ]);
-    //                     }
-
-    //                     /* Send Payment Mail */
-    //                     $mailConfig = config("payment_mail_templates.bumpUp");
-    //                     $mainAccount = $escortBumpUp->user;
-    //                     Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
-    //                 }
-    //                 break;
-
-    //             default:
-    //                 # code...
-    //                 break;
-    //         }
-    //     }
-
-    //     echo "Removing process token \n";
-    //     PaymentProcess::where('token', $metadata['process_token'])->delete();
-    //     echo "Webhook processed successfully\n";
-    // }
     public function handle(
         WalletService $walletService,
         PinPaymentService $paymentService,
@@ -138,6 +80,7 @@ class ProcessPaymentWebhook implements ShouldQueue
 
                 echo "Transaction Items: {$itemsCount}\n";
             } else {
+                $mailConfig = config("payment_mail_templates.{$process->type}");
 
                 $insert = json_decode($metadata['insert'], true);
 
@@ -149,29 +92,41 @@ class ProcessPaymentWebhook implements ShouldQueue
                 $insert['meta']           = json_encode($this->payload);
 
                 $payment = $paymentService->saveTransaction($insert);
-                /** Calulate agent commisson and save the commission */
-                $agentCommission = (new \App\Models\AgentCommission);
+
+                $mainAccount = $payment->user;
+
+                $mailBodayData = [];
+                $mailBodayData['mainAccount'] = $mainAccount;
+                $mailBodayData['payment'] = $payment;
+
                 if ($payment) {
+                    echo "Adjustments in the Agent Commission\n";
+                    $agentCommission = (new \App\Models\AgentCommission);
                     $agentCommission->saveCommissionData($payment, $payment->user->id, $payment->amount);
                 }
 
                 if (!empty($process->benefit_token['wallet_amount']) && $process->benefit_token['wallet_amount'] > 0) {
+                    echo "Adjustments in the Wallet\n";
                     $walletService->debit($payment->user, $process->benefit_token['wallet_amount'], $payment, $payment->service, []);
                 }
 
                 if (!empty($process->benefit_token['loyalty_day']) && $process->benefit_token['loyalty_day'] > 0) {
+                    echo "Adjustments in the Loyalty Days\n";
                     $payment->user->wallet->decrement('earn_days', $process->benefit_token['loyalty_day']);
                 }
 
                 if (in_array($process->benefit_token['action'], ['listing', 'tour', 'extend'])) {
                     $earn_days = floor($process->benefit_token['total_amount'] / 200);
                     if ($earn_days > 0) {
+                        echo "Adjustments in the Loyalty Days after spend of 200 multiples\n";
                         $walletService->updateEarnDays($payment->user, $earn_days, 'add');
                     }
                 }
 
+
                 if (in_array($process->type, ['listing', 'tour', 'extend'])) {
-                    $this->saveCheckout($process->type, $process->payload, $payment);
+                    $result = $this->saveCheckout($process->type, $process->payload, $payment);
+                    $mailBodayData['extend_days'] = empty($result['extend_days']) ? 0 : $result['extend_days'];
                 }
 
                 switch ($process->type) {
@@ -181,9 +136,19 @@ class ProcessPaymentWebhook implements ShouldQueue
                         }
                         break;
                 }
+
+                /* Send Mail for the payment confirmation */
+                try {
+                    echo "Sending Mail for the payment confirmation...\n";
+                    Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], $mailBodayData, $mailConfig['subject']));
+                } catch (\Throwable $e) {
+                    echo "Sending Mail Error\n";
+                    echo "Mail Error: {$e->getMessage()}\n";
+                }
             }
 
-            PaymentProcess::where('token', $metadata['process_token'])->delete();
+            echo "Deleting the Payment Processing record\n";
+            $process->delete();
 
             echo "Webhook processed successfully\n";
         } catch (\Throwable $e) {
@@ -281,20 +246,6 @@ class ProcessPaymentWebhook implements ShouldQueue
                 'payment_history_id' => $payment->id,
                 'amount'             => $payment->amount,
             ]);
-        }
-
-        $mailConfig = config('payment_mail_templates.bumpUp');
-
-        $mainAccount = $escortBumpUp->user;
-        try {
-            Mail::to($mainAccount->email)
-                ->send(new PaymentMailer(
-                    $mailConfig['template'],
-                    compact('mainAccount', 'payment'),
-                    $mailConfig['subject']
-                ));
-        } catch (\Throwable $e) {
-            echo "Mail Error: {$e->getMessage()}\n";
         }
     }
 }
