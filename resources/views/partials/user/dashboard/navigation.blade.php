@@ -151,7 +151,18 @@
                                            <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
                                         </a>
                                        
-                                     </div>            
+                                     </div> 
+                                     
+                                      
+                                
+                                
+                                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                                    <span>My account
+                                    </span>
+                                    <i class="fas fa-chevron-down chevron-icon"></i>
+                                </div>
+
+                                <div class="collapse" id="accountMenu">  
                                     <a class="dropdown-item" href="/user-dashboard/change-features">
                                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/setting.png') }}">
                                         Change Features
@@ -175,7 +186,7 @@
                                         <img class="profile_icons" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
                                         Punterbox
                                     </a>
-                                    
+                                </div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                                         Logout

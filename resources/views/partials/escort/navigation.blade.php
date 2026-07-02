@@ -199,63 +199,44 @@
                     @endif
                     
                     </a>
-                    {{-- <a class="dropdown-item" href="#">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                        Membership ID : {{ auth()->user()->member_id }}
-                    </a>
-
-
-                    @if (!auth()->user()->my_agent)
-                        <a class="dropdown-item" href="{{ url('/escort-dashboard/escort-agency-request') }}">
-                        @else
-                            <a class="dropdown-item" href="#">
-                    @endif
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-
-                    @if (auth()->user()->my_agent)
-                        <span class="user-values"
-                            title="My Agent : {{ auth()->user()?->my_agent?->business_name ?? (auth()->user()?->my_agent?->name ?? '') }}">
-                            My Agent ID : {{ auth()->user()->my_agent->member_id }}</span>
-                    @else
-                        My Agent ID : <span class="request-active req"> Request one</span>
-                    @endif
-
-                    </a>
-
-                    <a class="dropdown-item" href="#">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                        User Name: {{ auth()->user()->name }}
-                    </a> --}}
                 </div>
-               
-                <a class="dropdown-item" href="{{ route('escort.account.edit') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    My account
-                </a>
-                <a class="dropdown-item" href="{{ route('escort.change.password') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                    Change password
-                </a>
-                <a class="dropdown-item" href="{{ route('escort.profile') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
-                    New Profile
-                </a>
-                <a class="dropdown-item" href="{{ url('escort-dashboard/create-tour') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/tour.png') }}">
-                    New Tour
-                </a>
+                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                    <span>My account
+                    </span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
 
-                <a class="dropdown-item" href="{{ route('support-ticket.list') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
-                    Support Ticket
-                </a>
+                <div class="collapse" id="accountMenu">
+                    <a class="dropdown-item" href="{{ route('escort.account.edit') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                        My account
+                    </a>
+                    <a class="dropdown-item" href="{{ route('escort.change.password') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                        Change password
+                    </a>
+                    <a class="dropdown-item" href="{{ route('escort.profile') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                        New Profile
+                    </a>
+                    <a class="dropdown-item" href="{{ url('escort-dashboard/create-tour') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/tour.png') }}">
+                        New Tour
+                    </a>
+
+                    <a class="dropdown-item" href="{{ route('support-ticket.list') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
+                        Support Ticket
+                    </a>
+                </div>
+                
                 {{-- <div class="dropdown-divider"></div> --}}
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                     Logout
-                </a>
+                </a> 
             </div>
         </li>
 
