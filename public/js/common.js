@@ -271,7 +271,8 @@ var displaySwal = function (xhr, showConfirmButton = true) {
         icon: option.icon,
         title: option.title,
         text: option.message,
-        showConfirmButton: showConfirmButton
+        showConfirmButton: showConfirmButton,
+        allowOutsideClick: false,
     });
 }
 

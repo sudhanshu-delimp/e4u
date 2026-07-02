@@ -172,9 +172,9 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                                    Membership ID : {{auth()->user()->member_id }}
+                                 <div class="highlight-menu">
+                                <a class="dropdown-item profile-menu" href="javascript:void(0);">
+                                    <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
                                 </a>
 
                                 @if(!auth()->user()->my_agent)
@@ -195,13 +195,13 @@
                                 </a>
 
 
-                                 <a class="dropdown-item" href="#">
+                                 {{-- <a class="dropdown-item" href="#">
                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                     Business Name : {{auth()->user()->name }}
-                                </a>
-                               
+                                </a> --}}
+                            </div>
 
-                                <div class="dropdown-divider"></div>
+                                {{-- <div class="dropdown-divider"></div> --}}
                                 <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit')}}">
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                                     Edit my account
