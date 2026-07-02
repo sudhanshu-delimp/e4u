@@ -12,18 +12,22 @@ use App\Models\TourLocation;
 use App\Models\TourProfile;
 use Illuminate\Http\Request;
 use App\Services\PinPaymentService;
+use App\Services\EscortListingFeatureService;
 use Carbon\Carbon;
 use Exception;
 use App\Mail\PaymentMailer;
 use Illuminate\Support\Facades\Mail;
 
+
 class PinUpsController extends AppController
 {
     protected $pinService;
+    protected $featureService;
 
-    public function __construct(PinPaymentService $pinService)
+    public function __construct(PinPaymentService $pinService, EscortListingFeatureService $featureService)
     {
         $this->pinService = $pinService;
+        $this->featureService = $featureService;
 
         $this->middleware(function ($request, $next) {
             $this->account = auth()->user();
@@ -211,7 +215,6 @@ class PinUpsController extends AppController
         try {
 
             $data = $request->validated();
-
             if ($action === 'validate') {
 
                 return response()->json([
@@ -223,55 +226,55 @@ class PinUpsController extends AppController
             }
 
 
-            $escortId = $data['pinup_profile_id'];
-            $escortDetail = getEscortDetail($escortId);
+            // $escortId = $data['pinup_profile_id'];
+            // $escortDetail = getEscortDetail($escortId);
 
-            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+            // $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
 
-            [$startDate, $endDate] = explode('|', $data['pinup_week']);
+            // [$startDate, $endDate] = explode('|', $data['pinup_week']);
 
-            $localStart = Carbon::createFromFormat(
-                'Y-m-d',
-                $startDate,
-                $profileTimezone
-            )->startOfDay();
+            // $localStart = Carbon::createFromFormat(
+            //     'Y-m-d',
+            //     $startDate,
+            //     $profileTimezone
+            // )->startOfDay();
 
-            $localEnd = Carbon::createFromFormat(
-                'Y-m-d',
-                $endDate,
-                $profileTimezone
-            )->endOfDay();
+            // $localEnd = Carbon::createFromFormat(
+            //     'Y-m-d',
+            //     $endDate,
+            //     $profileTimezone
+            // )->endOfDay();
 
-            $utcStart = $localStart->copy()->setTimezone('UTC');
-            $utcEnd = $localEnd->copy()->setTimezone('UTC');
+            // $utcStart = $localStart->copy()->setTimezone('UTC');
+            // $utcEnd = $localEnd->copy()->setTimezone('UTC');
 
-            $escortPinup = EscortPinup::create([
-                'user_id' => auth()->id(),
-                'escort_id' => $escortDetail->id,
-                'state_id' => $escortDetail->state_id,
-                'city_id' => $escortDetail->city_id,
-                'start_date' => $startDate,
-                'end_date' => $endDate,
-                'utc_start_time' => $utcStart,
-                'utc_end_time' => $utcEnd,
-            ]);
+            // $escortPinup = EscortPinup::create([
+            //     'user_id' => auth()->id(),
+            //     'escort_id' => $escortDetail->id,
+            //     'state_id' => $escortDetail->state_id,
+            //     'city_id' => $escortDetail->city_id,
+            //     'start_date' => $startDate,
+            //     'end_date' => $endDate,
+            //     'utc_start_time' => $utcStart,
+            //     'utc_end_time' => $utcEnd,
+            // ]);
 
 
-            if ($request->tour_location_id) {
+            // if ($request->tour_location_id) {
 
-                TourLocation::where('id', $request->tour_location_id)
-                    ->update([
-                        'is_pinup' => '1'
-                    ]);
+            //     TourLocation::where('id', $request->tour_location_id)
+            //         ->update([
+            //             'is_pinup' => '1'
+            //         ]);
 
-                TourProfile::where([
-                    'tour_location_id' => $request->tour_location_id,
-                    'escort_id' => $escortId
-                ])->update([
-                    'is_pinup' => $escortPinup->id
-                ]);
-            }
-
+            //     TourProfile::where([
+            //         'tour_location_id' => $request->tour_location_id,
+            //         'escort_id' => $escortId
+            //     ])->update([
+            //         'is_pinup' => $escortPinup->id
+            //     ]);
+            // }
+            $escortPinup = $this->featureService->registerPinUp($request);
             if ($request->filled('payment_token')) {
                 $paymentId = decrypt($request->payment_token);
                 $payment = $this->pinService->paymentHistoryDetail($paymentId);

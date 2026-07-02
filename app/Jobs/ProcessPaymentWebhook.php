@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
+
 use App\Models\Purchase;
 use App\Models\PaymentProcess;
 
@@ -128,11 +129,16 @@ class ProcessPaymentWebhook implements ShouldQueue
                     $result = $this->saveCheckout($process->type, $process->payload, $payment);
                     $mailBodayData['extend_days'] = empty($result['extend_days']) ? 0 : $result['extend_days'];
                 }
-
+                //savePinUp
                 switch ($process->type) {
 
                     case 'bumpUp': {
                             $this->saveBumpUp($featureService, $process, $payment);
+                        }
+                        break;
+                    case 'pinup': {
+                            $escortPinup = $this->savePinUp($featureService, $process, $payment);
+                            $mailBodayData['escortPinup'] = $escortPinup;
                         }
                         break;
                 }
@@ -247,5 +253,19 @@ class ProcessPaymentWebhook implements ShouldQueue
                 'amount'             => $payment->amount,
             ]);
         }
+
+        return $escortBumpUp;
+    }
+
+    public function savePinUp($featureService, $process, $payment)
+    {
+        $escortPinup = $featureService->registerPinUp(null, $process->payload);
+        if ($payment) {
+            $escortPinup->paymentItems()->create([
+                'payment_history_id' => $payment->id,
+                'amount'             => $payment->amount,
+            ]);
+        }
+        return $escortPinup;
     }
 }
