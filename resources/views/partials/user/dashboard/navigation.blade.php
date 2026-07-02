@@ -146,15 +146,12 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                                        Member ID : {{auth()->user()->member_id }}
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                                        User Name : {{auth()->user()->name }}
-                                    </a>
-                                            <div class="dropdown-divider"></div>
+                                     <div class="highlight-menu">
+                                        <a class="dropdown-item menu-profile" href="javascript:void(0)">
+                                           <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
+                                        </a>
+                                       
+                                     </div>            
                                     <a class="dropdown-item" href="/user-dashboard/change-features">
                                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/setting.png') }}">
                                         Change Features
@@ -179,7 +176,6 @@
                                         Punterbox
                                     </a>
                                     
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                                         Logout
