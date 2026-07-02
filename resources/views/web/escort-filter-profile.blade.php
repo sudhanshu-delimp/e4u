@@ -66,7 +66,6 @@
     }
 @endphp
 @section('content')
-
     <section class="">
         <div class="container filter-contain mt-3">
 
@@ -116,7 +115,7 @@
                                                         <div class="location_radio_filter">
                                                             <div class="d-flex align-items-start"
                                                                 @php
-                                                                    $searchByRadio = request()->get('search_by_radio');
+$searchByRadio = request()->get('search_by_radio');
                                                                 $locationByRadio = request()->get('locationByRadio'); @endphp
                                                                 style=" padding-top: 2px;">
                                                                 <input type="radio" name="locationByRadio"
@@ -270,8 +269,8 @@
                                                         value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
                                                         Cross Dresser</option>
                                                     <!-- <option
-                                                                    value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
-                                                                    Massage Centres</option> -->
+                                                                                            value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
+                                                                                            Massage Centres</option> -->
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
@@ -535,7 +534,7 @@
                                                                 <div class="grid_list_icon_box display_inline_block grid--btn"
                                                                     data-toggle="modal1" data-target="#"
                                                                     data-url="grid-escort-list">
-                                                                    <a href="#"
+                                                                    <a href="javascript:void(0)" class="view-toggle"
                                                                         class="{{ $viewType == 'grid' ? 'active' : '' }}"
                                                                         id="grid-modal" data-toggle="tooltip">
                                                                         <span class="custom-toltip">Grid View</span>
@@ -567,7 +566,7 @@
                                                                 </div>
                                                                 <div
                                                                     class="grid_list_icon_box display_inline_block list-btn">
-                                                                    <a href="#"
+                                                                    <a href="javascript:void(0)" class="view-toggle"
                                                                         class="{{ $viewType == 'list' ? 'active' : '' }}"
                                                                         id="grid-list" data-toggle="tooltip">
                                                                         <span class="custom-toltip">List View</span>
@@ -631,58 +630,7 @@
             </div>
 
             <!-- ================     service provider start here     ========================= -->
-            @if ($user != '1')
-                <div class="row grid_list_part grid_wishlist_part mb-5" id="v_li_wishlist" style="display: block;">
-                    <div class="col-12 align-items-center">
-                        <div class="grid_list_icon_box display_inline_block " data-toggle="modal1" data-target="#"
-                            data-url="grid-escort-list">
-                            <a href="#" class="active" id="grid-modal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                    viewBox="0 0 30 30" fill="none">
-                                    <path
-                                        d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
-                                        stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path
-                                        d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
-                                        stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path
-                                        d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
-                                        stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path
-                                        d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
-                                        stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                                <!--  <img src="{{ asset('assets/app/img/grid-pic.svg') }}"> -->
-                            </a>
-                        </div>
-                        <div class="grid_list_icon_box display_inline_block">
-                            <a href="#" class=" " id="grid-list">
-                                <!-- <img src="{{ asset('assets/app/img/line.svg') }}"> -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
-                                    viewBox="0 0 27 24" fill="none">
-                                    <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
-                                        stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="grid_list_icon_box display_inline_block my-shortlist">
-                            <ul class="mb-0 mt-1 pt-1">
-                                <li>
-                                    <h3>My Shortlist</h3>
-                                </li>
-                                <li><a href="#" data-toggle="modal" data-target="#forhelp">Help <i
-                                            class="fa fa-question-circle-o" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            @else
-            @endif
+
             <div class="modal fade defult-modal" id="forhelp">
                 <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                     <div class="modal-content rounded-0">
@@ -890,7 +838,7 @@
             </div>
 
         </nav> --}}
-        
+
         </div>
         </div>
     </section>
@@ -1033,41 +981,130 @@
     <!-- =============       pagination end here            ====================-->
 @endsection
 @push('scripts')
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
     <script>
-        let url = window.location.href;
+        $(function() {
+            const viewType = localStorage.getItem('profileViewType') || 'grid';
+            setProfileView(viewType);
+            loadEscort(getCurrentPage());
 
-        function loadEscort(url = null) {
-            $.ajax({
-                url: url,
+        });
+
+
+        function getCurrentPage() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('page') || 1;
+        }
+
+        //click on grid view
+        $(document).on('click', '#grid-modal', function() {
+            // Active class
+            setProfileView('grid');
+            loadEscort(getCurrentPage());
+        });
+        // when click on list button
+        $(document).on('click', '#grid-list', function() {
+            setProfileView('list');
+            loadEscort(getCurrentPage());
+        });
+
+        //Load Card data with loadEscort function
+        let ajaxReq = null;
+        let currentPage = 1;
+
+        function loadEscort(page = 1, url = null) {
+            currentPage = page;
+            let reequestUrl = window.location.pathname;
+            let formData = $('#escortFilterForm').serializeArray();
+            //push current page number
+            formData.push({
+                name: 'page',
+                value: currentPage
+            });
+
+            formData.push({
+                name: 'view_type',
+                value: localStorage.getItem('profileViewType') || 'grid',
+            });
+
+            if (ajaxReq) {
+                ajaxReq.abort();
+            }
+
+
+            //update Brower Url
+            let params = new URLSearchParams($.param(formData));
+            history.replaceState({}, '', window.location.pathname + '?' + params.toString());
+
+            ajaxReq = $.ajax({
+                url: reequestUrl,
                 type: 'GET',
-                data: $('#escortFilterForm').serialize(),
+                data: $.param(formData),
+                dataType: 'json',
 
                 beforeSend: function() {
-                    //$('.loader').show();
-                },
+                    $('.loader').show();
 
+                },
                 success: function(response) {
-                    console.log(response, 'sdfsdf');
-                    $('#appendGridView').html(response.grid);
-                    
-                    $('#appendListView').html(response.list);
+                    if (response.total_count > 0) {
+                        const isGrid = response.view_type === 'grid';
+                        $('#appendGridView')
+                            .html(isGrid ? response.data : '')
+                            .toggle(isGrid);
+                        $('#appendListView')
+                            .html(!isGrid ? response.data : '')
+                            .toggle(!isGrid);
+                    }
 
                     $('#custom_pagenation').html(response.pagination);
 
-
-                    // $('.loader').hide();
                 },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+                    console.error(xhr.responseText);
 
-                error: function() {
+                },
+                complete: function() {
                     $('.loader').hide();
+                    ajaxReq = null;
                 }
             });
+
         }
 
-        loadEscort(url);
+        // Update pagination links
+        // function updateCustomePagination(viewType) {
+        //     $('.custom-pagination a').each(function() {
+        //         let href = $(this).attr('href');
+        //         if (!href || href === '#') {
+        //             return;
+        //         }
+        //         const pageUrl = new URL(href, window.location.origin);
+        //         pageUrl.searchParams.set('viewType', viewType);
+        //         $(this).attr('href', pageUrl.pathname + pageUrl.search);
+        //     });
+        // }
+
+
+        //set profile view
+
+        function setProfileView(viewType) {
+            // Save in localStorage
+
+            // Active Icon
+            $('.view-toggle').removeClass('active');
+            if (viewType === 'grid') {
+                $('#grid-modal').addClass('active');
+            } else {
+                $('#grid-list').addClass('active');
+            }
+            localStorage.setItem('profileViewType', viewType);
+
+        }
     </script>
+
 
     <script>
         window.authUser = {
@@ -1167,142 +1204,143 @@
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
-        var viewType = 'grid'; // Default
+        // var viewType = 'grid'; // Default
 
-        if (window.authUser.isLoggedIn) {
-            // First take PHP value (user settings)
-            viewType = '{{ $viewType }}';
+        // if (window.authUser.isLoggedIn) {
+        //     // First take PHP value (user settings)
+        //     viewType = '{{ $viewType }}';
 
-            // Then override with URL param if present (pagination click)
-            var urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('viewType')) {
-                viewType = urlParams.get('viewType');
-            }
-        } else {
-            // For guests, check URL param first, then localStorage
-            var urlParams = new URLSearchParams(window.location.search);
-            viewType = urlParams.get('viewType') || localStorage.getItem('profileViewType') || 'grid';
-        }
+        //     // Then override with URL param if present (pagination click)
+        //     var urlParams = new URLSearchParams(window.location.search);
+        //     if (urlParams.has('viewType')) {
+        //         viewType = urlParams.get('viewType');
+        //     }
+        // } else {
+        //     // For guests, check URL param first, then localStorage
+        //     var urlParams = new URLSearchParams(window.location.search);
+        //     viewType = urlParams.get('viewType') || localStorage.getItem('profileViewType') || 'grid';
+        // }
 
         // Now trigger correct view on page load
-        if (viewType === 'grid') {
-            showGridView();
-        } else {
-            showListView();
-        }
+        // if (viewType === 'grid') {
+        //     showGridView();
+        // } else {
+        //     showListView();
+        // }
 
-        function showGridView() {
-            localStorage.setItem('profileViewType', 'grid');
+        // function showGridView() {
+        //     localStorage.setItem('profileViewType', 'grid');
 
-            var url = new URL(window.location.href);
-            url.searchParams.set('viewType', 'grid');
-            window.history.replaceState({}, '', url.toString());
+        //     var url = new URL(window.location.href);
+        //     url.searchParams.set('viewType', 'grid');
+        //     window.history.replaceState({}, '', url.toString());
 
-            $('.custom-pagination a').each(function() {
-                var href = $(this).attr('href');
-                if (href && href !== '#') {
-                    if (href.includes('viewType=')) {
-                        href = href.replace(/viewType=(grid|list)/, 'viewType=grid');
-                    } else {
-                        href = href + (href.includes('?') ? '&' : '?') + 'viewType=grid';
-                    }
-                    $(this).attr('href', href);
-                }
-            });
+        //     $('.custom-pagination a').each(function() {
+        //         var href = $(this).attr('href');
+        //         if (href && href !== '#') {
+        //             if (href.includes('viewType=')) {
+        //                 href = href.replace(/viewType=(grid|list)/, 'viewType=grid');
+        //             } else {
+        //                 href = href + (href.includes('?') ? '&' : '?') + 'viewType=grid';
+        //             }
+        //             $(this).attr('href', href);
+        //         }
+        //     });
 
-            $('.preChanges').html('<h3>Escorts Grid View</h3>');
-            var val = $('#grid-modal').attr('class');
-            $('#view_type').val('grid');
-            $('#viewType_input').val('grid'); // Keep form input in sync
-            $('.otherliste').css('display', 'block');
-            $('.list-view-div').css('display', 'none');
-            if (val != "active") {
-                $('.grid').hide();
-                $('.my-wishlist').hide();
-                $('#grid-template').html(
-                    '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                );
-                if (view1.includes('=list')) {
-                    let newUrl = view1.replace('=list', '=grid');
-                    $('.footer_view_type_one').attr('href', newUrl);
-                }
-                if (view2.includes('=list')) {
-                    let newUrl = view2.replace('=list', '=grid');
-                    $('.footer_view_type_two').attr('href', newUrl);
-                }
-                setTimeout(function() {
-                    $('.spinner-border').css('display', 'none');
-                    $('.my-wishlist').css('display', 'none');
-                    $('.space_between_row').show();
-                    $('#grid-modal').addClass('active');
-                    $('#grid-list').removeClass('active');
-                }, 1000);
-            }
-        }
+        //     $('.preChanges').html('<h3>Escorts Grid View</h3>');
 
-        function showListView() {
-            localStorage.setItem('profileViewType', 'list');
+        //     var val = $('#grid-modal').attr('class');
+        //     $('#view_type').val('grid');
+        //     $('#viewType_input').val('grid'); // Keep form input in sync
+        //     $('.otherliste').css('display', 'block');
+        //     $('.list-view-div').css('display', 'none');
+        //     if (val != "active") {
+        //         $('.grid').hide();
+        //         $('.my-wishlist').hide();
+        //         $('#grid-template').html(
+        //             '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
+        //         );
+        //         if (view1.includes('=list')) {
+        //             let newUrl = view1.replace('=list', '=grid');
+        //             $('.footer_view_type_one').attr('href', newUrl);
+        //         }
+        //         if (view2.includes('=list')) {
+        //             let newUrl = view2.replace('=list', '=grid');
+        //             $('.footer_view_type_two').attr('href', newUrl);
+        //         }
+        //         setTimeout(function() {
+        //             $('.spinner-border').css('display', 'none');
+        //             $('.my-wishlist').css('display', 'none');
+        //             $('.space_between_row').show();
+        //             $('#grid-modal').addClass('active');
+        //             $('#grid-list').removeClass('active');
+        //         }, 1000);
+        //     }
+        // }
 
-            var url = new URL(window.location.href);
-            url.searchParams.set('viewType', 'list');
-            window.history.replaceState({}, '', url.toString());
+        // function showListView() {
+        //     localStorage.setItem('profileViewType', 'list');
 
-            $('.custom-pagination a').each(function() {
-                var href = $(this).attr('href');
-                if (href && href !== '#') {
-                    if (href.includes('viewType=')) {
-                        href = href.replace(/viewType=(grid|list)/, 'viewType=list');
-                    } else {
-                        href = href + (href.includes('?') ? '&' : '?') + 'viewType=list';
-                    }
-                    $(this).attr('href', href);
-                }
-            });
+        //     var url = new URL(window.location.href);
+        //     url.searchParams.set('viewType', 'list');
+        //     window.history.replaceState({}, '', url.toString());
 
-            $('.preChanges').html('<h3>Escorts List View</h3>');
-            var grid = $('#grid-list').attr('class');
-            $('#view_type').val('list');
-            $('#viewType_input').val('list'); // Keep form input in sync
-            $('.otherliste').css('display', 'none');
-            $('.list-view-div').css('display', 'block');
-            if (grid != "active") {
-                $('.space_between_row').hide();
-                $('.my-wishlist').hide();
-                $('#grid-template').html(
-                    '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                );
-                if (view1.includes('=grid')) {
-                    let newUrl = view1.replace('=grid', '=list');
-                    $('.footer_view_type_one').attr('href', newUrl);
-                }
-                if (view2.includes('=grid')) {
-                    let newUrl = view2.replace('=grid', '=list');
-                    $('.footer_view_type_two').attr('href', newUrl);
-                }
-                setTimeout(function() {
-                    $('.spinner-border').css('display', 'none');
-                    $('.my-wishlist').css('display', 'none');
-                    $('.list-view').show();
-                    $('#grid-list').addClass('active');
-                    $('#grid-modal').removeClass('active');
-                }, 1000);
-            }
-        }
+        //     $('.custom-pagination a').each(function() {
+        //         var href = $(this).attr('href');
+        //         if (href && href !== '#') {
+        //             if (href.includes('viewType=')) {
+        //                 href = href.replace(/viewType=(grid|list)/, 'viewType=list');
+        //             } else {
+        //                 href = href + (href.includes('?') ? '&' : '?') + 'viewType=list';
+        //             }
+        //             $(this).attr('href', href);
+        //         }
+        //     });
+
+        //     $('.preChanges').html('<h3>Escorts List View</h3>');
+        //     var grid = $('#grid-list').attr('class');
+        //     $('#view_type').val('list');
+        //     $('#viewType_input').val('list'); // Keep form input in sync
+        //     $('.otherliste').css('display', 'none');
+        //     $('.list-view-div').css('display', 'block');
+        //     if (grid != "active") {
+        //         $('.space_between_row').hide();
+        //         $('.my-wishlist').hide();
+        //         $('#grid-template').html(
+        //             '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
+        //         );
+        //         if (view1.includes('=grid')) {
+        //             let newUrl = view1.replace('=grid', '=list');
+        //             $('.footer_view_type_one').attr('href', newUrl);
+        //         }
+        //         if (view2.includes('=grid')) {
+        //             let newUrl = view2.replace('=grid', '=list');
+        //             $('.footer_view_type_two').attr('href', newUrl);
+        //         }
+        //         setTimeout(function() {
+        //             $('.spinner-border').css('display', 'none');
+        //             $('.my-wishlist').css('display', 'none');
+        //             $('.list-view').show();
+        //             $('#grid-list').addClass('active');
+        //             $('#grid-modal').removeClass('active');
+        //         }, 1000);
+        //     }
+        // }
 
         // Update click handlers to use the new functions
-        $('#grid-modal').on('click', function() {
-            showGridView();
-        });
-        $('#grid-list').on('click', function() {
-            showListView();
-        });
+        // $('#grid-modal').on('click', function() {
+        //     showGridView();
+        // });
+        // $('#grid-list').on('click', function() {
+        //     showListView();
+        // });
 
         // On page load, trigger the correct view logic as if the user clicked the button
-        if (viewType === 'grid') {
-            showGridView();
-        } else {
-            showListView();
-        }
+        // if (viewType === 'grid') {
+        //     showGridView();
+        // } else {
+        //     showListView();
+        // }
 
         /////////////click event ///////////////
         $(document).ready(function() {
@@ -1319,10 +1357,6 @@
 
             <?php
             if ($cityId > 0) {
-                /*echo "if($('[name=\"city\"]').val() == '') {
-                    $('[name=\"city\"]').val($cityId);
-                }"; */
-            
                 if (request()->get('city') == null && $locationCityId == null) {
                     echo "$('[name=\"city\"]').val()";
                 }
@@ -1330,8 +1364,8 @@
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                                                            $('[name=\"gender\"]').val($genderId);
-                                                                                                                                        }";
+                                                                                                                                                                                                                    $('[name=\"gender\"]').val($genderId);
+                                                                                                                                                                                                                }";
             }
             ?>
         });
@@ -1356,7 +1390,6 @@
 
                 $("#service_id_three").append("<option id='" + name + "' value='" + val + "'>" + name +
                     "</option>");
-                console.log("click " + name);
             });
         });
         ///////////////clear reset ////////////////////
@@ -1368,79 +1401,189 @@
         /////////////Change event///////////////////
 
         $('body').on('change', '#service_id_one', function() {
-            var selectedIdOne = $('#service_id_one').val();
-            var getNameOne = $(this).children(":selected").attr("id");
-            if (selectedIdOne) {
-                $("#selectedService").append(" <li class='seleceted_service_text_and_icon' id='hideenclassOne_" +
-                    selectedIdOne + "'><p>" + getNameOne +
-                    "</p><i class='fa fa-times-circle-o akh1' data-sname='" + getNameOne + "' data-val=" +
-                    selectedIdOne + " aria-hidden='true' id='id_" + selectedIdOne +
-                    "'></i> <input type='hidden' name='services[]' value='" + selectedIdOne + "'></li> ");
-                $("#service_id_one option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
-                $("#service_id_one option[value=" + selectedIdOne + "]").remove();
+            const selectedIdOne = $('#service_id_one').val();
+            const getNameOne = $(this).children(':selected').attr('id');
 
-                console.log('serviceOne=' + getNameOne);
+            if (selectedIdOne) {
+                $('#selectedService').append(`
+            <li class="seleceted_service_text_and_icon" id="hideenclassOne_${selectedIdOne}">
+                <p>${getNameOne}</p>
+
+                <i
+                    class="fa fa-times-circle-o akh1"
+                    data-sname="${getNameOne}"
+                    data-val="${selectedIdOne}"
+                    aria-hidden="true"
+                    id="id_${selectedIdOne}"
+                ></i>
+
+                <input
+                    type="hidden"
+                    name="services[]"
+                    value="${selectedIdOne}"
+                >
+            </li>
+        `);
+
+                $(`#service_id_one option[value="${selectedIdOne}"]`)
+                    .prop('disabled', true)
+                    .remove();
+
+                console.log(`serviceOne=${getNameOne}`);
             }
         });
+
+
+
         $('body').on('change', '#service_id_two', function() {
-            $("#selectedService").show();
-            var selectedIdOne = $('#service_id_two').val();
-            var getNameOne = $(this).children(":selected").attr("id");
-            if (selectedIdOne) {
-                $("#selectedService").append(" <li class='seleceted_service_text_and_icon' id='hideenclassTwo_" +
-                    selectedIdOne + "'><p>" + getNameOne +
-                    "</p><i class='fa fa-times-circle-o akh2' data-sname='" + getNameOne + "' data-val=" +
-                    selectedIdOne + " aria-hidden='true' id='id_" + selectedIdOne +
-                    "'></i><input type='hidden' name='services[]' value='" + selectedIdOne + "'> </li> ");
-                $("#service_id_two option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
-                $("#service_id_two option[value=" + selectedIdOne + "]").remove();
+            $('#selectedService').show();
 
-                console.log('service_two=' + getNameOne);
+            const selectedIdOne = $('#service_id_two').val();
+            const getNameOne = $(this).children(':selected').attr('id');
+
+            if (selectedIdOne) {
+                $('#selectedService').append(`
+            <li class="seleceted_service_text_and_icon" id="hideenclassTwo_${selectedIdOne}">
+                <p>${getNameOne}</p>
+
+                <i
+                    class="fa fa-times-circle-o akh2"
+                    data-sname="${getNameOne}"
+                    data-val="${selectedIdOne}"
+                    aria-hidden="true"
+                    id="id_${selectedIdOne}"
+                ></i>
+
+                <input
+                    type="hidden"
+                    name="services[]"
+                    value="${selectedIdOne}"
+                >
+            </li>
+        `);
+
+                $(`#service_id_two option[value="${selectedIdOne}"]`)
+                    .prop('disabled', true)
+                    .remove();
+
+                console.log(`service_two=${getNameOne}`);
             }
         });
+
+
+
         $('body').on('change', '#service_id_three', function() {
-            var selectedIdOne = $('#service_id_three').val();
-            var getNameOne = $(this).children(":selected").attr("id");
-            if (selectedIdOne) {
-                $("#selectedService").append(" <li class='seleceted_service_text_and_icon' id='hideenclassThree_" +
-                    selectedIdOne + "'><p>" + getNameOne +
-                    "</p><i class='fa fa-times-circle-o akh3' data-sname='" + getNameOne + "' data-val=" +
-                    selectedIdOne + " aria-hidden='true' id='id_" + selectedIdOne +
-                    "'></i><input type='hidden' name='services[]' value='" + selectedIdOne + "'> </li> ");
-                $("#service_id_three option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
-                $("#service_id_three option[value=" + selectedIdOne + "]").remove();
+            const selectedIdOne = $('#service_id_three').val();
+            const getNameOne = $(this).children(':selected').attr('id');
 
-                console.log('service_three=' + getNameOne);
+            if (selectedIdOne) {
+                $('#selectedService').append(`
+            <li class="seleceted_service_text_and_icon" id="hideenclassThree_${selectedIdOne}">
+                <p>${getNameOne}</p>
+
+                <i
+                    class="fa fa-times-circle-o akh3"
+                    data-sname="${getNameOne}"
+                    data-val="${selectedIdOne}"
+                    aria-hidden="true"
+                    id="id_${selectedIdOne}"
+                ></i>
+
+                <input
+                    type="hidden"
+                    name="services[]"
+                    value="${selectedIdOne}"
+                >
+            </li>
+        `);
+
+                $(`#service_id_three option[value="${selectedIdOne}"]`)
+                    .prop('disabled', true)
+                    .remove();
+
+                console.log(`service_three=${getNameOne}`);
             }
         });
+
+
         ///////////////end event change //////////////////
         $('body').on('change', '#service_id_two', function() {
-            var selectedIdTwo = $('#service_id_two').val();
-            var getNameTwo = $(this).children(":selected").attr("id");
+            const selectedIdTwo = $('#service_id_two').val();
+            const getNameTwo = $(this).children(':selected').attr('id');
+
             if (selectedIdTwo) {
-                $("#selected_service_two").append(" <li id=" + selectedIdTwo +
-                    "><div class='my_service_anal hideenclassTwo" + selectedIdTwo +
-                    "'><span class='dollar-sign'>" + getNameTwo +
-                    "</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='' min='0' oninput='this.value = Math.abs(this.value)'><input type='hidden' name='service_id[]' value=" +
-                    selectedIdTwo + " placeholder=''><span><i class='fas fa-times-circle' id='id_" +
-                    selectedIdTwo + "' value=" + selectedIdTwo + "></i></span></div></li> ");
-                $("#service_id_two option[value=" + selectedIdTwo + "]").attr('disabled', 'disabled');
-                console.log('change=' + selectedIdTwo);
+                $('#selected_service_two').append(`
+                    <li id="${selectedIdTwo}">
+                        <div class="my_service_anal hideenclassTwo${selectedIdTwo}">
+                            <span class="dollar-sign">${getNameTwo}</span>
+
+                            <input
+                                type="number"
+                                class="dollar-before input_border"
+                                name="price[]"
+                                min="0"
+                                oninput="this.value = Math.abs(this.value)"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="service_id[]"
+                                value="${selectedIdTwo}"
+                            >
+
+                            <span>
+                                <i
+                                    class="fas fa-times-circle"
+                                    id="id_${selectedIdTwo}"
+                                    value="${selectedIdTwo}"
+                                ></i>
+                            </span>
+                        </div>
+                    </li>
+                `);
+
+                $(`#service_id_two option[value="${selectedIdTwo}"]`).prop('disabled', true);
+
+                console.log(`change=${selectedIdTwo}`);
             }
         });
 
         $('body').on('change', '#service_id_three', function() {
-            var selectedIdThree = $('#service_id_three').val();
-            var getNameThree = $(this).children(":selected").attr("id");
+            const selectedIdThree = $('#service_id_three').val();
+            const getNameThree = $(this).children(':selected').attr('id');
+
             if (selectedIdThree) {
-                $("#selected_service_three").append(" <li id=" + selectedIdThree +
-                    "><div class='my_service_anal hideenclassThree" + selectedIdThree +
-                    "'><span class='dollar-sign'>" + getNameThree +
-                    "</span><input type='number' class='dollar-before  input_border' name='price[]' placeholder='' min='0' oninput='this.value = Math.abs(this.value)'><input type='hidden' name='service_id[]' value=" +
-                    selectedIdThree + " placeholder=''><span><i class='fas fa-times-circle' id='id_" +
-                    selectedIdThree + "' value=" + selectedIdThree + "></i></span></div></li> ");
-                $("#service_id_three option[value=" + selectedIdThree + "]").attr('disabled', 'disabled');
-                console.log('change=' + selectedIdThree);
+                $('#selected_service_three').append(`
+                    <li id="${selectedIdThree}">
+                        <div class="my_service_anal hideenclassThree${selectedIdThree}">
+                            <span class="dollar-sign">${getNameThree}</span>
+
+                            <input
+                                type="number"
+                                class="dollar-before input_border"
+                                name="price[]"
+                                min="0"
+                                oninput="this.value = Math.abs(this.value)"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="service_id[]"
+                                value="${selectedIdThree}"
+                            >
+
+                            <span>
+                                <i
+                                    class="fas fa-times-circle"
+                                    id="id_${selectedIdThree}"
+                                    value="${selectedIdThree}"
+                                ></i>
+                            </span>
+                        </div>
+                    </li>
+                `);
+
+                $(`#service_id_three option[value="${selectedIdThree}"]`).prop('disabled', true);
             }
         });
 
@@ -1452,8 +1595,6 @@
             url = url.replace(':id', Eid);
             $('#add_wishlist').find('.popup_modal_title_new').text('Add To Shortlist');
 
-            console.log(Uid);
-            // if(Uid != "NA") {
             $.ajax({
                 method: "POST",
                 // url: "{{ route('web.save.shortlist') }}",
@@ -1465,20 +1606,14 @@
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
-                //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(data) {
-                    console.log("count = " + data.count_session);
-                    console.log(data);
                     if (data.error == 1) {
-
-                        //$('#Lname').text(name + ' has been added to your Shortlist');
                         $('.class_msg').text(name + ' has been added to your Shortlist');
                         $('#add_wishlist').modal('show');
                         $('.myescort_' + Eid).html(
                             '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}"> Remove from Shortlist'
                         )
                         $('#session_count').text(data.count_session);
-                        //
 
                     } else {
 
@@ -1513,12 +1648,6 @@
                     }
                 }
             });
-            // } else {
-
-            //     $('#withoutLogin').modal('show');
-            //     $('#string').text(name + ' Please login first');
-            // }
-
 
         });
         $(document).on('click', '.removeshortlist', function() {
@@ -1537,7 +1666,6 @@
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
-                //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(data) {
                     console.log(data);
                     if (data.error == 1) {
@@ -1549,30 +1677,7 @@
                         $("#close").click(function() {
                             location.reload();
                         });
-                        //location.reload();
                     }
-                    // else {
-                    //     $.ajax({
-                    //         method: "POST",
-                    //         url: "{{ route('web.remove.shortlist') }}",
-                    //         data:{escortId : Eid,
-                    //             userId : Uid},
-                    //         headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                    //         //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    //         success: function (data) {
-                    //             console.log(data);
-                    //             if(data.error == 1)
-                    //             {
-                    //             $('#string1').text(name +' added to your Shortlist');
-                    //             $('#add_wishlist').modal('show');
-                    //             $('.myescort_'+Eid).text('Remove from Shortlist')
-                    //             //location.reload();
-                    //             }
-
-                    //         }
-                    //     });
-
-                    // }
 
                 }
             });
@@ -1766,6 +1871,5 @@
                 });
             }
         });
-
     </script>
 @endpush

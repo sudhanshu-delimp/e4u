@@ -270,7 +270,7 @@ class WebController extends Controller
 
         $user = 1;
 
-         DB::enableQueryLog();
+        DB::enableQueryLog();
         $array = config('escorts.profile.genders');
 
         $gender_one = array_flip($array);
@@ -484,7 +484,7 @@ class WebController extends Controller
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
 
- 
+
 
         $paginator = new LengthAwarePaginator(
             $sliced,
@@ -1382,7 +1382,13 @@ class WebController extends Controller
         }
 
         # add stats after like
+
         $escortUser = Escort::where('id', $escort_id)->first();
+        if($escort_id){
+            $escortUser->star_rating = getStarRatingForEscort($escort_id);
+            $escortUser->save();
+        }
+
         if ($escortUser != null) {
             saving_escort_stats($escortUser->user_id, $escort_id, 'recommendation_count');
         }

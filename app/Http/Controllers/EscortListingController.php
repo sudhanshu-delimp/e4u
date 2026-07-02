@@ -31,7 +31,6 @@ class EscortListingController extends Controller
     public function allEscortListing(Request $request, $gender = null)
     {
 
-        $user = 1;
 
         $array = config('escorts.profile.genders');
 
@@ -83,7 +82,7 @@ class EscortListingController extends Controller
             'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null),
             'limit' => request()->get('limit') ? request()->get('limit') : 25,
             'interest' => $paramData['interest'],
-            'view_type' => request()->get('view_type'),
+            'view_type' => request()->get('view_type') ?? 'grid',
             'search_by_radio' => request()->get('search_by_radio'),
             'locationByRadio' => request()->get('locationByRadio'),
             'playmate_status' => request()->get('playmate_status'),
@@ -126,7 +125,7 @@ class EscortListingController extends Controller
 
 
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
-        $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null, $gen);
+        //$escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null, $gen);
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
 
@@ -147,14 +146,7 @@ class EscortListingController extends Controller
         $locationCityId = $params['city_id'];
         $filterGenderId = $params['gender'];
 
-
-
-
         // un orgnise code only use for running project
-
-
-
-
         $query = Escort::query()
             ->where('enabled', 1)
             ->select('escorts.*')
@@ -231,7 +223,7 @@ class EscortListingController extends Controller
 
        $grouped =  $result->groupBy('membership'); // this value pass inside the blade template
 
-        $currentItems = $result->forPage($page, $perPage)->values();
+        $currentItems = $result->forPage($page, $perPage)->pluck('id')->all();
 
         $paginator = new LengthAwarePaginator(
             $currentItems,
@@ -244,20 +236,20 @@ class EscortListingController extends Controller
             ]
         );
 
-        $viewType =  'grid';
-        $memberTypes  = $this->getMemberType();
-
-
+        $viewType =  $params['view_type'];
+        //$memberTypes  = $this->getMemberType();
 
         //*************************************Start Pass ajax request blade data****************************/
         if ($request->ajax()) {
-
+            if($viewType == 'grid'){
+                $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type','viewerAuth'))->render();
+            }else{
+                $data = view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render();
+            }
             return response()->json([
-
-                'grid' => view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type','viewerAuth'))->render(),
-
-                'list' => view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render(),
-
+                'data' => $data,
+                'view_type' => $viewType,
+                'total_count' => count($currentItems ?? 0),
                 'pagination' => view('web.escort.partials.pagination', compact('paginator'))->render()
 
             ]);
@@ -267,7 +259,6 @@ class EscortListingController extends Controller
 
 
         return view('web.escort-filter-profile', compact(
-            'user',
             'services',
             'service_one',
             'service_two',
