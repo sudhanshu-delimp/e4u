@@ -146,26 +146,39 @@ $businessName = isset(auth()->user()->business_name) ? auth()->user()->business_
                    <div class="highlight-menu">
                         <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ $name }}</span> <br>{{ auth()->user()->member_id }}</a>
                     </div>
-                    <a class="dropdown-item" href="{{ route('shareholder.edit-my-account') }}">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                        My account
-                    </a>
-                    <a class="dropdown-item" href="{{ route('shareholder.change-password') }}">
-                        <img class="profile_icons"
-                            src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                        Change password
-                    </a>
-                    <a class="dropdown-item" href="{{ route('shareholder.shareholders') }}">
-                        <img class="profile_icons"
-                            src="{{ asset('assets/dashboard/img/profile-icons/shareholder.png') }}">
-                        My Shareholding
-                    </a>
 
-                    <a class="dropdown-item" href="{{ route('shareholder.submit') }}">
-                        <img class="profile_icons"
-                            src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
-                        Support Ticket
-                    </a>
+                     
+                                
+                                
+                    <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                        <span>
+                            My account
+                        </span>
+                        <i class="fas fa-chevron-down chevron-icon"></i>
+                    </div>
+
+                    <div class="collapse" id="accountMenu">   
+                        <a class="dropdown-item" href="{{ route('shareholder.edit-my-account') }}">
+                            <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                            My account
+                        </a>
+                        <a class="dropdown-item" href="{{ route('shareholder.change-password') }}">
+                            <img class="profile_icons"
+                                src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                            Change password
+                        </a>
+                        <a class="dropdown-item" href="{{ route('shareholder.shareholders') }}">
+                            <img class="profile_icons"
+                                src="{{ asset('assets/dashboard/img/profile-icons/shareholder.png') }}">
+                            My Shareholding
+                        </a>
+
+                        <a class="dropdown-item" href="{{ route('shareholder.submit') }}">
+                            <img class="profile_icons"
+                                src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
+                            Support Ticket
+                        </a>
+                    </div>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                         Logout

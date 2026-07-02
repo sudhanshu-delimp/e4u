@@ -26,4 +26,23 @@
         });
 
     }
+
+
+    $(document).ready(function () {
+
+    $('.account-toggle').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+       
+        $('#accountMenu').collapse('toggle');
+        $('.chevron-icon').toggleClass('rotate');
+    });
+
+    $('#accountMenu').on('click', function (e) {
+        e.stopPropagation();
+    });
+
+
+});
+
 </script>

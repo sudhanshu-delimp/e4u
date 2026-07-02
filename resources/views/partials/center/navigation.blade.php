@@ -209,58 +209,59 @@
                             <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
                                  <div class="highlight-menu">
-                                <a class="dropdown-item menu-profile" href="javascript:void(0)">
-                                    <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
-                                </a>
+                                    <a class="dropdown-item menu-profile" href="javascript:void(0)">
+                                        <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
+                                    </a>
 
-                                @if(!auth()->user()->my_agent)
-                                
-                                <a class="dropdown-item" href="{{ route('agent-request') }}">
-                                @else
-                                 <a class="dropdown-item" href="#">   
-                                @endif    
-                                     
+                                    @if(!auth()->user()->my_agent)
+                                    
+                                    <a class="dropdown-item" href="{{ route('agent-request') }}">
+                                    @else
+                                    <a class="dropdown-item" href="#">   
+                                    @endif    
                                         
-                                        @if(auth()->user()->my_agent)
-                                          <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
-                                        My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
-                                        @else
-                                           My Agent : <span style="color:var(--peach)" class="request-active req"> Request one</span>
-                                        @endif
-                                        
-                                </a>
+                                            
+                                            @if(auth()->user()->my_agent)
+                                            <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
+                                            My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
+                                            @else
+                                            My Agent : <span style="color:var(--peach)" class="request-active req"> Request one</span>
+                                            @endif
+                                            
+                                    </a>
+                                </div>
+                                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                                    <span>My account
+                                    </span>
+                                    <i class="fas fa-chevron-down chevron-icon"></i>
+                                </div>
+                                <div class="collapse" id="accountMenu">
 
+                                    <a class="dropdown-item" href="{{ route('center.account.edit')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
+                                        Edit my account
+                                    </a>
 
-                                 {{-- <a class="dropdown-item" href="#">
-                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                                    Business Name : {{auth()->user()->name }}
-                                </a> --}}
-                            </div>
+                                    <a class="dropdown-item" href="{{ route('center.change.password')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                                        Change password
+                                    </a>
 
-                                <a class="dropdown-item" href="{{ route('center.account.edit')}}">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
-                                    Edit my account
-                                </a>
+                                    <a class="dropdown-item" href="{{ route('center.profile')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                                        New Profile
+                                    </a>
 
-                                <a class="dropdown-item" href="{{ route('center.change.password')}}">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                                    Change password
-                                </a>
+                                    <a class="dropdown-item" href="{{ route('center.create-new-masseur')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                                        New Masseur 
+                                    </a>
 
-                                <a class="dropdown-item" href="{{ route('center.profile')}}">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
-                                    New Profile
-                                </a>
-
-                                 <a class="dropdown-item" href="{{ route('center.create-new-masseur')}}">
-                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
-                                    New Masseur 
-                                </a>
-
-                                  <a class="dropdown-item" href="{{ route('support-ticket.form_create')}}">
-                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
-                                    Support Ticket
-                                </a>
+                                    <a class="dropdown-item" href="{{ route('support-ticket.form_create')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
+                                        Support Ticket
+                                    </a>
+                                </div>
                                 
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
