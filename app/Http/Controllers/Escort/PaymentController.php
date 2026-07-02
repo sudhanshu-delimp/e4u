@@ -346,7 +346,7 @@ class PaymentController extends Controller
 
                         $creditTransaction->paymentItems()->create([
                             'payment_history_id' => $payment->id,
-                            'amount' => $payment->paid_rate,
+                            'amount' => $payment->amount,
                         ]);
 
                         Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
