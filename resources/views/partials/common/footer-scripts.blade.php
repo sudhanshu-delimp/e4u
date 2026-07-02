@@ -1,5 +1,5 @@
 @include('partials.common.other-user-permission')
-<script src="{{ asset('js/common.js?v1.1') }}"></script>
+<script src="{{ asset('js/common.js') }}?v={{ time() }}"></script>
 <script>
     var encryptValue = function(value) {
 
