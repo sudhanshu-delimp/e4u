@@ -2003,6 +2003,22 @@ button.btn:focus {
     }
 }
 
+#sendOtp_modal .modal-dialog {
+    max-width: 600px;
+}
+
+#sendOtp_modal .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid var(--blue--text) !important;
+    outline: 0;
+    box-shadow: none;
+}
+
+#sendOtp_modal h4 {
+    color: var(--peach);
+}
+
 
 /* end */
 
@@ -2700,7 +2716,7 @@ color: #B9B9B9;
 }
 
 .forgot_pass .label_margin_zero_for_login img {
-    width: 150px;
+    width: 100px;
 }
 
 .otp-verify-btn {
