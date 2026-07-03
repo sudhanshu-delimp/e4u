@@ -89,52 +89,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>123</td>
-                                <td>V40161</td>
-                                <td>Peter</td>
-                                <td>03-05-2025</td>
-                                <td>Brisbane</td>
-                                <td><span class="custom_badge badge_pending">Pending</span></td>
-                                <td>
-                                    <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                aria-labelledby="dropdownMenuLink">
-                                                <div class="custom-tooltip-container">
-                                                    <a
-                                                        class="dropdown-item align-item-custom toggle-massage-notification"
-                                                        href="#" title="Click to disable notification">
-                                                    </a> 
-                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                        data-target="#confirm-popup" href=""> <i
-                                                            class="fa fa-ban" aria-hidden="true"></i>On Hold</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#confirm-popup"> <i
-                                                            class="fa fa-check-circle" aria-hidden="true"></i>
-                                                        Publish </a>
-                                                         <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#confirm-popup"> <i
-                                                            class="fa fa-times-circle " aria-hidden="true"></i>
-                                                        Rejected  </a>
-                                                         <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#viewAgentreport"> <i
-                                                            class="fa fa-eye" aria-hidden="true"></i>
-                                                        View Report </a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                </td>
-                            </tr>
-
                         </tbody>
                          <tr>
                         <th colspan="7" class="border-0"></th>
@@ -150,49 +104,7 @@
                 </div>
             </div>
         </div>
-
-        <!--middle content end here-->
-        <!--right side bar start from here-->
     </div>
-    <!--right side bar end-->
-    </div>
-
-    <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog"
-        aria-labelledby="confirmPopupLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
-                <div class="modal-header border-0">
-                    <input type="hidden" id="status_data_id">
-                    <input type="hidden" id="status_data_value">
-                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                        <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"
-                            class="custompopicon">
-                        <span>Confirmation</span>
-                    </h5>
-                    <input type="hidden" id="status_data_id" name="status_data_id" value="">
-                    <input type="hidden" id="status_data_value" name="status_data_value" value="">
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-
-                <div class="modal-body teop-text text-center">
-                    <h5 class="custom_modal_text">
-                        Are you sure you want to perform this action.
-                    </h5>
-
-                </div>
-                <div class="modal-footer justify-content-center pt-0">
-
-                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal"
-                        aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal"
-                        data-dismiss="modal" aria-label="Close">No</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="modal fade upload-modal" id="success_popup" tabindex="-1" role="dialog"
@@ -342,6 +254,85 @@
     </div>
 
     {{-- end notes --}}
+
+    {{-- confirm modal --}}
+    <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <input type="hidden" id="status_data_id">
+                    <input type="hidden" id="status_data_value">
+                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                        <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"  class="custompopicon">
+                        <span>Confirmation <span class="ref_clas"></span></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body teop-text text-center">
+                    <h5 class="custom_modal_text">
+                        <span id="Lname">Are you sure you want to <span class="add_review_title"></span> this Report?</span>
+                        <div class="mx-auto w-75 my-3 action_reason_div" style="display: none;">
+                            <select name="action_reason" class="form-control " id="action_reason" style="color: #525a64;">
+                                <option value="Report is not factual" selected>Report is not factual</option>
+                                <option value="Report does not comply with Code of Conduct">Report does not comply with Code of Conduct</option>
+                                <option value="Inappropriate language">Inappropriate language</option>
+                                <option value="Report is slanderous">Report is slanderous</option>
+                            </select>
+                        </div>
+                        
+                    </h5>
+
+                </div>
+
+                <div class="modal-footer justify-content-center pt-0">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- published modal --}}
+    <div class="modal fade upload-modal" id="confirm_publish_popup" tabindex="-1" role="dialog"
+        aria-labelledby="confirmPopupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title d-flex align-items-center " id="confirmPopupLabel">
+                        <img src="{{ asset('assets/dashboard/img/published.png') }}" id="custompopicon" alt="published"
+                            class="custompopicon">
+                        <span class="success-modal-title">Published</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <h6 class="popu_heading_style mt-2">
+                        <span id="" class="success-modal-text">We’re happy to inform you that your query
+                        has been <br> successfully resolved.</span>
+                    </h6>
+
+                </div>
+
+                <div class="modal-footer justify-content-center border-0 pb-4">
+                    <button type="button" class="btn-success-modal px-4" data-dismiss="modal"
+                        aria-label="Close">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -512,17 +503,6 @@
                 `;
             }
 
-            // $('#PunterboxReportTable tbody').on('click', '.update_status', function(e) {
-            //     e.preventDefault();
-
-            //     const reportId = $(this).data('id');
-            //     const newStatus = $(this).data('status');
-            //     console.log('report & new ', reportId, newStatus);
-                
-
-              
-            // });
-
             $(document).on('click', '.update_status', function(e) {
                 e.preventDefault();
                 let reportId = $(this).data('id');
@@ -530,7 +510,6 @@
                 let ref = $(this).data('ref');
                 //let st = status == 'published' ? 'publish' : 'reject';
                 $(".action_reason_div").css('display','none');
-
                 if(status == 'on_hold'){
                     st = 'mark as on hold';
                 }else if(status == 'rejected'){
@@ -545,9 +524,6 @@
                 $('#status_data_id').val(reportId);
                 $('#status_data_value').val(status);
                 $('.add_review_title').text(st);
-                //$('.ref_class').text(ref);
-                //$("#success-popup").modal('show');
-
                 console.log(reportId, status);  
                 
             });
@@ -589,7 +565,7 @@
                     $(".success-modal-text").text('We’re sorry to inform you that your report has been updated to pending.');
                 }
                 
-                var url = "{{route('admin.num.status.ajax')}}";
+                var url = "{{route('admin.punterbox.status.ajax')}}";
                 updateMemberReportStatus(reviewData, url);
             });
 

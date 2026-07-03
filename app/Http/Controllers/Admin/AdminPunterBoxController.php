@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Mail\nums\num_on_hold_email;
 use App\Mail\nums\num_published_email;
 use App\Mail\nums\num_rejected_email;
-use App\Models\Num;
 use App\Models\Punterbox;
 use Carbon\Carbon;
 use DataTables;
@@ -44,12 +43,6 @@ class AdminPunterBoxController extends Controller
 
             return $next($request);
         });
-    }
-
-    public function index()
-    {
-        $states = config('escorts.profile.states');
-        return view('admin.reports.num', ['states' => $states]);
     }
 
    
@@ -189,7 +182,7 @@ class AdminPunterBoxController extends Controller
 
     public function updateStatus(Request $req)
     {
-        $report = Num::with('user')->find($req->id);
+        $report = Punterbox::with('user')->find($req->id);
 
         if (!$report) {
             return response()->json(['success' => false, 'error' => true, 'message' => 'Report not found.']);
@@ -248,21 +241,4 @@ class AdminPunterBoxController extends Controller
         return response()->json(['success' => true, 'error' => false, 'message' => 'Report status updated successfully.']);
     }
 
-    public function viewReport(Request $req)
-    {
-        $body = [
-            'ref_number' => 'NUM-',
-            'member_name' => 'Test User',
-            'subject' => 'NUM Report Details',
-        ];
-
-        return view('emails.nums.num_confirmation_email', ['body' => $body]);
-        // $report = Num::with(['state','user:id,member_id,name'])->find($req->id);
-
-        // if (!$report) {
-        //     return response()->json(['success' => false, 'error'=>true,'message' => 'Report not found.']);
-        // }
-
-        // return response()->json(['success' => true, 'error'=>false, 'data' => $report]);
-    }
 }

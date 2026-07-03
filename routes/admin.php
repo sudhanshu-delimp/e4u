@@ -316,6 +316,7 @@ Route::get('support-tickets', function () {
 
 
 Route::get('reports-punterbox-ajax', [AdminPunterBoxController::class, 'showReportOnDashboardAjax'])->name('admin.punterbox.ajax');
+Route::post('reports-punterbox-status', [AdminPunterBoxController::class, 'updateStatus'])->name('admin.punterbox.status.ajax');
 
 Route::post('update-pricing-detail', [PricingsummariesController::class, 'storePricingDetail'])->name('admin.save.pricing.details');
 Route::get('pricingsummaries-datatable', [PricingsummariesController::class, 'PricingDataTable'])->name('admin.myPricing.dataTable');
