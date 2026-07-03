@@ -53,202 +53,318 @@
         class="section_bg_color padding_ninty_top_ninty_px padding_bottom_eight_px angle_bg_image advertiser-registration">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-12 col-sm-12 adverti_reg_page_padingto_bt-new">
-                    <div class="reg_info advertiser-registration">
-                        {{-- <h2>Registration - Escort</h2> --}}
-                        <div class="pt-2 pb-5">
-                            <h1 class="text-uppercase">Advertiser Registration</h1>
+                <div class="col-lg-5 col-md-12 col-sm-12 adverti_reg_page_padingto_bt-new">
+                    <div class="common-reg-info">
+                        <div class="inner_div">
+                            <div class="heading">
+                                <svg width="45px" height="45px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                                        fill="#ff3c5f"></path>
+                                </g>
+                            </svg>
+                                <h1> Advertiser Registration</h1>
+                            </div>
                             <h2>Registration with us is free</h2>
-                            <p class="text-justify">There are no Fees when you create an Account. Fees only apply when you
+                            <p>There are no Fees when you create an Account. Fees only apply when you
                                 post a Profile or Tour
                                 where you are charged according to the number of days and the Membership Type you select.
                                 See also <span><a href="{{ url('help-for-escorts') }}"
                                         class="termsandconditions_text_color">Help for Escorts</a></span>
                                 and <span><a href="{{ url('help-for-massage-centres') }}"
                                         class="termsandconditions_text_color">Help for Massage Centres</a></span>
-                                for more information on Package benefits, Profiles & Tours, Fees and your obligations.</p>
+                                for more information on Package benefits, Profiles & Tours, Fees and your obligations.
+                            </p>
                         </div>
-                        <h4>Alert:</h4>
-                        <ol class="pl-4 text-justify">
-                            <li>Victorian Advertisers can voluntarily provide their SWA exception number or license number,
-                                like for
-                                example, SWA20188XE. The license number will be displayed on any Profile you List.
-                            </li>
-                            <li>Massage Centres in Queensland must have their business telephone number registered with
-                                the Prostitution Licensing Authority (Queensland) and display the number on any Profile
-                                it Lists.
-                            </li>
-                            <li>
-                                Click <a href="https://www.esafety.gov.au/parents/resources/online-safety-book"
-                                    target="_blank" class="termsandconditions_text_color">here to read</a> the eSafety
-                                Commissioner's Online Safety Guide before registering as a Member.
-                            </li>
-                        </ol>
+                        <div class="inner-div-2">
+
+                            <div class="heading-2">
+                                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" stroke="#FCB329">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <line x1="11.9999" y1="8.27274" x2="11.9999" y2="13.7273" stroke="#FCB329"
+                                            stroke-width="1.81818" stroke-linecap="round" stroke-linejoin="round"></line>
+                                        <path d="M12 17.3636L12 17.3719" stroke="#FCB329" stroke-width="1.81818"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                            d="M21.7677 18.4635L13.6512 4.89384C12.9383 3.70205 11.0617 3.70205 10.3488 4.89385L2.23231 18.4635C1.54868 19.6065 2.45582 21 3.88347 21H20.1165C21.5442 21 22.4513 19.6065 21.7677 18.4635Z"
+                                            stroke="#FCB329" stroke-width="1.81818" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                    </g>
+                                </svg>
+                                <h3>Important Information</h3>
+                            </div>
+                            <div class="a-info">
+                                <span>1</span>
+                                <p>
+                                    Victorian Advertisers can voluntarily provide their SWA exception number or license
+                                    number,
+                                    like for
+                                    example, SWA20188XE. The license number will be displayed on any Profile you List.
+                                </p>
+                            </div>
+                            <div class="a-info">
+                                <span>2</span>
+                                <p>
+                                    Massage Centres in Queensland must have their business telephone number registered with
+                                    the Prostitution Licensing Authority (Queensland) and display the number on any Profile
+                                    it Lists.
+                                </p>
+                            </div>
+                            <div class="a-info">
+                                <span>1</span>
+                                <p>
+                                    Click <a href="https://www.esafety.gov.au/parents/resources/online-safety-book"
+                                        target="_blank" class="termsandconditions_text_color">here to read</a> the eSafety
+                                    Commissioner's Online Safety Guide before registering as a Member.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="reg_box_form_style col-lg-5 col-md-12 col-sm-12">
-                    <div class="regstractionform">
-                        <h4>Register now and start saving!</h4>
+                <div class="reg_box_form_style col-lg-7 col-md-12 col-sm-12">
+                    <div class="regstractionform common-reg-form">
+
+                        <div class="heading-3">
+                            <svg width="45px" height="45px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                                        fill="#0c223d"></path>
+                                </g>
+                            </svg>
+                            <h3>Register now and start saving!</h3>
+                        </div>
+                        <hr>
                         <form id="escort_registration" action="{{ route('advertiser.register') }}" method="post">
                             @csrf
-                            <div class="form-group">
-                                <label for="name">Name / Business Name</label>
-                                <input type="txt" class="form-control" id="name" aria-describedby="emailHelp"
-                                    name="name" required placeholder="Name"
-                                    data-parsley-required-message="Your name is required" value="{{ old('name') }}">
-                                <span id="name-errors"></span>
-                                <div class="termsandconditions_text_color">
-                                    @error('name')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mobileno">Mobile Number</label>
-                                <input type="tel" maxlength="10" class="form-control" id="mobileno"
-                                    aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10" required
-                                    placeholder="Mobile Number"
-                                    data-parsley-required-message="Your mobile number is required"
-                                    value="{{ old('phone') }}" data-parsley-type="digits"
-                                    data-parsley-type-message="Enter only mobile numbers" autocomplete="off"
-                                    oninput="this.value = this.value.replace(/\D/g,'');">
-                                <span id="phone-errors"></span>
-                                <div class="termsandconditions_text_color">
-                                    @error('phone')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
+                            <div class="row">
 
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">{{ __('Email') }}</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
-                                    autocomplete="email" placeholder="Email Address"
-                                    data-parsley-required-message="@lang('errors/validation/required.email')"
-                                    data-parsley-type-message="@lang('errors/validation/valid.email')">
-                                <span id="email-errors"></span>
+                                <div class="form-group col-lg-6 col-sm-12">
+                                    <label for="name">Name / Business Name</label>
+                                    <input type="txt" class="form-control" id="name" aria-describedby="emailHelp"
+                                        name="name" required placeholder="Name"
+                                        data-parsley-required-message="Your name is required" value="{{ old('name') }}">
+                                    <span id="name-errors"></span>
+                                    <div class="termsandconditions_text_color">
+                                        @error('name')
+                                            <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6 col-sm-12">
+                                    <label for="mobileno">Mobile Number</label>
+                                    <input type="tel" maxlength="10" class="form-control" id="mobileno"
+                                        aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10" required
+                                        placeholder="Mobile Number"
+                                        data-parsley-required-message="Your mobile number is required"
+                                        value="{{ old('phone') }}" data-parsley-type="digits"
+                                        data-parsley-type-message="Enter only mobile numbers" autocomplete="off"
+                                        oninput="this.value = this.value.replace(/\D/g,'');">
+                                    <span id="phone-errors"></span>
+                                    <div class="termsandconditions_text_color">
+                                        @error('phone')
+                                            <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label for="exampleInputEmail1">{{ __('Email') }}</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
+                                        autocomplete="email" placeholder="Email Address"
+                                        data-parsley-required-message="@lang('errors/validation/required.email')"
+                                        data-parsley-type-message="@lang('errors/validation/valid.email')">
+                                    <span id="email-errors"></span>
+                                    <div class="termsandconditions_text_color">
+                                        @error('email')
+                                            <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
+                                    <select class="form-control loc-sec" id="location_state" name="state_id" required
+                                        data-parsley-required-message="Select Location">
+                                        <option value="">Select your Home State (if not already identified)</option>
+                                        @foreach (config('escorts.profile.states') as $key => $state)
+                                            <option style="font-weight: 500;" value="{{ $key }}"
+                                                {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
+                                                {{ $state['stateName'] }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group position-relative custom--password col-lg-6 col-sm-12">
+                                    <label for="exampleInputPassword1">{{ __('Password') }}</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Be mindful of what you have used in other websites"
+                                            name="password" required autocomplete="new-password"
+                                            data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
+                                            data-parsley-required-message="@lang('errors/validation/required.password')"
+                                            data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                        <span class="input-group-text custom--eye" id="togglePassword"
+                                            style="cursor: pointer;">
+                                            <i class="fa fa-eye" id="eyeIcon"></i>
+                                        </span>
+                                    </div>
+                                    <div class="termsandconditions_text_color">
+                                        @error('password')
+                                            <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group position-relative custom--password col-lg-6 col-sm-12">
+                                    <label for="conformPassword">{{ __('Confirm Password') }}</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="conformPassword"
+                                            placeholder="Confirm your password" name="password_confirmation"
+                                            data-parsley-equalto="#exampleInputPassword1"
+                                            data-parsley-equalto-message="Confirm password should be the same password"
+                                            required autocomplete="new-password"
+                                            data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
+                                        <span class="input-group-text custom--eye" id="toggleConfirmPassword"
+                                            style="cursor: pointer;">
+                                            <i class="fa fa-eye" id="confirmEyeIcon"></i>
+                                        </span>
+                                    </div>
+                                    <div class="termsandconditions_text_color">
+                                        <!-- error sms here -->
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label for="conformPassword">Referred by Agent (Agent ID)</label>
+                                    <input type="txt" class="form-control" id="agent_id" name="agent_id"
+                                        placeholder="Enter Agent ID">
+                                    <span id="agent_id-errors"></span>
+                                    <div class="termsandconditions_text_color">
+                                        @error('agent_id')
+                                            <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="ec-box">
+                                        <span>
+                                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <circle cx="12" cy="6" r="4" fill="#0c223d"></circle>
+                                                    <path
+                                                        d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
+                                                        fill="#0c223d"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+
+                                        <div class="form-check-inline ">
+
+                                            <input class="form-check-input" required type="radio" name="type"
+                                                id="inlineRadio1"
+                                                value="3"{{ old('type') == 3 ? ' checked' : null }}>
+                                            <label class="form-check-label" for="inlineRadio1">I am an Escort</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="mc-box">
+                                        <span>
+                                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M18.5 3H16C15.7239 3 15.5 3.22386 15.5 3.5V3.55891L19 6.35891V3.5C19 3.22386 18.7762 3 18.5 3Z"
+                                                        fill="#0c223d"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M10.75 9.5C10.75 8.80964 11.3097 8.25 12 8.25C12.6904 8.25 13.25 8.80964 13.25 9.5C13.25 10.1904 12.6904 10.75 12 10.75C11.3097 10.75 10.75 10.1904 10.75 9.5Z"
+                                                        fill="#0c223d"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M20.75 10.9605L21.5315 11.5857C21.855 11.8444 22.3269 11.792 22.5857 11.4685C22.8444 11.1451 22.792 10.6731 22.4685 10.4143L14.3426 3.91362C12.9731 2.81796 11.027 2.81796 9.65742 3.91362L1.53151 10.4143C1.20806 10.6731 1.15562 11.1451 1.41438 11.4685C1.67313 11.792 2.1451 11.8444 2.46855 11.5857L3.25003 10.9605V21.25H2.00003C1.58581 21.25 1.25003 21.5858 1.25003 22C1.25003 22.4142 1.58581 22.75 2.00003 22.75H22C22.4142 22.75 22.75 22.4142 22.75 22C22.75 21.5858 22.4142 21.25 22 21.25H20.75V10.9605ZM9.25003 9.5C9.25003 7.98122 10.4812 6.75 12 6.75C13.5188 6.75 14.75 7.98122 14.75 9.5C14.75 11.0188 13.5188 12.25 12 12.25C10.4812 12.25 9.25003 11.0188 9.25003 9.5ZM12.0494 13.25C12.7143 13.25 13.2871 13.2499 13.7459 13.3116C14.2375 13.3777 14.7088 13.5268 15.091 13.909C15.4733 14.2913 15.6223 14.7625 15.6884 15.2542C15.7462 15.6842 15.7498 16.2146 15.75 16.827C15.75 16.8679 15.75 16.9091 15.75 16.9506L15.75 21.25H14.25V17C14.25 16.2717 14.2484 15.8009 14.2018 15.454C14.1581 15.1287 14.0875 15.0268 14.0304 14.9697C13.9733 14.9126 13.8713 14.842 13.546 14.7982C13.1991 14.7516 12.7283 14.75 12 14.75C11.2717 14.75 10.8009 14.7516 10.4541 14.7982C10.1288 14.842 10.0268 14.9126 9.9697 14.9697C9.9126 15.0268 9.84199 15.1287 9.79826 15.454C9.75162 15.8009 9.75003 16.2717 9.75003 17V21.25H8.25003L8.25003 16.9506C8.24999 16.2858 8.24996 15.7129 8.31163 15.2542C8.37773 14.7625 8.52679 14.2913 8.90904 13.909C9.29128 13.5268 9.76255 13.3777 10.2542 13.3116C10.7129 13.2499 11.2858 13.25 11.9507 13.25H12.0494Z"
+                                                        fill="#0c223d"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M10.75 9.5C10.75 8.80964 11.3097 8.25 12 8.25C12.6904 8.25 13.25 8.80964 13.25 9.5C13.25 10.1904 12.6904 10.75 12 10.75C11.3097 10.75 10.75 10.1904 10.75 9.5Z"
+                                                        fill="#0c223d"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <div class="form-check-inline mc_box">
+                                            <input class="form-check-input" type="radio" name="type"
+                                                id="inlineRadio2"
+                                                value="4"{{ old('type') == 4 ? ' checked' : null }}>
+                                            <label class="form-check-label" for="inlineRadio2">We are a Massage
+                                                Centre</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <div class="termsandconditions_text_color">
-                                    @error('email')
+                                    <!-- error sms here -->
+                                    @error('type')
                                         <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
-                            </div>
-                            {{-- {{ dd( request()->ipinfo)}} --}}
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
-                                <select class="form-control loc-sec" id="location_state" name="state_id" required
-                                    data-parsley-required-message="Select Location">
-                                    <option value="">Select your Home State (if not already identified)</option>
-                                    @foreach (config('escorts.profile.states') as $key => $state)
-                                        <option style="font-weight: 500;" value="{{ $key }}"
-                                            {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
-                                            {{ $state['stateName'] }} </option>
-                                    @endforeach
-                                    {{-- @foreach ($state as $name)
-                                       <option value="{{$name->id}}">{{$name->name}}</option>
-                                    @endforeach --}}
-                                </select>
-                            </div>
-
-                            <div class="form-group position-relative custom--password">
-                                <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Be mindful of what you have used in other websites" name="password"
-                                        required autocomplete="new-password"
-                                        data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
-                                        data-parsley-required-message="@lang('errors/validation/required.password')"
-                                        data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                                    <span class="input-group-text custom--eye" id="togglePassword" style="cursor: pointer;">
-                                        <i class="fa fa-eye" id="eyeIcon"></i>
-                                    </span>
+                                <div class="col-sm-12 tnc-info">
+                                    <div class="form-check-inline">
+                                        <input type="checkbox" data-parsley-errors-container=".check-tc"
+                                            class="form-check-input" id="termsandconditions" required
+                                            data-parsley-required-message="@lang('errors/validation/required.checkbox')">
+                                        <label class="form-check-label " for="termsandconditions">I have read and agree to
+                                            the
+                                            <a href="terms-conditions" class="termsandconditions_text_color"
+                                                style="font-size: 13px;">Terms and Conditions</a></label>
+                                    </div>
                                 </div>
-                                <div class="termsandconditions_text_color">
-                                    @error('password')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group position-relative custom--password">
-                                <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" id="conformPassword"
-                                        placeholder="Confirm your password" name="password_confirmation"
-                                        data-parsley-equalto="#exampleInputPassword1"
-                                        data-parsley-equalto-message="Confirm password should be the same password"
-                                        required autocomplete="new-password"
-                                        data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
-                                    <span class="input-group-text custom--eye" id="toggleConfirmPassword"
-                                        style="cursor: pointer;">
-                                        <i class="fa fa-eye" id="confirmEyeIcon"></i>
-                                    </span>
-                                </div>
+                                <span class="check-tc"></span>
                                 <div class="termsandconditions_text_color">
                                     <!-- error sms here -->
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="conformPassword">Referred by Agent (Agent ID)</label>
-                                <input type="txt" class="form-control" id="agent_id" name="agent_id"
-                                    placeholder="Enter Agent ID">
-                                <span id="agent_id-errors"></span>
-                                <div class="termsandconditions_text_color">
-                                    @error('agent_id')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12 col-sm-12 pr-0 pl-2">
-                                    <div class="form-check form-check-inline pb-0">
-                                        <input class="form-check-input" required type="radio" name="type"
-                                            id="inlineRadio1" value="3"{{ old('type') == 3 ? ' checked' : null }}>
-                                        <label class="form-check-label" for="inlineRadio1">I am an Escort</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 pr-0">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="type" id="inlineRadio2"
-                                            value="4"{{ old('type') == 4 ? ' checked' : null }}>
-                                        <label class="form-check-label" for="inlineRadio2">We are a Massage Centre</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<div class="form-check form-check-inline">
-                                     <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="5"{{ old('type') == 4 ? ' checked' : null }}>
-                                     <label class="form-check-label" for="inlineRadio2">I am a Agent</label>
-                                 </div>-->
-
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
-                                @error('type')
-                                    <strong>{{ $message }}</strong>
-                                @enderror
-                            </div>
-                            <div class="form-check form-check-inline pb-0" style="margin-left: 4px;">
-                                <input type="checkbox" data-parsley-errors-container=".check-tc" class="form-check-input"
-                                    id="termsandconditions" required data-parsley-required-message="@lang('errors/validation/required.checkbox')">
-                                <label class="form-check-label " for="termsandconditions">I have read and agree to the
-                                    <a href="terms-conditions" class="termsandconditions_text_color"
-                                        style="font-size: 13px;">Terms and Conditions</a></label>
-                            </div>
-                            <span class="check-tc"></span>
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
-                            </div>
-                            <div class="form-row mt-3">
-                                <div class="col-12">
-                                    <button type="submit" id="submit_button" class="btn site_btn_primary">Register
+                                <div class="col-lg-12">
+                                    <button type="submit" id="submit_button" class="btn site_btn_primary w-100">Register
                                     </button>
                                 </div>
-                                <div class="col-12 component_notes">
-                                    <x-register-page-note />                                   
+                                <div class="col-lg-7 col-md-7 col-sm-12">
+                                    <div class="common_form_note">
+                                        <p><b>Notes:</b>
+                                        <ol>
+                                            <li>(*) </sup>Geolocation in use.</li>
+                                            <li>Management of your Account is optimised in a browser or tablet.  There are limitations on a Mobile device.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-5 col-md-5 col-sm-12">
+                                    <div class="common_form_note">
+                                        <p>
+                                            Any personal information submitted to this Website will be handled in accordance with
+                                            E4U's <a class="termsandconditions_text_color" href="{{ 'privacy-policy' }}"
+                                                target="_blank">Privacy Policy</a> and
+                                            <a href="{{ 'privacy-collection-notice' }}" class="termsandconditions_text_color"
+                                                target="_blank">Privacy Collection Notice</a>, both
+                                            available on the Website.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            
                         </form>
                     </div>
                 </div>
@@ -320,7 +436,8 @@
                             <p>Create a Profile with a few simple steps. Our Profile creator will calculate the Fee
                                 along the way. You will always know what the Fees are before you commit to Listing your
                                 Profile. You can also create a Profile and archive it until you are ready to List it.
-                                Create as many Profiles as you like.  We recommend you create at least one Profile for each Location ready for when you Tour.</p>
+                                Create as many Profiles as you like. We recommend you create at least one Profile for each
+                                Location ready for when you Tour.</p>
 
                             <p class="custome_span_color">Go to <a href="{{ url('help-for-escorts') }}"
                                     class="termsandconditions_text_color">help for Escorts</a> for details on
@@ -328,58 +445,74 @@
 
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
 
-                                    <td>Platinum<br>Gold<br>Silver</td>
-                                    <td>
-                                        <p>Platinum Membership always ranks at the top of the Escort Listing Page, followed by Gold, Silver and then Free.</p>
-                                        <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Location, age, hourly rates, review
-                                            rating, available to, Services hourly rate summary, video availability, 
-                                            arrival and departure dates, and your 'Who I am' are included in the display. 
-                                            Add to Shortlist, add to Legbox, membership Type, and your Media Verification status are also included.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Location, age, hourly rate,
-                                            services, gender, available to, and review rating are included in the display.  
-                                            Add to Shortlist, add to Legbox and your Media Verification status are also included.</p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your Thumbnail is
-                                            420px x 600px together with 6 additional photos and a video player. All photos and the video
-                                            can pop up.</p>
-                                    </td>
-                                </tr>
+                                            <td>Platinum<br>Gold<br>Silver</td>
+                                            <td>
+                                                <p>Platinum Membership always ranks at the top of the Escort Listing Page,
+                                                    followed by Gold, Silver and then Free.</p>
+                                                <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Location, age,
+                                                    hourly rates, review
+                                                    rating, available to, Services hourly rate summary, video availability,
+                                                    arrival and departure dates, and your 'Who I am' are included in the
+                                                    display.
+                                                    Add to Shortlist, add to Legbox, membership Type, and your Media
+                                                    Verification status are also included.</p>
+                                                <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Location, age,
+                                                    hourly rate,
+                                                    services, gender, available to, and review rating are included in the
+                                                    display.
+                                                    Add to Shortlist, add to Legbox and your Media Verification status are
+                                                    also included.</p>
+                                                <p><b>Profile Page:</b> A comprehensive and informative summary about you.
+                                                    Your Thumbnail is
+                                                    420px x 600px together with 6 additional photos and a video player. All
+                                                    photos and the video
+                                                    can pop up.</p>
+                                            </td>
+                                        </tr>
 
-                                <td>Free</td>
-                                    <td>
-                                        <p>Free Membership ranks behind Silver</p>
-                                        <p>Escort Listing Page: You will appear after paid listings in all Search Page
-                                            results and Profile shortlist displays.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo, Stage Name, Verification status, Location, 
-                                            age, hourly rate, services, gender, orientation and view rating are included in the display.</p>
-                                        <p><b>List View:</b> Your Thumbnail photo, Stage Name, Verification status, rates, 
-                                            review rating, available to, My Playbox status, start and finish dates and your 'Who I am' are displayed.</p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Displayed is your 
-                                            Thumbnail and default galery images, video, availability, Rates, My Playmates, About Me, 
-                                            Statistics, Who Am I, My Service, Deposit details, together with policies, legal statements, Reviews and tips.</p>
-                                        <p>If you receive over a certain number of Profile views or telephone number
-                                            clicks during the free 14 day period you will be informed and notified to
-                                            upgrade to a paying Membership Type.</p>
-                                        <p>We do this to provide for the fairest distribution of leads between our Free
-                                            Members. If you do not elect to become a paying Member, your Profile will be
-                                            suspended. You will still be able to log onto your Account at any time to
-                                            upgrade your Membership Type.</p>
+                                        <td>Free</td>
+                                        <td>
+                                            <p>Free Membership ranks behind Silver</p>
+                                            <p>Escort Listing Page: You will appear after paid listings in all Search Page
+                                                results and Profile shortlist displays.</p>
+                                            <p><b>Grid View:</b> Your Thumbnail photo, Stage Name, Verification status,
+                                                Location,
+                                                age, hourly rate, services, gender, orientation and view rating are included
+                                                in the display.</p>
+                                            <p><b>List View:</b> Your Thumbnail photo, Stage Name, Verification status,
+                                                rates,
+                                                review rating, available to, My Playbox status, start and finish dates and
+                                                your 'Who I am' are displayed.</p>
+                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you.
+                                                Displayed is your
+                                                Thumbnail and default galery images, video, availability, Rates, My
+                                                Playmates, About Me,
+                                                Statistics, Who Am I, My Service, Deposit details, together with policies,
+                                                legal statements, Reviews and tips.</p>
+                                            <p>If you receive over a certain number of Profile views or telephone number
+                                                clicks during the free 14 day period you will be informed and notified to
+                                                upgrade to a paying Membership Type.</p>
+                                            <p>We do this to provide for the fairest distribution of leads between our Free
+                                                Members. If you do not elect to become a paying Member, your Profile will be
+                                                suspended. You will still be able to log onto your Account at any time to
+                                                upgrade your Membership Type.</p>
 
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
-                                <p>If you upgrade your Membership Type you will not lose any remaining days you have paid
+                            <p>If you upgrade your Membership Type you will not lose any remaining days you have paid
                                 for. They will be applied automatically if you do not continue at the higher Membership
                                 Type.</p>
 
@@ -395,8 +528,8 @@
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with a leading provider of online booking services for
                                 accommodation and travel. For more information go to <span class=""><a
-                                        href="{{ url('help-for-escorts') }}"
-                                        class="termsandconditions_text_color">Help for Escorts</a></span>
+                                        href="{{ url('help-for-escorts') }}" class="termsandconditions_text_color">Help
+                                        for Escorts</a></span>
                                 and select "Travel & Accommodation".</p>
                         </div>
                     </div>
@@ -408,10 +541,13 @@
                     </a>
                     <div class="content">
                         <div class="accodien_manage_padding_content">
-                            <p>Escorts4U has partnered with a leading supplier of adult products which you can order online.  They
-                                will be delivered to your door or by post deparding on your Location. For more information about ordering products
+                            <p>Escorts4U has partnered with a leading supplier of adult products which you can order online.
+                                They
+                                will be delivered to your door or by post deparding on your Location. For more information
+                                about ordering products
                                 go to <span class=""><a href="{{ url('terms-conditions') }}"
-                                        class="termsandconditions_text_color">Part G Concierge Services Products</a></span>.</p>
+                                        class="termsandconditions_text_color">Part G Concierge Services
+                                        Products</a></span>.</p>
                         </div>
                     </div>
                 </div>
@@ -424,8 +560,8 @@
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with an experienced advisor in this complex area. For more
                                 information about these services go to <span class=""><a
-                                        href="{{ url('help-for-escorts') }}"
-                                        class="termsandconditions_text_color">Help for Escorts</a></span>
+                                        href="{{ url('help-for-escorts') }}" class="termsandconditions_text_color">Help
+                                        for Escorts</a></span>
                                 and select "Visa applications & banking". Our partner can also provide advice on
                                 education placements. You can submit an enquiry with our partner.</p>
                         </div>
@@ -439,8 +575,8 @@
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>We have many sources you can access for help and information. See <span class=""><a
-                                        href="{{ url('help-for-escorts') }}"
-                                        class="termsandconditions_text_color">help for Escorts</a></span>
+                                        href="{{ url('help-for-escorts') }}" class="termsandconditions_text_color">help
+                                        for Escorts</a></span>
                                 and <span class=""><a href="{{ url('faqs') }}"
                                         class="termsandconditions_text_color">FAQs</a></span>,
                                 or if you still can not find the answer, <span class=""><a
@@ -513,7 +649,8 @@
                                 </div>
                                 <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset
                                         Password</strong></h4>
-                                <h5 class="text-center custom_modal_text">We will send you a reset password link to your email.</h5>
+                                <h5 class="text-center custom_modal_text">We will send you a reset password link to your
+                                    email.</h5>
                                 <input type="txt" required class="form-control" name="email" id="email"
                                     aria-describedby="emailHelp" placeholder="Email Address"
                                     data-parsley-required-message="Your Email is required" value="{{ old('email') }}">

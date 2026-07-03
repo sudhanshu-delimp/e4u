@@ -1267,6 +1267,7 @@
         padding: 20px;
         box-shadow: 0px 1px 20px 0px;
         z-index: 10;
+        border-radius: 15px;
     }
     
     .regstractionform .form-control {
@@ -6734,6 +6735,196 @@ i.fa.fa-heart-o{
     .swiper.mySwiper:hover .swiper-button-next,
     .swiper.mySwiper:hover .swiper-button-prev {
         visibility: visible;
+    }
+    /* end */
+    /* common-reg-info */
+    
+    .common-reg-info .inner_div {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .common-reg-info .heading h1 {
+        color: var(--peach);
+        font-size: 20px;
+        margin-bottom: 0px;
+    }
+    
+    .common-reg-info .heading {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+    
+    .common-reg-form .heading-3 {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: flex-start;
+        margin-bottom: 15px;
+    }
+    
+    .common-reg-form .heading-3 h3 {
+        margin-bottom: 0px;
+        color: var(--blue--text);
+        font-weight: 500;
+    }
+    
+    .common-reg-form .form-control {
+        border: 1px solid #ccc;
+        height: 40px !important;
+        border-radius: 5px !important;
+        padding-left: 10px;
+    }
+    
+    .common-reg-form .form-control.loc-sec {
+        height: 40px !important;
+        padding-left: 10px !important;
+    }
+    
+    .common-reg-form .custom--password .custom--eye {
+        background: transparent;
+        border: none;
+        padding: 0;
+        position: absolute;
+        right: 15px;
+        top: 13px;
+    }
+    
+    .common-reg-form .form-control:focus {
+        border: 1px solid #0c223d !important;
+    }
+    
+    .common-reg-info h2 {
+        color: var(--white);
+        font-size: clamp(24px, 4vw, 50px);
+        margin-bottom: 0px;
+    }
+    
+    .common-reg-form input.parsley-error,
+    .common-reg-form select.parsley-error,
+    .common-reg-form textarea.parsley-error {
+        border: 1px solid var(--peach) !important;
+    }
+    
+    .common-reg-form .ec-box,
+    .common-reg-form .mc-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 13px;
+    }
+    
+    .ec-box span,
+    .mc-box span {
+        background: #d7d7d7;
+        padding: 5px;
+        border-radius: 100%;
+    }
+    
+    .inner-div-2 {
+        position: relative;
+        padding: 30px;
+        border-radius: 15px;
+        background: rgb(12 34 61);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgb(255 255 255 / 33%);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+    }
+    
+    .inner-div-2::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgb(12 34 61 / 4%), rgb(12 34 61 / 9%) 45%, rgba(255, 255, 255, .04));
+        pointer-events: none;
+    }
+    
+    .common-reg-info .heading-2 {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+    }
+    
+    .common-reg-info .heading-2 h3 {
+        color: #FCB329;
+        font-size: 20px;
+        margin-bottom: 0px;
+    }
+    
+    .common-reg-info .inner_div p {
+        font-size: 14px;
+        text-align: justify;
+        color: #C9D4E5;
+    }
+    
+    .common-reg-info .inner_div p span {
+        font-size: 16px;
+    }
+    
+    .common-reg-info .a-info {
+        display: flex;
+        justify-content: flex-start;
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .common-reg-info .a-info span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #cfe5ff;
+        padding: 15px;
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        color: var(--blue--text);
+    }
+    
+    .common-reg-info .a-info p {
+        font-size: 14px;
+        text-align: justify;
+        color: #C9D4E5;
+    }
+    
+    .common-reg-form .tnc-info {
+        padding: 15px;
+        font-size: 14px;
+    }
+    
+    .common_form_note {
+        text-align: justify;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        background: #f9f9f9;
+        margin-top: 15px;
+    }
+    
+    .common_form_note p,
+    a {
+        margin-bottom: 10px;
+        font-size: 14px !important;
+    }
+    
+    .common_form_note ol {
+        margin-bottom: 0px;
+    }
+    
+    .common_form_note ol li {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 5px;
     }
     /* end */
     
