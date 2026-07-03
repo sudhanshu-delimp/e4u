@@ -252,14 +252,14 @@
             
         });
 
-    function send2FAotp(email)
+    function send2FAotp(user_id)
       {
          $('#email-error').html('');
          var token = $('input[name="_token"]').attr('value');
          $.ajax({
             url: "{{route('send-otp-for-pin-change')}}",
             type: 'POST',
-            data: {email:email},
+            data: {user_id:user_id},
             dataType: "JSON",
            
             headers: {
@@ -389,7 +389,19 @@
 
         $(document).off('click' , '#resendOtpSubmit');
         $(document).on('click' , '#resendOtpSubmit' , function(){
-            send2FAotp($('#email').val());
+        let  user_email = $('#email').val();
+        let  user_phoneId = $('#phoneId').val();
+
+        
+       
+            if(user_phoneId!="")
+            {
+                 send2FAotp(user_phoneId);  
+            }
+            if(user_email!="")
+            {
+                 send2FAotp(user_email);  
+            }
         });
         
         var loginForm = $("#escort_login");
@@ -420,12 +432,12 @@
                     var ph = data.phone;
                     $("#phoneId").attr('value',ph);
                     if(data.error == 1) {
-                        $('body').on("click","#resendOtpSubmit",function(){
-                            $("#escort_login").submit();
-                            /* $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>"); */
-                             var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
-                            $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
-                        });
+                        // $('body').on("click","#resendOtpSubmit",function(){
+                        //     $("#escort_login").submit();
+                        //     /* $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>"); */
+                        //      var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
+                        //     $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
+                        // });
                         setTimeout(() => {
                         $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
                         }, 300); 
