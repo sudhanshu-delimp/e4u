@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\ImpersonateController;
+use App\Http\Controllers\Viewer\ViewerReviewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -247,6 +248,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/change-features', [AccountSettingController::class, 'get_viewer_features'])->name('change-features');
         Route::post('/change-features', [AccountSettingController::class, 'viewer_change_features'])->name('change-features');
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+        Route::get('view-reviews', [ViewerReviewsController::class, 'viewReviews'])->name('user.view-reviews');
+        Route::get('reviews-by-ajax', [ViewerReviewsController::class, 'getProfileReviewsByAjax'])->name('user.reviews-profile-by-ajax');
+        Route::post('user-review-status-update', [ViewerReviewsController::class, "updateUserReviewStatus"])->name('user.user-review-status-update');
+        Route::get('get-user-review-details/{id}', [ViewerReviewsController::class, "getSingleUserReviewDetails"])->name('user.get-single-user-review-details');
     });
     ################ End All Authencated User Url #################################
     Route::get('back-to-agent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
