@@ -300,8 +300,105 @@ body {
     background-color: #F2F2F2 !important;
 }
 
+.custom-nav-dropdown .dropdown-item:last-child {
+    border-top: 1px solid #ccc;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item:last-child {
+    border-top: 0px;
+}
+
+#accountMenu .dropdown-item:first-child {
+    border-top: 1px solid #ccc;
+}
+
+#accountMenu .dropdown-item:last-child {
+    border-top: 0px;
+}
+
+.chevron-icon {
+    transition: transform .3s ease;
+}
+
+.account-toggle {
+    cursor: pointer;
+}
+
+.account-toggle:hover i {
+    color: #fff;
+}
+
+.account-toggle span {
+    font-weight: 500;
+}
+
+.chevron-icon.rotate {
+    transform: rotate(180deg);
+}
+
+.custom-nav-dropdown.dropdown-menu {
+    padding: 0px !important;
+    width: 215px !important;
+}
+
+.custom-nav-dropdown .highlight-menu {
+    background-color: var(--peach);
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item {
+    color: #fff;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item .profile_icons {
+    width: 20px;
+    margin-right: 10px;
+    filter: brightness(33.5);
+}
+
+.custom-nav-dropdown .highlight-menu .menu-profile span {
+    display: inline-block;
+    max-width: 18ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.custom-nav-dropdown .highlight-menu .menu-profile {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 .custom-nav-dropdown .dropdown-item:hover {
-    background-color: #dfdfdf;
+    background-color: #ff3c5f !important;
+    color: #fff;
+}
+
+.custom-nav-dropdown .dropdown-item:hover .profile_icons {
+    filter: brightness(33.5);
+}
+
+.custom-nav-dropdown::after {
+    content: "";
+    position: absolute;
+    top: -25px;
+    right: 15px;
+    transform: translateX(1px) rotate(180deg);
+    border-width: 13px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
+.custom-nav-dropdown .req {
+    background-color: #d5ffd4;
+    padding: 0px 5px;
+    font-size: 11px;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 .bg-second {
@@ -1906,6 +2003,22 @@ button.btn:focus {
     }
 }
 
+#sendOtp_modal .modal-dialog {
+    max-width: 600px;
+}
+
+#sendOtp_modal .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid var(--blue--text) !important;
+    outline: 0;
+    box-shadow: none;
+}
+
+#sendOtp_modal h4 {
+    color: var(--peach);
+}
+
 
 /* end */
 
@@ -2603,7 +2716,7 @@ color: #B9B9B9;
 }
 
 .forgot_pass .label_margin_zero_for_login img {
-    width: 150px;
+    width: 100px;
 }
 
 .otp-verify-btn {

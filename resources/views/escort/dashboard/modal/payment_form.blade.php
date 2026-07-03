@@ -319,6 +319,7 @@
                     text: 'Do not refresh or close this page.',
                     allowOutsideClick: false,
                     allowEscapeKey: false,
+                    allowOutsideClick: false,
                     didOpen: () => {
                         Swal.showLoading();
                     }

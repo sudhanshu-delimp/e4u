@@ -329,3 +329,83 @@
     .opr-console .my-custom-box:hover {
         background-color: var(--hover-bg);
     }
+    
+    .oc-custom-nav-dropdown {
+        position: relative;
+    }
+    
+    .oc-custom-nav-dropdown::after {
+        content: "";
+        position: absolute;
+        top: -25px;
+        right: 15px;
+        transform: translateX(1px) rotate(180deg);
+        border-width: 13px;
+        border-style: solid;
+        border-color: var(--color-orange) transparent transparent transparent;
+    }
+    
+    .oc-highlight-menu {
+        background-color: var(--color-orange);
+        color: #fff;
+    }
+    
+    .oc-custom-nav-dropdown {
+        background-color: #F2F2F2 !important;
+    }
+    
+    .oc-custom-nav-dropdown.dropdown-menu {
+        padding: 0px !important;
+        width: 215px !important;
+    }
+    
+    .account-toggle:hover i {
+        color: #fff !important;
+    }
+    
+    .account-toggle span {
+        font-weight: 500;
+    }
+    
+    .oc-custom-nav-dropdown .oc-highlight-menu {
+        background-color: var(--color-orange);
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .oc-custom-nav-dropdown .oc-highlight-menu .dropdown-item {
+        color: #fff;
+    }
+    
+    .oc-custom-nav-dropdown .oc-highlight-menu .dropdown-item .profile_icons {
+        width: 20px;
+        margin-right: 10px;
+    }
+    
+    .oc-custom-nav-dropdown .oc-highlight-menu .menu-profile span {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+    }
+    
+    .oc-custom-nav-dropdown .oc-highlight-menu .menu-profile {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .oc-custom-nav-dropdown .dropdown-item:hover {
+        background-color: var(--color-orange) !important;
+        color: #fff;
+    }
+    
+    .oc-custom-nav-dropdown .dropdown-item:hover .profile_icons {
+        filter: contrast(3.5) invert(1);
+    }
+    
+    .oc-custom-nav-dropdown .dropdown-item:last-child {
+        border-top: 1px solid #ccc;
+    }
+    
+    .oc-custom-nav-dropdown .highlight-menu .dropdown-item:last-child {
+        border-top: 0px;
+    }

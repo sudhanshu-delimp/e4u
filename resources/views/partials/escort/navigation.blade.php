@@ -171,7 +171,7 @@
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
                 <img src="{{ asset(auth()->user()->avatar_url) }}" class="img-profile rounded-circle avatarName">
@@ -180,62 +180,63 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    Membership ID : {{ auth()->user()->member_id }}
-                </a>
+                <div class="highlight-menu">
+                    <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ auth()->user()->name }}</span> <br> {{ auth()->user()->member_id }}</a>
 
+                     @if (!auth()->user()->my_agent)
+                        <a class="dropdown-item" href="{{ url('/escort-dashboard/escort-agency-request') }}">
+                        @else
+                            <a class="dropdown-item" href="#">
+                    @endif
+                   
 
-                @if (!auth()->user()->my_agent)
-                    <a class="dropdown-item" href="{{ url('/escort-dashboard/escort-agency-request') }}">
+                    @if (auth()->user()->my_agent)
+                        <span class="user-values"
+                            title="My Agent : {{ auth()->user()?->my_agent?->business_name ?? (auth()->user()?->my_agent?->name ?? '') }}">
+                            My Agent ID : {{ auth()->user()->my_agent->member_id }}</span>
                     @else
-                        <a class="dropdown-item" href="#">
-                @endif
-                <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                        My Agent : <span class="request-active req"> Request one</span>
+                    @endif
+                    
+                    </a>
+                </div>
+                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                    <span>My account
+                    </span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
 
-                @if (auth()->user()->my_agent)
-                    <span class="user-values"
-                        title="My Agent : {{ auth()->user()?->my_agent?->business_name ?? (auth()->user()?->my_agent?->name ?? '') }}">
-                        My Agent ID : {{ auth()->user()->my_agent->member_id }}</span>
-                @else
-                    My Agent ID : <span class="request-active"> Request one</span>
-                @endif
+                <div class="collapse" id="accountMenu">
+                    <a class="dropdown-item" href="{{ route('escort.account.edit') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                        My account
+                    </a>
+                    <a class="dropdown-item" href="{{ route('escort.change.password') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                        Change password
+                    </a>
+                    <a class="dropdown-item" href="{{ route('escort.profile') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                        New Profile
+                    </a>
+                    <a class="dropdown-item" href="{{ url('escort-dashboard/create-tour') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/tour.png') }}">
+                        New Tour
+                    </a>
 
-                </a>
-
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    User Name: {{ auth()->user()->name }}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('escort.account.edit') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    My account
-                </a>
-                <a class="dropdown-item" href="{{ route('escort.change.password') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                    Change password
-                </a>
-                <a class="dropdown-item" href="{{ route('escort.profile') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
-                    New Profile
-                </a>
-                <a class="dropdown-item" href="{{ url('escort-dashboard/create-tour') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/tour.png') }}">
-                    New Tour
-                </a>
-
-                <a class="dropdown-item" href="{{ route('support-ticket.list') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
-                    Support Ticket
-                </a>
-                <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('support-ticket.list') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
+                        Support Ticket
+                    </a>
+                </div>
+                
+                {{-- <div class="dropdown-divider"></div> --}}
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                     Logout
-                </a>
+                </a> 
             </div>
         </li>
 

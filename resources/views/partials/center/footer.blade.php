@@ -127,7 +127,7 @@
                                             </span>`;
                                 });
 
-                                alert_notifications_html+=`<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
+                                alert_notifications_html+=`<a class="dropdown-item text-center small text-gray-800" href="support_tickets/ticket-list">Show All Alerts</a>`;
                                 $('.alert_notify_html').html(alert_notifications_html);
                             }
                             else
