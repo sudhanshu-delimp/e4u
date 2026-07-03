@@ -6911,10 +6911,14 @@ i.fa.fa-heart-o{
         margin-top: 15px;
     }
     
-    .common_form_note p,
-    a {
+    .common_form_note p {
         margin-bottom: 10px;
-        font-size: 14px !important;
+        font-size: 13px !important;
+    }
+    
+    .common_form_note a {
+        margin-bottom: 10px;
+        font-size: 13px !important;
     }
     
     .common_form_note ol {
@@ -6922,9 +6926,9 @@ i.fa.fa-heart-o{
     }
     
     .common_form_note ol li {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 1.6;
-        margin-bottom: 5px;
+        margin-bottom: 7px;
     }
     /* end */
     

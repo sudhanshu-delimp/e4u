@@ -211,6 +211,7 @@
                                         <input type="password" class="form-control" id="exampleInputPassword1"
                                             placeholder="Be mindful of what you have used in other websites"
                                             name="password" required autocomplete="new-password"
+                                             data-parsley-errors-container="#password-error"
                                             data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
                                             data-parsley-required-message="@lang('errors/validation/required.password')"
                                             data-parsley-pattern-message="@lang('errors/validation/valid.password')">
@@ -219,6 +220,7 @@
                                             <i class="fa fa-eye" id="eyeIcon"></i>
                                         </span>
                                     </div>
+                                    <div id="password-error"></div>
                                     <div class="termsandconditions_text_color">
                                         @error('password')
                                             <strong>{{ $message }}</strong>
@@ -232,6 +234,7 @@
                                         <input type="password" class="form-control" id="conformPassword"
                                             placeholder="Confirm your password" name="password_confirmation"
                                             data-parsley-equalto="#exampleInputPassword1"
+                                            data-parsley-errors-container="#cpassword-error"
                                             data-parsley-equalto-message="Confirm password should be the same password"
                                             required autocomplete="new-password"
                                             data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
@@ -240,11 +243,14 @@
                                             <i class="fa fa-eye" id="confirmEyeIcon"></i>
                                         </span>
                                     </div>
+
+                                     <!-- Parsley yahan error generate kare -->
+                                    <div id="cpassword-error"></div>
                                     <div class="termsandconditions_text_color">
                                         <!-- error sms here -->
                                     </div>
                                 </div>
-
+                                
                                 <div class="form-group col-sm-12">
                                     <label for="conformPassword">Referred by Agent (Agent ID)</label>
                                     <input type="txt" class="form-control" id="agent_id" name="agent_id"
@@ -276,11 +282,13 @@
                                         <div class="form-check-inline ">
 
                                             <input class="form-check-input" required type="radio" name="type"
-                                                id="inlineRadio1"
+                                                id="inlineRadio1" data-parsley-errors-container="#type-error"
                                                 value="3"{{ old('type') == 3 ? ' checked' : null }}>
                                             <label class="form-check-label" for="inlineRadio1">I am an Escort</label>
                                         </div>
                                     </div>
+                                    <div id="type-error"></div>
+
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="mc-box">
@@ -334,7 +342,9 @@
                                                 style="font-size: 13px;">Terms and Conditions</a></label>
                                     </div>
                                 </div>
-                                <span class="check-tc"></span>
+                                <div class="col-12">
+                                    <span class="check-tc"></span>
+                                </div>
                                 <div class="termsandconditions_text_color">
                                     <!-- error sms here -->
                                 </div>
