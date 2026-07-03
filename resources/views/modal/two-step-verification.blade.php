@@ -94,12 +94,15 @@
 <script>
     const otpInputs = document.querySelectorAll(".otp-input");
     const hiddenOtp = document.getElementById("otp");
+   
     window.OTP_RESEND_SECONDS = {{ config('common.otp_resend_seconds') }};
-    var seconds = window.OTP_RESEND_SECONDS;
+  
 
     let otpSubmitted = false;
+    let timer;
 
     let sendOtpForm = $("#SendOtp");
+    
 
     sendOtpForm.on('submit', function(e) {
         e.preventDefault();
@@ -201,7 +204,13 @@
         const timerEl = document.getElementById("otpTimerMsg");
         const resendEl = document.getElementById("resendLine");
 
-        $('#sendOtp_modal').on('shown.bs.modal', focusFirstOtpInput);
+    
+          $('#sendOtp_modal').one('shown.bs.modal', function() {  
+             
+                 seconds = window.OTP_RESEND_SECONDS;
+                 startOtpTimer();
+                 focusFirstOtpInput()
+            });
 
 
         function startOtpTimer() {
@@ -215,7 +224,7 @@
                 }
             });
 
-            const timer = setInterval(function() {
+             timer = setInterval(function() {
                 const min = String(Math.floor(seconds / 60)).padStart(2, '0');
                 const sec = String(seconds % 60).padStart(2, '0');
                 timerEl.innerHTML =
@@ -230,7 +239,7 @@
             }, 1000);
         }
 
-        startOtpTimer();
+        //startOtpTimer();
 
         document.getElementById("resendOtpSubmit").addEventListener("click", function(e) {
             e.preventDefault();
@@ -270,5 +279,9 @@
             otpInputs[0].focus();
         }
     }
+
+   
 </script>
+
+
 @endpush

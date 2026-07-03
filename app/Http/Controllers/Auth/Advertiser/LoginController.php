@@ -265,7 +265,7 @@ class LoginController extends BaseController
     public function sendOtpForPinChange(Request $request)
     {
         try {
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->user_id)->orWhere('phone', $request->user_id)->first();
             if (!$user) {
                 return response()->json([
                     'status' => 404,
