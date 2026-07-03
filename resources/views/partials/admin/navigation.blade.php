@@ -125,28 +125,18 @@ $position = $positions[$postionKey] ?? "";
                     <a class="dropdown-item menu-profile" href="javascript:void(0);">                        
                         <span>{{ auth()->user()->name }}</span> <br> ({{ $position }}) <br> {{ auth()->user()->member_id }} 
                     </a>
-                    {{-- <a class="dropdown-item " href="#">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                        Member ID: 
-                    </a> --}}
-                    {{-- <a class="dropdown-item" href="#">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                        User Name: {{ auth()->user()->name }}
-                    </a> --}}
-                    {{-- <a class="dropdown-item " href="#">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                        Member ID: {{ auth()->user()->member_id }}
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                        User Name: {{ auth()->user()->name }}
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    Position: {{ $position }}
-                    </a> --}}
                 </div>
-               
+                
+                                
+                                
+                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                    <span>
+                        My account
+                    </span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
+
+                <div class="collapse" id="accountMenu">   
                 
                 <a class="dropdown-item" href="{{ route('admin.account.edit') }}">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
@@ -156,6 +146,7 @@ $position = $positions[$postionKey] ?? "";
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                     Change Password
                 </a>
+                </div>
                  {{-- <div class="dropdown-divider"></div>
 
                  <a class="dropdown-item" href="{{ route('admin.escort-listings') }}">

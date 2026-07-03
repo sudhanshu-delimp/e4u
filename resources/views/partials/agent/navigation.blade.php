@@ -152,26 +152,36 @@
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                     User Name : {{auth()->user()->business_name }}
                                 </a> --}}
-                                </div>            
-                                <a class="dropdown-item" href="{{ route('agent.account.edit') }}">
-                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
-                                    Edit My Account
-                                </a>
-                                <a class="dropdown-item" href="{{ route('agent.change.password') }}">
-                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                                    Change Password
-                                </a>
+                                </div>  
+                                
+                                
+                                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                                    <span>
+                                        My account
+                                    </span>
+                                    <i class="fas fa-chevron-down chevron-icon"></i>
+                                </div>
 
-                                
-                                <a class="dropdown-item" href="{{ route('agent.advertiser-list') }}">
-                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/list.png') }}">
-                                    List Advertisers
-                                </a>
-                                <a class="dropdown-item" href="{{ route('Fees.monthly-report') }}">
-                                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/report.png') }}">
-                                    Monthly Report
-                                </a>
-                                
+                                <div class="collapse" id="accountMenu">          
+                                    <a class="dropdown-item" href="{{ route('agent.account.edit') }}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
+                                        Edit My Account
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('agent.change.password') }}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                                        Change Password
+                                    </a>
+
+                                    
+                                    <a class="dropdown-item" href="{{ route('agent.advertiser-list') }}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/list.png') }}">
+                                        List Advertisers
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('Fees.monthly-report') }}">
+                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/report.png') }}">
+                                        Monthly Report
+                                    </a>
+                                </div>
                                
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
