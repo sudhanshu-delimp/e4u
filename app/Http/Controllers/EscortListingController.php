@@ -171,6 +171,8 @@ class EscortListingController extends Controller
             ->orderByRaw('bump_start IS NULL')
             ->orderByDesc('bump_start');
 
+        $query->orderBy('utc_start_time', 'desc');
+
         $query->orderByRaw("
             CASE escorts.membership
                 WHEN 1 THEN 1
@@ -180,7 +182,7 @@ class EscortListingController extends Controller
             END
         ");
 
-        $query->orderBy('utc_start_time', 'desc');
+    
 
         $query = $this->applyFilterOnEscort(
             $query,
@@ -189,12 +191,9 @@ class EscortListingController extends Controller
             $params['age'],
             $location
         );
+        
 
         $escorts = $query->get();
-
-
-
-
        $groups = $escorts->groupBy('membership');
 
         $platinum = $groups->get(1, collect());
@@ -220,10 +219,10 @@ class EscortListingController extends Controller
    
         $page = request('page', 1);
         $perPage = $limit;
+        //$grouped =  $result->groupBy('membership'); 
+        $currentItems = $result->forPage($page, $perPage)->values();
+        $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
 
-       $grouped =  $result->groupBy('membership'); // this value pass inside the blade template
-
-        $currentItems = $result->forPage($page, $perPage)->pluck('id')->all();
 
         $paginator = new LengthAwarePaginator(
             $currentItems,

@@ -45,6 +45,30 @@
         .swal2-popup {
             width: auto !important;
         }
+
+
+        /* Page loader CSS */
+        #page_loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 34, 61, 0.7);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #ff3c5f;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 0.8s linear infinite;
+        }
     </style>
 @endsection
 @php
@@ -269,8 +293,8 @@ $searchByRadio = request()->get('search_by_radio');
                                                         value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
                                                         Cross Dresser</option>
                                                     <!-- <option
-                                                                                            value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
-                                                                                            Massage Centres</option> -->
+                                                                                                                    value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
+                                                                                                                    Massage Centres</option> -->
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
@@ -720,13 +744,17 @@ $searchByRadio = request()->get('search_by_radio');
 
             </div>
 
-            {{-- Grid view using ajax --}}
-            <div class="otherliste" id="appendGridView" style="display: none;">
+            <div id="escortListing">
 
-            </div>
+                {{-- Grid view using ajax --}}
+                <div class="otherliste" id="appendGridView" style="display: none;">
 
-            {{-- List view using ajax --}}
-            <div class="grid list-view list-view-div" id="appendListView" style="display: none;">
+                </div>
+
+                {{-- List view using ajax --}}
+                <div class="grid list-view list-view-div" id="appendListView" style="display: none;">
+
+                </div>
 
             </div>
 
@@ -978,7 +1006,11 @@ $searchByRadio = request()->get('search_by_radio');
 
     {{-- viewer Preferences End modal here --}}
 
-    <!-- =============       pagination end here            ====================-->
+    <!-----------------  Page Loader  --------------------->
+
+    <div id="page_loader">
+        <div class="loader"></div>
+    </div>
 @endsection
 @push('scripts')
     <script>
@@ -1009,10 +1041,9 @@ $searchByRadio = request()->get('search_by_radio');
 
         //Load Card data with loadEscort function
         let ajaxReq = null;
-        let currentPage = 1;
+        let currentPage = getCurrentPage();
 
-        function loadEscort(page = 1, url = null) {
-            currentPage = page;
+        function loadEscort(currentPage, url = null) {
             let reequestUrl = window.location.pathname;
             let formData = $('#escortFilterForm').serializeArray();
             //push current page number
@@ -1029,10 +1060,9 @@ $searchByRadio = request()->get('search_by_radio');
             if (ajaxReq) {
                 ajaxReq.abort();
             }
-
-
             //update Brower Url
             let params = new URLSearchParams($.param(formData));
+
             history.replaceState({}, '', window.location.pathname + '?' + params.toString());
 
             ajaxReq = $.ajax({
@@ -1042,7 +1072,12 @@ $searchByRadio = request()->get('search_by_radio');
                 dataType: 'json',
 
                 beforeSend: function() {
-                    $('.loader').show();
+                    $('#page_loader').show();
+                    //   window.scrollTo({
+                    //     top: 0,
+                    //     behavior: 'smooth'
+                    // });
+
 
                 },
                 success: function(response) {
@@ -1055,8 +1090,13 @@ $searchByRadio = request()->get('search_by_radio');
                             .html(!isGrid ? response.data : '')
                             .toggle(!isGrid);
                     }
-
                     $('#custom_pagenation').html(response.pagination);
+                    // for scrolling 
+                    let target = $('#escortListing');
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 20
+                    }, 200);
+
 
                 },
                 error: function(xhr, status) {
@@ -1065,27 +1105,73 @@ $searchByRadio = request()->get('search_by_radio');
                     }
                     console.error(xhr.responseText);
 
+
                 },
                 complete: function() {
-                    $('.loader').hide();
+
+                    $('#page_loader').hide();
                     ajaxReq = null;
                 }
             });
 
         }
 
-        // Update pagination links
-        // function updateCustomePagination(viewType) {
-        //     $('.custom-pagination a').each(function() {
-        //         let href = $(this).attr('href');
-        //         if (!href || href === '#') {
-        //             return;
+
+        // function showEscortView(viewType) {
+
+        //     let target = $('#escortListing');
+        //     // Fallback
+        //     if (!target.length) {
+        //         target = viewType === 'grid' ?
+        //             $('#appendGridView') :
+        //             $('#appendListView');
+        //     }
+        //     $('html, body').animate({
+        //         scrollTop: target.offset().top - 20
+        //     }, 200, function() {
+
+        //         $('.loader').fadeOut(150);
+
+        //         if (viewType === 'grid') {
+        //             $('#appendGridView').fadeIn(200);
+        //             $('#appendListView').hide();
+        //         } else {
+        //             $('#appendListView').fadeIn(200);
+        //             $('#appendGridView').hide();
         //         }
-        //         const pageUrl = new URL(href, window.location.origin);
-        //         pageUrl.searchParams.set('viewType', viewType);
-        //         $(this).attr('href', pageUrl.pathname + pageUrl.search);
+
         //     });
+
         // }
+
+
+        //Pagenation action
+        $(document).on('click', '.custom-pagination a', function(e) {
+            e.preventDefault();
+
+
+            let url = $(this).attr('href');
+            if (!url || url === '#') return;
+            let page = getParameterByName('page', url);
+            if (!page) {
+                page = 1;
+            }
+            loadEscort(page);
+
+
+
+        });
+
+        function getParameterByName(name, url) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            let results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+
 
 
         //set profile view
@@ -1364,8 +1450,8 @@ $searchByRadio = request()->get('search_by_radio');
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                                                                                                                                    $('[name=\"gender\"]').val($genderId);
-                                                                                                                                                                                                                }";
+                                                                                                                                                                                                                                                                                            $('[name=\"gender\"]').val($genderId);
+                                                                                                                                                                                                                                                                                        }";
             }
             ?>
         });

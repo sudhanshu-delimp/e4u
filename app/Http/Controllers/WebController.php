@@ -482,7 +482,9 @@ class WebController extends Controller
         })->collect();
 
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
+
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
+
 
 
 
@@ -496,6 +498,8 @@ class WebController extends Controller
                 'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
             ]
         );
+
+
 
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
