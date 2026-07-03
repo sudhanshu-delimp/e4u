@@ -28,12 +28,7 @@
                         </div>
                         <h4 class="welcome_sub_login_heading text-center my-3"><strong>Account Protection</strong>
                         </h4>
-                        <ol class="fa_notes">
-                            <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign
-                                in.</li>
-                            <li>Your six digit authentification code has been sent to your mobile/email
-                                address.</li>
-                        </ol>
+                        
 
 
                         <div class="d-flex flex-column align-items-center gap-3">
@@ -67,16 +62,26 @@
                     </div>
                     <div id="senderror" class="text-center">
                     </div>
-                </div>
-
-
-                <div class="modal-footer forgot_pass pt-0 pb-4 justify-content-center">
+                    <div class="modal-footer forgot_pass p-0 justify-content-center">
                     <p id="otpTimerMsg" class="pt-2 text-muted" style="color:#ff3c5f !important"></p>
                     <p id="resendLine" class="pt-2" style="display: none;">
                         Not received your verification code?
                         <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a>
                     </p>
                 </div>
+                <div class="common_otp_note">
+                            <p class="mb-2"><b>Notes:</b></p>                            
+                            <ol class="fa_notes">
+                                <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign
+                                    in.</li>
+                                <li>Your six digit authentification code has been sent to your mobile/email
+                                    address.</li>
+                            </ol>
+                        </div>
+                </div>
+
+
+                
             </form>
         </div>
     </div>
