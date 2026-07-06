@@ -5840,6 +5840,12 @@ ul.footerbtn-flex li {
     font-size: 14px !important;
 }
 
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .common_login_note p {
     margin-bottom: 5px;
 }
