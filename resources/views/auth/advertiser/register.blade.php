@@ -132,7 +132,7 @@
                     <div class="regstractionform common-reg-form">
 
                         <div class="heading-3">
-                            <svg width="45px" height="45px" viewBox="0 0 24 24" fill="none"
+                            <svg width="55px" height="55px" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -142,7 +142,10 @@
                                         fill="#0c223d"></path>
                                 </g>
                             </svg>
-                            <h3>Register now and start saving!</h3>
+                           <div>
+                                <h3>Register Now</h3>
+                                <p class="mb-0 small">Fill your details and start saving.</p>
+                           </div>
                         </div>
                         <hr>
                         <form id="escort_registration" action="{{ route('advertiser.register') }}" method="post">
