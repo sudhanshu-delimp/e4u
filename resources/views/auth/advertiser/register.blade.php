@@ -58,15 +58,15 @@
                         <div class="inner_div">
                             <div class="heading">
                                 <svg width="45px" height="45px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
-                                        fill="#ff3c5f"></path>
-                                </g>
-                            </svg>
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                                            fill="#ff3c5f"></path>
+                                    </g>
+                                </svg>
                                 <h1> Advertiser Registration</h1>
                             </div>
                             <h2>Registration with us is free</h2>
@@ -118,7 +118,7 @@
                                 </p>
                             </div>
                             <div class="a-info">
-                                <span>1</span>
+                                <span>3</span>
                                 <p>
                                     Click <a href="https://www.esafety.gov.au/parents/resources/online-safety-book"
                                         target="_blank" class="termsandconditions_text_color">here to read</a> the eSafety
@@ -142,10 +142,10 @@
                                         fill="#0c223d"></path>
                                 </g>
                             </svg>
-                           <div>
+                            <div>
                                 <h3>Register Now</h3>
-                                <p class="mb-0 small">Fill your details and start saving.</p>
-                           </div>
+                                <p class="mb-0 small">Fill in your details and start saving.</p>
+                            </div>
                         </div>
                         <hr>
                         <form id="escort_registration" action="{{ route('advertiser.register') }}" method="post">
@@ -154,67 +154,157 @@
 
                                 <div class="form-group col-lg-6 col-sm-12">
                                     <label for="name">Name / Business Name</label>
-                                    <input type="txt" class="form-control" id="name" aria-describedby="emailHelp"
-                                        name="name" required placeholder="Name"
-                                        data-parsley-required-message="Your name is required" value="{{ old('name') }}">
-                                    <span id="name-errors"></span>
-                                    <div class="termsandconditions_text_color">
-                                        @error('name')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z"
+                                                        stroke="#495057" stroke-width="2"></path>
+                                                    <path
+                                                        d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z"
+                                                        stroke="#495057" stroke-width="2"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input type="txt" class="form-control" id="name"
+                                            aria-describedby="emailHelp" name="name" required placeholder="Name"
+                                            data-parsley-errors-container="#name-errors"
+                                            data-parsley-required-message="Your name is required"
+                                            value="{{ old('name') }}">
+                                        <div class="termsandconditions_text_color">
+                                            @error('name')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
                                     </div>
+                                    <div id="name-errors"></div>
                                 </div>
                                 <div class="form-group col-lg-6 col-sm-12">
                                     <label for="mobileno">Mobile Number</label>
-                                    <input type="tel" maxlength="10" class="form-control" id="mobileno"
-                                        aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10" required
-                                        placeholder="Mobile Number"
-                                        data-parsley-required-message="Your mobile number is required"
-                                        value="{{ old('phone') }}" data-parsley-type="digits"
-                                        data-parsley-type-message="Enter only mobile numbers" autocomplete="off"
-                                        oninput="this.value = this.value.replace(/\D/g,'');">
-                                    <span id="phone-errors"></span>
-                                    <div class="termsandconditions_text_color">
-                                        @error('phone')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z"
+                                                        stroke="#495057" stroke-width="2" stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input type="tel" maxlength="10" class="form-control" id="mobileno"
+                                            aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10"
+                                            required placeholder="Mobile Number"
+                                            data-parsley-required-message="Your mobile number is required"
+                                            value="{{ old('phone') }}" data-parsley-type="digits"
+                                            data-parsley-errors-container="#phone-errors"
+                                            data-parsley-type-message="Enter only mobile numbers" autocomplete="off"
+                                            oninput="this.value = this.value.replace(/\D/g,'');">
+
+                                        <div class="termsandconditions_text_color">
+                                            @error('phone')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
                                     </div>
+                                    <div id="phone-errors"></div>
                                 </div>
 
                                 <div class="form-group col-sm-12">
                                     <label for="exampleInputEmail1">{{ __('Email') }}</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
-                                        autocomplete="email" placeholder="Email Address"
-                                        data-parsley-required-message="@lang('errors/validation/required.email')"
-                                        data-parsley-type-message="@lang('errors/validation/valid.email')">
-                                    <span id="email-errors"></span>
-                                    <div class="termsandconditions_text_color">
-                                        @error('email')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <rect x="3" y="5" width="18" height="14" rx="2"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" name="email" value="{{ old('email') }}"
+                                            required autocomplete="email" placeholder="Email Address"
+                                            data-parsley-errors-container="#email-errors"
+                                            data-parsley-required-message="@lang('errors/validation/required.email')"
+                                            data-parsley-type-message="@lang('errors/validation/valid.email')">
+
+                                        <div class="termsandconditions_text_color">
+                                            @error('email')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
                                     </div>
+                                    <div id="email-errors"></div>
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
-                                    <select class="form-control loc-sec" id="location_state" name="state_id" required
-                                        data-parsley-required-message="Select Location">
-                                        <option value="">Select your Home State (if not already identified)</option>
-                                        @foreach (config('escorts.profile.states') as $key => $state)
-                                            <option style="font-weight: 500;" value="{{ $key }}"
-                                                {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
-                                                {{ $state['stateName'] }} </option>
-                                        @endforeach
-                                    </select>
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M5.7 15C4.03377 15.6353 3 16.5205 3 17.4997C3 19.4329 7.02944 21 12 21C16.9706 21 21 19.4329 21 17.4997C21 16.5205 19.9662 15.6353 18.3 15M12 9H12.01M18 9C18 13.0637 13.5 15 12 18C10.5 15 6 13.0637 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9ZM13 9C13 9.55228 12.5523 10 12 10C11.4477 10 11 9.55228 11 9C11 8.44772 11.4477 8 12 8C12.5523 8 13 8.44772 13 9Z"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <select class="form-control loc-sec" id="location_state" name="state_id" required
+                                            data-parsley-required-message="Select Location"
+                                            data-parsley-errors-container="#location-errors">
+                                            <option value="">Select your Home State (if not already identified)
+                                            </option>
+                                            @foreach (config('escorts.profile.states') as $key => $state)
+                                                <option style="font-weight: 500;" value="{{ $key }}"
+                                                    {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
+                                                    {{ $state['stateName'] }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div id="location-errors"></div>
                                 </div>
 
                                 <div class="form-group position-relative custom--password col-lg-6 col-sm-12">
                                     <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
                                         <input type="password" class="form-control" id="exampleInputPassword1"
                                             placeholder="Be mindful of what you have used in other websites"
                                             name="password" required autocomplete="new-password"
-                                             data-parsley-errors-container="#password-error"
+                                            data-parsley-errors-container="#password-error"
                                             data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
                                             data-parsley-required-message="@lang('errors/validation/required.password')"
                                             data-parsley-pattern-message="@lang('errors/validation/valid.password')">
@@ -233,7 +323,21 @@
 
                                 <div class="form-group position-relative custom--password col-lg-6 col-sm-12">
                                     <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
                                         <input type="password" class="form-control" id="conformPassword"
                                             placeholder="Confirm your password" name="password_confirmation"
                                             data-parsley-equalto="#exampleInputPassword1"
@@ -247,37 +351,58 @@
                                         </span>
                                     </div>
 
-                                     <!-- Parsley yahan error generate kare -->
+                                    <!-- Parsley yahan error generate kare -->
                                     <div id="cpassword-error"></div>
                                     <div class="termsandconditions_text_color">
                                         <!-- error sms here -->
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group col-sm-12">
                                     <label for="conformPassword">Referred by Agent (Agent ID)</label>
-                                    <input type="txt" class="form-control" id="agent_id" name="agent_id"
-                                        placeholder="Enter Agent ID">
-                                    <span id="agent_id-errors"></span>
-                                    <div class="termsandconditions_text_color">
-                                        @error('agent_id')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                    <div class="ec-box">
-                                        <span>
-                                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round"></g>
                                                 <g id="SVGRepo_iconCarrier">
-                                                    <circle cx="12" cy="6" r="4" fill="#0c223d"></circle>
                                                     <path
-                                                        d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
-                                                        fill="#0c223d"></path>
+                                                        d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z"
+                                                        stroke="#495057" stroke-width="2"></path>
+                                                    <path
+                                                        d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z"
+                                                        stroke="#495057" stroke-width="2"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input type="txt" class="form-control" id="agent_id" name="agent_id"
+                                            placeholder="Enter Agent ID" data-parsley-errors-container="#agent_id-errors">
+
+                                        <div class="termsandconditions_text_color">
+                                            @error('agent_id')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div id="agent_id-errors"></div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="ec-box">
+                                        <span>
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z"
+                                                        stroke="#495057" stroke-width="2"></path>
+                                                    <path
+                                                        d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z"
+                                                        stroke="#495057" stroke-width="2"></path>
                                                 </g>
                                             </svg>
                                         </span>
@@ -296,24 +421,38 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="mc-box">
                                         <span>
-                                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" id="Layer_1"
+                                                data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round"></g>
                                                 <g id="SVGRepo_iconCarrier">
-                                                    <path
-                                                        d="M18.5 3H16C15.7239 3 15.5 3.22386 15.5 3.5V3.55891L19 6.35891V3.5C19 3.22386 18.7762 3 18.5 3Z"
-                                                        fill="#0c223d"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M10.75 9.5C10.75 8.80964 11.3097 8.25 12 8.25C12.6904 8.25 13.25 8.80964 13.25 9.5C13.25 10.1904 12.6904 10.75 12 10.75C11.3097 10.75 10.75 10.1904 10.75 9.5Z"
-                                                        fill="#0c223d"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M20.75 10.9605L21.5315 11.5857C21.855 11.8444 22.3269 11.792 22.5857 11.4685C22.8444 11.1451 22.792 10.6731 22.4685 10.4143L14.3426 3.91362C12.9731 2.81796 11.027 2.81796 9.65742 3.91362L1.53151 10.4143C1.20806 10.6731 1.15562 11.1451 1.41438 11.4685C1.67313 11.792 2.1451 11.8444 2.46855 11.5857L3.25003 10.9605V21.25H2.00003C1.58581 21.25 1.25003 21.5858 1.25003 22C1.25003 22.4142 1.58581 22.75 2.00003 22.75H22C22.4142 22.75 22.75 22.4142 22.75 22C22.75 21.5858 22.4142 21.25 22 21.25H20.75V10.9605ZM9.25003 9.5C9.25003 7.98122 10.4812 6.75 12 6.75C13.5188 6.75 14.75 7.98122 14.75 9.5C14.75 11.0188 13.5188 12.25 12 12.25C10.4812 12.25 9.25003 11.0188 9.25003 9.5ZM12.0494 13.25C12.7143 13.25 13.2871 13.2499 13.7459 13.3116C14.2375 13.3777 14.7088 13.5268 15.091 13.909C15.4733 14.2913 15.6223 14.7625 15.6884 15.2542C15.7462 15.6842 15.7498 16.2146 15.75 16.827C15.75 16.8679 15.75 16.9091 15.75 16.9506L15.75 21.25H14.25V17C14.25 16.2717 14.2484 15.8009 14.2018 15.454C14.1581 15.1287 14.0875 15.0268 14.0304 14.9697C13.9733 14.9126 13.8713 14.842 13.546 14.7982C13.1991 14.7516 12.7283 14.75 12 14.75C11.2717 14.75 10.8009 14.7516 10.4541 14.7982C10.1288 14.842 10.0268 14.9126 9.9697 14.9697C9.9126 15.0268 9.84199 15.1287 9.79826 15.454C9.75162 15.8009 9.75003 16.2717 9.75003 17V21.25H8.25003L8.25003 16.9506C8.24999 16.2858 8.24996 15.7129 8.31163 15.2542C8.37773 14.7625 8.52679 14.2913 8.90904 13.909C9.29128 13.5268 9.76255 13.3777 10.2542 13.3116C10.7129 13.2499 11.2858 13.25 11.9507 13.25H12.0494Z"
-                                                        fill="#0c223d"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M10.75 9.5C10.75 8.80964 11.3097 8.25 12 8.25C12.6904 8.25 13.25 8.80964 13.25 9.5C13.25 10.1904 12.6904 10.75 12 10.75C11.3097 10.75 10.75 10.1904 10.75 9.5Z"
-                                                        fill="#0c223d"></path>
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1 {
+                                                                fill: none;
+                                                                stroke: #495057;
+                                                                stroke-miterlimit: 10;
+                                                                stroke-width: 1.91px;
+                                                            }
+                                                        </style>
+                                                    </defs>
+                                                    <path class="cls-1"
+                                                        d="M16.41,12.13a3.32,3.32,0,0,0-.9-.13H4.67A3.17,3.17,0,0,0,1.5,15.17v.34a3.17,3.17,0,0,0,3.17,3.17h6.38">
+                                                    </path>
+                                                    <rect class="cls-1" x="3.41" y="6.27" width="13.36" height="5.73"
+                                                        rx="2.86"></rect>
+                                                    <rect class="cls-1" x="5.32" y="1.5" width="9.55" height="4.77"
+                                                        rx="2.39"></rect>
+                                                    <path class="cls-1"
+                                                        d="M20.59,16.77H22.5a0,0,0,0,1,0,0v1.91a3.82,3.82,0,0,1-3.82,3.82H16.77a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,20.59,16.77Z">
+                                                    </path>
+                                                    <path class="cls-1"
+                                                        d="M19,17.13a3.81,3.81,0,0,0-.89-4l-1.35-1.35-.36.36-1,1a3.79,3.79,0,0,0-.89,4">
+                                                    </path>
+                                                    <path class="cls-1"
+                                                        d="M14.86,16.77h1.91a0,0,0,0,1,0,0v1.91A3.82,3.82,0,0,1,13,22.5H11a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,14.86,16.77Z"
+                                                        transform="translate(-5.73 33.55) rotate(-90)"></path>
                                                 </g>
                                             </svg>
                                         </span>
@@ -352,27 +491,46 @@
                                     <!-- error sms here -->
                                 </div>
                                 <div class="col-lg-12">
-                                    <button type="submit" id="submit_button" class="btn site_btn_primary w-100">Register
+                                    <button type="submit" id="submit_button" class="btn site_btn_primary w-100">
+                                        Register
+                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M20 12C20 7.58172 16.4183 4 12 4M12 20C14.5264 20 16.7792 18.8289 18.2454 17"
+                                                    stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M4 12H14M14 12L11 9M14 12L11 15" stroke="#ffffff"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                        
                                     </button>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-12">
                                     <div class="common_form_note">
                                         <p><b>Notes:</b>
                                         <ol>
-                                            <li>(*) </sup>Geolocation in use.</li>
-                                            <li>Management of your Account is optimised in a browser or tablet.  There are limitations on a Mobile device.</li>
+                                            <li>Geolocation in use.</li>
+                                            <li>Management of your Account is optimised in a browser or tablet. There are
+                                                limitations on a Mobile device.</li>
                                         </ol>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-5 col-md-5 col-sm-12">
                                     <div class="common_form_note">
                                         <p>
-                                            Any personal information submitted to this Website will be handled in accordance with
+                                            Any personal information submitted to this Website will be handled in accordance
+                                            with
                                             E4U's <a class="termsandconditions_text_color" href="{{ 'privacy-policy' }}"
                                                 target="_blank">Privacy Policy</a> and
-                                            <a href="{{ 'privacy-collection-notice' }}" class="termsandconditions_text_color"
-                                                target="_blank">Privacy Collection Notice</a>, both
+                                            <a href="{{ 'privacy-collection-notice' }}"
+                                                class="termsandconditions_text_color" target="_blank">Privacy Collection
+                                                Notice</a>, both
                                             available on the Website.
                                         </p>
                                     </div>
