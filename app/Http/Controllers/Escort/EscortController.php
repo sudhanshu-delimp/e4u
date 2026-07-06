@@ -922,41 +922,40 @@ class EscortController extends BaseController
         try {
 
             DB::transaction(function () use ($request) {
-                $user = auth()->user();
-                $profileId = $request->escort_id;
-                $membershipId = $request->membership;
-                $profileDetail = getEscortDetail($profileId);
-                $oldPurchase = $profileDetail->mainPurchase;
-                $newPurchase = $oldPurchase->replicate();
+                // $profileId = $request->escort_id;
+                // $membershipId = $request->membership;
+                // $profileDetail = getEscortDetail($profileId);
+                // $oldPurchase = $profileDetail->mainPurchase;
+                // $newPurchase = $oldPurchase->replicate();
 
-                //$refundAmount = getListingRefundAmount($profileDetail);
+                // list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days), $this->account);
+                // list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
 
-                list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days), $this->account);
-                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
+                // $today = Carbon::today($profileDetail->TimeZone);
+                // $startOfToady = $today->copy()->startOfDay()->setTimezone('UTC');
+                // $endOfToady = $today->copy()->endOfDay()->setTimezone('UTC');
 
-                $today = Carbon::today($profileDetail->TimeZone);
-                $startOfToady = $today->copy()->startOfDay()->setTimezone('UTC');
-                $endOfToady = $today->copy()->endOfDay()->setTimezone('UTC');
+                // $oldPurchase->end_date = $today->format('d-m-Y');
+                // $oldPurchase->status = 'expire';
+                // $oldPurchase->utc_end_time = $endOfToady;
+                // $oldPurchase->paid_rate = $usedAmount;
+                // $oldPurchase->save();
 
-                $oldPurchase->end_date = $today->format('d-m-Y');
-                $oldPurchase->status = 'expire';
-                $oldPurchase->utc_end_time = $endOfToady;
-                $oldPurchase->paid_rate = $usedAmount;
-                $oldPurchase->save();
+                // $newPurchase->parent_id = $oldPurchase->id;
+                // $newPurchase->membership = $membershipId;
+                // $newPurchase->start_date =  $today->copy()->format('d-m-Y');
+                // $newPurchase->utc_start_time =  $startOfToady;
+                // $newPurchase->rate = $unitAmount;
+                // $newPurchase->discount_rate = $unitDiscount;
+                // $newPurchase->total_rate = $profileDetail->left_listing_days * $unitAmount;
+                // $newPurchase->paid_rate = $amount;
+                // $newPurchase->save();
 
-                $newPurchase->parent_id = $oldPurchase->id;
-                $newPurchase->membership = $membershipId;
-                $newPurchase->start_date =  $today->copy()->format('d-m-Y');
-                $newPurchase->utc_start_time =  $startOfToady;
-                $newPurchase->rate = $unitAmount;
-                $newPurchase->discount_rate = $unitDiscount;
-                $newPurchase->total_rate = $profileDetail->left_listing_days * $unitAmount;
-                $newPurchase->paid_rate = $amount;
-                $newPurchase->save();
+                // $profileDetail->purchase_id = $newPurchase->id;
+                // $profileDetail->membership = $membershipId;
+                // $profileDetail->save();
 
-                $profileDetail->purchase_id = $newPurchase->id;
-                $profileDetail->membership = $membershipId;
-                $profileDetail->save();
+                $newPurchase = $this->featureService->upgradeMembership($request);
 
                 if ($request->filled('payment_token')) {
                     $paymentId = decrypt($request->payment_token);
