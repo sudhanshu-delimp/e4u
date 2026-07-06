@@ -5774,7 +5774,7 @@ ul.footerbtn-flex li {
 }
 
 .common_login_page .form-control {
-    border: 1px solid #ccc !important;
+    border: none !important;
     border-radius: 5px;
 }
 
@@ -5782,14 +5782,14 @@ ul.footerbtn-flex li {
     background-color: #fff;
     outline: 0;
     box-shadow: none;
-    border: 1px solid var(--blue--text) !important;
+    border: none !important;
 }
 
 .common_login_page .form-control:active {
     background-color: #fff;
     outline: 0;
     box-shadow: none;
-    border: 1px solid var(--blue--text) !important;
+    border: 0px !important;
 }
 
 .common_login_page form input {
@@ -5855,6 +5855,73 @@ ul.footerbtn-flex li {
 
 #forgotpassword {
     color: var(--peach);
+}
+
+.common_login_page .form-group .custom-fields {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 1px;
+}
+
+.common_login_page .form-group .custom-fields .input-group-text {
+    background: transparent;
+    border: none;
+}
+
+.common_login_page .form-group .custom-fields .form-control {
+    border: 0px;
+}
+
+.common_login_page input.parsley-error,
+.common_login_page select.parsley-error,
+.common_login_page textarea.parsley-error {
+    border: none !important;
+}
+
+
+/* Normal focus */
+
+.common_login_page .custom-fields:focus-within {
+    border: 1px solid #0c223d !important;
+}
+
+
+/* Error state */
+
+.common_login_page .custom-fields:has(.parsley-error) {
+    border: 1px solid var(--peach) !important;
+}
+
+
+/* Remove individual borders */
+
+.common_login_page .custom-fields .form-control {
+    border: 0;
+    box-shadow: none !important;
+}
+
+.common_login_page .custom-fields .form-control:focus {
+    border: 0;
+    box-shadow: none !important;
+}
+
+.common_login_page .custom-fields .input-group-text {
+    border: 0;
+    background: transparent;
+    padding: 7px;
+}
+
+.common_login_page .custom-fields .input-group-text .input-icon {
+    color: #0c223d;
+    background: #d7d7d7;
+    padding: 0px;
+    border-radius: 100%;
+    font-size: 13px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -6978,8 +7045,9 @@ table {
 
 .common-reg-info h2 {
     color: var(--white);
-    font-size: clamp(24px, 4vw, 50px);
+    font-size: clamp(24px, 4vw, 35px);
     margin-bottom: 0px;
+    line-height: 1.2;
 }
 
 .common-reg-form .ec-box,
@@ -8766,7 +8834,7 @@ span.custom-toltip {
 }
 
 .login--eye .custom--eye {
-    top: 12px;
+    top: 7px;
     right: 15px;
 }
 

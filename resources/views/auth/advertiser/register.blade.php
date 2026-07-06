@@ -493,21 +493,6 @@
                                 <div class="col-lg-12">
                                     <button type="submit" id="submit_button" class="btn site_btn_primary w-100">
                                         Register
-                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M20 12C20 7.58172 16.4183 4 12 4M12 20C14.5264 20 16.7792 18.8289 18.2454 17"
-                                                    stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M4 12H14M14 12L11 9M14 12L11 15" stroke="#ffffff"
-                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                        
                                     </button>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-12">

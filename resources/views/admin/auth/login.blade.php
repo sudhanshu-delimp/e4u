@@ -65,33 +65,70 @@
                     <input type="hidden" name="type" value="1">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="email">Email Address</label>
+                            <div class="input-group custom-fields">                                
+                                <span class="input-group-text ">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                       xmlns="http://www.w3.org/2000/svg">
+                                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                       <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                             stroke-linejoin="round"></g>
+                                       <g id="SVGRepo_iconCarrier">
+                                             <path
+                                                d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                                                stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                             <rect x="3" y="5" width="18" height="14" rx="2"
+                                                stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
+                                       </g>
+                                    </svg>
+                                 </span>
 
-                           <input type="email" value="{{ old('email') }}" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Email is required">
-                           <div class="termsandconditions_text_color">
-                               @error('email')
-                                {{ $message }}
-                                @enderror
-                           </div>
+                                 <input type="email" value="{{ old('email') }}" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-errors-container="#email-errors" data-parsley-required-message="Email is required">
+                                 <div class="termsandconditions_text_color">
+                                    @error('email')
+                                    {{ $message }}
+                                    @enderror
+                                 </div>
+                            </div>
+                            <div id="email-errors"></div>
                         </div>
                          <div class="form-group label_margin_zero_for_login" style="position: relative;">
                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Please Enter Your Password" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
-                                @error('password')
-                                {{ $message }}
-                                @enderror
-                                 
-                            </div>
-                            <span toggle="#exampleInputPassword1" class="toggle-password" style="
-                              position: absolute;
-                              top: 38px;
-                              right: 15px;
-                              cursor: pointer;">
-                              <i class="fa fa-eye" id="toggleEyeIcon"></i>
-                           </span>
+                           <div class="input-group custom-fields">
+                                
+                                <span class="input-group-text">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                            stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                                stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Please Enter Your Password" name="password" required autocomplete="new-password" data-parsley-errors-container="#password-errors" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                 <div class="termsandconditions_text_color">
+                                    <!-- error sms here -->
+                                    @error('password')
+                                    {{ $message }}
+                                    @enderror
+                                       
+                                 </div>
+                                 <span toggle="#exampleInputPassword1" class="toggle-password" style="
+                                    position: absolute;
+                                    top: 10px;
+                                    right: 15px;
+                                    cursor: pointer;">
+                                    <i class="fa fa-eye" id="toggleEyeIcon"></i>
+                                 </span>
                            
-                        </div>
+                              </div>
+                              <div id="password-errors"></div>
+                         </div>
                         <div id="formerror">
                         </div>
                        <div class="row login-bottom-des">
@@ -99,7 +136,8 @@
                             <a href="#" id="forgotpassword"> Forgot Password?</a>
                            </div>
                            <div class="col-md-5 align-self-center text-left text-md-right">
-                                <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>       
+                                <button type="submit" id="submit_button" class="btn site_btn_primary">Login    
+                              </button>       
                            </div>
                        </div>
                         
