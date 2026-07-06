@@ -545,7 +545,7 @@
 
 
 
-    <section class="padding_one_thiry_top padding_bottom_eight_px" style="margin-top:80px">
+    <section class="padding_one_thiry_top padding_bottom_eight_px">
         <div class="container">
 
 
