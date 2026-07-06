@@ -137,7 +137,7 @@
                                 $query['gender'] = '';
                                 @endphp
 
-                                <li><a href="javascript:void(0);">{{ $city }}</a></li>
+                                <li class="disabled-link"><a href="javascript:void(0);">{{ $city }}</a></li>
                                 @if ($loop->iteration == 4)
                                 @break
                                 @endif

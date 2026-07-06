@@ -204,7 +204,7 @@
                             </div>
 
                             <div class="form-group col-sm-12">
-                                <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
+                                <label for="exampleFormControlSelect1">Location<sup>(1)</sup></label>
                                 <div class="input-group custom-fields">
                                         <span class="input-group-text">
                                             <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
