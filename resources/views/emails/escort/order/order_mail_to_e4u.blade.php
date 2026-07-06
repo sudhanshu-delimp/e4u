@@ -60,7 +60,7 @@
                                     <td>{{ $data['mobile'] }}</td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: left">Delivery address:</th>
+                                    <th style="text-align: left; white-space:nowrap">Delivery address:</th>
                                     <td>{{ $data['delivery_address'] }}</td>
                                 </tr>
                                 <tr>

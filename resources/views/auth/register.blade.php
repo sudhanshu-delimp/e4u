@@ -21,113 +21,275 @@
     <section class="section_bg_color padding_ninty_top_ninty_px padding_bottom_eight_px angle_bg_image viewer-registration">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-12 col-sm-12 adverti_reg_page_padingto_bt-new">
-                    <div class="reg_info viewer-registration">
-                        {{-- <h2>Registration - Viewer</h2> --}}
-                        <div class="pl-4 pt-2 pb-5">
-                            <h1 class="text-uppercase">Viewer Registration</h1>
-                            <h2>Registration with us is anonymous and free</h2>
-                            <p class="text-justify">You do not have to register with us to view an Advertiser's Profile however, if you
-                                do register you will recieve the following benefits:</p>
-                            <div class="">
-                                <ul class="pl-4 text-justify">
-                                    <li>Flag a Profile and produce a Shortlist of your preferred Advertisers (per session)</li>
-                                    <li>After logging on, view your favourite Profiles (My Legbox)</li>
-                                    <li>Receive Alerts when your favourite Escort is visiting your Location</li>
-                                    <li>Have a discreet conversation with an Advertiser (provided they have enabled the
-                                        feature)</li>
-                                    <li>Write a review about your experience with an Advertiser</li>
-                                    <li>Complete a private Note (My Notebox) about your experience with an Advertiser (from
-                                        your Dashboard)</li>
-                                </ul>
+                <div class="col-lg-5 col-md-12 col-sm-12 adverti_reg_page_padingto_bt-new">
+                    <div class="reg_info viewer-registration common-reg-info">
+                        <div class="inner_div">
+                             <div class="heading">
+                                <svg width="45px" height="45px" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                                            fill="#ff3c5f"></path>
+                                    </g>
+                                </svg>
+                                <h1> Viewer Registration</h1>
                             </div>
-                            <p class="text-justify">See also <span><a href="{{ url('help-for-viewers') }}"
+                            <h2>Registration with us is anonymous and free</h2>
+                            <p>You do not have to register with us to view an Advertiser's Profile however, if you
+                                do register you will recieve the following benefits:</p>
+                            <div class="inner-div-2">
+                                 <div class="heading-2">
+                                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" stroke="#FCB329">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <line x1="11.9999" y1="8.27274" x2="11.9999" y2="13.7273" stroke="#FCB329"
+                                                stroke-width="1.81818" stroke-linecap="round" stroke-linejoin="round"></line>
+                                            <path d="M12 17.3636L12 17.3719" stroke="#FCB329" stroke-width="1.81818"
+                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path
+                                                d="M21.7677 18.4635L13.6512 4.89384C12.9383 3.70205 11.0617 3.70205 10.3488 4.89385L2.23231 18.4635C1.54868 19.6065 2.45582 21 3.88347 21H20.1165C21.5442 21 22.4513 19.6065 21.7677 18.4635Z"
+                                                stroke="#FCB329" stroke-width="1.81818" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                <h3>Benefits</h3>
+                            </div>
+
+                                <div class="a-info">
+                                    <span>1</span>
+                                    <p>
+                                        Flag a Profile and produce a Shortlist of your preferred Advertisers (per session)
+                                    </p>
+                                </div>
+
+                                <div class="a-info">
+                                    <span>2</span>
+                                    <p>
+                                        After logging on, view your favourite Profiles (My Legbox)
+                                    </p>
+                                </div>
+
+                                <div class="a-info">
+                                    <span>3</span>
+                                    <p>
+                                        Receive Alerts when your favourite Escort is visiting your Location
+                                    </p>
+                                </div>
+
+                                <div class="a-info">
+                                    <span>4</span>
+                                    <p>
+                                        Have a discreet conversation with an Advertiser (provided they have enabled the feature)
+                                    </p>
+                                </div>
+
+                                <div class="a-info">
+                                    <span>5</span>
+                                    <p>
+                                        Write a review about your experience with an Advertiser
+                                    </p>
+                                </div>
+
+                                <div class="a-info">
+                                    <span>6</span>
+                                    <p>
+                                        Complete a private Note (My Notebox) about your experience with an Advertiser (from your Dashboard)
+                                    </p>
+                                </div>
+                            </div>
+                            <p>See also <span><a href="{{ url('help-for-viewers') }}"
                                         class="termsandconditions_text_color">Help for Viewers</a></span> for more
                                 information on Membership benefits and your obligations.</p>
                         </div>
                     </div>
                 </div>
-                <div class="reg_box_form_style col-lg-5 col-md-12 col-sm-12">
-                    <div class="regstractionform">
-                        <h4>Register Now - No Fees Ever!</h4>
+                <div class="reg_box_form_style col-lg-7 col-md-12 col-sm-12">
+                    <div class="regstractionform common-reg-form">
+                        <div class="heading-3">
+                            <svg width="55px" height="55px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                                        fill="#0c223d"></path>
+                                </g>
+                            </svg>
+                            <div>
+                                <h3>Register Now</h3>
+                                <p class="mb-0 small">No Fees Ever!</p>
+                            </div>
+                        </div>
+                        <hr>
                         <form id="register_form" action="{{ route('register') }}" method="POST">
                             @csrf
                             @method('POST')
+                            <div class="row">
                             <input type="hidden" name="escort_id" value="{{ request()->get('legboxId') }}">
-                            <div class="form-group">
+                            <div class="form-group col-lg-6 col-sm-12">
                                 <label for="mobileno">Mobile Number</label>
-                                <input type="tel" autocomplete="off"
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z"
+                                                        stroke="#495057" stroke-width="2" stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+
+                                    <input type="tel" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');" maxlength="10"
                                     data-parsley-maxlength="10" required class="form-control" name="phone" id="mobileno"
                                     aria-describedby="emailHelp" placeholder="Mobile Number"
                                     data-parsley-required-message="Your mobile number is required"
+                                    data-parsley-errors-container="#phone-errors"
                                     value="{{ old('phone') }}" data-parsley-type="digits"
                                     data-parsley-type-message="Enter only mobile numbers">
-                                <span id="phone-errors"></span>
-                                <div class="termsandconditions_text_color">
-                                    @error('phone')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
+                                    
+                                    <div class="termsandconditions_text_color">
+                                        @error('phone')
+                                            <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                    </div>
+                                   
+                                    <div id="phone-errors"></div> 
                             </div>
-
-                            {{-- <div class="form-group">
-                          <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" id="" aria-describedby="emailHelp" placeholder="Email Address" name="email">
-                       </div> --}}
-                            <div class="form-group">
+                            <div class="form-group col-lg-6 col-sm-12">
                                 <label for="exampleInputEmail1">{{ __('Email') }}</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
-                                    autocomplete="email" placeholder="Email Address"
-                                    data-parsley-required-message="@lang('errors/validation/required.email')"
-                                    data-parsley-type-message="@lang('errors/validation/valid.email')">
-                                <span id="email-errors"></span>
-                                <div class="termsandconditions_text_color">
-                                    @error('email')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
+                                    <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <rect x="3" y="5" width="18" height="14" rx="2"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
+                                            autocomplete="email" placeholder="Email Address"
+                                             data-parsley-errors-container="#email-errors"
+                                            data-parsley-required-message="@lang('errors/validation/required.email')"
+                                            data-parsley-type-message="@lang('errors/validation/valid.email')">
+                                       
+                                        <div class="termsandconditions_text_color">
+                                            @error('email')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                        
+                                   <div id="email-errors"></div>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label for="exampleFormControlSelect1">Location<sup>(1)</sup></label>
+                                <div class="input-group custom-fields">
+                                        <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M5.7 15C4.03377 15.6353 3 16.5205 3 17.4997C3 19.4329 7.02944 21 12 21C16.9706 21 21 19.4329 21 17.4997C21 16.5205 19.9662 15.6353 18.3 15M12 9H12.01M18 9C18 13.0637 13.5 15 12 18C10.5 15 6 13.0637 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9ZM13 9C13 9.55228 12.5523 10 12 10C11.4477 10 11 9.55228 11 9C11 8.44772 11.4477 8 12 8C12.5523 8 13 8.44772 13 9Z"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <select class="form-control loc-sec" id="location_state" name="state_id" required
+                                            data-parsley-required-message="Select Location" data-parsley-errors-container="#location-errors">
+                                            <option value="">Select your Home State (if not already identified)</option>
+                                            @foreach ($state as $name)
+                                                <option value="{{ $name->id }}"
+                                                    {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>
+                                                    {{ $name->name }}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
+                                    <div id="location-errors"></div>
+
                             </div>
 
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
-                                <select class="form-control" id="location_state" name="state_id" required
-                                    data-parsley-required-message="Select Location">
-                                    <option value="">Select your Home State (if not already identified)</option>
-                                    @foreach ($state as $name)
-                                        <option value="{{ $name->id }}"
-                                            {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>
-                                            {{ $name->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group position-relative custom--password">
+                            <div class="form-group position-relative custom--password col-sm-12">
                                 <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                                <div class="input-group">
+                                <div class="input-group custom-fields">
+                                    <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
                                     <input type="password" class="form-control" id="exampleInputPassword1"
                                         placeholder="Be mindful of what you have used in other websites" name="password"
                                         required autocomplete="new-password"
                                         data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
                                         data-parsley-required-message="@lang('errors/validation/required.password')"
-                                        data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                        data-parsley-pattern-message="@lang('errors/validation/valid.password')"
+                                        data-parsley-errors-container="#password-error">
                                     <span class="input-group-text custom--eye" id="togglePassword" style="cursor: pointer;">
                                         <i class="fa fa-eye" id="eyeIcon"></i>
                                     </span>
                                 </div>
+                                 <div id="password-error"></div>
                                 <div class="termsandconditions_text_color">
                                     @error('password')
                                         <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group position-relative custom--password">
+                            <div class="form-group position-relative custom--password col-sm-12">
                                 <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                                <div class="input-group">
+                                <div class="input-group custom-fields">
+                                    <span class="input-group-text">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
                                     <input type="password" class="form-control" id="conformPassword"
                                         placeholder="Confirm your password" name="password_confirmation"
                                         data-parsley-equalto="#exampleInputPassword1"
+                                         data-parsley-errors-container="#cpassword-error"
                                         data-parsley-equalto-message="Confirm password should be the same password" required
                                         autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
                                     <span class="input-group-text custom--eye" id="toggleConfirmPassword"
@@ -135,30 +297,58 @@
                                         <i class="fa fa-eye" id="confirmEyeIcon"></i>
                                     </span>
                                 </div>
+                                <div id="cpassword-error"></div>
                                 <div class="termsandconditions_text_color">
                                     <!-- error sms here -->
                                 </div>
                             </div>
-                            <div class="form-check form-check-inline pb-0">
+                            <div class="col-sm-12 tnc-info">
+                                    <div class="form-check-inline">
+
                                 <input type="checkbox" data-parsley-errors-container=".check-tc" class="form-check-input"
                                     id="termsandconditions" required data-parsley-required-message="@lang('errors/validation/required.checkbox')">
                                 <label class="form-check-label" for="termsandconditions">I have read and agree to the <a
                                         href="terms-conditions" class="termsandconditions_text_color"
                                         style="font-size: 13px;">Terms and Conditions</a></label>
+                                    </div>
                             </div>
-                            <span class="check-tc"></span>
+                            <div class="col-12">
+                                <span class="check-tc"></span>
+                            </div>
                             <div class="termsandconditions_text_color">
                                 <!-- error sms here -->
                             </div>
-                            <div class="form-row py-3">
-                                <div class="col-12">
+                                <div class="col-lg-12">
                                     <button type="submit" id="submit_button"
-                                        class="btn site_btn_primary">Register</button>
+                                        class="btn site_btn_primary w-100">
+                                        Register
+                                    </button>
                                 </div>
-                                <div class="col-12 component_notes">
-                                    <x-register-page-note />                                   
+                                <div class="col-lg-7 col-md-7 col-sm-12">
+                                    <div class="common_form_note">
+                                        <p><b>Notes:</b>
+                                        <ol>
+                                            <li>Geolocation in use.</li>
+                                            <li>Management of your Account is optimised in a browser or tablet. There are
+                                                limitations on a Mobile device.</li>
+                                        </ol>
+                                    </div>
                                 </div>
-                                
+
+                                <div class="col-lg-5 col-md-5 col-sm-12">
+                                    <div class="common_form_note">
+                                        <p>
+                                            Any personal information submitted to this Website will be handled in accordance
+                                            with
+                                            E4U's <a class="termsandconditions_text_color" href="{{ 'privacy-policy' }}"
+                                                target="_blank">Privacy Policy</a> and
+                                            <a href="{{ 'privacy-collection-notice' }}"
+                                                class="termsandconditions_text_color" target="_blank">Privacy Collection
+                                                Notice</a>, both
+                                            available on the Website.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
