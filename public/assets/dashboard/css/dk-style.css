@@ -7,6 +7,7 @@
     --blue--text--default: #2B3D50;
     /* status */
     --active--status: rgb(80, 220, 150);
+    --dispatch--status: rgb(72, 185, 208);
     --inactive--status: rgb(255, 0, 0);
     --withdraw--status: rgb(165, 110, 75);
     --resolved--status: rgb(200, 150, 20);
@@ -158,6 +159,9 @@ ol {
 
 .badge_active {
     background-color: var(--active--status);
+}
+.badge_dispatch {
+    background-color: var(--dispatch--status);
 }
 
 .badge_inactive {
