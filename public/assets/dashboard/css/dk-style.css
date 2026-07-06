@@ -2715,6 +2715,25 @@ color: #B9B9B9;
     border-radius: 4px;
 }
 
+.common_otp_note {
+    text-align: justify;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #f9f9f9;
+    margin: 15px 0px;
+}
+
+.common_otp_note ol {
+    margin-bottom: 0px;
+}
+
+.common_otp_note ol li {
+    line-height: 22px;
+    margin-bottom: 0px;
+    font-size: 14px !important;
+}
+
 .forgot_pass .label_margin_zero_for_login img {
     width: 100px;
 }
