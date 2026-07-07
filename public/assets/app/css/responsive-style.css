@@ -1,8 +1,19 @@
                     /* MC Profile Listings  */
                     
-                    @media (min-width: 200px) and (max-width:319px) {
+                    @media (min-width: 200px) and (max-width:320px) {
                         .next-preview-fixed>div>div {
                             top: -60px !important;
+                        }
+                        .c_dropdown.dropdown-menu.register_dropdown {
+                            position: absolute !important;
+                            top: 0px !important;
+                            right: unset !important;
+                            left: 0px !important;
+                            transform: translate3d(0px, 40px, 0px) !important;
+                        }
+                        .header_logo {
+                            max-width: 100px;
+                            width: 100%;
                         }
                     }
                     
@@ -320,7 +331,6 @@
                         }
                         .footer_login_area {
                             display: flex;
-                            flex-direction: column;
                             align-items: baseline;
                             justify-content: flex-start;
                             gap: 25px;
@@ -338,7 +348,7 @@
                             margin-bottom: 0px;
                         }
                         .dropdown-menu {
-                            min-width: 10rem;
+                            min-width: 8rem;
                         }
                         .list_view_profile_pera_font_size {
                             overflow: hidden;
