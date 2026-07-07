@@ -244,6 +244,7 @@ return [
     'publish_key' => env('PAYMENT_PUBLISHABLE'),
     'base_url' => env('PAYMENT_BASE_URL'),
     'gst_percentage' => env('GST_PERCENTAGE', 10),
+    'post_operations' => env('PAYMENT_POST_OPERATIONS', true),
   ],
   'loyalty_amount' => (float) env('LOYALTY_AMOUNT', 200),
 

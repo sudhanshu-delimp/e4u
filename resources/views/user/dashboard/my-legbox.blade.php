@@ -143,6 +143,7 @@
                   <th>Contact</th>
                   <th>Method</th>
                   <th>Mobile</th>
+                  <th>Block</th>
                   <th>Action</th>
                </tr>
             </thead>
@@ -796,12 +797,13 @@
                     columns: [
                         { data: 'massage_id', name: 'massage_id' },                         // 0
                         { data: 'location', name: 'location' },                        // 2
-                        { data: 'business_name', name: 'business_name' },                        // 2
+                        { data: 'business_name', name: 'business_name' },                       // 2
                         { data: 'open_now', name: 'open_now' },                               // 3
                         { data: 'rating_label', name: 'rating_label' },
                         { data: 'is_enabled_contact', name: 'is_enabled_contact' },       // 6
                         { data: 'contact_method', name: 'contact_method' },               // 7
-                        { data: 'massage_communication', name: 'massage_communication' },                    // 9
+                        { data: 'massage_communication', name: 'massage_communication' },
+                        { data: 'is_blocked', name: 'is_blocked',orderable: true, searchable: false },                       // 9
                         { data: 'action', name: 'action', orderable: false, searchable: false,class:'text-center' } // 10
                     ]
             });
@@ -856,14 +858,40 @@
                 return  massageAjaxCallback(url, data, $this);
             });
 
+            $(document).on('change', '.isBlockedMassageButton', function() {
+                const $this = $(this);
+                let massageId = $(this).attr('id').replace('customSwitch', '');
+                let isBlocked = $(this).is(':checked') ? 1 : 0;
+                let data = {
+                    'massage_id' : massageId,
+                    'is_blocked' : isBlocked,
+                    'type' : 'block',
+                    'message' : 'Massage is '+(isBlocked ? 'Blocked' : 'UnBlocked')+' successfully!',
+                }
+
+                if(isBlocked){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/block.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/unblock.png")}}');
+                }
+
+                let url = '{{ route("viewer.massage-interaction.update") }}';
+                return  massageAjaxCallback(url, data, $this);
+                
+            });
+
             $(document).on('click', '.massageProfileView', function(e) {
                 e.preventDefault();
                 
                 let massageId = $(this).attr('data-id');
+               
                 let massageProfileIsEnabled = $(this).attr('data-profile-enable');
-                let profileurl = "{{route('center.profile.description','_id')}}";
-                profileurl = profileurl.replace('_id',massageId);
+                //let profileurl = "{{route('center.profile.description','_id')}}";
+                let profileurl = "{{route('web.massage-description','_id')}}";
+                profileurl = profileurl.replace('_id',massageId)+'?ids=[]';
+               
 
+                massageProfileIsEnabled=1;
                 if(massageProfileIsEnabled == '0'){
                     let htmlData = '<div class="col-md-12 my-4  text-center"><h5 class=" body_text mb-2">This Massage Centre does not presently have a Listed Profile.</h5></div>';
 

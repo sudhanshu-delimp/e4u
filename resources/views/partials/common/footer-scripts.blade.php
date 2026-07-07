@@ -1,5 +1,5 @@
 @include('partials.common.other-user-permission')
-<script src="{{ asset('js/common.js?v1.1') }}"></script>
+<script src="{{ asset('js/common.js') }}?v={{ time() }}"></script>
 <script>
     var encryptValue = function(value) {
 
@@ -26,4 +26,23 @@
         });
 
     }
+
+
+    $(document).ready(function () {
+
+    $('.account-toggle').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+       
+        $('#accountMenu').collapse('toggle');
+        $('.chevron-icon').toggleClass('rotate');
+    });
+
+    $('#accountMenu').on('click', function (e) {
+        e.stopPropagation();
+    });
+
+
+});
+
 </script>

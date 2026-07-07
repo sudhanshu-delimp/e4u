@@ -43,11 +43,19 @@ class PinPaymentService
     return $this;
   }
 
-  public function getGSTAmount()
+  public function getNetAmount()
   {
-    //$this->gstAmount = (($this->totalAmount + $this->walletAmount) * config('app.payment.gst_percentage')) / 100;
-    $this->gstAmount = ($this->amount * config('app.payment.gst_percentage')) / 100;
-    return number_format($this->gstAmount, 2, '.', '');
+    return ($this->amount - ($this->walletAmount + $this->loyaltyAmount));
+  }
+
+  public function getGSTAmount($amount = null)
+  {
+    if (is_null($amount)) {
+      $this->gstAmount = ($this->amount * config('app.payment.gst_percentage')) / 100;
+      return number_format($this->gstAmount, 2, '.', '');
+    } else {
+      return $amount;
+    }
   }
 
   public function getTotalDue()

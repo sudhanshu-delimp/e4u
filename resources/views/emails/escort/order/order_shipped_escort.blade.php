@@ -20,10 +20,8 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            Concierge Service - Product Order
-                                        </h1>
+                                            Dispatch Notification - Product </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -36,45 +34,34 @@
                     <!-- Content Section -->
                     <tr>
                         <td style="padding: 30px; font-size: 16px;">
-                            <p style="margin: 0 0 15px 0;"><b>Attention Operations,</b></p>
+
+
+                            <p style="margin: 0 0 15px 0;"><b>Dear {{ $data['member_name'] }},</b></p>
 
                             <p style="margin: 20px 0 15px 0;">
-                                A request for Products has been requested by:
+                                We are please to confirm your order for Product has been completed and despatched
+                                today. You can track the progress of the delivery by going to
+                                <a href="www.auspost.com.au/mypost/track/search">www.auspost.com.au/mypost/track/search
+                                </a> enter the tracking number below.
                             </p>
 
-                            <table>
-                                <tr>
-                                    <th style="text-align: left">Member Name:</th>
-                                    <td>{{ $data['member_name'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Member ID:</th>
-                                    <td>{{ $data['member_id'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Email:</th>
-                                    <td>{{ $data['email'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Mobile:</th>
-                                    <td>{{ $data['mobile'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left; white-space:nowrap">Delivery address:</th>
-                                    <td>{{ $data['delivery_address'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left">Delivery type:</th>
-                                    <td>{{ ucfirst($data['delivery_type']) }}</td>
-                                </tr>
-                            </table>
-                            <!-- email info -->
+
+                            <p style="margin: 15px 0;">
+                                <strong>Order Ref:</strong> {{ $data['id'] }}
+                            </p>
+                            <p style="margin: 15px 0;">
+                                <strong>Date Dispatched:</strong> {{ date('d-m-Y') }}
+                            </p>
+
+                            @if (!empty($data['tracking_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>AusPost Tracking:</strong> {{ $data['tracking_id'] ?? '' }}
+                                </p>
+                            @endif
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
                             </p>
-                            <!-- end -->
-
                         </td>
                     </tr>
                 </table>

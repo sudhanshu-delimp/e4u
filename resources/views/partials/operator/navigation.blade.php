@@ -137,45 +137,54 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
         @endphp
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow opr-itmes">
-            <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{ asset( $avtar) }}" class="img-profile rounded-circle avatarName">
             </a>
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in oc-custom-nav-dropdown"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
-                    Member ID: {{ auth()->user()->member_id }}
-                </a>
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
-                    User Name: {{ auth()->user()->name }}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/edit-profile.png') }}">
-                    Edit My Account
-                </a>
-                <a class="dropdown-item" href="{{ route('operator.change-password') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/opr-reset-password.png') }}">
-                    Change Password
-                </a>
+                <div class="oc-highlight-menu">   
+                    <a class="dropdown-item menu-profile" href="javascript:void(0)">
+                        
+                        <span>{{ auth()->user()->name }}</span> <br>{{ auth()->user()->member_id }}
+                    </a>
+                </div>
+
+                 
+                                
+                                
+                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                    <span>
+                        My account
+                    </span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
+
+                <div class="collapse" id="accountMenu">   
+                    <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/edit-profile.png') }}">
+                        Edit My Account
+                    </a>
+                    <a class="dropdown-item" href="{{ route('operator.change-password') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/opr-reset-password.png') }}">
+                        Change Password
+                    </a>
 
 
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-list.png') }}">
-                    List Agents
-                </a>
-                <a class="dropdown-item" href="{{ route('operator.agents-monthly-report') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/opr-report.png') }}">
-                    Monthly Report
-                </a>
-
-                <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-list.png') }}">
+                        List Agents
+                    </a>
+                    <a class="dropdown-item" href="{{ route('operator.agents-monthly-report') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/opr-report.png') }}">
+                        Monthly Report
+                    </a>
+                </div>
+               
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <img class="profile_icons"
                         src="{{ asset('assets/dashboard/img/profile-icons/opr-logout.png') }}">

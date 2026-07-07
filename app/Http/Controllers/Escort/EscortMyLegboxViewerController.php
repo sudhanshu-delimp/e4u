@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use App\Models\MassageProfile;
+use App\Models\MyMassageLegbox;
+
+ 
 
 class EscortMyLegboxViewerController extends Controller
 {
@@ -276,19 +280,36 @@ class EscortMyLegboxViewerController extends Controller
 
         $escorts =  collect();
         if ($user_type) {
-            $myLegbboxIds = MyLegbox::where('user_id', auth()->user()->id)->pluck('escort_id');
-            $escorts = Escort::whereIn('id', $myLegbboxIds)->with([
-                'city',
-                'state',
-                'likes',
-                'user',
-                'suspendProfile' => function ($query) {
-                    $today = Carbon::now(config('app.timezone'));
-                    $query->whereDate('start_date', '<=', $today)
-                        ->whereDate('end_date', '>=', $today)
-                        ->where('status', true);
-                }
-            ])->where('enabled', 1)->get(); // city_id 
+            if ($type == "escort") {
+                $myLegbboxIds = MyLegbox::where('user_id', auth()->user()->id)->pluck('escort_id');
+                $escorts = Escort::whereIn('id', $myLegbboxIds)->with([
+                    'city',
+                    'state',
+                    'likes',
+                    'user',
+                    'suspendProfile' => function ($query) {
+                        $today = Carbon::now(config('app.timezone'));
+                        $query->whereDate('start_date', '<=', $today)
+                            ->whereDate('end_date', '>=', $today)
+                            ->where('status', true);
+                    }
+                ])->where('enabled', 1)->get(); // city_id 
+                
+            } else {
+                $myLegbboxIds = MyMassageLegbox::where('user_id', auth()->user()->id)->pluck('massage_id');
+                $escorts = MassageProfile::whereIn('id', $myLegbboxIds)->with([
+                    'city',
+                    'state',
+                    'likes',
+                    'user',
+                    'suspendProfile' => function ($query) {
+                        $today = Carbon::now(config('app.timezone'));
+                        $query->whereDate('start_date', '<=', $today)
+                            ->whereDate('end_date', '>=', $today)
+                            ->where('status', true);
+                    }
+                ])->get(); // ->where('enabled', 1)
+            }
         }
 
         return view('user.dashboard.my-legbox', ['escorts' => $escorts, 'dashboardType' => $type]);

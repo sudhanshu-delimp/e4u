@@ -48,10 +48,31 @@
                     <span class="mcs_media_tooltip">{{$media_status['label']}}</span>
                 </span>
                 <span class="mc_title">{{$listing->business_name}}</span>
-                <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">
-                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                    <span class="mc_legbox_tooltip">Add to My Legbox</span>
-                </span>
+                 @if(auth()->user())
+                    @if(auth()->user()->type == 0)
+                        <span class="add_to_favrate @if(in_array($listing->id,$logedInUpser->massageCenterLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$listing->id}}"  data-massageId="{{$listing->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$listing->business_name}} ">
+                        @if(!empty($logedInUpser))
+                            @if(in_array($listing->id,$logedInUpser->massageCenterLegBox->pluck('id')->toArray()))
+                                <i class='fa fa-heart' style='color: #ff3c5f;'  aria-hidden='true'></i>
+                                <span class="custom-heart-text">Remove from My Legbox</span>
+                            @else
+                                <i class="fa fa-heart-o"  aria-hidden='true'></i>
+                                <span class="custom-heart-text">Add to My Legbox</span>
+                            @endif
+                        @endif
+                    </span>
+                    @else
+                        <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">
+                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            <span class="mc_legbox_tooltip">Add to My Legbox</span>
+                        </span>
+                    @endif
+                @else
+                        <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">
+                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            <span class="mc_legbox_tooltip">Add to My Legbox</span>
+                        </span>
+                @endif
             </div>
 
             <a href="{{ route('web.massage-description', [

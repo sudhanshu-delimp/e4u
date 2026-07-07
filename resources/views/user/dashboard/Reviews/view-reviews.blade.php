@@ -1,5 +1,5 @@
 
-@extends('layouts.center')
+@extends('layouts.userDashboard')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
@@ -32,9 +32,8 @@
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                         <p></p>
                         <ol>
-                            <li>View your published Reviews here.</li>
-                            <li>Simply click the ‘View’ button to see what the Viewer has written about you.</li>
-                            <li>Your Reviews will appear on all of your Profiles unless you disable them.</li>
+                            <li>View your Reviews here.</li>
+                            <li>Simply click the 'View' button to see what you have written about the advertisers.</li>
                         </ol>
                     </div>
                 </div>
@@ -84,7 +83,7 @@
                 <table class="table w-100" id="EscortReviewTable">
                     <thead class="table-bg">
                         <tr>
-                            <th >Ref</th>
+                            <th >Member ID</th>
                             <th >Date</th>
                             <th>Rating</th>
                             <th style="width: 100px;">Status</th>
@@ -223,7 +222,7 @@
         var escortReviewTable = $('#EscortReviewTable').DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref ID..."
+                searchPlaceholder: "Search by Member ID..."
             },
             processing: true,
             serverSide: false,
@@ -235,7 +234,7 @@
             ordering: true,
             pageLength: 25,
             ajax: {
-                url: "{{ route('center.reviews-profile-by-ajax') }}",
+                url: "{{ route('user.reviews-profile-by-ajax') }}",
                 type: "GET",
                 dataSrc: function(json) {
                     return json.data;
@@ -291,7 +290,7 @@
         var tr = $(this).closest('tr');
         var row = escortReviewTable.row(tr);
         var dataId = $(this).data("id");
-        let routeUrl = "{{ route('center.get-single-user-review-details', ':id') }}".replace(':id', dataId);
+        let routeUrl = "{{ route('user.get-single-user-review-details', ':id') }}".replace(':id', dataId);
         let reviewId = dataId;
 
         viewReviewReportAjax(row, reviewId, routeUrl, $(this));
@@ -316,6 +315,7 @@
                     //     obj.html('<i class="fa fa-eye mr-2"></i> View');
                     // } else {
                         // Replace below with dynamic HTML if needed
+                        if(response.data.advertiser_type == 'escort'){
                         childHtml = `
                             <div class="card p-3">
                                 <div class="d-flex justify-content-between">
@@ -323,46 +323,55 @@
                                     <button class="btn-success-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
                                 </div>
                                 <table class="table mb-0">
-                                    {{-- <tr>
-                                         <th>Ref:</th><td class="border-0">`+response.data.id + response.data.escort_id+`</td>
-                                        <th>Member ID:</th><td class="border-0">`+response.data.massage.user.member_id+`</td>
-                                     </tr> --}}
                                     <tr>
-                                        <th>Viewer ID:</th><td class="border-0">`+response.data.user.member_id+`</td>
-                                        <th>Viewer Name:</th>
-                                        <td class="border-0">`+response.data.user.name+`</td>
-                                        
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <th>Member ID:</th><td class="border-0">`+response.data.massage.user.member_id+`</td>
-                                        <th>Business Name:</th>
-                                        <td class="border-0">`+response.data.massage.business_name+`</td>
-                                        
+                                        <th>Escort ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
+                                        <th>Escort’s Name:</th>
+                                        <td class="border-0">`+response.data.escort.name+`</td>
                                     </tr>
                                     <tr>
-                                        
                                         <th>Mobile:</th>
-                                        <td class="border-0">`+response.data.massage.user.phone+`</td>
+                                        <td class="border-0">`+response.data.escort.user.phone+`</td>
                                         <th>Home State:</th>
-                                        <td class="border-0">`+response.data.massage.user.state.name+`</td>
-                                        
-                                        
+                                        <td class="border-0">`+response.data.escort.user.state.name+`</td>
                                     </tr>
                                     <tr>
-                                        
                                         <th>Status:</th>
                                         <td class="border-0">`+capitalizeFirstLetter(response.data.status)+`</td>
                                         <th>Comments:</th>
                                         <td class="border-0">`+response.data.description+`</td>
-                                        
                                     </tr>
-                                    <!-- Add other rows -->
                                 </table>
                             </div>
                         `;
+                        } else {
+                        childHtml = `
+                            <div class="card p-3">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
+                                    <button class="btn-success-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+                                </div>
+                                <table class="table mb-0">
+                                    <tr>
+                                        <th>Member ID:</th><td class="border-0">`+response.data.massage.user.member_id+`</td>
+                                        <th>Business Name:</th>
+                                        <td class="border-0">`+response.data.massage.business_name+`</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mobile:</th>
+                                        <td class="border-0">`+response.data.massage.user.phone+`</td>
+                                        <th>Home State:</th>
+                                        <td class="border-0">`+response.data.massage.user.state.name+`</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status:</th>
+                                        <td class="border-0">`+capitalizeFirstLetter(response.data.status)+`</td>
+                                        <th>Comments:</th>
+                                        <td class="border-0">`+response.data.description+`</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        `;
+                        }
                         row.child(childHtml).show();
                         //obj.html('<i class="fa fa-times mr-2"></i> Close');
                         obj.html('<i class="fa fa-eye mr-2"></i> View');
@@ -383,7 +392,7 @@
             var status = $(this).attr('data-review-status');
 
             $.ajax({
-                url: '{{ route("center.user-review-status-update") }}', // replace with your actual route
+                url: '{{ route("user.user-review-status-update") }}', // replace with your actual route
                 method: 'POST',
                 data:{
                     'review_id':reviewId,

@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Mail\Escort\Order\SendProductOrderCompleteConfirmationMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderHoldMailToEscort;
 use App\Mail\Escort\Order\SendProductOrderRejectMailToEscort;
+use App\Mail\Escort\Order\SendProductOrderShippedMailToEscort;
 use App\Mail\Supplier\SendProductOrderCompleteConfirmationMailToSupplier;
 use App\Mail\Supplier\SendProductOrderHoldMailToSupplier;
 use App\Mail\Supplier\SendProductOrderRejectMailToSupplier;
+use App\Mail\Supplier\SendProductOrderShippedMailToSupplier;
 use App\Models\ProductOrder;
 use App\Models\User;
 use Carbon\Carbon;
@@ -99,7 +101,17 @@ class ProductOrderController extends Controller
         </a>
 
         <div class="dropdown-divider"></div>
+     <a class="dropdown-item open-status-modal  "
+           href="#"
+           data-id="' . $row->id . '"
+           data-orderid="' . $row->order_id . '"
+           data-delivery_type="' . $row->delivery_type . '"
+           data-status="shipped" 
+           ' . $html . '>
+            <i class="fa fa-truck" aria-hidden="true"></i> Dispatch
+        </a>
 
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item open-status-modal  "
            href="#"
            data-id="' . $row->id . '"
@@ -116,8 +128,7 @@ class ProductOrderController extends Controller
            data-id="' . $row->id . '"
            data-status="delivered"
            data-orderid="' . $row->order_id . '"
-           data-delivery_type="' . $row->delivery_type . '"
-           ' . $html . '>
+           data-delivery_type="' . $row->delivery_type . '">
             <i class="fa fa-check-circle"></i> Complete Order
         </a>
 
@@ -148,15 +159,7 @@ class ProductOrderController extends Controller
 
     </div>
 </div>';
-
-
-        // <a class="dropdown-item open-status-modal"
-        //    href="#"
-        //    data-id="' . $row->id . '"
-        //    data-status="cancelled"
-        //    data-toggle="modal"
-        //    data-target="#active_req"><i class="fa fa-check-circle"></i> Cancel Order </a>
-        //    <div class="dropdown-divider"></div>
+ 
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -195,10 +198,10 @@ class ProductOrderController extends Controller
   {
     try {
 
-      if (empty($request->tracking_id) &&  $request->status == 'delivered' && $request->delivery_type == "post") {
+      if (empty($request->tracking_id) &&  $request->status == 'shipped' && $request->delivery_type == "post") {
         return response()->json([
           'status' => false,
-          'message' =>  "Tracnking Id is required for complete order."
+          'message' =>  "Tracnking Id is required for dispatch order."
         ]);
       }
       if (empty($request->reject_reason) &&  $request->status == 'rejected') {
@@ -239,7 +242,7 @@ class ProductOrderController extends Controller
       DB::transaction(function () use ($request, $order, $condommail) {
 
 
-        if ($request->status == 'delivered')
+        if ($request->status == 'shipped')
           $order->tracking_id = $request->tracking_id;
         if ($request->status == 'rejected')
           $order->reject_reason = $request->reject_reason;
@@ -320,7 +323,7 @@ class ProductOrderController extends Controller
             Mail::to($condommail)->send(new SendProductOrderRejectMailToSupplier($mailData));
 
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
-               Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderRejectMailToEscort($mailData));
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderRejectMailToEscort($mailData));
             } else {
               $mail = Mail::to($billing->email);
               if (!empty($agent) && !empty($agent->email)) {
@@ -328,10 +331,21 @@ class ProductOrderController extends Controller
               }
               $mail->send(new SendProductOrderRejectMailToEscort($mailData));
             }
+          } else if ($request->status == 'shipped' && $order->delivery_type=="post") {
+            if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+              Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderShippedMailToEscort($mailData));
+            } else {
+              $mail = Mail::to($billing->email);
+              if (!empty($agent) && !empty($agent->email)) {
+                $mail->cc($agent->email);
+              }
+              $mail->send(new SendProductOrderShippedMailToEscort($mailData));
+            }
           }
         }
       });
 
+      sleep(3);
       return response()->json([
         'status' => true,
         'message' => 'Your request has been processed successfully.'

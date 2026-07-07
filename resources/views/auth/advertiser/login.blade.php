@@ -14,36 +14,63 @@
 </style>
 @endsection
 <div class="container">
-      <section class="login_page_pt_pb_of_outer_section">
-         <section class="innersection_padding_from_all_side box_shdow_of_login_form">
-            <div class="row align-items-center">
+         <section class="common_login_page">
+            <div class="row">
                <div class="col-md-6 order-md-0 order-sm-1 order-1">
-                  <div class="welcone_login_page_heading">
-                     <h1 class="text-uppercase">WELCOME TO E4U</h1>
+                  <div class="welcone_login_page_heading ">
+                     <h1>WELCOME TO E4U</h1>
                   </div>
-                  <h4 class="welcome_sub_login_heading text-uppercase"><strong>Advertiser LOGIN</strong></h4>
+                  <h2 class="welcome_sub_login_heading">Advertiser Login</h2>
                   <form id="escort_login" action="{{ route('advertiser.login')}}" method="post">
                       @csrf
                         <input type="hidden" name="type" value="3">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="exampleInputmobilenumber">Mobile Number</label>
-                           <input type="text" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number" data-parsley-required-message="Phone Number is required" value="{{ old('phone') }}">
-                           <div class="termsandconditions_text_color">
-                               {{-- @error('phone')
 
-                                       {{ $message }}
-                               @enderror --}}
-                           </div>
+                            <div class="input-group custom-fields">                                
+                                <span class="input-group-text ">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                            stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z"
+                                                stroke="#495057" stroke-width="2" stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <input type="text" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number"  data-parsley-errors-container="#phone-errors" data-parsley-required-message="Phone Number is required" value="{{ old('phone') }}">
+                                <div class="termsandconditions_text_color">
+                                </div>
+                            </div>
+                            <div id="phone-errors"></div>
                         </div>
                         <div class="form-group label_margin_zero_for_login position-relative custom--password login--eye">
                             <label for="exampleInputPassword1">{{ __('Password') }}</label>
 
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder=""
+                            <div class="input-group custom-fields">
+                                
+                                <span class="input-group-text">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                            stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                                stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <input type="password" class="form-control" placeholder="Please Enter Your Password" id="exampleInputPassword1" placeholder=""
                                     name="password" required autocomplete="new-password"
                                     data-parsley-required-message="@lang('errors/validation/required.password')"
-                                    data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-
+                                    data-parsley-pattern-message="@lang('errors/validation/valid.password')" data-parsley-errors-container="#password-errors" >
+                                        
                                 <span class="input-group-text custom--eye" id="togglePassword" style="cursor: pointer;">
                                     <i class="fa fa-eye" id="passwordEyeIcon"></i>
                                 </span>
@@ -54,35 +81,28 @@
                                     {{ $message }}
                                 @enderror
                             </div>
+                            <div id="password-errors"></div>
                         </div>
 
                         <div id="formerror">
                         </div>
-                       <!--<div class="form-check form-check-inline">
-                           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                           <label class="form-check-label" for="inlineRadio1">I am an Escort</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                           <label class="form-check-label" for="inlineRadio2">I am an Agent</label>
-                       </div>-->
                        <div class="row login-bottom-des">
                            <div class="col-md-7 align-self-center">
-                               {{-- <a href="{{ route('advertiser.forgot')}}"> Forgot Password?</a> --}}
                                <a href="#" id="forgotpassword"> Forgot Password?</a>
                            </div>
                            <div class="col-md-5 align-self-center text-left text-md-right">
-                                <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>       
+                                <button type="submit" id="submit_button" class="btn site_btn_primary">
+                                     Login 
+                                </button>       
                            </div>
                        </div>
-                       <div>
-                           {{-- login note from component --}}
+                       <div class="common_login_note">
                            <x-login-notes />
                        </div>
                         
                     </form>
                </div>
-               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
+               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
                 @if(config('constants.app_env')!='local')
                   <img src="{{ asset('assets/app/img/login-profile/escort-login.png')}}" class="img-fluid">
                 @else
@@ -92,59 +112,8 @@
                </div>
             </div>
          </section>
-      </section>
 
       @include('modal.two-step-verification')
-        <!-- <div class="modal" id="sendOtp_modal" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content ">
-                    <form id="SendOtp" method="post" action="" >
-                        @csrf
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification">  2FA Verification</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                            </span>
-                            </button>
-                        </div>
-                        <div class="modal-body forgot_pass pb-1">
-                            <div class="form-group label_margin_zero_for_login">
-                                <div class="row text-center" style="">
-                                    <div class="col-md-12">
-                                        <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }}" class="img-fluid" alt="logo"></a>
-                                    </div>
-                                </div>
-                                <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong></h4>
-                                <ol class="pb-2 pl-3 text-justify">
-                                    <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign in.</li>
-                                    <li>Your six digit authentification code has been sent to your mobile. {{--  [setting] (insert mobile or email
-                                        address, according to the account settings - 2FA Authentification).]  --}}</li>
-                                </ol>
-                                <div class="d-flex align-items-center justify-content-between gap-10">
-                                    <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
-                                    <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
-                                </div>
-
-                                <div class="termsandconditions_text_color">
-                                    @error('opt')
-
-                                            {{ $message }}
-                                    @enderror
-                                    
-                                </div>
-                                <input type="hidden" name="phone" id="phoneId" value="">
-                            </div>
-                            <div id="senderror">
-                            </div>
-                        </div>
-                        <div class="modal-footer forgot_pass pt-0 pb-4">
-                            <p class="pt-2">Not received your verification code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
 
 
         <div class="modal upload-modal fade" id="comman_modal" style="display: none">
@@ -254,14 +223,14 @@
             
         });
 
-    function send2FAotp(email)
+    function send2FAotp(user_id)
       {
          $('#email-error').html('');
          var token = $('input[name="_token"]').attr('value');
          $.ajax({
             url: "{{route('send-otp-for-pin-change')}}",
             type: 'POST',
-            data: {email:email},
+            data: {user_id:user_id},
             dataType: "JSON",
            
             headers: {
@@ -391,7 +360,19 @@
 
         $(document).off('click' , '#resendOtpSubmit');
         $(document).on('click' , '#resendOtpSubmit' , function(){
-            send2FAotp($('#email').val());
+        let  user_email = $('#email').val();
+        let  user_phoneId = $('#phoneId').val();
+
+        
+       
+            if(user_phoneId!="")
+            {
+                 send2FAotp(user_phoneId);  
+            }
+            if(user_email!="")
+            {
+                 send2FAotp(user_email);  
+            }
         });
         
         var loginForm = $("#escort_login");
@@ -422,12 +403,12 @@
                     var ph = data.phone;
                     $("#phoneId").attr('value',ph);
                     if(data.error == 1) {
-                        $('body').on("click","#resendOtpSubmit",function(){
-                            $("#escort_login").submit();
-                            /* $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>"); */
-                             var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
-                            $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
-                        });
+                        // $('body').on("click","#resendOtpSubmit",function(){
+                        //     $("#escort_login").submit();
+                        //     /* $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>"); */
+                        //      var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
+                        //     $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
+                        // });
                         setTimeout(() => {
                         $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
                         }, 300); 
