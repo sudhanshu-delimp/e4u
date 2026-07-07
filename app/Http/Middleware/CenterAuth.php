@@ -37,6 +37,15 @@ class CenterAuth
             'isImpersonated' => true,
             
         ]);
+
+
+        if (session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true) {
+            $allowedActions = config('center.impersonate_action_allowed');
+             $request->merge([
+            'impersonatedId' => session('parent_massage_id'),
+            'isImpersonated' => true,
+            
+        ]);
             
             if (!in_array(request()->segment(2), $allowedActions) && request()->segment(2) != '') {
                 //Log::info('Action: '.request()->segment(2));
