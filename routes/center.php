@@ -199,6 +199,11 @@ Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment
 Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('center.payment.process');
 Route::post('payments/payment-session', [PaymentController::class, 'checkPaymentSession'])->name('center.check-payment-session');
 
+Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('center.transaction-summary');
+Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('center.transaction_summary.datatable');
+Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('center.payment.detail');
+Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
+
 
 
 

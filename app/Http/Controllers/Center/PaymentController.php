@@ -12,6 +12,7 @@ use App\Models\PaymentProcess;
 use App\Repositories\Message\MessageRepository;
 use App\Services\PinPaymentService;
 use App\Services\WalletService;
+use PDF;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -51,6 +52,9 @@ class PaymentController extends BaseController
         $this->iv = config('app.aes_iv_string');
         $this->aes_value =  'AES-256-CBC';
     }
+
+    
+
 
     public function make_order_summury(Request $request)
     {
@@ -540,6 +544,111 @@ class PaymentController extends BaseController
          return $response;
     }
 
+
+
+
+    public function transactionSummary(Request $request)
+    {
+        return view('center.dashboard.transaction-summary');
+    }
+
+    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user = null)
+    {
+            $order_field = $columns[$order_key]['name'];
+            $searchables = $this->getSearchableFieldsName($columns);
+            $query = PaymentHistory::query();
+            if (!empty($user)) {
+            $query->where('user_id', $user->id);
+            }
+            if ($search) {
+            $query->where(function ($q) use ($searchables, $search) {
+                foreach ($searchables as $column) {
+                $q->orWhere($column, 'LIKE', "%{$search}%");
+                }
+            });
+            }
+            $count =  $query->count();
+            $query->orderBy($order_field, $dir);
+            $mainQuery = $query->offset($start)->limit($limit);
+            return [$mainQuery->get(), $count, [$query->toSql(), $searchables]];
+    }
+
+    public function getSearchableFieldsName($searchables = array())
+    {
+        $search = array();
+        if(empty($searchables)) {
+            return $search;
+        }
+        foreach($searchables as $field){
+            if($field['searchable'] == 'true' && !empty($field['name'])) {
+                $search[] = $field['name'];
+            }
+        }
+        return $search;
+    }
+
+    public function transactionSummaryDatatable()
+    {
+        list($result, $count, $other) = $this->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            $this->account
+        );
+        $result = $this->pinService->modifyRecords($result);
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "other" => $other,
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+
+    public function paymentDetail(Request $request)
+    {
+        try {
+
+            $id = decrypt($request->id);
+            $payment = PaymentHistory::findOrFail($id);
+            $html = view('center.dashboard.modal.transaction-summary', compact('payment'))->render();
+            return response()->json([
+                'status' => true,
+                'html'   => $html,
+                'print_url' => route('payment.detail.print', $payment->id),
+                'message' => 'Listing fetched successfully'
+            ]);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid listing id'
+            ], 400);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Listing not found'
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong'
+            ], 500);
+        }
+    }
+
+    public function printPaymentDetail(PaymentHistory $payment)
+    {
+        $print = true;
+        $pdf = PDF::loadView('center.dashboard.modal.transaction-summary', compact('payment', 'print'));
+        return $pdf->stream($payment->user->member_id . '_Payment_Summary_' . $payment->ref_no . '.pdf');
+    }
 
 
 }
