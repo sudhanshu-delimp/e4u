@@ -267,7 +267,6 @@ class WebController extends Controller
 
     public function allEscortList(Request $request, $gender = null)
     {
-        dd($request->all());
         $user = 1;
 
         $array = config('escorts.profile.genders');
