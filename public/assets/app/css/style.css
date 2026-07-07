@@ -8094,12 +8094,16 @@ h2.custom--review img {
 }
 
 .custom--cookie--popup .footer-buttons {
-    border-top: 1px solid #e9e9e9;
-    padding: 15px 30px 15px 30px;
-    background: #0c223d;
+    padding: 20px 15px;
+    background: var(--blue--text);
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
     gap: 10px;
+}
+
+.custom--cookie--popup .footer-buttons .btn {
+    font-size: clamp(12px, 3vw, 16px);
 }
 
 .custom--cookie--popup .footer-buttons button,
@@ -8158,7 +8162,7 @@ h2.custom--review img {
 
 .custom--cookie--popup .popup-content {
     background: white;
-    width: 500px;
+    width: clamp(265px, 32vw, 500px);
     max-height: 90vh;
     position: relative;
     border-radius: 2px;
