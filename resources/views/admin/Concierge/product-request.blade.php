@@ -366,12 +366,10 @@
             $('#delivery_type').val(delivery_type);
 
             // Completed => open modal
-            if (status == 'delivered' && delivery_type == "post") {
+            if (status == 'shipped' && delivery_type == "post") {
                 $("#trackingId").removeClass("d-none");
                 $("#rejectedId").addClass("d-none");
-                $("#title").html(
-                    '<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details'
-                );
+                $("#title").html('<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details');
                 return;
 
             } else if (status == 'rejected') {
@@ -382,6 +380,7 @@
 
                 return;
             }
+        
             updateOrderStatus(orderId, status, '');
         });
 
@@ -415,8 +414,7 @@
                     delivery_type: delivery_type,
                 },
                 beforeSend: function() {
-
-                    if (delivery_type !== "post")
+                    if (status!="shipped")
                         $process.modal('show');
 
                     $btn.prop("disabled", true).text("Processing...");
@@ -427,8 +425,8 @@
                         return;
                     }
 
-                    if (status == 'delivered' && delivery_type == "post")
-                        $('#confirm_popup').modal('show');
+                    // if (status == 'shipped' && delivery_type == "post")
+                    //     $('#confirm_popup').modal('show');
 
                     $('#orderStatusChange')[0].reset();
                     toastr.success('Order status updated successfully');

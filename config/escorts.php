@@ -864,7 +864,7 @@ return [
   'order_status' => [
     'pending'   => 'badge_available',
     'hold'      => 'badge_pending',
-    'shipped'   => 'badge_active',
+    'shipped'   => 'badge_dispatch',
     'delivered' => 'badge_active',
     'cancelled' => 'badge_suspended',
     'returned'  => 'badge_suspended',

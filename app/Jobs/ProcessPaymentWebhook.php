@@ -100,7 +100,7 @@ class ProcessPaymentWebhook implements ShouldQueue
                 $mailBodayData['mainAccount'] = $mainAccount;
                 $mailBodayData['payment'] = $payment;
 
-                if ($payment) {
+                if ($payment && !in_array($process->type, ['wallet'])) {
                     echo "Adjustments in the Agent Commission\n";
                     $agentCommission = (new \App\Models\AgentCommission);
                     $agentCommission->saveCommissionData($payment, $payment->user->id, $payment->amount);
@@ -139,6 +139,28 @@ class ProcessPaymentWebhook implements ShouldQueue
                     case 'pinup': {
                             $escortPinup = $this->savePinUp($featureService, $process, $payment);
                             $mailBodayData['escortPinup'] = $escortPinup;
+                        }
+                        break;
+                    case 'upgrade': {
+                            $escortPinup = $this->saveUpgrade($featureService, $process, $payment);
+                            $mailBodayData['escortPinup'] = $escortPinup;
+                        }
+                        break;
+                    case 'wallet': {
+                            $creditTransaction = $walletService->credit(
+                                $mainAccount,
+                                $payment->amount,
+                                $payment,
+                                'Add Money',
+                                [
+                                    'user_id' => $mainAccount->id
+                                ]
+                            );
+
+                            $creditTransaction->paymentItems()->create([
+                                'payment_history_id' => $payment->id,
+                                'amount' => $payment->amount,
+                            ]);
                         }
                         break;
                 }
@@ -260,6 +282,18 @@ class ProcessPaymentWebhook implements ShouldQueue
     public function savePinUp($featureService, $process, $payment)
     {
         $escortPinup = $featureService->registerPinUp(null, $process->payload);
+        if ($payment) {
+            $escortPinup->paymentItems()->create([
+                'payment_history_id' => $payment->id,
+                'amount'             => $payment->amount,
+            ]);
+        }
+        return $escortPinup;
+    }
+
+    public function saveUpgrade($featureService, $process, $payment)
+    {
+        $escortPinup = $featureService->upgradeMembership(null, $process->payload);
         if ($payment) {
             $escortPinup->paymentItems()->create([
                 'payment_history_id' => $payment->id,

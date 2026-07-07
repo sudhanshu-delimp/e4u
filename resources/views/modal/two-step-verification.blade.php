@@ -28,7 +28,7 @@
                         </div>
                         <h4 class="welcome_sub_login_heading text-center my-3"><strong>Account Protection</strong>
                         </h4>
-                        
+
 
 
                         <div class="d-flex flex-column align-items-center gap-3">
@@ -63,25 +63,25 @@
                     <div id="senderror" class="text-center">
                     </div>
                     <div class="modal-footer forgot_pass p-0 justify-content-center">
-                    <p id="otpTimerMsg" class="pt-2 text-muted" style="color:#ff3c5f !important"></p>
-                    <p id="resendLine" class="pt-2" style="display: none;">
-                        Not received your verification code?
-                        <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a>
-                    </p>
-                </div>
-                <div class="common_otp_note">
-                            <p class="mb-2"><b>Notes:</b></p>                            
-                            <ol class="fa_notes">
-                                <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign
-                                    in.</li>
-                                <li>Your six digit authentification code has been sent to your mobile/email
-                                    address.</li>
-                            </ol>
-                        </div>
+                        <p id="otpTimerMsg" class="pt-2 text-muted" style="color:#ff3c5f !important"></p>
+                        <p id="resendLine" class="pt-2" style="display: none;">
+                            Not received your verification code?
+                            <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a>
+                        </p>
+                    </div>
+                    <div class="common_otp_note">
+                        <p class="mb-2"><b>Notes:</b></p>
+                        <ol class="fa_notes">
+                            <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign
+                                in.</li>
+                            <li>Your six digit authentification code has been sent to your mobile/email
+                                address.</li>
+                        </ol>
+                    </div>
                 </div>
 
 
-                
+
             </form>
         </div>
     </div>
@@ -94,15 +94,25 @@
 <script>
     const otpInputs = document.querySelectorAll(".otp-input");
     const hiddenOtp = document.getElementById("otp");
+<<<<<<< HEAD
    
     window.OTP_RESEND_SECONDS = `{{ config('common.otp_resend_seconds') }}`;
   
+=======
+
+    window.OTP_RESEND_SECONDS = {
+        {
+            config('common.otp_resend_seconds')
+        }
+    };
+
+>>>>>>> 70eb82181fda24fa3bb3c00982f9d7806c15f888
 
     let otpSubmitted = false;
     let timer;
 
     let sendOtpForm = $("#SendOtp");
-    
+
 
     sendOtpForm.on('submit', function(e) {
         e.preventDefault();
@@ -204,6 +214,7 @@
         const timerEl = document.getElementById("otpTimerMsg");
         const resendEl = document.getElementById("resendLine");
 
+<<<<<<< HEAD
     
           $('#sendOtp_modal').one('shown.bs.modal', function() {  
              
@@ -211,6 +222,15 @@
                  startOtpTimer();
                  focusFirstOtpInput()
             });
+=======
+
+        $('#sendOtp_modal').one('shown.bs.modal', function() {
+
+            seconds = window.OTP_RESEND_SECONDS;
+            startOtpTimer();
+            focusFirstOtpInput()
+        });
+>>>>>>> 70eb82181fda24fa3bb3c00982f9d7806c15f888
 
 
         function startOtpTimer() {
@@ -224,7 +244,7 @@
                 }
             });
 
-             timer = setInterval(function() {
+            timer = setInterval(function() {
                 const min = String(Math.floor(seconds / 60)).padStart(2, '0');
                 const sec = String(seconds % 60).padStart(2, '0');
                 timerEl.innerHTML =
@@ -279,8 +299,6 @@
             otpInputs[0].focus();
         }
     }
-
-   
 </script>
 
 
