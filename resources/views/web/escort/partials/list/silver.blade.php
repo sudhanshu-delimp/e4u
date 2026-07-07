@@ -25,7 +25,7 @@
                                      </div>
                                  </div>
                              @endif
-                             <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
+                             <img src="{{ $escort->first_image ? $escort->first_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                  class="img-fluid height_for_siliver" title="View Profile">
 
                          </a>
@@ -61,11 +61,10 @@
                                          Legbox</span></span>
                              @endif
                          </div>
-                         @if ($escort->default_image)
+                         @if ($escort->first_image)
                              <div class="verify-image-custom">
                                  @php
-                                     $media_verification_status = get_profile_verification_status($escort->id);
-                                     $media_status = getMediaVerificationDataBigIcon($media_verification_status ?? 0);
+                                     $media_status = getMediaVerificationDataBigIcon($escort->verification_status ?? 0);
                                  @endphp
                                  <img src="{{ $media_status['icon'] }}">
                                  <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
@@ -178,13 +177,10 @@
                                      </div>
                                      <div class="profile_hr">
                                          <h4>
-                                             @php
-                                                 $massage_price = $escort->durations()->where('name', '1 Hour')->first()
-                                                     ? $escort->durations()->where('name', '1 Hour')->first()->pivot
-                                                         ->massage_price
-                                                     : 0;
-                                             @endphp
-                                             {{ $massage_price ? '$' . number_format($massage_price) . '/hr' : 'N/A' }}
+                                            @php
+                                                $durationPrice = $escort->oneHourDuration->first()->pivot ?? 0;
+                                            @endphp
+                                            {{ $durationPrice ? '$' . number_format($durationPrice->massage_price) . '/hr' : 'N/A' }}
                                          </h4>
                                      </div>
                                  </div>
@@ -197,13 +193,7 @@
                                      </div>
                                      <div class="profile_hr">
                                          <h4>
-                                             @php
-                                                 $incall_price = $escort->durations()->where('name', '1 Hour')->first()
-                                                     ? $escort->durations()->where('name', '1 Hour')->first()->pivot
-                                                         ->incall_price
-                                                     : 0;
-                                             @endphp
-                                             {{ $incall_price ? '$' . number_format($incall_price) . '/hr' : 'N/A' }}
+                                             {{ $durationPrice ? '$' . number_format($durationPrice->incall_price) . '/hr' : 'N/A' }}
                                          </h4>
                                      </div>
                                  </div>
@@ -216,13 +206,7 @@
                                      </div>
                                      <div class="profile_hr">
                                          <h4>
-                                             @php
-                                                 $outcall_price = $escort->durations()->where('name', '1 Hour')->first()
-                                                     ? $escort->durations()->where('name', '1 Hour')->first()->pivot
-                                                         ->outcall_price
-                                                     : 0;
-                                             @endphp
-                                             {{ $outcall_price ? '$' . number_format($outcall_price) . '/hr' : 'N/A' }}
+                                             {{ $durationPrice ? '$' . number_format($durationPrice->outcall_price) . '/hr' : 'N/A' }}
                                          </h4>
                                      </div>
                                  </div>

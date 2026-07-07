@@ -5,10 +5,9 @@
 <div class="col-lg col-md-6 col-sm-6 mb-3 brb--text">
 
     <div class="five_column_content_top  d-flex justify-content-between wish_span" style="z-index: 1;width: 91%;">
-        @if ($escort->default_image)
+        @if ($escort->first_image)
             @php
-                $media_verification_status = get_profile_verification_status($escort->id);
-                $media_status = getMediaVerificationDataSmallIcon($media_verification_status ?? 0);
+                $media_status = getMediaVerificationDataSmallIcon($escort->verification_status ?? 0);
             @endphp
             <div class="vrf-tooltip-wrap">
                 <span><img width="18" height="18" src=" {{ $media_status['icon'] }}"></span>
@@ -64,7 +63,7 @@
                 </div>
             @endif
             <img class="card-img-top"
-                src="{{ $escort->default_image ? asset($escort->default_image) : asset('assets/app/img/service-provider/Frame-408.png') }}"
+                src="{{ $escort->first_image ? asset($escort->first_image) : asset('assets/app/img/service-provider/Frame-408.png') }}"
                 alt="Card image cap">
 
             <div class="five_column_content_top d-flex justify-content-between wish_span"></div>

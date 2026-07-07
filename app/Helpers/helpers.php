@@ -2298,7 +2298,7 @@ if (!function_exists('update_profile_massure')) {
 
 
 
-    function getMediaVerificationDataSmallIcon(int $status)
+    function getMediaVerificationDataSmallIcon( $status)
     {
         switch ($status) {
             case 0:
@@ -2329,7 +2329,7 @@ if (!function_exists('update_profile_massure')) {
 
 
 
-    function getMediaVerificationDataBigIcon(int $status)
+    function getMediaVerificationDataBigIcon($status)
     {
         switch ($status) {
             case 0:

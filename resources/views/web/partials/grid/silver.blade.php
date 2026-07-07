@@ -12,7 +12,7 @@
             @if($escort->default_image)
                 @php 
                     $media_verification_status =  get_profile_verification_status($escort->id);
-                    $media_status = getMediaVerificationDataSmallIcon(($media_verification_status ?? 0));
+                    $media_status = getMediaVerificationDataSmallIcon($media_verification_status ?? 0);
                 @endphp
                 <div class="vrf-tooltip-wrap">
                     <span ><img width="18" height="18" src=" {{$media_status['icon']}}"></span>            

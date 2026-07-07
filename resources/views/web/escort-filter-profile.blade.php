@@ -293,8 +293,8 @@ $searchByRadio = request()->get('search_by_radio');
                                                         value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
                                                         Cross Dresser</option>
                                                     <!-- <option
-                                                                                                                    value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
-                                                                                                                    Massage Centres</option> -->
+                                                                                                                        value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
+                                                                                                                        Massage Centres</option> -->
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
@@ -627,14 +627,10 @@ $searchByRadio = request()->get('search_by_radio');
                                                                     @php $prev_services[] = $service_tag->id; @endphp
                                                                     <li class='seleceted_service_text_and_icon'
                                                                         id='hideenclassOne_{{ $service_tag->id }}'>
-                                                                        <p>{{ $service_tag->name }}</p><i
-                                                                            class='fa fa-times-circle-o akh1'
-                                                                            data-sname='{{ $service_tag->name }}'
-                                                                            data-val="{{ $service_tag->id }}"
-                                                                            aria-hidden='true'
-                                                                            id='id_{{ $service_tag->id }}'></i> <input
-                                                                            type='hidden' name='services[]'
-                                                                            value='{{ $service_tag->id }}'>
+                                                                        <p>{{ $service_tag->name }}</p>
+                                                                            <i class='fa fa-times-circle-o akh1' data-sname='{{ $service_tag->name }}' data-val="{{ $service_tag->id }}" aria-hidden='true' id='id_{{ $service_tag->id }}'>
+                                                                            </i> 
+                                                                            <input type='hidden' name='services[]' value='{{ $service_tag->id }}'>
                                                                     </li>
                                                                 @endif
                                                             @endforeach
@@ -1450,8 +1446,8 @@ $searchByRadio = request()->get('search_by_radio');
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                                                                                                                                                                                                            $('[name=\"gender\"]').val($genderId);
-                                                                                                                                                                                                                                                                                        }";
+                                                                                                                                                                                                                                                                                                        $('[name=\"gender\"]').val($genderId);
+                                                                                                                                                                                                                                                                                                    }";
             }
             ?>
         });

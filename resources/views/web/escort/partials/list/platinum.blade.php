@@ -23,25 +23,23 @@
                                     </div>
                                 </div>
                             @endif
-                            <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
+                            <img src="{{ $escort->first_image ? $escort->first_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                 class="img-fluid" title="View Profile">
                         </a>
                         <div class="siliver_logo_icon"><img src="{{ asset('images/platinum_membership.png') }}">
                         </div>
                         <div class="add_to_fab_list_view_each_sec">
-                            @if (auth()->user())
-                                @if (auth()->user()->type == 0)
+                            @if ($viewerAuth)
+                                @if ($viewerAuth->type == 0)
                                     <span
                                         class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
                                         id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
-                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
+                                        data-userId="{{ $viewerAuth->id ?? 'NA' }}"
                                         data-name="{{ $escortName }}">
                                         @if (!empty($user_type))
                                             @if (in_array($escort->id, $user_type))
-                                                <i class='fa fa-heart' style='color: #ff3c5f;'
-                                                    aria-hidden='true'></i>
-                                                <span class="custom-heart-text list-tool remove-tool">Remove from My
-                                                    Legbox</span>
+                                                <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                                <span class="custom-heart-text list-tool remove-tool">Remove from My Legbox</span>
                                             @else
                                                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                                                 <span class="custom-heart-text list-tool">Add to My Legbox</span>
@@ -49,26 +47,19 @@
                                         @endif
                                     </span>
                                 @else
-                                    <span class="add_to_favrate custom--favourite"
-                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o"
-                                            aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to
-                                            My Legbox </span></span>
+                                    <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                                            aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox </span></span>
                                 @endif
                             @else
-                                {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
                                 <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
                                     data-name="{{ $escortName }}"><i class="fa fa-heart-o"
-                                        aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My
-                                        Legbox</span></span>
+                                        aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                             @endif
                         </div>
-                        @if ($escort->default_image)
+                        @if ($escort->first_image)
                             <div class="verify-image-custom">
                                 @php
-                                    $media_verification_status = get_profile_verification_status($escort->id);
-                                    $media_status = getMediaVerificationDataBigIcon(
-                                        $media_verification_status ?? 0,
-                                    );
+                                    $media_status = getMediaVerificationDataBigIcon($escort->verification_status ?? 0,);
                                 @endphp
                                 <img src="{{ $media_status['icon'] }}">
                                 <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
@@ -169,6 +160,8 @@
 
 
                             </div>
+
+
                         </div>
 
                         <div class="custom-rate-type">
@@ -181,12 +174,9 @@
                                     <div class="profile_hr">
                                         <h4>
                                             @php
-                                                $massage_price = $escort->durations()->where('name', '1 Hour')->first()
-                                                    ? $escort->durations()->where('name', '1 Hour')->first()->pivot
-                                                        ->massage_price
-                                                    : 0;
+                                            $durationPrice = $escort->oneHourDuration->first()->pivot ?? 0;
                                             @endphp
-                                            {{ $massage_price ? '$' . number_format($massage_price) . '/hr' : 'N/A' }}
+                                            {{ $durationPrice ? '$' . number_format($durationPrice->massage_price) . '/hr' : 'N/A' }}
                                         </h4>
                                     </div>
                                 </div>
@@ -199,13 +189,7 @@
                                     </div>
                                     <div class="profile_hr">
                                         <h4>
-                                            @php
-                                                $incall_price = $escort->durations()->where('name', '1 Hour')->first()
-                                                    ? $escort->durations()->where('name', '1 Hour')->first()->pivot
-                                                        ->incall_price
-                                                    : 0;
-                                            @endphp
-                                            {{ $incall_price ? '$' . number_format($incall_price) . '/hr' : 'N/A' }}
+                                            {{ $durationPrice ? '$' . number_format($durationPrice->incall_price) . '/hr' : 'N/A' }}
                                         </h4>
                                     </div>
                                 </div>
@@ -218,13 +202,7 @@
                                     </div>
                                     <div class="profile_hr">
                                         <h4>
-                                            @php
-                                                $outcall_price = $escort->durations()->where('name', '1 Hour')->first()
-                                                    ? $escort->durations()->where('name', '1 Hour')->first()->pivot
-                                                        ->outcall_price
-                                                    : 0;
-                                            @endphp
-                                            {{ $outcall_price ? '$' . number_format($outcall_price) . '/hr' : 'N/A' }}
+                                            {{ $durationPrice ? '$' . number_format($durationPrice->outcall_price) . '/hr' : 'N/A' }}
                                         </h4>
                                     </div>
                                 </div>

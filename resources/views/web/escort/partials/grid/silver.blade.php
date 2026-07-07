@@ -9,10 +9,9 @@
            {{-- <span>
             <img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;">
            </span> --}}
-            @if($escort->default_image)
+            @if($escort->first_image)
                 @php 
-                    $media_verification_status =  get_profile_verification_status($escort->id);
-                    $media_status = getMediaVerificationDataSmallIcon(($media_verification_status ?? 0));
+                    $media_status = getMediaVerificationDataSmallIcon($escort->verification_status ?? 0);
                 @endphp
                 <div class="vrf-tooltip-wrap">
                     <span ><img width="18" height="18" src=" {{$media_status['icon']}}"></span>            
@@ -51,7 +50,7 @@
                 </div>
             </div>
             @endif
-            <img class="card-img-top" src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
+            <img class="card-img-top" src="{{ $escort->first_image ? $escort->first_image : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
             <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span"></div>
             <div class="seven_column_bottom_content">
                 <div class="d-flex justify-content-between seven_column_fonts">

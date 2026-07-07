@@ -1580,8 +1580,8 @@
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                                    $('[name=\"gender\"]').val($genderId);
-                                                                                                                }";
+                $('[name=\"gender\"]').val($genderId);
+            }";
             }
             ?>
         });

@@ -31,6 +31,7 @@ class EscortListingController extends Controller
     public function allEscortListing(Request $request, $gender = null)
     {
 
+      //  dd(Escort::first());
 
         $array = config('escorts.profile.genders');
 
@@ -109,7 +110,7 @@ class EscortListingController extends Controller
             $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
         }
 
-        $services = $this->services->all();
+       // $services = $this->services->all();
 
 
         // if no need then i remove below code.
@@ -125,14 +126,13 @@ class EscortListingController extends Controller
 
 
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
-        //$escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null, $gen);
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
 
 
-        session(['search_escort_filters' => $params]);
-        session(['search_escort_filters_url' => url()->full()]);
-        session(['is_shortlisted_profile' => false]);
+       // session(['search_escort_filters' => $params]);
+       // session(['search_escort_filters_url' => url()->full()]);
+       // session(['is_shortlisted_profile' => false]);
 
         if ($params['city_id'] && $params['state_id']) {
             $filterStateExist = City::where('id', $params['city_id'])->where('state_id', $params['state_id'])->exists();
@@ -146,14 +146,31 @@ class EscortListingController extends Controller
         $locationCityId = $params['city_id'];
         $filterGenderId = $params['gender'];
 
+        $escortSelectColumns = [
+            'escorts.id', 'escorts.name', 'escorts.city_id','escorts.enabled',
+            'escorts.purchase_id','escorts.user_id','escorts.gender','escorts.city_id',
+            'escorts.membership', 'escorts.age', 'escorts.star_rating','escorts.massage_price',
+            'escorts.incall_price', 'escorts.outcall_amount','escorts.availability_time',
+    
+        ];
+
         // un orgnise code only use for running project
         $query = Escort::query()
             ->where('enabled', 1)
-            ->select('escorts.*')
+            ->select($escortSelectColumns)
             ->with([
-                'durations',
                 'currentActivePinup',
-                'activeBumpup'
+                'activeBumpup',
+                'latestActiveBrb:selected_time',
+                'gallary' => function($q){
+                    $q->wherePivot('position', 1)
+                     ->select('escorts_medias.id', 'path');
+                },
+                'escort_videos',
+                'city:id,name',
+                'oneHourDuration',
+                'user:id,profile_creator',
+                'durations:id,name'
             ]);
         $query->withMax([
             'currentActivePinup as pinup_start' => function ($q) {
@@ -182,6 +199,7 @@ class EscortListingController extends Controller
             END
         ");
 
+
     
 
         $query = $this->applyFilterOnEscort(
@@ -191,6 +209,7 @@ class EscortListingController extends Controller
             $params['age'],
             $location
         );
+        
         
 
         $escorts = $query->get();
@@ -224,6 +243,7 @@ class EscortListingController extends Controller
         $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
 
 
+
         $paginator = new LengthAwarePaginator(
             $currentItems,
             $result->count(),
@@ -240,6 +260,7 @@ class EscortListingController extends Controller
 
         //*************************************Start Pass ajax request blade data****************************/
         if ($request->ajax()) {
+            $data = '';
             if($viewType == 'grid'){
                 $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type','viewerAuth'))->render();
             }else{
@@ -279,7 +300,7 @@ class EscortListingController extends Controller
         $age = null,
         $location = null
     ) {
-
+ 
         $query->whereHas('user', function ($q) {
             $q->where('status', 1);
         });
@@ -292,6 +313,16 @@ class EscortListingController extends Controller
 
 
         // Verification filter
+/**************************all query depending each other*******************************/
+        $query->join('profile_verification_status as pvs', function ($join) {
+            $join->on('pvs.profile_id', '=', 'escorts.id')
+                ->where('pvs.type', '3');
+        });
+
+        $query->addSelect(DB::raw('COALESCE(pvs.status, 0) as verification_status'));
+
+/**************************all query depending each other*******************************/
+
 
         if (!empty($str['verification'])) {
             $statusMap = [
@@ -300,19 +331,16 @@ class EscortListingController extends Controller
                 'unverified' => 2,
             ];
 
+
             if (isset($statusMap[$str['verification']])) {
-
-                $query->join('profile_verification_status as pvs', function ($join) {
-                    $join->on('pvs.profile_id', '=', 'escorts.id')
-                        ->where('pvs.type', '3');
-                });
-
                 $query->where(
                     'pvs.status',
                     $statusMap[$str['verification']]
                 );
             }
+
         }
+
 
 
         // Blocked viewers
