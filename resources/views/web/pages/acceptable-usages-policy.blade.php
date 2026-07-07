@@ -88,7 +88,7 @@
                </li>
                 <li>
                   <h5 class="policy_sub_headings">Intentional Interference<h5>
-                  <p>Interference with the Service by any user, host or network including, without limitation, mail bombing, news bombing, other flooding techniques, deliberate attempts to overload a system, broadcast attacks and any activity resulting in the crash of a host. Intentional interference also includes, without limitation, the use of any kind of program/script/command, or send messages of any kind, designed to interfere with a User's terminal session, via any means, locally or by the Internet.</p>
+                  <p style="word-break: break-all;">Interference with the Service by any user, host or network including, without limitation, mail bombing, news bombing, other flooding techniques, deliberate attempts to overload a system, broadcast attacks and any activity resulting in the crash of a host. Intentional interference also includes, without limitation, the use of any kind of program/script/command, or send messages of any kind, designed to interfere with a User's terminal session, via any means, locally or by the Internet.</p>
                </li>
                <li>
                   <h5 class="policy_sub_headings">Falsification of Origin</h5>
