@@ -219,7 +219,7 @@
                                                             <li>
                                                                 <h5 class="policy_sub_headings">Intentional
                                                                     Interference</h5>
-                                                                <p>Interference with the Service by any user, host or
+                                                                <p style="word-break: break-all;">Interference with the Service by any user, host or
                                                                     network including, without limitation, mail bombing,
                                                                     news bombing, other flooding techniques, deliberate
                                                                     attempts to overload a system, broadcast attacks and

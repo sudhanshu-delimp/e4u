@@ -11,9 +11,8 @@
                             left: 0px !important;
                             transform: translate3d(0px, 40px, 0px) !important;
                         }
-                        .header_logo {
-                            max-width: 100px;
-                            width: 100%;
+                        .content_align .level-2 {
+                            padding: 0px !important;
                         }
                     }
                     
@@ -22,6 +21,10 @@
                         .navbar-brand img {
                             width: 100px;
                             height: unset;
+                        }
+                        .header_logo {
+                            max-width: 100px !important;
+                            width: 100%;
                         }
                         .mc_card_container {
                             grid-template-columns: 1fr;
@@ -335,6 +338,7 @@
                             justify-content: flex-start;
                             gap: 25px;
                             margin-bottom: 20px;
+                            padding: 10px;
                         }
                         .nz_location {
                             display: flex;
@@ -389,10 +393,6 @@
                         .all_filter_accordain {
                             background: #fff;
                             padding: 7px;
-                        }
-                        .header_logo {
-                            max-width: 100px;
-                            width: 100%;
                         }
                         .search_filters .display_items {
                             display: flex;
