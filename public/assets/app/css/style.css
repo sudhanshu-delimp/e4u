@@ -704,9 +704,16 @@ p {
     background: none !important;
 }
 
+.c_dropdown.dropdown-menu.register_dropdown {
+    position: absolute !important;
+    top: 0px !important;
+    right: 0px !important;
+    left: unset !important;
+    transform: translate3d(0px, 40px, 0px) !important;
+}
+
 .saptate_by_border {
     border-bottom: 1px solid #E5E5E5;
-    ;
 }
 
 .free_profile_name_and_color.v-otherheding {
@@ -6089,20 +6096,21 @@ table p {
     border-top: 0px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     line-height: 28px;
 }
 
 .set .content a {
-    font-size: 16px;
-    color: #FF3C5F;
+    font-size: clamp(14px, 4vw, 16px);
+    color: var(--peach);
+    line-break: anywhere;
 }
 
 .set li {
     line-height: 28px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     color: #000;
 }
 
@@ -10592,7 +10600,6 @@ p.pera-note {
     .footer_mange_padding img {
         /*padding-bottom: 0px;*/
         width: 35%;
-        margin-left: -3px;
     }
     .footer_text_color_white p {
         font-size: 12px;
