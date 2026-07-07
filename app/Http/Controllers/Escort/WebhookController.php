@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendProductPurchaseMail;
-use App\Jobs\ProcessPaymentWebhook;
+use App\Jobs\ProcessListingFeaturesPostPayment;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
 use App\Services\PinPaymentService;
@@ -86,7 +86,7 @@ class WebhookController extends Controller
             }
             break;
           case 'escort-listing': {
-              ProcessPaymentWebhook::dispatch($paymentObject);
+              ProcessListingFeaturesPostPayment::dispatch($paymentObject);
             }
             break;
           default:
