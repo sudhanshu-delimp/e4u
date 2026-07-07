@@ -26,7 +26,7 @@ use App\Services\EscortListingFeatureService;
 
 use Carbon\Carbon;
 
-class ProcessPaymentWebhook implements ShouldQueue
+class ProcessListingFeaturesPostPayment implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -66,14 +66,41 @@ class ProcessPaymentWebhook implements ShouldQueue
                 $itemsCount = $transaction->items->count();
 
                 if ($itemsCount == 0) {
+                    $mainAccount = $transaction->user;
                     if (in_array($process->type, ['listing', 'tour', 'extend'])) {
                         $this->saveCheckout($process->type, $process->payload, $transaction);
                     }
 
                     switch ($process->type) {
-
                         case 'bumpUp': {
                                 $this->saveBumpUp($featureService, $process, $transaction);
+                            }
+                            break;
+                        case 'pinup': {
+                                $escortPinup = $this->savePinUp($featureService, $process, $transaction);
+                                $mailBodayData['escortPinup'] = $escortPinup;
+                            }
+                            break;
+                        case 'upgrade': {
+                                $escortPinup = $this->saveUpgrade($featureService, $process, $transaction);
+                                $mailBodayData['escortPinup'] = $escortPinup;
+                            }
+                            break;
+                        case 'wallet': {
+                                $creditTransaction = $walletService->credit(
+                                    $mainAccount,
+                                    $transaction->amount,
+                                    $transaction,
+                                    'Add Money',
+                                    [
+                                        'user_id' => $mainAccount->id
+                                    ]
+                                );
+
+                                $creditTransaction->paymentItems()->create([
+                                    'payment_history_id' => $transaction->id,
+                                    'amount' => $transaction->amount,
+                                ]);
                             }
                             break;
                     }
