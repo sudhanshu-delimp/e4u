@@ -94,19 +94,9 @@
 <script>
     const otpInputs = document.querySelectorAll(".otp-input");
     const hiddenOtp = document.getElementById("otp");
-<<<<<<< HEAD
    
     window.OTP_RESEND_SECONDS = `{{ config('common.otp_resend_seconds') }}`;
   
-=======
-
-    window.OTP_RESEND_SECONDS = {
-        {
-            config('common.otp_resend_seconds')
-        }
-    };
-
->>>>>>> 70eb82181fda24fa3bb3c00982f9d7806c15f888
 
     let otpSubmitted = false;
     let timer;
@@ -214,7 +204,6 @@
         const timerEl = document.getElementById("otpTimerMsg");
         const resendEl = document.getElementById("resendLine");
 
-<<<<<<< HEAD
     
           $('#sendOtp_modal').one('shown.bs.modal', function() {  
              
@@ -222,15 +211,6 @@
                  startOtpTimer();
                  focusFirstOtpInput()
             });
-=======
-
-        $('#sendOtp_modal').one('shown.bs.modal', function() {
-
-            seconds = window.OTP_RESEND_SECONDS;
-            startOtpTimer();
-            focusFirstOtpInput()
-        });
->>>>>>> 70eb82181fda24fa3bb3c00982f9d7806c15f888
 
 
         function startOtpTimer() {
