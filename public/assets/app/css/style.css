@@ -1636,7 +1636,7 @@ span.second {
 .home_heading_first {
     font-family: Poppins;
     font-style: normal;
-    font-size: clamp(21px, 4vw, 48px) !important;
+    font-size: clamp(25px, 4vw, 48px) !important;
     line-height: 48px;
     color: #0C223D;
     margin-bottom: 20px;
@@ -2253,11 +2253,11 @@ img.playbox-logo {
 }
 
 .padding_top_eight_px {
-    padding-top: 80px;
+    padding-top: clamp(45px, 4vw, 80px);
 }
 
 .padding_bottom_eight_px {
-    padding-bottom: 80px;
+    padding-bottom: clamp(45px, 4vw, 80px);
 }
 
 .margin_btm_twenty_px {
