@@ -196,8 +196,16 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <input id="cc-expiry-month" maxlength="2" class="form-control expiry_month"
-                                            placeholder="MM">
+
+                                        <select name="month" id="cc-expiry-month" class="form-control expiry_month">
+                                            @for($i = 1; $i <= 12; $i++)
+                                                    @php $month = sprintf('%02d', $i); @endphp
+                                                    <option value="{{ $month }}" {{ $month == now()->format('m') ? 'selected' : '' }}>
+                                                        {{ $month }}
+                                                    </option>
+                                            @endfor
+                                        </select>
+                                        
                                     </div>
                                     <div class="form-group col-md-4">
 

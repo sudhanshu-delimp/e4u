@@ -166,7 +166,7 @@
                @case(1)
                   @foreach($members as $escort)
                      <div class="listview_each_section_border_btm">
-                        <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view">
+                        <div class="manage_listview_margin_gold_section">
                            <div class="row">
                               <div class="col-md-12 col-lg-8 col-sm-12">
                                  <div class="row">
@@ -320,7 +320,7 @@
                @case(2)
                   @foreach($members as $escort)
                      <div class="listview_each_section_border_btm">
-                        <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view">
+                        <div class="manage_listview_margin_gold_section ">
                            <div class="row">
                               <div class="col-md-12 col-lg-8 col-sm-12">
                                  <div class="row">
@@ -474,7 +474,7 @@
                   <div class="row">
                      @foreach($members as $escort)
                         <div class="col-md-6 col-lg-6 col-sm-6 col-12">
-                           <div class="manage_listview_margin_siliver_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view">
+                           <div class="manage_listview_margin_siliver_section ">
                               <div class="row">
                                  <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                                  <div class="section_wise_level_icon_img">

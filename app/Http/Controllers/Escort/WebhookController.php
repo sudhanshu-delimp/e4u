@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Jobs\ProcessPaymentWebhook;
 use App\Jobs\SendProductPurchaseMail;
+=======
+use App\Jobs\SendProductPurchaseMail;
+use App\Jobs\ProcessListingFeaturesPostPayment;
+>>>>>>> 6164e3de6dd24ea38d34b61c97385a9a0fe94911
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
 use App\Services\Massage\MassagePaymentWebhookService;
@@ -86,9 +91,14 @@ class WebhookController extends Controller
               $pinPaymentService->handleWalletAmount($paymentObject['metadata']['user_id'], $paymentObject['metadata']['wallet_amount']);
             }
             break;
+<<<<<<< HEAD
             case 'escort-listing': {
               ProcessPaymentWebhook::dispatch($paymentObject);
               break;
+=======
+          case 'escort-listing': {
+              ProcessListingFeaturesPostPayment::dispatch($paymentObject);
+>>>>>>> 6164e3de6dd24ea38d34b61c97385a9a0fe94911
             }
 
 

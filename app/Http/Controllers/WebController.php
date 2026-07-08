@@ -375,6 +375,7 @@ class WebController extends Controller
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
         $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null, $gen);
 
+
         //dd($escorts,$params, session('is_shortlisted_profile'));
         $locationCityId = $params['city_id'];
         $filterGenderId = $params['gender'];
@@ -404,6 +405,8 @@ class WebController extends Controller
         $memberTotalCount[2] =  $gold->count();
         $memberTotalCount[3] =  $silver->count();
         $memberTotalCount[4] =  $free->count();
+        //dd($memberTotalCount);
+
 
         if (isset($str['membership_type']) && $str['membership_type'] != null) {
             $platinum = $platinum->where('membership', $str['membership_type']);
@@ -479,6 +482,10 @@ class WebController extends Controller
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
 
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
+
+
+
+
         $paginator = new LengthAwarePaginator(
             $sliced,
             $merged->count(),
@@ -489,6 +496,8 @@ class WebController extends Controller
                 'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
             ]
         );
+
+
 
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
@@ -1375,7 +1384,13 @@ class WebController extends Controller
         }
 
         # add stats after like
+
         $escortUser = Escort::where('id', $escort_id)->first();
+        if($escort_id){
+            $escortUser->star_rating = getStarRatingForEscort($escort_id);
+            $escortUser->save();
+        }
+
         if ($escortUser != null) {
             saving_escort_stats($escortUser->user_id, $escort_id, 'recommendation_count');
         }

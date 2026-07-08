@@ -397,13 +397,13 @@ class PaymentController extends BaseController
                 case 'extend': 
                 $result = $this->saveCheckout($benefit_token['action'], $payment);    
                 $payment_service = 'Profile Extend';
-                $redirect_url = route('center.current');
+                $redirect_url = route('center.list');
                 break; 
 
                 case 'bumpup': 
                 $result = $this->saveCheckout($benefit_token['action'], $payment);    
                 $payment_service = 'Profile Bump Up';
-                $redirect_url = '';
+                $redirect_url = route('center.list');
                 break;
 
                 default:

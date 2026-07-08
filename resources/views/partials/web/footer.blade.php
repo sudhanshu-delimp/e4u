@@ -24,22 +24,20 @@
                         @if (!auth()->user())
                         <ul class="footer_list_style_none pl-0 custom--foter-login">
                             <li class="dropdown">
-                                <a style="padding: 5px 15px;width:120px; text-align: center;"
-                                    class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
+                                <a class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     href="{{ route('register') }}">Register</a>
-                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                <div class="c_dropdown dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
                                     <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
                                     <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
                                     <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
                                 </div>
                             </li>
                             <li class="dropdown">
-                                <a style="padding: 5px 15px; width:120px; text-align: center;"
-                                    class="nav-link dropdown-toggle   footer_login_btn primery_color"
+                                <a class="nav-link dropdown-toggle   footer_login_btn primery_color"
                                     id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" href="{{ route('register') }}">Log in</a>
-                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                <div class="c_dropdown dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
                                     <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
                                     <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
                                     <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>

@@ -5,10 +5,9 @@
 <div class="col-lg col-md-6 col-sm-6 mb-3 brb--text">
 
     <div class="five_column_content_top  d-flex justify-content-between wish_span" style="z-index: 1;width: 91%;">
-        @if ($escort->default_image)
+        @if ($escort->first_image)
             @php
-                $media_verification_status = get_profile_verification_status($escort->id);
-                $media_status = getMediaVerificationDataSmallIcon($media_verification_status ?? 0);
+                $media_status = getMediaVerificationDataSmallIcon($escort->verification_status ?? 0);
             @endphp
             <div class="vrf-tooltip-wrap">
                 <span><img width="18" height="18" src=" {{ $media_status['icon'] }}"></span>
@@ -26,11 +25,11 @@
         @if (auth()->user())
             @if (auth()->user()->type == 0)
                 <span
-                    class="add_to_favrate @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
+                    class="add_to_favrate @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
                     id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
-                    data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{ $escort->name }} ">
+                    data-userId="{{ $viewerAuth ? $viewerAuth->id : 'NA' }}" data-name="{{ $escort->name }} ">
                     @if (!empty($user_type))
-                        @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
+                        @if (in_array($escort->id, $user_type))
                             <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
                             <span class="custom-heart-text">Remove from My Legbox</span>
                         @else
@@ -64,16 +63,14 @@
                 </div>
             @endif
             <img class="card-img-top"
-                src="{{ $escort->default_image ? asset($escort->default_image) : asset('assets/app/img/service-provider/Frame-408.png') }}"
+                src="{{ $escort->first_image ? asset($escort->first_image) : asset('assets/app/img/service-provider/Frame-408.png') }}"
                 alt="Card image cap">
 
             <div class="five_column_content_top d-flex justify-content-between wish_span"></div>
 
             <div class="five_column_bottom_content">
                 <div class="d-flex justify-content-between five_column_fonts">
-                    <span>{{ $escort->city ? $escort->city->name : '' }} {{ $escort->age ? ' - ' . $escort->age : '' }}
-                        {{-- <i class="fa fa-map-marker" aria-hidden="true"></i> --}}
-                    </span>
+                    <span>{{ $escort->city ? $escort->city->name : '' }} {{ $escort->age ? ' - ' . $escort->age : '' }} </span>
                     <span class="give_rating_after_get_servive">
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
@@ -146,9 +143,8 @@
     @else
         <button type="button" class="short-list btn btn-primary shortlist myescort_{{ $escort->id }}"
             id="escort_{{ $escort->id }}" data-name="{{ $escortName }}" data-escortId="{{ $escort->id }}"
-            data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+            data-userId="{{ $viewerAuth ? $viewerAuth->id : 'NA' }}">
             @if (!empty($escortId))
-                {{-- @if ($escort->shortListed->isEmpty()) --}}
                 @if (in_array($escort->id, $escortId))
                     Remove from Shortlist
                 @else
@@ -156,7 +152,6 @@
                 @endif
             @else
                 Add to Shortlist
-                {{-- <p class="btn-holder"><a href="{{ route('web.save.addtocart', $escort->id) }}" class="btn btn-primary text-center" role="button">Add To Shortlist</a> </p> --}}
             @endif
         </button>
     @endif

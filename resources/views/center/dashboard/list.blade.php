@@ -1047,12 +1047,9 @@ e.preventDefault();
     if (await isConfirm({'action': 'Proceed','text': ''})) {
 
       let formData = $("#purchase_listing").serialize();
-      if ($actionType.length) {
-         $actionType.val('extend');
-      } else {
-         $form.append('<input type="hidden" name="action_type" value="extend">');
-      }
-            
+      $form.find('input[name="action_type"]').remove();
+      $form.append('<input type="hidden" name="action_type" value="extend">');
+         
      
          //console.log('plandata',plandata);
          //return false;
@@ -1149,14 +1146,10 @@ $("#bumpup_profile_form").on('submit', async function(e)
             swal_waiting_popup({
                 'title': 'Bumping Up Your Profile.'
             });
-           
-            if ($actionType.length) {
-               $actionType.val('bumpup');
-            } else {
-               $form.append('<input type="hidden" name="action_type" value="bumpup">');
-            }
-           
 
+            $form.find('input[name="action_type"]').remove();
+            $form.append('<input type="hidden" name="action_type" value="bumpup">');
+         
             $.ajax({
                method: 'POST',
                url: url,

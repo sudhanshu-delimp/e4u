@@ -4,45 +4,12 @@
 @endphp
 
 
-{{-- <div class="col-lg col-md-6 col-sm-6 mb-3">
-    <a href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}?brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}">
-        <div class="card card_box_style">
-        @if($escort->latestActiveBrb)
-                <div class="brb--content">
-                    <div class="brb--wrappr">
-                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</span>
-                    </div>
-                </div>
-            @endif
-            <img class="card-img-top" src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
-            <div class="nine_column_content_top nine_column_top_font_size">
-                <span class="card_top_title_center">{{$escortName}} </span>
-            </div>
-            <div class="content_bottom_and_padding_all_side_nine_col">
-                <div class="display_inline_block nine_column_top_font_size"><span>{{$escort->city ? $escort->city->name : ''}} {{ $escort->age ? " - ".$escort->age : "" }}</span></div>
-                <div class="d-flex justify-content-between nine_column_top_font_size">
-                    <span>Price:</span>
-                    @if($escort->lowest_rate_price)<span>From $ {{number_format((float)$escort->lowest_rate_price)}} / hr</span> @else <span>N/A</span>@endif
-                </div>
-                <div class="nine_column_top_font_size d-flex justify-content-between">
-                    <span>Services:</span>
-                    <span class="image_height_width_for_col_nine">
-                    <img src="{{ asset('assets/app/img/aerodownicon.svg') }}">
-                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}"> 
-                    </span>
-                </div>
-            </div>
-        </div>
-    </a>
-</div> --}}
-
 <div class="col-lg col-md-6 col-sm-6 mb-3 brb--text">
 
         <div class="five_column_content_top  d-flex justify-content-between wish_span" style="z-index: 1;width: 91%;">
-            @if($escort->default_image)
+            @if($escort->first_image)
                 @php 
-                    $media_verification_status =  get_profile_verification_status($escort->id);
-                    $media_status = getMediaVerificationDataSmallIcon($media_verification_status ?? 0);
+                    $media_status = getMediaVerificationDataSmallIcon($escort->verification_status ?? 0);
                 @endphp
                 <div class="vrf-tooltip-wrap">
                     <span ><img width="18" height="18" src=" {{$media_status['icon']}}"></span>            
@@ -59,9 +26,9 @@
             </span>
             @if(auth()->user())
                 @if(auth()->user()->type == 0)
-                    <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}} ">
+                    <span class="add_to_favrate @if(in_array($escort->id,$user_type)){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}} ">
                         @if(!empty($user_type))
-                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
+                            @if(in_array($escort->id,$user_type))
                                 <i class='fa fa-heart' style='color: #ff3c5f;'  aria-hidden='true'></i>
                                 <span class="custom-heart-text">Remove from My Legbox</span>
                             @else
@@ -90,7 +57,7 @@
                             </div>
                         </div>
                     @endif
-                    <img class="card-img-top" src="{{ $escort->default_image ? asset('assets/app/img/service-provider/Frame-408.png') : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ $escort->first_image ? asset('assets/app/img/service-provider/Frame-408.png') : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
                 
                 <div class="five_column_content_top d-flex justify-content-between wish_span"></div>
             
@@ -135,18 +102,7 @@
                         <span>{{ $escort->gender ? $escort->gender : '' }}</span>
                     </div>
                     {{-- ye purana wala hai--}}
-                {{-- <div class="d-flex justify-content-between five_column_fonts">
-                        <span>Available to:</span>
-                        <span>
-                        @if($escort->available_to)
-                        @foreach($escort->available_to as $key => $available_to)
-                        <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
-                        
-                        <span class="custom-icon-hover-tooltip">{{ config('escorts.profile.available-to')[$available_to] }}</span>
-                        @endforeach
-                        @endif
-                        </span>
-                    </div>--}}
+             
                     {{-- end--}}
                     <div class="d-flex justify-content-between five_column_fonts custom-gender-type-icon">
                         <span>Available to:</span>
@@ -172,14 +128,10 @@
     
         @if(Request::path() == "showList") 
             <button type="button" class="short-list btn btn-primary removeshortlist" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}">Remove from Shortlist</button>
-            <!--  <div class="uperbutton text-center mt-3">
-                <button href="#" class="btn btn-blue removeshortlist" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}">Remove from Shortlist</button>
-            </div> -->
         @else
 
             <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
                 @if(!empty($escortId))
-                    {{-- @if($escort->shortListed->isEmpty()) --}}
                     @if(in_array($escort->id,$escortId))
                     Remove from Shortlist
                     @else
@@ -187,7 +139,6 @@
                     @endif
                 @else 
                 Add to Shortlist
-                {{-- <p class="btn-holder"><a href="{{ route('web.save.addtocart', $escort->id) }}" class="btn btn-primary text-center" role="button">Add To Shortlist</a> </p> --}}
                 @endif
             </button>
         @endif

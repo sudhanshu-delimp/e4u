@@ -324,6 +324,9 @@ Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'fil
 
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
 
+/****************************************************all-escorts-list**********************************************/
+Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.escort.listing'); 
+
 
 
 /********** ADMIN **********/
