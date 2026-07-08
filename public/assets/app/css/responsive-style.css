@@ -273,7 +273,7 @@
                             gap: 10px;
                         }
                         .home_heading_first {
-                            font-weight: 600;
+                            font-weight: bold !important;
                         }
                         .register-img {
                             padding: 0px;
