@@ -204,13 +204,17 @@ function addOrUpdateHiddenInput(formId, name, value) {
     }
 }
 
+var readXHR = (xhr) => {
+    let response = xhr.responseJSON || JSON.parse(xhr.responseText.trim());
+    console.log(`xhr Response is..`);
+    console.log(response);
+    return response;
+}
 
 var getStatusOption = (xhr) => {
     let icon, title;
-    let res = xhr.responseJSON || JSON.parse(xhr.responseText.trim());
-    console.log(`Response is..`);
-    console.log(res);
-    let message = res?.message || res?.gateway || 'Something went wrong';
+    let response = readXHR(xhr);
+    let message = response?.message || response?.gateway || 'Something went wrong';
     switch (xhr.status) {
         case 200:
             icon = 'success';
@@ -248,8 +252,8 @@ var getStatusOption = (xhr) => {
             title = 'Validation Error';
 
             // Show validation errors if exist
-            if (res?.errors) {
-                message = Object.values(res.errors).flat().join('\n');
+            if (response?.errors) {
+                message = Object.values(response.errors).flat().join('\n');
             }
             break;
 

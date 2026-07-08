@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\ImpersonateController;
+use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Viewer\ViewerReviewsController;
 
 /*
@@ -233,9 +234,14 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.punterbox.dashboard');
         })->name('user.punterbox.dashboard');
 
-        Route::get('/punterbox/add-report', function () {
-            return view('user.dashboard.punterbox.add-report');
-        })->name('user.add-report');
+        Route::get('/punterbox/add-report', [PunterBoxController::class, 'addReport'])->name('user.add-report');
+        Route::post('add-report', [PunterBoxController::class, 'storeReport'])->name('user.store-report');
+        Route::get('my-reports', [PunterBoxController::class, 'showMyReportByAjax'])->name('user.my-reports');
+        Route::get('edit-my-reports/{id}', [PunterBoxController::class, 'editMyReport'])->name('user.edit-my-reports');
+        Route::post('update-my-reports', [PunterBoxController::class, 'updateMyReportByAjax'])->name('user.update-my-reports');
+        Route::delete('my-report/{id}', [PunterBoxController::class, 'destroy'])->name('user.my-report.delete');
+        Route::get('num-dashboard', [PunterBoxController::class, 'showReportOnDashboardAjax'])->name('user.punterboxdashboard');
+
 
         Route::get('/punterbox/my-report', function () {
             return view('user.dashboard.punterbox.my-report');

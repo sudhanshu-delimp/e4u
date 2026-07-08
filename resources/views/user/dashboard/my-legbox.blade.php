@@ -859,8 +859,9 @@
             });
 
             $(document).on('change', '.isBlockedMassageButton', function() {
+              
                 const $this = $(this);
-                let massageId = $(this).attr('id').replace('customSwitch', '');
+                let massageId = $(this).attr('id').replace('massageCustomSwitch', '');
                 let isBlocked = $(this).is(':checked') ? 1 : 0;
                 let data = {
                     'massage_id' : massageId,

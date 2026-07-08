@@ -427,39 +427,36 @@ margin-right: 5px;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-xl-4 col-sm-12 text-center">
-                                <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
-                                     @php 
-                                        $user_type = auth()->user();
-                                    @endphp
-                                    @if(auth()->user())
-                                   
-                                        @if(auth()->user()->type == 0)
-                                            <span class="add_to_favrate @if(is_object($user_type) && in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
-                                                id="legboxId_{{$listing->id}}" data-escortId="{{$listing->id}}"
-                                                data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                                                @if(!empty($user_type))
-                                                    @if(in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray()))
-                                                        <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
-                                                    @else
-                                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                    <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
+                                        @php 
+                                            $user_type = auth()->user();
+                                        @endphp
+                                        @if(auth()->user())
+                                    
+                                            @if(auth()->user()->type == 0)
+                                                <span class="add_to_favrate @if(is_object($user_type) && in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
+                                                    id="legboxId_{{$listing->id}}" data-escortId="{{$listing->id}}"
+                                                    data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+                                                    @if(!empty($user_type))
+                                                        @if(in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray()))
+                                                            <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                                        @else
+                                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                        @endif
                                                     @endif
-                                                @endif
+                                                </span>
+                                            @else
+                                                <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                                            @endif
+                                            @else
+                                                <span class="add_to_favrate" data-escortId="{{$listing->id}}"
+                                                    data-name="{{$listing->business_name}}"><i class="fa fa-heart-o"
+                                                                                    aria-hidden="true"></i></span>
+                                            @endif
+                                            <span class="label save-my-legbox-btn">
+                                                @if(is_object($user_type) && in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
                                             </span>
-                                        @else
-                                            <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                                        @endif
-                                        @else
-                                            <span class="add_to_favrate" data-escortId="{{$listing->id}}"
-                                                data-name="{{$listing->business_name}}"><i class="fa fa-heart-o"
-                                                                                aria-hidden="true"></i></span>
-                                        @endif
-                                        <span class="label save-my-legbox-btn">
-                                            @if(is_object($user_type) && in_array($listing->id,$user_type->massageCenterLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
-                                        </span>
-                                </button>
-                 
-                    </div>
+                                    </button>   
                             </div>
 
                         </div>

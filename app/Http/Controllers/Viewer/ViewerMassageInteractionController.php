@@ -272,8 +272,8 @@ class ViewerMassageInteractionController extends Controller
                     }
 
                     $isBlocked = '<div class="custom-control custom-switch text-center">
-                                        <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedMassageButton" id="customSwitch'.$row->id.'">
-                                        <label class="custom-control-label" for="customSwitch'.$row->id.'"></label>
+                                        <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedMassageButton" id="massageCustomSwitch'.$row->id.'">
+                                        <label class="custom-control-label" for="massageCustomSwitch'.$row->id.'"></label>
                                     </div>';
 
                 

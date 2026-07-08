@@ -26,9 +26,6 @@
                             max-width: 100px !important;
                             width: 100%;
                         }
-                        .mc_card_container {
-                            grid-template-columns: 1fr;
-                        }
                         .mc_list_header,
                         .mc_list_address,
                         .social_media_icons {
@@ -85,6 +82,7 @@
                             display: flex;
                             align-items: center;
                             padding: 15px 0px;
+                            max-width: clamp(184px, 65vw, 250px)
                         }
                         .profile_wrap .profile_header {
                             padding-top: 15px;
@@ -275,7 +273,7 @@
                             gap: 10px;
                         }
                         .home_heading_first {
-                            font-weight: 600;
+                            font-weight: bold !important;
                         }
                         .register-img {
                             padding: 0px;
@@ -512,6 +510,12 @@
                             gap: 10px;
                             justify-content: flex-end;
                             flex-direction: row-reverse;
+                        }
+                    }
+                    
+                    @media(max-width:451px) {
+                        .mc_card_container {
+                            grid-template-columns: 1fr;
                         }
                     }
                     
