@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.center')
 @section('style')
 <style>
    td,
@@ -62,9 +62,10 @@
      </div>
    </div>
 </div>
-@include('escort.dashboard.Bookkeeping.modal.transaction-summary')
+@include('center.dashboard.modal.transaction-summary')
  @endsection
  @push('script')
+   <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
  <script>
      var table;
      $(document).ready(function(){

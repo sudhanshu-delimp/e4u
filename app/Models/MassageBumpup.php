@@ -54,4 +54,9 @@ class MassageBumpup extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
+
+    public function paymentItems()
+    {
+        return $this->morphMany(PaymentItem::class, 'item');
+    }
 }

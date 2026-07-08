@@ -30,7 +30,7 @@ class SendProductOrderCompleteConfirmationMailToSupplier extends Mailable
    */
   public function build()
   {
-    $subject = "Order Completed Notification – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}";
+    $subject = "Order Completed Notification – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
     return $this->subject($subject)->view('emails.escort.order.order_completed_supplier')
       ->with(['data' => $this->data]);
   }

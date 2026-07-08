@@ -11,6 +11,7 @@ use App\Http\Controllers\Center\MassageViewerInteractionController;
 use App\Http\Controllers\Center\Masseurs\MasseurController;
 use App\Http\Controllers\Center\MediaController;
 use App\Http\Controllers\Center\OtherCenterController;
+use App\Http\Controllers\Center\PaymentController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\MassageController;
@@ -117,6 +118,7 @@ Route::post('listing/listing-payment', [MassageController::class, 'listing_payme
 Route::get('listing/payment-completed', [MassageController::class, 'payment_completed'])->name('center.payment-completed');
 
 
+
 Route::get('listing/current', function(){return view('center.dashboard.listing.current');})->name('center.current');
 Route::get('listing/past', function(){return view('center.dashboard.listing.past');})->name('center.past');
 
@@ -189,6 +191,20 @@ Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'
 
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
 Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+
+
+############# Payment Process ####################
+Route::post('payments/make_order_summury',[PaymentController::class,'make_order_summury'])->name('center.make_order_summury');
+Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('center.payment.adjustment');
+Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('center.payment.process');
+Route::post('payments/payment-session', [PaymentController::class, 'checkPaymentSession'])->name('center.check-payment-session');
+
+Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('center.transaction-summary');
+Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('center.transaction_summary.datatable');
+Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('center.payment.detail');
+Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
+
+
 
 
 

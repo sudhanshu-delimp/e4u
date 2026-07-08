@@ -119,6 +119,8 @@ background:#16385f;
 @stop
 @section('content')
 
+
+
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 ">
    <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
@@ -224,7 +226,7 @@ background:#16385f;
             
                     <!-- Footer -->
                     <div class="listing-footer" style="text-align:right; margin-top:20px;">
-                        <button type="button" class="save_profile_btn" id="escort-form-submit-btn" disabled="true">Proceed to Payment</button>
+                        <button type="button" class="save_profile_btn" id="escort-form-submit-btn" disabled="true">Proceed to Checkout</button>
                     </div>
                 </form>
 
@@ -281,7 +283,7 @@ background:#16385f;
               
                 
                 <button type="button" class="close-btn">Close</button>
-                <button type="button" class="pay-btn">Pay</button>
+                <button type="button" class="pay-btn">Checkout</button>
             </div>
         </form>
 
@@ -289,19 +291,32 @@ background:#16385f;
      </div>
 </div>
 
+
+
 @endsection
+
+
+@include('center.dashboard.modal.payment_form')
+@include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 
 @push('script')
 <!-- file upload plugin end here -->
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 
 <script src="{{ asset('js/escort/progress_bar.js') }}"></script>
 
 <script type="text/javascript">
 let profileCount = {{ count($profiles) }};
 let live_profiles = {{ count($live_profiles) }};
+var plandata = {}; 
+var updatedPlanSummary = {};
+const secretKey = "{{ config('app.aes_key') }}";
+const iv = "{{ config('app.aes_iv_string') }}";
+
+
 
 
 $(document).ready(function () {
@@ -637,26 +652,26 @@ $(".save_profile_btn").click(function(){
             data: formData,
             success: function (response) {
 
-                const data = {
+               plandata = {
                 membershipName: response.membership_name,
                 normalRate: response.normalRate,
                 days: response.days,
                 total_discount:response.total_discount,
-                total_rate:response.total_rate,
+                total_rate:response.full_fee,
                 discountRate : response.discountRate,
                 applied_discount : response.applied_discount
             };
 
-            console.log(data);
+            console.log('plandata',plandata);
 
 
-            let rate = data.normalRate;
-            let fullFee = data.normalRate * days;
-            let discount = data.total_discount;
+            let rate = plandata.normalRate;
+            let fullFee = plandata.normalRate * days;
+            let discount = plandata.total_discount;
             let finalFee = fullFee - discount;
-            let total_rate = data.total_rate;
-            let discountRate = data.discountRate;
-            let applied_discount = data.applied_discount;
+            let total_rate = plandata.total_rate;
+            let discountRate = plandata.discountRate;
+            let applied_discount = plandata.applied_discount;
             total = finalFee;
            
 
@@ -680,9 +695,9 @@ $(".save_profile_btn").click(function(){
                 <td>${formatDateToDDMMYYYY(end)}</td>
                 <td>${days}</td>
                 <td>$ ${rate}</td>
-                <td>$ ${formatIndianNumber(fullFee.toFixed(2))}</td>
-                <td>$ ${formatIndianNumber(discount.toFixed(2))}</td>
-                <td>$ ${formatIndianNumber(finalFee.toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(parseFloat(fullFee).toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(parseFloat(discount).toFixed(2))}</td>
+                <td>$ ${formatIndianNumber(parseFloat(finalFee).toFixed(2))}</td>
             </tr>
             `;
 
@@ -691,7 +706,7 @@ $(".save_profile_btn").click(function(){
             <tr>
                 <td colspan="7"></td>
                 <td><strong>Total Fees</strong></td>
-                <td><strong>$ ${formatIndianNumber(total.toFixed(2))}</strong></td>
+                <td><strong>$ ${formatIndianNumber(parseFloat(total).toFixed(2))}</strong></td>
             </tr>`;
 
             $("#summaryBody").html(html);
@@ -724,20 +739,37 @@ e.preventDefault();
     }
 
     $("#summaryModal").hide();
+    $('#adjustment-form').append(`<input type="hidden" name="action_type" value="listing">`);
 
     if (await isConfirm({'action': 'Proceed','text': ''})) {
-        swal_waiting_popup({'title': 'Payment in progress'});
-        let formData = $("#purchase_listing").serialize();
 
+        swal_waiting_popup({'title': 'Processing.'});
+        let formData = $("#purchase_listing").serialize();
+        
          $.ajax({
                     url: "{{route('center.listing-payment')}}",
                     method: 'POST',
                     data: formData,
-                    success: function(response) {
+                    success:  function(response) 
+                    {
                         Swal.close();
-                        let redirect = {'time': 2000, 'url' : 'payment-completed'}
-                        $('#next').trigger('click');
-                        swal_success_popup(response.message,redirect);
+                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
+                        plandata.action_type = $('[name="action_type"]').val();
+                        console.log('plandata=>>>>>>',plandata);
+                        swal_waiting_popup({'title': 'Processing.'});
+
+                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
+                        Swal.close();
+                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $('#adjustment-form')[0].reset();
+                        $('#payment-form')[0].reset();
+                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        }
+                        }).fail(function(err) {
+                            console.error('Summary Function Error:', err);
+                            Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        });
                     },
                     error: function(xhr) {
                         Swal.close();
@@ -747,7 +779,7 @@ e.preventDefault();
                         } else {
                             swal_error_popup(xhr.responseJSON.message ||'Something went wrong.');
                         }
-                    }
+                }
         });
 
     }
@@ -765,6 +797,7 @@ $('#prev').trigger('click');
 $("#summaryModal").hide();
 });
 
-
 </script>
+
+@include('center.dashboard.payment_functions')
 @endpush

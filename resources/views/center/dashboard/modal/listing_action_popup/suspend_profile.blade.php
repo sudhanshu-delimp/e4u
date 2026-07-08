@@ -34,7 +34,7 @@
                                                      @foreach ($active_profile as $profile)
                                                    
                                                         @php
-                                                            $purchase = $profile->purchase->first();
+                                                            $purchase = $profile->latestPurchase;
                                                         @endphp
                                                               
 
