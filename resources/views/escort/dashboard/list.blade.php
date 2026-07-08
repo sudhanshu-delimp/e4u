@@ -840,7 +840,7 @@
                 success: function(response, textStatus, xhr) {
                     console.log('requestPayload2success', xhr, response);
                     if (response.success) {
-
+                        formButton.disabled = false;
                     }
                 },
                 error: function(xhr, status, error) {
