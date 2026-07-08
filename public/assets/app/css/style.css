@@ -3535,7 +3535,7 @@ i.fa {
 .profile_page_social_profiles {
     display: flex;
     gap: 15px;
-    margin-left: 40px;
+    margin-left: clamp(20px, 4vw, 40px)
 }
 
 .profile_page_location_and_id ul {
@@ -5411,7 +5411,7 @@ ul.footerbtn-flex li {
     font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 500 !important;
-    font-size: 20px !important;
+    font-size: clamp(16px, 4vw, 20px) !important;
     line-height: 1.5 !important;
     color: #0C223D !important;
 }
