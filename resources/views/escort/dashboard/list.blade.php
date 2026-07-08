@@ -837,20 +837,20 @@
                     formButton.disabled = true;
                     console.log(formButton);
                 },
-                success: function(response) {
+                success: function(response, textStatus, xhr) {
+                    console.log('requestPayload2success', xhr, response);
                     if (response.success) {
-                        $('#extendEndDate').val('');
-                        Swal.fire({
-                            title: 'Listings',
-                            text: `${response.message}`,
-                            icon: 'warning'
-                        });
-                    }
-                    formButton.disabled = false;
 
+                    }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error in location filter:', error);
+                    let response = readXHR(xhr);
+                    displaySwal(xhr).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#extendEndDate').val('');
+                            formButton.disabled = false;
+                        }
+                    });
                 }
             });
         }
