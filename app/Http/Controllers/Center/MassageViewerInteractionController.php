@@ -96,9 +96,10 @@ class MassageViewerInteractionController extends Controller
         if (auth()->user()) {
 
             $myMassageProfileIds = MassageProfile::where('user_id',auth()->user()->id)->pluck('id');
+            
             $myViewerLegbboxProfileIds = MyMassageLegbox::whereIn('massage_id', $myMassageProfileIds)->pluck('massage_id');
 
-            $massageViewerCenters = MassageProfile::whereIn('id',$myViewerLegbboxProfileIds)->where('enabled',1)->with(['user','messageViewerInteraction','messageViewerLegbox']);
+            $massageViewerCenters = MassageProfile::whereIn('id',$myViewerLegbboxProfileIds)->with(['user','messageViewerInteraction','messageViewerLegbox']);
 
              return DataTables::of($massageViewerCenters)
                 ->filter(function ($query) use ($request) {
@@ -115,10 +116,10 @@ class MassageViewerInteractionController extends Controller
                     }
                 })
                 ->addColumn('viewer_id', function ($row) {
-                    return $row->messageViewerLegbox ? $row->messageViewerLegbox->user_id : '-';
+                    return $row->messageViewerLegbox ? $row->messageViewerLegbox->user->member_id : '-';
                 })
                 ->addColumn('business_name', function($row){
-                    return Str::title($row->name);
+                    return !empty($row->business_name) ? Str::title($row->business_name) : Str::title($row->profile_name);
                 })
                 ->addColumn('home_state', function($row){
                     return config("escorts.profile.states.$row->state_id.stateName") ?? '-';

@@ -32,6 +32,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Models\MassageViewerInteractions;
 
 
 class MassageCentre extends Controller
@@ -131,14 +132,25 @@ class MassageCentre extends Controller
         //         $q->where('status', 1);
         //     })->pluck('massage_profile_id');
 
+        # Not show specific profile to viewer if specific viewer is blocked by escort
+        $blockedProfileForViewersIds = [0];
+        if (Auth::user() && auth()->user()->type == 0) {
+            $blockedProfileForViewersIds = MassageViewerInteractions::where('viewer_id', Auth::user()->id)->where('massage_blocked_viewer', true)->pluck('massage_id');
+            if ($blockedProfileForViewersIds && count($blockedProfileForViewersIds) > 0) {
+                //$query = $query->whereNotIn('id', $blockedProfileForViewersIds);
+            }
+        }
+
+
             $massage_live_ids = MassagePurchase::where('status', 'listed')
             ->whereHas('user', function ($q) {
                 $q->where('status', 1);
             })
+            ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
             ->whereDoesntHave('activeSuspendProfile')
             ->pluck('massage_profile_id');
 
-
+        
      
 
         //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
