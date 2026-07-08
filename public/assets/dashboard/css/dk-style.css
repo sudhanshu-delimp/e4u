@@ -7,6 +7,7 @@
     --blue--text--default: #2B3D50;
     /* status */
     --active--status: rgb(80, 220, 150);
+    --dispatch--status: rgb(72, 185, 208);
     --inactive--status: rgb(255, 0, 0);
     --withdraw--status: rgb(165, 110, 75);
     --resolved--status: rgb(200, 150, 20);
@@ -158,6 +159,10 @@ ol {
 
 .badge_active {
     background-color: var(--active--status);
+}
+
+.badge_dispatch {
+    background-color: var(--dispatch--status);
 }
 
 .badge_inactive {
@@ -2713,6 +2718,25 @@ color: #B9B9B9;
     border: 1px solid #90A0B76E;
     padding: 24px;
     border-radius: 4px;
+}
+
+.common_otp_note {
+    text-align: justify;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #f9f9f9;
+    margin: 15px 0px;
+}
+
+.common_otp_note ol {
+    margin-bottom: 0px;
+}
+
+.common_otp_note ol li {
+    line-height: 22px;
+    margin-bottom: 0px;
+    font-size: 14px !important;
 }
 
 .forgot_pass .label_margin_zero_for_login img {
@@ -7480,10 +7504,14 @@ input:checked+.slider:before {
 
 #myFrontpop h5 {
     font-family: 'Poppins';
-    font-size: 25px;
+    font-size: clamp(16px, 4vw, 25px);
     line-height: 30px;
     letter-spacing: -0.015em;
     margin-bottom: 0.75rem;
+}
+
+#myFrontpop .user_ag_icon {
+    width: clamp(35px, 4vw, 50px);
 }
 
 #myFrontpop p {
@@ -7505,7 +7533,7 @@ li {
 #myFrontpop select,
 option.form-control {
     color: #000;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     font-weight: 500 !important;
     font-family: 'Poppins';
     border: 1px solid;
@@ -7514,7 +7542,7 @@ option.form-control {
 }
 
 #myFrontpop .modal-body {
-    padding: 25px;
+    padding: clamp(10px, 4vw, 25px);
 }
 
 #myFrontpop .modal-content,
@@ -7531,20 +7559,43 @@ option.form-control {
 }
 
 #myFrontpop button {
-    font-size: 18px;
+    font-size: clamp(14px, 4vw, 18px);
+    padding: 10px;
+    line-height: 1.4;
+    font-weight: 500;
     width: 100%;
     height: auto;
     font-family: 'Poppins';
-    background: #192A3E;
+    background-color: var(--blue--text);
+}
+
+#myFrontpop .modal-logo {
+    width: clamp(100px, 12vw, 195px);
 }
 
 #myFrontpop a {
     justify-content: center;
     margin-top: 0.75rem;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     font-family: 'Poppins';
-    color: #B40E2C;
+    color: var(--peach);
     font-weight: 500;
+}
+
+#privacy-popup h2 {
+    font-size: clamp(16px, 4vw, 20px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+}
+
+#privacy-popup .popup--header {
+    padding: clamp(10px, 4vw, 20px);
+}
+
+#privacy-popup .popup--content--area {
+    padding: clamp(10px, 4vw, 20px);
 }
 
 li.parsley-required {

@@ -396,7 +396,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $q->where('add_to_list.user_id', $user_id);
             });
         }
-
         if (!empty($escort_id)) {
             $plan_type = $plan_type
                 ->whereIn('id', $escort_id);
@@ -417,7 +416,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->orderBy('id', 'asc')
             ->paginate($count);
         // ->paginate($count ?? 25);
-        //dd($plan_type);
+       // dd($plan_type);
         $collection = $plan_type->getCollection();
 
         $collection = $collection->map(function ($item, $key) {
@@ -453,12 +452,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
             return $item;
         })->collect();
 
-        // dd($collection);
 
         $collection = $collection->groupBy(['user' => function ($item) {
             return $item->membership;
         }], $preserveKeys = true)->sortKeys();
-
+        
 
         if ($profileDetails) {
             return  $collection->flatten(1);
@@ -470,7 +468,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
             return $item;
         })->collect();
 
-        //dd($collection);
         $pagination = $plan_type->setCollection($collection);
         return $pagination;
     }

@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+use function PHPSTORM_META\type;
+
 if (!function_exists('generateReferenceNo')) {
     function generateReferenceNo(string $modelClass): string
     {
@@ -2296,7 +2298,7 @@ if (!function_exists('update_profile_massure')) {
 
 
 
-    function getMediaVerificationDataSmallIcon(int $status)
+    function getMediaVerificationDataSmallIcon( $status)
     {
         switch ($status) {
             case 0:
@@ -2327,7 +2329,7 @@ if (!function_exists('update_profile_massure')) {
 
 
 
-    function getMediaVerificationDataBigIcon(int $status)
+    function getMediaVerificationDataBigIcon($status)
     {
         switch ($status) {
             case 0:
@@ -2493,5 +2495,36 @@ if (!function_exists('other_centre_support_notification_count'))
         }
        
         return 0;  
+    }
+}
+
+if (!function_exists('getStarRatingForEscort')) {
+    function getStarRatingForEscort(int $escortId): int
+    {
+        $total = \App\Models\EscortLike::where('escort_id', $escortId)->count();
+
+        if ($total === 0) {
+            return 0;
+        }
+
+        $likeCount = \App\Models\EscortLike::where('escort_id', $escortId)
+            ->where('like', 1)
+            ->count();
+
+        $lp = round(($likeCount / $total) * 100);
+
+        if ($lp == 100) {
+            return 5;
+        } elseif ($lp > 80) {
+            return 4;
+        } elseif ($lp > 60) {
+            return 3;
+        } elseif ($lp > 40) {
+            return 2;
+        } elseif ($lp > 20) {
+            return 1;
+        }
+
+        return 0;
     }
 }

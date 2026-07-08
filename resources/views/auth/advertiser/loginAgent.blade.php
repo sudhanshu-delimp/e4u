@@ -30,50 +30,75 @@
                         <input type="hidden" name="type" value="5">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="exampleInputmobilenumber">Mobile Number</label>
-                           <input type="text" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number" data-parsley-required-message="Phone Number is required" value="{{ old('phone') }}">
-                           <div class="termsandconditions_text_color">
-                               {{-- @error('phone')
 
-                                       {{ $message }}
-                               @enderror --}}
-                           </div>
-                        </div>
+                            <div class="input-group custom-fields">                                
+                                <span class="input-group-text ">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                            stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z"
+                                                stroke="#495057" stroke-width="2" stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                 <input type="text" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number"  data-parsley-errors-container="#phone-errors" data-parsley-required-message="Phone Number is required" value="{{ old('phone') }}">
+                                 <div class="termsandconditions_text_color">
+                                    
+                                 </div>
+                              </div>
+                              <div id="phone-errors"></div>
+                        </div>   
                         <div class="form-group label_margin_zero_for_login" style="position: relative;">
                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                           <input type="password" class="form-control" placeholder="Please Enter Your Password" id="exampleInputPassword1" placeholder=""
-                              name="password" required autocomplete="new-password"
-                              data-parsley-required-message="@lang('errors/validation/required.password')"
-                              data-parsley-pattern-message="@lang('errors/validation/valid.password')">
 
-                           {{-- Eye icon --}}
-                           <span toggle="#exampleInputPassword1" class="toggle-password" style="
-                              position: absolute;
-                              top: 38px;
-                              right: 15px;
-                              cursor: pointer;">
-                              <i class="fa fa-eye" id="toggleEyeIcon"></i>
-                           </span>
+                            <div class="input-group custom-fields">
+                                
+                                <span class="input-group-text">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                            stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                                stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                 <input type="password" class="form-control" placeholder="Please Enter Your Password" id="exampleInputPassword1" placeholder=""
+                                    name="password" required autocomplete="new-password"
+                                    data-parsley-required-message="@lang('errors/validation/required.password')"
+                                    data-parsley-pattern-message="@lang('errors/validation/valid.password')" data-parsley-errors-container="#password-errors">
 
-                           <div class="termsandconditions_text_color">
-                              @error('password')
-                                    {{ $message }}
-                              @enderror
-                              @error('phone')
-                                    {{ $message }}
-                              @enderror
-                           </div>
+                                 {{-- Eye icon --}}
+                                 <span toggle="#exampleInputPassword1" class="toggle-password" style="
+                                    position: absolute;
+                                    top:10px;
+                                    right: 15px;
+                                    cursor: pointer;">
+                                    <i class="fa fa-eye" id="toggleEyeIcon"></i>
+                                 </span>
+
+                                 <div class="termsandconditions_text_color">
+                                    @error('password')
+                                          {{ $message }}
+                                    @enderror
+                                    @error('phone')
+                                          {{ $message }}
+                                    @enderror
+                                 </div>
+                              </div>
+                              <div id="password-errors"></div>
                         </div>
 
                         <div id="formerror">
                         </div>
-                       <!--<div class="form-check form-check-inline">
-                           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                           <label class="form-check-label" for="inlineRadio1">I am an Escort</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                           <label class="form-check-label" for="inlineRadio2">I am an Agent</label>
-                       </div>-->
                         <div class="row login-bottom-des">
                            <div class="col-md-7 align-self-center">
                                {{-- <a href="{{ route('agent.forgot')}}"> Forgot Password?</a> --}}

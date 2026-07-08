@@ -70,6 +70,7 @@
     @php
         //dd($escorts);
         $grouped = $paginator->getCollection()->groupBy('membership');
+
     @endphp
     <section class="">
         <div class="container filter-contain mt-3">
@@ -1241,7 +1242,6 @@
         </div>
     </div>
 
-    {{-- viewer Preferences when viewer change location from filter than open this modal  --}}
 
     <div class="modal fade upload-modal" id="viewerPreferences" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1580,8 +1580,8 @@
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                                    $('[name=\"gender\"]').val($genderId);
-                                                                                                                }";
+                $('[name=\"gender\"]').val($genderId);
+            }";
             }
             ?>
         });
