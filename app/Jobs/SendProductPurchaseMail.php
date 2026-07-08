@@ -94,27 +94,27 @@ class SendProductPurchaseMail implements ShouldQueue
 
         // send mail to escort
         $billingMail = $billingAddress->email;
-        if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
-          $agentMail = $order->createdBy->email;
+        // if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
+        //   $agentMail = $order->createdBy->email;
 
-          Mail::to($agentMail)->cc($billingMail)->send(new OrderMailToEscort($mailData));
-        } else {
-          $mail = Mail::to($billingMail);
-          if (!empty($agent) && !empty($agent->email)) {
-            $mail->cc($agent->email);
-          }
-          $mail->send(new OrderMailToEscort($mailData));
-        }
+        //   Mail::to($agentMail)->cc($billingMail)->send(new OrderMailToEscort($mailData));
+        // } else {
+        //   $mail = Mail::to($billingMail);
+        //   if (!empty($agent) && !empty($agent->email)) {
+        //     $mail->cc($agent->email);
+        //   }
+        //   $mail->send(new OrderMailToEscort($mailData));
+        // }
 
         // send mail to e4u team
         $e4uEmail = config('app.e4u_mail');
-        Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
+        Mail::to("employee183delimp@outlook.com")->send(new OrderMailToE4U($mailData));
         // Log::info("sent mail");
 
         // send mail to condom man (suppplier)
         $condommail = config('app.condom_mail');
 
-        Mail::to($condommail)->send(new SendOrderMailToCondomMan($mailData));
+        // Mail::to($condommail)->send(new SendOrderMailToCondomMan($mailData));
       }
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);
