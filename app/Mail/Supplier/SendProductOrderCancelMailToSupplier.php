@@ -31,7 +31,7 @@ class SendProductOrderCancelMailToSupplier extends Mailable
    */
 public function build()
 {
-    $subject = "Order Cancelled Notification – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}";
+    $subject = "Order Cancelled Notification – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
 
     return $this->subject($subject)
         ->view('emails.escort.order.order_cancelled_supplier')
