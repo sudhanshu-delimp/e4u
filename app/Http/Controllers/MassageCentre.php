@@ -132,7 +132,7 @@ class MassageCentre extends Controller
         //         $q->where('status', 1);
         //     })->pluck('massage_profile_id');
 
-        # Not show specific profile to viewer if specific viewer is blocked by escort
+        # Not show specific profile to viewer if specific viewer is blocked by Massage
         $blockedProfileForViewersIds = [0];
         if (Auth::user() && auth()->user()->type == 0) {
             $blockedProfileForViewersIds = MassageViewerInteractions::where('viewer_id', Auth::user()->id)->where('massage_blocked_viewer', true)->pluck('massage_id');
@@ -526,7 +526,16 @@ class MassageCentre extends Controller
          $listing = MassageProfile::where('id',$id)->with(['reviews' => function($q){
             $q->where('status','published');
         },'reviews.user'])->first();
-        
+
+        # Not show specific profile to viewer if specific viewer is blocked by Massage
+ 
+        if (Auth::user() && auth()->user()->type == 0 &&  $listing) {
+            $blockedProfileForViewers = MassageViewerInteractions::where('viewer_id', Auth::user()->id)->where('massage_blocked_viewer', true)->where('massage_id',  $listing->id)->first();
+            if($blockedProfileForViewers){
+                 return redirect(route('find.massage.centre'));
+            }
+            
+        }
 
         $ids = $request->ids ? json_decode($request->ids, true) : [];
        
