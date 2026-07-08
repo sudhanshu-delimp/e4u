@@ -24,22 +24,20 @@
                         @if (!auth()->user())
                         <ul class="footer_list_style_none pl-0 custom--foter-login">
                             <li class="dropdown">
-                                <a style="padding: 5px 15px;width:120px; text-align: center;"
-                                    class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
+                                <a class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     href="{{ route('register') }}">Register</a>
-                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                <div class="c_dropdown dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
                                     <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
                                     <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
                                     <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
                                 </div>
                             </li>
                             <li class="dropdown">
-                                <a style="padding: 5px 15px; width:120px; text-align: center;"
-                                    class="nav-link dropdown-toggle   footer_login_btn primery_color"
+                                <a class="nav-link dropdown-toggle   footer_login_btn primery_color"
                                     id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" href="{{ route('register') }}">Log in</a>
-                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                <div class="c_dropdown dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
                                     <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
                                     <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
                                     <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
@@ -137,7 +135,7 @@
                                 $query['gender'] = '';
                                 @endphp
 
-                                <li><a href="javascript:void(0);">{{ $city }}</a></li>
+                                <li class="disabled-link"><a href="javascript:void(0);">{{ $city }}</a></li>
                                 @if ($loop->iteration == 4)
                                 @break
                                 @endif
@@ -232,7 +230,7 @@
     <section class="copy_right_footer_mange_padding">
         <div class="footer_copy_right container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-md-8 footer_text_color_white p-0">
+                <div class="col-lg-4 col-md-4 footer_text_color_white p-0">
                     <div class="custom--copyryt">
                         <span><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 stroke="#fff">
@@ -261,6 +259,9 @@
                     </div>
                     
                 </div>
+                <div class="col-lg-4 col-md-4  delimp_copyright order-last order-md-0">
+                    <span><img src="{{ asset('assets/app/img/delimp-technology.png') }}" alt="Delimp Technology Pvt. Ltd."> Built by  <a href="https://delimp.com/" target="_blank"> Delimp Technology Pvt. Ltd. </a></span>
+                </div>
                 <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right p-0">
                     <span class="footer_text_color_white">Last revision: 1st June 2025&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                     <span class="footer_text_color_white">Follow us:</span>
@@ -269,11 +270,6 @@
                                     src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"
                                     alt="logo"></a></li>
                     </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 delimp_copyright">
-                    <span><img src="{{ asset('assets/app/img/delimp-technology.png') }}" alt="Delimp Technology Pvt. Ltd."> Built by  <a href="https://delimp.com/" target="_blank"> Delimp Technology Pvt. Ltd. </a></span>
                 </div>
             </div>
         </div>

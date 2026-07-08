@@ -97,7 +97,7 @@
      },
                  
      ajax: {
-         url: "{{ route('escort.payment.transaction_summary.datatable') }}",
+         url: "{{ route('center.transaction_summary.datatable') }}",
          data: function (d) {
          
          }
@@ -120,7 +120,7 @@
         let modal = $(this);
         modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
         $.ajax({
-        url: `{{route('escort.payment.detail')}}`,
+        url: `{{route('center.payment.detail')}}`,
         type: 'POST',
         data: {
             id: id,

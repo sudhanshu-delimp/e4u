@@ -112,7 +112,7 @@ $position = $positions[$postionKey] ?? "";
         @endphp
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
                 <img src="{{ asset($avtar) }}" class="img-profile rounded-circle avatarName">
@@ -120,20 +120,24 @@ $position = $positions[$postionKey] ?? "";
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    Member ID: {{ auth()->user()->member_id }}
-                </a>
-                 <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    User Name: {{ auth()->user()->name }}
-                </a>
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                   Position: {{ $position }}
-                </a>
-               
-                <div class="dropdown-divider"></div>
+                <div class="highlight-menu">
+                    
+                    <a class="dropdown-item menu-profile" href="javascript:void(0);">                        
+                        <span>{{ auth()->user()->name }}</span> <br> ({{ $position }}) <br> {{ auth()->user()->member_id }} 
+                    </a>
+                </div>
+                
+                                
+                                
+                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                    <span>
+                        My account
+                    </span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
+
+                <div class="collapse" id="accountMenu">   
+                
                 <a class="dropdown-item" href="{{ route('admin.account.edit') }}">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                     Edit My Account
@@ -142,6 +146,7 @@ $position = $positions[$postionKey] ?? "";
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                     Change Password
                 </a>
+                </div>
                  {{-- <div class="dropdown-divider"></div>
 
                  <a class="dropdown-item" href="{{ route('admin.escort-listings') }}">
@@ -151,8 +156,8 @@ $position = $positions[$postionKey] ?? "";
                     <a class="dropdown-item" href="{{ route('admin.massage-centre-listings') }}">
                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
                         Massage Centre Listings
-                    </a> --}}
-                <div class="dropdown-divider"></div>
+                    </a> 
+                <div class="dropdown-divider"></div>--}}
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                     Logout

@@ -50,12 +50,14 @@
                                 <strong>Order Ref:</strong> {{ $data['id'] }}
                             </p>
                             <p style="margin: 15px 0;">
-                                <strong>Date Dispatched:</strong> {{ date("d-m-Y") }}
-                            </p>  
-                            <p style="margin: 15px 0;">
-                                <strong>AusPost Tracking:</strong> {{ $data['tracking_id']??'' }}
+                                <strong>Date Dispatched:</strong> {{ date('d-m-Y') }}
                             </p>
 
+                            @if (!empty($data['tracking_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>AusPost Tracking:</strong> {{ $data['tracking_id'] ?? '' }}
+                                </p>
+                            @endif
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>

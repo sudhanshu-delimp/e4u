@@ -346,6 +346,13 @@
                         <img src="{{ asset('assets/app/img/sales-performance.png') }}">
                         <span>Bank Account</span>
                     </a>
+
+                    <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
+                        href="{{ url('center-dashboard/transaction-summary') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
+                        <span>Transaction Summary</span>
+                    </a>
+
                     {{-- <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/credit-my-account') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">

@@ -134,7 +134,7 @@ $businessName = isset(auth()->user()->business_name) ? auth()->user()->business_
         @endphp
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{ asset( $avtar) }}"
                     class="img-profile rounded-circle avatarName">
@@ -143,43 +143,48 @@ $businessName = isset(auth()->user()->business_name) ? auth()->user()->business_
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    Membership ID : {{ auth()->user()->member_id }}
-                </a>
+                   <div class="highlight-menu">
+                        <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ $name }}</span> <br>{{ auth()->user()->member_id }}</a>
+                    </div>
 
-                <a class="dropdown-item" href="#">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    Name : {{ $name }}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('shareholder.edit-my-account') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                    My account
-                </a>
-                <a class="dropdown-item" href="{{ route('shareholder.change-password') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                    Change password
-                </a>
-                <a class="dropdown-item" href="{{ route('shareholder.shareholders') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/shareholder.png') }}">
-                    My Shareholding
-                </a>
+                     
+                                
+                                
+                    <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                        <span>
+                            My account
+                        </span>
+                        <i class="fas fa-chevron-down chevron-icon"></i>
+                    </div>
 
-                <a class="dropdown-item" href="{{ route('shareholder.submit') }}">
-                    <img class="profile_icons"
-                        src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
-                    Support Ticket
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
-                    Logout
-                </a>
-            </div>
-        </li>
+                    <div class="collapse" id="accountMenu">   
+                        <a class="dropdown-item" href="{{ route('shareholder.edit-my-account') }}">
+                            <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                            My account
+                        </a>
+                        <a class="dropdown-item" href="{{ route('shareholder.change-password') }}">
+                            <img class="profile_icons"
+                                src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                            Change password
+                        </a>
+                        <a class="dropdown-item" href="{{ route('shareholder.shareholders') }}">
+                            <img class="profile_icons"
+                                src="{{ asset('assets/dashboard/img/profile-icons/shareholder.png') }}">
+                            My Shareholding
+                        </a>
+
+                        <a class="dropdown-item" href="{{ route('shareholder.submit') }}">
+                            <img class="profile_icons"
+                                src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
+                            Support Ticket
+                        </a>
+                    </div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
+                        Logout
+                    </a>
+                </div>
+            </li>
 
         </ul>
 

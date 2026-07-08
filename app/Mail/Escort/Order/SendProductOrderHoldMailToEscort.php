@@ -29,7 +29,7 @@ class SendProductOrderHoldMailToEscort extends Mailable
    */
   public function build()
   {
-    $subject = "Your Order Has Been Placed On Hold – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}";
+    $subject = "Your Order Has Been Placed On Hold – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
     return $this->subject($subject)->view('emails.escort.order.order_hold_escort')
       ->with(['data' => $this->data]);
   }

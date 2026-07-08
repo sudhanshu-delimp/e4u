@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+use function PHPSTORM_META\type;
+
 if (!function_exists('generateReferenceNo')) {
     function generateReferenceNo(string $modelClass): string
     {
@@ -1877,19 +1879,9 @@ if (!function_exists('get_massage_listed_profile')) {
 
         $massage_live_ids  = MassagePurchase::where('status', 'listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if (!empty($massage_live_ids)) {
-            $profile = MassageProfile::select('id', 'purchase_id', 'name', 'profile_name', 'business_name')->with('purchase', 'state', 'latestPurchase')->whereIn('id',  $massage_live_ids)->get();
-            if ($profile->isNotEmpty()) {
-                $profile->map(function ($item) {
-
-                    $item->start_date =
-                        $item->isListingExtended = $item->isListingExtended();
-                    $item->latest_entry = $item->latestPurchase;
-                    return $item;
-                });
+            $profile = MassageProfile::select('id', 'purchase_id', 'name', 'profile_name', 'business_name')->with('state', 'latestPurchase')->whereIn('id',  $massage_live_ids)->get();
+            if ($profile->isNotEmpty()) 
                 return $profile;
-            } else {
-                return false;
-            }
         }
     }
 }
@@ -1905,31 +1897,56 @@ if (!function_exists('getMassageDetail')) {
 
 
 if (!function_exists('getMassageSuspendRefundAmount')) {
-    function getMassageSuspendRefundAmount($profile, $startDate = null, $endDate = null)
+    function getMassageSuspendRefundAmount($profile, $refundStartDate = null, $refundEndDate = null)
     {
         $refundAmount = 0.00;
-        if (!empty($startDate)  && !empty($endDate)) {
-            $profileDetail = is_object($profile) ? $profile : getMassageDetail($profile);
-            $purchase = $profileDetail->mainPurchase;
+        $discountDay = 21;
+        $discountPercentage = 6;
 
-            Log::info('purchase');
-            Log::info($purchase);
+        $purchase  = MassagePurchase::where('status', 'listed')->where('massage_profile_id', $profile)->first();
+        
 
+        $normalRate   = $purchase->rate;
+        $discountRate = $purchase->paid_rate;
 
-            $piadAmount = $purchase->paid_rate;
+        $purchaseStart = Carbon::parse($purchase->start_date);
+        $purchaseEnd   = Carbon::parse($purchase->end_date);
 
-            $dayBeforeSuspendStart = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($startDate));
-            $dayTillSuspendEnd = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($endDate)) + 1;
-            /* In calculateTotalFee third param is optional , to ignore later paln price updates */
-            [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $profileDetail->user, $purchase);
-            [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $profileDetail->user, $purchase);
+        $refundStart = Carbon::parse($refundStartDate);
+        $refundEnd   = Carbon::parse($refundEndDate);
 
-            $netAmount = number_format($costTillSuspendEnd - $costBeforeSuspendStart, 2, '.', '');
-            $refundAmount = min($piadAmount, $netAmount);
+        // Refund dates should be within purchase dates
+        if ($refundStart->lt($purchaseStart) || $refundEnd->gt($purchaseEnd)) {
+            return 0;
         }
-        return number_format($refundAmount, 2, '.', '');
+
+        $refundAmount = 0;
+        $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
+
+      
+        $refundDays = $refundStart->diffInDays($refundEnd) + 1;
+
+        for ($i = 0; $i < $refundDays; $i++) {
+
+            $currentDay = $startDayNumber + $i;
+
+            if ($currentDay <= $discountDay) {
+                $refundAmount += $normalRate;
+            } else {
+                $discountedRate = $purchase->discount_rate;
+                $refundAmount += $discountedRate;
+            }
+        }
+
+        
+        return number_format((float) $refundAmount, 2, '.', '');
+       
     }
 }
+
+
+
+
 if (!function_exists('get_media_by_id')) {
     function get_media_by_id($media_id, $type = 'escort')
     {
@@ -2296,7 +2313,7 @@ if (!function_exists('update_profile_massure')) {
 
 
 
-    function getMediaVerificationDataSmallIcon(int $status)
+    function getMediaVerificationDataSmallIcon( $status)
     {
         switch ($status) {
             case 0:
@@ -2327,7 +2344,7 @@ if (!function_exists('update_profile_massure')) {
 
 
 
-    function getMediaVerificationDataBigIcon(int $status)
+    function getMediaVerificationDataBigIcon($status)
     {
         switch ($status) {
             case 0:
@@ -2493,5 +2510,51 @@ if (!function_exists('other_centre_support_notification_count'))
         }
        
         return 0;  
+    }
+}
+
+if (!function_exists('formatToFloat'))
+{
+    function formatToFloat($value) {
+    
+        if (empty($value)) {
+            return 0.00;
+        }
+        
+        if (is_string($value)) {
+            $value = str_replace(',', '', $value);
+        }
+        
+        return number_format((float)$value, 2, '.', '');
+    }
+}
+if (!function_exists('getStarRatingForEscort')) {
+    function getStarRatingForEscort(int $escortId): int
+    {
+        $total = \App\Models\EscortLike::where('escort_id', $escortId)->count();
+
+        if ($total === 0) {
+            return 0;
+        }
+
+        $likeCount = \App\Models\EscortLike::where('escort_id', $escortId)
+            ->where('like', 1)
+            ->count();
+
+        $lp = round(($likeCount / $total) * 100);
+
+        if ($lp == 100) {
+            return 5;
+        } elseif ($lp > 80) {
+            return 4;
+        } elseif ($lp > 60) {
+            return 3;
+        } elseif ($lp > 40) {
+            return 2;
+        } elseif ($lp > 20) {
+            return 1;
+        }
+
+        return 0;
     }
 }

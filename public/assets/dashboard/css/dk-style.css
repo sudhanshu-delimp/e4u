@@ -7,6 +7,7 @@
     --blue--text--default: #2B3D50;
     /* status */
     --active--status: rgb(80, 220, 150);
+    --dispatch--status: rgb(72, 185, 208);
     --inactive--status: rgb(255, 0, 0);
     --withdraw--status: rgb(165, 110, 75);
     --resolved--status: rgb(200, 150, 20);
@@ -160,6 +161,10 @@ ol {
     background-color: var(--active--status);
 }
 
+.badge_dispatch {
+    background-color: var(--dispatch--status);
+}
+
 .badge_inactive {
     background-color: var(--inactive--status);
 }
@@ -300,8 +305,105 @@ body {
     background-color: #F2F2F2 !important;
 }
 
+.custom-nav-dropdown .dropdown-item:last-child {
+    border-top: 1px solid #ccc;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item:last-child {
+    border-top: 0px;
+}
+
+#accountMenu .dropdown-item:first-child {
+    border-top: 1px solid #ccc;
+}
+
+#accountMenu .dropdown-item:last-child {
+    border-top: 0px;
+}
+
+.chevron-icon {
+    transition: transform .3s ease;
+}
+
+.account-toggle {
+    cursor: pointer;
+}
+
+.account-toggle:hover i {
+    color: #fff;
+}
+
+.account-toggle span {
+    font-weight: 500;
+}
+
+.chevron-icon.rotate {
+    transform: rotate(180deg);
+}
+
+.custom-nav-dropdown.dropdown-menu {
+    padding: 0px !important;
+    width: 215px !important;
+}
+
+.custom-nav-dropdown .highlight-menu {
+    background-color: var(--peach);
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item {
+    color: #fff;
+}
+
+.custom-nav-dropdown .highlight-menu .dropdown-item .profile_icons {
+    width: 20px;
+    margin-right: 10px;
+    filter: brightness(33.5);
+}
+
+.custom-nav-dropdown .highlight-menu .menu-profile span {
+    display: inline-block;
+    max-width: 18ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.custom-nav-dropdown .highlight-menu .menu-profile {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 .custom-nav-dropdown .dropdown-item:hover {
-    background-color: #dfdfdf;
+    background-color: #ff3c5f !important;
+    color: #fff;
+}
+
+.custom-nav-dropdown .dropdown-item:hover .profile_icons {
+    filter: brightness(33.5);
+}
+
+.custom-nav-dropdown::after {
+    content: "";
+    position: absolute;
+    top: -25px;
+    right: 15px;
+    transform: translateX(1px) rotate(180deg);
+    border-width: 13px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
+.custom-nav-dropdown .req {
+    background-color: #d5ffd4;
+    padding: 0px 5px;
+    font-size: 11px;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 .bg-second {
@@ -1906,6 +2008,22 @@ button.btn:focus {
     }
 }
 
+#sendOtp_modal .modal-dialog {
+    max-width: 600px;
+}
+
+#sendOtp_modal .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid var(--blue--text) !important;
+    outline: 0;
+    box-shadow: none;
+}
+
+#sendOtp_modal h4 {
+    color: var(--peach);
+}
+
 
 /* end */
 
@@ -2602,8 +2720,27 @@ color: #B9B9B9;
     border-radius: 4px;
 }
 
+.common_otp_note {
+    text-align: justify;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #f9f9f9;
+    margin: 15px 0px;
+}
+
+.common_otp_note ol {
+    margin-bottom: 0px;
+}
+
+.common_otp_note ol li {
+    line-height: 22px;
+    margin-bottom: 0px;
+    font-size: 14px !important;
+}
+
 .forgot_pass .label_margin_zero_for_login img {
-    width: 150px;
+    width: 100px;
 }
 
 .otp-verify-btn {
@@ -7367,10 +7504,14 @@ input:checked+.slider:before {
 
 #myFrontpop h5 {
     font-family: 'Poppins';
-    font-size: 25px;
+    font-size: clamp(16px, 4vw, 25px);
     line-height: 30px;
     letter-spacing: -0.015em;
     margin-bottom: 0.75rem;
+}
+
+#myFrontpop .user_ag_icon {
+    width: clamp(35px, 4vw, 50px);
 }
 
 #myFrontpop p {
@@ -7392,7 +7533,7 @@ li {
 #myFrontpop select,
 option.form-control {
     color: #000;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     font-weight: 500 !important;
     font-family: 'Poppins';
     border: 1px solid;
@@ -7401,7 +7542,7 @@ option.form-control {
 }
 
 #myFrontpop .modal-body {
-    padding: 25px;
+    padding: clamp(10px, 4vw, 25px);
 }
 
 #myFrontpop .modal-content,
@@ -7418,20 +7559,43 @@ option.form-control {
 }
 
 #myFrontpop button {
-    font-size: 18px;
+    font-size: clamp(14px, 4vw, 18px);
+    padding: 10px;
+    line-height: 1.4;
+    font-weight: 500;
     width: 100%;
     height: auto;
     font-family: 'Poppins';
-    background: #192A3E;
+    background-color: var(--blue--text);
+}
+
+#myFrontpop .modal-logo {
+    width: clamp(100px, 12vw, 195px);
 }
 
 #myFrontpop a {
     justify-content: center;
     margin-top: 0.75rem;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     font-family: 'Poppins';
-    color: #B40E2C;
+    color: var(--peach);
     font-weight: 500;
+}
+
+#privacy-popup h2 {
+    font-size: clamp(16px, 4vw, 20px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+}
+
+#privacy-popup .popup--header {
+    padding: clamp(10px, 4vw, 20px);
+}
+
+#privacy-popup .popup--content--area {
+    padding: clamp(10px, 4vw, 20px);
 }
 
 li.parsley-required {

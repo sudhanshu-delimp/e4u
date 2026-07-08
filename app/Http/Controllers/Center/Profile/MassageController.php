@@ -101,6 +101,7 @@ class MassageController extends Controller
         // $active_profile = get_massage_listed_profile();
         // else
         // $active_profile = [];
+        
         $active_profile = get_massage_listed_profile();
         return view('center.dashboard.list',compact('active_profile'));
     }
@@ -129,6 +130,8 @@ class MassageController extends Controller
             ->orderBy('id', 'desc')   
             ->get();
 
+
+           
           
         
 
@@ -143,6 +146,8 @@ class MassageController extends Controller
             $is_live = false;   
         
             $isExtended = $row->isListingExtended();
+
+           
 
             $profile_url = ['id' => $row->id,'ids' => '[]'];
             
@@ -1398,9 +1403,13 @@ class MassageController extends Controller
         list($total_discount, $total_rate, $normalRate, $discountRate,$appliedDiscountAmount) =
                 calculateTotalFee($request->membership_id, $days, $this->account,Null);
        
+     $total_discount = formatToFloat($total_discount);
+     $full_fee = $days*$normalRate;
+     $discountRate = $total_rate;
 
       return response()->json([
                 'total_rate' => $total_rate,
+                'full_fee' => $full_fee,
                 'normalRate' => $normalRate,
                 'discountRate' => $discountRate,
                 'days' => $days,
@@ -1422,6 +1431,11 @@ class MassageController extends Controller
     
             $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
 
+            $pricing = Pricing::where('membership_id', $request->membership_id)
+                    ->with('memberships')
+                    ->first();
+
+
 
             $start_date = Carbon::createFromFormat('Y-m-d', $payload_start_date)->format('Y-m-d').' 00:00:00';
             $end_date = Carbon::createFromFormat('Y-m-d', $payload_end_date )->format('Y-m-d').' 23:59:59';
@@ -1435,8 +1449,8 @@ class MassageController extends Controller
 
 
         
-            $parent_id          = 0;
-            $membership_id      = $request->membership_id;
+            $parent_id           = 0;
+            $membership_id       = $request->membership_id;
             $massage_profile_id  = $request->massage_profile_id;
             $massage_centre_id   =  auth()->user()->id ?? 0;
 
@@ -1448,39 +1462,72 @@ class MassageController extends Controller
 
             $status             = 'pending';
 
-            $rate               = $request->rate ?? 0;
-            $discount_rate      = $request->discountRate ?? 0;
-            $total_rate         = $request->total_fee;
-            $paid_rate          = $request->total_rate ?? 0;
-            $appliedDiscountAmount  = $request->applied_discount ?? 0;
+            $total_discount      = $request->total_discount;
+            $paid_rate           = $request->total_fee;
+            
 
-            $purchase = MassagePurchase::create([
-                'parent_id'          => $parent_id,
-                'membership_id'      => $membership_id,
-                'massage_centre_id'  => $massage_centre_id,
-                'massage_profile_id' => $massage_profile_id,
-                'start_date'         => $start_date,
-                'end_date'           => $end_date,
-                'utc_start_time'     => $utc_start_time,
-                'utc_end_time'       => $utc_end_time,
-                'status'             => $status,
-                'rate'               => $rate,
-                'discount_rate'      => $discount_rate,
-                'total_rate'         => $total_rate,
-                'paid_rate'          => $paid_rate,
-            ]);
+            $rate               = $request->rate ?? 0;
+
+            $discount_rate      = $rate - (($rate * $pricing->percentage ) / 100);
+            $applied_dicount    = $total_discount ?? 0;
+            $total_rate         = $request->total_rate;
+            $paid_rate          = $paid_rate;
+
+            $gstAmount = getGSTAmount($paid_rate);
+            $final_amount = $paid_rate + $gstAmount;
+
+            $appliedDiscountAmount  = $request->applied_discount ?? 0;
+            $checkout_number = md5(time());
+
+            $purchase = [
+                    'parent_id'          => $parent_id,
+                    'checkout_number'    => $checkout_number,
+                    'membership_id'      => $membership_id,
+                    'massage_centre_id'  => $massage_centre_id,
+                    'massage_profile_id' => $massage_profile_id,
+                    'start_date'         => $start_date,
+                    'end_date'           => $end_date,
+                    'utc_start_time'     => $utc_start_time,
+                    'utc_end_time'       => $utc_end_time,
+                    'status'             => $status,
+                    'rate'               => $rate,
+                    'discount_rate'      => $discount_rate,
+                    'total_discount'     => $applied_dicount,
+                    'total_rate'         => $total_rate,
+                    'paid_rate'          => $paid_rate,
+                    'final_amount'       => $final_amount,
+            ];
+            session()->forget('MassagePurchase');
+            session(['MassagePurchase' => $purchase]);
+            $checkout_data['checkout_number'] = $purchase['checkout_number'];
+            // $purchase = MassagePurchase::create([
+            //     'parent_id'          => $parent_id,
+            //     'membership_id'      => $membership_id,
+            //     'massage_centre_id'  => $massage_centre_id,
+            //     'massage_profile_id' => $massage_profile_id,
+            //     'start_date'         => $start_date,
+            //     'end_date'           => $end_date,
+            //     'utc_start_time'     => $utc_start_time,
+            //     'utc_end_time'       => $utc_end_time,
+            //     'status'             => $status,
+            //     'rate'               => $rate,
+            //     'discount_rate'      => $discount_rate,
+            //     'total_rate'         => $total_rate,
+            //     'paid_rate'          => $paid_rate,
+            // ]);
 
             /** Calulate agent commisson and save the commission */
-            $agentCommission = (new AgentCommission);
-            if($purchase) {
-                $agentResponse = $agentCommission->saveCommissionData($purchase, $massage_centre_id, $paid_rate);
-            }
+            // $agentCommission = (new AgentCommission);
+            // if($purchase) {
+            //     $agentResponse = $agentCommission->saveCommissionData($purchase, $massage_centre_id, $paid_rate);
+            // }
 
-            if($this->account->activeFeeDiscount){
-                $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
-            }
+            // if($this->account->activeFeeDiscount){
+            //     $this->account->activeFeeDiscount()->increment('spend_amount', $appliedDiscountAmount);
+            // }
             
              return response()->json([
+                'data' => $checkout_data,
                 'success' => true,
                 'message' => 'Transaction completed successfully.'
             ]);
@@ -1836,7 +1883,7 @@ class MassageController extends Controller
     public function payment_completed()
     {
         $redirect_url = url('center-dashboard/listing/current');
-        return view('escort.dashboard.complete-listings',compact('redirect_url'));
+        return view('center.dashboard.complete-listings',compact('redirect_url'));
     }
 
 }

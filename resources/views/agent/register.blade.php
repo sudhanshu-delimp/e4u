@@ -13,13 +13,24 @@
     <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px angle_bg_image  padding_bottom_eight_px">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-12 col-sm-12 adverti_reg_page_padingto_bt">
-                    <div class="reg_info agent-registration">
-                        {{-- <h2>Registration - Agent</h2> --}}
-                        <div class=" pt-2 pb-5">
-                            <h1 class="text-uppercase">Agent Registration</h1>
+                <div class="col-lg-5 col-md-12 col-sm-12 adverti_reg_page_padingto_bt-new">
+                    <div class="reg_info agent-registration common-reg-info">                         
+                        <div class="inner_div">
+                            <div class="heading">
+                                <svg width="45px" height="45px" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                                            fill="#ff3c5f"></path>
+                                    </g>
+                                </svg>
+                                <h1> Agent Registration</h1>
+                            </div>
                             <h2>Lodge your enquiry with us here</h2>
-                            <p class="text-justify">If you have industry experience or you are well connected to Advertisers,
+                            <p>If you have industry experience or you are well connected to Advertisers,
                                 then
                                 becoming an Escorts4U Agent may be for you. Earn additional income as an Agent. We will
                                 assist you in every regard to earn.
@@ -33,122 +44,214 @@
                         </div>
                     </div>
                 </div>
-                <div class="reg_box_form_style col-lg-5 col-md-12 col-sm-12">
-                    <div class="regstractionform">
-                        <h4>Register Now - Earn Additional Income!</h4>
+                <div class="reg_box_form_style col-lg-7 col-md-12 col-sm-12">
+                    <div class="regstractionform common-reg-form">
+                        <div class="heading-3">
+                            <svg width="55px" height="55px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                                        fill="#0c223d"></path>
+                                </g>
+                            </svg>
+                            <div>
+                                <h3>Register Now</h3>
+                                <p class="mb-0 small">Earn Additional Income!</p>
+                            </div>
+                        </div>
+                        <hr>
                         <form id="escort_registration" action="{{ route('agent.register') }}" method="post">
                             @csrf
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Business Name</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" name="name" value="{{ old('name') }}" required
-                                    autocomplete="name" placeholder="Name"
-                                    data-parsley-required-message="Your Name is required"
-                                    data-parsley-pattern="/^[a-z0-9\s\-\(\)]+$/i">
-                                <div class="termsandconditions_text_color">
-                                    @error('name')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mobileno">Mobile Number</label>
-                                <input type="tel" maxlength="10" data-parsley-maxlength="10" required
-                                    class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp"
-                                    placeholder="Mobile Number"
-                                    data-parsley-required-message="Your mobile number is required"
-                                    value="{{ old('phone') }}" data-parsley-type="digits"
-                                    data-parsley-type-message="Enter only mobile numbers" autocomplete="off"
-                                    oninput="this.value = this.value.replace(/\D/g,'');">
-                                <span id="phone-errors"></span>
-                                <div class="termsandconditions_text_color">
-                                    @error('phone')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">{{ __('Email') }}</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
-                                    autocomplete="email" placeholder="Email Address"
-                                    data-parsley-required-message="@lang('errors/validation/required.email')"
-                                    data-parsley-type-message="@lang('errors/validation/valid.email')">
-                                <span id="email-errors"></span>
-                                <div class="termsandconditions_text_color">
-                                    @error('email')
-                                        <strong>{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
-                                <select class="form-control" id="location_state" name="state_id" required
-                                    data-parsley-required-message="Select Location">
-                                    <option value="">Select your Home State (if not already identified)</option>
-                                    @foreach (config('escorts.profile.states') as $key => $state)
-                                        <option value="{{ $key }}"
-                                            {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
-                                            {{ $state['stateName'] }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <div class="row">
+                                    <div class="form-group col-lg-6 col-sm-12 ">
+                                        <label for="exampleInputEmail1">Business Name</label>
+                                        <div class="input-group custom-fields">
+                                            <span class="input-group-text">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z"
+                                                            stroke="#495057" stroke-width="2"></path>
+                                                        <path
+                                                            d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z"
+                                                            stroke="#495057" stroke-width="2"></path>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="name" value="{{ old('name') }}" required
+                                                autocomplete="name" placeholder="Name"
+                                                
+                                                data-parsley-errors-container="#name-errors"
+                                                data-parsley-required-message="Your Name is required"
+                                                data-parsley-pattern="/^[a-z0-9\s\-\(\)]+$/i">
+                                                <div class="termsandconditions_text_color">
+                                                    @error('name')
+                                                        <strong>{{ $message }}</strong>
+                                                    @enderror
+                                                </div>
+                                                
+                                        </div>
+                                    <div id="name-errors"></div>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-sm-12 ">
+                                        <label for="mobileno">Mobile Number</label>
+                                        <div class="input-group custom-fields">
+                                            <span class="input-group-text">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z"
+                                                            stroke="#495057" stroke-width="2" stroke-linejoin="round"></path>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <input type="tel" maxlength="10" data-parsley-maxlength="10" required
+                                                class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp"
+                                                placeholder="Mobile Number"
+                                                data-parsley-required-message="Your mobile number is required"
+                                                
+                                                data-parsley-errors-container="#phone-errors"
+                                                value="{{ old('phone') }}" data-parsley-type="digits"
+                                                data-parsley-type-message="Enter only mobile numbers" autocomplete="off"
+                                                oninput="this.value = this.value.replace(/\D/g,'');">
+                                            
+                                                <div class="termsandconditions_text_color">
+                                                    @error('phone')
+                                                        <strong>{{ $message }}</strong>
+                                                    @enderror
+                                                </div>
+                                        </div>
+                                        <div id="phone-errors"></div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">{{ __('Email') }}</label>
+                                        <div class="input-group custom-fields">
+                                            <span class="input-group-text">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                                                            stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                        <rect x="3" y="5" width="18" height="14" rx="2"
+                                                            stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
+                                                autocomplete="email" placeholder="Email Address"
+                                                 data-parsley-errors-container="#email-errors"
+                                                data-parsley-required-message="@lang('errors/validation/required.email')"
+                                                data-parsley-type-message="@lang('errors/validation/valid.email')">
+                                           
+                                            <div class="termsandconditions_text_color">
+                                                @error('email')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div id="email-errors"></div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label for="exampleFormControlSelect1">Location<sup>(1)</sup></label>
+                                        <div class="input-group custom-fields">
+                                            <span class="input-group-text">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M5.7 15C4.03377 15.6353 3 16.5205 3 17.4997C3 19.4329 7.02944 21 12 21C16.9706 21 21 19.4329 21 17.4997C21 16.5205 19.9662 15.6353 18.3 15M12 9H12.01M18 9C18 13.0637 13.5 15 12 18C10.5 15 6 13.0637 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9ZM13 9C13 9.55228 12.5523 10 12 10C11.4477 10 11 9.55228 11 9C11 8.44772 11.4477 8 12 8C12.5523 8 13 8.44772 13 9Z"
+                                                            stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <select class="form-control loc-sec" id="location_state" name="state_id" required
+                                                data-parsley-required-message="Select Location"
+                                                data-parsley-errors-container="#location-errors">>
+                                                <option value="">Select your Home State (if not already identified)</option>
+                                                @foreach (config('escorts.profile.states') as $key => $state)
+                                                    <option value="{{ $key }}"
+                                                        {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
+                                                        {{ $state['stateName'] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div id="location-errors"></div>
+                                    </div>
+                                    <input type="hidden" name="type" value="5">
+                                    <div class="termsandconditions_text_color">
+                                        @error('type')
+                                            <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-12 tnc-info">
+                                        
+                                        <div class="form-check-inline" style="margin-left: 5px;">
+                                            <input type="checkbox" data-parsley-errors-container=".check-tc" class="form-check-input"
+                                                id="termsandconditions" required data-parsley-required-message="@lang('errors/validation/required.checkbox')">
+                                            <label class="form-check-label" for="termsandconditions">I have read and agree to the <a
+                                                    href="terms-conditions" class="termsandconditions_text_color"
+                                                    style="font-size: 13px;">Terms and Conditions</a></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="check-tc"></span>
+                                    </div>
+                                    <div class="termsandconditions_text_color">
+                                        <!-- error sms here -->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="submit" id="submit_button"
+                                            class="btn site_btn_primary w-100">
+                                            Register
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7 col-sm-12">
+                                        <div class="common_form_note">
+                                            <p><b>Notes:</b>
+                                            <ol>
+                                                <li>Geolocation in use.</li>
+                                                <li>Management of your Account is optimised in a browser or tablet. There are
+                                                    limitations on a Mobile device.</li>
+                                            </ol>
+                                        </div>
+                                    </div>
 
-                            <!-- <div class="form-group">
-                                <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Be mindful of what you have used in other websites" name="password" required autocomplete="new-password" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                                <div class="termsandconditions_text_color">
-                                    
-                                    @error('password')
-        <strong>{{ $message }}</strong>
-    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group mb-0">
-                                <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                                <input type="password" class="form-control" id="conformPassword" placeholder="Confirm your password" name="password_confirmation" data-parsley-equalto="#exampleInputPassword1" data-parsley-equalto-message="Confirm password should be the same password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
-                                <div class="termsandconditions_text_color">
-                                   
-                                </div>
-                            </div> -->
-
-                            {{-- <div class="form-check form-check-inline">
-                            <input class="form-check-input" required type="radio" name="type" id="inlineRadio1" value="3"{{ old('type') == 3 ? ' checked' : null }}>
-                            <label class="form-check-label" for="inlineRadio1">I am an Escort</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="4"{{ old('type') == 4 ? ' checked' : null }}>
-                            <label class="form-check-label" for="inlineRadio2">I am a Massage Center</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="5"{{ old('type') == 5 ? ' checked' : null }}>
-                            <label class="form-check-label" for="inlineRadio2">I am a Agent</label>
-                            </div> --}}
-                            <input type="hidden" name="type" value="5">
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
-                                @error('type')
-                                    <strong>{{ $message }}</strong>
-                                @enderror
-                            </div>
-                            <div class="form-check pt-2 pb-1 form-check-inline" style="margin-left: 5px;">
-                                <input type="checkbox" data-parsley-errors-container=".check-tc" class="form-check-input"
-                                    id="termsandconditions" required data-parsley-required-message="@lang('errors/validation/required.checkbox')">
-                                <label class="form-check-label" for="termsandconditions">I have read and agree to the <a
-                                        href="terms-conditions" class="termsandconditions_text_color"
-                                        style="font-size: 13px;">Terms and Conditions</a></label>
-                            </div>
-                            <span class="check-tc"></span>
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
-                            </div>
-                            <div class="form-row py-3">
-                                <div class="col-12">
-                                    <button type="submit" id="submit_button"
-                                        class="btn site_btn_primary">Register</button>
-                                </div>
-                                <div class="col-12 component_notes">
-                                    <x-register-page-note />                                   
+                                    <div class="col-lg-5 col-md-5 col-sm-12">
+                                        <div class="common_form_note">
+                                            <p>
+                                                Any personal information submitted to this Website will be handled in accordance
+                                                with
+                                                E4U's <a class="termsandconditions_text_color" href="{{ 'privacy-policy' }}"
+                                                    target="_blank">Privacy Policy</a> and
+                                                <a href="{{ 'privacy-collection-notice' }}"
+                                                    class="termsandconditions_text_color" target="_blank">Privacy Collection
+                                                    Notice</a>, both
+                                                available on the Website.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

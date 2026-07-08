@@ -46,20 +46,37 @@ class WalletService
             throw new Exception('Insufficient wallet balance');
         }
 
-        DB::transaction(function () use ($user, $amount, $source, $description, $meta) {
-            $wallet = $user->getOrCreateWallet();
-            $wallet->decrement('balance', $amount);
-            $wallet->refresh();
-            $wallet->transactions()->create([
-                'type' => 'debit',
-                'amount' => $amount,
-                'balance_after' => $wallet->balance,
-                'description' => $description,
-                'meta' => $meta,
-                'transactionable_id' => $source?->id,
-                'transactionable_type' => $source ? get_class($source) : null,
-            ]);
-        });
+            DB::transaction(function () use ($user, $amount, $source, $description, $meta) {
+                $wallet = $user->getOrCreateWallet();
+
+                $data = [
+                    'type'          => 'debit',
+                    'amount'        => $amount,
+                    'balance_after' => $wallet->balance - $amount,
+                    'description'   => $description,
+                    'meta'          => $meta,
+                ];
+
+                if (!empty($source?->id)) 
+                {
+                    $exists = $wallet->transactions()
+                        ->where('transactionable_id', $source->id)
+                        ->where('transactionable_type', get_class($source))
+                        ->exists();
+
+                    if ($exists) {
+                        return; // or throw an exception
+                    }
+
+                    $data['transactionable_id'] = $source->id;
+                    $data['transactionable_type'] = get_class($source);
+                }
+
+                $wallet->decrement('balance', $amount);
+                $wallet->refresh();
+                $data['balance_after'] = $wallet->balance;
+                $wallet->transactions()->create($data);
+            });
     }
 
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user = null)

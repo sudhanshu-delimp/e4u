@@ -226,12 +226,11 @@
     let card = {};
     let paymentFormData = {};
     let form = $('form.pin');
-    let submitPaymentButton = form.find(":submit");
     $(function() {
 
         var pinApi = new Pin.Api(`{{ config('app.payment.publish_key') }}`, 'test');
-
-        errorContainer = form.find('.errors'),
+        var submitButton = form.find(":submit"),
+            errorContainer = form.find('.errors'),
             errorHeading = errorContainer.find('h3');
 
         form.submit(function(e) {
@@ -241,7 +240,7 @@
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').remove();
 
-            submitPaymentButton.attr({
+            submitButton.attr({
                 disabled: true
             });
 
@@ -303,7 +302,7 @@
                     }
                 });
             }
-            submitPaymentButton.removeAttr('disabled');
+            submitButton.removeAttr('disabled');
         }
 
     });
@@ -320,6 +319,7 @@
                     text: 'Do not refresh or close this page.',
                     allowOutsideClick: false,
                     allowEscapeKey: false,
+                    allowOutsideClick: false,
                     didOpen: () => {
                         Swal.showLoading();
                     }
@@ -328,7 +328,7 @@
             success: function(response, textStatus, xhr) {
                 Swal.close();
                 paymentFormData = {};
-                //submitPaymentButton.removeAttr('disabled');
+                //submitButton.removeAttr('disabled');
                 let otherModalForm;
                 if (!response.redirect_url || response.redirect_url.trim() === '') {
                     form.closest('.modal').modal('hide');
@@ -373,10 +373,8 @@
                 }
             },
             error: function(xhr) {
-                submitPaymentButton.removeAttr('disabled');
                 Swal.close();
                 let option = getStatusOption(xhr);
-                console.log(submitPaymentButton);
                 Swal.fire({
                     icon: option.icon,
                     title: option.title,
@@ -384,6 +382,7 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                 });
+                submitButton.prop('disabled', false);
             }
         });
     }
@@ -417,7 +416,7 @@
     var adjustmentForm = $('#adjustment-form');
     var finishPaymentForm = $('#finish-payment-form');
     var submitAdjustmentForm = function(checkAmount = true) {
-        let submitPaymentButton = adjustmentForm.find('button[type="submit"]');
+        let submitButton = adjustmentForm.find('button[type="submit"]');
         $.ajax({
             url: adjustmentForm.attr('action'),
             method: 'POST',
@@ -425,7 +424,7 @@
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
-            data: `${adjustmentForm.serialize()}&${submitPaymentButton.attr('name')}=${submitPaymentButton.attr('value')}&checkAmount=${checkAmount}`,
+            data: `${adjustmentForm.serialize()}&${submitButton.attr('name')}=${submitButton.attr('value')}&checkAmount=${checkAmount}`,
             beforeSend: function() {
                 Swal.fire({
                     title: 'Please wait...',
@@ -487,8 +486,8 @@
 
     finishPaymentForm.submit(function(e) {
         e.preventDefault();
-        let submitPaymentButton = finishPaymentForm.find(":submit");
-        submitPaymentButton.attr({
+        let submitButton = finishPaymentForm.find(":submit");
+        submitButton.attr({
             disabled: true
         });
         let data = {};
@@ -515,7 +514,7 @@
             success: function(response, textStatus, xhr) {
                 // console.log(response);
                 Swal.close();
-                submitPaymentButton.removeAttr('disabled');
+                submitButton.removeAttr('disabled');
                 let option = getStatusOption(xhr);
                 Swal.fire({
                     icon: option.icon,
@@ -539,7 +538,7 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                 });
-                submitPaymentButton.removeAttr('disabled');
+                submitButton.removeAttr('disabled');
             }
         });
     });

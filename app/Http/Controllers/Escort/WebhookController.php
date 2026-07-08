@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendProductPurchaseMail;
-use App\Jobs\ProcessPaymentWebhook;
+use App\Jobs\ProcessListingFeaturesPostPayment;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
+use App\Services\Massage\MassagePaymentWebhookService;
 use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -86,9 +87,18 @@ class WebhookController extends Controller
             }
             break;
           case 'escort-listing': {
-              ProcessPaymentWebhook::dispatch($paymentObject);
+              ProcessListingFeaturesPostPayment::dispatch($paymentObject);
             }
+
+
+            ############ Massage Centre ##############################
+            case 'massage-listing': 
+            app(MassagePaymentWebhookService::class)->process($paymentObject);
             break;
+            ############ End Massage Centre ##########################
+
+
+            
           default:
             // Unknown type handling
             Log::warning('Unknown event', ['type' => $event,  'response' => $paymentObject]);

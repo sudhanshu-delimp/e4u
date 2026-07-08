@@ -111,14 +111,14 @@ class PaymentController extends Controller
 
             $loyalty_amount = 0;
 
-            if (session()->has('checkout')) {
+            if (in_array($action, ['listing', 'extend']) && session()->has('checkout')) {
                 $checkout = session()->get('checkout');
                 $lowestPlan = collect($checkout)->max('membership');
                 $planFee = getPlanFee($lowestPlan);
                 $loyalty_amount = ($planFee * $loyalty_day);
             }
 
-            if (session()->has('tour_checkout')) {
+            if (in_array($action, ['tour']) && session()->has('tour_checkout')) {
                 $checkout = session()->get('tour_checkout');
                 $lowestPlan = collect($checkout)->max('membership');
                 $planFee = getPlanFee($lowestPlan);
@@ -211,7 +211,7 @@ class PaymentController extends Controller
             /* Insert records for the payment history table */
             $insert = [];
             $insert['user_id'] = $this->account->id;
-            $insert['completed_by'] = $request->isImpersonated ? $request->impersonatedId : $this->account->id;
+            $insert['completed_by'] = $insert['created_by'] = $insert['updated_by'] = $request->isImpersonated ? $request->impersonatedId : $this->account->id;
             $insert['ref_no'] = generateReferenceNo(PaymentHistory::class);
             $insert['service'] = $mailConfig['service_title'];
             $insert['amount'] = $benefit_token['sub_total_amount'];
@@ -273,6 +273,9 @@ class PaymentController extends Controller
 
                 $gatewayResponse = $this->pinService->charge($pin_token, $this->pinService->getTotalDue(), $this->account->email, null, $metaData);
 
+                if (!config('app.payment.post_operations')) {
+                    return false;
+                }
                 if ($gatewayResponse['status']) {
                     $response = $gatewayResponse['data']['response'];
                 } else {
@@ -293,8 +296,9 @@ class PaymentController extends Controller
             $payment = PaymentHistory::create($insert);
 
             /** Calulate agent commisson and save the commission */
-            $agentCommission = (new \App\Models\AgentCommission);
-            if ($payment) {
+
+            if ($payment && !in_array($benefit_token['action'], ['wallet'])) {
+                $agentCommission = (new \App\Models\AgentCommission);
                 Log::info("saveCommissionData fuction calling from payment controller.");
                 $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['total_amount']);
             }
@@ -346,7 +350,7 @@ class PaymentController extends Controller
 
                         $creditTransaction->paymentItems()->create([
                             'payment_history_id' => $payment->id,
-                            'amount' => $payment->paid_rate,
+                            'amount' => $payment->amount,
                         ]);
 
                         Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
