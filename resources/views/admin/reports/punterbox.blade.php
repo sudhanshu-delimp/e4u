@@ -367,7 +367,7 @@
                 },
                 paging: true,
                 processing: false,
-                serverSide: false,
+                serverSide: true,
                 pageLength: 10,
                 order: [[3, "desc"]],
                 lengthMenu: [

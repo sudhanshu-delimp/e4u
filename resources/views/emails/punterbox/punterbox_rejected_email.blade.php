@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Confirmation of New Report - Punterbox</title>
+    <title>Confirmation of New Report - NUM</title>
 </head>
 
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
@@ -23,9 +23,9 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Confirmation of New Report - Punterbox</h1>
+                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Report Rejected - Punterbox</h1>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
-                                            {{ $body['member_id'] ?? 'N/A'}}</span>
+                                            {{ $body['member_id'] ?? 'N/A' }}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -39,36 +39,43 @@
 
                             <!-- Main Message -->
                             <p style="font-size: 15px; line-height: 2.0; margin-bottom: 15px;">
-                                We are please to confirm your Report has been received and if approved, it will be
-published within the next 24 hours. If our team has any concerns about your Report, we
-will be in touch by Support Ticket.
+                                We advise your recent Report has been rejected for the reasons set out below. If you wish
+to appeal the decision, please log a Support Ticket quoting the Ref number.
                             </p>
                             <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
                                 <strong>Summary:</strong>
                             </p>
-                             <table width="100%" cellpadding="0" cellspacing="0">
+                            <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left; padding:5px 0px;">
                                         Ref:
                                     </td>
-                                    <td style="  font-size: 16px; padding:5px 0px;">
+                                    <td style="font-size: 16px; padding:5px 0px;">
                                         {{$body['ref'] ?? 'N/A'}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: left; padding:5px 0px;">
-                                        Report Date:
+                                        Rejected Date:
                                     </td>
                                     <td style=" font-size: 16px; padding:5px 0px;">
-                                        {{$body['report_date'] ?? 'N/A'}}
+                                        {{$body['rejected_date'] ?? 'N/A'}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: left; padding:5px 0px;">
-                                        Status: :
+                                        Status:
                                     </td>
-                                    <td style=" font-size: 16px; padding:5px 0px;">
-                                        {{ucfirst($body['status']) ?? 'N/A'}}
+                                    <td style="font-size: 16px; padding:5px 0px;">
+                                        {{ucwords(str_replace('_', ' ', $body['status'] ?? 'N/A'))}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; padding:5px 0px;">
+                                        Reason:
+                                    </td>
+                                    <td style="  font-size: 16px; padding:5px 0px;">
+                                        {{$body['reason'] ?? 'N/A'}}
                                     </td>
                                 </tr>
                             </table>

@@ -99,7 +99,7 @@
 
             <div class="form-group">
                 <label class="required">Escort's Mobile</label>
-                <input type="text" class="form-control" name="escorts_mobile" required placeholder="No spaces or any other characters - just numbers">
+                <input type="text" class="form-control" maxlength="10" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="escorts_mobile" required placeholder="No spaces or any other characters - just numbers">
             </div>
 
             <div class="form-group">
@@ -222,7 +222,6 @@
                         );
                     }
                 }
-
             });
         }
     });

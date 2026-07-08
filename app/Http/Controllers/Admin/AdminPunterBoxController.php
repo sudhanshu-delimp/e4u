@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\nums\num_on_hold_email;
-use App\Mail\nums\num_published_email;
-use App\Mail\nums\num_rejected_email;
+use App\Mail\punterbox\punterbox_on_hold_email;
+use App\Mail\punterbox\punterbox_rejected_email;
+use App\Mail\punterbox\punterbox_published_email;
 use App\Models\Punterbox;
 use Carbon\Carbon;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -45,11 +45,22 @@ class AdminPunterBoxController extends Controller
         });
     }
 
-   
+
     public function showReportOnDashboardAjax(Request $request)
     {
-       
-        $punterbox = Punterbox::with(['state', 'user:id,member_id,name'])->orderBy('incident_date', 'desc')->get();
+
+        // $punterbox = Punterbox::with(['state', 'user:id,member_id,name'])->orderBy('incident_date', 'desc')->get();
+        $punterbox = Punterbox::with(['state', 'user:id,member_id,name'])
+            ->orderByRaw("
+                CASE status
+                    WHEN 'pending' THEN 1
+                    WHEN 'on_hold' THEN 2
+                    WHEN 'published' THEN 3
+                    WHEN 'rejected' THEN 4
+                    ELSE 5
+                END ASC
+            ")
+            ->orderByDesc('incident_date');
         $timeZone = isset(config('escorts.profile.states')[Auth::user()->state_id]) ?? 'Australia/Sydney';
 
         # Date Filters
@@ -77,11 +88,22 @@ class AdminPunterBoxController extends Controller
             return DataTables::of($punterbox)
                 ->addColumn('ref', fn($row) => '#' . $row->id)
                 ->addColumn('member_id', fn($row) => $row->user->member_id ?? 'N/A')
+
+                ->filterColumn('member_id', function ($query, $keyword) {
+                    $query->whereHas('user', function ($q) use ($keyword) {
+                        $q->where('member_id', 'like', "%{$keyword}%");
+                    });
+                })
+
                 ->addColumn('escorts_name', fn($row) => $row->user->name ?? 'N/A')
-                ->addColumn('incident_date', function ($row) {
-                    return $row->incident_date
-                        ? Carbon::parse($row->incident_date)->format('d-m-Y')
-                        : '';
+                ->editColumn('incident_date', function ($row) {
+                    if (!$row->incident_date) {
+                        return '';
+                    }
+
+                    return '<span data-order="' . $row->incident_date . '">'
+                        . Carbon::parse($row->incident_date)->format('d-m-Y') .
+                        '</span>';
                 })
                 ->addColumn('location', function ($row) {
                     if ($row->incident_state) {
@@ -146,7 +168,7 @@ class AdminPunterBoxController extends Controller
 
                     return $html;
                 })
-                ->rawColumns(['ref', 'actions', 'status']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref', 'actions', 'status', 'incident_date']) // only 'action' needs HTML rendering
                 ->with([
                     'server_up_time' => $this->getAppUptime(),
                     'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
@@ -194,51 +216,50 @@ class AdminPunterBoxController extends Controller
 
         $body = [
             'ref' => '#' . $report->id,
-            'name' => $report->user->name ?? 'UserID',
+            'name' => $report->user->name ?? $report->user->email,
             'member_id' => $report->user->member_id ?? 'MemberID',
             'report_date' => Carbon::parse($report->created_at)->format('d-m-Y') ?? date(),
-            'subject' => 'NUM report On Hold',
+            'subject' => 'Punterbox Report On Hold',
             'status' => $req->status,
         ];
 
         if ($req->status == 'on_hold') {
 
-            $body['subject'] = 'NUM Report On Hold';
+            $body['subject'] = 'Punterbox Report On Hold';
             $body['on_hold'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
 
             try {
-                Mail::to($report->user->email)->send(new num_on_hold_email($body));
+                Mail::to($report->user->email)->send(new punterbox_on_hold_email($body));
             } catch (\Exception $e) {
-                Log::info('NUM On Hold Email sending failed: ' . $e->getMessage());
+                Log::info('Punterbox On Hold Email sending failed: ' . $e->getMessage());
             }
         }
 
         if ($req->status == 'published') {
-            $body['subject'] = 'NUM Report Published';
+            $body['subject'] = 'Punterbox Report Published';
             $body['approved_date'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
 
 
             try {
-                Mail::to($report->user->email)->queue(new num_published_email($body));
+                Mail::to($report->user->email)->queue(new punterbox_published_email($body));
             } catch (\Exception $e) {
-                Log::info('NUM On published Email sending failed: ' . $e->getMessage());
+                Log::info('Punterbox On published Email sending failed: ' . $e->getMessage());
             }
         }
 
         if ($req->status == 'rejected') {
 
-            $body['subject'] = 'NUM Report Rejected';
+            $body['subject'] = 'Punterbox Report Rejected';
             $body['rejected_date'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
             $body['reason'] = $req->action_reason;
 
             try {
-                Mail::to($report->user->email)->queue(new num_rejected_email($body));
+                Mail::to($report->user->email)->queue(new punterbox_rejected_email($body));
             } catch (\Exception $e) {
-                Log::info('NUM rejected Email sending failed: ' . $e->getMessage());
+                Log::info('Punterbox rejected Email sending failed: ' . $e->getMessage());
             }
         }
 
         return response()->json(['success' => true, 'error' => false, 'message' => 'Report status updated successfully.']);
     }
-
 }
