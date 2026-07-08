@@ -30,7 +30,7 @@ class SendProductOrderCompleteConfirmationMailToAgent extends Mailable
    */
   public function build()
   {
-    $subject = "Order Successfully Completed on Behalf of Escort – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}";
+    $subject = "Order Successfully Completed on Behalf of Escort – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
     return $this->subject($subject)->view('emails.escort.order.order_completed_agent')
       ->with(['data' => $this->data]);
   }
