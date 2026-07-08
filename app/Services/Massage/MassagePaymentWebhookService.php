@@ -2,6 +2,7 @@
 
 namespace App\Services\Massage;
 
+use App\Mail\PaymentMailer;
 use App\Models\MassageBumpup;
 use App\Models\MassagePurchase;
 use App\Models\PaymentProcess;
@@ -10,7 +11,9 @@ use App\Services\PinPaymentService;
 use App\Services\WalletService;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class MassagePaymentWebhookService 
 {
@@ -36,6 +39,19 @@ class MassagePaymentWebhookService
                 // Fetch process and transaction details
                 $process = PaymentProcess::where('token', $metadata['process_token'])->first();
 
+                if (!$process) {
+                    Log::error("MassagePaymentWebhookService: PaymentProcess not found for token: {$metadata['process_token']}");
+                    return;
+                }
+
+                $transaction = $this->paymentService->getTransactionDetail($payload['token']);
+                
+                if ($transaction && $transaction->items->count() == 0) {
+                    echo "Payment items are zero...\n";
+                    $this->clearPaymentHistory($transaction);
+                }
+
+
                 $db_payload = $process->payload;
                 foreach (['utc_start_time', 'utc_end_time'] as $key) {
                     if (!empty($db_payload[$key])) {
@@ -43,60 +59,61 @@ class MassagePaymentWebhookService
                     }
                 }
 
-                // Log::info($db_payload);
-                // exit;
-                
-                if (!$process) {
-                    Log::error("MassagePaymentWebhookService: PaymentProcess not found for token: {$metadata['process_token']}");
-                    return;
-                }
-
-                $transaction = $this->paymentService->getTransactionDetail($payload['token']);
                 $action = $process->type;
                 $payment_service = '';
                 $rate = $db_payload['rate'] ?? "";
+                $mailBodayData = [];
 
-                if ($transaction) {
-                    $itemsCount = $transaction->items->count();
-                    if ($itemsCount == 0) {
-                        if (in_array($process->type, ['listing', 'bumpup', 'extend'])) {
-                            $this->saveCheckout($process->type, $db_payload, $transaction);
-                        }
-                    }
-                    Log::info("Transaction Items Count: {$itemsCount}");
-                } 
-
-                else 
+    
+                if (!$transaction || $transaction->items->count() == 0) 
                 {
+                     
+
+                    $mailConfig = "";
                     $insert = json_decode($metadata['insert'], true);
                     $insert['currency'] = $payload['currency'];
                     $insert['transaction_id'] = $payload['token'];
                     $insert['status'] = $payload['success'] ? 'success' : 'failed';
                     $insert['paid_at'] = $payload['created_at'];
                     $insert['card'] = $payload['card']['display_number'] ?? null;
+
+                    $insert['created_by'] = $insert['completed_by'] ?? null;
+                    $insert['updated_by'] = $insert['completed_by'] ?? null;
+                    $insert['completed_by'] = $insert['completed_by'] ?? null;
+
                     $insert['meta'] = json_encode($payload);
 
-                    $payment = $this->paymentService->saveTransaction($insert);
+                    $db_payload['created_by'] = $insert['completed_by'] ?? null;
+                    
 
-                    if ($payment) {
+                    $payment = $this->paymentService->saveTransaction($insert);
+                    $mainAccount = $payment->user;
+
+                    if ($payment && !in_array($process->type, ['wallet'])) {
                         Log::info("saveCommissionData function calling from service.");
                         $agentCommission = (new \App\Models\AgentCommission);
                         $agentCommission->saveCommissionData($payment, $insert['user_id'], $insert['total_payable_amount']);
                     }  
 
                     if (in_array($process->type, ['listing', 'bumpup', 'extend'])) {
-                        $this->saveCheckout($process->type, $db_payload, $payment);
+                        $result =  $this->saveCheckout($process->type, $db_payload, $payment);
+                        $mailBodayData['extend_days'] = empty($result['extend_days']) ? 0 : $result['extend_days'];
                     }
+
+                    
 
                     switch ($action) {
                         case 'listing': 
                             $payment_service = 'Profile Listing';
+                             $mailConfig = config("payment_mail_templates.listing");
                             break;
                         case 'extend':
                             $payment_service = 'Profile Extend';
+                            $mailConfig = config("payment_mail_templates.extend"); 
                             break; 
                         case 'bumpup': 
                             $payment_service = 'Profile Bump Up';
+                            $mailConfig = config("payment_mail_templates.bumpUp");
                             break;
                         default:
                             break;
@@ -105,8 +122,7 @@ class MassagePaymentWebhookService
                     ############## Wallet Entries #################
                     $user = User::where('id',$insert['user_id'])->first();
                     
-                    if (!empty($insert['wallet_amount']) && $insert['wallet_amount'] > 0) {
-                        // Log::info("debit processed successfully");     
+                    if (!empty($insert['wallet_amount']) && $insert['wallet_amount'] > 0) { 
                         $this->walletService->debit($user, $insert['wallet_amount'], $payment, $payment_service, []);
                     }
 
@@ -117,11 +133,9 @@ class MassagePaymentWebhookService
                             $user->wallet->decrement('earn_days', $loyalty_day);
                         
                         }
-                        // Log::info("decrement processed successfully".$rate.'===='.$insert['loyalty_amount'].$loyalty_day); 
                     }
 
                     if (in_array($action, ['listing', 'extend'])) {
-                        // Log::info("updateEarnDays processed successfully"); 
                         $earn_days = floor($insert['net_amount'] / 200);
                         if ($earn_days > 0) {
                             $this->walletService->updateEarnDays($user, $earn_days, 'add');
@@ -131,6 +145,44 @@ class MassagePaymentWebhookService
                     $payment->service = $payment_service;
                     $payment->save();
                     $process->delete();
+
+
+                    ########## For Wallet Payment ##############           
+                    if (in_array($process->type, ['wallet'])) 
+                    {
+                        $creditTransaction = $this->walletService->credit(
+                                $mainAccount,
+                                $payment->amount,
+                                $payment,
+                                'Add Money',
+                                [
+                                    'user_id' => $mainAccount->id
+                                ]
+                            );
+
+                            $creditTransaction->paymentItems()->create([
+                                'payment_history_id' => $payment->id,
+                                'amount' => $payment->amount,
+                        ]);
+
+
+                    }
+
+
+                    ####### Send Mail for the payment confirmation #####
+
+                    
+                    $mailBodayData['mainAccount'] = $mainAccount;
+                    $mailBodayData['payment'] = $payment;   
+
+                    try {
+                        echo "Sending Mail for the payment confirmation...\n";
+                        Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], $mailBodayData, $mailConfig['subject']));
+                    } catch (\Throwable $e) {
+                        echo "Sending Mail Error\n";
+                        echo "Mail Error: {$e->getMessage()}\n";
+                    }
+                    ################# End Send Email ###################
                 }
 
                 Log::info("MassagePaymentWebhookService: Webhook processed successfully");
@@ -152,7 +204,7 @@ class MassagePaymentWebhookService
         try 
         {
             $response = [];
-            Log::info("Processing payment items and other in Service...");
+            Log::info("Processing saveCheckout MassagePurchase item.");
 
             $purchaseData = (!empty($checkout)) ? $checkout : [];
 
@@ -198,4 +250,31 @@ class MassagePaymentWebhookService
         ]);
         }
     }
+
+
+    public function clearPaymentHistory($paymentHistory)
+    {
+        echo "clearPaymentHistory...\n";
+        DB::transaction(function () use ($paymentHistory) {
+
+            foreach ($paymentHistory->items as $paymentItem) {
+
+                $modelClass = $paymentItem->item_type;
+
+                if (class_exists($modelClass)) {
+
+                    $model = $modelClass::find($paymentItem->item_id);
+
+                    if ($model) {
+                        $model->delete();
+                    }
+                }
+
+                $paymentItem->delete();
+            }
+
+            $paymentHistory->delete();
+        });
+    }
+
 }

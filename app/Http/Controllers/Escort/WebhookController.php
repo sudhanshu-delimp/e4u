@@ -20,6 +20,8 @@ class WebhookController extends Controller
 
     $signatureHeader = $request->header('Pin-Signature');
 
+   
+
 
     if (!$signatureHeader)
       return response()->json(['status' => ' signature not found '], 500);
@@ -37,6 +39,7 @@ class WebhookController extends Controller
 
     $timestamp = $parts['t'] ?? null;
     $signature = $parts['v1'] ?? null;
+
 
     if (!$timestamp || !$signature)
       return response()->json(['status' => 'timestamp or signature not found '], 500);
@@ -73,6 +76,9 @@ class WebhookController extends Controller
 
       // type for identify wor what payment was made
       $type = $paymentObject['metadata']['type'] ?? '';
+
+      Log::info($type);
+
       // Example: payment success
       if ($event == 'charge.captured') {
         // start swithc case

@@ -330,6 +330,11 @@ class PaymentController extends BaseController
                     $payload = session()->get('MassagePurchase');
                     break;
 
+                    case 'wallet': 
+                    //$payload = session()->get('MassagePurchase');
+                    //$mailConfig = config("payment_mail_templates.wallet");
+                    break;
+
 
                     default:
                         # code...
@@ -384,7 +389,10 @@ class PaymentController extends BaseController
                 
             }      
 
+            Log::info('bump=>>>>>>'.$benefit_token['action']);
+
             $payment_service = '';
+            $mailConfig = "";
             $mainAccount = $this->account;
             switch ($benefit_token['action']) {
 
@@ -392,18 +400,43 @@ class PaymentController extends BaseController
                 $payment_service = 'Profile Listing';
                 $result = $this->saveCheckout($benefit_token['action'], $payment);
                 $redirect_url = route('center.payment-completed');
+                $mailConfig = config("payment_mail_templates.listing");
                 break;
 
                 case 'extend': 
-                $result = $this->saveCheckout($benefit_token['action'], $payment);    
+                $result = $this->saveCheckout($benefit_token['action'], $payment);   
+                $mailConfig = config("payment_mail_templates.extend"); 
                 $payment_service = 'Profile Extend';
                 $redirect_url = route('center.list');
                 break; 
 
                 case 'bumpup': 
                 $result = $this->saveCheckout($benefit_token['action'], $payment);    
+                $mailConfig = config("payment_mail_templates.bumpUp");
                 $payment_service = 'Profile Bump Up';
                 $redirect_url = route('center.list');
+                break;
+
+                case 'wallet': 
+                $payment_service = 'Wallet Credit';
+                $mailConfig = config("payment_mail_templates.wallet");
+                $creditTransaction = $this->walletService->credit(
+                            $mainAccount,
+                            $this->pinService->getTotalDue(),
+                            $payment,
+                            'Add Money',
+                            [
+                                'user_id' => $mainAccount->id
+                            ]
+                        );
+
+                $creditTransaction->paymentItems()->create([
+                    'payment_history_id' => $payment->id,
+                    'amount' => $payment->amount,
+                ]);
+
+                Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
+                $redirect_url = route('center.my_wallet');
                 break;
 
                 default:
@@ -429,9 +462,8 @@ class PaymentController extends BaseController
             $payment->save();
 
             /* Send Payment Mail */
-            if (in_array($benefit_token['action'], ['listing', 'extend'])) {
+            if (in_array($benefit_token['action'], ['listing', 'extend','bumpup'])) {
                 $extend_days = empty($result['extend_days']) ? 0 : $result['extend_days'];
-                $mailConfig = config("payment_mail_templates.{$benefit_token['action']}");
                 Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment', 'extend_days'), $mailConfig['subject']));
             }
 
@@ -476,11 +508,10 @@ class PaymentController extends BaseController
             ]);
         }
 
-         $decrypted_checkout_number= openssl_decrypt($request->checkout_number,$this->aes_value,$this->secretKey,0,$this->iv);
-         $decrypted_checkout_number = json_decode($decrypted_checkout_number, true);
+            $decrypted_checkout_number= openssl_decrypt($request->checkout_number,$this->aes_value,$this->secretKey,0,$this->iv);
+            $decrypted_checkout_number = json_decode($decrypted_checkout_number, true);
 
-        Log::info('decrypted_checkout_number'.$decrypted_checkout_number);
-
+        
         if (isset($purchase['checkout_number']) && $purchase['checkout_number'] == $decrypted_checkout_number) {
             return response()->json([
                 'success' => true,
@@ -496,16 +527,14 @@ class PaymentController extends BaseController
         }
     }
     
-
-
   
-   public function saveCheckout($action = null, $payment = null)
+    public function saveCheckout($action = null, $payment = null)
     {
-         
+            
 
-         $response = [];
-         if($action == 'listing' || $action == 'extend')
-         {
+            $response = [];
+            if($action == 'listing' || $action == 'extend')
+            {
             $purchaseData = session()->get('MassagePurchase');
             $purchaseDetail = MassagePurchase::create($purchaseData);
             if (!empty($payment)) {
@@ -515,10 +544,10 @@ class PaymentController extends BaseController
                     ]);
             }
 
-         }
+            }
 
-         if($action == 'bumpup')
-         {
+            if($action == 'bumpup')
+            {
             $purchaseData = session()->get('MassagePurchase');
             $purchaseDetail = MassageBumpup::create($purchaseData);
             if (!empty($payment)) {
@@ -527,25 +556,22 @@ class PaymentController extends BaseController
                         'amount' => $purchaseDetail->paid_rate,
                     ]);
             }
-         }
-         
+            }
+            
 
-         if ($action === 'extend') 
-         {
+            if ($action === 'extend') 
+            {
             $item = [];
             $item['start_date'] = isset($purchaseData['start_date']) ? $purchaseData['start_date'] : "";
             $item['end_date'] = isset($purchaseData['end_date']) ? $purchaseData['end_date'] : "";
 
             if( $item['start_date']!="" &&  $item['end_date']!="" )
             $response['extend_days'] = Carbon::parse($item['start_date'])->diffInDays(Carbon::parse($item['end_date'])) + 1;
-         }
+            }
 
-         session()->forget('MassagePurchase');
-         return $response;
+            session()->forget('MassagePurchase');
+            return $response;
     }
-
-
-
 
     public function transactionSummary(Request $request)
     {
