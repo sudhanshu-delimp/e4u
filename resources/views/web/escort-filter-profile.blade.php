@@ -251,6 +251,7 @@
                                                         {{-- clear short --}}
                                                         @php
                                                             $query = Arr::except(request()->query(), ['ipinfo']);
+                                                            
                                                         @endphp
                                                         <a type="submit"
                                                             href="{{ route('shortlist.clear-list', $query) }}"
@@ -1369,7 +1370,7 @@
                 ajaxServices.abort();
             }
             ajaxServices = $.ajax({
-                url: '{{route('public.escort.fecth.services')}}',
+                url: '{{route('public.web.fecth.services')}}',
                 type: 'GET',
                 dataType: 'json',
                 beforeSend: function() {
@@ -1500,85 +1501,6 @@
 
 
         ///////////////end event change //////////////////
-        $('body').on('change', '#service_id_two', function() {
-            const selectedIdTwo = $('#service_id_two').val();
-            const getNameTwo = $(this).children(':selected').attr('id');
-
-            if (selectedIdTwo) {
-                $('#selected_service_two').append(`
-                    <li id="${selectedIdTwo}">
-                        <div class="my_service_anal hideenclassTwo${selectedIdTwo}">
-                            <span class="dollar-sign">${getNameTwo}</span>
-
-                            <input
-                                type="number"
-                                class="dollar-before input_border"
-                                name="price[]"
-                                min="0"
-                                oninput="this.value = Math.abs(this.value)"
-                            >
-
-                            <input
-                                type="hidden"
-                                name="service_id[]"
-                                value="${selectedIdTwo}"
-                            >
-
-                            <span>
-                                <i
-                                    class="fas fa-times-circle"
-                                    id="id_${selectedIdTwo}"
-                                    value="${selectedIdTwo}"
-                                ></i>
-                            </span>
-                        </div>
-                    </li>
-                `);
-
-                $(`#service_id_two option[value="${selectedIdTwo}"]`).prop('disabled', true);
-
-                console.log(`change=${selectedIdTwo}`);
-            }
-        });
-
-        $('body').on('change', '#service_id_three', function() {
-            const selectedIdThree = $('#service_id_three').val();
-            const getNameThree = $(this).children(':selected').attr('id');
-
-            if (selectedIdThree) {
-                $('#selected_service_three').append(`
-                    <li id="${selectedIdThree}">
-                        <div class="my_service_anal hideenclassThree${selectedIdThree}">
-                            <span class="dollar-sign">${getNameThree}</span>
-
-                            <input
-                                type="number"
-                                class="dollar-before input_border"
-                                name="price[]"
-                                min="0"
-                                oninput="this.value = Math.abs(this.value)"
-                            >
-
-                            <input
-                                type="hidden"
-                                name="service_id[]"
-                                value="${selectedIdThree}"
-                            >
-
-                            <span>
-                                <i
-                                    class="fas fa-times-circle"
-                                    id="id_${selectedIdThree}"
-                                    value="${selectedIdThree}"
-                                ></i>
-                            </span>
-                        </div>
-                    </li>
-                `);
-
-                $(`#service_id_three option[value="${selectedIdThree}"]`).prop('disabled', true);
-            }
-        });
 
         $(document).on('click', '.shortlist', function() {
             var name = $(this).attr('data-name');
@@ -1769,7 +1691,6 @@
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
-                console.log(loginurl2);
 
 
                 var regurl = "{{ route('register', ':id') }}";

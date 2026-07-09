@@ -125,13 +125,13 @@ class EscortListingController extends Controller
 
     public function allEscortListing(Request $request, $gender = null)
     {
-        //dd($request->all());
+
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
-        //dd($params);
+;
 
         $location = request()->get('location');
 
@@ -238,7 +238,7 @@ class EscortListingController extends Controller
 
         $escorts = $query->get();
 
-        //dd($escorts);
+
         $groups = $escorts->groupBy('membership');
 
         $platinum = $groups->get(1, collect());
@@ -331,7 +331,7 @@ class EscortListingController extends Controller
         $query->whereDoesntHave('activeSuspendProfile');
 
         //filter membership type wise escort
-        //dd($params['membership_type']);
+
 
         if (!empty($params['membership_type']) && ($params['membership_type'] != 'all')) {
             $query->where('escorts.membership', $params['membership_type']);
@@ -555,8 +555,34 @@ class EscortListingController extends Controller
                 'service_three' => view('web.escort.partials.services-list', ['services' => $serviceThree, 'type' => 'three'])->render(),
             ], 'Ok', 200);
         } catch (Exception $e) {
-            dd($e);
             return error_response('Error', 500, null);
         }
+    }
+
+    //Make short list using the session
+    public function addRemoveCard($escort_id)
+    {
+   
+        $userId = auth()->user()->id ?? null; 
+        if (count((array) session('cart')) > 0) {
+            $cart = session()->get('cart');
+        } else {
+            $cart = session()->get('cart', []);
+        }
+
+        if (isset($cart[$escort_id])) {
+            $cart[$escort_id]['quantity']++;
+            $error = 0;
+        } else {
+            $cart[$escort_id] = [
+                "user_id" => $userId,
+                "quantity" => 1,
+            ];
+            $error = 1;
+        }
+
+        session()->put('cart', $cart);
+        $count_session = count(session('cart'));
+        return response()->json(compact('error', 'cart', 'count_session'));
     }
 }

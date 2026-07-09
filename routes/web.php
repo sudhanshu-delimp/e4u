@@ -331,8 +331,9 @@ Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'fil
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
 
 /****************************************************all-escorts-list**********************************************/
-Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.escort.listing'); 
-Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.escort.fecth.services');
+Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.listing'); 
+Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.web.fecth.services');
+Route::post('/add-remove-shortlist/{id}', [App\Http\Controllers\WebController::class, 'addRemoveCard'])->name('public.web.add.remove.card');
 
 
 
@@ -354,7 +355,7 @@ Route::get('shareholder-login', [App\Http\Controllers\Admin\AuthController::clas
 /************ END ************/
 // shortlist
 Route::post('/shortlist', [App\Http\Controllers\WebController::class, 'saveShortList'])->name('web.save.shortlist');
-Route::post('/add-to-shortlist/{id}', [App\Http\Controllers\WebController::class, 'addtocart'])->name('web.save.addtocart');
+Route::post('/add-to-shortlist/{id}', [App\Http\Controllers\WebController::class, 'addtocart'])->name('web.save.addtocart'); // remove after working new route.
 Route::post('/remove-shortlist', [App\Http\Controllers\WebController::class, 'removeShortList'])->name('web.remove.shortlist');
 Route::get('/my-shortlist', [App\Http\Controllers\WebController::class, 'shortList'])->name('web.show.shortlist');
 Route::get('/showList', [App\Http\Controllers\WebController::class, 'showAddList'])->name('web.show.showAddList');
