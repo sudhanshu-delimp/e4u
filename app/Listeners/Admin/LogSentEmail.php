@@ -44,32 +44,33 @@ class LogSentEmail
       Log::info($subject);
       if (preg_match('/Member ID:\s*([A-Za-z0-9]+)\s*\|\s*Order Ref:\s*#?(\d+)/', $subject, $matches)) {
 
-        $memberId = $matches[1];
+        // $memberId = $matches[1];
         $orderRef = ltrim($matches[2], '0');
 
         $orderRef = $orderRef === '' ? 0 : $orderRef;
-        Log::info($orderRef);
+        // Log::info($orderRef);
         EmailLog::where('id', $orderRef)->update([
           'to' => json_encode(array_keys($message->getTo() ?? [])),
           'cc' => json_encode(array_keys($message->getCc() ?? [])),
           'bcc' => json_encode(array_keys($message->getBcc() ?? [])),
           'subject' => $message->getSubject(),
           'body' => (string) $message->getBody(),
+          'member_id' => $memberId->member_id ?? null,
           'sent_at' => now(),
         ]);
 
         return;
       } else {
-        // EmailLog::create([
-        //   'to'       => json_encode(array_keys($message->getTo() ?? [])),
-        //   'cc'       => json_encode(array_keys($message->getCc() ?? [])),
-        //   'bcc'      => json_encode(array_keys($message->getBcc() ?? [])),
-        //   'subject'  => $message->getSubject(),
-        //   'body'     => $body,
-        //   'member_id' => $memberId->member_id ?? null,
-        //   'sent_at'  => now(),
-        // ]);
-        // return;
+        EmailLog::create([
+          'to'       => json_encode(array_keys($message->getTo() ?? [])),
+          'cc'       => json_encode(array_keys($message->getCc() ?? [])),
+          'bcc'      => json_encode(array_keys($message->getBcc() ?? [])),
+          'subject'  => $message->getSubject(),
+          'body'     => $body,
+          'member_id' => $memberId->member_id ?? null,
+          'sent_at'  => now(),
+        ]);
+        return;
       }
     } catch (Exception $e) {
 
