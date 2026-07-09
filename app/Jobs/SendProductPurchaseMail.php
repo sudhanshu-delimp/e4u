@@ -6,6 +6,7 @@ use App\Mail\Escort\Order\OrderMailToAgent;
 use App\Mail\Escort\Order\OrderMailToE4U;
 use App\Mail\Escort\Order\OrderMailToEscort;
 use App\Mail\Escort\Order\SendOrderMailToCondomMan;
+use App\Models\EmailLog;
 use App\Models\ProductOrder;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -88,20 +89,31 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['delivery_charges'] = $order->paymentDetails->delivery_charge;
         $billingMail = $billingAddress->email;
         // $billingMail = "ashish.kumar+10@delimp.com";
+
+        $mailData['communication_id'] = "";
+        $communication = EmailLog::create([]);
+        $mailData['communication_id'] = sprintf('#%05d', $communication->id);
+
         if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
           $agentMail = $order->createdBy->email;
           // $agentMail = "ashish.kumar+09@delimp.com";
-
           Mail::to($agentMail)->cc($billingMail)->send(new OrderMailToEscort($mailData));
         } else {
           Mail::to($billingMail)->send(new OrderMailToEscort($mailData));
         }
+
+        $mailData['communication_id'] = "";
+        $e4uCommunication = EmailLog::create([]);
+        $mailData['communication_id'] = sprintf('#%05d', $e4uCommunication->id);
 
         $e4uEmail = config('app.e4u_mail');
         // $e4uEmail = "ashish.kumar+11@delimp.com";
         Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
         // Log::info("sent mail");
 
+        $mailData['communication_id'] = "";
+        $supplierCommunication = EmailLog::create([]);
+        $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
         // // send mail to condom man (suppplier)
         $condommail = config('app.condom_mail');
         // $condommail = "ashish.kumar+12@delimp.com";
