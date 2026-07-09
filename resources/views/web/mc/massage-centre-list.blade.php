@@ -386,6 +386,7 @@ $(document).on('click', '.add_to_favrate', function() {
 $(document).ready(function () {
     
     var activeView = '{{ $listingsPreferencesView }}';
+    var clickTab = '{{ isset($clickTab) ? $clickTab : 0 }}';
     
     var storage_view = localStorage.getItem('storage_view');
     var isClickGridList =  localStorage.getItem('isClickGridList');
@@ -398,13 +399,15 @@ $(document).ready(function () {
     else{
         isClickGridList = localStorage.getItem('isClickGridList');  
     }
-
-
+    
     if (!storage_view) {
-    localStorage.setItem('storage_view', activeView);
+        localStorage.setItem('storage_view', activeView);
+    } else{
+        activeView = localStorage.getItem('storage_view');  
     }
-    else{
-    activeView = localStorage.getItem('storage_view');  
+
+    if(clickTab == 1) {
+       isClickGridList = 0; 
     }
    
     if (isClickGridList == 0) {
@@ -499,6 +502,7 @@ $(document).ready(function () {
         $(this).addClass('view-active active');
         localStorage.setItem('storage_view', activeView);
         localStorage.setItem('isClickGridList', 1);
+        clickTab = 0;
     });
 
     $('#view_list').on('click', function () {
@@ -512,6 +516,7 @@ $(document).ready(function () {
         $(this).addClass('view-active active');
         localStorage.setItem('storage_view', activeView);
         localStorage.setItem('isClickGridList', 1);
+        clickTab = 0;
     });
 
 

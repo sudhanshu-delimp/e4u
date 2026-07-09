@@ -409,7 +409,8 @@
                     $('.modal').modal('hide');
                     swal_success_popup(option.message);
                     setTimeout(function () {
-                    Swal.close();       
+                    Swal.close();  
+                    location.reload();     
                     }, 3000);
                     break; 
                     
