@@ -48,7 +48,7 @@ class LogSentEmail
         $orderRef = ltrim($matches[2], '0');
 
         $orderRef = $orderRef === '' ? 0 : $orderRef;
-        Log::info($orderRef);
+        // Log::info($orderRef);
         EmailLog::where('id', $orderRef)->update([
           'to' => json_encode(array_keys($message->getTo() ?? [])),
           'cc' => json_encode(array_keys($message->getCc() ?? [])),
