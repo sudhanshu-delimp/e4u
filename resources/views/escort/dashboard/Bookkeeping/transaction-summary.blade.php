@@ -97,7 +97,7 @@
      },
                  
      ajax: {
-         url: "{{ route('center.transaction_summary.datatable') }}",
+         url: "{{ route('escort.payment.transaction_summary.datatable') }}",
          data: function (d) {
          
          }

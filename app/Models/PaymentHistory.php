@@ -30,7 +30,8 @@ class PaymentHistory extends Model
     'card',
     'meta',
     'created_by',
-    'updated_by'
+    'updated_by',
+    'completed_by'
   ];
 
   protected $casts = [
