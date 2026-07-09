@@ -340,7 +340,7 @@ Route::post('payments/process', [PaymentController::class, 'processPayment'])->n
 Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('escort.payment.transaction_summary');
 Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('escort.payment.transaction_summary.datatable');
 Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
-Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
+Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('escort.payment.detail.print');
 Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('payment.adjustment');
 // Route::post('apply/wallet',[PaymentController::class, 'applyWallet'])->name('apply.wallet');
 # Escort profile reviews
