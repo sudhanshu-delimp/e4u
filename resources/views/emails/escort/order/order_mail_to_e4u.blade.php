@@ -49,6 +49,10 @@
                                     <td>{{ $data['member_name'] }}</td>
                                 </tr>
                                 <tr>
+                                    <th style="text-align: left">Order Ref:</th>
+                                    <td> #{{ $data['id'] ?? '' }}</td>
+                                </tr>
+                                <tr>
                                     <th style="text-align: left">Member ID:</th>
                                     <td>{{ $data['member_id'] }}</td>
                                 </tr>
@@ -69,10 +73,7 @@
                                     <th style="text-align: left">Delivery type:</th>
                                     <td>{{ ucfirst($data['delivery_type']) }}</td>
                                 </tr>
-                                <tr>
-                                    <th style="text-align: left">Order Ref:</th>
-                                    <td> #{{ $data['id'] ?? '' }}</td>
-                                </tr>
+
                             </table>
                             <!-- email info -->
                             <p style="font-size: 15px; margin-top: 20px;">
