@@ -23,7 +23,7 @@
                                             E4U Concierge - Product Order On Hold
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -61,15 +61,15 @@
                                 Please retain this notification for your records and quote the order reference in any
                                 future correspondence regarding this order.
                             </p>
-                            
+
                             <p style="margin: 15px 0;">
                                 Thank you for your cooperation and continued support.
                                 <!-- email info -->
-                                 <p style="font-size: 15px; margin-top: 20px;">
+                            <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
                             </p>
-                                <!-- end -->
+                            <!-- end -->
 
                         </td>
                     </tr>
