@@ -397,6 +397,8 @@ background:#16385f;
 </div>
 
 
+@include('center.dashboard.modal.payment_form')
+@include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 
 @endsection
 
@@ -410,9 +412,16 @@ background:#16385f;
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <script>
 let expanded = false;
 var is_load_first = 1;
+var plandata = {};
+const secretKey = "{{ config('app.aes_key') }}";
+const iv = "{{ config('app.aes_iv_string') }}";
+const $form = $('#adjustment-form');
+const $actionType = $form.find('input[name="action_type"]');
+
 function showCheckboxes() {
   let checkboxes = document.getElementById("checkboxes");
   if (!expanded) {
@@ -424,10 +433,10 @@ function showCheckboxes() {
   }
 }
 </script>
-</script>
-<script>
-   
 
+
+
+<script>
 var table = $("#massage_list").DataTable({
     info: true,
     paging: true,
@@ -668,92 +677,113 @@ messages: {
          /////////// Suspend Profile ////////////////////
 
 
-       $(document).ready(function() {   
+$(document).ready(function() {   
 
-         let suspendProfileObject = $('#suspendProfileId');
-         let suspendStartDateObject = $('#suspendStartDate');
-         let suspendEndDateObject   = $('#suspendEndDate');
+   let suspendProfileObject = $('#suspendProfileId');
+   let suspendStartDateObject = $('#suspendStartDate');
+   let suspendEndDateObject   = $('#suspendEndDate');
 
-   
-         suspendStartDateObject.datepicker('setDate', +1);
-         suspendStartDateObject.datepicker('option', 'minDate', +1);
-         suspendEndDateObject.datepicker('option', 'minDate', +1);
-
-
-            suspendStartDateObject.on('change', function () {
-               let selectedDate = $(this).val();
-               suspendEndDateObject.datepicker('option', 'minDate', selectedDate);
-               suspendEndDateObject.datepicker('setDate', selectedDate);
-               calculateCredit();
-            });
-
-            suspendEndDateObject.on('change', function () {
-               let selectedDate = $(this).val();
-
-               suspendStartDateObject.datepicker('option', 'maxDate', selectedDate);
-
-               calculateCredit();
-            });
-
-
-            suspendProfileObject.on('change', function() {
-                  let selectedOption = $(this).find(':selected');
-                  let listingMembership = selectedOption.data('membership');
-                  let listingStartDate = selectedOption.data('start');
-                  let listingEndDate = selectedOption.data('end');
-                  let profileId = selectedOption.val();
-
-                  suspendStartDateObject.datepicker('setDate', +1);
-                  suspendStartDateObject.datepicker('option', 'minDate', +1);
-                  suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
-
-                  suspendEndDateObject.datepicker('setDate', null);
-                  suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
-                  $("#creditCalculationLive").html('0.00');
-            });
-
-
-
-
-            function calculateCredit() 
-            {
-                  let selectedOption = suspendProfileObject.find(':selected');
-                  if(suspendEndDateObject.val() && suspendStartDateObject.val()){
-                     $.ajax({
-                     url: "{{ route('center.massage-suspend-credit') }}",
-                     method: 'POST',
-                     data: {
-                        start_date: suspendStartDateObject.val(),
-                        end_date: suspendEndDateObject.val(),
-                        profile_id: selectedOption.val(),
-                        
-                     },
-                     success: function(response) {
-                        $("#creditCalculationLive").html('0.00');
-                        if(response.success){
-                              $("#creditCalculationLive").html(response.refund_amount);
-                              $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
-                        }
-                        else {
-                              $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
-                              Swal.fire({
-                                 icon: "error",
-                                 text: response.message
-                              });
-                        }
-                     }
-                  });
-                  }
-            }
-
-
+      suspendStartDateObject.on('change', function () {
+         let selectedDate = $(this).val();
+         suspendEndDateObject.datepicker('option', 'minDate', selectedDate);
+         suspendEndDateObject.datepicker('setDate', selectedDate);
+         calculateCredit();
       });
+
+      suspendEndDateObject.on('change', function () {
+         const startDate = suspendStartDateObject.datepicker('getDate');
+         const endDate = suspendEndDateObject.datepicker('getDate');
+
+         if (!endDate) {
+            alert('Please select an end date.');
+            $(this).val('');
+            return;
+         }
+
+         if (endDate < startDate) {
+            alert('End date must be greater than start date.');
+            $(this).val('');
+            calculateCredit();
+            return;
+         }
+
+         suspendStartDateObject.datepicker('option', 'maxDate', endDate);
+         calculateCredit();
+      });
+
+      $('#suspendProfileId').on('change', function () {
+
+         let option = $(this).find(':selected');
+
+         let start = option.data('start');
+         let end   = option.data('end');
+
+         const tomorrow = new Date();
+         tomorrow.setDate(tomorrow.getDate() + 1);
+
+         let profileId = option.val();
+         let listingMembership = option.data('membership');
+
+         if (!start || !end) {
+            return;
+         }
+
+         let startDate = $.datepicker.parseDate('dd-mm-yy', start);
+         let endDate   = $.datepicker.parseDate('dd-mm-yy', end);
+
+         suspendStartDateObject.datepicker('option', 'minDate', tomorrow);
+         suspendStartDateObject.datepicker('option', 'maxDate', endDate);
+         suspendStartDateObject.datepicker('setDate', tomorrow);
+
+         // suspendEndDateObject.datepicker('option', 'minDate', startDate);
+         // suspendEndDateObject.datepicker('option', 'maxDate', endDate);
+
+         suspendEndDateObject.datepicker('option', 'minDate', tomorrow);
+         suspendEndDateObject.datepicker('option', 'maxDate', endDate);
+
+         ///suspendEndDateObject.datepicker('setDate', endDate);
+
+         $("#creditCalculationLive").html('0.00');
+      });
+
+     
+
+      function calculateCredit() 
+      {
+            let selectedOption = suspendProfileObject.find(':selected');
+            if(suspendEndDateObject.val() && suspendStartDateObject.val()){
+               $.ajax({
+               url: "{{ route('center.massage-suspend-credit') }}",
+               method: 'POST',
+               data: {
+                  start_date: suspendStartDateObject.val(),
+                  end_date: suspendEndDateObject.val(),
+                  profile_id: selectedOption.val(),
+                  
+               },
+               success: function(response) {
+                  $("#creditCalculationLive").html('0.00');
+                  if(response.success){
+                        $("#creditCalculationLive").html(response.refundAmountWithGst);
+                        $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                  }
+                  else {
+                        $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                        Swal.fire({
+                           icon: "error",
+                           text: response.message
+                        });
+                  }
+               }
+            });
+            }
+      }
+
+
+});
 
 
             
-
-
-
 $("#suspend_form").on('submit', async function(e) 
 {
    e.preventDefault();
@@ -945,25 +975,37 @@ $(document).on('click', '.transaction_summury', function(e) {
             Swal.close();
             if(response.success) 
             {
-                  let data = response.data;
-                  make_form_values(data);
+                 let resposne_data = response.data;
+                  plandata = {
+                     'membershipName' : 'Massage Centre',
+                     'days' : resposne_data.days,
+                     'normalRate' : resposne_data.rate,
+                     'total_rate' : resposne_data.full_fee,
+                     'total_discount' : resposne_data.discount,
+                     'discountRate' : resposne_data.discount_fee,
+                     'start_date' : resposne_data.start_date,
+                     'end_date' : resposne_data.end_date,
+
+                  }
+                  
+                  make_form_values(resposne_data);
                   let row = `
                      <tr>
-                        <td>${data.listing}</td>
-                        <td>${data.business_name}</td>
-                        <td>${data.start_date}</td>
-                        <td>${data.end_date}</td>
-                        <td>${data.days}</td>
-                        <td><span class="mr-2">$</span>${data.rate}</td>
-                        <td><span class="mr-2">$</span>${data.full_fee}</td>
-                        <td><span class="mr-2">$</span>${data.discount}</td>
-                        <td><span class="mr-2">$</span>${data.discount_fee}</td>
+                        <td>${resposne_data.listing}</td>
+                        <td>${resposne_data.business_name}</td>
+                        <td>${resposne_data.start_date}</td>
+                        <td>${resposne_data.end_date}</td>
+                        <td>${resposne_data.days}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.rate}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.full_fee}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.discount}</td>
+                        <td><span class="mr-2">$</span>${resposne_data.discount_fee}</td>
                      </tr>
                      
                      <tr>
                         <td colspan="7" class="border-0"></td>
                         <td  class="text-center"><b>Total Fees:</b></td>
-                        <td class="text-center"><span class="mr-2">$</span> ${data.discount_fee}</td>
+                        <td class="text-center"><span class="mr-2">$</span> ${resposne_data.discount_fee}</td>
                      </tr>`;
 
                      
@@ -1003,19 +1045,39 @@ e.preventDefault();
     $("#summaryModal").hide();
 
     if (await isConfirm({'action': 'Proceed','text': ''})) {
-        swal_waiting_popup({'title': 'Payment in progress'});
-        let formData = $("#purchase_listing").serialize();
+
+      let formData = $("#purchase_listing").serialize();
+      $form.find('input[name="action_type"]').remove();
+      $form.append('<input type="hidden" name="action_type" value="extend">');
+      loyality_input('extend');
+         
+     
+         //console.log('plandata',plandata);
+         //return false;
 
          $.ajax({
                     url: "{{route('center.listing-payment')}}",
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        table.ajax.reload(null, false);
                         Swal.close();
-                        swal_success_popup(response.message);
-                        /// let redirect = {'time': 2000, 'url' : 'listing/current'}
-                        /// swal_success_popup(response.message,redirect);
+                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
+                        plandata.action_type = $('[name="action_type"]').val();
+                        console.log('plandata=>>>>>>',plandata);
+                        swal_waiting_popup({'title': 'Processing.'});
+
+                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
+                        Swal.close();
+                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $('#adjustment-form')[0].reset();
+                        $('#payment-form')[0].reset();
+                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        }
+                        }).fail(function(err) {
+                            console.error('Summary Function Error:', err);
+                            Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        });
                     },
                     error: function(xhr) {
                         Swal.close();
@@ -1085,8 +1147,11 @@ $("#bumpup_profile_form").on('submit', async function(e)
             swal_waiting_popup({
                 'title': 'Bumping Up Your Profile.'
             });
-           
 
+            loyality_input('bumpup');
+            $form.find('input[name="action_type"]').remove();
+            $form.append('<input type="hidden" name="action_type" value="bumpup">');
+         
             $.ajax({
                method: 'POST',
                url: url,
@@ -1099,13 +1164,46 @@ $("#bumpup_profile_form").on('submit', async function(e)
                beforeSend: function(){
                   $("#saveBumpupButton").find('button[type=submit]').attr('disabled','disabled');
                },
-               success: function(data) {
+               success: function(response) {
                      Swal.close();
-                     
-                     if (data.success) {
-                        table.ajax.reload(null, false);
-                        swal_success_popup(data.message);
-                        $("#bumpup_profile").modal('hide');
+                     if (response.success) {
+                      
+                     let resposne_data = response.data;
+                     let bump_value = "{{ getBumpupFee() }}";
+                     plandata = {
+                        'membershipName' : 'Massage Centre',
+                        'days' : 1,
+                        'normalRate' : bump_value,
+                        'total_rate' : bump_value,
+                        'total_discount' : 0,
+                        'discountRate' : bump_value,
+                        'start_date' : resposne_data.start_date,
+                        'end_date' : resposne_data.end_date,
+                       }
+
+
+                        console.log('data',plandata);
+                        plandata.checkout_number = response.data.checkout_number? response.data.checkout_number: '';
+                        plandata.action_type = $('[name="action_type"]').val();
+                        console.log('plandata=>>>>>>',plandata);
+                        swal_waiting_popup({'title': 'Processing.'});
+
+                        let response_data  =  make_order_summury(plandata).done(function(summaryResponse) {
+                        console.log("updatedPlanSummary=>>>>>>> :", updatedPlanSummary); // updatedPlanSummary is Gobal varaible
+                        Swal.close();
+                        if (Object.keys(updatedPlanSummary?.data?.pay_data || {}).length > 0 && parseFloat(updatedPlanSummary.data.pay_data.total_amount) > 0){
+                        $('#adjustment-form')[0].reset();
+                        $('#payment-form')[0].reset();
+                        $("#process-payment-modal").modal({backdrop: 'static',keyboard: false,show: true});
+                        }
+                        }).fail(function(err) {
+                              console.error('Summary Function Error:', err);
+                              Swal.fire({ icon: 'error', title: 'Error', text: 'Summary error!' });
+                        });
+
+                        // table.ajax.reload(null, false);
+                        // swal_success_popup(data.message);
+                        // $("#bumpup_profile").modal('hide');
                       
                      
                      }
@@ -1160,6 +1258,24 @@ function openModal(url)
     modal.show();
 }
 
+function loyality_input(pay_type)
+{
+   console.log('loyality_input',pay_type);
+   
+   if(pay_type==='bumpup')
+   {
+      $('.payment_loyalty_option').css('display', 'none');
+      $('#loyalty_day').prop('disabled', true);
+      $('#loyalty_day').val(0);
+   }
+   else 
+   {
+      $('.payment_loyalty_option').css('display', 'block');
+      $('#loyalty_day').prop('disabled', false);
+      $('#loyalty_day').val(0);
+   }
+}
+
 document.getElementById('iframeModal').addEventListener('hidden.bs.modal', function () {
     document.getElementById('modalFrame').src = '';
 });
@@ -1167,4 +1283,5 @@ document.getElementById('iframeModal').addEventListener('hidden.bs.modal', funct
 // ########### End Bumpup Profile #########################
        
 </script>
+@include('center.dashboard.payment_functions')
 @endpush

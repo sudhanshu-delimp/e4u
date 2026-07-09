@@ -246,6 +246,11 @@ return [
     'gst_percentage' => env('GST_PERCENTAGE', 10),
     'post_operations' => env('PAYMENT_POST_OPERATIONS', true),
   ],
+
+  'aes_key' =>  env('AES_KEY', 'bxIytyJA0TAg99tGCsNsU4v9Q9MThHq0'),
+  'aes_iv_string' =>  env('IV_STRING', '1234567890123456'),
+
+  
   'loyalty_amount' => (float) env('LOYALTY_AMOUNT', 200),
 
 ];

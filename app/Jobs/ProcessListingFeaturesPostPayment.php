@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Purchase;
 use App\Models\PaymentProcess;
@@ -26,7 +26,7 @@ use App\Services\EscortListingFeatureService;
 
 use Carbon\Carbon;
 
-class ProcessPaymentWebhook implements ShouldQueue
+class ProcessListingFeaturesPostPayment implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -61,26 +61,13 @@ class ProcessPaymentWebhook implements ShouldQueue
 
             $transaction = $paymentService->getTransactionDetail($this->payload['token']);
 
-            if ($transaction) {
+            if ($transaction && $transaction->items->count() == 0) {
+                echo "Payment items are zero...\n";
 
-                $itemsCount = $transaction->items->count();
+                $this->clearPaymentHistory($transaction);
+            }
 
-                if ($itemsCount == 0) {
-                    if (in_array($process->type, ['listing', 'tour', 'extend'])) {
-                        $this->saveCheckout($process->type, $process->payload, $transaction);
-                    }
-
-                    switch ($process->type) {
-
-                        case 'bumpUp': {
-                                $this->saveBumpUp($featureService, $process, $transaction);
-                            }
-                            break;
-                    }
-                }
-
-                echo "Transaction Items: {$itemsCount}\n";
-            } else {
+            if (!$transaction || $transaction->items->count() == 0) {
                 $mailConfig = config("payment_mail_templates.{$process->type}");
 
                 $insert = json_decode($metadata['insert'], true);
@@ -173,12 +160,13 @@ class ProcessPaymentWebhook implements ShouldQueue
                     echo "Sending Mail Error\n";
                     echo "Mail Error: {$e->getMessage()}\n";
                 }
+
+
+                echo "Deleting the Payment Processing record\n";
+                $process->delete();
+
+                echo "Webhook processed successfully\n";
             }
-
-            echo "Deleting the Payment Processing record\n";
-            $process->delete();
-
-            echo "Webhook processed successfully\n";
         } catch (\Throwable $e) {
 
             Log::error('Pin payment webhook failed.', [
@@ -188,11 +176,18 @@ class ProcessPaymentWebhook implements ShouldQueue
                 'trace'   => $e->getTraceAsString(),
                 'payload' => $this->payload,
             ]);
-
+            print_this([
+                'message' => $e->getMessage(),
+                'file'    => $e->getFile(),
+                'line'    => $e->getLine(),
+                'trace'   => $e->getTraceAsString(),
+                'payload' => $this->payload,
+            ]);
             // Re-throw so the queued job can retry (recommended)
             throw $e;
         }
     }
+
     public function failed(\Throwable $exception): void
     {
         Log::critical('Webhook job permanently failed.', [
@@ -204,7 +199,9 @@ class ProcessPaymentWebhook implements ShouldQueue
     public function saveCheckout($action, $checkout = [], $payment = null)
     {
         $response = [];
+
         echo "Processing payment items and other...\n";
+
         foreach ($checkout as $startDate => $item) {
             $escortDetail = getEscortDetail($item['escort_id']);
             $start_date = Carbon::createFromFormat('d-m-Y', $item['start_date'])->format('Y-m-d') . ' 00:00:00';
@@ -301,5 +298,30 @@ class ProcessPaymentWebhook implements ShouldQueue
             ]);
         }
         return $escortPinup;
+    }
+
+    public function clearPaymentHistory($paymentHistory)
+    {
+        echo "clearPaymentHistory...\n";
+        DB::transaction(function () use ($paymentHistory) {
+
+            foreach ($paymentHistory->items as $paymentItem) {
+
+                $modelClass = $paymentItem->item_type;
+
+                if (class_exists($modelClass)) {
+
+                    $model = $modelClass::find($paymentItem->item_id);
+
+                    if ($model) {
+                        $model->delete();
+                    }
+                }
+
+                $paymentItem->delete();
+            }
+
+            $paymentHistory->delete();
+        });
     }
 }

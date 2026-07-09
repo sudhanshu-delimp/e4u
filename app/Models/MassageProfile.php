@@ -525,7 +525,10 @@ class MassageProfile extends Model
 
     public function latestPurchase()
     {
-        return $this->hasOne(MassagePurchase::class, 'massage_profile_id')->latestOfMany(); 
+        return $this->hasOne(MassagePurchase::class, 'massage_profile_id', 'id')
+        ->where('status', 'listed')
+        ->latest('id');
+        
     }
 
 
@@ -554,15 +557,41 @@ class MassageProfile extends Model
             ->orderBy('utc_start_date', 'asc');
     }
 
-    public function isListingExtended(){
-        $purchases = $this->purchase()
-        ->where('utc_end_time', '>=', Carbon::now('UTC'))
-        ->where('parent_id',0)
-        ->orderBy('utc_end_time', 'desc')
-        ->get();
-        return (object)[
-            'count' => $purchases->count() > 1,
-            'data' => $purchases->first()
+    // public function isListingExtended(){
+
+             
+    //     $purchases = $this->purchase()
+    //     ->where('utc_end_time', '>=', Carbon::now('UTC'))
+    //     ->where('parent_id',0)
+    //     ->where('status','!=','cancel')
+    //     ->orderBy('utc_end_time', 'desc')
+    //     ->get();
+    //     return (object)[
+    //         'count' => $purchases->count() > 1,
+    //         'data' => $purchases->first()
+    //     ];
+    // }
+
+    public function isListingExtended()
+    {
+        $latestListed = $this->purchase()
+            ->where('status', 'listed')
+            ->orderByDesc('id')
+            ->first();
+
+        if (!$latestListed) {
+            return false;
+        }
+
+         $purchases = $this->purchase()
+        ->where('id', '>', $latestListed->id)
+        ->where('status', 'pending')
+        ->orderBy('id', 'asc')
+        ->first();
+
+        return (object) [
+            'count' => ($purchases) ? true : false,
+            'data' => $purchases,
         ];
     }
 

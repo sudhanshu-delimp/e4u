@@ -268,13 +268,13 @@
             <div class="collapse-inner">
 
                 {{-- Analytics --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics"
+                <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse" data-target="#Analytics"
                     aria-expanded="false" aria-controls="collapseTwo">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
 
                     <span>Analytics</span>
                 </a>
-                <div id="Analytics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
+                {{-- <div id="Analytics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
                         request()->segment(2) == 'advertiser-social-media' ||
                         request()->segment(2) == 'toursummary' ||
                         request()->segment(2) == 'prospets-memberships') show @endif;"
@@ -294,7 +294,7 @@
                                 Summary</span>
                         </a>
                     </div>
-                </div>
+                </div> --}}
                 {{-- end --}}
 
                 {{-- Communication --}}

@@ -704,9 +704,16 @@ p {
     background: none !important;
 }
 
+.c_dropdown.dropdown-menu.register_dropdown {
+    position: absolute !important;
+    top: 0px !important;
+    right: 0px !important;
+    left: unset !important;
+    transform: translate3d(0px, 40px, 0px) !important;
+}
+
 .saptate_by_border {
     border-bottom: 1px solid #E5E5E5;
-    ;
 }
 
 .free_profile_name_and_color.v-otherheding {
@@ -1629,7 +1636,7 @@ span.second {
 .home_heading_first {
     font-family: Poppins;
     font-style: normal;
-    font-size: clamp(21px, 4vw, 48px) !important;
+    font-size: clamp(25px, 4vw, 48px) !important;
     line-height: 48px;
     color: #0C223D;
     margin-bottom: 20px;
@@ -2246,11 +2253,11 @@ img.playbox-logo {
 }
 
 .padding_top_eight_px {
-    padding-top: 80px;
+    padding-top: clamp(45px, 4vw, 80px);
 }
 
 .padding_bottom_eight_px {
-    padding-bottom: 80px;
+    padding-bottom: clamp(45px, 4vw, 80px);
 }
 
 .margin_btm_twenty_px {
@@ -3528,7 +3535,7 @@ i.fa {
 .profile_page_social_profiles {
     display: flex;
     gap: 15px;
-    margin-left: 40px;
+    margin-left: clamp(20px, 4vw, 40px)
 }
 
 .profile_page_location_and_id ul {
@@ -5404,7 +5411,7 @@ ul.footerbtn-flex li {
     font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 500 !important;
-    font-size: 20px !important;
+    font-size: clamp(16px, 4vw, 20px) !important;
     line-height: 1.5 !important;
     color: #0C223D !important;
 }
@@ -6089,20 +6096,21 @@ table p {
     border-top: 0px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     line-height: 28px;
 }
 
 .set .content a {
-    font-size: 16px;
-    color: #FF3C5F;
+    font-size: clamp(14px, 4vw, 16px);
+    color: var(--peach);
+    line-break: anywhere;
 }
 
 .set li {
     line-height: 28px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     color: #000;
 }
 
@@ -10592,7 +10600,6 @@ p.pera-note {
     .footer_mange_padding img {
         /*padding-bottom: 0px;*/
         width: 35%;
-        margin-left: -3px;
     }
     .footer_text_color_white p {
         font-size: 12px;

@@ -20,6 +20,7 @@ class PaymentHistory extends Model
     'loyalty_amount',
     'net_amount',
     'gst_amount',
+    'total_payable_amount',
     'delivery_charge',
     'paid_amount',
     'currency',
@@ -29,7 +30,8 @@ class PaymentHistory extends Model
     'card',
     'meta',
     'created_by',
-    'updated_by'
+    'updated_by',
+    'completed_by'
   ];
 
   protected $casts = [

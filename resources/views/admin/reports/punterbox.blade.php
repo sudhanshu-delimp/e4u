@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('style')
-    <style type="text/css"></style>
+    <style type="text/css">
+    .table td,
+    .table th {
+        vertical-align: baseline !important;
+    }
+    </style>
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -39,7 +44,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
                                 <div class="stat-label">Today</div>
                             </div>
-                            <div class="stat-number">2</div>
+                            <div class="stat-number today_report">2</div>
                         </div>
 
                         <div class="stat-card">
@@ -47,7 +52,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
                                 <div class="stat-label">This Month</div>
                             </div>
-                            <div class="stat-number">25</div>
+                            <div class="stat-number month_report">25</div>
                         </div>
 
                         <div class="stat-card">
@@ -55,7 +60,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                                 <div class="stat-label">This Year</div>
                             </div>
-                            <div class="stat-number">125</div>
+                            <div class="stat-number year_report">125</div>
                         </div>
 
                         <div class="stat-card">
@@ -63,7 +68,7 @@
                                 <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
                                 <div class="stat-label">All Time</div>
                             </div>
-                            <div class="stat-number">1258</div>
+                            <div class="stat-number all_time_report">1258</div>
                         </div>
                     </div>
                 </div>
@@ -84,52 +89,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>123</td>
-                                <td>V40161</td>
-                                <td>Peter</td>
-                                <td>03-05-2025</td>
-                                <td>Brisbane</td>
-                                <td><span class="custom_badge badge_pending">Pending</span></td>
-                                <td>
-                                    <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                aria-labelledby="dropdownMenuLink">
-                                                <div class="custom-tooltip-container">
-                                                    <a
-                                                        class="dropdown-item align-item-custom toggle-massage-notification"
-                                                        href="#" title="Click to disable notification">
-                                                    </a> 
-                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                        data-target="#confirm-popup" href=""> <i
-                                                            class="fa fa-ban" aria-hidden="true"></i>On Hold</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#confirm-popup"> <i
-                                                            class="fa fa-check-circle" aria-hidden="true"></i>
-                                                        Publish </a>
-                                                         <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#confirm-popup"> <i
-                                                            class="fa fa-times-circle " aria-hidden="true"></i>
-                                                        Rejected  </a>
-                                                         <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item align-item-custom" href="#"
-                                                        data-toggle="modal" data-target="#viewAgentreport"> <i
-                                                            class="fa fa-eye" aria-hidden="true"></i>
-                                                        View Report </a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                </td>
-                            </tr>
-
                         </tbody>
                          <tr>
                         <th colspan="7" class="border-0"></th>
@@ -145,49 +104,7 @@
                 </div>
             </div>
         </div>
-
-        <!--middle content end here-->
-        <!--right side bar start from here-->
     </div>
-    <!--right side bar end-->
-    </div>
-
-    <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog"
-        aria-labelledby="confirmPopupLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
-                <div class="modal-header border-0">
-                    <input type="hidden" id="status_data_id">
-                    <input type="hidden" id="status_data_value">
-                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                        <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"
-                            class="custompopicon">
-                        <span>Confirmation</span>
-                    </h5>
-                    <input type="hidden" id="status_data_id" name="status_data_id" value="">
-                    <input type="hidden" id="status_data_value" name="status_data_value" value="">
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-
-                <div class="modal-body teop-text text-center">
-                    <h5 class="custom_modal_text">
-                        Are you sure you want to perform this action.
-                    </h5>
-
-                </div>
-                <div class="modal-footer justify-content-center pt-0">
-
-                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal"
-                        aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal"
-                        data-dismiss="modal" aria-label="Close">No</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="modal fade upload-modal" id="success_popup" tabindex="-1" role="dialog"
@@ -337,19 +254,100 @@
     </div>
 
     {{-- end notes --}}
+
+    {{-- confirm modal --}}
+    <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <input type="hidden" id="status_data_id">
+                    <input type="hidden" id="status_data_value">
+                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                        <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"  class="custompopicon">
+                        <span>Confirmation <span class="ref_clas"></span></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body teop-text text-center">
+                    <h5 class="custom_modal_text">
+                        <span id="Lname">Are you sure you want to <span class="add_review_title"></span> this Report?</span>
+                        <div class="mx-auto w-75 my-3 action_reason_div" style="display: none;">
+                            <select name="action_reason" class="form-control " id="action_reason" style="color: #525a64;">
+                                <option value="Report is not factual" selected>Report is not factual</option>
+                                <option value="Report does not comply with Code of Conduct">Report does not comply with Code of Conduct</option>
+                                <option value="Inappropriate language">Inappropriate language</option>
+                                <option value="Report is slanderous">Report is slanderous</option>
+                            </select>
+                        </div>
+                        
+                    </h5>
+
+                </div>
+
+                <div class="modal-footer justify-content-center pt-0">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- published modal --}}
+    <div class="modal fade upload-modal" id="confirm_publish_popup" tabindex="-1" role="dialog"
+        aria-labelledby="confirmPopupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title d-flex align-items-center " id="confirmPopupLabel">
+                        <img src="{{ asset('assets/dashboard/img/published.png') }}" id="custompopicon" alt="published"
+                            class="custompopicon">
+                        <span class="success-modal-title">Published</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <h6 class="popu_heading_style mt-2">
+                        <span id="" class="success-modal-text">We’re happy to inform you that your query
+                        has been <br> successfully resolved.</span>
+                    </h6>
+
+                </div>
+
+                <div class="modal-footer justify-content-center border-0 pb-4">
+                    <button type="button" class="btn-success-modal px-4" data-dismiss="modal"
+                        aria-label="Close">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
 @push('script')
+ 
  <script>
-    $(document).ready(function() {
-                 let countdown = 15;
+
+        $(document).ready(function() {
+            let countdown = 15;
             setInterval(() => {
                     countdown--;
                     $(".refreshSeconds").text(' '+countdown);
 
                     if (countdown <= 0) {
-                    // $('#PunterboxReportTable').DataTable().ajax.reload(null, false);
+                    $('#PunterboxReportTable').DataTable().ajax.reload(null, false);
                     countdown = 15;
                     
                     }
@@ -357,82 +355,254 @@
             }, 1000);
 
             $('#customSearch').on('keyup', function() {
-                    // $('#PunterboxReportTable').DataTable().search(this.value).draw();
+                    $('#PunterboxReportTable').DataTable().search(this.value).draw();
             });
-    });
+       
+            // Initialize DataTable
+            var table = $('#PunterboxReportTable').DataTable({
+               
+                "language": {
+                    "zeroRecords": "No Record Found!",
+                    searchPlaceholder: "Search by Member ID"
+                },
+                paging: true,
+                processing: false,
+                serverSide: true,
+                pageLength: 10,
+                order: [[3, "desc"]],
+                lengthMenu: [
+                    [10, 20, 50, 100],
+                    [10, 20, 50, 100]
+                ],
+                ordering: true,
+                columnDefs: [
+                    { targets: 5, type: "status" },
+                ],
+                ajax: {
+                    url: "{{ route('admin.punterbox.ajax') }}",
+                    type: "GET",
+                    dataSrc: function (json) {
+                        console.log("Received Data:", json); // Debug here
+                        $(".today_report").text(json.counts.today);
+                        $(".month_report").text(json.counts.this_month);
+                        $(".year_report").text(json.counts.this_year);
+                        $(".all_time_report").text(json.counts.all_time);
+                        $('.serverTime').text(json.server_time);
+                        $('.uptimeClass').html(json.server_up_time);
+                        return json.data; // Return the data array for DataTables to render
+                    }
+                },
+                columns: [{
+                        data: 'ref',
+                        name: 'ref'
+                    },
+                    {
+                        data: 'member_id',
+                        name: 'member_id'
+                    },
+                    {
+                        data: 'escorts_name',
+                        name: 'escorts_name'
+                    },
+                    {
+                        data: 'incident_date',
+                        name: 'incident_date'
+                    },
+                    {
+                        data: 'location',
+                        name: 'location'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        type: 'status'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false,
+                        class: 'text-center'
+                    }
+                ]
+            });
 
-        var table = $("#PunterboxReportTable").DataTable({
-            language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID",
-            },
-        info: true,
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [
-            [1, 'desc']
-        ],
-        lengthMenu: [
-            [10, 25, 50, 100],
-            [10, 25, 50, 100]
-        ],
-        pageLength: 10,
-            columns: [{
-                    data: 'Ref',
-                    name: 'Ref',
-                    searchable: true,
-                    orderable: false,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'member_id',
-                    name: 'member_id',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
+            // Handle expand/collapse
+            $('#PunterboxReportTable tbody').on('click', '.view_report', function(e) {
+                e.preventDefault();
 
-                {
-                    data: 'member',
-                    name: 'member',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'incident_date',
-                    name: 'incident_date',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'incident_location',
-                    name: 'incident_location',
-                    searchable: true,
-                    orderable: true,
-                },
-                {
-                    data: 'status_name',
-                    name: 'status',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA',
-                    class: 'text-center'
-                },
-            ]
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
+
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+                $(this).addClass('open');
+            });
+
+            // CLOSE BUTTON HANDLER (only closes, no toggle)
+            $(document).on('click', '.close_report_btn', function (e) {
+                e.preventDefault();
+
+                const tr = $(this).closest('tr').parent();
+                const row = table.row(tr);
+
+                tr.removeClass('shown');
+                $(this).closest('tr').hide()
+            });
+
+            function formatDate(dateString) {
+                if (!dateString) return 'N/A';
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+
+            function format(data) {
+                return `
+                    <div class="details-content p-3 bg-light border rounded">
+                        <div class="mb-3 d-flex justify-content-end">
+                            <button class="btn-sm btn-cancel-modal close_report_btn" type="button"> Close</button>
+                        </div>
+                        <table class="table mb-0">
+                            <tbody>
+                                <tr>
+                                    <th>Ref:</th>
+                                    <td class="border-0">${data.ref ?? 'N/A'}</td>
+                                    <th>Incident Date:</th>
+                                    <td class="border-0">${data.incident_date ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Member ID:</th>
+                                    <td class="border-0">${data.user.member_id ?? 'N/A'}</td>
+                                    <th>Member Name:</th>
+                                    <td class="border-0">${data.user.name ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Incident Type:</th>
+                                    <td class="border-0">${data.incident_nature ?? 'N/A'}</td>
+                                    <th>Location:</th>
+                                    <td class="border-0">${data.location ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Incident Create:</th>
+                                    <td class="border-0">${formatDate(data.created_at) ?? 'N/A'}</td>
+                                    <th>Status:</th>
+                                    <td class="border-0">
+                                        ${data.status ? data.status.replace(/<[^>]*>/g, '') : 'N/A'}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Summary of Incident:</th>
+                                    <td colspan="3" class="border-0">${data.what_happened ?? 'N/A'}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            $(document).on('click', '.update_status', function(e) {
+                e.preventDefault();
+                let reportId = $(this).data('id');
+                let status = $(this).data('status');
+                let ref = $(this).data('ref');
+                //let st = status == 'published' ? 'publish' : 'reject';
+                $(".action_reason_div").css('display','none');
+                if(status == 'on_hold'){
+                    st = 'mark as on hold';
+                }else if(status == 'rejected'){
+                    st = 'reject';
+                    $(".action_reason_div").css('display','block');
+                }else if(status == 'pending'){
+                    st = 'pending';
+                }else{
+                    st = 'publish';
+                }
+
+                $('#status_data_id').val(reportId);
+                $('#status_data_value').val(status);
+                $('.add_review_title').text(st);
+                console.log(reportId, status);  
+                
+            });
+
+            $(document).on('click', '.saveStatus', function(e) {
+                e.preventDefault();
+                let reviewId = $('#status_data_id').val();
+                let status = $('#status_data_value').val();
+                let action_reason = $('#action_reason').val();
+                var reviewData = {
+                    'id' :reviewId,
+                    'status' :status,
+                    'action_reason' :action_reason,
+                }
+
+                $(".action_reason_div").css('display','none');
+
+                let imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
+                if(status == 'published'){
+                    $(".success-modal-title").text('Published');
+                    imageUrl = '{{ asset("assets/dashboard/img/published.png") }}';
+                    $("#custompopicon").attr('src', imageUrl );
+
+                    $(".success-modal-text").text('This report is now Published');
+
+                }else if(status == 'rejected'){
+                    $(".success-modal-title").text('Rejected');
+                    imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
+                    $("#custompopicon").attr('src', imageUrl );
+                    $(".success-modal-text").text('This report is now Rejected.');
+                    $(".action_reason_div").css('display','block');
+                }else if(status == 'on_hold'){
+                    $(".success-modal-title").text('On Hold');
+                    $("#custompopicon").attr('src', imageUrl );
+                    $(".success-modal-text").text('This report is now On Hold.');
+                }else{
+                    $(".success-modal-title").text('Pending');
+                    $("#custompopicon").attr('src', imageUrl);
+                    $(".success-modal-text").text('We’re sorry to inform you that your report has been updated to pending.');
+                }
+                
+                var url = "{{route('admin.punterbox.status.ajax')}}";
+                updateMemberReportStatus(reviewData, url);
+            });
+
+            function updateMemberReportStatus(reportData, routeUrl)
+            {
+                const reportId = $(this).data('id');
+
+                $.ajax({
+                    url: routeUrl, // replace with your actual route
+                    method: 'POST',
+                    data:{
+                        'id':reportData.id,
+                        'status':reportData.status,
+                        'action_reason':reportData.action_reason,
+                    },
+                    success: function(response) {
+                        if(response.error == false){
+
+                            $('#PunterboxReportTable').DataTable().ajax.reload(null, false);
+                            $("#confirm_publish_popup").modal('show');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Failed to fetch data');
+                        $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+                    }
+                });
+            }
+
+            $(document).on('click', '.close_report_btn', function(e) {
+                e.preventDefault();
+                $("#print-advertiser-reviews").hide();
+            });
+
+
         });
 
-
-      
     </script>
+
 @endpush

@@ -27,8 +27,12 @@ class MassagePurchase extends Model
         'status',
         'rate',
         'discount_rate',
+        'total_discount',
         'total_rate',
         'paid_rate',
+        'final_amount',
+        'created_by',
+        'updated_by'
     ];
 
 
@@ -99,4 +103,11 @@ class MassagePurchase extends Model
     {
         return $this->morphMany(AgentCommission::class, 'commissionable');
     }
+
+    public function paymentItems()
+    {
+        return $this->morphMany(PaymentItem::class, 'item');
+    }
 }
+
+

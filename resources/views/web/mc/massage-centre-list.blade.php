@@ -258,6 +258,9 @@ font-weight: bold;
     <input type="hidden" id="activeView">
 </section>
 @endsection
+@php
+$listingsPreferencesView = auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
+@endphp
 
 
 @push('scripts')
@@ -269,6 +272,7 @@ font-weight: bold;
 };
 
 window.is_page_reload = 0;
+
 
 $(document).on('click', '.add_to_favrate', function() {
     if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
@@ -381,17 +385,35 @@ $(document).on('click', '.add_to_favrate', function() {
 
 $(document).ready(function () {
     
-    var activeView = 'grid';
+    var activeView = '{{ $listingsPreferencesView }}';
+    var clickTab = '{{ isset($clickTab) ? $clickTab : 0 }}';
+    
     var storage_view = localStorage.getItem('storage_view');
+    var isClickGridList =  localStorage.getItem('isClickGridList');
+  
 
-    if (!storage_view) {
-    localStorage.setItem('storage_view', activeView);
+   if (isClickGridList == null || isClickGridList == 0) {
+        localStorage.setItem('isClickGridList', 0);
+        isClickGridList = 0;
     }
     else{
-    activeView = localStorage.getItem('storage_view');  
+        isClickGridList = localStorage.getItem('isClickGridList');  
+    }
+    
+    if (!storage_view) {
+        localStorage.setItem('storage_view', activeView);
+    } else{
+        activeView = localStorage.getItem('storage_view');  
     }
 
-    console.log('activeView',activeView);
+    if(clickTab == 1) {
+       isClickGridList = 0; 
+    }
+   
+    if (isClickGridList == 0) {
+        activeView = '{{ $listingsPreferencesView }}';
+    }
+
 
     if(activeView=='list')
     {
@@ -479,6 +501,8 @@ $(document).ready(function () {
         $('.view-active').removeClass('view-active');
         $(this).addClass('view-active active');
         localStorage.setItem('storage_view', activeView);
+        localStorage.setItem('isClickGridList', 1);
+        clickTab = 0;
     });
 
     $('#view_list').on('click', function () {
@@ -491,6 +515,8 @@ $(document).ready(function () {
         $('.view-active').removeClass('view-active active');
         $(this).addClass('view-active active');
         localStorage.setItem('storage_view', activeView);
+        localStorage.setItem('isClickGridList', 1);
+        clickTab = 0;
     });
 
 

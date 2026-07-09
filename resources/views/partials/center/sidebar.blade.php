@@ -284,12 +284,12 @@
 
             <div class="collapse-inner">
                 {{-- Analytics --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
+                <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
                     <span>Analytics</span>
                 </a>
 
-                <div id="CenterAnalytics"
+                {{-- <div id="CenterAnalytics"
                     class="collapse
                         @if (in_array(request()->segment(2), ['feedback', 'profiles', 'social-media', 'masseurs'])) show @endif"
                     data-parent="#AdminTab">
@@ -320,7 +320,7 @@
                         </a>
 
                     </div>
-                </div>
+                </div> --}}
                 {{-- Bookkeeping --}}
                 {{-- <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
                     href="{{ route('center.bookkeeping') }}">
@@ -346,6 +346,13 @@
                         <img src="{{ asset('assets/app/img/sales-performance.png') }}">
                         <span>Bank Account</span>
                     </a>
+
+                    <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
+                        href="{{ url('center-dashboard/transaction-summary') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
+                        <span>Transaction Summary</span>
+                    </a>
+
                     {{-- <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/credit-my-account') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">

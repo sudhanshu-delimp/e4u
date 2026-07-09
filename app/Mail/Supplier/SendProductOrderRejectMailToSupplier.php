@@ -30,7 +30,7 @@ class SendProductOrderRejectMailToSupplier extends Mailable
    */
   public function build()
   {
-    $subject = "Product Order Rejected – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']} | Delivery Address: {$this->data['delivery_address']}";
+    $subject = "Product Order Rejected – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
     return $this->subject($subject)->view('emails.escort.order.order_rejected_supplier')
       ->with(['data' => $this->data]);
   }

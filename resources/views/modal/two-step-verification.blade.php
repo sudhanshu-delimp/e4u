@@ -94,9 +94,9 @@
 <script>
     const otpInputs = document.querySelectorAll(".otp-input");
     const hiddenOtp = document.getElementById("otp");
-   
+
     window.OTP_RESEND_SECONDS = `{{ config('common.otp_resend_seconds') }}`;
-  
+
 
     let otpSubmitted = false;
     let timer;
@@ -146,6 +146,7 @@
                             //     keyboard: false,
                             //     show: true
                             // });
+                            sendOtpForm.find('input[type="text"]').val('');
                             processPaymentForm();
                         }
                     });
@@ -204,13 +205,13 @@
         const timerEl = document.getElementById("otpTimerMsg");
         const resendEl = document.getElementById("resendLine");
 
-    
-          $('#sendOtp_modal').one('shown.bs.modal', function() {  
-             
-                 seconds =   parseInt(OTP_RESEND_SECONDS);
-                 startOtpTimer();
-                 focusFirstOtpInput()
-            });
+
+        $('#sendOtp_modal').one('shown.bs.modal', function() {
+
+            seconds = parseInt(OTP_RESEND_SECONDS);
+            startOtpTimer();
+            focusFirstOtpInput()
+        });
 
 
         function startOtpTimer() {

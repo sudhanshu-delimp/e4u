@@ -1166,7 +1166,6 @@
             orderData.pin_token = cardToken;
             // console.log(orderData);
 
-
             $.ajax({
                 url: "{{ route('escort.make.order.payment') }}",
                 type: "POST",

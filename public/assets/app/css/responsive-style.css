@@ -1,8 +1,18 @@
                     /* MC Profile Listings  */
                     
-                    @media (min-width: 200px) and (max-width:319px) {
+                    @media (min-width: 200px) and (max-width:320px) {
                         .next-preview-fixed>div>div {
                             top: -60px !important;
+                        }
+                        .c_dropdown.dropdown-menu.register_dropdown {
+                            position: absolute !important;
+                            top: 0px !important;
+                            right: unset !important;
+                            left: 0px !important;
+                            transform: translate3d(0px, 40px, 0px) !important;
+                        }
+                        .content_align .level-2 {
+                            padding: 0px !important;
                         }
                     }
                     
@@ -12,8 +22,9 @@
                             width: 100px;
                             height: unset;
                         }
-                        .mc_card_container {
-                            grid-template-columns: 1fr;
+                        .header_logo {
+                            max-width: 100px !important;
+                            width: 100%;
                         }
                         .mc_list_header,
                         .mc_list_address,
@@ -71,6 +82,7 @@
                             display: flex;
                             align-items: center;
                             padding: 15px 0px;
+                            max-width: clamp(184px, 65vw, 250px)
                         }
                         .profile_wrap .profile_header {
                             padding-top: 15px;
@@ -261,7 +273,7 @@
                             gap: 10px;
                         }
                         .home_heading_first {
-                            font-weight: 600;
+                            font-weight: bold !important;
                         }
                         .register-img {
                             padding: 0px;
@@ -320,11 +332,11 @@
                         }
                         .footer_login_area {
                             display: flex;
-                            flex-direction: column;
                             align-items: baseline;
                             justify-content: flex-start;
                             gap: 25px;
                             margin-bottom: 20px;
+                            padding: 10px;
                         }
                         .nz_location {
                             display: flex;
@@ -338,7 +350,7 @@
                             margin-bottom: 0px;
                         }
                         .dropdown-menu {
-                            min-width: 10rem;
+                            min-width: 8rem;
                         }
                         .list_view_profile_pera_font_size {
                             overflow: hidden;
@@ -379,10 +391,6 @@
                         .all_filter_accordain {
                             background: #fff;
                             padding: 7px;
-                        }
-                        .header_logo {
-                            max-width: 100px;
-                            width: 100%;
                         }
                         .search_filters .display_items {
                             display: flex;
@@ -502,6 +510,12 @@
                             gap: 10px;
                             justify-content: flex-end;
                             flex-direction: row-reverse;
+                        }
+                    }
+                    
+                    @media(max-width:451px) {
+                        .mc_card_container {
+                            grid-template-columns: 1fr;
                         }
                     }
                     

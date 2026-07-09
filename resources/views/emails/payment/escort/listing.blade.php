@@ -23,7 +23,7 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Profile Listing - Escort</h1>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Profile Listing - {{ $mainAccount->type=='4' ? 'Massage' : 'Escort' }} </h1>
                                         <div style="font-size: 13px; color: #cccccc;">Member ID: {{$mainAccount->member_id ?? ''}}</div>
                                     </td>
                                 </tr>

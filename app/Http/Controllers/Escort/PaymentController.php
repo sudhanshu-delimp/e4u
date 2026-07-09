@@ -521,7 +521,7 @@ class PaymentController extends Controller
             return response()->json([
                 'status' => true,
                 'html'   => $html,
-                'print_url' => route('payment.detail.print', $payment->id),
+                'print_url' => route('escort.payment.detail.print', $payment->id),
                 'message' => 'Listing fetched successfully'
             ]);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
