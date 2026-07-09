@@ -77,8 +77,7 @@ class WebhookController extends Controller
       // type for identify wor what payment was made
       $type = $paymentObject['metadata']['type'] ?? '';
 
-      Log::info($type);
-
+     
       // Example: payment success
       if ($event == 'charge.captured') {
         // start swithc case

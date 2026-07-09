@@ -389,7 +389,7 @@ class PaymentController extends BaseController
                 
             }      
 
-            Log::info('bump=>>>>>>'.$benefit_token['action']);
+           
 
             $payment_service = '';
             $mailConfig = "";
