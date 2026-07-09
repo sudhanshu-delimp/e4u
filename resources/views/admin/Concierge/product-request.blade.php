@@ -416,11 +416,8 @@
                     delivery_type: delivery_type,
                 },
                 beforeSend: function() {
-                    // if (status !== "shipped" && status !== "rejected") {
-                    //     $process.modal('show');
-                    // }
-                    if (!['shipped', 'rejected'].includes(status)) {
-                        $process.modal('show');
+                    if ( (status === "shipped" && delivery_type === "door") ||  !["shipped", "rejected"].includes(status)) {
+                        $process.modal("show");
                     }
 
                     $btn.prop("disabled", true).text("Processing...");
