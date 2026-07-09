@@ -23,7 +23,8 @@
                                             Concierge Service - Product Order
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
+
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -60,12 +61,17 @@
                                     <td>{{ $data['mobile'] }}</td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: left; white-space:nowrap; vertical-align: baseline;">Delivery address:</th>
+                                    <th style="text-align: left; white-space:nowrap; vertical-align: baseline;">Delivery
+                                        address:</th>
                                     <td>{{ $data['delivery_address'] }}</td>
                                 </tr>
                                 <tr>
                                     <th style="text-align: left">Delivery type:</th>
                                     <td>{{ ucfirst($data['delivery_type']) }}</td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: left">Order Ref:</th>
+                                    <td> #{{ $data['id'] ?? '' }}</td>
                                 </tr>
                             </table>
                             <!-- email info -->
