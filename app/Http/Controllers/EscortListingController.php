@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Escort\EscortInterface;
+use Illuminate\Support\Facades\Http;
+use App\Models\State;
+use Exception;
 
 class EscortListingController extends Controller
 {
@@ -27,118 +30,128 @@ class EscortListingController extends Controller
         $this->escort = $escort;
     }
 
+    private function getUserTypeIds()
+    {
+        $user = auth()->user();
+
+        if (!$user || $user->type != 0) {
+            return null;
+        }
+        return auth()->user()->myLegBox->pluck('id')->toArray();
+    }
+
+    private function getUserLocation(Request $request)
+    {
+        if (empty($request->lat) || empty($request->lng) || ($request->search_by_radio == 0)) {
+            return null;
+        }
+
+        return $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
+    }
+
+    private function getRealTimeGeolocationOfUsers($lat, $lng)
+    {
+        try {
+            $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
+
+            // Get location details from Google Maps Reverse Geocoding
+            $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
+            $response = Http::get($geoUrl);
+
+            $state = 'Unknown';
+
+            if ($response->successful()) {
+                foreach ($response['results'][0]['address_components'] as $component) {
+                    if (in_array('administrative_area_level_1', $component['types'])) {
+                        $state = $component['long_name'];
+                        break;
+                    }
+                }
+            }
+
+            //    $stateFromDb = State::where('name','like','%'.'Tasmania'.'%')->first();
+            $stateFromDb = State::where('name', 'like', '%' . $state . '%')->first();
+
+            $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
+
+            $parms = [
+                'state' => $stateFromDb ? $stateFromDb->id : null,
+                'city' => $stateCapital ? array_key_first($stateCapital['cities']) : null,
+            ];
+
+            return $parms;
+        } catch (\Exception $e) {
+            //throw $th;
+            $parms = [
+                'state' => null,
+                'city' => null,
+            ];
+
+            return $parms;
+        }
+    }
+
+    private function getSearchParams(
+        Request $request,
+        $userLocation,
+        $userInterest
+    ) {
+
+        return [
+            'string'            => $request->by_name_member,
+            'city_id'           => $request->city ?? ($userLocation['city'] ?? null),
+            'gender'            => $request->gender,
+            'age'               => $request->age,
+            'price'             => $request->price,
+            'duration_price'    => $request->duration_price,
+            'services'          => $request->services,
+            'enabled'           => $request->enabled ?? 1,
+            'state_id'          => $request->{'state-id'} ?? ($userLocation['state'] ?? null),
+            'limit'             => $request->limit ?? 25,
+            'interest'          => $userInterest['gender'] ?? null,
+            'view_type'         => $request->view_type ?? 'grid',
+            'search_by_radio'   => $request->search_by_radio,
+            'locationByRadio'   => $request->locationByRadio,
+            'playmate_status'   => $request->playmate_status,
+            'lat_state'         => $userLocation['state'] ?? '',
+            'lng_city'          => $userLocation['city'] ?? '',
+            'membership_type'   => $request->membership_type,
+            'verification'      => $request->varify_list,
+            'page'              => $request->page ?? 1,
+        ];
+    }
+
+
 
     public function allEscortListing(Request $request, $gender = null)
     {
-
-      //  dd(Escort::first());
-
-        $array = config('escorts.profile.genders');
-
-        $gender_one = array_flip($array);
-        if ($gender != null) {
-            $gen = $gender_one[$gender];
-        } else {
-            $gen = null;
-        }
-
-        $user_type = null;
-        if (auth()->user() && auth()->user()->type == 0) {
-            $user_type = auth()->user()->myLegBox->pluck('id')->toArray();
-        }
-
-
+        //dd($request->all());
+        //get Lagbox ids
+        $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
+        $userLocation = $this->getUserLocation($request);
+        $params = $this->getSearchParams($request, $userLocation, $userInterest);
+        //dd($params);
 
-        $userLocation = null;
-        if ($request->lat != '' && $request->lng != '') {
-            $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
-            $lat_state = $userLocation['state'];
-            $lng_city = $userLocation['city'];
-            session(['radio_location_filter' => true]);
-        }
+        $location = request()->get('location');
 
-        $paramData = [];
-
-        if (isset($userInterest['gender']) && (!empty($userInterest['gender']))) {
-            $paramData['interest'] = $userInterest['gender'];
-            $paramData['city_id'] = null;
-            $paramData['gender'] = null;
-        } else {
-            $paramData['interest'] = null;
-            $paramData['city_id'] = null;
-            $paramData['gender'] = null;
-        }
-
-
-        $params = $str = [
-            'string' => request()->get('name'),
-            'city_id' => request()->get('city') ? request()->get('city') : ($userLocation ? $userLocation['city'] : null),
-            'gender' => request()->get('gender') ? request()->get('gender') : $paramData['gender'],
-            'age' => request()->get('age'),
-            'price' => request()->get('price'),
-            'duration_price' => request()->get('duration_price'),
-            'services' => request()->get('services'),
-            'enabled' => request()->get('enabled', 1),
-            'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null),
-            'limit' => request()->get('limit') ? request()->get('limit') : 25,
-            'interest' => $paramData['interest'],
-            'view_type' => request()->get('view_type') ?? 'grid',
-            'search_by_radio' => request()->get('search_by_radio'),
-            'locationByRadio' => request()->get('locationByRadio'),
-            'playmate_status' => request()->get('playmate_status'),
-            'lat_state' => $lat_state ?? '',
-            'lng_city' => $lng_city ?? '',
-            'membership_type' => request()->get('membership_type') ?? null,
-            'verification' => request()->get('verify_list') ?? null,
-        ];
-
-
+        // un orgnise code only use for running project
         if (isset($params['limit'])) {
             $limit = $params['limit'];
         } else {
             $limit = 25;
         }
 
-        $location = request()->get('location');
-
-        // un orgnise code only use for running project
-        $radio_location_filter = session('radio_location_filter');
-        $limit = $str['limit'];
 
         if ($request->get('filter_button_submit') == '1') {
-            $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
+            $params['city_id'] = request()->get('city'); // city_id = 6839
         }
 
-       // $services = $this->services->all();
-
-
-        // if no need then i remove below code.
-        $escortId = [];
-        if (session('cart') && session('is_shortlisted_profile')) {
-            foreach (session('cart') as $id => $vlaue) {
-
-                $escortId[] = $id;
-            }
-        }
         $viewerAuth = Auth::user();
-
-
 
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1, 2, 3]);
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
-
-
-       // session(['search_escort_filters' => $params]);
-       // session(['search_escort_filters_url' => url()->full()]);
-       // session(['is_shortlisted_profile' => false]);
-
-        if ($params['city_id'] && $params['state_id']) {
-            $filterStateExist = City::where('id', $params['city_id'])->where('state_id', $params['state_id'])->exists();
-            $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
-            //$radio_location_filter = true;
-        }
 
         $services = $this->services->all();
 
@@ -147,11 +160,22 @@ class EscortListingController extends Controller
         $filterGenderId = $params['gender'];
 
         $escortSelectColumns = [
-            'escorts.id', 'escorts.name', 'escorts.city_id','escorts.enabled',
-            'escorts.purchase_id','escorts.user_id','escorts.gender','escorts.city_id',
-            'escorts.membership', 'escorts.age', 'escorts.star_rating','escorts.massage_price',
-            'escorts.incall_price', 'escorts.outcall_amount','escorts.availability_time',
-    
+            'escorts.id',
+            'escorts.name',
+            'escorts.city_id',
+            'escorts.enabled',
+            'escorts.purchase_id',
+            'escorts.user_id',
+            'escorts.gender',
+            'escorts.city_id',
+            'escorts.membership',
+            'escorts.age',
+            'escorts.star_rating',
+            'escorts.massage_price',
+            'escorts.incall_price',
+            'escorts.outcall_amount',
+            'escorts.availability_time',
+
         ];
 
         // un orgnise code only use for running project
@@ -162,9 +186,9 @@ class EscortListingController extends Controller
                 'currentActivePinup',
                 'activeBumpup',
                 'latestActiveBrb:selected_time',
-                'gallary' => function($q){
+                'gallary' => function ($q) {
                     $q->wherePivot('position', 1)
-                     ->select('escorts_medias.id', 'path');
+                        ->select('escorts_medias.id', 'path');
                 },
                 'escort_videos',
                 'city:id,name',
@@ -200,7 +224,7 @@ class EscortListingController extends Controller
         ");
 
 
-    
+
 
         $query = $this->applyFilterOnEscort(
             $query,
@@ -209,11 +233,13 @@ class EscortListingController extends Controller
             $params['age'],
             $location
         );
-        
-        
+
+
 
         $escorts = $query->get();
-       $groups = $escorts->groupBy('membership');
+
+        //dd($escorts);
+        $groups = $escorts->groupBy('membership');
 
         $platinum = $groups->get(1, collect());
         $gold     = $groups->get(2, collect());
@@ -223,11 +249,11 @@ class EscortListingController extends Controller
         // this code for testing perpes
 
         $memberTotalCount = [
-                1 => $platinum->count(),
-                2 => $gold->count(),
-                3 => $silver->count(),
-                4 => $free->count(),
-            ];
+            1 => $platinum->count(),
+            2 => $gold->count(),
+            3 => $silver->count(),
+            4 => $free->count(),
+        ];
 
         // this code for testing perpes
         $result = collect();
@@ -235,8 +261,8 @@ class EscortListingController extends Controller
             ->merge($this->prepareMembership($gold))
             ->merge($this->prepareMembership($silver))
             ->merge($this->prepareMembership($free));
-   
-        $page = request('page', 1);
+
+        $page = $params['page'];
         $perPage = $limit;
         //$grouped =  $result->groupBy('membership'); 
         $currentItems = $result->forPage($page, $perPage)->values();
@@ -261,15 +287,16 @@ class EscortListingController extends Controller
         //*************************************Start Pass ajax request blade data****************************/
         if ($request->ajax()) {
             $data = '';
-            if($viewType == 'grid'){
-                $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type','viewerAuth'))->render();
-            }else{
+            if ($viewType == 'grid') {
+                $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render();
+            } else {
                 $data = view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render();
             }
             return response()->json([
                 'data' => $data,
                 'view_type' => $viewType,
                 'total_count' => count($currentItems ?? 0),
+                'page' => $page,
                 'pagination' => view('web.escort.partials.pagination', compact('paginator'))->render()
 
             ]);
@@ -283,11 +310,9 @@ class EscortListingController extends Controller
             'service_one',
             'service_two',
             'service_three',
-            'escorts',
             'locationCityId',
             'filterGenderId',
             'memberTotalCount',
-            'radio_location_filter',
             'all_services_tag',
             'viewType'
         ));
@@ -295,25 +320,31 @@ class EscortListingController extends Controller
 
     public function applyFilterOnEscort(
         $query,
-        $str,
+        $params,
         $gender = null,
         $age = null,
         $location = null
     ) {
- 
         $query->whereHas('user', function ($q) {
             $q->where('status', 1);
         });
         $query->whereDoesntHave('activeSuspendProfile');
 
+        //filter membership type wise escort
+        //dd($params['membership_type']);
+
+        if (!empty($params['membership_type']) && ($params['membership_type'] != 'all')) {
+            $query->where('escorts.membership', $params['membership_type']);
+        }
+
         // Playmate filter
-        if (isset($str['playmate_status']) && $str['playmate_status'] == 'with_playmates') {
+        if (isset($params['playmate_status']) && $params['playmate_status'] == 'with_playmates') {
             $query = $query->whereHas('playmates');
         }
 
 
         // Verification filter
-/**************************all query depending each other*******************************/
+        /**************************all query depending each other*******************************/
         $query->join('profile_verification_status as pvs', function ($join) {
             $join->on('pvs.profile_id', '=', 'escorts.id')
                 ->where('pvs.type', '3');
@@ -321,24 +352,22 @@ class EscortListingController extends Controller
 
         $query->addSelect(DB::raw('COALESCE(pvs.status, 0) as verification_status'));
 
-/**************************all query depending each other*******************************/
+        /**************************all query depending each other*******************************/
 
+        if (!empty($params['verification'])) {
 
-        if (!empty($str['verification'])) {
             $statusMap = [
-                'pending' => 0,
-                'verified' => 1,
-                'unverified' => 2,
+                'pending' => '0',
+                'verified' => '1',
+                'unverified' => '2',
             ];
 
-
-            if (isset($statusMap[$str['verification']])) {
+            if (isset($statusMap[$params['verification']])) {
                 $query->where(
                     'pvs.status',
-                    $statusMap[$str['verification']]
+                    $statusMap[$params['verification']]
                 );
             }
-
         }
 
 
@@ -358,15 +387,14 @@ class EscortListingController extends Controller
 
         //Search By Radio (Missing)
 
-        if (isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1)) {
+        if (isset($params['search_by_radio']) && ($params['search_by_radio'] == '1' || $params['search_by_radio'] == 1)) {
 
-            // $query->where('escorts.enabled', $str['enabled'] ?? 1);
+            $radioLocation = $params['locationByRadio'];
 
-            $radioLocation = $str['locationByRadio'];
 
-            if (!empty($str['string'])) {
+            if (!empty($params['string'])) {
 
-                $uid = $str['string'];
+                $uid = $params['string'];
 
                 $query->where(function ($q) use ($uid) {
                     $q->where('escorts.name', 'like', '%' . $uid . '%');
@@ -377,24 +405,24 @@ class EscortListingController extends Controller
                     });
                 });
 
-                if (!empty($str['lat_state']) && $radioLocation == 'your_location') {
-                    $query->where('escorts.state_id', $str['lat_state']);
+                if (!empty($params['lat_state']) && $radioLocation == 'your_location') {
+                    $query->where('escorts.state_id', $params['lat_state']);
                 }
             }
 
-            if (!empty($str['lat_state']) && $radioLocation == 'your_location') {
-                $query->where('escorts.state_id', $str['lat_state']);
+            if (!empty($params['lat_state']) && $radioLocation == 'your_location') {
+                $query->where('escorts.state_id', $params['lat_state']);
             }
 
             return $query;
         }
 
         // Enabled
-        $query->where('escorts.enabled', $str['enabled'] ?? 1);
+        $query->where('escorts.enabled', $params['enabled'] ?? 1);
 
         // City
-        if (!empty($str['city_id'])) {
-            $query->where('escorts.city_id', $str['city_id']);
+        if (!empty($params['city_id'])) {
+            $query->where('escorts.city_id', $params['city_id']);
         }
 
         /*
@@ -402,11 +430,11 @@ class EscortListingController extends Controller
         | Gender / Interest Filter (Missing)
         |--------------------------------------------------------------------------
         */
-        if (!empty($str['gender'])) {
-            $query->where('escorts.gender', $str['gender']);
+        if (!empty($params['gender'])) {
+            $query->where('escorts.gender', $params['gender']);
         } else {
-            if (!empty($str['interest'])) {
-                $interests = array_unique($str['interest']);
+            if (!empty($params['interest'])) {
+                $interests = array_unique($params['interest']);
                 if (is_array($interests)) {
                     $query->whereIn('escorts.gender', $interests);
                 }
@@ -414,29 +442,29 @@ class EscortListingController extends Controller
         }
 
         // Age
-        if (!empty($str['age'])) {
-            [$min, $max] = explode('-', $str['age']);
+        if (!empty($params['age'])) {
+            [$min, $max] = explode('-', $params['age']);
             $query->whereBetween('escorts.age', [$min, $max]);
         }
 
         // Duration price
-        if (!empty($str['duration_price'])) {
-            $query->whereHas('durations', function ($q) use ($str) {
-                if ($str['duration_price'] == 'incall_price') {
+        if (!empty($params['duration_price'])) {
+            $query->whereHas('durations', function ($q) use ($params) {
+                if ($params['duration_price'] == 'incall_price') {
                     $q->whereNotNull('incall_price');
                 }
-                if ($str['duration_price'] == 'outcall_price') {
+                if ($params['duration_price'] == 'outcall_price') {
                     $q->whereNotNull('outcall_price');
                 }
-                if ($str['duration_price'] == 'massage_price') {
+                if ($params['duration_price'] == 'massage_price') {
                     $q->whereNotNull('massage_price');
                 }
             });
         }
 
         // Price filter
-        if (!empty($str['price'])) {
-            $price = $str['price'];
+        if (!empty($params['price'])) {
+            $price = $params['price'];
             $query->whereHas('services', function ($q) use ($price) {
                 if ($price <= 500) {
                     $q->where('price', '<=', $price);
@@ -445,11 +473,10 @@ class EscortListingController extends Controller
                 }
             });
         }
-
         // Services
-        if (!empty($str['services'])) {
-            $query->whereHas('services', function ($q) use ($str) {
-                $q->whereIn('services.id', $str['services']);
+        if (!empty($params['services'])) {
+            $query->whereHas('services', function ($q) use ($params) {
+                $q->whereIn('services.id', explode(',', $params['services']));
             });
         }
 
@@ -515,30 +542,21 @@ class EscortListingController extends Controller
         return $userInterest;
     }
 
-    public function getMemberType()
+
+    //Fetching Escorts Services list
+    public function fetchEscortServices()
     {
-        $memberTypes = [
-            1 => [
-                'title' => 'Platinum',
-                'icon' => asset('images/platinum_membership.png'),
-                'class' => 'platinum'
-            ],
-            2 => [
-                'title' => 'Gold',
-                'icon' => asset('images/gold_membership.png'),
-                'class' => 'gold'
-            ],
-            3 => [
-                'title' => 'Sliver',
-                'icon' => asset('images/silver_membership.png'),
-                'class' => 'sliver'
-            ],
-            4 => [
-                'title' => 'Free',
-                'icon' => asset('assets/app/img/free.png'),
-                'class' => 'free'
-            ],
-        ];
-        return $memberTypes;
+        try {
+            [$serviceOne, $serviceTwo, $serviceThree] = $this->services->findByCategory([1, 2, 3]);
+
+            return success_response([
+                'service_one'   => view('web.escort.partials.services-list', ['services' => $serviceOne, 'type' => 'one'])->render(),
+                'service_two'   => view('web.escort.partials.services-list', ['services' => $serviceTwo, 'type' => 'two'])->render(),
+                'service_three' => view('web.escort.partials.services-list', ['services' => $serviceThree, 'type' => 'three'])->render(),
+            ], 'Ok', 200);
+        } catch (Exception $e) {
+            dd($e);
+            return error_response('Error', 500, null);
+        }
     }
 }

@@ -326,6 +326,7 @@ Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gri
 
 /****************************************************all-escorts-list**********************************************/
 Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.escort.listing'); 
+Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.escort.fecth.services');
 
 
 
