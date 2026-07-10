@@ -594,13 +594,6 @@
                     }
                 });
             }
-
-            $(document).on('click', '.close_report_btn', function(e) {
-                e.preventDefault();
-                $("#print-advertiser-reviews").hide();
-            });
-
-
         });
 
     </script>
