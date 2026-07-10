@@ -321,3 +321,54 @@ function formatCurrency(amount, currency = '$') {
 
     return currency + formatted + '.' + decimalPart;
 }
+
+var getGeoLocationEscortAccountProfiles = function (state = 0) {
+    if (state > 0) {
+        $.ajax({
+            url: `${window.App.baseUrl}escort-dashboard/get-geo-location-profiles`,
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data: {
+                state
+            },
+            success: function (response) {
+                if (response.success == true) {
+                    let profileSelect = document.querySelector(
+                        'select[name="escort_id[]"]');
+                    profileSelect.innerHTML =
+                        '<option value="">Select a profile</option>';
+
+                    response.profiles.forEach(item => {
+                        let label = `${item.name} (${item.profile_name})`;
+                        let value = `${item.id}`;
+
+                        let option = document.createElement('option');
+                        option.value = value;
+                        option.textContent = label;
+                        profileSelect.appendChild(option);
+                    });
+                    profileSelect.disabled = false;
+                } else {
+                    swal.fire('Profile', `${response.message}`, 'error');
+                    Swal.fire({
+                        title: 'Listings',
+                        text: `${response.message}`,
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed || result.isDismissed) {
+                            window.location.href =
+                                "{{ route('escort.profile') }}";
+                        }
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error in location filter:', error);
+            }
+        });
+    }
+}
