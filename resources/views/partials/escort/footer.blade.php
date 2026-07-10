@@ -46,7 +46,6 @@
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        @include('partials.common.footer-scripts')
         <script>
             jQuery.browser = {};
             (function() {
@@ -59,11 +58,11 @@
             })();
 
             window.App = {
-                userId: {{ auth()->id() }},
+                userId: `{{auth()->id()}}`,
                 csrfToken: "{{ csrf_token() }}",
                 baseUrl: "{{ asset('') }}"
             };
-           
+
             $(document).ready(function() {
                 //Display tooltip
                 $('[data-toggle="tooltip"]').not('.delay_tooltip, .excludeTooltip').tooltip({
@@ -82,15 +81,6 @@
                     $('.tooltip').tooltip("hide")
                 });
 
-                // //Create sweet alert for flash message
-                // @foreach (['success', 'warning', 'info', 'error'] as $alert)
-                // @if (Session::has($alert))
-                // swal.fire('', '{{ Session::get($alert) }}', '{{ $alert }}');
-                // @endif
-                // @endforeach
-
-
-
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -98,7 +88,7 @@
                 });
             });
         </script>
-
+        @include('partials.common.footer-scripts')
         @stack('script')
 
         @section('script')
@@ -111,9 +101,7 @@
                     $('input[aria-controls="select2-' + select2_id_attr + '-results"]')[0].focus();
                 }
             });
-        </script>
 
-        <script>
             $('#myAnchor').click(function() {
                 location.reload();
             });
@@ -168,7 +156,7 @@
 
                 function sendLocationData(data) {
                     $.ajax({
-                        url: '{{ route('user.current.location') }}',
+                        url: `{{route('user.current.location')}}`,
                         method: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -178,7 +166,7 @@
                             if (response.status) {
                                 if ($(".js_geo_location_profiles").length > 0) {
                                     /** Only display user's current location profiles in the create new listing page. */
-                                    getGeoLocationProfiles(response.data.state);
+                                    //getGeoLocationProfiles(response.data.state);
                                 }
                                 if ($(".js_profile_current_location").length > 0) {
                                     $("select[name='state_id']").val(response.data.state).trigger("change");
@@ -195,56 +183,7 @@
                     });
                 }
 
-                var getGeoLocationProfiles = function(state = 0) {
-                    if (state > 0) {
-                        $.ajax({
-                            url: '{{ route('listing.get_geo_location_profiles') }}',
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            data: {
-                                state
-                            },
-                            success: function(response) {
-                                if (response.success == true) {
-                                    let profileSelect = document.querySelector(
-                                        'select[name="escort_id[]"]');
-                                    profileSelect.innerHTML =
-                                        '<option value="">Select a profile</option>';
 
-                                    response.profiles.forEach(item => {
-                                        let label = `${item.name} (${item.profile_name})`;
-                                        let value = `${item.id}`;
-
-                                        let option = document.createElement('option');
-                                        option.value = value;
-                                        option.textContent = label;
-                                        profileSelect.appendChild(option);
-                                    });
-                                    profileSelect.disabled = false;
-                                } else {
-                                    swal.fire('Profile', `${response.message}`, 'error');
-                                    Swal.fire({
-                                        title: 'Listings',
-                                        text: `${response.message}`,
-                                        icon: 'info',
-                                        confirmButtonText: 'OK'
-                                    }).then((result) => {
-                                        if (result.isConfirmed || result.isDismissed) {
-                                            window.location.href =
-                                                "{{ route('escort.profile') }}";
-                                        }
-                                    });
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.error('Error in location filter:', error);
-                            }
-                        });
-                    }
-                }
 
                 function updateLiveTime() {
                     const now = new Date();
@@ -262,11 +201,8 @@
                 updateLiveTime(); // Initial call
                 setInterval(updateLiveTime, 5000); // Update every 5 seconds
             });
-        </script>
 
-
-        <!-- ///////////// Notification ////////////////// -->
-        <script>
+            /*///////////// Notification ////////////////// */
             const getNotifications = () => {
                 ajaxRequest({
                     url: "{{ route('escort.get-notification') }}",
@@ -408,31 +344,30 @@
             });
         </script>
         @if (Session::has('success'))
-            <script>
-                Swal.fire({
-                    title: '{{ Session::get('title') }}',
-                    text: '{{ Session::get('success') }}',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            </script>
+        <script>
+            Swal.fire({
+                title: '{{ Session::get('
+                title ') }}',
+                text: '{{ Session::get('
+                success ') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
         @endif
 
         @foreach (['warning', 'info', 'error'] as $alert)
-            @if (Session::has($alert))
-                <script>
-                    Swal.fire({
-                        title: '{{ ucfirst($alert) }}',
-                        text: '{{ Session::get($alert) }}',
-                        icon: '{{ $alert }}',
-                        confirmButtonText: 'OK'
-                    });
-                </script>
-            @endif
+        @if (Session::has($alert))
+        <script>
+            Swal.fire({
+                title: '{{ ucfirst($alert) }}',
+                text: '{{ Session::get($alert) }}',
+                icon: '{{ $alert }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+        @endif
         @endforeach
-
-
-      
         </body>
 
         </html>

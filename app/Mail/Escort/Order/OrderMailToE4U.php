@@ -30,7 +30,8 @@ class OrderMailToE4U extends Mailable
    */
   public function build()
   {
-    return $this->subject("New Product Order Received – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}")->view('emails.escort.order.order_mail_to_e4u')
+    
+    return $this->subject("New Product Order Received – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['communication_id']}")->view('emails.escort.order.order_mail_to_e4u')
       ->with(['data' => $this->data]);  
   }
 }

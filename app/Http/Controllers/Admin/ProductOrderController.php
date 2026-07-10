@@ -11,6 +11,7 @@ use App\Mail\Supplier\SendProductOrderCompleteConfirmationMailToSupplier;
 use App\Mail\Supplier\SendProductOrderHoldMailToSupplier;
 use App\Mail\Supplier\SendProductOrderRejectMailToSupplier;
 use App\Mail\Supplier\SendProductOrderShippedMailToSupplier;
+use App\Models\EmailLog;
 use App\Models\ProductOrder;
 use App\Models\User;
 use Carbon\Carbon;
@@ -159,7 +160,6 @@ class ProductOrderController extends Controller
 
     </div>
 </div>';
- 
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -292,6 +292,10 @@ class ProductOrderController extends Controller
 
           if ($request->status == 'delivered') {
 
+            $mailData['communication_id'] = "";
+            $supplierCommunication = EmailLog::create([]);
+            $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
+
             if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
               Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
             } else {
@@ -303,9 +307,16 @@ class ProductOrderController extends Controller
               $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
             }
 
+            $mailData['communication_id'] = "";
+            $supplierCommunication = EmailLog::create([]);
+            $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
+
             // Send order completed mail notification to supplier
             Mail::to($condommail)->send(new SendProductOrderCompleteConfirmationMailToSupplier($mailData));
           } elseif ($request->status == 'hold') {
+            $mailData['communication_id'] = "";
+            $supplierCommunication = EmailLog::create([]);
+            $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
               Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
             } else {
@@ -316,12 +327,22 @@ class ProductOrderController extends Controller
               }
               $mail->send(new SendProductOrderHoldMailToEscort($mailData));
             }
+            $mailData['communication_id'] = "";
+            $supplierCommunication = EmailLog::create([]);
+            $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
             // Send order hold notification to supplier
             Mail::to($condommail)->send(new SendProductOrderHoldMailToSupplier($mailData));
           } else if ($request->status == 'rejected') {
+
             // send order rejection mail notification to supplier 
+            $mailData['communication_id'] = "";
+            $supplierCommunication = EmailLog::create([]);
+            $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
             Mail::to($condommail)->send(new SendProductOrderRejectMailToSupplier($mailData));
 
+            $mailData['communication_id'] = "";
+            $supplierCommunication = EmailLog::create([]);
+            $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
               Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderRejectMailToEscort($mailData));
             } else {
@@ -331,7 +352,11 @@ class ProductOrderController extends Controller
               }
               $mail->send(new SendProductOrderRejectMailToEscort($mailData));
             }
-          } else if ($request->status == 'shipped' && $order->delivery_type=="post") {
+          } else if ($request->status == 'shipped' && $order->delivery_type == "post") {
+            $mailData['communication_id'] = "";
+            $supplierCommunication = EmailLog::create([]);
+            $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
+
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
               Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderShippedMailToEscort($mailData));
             } else {

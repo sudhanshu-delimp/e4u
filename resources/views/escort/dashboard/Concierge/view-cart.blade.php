@@ -546,14 +546,14 @@
 
                                     <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <strong>Delivery Charge:</strong>
-                                        <strong class="deliveryCharge"
-                                            >{{ formatCurrency(0) }}</strong>
+                                        <strong class="deliveryCharge">{{ formatCurrency(0) }}</strong>
 
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <span>Wallet Used:</span>
-                                        <span id="walletUsed" style="border-bottom:1px solid"   > -{{ formatCurrency(0) }}</span>
+                                        <span id="walletUsed" style="border-bottom:1px solid">
+                                            -{{ formatCurrency(0) }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center fw-bold">
                                         <strong>Total Due:</strong>
@@ -1166,7 +1166,6 @@
             orderData.pin_token = cardToken;
             // console.log(orderData);
 
-
             $.ajax({
                 url: "{{ route('escort.make.order.payment') }}",
                 type: "POST",
@@ -1183,7 +1182,7 @@
                         }
                     });
                 },
-                success: function(response) {
+                success: function(response, textStatus, xhr) {
 
                     if (response.status == true) {
                         var modal = $("#process-payment-modal");
@@ -1193,7 +1192,9 @@
                         $("body").removeClass("modal-open");
                         $(".modal-backdrop").remove();
 
-                        Swal.fire(response.message, '', 'success');
+                        displaySwal(xhr);
+                        // Swal.fire(response.message, '', 'success');
+
                         step = 4;
                         localStorage.setItem("checkout_step_" + loginUserId, step);
 
@@ -1214,7 +1215,7 @@
                             html += '</ul></div>';
                             Swal.fire(response.message + html, '', 'error');
                         } else {
-                            Swal.fire(response.message, '', 'error');
+                            displaySwal(xhr);
                         }
 
                     }
@@ -1222,7 +1223,8 @@
 
                 error: function(xhr) {
                     let res = xhr.responseJSON;
-                    Swal.fire(res.message, '', 'error');
+                    displaySwal(xhr);
+                    // Swal.fire(res.message, '', 'error');
                 },
                 complete: function() {
                     btn.prop("disabled", false).text("Make Payment");
@@ -1416,7 +1418,7 @@
             let gst = subtotal * tax / 100; //GST
             // set amount details after calculation in html format
             $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
-            $("#total_fee").text("$ " + (gst+subtotal).toFixed(2));
+            $("#total_fee").text("$ " + (gst + subtotal).toFixed(2));
             $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
             $(".taxAmount").text("$" + gst.toFixed(2));
             $(".totalDue").text("$" + (total + gst).toFixed(2));
@@ -1542,101 +1544,101 @@
 
 
         $(document).on("click", "#applyWallet", function(e) {
-                e.preventDefault(); // Stop normal form submit
-                updateOrderSummary();
+            e.preventDefault(); // Stop normal form submit
+            updateOrderSummary();
 
-                let form = $("#adjustment-form");
-                let formData = form.serialize();
-                let walletAmount = Number(form.find('input[name="wallet_amount"]').val());
-                // Get existing details (if any)
-                let key = 'paymentDetails_' + loginUserId;
+            let form = $("#adjustment-form");
+            let formData = form.serialize();
+            let walletAmount = Number(form.find('input[name="wallet_amount"]').val());
+            // Get existing details (if any)
+            let key = 'paymentDetails_' + loginUserId;
 
-                let details = JSON.parse(localStorage.getItem(key)) || {};
-                let dueAmount = Number(details.total_payble);
+            let details = JSON.parse(localStorage.getItem(key)) || {};
+            let dueAmount = Number(details.total_payble);
 
-                let accountWalletAmount = parseFloat("{{ Auth::user()->wallet->balance }}");
-                if (accountWalletAmount <= 0) {
-                    Swal.fire("Insufficient wallet balance.", "You don't have enough amount to apply.",
-                        "error");
-                    return;
-                } else if (walletAmount > accountWalletAmount) {
-                    Swal.fire("The wallet amount you entered exceeds your wallet balance.", '', 'error');
-                    return;
-                }
-
-
-                if (walletAmount == "" || walletAmount == null) {
-                    Swal.fire("The wallet amount is required to apply the wallet.", '',
-                        'error');
-                    return;
-                }
-
-                if (walletAmount > dueAmount) {
-                    Swal.fire("The wallet amount you entered exceeds the total due amount.", '',
-                        'error');
-                    return;
-                }
+            let accountWalletAmount = parseFloat("{{ Auth::user()->wallet->balance }}");
+            if (accountWalletAmount <= 0) {
+                Swal.fire("Insufficient wallet balance.", "You don't have enough amount to apply.",
+                    "error");
+                return;
+            } else if (walletAmount > accountWalletAmount) {
+                Swal.fire("The wallet amount you entered exceeds your wallet balance.", '', 'error');
+                return;
+            }
 
 
+            if (walletAmount == "" || walletAmount == null) {
+                Swal.fire("The wallet amount is required to apply the wallet.", '',
+                    'error');
+                return;
+            }
 
-                let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
-
-                let formatedAccountWalletAmount = remaining_wallet_balance.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-
-                $("#walletAmount").text("$" + formatedAccountWalletAmount);
-                $("#walletUsed").text("- $" + Number(walletAmount).toFixed(2));
-
-                // FORCE numeric values
-                let oldSubtotal = Number(details.subtotal_payble) || 0;
-                let oldTotalPayble = Number(details.total_payble) || 0;
-                let walletUsed = Number(walletAmount) || 0;
-
-                // Calculate new totals
-                let subtotal = oldSubtotal - walletUsed;
-                let total_payble = oldTotalPayble - walletUsed;
+            if (walletAmount > dueAmount) {
+                Swal.fire("The wallet amount you entered exceeds the total due amount.", '',
+                    'error');
+                return;
+            }
 
 
-                // Update values in object
-                details.total_payble = total_payble.toFixed(2);
-                details.wallet_amount = walletUsed.toFixed(2);
 
-                // Save back to local storage
+            let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
 
-                localStorage.setItem(key, JSON.stringify(details));
-                let tax = parseFloat("{{ config('escorts.product_tax') }}");
-
-                let gst_amount = oldSubtotal * tax / 100;
-                let taxOfWalletAmount = walletUsed * tax / 100;
-                details.tax_payble = gst_amount.toFixed(2);
-                if (total_payble == 0) {
-                    $(".card_details").find("input, select, textarea, button").prop("disabled", true);
-                    subtotal = oldSubtotal;
-                    $("#makeOrder").prop("disabled", true);
-                    // $("#makeOrder").text("Process Order");
-                    finishPaymentForm.removeClass('d-none');
-
-
-                } else {
-                    $(".card_details").find("input, select, textarea, button").prop("disabled", false);
-                    $("#makeOrder").prop("disabled", false);
-                    finishPaymentForm.addClass('d-none');
-                }
-
-                // Update UI
-                $(".taxAmount").text("$" + gst_amount.toFixed(2));
-                $("#total_fee").text("$" + (gst_amount+subtotal).toFixed(2));
-                $(".totalDue").text("$" + total_payble.toFixed(2));
-                // Save back to localStorage
-                localStorage.setItem(key, JSON.stringify(details));
-                localStorage.setItem('paymentDetails_' + loginUserId, JSON.stringify(
-                    details));
-
-                Swal.fire("Wallet amount applied successfully!", '', 'success');
-
+            let formatedAccountWalletAmount = remaining_wallet_balance.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
             });
+
+            $("#walletAmount").text("$" + formatedAccountWalletAmount);
+            $("#walletUsed").text("- $" + Number(walletAmount).toFixed(2));
+
+            // FORCE numeric values
+            let oldSubtotal = Number(details.subtotal_payble) || 0;
+            let oldTotalPayble = Number(details.total_payble) || 0;
+            let walletUsed = Number(walletAmount) || 0;
+
+            // Calculate new totals
+            let subtotal = oldSubtotal - walletUsed;
+            let total_payble = oldTotalPayble - walletUsed;
+
+
+            // Update values in object
+            details.total_payble = total_payble.toFixed(2);
+            details.wallet_amount = walletUsed.toFixed(2);
+
+            // Save back to local storage
+
+            localStorage.setItem(key, JSON.stringify(details));
+            let tax = parseFloat("{{ config('escorts.product_tax') }}");
+
+            let gst_amount = oldSubtotal * tax / 100;
+            let taxOfWalletAmount = walletUsed * tax / 100;
+            details.tax_payble = gst_amount.toFixed(2);
+            if (total_payble == 0) {
+                $(".card_details").find("input, select, textarea, button").prop("disabled", true);
+                subtotal = oldSubtotal;
+                $("#makeOrder").prop("disabled", true);
+                // $("#makeOrder").text("Process Order");
+                finishPaymentForm.removeClass('d-none');
+
+
+            } else {
+                $(".card_details").find("input, select, textarea, button").prop("disabled", false);
+                $("#makeOrder").prop("disabled", false);
+                finishPaymentForm.addClass('d-none');
+            }
+
+            // Update UI
+            $(".taxAmount").text("$" + gst_amount.toFixed(2));
+            $("#total_fee").text("$" + (gst_amount + subtotal).toFixed(2));
+            $(".totalDue").text("$" + total_payble.toFixed(2));
+            // Save back to localStorage
+            localStorage.setItem(key, JSON.stringify(details));
+            localStorage.setItem('paymentDetails_' + loginUserId, JSON.stringify(
+                details));
+
+            Swal.fire("Wallet amount applied successfully!", '', 'success');
+
+        });
 
         $("#resetWallet").on("click", function() {
             $("#adjustment-form")[0].reset();

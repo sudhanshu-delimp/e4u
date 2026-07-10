@@ -14,7 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
@@ -23,7 +23,7 @@
                                             Order Confirmation - Products
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -66,7 +66,7 @@
                                 If the Products are not received within 72 hours, please lodge a
                                 Support Ticket through your Dashboard
 
-                                and quote the reference number {{ $data['id'] }}.
+                                and quote the reference number {{ $data['order_id'] }}.
 
                             </p>
 
@@ -91,7 +91,7 @@
 
                                     If the Products are being sent by post:
 
-                                    <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <ul style="padding-left: 20px; margin-top: 10px; list-style: none">
                                         <li>(a) they will be dispatched on the next business day; and</li>
                                         <li>(b) tracking information will be available.</li>
                                     </ul>
@@ -99,8 +99,8 @@
 
                                 <li style="margin-top: 10px;">
                                     You can view this order in your Dashboard by navigating to
-                                     Transaction Summary and selecting
-                                     View  from the available actions.
+                                    Transaction Summary and selecting
+                                    View from the available actions.
                                 </li>
 
                                 {{-- <li style="margin-top: 10px;">
@@ -111,7 +111,7 @@
 
 
                             <!-- email info -->
-                              <p style="font-size: 15px; margin-top: 20px;">
+                            <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations Centre</b>
                             </p>

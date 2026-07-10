@@ -14,16 +14,14 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
-                                            style="height: 50px;">
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"  style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        <h1
-                                            style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
+                                        <h1  style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
                                             E4U Concierge - Product Order Cancelled
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -44,8 +42,8 @@
                             </p>
 
                             <p style="margin:15px 0;">
-                                <strong>Order Reference:</strong>
-                                {{ $data['id'] ?? '' }}
+                                <strong>Order Ref:</strong>
+                                {{ $data['order_id'] ?? '' }}
                             </p>
 
                             <p style="margin:15px 0;">

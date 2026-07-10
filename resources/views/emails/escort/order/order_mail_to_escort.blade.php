@@ -13,7 +13,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
@@ -22,7 +22,7 @@
                                             Order Confirmation - Products
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
 
                                             <br>
@@ -53,7 +53,7 @@
                             <p style="margin: 15px 0;">
                                 If you do not receive your Products within 72 hours, please lodge a
                                 Support Ticket by logging onto your Dashboard and quoting your reference number
-                                {{ $data['id'] }}.
+                                {{ $data['order_id'] }}.
                             </p>
 
                             <p style="margin: 15px 0;">

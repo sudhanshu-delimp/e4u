@@ -14,7 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
@@ -23,7 +23,7 @@
                                             E4U Concierge - Product Order Completed
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -42,7 +42,11 @@
                                 We are pleased to inform you that the product order you placed on behalf of the member
                                 has been successfully completed and delivered.
                             </p>
-
+                            @if (!empty($data['order_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
+                                </p>
+                            @endif
                             <p style="margin: 15px 0;">
                                 The order has been fulfilled in accordance with the requested requirements and has now
                                 been closed successfully.
