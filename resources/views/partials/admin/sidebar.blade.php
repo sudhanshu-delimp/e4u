@@ -564,11 +564,6 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                         <span>Reports </span>
                     </a>
-                    <a class="nav-link" href="{{ route('admin.reference-lookup') }}">
-                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/lookup.png') }}">
-                        <span style="{{ request()->segment(2) == 'reference-lookup' ? 'color: #FF3C5F;' : '' }}">Reference Lookup</span>
-                    </a>
 
 
                     <div id="Reports" class="collapse @if (request()->is('*credit*') ||
@@ -660,13 +655,20 @@
                             </a>
                         </div>
                     </div>
-
+                    
+                    
+                    <a class="nav-link" href="{{ route('admin.reference-lookup') }}">
+                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/lookup.png') }}">
+                        <span style="{{ request()->segment(2) == 'reference-lookup' ? 'color: #FF3C5F;' : '' }}">Reference Lookup</span>
+                    </a>
                     {{-- Support Services --}}
                     <a class="nav-link  {{ in_array(request()->segment(3), ['financial-report','process-payment','summary'])  ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#supportServices"
                         aria-expanded="false" aria-controls="supportServices">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/support-services.png') }}">
                         <span>Support Services</span>
                     </a>
+
                     <div id="supportServices" class=" collapse  @if (request()->segment(3) == 'financial-report' || request()->segment(3) == 'process-payment' || request()->segment(3) == 'summary') show @endif"
                          data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
@@ -692,7 +694,6 @@
                         </div>
                     </div>
                     {{-- end --}}
-
                      <a class="nav-link  {{ in_array(request()->segment(2), ['support_tickets','submit_ticket'])  ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
                         data-target="#SupportTickets">
                         <img src="{{ asset('assets/app/img/ticket.png') }}">

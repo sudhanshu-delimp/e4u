@@ -222,7 +222,7 @@
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_escort-statistics.png') }}" class="my-svg-icons" alt="Escorts Statistics">
                     </div>
                     <h2>
-                        Escorts Statistics
+                        Escort's Statistics
                     </h2>
                 </a>
 
