@@ -73,10 +73,10 @@ class ProductOrderController extends Controller
       foreach ($data['itemDetails'] as $productId => $details) {
         $product = Product::find($productId);
         if (empty($product))
-          return response()->json(['status' => false, 'message' => 'something went wrong!']);
+          return response()->json(['status' => false, 'message' => 'something went wrong!'],422);
 
         if ($product->price != $details['price'])
-          return response()->json(['status' => false, 'message' => 'something went wrong!']);
+          return response()->json(['status' => false, 'message' => 'something went wrong!'],422);
 
         $calculatedSubtotal += $product->price * $details['qty'];
       }
@@ -96,7 +96,7 @@ class ProductOrderController extends Controller
         return response()->json([
           'status'  => false,
           'message' => 'Subtotal mismatch after applying wallet amount'
-        ]);
+        ],422);
       }
 
 
@@ -115,14 +115,14 @@ class ProductOrderController extends Controller
         // $calculatedTotal += $walletAmount * $tax / 100;
       }
 
-      $calculatedTotal += $gst_amount;
+      $calculatedTotal += $gst_amount+67;
 
       // 4. Check final total mismatch
       if (number_format($calculatedTotal, 2) != number_format($totalPayable, 2)) {
         return response()->json([
           'status'  => false,
           'message' => "The final payable amount is incorrect. Please recheck and continue."
-        ]);
+        ],422);
       }
       //  dd();
       //  [LocationPrefix]
@@ -141,7 +141,7 @@ class ProductOrderController extends Controller
       if (!empty($currentLocationId))
         $locationPrefix = sprintf('%02d', $currentLocationId);
 
-      $orderId = $this->account->member_id ." ". date('dmY') ." ". $locationPrefix ." ". $nextNumber;
+      $orderId = $this->account->member_id . " " . date('dmY') . " " . $locationPrefix . " " . $nextNumber;
       $orderData = [
         'order_id' => $orderId,
         'type' => 'EC',
@@ -240,7 +240,7 @@ class ProductOrderController extends Controller
       $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $order->id)->first();
       $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
       if (empty($order))
-        return response()->json(['status' => false, 'message' => "Something went wrong"]);
+        return response()->json(['status' => false, 'message' => "Something went wrong"],422);
 
       $products = [];
       foreach ($order->orderItems as $orderItem) {
@@ -266,7 +266,7 @@ class ProductOrderController extends Controller
         $response = $pinPaymentService->charge($data['pin_token'], $totalPayable, $biilingAddress->email, $description, $metadata);
         if ($response['status'] === false) {
           DB::rollBack();
-          return response()->json(['status' => false, 'message' => $response['error'], 'errors' => $response['errors']]);
+          return response()->json(['status' => false, 'message' => $response['error'], 'errors' => $response['errors']], 400);
         } else if ($response['status'] === true) {
           // store payment history 
           DB::commit();
@@ -311,7 +311,7 @@ class ProductOrderController extends Controller
       }
     } catch (\Exception $e) {
       DB::rollBack();
-      return response()->json(['status' => false, 'message' => $e->getMessage()]);
+      return response()->json(['status' => false, 'message' => $e->getMessage()],422);
     }
   }
 
