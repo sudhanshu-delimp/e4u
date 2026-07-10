@@ -49,6 +49,11 @@
                                     <strong>Reason for Rejection:</strong> {{ $data['reject_reason'] }}
                                 </p>
                             @endif
+                            @if (!empty($data['order_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
+                                </p>
+                            @endif
 
                             <p style="margin: 15px 0;">
                                 The order has been updated successfully in the system.

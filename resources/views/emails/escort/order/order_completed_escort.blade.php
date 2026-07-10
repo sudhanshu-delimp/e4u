@@ -43,9 +43,11 @@
 
                                 We are pleased to confirm that your order has been successfully completed and delivered.
                             </p>
-                            {{-- <p style="margin: 15px 0;">
-                                <strong>Delivery Address:</strong> {{ $data['delivery_address'] ?? '' }}
-                            </p> --}}
+                            @if (!empty($data['order_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
+                                </p>
+                            @endif
 
                             <p style="margin: 15px 0;">
                                 Your order has been fulfilled in accordance with the requested requirements. No further

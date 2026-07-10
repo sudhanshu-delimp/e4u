@@ -50,6 +50,11 @@
                                     <strong>Reason for Rejection:</strong> {{ $data['reject_reason'] }}
                                 </p>
                             @endif
+                            @if (!empty($data['order_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
+                                </p>
+                            @endif
 
                             <p style="margin: 15px 0;">
                                 If you still require the requested product(s), you may place a new order or contact our
