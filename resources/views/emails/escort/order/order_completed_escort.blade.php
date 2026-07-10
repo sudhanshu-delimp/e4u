@@ -43,9 +43,9 @@
 
                                 We are pleased to confirm that your order has been successfully completed and delivered.
                             </p>
-                            @if (!empty($data['id']))
+                            @if (!empty($data['order_id']))
                                 <p style="margin: 15px 0;">
-                                    <strong>Order Ref:</strong> #{{ $data['id'] }}
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
                                 </p>
                             @endif
 

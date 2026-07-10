@@ -43,7 +43,7 @@
 
                             <p style="margin:15px 0;">
                                 <strong>Order Ref:</strong>
-                                {{ $data['id'] ?? '' }}
+                                {{ $data['order_id'] ?? '' }}
                             </p>
 
                             <p style="margin:15px 0;">

@@ -49,7 +49,7 @@
                                 </tr>
                                 <tr>
                                     <th style="text-align: left">Order Ref:</th>
-                                    <td> #{{ $data['id'] ?? '' }}</td>
+                                    <td> #{{ $data['order_id'] ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <th style="text-align: left">Mobile:</th>

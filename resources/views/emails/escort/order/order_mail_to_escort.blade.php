@@ -53,7 +53,7 @@
                             <p style="margin: 15px 0;">
                                 If you do not receive your Products within 72 hours, please lodge a
                                 Support Ticket by logging onto your Dashboard and quoting your reference number
-                                {{ $data['id'] }}.
+                                {{ $data['order_id'] }}.
                             </p>
 
                             <p style="margin: 15px 0;">

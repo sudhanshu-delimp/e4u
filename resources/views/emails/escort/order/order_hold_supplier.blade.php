@@ -41,9 +41,9 @@
 
                             <p style="margin: 20px 0 15px 0;">We would like to inform you that the order has been placed
                                 on hold and is currently under review.</p>
-                            @if (!empty($data['id']))
+                            @if (!empty($data['order_id']))
                                 <p style="margin: 15px 0;">
-                                    <strong>Order Ref:</strong> #{{ $data['id'] }}
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
                                 </p>
                             @endif
                             <p style="margin: 15px 0;">

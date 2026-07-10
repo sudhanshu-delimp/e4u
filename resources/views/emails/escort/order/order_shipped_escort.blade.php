@@ -47,7 +47,7 @@
 
 
                             <p style="margin: 15px 0;">
-                                <strong>Order Ref:</strong> #{{ $data['id'] }}
+                                <strong>Order Ref:</strong> #{{ $data['order_id'] }}
                             </p>
                             <p style="margin: 15px 0;">
                                 <strong>Date Dispatched:</strong> {{ date('d-m-Y') }}

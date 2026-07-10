@@ -66,7 +66,7 @@
                                 If the Products are not received within 72 hours, please lodge a
                                 Support Ticket through your Dashboard
 
-                                and quote the reference number {{ $data['id'] }}.
+                                and quote the reference number {{ $data['order_id'] }}.
 
                             </p>
 

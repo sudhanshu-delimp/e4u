@@ -47,9 +47,9 @@
                             </p>
 
 
-                            @if (!empty($data['id']))
+                            @if (!empty($data['order_id']))
                                 <p style="margin: 15px 0;">
-                                    <strong>Order Ref:</strong> #{{ $data['id'] }}
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
                                 </p>
                             @endif
                             <p style="margin: 15px 0;">
