@@ -18,11 +18,12 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        <h1  style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
+                                        <h1
+                                            style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
                                             E4U Concierge - Product Order Completed
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                           Our Ref: {{ $data['communication_id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -41,7 +42,11 @@
                                 We are pleased to inform you that the product order you placed on behalf of the member
                                 has been successfully completed and delivered.
                             </p>
-
+                            @if (!empty($data['id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['id'] }}
+                                </p>
+                            @endif
                             <p style="margin: 15px 0;">
                                 The order has been fulfilled in accordance with the requested requirements and has now
                                 been closed successfully.

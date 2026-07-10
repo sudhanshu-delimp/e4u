@@ -47,10 +47,15 @@
                             </p>
 
 
-
+                            @if (!empty($data['id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['id'] }}
+                                </p>
+                            @endif
                             <p style="margin: 15px 0;">
                                 <strong>Member ID:</strong> {{ $data['member_id'] ?? '' }}
                             </p>
+
 
                             <p style="margin: 15px 0;">
                                 The order is temporarily on hold pending further review. We will notify you once the

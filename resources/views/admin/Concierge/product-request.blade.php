@@ -416,7 +416,7 @@
                     delivery_type: delivery_type,
                 },
                 beforeSend: function() {
-                    if ( (status === "shipped" && delivery_type === "door") ||  !["shipped", "rejected"].includes(status)) {
+                    if ((status === "shipped" && delivery_type === "door") || !["shipped", "rejected"].includes(status)) {
                         $process.modal("show");
                     }
 

@@ -41,7 +41,11 @@
 
                             <p style="margin: 20px 0 15px 0;">We would like to inform you that the order has been placed
                                 on hold and is currently under review.</p>
-
+                            @if (!empty($data['id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['id'] }}
+                                </p>
+                            @endif
                             <p style="margin: 15px 0;">
                                 Please do not proceed with any further processing, fulfillment, or delivery activities
                                 relating to this order until further notice.</p>
