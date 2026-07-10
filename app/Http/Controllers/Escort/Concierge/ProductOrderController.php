@@ -115,7 +115,7 @@ class ProductOrderController extends Controller
         // $calculatedTotal += $walletAmount * $tax / 100;
       }
 
-      $calculatedTotal += $gst_amount+67;
+      $calculatedTotal += $gst_amount;
 
       // 4. Check final total mismatch
       if (number_format($calculatedTotal, 2) != number_format($totalPayable, 2)) {
