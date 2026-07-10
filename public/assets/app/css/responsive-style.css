@@ -14,9 +14,28 @@
                         .content_align .level-2 {
                             padding: 0px !important;
                         }
+                        .pin-head-custom .v-path {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                        }
+                        .pin-head-custom .v-path .seperatot {
+                            display: none;
+                        }
                     }
                     
                     @media(max-width: 425px) {
+                        .pin-up-content {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+                            background: #fbfbfb;
+                            padding: 20px !important;
+                            border-radius: 5px;
+                        }
                         /* navbar */
                         .navbar-brand img {
                             width: 100px;
@@ -265,12 +284,20 @@
                         .primery_color.normal_heading {
                             font-size: 16px;
                         }
-                        .v-path {
-                            display: flex;
-                            justify-content: flex-start;
+                        .pin-head-custom .pp-head {
                             flex-direction: column;
-                            align-items: flex-start;
+                            text-align: center;
+                        }
+                        .pin-head-custom {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                            flex-direction: column;
                             gap: 10px;
+                        }
+                        .pin-head-custom .v-path {
+                            margin-top: 10px;
                         }
                         .home_heading_first {
                             font-weight: bold !important;
@@ -385,6 +412,19 @@
                     }
                     
                     @media(max-width:486px) {
+                        .btn_advertiser,
+                        .btn_center {
+                            margin: 5px 0px;
+                            width: 100%;
+                        }
+                        .btn_viewer {
+                            margin: 5px 0px;
+                            width: 100%;
+                        }
+                        .btn_become_pin_up {
+                            margin: 5px 0px;
+                            width: 100%;
+                        }
                         #collapseSearch .card-body {
                             padding: 10px 7px;
                         }

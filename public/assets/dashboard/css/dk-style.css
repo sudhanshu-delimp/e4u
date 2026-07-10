@@ -11540,6 +11540,7 @@ border-top: 5px solid var(--peach);
     aspect-ratio: 191 / 140;
     width: 100%;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .pinup-summary-img img {
