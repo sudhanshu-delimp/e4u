@@ -546,9 +546,30 @@ function toggleRemoveButton() {
    
 }
 
-$(".js_datepicker").datepicker({
-    dateFormat: "yy-mm-dd",
-    minDate: 0
+// $(".js_datepicker").datepicker({
+//     dateFormat: "dd-mm-yy",
+//     changeMonth: true,
+//     changeYear: true,
+//     minDate: 0
+// });
+
+$(function () {
+    
+    $('.js_datepicker').datepicker('destroy').datepicker({
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: 0
+    });
+
+    $(document).on('change', '.profile_start', function () {
+        var startDate = $(this).datepicker('getDate');
+
+        $('.profile_end')
+            .datepicker('option', 'minDate', startDate)
+            .val('');
+    });
+
 });
 
 ///////// Proceed To Payment //////////////////////
