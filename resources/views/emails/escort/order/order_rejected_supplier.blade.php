@@ -68,10 +68,7 @@
                                 If you have any questions, please contact the E4U Operations Centre.
                             </p>
 
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                           <x-email-info />
                         </td>
                     </tr>
                 </table>
