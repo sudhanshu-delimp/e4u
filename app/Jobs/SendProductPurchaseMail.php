@@ -108,7 +108,7 @@ class SendProductPurchaseMail implements ShouldQueue
 
         $e4uEmail = config('app.e4u_mail');
         // $e4uEmail = "ashish.kumar+11@delimp.com";
-        Mail::to($e4uEmail)->cc("employee183delimp@outlook.com")->send(new OrderMailToE4U($mailData));
+        Mail::to($e4uEmail)->send(new OrderMailToE4U($mailData));
         // Log::info("sent mail");
 
         $mailData['communication_id'] = "";
@@ -118,7 +118,7 @@ class SendProductPurchaseMail implements ShouldQueue
         $condommail = config('app.condom_mail');
         // $condommail = "ashish.kumar+12@delimp.com";
 
-        Mail::to($condommail)->cc("employee183delimp@outlook.com")->send(new SendOrderMailToCondomMan($mailData));
+        Mail::to($condommail)->send(new SendOrderMailToCondomMan($mailData));
       }
     } catch (\Exception $e) {
       Log::info('', [$e->getMessage()]);

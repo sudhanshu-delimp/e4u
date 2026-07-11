@@ -70,10 +70,7 @@
                             <p style="margin: 15px 0;">
                                 Thank you for your cooperation and continued support.
                                 <!-- email info -->
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                         <x-email-info />
                             <!-- end -->
 
                         </td>
