@@ -30,7 +30,7 @@ class SendProductOrderShippedMailToEscort extends Mailable
    */
   public function build()
   {
-    $subject = "Your Product Order Has Been Dispatched – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
+    $subject = "Your Product Order Has Been Dispatched – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['communication_id']}";
     return $this->subject($subject)->view('emails.escort.order.order_shipped_escort')
       ->with(['data' => $this->data]);
   }

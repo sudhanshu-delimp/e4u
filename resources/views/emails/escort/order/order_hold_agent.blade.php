@@ -14,7 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
@@ -23,7 +23,7 @@
                                             E4U Concierge - Product Order On Hold
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -47,10 +47,15 @@
                             </p>
 
 
-
+                            @if (!empty($data['order_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
+                                </p>
+                            @endif
                             <p style="margin: 15px 0;">
                                 <strong>Member ID:</strong> {{ $data['member_id'] ?? '' }}
                             </p>
+
 
                             <p style="margin: 15px 0;">
                                 The order is temporarily on hold pending further review. We will notify you once the
@@ -61,15 +66,12 @@
                                 Please retain this notification for your records and quote the order reference in any
                                 future correspondence regarding this order.
                             </p>
-                            
+
                             <p style="margin: 15px 0;">
                                 Thank you for your cooperation and continued support.
                                 <!-- email info -->
-                                 <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
-                                <!-- end -->
+                         <x-email-info />
+                            <!-- end -->
 
                         </td>
                     </tr>

@@ -369,7 +369,9 @@
             if (status == 'shipped' && delivery_type == "post") {
                 $("#trackingId").removeClass("d-none");
                 $("#rejectedId").addClass("d-none");
-                $("#title").html('<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details');
+                $("#title").html(
+                    '<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details'
+                );
                 return;
 
             } else if (status == 'rejected') {
@@ -380,7 +382,7 @@
 
                 return;
             }
-        
+
             updateOrderStatus(orderId, status, '');
         });
 
@@ -414,8 +416,9 @@
                     delivery_type: delivery_type,
                 },
                 beforeSend: function() {
-                    if (status!="shipped")
-                        $process.modal('show');
+                    if ((status === "shipped" && delivery_type === "door") || !["shipped", "rejected"].includes(status)) {
+                        $process.modal("show");
+                    }
 
                     $btn.prop("disabled", true).text("Processing...");
                 },
@@ -425,9 +428,8 @@
                         return;
                     }
 
-                    // if (status == 'shipped' && delivery_type == "post")
-                    //     $('#confirm_popup').modal('show');
-
+                    $('#active_req').modal('hide');
+                    $process.modal('hide');
                     $('#orderStatusChange')[0].reset();
                     toastr.success('Order status updated successfully');
                     $("#productsHistoryTable").DataTable().ajax.reload(null, false);
@@ -436,8 +438,6 @@
                     toastr.error(xhr.responseJSON?.message || 'Something went wrong');
                 },
                 complete: function() {
-                    $('#active_req').modal('hide');
-                    $process.modal('hide');
                     $btn.prop("disabled", false)
                         .text("Save");
 

@@ -2690,7 +2690,7 @@ i.fa.fa-heart-o{
 
 .five_column_content_top {
     color: white;
-    background: rgb(12, 34, 61, 0.5);
+    background-color: rgb(12, 34, 61, 0.3);
     position: absolute;
     top: 0;
     height: 40px;
@@ -2709,7 +2709,7 @@ i.fa.fa-heart-o{
 
 .six_column_content_top {
     color: white;
-    background: rgb(12, 34, 61, 0.5);
+    background-color: rgb(12, 34, 61, 0.3);
     position: absolute;
     top: 0;
     height: 40px;
@@ -2745,7 +2745,7 @@ i.fa.fa-heart-o{
 
 .seven_column_content_top {
     color: white;
-    background: rgb(12, 34, 61, 0.5);
+    background-color: rgb(12, 34, 61, 0.3);
     position: absolute;
     top: 0;
     width: 100%;
@@ -2760,7 +2760,7 @@ i.fa.fa-heart-o{
 
 .five_column_bottom_content {
     color: white;
-    background: rgba(170, 170, 170, 0.8);
+    background-color: rgba(170, 170, 170, 0.7);
     position: absolute;
     bottom: -100px;
     left: 0;
@@ -2772,7 +2772,7 @@ i.fa.fa-heart-o{
 
 .six_column_bottom_content {
     color: white;
-    background: rgba(170, 170, 170, 0.8);
+    background: rgba(170, 170, 170, 0.7);
     position: absolute;
     bottom: -100px;
     left: 0;
@@ -2791,7 +2791,7 @@ i.fa.fa-heart-o{
 
 .seven_column_bottom_content {
     color: white;
-    background: rgba(170, 170, 170, 0.8);
+    background: rgba(170, 170, 170, 0.7);
     position: absolute;
     bottom: -100px;
     left: 0;
@@ -2810,7 +2810,7 @@ i.fa.fa-heart-o{
 
 .nine_column_content_top {
     color: white;
-    background: rgba(170 170 170 / 80%);
+    background: rgba(170 170 170 / 70%);
     position: absolute;
     top: 0;
     height: 24px;
@@ -2826,7 +2826,7 @@ i.fa.fa-heart-o{
 
 .content_bottom_and_padding_all_side_nine_col {
     color: white;
-    background: rgba(170 170 170 / 80%);
+    background: rgba(170 170 170 / 70%);
     position: absolute;
     bottom: -31px;
     left: 0;
@@ -6531,7 +6531,7 @@ table {
 }
 
 .mc_card_header {
-    background-color: rgba(12, 34, 61, 0.5);
+    background-color: rgb(12, 34, 61, 0.3);
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -6542,7 +6542,7 @@ table {
 }
 
 .mc_card_content {
-    background-color: rgba(170, 170, 170, 0.9);
+    background-color: rgba(170, 170, 170, 0.7);
     padding: 10px;
     position: absolute;
     width: 100%;

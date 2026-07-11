@@ -68,7 +68,11 @@ class MassageCentre extends Controller
 
     public function  massageList()
     {
-        return view('web.mc.massage-centre-list');
+         $clickTab = 0;
+         if (Auth::user() && auth()->user()->type == 0) {
+            $clickTab = 1;
+         }
+        return view('web.mc.massage-centre-list',compact('clickTab'));
     }
 
 

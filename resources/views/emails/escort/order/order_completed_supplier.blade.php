@@ -14,7 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
@@ -23,7 +23,7 @@
                                             E4U Concierge - Product Order Completed
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
-                                            Ref: {{ $data['id'] ?? '' }}<br>
+                                            Our Ref: {{ $data['communication_id'] ?? '' }}<br>
                                             Member ID: {{ $data['member_id'] ?? '' }}
                                             <br>
                                         </span>
@@ -41,26 +41,28 @@
 
                             <p style="margin: 20px 0 15px 0;">
 
-                                We are pleased to inform you that the order has been successfully completed and delivered.
+                                We are pleased to inform you that the order has been successfully completed and
+                                delivered.
 
                             </p>
-                            {{-- <p style="margin: 15px 0;">
-                                <strong>Delivery Address:</strong> {{ $data['delivery_address'] ?? '' }}
-                            </p> --}}
+                            @if (!empty($data['order_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
+                                </p>
+                            @endif
 
                             <p style="margin: 15px 0;">
-                                The order has been fulfilled in accordance with the approved requirements and delivery instructions. No further action is required unless otherwise communicated.
+                                The order has been fulfilled in accordance with the approved requirements and delivery
+                                instructions. No further action is required unless otherwise communicated.
                             </p>
 
                             <p style="margin: 15px 0;">
-                                Please retain this confirmation for your records and quote the order reference in any future correspondence regarding this order.
+                                Please retain this confirmation for your records and quote the order reference in any
+                                future correspondence regarding this order.
                             </p>
 
                             <!-- email info -->
-                             <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                         <x-email-info />
                             <!-- end -->
 
                         </td>
