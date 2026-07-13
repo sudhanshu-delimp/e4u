@@ -162,6 +162,9 @@
     font-weight: 400;
     letter-spacing: 0.1em;
     white-space: nowrap;
+    background-color: rgb(255 60 95 / 70%);
+    padding: 5px 10px;
+    border-radius: 6px;
 }
 
 .hover-overlay {
@@ -176,7 +179,6 @@
     overflow: hidden;
     transition: all 0.4s ease;
     cursor: pointer;
-    border-radius: 10px;
 }
 
 .img-box a img,

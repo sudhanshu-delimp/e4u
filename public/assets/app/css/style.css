@@ -6491,7 +6491,7 @@ table {
     z-index: 999;
     transform: translate(-50%, -50%);
     width: max-content;
-    background: #ff3c5f;
+    background-color: var(--peach);
     color: #fff;
     font-size: 13px;
     font-weight: 500;
