@@ -45,8 +45,7 @@
                             </div>
                         <div class="pin-head-custom">
                             <div class="pp-head">
-                                <span class="svg_icon">
-                                    <svg width="70px" height="70px" viewBox="0 0 24 24" fill="none"
+                                    <svg width="70px" height="70px" viewBox="0 0 24 24" fill="none" class="svg_icon"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -56,7 +55,6 @@
                                                 fill="#ff3c5f"></path>
                                         </g>
                                     </svg>
-                                </span>
                                 <div class="pp-info">
                                     <h1>
                                         {{ $escortName }}

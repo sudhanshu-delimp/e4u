@@ -1066,7 +1066,7 @@
                                                                             class="glightbox image-wrapper"
                                                                             data-gallery="escort-gallery">
 
-                                                                                <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
+                                                                                <img src="{{ asset($item->path) }}"  alt="thumbnail">
 
                                                                                
                                                                             </a>
@@ -1102,7 +1102,7 @@
                                                                                 class="glightbox image-wrapper"
                                                                                 data-gallery="escort-gallery">
 
-                                                                                    <img src="{{ asset($media->path) }}" alt="others" title="View in large">
+                                                                                    <img src="{{ asset($media->path) }}" alt="others" >
                                                                                         
                                                                                 </a>
                                                                                 <div class="hover-overlay">
