@@ -14,7 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
@@ -50,6 +50,11 @@
                                     <strong>Reason for Rejection:</strong> {{ $data['reject_reason'] }}
                                 </p>
                             @endif
+                            @if (!empty($data['order_id']))
+                                <p style="margin: 15px 0;">
+                                    <strong>Order Ref:</strong> #{{ $data['order_id'] }}
+                                </p>
+                            @endif
 
                             <p style="margin: 15px 0;">
                                 If you still require the requested product(s), you may place a new order or contact our
@@ -65,10 +70,7 @@
                                 If you have any questions, please contact our support team.
                             </p>
 
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                          <x-email-info />
                         </td>
                     </tr>
                 </table>

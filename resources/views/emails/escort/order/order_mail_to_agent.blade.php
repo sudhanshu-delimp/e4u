@@ -14,7 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
@@ -66,7 +66,7 @@
                                 If the Products are not received within 72 hours, please lodge a
                                 Support Ticket through your Dashboard
 
-                                and quote the reference number {{ $data['id'] }}.
+                                and quote the reference number {{ $data['order_id'] }}.
 
                             </p>
 
@@ -111,10 +111,7 @@
 
 
                             <!-- email info -->
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                           <x-email-info />
                             <!-- end -->
 
                         </td>
