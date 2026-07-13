@@ -45,8 +45,7 @@
                             </div>
                         <div class="pin-head-custom">
                             <div class="pp-head">
-                                <span class="svg_icon">
-                                    <svg width="70px" height="70px" viewBox="0 0 24 24" fill="none"
+                                    <svg width="70px" height="70px" viewBox="0 0 24 24" fill="none" class="svg_icon"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -56,7 +55,6 @@
                                                 fill="#ff3c5f"></path>
                                         </g>
                                     </svg>
-                                </span>
                                 <div class="pp-info">
                                     <h1>
                                         {{ $escortName }}
@@ -436,12 +434,12 @@
                                 for them.  List up to eight Masseurs on the one Profile.</p>
                         </div>
                         </br>
-                        <div class="padding">
-                            <a class="btn btn_advertiser" style="border: 1px solid;"
+                        <div class="home-btn">
+                            <a class="btn home-btn-common" 
                                 href="{{ route('advertiser.register') }}" role="button">I am an Advertiser</a>
-                            <a class="btn btn_viewer" style="border: 1px solid;" href="{{ route('register') }}"
+                            <a class="btn home-btn-common"  href="{{ route('register') }}"
                                 role="button">I am a Viewer</a>
-                            <a class="btn  btn_viewer" style="color:red;border: 1px solid;"
+                            <a class="btn home-btn-common" 
                                 href="{{ route('agent.register') }}" role="button">I am an Agent</a>
                         </div>
                     </div>
