@@ -1,7 +1,7 @@
 @extends('layouts.web')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css?v1.01') }}">
 <style>
 .mc_profile_table .table th{
     padding: .8rem .55rem !important;
@@ -1571,7 +1571,7 @@ margin-right: 5px;
 
 
                 <!-- video crousal end -->
-                <div class="row pt-2 eqal-bx">
+                <div class="row py-0 eqal-bx">
                     <div class="col-12">
                         <div class="mess_repo_btn_wrap">
                             
@@ -1591,7 +1591,7 @@ margin-right: 5px;
 
                 <!-- Like / Dislike Bar -->
                  
-                    <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
+                    <div class="like_and_process_bar_padding d-flex align-items-center gap-10">
                         <div class="like_img">
                             <i id="dislike" class="{{ $massageLike && $massageLike->like == 0 ? 'fa fa-thumbs-down' : 'fa fa-thumbs-o-down'}} " title="Dislike" aria-hidden="true"></i>
                         <!-- <img class="likeImg" id="dislike" value='0' src="{{ asset('assets/app/img/dislike.png') }}"> -->
@@ -2277,54 +2277,7 @@ margin-right: 5px;
                 <div class="modal-body">
                     <div class="tab-content" id="myTabContent">
 
-                        {{-- <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="gallery">
-
-                                @foreach ($validImages as $index => $image)
-                                    @if($loop->first )
-                                    <div class="gallery__item gallery__item--lg">
-                                        <img src="{{  $image['url'] }}" alt="main">
-                                        <div class="verify_icon">
-                                            @php
-                                                $media_status = getMediaVerificationDataBigIcon($image['image_data']['varified'] ?? 0);
-                                            @endphp
-                                            <img src="{{$media_status['icon']}}">
-                                            <span class="common_shield_tooltip">{{$media_status['label']}}</span>
-                                        </div>
-                                    </div>
-                                    @endif    
-                                  @endforeach    
-
-                                <div class="small-images">
-
-                                        @foreach ($validImages as $index => $image)
-
-                                            @continue($loop->first)
-
-                                            <div class="gallery__item">
-                                                <img src="{{ $image['url'] }}" alt="gallery image">
-                                                <div class="verify_icon_sm">
-                                                    @switch($image['image_data']['varified'] ?? 0)
-                                                        @case(0)
-                                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                            <h6 class="gallery_shield_tooltip">Media Pending</h6>
-                                                        @break
-                                                        @case(1)
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
-                                                            <h6 class="gallery_shield_tooltip">Media Verified</h6>
-                                                        @break
-                                                        @case(2)
-                                                            <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
-                                                            <h6 class="gallery_shield_tooltip">Media Unverified</h6>
-                                                        @break
-                                                    @endswitch
-                                                </div>
-                                            </div>
-
-                                        @endforeach   
-                                </div>
-                            </div>
-                        </div> --}}
+                        
                         <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
 
                             <div id="gallery" class="photos-grid-container gallery">
@@ -2343,12 +2296,12 @@ margin-right: 5px;
 
                                                     <img src="{{ $image['url'] }}" alt="main" title="View in large">
 
-                                                    <div class="hover-overlay">
-                                                        <span>Click me!</span>
-                                                    </div>
+                                                   
 
                                                 </a>
-
+                                                 <div class="hover-overlay">
+                                                        <span>Click me!</span>
+                                                    </div>
                                                 @php
                                                     $media_status = getMediaVerificationDataBigIcon($image['image_data']['varified'] ?? 0);
                                                 @endphp
@@ -2384,12 +2337,12 @@ margin-right: 5px;
                                                         alt="gallery image"
                                                         title="View in large">
 
-                                                    <div class="hover-overlay">
-                                                        <span>Click me!</span>
-                                                    </div>
+                                                   
 
                                                 </a>
-
+                                                 <div class="hover-overlay">
+                                                        <span>Click me!</span>
+                                                    </div>
                                                 @php
                                                     $media_status = getMediaVerificationDataSmallIcon($image['image_data']['varified'] ?? 0);
                                                 @endphp

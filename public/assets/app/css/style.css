@@ -1721,6 +1721,10 @@ a.btn-common {
     color: #fff;
 }
 
+.common-table-gap .table {
+    margin-bottom: 0px !important;
+}
+
 .home-head-icon {
     font-size: clamp(20px, 4vw, 35px);
     color: var(--blue--text);
