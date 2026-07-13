@@ -279,7 +279,8 @@
                             'my-reports',
                             'num-tips',
                             'ticket-list','masseurs',
-                            'view-reviews'
+                            'view-reviews',
+                            'order-history',
                         ]) ||
                         in_array(request()->segment(1), ['submit_ticket'])) show @endif"
              data-parent="#accordionSidebar">
@@ -340,7 +341,7 @@
 
          <div id="ManagementBookkeeping"
              class="collapse
-                    @if (in_array(request()->segment(2), ['bookkeeping','my-wallet','transaction-summary'])) show @endif"
+                    @if (in_array(request()->segment(2), ['bookkeeping','order-history','my-wallet','transaction-summary'])) show @endif"
              data-parent="#AdminTab">
 
              <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
@@ -354,8 +355,8 @@
                  <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
                  <span>My Wallet</span>
              </a>
-             <a class="collapse-item {{ request()->segment(2) == 'my-wallet' ? 'menu-active' : '' }}"
-                 href="{{ route('center.my_wallet') }}">
+             <a class="collapse-item {{ request()->segment(2) == 'order-history' ? 'menu-active' : '' }}"
+                 href="{{ route('center.bookkeeping.product.orders') }}">
                  <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
                  <span>Orders</span>
              </a>

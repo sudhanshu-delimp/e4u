@@ -373,9 +373,6 @@
                             href="{{ route('escort.payment.transaction_summary') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
                             <span>Transaction Summary</span></a>
-
-
-                       
                     </div>
 
                     {{-- Communication --}}

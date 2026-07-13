@@ -846,7 +846,7 @@
             let shipping = details.delivery_type;
             $("#transactionLoader").show();
             $.ajax({
-                url: "{{ auth()->user()->type == 4 ? route('center.transaction.summary'): route('escort.transaction.summary') }}",
+                url: "{{ auth()->user()->type == 4 ? route('center.transaction.summary') : route('escort.transaction.summary') }}",
                 type: "POST",
                 data: {
                     ids: productIds,
@@ -1168,7 +1168,7 @@
             // console.log(orderData);
 
             $.ajax({
-                url: "{{auth()->user()->type == 4 ? route('center.make.order.payment') : route('escort.make.order.payment') }}",
+                url: "{{ auth()->user()->type == 4 ? route('center.make.order.payment') : route('escort.make.order.payment') }}",
                 type: "POST",
                 data: orderData,
                 dataType: "json",
@@ -1184,7 +1184,6 @@
                     });
                 },
                 success: function(response, textStatus, xhr) {
-
                     if (response.status == true) {
                         var modal = $("#process-payment-modal");
 
@@ -1207,29 +1206,13 @@
                         flushLocalStorage();
 
                     } else {
-                        if (response.errors && typeof response.errors === "object" && response
-                            .errors && Object.keys(response.errors).length > 0) {
-                      alert("sdjh");
-
-                            let html = '<div class="alert alert-danger"><ul>';
-                            Object.values(response.errors).forEach(function(errArr) {
-                                html += `<li>${errArr.message}</li>`;
-                            });
-                            html += '</ul></div>';
-                            Swal.fire(response.message + html, '', 'error');
-                        } else {
-                          alert("sdfjhg");
-                            displaySwal(xhr);
-                        }
+                        displaySwal(xhr);
 
                     }
                 },
 
                 error: function(xhr) {
-                  // alert("sdfjhjhsdgfsjhg");
-                    let res = xhr.responseJSON;
                     displaySwal(xhr);
-                    // Swal.fire(res.message, '', 'error');
                 },
                 complete: function() {
                     btn.prop("disabled", false).text("Make Payment");
@@ -1499,7 +1482,8 @@
         function finish() {
             flushLocalStorage();
             Swal.fire('Process Completed!', '', 'success');
-            window.location.href = "{{  auth()->user()->type == 4 ? route('center.products'): route('escort.products') }}"; // reset();
+            window.location.href =
+                "{{ auth()->user()->type == 4 ? route('center.products') : route('escort.products') }}"; // reset();
         }
 
         // function reset() {

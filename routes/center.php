@@ -144,20 +144,22 @@ Route::post('/bumpup-register', [MassageProfileActionController::class, 'bumpup_
 
 
 
-// Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('bookkeeping.product.orders');
 Route::name('center.')->group(function () {
+
   Route::get('/products', [ProductController::class, 'index'])->name('products');
   Route::get('concierge/view-cart', [ProductController::class, 'cartListing'])->name('view-cart');
   Route::post('get/products', [ProductController::class, 'getProducts'])->name('get.products');
   Route::post('transaction-summary', [ProductController::class, 'getTransactionSummary'])->name('transaction.summary');
   Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');
   Route::post('make/order/payment', [ProductOrderController::class, 'makeOrderPayment'])->name('make.order.payment');
+  Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('bookkeeping.product.orders');
+  Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
+  Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('order.details');
+  Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
+  Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
 });
 
-// // Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
-// Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
-// Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('order.details');
-// Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
+// 
 
 // Route::get('listing/add-listing', function()
 // {
@@ -219,8 +221,8 @@ Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment
 Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('center.payment.process');
 Route::post('payments/payment-session', [PaymentController::class, 'checkPaymentSession'])->name('center.check-payment-session');
 
-// Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('center.transaction-summary');
-// Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('center.transaction_summary.datatable');
+Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('center.transaction-summary');
+Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('center.transaction_summary.datatable');
 Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('center.payment.detail');
 Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
 
