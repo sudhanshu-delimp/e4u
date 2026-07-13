@@ -250,6 +250,8 @@
                             'social-media',
                             'feedback',
                             'bookkeeping',
+                            'my-wallet',
+                            'transaction-summary',
                             'agent-request',
                             'agent-messages',
                             'legbox-notification',
@@ -338,7 +340,7 @@
 
          <div id="ManagementBookkeeping"
              class="collapse
-                    @if (in_array(request()->segment(2), ['bookkeeping'])) show @endif"
+                    @if (in_array(request()->segment(2), ['bookkeeping','my-wallet','transaction-summary'])) show @endif"
              data-parent="#AdminTab">
 
              <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
