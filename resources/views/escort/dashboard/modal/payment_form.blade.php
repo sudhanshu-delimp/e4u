@@ -373,6 +373,7 @@
                 }
             },
             error: function(xhr) {
+                console.log(xhr);
                 Swal.close();
                 let option = getStatusOption(xhr);
                 Swal.fire({

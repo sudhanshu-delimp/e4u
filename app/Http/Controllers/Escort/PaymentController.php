@@ -281,7 +281,7 @@ class PaymentController extends Controller
                 } else {
                     return response()->json([
                         'status' => 'error',
-                        'gateway' => $gatewayResponse['error']
+                        'gateway' => $gatewayResponse
                     ], 400);
                 }
             }
