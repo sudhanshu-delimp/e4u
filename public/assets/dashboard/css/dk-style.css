@@ -11534,6 +11534,7 @@ border-top: 5px solid var(--peach);
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px !important;
 }
 
 .pinup-summary-img {

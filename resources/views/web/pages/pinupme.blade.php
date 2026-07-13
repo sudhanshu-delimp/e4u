@@ -244,7 +244,7 @@
                             </div>
                             
                         </div>
-                                <div class="">
+                                <div class="my-2">
                                     <a href="{{ route('profile.description', $escort->id) }}" class="btn-common">View
                                         Profile</a>
                                 </div>

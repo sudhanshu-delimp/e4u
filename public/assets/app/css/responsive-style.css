@@ -299,8 +299,21 @@
                         .pin-head-custom .v-path {
                             margin-top: 10px;
                         }
+                        .home-right-half {
+                            text-align: center;
+                        }
                         .home_heading_first {
                             font-weight: bold !important;
+                        }
+                        .home-sec-heading {
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        .home-btn-common {
+                            width: 100%;
                         }
                         .register-img {
                             padding: 0px;

@@ -447,6 +447,7 @@ div.tip div {
     z-index: 100;
     right: -198px;
     text-decoration: none;
+    border-radius: 5px;
 }
 
 .manage_toolkit_font {
@@ -1681,8 +1682,47 @@ a.btn-common {
     flex-wrap: wrap;
 }
 
+.home-btn-common {
+    padding: 12px 30px;
+    color: #fff;
+}
+
+.home-btn-common:hover {
+    color: #fff;
+}
+
+.home-btn-common:first-child {
+    border: 2px solid var(--peach);
+    background-color: var(--peach);
+}
+
+.home-btn-common:first-child:hover {
+    background-color: var(--blue--text);
+    border-color: var(--blue--text);
+}
+
+.home-btn-common:nth-child(2) {
+    border: 2px solid var(--blue--text);
+    background-color: var(--blue--text);
+}
+
+.home-btn-common:nth-child(2):hover {
+    background-color: var(--peach);
+    border-color: var(--peach);
+}
+
+.home-btn-common:last-child {
+    border: 2px solid var(--peach);
+    color: var(--blue--text);
+}
+
+.home-btn-common:last-child:hover {
+    background-color: var(--peach);
+    color: #fff;
+}
+
 .home-head-icon {
-    font-size: clamp(25px, 4vw, 35px);
+    font-size: clamp(20px, 4vw, 35px);
     color: var(--blue--text);
 }
 
