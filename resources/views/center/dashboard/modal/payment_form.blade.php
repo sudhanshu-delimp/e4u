@@ -24,23 +24,29 @@
                                     <span>Subtotal:</span>
                                     <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span>Wallet Used:</span>
-                                    <span class="wallet_amount">{{ formatCurrency(0) }}</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span>Loyalty Discount:</span>
-                                    <span class="loyalty_amount">{{ formatCurrency(0) }}</span>
-                                </div>
-                                <hr>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <strong>Total Fee:</strong>
-                                    <strong class="paymentTotal">{{ formatCurrency(0) }}</strong>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
+
+                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong>GST:</strong>
                                     <strong class="taxAmount">{{ formatCurrency(0) }}</strong>
                                 </div>
+
+                                <hr>
+
+                                 <div class="d-flex justify-content-between align-items-center">
+                                    <strong>Total Fee:</strong>
+                                    <strong class="paymentTotal">{{ formatCurrency(0) }}</strong>
+                                </div>
+
+
+                                <div class="d-flex justify-content-between align-items-center mb-2 wallet_amount_sec">
+                                    <span>Wallet Used:</span>
+                                    <span class="wallet_amount">{{ formatCurrency(0) }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2 loyalty_amount_sec">
+                                    <span>Loyalty Discount:</span>
+                                    <span class="loyalty_amount">{{ formatCurrency(0) }}</span>
+                                </div>
+                               
                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong>Total Due:</strong>
                                     <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
