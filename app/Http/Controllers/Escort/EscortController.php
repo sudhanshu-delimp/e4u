@@ -773,7 +773,7 @@ class EscortController extends BaseController
     public function validateDateRange(Request $request)
     {
         try {
-            $response['success'] = false;
+            $response['success'] = true;
             $startDate = $request->startDate;
             $endDate = $request->endDate;
             $escortId = $request->escortId;
@@ -789,10 +789,12 @@ class EscortController extends BaseController
                 ->first()?->escort?->state?->name;
 
             if ($conflictExists) {
-                $response['success'] = true;
-                $response['message'] = "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.";
+                return response()->json([
+                    'success'  => false,
+                    'redirect_url' => route('escort.store.tour'),
+                    'message' => "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.",
+                ], 422);
             }
-
             return response()->json($response);
         } catch (Exception $e) {
             return response()->json([

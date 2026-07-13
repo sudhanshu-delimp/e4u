@@ -30,7 +30,7 @@ class SendProductOrderCompleteConfirmationMailToEscort extends Mailable
    */
   public function build()
   {
-    $subject = "Your Order Has Been Successfully Completed – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
+    $subject = "Your Order Has Been Successfully Completed – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['communication_id']}";
     return $this->subject($subject)->view('emails.escort.order.order_completed_escort')
       ->with(['data' => $this->data]);
   }

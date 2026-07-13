@@ -1,15 +1,15 @@
 let addListingButton = document.getElementById("add_listing");
 
-addListingButton.addEventListener("click", function() {
+addListingButton.addEventListener("click", function () {
     let $clone = $(".listing_area .eachListing:first").clone();
 
-    let selectedLocations = $('select[name="escort_id[]"]').map(function() {
+    let selectedLocations = $('select[name="escort_id[]"]').map(function () {
         return $(this).val();
     }).get().filter(val => val !== "");
     $clone.find('input, select').val('').removeClass('hasDatepicker');
     $clone.find('.js_datepicker').removeAttr('id');
     let $select = $clone.find('select[name="escort_id[]"]');
-    $select.find('option').each(function() {
+    $select.find('option').each(function () {
         let val = $(this).val();
         if (val && selectedLocations.includes(val)) {
             $(this).hide();
@@ -22,7 +22,7 @@ addListingButton.addEventListener("click", function() {
     updateSelectOptions();
 });
 
-$(document).on('click', '.removeCross', function() {
+$(document).on('click', '.removeCross', function () {
     if ($('.eachListing').length > 1) {
         $(this).closest('.eachListing').remove();
         updateSelectOptions();
@@ -33,7 +33,7 @@ $(document).on('change', 'select[name="escort_id[]"]', updateSelectOptions);
 
 function updateSelectOptions() {
     let selectedValues = [];
-    $('select[name="escort_id[]"]').each(function() {
+    $('select[name="escort_id[]"]').each(function () {
         const val = $(this).val();
         if (val) selectedValues.push(val);
     });
@@ -46,10 +46,10 @@ function updateSelectOptions() {
         validateSelectedDateRange(row, { startDate, endDate, escortId });
     }
 
-    $('select[name="escort_id[]"]').each(function() {
+    $('select[name="escort_id[]"]').each(function () {
         let currentSelect = $(this);
         let currentValue = currentSelect.val();
-        currentSelect.find('option').each(function() {
+        currentSelect.find('option').each(function () {
             let optionVal = $(this).val();
             $(this).show();
             if (optionVal && optionVal !== currentValue && selectedValues.includes(optionVal)) {
@@ -73,11 +73,11 @@ function checkLastRowDates() {
     }
 }
 
-$(document).on('input change, select[name="escort_id[]"], input[name="start_date[]"], input[name="end_date[], select[name="membership[]"]"]', function() {
+$(document).on('input change, select[name="escort_id[]"], input[name="start_date[]"], input[name="end_date[], select[name="membership[]"]"]', function () {
     checkLastRowDates();
 });
 
-$(document).on('change', 'input[name="start_date[]"]', function() {
+$(document).on('change', 'input[name="start_date[]"]', function () {
     let $row = $(this).closest('.eachListing');
     let startDate = $(this).val();
     let endDate = $row.find('input[name="end_date[]"]');
@@ -89,7 +89,7 @@ $(document).on('change', 'input[name="start_date[]"]', function() {
     }
 });
 
-$(document).on('change', 'input[name="end_date[]"]', function() {
+$(document).on('change', 'input[name="end_date[]"]', function () {
     let row = $(this).closest('.eachListing');
     let endDate = $(this).val();
     let startDate = row.find('input[name="start_date[]"]').val();
@@ -99,8 +99,7 @@ $(document).on('change', 'input[name="end_date[]"]', function() {
     }
 });
 
-var validateSelectedDateRange = function(object, requestPayload) {
-    console.log('requestPayload', requestPayload);
+var validateSelectedDateRange = function (object, requestPayload) {
     $.ajax({
         url: '/escort-dashboard/listing/validate-date-range',
         method: 'POST',
@@ -109,23 +108,23 @@ var validateSelectedDateRange = function(object, requestPayload) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
         data: requestPayload,
-        success: function(response) {
+        success: function (response, textStatus, xhr) {
+            console.log('requestPayload2success', xhr, response);
             if (response.success) {
-                object.find('input[name="start_date[]"]').val('');
-                object.find('input[name="end_date[]"]').val('');
-                Swal.fire({
-                    title: 'Listings',
-                    text: `${response.message}`,
-                    icon: 'warning'
-                });
+
             }
         },
-        error: function(xhr, status, error) {
-            console.error('Error in location filter:', error);
+        error: function (xhr, status, error) {
+            let response = readXHR(xhr);
+            displaySwal(xhr).then((result) => {
+                if (result.isConfirmed) {
+                    object.find('input[name="start_date[]"]').val('');
+                    object.find('input[name="end_date[]"]').val('');
+                    if (response.redirect_url) {
+                        window.location.href = response.redirect_url;
+                    }
+                }
+            });
         }
     });
 }
-
-// $(document).on('focus', 'input[name="start_date[]"].js_datepicker', function() {
-//     $(this).datepicker('option', 'minDate', 0); //calnder start from today
-// });

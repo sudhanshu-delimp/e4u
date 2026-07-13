@@ -1,249 +1,249 @@
- @php 
+ @php
  $hideNavBar = false;
  if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true){
-    $hideNavBar = false;
+ $hideNavBar = false;
  }
  @endphp
-<!-- Sidebar -->
-<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar"
-    id="accordionSidebar">
+ <!-- Sidebar -->
+ <ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar"
+     id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt="">
-    </a>
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Massage Centre Console</span>
-    <!-- Divider -->
+     <!-- Sidebar - Brand -->
+     <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
+         <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt="">
+     </a>
+     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Massage Centre Console</span>
+     <!-- Divider -->
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href=" {{ route('center.dashboard') }}">
-            <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M10 0.720703V6.7207H18V0.720703H10ZM10 18.7207H18V8.7207H10V18.7207ZM0 18.7207H8V12.7207H0V18.7207ZM0 10.7207H8V0.720703H0V10.7207Z"
-                    fill="white" />
-            </svg>
-            <span>Dashboard</span></a>
-    </li>
+     <!-- Nav Item - Dashboard -->
+     <li class="nav-item active">
+         <a class="nav-link" href=" {{ route('center.dashboard') }}">
+             <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path
+                     d="M10 0.720703V6.7207H18V0.720703H10ZM10 18.7207H18V8.7207H10V18.7207ZM0 18.7207H8V12.7207H0V18.7207ZM0 10.7207H8V0.720703H0V10.7207Z"
+                     fill="white" />
+             </svg>
+             <span>Dashboard</span></a>
+     </li>
 
-    {{-- My Account --}}
-    <li class="nav-item " >
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="false" aria-controls="collapseTwo">
+     {{-- My Account --}}
+     <li class="nav-item ">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+             aria-expanded="false" aria-controls="collapseTwo">
 
-            <img src="{{ asset('assets/dashboard/img/menu-icon/my-account.png') }}" alt="">
-            <span>Our Account</span>
-        </a>
-        <div id="collapseTwo" class="collapse @if (request()->segment(2) == 'update-account' ||
+             <img src="{{ asset('assets/dashboard/img/menu-icon/my-account.png') }}" alt="">
+             <span>Our Account</span>
+         </a>
+         <div id="collapseTwo" class="collapse @if (request()->segment(2) == 'update-account' ||
                 request()->segment(2) == 'profile-informations' ||
                 request()->segment(2) == 'change-password' ||
                 request()->segment(2) == 'notifications-and-features' ||
                 request()->segment(2) == 'upload-my-avatar') show @endif;"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-            <div class="py-0 collapse-inner rounded mb-2">
-                @if($hideNavBar)
+             aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+             <div class="py-0 collapse-inner rounded mb-2">
+                 @if($hideNavBar)
                  <a class="collapse-item" href="{{ route('center.profile.information') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
 
-                    <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
-                        information</span></a>
-                         <a class="collapse-item" href="{{ route('center.account.edit') }}">
+                     <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
+                         information</span></a>
+                 <a class="collapse-item" href="{{ route('center.account.edit') }}">
 
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
-                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
-                        Account</span></a>
-                        
-               @else         
-                <a class="collapse-item" href="{{ route('center.account.edit') }}">
+                     <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
+                         Account</span></a>
 
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                 @else
+                 <a class="collapse-item" href="{{ route('center.account.edit') }}">
 
-                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
-                        Account</span></a>
-                <a class="collapse-item" href="{{ route('center.profile.information') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
-                    <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
-                        information</span></a>
-                <a class="collapse-item" href="{{ route('center.change.password') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
+                     <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
+                         Account</span></a>
+                 <a class="collapse-item" href="{{ route('center.profile.information') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
 
-                    <span style="{{ request()->segment(2) == 'change-password' ? 'color: #e5365a;' : '' }}">Change
-                        password</span></a>
+                     <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
+                         information</span></a>
+                 <a class="collapse-item" href="{{ route('center.change.password') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
 
-                <a class="collapse-item" href="{{ route('centre.notifications-and-features') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
+                     <span style="{{ request()->segment(2) == 'change-password' ? 'color: #e5365a;' : '' }}">Change
+                         password</span></a>
 
-                    <span
-                        style="{{ request()->segment(2) == 'notifications-and-features' ? 'color: #e5365a;' : '' }}">Notifications
-                        & Features</span></a>
-                <a class="collapse-item" href="{{ route('center.profile.avatar') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                 <a class="collapse-item" href="{{ route('centre.notifications-and-features') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
 
-                    <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
-                        avatar</span></a>
-             @endif           
+                     <span
+                         style="{{ request()->segment(2) == 'notifications-and-features' ? 'color: #e5365a;' : '' }}">Notifications
+                         & Features</span></a>
+                 <a class="collapse-item" href="{{ route('center.profile.avatar') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
 
-            </div>
-        </div>
-    </li>
-    {{-- devider --}}
-    <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
-    </li>
+                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
+                         avatar</span></a>
+                 @endif
 
-    <li class="nav-item">
+             </div>
+         </div>
+     </li>
+     {{-- devider --}}
+     <li
+         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
+     </li>
 
-        {{-- Profile Management --}}
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ProfileManagement">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
-            <span>Profile Management</span>
-        </a>
+     <li class="nav-item">
 
-        <div id="ProfileManagement" class="collapse
+         {{-- Profile Management --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ProfileManagement">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
+             <span>Profile Management</span>
+         </a>
+
+         <div id="ProfileManagement" class="collapse
                 @if (in_array(request()->segment(3), ['add-listing', 'current', 'past', 'new-listing', 'videos']) ||
                         in_array(request()->segment(2), ['create-profile', 'list', 'archive-view-photos', 'create-new-masseur','archives-listing','update-masseur','update-profile'])) show @endif"
-            data-parent="#accordionSidebar">
+             data-parent="#accordionSidebar">
 
-            <div class="collapse-inner">
+             <div class="collapse-inner">
 
-                {{-- Listings --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ProfileListings">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png') }}">
+                 {{-- Listings --}}
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ProfileListings">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png') }}">
 
-                    <span>Listings</span>
-                </a>
-                <div id="ProfileListings"
-                    class="collapse 
+                     <span>Listings</span>
+                 </a>
+                 <div id="ProfileListings"
+                     class="collapse 
                     @if (in_array(request()->segment(3), ['add-listing', 'current', 'past'])) show @endif"
-                    data-parent="#ProfileManagement">
+                     data-parent="#ProfileManagement">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item {{ request()->segment(3) == 'add-listing' ? 'menu-active' : '' }}"
-                            href="{{ route('center.add-listing') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
-                            <span>New</span>
-                        </a>
-                        <a class="collapse-item {{ request()->segment(3) == 'current' ? 'menu-active' : '' }}"
-                            href="{{ route('center.current') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
-                            <span>Current</span>
-                        </a>
-                        <a class="collapse-item {{ request()->segment(3) == 'past' ? 'menu-active' : '' }}"
-                            href="{{ route('center.past') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}">
-                            <span>Past</span>
-                        </a>
-                    </div>
-                </div>
-                {{-- end --}}
+                     <div class="py-0 collapse-inner rounded mb-2">
+                         <a class="collapse-item {{ request()->segment(3) == 'add-listing' ? 'menu-active' : '' }}"
+                             href="{{ route('center.add-listing') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
+                             <span>New</span>
+                         </a>
+                         <a class="collapse-item {{ request()->segment(3) == 'current' ? 'menu-active' : '' }}"
+                             href="{{ route('center.current') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                             <span>Current</span>
+                         </a>
+                         <a class="collapse-item {{ request()->segment(3) == 'past' ? 'menu-active' : '' }}"
+                             href="{{ route('center.past') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}">
+                             <span>Past</span>
+                         </a>
+                     </div>
+                 </div>
+                 {{-- end --}}
 
-                {{-- Profile --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ManageProfile">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/add-profile-centre.png') }}">
-                    <span>Profiles</span>
-                </a>
+                 {{-- Profile --}}
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ManageProfile">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/add-profile-centre.png') }}">
+                     <span>Profiles</span>
+                 </a>
 
-                <div id="ManageProfile"
-                    class="collapse
+                 <div id="ManageProfile"
+                     class="collapse
                     @if (in_array(request()->segment(2), ['create-profile', 'list','update-profile'])) show @endif"
-                    data-parent="#ProfileManagement">
+                     data-parent="#ProfileManagement">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
-                            href="{{ route('center.profile') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
-                            <span>New Profile</span>
-                        </a>
+                         <a class="collapse-item {{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}"
+                             href="{{ route('center.profile') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
+                             <span>New Profile</span>
+                         </a>
 
-                        <a class="collapse-item {{ in_array(request()->segment(2), ['list', 'profile','update-profile']) ? 'menu-active' : '' }}"
-                            href="{{ route('center.list') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
-                            <span>Our Profiles </span>
-                        </a>
+                         <a class="collapse-item {{ in_array(request()->segment(2), ['list', 'profile','update-profile']) ? 'menu-active' : '' }}"
+                             href="{{ route('center.list') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                             <span>Our Profiles </span>
+                         </a>
 
-                    </div>
-                </div>
+                     </div>
+                 </div>
 
 
-                {{-- Masseurs --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMasseurs">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png') }}">
-                    <span>Masseurs </span>
-                </a>
+                 {{-- Masseurs --}}
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMasseurs">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png') }}">
+                     <span>Masseurs </span>
+                 </a>
 
-                <div id="CenterMasseurs"
-                    class="collapse
+                 <div id="CenterMasseurs"
+                     class="collapse
                     
                     @if (in_array(request()->segment(2), ['create-new-masseur','archives-listing','update-masseur'] )) show @endif"
-                    data-parent="#ProfileManagement">
+                     data-parent="#ProfileManagement">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'create-new-masseur' ? 'menu-active' : '' }}"
-                            href="{{ route('center.create-new-masseur') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
-                            <span>New</span>
-                        </a>
+                         <a class="collapse-item {{ request()->segment(2) == 'create-new-masseur' ? 'menu-active' : '' }}"
+                             href="{{ route('center.create-new-masseur') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
+                             <span>New</span>
+                         </a>
 
-                        <a class="collapse-item {{ (request()->segment(2) == 'archives-listing' || request()->segment(2) == 'update-masseur') ? 'menu-active' : '' }}"
-                            href="{{ route('center.archives-listing') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}">
-                            <span>Manage</span>
-                        </a>
+                         <a class="collapse-item {{ (request()->segment(2) == 'archives-listing' || request()->segment(2) == 'update-masseur') ? 'menu-active' : '' }}"
+                             href="{{ route('center.archives-listing') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}">
+                             <span>Manage</span>
+                         </a>
 
-                    </div>
-                </div>
+                     </div>
+                 </div>
 
-                {{-- Media Centre --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMedia">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/media-centre.png') }}">
-                    <span>Media</span>
-                </a>
+                 {{-- Media Centre --}}
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMedia">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/media-centre.png') }}">
+                     <span>Media</span>
+                 </a>
 
-                <div id="CenterMedia"
-                    class="collapse
+                 <div id="CenterMedia"
+                     class="collapse
                    @if (request()->segment(2) == 'archive-view-photos' || request()->segment(3) == 'videos') show @endif"
-                    data-parent="#ProfileManagement">
+                     data-parent="#ProfileManagement">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'archive-view-photos' ? 'menu-active' : '' }}"
-                            href="{{ route('cen.archive-view-photos') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/photo.png') }}">
-                            <span>Photos</span>
-                        </a>
+                         <a class="collapse-item {{ request()->segment(2) == 'archive-view-photos' ? 'menu-active' : '' }}"
+                             href="{{ route('cen.archive-view-photos') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/photo.png') }}">
+                             <span>Photos</span>
+                         </a>
 
-                        <a class="collapse-item {{ request()->segment(3) == 'videos' ? 'menu-active' : '' }}"
-                            href="{{ route('center.videos') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/video.png') }}">
-                            <span>Videos</span>
-                        </a>
+                         <a class="collapse-item {{ request()->segment(3) == 'videos' ? 'menu-active' : '' }}"
+                             href="{{ route('center.videos') }}">
+                             <img src="{{ asset('assets/dashboard/img/menu-icon/video.png') }}">
+                             <span>Videos</span>
+                         </a>
 
-                    </div>
-                </div>
+                     </div>
+                 </div>
 
-            </div>
-        </div>
-    </li>
-    {{-- Listings --}}
+             </div>
+         </div>
+     </li>
+     {{-- Listings --}}
 
-    {{-- devider --}}
-    <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
-    </li>
+     {{-- devider --}}
+     <li
+         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
+     </li>
 
-    <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}">
+     <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}">
 
-        {{-- Administration --}}
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#AdminTab">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
-            <span>Administration</span>
-        </a>
+         {{-- Administration --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#AdminTab">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
+             <span>Administration</span>
+         </a>
 
-        <div id="AdminTab" class="collapse
+         <div id="AdminTab" class="collapse
                 @if (in_array(request()->segment(3), []) ||
                         in_array(request()->segment(2), [
                             'profiles',
@@ -280,16 +280,16 @@
                             'view-reviews'
                         ]) ||
                         in_array(request()->segment(1), ['submit_ticket'])) show @endif"
-            data-parent="#accordionSidebar">
+             data-parent="#accordionSidebar">
 
-            <div class="collapse-inner">
-                {{-- Analytics --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                    <span>Analytics</span>
-                </a>
+             <div class="collapse-inner">
+                 {{-- Analytics --}}
+                 <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
+                     <span>Analytics</span>
+                 </a>
 
-                <div id="CenterAnalytics"
+                 {{-- <div id="CenterAnalytics"
                     class="collapse
                         @if (in_array(request()->segment(2), ['feedback', 'profiles', 'social-media', 'masseurs'])) show @endif"
                     data-parent="#AdminTab">
@@ -297,82 +297,88 @@
                     <div class="py-0 collapse-inner rounded mb-2">
 
                         <a class="collapse-item {{ request()->segment(2) == 'feedback' ? 'menu-active' : '' }}"
-                            href="{{ route('feedback') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/feedback-22.png') }}">
-                            <span>Feedback</span>
-                        </a>
-                        
-                         <a class="collapse-item {{ request()->segment(2) == 'masseurs' ? 'menu-active' : '' }}"
-                            href="{{ route('masseurs') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/profiles.png') }}">
-                            <span>Masseurs</span>
-                        </a>
-                        
-                        <a class="collapse-item {{ request()->segment(2) == 'profiles' ? 'menu-active' : '' }}"
-                            href="{{ route('profiles') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
-                            <span>Profiles</span>
-                        </a>
-                        <a class="collapse-item {{ request()->segment(2) == 'social-media' ? 'menu-active' : '' }}"
-                            href="{{ route('social-media') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
-                            <span>Social Media</span>
-                        </a>
+                 href="{{ route('feedback') }}">
+                 <img src="{{ asset('assets/dashboard/img/menu-icon/feedback-22.png') }}">
+                 <span>Feedback</span>
+                 </a>
 
-                    </div>
-                </div>
-                {{-- Bookkeeping --}}
-                {{-- <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
-                    href="{{ route('center.bookkeeping') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
-                    <span>
-                        Bookkeeping
-                    </span>
-                </a> --}}
+                 <a class="collapse-item {{ request()->segment(2) == 'masseurs' ? 'menu-active' : '' }}"
+                     href="{{ route('masseurs') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/profiles.png') }}">
+                     <span>Masseurs</span>
+                 </a>
 
-                  <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                    data-target="#ManagementBookkeeping">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
-                    <span>Bookkeeping</span>
-                </a>
- 
-                <div id="ManagementBookkeeping"
-                    class="collapse
+                 <a class="collapse-item {{ request()->segment(2) == 'profiles' ? 'menu-active' : '' }}"
+                     href="{{ route('profiles') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                     <span>Profiles</span>
+                 </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'social-media' ? 'menu-active' : '' }}"
+                     href="{{ route('social-media') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                     <span>Social Media</span>
+                 </a>
+
+             </div>
+         </div> --}}
+         {{-- Bookkeeping --}}
+         {{-- <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
+         href="{{ route('center.bookkeeping') }}">
+         <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
+         <span>
+             Bookkeeping
+         </span>
+         </a> --}}
+
+         <a class="nav-link collapsed" href="#" data-toggle="collapse"
+             data-target="#ManagementBookkeeping">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
+             <span>Bookkeeping</span>
+         </a>
+
+         <div id="ManagementBookkeeping"
+             class="collapse
                     @if (in_array(request()->segment(2), ['bookkeeping'])) show @endif"
-                    data-parent="#AdminTab">
- 
-                    <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
-                    href="{{ route('center.bookkeeping') }}">
-                        <img src="{{ asset('assets/app/img/sales-performance.png') }}">
-                        <span>Bank Account</span>
-                    </a>
+             data-parent="#AdminTab">
 
-                    <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
-                        href="{{ url('center-dashboard/transaction-summary') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
-                        <span>Transaction Summary</span>
-                    </a>
+             <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
+                 href="{{ route('center.bookkeeping') }}">
+                 <img src="{{ asset('assets/app/img/sales-performance.png') }}">
+                 <span>Bank Account</span>
+             </a>
 
-                    {{-- <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/credit-my-account') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
-                        <span>Add Credit</span>
-                    </a>
-                    <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/transaction-summary') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
-                        <span>Transaction Summary</span></a> --}}
-                </div>
+             <a class="collapse-item {{ request()->segment(2) == 'my-wallet' ? 'menu-active' : '' }}"
+                 href="{{ route('center.my_wallet') }}">
+                 <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
+                 <span>My Wallet</span>
+             </a>
 
-                {{-- Communication --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                    data-target="#CenterCommunication">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/ccone.png') }}">
-                    <span>Communication</span>
-                </a>
+             <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
+                 href="{{ url('center-dashboard/transaction-summary') }}">
+                 <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
+                 <span>Transaction Summary</span>
+             </a>
 
-                <div id="CenterCommunication"
-                    class="collapse
+             {{-- <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
+             href="{{ url('escort-dashboard/credit-my-account') }}">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
+             <span>Add Credit</span>
+             </a>
+             <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
+                 href="{{ url('escort-dashboard/transaction-summary') }}">
+                 <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
+                 <span>Transaction Summary</span></a> --}}
+         </div>
+
+         {{-- Communication --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse"
+             data-target="#CenterCommunication">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/ccone.png') }}">
+             <span>Communication</span>
+         </a>
+
+         <div id="CenterCommunication"
+             class="collapse
                         @if (in_array(request()->segment(2), [
                                 'agent-request',
                                 'agent-messages',
@@ -381,94 +387,94 @@
                                 'legbox-viewers',
                                 'view-reviews'
                             ])) show @endif"
-                    data-parent="#AdminTab">
+             data-parent="#AdminTab">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+             <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'agent-request' ? 'menu-active' : '' }}"
-                            href="{{ route('agent-request') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/comtwo.png') }}">
-                            <span>Agent Request</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'agent-request' ? 'menu-active' : '' }}"
+                     href="{{ route('agent-request') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/comtwo.png') }}">
+                     <span>Agent Request</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'legbox-notification' ? 'menu-active' : '' }}"
-                            href="{{ route('legbox-notification') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
-                            <span>Legbox Notification</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'legbox-notification' ? 'menu-active' : '' }}"
+                     href="{{ route('legbox-notification') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
+                     <span>Legbox Notification</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'legbox-viewers' ? 'menu-active' : '' }}"
-                            href="{{ route('legbox-viewers') }}">
+                 <a class="collapse-item {{ request()->segment(2) == 'legbox-viewers' ? 'menu-active' : '' }}"
+                     href="{{ route('legbox-viewers') }}">
 
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}" alt="">
-                            <span>Legbox Viewers</span>
-                        </a>
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}" alt="">
+                     <span>Legbox Viewers</span>
+                 </a>
 
-                        <a class="collapse-item disabled-link {{ request()->segment(2) == 'agent-messages' ? 'menu-active' : '' }}"
-                            href="{{ route('agent-messages') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
-                            <span>Messages</span>
-                        </a>
+                 <a class="collapse-item disabled-link {{ request()->segment(2) == 'agent-messages' ? 'menu-active' : '' }}"
+                     href="{{ route('agent-messages') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                     <span>Messages</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'view-reviews' ? 'menu-active' : '' }}"
-                                href="{{ route('center.view-reviews') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png') }}">
-                                <span>My Reviews</span>
-                            </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'view-reviews' ? 'menu-active' : '' }}"
+                     href="{{ route('center.view-reviews') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png') }}">
+                     <span>My Reviews</span>
+                 </a>
 
-                    </div>
-                </div>
+             </div>
+         </div>
 
 
-                {{-- Community --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterCommunity">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/com.png') }}">
-                    <span>Community</span>
-                </a>
+         {{-- Community --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterCommunity">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/com.png') }}">
+             <span>Community</span>
+         </a>
 
-                <div id="CenterCommunity"
-                    class="collapse
+         <div id="CenterCommunity"
+             class="collapse
                         @if (in_array(request()->segment(2), ['Community', 'help', 'laws', 'pricing'])) show @endif"
-                    data-parent="#AdminTab">
+             data-parent="#AdminTab">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+             <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'Community' ? 'menu-active' : '' }}"
-                            href="{{ route('center.abbreviations') }}">
-                            <img src="{{ asset('assets/app/img/Abrieviations.png') }}">
-                            <span>Abbreviations</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'Community' ? 'menu-active' : '' }}"
+                     href="{{ route('center.abbreviations') }}">
+                     <img src="{{ asset('assets/app/img/Abrieviations.png') }}">
+                     <span>Abbreviations</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'help' ? 'menu-active' : '' }}"
-                            href="{{ route('center.dashboard.Community.help') }}">
-                            <img src="{{ asset('assets/app/img/helptips.png') }}">
-                            <span>Help &amp; Tips</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'help' ? 'menu-active' : '' }}"
+                     href="{{ route('center.dashboard.Community.help') }}">
+                     <img src="{{ asset('assets/app/img/helptips.png') }}">
+                     <span>Help &amp; Tips</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'laws' ? 'menu-active' : '' }}"
-                            href="{{ route('center.dashboard.Community.laws') }}">
-                            <img src="{{ asset('assets/app/img/gavel.png') }}">
-                            <span>Local Laws</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'laws' ? 'menu-active' : '' }}"
+                     href="{{ route('center.dashboard.Community.laws') }}">
+                     <img src="{{ asset('assets/app/img/gavel.png') }}">
+                     <span>Local Laws</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'pricing' ? 'menu-active' : '' }}"
-                            href="{{ route('center.dashboard.Community.pricing') }}">
-                            <img src="{{ asset('assets/app/img/dollar.png') }}">
-                            <span>Pricing Summary</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'pricing' ? 'menu-active' : '' }}"
+                     href="{{ route('center.dashboard.Community.pricing') }}">
+                     <img src="{{ asset('assets/app/img/dollar.png') }}">
+                     <span>Pricing Summary</span>
+                 </a>
 
-                    </div>
-                </div>
+             </div>
+         </div>
 
 
-                {{-- Concierge --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterConcierge">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/concigre.png') }}">
-                    <span>Concierge</span>
-                </a>
+         {{-- Concierge --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterConcierge">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/concigre.png') }}">
+             <span>Concierge</span>
+         </a>
 
-                <div id="CenterConcierge"
-                    class="collapse
+         <div id="CenterConcierge"
+             class="collapse
                         @if (in_array(request()->segment(2), [
                                 'accommodation',
                                 'email-hosting',
@@ -477,59 +483,59 @@
                                 'travel',
                                 'visa',
                             ])) show @endif"
-                    data-parent="#AdminTab">
+             data-parent="#AdminTab">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+             <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item disabled-link{{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
-                            href="{{ route('center.accommodation') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/acomdation.png') }}">
-                            <span>Accommodation</span>
-                        </a>
+                 <a class="collapse-item disabled-link{{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
+                     href="{{ route('center.accommodation') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/acomdation.png') }}">
+                     <span>Accommodation</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
-                            href="{{ route('center.email-hosting') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
-                            <span>Email Account</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
+                     href="{{ route('center.email-hosting') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
+                     <span>Email Account</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'mobile-read-sim' ? 'menu-active' : '' }}"
-                            href="{{ route('center.mobile-read-sim') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/mobile-read.png') }}">
-                            <span>Mobile SIM</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'mobile-read-sim' ? 'menu-active' : '' }}"
+                     href="{{ route('center.mobile-read-sim') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/mobile-read.png') }}">
+                     <span>Mobile SIM</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'professional-products' ? 'menu-active' : '' }}"
-                            href="{{ route('center.professional-products') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/pro-pro.png') }}">
-                            <span>Products</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'professional-products' ? 'menu-active' : '' }}"
+                     href="{{ route('center.professional-products') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/pro-pro.png') }}">
+                     <span>Products</span>
+                 </a>
 
-                        <a class="collapse-item disabled-link {{ request()->segment(2) == 'travel' ? 'menu-active' : '' }}"
-                            href="{{ route('center.travel') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/visa-mig.png') }}">
-                            <span>Travel</span>
-                        </a>
+                 <a class="collapse-item disabled-link {{ request()->segment(2) == 'travel' ? 'menu-active' : '' }}"
+                     href="{{ route('center.travel') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/visa-mig.png') }}">
+                     <span>Travel</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'visa' ? 'menu-active' : '' }}"
-                            href="{{ route('center.visa') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/visa.png') }}">
-                            <span>Visa &amp; Migration</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'visa' ? 'menu-active' : '' }}"
+                     href="{{ route('center.visa') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/visa.png') }}">
+                     <span>Visa &amp; Migration</span>
+                 </a>
 
-                    </div>
-                </div>
+             </div>
+         </div>
 
 
-                {{-- How is it Done --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                    data-target="#CenterHowIsItDone">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/how-quest.png') }}">
-                    <span>How is it Done</span>
-                </a>
+         {{-- How is it Done --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse"
+             data-target="#CenterHowIsItDone">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/how-quest.png') }}">
+             <span>How is it Done</span>
+         </a>
 
-                <div id="CenterHowIsItDone"
-                    class="collapse
+         <div id="CenterHowIsItDone"
+             class="collapse
                         @if (in_array(request()->segment(2), [
                                 'editmyaccount',
                                 'profile-information',
@@ -539,133 +545,133 @@
                                 'profiles-masseurs',
                                 'media-masseurs',
                             ])) show @endif"
-                    data-parent="#AdminTab">
+             data-parent="#AdminTab">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+             <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'editmyaccount' ? 'menu-active' : '' }}"
-                            href="{{ route('center.editmyaccount') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/icons-account.png') }}">
-                            <span>Edit My Account</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'editmyaccount' ? 'menu-active' : '' }}"
+                     href="{{ route('center.editmyaccount') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/icons-account.png') }}">
+                     <span>Edit My Account</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'profile-information' ? 'menu-active' : '' }}"
-                            href="{{ route('center.profile-information') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png') }}">
-                            <span>Profile Information</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'profile-information' ? 'menu-active' : '' }}"
+                     href="{{ route('center.profile-information') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png') }}">
+                     <span>Profile Information</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'listings' ? 'menu-active' : '' }}"
-                            href="{{ route('center.listings') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png') }}">
-                            <span>Listings</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'listings' ? 'menu-active' : '' }}"
+                     href="{{ route('center.listings') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png') }}">
+                     <span>Listings</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'profiles-centre' ? 'menu-active' : '' }}"
-                            href="{{ route('center.profiles-centre') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/center-24.png') }}">
-                            <span>Profiles Centre</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'profiles-centre' ? 'menu-active' : '' }}"
+                     href="{{ route('center.profiles-centre') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/center-24.png') }}">
+                     <span>Profiles Centre</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'media_centre' ? 'menu-active' : '' }}"
-                            href="{{ route('center.media-centre') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png') }}">
-                            <span>Media Centre</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'media_centre' ? 'menu-active' : '' }}"
+                     href="{{ route('center.media-centre') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png') }}">
+                     <span>Media Centre</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'profiles-masseurs' ? 'menu-active' : '' }}"
-                            href="{{ route('center.profiles-masseurs') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/wooden-massage-table-24.png') }}">
-                            <span>Profiles Masseurs</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'profiles-masseurs' ? 'menu-active' : '' }}"
+                     href="{{ route('center.profiles-masseurs') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/wooden-massage-table-24.png') }}">
+                     <span>Profiles Masseurs</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'media-masseurs' ? 'menu-active' : '' }}"
-                            href="{{ route('center.media-masseurs') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-24.png') }}">
-                            <span>Media Masseurs</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'media-masseurs' ? 'menu-active' : '' }}"
+                     href="{{ route('center.media-masseurs') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-24.png') }}">
+                     <span>Media Masseurs</span>
+                 </a>
 
-                    </div>
-                </div>
+             </div>
+         </div>
 
 
-                {{-- NUM --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterNUM">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">
-                    <span>NUM</span>
-                </a>
+         {{-- NUM --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterNUM">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">
+             <span>NUM</span>
+         </a>
 
-                <div id="CenterNUM"
-                    class="collapse
+         <div id="CenterNUM"
+             class="collapse
                         @if (in_array(request()->segment(2), ['num-dashboard', 'add-report', 'my-reports', 'num-tips'])) show @endif"
-                    data-parent="#AdminTab">
+             data-parent="#AdminTab">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+             <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'num-dashboard' ? 'menu-active' : '' }}"
-                            href="{{ route('center.numdashboard') }}">
-                            <img src="{{ asset('assets/img/dashboard-24.png') }}">
-                            <span>Dashboard</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'num-dashboard' ? 'menu-active' : '' }}"
+                     href="{{ route('center.numdashboard') }}">
+                     <img src="{{ asset('assets/img/dashboard-24.png') }}">
+                     <span>Dashboard</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'add-report' ? 'menu-active' : '' }}"
-                            href="{{ route('center.add-report') }}">
-                            <img src="{{ asset('assets/img/report-24.png') }}">
-                            <span>Add Report</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'add-report' ? 'menu-active' : '' }}"
+                     href="{{ route('center.add-report') }}">
+                     <img src="{{ asset('assets/img/report-24.png') }}">
+                     <span>Add Report</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'my-reports' ? 'menu-active' : '' }}"
-                            href="{{ route('center.my-reports') }}">
-                            <img src="{{ asset('assets/img/8report-24.png') }}">
-                            <span>My Reports</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'my-reports' ? 'menu-active' : '' }}"
+                     href="{{ route('center.my-reports') }}">
+                     <img src="{{ asset('assets/img/8report-24.png') }}">
+                     <span>My Reports</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'num-tips' ? 'menu-active' : '' }}"
-                            href="{{ route('center.num-tips') }}">
-                            <img src="{{ asset('assets/app/img/tips.png') }}">
-                            <span>NUM (Tips)</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'num-tips' ? 'menu-active' : '' }}"
+                     href="{{ route('center.num-tips') }}">
+                     <img src="{{ asset('assets/app/img/tips.png') }}">
+                     <span>NUM (Tips)</span>
+                 </a>
 
-                    </div>
-                </div>
+             </div>
+         </div>
 
 
 
-                {{-- suppot --}}
+         {{-- suppot --}}
 
-                {{-- Support Tickets --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#SupportTickets">
-                    <img src="{{ asset('assets/app/img/ticket.png') }}">
-                    <span>Support Tickets</span>
-                </a>
+         {{-- Support Tickets --}}
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#SupportTickets">
+             <img src="{{ asset('assets/app/img/ticket.png') }}">
+             <span>Support Tickets</span>
+         </a>
 
-                <div id="SupportTickets"
-                    class="collapse
+         <div id="SupportTickets"
+             class="collapse
                         @if (in_array(request()->segment(2), ['ticket-list']) || request()->segment(1) == 'submit_ticket') show @endif"
-                    data-parent="#AdminTab">
+             data-parent="#AdminTab">
 
-                    <div class="py-0 collapse-inner rounded mb-2">
+             <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(1) == 'submit_ticket' ? 'menu-active' : '' }}"
-                            href="{{ url('submit_ticket') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
-                            <span>Submit</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(1) == 'submit_ticket' ? 'menu-active' : '' }}"
+                     href="{{ url('submit_ticket') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
+                     <span>Submit</span>
+                 </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'ticket-list' ? 'menu-active' : '' }}"
-                            href="{{ route('support-ticket.list') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
-                            <span>View & Reply</span>
-                        </a>
+                 <a class="collapse-item {{ request()->segment(2) == 'ticket-list' ? 'menu-active' : '' }}"
+                     href="{{ route('support-ticket.list') }}">
+                     <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
+                     <span>View & Reply</span>
+                 </a>
 
-                    </div>
-                </div>
+             </div>
+         </div>
 
-            </div>
+         </div>
 
-        </div>
+         </div>
 
-    </li>
+     </li>
 
-</ul>
-<!-- End of Sidebar -->
+ </ul>
+ <!-- End of Sidebar -->

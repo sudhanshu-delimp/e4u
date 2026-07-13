@@ -29,7 +29,7 @@ class SendProductOrderCancelMailToEscort extends Mailable
    */
   public function build()
   {
-    $subject = "Order Cancelled Notification – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
+    $subject = "Order Cancelled Notification – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['communication_id']}";
 
     return $this->subject($subject)
       ->view('emails.escort.order.order_cancelled_escort')

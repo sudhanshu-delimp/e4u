@@ -1049,6 +1049,7 @@ e.preventDefault();
       let formData = $("#purchase_listing").serialize();
       $form.find('input[name="action_type"]').remove();
       $form.append('<input type="hidden" name="action_type" value="extend">');
+      loyality_input('extend');
          
      
          //console.log('plandata',plandata);
@@ -1147,6 +1148,7 @@ $("#bumpup_profile_form").on('submit', async function(e)
                 'title': 'Bumping Up Your Profile.'
             });
 
+            loyality_input('bumpup');
             $form.find('input[name="action_type"]').remove();
             $form.append('<input type="hidden" name="action_type" value="bumpup">');
          
@@ -1254,6 +1256,24 @@ function openModal(url)
     document.getElementById('modalFrame').src = url;
     var modal = new bootstrap.Modal(document.getElementById('iframeModal'));
     modal.show();
+}
+
+function loyality_input(pay_type)
+{
+   console.log('loyality_input',pay_type);
+   
+   if(pay_type==='bumpup')
+   {
+      $('.payment_loyalty_option').css('display', 'none');
+      $('#loyalty_day').prop('disabled', true);
+      $('#loyalty_day').val(0);
+   }
+   else 
+   {
+      $('.payment_loyalty_option').css('display', 'block');
+      $('#loyalty_day').prop('disabled', false);
+      $('#loyalty_day').val(0);
+   }
 }
 
 document.getElementById('iframeModal').addEventListener('hidden.bs.modal', function () {

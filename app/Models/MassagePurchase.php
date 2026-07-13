@@ -31,6 +31,8 @@ class MassagePurchase extends Model
         'total_rate',
         'paid_rate',
         'final_amount',
+        'created_by',
+        'updated_by'
     ];
 
 

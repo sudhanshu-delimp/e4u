@@ -29,7 +29,7 @@ class SendProductOrderHoldMailToSupplier extends Mailable
    */
   public function build()
   {
-    $subject = "Order Placed On Hold – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['id']}";
+    $subject = "Please Hold Processing of Product Order – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['communication_id']}";
     return $this->subject($subject)->view('emails.escort.order.order_hold_supplier')
       ->with(['data' => $this->data]);
   }
