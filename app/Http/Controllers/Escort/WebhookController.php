@@ -92,7 +92,7 @@ class WebhookController extends Controller
             }
             break;
           case 'escort-listing': {
-              ProcessListingFeaturesPostPayment::dispatch($paymentObject)->delay(now()->addSeconds(30));
+              ProcessListingFeaturesPostPayment::dispatch($paymentObject);
             }
 
 
