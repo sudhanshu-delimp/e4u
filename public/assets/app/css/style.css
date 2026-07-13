@@ -6756,6 +6756,12 @@ table {
     justify-content: space-between;
 }
 
+.inner_img_wrapper {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 10px;
+}
+
 .masseur_content {
     display: flex;
     flex-direction: column;
@@ -7385,6 +7391,8 @@ table {
 
 
 /* end */
+
+@media(min-width: 528px) and (max-width: 768px) {}
 
 @media (max-width: 768px) {
     .modal-header.custom_header {
