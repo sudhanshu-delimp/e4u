@@ -92,7 +92,7 @@ class WebhookController extends Controller
             }
             break;
           case 'escort-listing': {
-              //ProcessListingFeaturesPostPayment::dispatch($paymentObject);
+              ProcessListingFeaturesPostPayment::dispatch($paymentObject);
             }
 
 
