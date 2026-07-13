@@ -792,48 +792,6 @@ margin-right: 5px;
                                         </div>
                                         <div class="modal-body">
                                             <div class="masseur_profile_wrapper">
-                                                {{-- <div class="mc_profile_img ">
-
-                                                   @foreach ($messure_validImages as $index => $image)
-                                                        @if($loop->first)
-                                                            @php 
-                                                                $status_detail = getMediaVerificationDataBigIcon($image['img_data']->varified);
-                                                            @endphp 
-
-                                                            <img src="{{ $image['url'] }}" class="img-responsive"
-                                                            style="width: 305px;height: 374px;object-fit: cover;">
-
-                                                        @endif
-
-                                                    @endforeach
-
-                                                        <div class="veryfy_img">
-                                                            @if(isset($status_detail['icon']))
-                                                            <img src="{{ $status_detail['icon'] }}">
-                                                            <span class="common_shield_tooltip">{{ $status_detail['label'] }}</span>
-                                                             @endif
-                                                        </div>
-                                                </div>
-
-                                                <div class="masseur_extra_img">
-
-                                                        @foreach ($messure_validImages as $index => $image)
-                                                            @if(!$loop->first)
-                                                            <div class="extra_img_wrapper">
-                                                                <img src="{{  $image['url'] }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
-                                                                <div class="veryfy_img">
-                                                                @php 
-                                                                    $status_detail =  getMediaVerificationDataSmallIcon($image['img_data']->varified);
-                                                                @endphp
-                                                                    <img src="{{ $status_detail['icon'] }}">
-                                                                     <h6 class="gallery_shield_tooltip">{{ $status_detail['label'] }}</h6>
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                            @endif
-                                                        @endforeach
-                                                        
-                                                </div> --}}
                                                 <div class="mc_profile_img">
 
                                                     @foreach ($messure_validImages as $index => $image)
@@ -882,8 +840,7 @@ margin-right: 5px;
                                                                 data-gallery="masseure-gallery">
 
                                                                     <img src="{{ $image['url'] }}"
-                                                                        class="img-responsive"
-                                                                        style="width: 108px;height: 119px;object-fit: cover; border-radius:10px">
+                                                                        class="img-responsive">
                                                                         <div class="hover-overlay">
                                                                             <span>Click me!</span>
                                                                         </div>

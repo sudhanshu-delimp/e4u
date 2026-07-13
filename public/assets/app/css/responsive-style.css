@@ -24,6 +24,12 @@
                         .pin-head-custom .v-path .seperatot {
                             display: none;
                         }
+                        .masseur_extra_img .extra_img_wrapper .glightbox img {
+                            width: 68px;
+                            height: 55px;
+                            object-fit: cover;
+                            border-radius: 10px;
+                        }
                     }
                     
                     @media(max-width: 425px) {
@@ -32,8 +38,8 @@
                             display: flex;
                             flex-direction: column;
                             gap: 5px;
-                            background: #fbfbfb;
-                            padding: 20px !important;
+                            background: transparent;
+                            padding: 5px !important;
                             border-radius: 5px;
                         }
                         /* navbar */
@@ -187,6 +193,7 @@
                         }
                         .mc_profile_img .glightbox img {
                             width: 100%;
+                            height: auto;
                             object-fit: cover;
                             border-radius: 10px;
                         }
@@ -306,11 +313,11 @@
                             font-weight: bold !important;
                         }
                         .home-sec-heading {
-                            text-align: center;
                             display: flex;
-                            flex-direction: column;
                             justify-content: center;
                             align-items: center;
+                            gap: 20px;
+                            line-height: 15px;
                         }
                         .home-btn-common {
                             width: 100%;
@@ -563,6 +570,18 @@
                             gap: 10px;
                             justify-content: flex-end;
                             flex-direction: row-reverse;
+                        }
+                        .mc_profile_img .glightbox img {
+                            width: 100%;
+                            height: 243px;
+                            object-fit: cover;
+                            border-radius: 10px;
+                        }
+                        .masseur_extra_img .extra_img_wrapper .glightbox img {
+                            width: 108px;
+                            height: 75px;
+                            object-fit: cover;
+                            border-radius: 10px;
                         }
                     }
                     

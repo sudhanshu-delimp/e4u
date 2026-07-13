@@ -3473,8 +3473,8 @@ a#grid-list {
 
 .social_media_icons .s_icon {
     background: #0C223D;
-    width: 40px;
-    height: 40px;
+    width: clamp(35px, 4vw, 45px);
+    height: clamp(35px, 4vw, 45px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3640,9 +3640,9 @@ i.fa {
 .profile_page_social_profiles li {
     display: inline-block;
     background: #0C223D;
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
+    width: clamp(35px, 4vw, 45px);
+    height: clamp(35px, 4vw, 45px);
+    line-height: clamp(35px, 4vw, 45px);
     text-align: center;
     border-radius: 50%;
 }
@@ -3713,7 +3713,7 @@ i.fa {
 }
 
 img.custompopicon {
-    max-width: 45px;
+    max-width: clamp(35px, 4vw, 45px);
     margin-right: 0.5rem;
 }
 
@@ -5434,6 +5434,10 @@ ul.footerbtn-flex li {
     gap: 5px;
 }
 
+.manage_gap_text_img-profile img {
+    width: clamp(35px, 4vw, 45px);
+}
+
 .preview-dk {
     width: 6%;
 }
@@ -6532,6 +6536,13 @@ table {
     border-radius: 10px;
 }
 
+.masseur_extra_img .extra_img_wrapper .glightbox img {
+    width: 108px;
+    height: 119px;
+    object-fit: cover;
+    border-radius: 10px
+}
+
 .extra_img_wrapper .veryfy_img {
     position: absolute;
     width: 25px;
@@ -6573,6 +6584,10 @@ table {
 
 .mc_tooltip_wrap {
     position: relative;
+}
+
+.mc_tooltip_wrap img {
+    width: clamp(35px, 4vw, 45px);
 }
 
 .mc_tooltip_wrap:hover .mc_rate_tooltip {
@@ -6738,7 +6753,7 @@ table {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .masseur_content {
@@ -7379,9 +7394,9 @@ table {
     .masseur_profile_wrapper {
         flex-wrap: wrap;
     }
-    .masseur_profile_wrapper .masseur_extra_img {
+    /* .masseur_profile_wrapper .masseur_extra_img {
         flex-direction: row;
-    }
+    } */
     .masseur_profile_wrapper .masseur_extra_img img {
         width: 100px;
         height: 100px;
@@ -9157,6 +9172,17 @@ h3 {
     border-radius: 5px;
 }
 
+.custom--tooltip::after {
+    content: '';
+    position: absolute;
+    top: 96%;
+    right: 4px;
+    border-width: 5px;
+    transform: rotate(0deg);
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
 .custom-meet-pin li a,
 .custom-playbox a {
     position: relative;
@@ -9214,8 +9240,20 @@ h3 {
 .pin-head-custom .pp-head {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: clamp(5px, 2vw, 20px);
     justify-content: space-between;
+}
+
+.pp-head .svg_icon {
+    width: clamp(45px, 4vw, 70px);
+}
+
+.pinup_address p {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: center;
+    line-height: 20px;
 }
 
 .pp-video-icon {
@@ -9259,7 +9297,7 @@ h3 {
     gap: clamp(4px, 1vw, 10px);
     justify-content: space-between;
     border-radius: 5px;
-    padding: 10px;
+    padding: clamp(5px, 1vw, 10px);
     border: 1px solid #e5e5e5;
 }
 
@@ -9740,8 +9778,9 @@ p.blog-link {
 }
 
 .my-play-box-profile-icon {
-    height: 45px;
-    width: 45px;
+    width: clamp(35px, 4vw, 45px);
+    height: clamp(35px, 4vw, 45px);
+    line-height: 35px;
     background: var(--peach);
     display: flex;
     align-items: center;
