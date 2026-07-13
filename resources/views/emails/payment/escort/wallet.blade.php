@@ -24,7 +24,7 @@
                                     </td>
                                     <td style="vertical-align: middle; text-align: right;">
                                         <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">My Wallet Top Up</h1>
-                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$mainAccount->member_id ?? ''}}</div>
+                                        <div style="font-size: 13px; color: #cccccc;">Member ID: {{$mainAccount->member_id ?? ''}} | {{ asset('images/logo.png') }}</div>
                                     </td>
                                 </tr>
                             </table>
