@@ -434,12 +434,12 @@
                                 for them.  List up to eight Masseurs on the one Profile.</p>
                         </div>
                         </br>
-                        <div class="padding">
-                            <a class="btn btn_advertiser" style="border: 1px solid;"
+                        <div class="home-btn">
+                            <a class="btn home-btn-common" 
                                 href="{{ route('advertiser.register') }}" role="button">I am an Advertiser</a>
-                            <a class="btn btn_viewer" style="border: 1px solid;" href="{{ route('register') }}"
+                            <a class="btn home-btn-common"  href="{{ route('register') }}"
                                 role="button">I am a Viewer</a>
-                            <a class="btn  btn_viewer" style="color:red;border: 1px solid;"
+                            <a class="btn home-btn-common" 
                                 href="{{ route('agent.register') }}" role="button">I am an Agent</a>
                         </div>
                     </div>
