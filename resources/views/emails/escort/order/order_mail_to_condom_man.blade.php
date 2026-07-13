@@ -70,22 +70,22 @@
                             <table width="100%" cellpadding="0" cellspacing="0"
                                 style="border:1px solid #e1e1e1;margin-top:10px;border-collapse:collapse;">
                                 <tr>
-                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left">
                                         Product</th>
-                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;">
                                         Quantity</th>
-                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;">
                                         Price</th>
-                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;font-size:14px;">
+                                    <th style="padding:8px;border:1px solid #e1e1e1;text-align:left;">
                                         Total</th>
                                 </tr>
 
                                 @foreach ($data['products'] as $item)
                                     <tr>
                                         <td
-                                            style="padding:8px;border:1px solid #e1e1e1;vertical-align:top;font-size:13px;">
+                                            style="padding:8px;border:1px solid #e1e1e1;vertical-align:top;">
                                             {!! $item->product->description !!} <br>
-                                            <span style="color:#555;font-size:12px;">
+                                            <span style="color:#555;">
                                                 QTY: {{ $item->product->qty }}
                                                 @if (!empty($item->product->size) && $item->product->size != 'N/A')
                                                     <br>Size: {{ $item->product->size }}
@@ -93,15 +93,15 @@
                                             </span>
                                         </td>
 
-                                        <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                        <td style="padding:8px;border:1px solid #e1e1e1;">
                                             {{ $item->quantity }}
                                         </td>
 
-                                        <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                        <td style="padding:8px;border:1px solid #e1e1e1;">
                                             ${{ number_format($item->price, 2) }}
                                         </td>
 
-                                        <td style="padding:8px;border:1px solid #e1e1e1;font-size:13px;">
+                                        <td style="padding:8px;border:1px solid #e1e1e1;">
                                             ${{ number_format($item->price * $item->quantity, 2) }}
                                         </td>
                                     </tr>

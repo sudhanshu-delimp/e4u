@@ -62,7 +62,7 @@
 
                             <p style="margin: 20px 0 10px 0;"><strong>Notes:</strong></p>
 
-                            <ol style="padding-left: 20px; margin: 0; line-height: 22px;">
+                            <ol style="padding-left: 20px; margin: 0; line-height: 22px; font-size:13px">
                                 <li>
                                     Your products will, if by post:
                                     <ul style="padding-left: 20px; margin-top: 10px; list-style: none">

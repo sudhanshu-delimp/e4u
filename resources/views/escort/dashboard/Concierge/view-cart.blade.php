@@ -98,7 +98,9 @@
                 </div>
                 <div class="product_view">
                     <span class="back-to-product" id="viewCart">
-                        <a href="{{ route('escort.products') }}"> <i class="fa fa-arrow-left"></i> Back</a>
+                        <a
+                            href="{{ auth()->user()->type == 4 ? route('center.professional-products') : route('escort.products') }}">
+                            <i class="fa fa-arrow-left"></i> Back</a>
                     </span>
                 </div>
             </div>
@@ -449,7 +451,8 @@
 
                 <h2>Order Completed</h2>
                 <p>Thank you for your purchase!</p>
-                <button type="button" class="btn-common"> <a href="{{ route('bookkeeping.product.orders') }}"
+                <button type="button" class="btn-common"> <a
+                        href="{{ auth()->user()->type == 4 ? route('center.bookkeeping.product.orders') : route('bookkeeping.product.orders') }}"
                         class="text-white">
                         View
                         Orders</a></button>
@@ -796,7 +799,7 @@
                     $("#loader").hide();
                     if (response.status == true) {
                         window.location.href =
-                            "{{ auth()->user()->type == 4 ? route('center.products') : route('escort.products') }}";
+                            "{{ auth()->user()->type == 4 ? route('center.professional-products') : route('escort.products') }}";
                     }
                     $(".table-content").html(response.html);
                     getCheckedCheckBox();
@@ -1311,7 +1314,8 @@
                 let getCart = getCartCount();
 
                 if (getCart == 0) {
-                    window.location.href = "{{ route('escort.products') }}";
+                    window.location.href =
+                        "{{ auth()->user()->type == 4 ? route('center.professional-products') : route('escort.products') }}";
                 }
             }
 
@@ -1406,7 +1410,7 @@
             let gst = subtotal * tax / 100; //GST
             // set amount details after calculation in html format
             $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
-            $("#total_fee").text("$ " + (gst + subtotal).toFixed(2));
+            $("#total_fee").text("$" + (gst + subtotal).toFixed(2));
             $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
             $(".taxAmount").text("$" + gst.toFixed(2));
             $(".totalDue").text("$" + (total + gst).toFixed(2));
@@ -1483,7 +1487,7 @@
             flushLocalStorage();
             Swal.fire('Process Completed!', '', 'success');
             window.location.href =
-                "{{ auth()->user()->type == 4 ? route('center.products') : route('escort.products') }}"; // reset();
+                "{{ auth()->user()->type == 4 ? route('center.professional-products') : route('escort.products') }}"; // reset();
         }
 
         // function reset() {

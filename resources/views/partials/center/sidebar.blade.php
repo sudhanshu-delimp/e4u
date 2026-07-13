@@ -281,6 +281,7 @@
                             'ticket-list','masseurs',
                             'view-reviews',
                             'order-history',
+                            'concierge',
                         ]) ||
                         in_array(request()->segment(1), ['submit_ticket'])) show @endif"
              data-parent="#accordionSidebar">
@@ -490,7 +491,7 @@
                                 'professional-products',
                                 'travel',
                                 'visa',
-                            ])) show @endif"
+                            ]) || request()->segment(3) == 'view-cart') show @endif"
              data-parent="#AdminTab">
 
              <div class="py-0 collapse-inner rounded mb-2">
@@ -513,7 +514,7 @@
                      <span>Mobile SIM</span>
                  </a>
 
-                 <a class="collapse-item {{ request()->segment(2) == 'professional-products' ? 'menu-active' : '' }}"
+                 <a class="collapse-item {{ request()->segment(2) == 'professional-products' || request()->segment(3) == 'view-cart' ? 'menu-active' : '' }}"
                      href="{{ route('center.professional-products') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/pro-pro.png') }}">
                      <span>Products</span>

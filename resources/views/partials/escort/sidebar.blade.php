@@ -301,6 +301,7 @@
                     'ticket-list',
                     'submit_ticket',
                     'order-history',
+                    'concierge',
                 ]) ||
                     in_array(request()->segment(1), ['submit_ticket']) ||
                     in_array(request()->segment(3), ['uploads', 'guidelines', 'listings','products'])) show @endif"
@@ -483,7 +484,7 @@
                             'mobile-read-sim',
                             'travel',
                             'visa-migration',
-                        ]) || in_array(request()->segment(3), ['products'])) show @endif"
+                        ]) || in_array(request()->segment(3), ['products','view-cart'])) show @endif"
                         data-parent="#Management">
 
                         <div class="py-0 collapse-inner rounded mb-2">
@@ -506,7 +507,7 @@
                                 <span>Mobile SIM</span>
                             </a>
  
-                            <a class="collapse-item {{ request()->segment(3) == 'products' ? 'menu-active' : '' }}"
+                            <a class="collapse-item {{ request()->segment(3) == 'products' || request()->segment(3) == 'view-cart' ? 'menu-active' : '' }}"
                                 href="{{ route('escort.products') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/product.png') }}" />
                                 <span>Products</span>
