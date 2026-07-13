@@ -2294,7 +2294,7 @@ margin-right: 5px;
                                                 class="glightbox image-wrapper"
                                                 data-gallery="escort-gallery">
 
-                                                    <img src="{{ $image['url'] }}" alt="main" title="View in large">
+                                                    <img src="{{ $image['url'] }}" alt="main" >
 
                                                    
 
@@ -2335,7 +2335,7 @@ margin-right: 5px;
 
                                                     <img src="{{ $image['url'] }}"
                                                         alt="gallery image"
-                                                        title="View in large">
+                                                        >
 
                                                    
 
