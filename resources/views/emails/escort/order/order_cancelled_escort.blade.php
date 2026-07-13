@@ -14,10 +14,11 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"  style="height: 50px;">
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        <h1  style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
+                                        <h1
+                                            style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
                                             E4U Concierge - Product Order Cancelled
                                         </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
@@ -71,10 +72,7 @@
                                 please contact the E4U Operations Centre and quote the order reference above.
                             </p>
 
-                            <p style="font-size:15px; margin-top:20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                            <x-email-info />
                         </td>
                     </tr>
                 </table>

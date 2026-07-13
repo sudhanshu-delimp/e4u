@@ -531,6 +531,15 @@ class MassageProfile extends Model
         
     }
 
+   
+
+    public function latestExtend()
+    {
+        return $this->hasOne(MassagePurchase::class, 'massage_profile_id', 'id')
+            ->where('status', 'pending')
+            ->latest('id');
+    }
+
 
     public function mainPurchase()
     {
