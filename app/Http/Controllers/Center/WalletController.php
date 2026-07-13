@@ -22,7 +22,7 @@ class WalletController extends Controller
     public function index(Request $request)
     {
         $user = $this->user;
-        return view('escort.dashboard.Bookkeeping.my-wallet', compact('user'));
+        return view('center.dashboard.Bookkeeping.my-wallet', compact('user'));
     }
 
     public function transactionList()
