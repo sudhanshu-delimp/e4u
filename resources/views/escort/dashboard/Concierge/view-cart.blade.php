@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends(auth()->user()->type == 4 ? 'layouts.center' : 'layouts.escort')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
@@ -752,9 +752,7 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initAddressPicker"
-        async defer></script>
+
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src='https://cdn.pinpayments.com/pin.v2.js'></script>
@@ -762,7 +760,9 @@
         let loginUserId = "{{ session('parent_agent_id') ?? Auth::user()->id }}";
     </script>
     <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
-
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initAddressPicker"
+        async defer></script>
     <script>
         let cart = getCart();
         let productIds = Object.keys(cart) ?? '[]';
@@ -783,7 +783,7 @@
 
             $("#loader").show();
             $.ajax({
-                url: "{{ route('escort.get.products') }}",
+                url: "{{ auth()->user()->type == 4 ? route('center.get.products') : route('escort.get.products') }}",
                 type: "POST",
                 data: {
                     ids: productIds,
@@ -795,7 +795,8 @@
                 success: function(response) {
                     $("#loader").hide();
                     if (response.status == true) {
-                        window.location.href = "{{ route('escort.products') }}";
+                        window.location.href =
+                            "{{ auth()->user()->type == 4 ? route('center.products') : route('escort.products') }}";
                     }
                     $(".table-content").html(response.html);
                     getCheckedCheckBox();
@@ -845,7 +846,7 @@
             let shipping = details.delivery_type;
             $("#transactionLoader").show();
             $.ajax({
-                url: "{{ route('escort.transaction.summary') }}",
+                url: "{{ auth()->user()->type == 4 ? route('center.transaction.summary'): route('escort.transaction.summary') }}",
                 type: "POST",
                 data: {
                     ids: productIds,
@@ -1167,7 +1168,7 @@
             // console.log(orderData);
 
             $.ajax({
-                url: "{{ route('escort.make.order.payment') }}",
+                url: "{{auth()->user()->type == 4 ? route('center.make.order.payment') : route('escort.make.order.payment') }}",
                 type: "POST",
                 data: orderData,
                 dataType: "json",
@@ -1208,6 +1209,8 @@
                     } else {
                         if (response.errors && typeof response.errors === "object" && response
                             .errors && Object.keys(response.errors).length > 0) {
+                      alert("sdjh");
+
                             let html = '<div class="alert alert-danger"><ul>';
                             Object.values(response.errors).forEach(function(errArr) {
                                 html += `<li>${errArr.message}</li>`;
@@ -1215,6 +1218,7 @@
                             html += '</ul></div>';
                             Swal.fire(response.message + html, '', 'error');
                         } else {
+                          alert("sdfjhg");
                             displaySwal(xhr);
                         }
 
@@ -1222,6 +1226,7 @@
                 },
 
                 error: function(xhr) {
+                  // alert("sdfjhjhsdgfsjhg");
                     let res = xhr.responseJSON;
                     displaySwal(xhr);
                     // Swal.fire(res.message, '', 'error');
@@ -1494,7 +1499,7 @@
         function finish() {
             flushLocalStorage();
             Swal.fire('Process Completed!', '', 'success');
-            window.location.href = "{{ route('escort.products') }}"; // reset();
+            window.location.href = "{{  auth()->user()->type == 4 ? route('center.products'): route('escort.products') }}"; // reset();
         }
 
         // function reset() {

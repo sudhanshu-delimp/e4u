@@ -354,6 +354,11 @@
                  <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
                  <span>My Wallet</span>
              </a>
+             <a class="collapse-item {{ request()->segment(2) == 'my-wallet' ? 'menu-active' : '' }}"
+                 href="{{ route('center.my_wallet') }}">
+                 <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
+                 <span>Orders</span>
+             </a>
 
              <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
                  href="{{ url('center-dashboard/transaction-summary') }}">

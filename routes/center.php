@@ -26,7 +26,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Center\CenterReviewsController;
 use App\Http\Controllers\Center\WalletController;
-
+use App\Http\Controllers\Escort\Concierge\ProductController;
+use App\Http\Controllers\Escort\Concierge\ProductOrderController;
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
 Route::get('/dashboard', [CenterController::class, 'index'])->name('center.dashboard.impersonate');
@@ -72,7 +73,7 @@ Route::get('back-to-parent', [OtherCenterController::class, 'backToParent'])->na
 // 	})->name('center.my-account.change-password');
 
 Route::get('/profile-completed', function () {
-    return view('center.dashboard.profile-completed');
+  return view('center.dashboard.profile-completed');
 })->name('center.profile-completed');
 
 // Route::get('/my-account/edit-my-account', function()
@@ -86,11 +87,11 @@ Route::get('/profile-completed', function () {
 // 	})->name('center.my-account.profile-information');
 
 Route::get('/profile-info/create-profile', function () {
-    return view('center.profile-info.create-profile');
+  return view('center.profile-info.create-profile');
 })->name('center.create-profile');
 
 Route::get('/payments-confirmation', function () {
-    return view('center.dashboard.payments-confirmation');
+  return view('center.dashboard.payments-confirmation');
 })->name('center.payments-confirmation');
 
 
@@ -119,10 +120,10 @@ Route::get('listing/payment-completed', [MassageController::class, 'payment_comp
 
 
 Route::get('listing/current', function () {
-    return view('center.dashboard.listing.current');
+  return view('center.dashboard.listing.current');
 })->name('center.current');
 Route::get('listing/past', function () {
-    return view('center.dashboard.listing.past');
+  return view('center.dashboard.listing.past');
 })->name('center.past');
 
 Route::post('listing/current-listing', [MassageController::class, 'massager_current_listing'])->name('center.current-listing');
@@ -142,6 +143,21 @@ Route::post('get-transaction-summury', [MassageProfileActionController::class, '
 Route::post('/bumpup-register', [MassageProfileActionController::class, 'bumpup_register'])->name('center.bumpup_register');
 
 
+
+// Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('bookkeeping.product.orders');
+Route::name('center.')->group(function () {
+  Route::get('/products', [ProductController::class, 'index'])->name('products');
+  Route::get('concierge/view-cart', [ProductController::class, 'cartListing'])->name('view-cart');
+  Route::post('get/products', [ProductController::class, 'getProducts'])->name('get.products');
+  Route::post('transaction-summary', [ProductController::class, 'getTransactionSummary'])->name('transaction.summary');
+  Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');
+  Route::post('make/order/payment', [ProductOrderController::class, 'makeOrderPayment'])->name('make.order.payment');
+});
+
+// // Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
+// Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('order.list');
+// Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('order.details');
+// Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
 
 // Route::get('listing/add-listing', function()
 // {
@@ -203,8 +219,8 @@ Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment
 Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('center.payment.process');
 Route::post('payments/payment-session', [PaymentController::class, 'checkPaymentSession'])->name('center.check-payment-session');
 
-Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('center.transaction-summary');
-Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('center.transaction_summary.datatable');
+// Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('center.transaction-summary');
+// Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('center.transaction_summary.datatable');
 Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('center.payment.detail');
 Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
 
@@ -281,32 +297,32 @@ Route::post('/send-payment-receipt-center', [MassageCenterAccountController::cla
 Route::post('send-otp-for-pin-change', [MassageCenterAccountController::class, 'sendOtpForPinChange'])->name('center.send-otp-for-pin-change');
 
 Route::get('centre-statistics', function () {
-    return view('center.dashboard.centre-statistics');
+  return view('center.dashboard.centre-statistics');
 })->name('center.dashboard.centre-statistics');
 
 Route::get('legbox-viewer', function () {
-    return view('center.dashboard.legbox-viewer');
+  return view('center.dashboard.legbox-viewer');
 })->name('center.dashboard.legbox-viewer');
 
 
 Route::get('our-spend', function () {
-    return view('center.dashboard.our-spend');
+  return view('center.dashboard.our-spend');
 })->name('center.dashboard.our-spend');
 
 Route::get('our-statistics', function () {
-    return view('center.dashboard.our-statistics');
+  return view('center.dashboard.our-statistics');
 })->name('center.dashboard.our-statistics');
 
 Route::get('task-list', function () {
-    return view('center.dashboard.task-list');
+  return view('center.dashboard.task-list');
 })->name('center.dashboard.task-list');
 
 Route::get('manage-masseurs', function () {
-    return view('center.dashboard.manage-masseurs');
+  return view('center.dashboard.manage-masseurs');
 })->name('center.dashboard.manage-masseurs');
 
 Route::get('manage-media', function () {
-    return view('center.dashboard.manage-media');
+  return view('center.dashboard.manage-media');
 })->name('center.dashboard.manage-media');
 
 // Route::get('masseurs-statistics',function(){massage_profile_data
@@ -329,35 +345,35 @@ Route::get('manage-media', function () {
 
 
 Route::get('archives-listing', function () {
-    return view('center.dashboard.masseurs.archives-listing');
+  return view('center.dashboard.masseurs.archives-listing');
 })->name('center.archives-listing');
 
 
 
 Route::get('masseurs/add-media', function () {
-    return view('center.dashboard.masseurs.add-media');
+  return view('center.dashboard.masseurs.add-media');
 })->name('center.add-media');
 
 
 Route::get('masseurs/past-profile', function () {
-    return view('center.dashboard.masseurs.past');
+  return view('center.dashboard.masseurs.past');
 })->name('center.past-profile');
 
 
 // add Media Masseurs Route
 Route::get('media-masseurs/masseurs-photos', function () {
-    return view('center.dashboard.media-masseurs.photos');
+  return view('center.dashboard.media-masseurs.photos');
 })->name('center.masseurs-photos');
 
 Route::get('media-masseurs/masseurs-videos', function () {
-    return view('center.dashboard.media-masseurs.videos');
+  return view('center.dashboard.media-masseurs.videos');
 })->name('center.masseurs-videos');
 
 
 
 // add Media center Route
 Route::get('media-centre/photos', function () {
-    return view('center.dashboard.media-centre.photos');
+  return view('center.dashboard.media-centre.photos');
 })->name('center.photos');
 
 
@@ -366,7 +382,7 @@ Route::get('media-centre/photos', function () {
 Route::get('bookkeeping', [MassageCenterAccountController::class, 'index'])->name('center.bookkeeping');
 
 Route::get('/profile-info/edit-profile', function () {
-    return view('center.profile-info.edit-profile');
+  return view('center.profile-info.edit-profile');
 })->name('center.profile-info.edit-profile');
 
 
@@ -395,26 +411,26 @@ Route::post('notifications-and-features', [CenterProfileInformationController::c
 
 
 Route::get('view-archives', function () {
-    return view('center.dashboard.archives.view-archives');
+  return view('center.dashboard.archives.view-archives');
 });
 Route::get('archive-profiles', function () {
-    return view('center.dashboard.archives.archive-view-profiles');
+  return view('center.dashboard.archives.archive-view-profiles');
 })->name('cen.archive.profile');
 
 Route::get('archive-tours', function () {
-    return view('center.dashboard.archives.archive-tours');
+  return view('center.dashboard.archives.archive-tours');
 })->name('cen.archive.tours');
 
 Route::get('archive-medias', function () {
-    return view('center.dashboard.archives.archive-medias');
+  return view('center.dashboard.archives.archive-medias');
 })->name('cen.archive-medias');
 
 Route::get('archive-view-profiles-list/{id}', function () {
-    return view('center.dashboard.archives.archive-view-profiles-list');
+  return view('center.dashboard.archives.archive-view-profiles-list');
 })->name('cen.archive-view-profiles-list');
 
 Route::get('archive-tour-profiles', function () {
-    return view('center.dashboard.archives.archive-tour-profiles');
+  return view('center.dashboard.archives.archive-tour-profiles');
 })->name('cen.archive-tour-profiles');
 
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('center.update-password');
@@ -453,7 +469,7 @@ Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate
 // })->name('cen.archive-view-videos');
 
 Route::get('register-for-pin-up', function () {
-    return view('center.dashboard.registerPinup.register-pin-up');
+  return view('center.dashboard.registerPinup.register-pin-up');
 });
 
 // Route::get('pricing',function(){
@@ -461,74 +477,72 @@ Route::get('register-for-pin-up', function () {
 // })->name('center.dashboard.Community.pricing');
 
 Route::get('submitticket', function () {
-    return view('center.dashboard.supportticket.submitticket');
+  return view('center.dashboard.supportticket.submitticket');
 })->name('center.dashboard.supportticket.submitticket');
 
 Route::get('Community', function () {
-    return view('center.dashboard.Community.abbreviations');
+  return view('center.dashboard.Community.abbreviations');
 })->name('center.abbreviations');
 
 Route::get('help', function () {
-    //dd('hey');
-    return view('center.dashboard.Community.help');
+  //dd('hey');
+  return view('center.dashboard.Community.help');
 })->name('center.dashboard.Community.help');
 
 Route::get('laws', function () {
-    return view('center.dashboard.Community.laws');
+  return view('center.dashboard.Community.laws');
 })->name('center.dashboard.Community.laws');
 
 Route::get('accommodation', function () {
-    return view('center.dashboard.Concierge.accommodation');
+  return view('center.dashboard.Concierge.accommodation');
 })->name('center.accommodation');
 
 Route::get('email-hosting', function () {
-    return view('center.dashboard.Concierge.email-hosting');
+  return view('center.dashboard.Concierge.email-hosting');
 })->name('center.email-hosting');
 
 Route::get('mobile-read-sim', function () {
-    return view('center.dashboard.Concierge.mobile-read-sim');
+  return view('center.dashboard.Concierge.mobile-read-sim');
 })->name('center.mobile-read-sim');
 
-Route::get('professional-products', function () {
-    return view('center.dashboard.Concierge.professional-products');
-})->name('center.professional-products');
+Route::get('professional-products', [ProductController::class, 'index'])->name('center.professional-products');
 
 Route::get('travel', function () {
-    return view('center.dashboard.Concierge.travel');
+  return view('center.dashboard.Concierge.travel');
 })->name('center.travel');
 
 
 Route::get('visa', function () {
-    return view('center.dashboard.Concierge.visa');
+  return view('center.dashboard.Concierge.visa');
 })->name('center.visa');
 
 Route::get('profiles', function () {
-    return view('center.dashboard.Annalytics.profiles');
+  return view('center.dashboard.Annalytics.profiles');
 })->name('profiles');
 
 Route::get('masseurs', function () {
-    return view('center.dashboard.Annalytics.masseurs');
+  return view('center.dashboard.Annalytics.masseurs');
 })->name('masseurs');
 
 Route::get('feedback', function () {
-    return view('center.dashboard.Annalytics.feedback');
+  return view('center.dashboard.Annalytics.feedback');
 })->name('feedback');
 
 Route::get('social-media', function () {
-    return view('center.dashboard.Annalytics.social-media');
+  return view('center.dashboard.Annalytics.social-media');
 })->name('social-media');
 
 Route::get('agent-request', function () {
-    return view('center.dashboard.Communication.agent-request');
+  return view('center.dashboard.Communication.agent-request');
 })->name('agent-request');
 
 
 Route::get('agent-messages', function () {
-    return view('center.dashboard.Communication.agent-messages');
+  return view('center.dashboard.Communication.agent-messages');
 })->name('agent-messages');
 
 Route::get('legbox-notification', function () {
-    return view('center.dashboard.Communication.legbox-notification');
+  return view('center.dashboard.Communication.legbox-notification');
 })->name('legbox-notification');
 
 # Massage viewer Interaction
@@ -540,11 +554,11 @@ Route::post('/massage/viewer-interaction-update', [MassageViewerInteractionContr
 
 
 Route::get('viewer-notes', function () {
-    return view('center.dashboard.Communication.viewer-notes');
+  return view('center.dashboard.Communication.viewer-notes');
 })->name('viewer-notes');
 
 Route::get('reccomendations', function () {
-    return view('center.dashboard.Reviews.reccomendations');
+  return view('center.dashboard.Reviews.reccomendations');
 })->name('center.reccomendations');
 
 /* Route::get('view-reviews',function(){
@@ -555,15 +569,15 @@ Route::get('reviews-by-ajax', [CenterReviewsController::class, 'getCenterProfile
 Route::post('user-review-status-update', [CenterReviewsController::class, "updateUserReviewStatus"])->name('center.user-review-status-update');
 Route::get('get-user-review-details/{id}', [CenterReviewsController::class, "getSingleUserReviewDetails"])->name('center.get-single-user-review-details');
 Route::get('lookup', function () {
-    return view('center.dashboard.UglyMugsRegister.lookup');
+  return view('center.dashboard.UglyMugsRegister.lookup');
 })->name('lookup');
 
 Route::get('report', function () {
-    return view('center.dashboard.UglyMugsRegister.report');
+  return view('center.dashboard.UglyMugsRegister.report');
 })->name('center.report');
 
 Route::get('request-notification', function () {
-    return view('center.dashboard.UglyMugsRegister.request-notification');
+  return view('center.dashboard.UglyMugsRegister.request-notification');
 })->name('request-notification');
 
 Route::post('agent-request', [AgentRequestController::class, 'agentRequest'])->name('agent.agent-request');
@@ -572,31 +586,31 @@ Route::get('get-notification', [NotificationController::class, 'getNotification'
 Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('center.notification-seen');
 
 Route::get('editmyaccount', function () {
-    return view('center.dashboard.HowisDone.editmyaccount');
+  return view('center.dashboard.HowisDone.editmyaccount');
 })->name('center.editmyaccount');
 
 Route::get('profile-information', function () {
-    return view('center.dashboard.HowisDone.profile-information');
+  return view('center.dashboard.HowisDone.profile-information');
 })->name('center.profile-information');
 
 Route::get('listings', function () {
-    return view('center.dashboard.HowisDone.listings');
+  return view('center.dashboard.HowisDone.listings');
 })->name('center.listings');
 
 Route::get('profiles-centre', function () {
-    return view('center.dashboard.HowisDone.profiles-centre');
+  return view('center.dashboard.HowisDone.profiles-centre');
 })->name('center.profiles-centre');
 
 Route::get('media_centre', function () {
-    return view('center.dashboard.HowisDone.media-centre');
+  return view('center.dashboard.HowisDone.media-centre');
 })->name('center.media-centre');
 
 Route::get('profiles-masseurs', function () {
-    return view('center.dashboard.HowisDone.profiles-masseurs');
+  return view('center.dashboard.HowisDone.profiles-masseurs');
 })->name('center.profiles-masseurs');
 
 Route::get('media-masseurs', function () {
-    return view('center.dashboard.HowisDone.media-masseurs');
+  return view('center.dashboard.HowisDone.media-masseurs');
 })->name('center.media-masseurs');
 
 Route::get('add-report', [CenterNumController::class, 'addReport'])->name('center.add-report');
@@ -607,5 +621,5 @@ Route::get('edit-my-reports/{id}', [CenterNumController::class, 'editMyReport'])
 Route::post('update-my-reports', [CenterNumController::class, 'updateMyReportByAjax'])->name('center.update-my-reports');
 
 Route::get('num-tips', function () {
-    return view('center.numdash.num-tips');
+  return view('center.numdash.num-tips');
 })->name('center.num-tips');
