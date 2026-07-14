@@ -139,7 +139,7 @@
                              </div>
                              <div class="custom--available-section">
                                  <div class="available custom-gender-type-icon">
-                                     <span class="filter-pad">Available:</span>
+                                     <strong>Available: </strong>
                                      <span>
                                          @if ($escort->available_to)
                                              @foreach ($escort->available_to as $key => $available_to)

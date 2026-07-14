@@ -333,7 +333,10 @@ Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gri
 /****************************************************all-escorts-list**********************************************/
 Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.listing'); 
 Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.web.fecth.services');
-Route::post('/add-remove-shortlist/{id}', [App\Http\Controllers\WebController::class, 'addRemoveCard'])->name('public.web.add.remove.card');
+// New route 
+ Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
+ Route::post('/escort-remove-shortlist', [App\Http\Controllers\EscortListingController::class, 'removeShortList'])->name('web.public.remove.shortlist');
+ Route::get('/escort-clear-short-list', [App\Http\Controllers\EscortListingController::class, 'clearShortList'])->name('web.public.shortlist.clear');
 
 
 
@@ -353,13 +356,17 @@ Route::get('shareholder-login', [App\Http\Controllers\Admin\AuthController::clas
 
 
 /************ END ************/
-// shortlist
-Route::post('/shortlist', [App\Http\Controllers\WebController::class, 'saveShortList'])->name('web.save.shortlist');
+// start shortlist
+Route::post('/shortlist', [App\Http\Controllers\WebController::class, 'saveShortList'])->name('web.save.shortlist'); //currently this route is not working.
 Route::post('/add-to-shortlist/{id}', [App\Http\Controllers\WebController::class, 'addtocart'])->name('web.save.addtocart'); // remove after working new route.
-Route::post('/remove-shortlist', [App\Http\Controllers\WebController::class, 'removeShortList'])->name('web.remove.shortlist');
+Route::post('/remove-shortlist', [App\Http\Controllers\WebController::class, 'removeShortList'])->name('web.remove.shortlist'); // remove after working new route.
+//end shortlist
+
+
 Route::get('/my-shortlist', [App\Http\Controllers\WebController::class, 'shortList'])->name('web.show.shortlist');
 Route::get('/showList', [App\Http\Controllers\WebController::class, 'showAddList'])->name('web.show.showAddList');
 Route::get('/clear-short-list', [App\Http\Controllers\WebController::class, 'clearShortList'])->name('shortlist.clear-list');
+
 Route::get('admin-dashboard/e4u-cms/pages', function () {
     return view('admin.e4u-cms.pages');
 })->name('admin.e4u-cms.pages');

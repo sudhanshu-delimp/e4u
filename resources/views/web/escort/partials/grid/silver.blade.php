@@ -114,13 +114,9 @@
     </a>
     @if(Request::path() == "showList")
         <button type="button" class="short-list btn btn-primary removeshortlist" data-name="{{$escortName}}"  data-escortId="{{$escort->id}}"><span>Remove from Shortlist</span></button>
-        <!-- <div class="uperbutton text-center mt-3">
-            <button href="#" class="btn btn-blue removeshortlist" data-escortId="{{$escort->id}}">Remove from Shortlist</button>
-        </div> -->
     @else
         <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" data-name="{{$escortName}}"  id="escort_{{$escort->id}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
             @if(!empty($escortId))
-            {{-- @if($escort->shortListed->isEmpty()) --}}
                 @if(in_array($escort->id,$escortId))
                 Remove from Shortlist
                 @else
@@ -130,8 +126,5 @@
                 <span style="margin-left: -8px;">Add to Shortlist</span>
             @endif
         </button>
-        <!-- <div class="uperbutton text-center mt-3">ss
-        <button href="#" class="btn btn-blue shortlist" data-escortId="{{$escort->id}}">Add to shortlist</button>
-        </div> -->
     @endif
 </div>

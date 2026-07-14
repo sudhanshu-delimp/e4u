@@ -251,11 +251,11 @@
                                                         {{-- clear short --}}
                                                         @php
                                                             $query = Arr::except(request()->query(), ['ipinfo']);
-                                                            
+
                                                         @endphp
-                                                        <a type="submit"
-                                                            href="{{ route('shortlist.clear-list', $query) }}"
-                                                            class="btn reset_filter " data-toggle="tooltip">
+                                                        <a type="submit" href="javascript:void(0)"
+                                                            id="clear_all_escort_list" class="btn reset_filter "
+                                                            data-toggle="tooltip">
                                                             Clear Shortlist
                                                         </a>
                                                         {{-- end --}}
@@ -416,8 +416,11 @@
                                                             <div class="content">
                                                                 <div class="accodien_manage_padding_content">
                                                                     <div class="display_inline_block mb-1 mr-1">
-                                                                        <select class="custome_form_control_border_radus padding_five_px" id="service_id_one">
-                                                                            <option value="">Fun Stuff - On Viewer</option>
+                                                                        <select
+                                                                            class="custome_form_control_border_radus padding_five_px"
+                                                                            id="service_id_one">
+                                                                            <option value="">Fun Stuff - On Viewer
+                                                                            </option>
                                                                             @foreach ($service_one as $key => $service)
                                                                                 <option id="{{ $service->name }}"
                                                                                     value="{{ $service->id }}"
@@ -513,7 +516,8 @@
                                                                     <li
                                                                         class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
                                                                         <a class="membership_list"
-                                                                            href="javascript:void(0)" onclick="getMemberWiseCount('all')">
+                                                                            href="javascript:void(0)"
+                                                                            onclick="getMemberWiseCount('all')">
                                                                             <span class="firts-text">Total Listings
                                                                                 :</span>
                                                                             <span class="firts-text"
@@ -775,105 +779,6 @@
         {{-- OR use fully custom pagination --}}
         <div id='custom_pagenation'></div>
 
-        {{-- php code comment by SKS if in feature no need then i remove --}}
-        {{-- @php
-            $viewType = 'grid';
-            if (auth()->check() && auth()->user()->viewer_settings) {
-                $viewType = auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
-            }
-            if (request()->has('viewType') && in_array(request()->input('viewType'), ['grid', 'list'])) {
-                $viewType = request()->input('viewType');
-            }
-
-            $total = $paginator->lastPage();
-            $current = $paginator->currentPage();
-            $start = max(1, $current - 2);
-            $end = min($total, $current + 2);
-
-            $withView = fn($url) => $url ? $url . (str_contains($url, '?') ? '&' : '?') . 'viewType=' . $viewType : '#';
-
-        @endphp --}}
-
-        {{-- <nav aria-label="Page navigation" class="custom-pagination">
-            <ul class="list-unstyled">
-
-               
-                <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->url(1)) }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        <i class="fa fa-angle-double-left"></i> First
-                    </a>
-                </li>
-
-               
-                <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->previousPageUrl()) }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        <i class="fa fa-angle-left"></i> Previous
-                    </a>
-                </li>
-
-               
-                @php
-                    $total = $paginator->lastPage();
-                    $current = $paginator->currentPage();
-
-                    // Show up to 3 pages before and after current
-                    $start = max(1, $current - 2);
-                    $end = min($total, $current + 2);
-                @endphp
-
-                
-                @if ($start > 1)
-                    @php $jumpBack = max(1, $current - 5); @endphp
-                    <li class="mx-1">
-                        <a href="{{ $withView($paginator->url($jumpBack)) }}" title="Jump back 5 pages">...</a>
-                    </li>
-                @endif
-
-                
-                @for ($i = $start; $i <= $end; $i++)
-                    <li>
-                        <a href="{{ $withView($paginator->url($i)) }}"
-                            style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d' }}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
-                            {{ $i }}
-                        </a>
-                    </li>
-                @endfor
-
-                
-                @if ($end < $total)
-                    @php $jumpForward = min($total, $current + 5); @endphp
-                    <li class="mx-1">
-                        <a href="{{ $withView($paginator->url($jumpForward)) }}" title="Jump forward 5 pages">...</a>
-                    </li>
-                @endif
-
-               
-                <li class="mx-1 {{ !$paginator->hasMorePages() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->hasMorePages() ? $withView($paginator->nextPageUrl()) : '#' }}"
-                        style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        Next <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-
-               
-                <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
-                    <a href="{{ $current == $total ? '#' : $withView($paginator->url($total)) }}"
-                        style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        Last <i class="fa fa-angle-double-right"></i>
-                    </a>
-                </li>
-
-            </ul>
-            <div class="text-center mt-2 mb-5 col-sm-12" style="color: #ff3c5f; font-weight: 400;">
-                Page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }} |
-                Showing {{ $paginator->firstItem() ?? 0 }} to {{ $paginator->lastItem() ?? 0 }} of
-                {{ $paginator->total() }} Listings
-            </div>
-
-        </nav> --}}
-
         </div>
         </div>
     </section>
@@ -1064,7 +969,7 @@
             });
 
             //Member Type
-           
+
             if (membership_type) {
                 formData.push({
                     name: 'membership_type',
@@ -1095,7 +1000,7 @@
             //update Brower Url
             let params = new URLSearchParams($.param(formData));
 
-           // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
+            // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
 
             ajaxReq = $.ajax({
                 url: reequestUrl,
@@ -1107,7 +1012,6 @@
                     $('#page_loader').show();
                 },
                 success: function(response) {
-                    console.log(response, 'response');
                     if (response.total_count > 0) {
                         const isGrid = response.view_type === 'grid';
                         $('#appendGridView').html(isGrid ? response.data : '').toggle(isGrid);
@@ -1135,9 +1039,6 @@
                     if (status === 'abort') {
                         return;
                     }
-                    console.error(xhr.responseText);
-
-
                 },
                 complete: function() {
 
@@ -1288,8 +1189,8 @@
                         lastVisitedPage: lastVisitedPage
                     })
                 }).then(response => response.json())
-                .then(data => console.log("Log Saved:", data))
-                .catch(error => console.error("Error:", error));
+                .then(data => console.log("Log Saved:"))
+                .catch(error => console.error("Error:"));
         });
     </script>
 
@@ -1341,7 +1242,6 @@
 
                 $("#service_id_two").append("<option id='" + name + "' value='" + val + "'>" + name +
                     "</option>");
-                console.log("click " + name);
             });
         });
         $(document).ready(function() {
@@ -1364,13 +1264,14 @@
             reAppendServices();
         });
 
-         let ajaxServices = null;
-        function reAppendServices(){
-             if (ajaxServices) {
+        let ajaxServices = null;
+
+        function reAppendServices() {
+            if (ajaxServices) {
                 ajaxServices.abort();
             }
             ajaxServices = $.ajax({
-                url: '{{route('public.web.fecth.services')}}',
+                url: '{{ route('public.web.fecth.services') }}',
                 type: 'GET',
                 dataType: 'json',
                 beforeSend: function() {
@@ -1390,7 +1291,6 @@
                     if (status === 'abort') {
                         return;
                     }
-                    console.error(xhr.responseText);
 
                 },
                 complete: function() {
@@ -1502,39 +1402,45 @@
 
         ///////////////end event change //////////////////
 
+
+        //--------------Remove ther shortlist and removeshortlist function code --------------//
         $(document).on('click', '.shortlist', function() {
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
-            var url = "{{ route('web.save.addtocart', ':id') }}";
+            var url = "{{ route('web.public.save.addtocart', ':id') }}";
             url = url.replace(':id', Eid);
             $('#add_wishlist').find('.popup_modal_title_new').text('Add To Shortlist');
 
             $.ajax({
                 method: "POST",
-                // url: "{{ route('web.save.shortlist') }}",
                 url: url,
                 data: {
                     escortId: Eid,
                     userId: Uid
                 },
+                beforeSend: function() {
+                    $('#page_loader').show();
+                },
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
                 success: function(data) {
+
                     if (data.error == 1) {
                         $('.class_msg').text(name + ' has been added to your Shortlist');
                         $('#add_wishlist').modal('show');
                         $('.myescort_' + Eid).html(
                             '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}"> Remove from Shortlist'
-                        )
+                        );
+
                         $('#session_count').text(data.count_session);
 
                     } else {
 
                         $.ajax({
                             method: "POST",
-                            url: "{{ route('web.remove.shortlist') }}",
+                            url: "{{ route('web.public.remove.shortlist') }}",
                             data: {
                                 escortId: Eid,
                                 userId: Uid
@@ -1542,11 +1448,8 @@
                             headers: {
                                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
                             },
-                            //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                             success: function(data) {
-                                console.log(data);
                                 if (data.error == 1) {
-                                    //$('#Lname').text(name +' has been removed from your Shortlist');
                                     $('.class_msg').text(name +
                                         ' has been remove from your Shortlist');
                                     $('#add_wishlist').modal('show');
@@ -1554,13 +1457,22 @@
                                         '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}"> Add to Shortlist'
                                     )
                                     $('#session_count').text(data.count_session);
-                                    //location.reload();
+
                                 }
 
                             }
                         });
-
                     }
+                },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+                },
+                complete: function() {
+
+                    $('#page_loader').hide();
+                    ajaxReq = null;
                 }
             });
 
@@ -1570,10 +1482,9 @@
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
             $('#add_wishlist').find('.popup_modal_title_new').text('Add To Shortlist');
-            console.log(name);
             $.ajax({
                 method: "POST",
-                url: "{{ route('web.remove.shortlist') }}",
+                url: "{{ route('web.public.remove.shortlist') }}",
                 data: {
                     escortId: Eid,
                     userId: Uid
@@ -1581,10 +1492,11 @@
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
+                beforeSend: function() {
+                    $('#page_loader').show();
+                },
                 success: function(data) {
-                    console.log(data);
                     if (data.error == 1) {
-
                         $('#add_wishlist').modal('show');
                         $('.class_msg').text(name + ' has been remove from your Shortlist');
                         $('.myescort_' + Eid).text('Add to Shortlist');
@@ -1594,9 +1506,47 @@
                         });
                     }
 
+                },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+                },
+                complete: function() {
+                    $('#page_loader').hide();
+                    ajaxReq = null;
                 }
             });
         });
+
+        $(document).on('click', '#clear_all_escort_list', function() {
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('web.public.shortlist.clear') }}",
+                beforeSend: function() {
+                    $('#page_loader').show();
+                },
+                success: function(response) {
+                    if (response.status === true) {
+                        response.data.forEach(function(val) {
+                            $(`#escort_${val}`).html('Add to Shortlist');
+                        });
+
+                        $('#session_count').html(0);
+                    }
+                },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+                },
+                complete: function() {
+                    $('#page_loader').hide();
+                }
+            });
+        });
+
+        //--------------Remove ther shortlist and removeshortlist function code --------------//
 
         $(document).on('click', '.add_to_favrate', function() {
             if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
@@ -1617,7 +1567,6 @@
             if (cid.includes('fill')) {
                 $(this).removeClass('fill');
                 $(this).addClass('null');
-                console.log('legboxId_' + Eid, ' hello', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
                     "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
                 );
@@ -1637,17 +1586,12 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
 
                     }
                 });
-                console.log("fill");
             } else if (cid.includes('null')) {
                 $(this).removeClass('null');
                 $(this).addClass('fill');
-
-                // <i class="fa fa-heart-o" aria-hidden="true"></i>
-                console.log('legboxId_' + Eid, ' hello null', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
                     "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
                 );
@@ -1667,12 +1611,8 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
+                    success: function(data) {}
                 });
-                console.log("null");
             } else {
 
                 @if (auth()->user() && auth()->user()->type != 0)
@@ -1753,8 +1693,6 @@
 
                         $("#set_lat").val(latitude);
                         $("#set_lng").val(longitude);
-
-                        console.log(longitude, latitude, ' jitendera')
                         sendLocationData(selectedLocation);
                     });
                 } else {
@@ -1775,12 +1713,10 @@
                     success: function(response) {
                         if (response.status) {
                             $("#" + data.location).attr('checked', true);
-                            //window.location.href = response.location;
                         }
-                        console.log('Location filter updated:', response);
                     },
                     error: function(xhr, status, error) {
-                        console.error('Error in location filter:', error);
+
                     }
                 });
             }
