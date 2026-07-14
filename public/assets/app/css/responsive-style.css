@@ -4,6 +4,9 @@
                         .next-preview-fixed>div>div {
                             top: -60px !important;
                         }
+                        .btn.my_legbox {
+                            width: 100%;
+                        }
                         .c_dropdown.dropdown-menu.register_dropdown {
                             position: absolute !important;
                             top: 0px !important;
@@ -14,9 +17,34 @@
                         .content_align .level-2 {
                             padding: 0px !important;
                         }
+                        .pin-head-custom .v-path {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                        }
+                        .pin-head-custom .v-path .seperatot {
+                            display: none;
+                        }
+                        .masseur_extra_img .extra_img_wrapper .glightbox img {
+                            width: 68px;
+                            height: 55px;
+                            object-fit: cover;
+                            border-radius: 10px;
+                        }
                     }
                     
                     @media(max-width: 425px) {
+                        .pin-up-content {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+                            background: transparent;
+                            padding: 5px !important;
+                            border-radius: 5px;
+                        }
                         /* navbar */
                         .navbar-brand img {
                             width: 100px;
@@ -110,6 +138,11 @@
                             height: unset;
                             object-fit: fill;
                         }
+                        .inner_img_wrapper {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            gap: 10px;
+                        }
                         .add--list {
                             display: flex;
                             justify-content: space-between;
@@ -168,6 +201,7 @@
                         }
                         .mc_profile_img .glightbox img {
                             width: 100%;
+                            height: auto;
                             object-fit: cover;
                             border-radius: 10px;
                         }
@@ -265,15 +299,36 @@
                         .primery_color.normal_heading {
                             font-size: 16px;
                         }
-                        .v-path {
-                            display: flex;
-                            justify-content: flex-start;
+                        .pin-head-custom .pp-head {
                             flex-direction: column;
-                            align-items: flex-start;
+                            text-align: center;
+                        }
+                        .pin-head-custom {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                            flex-direction: column;
                             gap: 10px;
+                        }
+                        .pin-head-custom .v-path {
+                            margin-top: 10px;
+                        }
+                        .home-right-half {
+                            text-align: center;
                         }
                         .home_heading_first {
                             font-weight: bold !important;
+                        }
+                        .home-sec-heading {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 20px;
+                            line-height: 15px;
+                        }
+                        .home-btn-common {
+                            width: 100%;
                         }
                         .register-img {
                             padding: 0px;
@@ -385,6 +440,19 @@
                     }
                     
                     @media(max-width:486px) {
+                        .btn_advertiser,
+                        .btn_center {
+                            margin: 5px 0px;
+                            width: 100%;
+                        }
+                        .btn_viewer {
+                            margin: 5px 0px;
+                            width: 100%;
+                        }
+                        .btn_become_pin_up {
+                            margin: 5px 0px;
+                            width: 100%;
+                        }
                         #collapseSearch .card-body {
                             padding: 10px 7px;
                         }
@@ -510,6 +578,18 @@
                             gap: 10px;
                             justify-content: flex-end;
                             flex-direction: row-reverse;
+                        }
+                        .mc_profile_img .glightbox img {
+                            width: 100%;
+                            height: 243px;
+                            object-fit: cover;
+                            border-radius: 10px;
+                        }
+                        .masseur_extra_img .extra_img_wrapper .glightbox img {
+                            width: 108px;
+                            height: 75px;
+                            object-fit: cover;
+                            border-radius: 10px;
                         }
                     }
                     

@@ -181,6 +181,7 @@
 </div>
 @endsection
 @prepend('script')
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
     var walletAmount = 0;
     var table;

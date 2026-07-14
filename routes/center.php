@@ -12,6 +12,7 @@ use App\Http\Controllers\Center\Masseurs\MasseurController;
 use App\Http\Controllers\Center\MediaController;
 use App\Http\Controllers\Center\OtherCenterController;
 use App\Http\Controllers\Center\PaymentController;
+use App\Http\Controllers\Escort\PaymentController as EscortPaymentController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\MassageController;
@@ -53,9 +54,7 @@ Route::post('remove-avatar', [CenterController::class, 'removeMyAvatar'])->name(
 Route::get('update-account', [CenterController::class, 'edit'])->name('center.account.edit');
 Route::post('update-account', [CenterController::class, 'update'])->name('center.account.update');
 
-# Wallet Module
-Route::get('my-wallet', [WalletController::class, 'index'])->name('center.my_wallet');
-Route::get('wallet_transaction', [WalletController::class, 'transactionList'])->name('center.wallet_transaction');
+
 
 
 Route::post('add-sub-account', [OtherCenterController::class, 'add_sub_account'])->name('center.add-sub-account');
@@ -200,6 +199,7 @@ Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}/{status?
 ############# Payment Process ####################
 Route::post('payments/make_order_summury', [PaymentController::class, 'make_order_summury'])->name('center.make_order_summury');
 Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('center.payment.adjustment');
+
 Route::post('payments/process', [PaymentController::class, 'processPayment'])->name('center.payment.process');
 Route::post('payments/payment-session', [PaymentController::class, 'checkPaymentSession'])->name('center.check-payment-session');
 
@@ -207,6 +207,13 @@ Route::get('transaction-summary', [PaymentController::class, 'transactionSummary
 Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('center.transaction_summary.datatable');
 Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('center.payment.detail');
 Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('payment.detail.print');
+
+
+# Wallet Module
+Route::get('my-wallet', [WalletController::class, 'index'])->name('center.my_wallet');
+Route::get('wallet_transaction', [WalletController::class, 'transactionList'])->name('center.wallet_transaction');
+Route::post('advertiser/payments/adjustment', [EscortPaymentController::class, 'paymentAdjustment'])->name('advertiser.payment.adjustment');
+Route::post('advertiser/payments/process', [EscortPaymentController::class, 'processPayment'])->name('advertiser.payment.process');
 
 
 
