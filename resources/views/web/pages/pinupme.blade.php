@@ -232,13 +232,28 @@
                                     </div>
                                 @endif
                                     
-                            @if ($escort->address)
+                            {{-- @if ($escort->address)
                                 <div class="pinup_address">
-                                    <p><img src="{{ asset('assets/app/img/gps.png') }}" alt="location"
+                                   <a href="{{ $escort->address }}">
+                                     <p><img src="{{ asset('assets/app/img/gps.png') }}" alt="location"
                                             class="custompopicon"> {{ $escort->address }}</p>
+                                   </a>
                                 </div>
-                                @endif
-                                
+                                @endif --}}
+                                @if ($escort->address)
+                                    <div class="pinup_address">
+                                        <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($escort->address) }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                                <span class="pin-location-pinup">
+                                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="location" class="custompopicon">
+                                                    <div class="custom-tooltip">Open Maps</div>
+                                                </span>
+                                                {{ $escort->address }}
+                                                
+                                        </a>
+                                    </div>
+                                @endif                               
                             </div>
                             
                         </div>

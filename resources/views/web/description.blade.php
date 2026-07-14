@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css?v1.01') }}">
 <style>
-<style>
 .tooltip-wrapper {
     position: relative;
     display: inline-block;
@@ -206,7 +205,29 @@
                         <div class="profile_page_location_and_id mb-4">
                             <ul>
                                 <li>
-                                    <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                    <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($escort->address) }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"><span class="profile_location_icon pin-location">
+                                            <svg width="30px" height="30px" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                                                <!-- White Background -->
+                                                <circle cx="600" cy="600" r="600" fill="#ffffff"/>
+
+                                                <!-- Pin Icon -->
+                                                <path fill="#ff3c5f"
+                                                    d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600
+                                                    s600-268.629,600-600S931.371,0,600,0z
+                                                    M600,203.247c165.185,0,299.121,133.937,299.121,299.121
+                                                    c0,50.037-13.711,116.091-41.896,153.441L600,996.753L342.773,655.811
+                                                    c-31.029-41.123-41.895-98.199-41.895-153.441
+                                                    C300.879,337.184,434.815,203.247,600,203.247z
+                                                    M600,376.538c-69.503,0-125.83,56.327-125.83,125.83
+                                                    s56.327,125.83,125.83,125.83
+                                                    s125.83-56.327,125.83-125.83S669.503,376.538,600,376.538z"/>
+                                            </svg>
+                                            <div class="pinup-tooltip">Open Maps</div>
+                                        </span>
+                                        
+                                    </a>
                                     <p class="display_inline_block ">{{ $escort->address}}</p>
                                 </li>
                             </ul>
