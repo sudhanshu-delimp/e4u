@@ -14,8 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
-                                            style="height: 50px;">
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
@@ -78,7 +77,12 @@
                                 instructions.
 
                             </p>
+                            <p style="font-size: 15px; margin-top: 20px;">
+                                Regards,<br>
+                                <b>E4U - Operations Centre</b>
+                            </p>
 
+                            <hr style="border: 0; border-top: 1px solid #ccc;">
 
 
                             <p style="margin: 20px 0 10px 0;"><strong>Notes:</strong></p>
@@ -110,9 +114,10 @@
                             </ol>
 
 
-                            <!-- email info -->
-                           <x-email-info />
-                            <!-- end -->
+                            <br>
+                            <p>
+                                Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
+                            </p>
 
                         </td>
                     </tr>

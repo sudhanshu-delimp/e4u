@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
         <tr>
@@ -13,8 +14,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
-                                            style="height: 50px;">
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
@@ -60,6 +60,12 @@
                                 We confirm payment has been made according to your instructions.
                             </p>
 
+                            <p style="font-size: 15px; margin-top: 20px;">
+                                Regards,<br>
+                                <b>E4U - Operations Centre</b>
+                            </p>
+
+                            <hr style="border: 0; border-top: 1px solid #ccc;">
                             <p style="margin: 20px 0 10px 0;"><strong>Notes:</strong></p>
 
                             <ol style="padding-left: 20px; margin: 0; line-height: 22px; font-size:13px">
@@ -71,14 +77,15 @@
                                     </ul>
                                 </li>
                                 <li style="margin-top: 10px;">
-                                    You can view your order online by going to your Dashboard and selecting Orders within the Bookkeeping group.
+                                    You can view your order online by going to your Dashboard and selecting Orders
+                                    within the Bookkeeping group.
                                 </li>
                             </ol>
 
-
-                            <!-- email info -->
-                            <x-email-info />
-                            <!-- end -->
+                            <br>
+                            <p>
+                                Sent: {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y \a\t h:i A') }}.
+                            </p>
 
                         </td>
                     </tr>

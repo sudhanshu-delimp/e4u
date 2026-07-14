@@ -68,7 +68,7 @@
 
                             </table>
                             <table width="100%" cellpadding="0" cellspacing="0"
-                                style="border:1px solid #e1e1e1;margin-top:10px;border-collapse:collapse;">
+                                style="border:1px solid #e1e1e1;margin-top:10px;border-collapse:collapse; font-size:15px">
                                 <tr>
                                     <th style="padding:8px;border:1px solid #e1e1e1;text-align:left">
                                         Product</th>
