@@ -1,7 +1,7 @@
 @extends('layouts.web')
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css?v1.01') }}">
 <style>
 <style>
 .tooltip-wrapper {
@@ -397,7 +397,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 mb-2 table-responsive-lg">
+                    <div class="col-lg-6 col-md-12 table-responsive-lg common-table-gap">
                         <table class="table table_striped">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
@@ -440,7 +440,7 @@
                         </table>
 
                     </div>
-                    <div class="col-lg-6 col-md-12 table-width-dk">
+                    <div class="col-lg-6 col-md-12 table-width-dk mb-0">
                         <table class="table table_striped mb-0">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
@@ -455,7 +455,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table_striped custom-day-table">
+                        <table class="table table_striped custom-day-table mb-0">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th scope="col">Day</th>
@@ -1066,12 +1066,13 @@
                                                                             class="glightbox image-wrapper"
                                                                             data-gallery="escort-gallery">
 
-                                                                                <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
+                                                                                <img src="{{ asset($item->path) }}"  alt="thumbnail">
 
-                                                                                <div class="hover-overlay">
+                                                                               
+                                                                            </a>
+                                                                             <div class="hover-overlay">
                                                                                     <span>Click me!</span>
                                                                                 </div>
-                                                                            </a>
 
                                                                             @php
                                                                                 $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
@@ -1101,12 +1102,12 @@
                                                                                 class="glightbox image-wrapper"
                                                                                 data-gallery="escort-gallery">
 
-                                                                                    <img src="{{ asset($media->path) }}" alt="others" title="View in large">
-                                                                                        <div class="hover-overlay">
-                                                                                        <span>Click me!</span>
-                                                                                    </div>
+                                                                                    <img src="{{ asset($media->path) }}" alt="others" >
+                                                                                        
                                                                                 </a>
-
+                                                                                <div class="hover-overlay">
+                                                                                    <span>Click me!</span>
+                                                                                </div>
                                                                                 @php
                                                                                     $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
                                                                                 @endphp
@@ -1188,7 +1189,7 @@
                 <!-- crousal end -->
 
                 <!-- message btn -->
-                <div class="pt-2 eqal-bx">
+                <div class="py-0 eqal-bx">
                     <div class="mess_repo_btn_wrap">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
                         <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Me</button>
@@ -1197,10 +1198,10 @@
                 </div>
 
                 <!-- like bar -->
-                <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
+                <div class="like_and_process_bar_padding d-flex align-items-center gap-10">
                     <div class="like_img">
                         <i id="dislike" class="{{ $escortLike && $escortLike->like == 0 ? 'fa fa-thumbs-down' : 'fa fa-thumbs-o-down'}} " title="Dislike" aria-hidden="true"></i>
-                    <!-- <img class="likeImg" id="dislike" value='0' src="{{ asset('assets/app/img/dislike.png') }}"> -->
+                   
                     </div>
                     <div class="process_bar_width like_mjo">
                         <div id="vote_bar" class="progress" style="height: 25px;">

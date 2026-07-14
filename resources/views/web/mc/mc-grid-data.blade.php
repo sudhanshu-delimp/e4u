@@ -50,7 +50,7 @@
                 <span class="mc_title">{{$listing->business_name}}</span>
                  @if(auth()->user())
                     @if(auth()->user()->type == 0)
-                        <span class="add_to_favrate @if(in_array($listing->id,$logedInUpser->massageCenterLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$listing->id}}"  data-massageId="{{$listing->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$listing->business_name}} ">
+                        <span class="add_to_favrate @if(in_array($listing->id,$logedInUpser->massageCenterLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxIdList_{{$listing->id}}"  data-massageId="{{$listing->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$listing->business_name}} ">
                         @if(!empty($logedInUpser))
                             @if(in_array($listing->id,$logedInUpser->massageCenterLegBox->pluck('id')->toArray()))
                                 <i class='fa fa-heart' style='color: #ff3c5f;'  aria-hidden='true'></i>

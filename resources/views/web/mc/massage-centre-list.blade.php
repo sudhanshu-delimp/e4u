@@ -294,11 +294,15 @@ $(document).on('click', '.add_to_favrate', function() {
     if (cid.includes('fill')) {
         $(this).removeClass('fill');
         $(this).addClass('null');
-        console.log('legboxId_' + Eid, ' hello', $('#legboxId_' + Eid).html())
+        //console.log('legboxId_' + Eid, ' hello', $('#legboxId_' + Eid).html())
         $('.legboxClass_' + Eid).html(
             "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
         );
         $('#legboxId_' + Eid).html(
+            "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
+        );
+
+        $('#legboxIdList_' + Eid).html(
             "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
         );
 
@@ -324,11 +328,14 @@ $(document).on('click', '.add_to_favrate', function() {
         $(this).addClass('fill');
 
         // <i class="fa fa-heart-o" aria-hidden="true"></i>
-        console.log('legboxId_' + Eid, ' hello null', $('#legboxId_' + Eid).html())
+       // console.log('legboxId_' + Eid, ' hello null', $('#legboxId_' + Eid).html())
         $('.legboxClass_' + Eid).html(
             "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
         );
         $('#legboxId_' + Eid).html(
+            "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
+        );
+         $('#legboxIdList_' + Eid).html(
             "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
         );
 

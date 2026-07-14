@@ -15,6 +15,7 @@ use App\Http\Requests\MassageProfile\PurchaseListingRequest;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Http\Requests\UpdateEscortRequest;
+use App\Models\AgentCommission;
 use App\Models\Duration;
 use App\Models\EscortCovidReport;
 use App\Models\MassageAvailability;
@@ -49,6 +50,7 @@ use App\Repositories\Message\MessageMediaInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Repositories\User\UserInterface;
+use App\Services\WalletService;
 use App\Traits\ResizeImage;
 use Carbon\Carbon;
 use Exception;
@@ -59,7 +61,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Models\AgentCommission;
 
 
 //use Illuminate\Http\Request;
@@ -74,11 +75,11 @@ class MassageController extends Controller
     protected $media;
     protected $massage_media;
     protected $massage_profile;
-     protected $account;
-    
+    protected $account;
+    protected $walletService;
 
 
-    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MassageMedia $massage_media, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
+    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MassageMedia $massage_media, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability,WalletService $walletService)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -91,6 +92,9 @@ class MassageController extends Controller
             $this->account = auth()->user();
             return $next($request);
         });
+        $this->walletService = $walletService;
+
+        
     }
 
    
@@ -103,6 +107,9 @@ class MassageController extends Controller
         // $active_profile = [];
         
         $active_profile = get_massage_listed_profile();
+
+       // dd($active_profile->toArray());
+
         return view('center.dashboard.list',compact('active_profile'));
     }
 
@@ -1165,7 +1172,9 @@ class MassageController extends Controller
         DB::beginTransaction();
         try 
         {
+            $user = auth()->user();
             $mess = "";
+            $totalRefundAmount = 0;
             $userId = auth()->user()->id;
             $current_date = Carbon::parse(date('Y-m-d'));
             $home_state = auth()->user()->state_id;
@@ -1181,32 +1190,77 @@ class MassageController extends Controller
             ########## Cancel Profile ###############
             if($request->action=='cancel')
             {
-                $puchases = MassagePurchase::where('massage_centre_id', $userId)
-                ->where('massage_profile_id', $request->profile_id)
-                ->whereIn('status', ['pending', 'listed'])
-                ->get();
+                    $purchases = MassagePurchase::where('massage_centre_id', $userId)
+                    ->where('massage_profile_id', $request->profile_id)
+                    ->whereIn('status', ['pending', 'listed'])
+                    ->get();
 
-                if($puchases->isEmpty())
-                {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Profile is not listed.'
-                    ]); 
-                } 
+                    if($purchases->isEmpty())
+                    {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Profile is not listed.'
+                        ]); 
+                    } 
 
-                foreach($puchases as $puchase)
-                {
-                    $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
-                    $utc_date_time =  Carbon::now($profileTimezone)->startOfDay()->utc();
-                    $puchase->status = 'cancel';
-                    $puchase->utc_cancel_time = $utc_date_time;
-                    $puchase->save();
-                }    
+                    foreach($purchases as $purchase)
+                    {
 
+                        if($purchase->status=='listed')
+                        {
+                            $refundStartDate = Carbon::parse($purchase->start_date)->add(1, 'day')->toDateString();;
+                            $refundEndDate   = Carbon::parse($purchase->end_date)->toDateString();;
+                        }
+                        else
+                        {
+                            $refundStartDate = Carbon::parse($purchase->start_date)->toDateString();;
+                            $refundEndDate   = Carbon::parse($purchase->end_date)->toDateString();;
+                        }
 
-                $massage->purchase_id = NULL;
-                $massage->save();
-                $mess = 'Profile cancelled successfully.'; 
+                        $refundAmount = getRefundAmountForCancelProfile($purchase, $refundStartDate , $refundEndDate); 
+
+    
+                        // Log::info(' $refundStartDate============>'. $refundStartDate);
+                        // Log::info(' $refundEndDate============>'. $refundEndDate);
+                        // Log::info(' $refundAmount============>'. $refundAmount);
+
+                        if($refundAmount>0)
+                        {
+                            $gstAmount = getGSTAmount($refundAmount);
+                            $refundAmountWithGst = $refundAmount + $gstAmount;
+                        }
+                        else
+                        {
+                            $refundAmountWithGst = 0;
+                        }
+
+                        $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
+                        $utc_date_time =  Carbon::now($profileTimezone)->startOfDay()->utc();
+                        $purchase->status = 'cancel';
+                        $purchase->utc_cancel_time = $utc_date_time;
+                        $purchase->save();
+
+                        $massage->purchase_id = null;
+                        $massage->save();
+
+                        $transaction = $this->walletService->credit(
+                                $user,
+                                $refundAmountWithGst,
+                                $purchase,
+                                'Cancel Profile.',
+                                [
+                                    'user_id' => $user->id,
+                                    'massage_profile_id' => $request->profile_id,
+                                    'start_date' => $refundStartDate,
+                                    'end_date' => $refundEndDate,
+                                ]
+                            );
+                        
+                      
+
+                    }
+
+                    $mess = "Profile cancelled successfully.";              
             }
             ########## End Cancel Profile ###############
 
@@ -1215,7 +1269,6 @@ class MassageController extends Controller
             {
                 $this->delete_massage_profile($massage,$request->profile_id);
                 $mess = 'Profile deleted successfully.'; 
-                
             }
             ######### End Delete Profile ################
 

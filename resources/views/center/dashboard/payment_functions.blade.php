@@ -12,13 +12,14 @@ function make_order_summury(plandata)
         success: function(response) {
 
             updatedPlanSummary = response;
+            const paymentTotal =((parseFloat(response.data.pay_data.sub_total_amount) || 0) + (parseFloat(response.data.pay_data.gstTax) || 0)).toFixed(2);
             if (response && response.data) {
                 $(".paymentSubtotal").text(response.data.order_summry.paymentSubtotal);
-                $(".paymentTotal").text(response.data.order_summry.total_fee);
+                $(".paymentTotal").text('$'+paymentTotal);
                 $(".taxAmount").text(response.data.order_summry.gstTax);
                 $('.totalDue').text(response.data.order_summry.total_due);
-                $('.wallet_amount').text(response.data.order_summry.wallet_use);
-                $('.loyalty_amount').text(response.data.order_summry.loyalty_use);
+                $('.wallet_amount').text('-'+response.data.order_summry.wallet_use);
+                $('.loyalty_amount').text('-'+response.data.order_summry.loyalty_use);
                 
             } else {
                 console.error("Response data format sahi nahi hai.");

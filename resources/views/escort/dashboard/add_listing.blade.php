@@ -132,7 +132,7 @@
 </div>
 
 @endsection
-@push('script')
+@prepend('script')
 <!-- file upload plugin start here -->
 <!-- file upload plugin end here -->
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -140,5 +140,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="{{ asset('js/escort/add_listing.js') }}"></script>
 <script src="{{ asset('js/escort/progress_bar.js') }}"></script>
-
-@endpush
+<script>
+    getGeoLocationEscortAccountProfiles(`{{Auth::user()->current_state_id}}`);
+</script>
+@endprepend

@@ -1879,7 +1879,7 @@ if (!function_exists('get_massage_listed_profile')) {
 
         $massage_live_ids  = MassagePurchase::where('status', 'listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if (!empty($massage_live_ids)) {
-            $profile = MassageProfile::select('id', 'purchase_id', 'name', 'profile_name', 'business_name')->with('state', 'latestPurchase')->whereIn('id',  $massage_live_ids)->get();
+            $profile = MassageProfile::select('id', 'purchase_id', 'name', 'profile_name', 'business_name')->with('state', 'latestPurchase','latestExtend')->whereIn('id',  $massage_live_ids)->get();
             if ($profile->isNotEmpty()) 
                 return $profile;
         }
@@ -1904,6 +1904,53 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
         $discountPercentage = 6;
 
         $purchase  = MassagePurchase::where('status', 'listed')->where('massage_profile_id', $profile)->first();
+        
+
+        $normalRate   = $purchase->rate;
+        $discountRate = $purchase->paid_rate;
+
+        $purchaseStart = Carbon::parse($purchase->start_date);
+        $purchaseEnd   = Carbon::parse($purchase->end_date);
+
+        $refundStart = Carbon::parse($refundStartDate);
+        $refundEnd   = Carbon::parse($refundEndDate);
+
+        // Refund dates should be within purchase dates
+        if ($refundStart->lt($purchaseStart) || $refundEnd->gt($purchaseEnd)) {
+            return 0;
+        }
+
+        $refundAmount = 0;
+        $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
+
+      
+        $refundDays = $refundStart->diffInDays($refundEnd) + 1;
+
+        for ($i = 0; $i < $refundDays; $i++) {
+
+            $currentDay = $startDayNumber + $i;
+
+            if ($currentDay <= $discountDay) {
+                $refundAmount += $normalRate;
+            } else {
+                $discountedRate = $purchase->discount_rate;
+                $refundAmount += $discountedRate;
+            }
+        }
+
+        
+        return number_format((float) $refundAmount, 2, '.', '');
+       
+    }
+}
+
+
+if (!function_exists('getRefundAmountForCancelProfile')) {
+    function getRefundAmountForCancelProfile($purchase, $refundStartDate = null, $refundEndDate = null)
+    {
+        $refundAmount = 0.00;
+        $discountDay = 21;
+        $discountPercentage = 6;
         
 
         $normalRate   = $purchase->rate;
