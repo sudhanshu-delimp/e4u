@@ -36,6 +36,8 @@
                                     
                                          @php
                                          $purchase = $profile->latestPurchase;
+                                         if($purchase && (!empty($profile->latestExtend)))
+                                         continue;
                                          @endphp
 
                                           <option 

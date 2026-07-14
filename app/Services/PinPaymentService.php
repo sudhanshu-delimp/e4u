@@ -177,6 +177,7 @@ class PinPaymentService
           'wallet_amount'  => $response['metadata']['wallet_amount'],
           'net_amount'  => $response['metadata']['net_amount'],
           'delivery_charge'  => $response['metadata']['delivery_charge'],
+          'total_payable_amount'  => $response['metadata']['total_payable_amount'],
           'currency'        => $response['currency'],
           'transaction_id'  => $response['token'],
           'service'  => !empty($response['metadata']['type']) ? ucwords(str_replace('-', ' ', $response['metadata']['type'])) : '',

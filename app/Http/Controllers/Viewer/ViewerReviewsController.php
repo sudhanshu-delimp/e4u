@@ -107,9 +107,9 @@ class ViewerReviewsController extends Controller
         return DataTables::of($advertiserReviews)
             ->addColumn('ref',  function($row){
                 if($row->advertiser_type == 'escort') {
-                    return $row->escort->member_id;
+                    return $row->escort?->member_id ?? '';
                 }
-                 return $row->massage->member_id;
+                 return $row->massage?->member_id ??  '';
             })
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
             ->addColumn('rating', function($row){

@@ -1,8 +1,7 @@
 @extends('layouts.web')
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css') }}">
-<style>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css?v1.01') }}">
 <style>
 .tooltip-wrapper {
     position: relative;
@@ -206,7 +205,29 @@
                         <div class="profile_page_location_and_id mb-4">
                             <ul>
                                 <li>
-                                    <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                    <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($escort->address) }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"><span class="profile_location_icon pin-location">
+                                            <svg width="30px" height="30px" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                                                <!-- White Background -->
+                                                <circle cx="600" cy="600" r="600" fill="#ffffff"/>
+
+                                                <!-- Pin Icon -->
+                                                <path fill="#ff3c5f"
+                                                    d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600
+                                                    s600-268.629,600-600S931.371,0,600,0z
+                                                    M600,203.247c165.185,0,299.121,133.937,299.121,299.121
+                                                    c0,50.037-13.711,116.091-41.896,153.441L600,996.753L342.773,655.811
+                                                    c-31.029-41.123-41.895-98.199-41.895-153.441
+                                                    C300.879,337.184,434.815,203.247,600,203.247z
+                                                    M600,376.538c-69.503,0-125.83,56.327-125.83,125.83
+                                                    s56.327,125.83,125.83,125.83
+                                                    s125.83-56.327,125.83-125.83S669.503,376.538,600,376.538z"/>
+                                            </svg>
+                                            <div class="pinup-tooltip">Open Maps</div>
+                                        </span>
+                                        
+                                    </a>
                                     <p class="display_inline_block ">{{ $escort->address}}</p>
                                 </li>
                             </ul>
@@ -397,7 +418,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 mb-2 table-responsive-lg">
+                    <div class="col-lg-6 col-md-12 table-responsive-lg common-table-gap">
                         <table class="table table_striped">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
@@ -440,7 +461,7 @@
                         </table>
 
                     </div>
-                    <div class="col-lg-6 col-md-12 table-width-dk">
+                    <div class="col-lg-6 col-md-12 table-width-dk mb-0">
                         <table class="table table_striped mb-0">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
@@ -455,7 +476,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table_striped custom-day-table">
+                        <table class="table table_striped custom-day-table mb-0">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th scope="col">Day</th>
@@ -1066,12 +1087,13 @@
                                                                             class="glightbox image-wrapper"
                                                                             data-gallery="escort-gallery">
 
-                                                                                <img src="{{ asset($item->path) }}" title="View in large" alt="thumbnail">
+                                                                                <img src="{{ asset($item->path) }}"  alt="thumbnail">
 
-                                                                                <div class="hover-overlay">
+                                                                               
+                                                                            </a>
+                                                                             <div class="hover-overlay">
                                                                                     <span>Click me!</span>
                                                                                 </div>
-                                                                            </a>
 
                                                                             @php
                                                                                 $media_status = getMediaVerificationDataBigIcon($item->varified ?? 0);
@@ -1101,12 +1123,12 @@
                                                                                 class="glightbox image-wrapper"
                                                                                 data-gallery="escort-gallery">
 
-                                                                                    <img src="{{ asset($media->path) }}" alt="others" title="View in large">
-                                                                                        <div class="hover-overlay">
-                                                                                        <span>Click me!</span>
-                                                                                    </div>
+                                                                                    <img src="{{ asset($media->path) }}" alt="others" >
+                                                                                        
                                                                                 </a>
-
+                                                                                <div class="hover-overlay">
+                                                                                    <span>Click me!</span>
+                                                                                </div>
                                                                                 @php
                                                                                     $media_status = getMediaVerificationDataSmallIcon($media->varified ?? 0);
                                                                                 @endphp
@@ -1188,7 +1210,7 @@
                 <!-- crousal end -->
 
                 <!-- message btn -->
-                <div class="pt-2 eqal-bx">
+                <div class="py-0 eqal-bx">
                     <div class="mess_repo_btn_wrap">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
                         <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Me</button>
@@ -1197,10 +1219,10 @@
                 </div>
 
                 <!-- like bar -->
-                <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
+                <div class="like_and_process_bar_padding d-flex align-items-center gap-10">
                     <div class="like_img">
                         <i id="dislike" class="{{ $escortLike && $escortLike->like == 0 ? 'fa fa-thumbs-down' : 'fa fa-thumbs-o-down'}} " title="Dislike" aria-hidden="true"></i>
-                    <!-- <img class="likeImg" id="dislike" value='0' src="{{ asset('assets/app/img/dislike.png') }}"> -->
+                   
                     </div>
                     <div class="process_bar_width like_mjo">
                         <div id="vote_bar" class="progress" style="height: 25px;">

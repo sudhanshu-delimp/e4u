@@ -73,10 +73,10 @@ class ProductOrderController extends Controller
       foreach ($data['itemDetails'] as $productId => $details) {
         $product = Product::find($productId);
         if (empty($product))
-          return response()->json(['status' => false, 'message' => 'something went wrong!'],422);
+          return response()->json(['status' => false, 'message' => 'something went wrong!'], 422);
 
         if ($product->price != $details['price'])
-          return response()->json(['status' => false, 'message' => 'something went wrong!'],422);
+          return response()->json(['status' => false, 'message' => 'something went wrong!'], 422);
 
         $calculatedSubtotal += $product->price * $details['qty'];
       }
@@ -96,7 +96,7 @@ class ProductOrderController extends Controller
         return response()->json([
           'status'  => false,
           'message' => 'Subtotal mismatch after applying wallet amount'
-        ],422);
+        ], 422);
       }
 
 
@@ -122,10 +122,9 @@ class ProductOrderController extends Controller
         return response()->json([
           'status'  => false,
           'message' => "The final payable amount is incorrect. Please recheck and continue."
-        ],422);
+        ], 422);
       }
-      //  dd();
-      //  [LocationPrefix]
+
 
 
       $stateId = $this->account->current_state_id ? $this->account->current_state_id : $this->account->state_id;
@@ -240,14 +239,16 @@ class ProductOrderController extends Controller
       $order = ProductOrder::with('orderItems', 'orderAddress')->where('id', $order->id)->first();
       $biilingAddress = $order->orderAddress()->where('type', 'billing')->first();
       if (empty($order))
-        return response()->json(['status' => false, 'message' => "Something went wrong"],422);
+        return response()->json(['status' => false, 'message' => "Something went wrong"], 422);
 
       $products = [];
       foreach ($order->orderItems as $orderItem) {
         $item = ['product_id' => $orderItem->product_id, 'quantity' => $orderItem->quantity, 'price' => $orderItem->price];
         array_push($products, $item);
       }
-
+      $total_payable_amount = $gst_amount + $subtotal + $deliveryCharges;
+      $paidAmount = $total_payable_amount - $walletAmount;
+      
       $metadata = [
         'console' => 'Escort Console (E20189)',
         'type' => 'product-purchase',
@@ -258,8 +259,12 @@ class ProductOrderController extends Controller
         'delivery_charge' => $deliveryCharges,
         'gst_amount' => $gst_amount,
         'wallet_amount' => $walletAmount,
+        'total_payable_amount' => $total_payable_amount,
         'products' => json_encode($products)
       ];
+
+
+
       $description = "Product Purchase";
       if ($totalPayable > 0) {
         // make payment using charge method
@@ -284,9 +289,10 @@ class ProductOrderController extends Controller
             'ref_no'          => now()->format('Ymd') . rand(100, 999),
             'amount'          => $calculatedSubtotal,
             'gst_amount' => $gst_amount,
-            'paid_amount'          => $calculatedTotal,
+            'paid_amount'          => $paidAmount,
             'wallet_amount'  => $walletAmount,
             'net_amount'  => $netAmount,
+            'total_payable_amount'  => $total_payable_amount,
             'delivery_charge'  => $deliveryCharges,
             'currency'        => "AUD",
             'transaction_id'  => $customTransactionId,
@@ -311,7 +317,7 @@ class ProductOrderController extends Controller
       }
     } catch (\Exception $e) {
       DB::rollBack();
-      return response()->json(['status' => false, 'message' => $e->getMessage()],422);
+      return response()->json(['status' => false, 'message' => $e->getMessage()], 422);
     }
   }
 

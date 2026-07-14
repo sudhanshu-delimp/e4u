@@ -20,7 +20,7 @@ class WebhookController extends Controller
 
     $signatureHeader = $request->header('Pin-Signature');
 
-   
+
 
 
     if (!$signatureHeader)
@@ -77,7 +77,7 @@ class WebhookController extends Controller
       // type for identify wor what payment was made
       $type = $paymentObject['metadata']['type'] ?? '';
 
-     
+
       // Example: payment success
       if ($event == 'charge.captured') {
         // start swithc case
@@ -97,13 +97,13 @@ class WebhookController extends Controller
 
 
             ############ Massage Centre ##############################
-            case 'massage-listing': 
+          case 'massage-listing':
             app(MassagePaymentWebhookService::class)->process($paymentObject);
             break;
-            ############ End Massage Centre ##########################
+          ############ End Massage Centre ##########################
 
 
-            
+
           default:
             // Unknown type handling
             Log::warning('Unknown event', ['type' => $event,  'response' => $paymentObject]);

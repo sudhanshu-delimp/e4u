@@ -58,10 +58,7 @@
                                     <strong>AusPost Tracking:</strong> {{ $data['tracking_id'] ?? '' }}
                                 </p>
                             @endif
-                            <p style="font-size: 15px; margin-top: 20px;">
-                                Regards,<br>
-                                <b>E4U - Operations Centre</b>
-                            </p>
+                           <x-email-info />
                         </td>
                     </tr>
                 </table>
