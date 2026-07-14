@@ -159,8 +159,11 @@ class ViewerMassageInteractionController extends Controller
                     return $row->user->member_id;
                 })
                 ->addColumn('location', function($row){
-                    $state = City::where('state_id',$row->state_id)->first();
-                    $stateCode = $state->state_code ?? '-';
+                    //$state = City::where('state_id',$row->state_id)->first();
+                    //$stateCode = $state->state_code ?? '-';
+                    $state = $row->user->state;
+                    $stateCode = $state?->iso2 ?? '-';
+                   
                     return $stateCode;
                 })
                 
@@ -288,7 +291,8 @@ class ViewerMassageInteractionController extends Controller
                     $notClass = '-slash';
                     $notText = 'Disable';
                     $notCurrentText = 'Enable';
-                    $rate = 'no_rated';
+                    //$rate = 'no_rated';
+                     $rate = !empty($row->messageViewerInteraction->viewer_rate_massage) ? $row->messageViewerInteraction->viewer_rate_massage: 'no_rated';
 
                     # If escort blocked viewer
                     $massageViewerInteractions = MassageViewerInteractions::where('user_id',$row->user_id)->where('massage_id',$row->id)->where('viewer_id',Auth::user()->id)->first();
@@ -340,14 +344,14 @@ class ViewerMassageInteractionController extends Controller
                                                 <span class="tooltip-text">Viewer can’t contact this massage center again </span>
                                                 <div class="dropdown-divider"></div>
                                             </div>
-                                            <div class="custom-tooltip-container">
+                                            <!--div class="custom-tooltip-container">
                                                 <a class="dropdown-item align-item-custom toggle-massage-notification" href="#" title="Click to '.Str::lower($notText).' notification"
                                                 data-id="'.$row->id.'" data-status="'.Str::lower($notCurrentText).'"> 
                                                 <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
                                                 <span class="tooltip-text">Viewer will not get notifications from this
                                                     massage center</span>
                                                 <div class="dropdown-divider"></div>
-                                            </div>
+                                            </div-->
                                             <div class="custom-tooltip-container">
                                                 <a class="dropdown-item align-item-custom massageRating" data-massage-name="'.$row->name.'" data-rate="'.$rate.'" data-id="'.$row->id.'" href="#" title=""> <i
                                                         class="fa fa-star" aria-hidden="true"></i>

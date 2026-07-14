@@ -230,7 +230,7 @@
             info: true,
             lengthChange: true,
             searching: true,
-            bStateSave: true,
+            bStateSave: false,
             ordering: true,
             pageLength: 25,
             ajax: {
@@ -242,6 +242,7 @@
             },
                 drawCallback: function (settings) {
             },
+             order: [],
             columns: [
                 { data: 'ref', name: 'ref' },
                 { data: 'date', name: 'date' },
