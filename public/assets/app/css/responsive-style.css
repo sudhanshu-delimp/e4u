@@ -4,6 +4,9 @@
                         .next-preview-fixed>div>div {
                             top: -60px !important;
                         }
+                        .btn.my_legbox {
+                            width: 100%;
+                        }
                         .c_dropdown.dropdown-menu.register_dropdown {
                             position: absolute !important;
                             top: 0px !important;
