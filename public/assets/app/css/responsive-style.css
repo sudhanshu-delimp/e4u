@@ -135,6 +135,11 @@
                             height: unset;
                             object-fit: fill;
                         }
+                        .inner_img_wrapper {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            gap: 10px;
+                        }
                         .add--list {
                             display: flex;
                             justify-content: space-between;
