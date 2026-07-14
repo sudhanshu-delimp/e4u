@@ -550,4 +550,109 @@ class PaymentController extends Controller
         $pdf = PDF::loadView('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment', 'print'));
         return $pdf->stream($payment->user->member_id . '_Payment_Summary_' . $payment->ref_no . '.pdf');
     }
+
+
+    public function mySpend(Request $request)
+    {
+        $userId = auth()->id();
+        $now = now();
+
+        // Current Periods
+        $weekStart = $now->copy()->startOfWeek(Carbon::MONDAY);
+        $monthStart = $now->copy()->startOfMonth();
+
+        // Financial Year Start (1 July)
+        $fyStart = Carbon::create(
+            now()->month >= 7 ? now()->year : now()->year - 1,
+            7,
+            1
+        )->startOfDay();
+
+        // Previous Year Comparison
+        $lastWeekStart = $weekStart->copy()->subYear();
+        $lastWeekEnd   = $now->copy()->subYear();
+
+        $lastMonthStart = $monthStart->copy()->subYear();
+        $lastMonthEnd   = $now->copy()->subYear();
+
+        $lastFyStart = $fyStart->copy()->subYear();
+        $lastFyEnd   = $now->copy()->subYear();
+
+        // Advertising Services
+        $advertisingServices = [
+            'Listing',
+            'Profile Listing',
+            'Profile Pin Up',
+            'Profile Bump Up',
+            'Profile Extend',
+            'Profile Upgrade',
+        ];
+
+        // Helper Function
+        $sum = function ($services, $from, $to) use ($userId) {
+
+            $query = PaymentHistory::where('user_id', $userId)
+                ->where('status', 'success')
+                ->whereBetween('paid_at', [$from, $to]);
+
+            if (is_array($services)) {
+                $query->whereIn('service', $services);
+            } else {
+                $query->where('service', $services);
+            }
+
+            return $query->sum('paid_amount');
+        };
+
+        // Advertising
+        $advertisingWeek      = $sum($advertisingServices, $weekStart, $now);
+        $advertisingWeekLast  = $sum($advertisingServices, $lastWeekStart, $lastWeekEnd);
+
+        $advertisingMonth     = $sum($advertisingServices, $monthStart, $now);
+        $advertisingMonthLast = $sum($advertisingServices, $lastMonthStart, $lastMonthEnd);
+
+        $advertisingYear      = $sum($advertisingServices, $fyStart, $now);
+        $advertisingYearLast  = $sum($advertisingServices, $lastFyStart, $lastFyEnd);
+
+        // Other Services
+        $product = PaymentHistory::where('status', 'success')
+            ->where('service', 'Product Purchase')
+            ->where('user_id', auth()->id())
+            ->whereBetween(DB::raw('COALESCE(paid_at, created_at)'), [$fyStart, now()])
+            ->sum('paid_amount');
+        $email   = $sum('Email Account', $fyStart, $now);
+        $mobile  = $sum('Mobile SIM', $fyStart, $now);
+        $support = $sum('Support', $fyStart, $now);
+
+        $otherTotal = $product + $email + $mobile + $support;
+
+        $data = [
+            'user_id' => $userId,
+            'week_start' => $weekStart,
+            'month_start' => $monthStart,
+            'fy_start' => $fyStart,
+            'advertising_services' => $advertisingServices,
+            'advertising_week' => $advertisingWeek,
+            'advertising_week_last' => $advertisingWeekLast,
+            'advertising_month' => $advertisingMonth,
+            'advertising_month_last' => $advertisingMonthLast,
+            'advertising_year' => $advertisingYear,
+            'advertising_year_last' => $advertisingYearLast,
+            'product' => $product,
+            'email' => $email,
+            'mobile' => $mobile,
+            'support' => $support,
+            'other_total' => $otherTotal,
+            'records' => PaymentHistory::where('user_id', $userId)
+                ->where('status', 'success')
+                ->whereBetween(
+                    DB::raw('COALESCE(paid_at, created_at)'),
+                    [$fyStart, now()]
+                )
+                ->orderByDesc('paid_at')
+                ->get(['service', 'paid_amount', 'paid_at']),
+        ];
+       
+        return view('escort.dashboard.my-spend', compact('data'));
+    }
 }
