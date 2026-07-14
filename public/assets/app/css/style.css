@@ -2078,7 +2078,8 @@ button#legbox_btn:hover,
     color: #90a0b7;
 }
 
-.pinup-wrapper {
+.pinup-wrapper,
+.pin-location {
     position: relative;
     display: inline-block;
 }
@@ -2127,10 +2128,21 @@ button#legbox_btn:hover,
     border-color: transparent var(--peach) transparent transparent;
 }
 
+.pin-location .pinup-tooltip {
+    position: absolute;
+    left: 45px;
+}
+
+.pin-location-pinup .pinup-tooltip {
+    position: absolute;
+    left: 65px
+}
+
 
 /* Hover pe show */
 
-.pinup-wrapper:hover .pinup-tooltip {
+.pinup-wrapper:hover .pinup-tooltip,
+.pin-location:hover .pinup-tooltip {
     opacity: 1;
     visibility: visible;
 }
@@ -6756,6 +6768,12 @@ table {
     justify-content: space-between;
 }
 
+.inner_img_wrapper {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 10px;
+}
+
 .masseur_content {
     display: flex;
     flex-direction: column;
@@ -7386,6 +7404,8 @@ table {
 
 /* end */
 
+@media(min-width: 528px) and (max-width: 768px) {}
+
 @media (max-width: 768px) {
     .modal-header.custom_header {
         flex-wrap: wrap;
@@ -7404,6 +7424,7 @@ table {
     }
     .mc_profile_info {
         flex-wrap: wrap;
+        justify-content: flex-start;
     }
     .mc_profile_modal {
         grid-template-columns: 1fr;
@@ -9254,6 +9275,18 @@ h3 {
     gap: 5px;
     align-items: center;
     line-height: 20px;
+    color: #212529 !important;
+    font-weight: 500;
+    font-size: clamp(14px, 3vw, 18px);
+}
+
+.pinup_address a {
+    text-decoration: none;
+    color: #212529 !important;
+    display: flex;
+    align-items: center;
+    line-height: 14px;
+    justify-content: flex-start;
 }
 
 .pp-video-icon {
@@ -9795,7 +9828,8 @@ p.blog-link {
     filter: brightness(10);
 }
 
-.my-play-box-profile-icon {
+.my-play-box-profile-icon,
+.pin-location-pinup {
     position: relative;
     cursor: pointer;
 }
@@ -9833,7 +9867,40 @@ p.blog-link {
     border-color: var(--peach) transparent transparent transparent;
 }
 
-.my-play-box-profile-icon:hover .custom-tooltip {
+.pin-location-pinup .custom-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--peach);
+    color: #fff;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translate(-55%, 25%);
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.pin-location-pinup .custom-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    /* at the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
+.my-play-box-profile-icon:hover .custom-tooltip,
+.pin-location-pinup:hover .custom-tooltip {
     visibility: visible;
     opacity: 1;
 }

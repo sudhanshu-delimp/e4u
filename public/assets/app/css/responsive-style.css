@@ -4,6 +4,9 @@
                         .next-preview-fixed>div>div {
                             top: -60px !important;
                         }
+                        .btn.my_legbox {
+                            width: 100%;
+                        }
                         .c_dropdown.dropdown-menu.register_dropdown {
                             position: absolute !important;
                             top: 0px !important;
@@ -134,6 +137,11 @@
                             width: 100px;
                             height: unset;
                             object-fit: fill;
+                        }
+                        .inner_img_wrapper {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            gap: 10px;
                         }
                         .add--list {
                             display: flex;
