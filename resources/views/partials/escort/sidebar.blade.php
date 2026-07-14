@@ -587,31 +587,29 @@
 
 
                     {{-- ===== Influencer ===== --}}
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                    <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse"
                         data-target="#ManagementInfluencer">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/influencer.png') }}">
                         <span>Influencer</span>
                     </a>
 
-                    <div id="ManagementInfluencer"
+                    {{-- <div id="ManagementInfluencer"
                         class="collapse
-                    @if (in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
+                        @if (in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
                         data-parent="#Management">
 
-                        <!-- Guidelines -->
                         <a class="collapse-item" href="{{ route('escort.guidelines') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                         </a>
-                        <!-- Forms -->
                         <a class="collapse-item" href="{{ route('escort.uploads') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/uploads.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'uploads' ? 'color: #e5365a;' : '' }}">Uploads</span>
                         </a>
 
-                    </div>
+                    </div> --}}
 
                     {{-- ===== NUM ===== --}}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse"

@@ -48,7 +48,7 @@ class ProcessListingFeaturesPostPayment implements ShouldQueue
         EscortListingFeatureService $featureService
     ) {
         try {
-
+            sleep(60);
             echo "Webhook processing started\n";
 
             $metadata = $this->payload['metadata'];

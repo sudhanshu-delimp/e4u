@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="card p-3 " style="border-radius:0px;">
-                                    <form action="{{ route('payment.adjustment') }}" method="post"
+                                    <form action="{{ Auth::user()->type == '3' ? route('payment.adjustment') : route('advertiser.payment.adjustment') }}" method="post"
                                         id="adjustment-form">
                                         <div class="form-row benefit_section">
                                             <div class="form-group col-6 payment_wallet_option">
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="finish-payment-form d-none mt-2">
-                                <form action="{{ route('escort.payment.process') }}" method="post"
+                                <form action="{{ Auth::user()->type == '3' ? route('escort.payment.process') : route('advertiser.payment.process') }}" method="post"
                                     id="finish-payment-form">
                                     <button type="submit" name="action" value="finish_payment"
                                         class="btn-success-modal btn-block">
@@ -132,7 +132,7 @@
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                        <form action="{{ route('escort.payment.process') }}" class="pin" method="post"
+                        <form action="{{ Auth::user()->type == '3' ? route('escort.payment.process') : route('advertiser.payment.process') }}" class="pin" method="post"
                             id="payment-form">
 
                             <div class="card p-3">
@@ -373,6 +373,7 @@
                 }
             },
             error: function(xhr) {
+                console.log(xhr);
                 Swal.close();
                 let option = getStatusOption(xhr);
                 Swal.fire({
