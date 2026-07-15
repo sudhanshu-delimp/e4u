@@ -727,281 +727,280 @@
 
                 </div>
             </div>
-        </div>
 
-        <div class="set">
-            <a>
-                Website Icons
-                <i class="fa fa-angle-down"></i>
-            </a>
-            <div class="content">
-                <div class="accodien_manage_padding_content">
-                    <p><b>An Overview</b></p>
-                    <p class="mb-3">
-                        These icons used in the Website <span class="bold-custon">(Icons)</span> are provided to assist
-                        Users navigate their way
-                        through the Website and to provide clarity and certainty. The meaning ascribed to an Icon
-                        should be read in conjunction with the <a href="{{ url('terms-conditions')}}"
-                            class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a>. To the
-                        extent of any
-                        inconsistency between the meaning ascribed to an Icon and the Terms and Conditions,
-                        the <a href="{{ url('terms-conditions')}}"
-                            class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a> prevail.
-                    </p>
+            <div class="set">
+                <a>
+                    Website Icons
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div class="content">
+                    <div class="accodien_manage_padding_content">
+                        <p><b>An Overview</b></p>
+                        <p class="mb-3">
+                            These icons used in the Website <span class="bold-custon">(Icons)</span> are provided to assist
+                            Users navigate their way
+                            through the Website and to provide clarity and certainty. The meaning ascribed to an Icon
+                            should be read in conjunction with the <a href="{{ url('terms-conditions')}}"
+                                class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a>. To the
+                            extent of any
+                            inconsistency between the meaning ascribed to an Icon and the Terms and Conditions,
+                            the <a href="{{ url('terms-conditions')}}"
+                                class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a> prevail.
+                        </p>
 
-                    <p class="mb-3"><b>Icons</b></p>
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-6 col-md-6">
+                        <p class="mb-3"><b>Icons</b></p>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6 col-md-6">
 
 
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/mobile-call.png') }}" alt="" class=" wi-icon">
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/mobile-call.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means any User can call an Advertiser</p>
+                                    </div>
                                 </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means any User can call an Advertiser</p>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/couple.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means an Advertiser will meet with a couple</p>
+                                    </div>
                                 </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/fb.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the platform known as Facebook</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/masseurs 2-plus.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means two Masseurs are available</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/group.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means an Advertiser will meet with a group</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/help-circle-outline.png') }}" alt=""
+                                            class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">help, information about the function you are accessing
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/instagram.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the platform known as Instagram</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/incalls.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser offers an in-call service</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/advertiser rate.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means a single Advertiser’s rates</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/massage.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the hourly rate for a massage</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/male-user.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means male</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/notification.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means you have a notification</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/outcall.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser offers an out-call service</p>
+                                    </div>
+                                </div>
+
                             </div>
+                            <div class="col-sm-12 col-lg-6 col-md-6 ">
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/legbox unsave.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser has not been saved to your Legbox
+                                        </p>
+                                    </div>
+                                </div>
 
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/couple.png') }}" alt="" class=" wi-icon">
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/legbox save.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser has been saved to your Legbox</p>
+                                    </div>
                                 </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means an Advertiser will meet with a couple</p>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/access shortlist.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means access your shortlist</p>
+                                    </div>
                                 </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/text advertiser.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means any User can text an Advertiser</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/tickets.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means tickets notifications</p>
+                                    </div>
+                                </div>
+
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/transgender.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means transgendermeans transgender</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/twitter-custom.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the platform known as Twitter</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/media verified.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser's Media has been verified</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/verified media.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser's Media has been verified</p>
+                                    </div>
+                                </div>
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" alt=""
+                                            class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser's Media has not been verified</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/video on profile.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means the Advertiser has a video in their Profile</p>
+                                    </div>
+                                </div>
+
+                                <div class=" wi-icon-box">
+                                    <div class="mr-3 wi-icon-icon">
+                                        <img src="{{ asset('assets/img/female.png') }}" alt="" class=" wi-icon">
+                                    </div>
+                                    <div class="wi-icon-content-box">
+                                        <p class="wi-icon-content">means female</p>
+                                    </div>
+                                </div>
+
+
                             </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/fb.png') }}" alt="" class=" wi-icon">
+                            <div class="col-md-12">
+                                <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                                    <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                            review the most current version.</p>
+                                    <p>Escorts4U archives all previous versions of this Policy.</p>
+                                    <p><b>This policy was last updated 28-05-2025</b></p>
                                 </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the platform known as Facebook</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/masseurs 2-plus.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means two Masseurs are available</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/group.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means an Advertiser will meet with a group</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/help-circle-outline.png') }}" alt=""
-                                        class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">help, information about the function you are accessing
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/instagram.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the platform known as Instagram</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/incalls.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser offers an in-call service</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/advertiser rate.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means a single Advertiser’s rates</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/massage.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the hourly rate for a massage</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/male-user.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means male</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/notification.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means you have a notification</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/outcall.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser offers an out-call service</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-sm-12 col-lg-6 col-md-6 ">
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/legbox unsave.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser has not been saved to your Legbox
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/legbox save.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser has been saved to your Legbox</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/access shortlist.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means access your shortlist</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/text advertiser.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means any User can text an Advertiser</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/tickets.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means tickets notifications</p>
-                                </div>
-                            </div>
-
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/transgender.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means transgendermeans transgender</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/twitter-custom.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the platform known as Twitter</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/media verified.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser's Media has been verified</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/verified media.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser's Media has been verified</p>
-                                </div>
-                            </div>
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" alt=""
-                                        class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser's Media has not been verified</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/video on profile.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means the Advertiser has a video in their Profile</p>
-                                </div>
-                            </div>
-
-                            <div class=" wi-icon-box">
-                                <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/female.png') }}" alt="" class=" wi-icon">
-                                </div>
-                                <div class="wi-icon-content-box">
-                                    <p class="wi-icon-content">means female</p>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-12">
-                            <div class="container mt-4 px-0 chagneto-policy">
-                                <hr class="custom_hr">
-                                <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                                <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                                        review the most current version.</p>
-                                <p>Escorts4U archives all previous versions of this Policy.</p>
-                                <p><b>This policy was last updated 28-05-2025</b></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="set">
+            <div class="set">
                 <a>Changes to this Policy
 
                 <i class="fa fa-angle-down"></i>
@@ -1035,6 +1034,7 @@
                 </div> 
             </div> 
 
+        </div>
     </div>
 </section>
 @endsection
