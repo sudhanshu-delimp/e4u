@@ -446,6 +446,7 @@ class EscortListingController extends Controller
         | Gender / Interest Filter (Missing)
         |--------------------------------------------------------------------------
         */
+
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
         } else {
@@ -528,12 +529,8 @@ class EscortListingController extends Controller
     {
         $user = auth()->user();
 
-        if (
-            !$user ||
-            $user->type != '0' ||
-            !$user->viewer_settings ||
-            $user->state_id != $user->current_state_id
-        ) {
+        if (!$user || $user->type != '0' || !$user->viewer_settings || $user->state_id != $user->current_state_id) 
+        {
             return null;
         }
 
