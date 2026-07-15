@@ -320,7 +320,7 @@ E4U's <a class="c-red" href="{{url('privacy-policy')}}" > Privacy Policy </a> an
                   <div class="border_top_one_px padding_ten_px_top_btm">
                      <div class="row">
                         <div class="col-sm-12">
-                           <div class="cms-accordion-content-area">
+                          
                               <!-- level 1 list -->
                               <p>
                                  We may change or modify these Terms and Conditions in the future. We
@@ -334,7 +334,6 @@ E4U's <a class="c-red" href="{{url('privacy-policy')}}" > Privacy Policy </a> an
                                  Escorts4U archives all previous versions of the Terms and Conditions.
                               </p>
                               <p><b>This policy was last updated 03-06-2025</b></p>
-                           </div>
                         </div>
                      </div>
                   </div>

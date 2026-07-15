@@ -2188,6 +2188,21 @@ button#legbox_btn:hover,
     margin: 10px auto;
 }
 
+.accordion-container .set:last-child .content p {
+    font-size: 13px !important;
+    line-height: 19px;
+    margin-bottom: 12px !important;
+    padding-bottom: 0px !important;
+}
+
+.accordion-container .set:last-child .content p a {
+    font-size: 13px !important;
+}
+
+.accordion-container .set:last-child .content p a span {
+    font-size: 13px !important;
+}
+
 .accordion-container .set p {
     text-align: justify;
 }
@@ -8350,7 +8365,7 @@ h2.custom--review img {
 
 .custom--cookie--popup .popup-content {
     background: white;
-    width: clamp(265px, 32vw, 500px);
+    width: min(90vw, 500px);
     max-height: 90vh;
     position: relative;
     border-radius: 2px;
