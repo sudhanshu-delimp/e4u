@@ -28,6 +28,10 @@ class AdminAuth
         if ($user->type != 1 ) {
             return redirect('/');
         }
+
+     if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true) {  
+              return $response;
+        }
         /** You should not access the Admin Sidebar Management tab link */
 
         if (in_array(request()->segment(2), ["management", "shareholders"]) && in_array($request->segment(3), config('staff.admin_management_url_endpoint'))) {

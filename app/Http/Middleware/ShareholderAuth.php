@@ -17,7 +17,19 @@ class ShareholderAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
+
+        $request->merge([
+            'impersonatedId' => 0,
+            'isImpersonated' => false,
+        ]);
+
+        if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true) {
+            $request->merge([
+                'impersonatedId' => session('parent_user_id'),
+                'isImpersonated' => true,
+
+            ]);
+        }
 
         if(!$user = auth()->user()) {
             //return redirect()->route('shareholder.login');
@@ -27,7 +39,7 @@ class ShareholderAuth
         if($user->type != 8) {
             return redirect('/');
         }
-
+        $response = $next($request);
         return $response;
     }
 }

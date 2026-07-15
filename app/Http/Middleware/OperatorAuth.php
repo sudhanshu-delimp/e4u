@@ -17,7 +17,20 @@ class OperatorAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
+       
+
+        $request->merge([
+            'impersonatedId' => 0,
+            'isImpersonated' => false,
+        ]);
+
+        if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true) {
+            $request->merge([
+                'impersonatedId' => session('parent_user_id'),
+                'isImpersonated' => true,
+
+            ]);
+        }
 
         if(!$user = auth()->user()) {
             //return redirect()->route('operator.login');
@@ -27,7 +40,7 @@ class OperatorAuth
         if($user->type != 9) {
             return redirect('/');
         }
-
+        $response = $next($request);
         return $response;
     }
 }

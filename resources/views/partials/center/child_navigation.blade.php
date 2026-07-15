@@ -40,22 +40,7 @@
 
 
                            </div>
-                           <div class="gap-b">
-
-                            @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
-                            <span>
-                                <b>Switch To Primary Account :  </b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('center.back-to-parent') }}">Switch Back</a></span>  
-                            </span>
-                            @endif
-
-                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
-                            <span>
-                                <b>Switch To Primary Account :  </b><span class="user-values" style="margin-left: 62px !important;"> <a href="{{ route('agent.back-to-parent') }}">Switch Back</a></span>  
-                            </span>
-                            @endif
-                        
-                   
-                           </div>
+                          
                         </div>
                     </div>
                     {{-- end --}}
@@ -91,6 +76,36 @@
                 
                             </div>
                         </form>
+
+                                 <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                               
+                               @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
+                                <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span> 
+                            <a class="nav-link switch-user-btn" href="javascript:void(0)" >
+                                <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile"/></span>
+                            </a>
+                            @endif
+
+                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
+                             <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
+                             <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
+                            <span class="switch-profile">
+                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
+
+                            </span>
+                             </a>
+                            @endif
+                           
+
+                            @if(session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
+                             <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
+                             <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
+                            <span class="switch-profile">
+                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
+
+                            </span>
+                             </a>
+                            @endif
+                        </li>
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

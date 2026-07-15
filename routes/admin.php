@@ -45,6 +45,7 @@ use App\Http\Controllers\Admin\ShareholderController;
 use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Viewer\PunterBoxController;
+use App\Http\Controllers\Admin\ImpersonateController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -943,3 +944,6 @@ Route::get('print-single-feedback-reports', [DashboardController::class, 'printS
 Route::get('/management/punterbox-reports', function () {
   return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');
+
+Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('admin.switch-to-child');
+Route::get('back-to-parent', [ImpersonateController::class, 'backToParent'])->name('admin.back-to-parent');
