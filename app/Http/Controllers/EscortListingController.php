@@ -121,17 +121,31 @@ class EscortListingController extends Controller
         ];
     }
 
+    private function getShortList()
+    {
+        $escortId = [];
+        if (session('cart')) {
+            foreach (session('cart') as $id => $vlaue) {
+                $escortId[] = $id;
+            }
+        } else {
+            $escortId[] = null;
+        }
+
+        return $escortId;
+    }
+
 
 
     public function allEscortListing(Request $request, $gender = null)
     {
-
+        //get selected short list ids
+        $escortId = $this->getShortList();
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
-        $params = $this->getSearchParams($request, $userLocation, $userInterest);
-;
+        $params = $this->getSearchParams($request, $userLocation, $userInterest);;
 
         $location = request()->get('location');
 
@@ -288,9 +302,9 @@ class EscortListingController extends Controller
         if ($request->ajax()) {
             $data = '';
             if ($viewType == 'grid') {
-                $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render();
+                $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth', 'escortId'))->render();
             } else {
-                $data = view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render();
+                $data = view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth', 'escortId'))->render();
             }
             return response()->json([
                 'data' => $data,
@@ -560,10 +574,9 @@ class EscortListingController extends Controller
     }
 
     //Make short list using the session
-    public function addRemoveCard($escort_id)
+    public function addtocart($escort_id)
     {
-   
-        $userId = auth()->user()->id ?? null; 
+        $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
         if (count((array) session('cart')) > 0) {
             $cart = session()->get('cart');
         } else {
@@ -584,5 +597,22 @@ class EscortListingController extends Controller
         session()->put('cart', $cart);
         $count_session = count(session('cart'));
         return response()->json(compact('error', 'cart', 'count_session'));
+    }
+
+    public function removeShortList()
+    {
+        $escort_id = request()->post('escortId');
+        $error = 0;
+        if ($escort_id) {
+            $cart = session()->get('cart');
+            if (isset($cart[$escort_id])) {
+                unset($cart[$escort_id]);
+                session()->put('cart', $cart);
+                $count_session = count(session('cart'));
+                $error = 1;
+            }
+        }
+
+        return response()->json(compact('error', 'count_session'));
     }
 }

@@ -978,8 +978,6 @@
             }
 
 
-
-
             $.each(filter_by_location, function(key, value) {
                 formData.push({
                     name: key,
