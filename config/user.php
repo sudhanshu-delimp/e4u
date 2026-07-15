@@ -16,5 +16,13 @@ return [
             'Ugly Mugs register',
             'Other'
         ]
+    ],
+    'punterbox' => [
+        'Fake',
+        'Under performed',
+        'Liar',
+        'Star fish',
+        'Overpriced',
+        'Rude'
     ]
 ];

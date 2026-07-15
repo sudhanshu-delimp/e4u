@@ -1325,10 +1325,12 @@ if (!function_exists('getStatusBadgeClass')) {
             'Withdrawn'         => 'badge_withdraw',
             'Verified'          => 'badge_accepted',
             'Current'          => 'badge_current',
+            'On Hold'          => 'badge_onHold',
 
         ];
 
-        $status = trim(ucfirst(strtolower($status)));
+        // $status = trim(ucfirst(strtolower($status)));
+        $status = trim($status);
         return isset($statusMap[$status]) ? $statusMap[$status] : 'badge_pending';
     }
 }

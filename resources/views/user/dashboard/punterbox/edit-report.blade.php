@@ -121,9 +121,15 @@
                     <label class="required">Incident Nature</label>
                     <select class="custom-select" name="incident_nature" required>
                         <option selected value="">Please Choose</option>
-                        <option  {{ ($punterbox && $punterbox->incident_nature == 'Fraud') ? 'selected' : '' }} value="Fraud">Fraud</option>
-                        <option  {{ ($punterbox && $punterbox->incident_nature == 'No Show') ? 'selected' : '' }} value="No Show">No Show</option>
-                        <option  {{ ($punterbox && $punterbox->incident_nature == 'Violence') ? 'selected' : '' }} value="Violence">Violence</option>
+                       @php 
+                            $incident_nature = config('user.punterbox');
+                        @endphp
+
+                        @foreach($incident_nature as $value)
+                            <option value="{{ $value }}" {{ $punterbox->incident_nature == $value ? 'selected' : '' }}>
+                                {{ $value }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -205,7 +211,7 @@
                     if (data.status) {
                         swal.fire(
                             'PunterBox registration',
-                            'PunterBox updated successfully',
+                            "Your report has been received. Once approved by an admin it will appear on the Report list",
                             'success'
                         );
                     } else {
