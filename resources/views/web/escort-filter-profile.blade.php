@@ -1525,6 +1525,7 @@
                     $('#page_loader').show();
                 },
                 success: function(response) {
+                    console.log(response);
                     if (response.status === true) {
                         response.data.forEach(function(val) {
                             $(`#escort_${val}`).html('Add to Shortlist');

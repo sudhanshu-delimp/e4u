@@ -121,8 +121,7 @@ class EscortListingController extends Controller
         ];
     }
 
-    private function getShortList()
-    {
+    private function getShortListIds(){
         $escortId = [];
         if (session('cart')) {
             foreach (session('cart') as $id => $vlaue) {
@@ -131,16 +130,17 @@ class EscortListingController extends Controller
         } else {
             $escortId[] = null;
         }
-
         return $escortId;
+
     }
 
 
 
     public function allEscortListing(Request $request, $gender = null)
     {
-        //get selected short list ids
-        $escortId = $this->getShortList();
+
+        //get shortlist ids
+        $escortId = $this->getShortListIds();
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
@@ -574,9 +574,10 @@ class EscortListingController extends Controller
     }
 
     //Make short list using the session
-    public function addtocart($escort_id)
+    public function addRemoveCard($escort_id)
     {
-        $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
+
+        $userId = auth()->user()->id ?? null;
         if (count((array) session('cart')) > 0) {
             $cart = session()->get('cart');
         } else {
@@ -599,8 +600,45 @@ class EscortListingController extends Controller
         return response()->json(compact('error', 'cart', 'count_session'));
     }
 
+    public function clearShortList(Request $request)
+    {
+        $data = array_keys(session()->get('cart'));
+        session()->forget('cart');
+        return success_response($data, 'Ok', 200);
+    }
+
+    public function addtocart($escort_id)
+    {
+
+        $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
+        if (count((array) session('cart')) > 0) {
+            $cart = session()->get('cart');
+        } else {
+            $cart = session()->get('cart', []);
+        }
+
+        if (isset($cart[$escort_id])) {
+            $cart[$escort_id]['quantity']++;
+            $error = 0;
+        } else {
+            $cart[$escort_id] = [
+                "user_id" => $userId,
+                "quantity" => 1,
+            ];
+            $error = 1;
+        }
+
+        session()->put('cart', $cart);
+        $count_session = count(session('cart'));
+        return response()->json(compact('error', 'cart', 'count_session'));
+        //return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+
+    }
+
     public function removeShortList()
     {
+
         $escort_id = request()->post('escortId');
         $error = 0;
         if ($escort_id) {
@@ -612,7 +650,6 @@ class EscortListingController extends Controller
                 $error = 1;
             }
         }
-
         return response()->json(compact('error', 'count_session'));
     }
 }
