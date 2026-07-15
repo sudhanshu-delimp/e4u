@@ -130,7 +130,20 @@ class PunterBoxController extends Controller
     public function showMyReportByAjax(Request $request)
     {
         $userId = Auth::user()->id;
-        $punterbox = Punterbox::where('user_id', $userId)->whereNotIn('status', ['pending'])->with('state')->orderBy('incident_date', 'desc')->get();
+        // $punterbox = Punterbox::where('user_id', $userId)->whereNotIn('status', ['pending'])->with('state')->orderBy('incident_date', 'desc')->get();
+        $punterbox = Punterbox::where('user_id', $userId)
+                ->whereNotIn('status', ['pending'])
+                ->with('state')
+                ->orderByRaw("
+                    CASE status
+                        WHEN 'on_hold' THEN 1
+                        WHEN 'published' THEN 2
+                        WHEN 'rejected' THEN 3
+                        ELSE 4
+                    END ASC
+                ")
+                ->orderByDesc('incident_date')
+                ->get();
         $timeZone = config('escorts.profile.states')[Auth::user()->state_id] ?? 'UTC';
 
         # Date Filters
