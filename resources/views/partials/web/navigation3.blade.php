@@ -24,7 +24,7 @@
                      <a class="nav-link" href="{{ route('home') }}">Home</a>
                   </li>
                   <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find Escort</a>
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find Escorts</a>
                     <div class="dropdown-menu addMyLocation" aria-labelledby="navbarDropdown">
 
                         <a class="dropdown-item" href="{{ route('find.all',['gender'=>6]) }}?lat"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
@@ -36,7 +36,7 @@
                     </div>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="{{ route('find.massage.centre') }}">Find Massage Centre</a>
+                     <a class="nav-link" href="{{ route('find.massage.centre') }}">Find Massage Centres</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#myPlayboxModal">
