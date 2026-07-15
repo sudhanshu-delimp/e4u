@@ -532,7 +532,7 @@ class EscortListingController extends Controller
     {
         $user = auth()->user();
 
-        if (!$user || $user->type != '0' || !$user->viewer_settings ) 
+        if (!$user || $user->type != '0' || !$user->viewer_settings || $user->state_id != $user->current_state_id) 
         {
             return null;
         }
