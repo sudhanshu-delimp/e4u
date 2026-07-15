@@ -146,15 +146,15 @@ class EscortListingController extends Controller
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
-        $params = $this->getSearchParams($request, $userLocation, $userInterest);;
+        $params = $this->getSearchParams($request, $userLocation, $userInterest);
 
         $location = request()->get('location');
 
         // un orgnise code only use for running project
         if (isset($params['limit'])) {
-            $limit = $params['limit'];
+            $perPage = $params['limit'];
         } else {
-            $limit = 25;
+            $perPage = 25;
         }
 
 
@@ -278,7 +278,7 @@ class EscortListingController extends Controller
             ->merge($this->prepareMembership($free));
 
         $page = $params['page'];
-        $perPage = $limit;
+       // $perPage = $limit;
         //$grouped =  $result->groupBy('membership'); 
         $currentItems = $result->forPage($page, $perPage)->values();
         $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
