@@ -241,7 +241,7 @@
                                                                     <i class="fa fa-list" aria-hidden="true"
                                                                         style="line-height: 22px;"></i>
                                                                     <span class="badge badge-pill badge-danger"
-                                                                        id="session_count">0</span>
+                                                                        id="session_count">{{$count_session ?? '0'}}</span>
                                                                 </div>
                                                                 <span class="filter-tooltip">View Shortlist</span>
                                                             </a>
@@ -1010,6 +1010,8 @@
                     $('#page_loader').show();
                 },
                 success: function(response) {
+                    console.log(response);
+                    
                     if (response.total_count > 0) {
                         const isGrid = response.view_type === 'grid';
                         $('#appendGridView').html(isGrid ? response.data : '').toggle(isGrid);
@@ -1018,6 +1020,8 @@
                         $('.no--listing').hide();
                         //update page number
                         localStorage.setItem('page', response.page);
+                        //update selected shortlist count
+
                     } else {
                         $('#appendGridView').html(" ");
                         $('#appendListView').html(" ");

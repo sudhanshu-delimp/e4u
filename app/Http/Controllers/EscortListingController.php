@@ -141,6 +141,7 @@ class EscortListingController extends Controller
 
         //get shortlist ids
         $escortId = $this->getShortListIds();
+        $count_session = count(session('cart'));
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
@@ -328,7 +329,8 @@ class EscortListingController extends Controller
             'filterGenderId',
             'memberTotalCount',
             'all_services_tag',
-            'viewType'
+            'viewType',
+            'count_session'
         ));
     }
 
@@ -574,31 +576,31 @@ class EscortListingController extends Controller
     }
 
     //Make short list using the session
-    public function addRemoveCard($escort_id)
-    {
+    // public function addRemoveCard($escort_id)
+    // {
 
-        $userId = auth()->user()->id ?? null;
-        if (count((array) session('cart')) > 0) {
-            $cart = session()->get('cart');
-        } else {
-            $cart = session()->get('cart', []);
-        }
+    //     $userId = auth()->user()->id ?? null;
+    //     if (count((array) session('cart')) > 0) {
+    //         $cart = session()->get('cart');
+    //     } else {
+    //         $cart = session()->get('cart', []);
+    //     }
 
-        if (isset($cart[$escort_id])) {
-            $cart[$escort_id]['quantity']++;
-            $error = 0;
-        } else {
-            $cart[$escort_id] = [
-                "user_id" => $userId,
-                "quantity" => 1,
-            ];
-            $error = 1;
-        }
+    //     if (isset($cart[$escort_id])) {
+    //         $cart[$escort_id]['quantity']++;
+    //         $error = 0;
+    //     } else {
+    //         $cart[$escort_id] = [
+    //             "user_id" => $userId,
+    //             "quantity" => 1,
+    //         ];
+    //         $error = 1;
+    //     }
 
-        session()->put('cart', $cart);
-        $count_session = count(session('cart'));
-        return response()->json(compact('error', 'cart', 'count_session'));
-    }
+    //     session()->put('cart', $cart);
+    //     $count_session = count(session('cart'));
+    //     return response()->json(compact('error', 'cart', 'count_session'));
+    // }
 
     public function clearShortList(Request $request)
     {
