@@ -141,7 +141,7 @@ class EscortListingController extends Controller
 
         //get shortlist ids
         $escortId = $this->getShortListIds();
-        $count_session = count(session('cart') ?? []);
+        $count_session = count((array) session('cart'));
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
