@@ -949,14 +949,14 @@
 
                 switch (rate) {
                     case 'great':
-                        $('#rate_great').prop('checked', true)
+                        $('#massage_rate_great').prop('checked', true)
                         break;
                     case 'verygood':
-                        $('#rate_verygood').prop('checked', true)
+                        $('#massage_rate_verygood').prop('checked', true)
                         break;
                 
                     default:
-                        $('#rate_good').prop('checked', true)
+                        $('#massage_rate_good').prop('checked', true)
                         break;
                 }
 

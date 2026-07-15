@@ -792,7 +792,8 @@ margin-right: 5px;
                                         </div>
                                         <div class="modal-body">
                                             <div class="masseur_profile_wrapper">
-                                                <div class="mc_profile_img">
+                                               <div class="inner_img_wrapper">
+                                                 <div class="mc_profile_img">
 
                                                     @foreach ($messure_validImages as $index => $image)
                                                         @if($loop->first)
@@ -864,6 +865,7 @@ margin-right: 5px;
                                                     @endforeach
 
                                                 </div>
+                                               </div>
 
                                                 {{-- Hidden Images For Lightbox Navigation --}}
                                                 <div style="display:none;">
@@ -878,6 +880,7 @@ margin-right: 5px;
                                                     @endforeach
 
                                                 </div>
+                                                
                                                 <div class="masseur_content" style="">
 
                                                     <div>

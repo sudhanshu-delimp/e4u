@@ -143,7 +143,7 @@ class ProductOrderController extends Controller
       $orderId = $this->account->member_id . " " . date('dmY') . " " . $locationPrefix . " " . $nextNumber;
       $orderData = [
         'order_id' => $orderId,
-        'type' => 'EC',
+        'type' => Auth::user()->type == 4 ? 'MC' : "EC",
         'user_id' => Auth::user()->id,
         'order_date' => date('Y-m-d H:i:s'),
         'order_status' => 'pending',
