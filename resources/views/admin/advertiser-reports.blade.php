@@ -519,21 +519,61 @@ $(document).ready(function() {
                 'report_id':report_id
             },
             success: function(response) {
-                if(response.error == false){
+            console.log('response=========>',response);
+
+
+                if(response.error == false)
+                {
+                    $(".report_ref").text('');
+                    $(".report_date").text('');
+                    $(".report_member_id").text('');
+                    $(".report_escort_id").text('');
+                    $(".report_viewer_id").text('');
+                    $(".report_status").text('');
+                    $(".report_home_state").text('');
+                    $(".report_comment").text('');
+                    $(".report_mobile").text('');
+                    $(".report_viewer_mobile").text('');
+                    $(".report_stage_name").text('');
+                    $(".report_type").text('');
+                    $(".report_advertiser_id").text('');
+
                     let status = (response.data.report_status == 'pending') ? 'Current' : response.data.report_status;
-                    $(".report_ref").text('#'+response.data.id +''+ response.data.escort_id);
-                    $(".report_date").text(response.data.formatted_created_at);
-                    $(".report_member_id").text(response.data.escort.user.member_id);
-                    $(".report_escort_id").text(response.data.escort_id);
-                    $(".report_viewer_id").text(response.data.viewer_id);
-                    $(".report_status").text(capitalizeFirstLetter(status));
-                    $(".report_home_state").text(response.data.escort.user.state_id);
-                    $(".report_comment").text(capitalizeFirstLetter(response.data.report_desc));
-                    $(".report_mobile").text(response.data.escort.user.phone);
-                    $(".report_viewer_mobile").text(response.data.viewer.phone);
-                    $(".report_stage_name").text(response.data.escort.name);
-                    $(".report_type").text(response.data.report_tag);
-                    $(".report_advertiser_id").text(response.data.escort_id);
+                    if(response.data.advertiser_type=='escort')
+                    {
+                        console.log('response.data.advertiser_id',response.data.advertiser_id);
+                        $(".report_ref").text('#'+response.data.id +''+ response.data.advertiser_id);
+                        $(".report_date").text(response.data.formatted_created_at);
+                        $(".report_member_id").text(response.data.escort.user.member_id);
+                        $(".report_escort_id").text(response.data.advertiser_id);
+                        $(".report_viewer_id").text(response.data.viewer_id);
+                        $(".report_status").text(capitalizeFirstLetter(status));
+                        $(".report_home_state").text(response.data.escort.user.state_id);
+                        $(".report_comment").text(response.data.report_desc ? capitalizeFirstLetter(response.data.report_desc): "");
+                        $(".report_mobile").text(response.data.escort.user.phone);
+                        $(".report_viewer_mobile").text(response.data.viewer.phone);
+                        $(".report_stage_name").text(response.data.escort.name);
+                        $(".report_type").text(response.data.report_tag);
+                        $(".report_advertiser_id").text(response.data.advertiser_id);
+                    }
+
+                    if(response.data.advertiser_type=='massage')
+                    {
+                        $(".report_ref").text('#'+response.data.id +''+ response.data.advertiser_id);
+                        $(".report_date").text(response.data.formatted_created_at);
+                        $(".report_member_id").text(response.data.massage.user.member_id);
+                        $(".report_escort_id").text(response.data.advertiser_id);
+                        $(".report_viewer_id").text(response.data.viewer_id);
+                        $(".report_status").text(capitalizeFirstLetter(status));
+                        $(".report_home_state").text(response.data.massage.user.state_id);
+                        $(".report_comment").text(response.data.report_desc ? capitalizeFirstLetter(response.data.report_desc): "");
+                        $(".report_mobile").text(response.data.massage.user.phone);
+                        $(".report_viewer_mobile").text(response.data.viewer.phone);
+                        $(".report_stage_name").text(response.data.massage.name);
+                        $(".report_type").text(response.data.report_tag);
+                        $(".report_advertiser_id").text(response.data.advertiser_id);
+                    }
+                    
                 }
             },
             error: function(xhr) {

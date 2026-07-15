@@ -217,19 +217,53 @@ class AdvertiserReportContoller extends Controller
             );
         } else {
 
-            $report = ReportEscortProfile::where('id', $request->report_id)
-                ->with([
-                    'escort:id,user_id,city_id,state_id,name',
-                    'escort.user:id,member_id,phone,state_id,city_id',
-                    'viewer:id,email,phone',
-                ])
-                ->first();
+                // $report = ReportEscortProfile::where('id', $request->report_id)
+                // ->with([
+                //     'escort:id,user_id,city_id,state_id,name',
+                //     'escort.user:id,member_id,phone,state_id,city_id',
+                //     'viewer:id,email,phone',
+                // ])
+                // ->first();
+
+                $query = ReportEscortProfile::where('id', $request->report_id)
+                    ->with('viewer:id,email,phone');
+
+                $advertiserType = ReportEscortProfile::where('id', $request->report_id)
+                    ->value('advertiser_type');
+
+                $query->when($advertiserType === 'escort', function ($q) {
+                    $q->with([
+                        'escort:id,user_id,city_id,state_id,name',
+                        'escort.user:id,member_id,phone,state_id,city_id',
+                    ]);
+                });
+
+                $query->when($advertiserType === 'massage', function ($q) {
+                    $q->with([
+                        'massage:id,user_id,city_id,state_id,name',
+                        'massage.user:id,member_id,phone,state_id,city_id',
+                    ]);
+                });
+
+                $report = $query->first();
 
 
-            if ($report) {
-                $report->formatted_created_at = $report->created_at->format('d-m-Y');
-                $report->escort->user->state_id = $report->escort->user->home_state;
-            }
+                if ($report) 
+                {
+                    $report->formatted_created_at = $report->created_at->format('d-m-Y');
+                    if ($report->advertiser_type === 'escort' && $report->escort && $report->escort->user) {
+                        $report->escort->user->state_id = $report->escort->user->home_state;
+                    }
+
+                    if ($report->advertiser_type === 'massage' && $report->massage && $report->massage->user) {
+                        $report->massage->user->state_id = $report->massage->user->home_state;
+                    }
+                }
+
+            // if ($report) {
+            //     $report->formatted_created_at = $report->created_at->format('d-m-Y');
+            //     $report->escort->user->state_id = $report->escort->user->home_state;
+            // }
 
             $data = array(
                 "status"     => 200,
@@ -255,15 +289,56 @@ class AdvertiserReportContoller extends Controller
             );
 
             //return $data;
-        } else {
+        } else 
+        {
 
-            $report = ReportEscortProfile::where('id', $report_id)
-                ->with([
-                    'escort:id,user_id,name',
-                    'escort.user:id,member_id,phone,state_id',
-                    'viewer:id,email,phone'
-                ])
-                ->first();
+            //   $report = ReportEscortProfile::where('id', $report_id)
+            //     ->with([
+            //         'escort:id,user_id,name',
+            //         'escort.user:id,member_id,phone,state_id',
+            //         'viewer:id,email,phone'
+            //     ])
+            //     ->first();
+
+
+            $query = ReportEscortProfile::where('id', $report_id)
+                    ->with('viewer:id,email,phone');
+
+                $advertiserType = ReportEscortProfile::where('id', $report_id)
+                    ->value('advertiser_type');
+
+                $query->when($advertiserType === 'escort', function ($q) {
+                    $q->with([
+                        'escort:id,user_id,city_id,state_id,name',
+                        'escort.user:id,member_id,phone,state_id,city_id',
+                    ]);
+                });
+
+                $query->when($advertiserType === 'massage', function ($q) {
+                    $q->with([
+                        'massage:id,user_id,city_id,state_id,name',
+                        'massage.user:id,member_id,phone,state_id,city_id',
+                    ]);
+                });
+
+                $report = $query->first();
+
+
+                if ($report) 
+                {
+                    $report->formatted_created_at = $report->created_at->format('d-m-Y');
+                    if ($report->advertiser_type === 'escort' && $report->escort && $report->escort->user) {
+                        $report->escort->user->state_id = $report->escort->user->home_state;
+                    }
+
+                    if ($report->advertiser_type === 'massage' && $report->massage && $report->massage->user) {
+                        $report->massage->user->state_id = $report->massage->user->home_state;
+                    }
+                }
+
+
+
+
 
             $report->report_tag = formatStringTitleCase($report->report_tag);
 

@@ -254,7 +254,8 @@
 
 
             {{-- SUBSCRIPTIONS --}}
-            <div class="form-group">
+             
+            <!-- <div class="form-group">
                 <h3 class="h3">Subscriptions</h3>
 
                 <div class="form-check">
@@ -281,7 +282,7 @@
                 <div class="pt-1">
                     <i>Monthly subscriptions. Your card will be automatically debited.</i>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>
