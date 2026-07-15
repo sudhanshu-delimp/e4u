@@ -60,7 +60,7 @@
                     <div class="pvt_and_msg">
                         <h2 class="home-head-icon">
                             <span>
-                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"
+                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="icon_esc"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -77,7 +77,8 @@
                             Private Escorts
                         </h2>
                         <h2 class="home-head-icon">
-                            <span><svg width="25px" height="25px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
+                            <span> 
+                                <svg width="25px" height="25px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" class="icon_mc"
                                     xmlns="http://www.w3.org/2000/svg" fill="#ff3c5f" stroke="#ff3c5f">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

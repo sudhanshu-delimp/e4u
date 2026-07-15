@@ -22,7 +22,7 @@
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find Escort</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find Escorts</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('find.all',['gender'=>6]) }}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
                         <a class="dropdown-item" href="{{ route('find.all',['gender'=>1]) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Find Massage Center
+                    Find Massage Centers
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Escorts4U</a>
