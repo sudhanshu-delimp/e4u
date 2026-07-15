@@ -163,14 +163,14 @@
    </li>
 
    
-    <li class="nav-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif">
+    <li class="nav-item disabled-link @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notebox"
             aria-expanded="false" aria-controls="notebox">
             <img class="mr-2 pl-1 cstm--icon"
                 src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
             <span>Notebox</span>
         </a>
-        <div id="notebox" class="collapse @if (request()->segment(3) == 'list' || request()->segment(3) == 'new') show @endif"
+        {{-- <div id="notebox" class="collapse @if (request()->segment(3) == 'list' || request()->segment(3) == 'new') show @endif"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('user.list') }}">
@@ -183,7 +183,7 @@
                     <span style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
                 </a>
             </div>
-        </div>
+        </div> --}}
     </li>
 
 

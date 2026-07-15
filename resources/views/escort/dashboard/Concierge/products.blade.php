@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends(auth()->user()->type == 4 ? 'layouts.center' : 'layouts.escort')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
@@ -164,8 +164,7 @@
                     <h5 class="modal-title" id="modalTitle"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="{{asset("assets/app/img/newcross.png")}}"
-                                class="img-fluid img_resize_in_smscreen">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
                 </div>
@@ -196,14 +195,17 @@
 @endsection
 @push('script')
     <script>
-      let loginUserId = "{{ session('parent_agent_id') ?? Auth::user()->id }}";
+        let loginUserId = "{{ session('parent_agent_id') ?? Auth::user()->id }}";
     </script>
     <script type="text/javascript" src="{{ asset('escort/js/main.js') }}"></script>
     <script>
         const viewCart = document.querySelector('#viewCart');
         viewCart.addEventListener("click", function() {
+
             localStorage.setItem('checkout_step_' + loginUserId, 1);
-            window.location.href = "{{ route('escort.view-cart') }}";
+
+            window.location.href =
+                "{{ auth()->user()->type == 4 ? route('center.view-cart') : route('escort.view-cart') }}";
         })
 
         $(document).ready(function() {

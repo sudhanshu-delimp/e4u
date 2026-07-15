@@ -138,10 +138,13 @@
                                                         {{-- location --}}
                                                         <div class="location_radio_filter">
                                                             <div class="d-flex align-items-start"
-                                                                @php
-$searchByRadio = request()->get('search_by_radio');
-                                                                $locationByRadio = request()->get('locationByRadio'); @endphp
                                                                 style=" padding-top: 2px;">
+                                                                @php
+                                                                    $searchByRadio = request()->get('search_by_radio');
+                                                                    $locationByRadio = request()->get(
+                                                                        'locationByRadio',
+                                                                    );
+                                                                @endphp
                                                                 <input type="radio" name="locationByRadio"
                                                                     {{ $locationByRadio != 'australia' ? 'checked' : '' }}
                                                                     value="your_location" id="yourLocation">
@@ -153,8 +156,8 @@ $searchByRadio = request()->get('search_by_radio');
 
                                                             <div class="d-flex align-items-start">
                                                                 <input type="radio" name="locationByRadio"
-                                                                    value="australia" id="australia"
-                                                                    {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}>
+                                                                    {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}
+                                                                    value="australia" id="australia" checked="checked">
                                                                 <label for="australia"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                                     Australia
@@ -176,14 +179,15 @@ $searchByRadio = request()->get('search_by_radio');
                                                                 value="">
 
                                                             <input type="search" name="name"
+                                                                id="search_by_member_id_and_name"
                                                                 class="form-control remove_border_btm rounded "
                                                                 placeholder="Search by Member ID or Name"
                                                                 aria-label="Search" aria-describedby="search-addon"
                                                                 value="{{ request()->get('name') }}">
 
                                                             <button
-                                                                class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
-                                                                id="search-addon" type="submit">
+                                                                class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn searchEscort"
+                                                                id="searchEscort" type="submit">
                                                                 <i class="fa fa-search" aria-hidden="true"></i>
                                                             </button>
                                                         </div>
@@ -195,7 +199,7 @@ $searchByRadio = request()->get('search_by_radio');
                                                             <span class="item-head">Display item</span>
                                                             <select
                                                                 class="custome_form_control_border_radus padding_five_px"
-                                                                name="limit">
+                                                                name="limit" id="limit">
                                                                 <option value="25"
                                                                     {{ request()->get('limit') == 25 ? 'selected' : '' }}>25
                                                                 </option>
@@ -219,7 +223,8 @@ $searchByRadio = request()->get('search_by_radio');
                                                             <input type="hidden" name="apply_pagination_rule"
                                                                 id="apply_pagination_rule" value="0">
                                                             <button type="submit"
-                                                                class="btn reset_filter apply_pagination_button filter-tooltip-wrap">
+                                                                class="btn reset_filter apply_pagination_button filter-tooltip-wrap searchEscort"
+                                                                id="applayChange">
                                                                 <span class="filter-tooltip">Apply Change</span>
                                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
                                                             </button>
@@ -246,10 +251,11 @@ $searchByRadio = request()->get('search_by_radio');
                                                         {{-- clear short --}}
                                                         @php
                                                             $query = Arr::except(request()->query(), ['ipinfo']);
+
                                                         @endphp
-                                                        <a type="submit"
-                                                            href="{{ route('shortlist.clear-list', $query) }}"
-                                                            class="btn reset_filter " data-toggle="tooltip">
+                                                        <a type="submit" href="javascript:void(0)"
+                                                            id="clear_all_escort_list" class="btn reset_filter "
+                                                            data-toggle="tooltip">
                                                             Clear Shortlist
                                                         </a>
                                                         {{-- end --}}
@@ -263,7 +269,7 @@ $searchByRadio = request()->get('search_by_radio');
                                         <div class="fiter_btns slect__btn_tab">
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="" name="city">
+                                                    id="escort_city" name="city">
                                                     <option value="" selected>All Cities</option>
                                                     @foreach (@config('escorts.profile.cities') as $key => $city)
                                                         <option value="{{ $key }}"
@@ -274,8 +280,7 @@ $searchByRadio = request()->get('search_by_radio');
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="select2-dropdown" name="gender">
-
+                                                    id="escort_gender" name="gender">
                                                     <option value="" selected>All Genders</option>
                                                     <option value="1"
                                                         {{ $filterGenderId == '1' || request()->segment(2) == 'Male' ? 'selected' : '' }}>
@@ -292,60 +297,57 @@ $searchByRadio = request()->get('search_by_radio');
                                                     <option
                                                         value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
                                                         Cross Dresser</option>
-                                                    <!-- <option
-                                                                                                                        value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
-                                                                                                                        Massage Centres</option> -->
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="select2-dropdown" name="age">
+                                                    id="escort_age" name="age">
                                                     <option value="" selected>All Ages</option>
                                                     <option
                                                         value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>
-                                                        18 -
-                                                        25</option>
+                                                        18 - 25
+                                                    </option>
                                                     <option
                                                         value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>
-                                                        26 -
-                                                        35</option>
+                                                        26 - 35
+                                                    </option>
                                                     <option
                                                         value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>
-                                                        36 -
-                                                        45</option>
+                                                        36 - 45
+                                                    </option>
                                                     <option
                                                         value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>
-                                                        Over
-                                                        45</option>
+                                                        Over 45
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="select2-dropdown" name="price"
+                                                    id="escort_price" name="price"
                                                     value="{{ request()->get('price') }}">
                                                     <option value="" selected>Any Price</option>
                                                     <option
                                                         value="300"{{ request()->get('price') == '300' ? 'selected' : '' }}>
-                                                        Up to
-                                                        $ 300</option>
+                                                        Up to $ 300
+                                                    </option>
                                                     <option
                                                         value="500"{{ request()->get('price') == '500' ? 'selected' : '' }}>
-                                                        Up to
-                                                        $ 500</option>
+                                                        Up to $ 500
+                                                    </option>
                                                     <option
                                                         value="800"{{ request()->get('price') == '800' ? 'selected' : '' }}>
-                                                        Up to
-                                                        $ 800</option>
+                                                        Up to $ 800
+                                                    </option>
                                                     <option
                                                         value="800"{{ request()->get('price') == '800' ? 'selected' : '' }}>
-                                                        Over
-                                                        $ 800</option>
+                                                        Over $ 800
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select
                                                     class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                    id="" name="duration_price"
+                                                    id="escort_duration_price" name="duration_price"
                                                     value="{{ request()->get('duration_price') }}">
                                                     <option value="0">All Services</option>
                                                     <option value="incall_price"
@@ -362,7 +364,7 @@ $searchByRadio = request()->get('search_by_radio');
 
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus with_eight_em"
-                                                    id="playmate_status" name="playmate_status">
+                                                    id="escort_playmate_status" name="playmate_status">
                                                     <option value="">Playmates</option>
                                                     <option value="with_playmates"
                                                         {{ request()->get('playmate_status') == 'with_playmates' ? 'selected' : '' }}>
@@ -376,7 +378,7 @@ $searchByRadio = request()->get('search_by_radio');
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select
                                                     class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                    id=""name="verify_list">
+                                                    id="escort_varify_list"name="verify_list">
                                                     <option value="all"
                                                         {{ request()->get('verify_list') == 'all' ? 'selected' : '' }}>
                                                         Verification</option>
@@ -393,7 +395,7 @@ $searchByRadio = request()->get('search_by_radio');
                                                 <input type="hidden" name="view_type" id="view_type"
                                                     value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
                                                 <button type="submit" class="btn reset_filter apply-filter-btn"
-                                                    data-toggle="tooltip" title="">
+                                                    data-toggle="tooltip" id="applayFilter" title="">
                                                     Apply Filters
                                                 </button>
                                             </div>
@@ -423,7 +425,8 @@ $searchByRadio = request()->get('search_by_radio');
                                                                                 <option id="{{ $service->name }}"
                                                                                     value="{{ $service->id }}"
                                                                                     {{ request()->get('services') == $service->id ? 'selected' : '' }}>
-                                                                                    {{ $service->name }}</option>
+                                                                                    {{ $service->name }}
+                                                                                </option>
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
@@ -513,11 +516,12 @@ $searchByRadio = request()->get('search_by_radio');
                                                                     <li
                                                                         class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
                                                                         <a class="membership_list"
-                                                                            href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
+                                                                            href="javascript:void(0)"
+                                                                            onclick="getMemberWiseCount('all')">
                                                                             <span class="firts-text">Total Listings
                                                                                 :</span>
-                                                                            <span
-                                                                                class="firts-text">{{ array_sum($memberTotalCount) }}</span>
+                                                                            <span class="firts-text"
+                                                                                id="totalEscortListingCount">{{ array_sum($memberTotalCount) }}</span>
                                                                         </a>
                                                                     </li>
 
@@ -525,9 +529,11 @@ $searchByRadio = request()->get('search_by_radio');
                                                                     <li
                                                                         class="{{ request('membership_type') == '1' ? 'active' : '' }}">
                                                                         <a class="membership_list"
-                                                                            href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
+                                                                            href="javascript:void(0)"
+                                                                            onclick="getMemberWiseCount(1)">
                                                                             <span>View Platinum Listings :</span>
-                                                                            <span>{{ $memberTotalCount[1] }}</span>
+                                                                            <span
+                                                                                id="p1_escort_count">{{ $memberTotalCount[1] }}</span>
                                                                         </a>
                                                                     </li>
 
@@ -535,9 +541,11 @@ $searchByRadio = request()->get('search_by_radio');
                                                                     <li
                                                                         class="{{ request('membership_type') == '2' ? 'active' : '' }}">
                                                                         <a class="membership_list" class="membership_list"
-                                                                            href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
+                                                                            onclick="getMemberWiseCount(2)"
+                                                                            href="javascript:void(0)">
                                                                             <span>View Gold Listings :</span>
-                                                                            <span>{{ $memberTotalCount[2] }}</span>
+                                                                            <span
+                                                                                id="g2_escort_count">{{ $memberTotalCount[2] }}</span>
                                                                         </a>
                                                                     </li>
 
@@ -545,9 +553,11 @@ $searchByRadio = request()->get('search_by_radio');
                                                                     <li
                                                                         class="{{ request('membership_type') == '3' ? 'active' : '' }}">
                                                                         <a class="membership_list"
-                                                                            href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
+                                                                            href="javascript:void(0)"
+                                                                            onclick="getMemberWiseCount(3)">
                                                                             <span>View Silver Listings :</span>
-                                                                            <span>{{ $memberTotalCount[3] }}</span>
+                                                                            <span
+                                                                                id="s3_escort_count">{{ $memberTotalCount[3] }}</span>
                                                                         </a>
                                                                     </li>
 
@@ -628,9 +638,14 @@ $searchByRadio = request()->get('search_by_radio');
                                                                     <li class='seleceted_service_text_and_icon'
                                                                         id='hideenclassOne_{{ $service_tag->id }}'>
                                                                         <p>{{ $service_tag->name }}</p>
-                                                                            <i class='fa fa-times-circle-o akh1' data-sname='{{ $service_tag->name }}' data-val="{{ $service_tag->id }}" aria-hidden='true' id='id_{{ $service_tag->id }}'>
-                                                                            </i> 
-                                                                            <input type='hidden' name='services[]' value='{{ $service_tag->id }}'>
+                                                                        <i class='fa fa-times-circle-o akh1'
+                                                                            data-sname='{{ $service_tag->name }}'
+                                                                            data-val="{{ $service_tag->id }}"
+                                                                            aria-hidden='true'
+                                                                            id='id_{{ $service_tag->id }}'>
+                                                                        </i>
+                                                                        <input type='hidden' name='services[]'
+                                                                            value='{{ $service_tag->id }}'>
                                                                     </li>
                                                                 @endif
                                                             @endforeach
@@ -754,114 +769,15 @@ $searchByRadio = request()->get('search_by_radio');
 
             </div>
 
-            {{-- <div class="no--listing">
-                    <p><i>There are no listings for your search criteria.</i></p>
-                </div> --}}
+            <div class="no--listing" style="display:none;">
+                <p><i>There are no listings for your search criteria.</i></p>
+            </div>
 
         </div>
 
 
         {{-- OR use fully custom pagination --}}
         <div id='custom_pagenation'></div>
-
-        {{-- php code comment by SKS if in feature no need then i remove --}}
-        {{-- @php
-            $viewType = 'grid';
-            if (auth()->check() && auth()->user()->viewer_settings) {
-                $viewType = auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
-            }
-            if (request()->has('viewType') && in_array(request()->input('viewType'), ['grid', 'list'])) {
-                $viewType = request()->input('viewType');
-            }
-
-            $total = $paginator->lastPage();
-            $current = $paginator->currentPage();
-            $start = max(1, $current - 2);
-            $end = min($total, $current + 2);
-
-            $withView = fn($url) => $url ? $url . (str_contains($url, '?') ? '&' : '?') . 'viewType=' . $viewType : '#';
-
-        @endphp --}}
-
-        {{-- <nav aria-label="Page navigation" class="custom-pagination">
-            <ul class="list-unstyled">
-
-               
-                <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->url(1)) }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        <i class="fa fa-angle-double-left"></i> First
-                    </a>
-                </li>
-
-               
-                <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->onFirstPage() ? '#' : $withView($paginator->previousPageUrl()) }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        <i class="fa fa-angle-left"></i> Previous
-                    </a>
-                </li>
-
-               
-                @php
-                    $total = $paginator->lastPage();
-                    $current = $paginator->currentPage();
-
-                    // Show up to 3 pages before and after current
-                    $start = max(1, $current - 2);
-                    $end = min($total, $current + 2);
-                @endphp
-
-                
-                @if ($start > 1)
-                    @php $jumpBack = max(1, $current - 5); @endphp
-                    <li class="mx-1">
-                        <a href="{{ $withView($paginator->url($jumpBack)) }}" title="Jump back 5 pages">...</a>
-                    </li>
-                @endif
-
-                
-                @for ($i = $start; $i <= $end; $i++)
-                    <li>
-                        <a href="{{ $withView($paginator->url($i)) }}"
-                            style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d' }}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
-                            {{ $i }}
-                        </a>
-                    </li>
-                @endfor
-
-                
-                @if ($end < $total)
-                    @php $jumpForward = min($total, $current + 5); @endphp
-                    <li class="mx-1">
-                        <a href="{{ $withView($paginator->url($jumpForward)) }}" title="Jump forward 5 pages">...</a>
-                    </li>
-                @endif
-
-               
-                <li class="mx-1 {{ !$paginator->hasMorePages() ? 'disabled' : '' }}">
-                    <a href="{{ $paginator->hasMorePages() ? $withView($paginator->nextPageUrl()) : '#' }}"
-                        style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        Next <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-
-               
-                <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
-                    <a href="{{ $current == $total ? '#' : $withView($paginator->url($total)) }}"
-                        style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                        Last <i class="fa fa-angle-double-right"></i>
-                    </a>
-                </li>
-
-            </ul>
-            <div class="text-center mt-2 mb-5 col-sm-12" style="color: #ff3c5f; font-weight: 400;">
-                Page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }} |
-                Showing {{ $paginator->firstItem() ?? 0 }} to {{ $paginator->lastItem() ?? 0 }} of
-                {{ $paginator->total() }} Listings
-            </div>
-
-        </nav> --}}
 
         </div>
         </div>
@@ -1019,8 +935,7 @@ $searchByRadio = request()->get('search_by_radio');
 
 
         function getCurrentPage() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('page') || 1;
+            return localStorage.getItem('page') || 1;
         }
 
         //click on grid view
@@ -1039,7 +954,7 @@ $searchByRadio = request()->get('search_by_radio');
         let ajaxReq = null;
         let currentPage = getCurrentPage();
 
-        function loadEscort(currentPage, url = null) {
+        function loadEscort(currentPage = '', filter_by_feild = {}, filter_by_location = {}, membership_type = null) {
             let reequestUrl = window.location.pathname;
             let formData = $('#escortFilterForm').serializeArray();
             //push current page number
@@ -1053,13 +968,37 @@ $searchByRadio = request()->get('search_by_radio');
                 value: localStorage.getItem('profileViewType') || 'grid',
             });
 
+            //Member Type
+
+            if (membership_type) {
+                formData.push({
+                    name: 'membership_type',
+                    value: membership_type
+                });
+            }
+
+
+            $.each(filter_by_location, function(key, value) {
+                formData.push({
+                    name: key,
+                    value: value
+                });
+            });
+
+            $.each(filter_by_feild, function(key, value) {
+                formData.push({
+                    name: key,
+                    value: value
+                });
+            });
+
             if (ajaxReq) {
                 ajaxReq.abort();
             }
             //update Brower Url
             let params = new URLSearchParams($.param(formData));
 
-            history.replaceState({}, '', window.location.pathname + '?' + params.toString());
+            // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
 
             ajaxReq = $.ajax({
                 url: reequestUrl,
@@ -1069,24 +1008,23 @@ $searchByRadio = request()->get('search_by_radio');
 
                 beforeSend: function() {
                     $('#page_loader').show();
-                    //   window.scrollTo({
-                    //     top: 0,
-                    //     behavior: 'smooth'
-                    // });
-
-
                 },
                 success: function(response) {
                     if (response.total_count > 0) {
                         const isGrid = response.view_type === 'grid';
-                        $('#appendGridView')
-                            .html(isGrid ? response.data : '')
-                            .toggle(isGrid);
-                        $('#appendListView')
-                            .html(!isGrid ? response.data : '')
-                            .toggle(!isGrid);
+                        $('#appendGridView').html(isGrid ? response.data : '').toggle(isGrid);
+                        $('#appendListView').html(!isGrid ? response.data : '').toggle(!isGrid);
+                        $('#custom_pagenation').html(response.pagination);
+                        $('.no--listing').hide();
+                        //update page number
+                        localStorage.setItem('page', response.page);
+                    } else {
+                        $('#appendGridView').html(" ");
+                        $('#appendListView').html(" ");
+                        $('#custom_pagenation').html(" ");
+                        $('.no--listing').show();
                     }
-                    $('#custom_pagenation').html(response.pagination);
+
                     // for scrolling 
                     let target = $('#escortListing');
                     $('html, body').animate({
@@ -1099,9 +1037,6 @@ $searchByRadio = request()->get('search_by_radio');
                     if (status === 'abort') {
                         return;
                     }
-                    console.error(xhr.responseText);
-
-
                 },
                 complete: function() {
 
@@ -1113,39 +1048,9 @@ $searchByRadio = request()->get('search_by_radio');
         }
 
 
-        // function showEscortView(viewType) {
-
-        //     let target = $('#escortListing');
-        //     // Fallback
-        //     if (!target.length) {
-        //         target = viewType === 'grid' ?
-        //             $('#appendGridView') :
-        //             $('#appendListView');
-        //     }
-        //     $('html, body').animate({
-        //         scrollTop: target.offset().top - 20
-        //     }, 200, function() {
-
-        //         $('.loader').fadeOut(150);
-
-        //         if (viewType === 'grid') {
-        //             $('#appendGridView').fadeIn(200);
-        //             $('#appendListView').hide();
-        //         } else {
-        //             $('#appendListView').fadeIn(200);
-        //             $('#appendGridView').hide();
-        //         }
-
-        //     });
-
-        // }
-
-
         //Pagenation action
         $(document).on('click', '.custom-pagination a', function(e) {
             e.preventDefault();
-
-
             let url = $(this).attr('href');
             if (!url || url === '#') return;
             let page = getParameterByName('page', url);
@@ -1153,9 +1058,6 @@ $searchByRadio = request()->get('search_by_radio');
                 page = 1;
             }
             loadEscort(page);
-
-
-
         });
 
         function getParameterByName(name, url) {
@@ -1167,14 +1069,9 @@ $searchByRadio = request()->get('search_by_radio');
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-
-
-
         //set profile view
-
         function setProfileView(viewType) {
             // Save in localStorage
-
             // Active Icon
             $('.view-toggle').removeClass('active');
             if (viewType === 'grid') {
@@ -1184,6 +1081,47 @@ $searchByRadio = request()->get('search_by_radio');
             }
             localStorage.setItem('profileViewType', viewType);
 
+        }
+
+        // filter data for use search by member id or name
+        $(document).on('click', '.searchEscort', function(e) {
+            e.preventDefault();
+            let checkRadioVal = $('#search_by_radio').val();
+            const radioValue = checkRadioVal == 'australia' ? 0 : 1;
+            const filter_by_location = {
+                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                by_name_member: $('#search_by_member_id_and_name').val(),
+                lat: $('#set_lat').val(),
+                lng: $('#set_lng').val(),
+                limit: $('#limit').val(),
+                search_by_radio: radioValue,
+                page: 1,
+            };
+
+            loadEscort(1, {}, filter_by_location);
+        });
+        //Filter data for use search by category and service
+
+        $(document).on('click', '#applayFilter', function(e) {
+            e.preventDefault();
+            let filter_by_feild = {
+                services: $('input[name="services[]"]').map(function() {
+                    return $(this).val()
+                }).get(),
+                city: $('#escort_city').val(),
+                gender: $('#escort_gender').val(),
+                age: $('#escort_age').val(),
+                price: $('#escort_price').val(),
+                duration_price: $('#escort_duration_price').val(),
+                playmate_status: $('#escort_playmate_status').val(),
+                varify_list: $('#escort_varify_list').val(),
+            }
+
+            loadEscort(currentPage, filter_by_feild, {});
+        });
+
+        function getMemberWiseCount(membership_type) {
+            loadEscort(1, {}, {}, membership_type);
         }
     </script>
 
@@ -1236,8 +1174,6 @@ $searchByRadio = request()->get('search_by_radio');
             let lastPage = document.referrer;
             let lastVisitedPage = window.location.pathname;
 
-            console.log("platform jiten: " + platform);
-
             fetch("{{ route('user.log-details') }}", {
                     method: "POST",
                     headers: {
@@ -1251,8 +1187,8 @@ $searchByRadio = request()->get('search_by_radio');
                         lastVisitedPage: lastVisitedPage
                     })
                 }).then(response => response.json())
-                .then(data => console.log("Log Saved:", data))
-                .catch(error => console.error("Error:", error));
+                .then(data => console.log("Log Saved:"))
+                .catch(error => console.error("Error:"));
         });
     </script>
 
@@ -1283,147 +1219,6 @@ $searchByRadio = request()->get('search_by_radio');
     </script>
 
     <script>
-        let view1 = $('.footer_view_type_one').attr('href');
-        let view2 = $('.footer_view_type_two').attr('href');
-
-        // var viewType = 'grid'; // Default
-
-        // if (window.authUser.isLoggedIn) {
-        //     // First take PHP value (user settings)
-        //     viewType = '{{ $viewType }}';
-
-        //     // Then override with URL param if present (pagination click)
-        //     var urlParams = new URLSearchParams(window.location.search);
-        //     if (urlParams.has('viewType')) {
-        //         viewType = urlParams.get('viewType');
-        //     }
-        // } else {
-        //     // For guests, check URL param first, then localStorage
-        //     var urlParams = new URLSearchParams(window.location.search);
-        //     viewType = urlParams.get('viewType') || localStorage.getItem('profileViewType') || 'grid';
-        // }
-
-        // Now trigger correct view on page load
-        // if (viewType === 'grid') {
-        //     showGridView();
-        // } else {
-        //     showListView();
-        // }
-
-        // function showGridView() {
-        //     localStorage.setItem('profileViewType', 'grid');
-
-        //     var url = new URL(window.location.href);
-        //     url.searchParams.set('viewType', 'grid');
-        //     window.history.replaceState({}, '', url.toString());
-
-        //     $('.custom-pagination a').each(function() {
-        //         var href = $(this).attr('href');
-        //         if (href && href !== '#') {
-        //             if (href.includes('viewType=')) {
-        //                 href = href.replace(/viewType=(grid|list)/, 'viewType=grid');
-        //             } else {
-        //                 href = href + (href.includes('?') ? '&' : '?') + 'viewType=grid';
-        //             }
-        //             $(this).attr('href', href);
-        //         }
-        //     });
-
-        //     $('.preChanges').html('<h3>Escorts Grid View</h3>');
-
-        //     var val = $('#grid-modal').attr('class');
-        //     $('#view_type').val('grid');
-        //     $('#viewType_input').val('grid'); // Keep form input in sync
-        //     $('.otherliste').css('display', 'block');
-        //     $('.list-view-div').css('display', 'none');
-        //     if (val != "active") {
-        //         $('.grid').hide();
-        //         $('.my-wishlist').hide();
-        //         $('#grid-template').html(
-        //             '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-        //         );
-        //         if (view1.includes('=list')) {
-        //             let newUrl = view1.replace('=list', '=grid');
-        //             $('.footer_view_type_one').attr('href', newUrl);
-        //         }
-        //         if (view2.includes('=list')) {
-        //             let newUrl = view2.replace('=list', '=grid');
-        //             $('.footer_view_type_two').attr('href', newUrl);
-        //         }
-        //         setTimeout(function() {
-        //             $('.spinner-border').css('display', 'none');
-        //             $('.my-wishlist').css('display', 'none');
-        //             $('.space_between_row').show();
-        //             $('#grid-modal').addClass('active');
-        //             $('#grid-list').removeClass('active');
-        //         }, 1000);
-        //     }
-        // }
-
-        // function showListView() {
-        //     localStorage.setItem('profileViewType', 'list');
-
-        //     var url = new URL(window.location.href);
-        //     url.searchParams.set('viewType', 'list');
-        //     window.history.replaceState({}, '', url.toString());
-
-        //     $('.custom-pagination a').each(function() {
-        //         var href = $(this).attr('href');
-        //         if (href && href !== '#') {
-        //             if (href.includes('viewType=')) {
-        //                 href = href.replace(/viewType=(grid|list)/, 'viewType=list');
-        //             } else {
-        //                 href = href + (href.includes('?') ? '&' : '?') + 'viewType=list';
-        //             }
-        //             $(this).attr('href', href);
-        //         }
-        //     });
-
-        //     $('.preChanges').html('<h3>Escorts List View</h3>');
-        //     var grid = $('#grid-list').attr('class');
-        //     $('#view_type').val('list');
-        //     $('#viewType_input').val('list'); // Keep form input in sync
-        //     $('.otherliste').css('display', 'none');
-        //     $('.list-view-div').css('display', 'block');
-        //     if (grid != "active") {
-        //         $('.space_between_row').hide();
-        //         $('.my-wishlist').hide();
-        //         $('#grid-template').html(
-        //             '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-        //         );
-        //         if (view1.includes('=grid')) {
-        //             let newUrl = view1.replace('=grid', '=list');
-        //             $('.footer_view_type_one').attr('href', newUrl);
-        //         }
-        //         if (view2.includes('=grid')) {
-        //             let newUrl = view2.replace('=grid', '=list');
-        //             $('.footer_view_type_two').attr('href', newUrl);
-        //         }
-        //         setTimeout(function() {
-        //             $('.spinner-border').css('display', 'none');
-        //             $('.my-wishlist').css('display', 'none');
-        //             $('.list-view').show();
-        //             $('#grid-list').addClass('active');
-        //             $('#grid-modal').removeClass('active');
-        //         }, 1000);
-        //     }
-        // }
-
-        // Update click handlers to use the new functions
-        // $('#grid-modal').on('click', function() {
-        //     showGridView();
-        // });
-        // $('#grid-list').on('click', function() {
-        //     showListView();
-        // });
-
-        // On page load, trigger the correct view logic as if the user clicked the button
-        // if (viewType === 'grid') {
-        //     showGridView();
-        // } else {
-        //     showListView();
-        // }
-
         /////////////click event ///////////////
         $(document).ready(function() {
             $('body').on('click', '.akh1', function() {
@@ -1431,25 +1226,10 @@ $searchByRadio = request()->get('search_by_radio');
                 var val = $(this).data('val');
                 var name = $(this).data('sname');
                 $('#hideenclassOne_' + val).remove();
-
                 $("#service_id_one").append("<option id='" + name + "' value='" + val + "'>" + name +
                     "</option>");
-                console.log("click " + name);
             });
 
-            <?php
-            if ($cityId > 0) {
-                if (request()->get('city') == null && $locationCityId == null) {
-                    echo "$('[name=\"city\"]').val()";
-                }
-            }
-            
-            if ($genderId > 0 && $filterGenderId != null) {
-                echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                                                                                                                                                                                                                                        $('[name=\"gender\"]').val($genderId);
-                                                                                                                                                                                                                                                                                                    }";
-            }
-            ?>
         });
         $(document).ready(function() {
             $('body').on('click', '.akh2', function() {
@@ -1460,7 +1240,6 @@ $searchByRadio = request()->get('search_by_radio');
 
                 $("#service_id_two").append("<option id='" + name + "' value='" + val + "'>" + name +
                     "</option>");
-                console.log("click " + name);
             });
         });
         $(document).ready(function() {
@@ -1478,7 +1257,46 @@ $searchByRadio = request()->get('search_by_radio');
         $('#resetAll').click(function() {
             $("#selectedService li").remove();
             $("ul input").remove();
+
+            //applay the ajax and append again services value
+            reAppendServices();
         });
+
+        let ajaxServices = null;
+
+        function reAppendServices() {
+            if (ajaxServices) {
+                ajaxServices.abort();
+            }
+            ajaxServices = $.ajax({
+                url: '{{ route('public.web.fecth.services') }}',
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function() {
+                    $('#page_loader').show();
+                    $('#service_id_one').html("");
+                    $('#service_id_two').html("");
+                    $('#service_id_three').html("");
+                },
+                success: function(response) {
+                    if (response.status == true) {
+                        $('#service_id_one').html(response.data.service_one);
+                        $('#service_id_two').html(response.data.service_two);
+                        $('#service_id_three').html(response.data.service_three);
+                    }
+                },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+
+                },
+                complete: function() {
+                    $('#page_loader').hide();
+                    ajaxServices = null;
+                }
+            });
+        }
 
         /////////////Change event///////////////////
 
@@ -1488,30 +1306,28 @@ $searchByRadio = request()->get('search_by_radio');
 
             if (selectedIdOne) {
                 $('#selectedService').append(`
-            <li class="seleceted_service_text_and_icon" id="hideenclassOne_${selectedIdOne}">
-                <p>${getNameOne}</p>
+                    <li class="seleceted_service_text_and_icon" id="hideenclassOne_${selectedIdOne}">
+                        <p>${getNameOne}</p>
 
-                <i
-                    class="fa fa-times-circle-o akh1"
-                    data-sname="${getNameOne}"
-                    data-val="${selectedIdOne}"
-                    aria-hidden="true"
-                    id="id_${selectedIdOne}"
-                ></i>
+                        <i
+                            class="fa fa-times-circle-o akh1"
+                            data-sname="${getNameOne}"
+                            data-val="${selectedIdOne}"
+                            aria-hidden="true"
+                            id="id_${selectedIdOne}"
+                        ></i>
 
-                <input
-                    type="hidden"
-                    name="services[]"
-                    value="${selectedIdOne}"
-                >
-            </li>
-        `);
+                        <input
+                            type="hidden"
+                            name="services[]"
+                            value="${selectedIdOne}"
+                        >
+                    </li>
+                `);
 
                 $(`#service_id_one option[value="${selectedIdOne}"]`)
                     .prop('disabled', true)
                     .remove();
-
-                console.log(`serviceOne=${getNameOne}`);
             }
         });
 
@@ -1525,30 +1341,27 @@ $searchByRadio = request()->get('search_by_radio');
 
             if (selectedIdOne) {
                 $('#selectedService').append(`
-            <li class="seleceted_service_text_and_icon" id="hideenclassTwo_${selectedIdOne}">
-                <p>${getNameOne}</p>
+                    <li class="seleceted_service_text_and_icon" id="hideenclassTwo_${selectedIdOne}">
+                        <p>${getNameOne}</p>
+                        <i
+                            class="fa fa-times-circle-o akh2"
+                            data-sname="${getNameOne}"
+                            data-val="${selectedIdOne}"
+                            aria-hidden="true"
+                            id="id_${selectedIdOne}"
+                        ></i>
 
-                <i
-                    class="fa fa-times-circle-o akh2"
-                    data-sname="${getNameOne}"
-                    data-val="${selectedIdOne}"
-                    aria-hidden="true"
-                    id="id_${selectedIdOne}"
-                ></i>
-
-                <input
-                    type="hidden"
-                    name="services[]"
-                    value="${selectedIdOne}"
-                >
-            </li>
-        `);
+                        <input
+                            type="hidden"
+                            name="services[]"
+                            value="${selectedIdOne}"
+                        >
+                    </li>
+                `);
 
                 $(`#service_id_two option[value="${selectedIdOne}"]`)
                     .prop('disabled', true)
                     .remove();
-
-                console.log(`service_two=${getNameOne}`);
             }
         });
 
@@ -1560,148 +1373,72 @@ $searchByRadio = request()->get('search_by_radio');
 
             if (selectedIdOne) {
                 $('#selectedService').append(`
-            <li class="seleceted_service_text_and_icon" id="hideenclassThree_${selectedIdOne}">
-                <p>${getNameOne}</p>
+                    <li class="seleceted_service_text_and_icon" id="hideenclassThree_${selectedIdOne}">
+                        <p>${getNameOne}</p>
+                        <i
+                            class="fa fa-times-circle-o akh3"
+                            data-sname="${getNameOne}"
+                            data-val="${selectedIdOne}"
+                            aria-hidden="true"
+                            id="id_${selectedIdOne}"
+                        ></i>
 
-                <i
-                    class="fa fa-times-circle-o akh3"
-                    data-sname="${getNameOne}"
-                    data-val="${selectedIdOne}"
-                    aria-hidden="true"
-                    id="id_${selectedIdOne}"
-                ></i>
-
-                <input
-                    type="hidden"
-                    name="services[]"
-                    value="${selectedIdOne}"
-                >
-            </li>
-        `);
+                        <input
+                            type="hidden"
+                            name="services[]"
+                            value="${selectedIdOne}"
+                        >
+                    </li>
+                `);
 
                 $(`#service_id_three option[value="${selectedIdOne}"]`)
                     .prop('disabled', true)
                     .remove();
-
-                console.log(`service_three=${getNameOne}`);
             }
         });
 
 
         ///////////////end event change //////////////////
-        $('body').on('change', '#service_id_two', function() {
-            const selectedIdTwo = $('#service_id_two').val();
-            const getNameTwo = $(this).children(':selected').attr('id');
 
-            if (selectedIdTwo) {
-                $('#selected_service_two').append(`
-                    <li id="${selectedIdTwo}">
-                        <div class="my_service_anal hideenclassTwo${selectedIdTwo}">
-                            <span class="dollar-sign">${getNameTwo}</span>
 
-                            <input
-                                type="number"
-                                class="dollar-before input_border"
-                                name="price[]"
-                                min="0"
-                                oninput="this.value = Math.abs(this.value)"
-                            >
-
-                            <input
-                                type="hidden"
-                                name="service_id[]"
-                                value="${selectedIdTwo}"
-                            >
-
-                            <span>
-                                <i
-                                    class="fas fa-times-circle"
-                                    id="id_${selectedIdTwo}"
-                                    value="${selectedIdTwo}"
-                                ></i>
-                            </span>
-                        </div>
-                    </li>
-                `);
-
-                $(`#service_id_two option[value="${selectedIdTwo}"]`).prop('disabled', true);
-
-                console.log(`change=${selectedIdTwo}`);
-            }
-        });
-
-        $('body').on('change', '#service_id_three', function() {
-            const selectedIdThree = $('#service_id_three').val();
-            const getNameThree = $(this).children(':selected').attr('id');
-
-            if (selectedIdThree) {
-                $('#selected_service_three').append(`
-                    <li id="${selectedIdThree}">
-                        <div class="my_service_anal hideenclassThree${selectedIdThree}">
-                            <span class="dollar-sign">${getNameThree}</span>
-
-                            <input
-                                type="number"
-                                class="dollar-before input_border"
-                                name="price[]"
-                                min="0"
-                                oninput="this.value = Math.abs(this.value)"
-                            >
-
-                            <input
-                                type="hidden"
-                                name="service_id[]"
-                                value="${selectedIdThree}"
-                            >
-
-                            <span>
-                                <i
-                                    class="fas fa-times-circle"
-                                    id="id_${selectedIdThree}"
-                                    value="${selectedIdThree}"
-                                ></i>
-                            </span>
-                        </div>
-                    </li>
-                `);
-
-                $(`#service_id_three option[value="${selectedIdThree}"]`).prop('disabled', true);
-            }
-        });
-
+        //--------------Remove ther shortlist and removeshortlist function code --------------//
         $(document).on('click', '.shortlist', function() {
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
-            var url = "{{ route('web.save.addtocart', ':id') }}";
+            var url = "{{ route('web.public.save.addtocart', ':id') }}";
             url = url.replace(':id', Eid);
             $('#add_wishlist').find('.popup_modal_title_new').text('Add To Shortlist');
 
             $.ajax({
                 method: "POST",
-                // url: "{{ route('web.save.shortlist') }}",
                 url: url,
                 data: {
                     escortId: Eid,
                     userId: Uid
                 },
+                beforeSend: function() {
+                    $('#page_loader').show();
+                },
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
                 success: function(data) {
+
                     if (data.error == 1) {
                         $('.class_msg').text(name + ' has been added to your Shortlist');
                         $('#add_wishlist').modal('show');
                         $('.myescort_' + Eid).html(
                             '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}"> Remove from Shortlist'
-                        )
+                        );
+
                         $('#session_count').text(data.count_session);
 
                     } else {
 
                         $.ajax({
                             method: "POST",
-                            url: "{{ route('web.remove.shortlist') }}",
+                            url: "{{ route('web.public.remove.shortlist') }}",
                             data: {
                                 escortId: Eid,
                                 userId: Uid
@@ -1709,11 +1446,8 @@ $searchByRadio = request()->get('search_by_radio');
                             headers: {
                                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
                             },
-                            //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                             success: function(data) {
-                                console.log(data);
                                 if (data.error == 1) {
-                                    //$('#Lname').text(name +' has been removed from your Shortlist');
                                     $('.class_msg').text(name +
                                         ' has been remove from your Shortlist');
                                     $('#add_wishlist').modal('show');
@@ -1721,13 +1455,22 @@ $searchByRadio = request()->get('search_by_radio');
                                         '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}"> Add to Shortlist'
                                     )
                                     $('#session_count').text(data.count_session);
-                                    //location.reload();
+
                                 }
 
                             }
                         });
-
                     }
+                },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+                },
+                complete: function() {
+
+                    $('#page_loader').hide();
+                    ajaxReq = null;
                 }
             });
 
@@ -1737,10 +1480,9 @@ $searchByRadio = request()->get('search_by_radio');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
             $('#add_wishlist').find('.popup_modal_title_new').text('Add To Shortlist');
-            console.log(name);
             $.ajax({
                 method: "POST",
-                url: "{{ route('web.remove.shortlist') }}",
+                url: "{{ route('web.public.remove.shortlist') }}",
                 data: {
                     escortId: Eid,
                     userId: Uid
@@ -1748,10 +1490,11 @@ $searchByRadio = request()->get('search_by_radio');
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
+                beforeSend: function() {
+                    $('#page_loader').show();
+                },
                 success: function(data) {
-                    console.log(data);
                     if (data.error == 1) {
-
                         $('#add_wishlist').modal('show');
                         $('.class_msg').text(name + ' has been remove from your Shortlist');
                         $('.myescort_' + Eid).text('Add to Shortlist');
@@ -1761,9 +1504,47 @@ $searchByRadio = request()->get('search_by_radio');
                         });
                     }
 
+                },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+                },
+                complete: function() {
+                    $('#page_loader').hide();
+                    ajaxReq = null;
                 }
             });
         });
+
+        $(document).on('click', '#clear_all_escort_list', function() {
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('web.public.shortlist.clear') }}",
+                beforeSend: function() {
+                    $('#page_loader').show();
+                },
+                success: function(response) {
+                    if (response.status === true) {
+                        response.data.forEach(function(val) {
+                            $(`#escort_${val}`).html('Add to Shortlist');
+                        });
+
+                        $('#session_count').html(0);
+                    }
+                },
+                error: function(xhr, status) {
+                    if (status === 'abort') {
+                        return;
+                    }
+                },
+                complete: function() {
+                    $('#page_loader').hide();
+                }
+            });
+        });
+
+        //--------------Remove ther shortlist and removeshortlist function code --------------//
 
         $(document).on('click', '.add_to_favrate', function() {
             if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
@@ -1784,7 +1565,6 @@ $searchByRadio = request()->get('search_by_radio');
             if (cid.includes('fill')) {
                 $(this).removeClass('fill');
                 $(this).addClass('null');
-                console.log('legboxId_' + Eid, ' hello', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
                     "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
                 );
@@ -1804,17 +1584,12 @@ $searchByRadio = request()->get('search_by_radio');
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
 
                     }
                 });
-                console.log("fill");
             } else if (cid.includes('null')) {
                 $(this).removeClass('null');
                 $(this).addClass('fill');
-
-                // <i class="fa fa-heart-o" aria-hidden="true"></i>
-                console.log('legboxId_' + Eid, ' hello null', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
                     "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
                 );
@@ -1834,12 +1609,8 @@ $searchByRadio = request()->get('search_by_radio');
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
+                    success: function(data) {}
                 });
-                console.log("null");
             } else {
 
                 @if (auth()->user() && auth()->user()->type != 0)
@@ -1858,7 +1629,6 @@ $searchByRadio = request()->get('search_by_radio');
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
-                console.log(loginurl2);
 
 
                 var regurl = "{{ route('register', ':id') }}";
@@ -1921,8 +1691,6 @@ $searchByRadio = request()->get('search_by_radio');
 
                         $("#set_lat").val(latitude);
                         $("#set_lng").val(longitude);
-
-                        console.log(longitude, latitude, ' jitendera')
                         sendLocationData(selectedLocation);
                     });
                 } else {
@@ -1943,12 +1711,10 @@ $searchByRadio = request()->get('search_by_radio');
                     success: function(response) {
                         if (response.status) {
                             $("#" + data.location).attr('checked', true);
-                            //window.location.href = response.location;
                         }
-                        console.log('Location filter updated:', response);
                     },
                     error: function(xhr, status, error) {
-                        console.error('Error in location filter:', error);
+
                     }
                 });
             }
