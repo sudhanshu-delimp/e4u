@@ -1087,7 +1087,11 @@ form#loginForm .mynote {
     padding: 10px;
     background: #f9f9f9;
     margin-top: 40px;
-    padding: 20px !important;
+    padding: 15px 20px !important;
+}
+
+.chagneto-policy p:last-child {
+    margin-bottom: 0px;
 }
 
 .chagneto-policy hr {
@@ -9931,7 +9935,7 @@ p.blog-link {
 }
 
 .border_color {
-    border-color: #5d6d7e !important;
+    border-color: #ccc !important;
 }
 
 .vrf-tooltip {
