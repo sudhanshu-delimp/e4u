@@ -16,6 +16,7 @@ use App\Repositories\Escort\EscortInterface;
 use Illuminate\Support\Facades\Http;
 use App\Models\State;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class EscortListingController extends Controller
 {
@@ -449,9 +450,12 @@ class EscortListingController extends Controller
 
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
+            Log::info('Gender filter applied: ' . $params['gender']);
         } else {
+            Log::info('else interest filter applied: ' . $params['interest']);
             if (!empty($params['interest'])) {
                 $interests = array_unique($params['interest']);
+                Log::info('interest filter applied: ' . $params['interest']);
                 if (is_array($interests)) {
                     $query->whereIn('escorts.gender', $interests);
                 }
