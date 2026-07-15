@@ -9,6 +9,10 @@
         color: rgb(248, 0, 0);
         padding-left: 0px;
     }
+
+    .add-punterbox-report .what_happened {
+        height: 85px;
+    }
 </style>
 @endsection
 @section('content')
@@ -132,7 +136,7 @@
 
                 <div class="form-group">
                     <label class="required">What Happened</label>
-                    <textarea class="form-control" rows="4" name="what_happened" required></textarea>
+                    <textarea class="form-control what_happened" rows="4" name="what_happened" required></textarea>
                 </div>
 
                 <div class="form-group">

@@ -290,21 +290,15 @@
                                     <td class="border-0">${data.rating ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
-                                    <th>Status:</th>
-                                     <td class="border-0">
-                                        ${data.status ? data.status.replace(/<[^>]*>/g, '') : 'N/A'}
-                                    </td>
                                      <th>Platform:</th>
                                     <td  class="border-0">${data.platform ?? 'N/A'}</td>
+                                     <th>Profile Link:</th>
+                                    <td  class="border-0">${data.profile_link ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
                                     <th>Summary of Incident:</th>
                                     <td  class="border-0">${data.what_happened ?? 'N/A'}</td>
-                                    <th>Profile Link:</th>
-                                    <td  class="border-0">${data.profile_link ?? 'N/A'}</td>
                                 </tr>
-
-                                
                             </tbody>
                         </table>
                     </div>
