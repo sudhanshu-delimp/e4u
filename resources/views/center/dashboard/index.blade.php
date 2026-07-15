@@ -70,9 +70,9 @@
         {{-- box start --}}
         <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('center.dashboard.manage-masseurs') }}">
+                <a href="{{ route('center.archives-listing') }}?from=dashboard">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/center/manage-masseurs.png') }}"
+                        <img src="{{ asset('assets/dashboard/img/boxicon/center/manage-masseurs.png') }}" 
                             class="my-svg-icons" alt="Tour Schedule">
                     </div>
                     <h2>
@@ -170,7 +170,7 @@
         {{-- box start --}}
         <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('center.dashboard.legbox-viewer') }}">
+                <a href="{{ route('legbox-viewers') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/center/legbox-viewers.png') }}"
                             class="my-svg-icons" alt=" Legbox Viewers">
@@ -186,7 +186,7 @@
         {{-- box start --}}
         <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('center.profile.information') }}?from=dashboard">
+                <a href="{{ route('profiles') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/center/profile-views-today.png') }}" alt="Profile Views">
                     </div>
@@ -202,7 +202,7 @@
         {{-- box start --}}
         <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="javascript:void(0)">
+                <a href="{{ route('center.my_wallet') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/wallet.png') }}" alt="My Wallet">
                     </div>
