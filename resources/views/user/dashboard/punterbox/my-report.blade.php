@@ -330,13 +330,7 @@
                                 <td class="border-0">${data.platform ?? 'N/A'}</td>
 
                                 <th>Profile Link:</th>
-                                <td class="border-0">
-                                    ${
-                                        data.profile_link
-                                            ? `<a href="${data.profile_link}" target="_blank">${data.profile_link}</a>`
-                                            : 'N/A'
-                                    }
-                                </td>
+                                <td  class="border-0">${data.profile_link ?? 'N/A'}</td>
                             </tr>
 
                             <tr>
