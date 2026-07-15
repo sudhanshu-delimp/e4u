@@ -450,12 +450,11 @@ class EscortListingController extends Controller
 
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
-            Log::info('Gender filter applied: ' . $params['gender']);
         } else {
-            Log::info('else interest filter applied: ' . $params['interest']);
+            Log::info('else interest filter applied: ' . json_encode($params['interest']));
             if (!empty($params['interest'])) {
                 $interests = array_unique($params['interest']);
-                Log::info('interest filter applied: ' . $params['interest']);
+                Log::info('interest filter applied: ' . json_encode($params['interest']));
                 if (is_array($interests)) {
                     $query->whereIn('escorts.gender', $interests);
                 }
