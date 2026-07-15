@@ -18,7 +18,6 @@ class ProductController extends Controller
     try {
 
       $products = Product::get();
-
       return view("escort.dashboard.Concierge.products", compact("products"));
     } catch (Exception $e) {
       Log::error("product lists error" . $e->getMessage());
@@ -39,6 +38,7 @@ class ProductController extends Controller
   public function getProducts(Request $request)
   {
     try {
+
       $ids = $request->ids ?? [];
       $cart = $request->cart ?? [];
       $finalCart = $request->finalCart ?? [];

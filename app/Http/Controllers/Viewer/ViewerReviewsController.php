@@ -43,25 +43,47 @@ class ViewerReviewsController extends Controller
         $todayCount = $monthCount = $yearCount = $allCount = 0;
 
         if ($userId) {
-            $reviews = Reviews::where('user_id', $userId)
-                ->whereIn('status', ['published','pending'])
+            /* $reviews = Reviews::where('user_id', $userId)
+                //->whereIn('status', ['published','pending'])
                 ->with(['massage', 'user', 'escort'])
                 ->orderBy('status','desc')
-                ->get();
+                ->get(); */
+
+            $reviews = Reviews::where('user_id', $userId)
+            ->with(['escort', 'massage', 'user'])
+            ->orderByRaw("
+                    CASE
+                        WHEN status = 'pending' THEN 1
+                        WHEN status = 'published' THEN 2
+                        WHEN status = 'rejected' THEN 3
+                        ELSE 4
+                    END
+                ")
+            ->orderByRaw("
+                    CASE
+                        WHEN status = 'pending' THEN created_at
+                    END ASC
+                ")
+            ->orderByRaw("
+                    CASE
+                        WHEN status IN ('published', 'rejected') THEN created_at
+                    END DESC
+                ")
+            ->get();
 
             // Counts directly from DB instead of filtering collection
             $todayCount = Reviews::where('user_id', $userId)
-                ->whereIn('status', ['published','pending'])
+                ->whereIn('status', ['published','pending','rejected'])
                 ->whereDate('created_at', $today)
                 ->count();
 
             $monthCount = Reviews::where('user_id', $userId)
-                ->whereIn('status', ['published','pending'])
+                ->whereIn('status', ['published','pending','rejected'])
                 ->where('created_at', '>=', $monthStart)
                 ->count();
 
             $yearCount = Reviews::where('user_id', $userId)
-                ->whereIn('status', ['published','pending'])
+                ->whereIn('status', ['published','pending','rejected'])
                 ->where('created_at', '>=', $yearStart)
                 ->count();
 
@@ -109,9 +131,13 @@ class ViewerReviewsController extends Controller
 
             })
             ->addColumn('status', function($row){
-                $status = '<span class="badge badge-success">Published </span>';
-                if($row->status == 'suspended'){
-                    $status = '<span class="badge badge-danger">Suspended</span>';
+                $status = '<span class="custom_badge badge_published">Published </span>';
+                if($row->status == 'suspended') {
+                    $status = '<span class="custom_badge badge_suspended">Suspended</span>';
+                } else if($row->status == 'pending') {
+                    $status = '<span class="custom_badge badge_pending">Pending</span>';
+                } else if($row->status == 'rejected') {
+                    $status = '<span class="custom_badge badge_rejected">Rejected</span>';
                 }
 
                 return $status;

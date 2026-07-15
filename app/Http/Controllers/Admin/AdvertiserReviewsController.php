@@ -53,7 +53,7 @@ class AdvertiserReviewsController extends Controller
     {
         [$advertiserReviews, $reports] = $this->getAdvertiserReviews();
 
-            return DataTables::of($advertiserReviews)
+        return DataTables::of($advertiserReviews)
 
             ->addColumn('ref', function ($row) {
 
@@ -100,11 +100,11 @@ class AdvertiserReviewsController extends Controller
                 $advertiserMemberId = '-';
 
                 if ($row->advertiser_type == 'escort') {
-                $advertiserMemberId = optional(optional($row->escort)->user)->member_id ?? '-';
+                    $advertiserMemberId = optional(optional($row->escort)->user)->member_id ?? '-';
                 }
 
-            if ($row->advertiser_type == 'massage') {
-                $advertiserMemberId = optional(optional($row->massage)->user)->member_id ?? '-';
+                if ($row->advertiser_type == 'massage') {
+                    $advertiserMemberId = optional(optional($row->massage)->user)->member_id ?? '-';
                 }
 
                 $statusActionHtml = '
@@ -121,8 +121,8 @@ class AdvertiserReviewsController extends Controller
                     if ($row->status !== 'pending') {
                         $statusActionHtml .= '
                         <a class="dropdown-item update-review-status"
-                            data-id="'.$row->id.'" 
-                            data-ref="'.$row->id.$advertiserMemberId.'"
+                            data-id="' . $row->id . '" 
+                            data-ref="' . $row->id . $advertiserMemberId . '"
                             data-value="pending"
                             data-toggle="modal"
                             data-target="#confirm-popup">
@@ -134,8 +134,8 @@ class AdvertiserReviewsController extends Controller
                     if ($row->status !== 'published') {
                         $statusActionHtml .= '
                         <a class="dropdown-item update-review-status"
-                            data-id="'.$row->id.'"
-                            data-ref="'.$row->id.$advertiserMemberId.'"
+                            data-id="' . $row->id . '"
+                            data-ref="' . $row->id . $advertiserMemberId . '"
                             data-value="published"
                             data-toggle="modal"
                             data-target="#confirm-popup">
@@ -147,8 +147,8 @@ class AdvertiserReviewsController extends Controller
                     if ($row->status !== 'rejected') {
                         $statusActionHtml .= '
                         <a class="dropdown-item update-review-status"
-                            data-id="'.$row->id.'"
-                            data-ref="'.$row->id.$advertiserMemberId.'"
+                            data-id="' . $row->id . '"
+                            data-ref="' . $row->id . $advertiserMemberId . '"
                             data-value="rejected"
                             data-toggle="modal"
                             data-target="#confirm-popup">
@@ -160,21 +160,20 @@ class AdvertiserReviewsController extends Controller
 
                 $statusActionHtml .= '
                     <a class="dropdown-item view_member_report"
-                        href="#" data-id="'.$row->id.'">
+                        href="#" data-id="' . $row->id . '">
                         <i class="fa fa-eye text-dark"></i> View
                     </a>
                     </div>
                 </div>';
 
                 return $statusActionHtml;
-            })->rawColumns(['action','status'])
+            })->rawColumns(['action', 'status'])
             ->with([
                 'reports' => $reports,
                 'server_up_time' => $this->getAppUptime(),
                 'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
             ])
             ->make(true);
-
     }
 
     public function getAppUptime()
@@ -215,12 +214,33 @@ class AdvertiserReviewsController extends Controller
 
         # If you still want to return reviews with relations
 
-        $advertiserReviews = Reviews::with(['escort','massage','user'])
+        /*  $advertiserReviews = Reviews::with(['escort','massage','user'])
         ->orderByRaw("FIELD(status, 'pending','published','rejected','suspended')")
         ->orderBy('updated_at', 'desc')
-        ->get();
+        ->get(); */
 
-        
+        $advertiserReviews = Reviews::with(['escort', 'massage', 'user'])
+            ->orderByRaw("
+                    CASE
+                        WHEN status = 'pending' THEN 1
+                        WHEN status = 'published' THEN 2
+                        WHEN status = 'rejected' THEN 3
+                        ELSE 4
+                    END
+                ")
+            ->orderByRaw("
+                    CASE
+                        WHEN status = 'pending' THEN created_at
+                    END ASC
+                ")
+            ->orderByRaw("
+                    CASE
+                        WHEN status IN ('published', 'rejected') THEN created_at
+                    END DESC
+                ")
+            ->get();
+
+
         //$advertiserReviews = Reviews::with(['escort','user'])->orderByRaw("FIELD(status, 'pending','published','rejected','suspended')")->orderBy('updated_at', 'desc')->get();
 
         $reports = [
@@ -266,8 +286,8 @@ class AdvertiserReviewsController extends Controller
                 ])
                 ->first();
 
-                //dd($report);
-                
+            //dd($report);
+
             if ($report) {
                 $report->formatted_created_at = $report->created_at->format('d-m-Y');
                 $report->user->state_id = $report->user->home_state;
@@ -298,14 +318,14 @@ class AdvertiserReviewsController extends Controller
 
             return $data;
         } else {
-                $report = Reviews::where('id', $request->report_id)
+            $report = Reviews::where('id', $request->report_id)
                 ->with([
                     'escort:id,user_id,city_id,state_id,name',
                     'escort.user:id,member_id',
                     'user:id,email,phone,state_id,member_id',
                 ])
                 ->first();
-                
+
             if ($report) {
                 $report->formatted_created_at = $report->created_at->format('d-m-Y');
                 $report->user->state_id = $report->user->home_state;
@@ -313,7 +333,6 @@ class AdvertiserReviewsController extends Controller
 
             return view('admin.prints_file.advertiser_review_report_print', ['report' => $report]);
         }
-
     }
 
     public function updateMemberReviewsStatus(Request $request)

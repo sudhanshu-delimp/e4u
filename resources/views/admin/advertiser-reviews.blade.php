@@ -524,8 +524,10 @@
                 paging: true,
                 info: true,
                 searching: true,
-                bStateSave: true,
-                // ordering:false,
+                bStateSave: false,
+                 // Disable initial sorting
+                order: [],
+                //ordering:false,
                 // autoWidth: false,
                 columnDefs: [{
                     width: "12%",
@@ -548,6 +550,7 @@
                     {
                         data: 'date',
                         name: 'date',
+                        orderable: true,
                     },
                     {
                         data: 'escort_id',

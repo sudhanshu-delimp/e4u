@@ -298,7 +298,8 @@
 @if (!@$print)
     <div class="modal-footer">
         <button type="button" class="btn btn-primary"> <a
-                href="{{ route('escort.print.order.details', Crypt::encrypt($order->id)) }}" target="_blank">
+                href="{{ auth()->user()->type == 4 ? route('center.print.order.details', Crypt::encrypt($order->id)) : route('escort.print.order.details', Crypt::encrypt($order->id)) }}"
+                target="_blank">
                 🖨️ Print
             </a>
         </button>
