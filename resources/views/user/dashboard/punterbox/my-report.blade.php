@@ -111,6 +111,7 @@
                             <th>Incident Type</th>
                             <th>Incident Date</th>
                             <th>Location</th>
+                             <th>Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -140,9 +141,7 @@
                 "zeroRecords": "No Record Found!",
                 searchPlaceholder: "Search by Mobile Number"
             },
-            order: [
-                [3, 'desc']
-            ],
+            order: [],
             paging: true,
             processing: false,
             serverSide: false,
@@ -209,6 +208,10 @@
                     data: 'location',
                     name: 'location'
                 },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
 
                 {
                     data: 'actions',
@@ -228,27 +231,50 @@
         });
 
 
-        $('#myReportListTable tbody').on('click', '.view_report', function(e) {
-            e.preventDefault();
+      $('#myReportListTable tbody').on('click', '.view_report', function (e) {
+        e.preventDefault();
 
-            const tr = $(this).closest('tr');
-            const row = table.row(tr);
+        const tr = $(this).closest('tr');
+        const row = table.row(tr);
 
-            row.child(format(row.data())).show();
+        if (row.child.isShown()) {
+
+            row.child().find('.child-wrapper').slideUp(250, function () {
+                row.child.hide();
+                tr.removeClass('shown');
+            });
+
+            $(this).removeClass('open');
+
+        } else {
+
+            row.child(
+                '<div class="child-wrapper" style="display:none;">' +
+                    format(row.data()) +
+                '</div>'
+            ).show();
+
+            row.child().find('.child-wrapper').slideDown(250);
+
             tr.addClass('shown');
             $(this).addClass('open');
-        });
+        }
+    });
 
         // CLOSE BUTTON HANDLER (only closes, no toggle)
-        $(document).on('click', '.close_report_btn', function(e) {
-            e.preventDefault();
+      $(document).on('click', '.close_report_btn', function (e) {
+        e.preventDefault();
 
-            const tr = $(this).closest('tr').parent();
-            const row = table.row(tr);
+        const childTr = $(this).closest('tr');
+        const parentTr = childTr.prev(); // Parent row
+        const row = table.row(parentTr);
 
-            tr.removeClass('shown');
-            $(this).closest('tr').hide()
+        childTr.find('.child-wrapper').slideUp(250, function () {
+            row.child.hide();
+            parentTr.removeClass('shown');
+            parentTr.find('.view_report').removeClass('open');
         });
+    });
 
         function formatDate(dateString) {
             if (!dateString) return 'N/A';
