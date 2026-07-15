@@ -36,6 +36,10 @@
                     }
                     
                     @media(max-width: 425px) {
+                        .pp-av-wrap {
+                            justify-content: center;
+                            gap: 20px;
+                        }
                         .pin-up-content {
                             width: 100%;
                             display: flex;
