@@ -346,10 +346,8 @@
         @if (Session::has('success'))
         <script>
             Swal.fire({
-                title: '{{ Session::get('
-                title ') }}',
-                text: '{{ Session::get('
-                success ') }}',
+                title: '{{ Session::get('title') }}',
+                text: '{{ Session::get('success') }}',
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
