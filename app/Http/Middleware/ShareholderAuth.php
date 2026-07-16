@@ -30,7 +30,6 @@ class ShareholderAuth
 
             ]);
         }
-
         if(!$user = auth()->user()) {
             //return redirect()->route('shareholder.login');
             return redirect('/');

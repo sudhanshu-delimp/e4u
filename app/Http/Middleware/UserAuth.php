@@ -29,6 +29,8 @@ class UserAuth
 
             ]);
         }
+
+        $response = $next($request);
         
         if(!$user = auth()->user()) {
             //return redirect()->route('advertiser.login');
@@ -39,8 +41,6 @@ class UserAuth
             
             return redirect('/');
         }
-
-        $response = $next($request);
         return $response;
     }
 }
