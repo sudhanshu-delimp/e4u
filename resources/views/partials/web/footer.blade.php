@@ -230,7 +230,7 @@
 
                 <div class="col-lg-4 delimp_copyright order-last order-md-0">
                     <span><img
-                            src="https://staging.e4u.host.powerwebhosting.com.au/assets/app/img/delimp-technology.png"
+                            src="{{ asset('assets/app/img/delimp-technology.png') }}"
                             alt="Delimp Technology Pvt. Ltd."> Built by <a href="https://delimp.com/" target="_blank">
                             Delimp Technology Pvt. Ltd. </a></span>
                 </div>
