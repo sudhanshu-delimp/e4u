@@ -16,6 +16,7 @@ use App\Repositories\Escort\EscortInterface;
 use Illuminate\Support\Facades\Http;
 use App\Models\State;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class EscortListingController extends Controller
 {
@@ -121,25 +122,40 @@ class EscortListingController extends Controller
         ];
     }
 
+    private function getShortListIds(){
+        $escortId = [];
+        if (session('cart')) {
+            foreach (session('cart') as $id => $vlaue) {
+                $escortId[] = $id;
+            }
+        } else {
+            $escortId[] = null;
+        }
+        return $escortId;
+
+    }
+
 
 
     public function allEscortListing(Request $request, $gender = null)
     {
 
+        //get shortlist ids
+        $escortId = $this->getShortListIds();
+        $count_session = count((array) session('cart'));
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
-;
 
         $location = request()->get('location');
 
         // un orgnise code only use for running project
         if (isset($params['limit'])) {
-            $limit = $params['limit'];
+            $perPage = $params['limit'];
         } else {
-            $limit = 25;
+            $perPage = 25;
         }
 
 
@@ -263,7 +279,7 @@ class EscortListingController extends Controller
             ->merge($this->prepareMembership($free));
 
         $page = $params['page'];
-        $perPage = $limit;
+       // $perPage = $limit;
         //$grouped =  $result->groupBy('membership'); 
         $currentItems = $result->forPage($page, $perPage)->values();
         $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
@@ -288,9 +304,9 @@ class EscortListingController extends Controller
         if ($request->ajax()) {
             $data = '';
             if ($viewType == 'grid') {
-                $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render();
+                $data = view('web.escort.partials.grid-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth', 'escortId'))->render();
             } else {
-                $data = view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth'))->render();
+                $data = view('web.escort.partials.list-listing', compact('grouped', 'memberTotalCount', 'viewType', 'user_type', 'viewerAuth', 'escortId'))->render();
             }
             return response()->json([
                 'data' => $data,
@@ -314,7 +330,8 @@ class EscortListingController extends Controller
             'filterGenderId',
             'memberTotalCount',
             'all_services_tag',
-            'viewType'
+            'viewType',
+            'count_session'
         ));
     }
 
@@ -430,11 +447,14 @@ class EscortListingController extends Controller
         | Gender / Interest Filter (Missing)
         |--------------------------------------------------------------------------
         */
+
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
         } else {
+            Log::info('else interest filter applied: ' . json_encode($params['interest']));
             if (!empty($params['interest'])) {
                 $interests = array_unique($params['interest']);
+                Log::info('interest filter applied: ' . json_encode($params['interest']));
                 if (is_array($interests)) {
                     $query->whereIn('escorts.gender', $interests);
                 }
@@ -512,12 +532,8 @@ class EscortListingController extends Controller
     {
         $user = auth()->user();
 
-        if (
-            !$user ||
-            $user->type != 0 ||
-            !$user->viewer_settings ||
-            $user->state_id != $user->current_state_id
-        ) {
+        if (!$user || $user->type != '0' || !$user->viewer_settings || $user->state_id != $user->current_state_id) 
+        {
             return null;
         }
 
@@ -560,10 +576,43 @@ class EscortListingController extends Controller
     }
 
     //Make short list using the session
-    public function addRemoveCard($escort_id)
+    // public function addRemoveCard($escort_id)
+    // {
+
+    //     $userId = auth()->user()->id ?? null;
+    //     if (count((array) session('cart')) > 0) {
+    //         $cart = session()->get('cart');
+    //     } else {
+    //         $cart = session()->get('cart', []);
+    //     }
+
+    //     if (isset($cart[$escort_id])) {
+    //         $cart[$escort_id]['quantity']++;
+    //         $error = 0;
+    //     } else {
+    //         $cart[$escort_id] = [
+    //             "user_id" => $userId,
+    //             "quantity" => 1,
+    //         ];
+    //         $error = 1;
+    //     }
+
+    //     session()->put('cart', $cart);
+    //     $count_session = count(session('cart'));
+    //     return response()->json(compact('error', 'cart', 'count_session'));
+    // }
+
+    public function clearShortList(Request $request)
     {
-   
-        $userId = auth()->user()->id ?? null; 
+        $data = array_keys(session()->get('cart'));
+        session()->forget('cart');
+        return success_response($data, 'Ok', 200);
+    }
+
+    public function addtocart($escort_id)
+    {
+
+        $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
         if (count((array) session('cart')) > 0) {
             $cart = session()->get('cart');
         } else {
@@ -584,5 +633,25 @@ class EscortListingController extends Controller
         session()->put('cart', $cart);
         $count_session = count(session('cart'));
         return response()->json(compact('error', 'cart', 'count_session'));
+        //return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+
+    }
+
+    public function removeShortList()
+    {
+
+        $escort_id = request()->post('escortId');
+        $error = 0;
+        if ($escort_id) {
+            $cart = session()->get('cart');
+            if (isset($cart[$escort_id])) {
+                unset($cart[$escort_id]);
+                session()->put('cart', $cart);
+                $count_session = count(session('cart'));
+                $error = 1;
+            }
+        }
+        return response()->json(compact('error', 'count_session'));
     }
 }

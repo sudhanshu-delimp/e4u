@@ -36,6 +36,10 @@
                     }
                     
                     @media(max-width: 425px) {
+                        .pp-av-wrap {
+                            justify-content: center;
+                            gap: 20px;
+                        }
                         .pin-up-content {
                             width: 100%;
                             display: flex;
@@ -418,12 +422,6 @@
                         .trikon_style {
                             padding: 10px !important;
                         }
-                        .delimp_copyright span {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            flex-direction: column;
-                        }
                         .welcome_sub_login_heading {
                             line-height: 1.4;
                             margin-bottom: 0px;
@@ -433,8 +431,15 @@
                         }
                         .btn_for_profile_list_view {
                             justify-content: center;
+                            height: 40px;
                         }
                         .list_button_wrap {
+                            width: 100%;
+                        }
+                        .all-escort-view-profile-btn {
+                            gap: 15px;
+                        }
+                        .all-escort-view-profile-btn .custom-view-profile {
                             width: 100%;
                         }
                     }
@@ -533,7 +538,7 @@
                             display: flex;
                             flex-direction: column !important;
                             gap: 10px;
-                            padding: 0px 3px;
+                            padding: 0px clamp(10px, 2vw, 20px);
                         }
                         .all-escort-view-profile-btn {
                             margin: 10px 0px;
@@ -551,7 +556,7 @@
                             padding: 0px;
                         }
                         .mc_list_content {
-                            padding: clamp(3px, 2vw, 10px);
+                            padding: clamp(10px, 2vw, 20px);
                         }
                         .profile_page_location_and_id ul {
                             display: flex;
@@ -718,7 +723,8 @@
                         .navbar-light .navbar-nav .header_reg_btn {
                             padding: 3px 10px;
                         }
-                        .header_logo {
+                        .header_logo,
+                        .footer-logo {
                             max-width: 120px;
                             width: 100%;
                         }

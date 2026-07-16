@@ -133,33 +133,76 @@
 </head>
 <body onload="window.print()">
 
+@php
+    $advertiser = $report->advertiser_type === 'escort'
+        ? $report->escort
+        : $report->massage;
+@endphp
+
 <div class="container">
     <div class="header">
         <h2>My Report Information</h2>
         <button onclick="window.print()">Print Report</button>
     </div>
+
     <div class="row">
-        <div class="col-6"><strong>Item No:</strong>#{{$report->id }}{{$report->escort_id}}</div>
-        <div class="col-6"><strong>Member ID:</strong> {{$report->escort->user->member_id}}</div>
-    </div>
-    <div class="row">
-        <div class="col-6"><strong>Report Type:</strong> {{formatStringTitleCase($report->report_tag)}}</div>
-        <div class="col-6"><strong>Advertiser ID:</strong> {{$report->escort->id}}</div>
-        
-    </div>
-    <div class="row">
-        <div class="col-6"><strong>Stage Name:</strong> {{$report->escort->name}}</div>
-        <div class="col-6"><strong>Date Created:</strong> {{$report->created_at->format('d-m-Y') }}</div>
+        <div class="col-6">
+            <strong>Item No:</strong>
+            #{{ $report->id }}{{ $report->advertiser_id }}
+        </div>
+
+        <div class="col-6">
+            <strong>Member ID:</strong>
+            {{ $advertiser->user->member_id ?? '' }}
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-6"><strong>Viewer ID:</strong> {{$report->escort_id}}</div>
-        <div class="col-6"><strong>Status:</strong> {{$report->report_status == 'pending' ? 'Current' : 'Resolved'}}</div>
+        <div class="col-6">
+            <strong>Report Type:</strong>
+            {{ formatStringTitleCase($report->report_tag) }}
+        </div>
+
+        <div class="col-6">
+            <strong>Advertiser ID:</strong>
+            {{ $advertiser->id ?? '' }}
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-12 " style="display: flex; margin-top:10px;">
-            <div class="col-3"><strong>Comments:</strong></div><div class="col-9">{{Str::title($report->report_desc)}}</div> </div>
+        <div class="col-6">
+            <strong>Stage Name:</strong>
+            {{ $advertiser->name ?? '' }}
+        </div>
+
+        <div class="col-6">
+            <strong>Date Created:</strong>
+            {{ $report->created_at->format('d-m-Y') }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <strong>Viewer ID:</strong>
+            {{ $report->viewer_id }}
+        </div>
+
+        <div class="col-6">
+            <strong>Status:</strong>
+            {{ $report->report_status == 'pending' ? 'Current' : 'Resolved' }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12" style="display:flex; margin-top:10px;">
+            <div class="col-3">
+                <strong>Comments:</strong>
+            </div>
+
+            <div class="col-9">
+                {{ $report->report_desc ? Str::title($report->report_desc) : '' }}
+            </div>
+        </div>
     </div>
 
     <div class="notes">
@@ -171,30 +214,44 @@
         <div></div>
     </div>
 
-    <div class="checkbox-group " style="margin-top:7%" >
+    <div class="checkbox-group" style="margin-top:7%">
         <table style="width:100%; border-collapse:collapse;">
-                        <tr>
-                            <td colspan="2" style="border:1px solid #000; padding:8px; padding-top:3%; padding-bottom:3%; font-weight:bold;">Management only:</td>
-                            <td colspan="2" style="border:1px solid #000; padding:8px; width:500px; ">
-                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
-                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Cancel Membership</span>
-                            </label>
-                            </td>
-                            <td colspan="2" style="border:1px solid #000; padding:8px; width:500px;">
-                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
-                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Re-instate Membership</span>
-                            </label>
-                            </td>
-                        </tr>
+            <tr>
+                <td colspan="2" style="border:1px solid #000; padding:8px; padding-top:3%; padding-bottom:3%; font-weight:bold;">
+                    Management only:
+                </td>
 
-                        <tr>
-                            <td style="border:1px solid #000; padding:40px 12px; font-weight:bold; width:75px;" colspan="1">Name:</td>
-                            <td colspan="2" style="border:1px solid #000; padding:25px 12px; width:200px"></td>
-                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:100px;">Signature:</td>
-                            <td colspan="1" style="border:1px solid #000; padding:25px 12px;"></td>
-                        </tr>
-                    </table>
+                <td colspan="2" style="border:1px solid #000; padding:8px; width:500px;">
+                    <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                        <input type="checkbox">
+                        <span style="font-weight:600;">Cancel Membership</span>
+                    </label>
+                </td>
+
+                <td colspan="2" style="border:1px solid #000; padding:8px; width:500px;">
+                    <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                        <input type="checkbox">
+                        <span style="font-weight:600;">Re-instate Membership</span>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="1" style="border:1px solid #000; padding:40px 12px; font-weight:bold; width:75px;">
+                    Name:
+                </td>
+
+                <td colspan="2" style="border:1px solid #000; padding:25px 12px; width:200px;"></td>
+
+                <td style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:100px;">
+                    Signature:
+                </td>
+
+                <td colspan="1" style="border:1px solid #000; padding:25px 12px;"></td>
+            </tr>
+        </table>
     </div>
+</div>
 
 </body>
 </html>

@@ -35,18 +35,6 @@
 
 /* custome badge */
 
-.delimp_copyright {
-    text-align: center;
-}
-
-.delimp_copyright span {
-    color: #fff;
-}
-
-.delimp_copyright span a {
-    color: var(--peach);
-}
-
 .custom_badge {
     padding: 7px 8px;
     border-radius: 5px;
@@ -1080,18 +1068,37 @@ form#loginForm .mynote {
     margin-top: 35px !important;
 }
 
+.chagneto-policy {
+    text-align: justify;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-top: 40px;
+    padding: 15px 20px !important;
+}
+
+.chagneto-policy p:last-child {
+    margin-bottom: 0px;
+}
+
+.chagneto-policy hr {
+    display: none;
+}
+
 .chagneto-policy .normal_heading {
     font-size: 16px;
-    margin-bottom: 0;
     font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
 }
 
 .chagneto-policy p,
 .chagneto-policy p span,
 .chagneto-policy p a {
-    font-size: 14px !important;
+    font-size: 13px !important;
     margin-bottom: 12px;
-    line-height: 19px;
+    line-height: 19px !important;
     text-align: justify;
 }
 
@@ -1640,7 +1647,7 @@ span.second {
 .home_heading_first {
     font-family: Poppins;
     font-style: normal;
-    font-size: clamp(25px, 4vw, 48px) !important;
+    font-size: clamp(21px, 4vw, 48px) !important;
     line-height: 48px;
     color: #0C223D;
     margin-bottom: 20px;
@@ -1726,8 +1733,14 @@ a.btn-common {
 }
 
 .home-head-icon {
-    font-size: clamp(20px, 4vw, 35px);
+    font-size: clamp(18px, 4vw, 35px);
     color: var(--blue--text);
+}
+
+.home-head-icon .icon_esc,
+.home-head-icon .icon_mc {
+    width: clamp(18px, 3vw, 25px);
+    height: clamp(18px, 3vw, 25px);
 }
 
 .home-sec-heading {
@@ -1859,8 +1872,8 @@ a.btn-common {
 }
 
 .shops_border p {
-    font-size: 16px;
-    line-height: 19px;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: clamp(20px, 1vw, 25px);
     margin: 0px;
     padding-top: 15px;
     color: #fff;
@@ -2161,6 +2174,21 @@ button#legbox_btn:hover,
 .accordion-container-new {
     position: relative;
     margin: 10px auto;
+}
+
+.accordion-container .set:last-child .content p {
+    font-size: 13px !important;
+    line-height: 19px;
+    margin-bottom: 12px !important;
+    padding-bottom: 0px !important;
+}
+
+.accordion-container .set:last-child .content p a {
+    font-size: 13px !important;
+}
+
+.accordion-container .set:last-child .content p a span {
+    font-size: 13px !important;
 }
 
 .accordion-container .set p {
@@ -4611,7 +4639,7 @@ i.fa.fa-heart-o {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: bold;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px);
     line-height: 37px;
     font-weight: 500;
     text-align: center;
@@ -8325,7 +8353,7 @@ h2.custom--review img {
 
 .custom--cookie--popup .popup-content {
     background: white;
-    width: clamp(265px, 32vw, 500px);
+    width: min(90vw, 500px);
     max-height: 90vh;
     position: relative;
     border-radius: 2px;
@@ -9562,7 +9590,7 @@ h3 {
 
 .custom-rate-type {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     gap: 15px;
     flex-wrap: wrap;
 }
@@ -9910,7 +9938,7 @@ p.blog-link {
 }
 
 .border_color {
-    border-color: #5d6d7e !important;
+    border-color: #ccc !important;
 }
 
 .vrf-tooltip {

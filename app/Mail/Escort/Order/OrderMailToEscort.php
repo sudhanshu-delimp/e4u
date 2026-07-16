@@ -31,10 +31,5 @@ class OrderMailToEscort extends Mailable
   {
     return $this->subject("Your Product Order Has Been Placed – Member ID: {$this->data['member_id']} | Order Ref: {$this->data['communication_id']}")->view('emails.escort.order.order_mail_to_escort')
       ->with(['data' => $this->data]); // <-- Pass to view
-
-
-
-      
   }
-  
 }

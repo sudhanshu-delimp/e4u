@@ -241,7 +241,7 @@
                                                                     <i class="fa fa-list" aria-hidden="true"
                                                                         style="line-height: 22px;"></i>
                                                                     <span class="badge badge-pill badge-danger"
-                                                                        id="session_count">0</span>
+                                                                        id="session_count">{{ $count_session ?? '0' }}</span>
                                                                 </div>
                                                                 <span class="filter-tooltip">View Shortlist</span>
                                                             </a>
@@ -923,11 +923,15 @@
     <div id="page_loader">
         <div class="loader"></div>
     </div>
+
+    @php
+        $listingsPreferencesView = auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
+    @endphp
 @endsection
 @push('scripts')
     <script>
         $(function() {
-            const viewType = localStorage.getItem('profileViewType') || 'grid';
+            const viewType = "{{ $listingsPreferencesView }}";
             setProfileView(viewType);
             loadEscort(getCurrentPage());
 
@@ -941,11 +945,13 @@
         //click on grid view
         $(document).on('click', '#grid-modal', function() {
             // Active class
+            action = 'client_action'
             setProfileView('grid');
             loadEscort(getCurrentPage());
         });
         // when click on list button
         $(document).on('click', '#grid-list', function() {
+            action = 'client_action'
             setProfileView('list');
             loadEscort(getCurrentPage());
         });
@@ -976,8 +982,6 @@
                     value: membership_type
                 });
             }
-
-
 
 
             $.each(filter_by_location, function(key, value) {
@@ -1012,6 +1016,8 @@
                     $('#page_loader').show();
                 },
                 success: function(response) {
+                    console.log(response);
+
                     if (response.total_count > 0) {
                         const isGrid = response.view_type === 'grid';
                         $('#appendGridView').html(isGrid ? response.data : '').toggle(isGrid);
@@ -1020,6 +1026,8 @@
                         $('.no--listing').hide();
                         //update page number
                         localStorage.setItem('page', response.page);
+                        //update selected shortlist count
+
                     } else {
                         $('#appendGridView').html(" ");
                         $('#appendListView').html(" ");
@@ -1119,7 +1127,7 @@
                 varify_list: $('#escort_varify_list').val(),
             }
 
-            loadEscort(currentPage, filter_by_feild, {});
+            loadEscort(1, filter_by_feild, {});
         });
 
         function getMemberWiseCount(membership_type) {
@@ -1527,6 +1535,7 @@
                     $('#page_loader').show();
                 },
                 success: function(response) {
+                    console.log(response);
                     if (response.status === true) {
                         response.data.forEach(function(val) {
                             $(`#escort_${val}`).html('Add to Shortlist');
