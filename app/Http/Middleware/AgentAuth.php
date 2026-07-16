@@ -17,6 +17,19 @@ class AgentAuth
      */
     public function handle(Request $request, Closure $next)
     {
+        $request->merge([
+            'impersonatedId' => 0,
+            'isImpersonated' => false,
+        ]);
+
+        if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true) {
+            $request->merge([
+                'impersonatedId' => session('parent_user_id'),
+                'isImpersonated' => true,
+
+            ]);
+        }
+
         $response = $next($request);
 
         if(!$user = auth()->user()) {

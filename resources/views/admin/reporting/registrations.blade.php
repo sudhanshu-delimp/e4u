@@ -660,5 +660,24 @@ the Terms & Conditions of this website</label>
             // open modal if valid
             $("#reject-registration-confirm-popup").modal("show");
         });
+
+        async function switchAccount(url, msg) {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: msg,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes Switch",
+                cancelButtonText: "Cancel",
+                showDenyButton: false,
+            });
+
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+            return false;
+        }
     </script>
 @endpush

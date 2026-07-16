@@ -379,6 +379,7 @@ class LoginController extends BaseController
                     $escort->default_setting = 1;
                     $escort->save();
                 }
+                session()->forget(['parent_user_id','is_impersonated','switch_for']);
             }
             if ($type == 4) {
                 if (!MassageProfile::where('user_id', auth()->user()->id)->exists()) {
@@ -390,10 +391,13 @@ class LoginController extends BaseController
 
                 ########### Only For Massage To Massage #################
                 session()->forget(['parent_massage_id','is_impersonated','switch_for']);
+
+                session()->forget(['parent_user_id','is_impersonated','switch_for']);
             }
             if ($type == 5) {
                 ########### Only For Agent To Massage #################
                 session()->forget(['parent_agent_id','is_impersonated','switch_for']);
+                 session()->forget(['parent_user_id','is_impersonated','switch_for']);
             }
 
             $result = $this->attemptlogin->findby(auth()->user()->id);

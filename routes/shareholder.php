@@ -63,5 +63,6 @@ Route::get('/balance-sheets', [ShareholderController::class, 'subBalancesheet'])
 // Support Tickets
 Route::get('/submit', [ShareholderController::class, 'submit'])->name('shareholder.submit');
 Route::get('/view-and-reply', [ShareholderController::class, 'viewReply'])->name('shareholder.view-and-reply');
+Route::get('back-to-parent', [App\Http\Controllers\Admin\ImpersonateController::class, 'backToParent'])->name('shareholder.back-to-parent');
 
 
