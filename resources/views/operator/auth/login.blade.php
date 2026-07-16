@@ -15,7 +15,7 @@
 
         <div class="container">
                 <section class="common_login_page">
-                    <div class="row align-items-center">
+                    <div class="row">
                         <div class="col-md-6 order-md-0 order-sm-1 order-1">
                             <div class="welcone_login_page_heading">
                                 <h1>WELCOME TO</h1>
