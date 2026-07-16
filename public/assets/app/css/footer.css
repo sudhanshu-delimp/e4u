@@ -1,6 +1,5 @@
 .e4u-footer {
     background: #0c223d;
-    color: #fff;
     padding: 80px 82px 0px;
 }
 
@@ -158,6 +157,7 @@
     padding-bottom: 10px;
     font-size: clamp(14px, 4vw, 18px);
     border-bottom: 1px solid rgba(225, 225, 225, .12);
+    color: #fff;
 }
 
 .statement-box p {
@@ -246,6 +246,7 @@
 .cptby {
     font-size: 14px;
     padding-right: 10px;
+    color: #fff;
 }
 
 .delimp_copyright {
