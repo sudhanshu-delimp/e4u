@@ -40,7 +40,7 @@
 
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v1.18') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.04') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.16') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.17') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
