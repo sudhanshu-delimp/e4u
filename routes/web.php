@@ -331,7 +331,7 @@ Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'fil
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
 
 /****************************************************all-escorts-list**********************************************/
-Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.listing'); 
+Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing'); 
 Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.web.fecth.services');
 // New route 
  Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
