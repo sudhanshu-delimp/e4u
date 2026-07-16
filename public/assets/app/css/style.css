@@ -1872,7 +1872,7 @@ a.btn-common {
 }
 
 .shops_border p {
-    font-size: clamp(13px, 1vw, 16px);
+    font-size: clamp(13px, 1vw, 15px);
     line-height: clamp(20px, 1vw, 25px);
     margin: 0px;
     padding-top: 15px;

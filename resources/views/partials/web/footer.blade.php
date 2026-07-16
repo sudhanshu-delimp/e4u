@@ -66,21 +66,16 @@
 
             <div id="statementContent" class="statement-content">
                 <p>
-                    The primary purpose of this Website is to permit adults to advertise their companionship to other
-                    adults. Escorts4U helps Advertisers and Users find each other, what happens after that connection is
-                    made is up to them.
-                    We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.
-                    Any price indicated in an Advertiser's Profile relates to their time only and nothing else.
-                    Any service offered or whatever else that may occur is a mutual decision between consenting adults
-                    and is Private between them.
-                    It is your responsibility to be cognisant of and to comply with the Local Laws. Further details may
-                    be found in the Terms and Conditions.
+                    The primary purpose of this Website is to permit adults to advertise their companionship to other adults.
+                   Escorts4U helps Advertisers and Users find each other, what happens after that connection is made is up to them. We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.
+                    
+                   Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is Private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.
+                    <br><br>
+                   Further details may be found in the Terms and Conditions.
+
+
                 </p>
             </div>
-
-            <a href="javascript:void(0)" id="readMoreBtn" class="read-more">
-                Read More
-            </a>
         </div>
 
         <!-- MAIN LINKS -->
@@ -233,14 +228,14 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4  delimp_copyright order-last order-md-0">
+                <div class="col-lg-4 delimp_copyright order-last order-md-0">
                     <span><img
                             src="https://staging.e4u.host.powerwebhosting.com.au/assets/app/img/delimp-technology.png"
                             alt="Delimp Technology Pvt. Ltd."> Built by <a href="https://delimp.com/" target="_blank">
                             Delimp Technology Pvt. Ltd. </a></span>
                 </div>
 
-                <div class="col-lg-4 text-lg-right">
+                <div class="col-lg-4">
 
                    <div class="footer-social">
                      <span class="last-revision mr-3">
@@ -542,28 +537,6 @@
 
 @include('partials.common.footer-scripts')
 
-<script>
-   document.addEventListener("DOMContentLoaded", function () {
-
-    const content = document.getElementById("statementContent");
-    const btn = document.getElementById("readMoreBtn");
-
-    btn.addEventListener("click", function () {
-
-        content.classList.toggle("expanded");
-
-        if(content.classList.contains("expanded")){
-            content.style.maxHeight = content.scrollHeight + "px";
-            btn.innerHTML = 'Read Less';
-        }else{
-            content.style.maxHeight = "65px";
-            btn.innerHTML = 'Read More';
-        }
-
-    });
-
-});
-</script>
 
 <script>
     $('#agreeMyForm').parsley({

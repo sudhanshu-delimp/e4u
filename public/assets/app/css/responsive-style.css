@@ -723,7 +723,8 @@
                         .navbar-light .navbar-nav .header_reg_btn {
                             padding: 3px 10px;
                         }
-                        .header_logo {
+                        .header_logo,
+                        .footer-logo {
                             max-width: 120px;
                             width: 100%;
                         }
