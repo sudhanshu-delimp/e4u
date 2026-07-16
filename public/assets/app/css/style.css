@@ -2191,6 +2191,26 @@ button#legbox_btn:hover,
     font-size: 13px !important;
 }
 
+
+/* noset */
+
+.accordion-container .set.noset:last-child .content p {
+    font-size: 16px !important;
+    line-height: 28px;
+    padding: 2px 0px;
+}
+
+.accordion-container .set.noset:last-child .content p a {
+    font-size: 16px !important;
+}
+
+.accordion-container .set.noset:last-child .content p a span {
+    font-size: 16px !important;
+}
+
+
+/* end */
+
 .accordion-container .set p {
     text-align: justify;
 }
@@ -5968,6 +5988,27 @@ ul.footerbtn-flex li {
 
 .common_login_page .form-control input:focus {
     border-color: var(--peach);
+}
+
+
+/* common_form_design */
+
+.common_form_design .form-control {
+    border: 0px;
+}
+
+.common_form_design .input-group.custom-fields:focus-within {
+    border: 1px solid #0c223d !important;
+}
+
+.common_form_design .input-group.custom-fields {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.common_form_design .input-group-text {
+    background: transparent;
+    border: none;
 }
 
 .common_login_note {
