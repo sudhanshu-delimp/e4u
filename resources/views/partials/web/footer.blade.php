@@ -119,9 +119,9 @@
                     @endforeach
                 </div>
 
-                <h5 class="footer-title">Location - NZ</h5>
+                <h5 class="footer-title ">Location - NZ</h5>
 
-                <div class="footer-links">
+                <div class="footer-links location-grid">
 
                     @foreach (config('escorts.profile.nz_cities') as $key => $city)
                         @php
@@ -223,10 +223,12 @@
                     <div class="bottom-links">
                         <span class="cptby">© E4U 2026.</span>
 
-                        <a href="#">Cookie Settings</a>
-                        <a href="{{ route('notice.dmca') }}">DMCA Notices</a>
+                       <div class="b-links">
+                            <a href="#" class="cook--seting">Cookie Settings</a>
+                            <a href="{{ route('notice.dmca') }}">DMCA Notices</a>
 
-                        <a href="{{ url('parent-control') }} ">Parent Control</a>
+                            <a href="{{ url('parent-control') }} ">Parent Control</a>
+                       </div>
 
                     </div>
                 </div>
@@ -240,11 +242,11 @@
 
                 <div class="col-lg-4 text-lg-right">
 
-                   <div class="d-flex align-items-center justify-content-end">
+                   <div class="footer-social">
                      <span class="last-revision mr-3">
                         Last Revision: 1 June 2025
                     </span>
-
+                    <span class="cptby">Follow Us : </span>
                     <span class="social-icons">
                         <a href="https://x.com/Escorts46919U" target="_blank"><img
                                 src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"

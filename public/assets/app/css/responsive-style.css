@@ -422,12 +422,6 @@
                         .trikon_style {
                             padding: 10px !important;
                         }
-                        .delimp_copyright span {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            flex-direction: column;
-                        }
                         .welcome_sub_login_heading {
                             line-height: 1.4;
                             margin-bottom: 0px;
@@ -437,8 +431,15 @@
                         }
                         .btn_for_profile_list_view {
                             justify-content: center;
+                            height: 40px;
                         }
                         .list_button_wrap {
+                            width: 100%;
+                        }
+                        .all-escort-view-profile-btn {
+                            gap: 15px;
+                        }
+                        .all-escort-view-profile-btn .custom-view-profile {
                             width: 100%;
                         }
                     }

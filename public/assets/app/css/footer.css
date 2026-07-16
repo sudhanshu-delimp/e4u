@@ -26,10 +26,12 @@
 }
 
 .footer-title {
-    font-size: clamp(14px, 4vw, 18px);
+    font-size: clamp(16px, 4vw, 18px);
     font-weight: 600;
     margin: 20px 0px;
     color: #fff;
+    border-bottom: 1px solid rgba(225, 225, 225, .12);
+    padding-bottom: 10px;
 }
 
 .footer-links {
@@ -173,15 +175,33 @@
     padding: 25px 0;
 }
 
+.bottom-links {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .bottom-links a {
     color: rgba(255, 255, 255, .75);
-    margin-right: 20px;
     text-decoration: none;
     font-size: 14px;
+    padding: 0px 10px;
 }
 
 .bottom-links a:hover {
     color: #fff;
+}
+
+.b-links a {
+    border-right: 1px solid rgba(255, 255, 255, .12);
+}
+
+.b-links a:last-child {
+    border-right: 0px;
+}
+
+.b-links a:first-child {
+    border-left: 1px solid rgba(255, 255, 255, .12);
 }
 
 .social-icons a {
@@ -191,10 +211,16 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, .08);
+    background: #fff;
     color: #fff;
     margin-left: 8px;
     transition: .3s;
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: end;
 }
 
 .social-icons a:hover {
@@ -205,11 +231,26 @@
 .last-revision {
     color: rgba(255, 255, 255, .65);
     font-size: 14px;
+    border-right: 1px solid rgba(255, 255, 255, .12);
+    padding-right: 15px;
 }
 
 .cptby {
     font-size: 14px;
-    padding-right: 15px;
+    padding-right: 10px;
+}
+
+.delimp_copyright {
+    text-align: center;
+}
+
+.delimp_copyright span {
+    color: #fff;
+    font-size: 14px;
+}
+
+.delimp_copyright span a {
+    color: var(--peach);
 }
 
 @media(max-width:1024px) {
@@ -250,5 +291,37 @@
     }
     .footer-logo img {
         width: 50%;
+    }
+    .footer-social {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        flex-direction: column;
+        gap: 10px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(225, 225, 225, .12);
+    }
+    .bottom-links {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cptby {
+        padding-right: 0px;
+    }
+    .last-revision {
+        border-right: none;
+        padding: 0px;
+        margin: 0px !important;
+    }
+    .b-links a:first-child {
+        border-left: 0px;
+    }
+    .delimp_copyright span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
     }
 }
