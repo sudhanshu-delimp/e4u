@@ -1127,7 +1127,7 @@
                 varify_list: $('#escort_varify_list').val(),
             }
 
-            loadEscort(currentPage, filter_by_feild, {});
+            loadEscort(1, filter_by_feild, {});
         });
 
         function getMemberWiseCount(membership_type) {
