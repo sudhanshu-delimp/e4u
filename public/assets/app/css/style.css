@@ -939,7 +939,7 @@ button.short-list.btn.btn-primary:hover {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background: #fbfbfb;
+    background: #f3f3f3;
     padding: 20px;
     border-radius: 5px;
 }
@@ -6004,11 +6004,32 @@ ul.footerbtn-flex li {
 .common_form_design .input-group.custom-fields {
     border: 1px solid #ccc;
     border-radius: 5px;
+    padding: 2px;
 }
 
 .common_form_design .input-group-text {
     background: transparent;
     border: none;
+}
+
+.common_form_design input.parsley-error,
+.common_form_design select.parsley-error,
+.common_form_design textarea.parsley-error {
+    border: none !important;
+}
+
+
+/* Normal focus */
+
+.common_form_design .input-group.custom-fields:focus-within {
+    border: 1px solid #0c223d !important;
+}
+
+
+/* Error state */
+
+.common_form_design .input-group.custom-fields:has(.parsley-error) {
+    border: 1px solid var(--peach) !important;
 }
 
 .common_login_note {

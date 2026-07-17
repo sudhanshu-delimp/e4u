@@ -70,11 +70,8 @@
                    Escorts4U helps Advertisers and Users find each other, what happens after that connection is made is up to them. We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.
                     
                    Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is Private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.
-                    <br><br>
-                   Further details may be found in the Terms and Conditions.
-
-
-                </p>
+                 </p>
+                <p>Further details may be found in the Terms and Conditions.</p>
             </div>
         </div>
 
@@ -234,7 +231,6 @@
                             alt="Delimp Technology Pvt. Ltd."> Built by <a href="https://delimp.com/" target="_blank">
                             Delimp Technology Pvt. Ltd. </a></span>
                 </div>
-
                 <div class="col-lg-4">
 
                    <div class="footer-social">

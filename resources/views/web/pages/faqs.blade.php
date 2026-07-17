@@ -66,7 +66,7 @@
                      your SWA number where your Home State or the Profile is designated as Victoria.</p><br>
                   <p>If you do not currently have a SWA number, but would prefer to do so, you will need to register with the Business Licensing
                      Authority (BLA). For more information, contact the BLA at:</p>
-                  <p><a href="www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers" style="word-break: break-all;">www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers
+                  <p><a href="https://www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers" style="word-break: break-all;" target="_blank">www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers
                      </a></p><br>
                   <p><b>Q:Can I have a default Profile - can I create other Profiles from my default Profile when I
                      want to Tour?</b></p>
