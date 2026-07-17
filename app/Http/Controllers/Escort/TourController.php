@@ -759,7 +759,7 @@ class TourController extends Controller
                 $startDate = Carbon::parse($location['start_date']);
 
             // Apply only to the first location
-            if ($postTourLegBeforeArrival && $index === 0) {
+            if ($postTourLegBeforeArrival) {
                 $previousDay = $startDate->copy()->subDay();
 
                 // Use the previous day only if it is not today
