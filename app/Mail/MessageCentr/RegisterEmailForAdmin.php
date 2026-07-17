@@ -30,7 +30,7 @@ class RegisterEmailForAdmin extends Mailable
      */
     public function build()
     {
-        return $this->subject('New Registration massage Centre')
+        return $this->subject('New Registration Massage Centre')
         ->view('emails.massage_center.email_for_admin')
         ->with([
             'user' => $this->user,
