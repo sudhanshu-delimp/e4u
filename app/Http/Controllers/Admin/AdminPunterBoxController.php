@@ -143,13 +143,15 @@ class AdminPunterBoxController extends Controller
                 // Mark it as not orderable in the frontend columns definition (orderable: false)
                 // instead of trying to sort it here.
 
-                ->addColumn('status', function ($row) {
-                    $statusText = $row->status
-                        ? Str::title(Str::replace('_', ' ', $row->status))
-                        : 'NA';
-                    $badgeClass = getStatusBadgeClass($statusText);
-                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+             ->addColumn('status', function ($row) {
+                    $statusText = str_replace('_', ' ', $row->status);
+                    $displayText = ucwords($statusText);
+                    $badgeClass = getStatusBadgeClass(
+                        $row->status 
+                    );
+                    return "<span class='custom_badge {$badgeClass}'>{$displayText}</span>";
                 })
+
                 // Custom priority order for status column when the user clicks it to sort
                 ->orderColumn('status', function ($query, $order) {
                     $query->orderByRaw("
