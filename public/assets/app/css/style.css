@@ -939,7 +939,7 @@ button.short-list.btn.btn-primary:hover {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background: #f3f3f3;
+    background: #f7f7f7;
     padding: 20px;
     border-radius: 5px;
 }
