@@ -104,6 +104,8 @@ class ShareholderController extends Controller
             //'business_name' => $data['business_name'] ?? null,
             'business_address' => $data['business_address'] ?? null,
             'contact_type' => isset($data['contact_type'])  ? $contactType : null,
+            'updated_by' => (session()->has('parent_user_id')) ? session('parent_user_id') : Auth::id()
+
         ];
 
         $error = true;

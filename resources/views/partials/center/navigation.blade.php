@@ -134,6 +134,17 @@
                             </span>
                              </a>
                             @endif
+                           
+
+                            @if(session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
+                             <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
+                             <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
+                            <span class="switch-profile">
+                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
+
+                            </span>
+                             </a>
+                            @endif
                         </li>
 
 

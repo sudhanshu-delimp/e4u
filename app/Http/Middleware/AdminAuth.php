@@ -24,20 +24,27 @@ class AdminAuth
             return redirect('/');
         }
 
+        if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true) {
+            return $response;
+        }
+
         //if ($user->type != 1 &&  $user->type != 2) {
-        if ($user->type != 1 ) {
+        if ($user->type != 1) {
             return redirect('/');
         }
+
+        
+
         /** You should not access the Admin Sidebar Management tab link */
 
         if (in_array(request()->segment(2), ["management", "shareholders"]) && in_array($request->segment(3), config('staff.admin_management_url_endpoint'))) {
             $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
-        
+
             $sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
             $viewAccess = staffPageAccessPermission($securityLevel, 'view');
             $editAccess = staffPageAccessPermission($securityLevel, 'edit');
             $addAccess = staffPageAccessPermission($securityLevel, 'add');
-    
+
             $viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
             $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
             $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';

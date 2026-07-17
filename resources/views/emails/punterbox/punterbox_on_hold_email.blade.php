@@ -39,7 +39,7 @@
 
                             <!-- Main Message -->
                             <p style="font-size: 15px; line-height: 2.0; margin-bottom: 15px;">
-                                We advise your recent Report has been put on hold. If you wish to provide additional information or clarification, please log a Support Ticket quoting the Ref number.
+                                Your recent Punterbox Report has been placed On Hold due to an irregularity.  One of our staff will raise a Support Ticket to you requesting information to resolve the issue.
                             </p>
                             <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
                                 <strong>Summary:</strong>

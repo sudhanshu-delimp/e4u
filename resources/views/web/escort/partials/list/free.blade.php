@@ -30,7 +30,7 @@
                         </div>
                         <div class="add_to_fab_list_view_each_sec">
                             @if (auth()->user())
-                                @if (auth()->user()->type == 0)
+                                 @if ($viewerAuth->type == '0')
                                     <span
                                         class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
                                         id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"

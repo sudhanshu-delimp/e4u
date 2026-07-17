@@ -1325,10 +1325,12 @@ if (!function_exists('getStatusBadgeClass')) {
             'Withdrawn'         => 'badge_withdraw',
             'Verified'          => 'badge_accepted',
             'Current'          => 'badge_current',
+            'On Hold'          => 'badge_onHold',
 
         ];
 
-        $status = trim(ucfirst(strtolower($status)));
+        // $status = trim(ucfirst(strtolower($status)));
+        $status = trim($status);
         return isset($statusMap[$status]) ? $statusMap[$status] : 'badge_pending';
     }
 }
@@ -2603,5 +2605,40 @@ if (!function_exists('getStarRatingForEscort')) {
         }
 
         return 0;
+    }
+}
+
+if (!function_exists('getDashboardUrl')) {
+    function getDashboardUrl($userType = 0)
+    {
+        $url = "";
+        $userType = (int)($userType);
+        if($userType == 0) {
+            $url = "user-dashboard";
+        } else if($userType == 1) {
+             $url = "admin-dashboard/dashboard";
+        } else if($userType == 2) {
+             $url = "admin-dashboard/dashboard";
+        } else if($userType == 3) {
+             $url = "escort-dashboard";
+        } else if($userType == 4) {
+             $url = "center-dashboard";
+        } else if($userType == 5) {
+             $url = "agent-dashboard";
+        } else if($userType == 6) {
+             $url = "staff-dashboard";
+        } else if($userType == 7) {
+             $url = "operator-dashboard";
+        } else if($userType == 8) {
+             $url = "shareholder-dashboard";
+        } else if($userType == 9) {
+             $url = "operator-dashboard";
+        } else if($userType == 10) {
+             $url = "supplier-dashboard";
+        } else {
+             $url = "user-dashboard";
+        }
+
+        return $url;
     }
 }

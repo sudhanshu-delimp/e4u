@@ -35,18 +35,6 @@
 
 /* custome badge */
 
-.delimp_copyright {
-    text-align: center;
-}
-
-.delimp_copyright span {
-    color: #fff;
-}
-
-.delimp_copyright span a {
-    color: var(--peach);
-}
-
 .custom_badge {
     padding: 7px 8px;
     border-radius: 5px;
@@ -1087,7 +1075,11 @@ form#loginForm .mynote {
     padding: 10px;
     background: #f9f9f9;
     margin-top: 40px;
-    padding: 20px !important;
+    padding: 15px 20px !important;
+}
+
+.chagneto-policy p:last-child {
+    margin-bottom: 0px;
 }
 
 .chagneto-policy hr {
@@ -1880,7 +1872,7 @@ a.btn-common {
 }
 
 .shops_border p {
-    font-size: clamp(13px, 1vw, 16px);
+    font-size: clamp(13px, 1vw, 15px);
     line-height: clamp(20px, 1vw, 25px);
     margin: 0px;
     padding-top: 15px;
@@ -2183,6 +2175,41 @@ button#legbox_btn:hover,
     position: relative;
     margin: 10px auto;
 }
+
+.accordion-container .set:last-child .content p {
+    font-size: 13px !important;
+    line-height: 19px;
+    margin-bottom: 12px !important;
+    padding-bottom: 0px !important;
+}
+
+.accordion-container .set:last-child .content p a {
+    font-size: 13px !important;
+}
+
+.accordion-container .set:last-child .content p a span {
+    font-size: 13px !important;
+}
+
+
+/* noset */
+
+.accordion-container .set.noset:last-child .content p {
+    font-size: 16px !important;
+    line-height: 28px;
+    padding: 2px 0px;
+}
+
+.accordion-container .set.noset:last-child .content p a {
+    font-size: 16px !important;
+}
+
+.accordion-container .set.noset:last-child .content p a span {
+    font-size: 16px !important;
+}
+
+
+/* end */
 
 .accordion-container .set p {
     text-align: justify;
@@ -4632,7 +4659,7 @@ i.fa.fa-heart-o {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: bold;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px);
     line-height: 37px;
     font-weight: 500;
     text-align: center;
@@ -5961,6 +5988,27 @@ ul.footerbtn-flex li {
 
 .common_login_page .form-control input:focus {
     border-color: var(--peach);
+}
+
+
+/* common_form_design */
+
+.common_form_design .form-control {
+    border: 0px;
+}
+
+.common_form_design .input-group.custom-fields:focus-within {
+    border: 1px solid #0c223d !important;
+}
+
+.common_form_design .input-group.custom-fields {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.common_form_design .input-group-text {
+    background: transparent;
+    border: none;
 }
 
 .common_login_note {
@@ -8346,7 +8394,7 @@ h2.custom--review img {
 
 .custom--cookie--popup .popup-content {
     background: white;
-    width: clamp(265px, 32vw, 500px);
+    width: min(90vw, 500px);
     max-height: 90vh;
     position: relative;
     border-radius: 2px;
@@ -9931,7 +9979,7 @@ p.blog-link {
 }
 
 .border_color {
-    border-color: #5d6d7e !important;
+    border-color: #ccc !important;
 }
 
 .vrf-tooltip {

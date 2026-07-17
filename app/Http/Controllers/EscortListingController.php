@@ -16,6 +16,7 @@ use App\Repositories\Escort\EscortInterface;
 use Illuminate\Support\Facades\Http;
 use App\Models\State;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class EscortListingController extends Controller
 {
@@ -146,15 +147,15 @@ class EscortListingController extends Controller
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
-        $params = $this->getSearchParams($request, $userLocation, $userInterest);;
+        $params = $this->getSearchParams($request, $userLocation, $userInterest);
 
         $location = request()->get('location');
 
         // un orgnise code only use for running project
         if (isset($params['limit'])) {
-            $limit = $params['limit'];
+            $perPage = $params['limit'];
         } else {
-            $limit = 25;
+            $perPage = 25;
         }
 
 
@@ -278,7 +279,7 @@ class EscortListingController extends Controller
             ->merge($this->prepareMembership($free));
 
         $page = $params['page'];
-        $perPage = $limit;
+       // $perPage = $limit;
         //$grouped =  $result->groupBy('membership'); 
         $currentItems = $result->forPage($page, $perPage)->values();
         $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
@@ -446,11 +447,14 @@ class EscortListingController extends Controller
         | Gender / Interest Filter (Missing)
         |--------------------------------------------------------------------------
         */
+
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
         } else {
+            Log::info('else interest filter applied: ' . json_encode($params['interest']));
             if (!empty($params['interest'])) {
                 $interests = array_unique($params['interest']);
+                Log::info('interest filter applied: ' . json_encode($params['interest']));
                 if (is_array($interests)) {
                     $query->whereIn('escorts.gender', $interests);
                 }
@@ -528,12 +532,8 @@ class EscortListingController extends Controller
     {
         $user = auth()->user();
 
-        if (
-            !$user ||
-            $user->type != 0 ||
-            !$user->viewer_settings ||
-            $user->state_id != $user->current_state_id
-        ) {
+        if (!$user || $user->type != '0' || !$user->viewer_settings || $user->state_id != $user->current_state_id) 
+        {
             return null;
         }
 
