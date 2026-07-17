@@ -97,7 +97,7 @@
                         name="features_i_am_available_as_a_playmate" type="checkbox" value="1"
                         {{  (isset($setting->escort_settings) &&  $setting->escort_settings->features_i_am_available_as_a_playmate == '1') ? 'checked' : '' }}>
                     <label class="custom-control-label" for="notification_feature4">
-                        I’m available as a playmate
+                        I am available as a playmate
                     </label>
                 </div>
 
@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="mt-2">
-                    <i>Enable communications between you and your Escort Agency (if applicable).</i>
+                    <i>Enable communications between you and your Agent (if applicable).</i>
                 </div>
             </div>
 

@@ -20,7 +20,6 @@ class RegisterEmailForAdmin extends Mailable
     public function __construct($user)
     {
         $this->user = $user;
-        
     }
 
     /**
@@ -30,9 +29,11 @@ class RegisterEmailForAdmin extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.massage_center.email_for_admin')->with([
+        return $this->subject('New Registration Massage Centre')
+        ->view('emails.massage_center.email_for_admin')
+        ->with([
             'user' => $this->user,
-        ]);;
+        ]);
         
     }
 }
