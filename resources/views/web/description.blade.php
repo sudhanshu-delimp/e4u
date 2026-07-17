@@ -114,6 +114,7 @@
 
 @php
     $escortName = ($escort->gender == 'Transgender') ? 'TS-' . $escort->name : $escort->name;
+$features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_settings->features_allow_viewers_to_ask_you_a_question) ? (int)$escort->user->escort_settings->features_allow_viewers_to_ask_you_a_question : 0
 @endphp
 
     
@@ -1591,7 +1592,7 @@
 <!-- model start here 1-->
 <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @if(auth()->check() && auth()->user()->type==0)
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-centered {{($features_allow_viewers_to_ask_you_a_question == 1) ? 'modal-lg' : null}}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                
@@ -1602,7 +1603,13 @@
                 </button>
             </div>
             <div class="modal-body">
+                   @if($features_allow_viewers_to_ask_you_a_question == 0) 
                     <h5 class="custom_modal_text">
+                                <span id="Lname"> I am sorry but I do not accept direct communications.</span>
+                            </h5> 
+                                
+                @else
+                 <h5 class="custom_modal_text">
                                 <span id="Lname">To message {{ $escort->name}} please go to your Dashboard and select
                                     Communications  Messages. </span>
                             </h5>
@@ -1612,10 +1619,13 @@
                                     <li>Make sure you have enabled Messaging in your settings. If you have added {{ $escort->name}} to your
                                         Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
                                     <li>To message {{ $escort->name}}, they will also need to have Messaging enabled.</li>
-                                </ol>   
+                                </ol>  
+                @endif
             </div>
             <div class="modal-footer text-center justify-content-end">
-                <a href="{{ route('user.viewer-messages') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Go to Message</a>                
+                 @if($features_allow_viewers_to_ask_you_a_question == 1) 
+                <a href="{{ route('user.viewer-messages') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Go to Message</a>   
+                  @endif             
             </div>
             
 

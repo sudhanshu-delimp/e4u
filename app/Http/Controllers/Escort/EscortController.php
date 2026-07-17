@@ -733,6 +733,8 @@ class EscortController extends BaseController
 
         if ($setting) {
             $setting->update($data);
+            $user->available_playmate = (int)$request->features_i_am_available_as_a_playmate ?? 0;
+            $user->save();
         } else {
             $user->escort_settings()->create(array_merge($data, ['user_id' => $user->id]));
         }

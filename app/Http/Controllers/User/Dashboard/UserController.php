@@ -408,6 +408,16 @@ class UserController extends Controller
         $user = $this->user->find(auth()->user()->id);
         $user->available_playmate = $available_playmate;
         $user->save();
+
+         $setting = $user->escort_settings;
+
+        if ($setting) {
+            $setting->features_i_am_available_as_a_playmate = (string)$available_playmate;
+            if($setting->save()) {
+               //
+            }
+
+        }
         return response()->json(compact('available_playmate'));
     }
     /**
