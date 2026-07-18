@@ -407,7 +407,7 @@
                             <a class="collapse-item {{ request()->segment(2) == 'my-legbox-viewers' ? 'menu-active' : '' }}"
                                 href="{{ route('escort.dashboard.my-legbox-viewers') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/legbox.png') }}">
-                                <span>Legbox Viewer</span>
+                                <span>Legbox Viewers</span>
                             </a>
 
                             <a class="collapse-item disabled-link {{ request()->segment(2) == 'agent-messages' ? 'menu-active' : '' }}"
