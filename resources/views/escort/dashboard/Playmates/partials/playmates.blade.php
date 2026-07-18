@@ -295,8 +295,12 @@
             data: {
                 'available_playmate': isAvailable
             },
+            
             success: function(data) {
-                console.log("Playmate status updated");
+                var msg = "My Playmates updated successfully.";
+                $('.comman_msg').text(msg);
+                $('#modal-title').html('My Playmates');
+                $("#comman_modal").modal('show');
             }
         });
     }
