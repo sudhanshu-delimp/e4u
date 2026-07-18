@@ -94,83 +94,8 @@
                                 <th class="remove--icon">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-
-                                <td>V60587</td>
-                                <td>Western Australia</td>
-                                <td>Yes or No </td>
-                                <td>Yes</td>
-                                <td>Text</td>
-                                <td>0438 028 728</td>
-                                <td>Yes</td>
-                                <td>
-
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                        <label class="custom-control-label" for="customSwitch1"></label>
-                                    </div>
-
-                                </td>
-
-                                <td class="theme-color bg-white">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item align-item-custom" href="#"> <i
-                                                    class="fa fa-phone-slash"></i> Disable Contact</a>
-
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item align-item-custom" href="#"> <i
-                                                    class="fa fa-bell-slash" aria-hidden="true"></i> Disable
-                                                Notifications</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>V30789</td>
-                                <td>Victoria</td>
-                                <td>Yes or No</td>
-                                <td>Yes</td>
-                                <td>Text</td>
-                                <td>viewer@gmail.com </td>
-                                <td>Yes</td>
-                                <td>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                                        <label class="custom-control-label" for="customSwitch2"></label>
-                                    </div>
-                                </td>
-
-                                <td class="theme-color bg-white">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item align-item-custom" href="#"> <i
-                                                    class="fa fa-phone-slash"></i> Disable Contact</a>
-
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item align-item-custom" href="#"> <i
-                                                    class="fa fa-bell-slash" aria-hidden="true"></i> Disable
-                                                Notifications</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
+                       <tbody class="table-content">
+                    </tbody>
                     </table>
                 </div>
             </div>
