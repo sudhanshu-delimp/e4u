@@ -87,8 +87,8 @@
                                     Method</th>
                                 <th>Viewer
                                     Communication</th>
-                                <th>My Playbox
-                                    Subscription</th>
+                                <!--th>My Playbox
+                                    Subscription</th-->
                                 <th>Block
                                     Viewer</th>
                                 <th class="remove--icon">Action</th>
@@ -267,7 +267,7 @@
                     { data: 'contact_enabled', name: 'contact_enabled' },                               // 3
                     { data: 'contact_method', name: 'contact_method' },                   // 4
                     { data: 'viewer_comm', name: 'viewer_comm' }, // 5
-                    { data: 'playbox_subscription', name: 'playbox_subscription' },       // 6
+                    //{ data: 'playbox_subscription', name: 'playbox_subscription' },       // 6
                     { data: 'block_viewer', name: 'block_viewer' },                       // 9
                     { data: 'action', name: 'action', orderable: false, searchable: false, class:'text-center' } // 10
                 ],

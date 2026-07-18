@@ -84,10 +84,13 @@
                 <table class="table w-100" id="EscortReviewTable">
                     <thead class="table-bg">
                         <tr>
-                            <th >Ref</th>
-                            <th >Date</th>
-                            <th>Rating</th>
+                            <th>ID</th>
+                            <th>Escort's Name</th>
+                            <th>Viewer ID</th>
+                             
+                            <th>Date</th>
                             <th style="width: 100px;">Status</th>
+                            <th>Rating</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -223,7 +226,7 @@
         var escortReviewTable = $('#EscortReviewTable').DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref ID..."
+                searchPlaceholder: "Search by Profile ID..."
             },
             processing: true,
             serverSide: false,
@@ -245,6 +248,8 @@
             },
             columns: [
                 { data: 'ref', name: 'ref' },
+                { data: 'escort_name', name: 'escort_name' },
+                { data: 'viewer_id', name: 'viewer_id' },
                 { data: 'date', name: 'date' },
                 { data: 'rating', name: 'rating', orderable: false },
                 { 
@@ -337,7 +342,7 @@
                                     <tr>
                                         
                                         <th>Escort ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
-                                        <th>Escort’s Name:</th>
+                                        <th>Escort's Name:</th>
                                         <td class="border-0">`+response.data.escort.name+`</td>
                                         
                                     </tr>
