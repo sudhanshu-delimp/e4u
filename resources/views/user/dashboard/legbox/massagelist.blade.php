@@ -226,6 +226,10 @@
                      <div class=" d-flex align-items-center justify-content-start flex-wrap gap-10">
                         <input type="hidden" name="escort_id" id="escort_rate_id" value="69">
                         <input type="hidden" name="type" id="rating_type" value="rate">
+                         <div class="form-check">
+                           <input class="form-check-input" type="radio" name="escort_rating" id="not_rate" value="not_rate" checked="">
+                           <label class="form-check-label" for="rate_good">Not Rated</label>
+                        </div>
                         <div class="form-check">
                            <input class="form-check-input" type="radio" name="escort_rating" id="rate_good" value="good" checked="">
                            <label class="form-check-label" for="rate_good">Good</label>
