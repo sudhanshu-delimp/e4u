@@ -482,8 +482,9 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
             // Get location details from Google Maps Reverse Geocoding
             $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
+          
             $response = Http::get($geoUrl);
-
+ 
             $state = 'Unknown';
 
             if ($response->successful()) {
@@ -515,7 +516,6 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
         } catch (\Exception $e) {
             $stateCapital = config('escorts.profile.states')[auth()->user()->state_id];
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
-
             $parms = [
                 'geo_state' => $state,
                 'state' => null,
