@@ -94,7 +94,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/center.php'));
 
             Route::prefix('demo')
-                ->middleware(['web','TrackLoginUserInfo'])
+                ->middleware(['web','TrackLoginUserInfo','demo.auth'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
