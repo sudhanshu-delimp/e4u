@@ -25,7 +25,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myaccount"
             aria-expanded="true" aria-controls="myaccount">
-           <img src="{{ asset('assets/dashboard/img/menu-icon/my-account.png') }}" alt="">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/my-account.png') }}" alt="">
 
             <span>My Account</span>
         </a>
@@ -86,12 +86,10 @@
                 src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png') }}">
             <span>My Legbox</span>
         </a>
-        <div id="collapseTwo" class=" collapse  @if (request()->segment(2) == 'escort-list' ||
-                request()->segment(2) == 'massage' ||
-                request()->segment(2) == 'my-legbox-notes') show @endif;"
+        <div id="collapseTwo" class=" collapse  @if (request()->segment(2) == 'escort-list' || request()->segment(2) == 'massage' || request()->segment(2) == 'my-legbox-notes') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2"> --}}
-                {{-- <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
+    {{-- <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
                     <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -113,7 +111,7 @@
                         style="{{ request()->segment(2) == 'massage-legbox-list' ? 'color: #e5365a;' : '' }} ">Massage
                         List</span>
                 </a> --}}
-                {{-- <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
+    {{-- <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
                   <img src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
                   <span style="{{request()->segment(2) == 'escort-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
                </a>
@@ -135,153 +133,15 @@
         </div>
     </li> --}}
 
+   
 
-    <li class="nav-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_legbox!='1') inactive_li @endif">
-      <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo" aria-expanded="true">
-      <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png')}}">
-         <span>My Legbox</span>
-      </a>
-
-      <div id="collapseTwo" class=" collapse  @if(request()->is('user-dashboard/my-legbox/escort') || request()->is('user-dashboard/my-legbox/massage')) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-         <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('user.my-legbox',['escort']) }}">
-               <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
-               <span style="{{request()->is('user-dashboard/my-legbox/escort') ? 'color: #e5365a;' : ''}} ">Escorts</span>
-            </a>
-            <a class="collapse-item" href="{{ route('user.my-legbox',['massage']) }}">
-               <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
-               <span style="{{request()->is('user-dashboard/my-legbox/massage') ? 'color: #e5365a;' : ''}} ">Massage Centres</span>
-            </a>
-            {{-- <a class="collapse-item" href="{{ route('user.notes')}}">
-               <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 5.7207V3.7207H2V2.7207C2 1.6207 2.9 0.720703 4 0.720703H10V7.7207L12.5 6.2207L15 7.7207V0.720703H16C17 0.720703 18 1.7207 18 2.7207V12.5207C17.1 12.0207 16.1 11.7207 15 11.7207C11.7 11.7207 9 14.4207 9 17.7207C9 18.8207 9.3 19.8207 9.8 20.7207H4C2.9 20.7207 2 19.7207 2 18.7207V17.7207H0V15.7207H2V11.7207H0V9.7207H2V5.7207H0ZM2 3.7207V5.7207H4V3.7207H2ZM2 17.7207H4V15.7207H2V17.7207ZM2 11.7207H4V9.7207H2V11.7207ZM14 13.7207V16.7207H11V18.7207H14V21.7207H16V18.7207H19V16.7207H16V13.7207H14Z" fill="#C2CFE0"/>
-               </svg>
-               <span style="{{request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : ''}}">Notes</span>
-            </a> --}}
-         </div>
-      </div>
-   </li>
+   {{-- devider --}}
+    <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
+    </li>
+    {{-- end --}}
+    
 
    
-    <li class="nav-item disabled-link @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notebox"
-            aria-expanded="false" aria-controls="notebox">
-            <img class="mr-2 pl-1 cstm--icon"
-                src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
-            <span>Notebox</span>
-        </a>
-        {{-- <div id="notebox" class="collapse @if (request()->segment(3) == 'list' || request()->segment(3) == 'new') show @endif"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{ route('user.list') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/notebox.png') }}">
-                    <span style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
-                </a>
-
-                <a class="collapse-item" href="{{ route('user.new') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/add-note.png') }}">
-                    <span style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
-                </a>
-            </div>
-        </div> --}}
-    </li>
-
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly"
-            aria-expanded="false" aria-controls="collapseten">
-            <img class="mr-2 pl-1 cstm--icon "
-                src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox-2.png') }}">
-            <span>Punterbox</span>
-        </a>
-        <div id="ugly" class=" collapse  @if (request()->segment(3) == 'my-report' || request()->is('user-dashboard/edit-my-reports/*') || request()->segment(3) == 'dashboard' || request()->segment(3) == 'add-report') show @endif;"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-               
-                <a class="collapse-item show" href="{{ route('user.add-report') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/add-report.png') }}">
-                    <span style="{{ request()->segment(3) == 'add-report' ? 'color: #e5365a;' : '' }}">Add Report</span>
-                </a>
-                <a class="collapse-item show" href="{{ route('user.punterbox.dashboard') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/my-dashboard.png') }}">
-                    <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #e5365a;' : '' }}">Dashboard</span>
-                </a>
-                <a class="collapse-item" href="{{ route('user.my-report') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/my-report.png') }}">
-                    <span style="{{ request()->segment(3) == 'my-report' || request()->is('user-dashboard/edit-my-reports/*') ? 'color: #e5365a;' : '' }}">My Report</span>
-                </a>
-
-            </div>
-        </div>
-    </li>
-    <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; /*padding:20px 0;*/"></li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cms"
-            aria-expanded="false" aria-controls="collapseTwo">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M20.83 11.7208C20.6218 11.1383 20.2386 10.6343 19.7329 10.278C19.2271 9.92172 18.6236 9.73047 18.005 9.73047C17.3864 9.73047 16.7829 9.92172 16.2771 10.278C15.7714 10.6343 15.3882 11.1383 15.18 11.7208H8.82C8.6118 11.1383 8.22859 10.6343 7.72287 10.278C7.21715 9.92172 6.61364 9.73047 5.995 9.73047C5.37636 9.73047 4.77285 9.92172 4.26713 10.278C3.76141 10.6343 3.3782 11.1383 3.17 11.7208H1V13.7208H3.17C3.3782 14.3034 3.76141 14.8073 4.26713 15.1636C4.77285 15.5199 5.37636 15.7112 5.995 15.7112C6.61364 15.7112 7.21715 15.5199 7.72287 15.1636C8.22859 14.8073 8.6118 14.3034 8.82 13.7208H15.18C15.3882 14.3034 15.7714 14.8073 16.2771 15.1636C16.7829 15.5199 17.3864 15.7112 18.005 15.7112C18.6236 15.7112 19.2271 15.5199 19.7329 15.1636C20.2386 14.8073 20.6218 14.3034 20.83 13.7208H23V11.7208H20.83ZM6 13.7208C5.80222 13.7208 5.60888 13.6622 5.44443 13.5523C5.27998 13.4424 5.15181 13.2862 5.07612 13.1035C5.00043 12.9208 4.98063 12.7197 5.01921 12.5257C5.0578 12.3318 5.15304 12.1536 5.29289 12.0137C5.43275 11.8739 5.61093 11.7786 5.80491 11.74C5.99889 11.7015 6.19996 11.7213 6.38268 11.7969C6.56541 11.8726 6.72159 12.0008 6.83147 12.1653C6.94135 12.3297 7 12.523 7 12.7208C7 12.986 6.89464 13.2404 6.70711 13.4279C6.51957 13.6155 6.26522 13.7208 6 13.7208ZM18 13.7208C17.8022 13.7208 17.6089 13.6622 17.4444 13.5523C17.28 13.4424 17.1518 13.2862 17.0761 13.1035C17.0004 12.9208 16.9806 12.7197 17.0192 12.5257C17.0578 12.3318 17.153 12.1536 17.2929 12.0137C17.4327 11.8739 17.6109 11.7786 17.8049 11.74C17.9989 11.7015 18.2 11.7213 18.3827 11.7969C18.5654 11.8726 18.7216 12.0008 18.8315 12.1653C18.9414 12.3297 19 12.523 19 12.7208C19 12.986 18.8946 13.2404 18.7071 13.4279C18.5196 13.6155 18.2652 13.7208 18 13.7208Z"
-                    fill="#C2CFE0"></path>
-            </svg>
-            <span>Communication</span>
-        </a>
-        <div id="cms" class="collapse @if (request()->segment(2) == 'communication'|| request()->segment(2) == 'view-reviews' || request()->segment(2) == 'view-reviews') show @endif;"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-                 <a class="collapse-item  @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_direct_chatting_with_escorts!='1') inactive_li @endif" href="{{ route('user.view-reviews') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png') }}">
-                    <span style="{{ request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : '' }}">My Reviews</span>
-                </a>
-                <a class="collapse-item disabled-link @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_direct_chatting_with_escorts!='1') inactive_li @endif" href="{{ route('user.viewer-messages') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
-                    <span style="{{ request()->segment(2) == 'viewer-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
-                </a>
-            </div>
-        </div>
-    </li>
-    
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <img width="16" height="17" viewBox="0 0 16 17" fill="none"
-                src="{{ asset('assets/dashboard/img/menu-icon/com.png') }}">
-            </img>
-            <span>Community</span>
-        </a>
-
-        <div id="Community" class="collapse @if (request()->segment(2) == 'abbreviations' ||
-                request()->segment(2) == 'Community' ||
-                request()->segment(2) == 'guide' ||
-                request()->segment(2) == 'laws') show @endif;"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{ route('user.abbreviations') }}">
-                    <img src="{{ asset('assets/app/img/Abrieviations.png') }}">
-                    <span
-                        style="{{ request()->segment(2) == 'abbreviations' ? 'color: #e5365a;' : '' }}">Abbreviations</span>
-                </a>
-                <a class="collapse-item" href="{{ route('user.help') }}">
-                    <img src="{{ asset('assets/app/img/helptips.png') }}">
-                    <span style="{{ request()->segment(2) == 'Community' ? 'color: #e5365a;' : '' }}">Help &
-                        Tips</span>
-                </a>
-                <a class="collapse-item" href="{{ route('user.guide') }}">
-                    <img src="{{ asset('assets/app/img/blackboard.png') }}">
-                    <span style="{{ request()->segment(2) == 'guide' ? 'color: #e5365a;' : '' }}">Guide to seeing
-                        Escorts</span>
-                </a>
-
-
-                <a class="collapse-item" href="{{ route('user.laws') }}">
-                    <img src="{{ asset('assets/app/img/gavel.png') }}">
-                    <span style="{{ request()->segment(2) == 'laws' ? 'color: #e5365a;' : '' }}">Local Laws</span>
-                </a>
-            </div>
-        </div>
-
-    </li>
-
     {{-- <li class="nav-item">
       <a class="nav-link" href="#">
          <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -314,30 +174,262 @@
          </div>
       </div>
    </li> --}}
+
+
+
+
+    {{-- Management --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets"
-            aria-expanded="true" aria-controls="collapseten">
-            <img src="{{ asset('assets/app/img/ticket.png') }}">
-            <span>Support tickets</span>
+        {{-- Management --}}
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
+            <span>Management</span>
         </a>
-        <div id="tickets" class=" collapse  @if (request()->segment(2) == 'submitticket' || request()->segment(3) == 'profile' || request()->segment(2) == 'view-and-reply-ticket') show @endif;"
-            aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
-            <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item show" href="{{ url('user-dashboard/submitticket') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
-                    <span
-                        style="{{ request()->segment(2) == 'submitticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Submit</span>
+        <div id="Management" class="collapse  @if (in_array(request()->segment(2), ['advertiser-list', 'calculate-reckoner','edit-my-reports']) ||
+                in_array(request()->segment(3), [
+                    'escort',
+                    'massage','list','new','my-report','dashboard','add-report'                ])) show @endif"
+            data-parent="#accordionSidebar">
+            <div class="collapse-inner">
+
+                {{-- My Legbox --}}
+                <a class="nav-link  collapsed @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_legbox != '1') inactive_li @endif" href="#" data-toggle="collapse" data-target="#MyAdvertisers">
+                    <img class="mr-2 pl-1 cstm--icon"
+                src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png') }}">
+                    <span>My Legbox</span>
+                </a>
+                <div id="MyAdvertisers" class="collapse @if (request()->segment(3) == 'escort' ||
+                        request()->segment(3) == 'massage') show @endif;"
+                    data-parent="#Management">
+                    <div class="py-2 collapse-inner rounded">
+
+                        <a class="collapse-item" href="{{ route('user.my-legbox', ['escort']) }}">
+                            <img class="mr-2 pl-1 cstm--icon"
+                                src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
+                            <span
+                                style="{{ request()->is('user-dashboard/my-legbox/escort') ? 'color: #e5365a;' : '' }} ">Escorts</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('user.my-legbox', ['massage']) }}">
+                            <img class="mr-2 pl-1 cstm--icon"
+                                src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
+                            <span
+                                style="{{ request()->is('user-dashboard/my-legbox/massage') ? 'color: #e5365a;' : '' }} ">Massage
+                                Centres</span>
+                        </a>
+                        {{-- <a class="collapse-item" href="{{ route('user.notes')}}">
+                            <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 5.7207V3.7207H2V2.7207C2 1.6207 2.9 0.720703 4 0.720703H10V7.7207L12.5 6.2207L15 7.7207V0.720703H16C17 0.720703 18 1.7207 18 2.7207V12.5207C17.1 12.0207 16.1 11.7207 15 11.7207C11.7 11.7207 9 14.4207 9 17.7207C9 18.8207 9.3 19.8207 9.8 20.7207H4C2.9 20.7207 2 19.7207 2 18.7207V17.7207H0V15.7207H2V11.7207H0V9.7207H2V5.7207H0ZM2 3.7207V5.7207H4V3.7207H2ZM2 17.7207H4V15.7207H2V17.7207ZM2 11.7207H4V9.7207H2V11.7207ZM14 13.7207V16.7207H11V18.7207H14V21.7207H16V18.7207H19V16.7207H16V13.7207H14Z" fill="#C2CFE0"/>
+                            </svg>
+                            <span style="{{request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : ''}}">Notes</span>
+                            </a> --}}
+
+                    </div>
+                </div>
+                {{-- end --}}
+
+                {{-- fee --}}
+                <a class="nav-link disabled-link collapsed @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox != '1') inactive_li @endif" href="#" data-toggle="collapse" data-target="#Fees">
+                    <img class="mr-2 pl-1 cstm--icon" src="{{ asset('assets/dashboard/img/MyNotebox.png') }}"
+                style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
+                    <span>Notebox</span>
+                </a>
+                {{-- <div id="Fees" class="collapse @if (request()->segment(3) == 'list' ||
+                        request()->segment(3) == 'new') show @endif;"
+                    data-parent="#Management">
+
+                    <div class="py-0 collapse-inner rounded mb-2">
+
+                        <a class="collapse-item" href="{{ route('user.list') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/notebox.png') }}">
+                            <span style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
+                        </a>
+
+                        <a class="collapse-item" href="{{ route('user.new') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/add-note.png') }}">
+                            <span style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
+                        </a>
+
+                    </div>
+                </div> --}}
+                {{-- end --}}
+                {{-- Punterbox --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Punterbox">
+                   <img class="mr-2 pl-1 cstm--icon "
+                src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox-2.png') }}">
+                    <span>Punterbox</span>
                 </a>
 
-                <a class="collapse-item" href="{{ route('user.view-and-reply-ticket') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
-                    <span
-                        style="{{ request()->segment(2) == 'view-and-reply-ticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">View & reply</span>
-                </a>
+                <div id="Punterbox" class=" collapse  @if (request()->segment(3) == 'my-report' ||
+                        request()->is('user-dashboard/edit-my-reports/*') ||
+                         request()->segment(3) == 'dashboard' ||
+                        request()->segment(3) == 'add-report') show @endif;"
+                    data-parent="#Management">
+                    <div class="py-0 collapse-inner rounded mb-2">
+                        <a class="collapse-item show" href="{{ route('user.add-report') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/add-report.png') }}">
+                            <span style="{{ request()->segment(3) == 'add-report' ? 'color: #e5365a;' : '' }}">Add
+                                Report</span>
+                        </a>
+                        <a class="collapse-item show" href="{{ route('user.punterbox.dashboard') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/my-dashboard.png') }}">
+                            <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #e5365a;' : '' }}">Dashboard</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('user.my-report') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/my-report.png') }}">
+                            <span
+                                style="{{ request()->segment(3) == 'my-report' || request()->is('user-dashboard/edit-my-reports/*') ? 'color: #e5365a;' : '' }}">My
+                                Report</span>
+                        </a>
 
+                    </div>
+                </div>
+                {{-- end --}}
             </div>
         </div>
     </li>
+
+    {{-- end --}}
+
+    {{-- devider --}}
+    <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
+    </li>
+    {{-- end --}}
+
+    {{-- Administration --}}
+    <li class="nav-item">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
+            <span>Administration</span>
+        </a>
+        <div id="Administration" class="collapse  
+        @if (in_array(request()->segment(2), [
+                'communication',
+                'view-reviews',
+                'viewer-messages',
+                'guidelines',
+                'forms',
+                'abbreviations',
+                'Community',
+                'guide',
+                'laws',
+                'ticket-list','submitticket','view-and-reply-ticket','profile'
+            ]) || in_array(request()->segment(1), [])) show @endif"
+            data-parent="#accordionSidebar">
+            <div class="collapse-inner">
+
+               
+
+                {{-- Communication --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Communication"
+                    aria-expanded="false" aria-controls="Communication">
+                    <img width="16" height="17"
+                        src="{{ asset('assets/dashboard/img/menu-icon/communication.png') }}">
+                    <span>Communication</span>
+                </a>
+
+                <div id="Communication" class="collapse @if (in_array(request()->segment(2), ['communication', 'view-reviews','viewer-messages'])) show @endif"
+                    data-parent="#Administration">
+
+                    <div class="py-0 collapse-inner rounded mb-2">
+
+
+                        <!-- Forms -->
+                        <a class="collapse-item  @if (isset(auth()->user()->viewer_settings) &&
+                                auth()->user()->viewer_settings->features_direct_chatting_with_escorts != '1') inactive_li @endif"
+                            href="{{ route('user.view-reviews') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png') }}">
+                            <span style="{{ request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : '' }}">My
+                                Reviews</span>
+                        </a>
+                        <a class="collapse-item disabled-link @if (isset(auth()->user()->viewer_settings) &&
+                                auth()->user()->viewer_settings->features_direct_chatting_with_escorts != '1') inactive_li @endif"
+                            href="{{ route('user.viewer-messages') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                            <span
+                                style="{{ request()->segment(2) == 'viewer-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
+                        </a>
+                    </div>
+                </div>
+                {{-- end --}}
+
+                {{-- Community --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/com.png') }}">
+                    <span>Community</span>
+                </a>
+                <div id="Community" class="collapse @if (request()->segment(2) == 'abbreviations' ||
+                request()->segment(2) == 'Community' ||
+                request()->segment(2) == 'guide' ||
+                request()->segment(2) == 'laws') show @endif;"
+                    data-parent="#Administration">
+                    <div class="py-0 collapse-inner rounded mb-2">
+                        <a class="collapse-item" href="{{ route('user.abbreviations') }}">
+                            <img src="{{ asset('assets/app/img/Abrieviations.png') }}">
+                            <span
+                                style="{{ request()->segment(2) == 'abbreviations' ? 'color: #e5365a;' : '' }}">Abbreviations</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('user.help') }}">
+                            <img src="{{ asset('assets/app/img/helptips.png') }}">
+                            <span style="{{ request()->segment(2) == 'Community' ? 'color: #e5365a;' : '' }}">Help &
+                                Tips</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('user.guide') }}">
+                            <img src="{{ asset('assets/app/img/blackboard.png') }}">
+                            <span style="{{ request()->segment(2) == 'guide' ? 'color: #e5365a;' : '' }}">Guide to seeing
+                                Escorts</span>
+                        </a>
+
+
+                        <a class="collapse-item" href="{{ route('user.laws') }}">
+                            <img src="{{ asset('assets/app/img/gavel.png') }}">
+                            <span style="{{ request()->segment(2) == 'laws' ? 'color: #e5365a;' : '' }}">Local Laws</span>
+                        </a>
+                    </div>
+                </div>
+                {{-- end --}}
+
+
+
+
+                {{-- Support tickets --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets"
+                    aria-expanded="true" aria-controls="collapseten">
+                    <img src="{{ asset('assets/app/img/ticket.png') }}">
+                    <span>Support tickets</span>
+                </a>
+                <div id="tickets" class=" collapse @if (request()->segment(2) == 'submitticket' ||
+                request()->segment(3) == 'profile' ||
+                request()->segment(2) == 'view-and-reply-ticket') show @endif;"
+                    data-parent="#Administration">
+                    <div class="py-0 collapse-inner rounded mb-2">
+                        <a class="collapse-item show" href="{{ url('user-dashboard/submitticket') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
+                            <span
+                                style="{{ request()->segment(2) == 'submitticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Submit</span>
+                        </a>
+
+                        <a class="collapse-item" href="{{ route('user.view-and-reply-ticket') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
+                            <span
+                                style="{{ request()->segment(2) == 'view-and-reply-ticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">View
+                                & reply</span>
+                        </a>
+
+                    </div>
+                </div>
+                {{-- end --}}
+            </div>
+        </div>
+    </li>
+
+
+
+
+
+
+    
     {{-- <li class="nav-item v-last-setting v-divider">
         <a class="nav-link py-0" href="#">
             <span class="v-icon">...</span>
