@@ -250,6 +250,8 @@
                             'social-media',
                             'feedback',
                             'bookkeeping',
+                            'my-wallet',
+                            'transaction-summary',
                             'agent-request',
                             'agent-messages',
                             'legbox-notification',
@@ -277,7 +279,9 @@
                             'my-reports',
                             'num-tips',
                             'ticket-list','masseurs',
-                            'view-reviews'
+                            'view-reviews',
+                            'order-history',
+                            'concierge',
                         ]) ||
                         in_array(request()->segment(1), ['submit_ticket'])) show @endif"
              data-parent="#accordionSidebar">
@@ -338,7 +342,7 @@
 
          <div id="ManagementBookkeeping"
              class="collapse
-                    @if (in_array(request()->segment(2), ['bookkeeping'])) show @endif"
+                    @if (in_array(request()->segment(2), ['bookkeeping','order-history','my-wallet','transaction-summary'])) show @endif"
              data-parent="#AdminTab">
 
              <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
@@ -351,6 +355,11 @@
                  href="{{ route('center.my_wallet') }}">
                  <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
                  <span>My Wallet</span>
+             </a>
+             <a class="collapse-item {{ request()->segment(2) == 'order-history' ? 'menu-active' : '' }}"
+                 href="{{ route('center.bookkeeping.product.orders') }}">
+                 <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
+                 <span>Orders</span>
              </a>
 
              <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
@@ -482,7 +491,7 @@
                                 'professional-products',
                                 'travel',
                                 'visa',
-                            ])) show @endif"
+                            ]) || request()->segment(3) == 'view-cart') show @endif"
              data-parent="#AdminTab">
 
              <div class="py-0 collapse-inner rounded mb-2">
@@ -505,7 +514,7 @@
                      <span>Mobile SIM</span>
                  </a>
 
-                 <a class="collapse-item {{ request()->segment(2) == 'professional-products' ? 'menu-active' : '' }}"
+                 <a class="collapse-item {{ request()->segment(2) == 'professional-products' || request()->segment(3) == 'view-cart' ? 'menu-active' : '' }}"
                      href="{{ route('center.professional-products') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/pro-pro.png') }}">
                      <span>Products</span>

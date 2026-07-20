@@ -379,7 +379,7 @@ Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('b
 
 Route::prefix('concierge')->name('escort.')->group(function () {
   Route::get('/products', [ProductController::class, 'index'])->name('products');
-  Route::get('concierge/view-cart', [ProductController::class, 'cartListing'])->name('view-cart');
+  Route::get('view-cart', [ProductController::class, 'cartListing'])->name('view-cart');
   Route::post('get/products', [ProductController::class, 'getProducts'])->name('get.products');
   Route::post('transaction/summary', [ProductController::class, 'getTransactionSummary'])->name('transaction.summary');
   Route::post('make/order', [ProductOrderController::class, 'makeOrder'])->name('make.order');

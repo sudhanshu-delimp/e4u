@@ -40,7 +40,7 @@
              </div>
              @if ($grouped->has('2'))
                  @foreach ($grouped['2'] as $escort)
-                     {{-- @include('web.escort.partials.list.gold') --}}
+                     @include('web.escort.partials.list.gold')
                  @endforeach
              @endif
          </div>
@@ -62,7 +62,7 @@
 
              @if ($grouped->has('3'))
                  @foreach ($grouped['3'] as $escort)
-                     {{-- @include('web.escort.partials.list.silver') --}}
+                     @include('web.escort.partials.list.silver')
                  @endforeach
              @endif
 
@@ -83,7 +83,7 @@
              </div>
              @if ($grouped->has('4'))
                  @foreach ($grouped['4'] as $escort)
-                     {{-- @include('web.escort.partials.list.free') --}}
+                     @include('web.escort.partials.list.free')
                  @endforeach
              @endif
          </div>

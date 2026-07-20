@@ -134,7 +134,15 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $item->escort_id = $item->escort_id;
             $item->member_id = $item->escort->member_id;
             $item->name = $item->escort->user->name;
-            $item->profile_name = $item->escort->profile_name;
+            $item->profile_name = "<span> {$item->escort->profile_name}";
+
+            $latestActivePinup = $item->escort->latestActivePinup;
+            if($latestActivePinup){
+                $item->profile_name .= '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
+                <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($latestActivePinup->end_date)) . '</small>
+                </sup>';
+            }
+            $item->profile_name .= "</span>";
             $item->pro_name = $item->profile_name . '<br/>';
             $item->stage_name = $item->escort->gender == 'Transgender' ? 'TS - ' . $item->escort->name : $item->escort->name;
             $item->days_number = $item->days_number;

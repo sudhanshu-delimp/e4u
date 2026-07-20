@@ -1264,12 +1264,18 @@ function loyality_input(pay_type)
    
    if(pay_type==='bumpup')
    {
+      
+      $('.loyalty_amount_sec').attr('style', 'display: none !important;');
+      $('.wallet_amount_sec').attr('style', 'display: none !important;');
       $('.payment_loyalty_option').css('display', 'none');
       $('#loyalty_day').prop('disabled', true);
+
       $('#loyalty_day').val(0);
    }
    else 
    {
+      $('.loyalty_amount_sec').attr('style', 'display: flex !important;');
+      $('.wallet_amount_sec').attr('style', 'display: flex !important;');
       $('.payment_loyalty_option').css('display', 'block');
       $('#loyalty_day').prop('disabled', false);
       $('#loyalty_day').val(0);

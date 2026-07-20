@@ -119,7 +119,6 @@
                     <thead class="bg-first">
                         <tr>
                             <th>REF</th>
-                            <th>Status</th>
                             <th>Mobile</th>
                             <th>Incident Type</th>
                             <th>Incident Date</th>
@@ -170,16 +169,11 @@
                 url: "{{ route('user.punterboxdashboard') }}",
                 type: "GET",
             },
-            columns: [
-                {
+            columns: [{
                     data: 'ref',
                     name: 'ref'
                 },
-                {
-                    data: 'status',
-                    name: 'status',
-                    type: 'status'
-                },
+
                 {
                     data: 'escorts_mobile',
                     name: 'escorts_mobile',
@@ -234,12 +228,24 @@
             const row = table.row(tr);
 
             if (row.child.isShown()) {
-                row.child.hide();
-                tr.removeClass('shown');
+
+                row.child().find('.child-wrapper').slideUp(250, function() {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                });
+
                 $(this).removeClass('open');
+
             } else {
-                console.log(row.data()); // Check if data is coming
-                row.child(format(row.data())).show();
+
+                row.child(
+                    '<div class="child-wrapper" style="display:none;">' +
+                    format(row.data()) +
+                    '</div>'
+                ).show();
+
+                row.child().find('.child-wrapper').slideDown(250);
+
                 tr.addClass('shown');
                 $(this).addClass('open');
             }
@@ -284,14 +290,14 @@
                                     <td class="border-0">${data.rating ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
-                                    <th>Status:</th>
-                                     <td class="border-0">
-                                        ${data.status ? data.status.replace(/<[^>]*>/g, '') : 'N/A'}
-                                    </td>
+                                     <th>Platform:</th>
+                                    <td  class="border-0">${data.platform ?? 'N/A'}</td>
+                                     <th>Profile Link:</th>
+                                    <td  class="border-0">${data.profile_link ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
                                     <th>Summary of Incident:</th>
-                                    <td colspan="3" class="border-0">${data.what_happened ?? 'N/A'}</td>
+                                    <td  class="border-0">${data.what_happened ?? 'N/A'}</td>
                                 </tr>
                             </tbody>
                         </table>

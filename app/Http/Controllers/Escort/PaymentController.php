@@ -281,7 +281,7 @@ class PaymentController extends Controller
                 } else {
                     return response()->json([
                         'status' => 'error',
-                        'gateway' => $gatewayResponse['error']
+                        'gateway' => $gatewayResponse
                     ], 400);
                 }
             }
@@ -355,7 +355,7 @@ class PaymentController extends Controller
 
                         Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment'), $mailConfig['subject']));
 
-                        $redirect_url = route('escort.my_wallet');
+                        $redirect_url = ($mainAccount->type == '4') ? route('center.my_wallet') : route('escort.my_wallet');
                     }
                     break;
 

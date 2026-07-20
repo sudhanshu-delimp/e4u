@@ -211,10 +211,20 @@ var readXHR = (xhr) => {
     return response;
 }
 
+
+
 var getStatusOption = (xhr) => {
     let icon, title;
     let response = readXHR(xhr);
-    let message = response?.message || response?.gateway || 'Something went wrong';
+    var message = response?.message || response?.gateway || 'Something went wrong';
+    console.log(message);
+
+    if (message?.errors?.length > 0) {
+        message = message.errors.map(error => error.message).join('<br>');
+    } else if (message?.error) {
+        message = message.error;
+    }
+
     switch (xhr.status) {
         case 200:
             icon = 'success';
@@ -360,8 +370,7 @@ var getGeoLocationEscortAccountProfiles = function (state = 0) {
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed || result.isDismissed) {
-                            window.location.href =
-                                "{{ route('escort.profile') }}";
+                            window.location.href =`${window.App.baseUrl}escort-dashboard/create-profile`;
                         }
                     });
                 }

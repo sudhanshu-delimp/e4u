@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends(auth()->user()->type == 4 ? 'layouts.center' : 'layouts.escort')
 @section('style')
     <style>
         .table td {
@@ -113,17 +113,21 @@
         @include('escort.dashboard.Concierge.modal.view_order_history_modal')
     @endsection
     @push('script')
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+
+        <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+
+        <!-- Your custom JS -->
+
         <script>
             $(document).ready(function() {
                 var table = $("#productsHistoryTable").DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('escort.order.list') }}",
+                        url: "{{ auth()->user()->type == 4 ? route('center.order.list') : route('escort.order.list') }}",
                         type: 'GET'
                     },
-
-
                     info: true,
                     paging: true,
                     lengthChange: true,
@@ -137,7 +141,6 @@
                         [10, 25, 50, 100]
                     ],
                     pageLength: 25,
-
                     columns: [{
                             data: 'order_id',
                             name: 'order_id'
@@ -202,9 +205,9 @@
                 $("#orderDetailsBody").hide().html("");
 
                 $.ajax({
-                    url: "{{ route('escort.order.details') }}?id=" + orderId,
+                    url: "{{ auth()->user()->type == 4 ? route('center.order.details') : route('escort.order.details') }}?id=" +
+                        orderId,
                     type: "GET",
-
                     beforeSend: function() {
                         $("#view-details").modal("show"); // open modal immediately
                     },
@@ -224,8 +227,8 @@
                     error: function() {
                         $("#orderDetailsLoader").hide();
                         $("#orderDetailsBody").html(
-                            "<div class='alert alert-danger'>Unable to load order details.</div>"
-                        ).fadeIn();
+                                "<div class='alert alert-danger'>Unable to load order details.</div>")
+                            .fadeIn();
                     }
                 });
             });

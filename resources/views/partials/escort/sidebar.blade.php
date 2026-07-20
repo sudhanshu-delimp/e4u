@@ -301,6 +301,7 @@
                     'ticket-list',
                     'submit_ticket',
                     'order-history',
+                    'concierge',
                 ]) ||
                     in_array(request()->segment(1), ['submit_ticket']) ||
                     in_array(request()->segment(3), ['uploads', 'guidelines', 'listings','products'])) show @endif"
@@ -373,9 +374,6 @@
                             href="{{ route('escort.payment.transaction_summary') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
                             <span>Transaction Summary</span></a>
-
-
-                       
                     </div>
 
                     {{-- Communication --}}
@@ -409,7 +407,7 @@
                             <a class="collapse-item {{ request()->segment(2) == 'my-legbox-viewers' ? 'menu-active' : '' }}"
                                 href="{{ route('escort.dashboard.my-legbox-viewers') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/legbox.png') }}">
-                                <span>Legbox Viewer</span>
+                                <span>Legbox Viewers</span>
                             </a>
 
                             <a class="collapse-item disabled-link {{ request()->segment(2) == 'agent-messages' ? 'menu-active' : '' }}"
@@ -486,7 +484,7 @@
                             'mobile-read-sim',
                             'travel',
                             'visa-migration',
-                        ]) || in_array(request()->segment(3), ['products'])) show @endif"
+                        ]) || in_array(request()->segment(3), ['products','view-cart'])) show @endif"
                         data-parent="#Management">
 
                         <div class="py-0 collapse-inner rounded mb-2">
@@ -509,7 +507,7 @@
                                 <span>Mobile SIM</span>
                             </a>
  
-                            <a class="collapse-item {{ request()->segment(3) == 'products' ? 'menu-active' : '' }}"
+                            <a class="collapse-item {{ request()->segment(3) == 'products' || request()->segment(3) == 'view-cart' ? 'menu-active' : '' }}"
                                 href="{{ route('escort.products') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/product.png') }}" />
                                 <span>Products</span>
@@ -587,31 +585,29 @@
 
 
                     {{-- ===== Influencer ===== --}}
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                    <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse"
                         data-target="#ManagementInfluencer">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/influencer.png') }}">
                         <span>Influencer</span>
                     </a>
 
-                    <div id="ManagementInfluencer"
+                    {{-- <div id="ManagementInfluencer"
                         class="collapse
-                    @if (in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
+                        @if (in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
                         data-parent="#Management">
 
-                        <!-- Guidelines -->
                         <a class="collapse-item" href="{{ route('escort.guidelines') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                         </a>
-                        <!-- Forms -->
                         <a class="collapse-item" href="{{ route('escort.uploads') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/uploads.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'uploads' ? 'color: #e5365a;' : '' }}">Uploads</span>
                         </a>
 
-                    </div>
+                    </div> --}}
 
                     {{-- ===== NUM ===== --}}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse"

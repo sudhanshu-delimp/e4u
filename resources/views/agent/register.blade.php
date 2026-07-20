@@ -274,7 +274,7 @@
                         <div class="accodien_manage_padding_content">
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
-                                    <div class="col-md-4 col-12">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                         <ul
                                             class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                                             <li><span class="correct_symbole_font_weight">✓</span> At least 1 lowercase
@@ -282,7 +282,7 @@
                                             <li><span class="correct_symbole_font_weight">✓</span> At least 1 number</li>
                                         </ul>
                                     </div>
-                                    <div class="col-md-4 col-12">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                         <ul
                                             class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                                             <li><span class="correct_symbole_font_weight">✓</span> At least 1 uppercase
@@ -292,7 +292,7 @@
 
                                         </ul>
                                     </div>
-                                    <div class="col-md-4 col-12">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                         <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx register_ul">
                                             <li><span class="correct_symbole_font_weight">✓</span> 8 characters minimum
                                             </li>
@@ -373,7 +373,6 @@
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="cms-accordion-content-area">
                                             <!-- level 1 list -->
                                             <p>
                                                 We may change or modify these Terms and Conditions in the future. We
@@ -387,7 +386,6 @@
                                                 Escorts4U archives all previous versions of the Terms and Conditions
                                             </p>
                                             <p><b>This policy was last updated 04-06-2025</b></p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

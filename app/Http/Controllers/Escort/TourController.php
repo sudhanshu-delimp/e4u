@@ -60,6 +60,10 @@ class TourController extends Controller
         $this->user = $user;
         $this->media = $media;
         $this->tour = $tour;
+        $this->middleware(function ($request, $next) {
+            $this->user = auth()->user();
+            return $next($request);
+        });
     }
 
     public function tourProfileList($sm, $id)
@@ -85,13 +89,11 @@ class TourController extends Controller
 
         $find_tour = $this->tour->find($id);
         $user_names = $escort->whereNotNull('state_id')->where('default_setting', 0);
-        //dd($find_tour->tour_location);
         $template = view('escort.dashboard.archives.partials.edit-tour', compact('escorts', 'find_tour', 'user_names'))->render();
 
         $status = true;
 
         return response()->json(compact('template', 'status'), 200);
-        //return response()->json(compact('find_tour'));
     }
     public function createTour($id = null)
     {
@@ -113,14 +115,9 @@ class TourController extends Controller
     {
         $escort = $this->escort->FindByUsers(auth()->user()->id);
         $escorts = $escort->where('state_id', '==', $id)->where('default_setting', 0);
-        //dd($escorts);
-        //dd($find_tour->tour_location);
-        //$template = view('escort.dashboard.archives.partials.edit-tour', compact('escorts','find_tour'))->render();
-
         $status = true;
 
         return response()->json(compact('status', 'escorts', 'id'), 200);
-        //return response()->json(compact('find_tour'));
     }
     public function TourDataTable(Request $request, $type = NULL)
     {
@@ -152,76 +149,6 @@ class TourController extends Controller
 
         return response()->json($data);
     }
-    //     public function TourDataTable(Request $request, $type = NULL)
-    //     {
-
-    //     $today = \Carbon\Carbon::today();
-    //     $user_id = auth()->user()->id;
-    //     $search = $request->get('search');
-    //     $sortBy = $request->get('sort_by', 'id');
-    //     $sortDir = $request->get('sort_dir', 'desc');
-    //     $length = $request->get('length', 10);
-    //     $start = $request->get('start', 0);
-    //     $query = \App\Models\Tour::with('locations');
-    //     $query->where('user_id', $user_id);
-    //     if ($type === 'current') {
-    //         $query->whereHas('latestLocation', fn($q) => 
-    //             $q->where('end_date', '>=', $today)
-    //         );
-    //     } elseif ($type === 'past') {
-    //         $query->whereHas('latestLocation', fn($q) => 
-    //          $q->where('end_date', '<', $today)
-    //         );
-    //     }
-
-    //     // Search by tour name
-    //     if ($search) {
-    //         $query->where('name', 'like', '%' . $search . '%');
-    //     }
-
-    //     $total = $query->count();
-    //     $tours = $query->orderBy($sortBy, $sortDir)
-    //     ->skip($start)
-    //     ->take($length)
-    //     ->get()
-    //     ->map(function ($tour, $index) {
-    //         $startDate = $tour->locations->min('start_date');
-    //         $endDate = $tour->locations->max('end_date');
-    //         $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
-    //         $is_checkout = $tour->tourPurchase->count();
-    //         $action = '<div class="dropdown no-arrow archive-dropdown">
-    //             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-    //             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-    //         if(empty($is_checkout)){
-    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
-    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $tour->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
-    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
-    //         }
-    //         else{
-    //             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
-    //         }
-
-    //         $action .= '</div></div>';
-
-    //         return [
-    //             'id' => $tour->id,
-    //             'name' => $tour->name,
-    //             'start_date' => $startDate->format('d-m-Y'),
-    //             'end_date' => $endDate->format('d-m-Y'),
-    //             'days' => $days,
-    //             'action' => $action
-    //         ];
-    //     });
-
-    // return response()->json([
-    //     'data' => $tours,
-    //     'recordsTotal' => $total,
-    //     'recordsFiltered' => $total,
-    // ]);
-
-    //     }
-
-
 
     public function viewTour()
     {
@@ -821,17 +748,30 @@ class TourController extends Controller
         DB::beginTransaction();
         try {
             // Create a new Tour
+            $postTourLegBeforeArrival = in_array(3,$this->user->tour_permissition_type);
             $tour = Tour::create([
                 'name' => $request->tour_name,
                 'user_id' => auth()->id() // Assuming the user is logged in
             ]);
 
-            foreach ($request->locations as $location) {
+            foreach ($request->locations as $index => $location) {
                 // Create Tour Location
+                $startDate = Carbon::parse($location['start_date']);
+
+            // Apply only to the first location
+            if ($postTourLegBeforeArrival) {
+                $previousDay = $startDate->copy()->subDay();
+
+                // Use the previous day only if it is not today
+                if (!$previousDay->isToday()) {
+                    $startDate = $previousDay;
+                }
+            }
+
                 $tourLocation = TourLocation::create([
                     'tour_id' => $tour->id,
                     'state_id' => $location['location_id'],
-                    'start_date' => $location['start_date'],
+                    'start_date' => $startDate->format('d-m-Y'),
                     'end_date' => $location['end_date']
                 ]);
 

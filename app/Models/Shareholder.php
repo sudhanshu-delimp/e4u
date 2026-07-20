@@ -7,6 +7,8 @@ use App\Models\ShareholderContact;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Model;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 //use Illuminate\Support\Facades\DB;
 
@@ -15,11 +17,18 @@ class Shareholder extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $table = "users";
+    protected $impersonatedId;
 
     protected $casts = [
         'contact_type' => 'array',
     ];
 
+    public function __construct() {
+        $this->impersonatedId = 0;
+         if (Session::isStarted()) {
+            $this->impersonatedId = Session::get('parent_user_id');
+        }
+    }
 
     public function shareholder_setting()
     {
@@ -64,6 +73,21 @@ class Shareholder extends Model
     {
         return $this->belongsTo(User::class, 'created_by')
             ->select('id', 'member_id', 'name', 'business_name');
+    }
+
+    /**
+     * Indicates if the model should have created_by and updated_by fields.
+     *
+     * @var bool
+     */
+    public $createdUpdatedBy = true;
+
+    /**
+     * Get the created by that owns the details.
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
     }
 
     public function updatedBy()
@@ -137,10 +161,10 @@ class Shareholder extends Model
      * @return void
      */
     protected static function booted()
-    {
+    { 
         static::saving(function ($model) {
             if (auth()->check()) {
-                $model->updated_by = Auth::id();
+                $model->updated_by =Auth::id();
             }
         });
     }

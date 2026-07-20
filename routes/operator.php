@@ -41,3 +41,4 @@ Route::post('/store-operator-staff', [OperatorstaffController::class, 'update_st
 Route::get('/view-operator-staff/{id}', [OperatorstaffController::class, 'viewStaff'])->name('operator.operator.view-staff');
 Route::post('/approve-operator-staff-account', [OperatorstaffController::class, 'approve_staff_account'])->name('operator.operator.approve_staff_account');
 Route::post('/print-operator-staff', [OperatorstaffController::class, 'printStaffDetails'])->name('operator.operator.print_staff');
+Route::get('back-to-parent', [App\Http\Controllers\Admin\ImpersonateController::class, 'backToParent'])->name('operator.back-to-parent');

@@ -100,7 +100,7 @@ class ReportingController extends BaseController
     public function registration_data_pagination($start, $limit, $order_key, $dir)
     {
         $agent = User::query()
-            ->whereIn('type', ['3', '4', '5', '7', '8'])
+            ->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])
             ->orderByRaw("
         CASE 
             WHEN status = 6 THEN 1
@@ -209,7 +209,7 @@ class ReportingController extends BaseController
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-pause-circle"></i> On Hold</a>';
 
                     $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
-                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
+                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspend</a>';
                 }
 
 
@@ -225,11 +225,10 @@ class ReportingController extends BaseController
                 }
 
                 if ($item->status == 'Suspended') {
-                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Activate</a>';
+                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
-
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
-                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
 
                     $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
                 }
@@ -251,7 +250,19 @@ class ReportingController extends BaseController
 
                 $dropdown .= '<div class="dropdown-divider"></div>';
             }
-            $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye mr-2"></i> View</a></div></div>';
+            $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye"></i> View</a>';
+
+            $switch_account_route =  "'".route('admin.switch-to-child', $item->id)."'";
+            $type = $item->role_type;
+            if($type == 'Agents') {
+                $type = "Agent";
+            }
+            $type = str_replace(['-'], ' ', $type);
+            $switch_confirm_message =  "'"."Are you sure you want to switch to the " . $type . " account?" ."'";
+            
+
+            $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 toggle-report"   href="javascript:void(0)" onclick="return switchAccount('.$switch_account_route.', '.$switch_confirm_message.')" ><i class="fa fa-random"></i> Switch To</a></div></div>';
+
 
             $item->action = $dropdown;
             $memberIdBadgeText =  '';

@@ -1029,6 +1029,18 @@ class WebController extends Controller
             $q->where('status', 'published');
         }, 'reviews.user'])->first();
 
+        if(!$escort){
+           return redirect(route('public.web.escort.listing'));
+        }
+
+        if (Auth::user() && auth()->user()->type == 0 &&  $escort) {
+            $blockedProfileForViewers = EscortViewerInteractions::where('viewer_id', Auth::user()->id)->where('escort_blocked_viewer', true)->where('escort_id',  $escort->id)->first();
+            if ($blockedProfileForViewers) {
+                return redirect(route('public.web.escort.listing'));
+            }
+        }
+
+
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id, 1)['path'];
 
@@ -1386,7 +1398,7 @@ class WebController extends Controller
         # add stats after like
 
         $escortUser = Escort::where('id', $escort_id)->first();
-        if($escort_id){
+        if ($escort_id) {
             $escortUser->star_rating = getStarRatingForEscort($escort_id);
             $escortUser->save();
         }

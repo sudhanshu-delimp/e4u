@@ -45,22 +45,24 @@ class AdminPunterBoxController extends Controller
         });
     }
 
-
     public function showReportOnDashboardAjax(Request $request)
     {
+        $punterbox = Punterbox::with(['state', 'user:id,member_id,name']);
 
-        // $punterbox = Punterbox::with(['state', 'user:id,member_id,name'])->orderBy('incident_date', 'desc')->get();
-        $punterbox = Punterbox::with(['state', 'user:id,member_id,name'])
-            ->orderByRaw("
-                CASE status
-                    WHEN 'pending' THEN 1
-                    WHEN 'on_hold' THEN 2
-                    WHEN 'published' THEN 3
-                    WHEN 'rejected' THEN 4
-                    ELSE 5
-                END ASC
-            ")
-            ->orderByDesc('incident_date');
+        // Apply the custom priority order ONLY when no column-sort request is present.
+        // Otherwise this order would dominate/override whatever Yajra tries to apply.
+        if (!$request->filled('order')) {
+            $punterbox->orderByRaw("
+            CASE status
+                WHEN 'pending' THEN 1
+                WHEN 'on_hold' THEN 2
+                WHEN 'published' THEN 3
+                WHEN 'rejected' THEN 4
+                ELSE 5
+            END ASC
+        ")->orderByDesc('incident_date');
+        }
+
         $timeZone = isset(config('escorts.profile.states')[Auth::user()->state_id]) ?? 'Australia/Sydney';
 
         # Date Filters
@@ -87,7 +89,20 @@ class AdminPunterBoxController extends Controller
 
             return DataTables::of($punterbox)
                 ->addColumn('ref', fn($row) => '#' . $row->id)
+                // 'ref' is just "#" + id, so sort it using the real 'id' column
+                ->orderColumn('ref', 'id $1')
+
                 ->addColumn('member_id', fn($row) => $row->user->member_id ?? 'N/A')
+                // 'member_id' comes from the related User model, not from punterbox table directly.
+                // So we need a manual subquery-based sort using the actual FK relation.
+                ->orderColumn('member_id', function ($query, $order) {
+                    $query->orderBy(
+                        \App\Models\User::select('member_id')
+                            ->whereColumn('users.id', 'punterbox.user_id') // update table name here if different
+                            ->limit(1),
+                        $order
+                    );
+                })
 
                 ->filterColumn('member_id', function ($query, $keyword) {
                     $query->whereHas('user', function ($q) use ($keyword) {
@@ -96,6 +111,17 @@ class AdminPunterBoxController extends Controller
                 })
 
                 ->addColumn('escorts_name', fn($row) => $row->user->name ?? 'N/A')
+                // Same as above — this is displayed from the related User's 'name' field,
+                // so we sort it using a subquery on the users table.
+                ->orderColumn('escorts_name', function ($query, $order) {
+                    $query->orderBy(
+                        \App\Models\User::select('name')
+                            ->whereColumn('users.id', 'punterbox.user_id') // update table name here if different
+                            ->limit(1),
+                        $order
+                    );
+                })
+
                 ->editColumn('incident_date', function ($row) {
                     if (!$row->incident_date) {
                         return '';
@@ -105,6 +131,7 @@ class AdminPunterBoxController extends Controller
                         . Carbon::parse($row->incident_date)->format('d-m-Y') .
                         '</span>';
                 })
+
                 ->addColumn('location', function ($row) {
                     if ($row->incident_state) {
                         $states = config('escorts.profile.states')[$row->incident_state] ?? null;
@@ -112,14 +139,32 @@ class AdminPunterBoxController extends Controller
                     }
                     return 'N/A';
                 })
+                // 'location' is derived from a config array lookup, not a real sortable DB column.
+                // Mark it as not orderable in the frontend columns definition (orderable: false)
+                // instead of trying to sort it here.
 
-                ->addColumn('status', function ($row) {
-                    $statusText = $row->status
-                        ? Str::title(Str::replace('_', ' ', $row->status))
-                        : 'NA';
-                    $badgeClass = getStatusBadgeClass($statusText);
-                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+             ->addColumn('status', function ($row) {
+                    $statusText = str_replace('_', ' ', $row->status);
+                    $displayText = ucwords($statusText);
+                    $badgeClass = getStatusBadgeClass(
+                        $row->status 
+                    );
+                    return "<span class='custom_badge {$badgeClass}'>{$displayText}</span>";
                 })
+
+                // Custom priority order for status column when the user clicks it to sort
+                ->orderColumn('status', function ($query, $order) {
+                    $query->orderByRaw("
+                    CASE status
+                        WHEN 'pending' THEN 1
+                        WHEN 'on_hold' THEN 2
+                        WHEN 'published' THEN 3
+                        WHEN 'rejected' THEN 4
+                        ELSE 5
+                    END $order
+                ");
+                })
+
                 ->addColumn('actions', function ($row) {
 
                     // Define all possible actions
@@ -131,44 +176,44 @@ class AdminPunterBoxController extends Controller
                     ];
 
                     $html = '<div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" 
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" 
-                                    aria-labelledby="dropdownMenuLink">';
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" 
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" 
+                                aria-labelledby="dropdownMenuLink">';
 
                     // Loop through all actions except the current status
                     if ($this->editAccessEnabled) {
                         foreach ($actions as $status => $data) {
                             if ($row->status !== $status) {
                                 $html .= '<a class="dropdown-item d-flex align-items-center gap-10 justify-content-start update_status"
-                                        data-id="' . $row->id . '" 
-                                        data-status="' . $status . '" 
-                                        href="#" 
-                                        data-toggle="modal" 
-                                        data-target="#confirm-popup">
-                                        <i class="fa ' . $data['icon'] . '"></i> ' . $data['label'] . '
-                                    </a>
-                                    <div class="dropdown-divider"></div>';
+                                    data-id="' . $row->id . '" 
+                                    data-status="' . $status . '" 
+                                    href="#" 
+                                    data-toggle="modal" 
+                                    data-target="#confirm-popup">
+                                    <i class="fa ' . $data['icon'] . '"></i> ' . $data['label'] . '
+                                </a>
+                                <div class="dropdown-divider"></div>';
                             }
                         }
                     }
 
                     // Always show "View Report" option
                     $html .= '<a class="dropdown-item d-flex align-items-center gap-10 justify-content-start view_report" 
-                                data-id="' . $row->id . '" 
-                                href="#" 
-                                data-toggle="modal" 
-                                data-target="#reject_popup">
-                                <i class="fa fa-eye"></i> View Report
-                            </a>';
+                            data-id="' . $row->id . '" 
+                            href="#" 
+                            data-toggle="modal" 
+                            data-target="#reject_popup">
+                            <i class="fa fa-eye"></i> View Report
+                        </a>';
 
                     $html .= '</div></div>';
 
                     return $html;
                 })
-                ->rawColumns(['ref', 'actions', 'status', 'incident_date']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref', 'actions', 'status', 'incident_date']) // only these need HTML rendering
                 ->with([
                     'server_up_time' => $this->getAppUptime(),
                     'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
@@ -178,7 +223,6 @@ class AdminPunterBoxController extends Controller
         }
         return view('admin.reports.punterbox', ['punterbox' => $punterbox]);
     }
-
 
     public function getAppUptime()
     {

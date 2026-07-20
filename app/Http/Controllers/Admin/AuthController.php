@@ -153,6 +153,9 @@ class AuthController extends Controller
             if ($user->type == 1 || $user->type == 8 || $user->type == 9) {
                 $hasher = app('hash');
                 $error = 0;
+
+                session()->forget(['parent_user_id','is_impersonated','switch_for']);
+
                 //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
                 if (true) {
                     $error = 1;

@@ -36,6 +36,14 @@ class EscortAuth
                 //return redirect()->route('escort.dashboard')->with('error', accessDeniedMsg());
             }
         }
+
+        if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true) {
+            $request->merge([
+                'impersonatedId' => session('parent_user_id'),
+                'isImpersonated' => true,
+
+            ]);
+        }
         
         if(!$user = auth()->user()) {
             //return redirect()->route('advertiser.login');
