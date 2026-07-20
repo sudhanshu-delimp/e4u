@@ -62,14 +62,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware(['web', 'escort', 'HeaderInfo','TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Escort')
                 ->group(base_path('routes/escort.php'));
-
-            Route::middleware('web')
-                ->get('/', function () {
-                    return redirect('/demo');
-                });
-                
-            Route::prefix('demo')
-                ->middleware(['web', 'user', 'HeaderInfo','TrackLoginUserInfo'])
+     
+            Route::middleware(['web', 'user', 'HeaderInfo','TrackLoginUserInfo'])
                 //->namespace('App\Http\Controllers\User')
                 ->group(base_path('routes/web.php'));
 
@@ -93,8 +87,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace('App\Http\Controllers\Center')
                 ->group(base_path('routes/center.php'));
 
-            Route::prefix('demo')
-                ->middleware(['web','TrackLoginUserInfo','demo.auth'])
+            Route::middleware(['web','TrackLoginUserInfo','demo.auth'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
