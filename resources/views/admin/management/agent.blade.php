@@ -1,20 +1,39 @@
 @extends('layouts.admin')
 @section('style')
-<style>
-   form label{
-        margin-bottom: 0px;
-    }
+    <style>
+        form label {
+            margin-bottom: 0px;
+        }
 
-    .right-sign{border-left:0 !important;margin-left: -2px;}
-    .left-sign{border-right:0 !important;margin-right: -2px !important;}
-	.avertising-input{border-right:0 !important;}
-	.registration-input{border-left:0 !important;};
-    .view_agent_details .table td {padding: 10px .75rem !important;}
-    .view_agent_details .table td, .view_agent_details .table th {
-   padding: 10px .75rem !important;
-}
+        .right-sign {
+            border-left: 0 !important;
+            margin-left: -2px;
+        }
 
-</style>
+        .left-sign {
+            border-right: 0 !important;
+            margin-right: -2px !important;
+        }
+
+        .avertising-input {
+            border-right: 0 !important;
+        }
+
+        .registration-input {
+            border-left: 0 !important;
+        }
+
+        ;
+
+        .view_agent_details .table td {
+            padding: 10px .75rem !important;
+        }
+
+        .view_agent_details .table td,
+        .view_agent_details .table th {
+            padding: 10px .75rem !important;
+        }
+    </style>
 @stop
 @section('content')
     <!-- Content Wrapper -->
@@ -120,11 +139,11 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
-        var adv_commissionfee =  "{{$commissionfee[0]['amount']}}";
-        var massg_commissionfee = "{{$commissionfee[1]['amount']}}";
+        var adv_commissionfee = "{{ $commissionfee[0]['amount'] }}";
+        var massg_commissionfee = "{{ $commissionfee[1]['amount'] }}";
 
-        var commissionAdvertisingType = "{{$commissionfee[0]['amount_type']}}";
-        var commissionRegistrationType = "{{$commissionfee[1]['amount_type']}}";
+        var commissionAdvertisingType = "{{ $commissionfee[0]['amount_type'] }}";
+        var commissionRegistrationType = "{{ $commissionfee[1]['amount_type'] }}";
         $(document).ready(function(e) {
             var table = $("#agent_data_table").DataTable({
                 language: {
@@ -362,13 +381,16 @@
                     '<button type="button" class="btn-success-modal mr-2 mt-3 approve_account" data-id=' +
                     rowData.id + '>Approve</button>' : '';
 
-                const selectedValues = Array.isArray(viewerContactType) ? viewerContactType.map(String) :[];
+                const selectedValues = Array.isArray(viewerContactType) ? viewerContactType.map(String) :
+            [];
                 const agent_details = (rowData.agent_detail && Object.keys(rowData.agent_detail).length >
                     0) ? rowData.agent_detail : null;
                 const agreement_file = agent_details?.agreement_file ?
-                    `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank">Download Agreement</a>` : '';
+                    `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank">Download Agreement</a>` :
+                    '';
                 const signature_file = agent_details?.signature_file ?
-                    `<a href="{{ asset('storage') }}/${agent_details.signature_file}" target="_blank">Download Signature</a>` : '';
+                    `<a href="{{ asset('storage') }}/${agent_details.signature_file}" target="_blank">Download Signature</a>` :
+                    '';
                 const signature_image = agent_details?.signature_file ?
                     "{{ asset('storage') }}/" + agent_details.signature_file : '';
 
@@ -394,7 +416,7 @@
 
 
 
-               var modal_html = `
+                var modal_html = `
                <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                   <div class="modal-content basic-modal">
 
@@ -602,61 +624,61 @@
                 swal_waiting_popup({
                     'title': 'Validating email..'
                 });
-                   $.ajax({
-                     url: "{{ route('admin.update-agent') }}",
-                     method: 'POST',
-                     data: formData,
-                     contentType: false,
-                     processData: false,
-                     success: function(response) {
+                $.ajax({
+                    url: "{{ route('admin.update-agent') }}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
                         table.ajax.reload(null, false);
                         Swal.close();
                         $('span.text-danger').text('');
                         $('#viewAgentdetails').modal('hide');
                         swal_success_popup(response.message);
-                     },
-                     error: function(xhr) {
+                    },
+                    error: function(xhr) {
                         Swal.close();
                         if (xhr.status === 422) {
-                           $('span.text-danger').text('');
-                           let errors = xhr.responseJSON.errors;
-                           $.each(errors, function(field, messages) {
-                              $('.error-' + field).text(messages[0]);
-                           });
+                            $('span.text-danger').text('');
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                $('.error-' + field).text(messages[0]);
+                            });
                         } else {
-                           swal_error_popup(xhr.responseJSON.message ||
-                              'Something went wrong');
+                            swal_error_popup(xhr.responseJSON.message ||
+                                'Something went wrong');
                         }
-                     }
-                  });
+                    }
+                });
 
-               //  $.ajax({
-               //      url: "{{ route('admin.check-agent-email') }}",
-               //      method: "POST",
-               //      data: formData,
-               //      contentType: false,
-               //      processData: false,
-               //      success: function(res) {
-               //          if (res.status) {
-               //              swal_waiting_popup({
-               //                  'title': 'Updating agent details..'
-               //              });
+                //  $.ajax({
+                //      url: "{{ route('admin.check-agent-email') }}",
+                //      method: "POST",
+                //      data: formData,
+                //      contentType: false,
+                //      processData: false,
+                //      success: function(res) {
+                //          if (res.status) {
+                //              swal_waiting_popup({
+                //                  'title': 'Updating agent details..'
+                //              });
 
-               //          }
-               //      },
-               //      error: function(xhr) {
-               //          Swal.close();
-               //          if (xhr.status === 422) {
-               //              let errors = xhr.responseJSON.errors;
-               //              if (errors.email) {
-               //                  $('.error-email').text(errors.email[0]);
-               //              }
-               //              if (errors.email2) {
-               //                  $('.error-email2').text(errors.email2[0]);
-               //              }
-               //          }
-               //      }
-               //  });
+                //          }
+                //      },
+                //      error: function(xhr) {
+                //          Swal.close();
+                //          if (xhr.status === 422) {
+                //              let errors = xhr.responseJSON.errors;
+                //              if (errors.email) {
+                //                  $('.error-email').text(errors.email[0]);
+                //              }
+                //              if (errors.email2) {
+                //                  $('.error-email2').text(errors.email2[0]);
+                //              }
+                //          }
+                //      }
+                //  });
             });
 
             ///////// Approve Agent //////////////////////////////
@@ -1089,12 +1111,11 @@
 
 
 
-    $('#addNewAgent, #viewAgentdetails').on('shown.bs.modal', function () {
-        $('.js_datepicker').datepicker({
-            dateFormat: "dd-mm-yy",
-            minDate: 0
+        $('#addNewAgent, #viewAgentdetails').on('shown.bs.modal', function() {
+            $('.js_datepicker').datepicker({
+                dateFormat: "dd-mm-yy",
+                minDate: 0
+            });
         });
-    });
-        
     </script>
 @endpush
