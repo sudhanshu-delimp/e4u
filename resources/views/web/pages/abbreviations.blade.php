@@ -392,7 +392,7 @@
                                         href="{{('terms-conditions#B2')}}"
                                         class="termsandconditions_text_color text-decoration-none">Account</a>”
                                     described in the Terms and incorporates the Membership Number.<br>
-                                    <b>Advertiser :  </b>has the same meaning as “<a href="{{('terms-conditions')}}"
+                                    <b>Advertiser :  </b>has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Advertiser</a>”
                                     described
                                     in the Terms.
@@ -454,7 +454,7 @@
                                     livestream
                                     material, data, text (such as comments and hashtags), metadata, images, interactive
                                     features,
-                                    emojis, GIFs, memes, and any other material whatsoever.<br><b>Corporations Act :  </b>has the same meaning as “<a href="{{('terms-conditions')}}"
+                                    emojis, GIFs, memes, and any other material whatsoever.<br><b>Corporations Act :  </b>has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Corporations Act</a>”
                                     described in the Terms.
                                 <br><b>Creator : </b> means an Escort who has enabled their My Playbox service under their
@@ -474,14 +474,14 @@
                                     information.
                                 </p>
                                 <h2 id="set-E">E</h2>
-                                <p><b>E4U :  </b>has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <p><b>E4U :  </b>has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">E4U</a>” described in
                                     the
                                     Terms.
                                <br><b>E4U Verification Icon : </b> means the unique icon placed on a Verified Photo
                                     and which certifies the Media has been verified as
                                     authentic.
-                               <br><b>Escort : </b> has the same meaning as “<a href="{{('terms-conditions')}}"
+                               <br><b>Escort : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Escort</a>” described
                                     in
                                     the Terms.
@@ -499,7 +499,7 @@
                                     
                                 <h2 id="set-F">F</h2>
                                 <p><b>Favorite : </b> has the same meaning as Legbox.<br><b>Fee</b> or <b>Fees : </b> has the same meaning as “<a
-                                        href="{{('terms-conditions')}}"
+                                        href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Fees</a>” described
                                     in the
                                     Terms.
@@ -510,7 +510,7 @@
                                     and has limitations placed on it.
                                 </p>
                                 <h2 id="set-G">G</h2>
-                                <p><b>Geolocation :  </b>has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <p><b>Geolocation :  </b>has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Geolocation</a>”
                                     described in the Terms.
                                 <br><b>Gold :  </b>means the middle level of paid Membership an
@@ -521,7 +521,7 @@
                                 <h2 id="set-H">H</h2>
                                 <p><b>Home Page : </b> means the default page a User lands on when
                                     entering the Website.
-                                <br><b>Home State :  </b>has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <br><b>Home State :  </b>has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Home State</a>”
                                     described in the Terms.
                                 </p>
@@ -549,19 +549,19 @@
                             <div class="col-lg-6">
                                 <!-- <p></p> -->
                                 <h2 id="set-M">M</h2>
-                                <p><b>Massage Centre : </b> has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <p><b>Massage Centre : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Massage Centre</a>”
                                     described in the Terms.
                                 <br><b>Massage Centre Home Page : </b> means the landing page that Massage Centre
                                     Profiles appear on and which Viewers have a
                                     search facility.
                                 <br><b>Massage Centre Profile :  </b> has the same meaning as “<a
-                                        href="{{('terms-conditions')}}"
+                                        href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Massage Centre
                                         Profile</a>” described in the Terms.
                                 <br><b>Massage Centre ID :  </b> means the reference number allocated to the Massage Centre
                                     by Escorts4U and which identifies the said Massage Centre.
-                                <br><b>Masseur : </b> has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <br><b>Masseur : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Masseur</a>”
                                     described in
                                     the Terms.
@@ -573,7 +573,7 @@
                                     video files and includes your Thumbnail and
                                     Banner Image which is posted on a Profile.
                                 <br><b>Member</b> or <b>Membership : </b> has the same meaning as “<a
-                                        href="{{('terms-conditions')}}"
+                                        href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Member</a> and
                                     Membership” described in the Terms.
                                 <br><b>Membership Number</b> and <b>Member ID : </b> means collectively the unique number
@@ -607,12 +607,12 @@
                                     Advertiser has chosen to post a Profile or Tour.
                                 <br><b>POA</b> :  Means, in relation to a Profile, price on
                                     application.
-                                <br><b>Policy</b> :  has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <br><b>Policy</b> :  has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Policies</a>”
                                     described in
                                     the Terms.
                                 <br><b>Privacy Act : </b> means the <i>Privacy Act 1988 (Cth).</i><br><b>Profile</b> and <b> Profile Page : </b> has the same meaning as “<a
-                                        href="{{('terms-conditions')}}"
+                                        href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Profile</a>”
                                     described in
                                     the Terms.
@@ -672,7 +672,7 @@
                                     Archive Folder which you have designated as the
                                     default display photo image for all of your display
                                     photos that appear in a Profile (in portrait).
-                                <br><b>Tour : </b> has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <br><b>Tour : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Tour</a>” described
                                     in the
                                     Terms.
@@ -680,7 +680,7 @@
                                 <h2 id="set-U">U</h2>
                                 <p><b>UMReport : </b> means the Ugly Mug Report, submitted by an
                                     Advertiser.
-                                <br><b>User/s : </b> has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <br><b>User/s : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">User</a>” described
                                     in the
                                     Terms.
@@ -692,7 +692,7 @@
                                 <br><b>Verified Photo : </b> means an Advertiser's photo submitted to
                                     Escorts4U together with a form of identity and
                                     which is matched by facial identity.
-                                <br><b>Viewer : </b> has the same meaning as “<a href="{{('terms-conditions')}}"
+                                <br><b>Viewer : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Viewer</a>” described
                                     in
                                     the Terms.
@@ -705,7 +705,7 @@
                                     to a User by Escorts4U alerting the User of an
                                     update about the Website.
                                     <br><b class="pb-4">Website : </b> has the same meaning as “<a
-                                        href="{{('terms-conditions')}}"
+                                        href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Website</a>”
                                     described in
                                     the Terms.
@@ -740,11 +740,11 @@
                             These icons used in the Website <span class="bold-custon">(Icons)</span> are provided to assist
                             Users navigate their way
                             through the Website and to provide clarity and certainty. The meaning ascribed to an Icon
-                            should be read in conjunction with the <a href="{{ url('terms-conditions')}}"
+                            should be read in conjunction with the <a href="{{ route('page.terms-conditions')}}"
                                 class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a>. To the
                             extent of any
                             inconsistency between the meaning ascribed to an Icon and the Terms and Conditions,
-                            the <a href="{{ url('terms-conditions')}}"
+                            the <a href="{{ route('page.terms-conditions')}}"
                                 class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a> prevail.
                         </p>
 
@@ -990,7 +990,7 @@
                                 <div class="container mt-4 px-0 chagneto-policy">
                                     <hr class="custom_hr">
                                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                                    <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('page.terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                                             review the most current version.</p>
                                     <p>Escorts4U archives all previous versions of this Policy.</p>
                                     <p><b>This policy was last updated 28-05-2025</b></p>
@@ -1017,7 +1017,7 @@
                                                 We may change or modify these Terms and Conditions in the future. We
                                                 will note the date that revisions were last made at the bottom of this
                                                 page. Any revision will take effect upon its posting. It is your
-                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                responsibility to check the <a href="{{ route('page.terms-conditions')}}">Terms
                                                     and Conditions</a> from time to time to review the most current
                                                 version.
                                             </p>

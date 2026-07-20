@@ -502,7 +502,7 @@
                                                 We may change or modify these Terms and Conditions in the future. We
                                                 will note the date that revisions were last made at the bottom of this
                                                 page. Any revision will take effect upon its posting. It is your
-                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                responsibility to check the <a href="{{ route('page.terms-conditions')}}">Terms
                                                     and Conditions</a> from time to time to review the most current
                                                 version.
                                             </p>
