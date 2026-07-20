@@ -485,6 +485,7 @@
 
     $("#my_avatar").on('submit', function(e) {
         e.preventDefault();
+        swal_waiting_popup({'title':'Uploading avatar...'});
         var form = $(this);
         $("#modal-title").text("Upload Your Avatar");
         $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
@@ -517,6 +518,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
+                 Swal.close();
                 if (data.type == 0) {
                     var msg = "Avatar uploaded successfully!";
                     var url = "{{asset('avatars/name')}}";
@@ -538,6 +540,7 @@
                 }
             },
             error: function(data) {
+                 Swal.close();
                 errorModuleShow(data);
             }
         });
