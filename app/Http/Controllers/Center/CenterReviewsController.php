@@ -91,7 +91,9 @@ class CenterReviewsController extends Controller
         [$advertiserReviews, $reports] = $this->getAdvertiserReviews();
             
         return DataTables::of($advertiserReviews)
-            ->addColumn('ref', fn($row) =>  $row->id . ($row->massage->id ?? ''))
+            ->addColumn('ref', fn($row) =>  ($row->massage->id ?? ''))
+            ->addColumn('business_name', fn($row) =>  ($row->massage->business_name ?? ''))
+            ->addColumn('viewer_id', fn($row) =>  $row->user?->member_id ?? '')
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
             ->addColumn('rating', function($row){
 
@@ -112,9 +114,9 @@ class CenterReviewsController extends Controller
 
             })
             ->addColumn('status', function($row){
-                $status = '<span class="badge badge-success">Published </span>';
+                $status = '<span class="custom_badge badge_active">Published</span>';
                 if($row->status == 'suspended'){
-                    $status = '<span class="badge badge-danger">Suspended</span>';
+                    $status = '<span class="custom_badge badge_suspended">Suspended</span>';
                 }
 
                 return $status;

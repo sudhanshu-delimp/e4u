@@ -68,111 +68,7 @@ $contactMsg = session('success');
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
    <div class="container">
       <h1 class="home_heading_first margin_btm_twenty_px">Contact Us</h1>
-      <!-- 
-         <h2 class="primery_color normal_heading">Some general information</h2>
-         <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
-         <ul>
-             <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
-                 arrange bookings. Please contact <a class="c-red" href="{{ url('all-escorts-list')}}">Advertisers 001</a> directly
-             </li>
-             <li>An Advertiser with a question, first look at our help for <a class="c-red" href="{{ url('all-escorts-list')}}">Advertisers</a>,
-                 or <a class="c-red" href="{{ url('faqs')}}">FAQs</a> and if you
-                 don't find the answer, then contact us by logging a "Support Ticket" (the preferred
-                 method of contact, but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> )
-                 otherwise contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
-             </li>
-             <li>A Viewer with a question, first look at our help for <a class="c-red" href="{{url('help-for-viewers')}}">Viewers</a> and if
-                 you don't find the
-                 answer, then contact us by logging a "Support Ticket" (see below), if you are a
-                 registered Viewer, (the preferred method of contact, but you need to <a class="c-red" href="viewer-login">log
-                     on</a>) otherwise
-                 contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
-             </li>
-             <li>A law enforcement agency, Court or an attorney, go to our <a class="c-red" href="{{'law-enforcement'}}">Law Enforcement
-                     Policy</a> for
-                 information regarding legal process.
-             </li>
-         </ul>
-         
-         <p>For anything else, contact us <a class="c-red" href="#" onClick="openSolution();">here</a>, or by any of
-             the alternative means below. Whichever
-             method of communication you use we will get back to you within the next few days. </p>
-         
-         <form id="contect" style="display: none">
-             <div class="form-row">
-                 <div class="form-group col-md-6">
-                     <label for="inputEmail4">First Name</label>
-                     <input type="text" class="form-control border_for_form" placeholder="First name">
-                 </div>
-                 <div class="form-group col-md-6">
-                     <label for="inputPassword4">Last Name</label>
-                     <input type="text" class="form-control border_for_form" placeholder="Last name">
-                 </div>
-             </div>
-             <div class="form-group">
-                 <label for="inputAddress">Email</label>
-                 <input type="email" class="form-control border_for_form" id="inputEmail4" placeholder="Email">
-             </div>
-             <div class="form-group">
-                 <label for="exampleFormControlTextarea1">Comment</label>
-                 <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
-             </div>
-             <button type="submit" id="" class="btn btn-primary mb-3">Send Message</button>
-         </form> -->
       <div class="accordion-container">
-         <!-- <div class="set">
-            <a>
-            Introduction
-            
-            <i class="fa fa-angle-down"></i>
-            </a>
-            <div class="content">
-               <div class="accodien_manage_padding_content">
-                  <h3>Some general information</h3>
-                  <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are</p>
-                  <ul>
-                     <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
-                     arrange bookings. Please contact <a class="c-red" href="#">Advertisers</a> directly</li>
-                     <li>An Advertiser with a question, first look at our help for <a class="c-red" href="#">Advertisers</a>, or <a class="c-red" href="#">FAQs</a> and if you
-                     don't find the answer, then contact us by logging a "Support Ticket" (the preferred
-                     method of contact, but you need to <a class="c-red" href="#">log on</a> ) otherwise contact us <a class="c-red" href="#">here</a>.
-                     </li>
-                     <li>A Viewer with a question, first look at our help for <a class="c-red" href="#">Viewers</a> and if you don't find the
-                     answer, then contact us by logging a "Support Ticket" (see below), if you are a
-                     registered Viewer, (the preferred method of contact, but you need to <a class="c-red" href="#">log on</a>) otherwise
-                     contact us <a class="c-red" href="#">here</a>.
-                     </li>
-                     <li>A law enforcement agency, Court or an attorney, go to our <a class="c-red" href="#">Law Enforcement Policy</a> for
-                     information regarding legal process</li>
-                     <p>For anything else, contact us here, or by any of the alternative means below. Whichever
-                     method of communication you use we will get back to you within the next few days. </p>
-                  </ul>
-            
-                  <form>
-                     <div class="form-row">
-            <div class="form-group col-md-6">
-            <label for="inputEmail4">First Name</label>
-            <input type="text" class="form-control" placeholder="First name">
-            </div>
-            <div class="form-group col-md-6">
-            <label for="inputPassword4">Last Name</label>
-            <input type="text" class="form-control" placeholder="Last name">
-            </div>
-            </div>
-            <div class="form-group">
-            <label for="inputAddress">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-            </div>
-            <div class="form-group">
-            <label for="exampleFormControlTextarea1">Comment</label>
-            <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <button type="submit" id="" class="btn site_btn_primary">Send message</button>
-                  </form>
-            
-               </div>
-            </div>
-            </div> -->
          <div class="set">
             <a>
             Some General Information
@@ -211,40 +107,92 @@ $contactMsg = session('success');
                   </p>
                   <p>
                      Any personal information submitted to this Website will be handled in accordance with
-E4U's <a class="c-red" href="{{url('privacy-policy')}}" > Privacy Policy </a> and <a href="{{url('privacy-collection-notice')}}">Privacy Collection Notice</a>, both available on the Website.
+                     E4U's <a class="c-red" href="{{url('privacy-policy')}}" > Privacy Policy </a> and <a href="{{url('privacy-collection-notice')}}">Privacy Collection Notice</a>, both available on the Website.
                      
                   </p>
-                  <form id="contactus" name="contactus" style="display: @if ($errors->any()) block; @else none; @endif" action="{{ route('contactus.send')}}" method="post">
+                  <form id="contactus" class="common_form_design" name="contactus" style="display: @if ($errors->any()) block; @else none; @endif" action="{{ route('contactus.send')}}" method="post" class="">
                      @csrf
                      <div class="form-row">
                         <div class="form-group col-md-6">
                            <label for="first_name">First Name</label>
-                           <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}" class="form-control border_for_form" placeholder="First name" required>
+                           <div class="input-group custom-fields">
+                              <div class="input-group-prepend">
+                                 <span class="input-group-text">
+                                       <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                          <g id="SVGRepo_iconCarrier">
+                                                <path d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z" stroke="#495057" stroke-width="2"></path>
+                                                <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#495057" stroke-width="2"></path>
+                                          </g>
+                                       </svg>
+                                    </span>
+                              </div>
+                              <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}" class="form-control border_for_form" placeholder="First name" required data-parsley-errors-container="#fname-errors">
+                           </div>
                            @error('first_name')
                            <div class="input-error-box input-error">{{ $message }}</div>
                            @enderror
+                        <div id="fname-errors"></div>
                         </div>
+
                         <div class="form-group col-md-6">
                            <label for="last_name">Last Name</label>
-                           <input type="text"  name="last_name" id="last_name"  value="{{ old('last_name') }}" class="form-control border_for_form" placeholder="Last name" required>
+                           <div class="input-group custom-fields">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                       <g id="SVGRepo_iconCarrier">
+                                             <path d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z" stroke="#495057" stroke-width="2"></path>
+                                             <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#495057" stroke-width="2"></path>
+                                       </g>
+                                    </svg>
+                                 </span>
+                            </div>
+
+                           <input type="text"  name="last_name" id="last_name"  value="{{ old('last_name') }}" class="form-control border_for_form" placeholder="Last name" required data-parsley-errors-container="#lname-errors">
+                           </div>
                            @error('last_name')
                            <div class="input-error-box input-error">{{ $message }}</div>
                            @enderror
+                            <div id="lname-errors"></div>
                         </div>
                      </div>
                      <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control border_for_form"  placeholder="Email" required>
+                        <div class="input-group custom-fields">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                       <g id="SVGRepo_iconCarrier">
+                                             <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7" stroke="#495057" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                             <rect x="3" y="5" width="18" height="14" rx="2" stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
+                                       </g>
+                                    </svg>
+                              </span>
+                            </div>
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control border_for_form"  placeholder="Email" required data-parsley-errors-container="#email-errors">
+                        </div>
                         @error('email')
                         <div class="input-error-box input-error">{{ $message }}</div>
                         @enderror
+                        <div id="email-errors"></div>
                      </div>
                      <div class="form-group">
+
                         <label for="message">Comment</label>
-                        <textarea name="message" id="message" class="form-control border_for_form" rows="3" placeholder="Message" required>{{ old('message') }}</textarea>
+                        <div class="input-group custom-fields pt-2">                            
+                           <textarea name="message" id="message" class="form-control border_for_form" rows="3" placeholder="Message" required data-parsley-errors-container="#message-errors">{{ old('message') }}</textarea>
+                        </div>
                         @error('message')
                         <div class="input-error-box input-error">{{ $message }}</div>
                         @enderror
+                        <div id="message-errors"></div>
                      </div>
                      <button type="submit" id="btn-submit" class="common-btn mb-3">Send Message</button>
                   </form>

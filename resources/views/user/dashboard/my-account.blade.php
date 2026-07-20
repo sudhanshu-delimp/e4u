@@ -75,14 +75,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="my_name" class="my-agent">My Name <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"></label>
-                                                    <input type="text" class="form-control" name="name" placeholder="Jane Doe" aria-describedby="emailHelp" value="{{ $user->name }}">
+                                                    <input type="text" class="form-control" name="name" placeholder="Jane Doe" aria-describedby="emailHelp" value="{{ $user->name }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="Gender" class="my-agent">Gender <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"> </label>
-                                                    <select class="form-control" name="gender">
-                                                        <option>Select</option>
+                                                    <select class="form-control" name="gender" required>
+                                                        <option value="">Select</option>
                                                         @foreach(config('escorts.profile.genders') as $key => $gender)
                                                         <option value="{{$key}}" {{ ($user->gender == $key)? 'selected' : ''}}>{{$gender}}</option>
                                                         @endforeach
@@ -119,19 +119,19 @@
                                               <div class="form-group">
                                                 <label for="email">Method of contact:</label>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" checked type="checkbox" name="contact_type[]" id="Method_Message" value="1"  @if(!empty($escort->contact_type)) {{(in_array(1 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                                    <input class="form-check-input" checked type="checkbox" name="contact_type[]" id="Method_Message" value="1"  @if(!empty($user->contact_type)) {{(in_array(1 , $user->contact_type)) ? 'checked' : null }} @endif>
                                                     <label class="form-check-label" for="Method_Message">Message (via Console)</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Text" value="2"  @if(!empty($escort->contact_type)) {{(in_array(2 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                                    <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Text" value="2"  @if(!empty($user->contact_type)) {{(in_array(2 , $user->contact_type)) ? 'checked' : null }} @endif>
                                                     <label class="form-check-label" for="Method_Text">Text</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Email" value="3"  @if(!empty($escort->contact_type)) {{(in_array(3 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                                    <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Email" value="3"  @if(!empty($user->contact_type)) {{(in_array(3 , $user->contact_type)) ? 'checked' : null }} @endif>
                                                     <label class="form-check-label" for="Method_Email">Email</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_call_me" value="4" @if(!empty($escort->contact_type)) {{(in_array(4 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                                    <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_call_me" value="4" @if(!empty($user->contact_type)) {{(in_array(4 , $user->contact_type)) ? 'checked' : null }} @endif>
                                                     <label class="form-check-label" for="Method_call_me">Call me</label>
                                                 </div>
                                               </div>

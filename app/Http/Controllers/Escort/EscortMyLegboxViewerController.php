@@ -36,7 +36,7 @@ class EscortMyLegboxViewerController extends Controller
         $user = Auth::user();
         $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id'); // fetch all escort profile
         $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->select('user_id', 'escort_id');
-
+       
         // Step 1: Get unique user records
         $users = User::whereIn('id', $legboxEscortUserIds->pluck('user_id'))->with(['interest'])->get()->keyBy('id');
         $escorts = Escort::whereIn('id', $legboxEscortUserIds->pluck('escort_id'))->get()->keyBy('id');
@@ -45,7 +45,6 @@ class EscortMyLegboxViewerController extends Controller
         $viewers = $legboxEscortUserIds->pluck('user_id')->map(function ($id) use ($users) {
             return $users->get($id);
         });
-
         //dd($legboxEscortUserIds->get()->toArray(), $viewers);
 
         $escorts = $legboxEscortUserIds->pluck('escort_id')->map(function ($id) use ($escorts) {

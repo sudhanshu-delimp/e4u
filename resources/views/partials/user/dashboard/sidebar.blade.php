@@ -146,11 +146,11 @@
          <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{ route('user.my-legbox',['escort']) }}">
                <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
-               <span style="{{request()->is('user-dashboard/my-legbox/escort') ? 'color: #e5365a;' : ''}} ">Escort List</span>
+               <span style="{{request()->is('user-dashboard/my-legbox/escort') ? 'color: #e5365a;' : ''}} ">Escorts</span>
             </a>
             <a class="collapse-item" href="{{ route('user.my-legbox',['massage']) }}">
                <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
-               <span style="{{request()->is('user-dashboard/my-legbox/massage') ? 'color: #e5365a;' : ''}} ">Massage List</span>
+               <span style="{{request()->is('user-dashboard/my-legbox/massage') ? 'color: #e5365a;' : ''}} ">Massage Centres</span>
             </a>
             {{-- <a class="collapse-item" href="{{ route('user.notes')}}">
                <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">

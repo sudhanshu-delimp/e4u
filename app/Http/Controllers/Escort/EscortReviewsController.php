@@ -93,7 +93,9 @@ class EscortReviewsController extends Controller
         [$advertiserReviews, $reports] = $this->getAdvertiserReviews();
             
         return DataTables::of($advertiserReviews)
-            ->addColumn('ref', fn($row) =>  $row->id . ($row->escort->id ?? ''))
+            ->addColumn('ref', fn($row) =>  ($row->escort->id ?? ''))
+             ->addColumn('escort_name', fn($row) =>  ($row->escort->name ?? ''))
+            ->addColumn('viewer_id', fn($row) =>  $row->user?->member_id ?? '')
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
             ->addColumn('rating', function($row){
 
@@ -114,9 +116,9 @@ class EscortReviewsController extends Controller
 
             })
             ->addColumn('status', function($row){
-                $status = '<span class="badge badge-success">Published </span>';
+                $status = '<span class="custom_badge badge_active">Published </span>';
                 if($row->status == 'suspended'){
-                    $status = '<span class="badge badge-danger">Suspended</span>';
+                    $status = '<span class="custom_badge badge_suspended">Suspended</span>';
                 }
 
                 return $status;
