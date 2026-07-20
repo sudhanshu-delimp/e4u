@@ -290,7 +290,7 @@ Account details, including the initial setup.</li>
                   <div class="col-md-6">
                      <div class="form-group">
                         <label>Account Number</label>
-                        <input type="text" class="form-control" required placeholder="Account Number" id="account_number" name="account_number" data-parsley-required-message="Please enter your account number" data-parsley-type="digits" data-parsley-type-message="Enter only numbers">
+                        <input type="text" class="form-control" required placeholder="Account Number" id="account_number" name="account_number" data-parsley-required-message="Please enter your account number" onkeyup="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')" maxlength="12" data-parsley-type-message="Enter only numbers">
                         <div id="account_numberError"></div>
                      </div>
                   </div>
