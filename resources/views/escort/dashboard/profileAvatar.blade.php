@@ -439,7 +439,7 @@
 
 
     $("#my_avatar").on('submit', function(e) {
-        swal_waiting_popup({'title':'Uploading avatar...'});
+        
         e.preventDefault();
         var form = $(this);
         $("#modal-title").text("Upload Your Avatar");
@@ -460,6 +460,7 @@
             try { removeUpload(); } catch (e) {}
             return false;
         }
+        swal_waiting_popup({'title':'Your avatar is being uploaded...'});
         var url = form.attr('action');
         var data = new FormData($('#my_avatar')[0]);
         data.append('src', src);
