@@ -59,7 +59,7 @@ Valid Request, as the case may be, using the following contact information:</p>
       <h2 class="primery_color normal_heading">Anti-Human Trafficking</h2>
       <p class="text_decoration_for_a">Escorts4U is committed to addressing the issues associated with and the fight against
 human trafficking and will co-operate with law enforcement authorities and agencies in any
-investigation of suspected abuse of human rights and trafficking (see also <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and
+investigation of suspected abuse of human rights and trafficking (see also <a href="{{ route('page.terms-conditions')}}" class="termsandconditions_text_color">Terms and
 Conditions</a>).</p>
 <p>There are some salient points which will assist you in recognising trafficking, namely:</p>
 <ol>
@@ -87,7 +87,7 @@ emergency (Australia), call 000.</p>
 
 <div class="container mt-4 px-0 chagneto-policy">
          <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('page.terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                    review the most current version.</p>
            <p>Escorts4U archives all previous versions of this Policy.</p>
            <p><b>This policy was last updated 01-12-18</b></p>
@@ -95,7 +95,7 @@ emergency (Australia), call 000.</p>
 
 <!-- <h2 class="primery_color normal_heading">Changes to this Policy</h2>
       <p class="text_decoration_for_a">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any
-         revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
+         revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('page.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
          review the most current version.
       </p>
       <p>Escorts4U archives all previous versions of this Policy.</p>

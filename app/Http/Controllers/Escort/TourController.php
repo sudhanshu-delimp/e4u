@@ -74,6 +74,7 @@ class TourController extends Controller
     }
     public function viewTourList($type)
     {
+        session()->forget('listing_checkout_done');
         $escort = $this->escort->FindByUsers(auth()->user()->id);
         $escorts = $escort->whereNotNull('state_id')->where('default_setting', 0)->unique('state_id');
         $tours = $this->tour->all();
@@ -912,6 +913,10 @@ class TourController extends Controller
 
     public function tourCheckout(Request $request, $type, $id)
     {
+        
+        if (session()->has('listing_checkout_done')) {
+            return redirect()->route('escort.view.tour.list', 'current');
+        }
         $checkout_type = !empty($request->checkout_type) ? $request->checkout_type : null;
         $tour = Tour::findOrFail($id);
         $data = [];
