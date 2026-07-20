@@ -84,12 +84,12 @@
                 <table class="table w-100" id="EscortReviewTable">
                     <thead class="table-bg">
                         <tr>
-                            <th >Profile ID</th>
+                            <th>Profile ID</th>
                             <th>Business Name</th>
                             <th>Viewer ID</th>
-                            <th >Date</th>
+                            <th>Date</th>
                             <th>Rating</th>
-                            <th style="width: 100px;">Status</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>

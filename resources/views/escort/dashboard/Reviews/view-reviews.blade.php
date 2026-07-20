@@ -87,9 +87,8 @@
                             <th>ID</th>
                             <th>Escort's Name</th>
                             <th>Viewer ID</th>
-                             
                             <th>Date</th>
-                            <th style="width: 100px;">Status</th>
+                            <th>Status</th>
                             <th>Rating</th>
                             <th>Action</th>
                         </tr>

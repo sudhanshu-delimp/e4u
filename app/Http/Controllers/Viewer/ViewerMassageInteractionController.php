@@ -344,14 +344,14 @@ class ViewerMassageInteractionController extends Controller
                                                 <span class="tooltip-text">Viewer can’t contact this massage center again </span>
                                                 <div class="dropdown-divider"></div>
                                             </div>
-                                            <!--div class="custom-tooltip-container">
+                                            <div class="custom-tooltip-container">
                                                 <a class="dropdown-item align-item-custom toggle-massage-notification" href="#" title="Click to '.Str::lower($notText).' notification"
                                                 data-id="'.$row->id.'" data-status="'.Str::lower($notCurrentText).'"> 
                                                 <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
                                                 <span class="tooltip-text">Viewer will not get notifications from this
                                                     massage center</span>
                                                 <div class="dropdown-divider"></div>
-                                            </div-->
+                                            </div>
                                             <div class="custom-tooltip-container">
                                                 <a class="dropdown-item align-item-custom massageRating" data-massage-name="'.$row->name.'" data-rate="'.$rate.'" data-id="'.$row->id.'" href="#" title=""> <i
                                                         class="fa fa-star" aria-hidden="true"></i>
