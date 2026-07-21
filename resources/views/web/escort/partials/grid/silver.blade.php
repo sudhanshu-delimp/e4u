@@ -67,6 +67,8 @@
                     </span>
                 </div>
 
+
+                
                 {{-- <div class="d-flex justify-content-between five_column_fonts">
                     <span>Video</span>
                     <span class="video_icon_ec">
