@@ -232,7 +232,7 @@ class PunterBoxController extends Controller
             'incident_state'    => 'required',
             'incident_date'    => 'required',
             'incident_location' => 'required',
-            'escorts_mobile'   => 'required|min:8|max:10',
+            'escorts_mobile'   => 'required|min:8|max:12',
             'incident_nature'   => 'required',
             'profile_link'      => 'nullable',
             'what_happened'     => 'required|string',

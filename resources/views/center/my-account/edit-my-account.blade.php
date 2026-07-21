@@ -152,9 +152,9 @@
                                                                 <label for="Business No.">Business No.</label>
                                                                 <input type="text" class="form-control form-back"
                                                                     placeholder=" " name="business number"
-                                                                    data-parsley-type="digits"
+                                                                    maxlength="14" onkeyup="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"
                                                                     aria-describedby="emailHelp"
-                                                                    value="{{ $escort->getRawOriginal('business_number') }}">
+                                                                    value="{{ $escort->business_number }}">
 
                                                               
                                                             </div>
@@ -166,9 +166,9 @@
                                                                 <label for="email">Mobile No.</label> 
                                                                  <input type="text" class="form-control form-back"
                                                                     placeholder=" " name="phone"
-                                                                    data-parsley-type="digits"
+                                                                    maxlength="14" onkeyup="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"
                                                                     aria-describedby="emailHelp"
-                                                                    value="{{ $escort->getRawOriginal('phone') }}">
+                                                                    value="{{ $escort->phone }}">
                                                             </div>
                                                         </div>
 

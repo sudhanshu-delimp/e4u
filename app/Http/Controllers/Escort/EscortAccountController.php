@@ -300,7 +300,7 @@ class EscortAccountController extends Controller
                     'bank_name' => $request->session()->exists('bank_name') ? $data['bank_name'] : '',
                     'bsb' => $data['bsb'],
                     'account_name' => $data['account_name'],
-                    'account_number' => $data['account_number'],
+                    'account_number' => removeSpaceFromString($data['account_number']),
                     'state' => $data['state'],
                     'user_id' => auth()->user()->id,
                 ];
