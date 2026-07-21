@@ -6188,6 +6188,32 @@ ul.footerbtn-flex li {
     border-color: #0c223d;
 }
 
+.btn_login {
+    background-color: var(--peach) !important;
+}
+
+.btn_login,
+.btn_register {
+    padding: 10px 20px !important;
+    color: #fff;
+    text-decoration: none !important;
+    border-radius: 5px;
+}
+
+.btn_login:hover {
+    color: #fff;
+    background-color: #d82546 !important;
+}
+
+.btn_register {
+    background-color: var(--blue--text) !important;
+}
+
+.btn_register:hover {
+    color: #fff;
+    background-color: var(--peach) !important;
+}
+
 
 /*new login page designe start here*/
 
