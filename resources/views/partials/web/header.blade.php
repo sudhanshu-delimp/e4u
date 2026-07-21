@@ -1,58 +1,110 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap CSS -->
-        <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-        <title> E4U - Escort Directory</title>
-        <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
-        <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.05') }}" rel="stylesheet">
-        <!-- jquery ui cdn -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
+    <title> E4U - Escort Directory</title>
+    <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
-        <!-- google fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
-       <link
+    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.05') }}" rel="stylesheet">
+    <!-- jquery ui cdn -->
+
+    <!-- google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&family=Quicksand:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,200;0,400;0,500;0,700;1,200&display=swap"
         rel="stylesheet">
-        <!-- google fonts -->
-       
+    <!-- google fonts -->
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <!-- jquery ui cdn -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css"/>
-        <!-- jquery ui cdn -->
-        <!-- google fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
-        <!-- google fonts -->
-        <!-- font awsome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.01') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.05') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.19') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
-       
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
-        @section('style')
-        @show
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- jquery ui cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css" />
+    <!-- jquery ui cdn -->
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
+    <!-- google fonts -->
+    <!-- font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    </head>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.01') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.05') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.19') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
+    @section('style')
+    @show
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P7DMPWFYZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-9P7DMPWFYZ');
+    </script>
+    <script type="text/javascript">
+        (function(c, l, a, r, i, t, y) {
+            c[a] = c[a] || function() {
+                (c[a].q = c[a].q || []).push(arguments)
+            };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "xpw6cg8o8x");
+    </script>
+    <!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),
+        dl=l!='dataLayer' ? '&l='+l : '';
+
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'&env=2&auth=2Pmbbm1fWE2AQq-trZke8g';
+
+    f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PLBTNLKP');
+</script>
+<!-- End Google Tag Manager -->
+</head>
+
 <body>
-
-<a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
-<a id="back-to-bottom-2" href="#" class="btn btn-light btn-lg back-to-bottom" style="display: none;" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}" ></a>
-<section class="mx-auto max_width_for_content">
+    <!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLBTNLKP&env=2&auth=2Pmbbm1fWE2AQq-trZke8g"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden">
+    </iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;"
+        role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
+    <a id="back-to-bottom-2" href="#" class="btn btn-light btn-lg back-to-bottom" style="display: none;"
+        role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
+    <section class="mx-auto max_width_for_content">
