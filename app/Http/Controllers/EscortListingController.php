@@ -218,6 +218,7 @@ class EscortListingController extends Controller
             'escorts.availability_time',
             'escorts.state_id',
             'escorts.created_at',
+            
         ];
 
         // Query without ordering — ordering is handled in-memory by prepareMembership()
@@ -227,7 +228,7 @@ class EscortListingController extends Controller
             ->with([
                 'currentActivePinup',
                 'activeBumpup',
-                'latestActiveBrb:selected_time',
+                'latestActiveBrb:id,profile_id,selected_time',
                 'gallary' => function ($q) {
                     $q->wherePivot('position', 1)
                         ->select('escorts_medias.id', 'path');
@@ -261,6 +262,7 @@ class EscortListingController extends Controller
         $gold     = $groups->get(2, collect());
         $silver   = $groups->get(3, collect());
         $free     = $groups->get(4, collect());
+        //return $platinum;
 
 
         // this code for testing perpes
@@ -286,8 +288,6 @@ class EscortListingController extends Controller
         //$grouped =  $result->groupBy('membership'); 
         $currentItems = $result->forPage($page, $perPage)->values();
         $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
-
-
 
         $paginator = new LengthAwarePaginator(
             $currentItems,
@@ -550,11 +550,14 @@ class EscortListingController extends Controller
         } else {
             // Australia-wide — sort by the fixed state display order
             $stateOrder = array_flip(self::PINUP_STATE_ORDER);
-            $pinUps = $pinUps->sortBy(function ($escort) use ($stateOrder) {
+            $pinUps = $pinUps->sortByDesc(function ($escort) {
+                return $escort->currentActivePinup->utc_start_time ?? '';
+            })->sortBy(function ($escort) use ($stateOrder) {
                 $stateId = optional($escort->currentActivePinup)->state_id ?? $escort->state_id;
                 return $stateOrder[$stateId] ?? 999;
             })->values();
         }
+
         $bumpUps = $bumpUps->sortByDesc(function ($escort) {
             return $escort->activeBumpup->utc_start_time ?? '';
         })->values();
@@ -563,8 +566,20 @@ class EscortListingController extends Controller
         //     return $escort->membership_upgraded_at;
         // })->values();
 
-
         $general = $this->weightedRandomReshuffle($general);
+
+        // Australia-wide: Sort Bump Ups and General (New/Listings) by the fixed state order
+        if (empty($filterStateId)) {
+            $stateOrder = array_flip(self::PINUP_STATE_ORDER);
+            
+            $bumpUps = $bumpUps->sortBy(function ($escort) use ($stateOrder) {
+                return $stateOrder[$escort->state_id] ?? 999;
+            })->values();
+
+            $general = $general->sortBy(function ($escort) use ($stateOrder) {
+                return $stateOrder[$escort->state_id] ?? 999;
+            })->values();
+        }
 
         return $pinUps
             ->merge($bumpUps)
