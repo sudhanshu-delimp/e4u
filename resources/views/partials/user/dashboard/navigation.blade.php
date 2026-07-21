@@ -187,12 +187,12 @@
                                         My Legbox
                                     </a>
                                     
-                                    <a class="dropdown-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif" href="/user-dashboard/notebox/list">
+                                    <a class="dropdown-item disabled-link @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif" href="/user-dashboard/notebox/list">
                                         <img class="profile_icons" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
                                         My Notebox
                                     </a>
                                     
-                                    <a class="dropdown-item" href="{{ route('user.punterbox.dashboard')}}">
+                                    <a class="dropdown-item " href="{{ route('user.punterbox.dashboard')}}">
                                         <img class="profile_icons" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
                                         Punterbox
                                     </a>

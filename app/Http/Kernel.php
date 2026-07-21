@@ -6,65 +6,65 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
-    /**
-     * The application's global HTTP middleware stack.
-     *
-     * These middleware are run during every request to your application.
-     *
-     * @var array
-     */
-    protected $middleware = [
-        // \App\Http\Middleware\TrustHosts::class,
-        \App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\LastOnlineAt::class,
-        
+  /**
+   * The application's global HTTP middleware stack.
+   *
+   * These middleware are run during every request to your application.
+   *
+   * @var array
+   */
+  protected $middleware = [
+    // \App\Http\Middleware\TrustHosts::class,
+    \App\Http\Middleware\TrustProxies::class,
+    \Fruitcake\Cors\HandleCors::class,
+    \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+    \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+    \App\Http\Middleware\TrimStrings::class,
+    \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+    \App\Http\Middleware\LastOnlineAt::class,
 
-        //\ipinfo\ipinfolaravel\ipinfolaravel::class
-    ];
 
-    /**
-     * The application's route middleware groups.
-     *
-     * @var array
-     */
-    protected $middlewareGroups = [
-        'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            'HeaderInfo' => \App\Http\Middleware\HeaderInfo::class,
-           
-        ],
+    //\ipinfo\ipinfolaravel\ipinfolaravel::class
+  ];
 
-        'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
+  /**
+   * The application's route middleware groups.
+   *
+   * @var array
+   */
+  protected $middlewareGroups = [
+    'web' => [
+      \App\Http\Middleware\EncryptCookies::class,
+      \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+      \Illuminate\Session\Middleware\StartSession::class,
+      // \Illuminate\Session\Middleware\AuthenticateSession::class,
+      \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+      \App\Http\Middleware\VerifyCsrfToken::class,
+      \Illuminate\Routing\Middleware\SubstituteBindings::class,
+      'HeaderInfo' => \App\Http\Middleware\HeaderInfo::class,
 
-        'dev' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-        'TrackLoginUserInfo' => [
-            \App\Http\Middleware\TrackLastPageVisitMiddlware::class
-        ]
+    ],
 
-    ];
+    'api' => [
+      // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+      'throttle:api',
+      \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+
+    'dev' => [
+      \App\Http\Middleware\EncryptCookies::class,
+      \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+      \Illuminate\Session\Middleware\StartSession::class,
+      // \Illuminate\Session\Middleware\AuthenticateSession::class,
+      \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+      \App\Http\Middleware\VerifyCsrfToken::class,
+      \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+    'TrackLoginUserInfo' => [
+      \App\Http\Middleware\TrackLastPageVisitMiddlware::class
+    ]
+
+  ];
 
     /**
      * The application's route middleware.
@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'demo.auth' => \App\Http\Middleware\DemoBasicAuth::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,

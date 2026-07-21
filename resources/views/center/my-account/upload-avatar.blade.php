@@ -504,6 +504,8 @@
             try { removeUpload(); } catch (e) {}
             return false;
         }
+
+        swal_waiting_popup({'title':'Your avatar is being uploaded...'});
         var url = form.attr('action');
         var data = new FormData($('#my_avatar')[0]);
         data.append('src', src);
@@ -517,6 +519,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
+                 Swal.close();
                 if (data.type == 0) {
                     var msg = "Avatar uploaded successfully!";
                     var url = "{{asset('avatars/name')}}";
@@ -538,6 +541,7 @@
                 }
             },
             error: function(data) {
+                 Swal.close();
                 errorModuleShow(data);
             }
         });

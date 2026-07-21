@@ -203,6 +203,10 @@
                                         <input type="hidden" name="escort_id" id="escort_rate_id">
                                         <input type="hidden" name="type" id="rating_type">
                                         <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="escort_rating" id="not_rate"   value="no_rated">
+                                             <label class="form-check-label" for="not_rate">Not Rated</label>
+                                        </div>
+                                        <div class="form-check">
                                             <input class="form-check-input" type="radio" name="escort_rating"
                                                 id="rate_good" value="good" checked>
                                             <label class="form-check-label" for="rate_good">Good</label>
@@ -272,9 +276,13 @@
  
                                         <input type="hidden" name="massage_id" id="massage_rate_id">
                                         <input type="hidden" name="type" id="massage_rating_type">
+                                         <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="massage_rating" id="massage_not_rate"   value="massage_not_rate">
+                                             <label class="form-check-label" for="not_rate">Not Rated</label>
+                                        </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="massage_rating"
-                                                id="massage_rate_good" value="good" checked>
+                                                id="massage_rate_good" value="good">
                                             <label class="form-check-label" for="massage_rate_good">Good</label>
                                         </div>
  
@@ -558,9 +566,11 @@
                     case 'verygood':
                         $('#rate_verygood').prop('checked', true)
                         break;
-                
-                    default:
+                    case 'good':
                         $('#rate_good').prop('checked', true)
+                        break;
+                    default:
+                        $('#not_rate').prop('checked', true)
                         break;
                 }
 
@@ -954,9 +964,12 @@
                     case 'verygood':
                         $('#massage_rate_verygood').prop('checked', true)
                         break;
+                    case 'good':
+                        $('#massage_rate_good').prop('checked', true)
+                        break;    
                 
                     default:
-                        $('#massage_rate_good').prop('checked', true)
+                        $('#massage_not_rate').prop('checked', true)
                         break;
                 }
 
