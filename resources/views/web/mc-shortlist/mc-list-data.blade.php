@@ -94,7 +94,14 @@ $social_links = $listing->social_links;
                 </div>
                <div class="video_icon">
                     <a href="#">
-                        <img src="{{asset('assets/app/img/video_play.svg')}}">
+                        @php
+                            $videoCnt = checkVideoExistInMcProfile($listing->user_id);
+                        @endphp
+                        @if($videoCnt > '0')
+                            <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                        @else
+                            
+                        @endif
                         <span class="custom--tooltip">Massage Centres has video to view</span>
                     </a>
                 </div>
