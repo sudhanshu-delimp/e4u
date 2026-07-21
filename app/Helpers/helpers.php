@@ -2641,3 +2641,11 @@ if (!function_exists('getDashboardUrl')) {
         return $url;
     }
 }
+
+
+if (!function_exists('getFullStateName')) {
+    function getFullStateName($state_id){
+    $stateCapital = config('escorts.profile.states')[$state_id];
+        return $stateCapital['stateName'];
+    }
+}
