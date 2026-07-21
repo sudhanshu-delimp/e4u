@@ -50,7 +50,7 @@ class EscortListingController extends Controller
 
     private function getUserLocation(Request $request)
     {
-        if (empty($request->lat) || empty($request->lng) || ($request->search_by_radio == 0)) {
+        if (empty($request->lat) || empty($request->lng) || ($request->search_by_radio == 0 ) || ($request->locationByRadio == 'australia')) {
             return null;
         }
 
@@ -130,7 +130,8 @@ class EscortListingController extends Controller
         ];
     }
 
-    private function getShortListIds(){
+    private function getShortListIds()
+    {
         $escortId = [];
         if (session('cart')) {
             foreach (session('cart') as $id => $vlaue) {
@@ -140,13 +141,24 @@ class EscortListingController extends Controller
             $escortId[] = null;
         }
         return $escortId;
-
     }
 
 
 
     public function allEscortListing(Request $request, $gender = null)
     {
+        //  dd($request->all());
+        // $request->merge([
+        //     'page' => 1,
+        //     'view_type' => 'grid',
+        //     'locationByRadio' => 'your_location',
+        //     'lat' => 28.583660987837543,
+        //     'lng' => 77.31546432689107,
+        //     'search_by_radio' => 1,
+        //     'limit' => 25,
+        // ]);
+
+
         //get shortlist ids
         $escortId = $this->getShortListIds();
         $count_session = count((array) session('cart'));
@@ -154,10 +166,14 @@ class EscortListingController extends Controller
         $user_type = $this->getUserTypeIds();
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
+       // dd($userLocation, $request->all());
+        //dd($request->all());
+
 
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
 
         $location = request()->get('location');
+
 
         // un orgnise code only use for running project
         if (isset($params['limit'])) {
@@ -220,10 +236,11 @@ class EscortListingController extends Controller
                 'city:id,name',
                 'oneHourDuration',
                 'user:id,profile_creator',
-                'durations:id,name'
+                'durations:id,name',
+                'purchase' => function ($q) {
+                    $q->where('status', 'listed');
+                },
             ]);
-
-
 
 
         $query = $this->applyFilterOnEscort(
@@ -233,7 +250,6 @@ class EscortListingController extends Controller
             $params['age'],
             $location
         );
-
 
 
         $escorts = $query->get();
@@ -246,6 +262,7 @@ class EscortListingController extends Controller
         $silver   = $groups->get(3, collect());
         $free     = $groups->get(4, collect());
 
+
         // this code for testing perpes
 
         $memberTotalCount = [
@@ -254,6 +271,7 @@ class EscortListingController extends Controller
             3 => $silver->count(),
             4 => $free->count(),
         ];
+
 
         // Apply position rules: Pin Up → Bump Up → Upgrade → General (per membership group)
         $filterStateId = $params['state_id'];
@@ -264,7 +282,7 @@ class EscortListingController extends Controller
             ->merge($this->prepareMembership($free, $filterStateId));
 
         $page = $params['page'];
-       // $perPage = $limit;
+        // $perPage = $limit;
         //$grouped =  $result->groupBy('membership'); 
         $currentItems = $result->forPage($page, $perPage)->values();
         $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
@@ -334,7 +352,6 @@ class EscortListingController extends Controller
 
         //filter membership type wise escort
 
-
         if (!empty($params['membership_type']) && ($params['membership_type'] != 'all')) {
             $query->where('escorts.membership', $params['membership_type']);
         }
@@ -388,12 +405,12 @@ class EscortListingController extends Controller
         }
 
         //Search By Radio (Missing)
+       // dd($params);
 
         if (isset($params['search_by_radio']) && ($params['search_by_radio'] == '1' || $params['search_by_radio'] == 1)) {
 
             $radioLocation = $params['locationByRadio'];
-
-
+  
             if (!empty($params['string'])) {
 
                 $uid = $params['string'];
@@ -416,8 +433,9 @@ class EscortListingController extends Controller
                 $query->where('escorts.state_id', $params['lat_state']);
             }
 
-            return $query;
+           // return $query;
         }
+
 
         // Enabled
         $query->where('escorts.enabled', $params['enabled'] ?? 1);
@@ -430,10 +448,8 @@ class EscortListingController extends Controller
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
         } else {
-            Log::info('else interest filter applied: ' . json_encode($params['interest']));
             if (!empty($params['interest'])) {
                 $interests = array_unique($params['interest']);
-                Log::info('interest filter applied: ' . json_encode($params['interest']));
                 if (is_array($interests)) {
                     $query->whereIn('escorts.gender', $interests);
                 }
@@ -495,12 +511,13 @@ class EscortListingController extends Controller
             return $escort->currentActivePinup !== null;
         });
 
-        
+
         // 2️⃣ Bump Up: escort has an active bumpup but is NOT a pin up
         $bumpUps = $items->filter(function ($escort) {
             return $escort->activeBumpup !== null
                 && $escort->currentActivePinup === null;
         });
+
 
         // 3️⃣ Upgrade: membership was upgraded within the last 24 hours (not pinup/bumpup)
         // $upgraded = $items->filter(function ($escort) {
@@ -524,13 +541,7 @@ class EscortListingController extends Controller
             return !in_array($escort->id, $excludeIds);
         });
 
-        /*
-        |----------------------------------------------------------------------
-        | Step B — Sort Pin Ups
-        |----------------------------------------------------------------------
-        | Same Location  : sort by pinup utc_start_time DESC (same state)
-        | Australia-wide : sort by fixed state order [3909→3903→3905→3906→3904→3908→3910→3907]
-        */
+
         if (!empty($filterStateId)) {
             // Same location (State) — sort by pinup start time DESC
             $pinUps = $pinUps->sortByDesc(function ($escort) {
@@ -543,22 +554,17 @@ class EscortListingController extends Controller
                 $stateId = optional($escort->currentActivePinup)->state_id ?? $escort->state_id;
                 return $stateOrder[$stateId] ?? 999;
             })->values();
-    
         }
         $bumpUps = $bumpUps->sortByDesc(function ($escort) {
             return $escort->activeBumpup->utc_start_time ?? '';
         })->values();
-        /*
-        |----------------------------------------------------------------------
-        | Step D — Sort Upgraded (most recent upgrade first)
-        |----------------------------------------------------------------------
-        */
+     
         // $upgraded = $upgraded->sortByDesc(function ($escort) {
         //     return $escort->membership_upgraded_at;
         // })->values();
 
 
-        $general = $this->weightedRandomReshuffle($general); 
+        $general = $this->weightedRandomReshuffle($general);
 
         return $pinUps
             ->merge($bumpUps)
@@ -567,50 +573,72 @@ class EscortListingController extends Controller
             ->values();
     }
 
-    
-/**
+
+    /**
      * Weighted random reshuffle for general (non-promoted) listings (every 2 mins).
      *
-     * Each escort gets a deterministic weight = crc32(escort_id + time block).
-     * This ensures:
-     *  - Different order every 2 mins
-     *  - Same order within a 2 min window (page refreshes are consistent)
-     *  - Fair rotation — no escort is permanently stuck at front or back
+     * Divides the listings into 3 tiers based on recency (Front 33%, Middle 33%, Back 34%),
+     * and reshuffles each tier deterministically.
      *
-     * @param  Collection $escorts
-     * @return Collection
      */
-   
-     private function weightedRandomReshuffle(Collection $escorts): Collection
+    private function weightedRandomReshuffle(Collection $escorts): Collection
     {
-
-    
         if ($escorts->isEmpty()) {
             return $escorts;
         }
+
+
+        // 1) Sort listings by newest first (created_at)
+        $sortedByNewest = $escorts->sortByDesc(function ($escort) {
+            return optional($escort->purchase->sortByDesc('created_at')->first())->created_at;
+        })
+        ->values();
+
+        //start if % wise reshuffing you want
+        $totalCount = $sortedByNewest->count();
+
+        // 2) Divide into 3 groups: Front (33%), Middle (33%), Back (34%)
+        $frontCount = (int) round($totalCount * 0.33);
+        $middleCount = (int) round($totalCount * 0.33);
+
+        $front = $sortedByNewest->slice(0, $frontCount);
+        $middle = $sortedByNewest->slice($frontCount, $middleCount);
+        $back = $sortedByNewest->slice($frontCount + $middleCount);
+
+        //end if % wise reshuffing you want
 
         $now = now();
         // Har 2 minute ka block banayega (0, 2, 4... 58)
         $minuteBlock = floor($now->minute / 2) * 2;
         $minuteBlock = str_pad($minuteBlock, 2, '0', STR_PAD_LEFT);
-
-        // $now = now();
-        // $minuteBlock = $now->minute < 30 ? '00' : '30';
-
         $timeBlock = $now->format('Y-m-d-H-') . $minuteBlock;
 
-        return $escorts->sortBy(function ($escort) use ($timeBlock) {
-            // crc32 gives a deterministic integer from the string
-            return crc32($escort->id . '-' . $timeBlock);
-        })->values();
+        // if % wise reshuffle no need then enable 
+        //  return $sortedByNewest->sortBy(function ($escort) use ($timeBlock) {
+        //     return crc32($escort->id . '-' . $timeBlock);
+        // })->values();
+
+        // if % wise reshuffing you want
+        $shuffleChunk = function ($chunk) use ($timeBlock) {
+            return $chunk->sortBy(function ($escort) use ($timeBlock) {
+                // crc32 gives a deterministic integer from the string
+                return crc32($escort->id . '-' . $timeBlock);
+            })->values();
+        };
+
+        return $shuffleChunk($front)
+            ->merge($shuffleChunk($middle))
+            ->merge($shuffleChunk($back))
+            ->values();
+        // if % wise reshuffing you want
     }
 
     public function getUserInterest(): ?array
     {
         $user = auth()->user();
 
-        if (!$user || $user->type != '0' || !$user->viewer_settings || $user->state_id != $user->current_state_id) 
-        {
+
+        if (!$user || $user->type != '0' || !$user->viewer_settings || $user->state_id != $user->current_state_id) {
             return null;
         }
 
@@ -631,7 +659,6 @@ class EscortListingController extends Controller
                 $userInterest['gender'][] = $genderId;
             }
         }
-
         return $userInterest;
     }
 

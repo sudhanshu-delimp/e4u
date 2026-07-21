@@ -1286,7 +1286,7 @@ class UpdateController extends AppController
             'hair_style' => $request->hair_style,
             'weight' => $request->weight,
             'dress_size' => $request->dress_size,
-            'membership' => $request->membership,
+           // 'membership' => $request->membership,
             'shaved' => $request->shaved,
             'endowment' => $request->endowment,
             'thickness' => $request->thickness,
