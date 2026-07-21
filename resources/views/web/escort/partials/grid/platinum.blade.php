@@ -14,7 +14,7 @@
                 <span class="vrf-tooltip">{{ $media_status['label'] }}</span>
             </div>
         @endif
-        <span class="card_tit"> {{ getFullStateName($escort->state_id) }} </br>
+        <span class="card_tit">
             @if ($escort->gender == 'Transgender')
                 {{ 'TS-' . substr($escort->name, 0, 15) }}
             @else
