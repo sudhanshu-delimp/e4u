@@ -101,10 +101,18 @@
                             @endfor
                         </span>
                     </div>
+                    
                     <div class="items">
                         <span class="title">Video: </span>
                         <span class="decs">
-                            <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                            @php
+                               $videoCnt = checkVideoExistInMcProfile($listing->user_id);
+                            @endphp
+                            @if($videoCnt > '0')
+                                <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                            @else
+                                N/A
+                            @endif
                         </span>
                     </div>
                     <div class="items">

@@ -2576,6 +2576,14 @@ if (!function_exists('formatToFloat'))
         return number_format((float)$value, 2, '.', '');
     }
 }
+if (!function_exists('checkVideoExistInMcProfile'))
+{
+    function checkVideoExistInMcProfile($user_id) {
+        return $count = MassageMedia::where('user_id',$user_id)->where('type', 1)->count(); 
+    }
+}
+
+
 if (!function_exists('getStarRatingForEscort')) {
     function getStarRatingForEscort(int $escortId): int
     {
