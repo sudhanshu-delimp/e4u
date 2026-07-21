@@ -68,14 +68,14 @@
                     </span>
                 </div>
 
-                <div class="d-flex justify-content-between five_column_fonts">
+                {{-- <div class="d-flex justify-content-between five_column_fonts">
                     <span>Video</span>
                     <span class="video_icon_ec">
                         @if ($escort->escort_videos->isNotEmpty())
                             <img src="{{ asset('assets/app/img/video_play.svg') }}">
                         @endif
                     </span>
-                </div>
+                </div> --}}
                 
                 <div class="d-flex justify-content-between six_column_fonts">
                     <span>Price:</span>
