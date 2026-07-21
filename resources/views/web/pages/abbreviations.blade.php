@@ -740,11 +740,11 @@
                             These icons used in the Website <span class="bold-custon">(Icons)</span> are provided to assist
                             Users navigate their way
                             through the Website and to provide clarity and certainty. The meaning ascribed to an Icon
-                            should be read in conjunction with the <a href="{{ route('page.terms-conditions')}}"
+                            should be read in conjunction with the <a href="{{ route('pages.terms-conditions')}}"
                                 class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a>. To the
                             extent of any
                             inconsistency between the meaning ascribed to an Icon and the Terms and Conditions,
-                            the <a href="{{ route('page.terms-conditions')}}"
+                            the <a href="{{ route('pages.terms-conditions')}}"
                                 class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a> prevail.
                         </p>
 
@@ -990,7 +990,7 @@
                                 <div class="container mt-4 px-0 chagneto-policy">
                                     <hr class="custom_hr">
                                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                                    <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('page.terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                                             review the most current version.</p>
                                     <p>Escorts4U archives all previous versions of this Policy.</p>
                                     <p><b>This policy was last updated 28-05-2025</b></p>
@@ -1017,7 +1017,7 @@
                                                 We may change or modify these Terms and Conditions in the future. We
                                                 will note the date that revisions were last made at the bottom of this
                                                 page. Any revision will take effect upon its posting. It is your
-                                                responsibility to check the <a href="{{ route('page.terms-conditions')}}">Terms
+                                                responsibility to check the <a href="{{ route('pages.terms-conditions')}}">Terms
                                                     and Conditions</a> from time to time to review the most current
                                                 version.
                                             </p>

@@ -436,7 +436,7 @@ Route::get('/spam-policy', function () {
     return view('web.pages.spam-policy');
 });
 
-Route::get('/terms-conditions', [PageController::class, 'termsConditions'])->name('page.terms-conditions');
+Route::get('/terms-conditions', [PageController::class, 'termsConditions'])->name('pages.terms-conditions');
 Route::get('/abbreviations', function () {
     return view('web.pages.abbreviations');
 });
