@@ -173,7 +173,7 @@
 
 
 
-    <div class="row mt-5">
+  {{--   <div class="row mt-5">
         <div class="col-lg-12">
             <h3 class="h3 mb-4">Set Legbox Notifications </h3>
             <div class="table-responsive">
@@ -222,7 +222,7 @@
               </table>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 
@@ -275,7 +275,7 @@
 
 <script>
    $(document).ready(function() {
-      load_notification();
+     // load_notification();
 
      $(document).on('click', '.notification-action', function(e) 
       {
