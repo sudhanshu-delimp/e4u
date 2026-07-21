@@ -72,4 +72,16 @@ class Punterbox extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+      public function getEscortsMobileAttribute($value)
+    {
+        return formatMobileNumber($value);
+    }
+
+    public function setEscortsMobileAttribute($value)
+    {
+
+        $clean = removeSpaceFromString($value);
+        $this->attributes['escorts_mobile'] = $clean;
+    }
 }
