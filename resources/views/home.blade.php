@@ -137,7 +137,7 @@
                             role="button">View Escorts <br><small style="font-size: 70%">(Australia wide)</small></a>
                         <a class="btn btn_center" href="{{ route('find.massage.centre') }}" role="button">View Massage
                             Centres <br><small style="font-size: 70%">(Australia wide)</small></a>
-                        <a class="btn  btn_become_pin_up" href="become-a-pin-up" role="button">Become a Pin-Up</a>
+                        <a class="btn  btn_become_pin_up" href="{{route('page.become-pin-up')}}" role="button">Become a Pin-Up</a>
                     </div>
                 </div>
             </div>

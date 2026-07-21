@@ -66,7 +66,7 @@
                      your SWA number where your Home State or the Profile is designated as Victoria.</p><br>
                   <p>If you do not currently have a SWA number, but would prefer to do so, you will need to register with the Business Licensing
                      Authority (BLA). For more information, contact the BLA at:</p>
-                  <p><a href="www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers" style="word-break: break-all;">www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers
+                  <p><a href="https://www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers" style="word-break: break-all;" target="_blank">www.consumer.vic.gov.au/businesses/licensed-businesses/sex-work-service-providers
                      </a></p><br>
                   <p><b>Q:Can I have a default Profile - can I create other Profiles from my default Profile when I
                      want to Tour?</b></p>
@@ -369,7 +369,7 @@
             <div class="content">
                <div class="accodien_manage_padding_content">
                   <p class="pt-4"><b>Q: Do I have to sign a contract to advertise?</b></p>
-                  <p>Save for the Policy statements including the <a class="c-red" href="{{ url('terms-conditions')}}">Terms and Conditions</A> of use, there are
+                  <p>Save for the Policy statements including the <a class="c-red" href="{{ route('page.terms-conditions')}}">Terms and Conditions</A> of use, there are
                      no other contracts, no obligation to advertise and you can cancel your Membership at
                      any time.</p><br>
                   <p><b>Q: What is the best type of Membership for me?</b></p>
@@ -638,7 +638,7 @@
                                                 We may change or modify these Terms and Conditions in the future. We
                                                 will note the date that revisions were last made at the bottom of this
                                                 page. Any revision will take effect upon its posting. It is your
-                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                responsibility to check the <a href="{{ route('page.terms-conditions')}}">Terms
                                                     and Conditions</a> from time to time to review the most current
                                                 version.
                                             </p>

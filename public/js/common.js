@@ -370,8 +370,7 @@ var getGeoLocationEscortAccountProfiles = function (state = 0) {
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed || result.isDismissed) {
-                            window.location.href =
-                                "{{ route('escort.profile') }}";
+                            window.location.href =`${window.App.baseUrl}escort-dashboard/create-profile`;
                         }
                     });
                 }

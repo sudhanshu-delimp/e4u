@@ -192,7 +192,7 @@ class MassageController extends Controller
 
 
              if(isset($isExtended->count) && $isExtended->count && $is_live)
-             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y h:i A', strtotime($isExtended->data->start_date)).'</small></sup>';  
+             $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  '.date('d-m-Y', strtotime($isExtended->data->start_date)).' to '.date('d-m-Y', strtotime($isExtended->data->end_date)).'</small></sup>';  
 
 
              if( $is_live && $isBumpUped  && (!empty($isBumpUped ))){

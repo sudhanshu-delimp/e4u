@@ -50,22 +50,178 @@ class AdvertiserReportContoller extends Controller
         ]);
     }
 
+    // public function getReportByAjax()
+    // {
+    //     [$advertiserReports, $reports] = $this->getAdvertiserReports();
+
+    //     // $advertiserReports = ReportEscortProfile::with('escort.user')
+    //     //     ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
+    //     //     ->orderBy('updated_at', 'desc');
+
+
+    //     $advertiserReports = ReportEscortProfile::with(['escort','massage','viewer'])
+    //         ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
+    //         ->orderBy('updated_at', 'desc');
+        
+
+    //     return DataTables::of($advertiserReports)
+
+
+    //         ->addColumn('ref', function ($row) {
+
+    //             if ($row->advertiser_type == 'escort') {
+    //                 return $row->id . (optional($row->escort)->id ?? '');
+    //             }
+
+    //             if ($row->advertiser_type == 'massage') {
+    //                 return $row->id . (optional($row->massage)->id ?? '');
+    //             }
+
+    //             return $row->id;
+    //         })
+
+    //         ->addColumn('member_id', function ($row) {
+
+    //             if ($row->advertiser_type == 'escort') {
+    //                 return optional(optional($row->escort)->user)->member_id ?? '-';
+    //             }
+
+    //             if ($row->advertiser_type == 'massage') {
+    //                 return optional(optional($row->massage)->user)->member_id ?? '-';
+    //             }
+
+    //             return '-';
+    //         })
+
+    //         ->addColumn('report_type', fn($row) => formatStringTitleCase($row->report_tag) ?? '-')
+    //         ->addColumn('advertiser_id', function ($row) {
+    //             return $row->viewer->member_id;
+    //         })
+    //         ->addColumn('stage_name', function ($row) {
+
+    //             if ($row->advertiser_type == 'escort') {
+    //                 return  (optional($row->escort)->name ?? '');
+    //             }
+
+    //             if ($row->advertiser_type == 'massage') {
+    //                 return  (optional($row->massage)->profile_name ?? '');
+    //             }               
+    //         })
+
+    //         ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
+    //         ->addColumn('status', function ($row) {
+    //             $statusText = $row->report_status == 'pending' 
+    //                 ? 'Active' 
+    //                 : Str::ucfirst($row->report_status);
+    //             $badgeClass = getStatusBadgeClass($statusText);
+    //             return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+    //         })
+    //         ->addColumn('action', function ($row) {
+                
+    //             $statusActionHtml = '';
+    //             if ($this->editAccessEnabled) {
+    //                 $statusActionHtml = '
+    //                 <a title="Mark status as current" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+    //                 data-toggle="modal" data-target="#confirm-popup" 
+    //                 data-id="' . $row->id . '" data-val="pending" href="#">
+    //                 <i class="fa fa-hourglass-half text-dark"></i> Current
+    //                 </a><div class="dropdown-divider"></div>';
+
+    //                 if ($row->report_status == 'pending') {
+    //                     $statusActionHtml = '
+    //                     <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+    //                     data-toggle="modal" data-target="#confirm-popup" 
+    //                     data-id="' . $row->id . '" data-val="resolved" href="#">
+    //                     <i class="fa fa-check-circle text-dark"></i> Resolved
+    //                     </a>
+    //                     <div class="dropdown-divider"></div>
+    //                     <a title="Mark status as In Progress" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+    //                     data-toggle="modal" data-target="#confirm-popup" 
+    //                     data-id="' . $row->id . '" data-val="inprogress" href="#">
+    //                     <i class="fa fa-sync-alt text-dark"></i> In Progress
+    //                     </a><div class="dropdown-divider"></div>';
+    //                 }
+    //             }
+    //             return '
+    //                 <div class="dropdown no-arrow ml-3">
+    //                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+    //                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //                         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+    //                     </a>
+    //                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+    //                         aria-labelledby="dropdownMenuLink">
+    //                         ' . $statusActionHtml . '
+    //                         <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center" 
+    //                         href="#" data-id="' . $row->id . '">
+    //                         <i class="fa fa-eye text-dark"></i> View
+    //                         </a>
+    //                     </div>
+    //                 </div>';
+    //         })
+    //         ->rawColumns(['action','status'])
+    //         ->with([
+    //             'reports' => $reports,
+	//             'server_up_time' => $this->getAppUptime(),
+    //             'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+    //         ])
+    //         ->make(true);
+    // }
+
     public function getReportByAjax()
     {
         [$advertiserReports, $reports] = $this->getAdvertiserReports();
 
-        // $advertiserReports = ReportEscortProfile::with('escort.user')
-        //     ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
-        //     ->orderBy('updated_at', 'desc');
-
-
-             $advertiserReports = ReportEscortProfile::with(['escort','massage','viewer'])
-        ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
+        $advertiserReports = ReportEscortProfile::with([
+            'escort.user',
+            'massage.user',
+            'viewer'
+        ])
+        ->orderByRaw("
+            CASE
+                WHEN report_status = 'pending' THEN 1
+                WHEN report_status = 'resolved' THEN 2
+                ELSE 3
+            END
+        ")
         ->orderBy('updated_at', 'desc');
-       
 
-        return DataTables::of($advertiserReports)
+            return DataTables::of($advertiserReports)->filter(function ($query) 
+            {
 
+                $search = request()->input('search.value');
+                if (!empty($search)) 
+                {
+
+                    $query->where(function ($q) use ($search) {
+
+                        $q->where('id', 'like', "%{$search}%")
+                            ->orWhere('report_tag', 'like', "%{$search}%")
+                            ->orWhere('report_status', 'like', "%{$search}%")
+
+                            ->orWhereHas('escort', function ($escort) use ($search) {
+                                $escort->where('name', 'like', "%{$search}%");
+                            })
+
+                            ->orWhereHas('massage', function ($massage) use ($search) {
+                                $massage->where('profile_name', 'like', "%{$search}%");
+                            })
+
+                            ->orWhereHas('escort.user', function ($user) use ($search) {
+                                $user->where('member_id', 'like', "%{$search}%");
+                            })
+
+                            ->orWhereHas('massage.user', function ($user) use ($search) {
+                                $user->where('member_id', 'like', "%{$search}%");
+                            })
+
+                            ->orWhereHas('viewer', function ($viewer) use ($search) {
+                                $viewer->where('member_id', 'like', "%{$search}%");
+                            });
+
+                    });
+                }
+
+            }, true)
 
             ->addColumn('ref', function ($row) {
 
@@ -94,77 +250,106 @@ class AdvertiserReportContoller extends Controller
             })
 
             ->addColumn('report_type', fn($row) => formatStringTitleCase($row->report_tag) ?? '-')
+
             ->addColumn('advertiser_id', function ($row) {
-                return $row->viewer->member_id;
+                return optional($row->viewer)->member_id ?? '-';
             })
+
             ->addColumn('stage_name', function ($row) {
 
                 if ($row->advertiser_type == 'escort') {
-                    return  (optional($row->escort)->name ?? '');
+                    return optional($row->escort)->name ?? '';
                 }
 
                 if ($row->advertiser_type == 'massage') {
-                    return  (optional($row->massage)->profile_name ?? '');
-                }               
+                    return optional($row->massage)->profile_name ?? '';
+                }
+
+                return '';
             })
 
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
+
             ->addColumn('status', function ($row) {
-                $statusText = $row->report_status == 'pending' 
-                    ? 'Active' 
+
+                $statusText = $row->report_status == 'pending'
+                    ? 'Active'
                     : Str::ucfirst($row->report_status);
+
                 $badgeClass = getStatusBadgeClass($statusText);
+
                 return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             })
+
             ->addColumn('action', function ($row) {
-                
+
                 $statusActionHtml = '';
+
                 if ($this->editAccessEnabled) {
+
                     $statusActionHtml = '
-                    <a title="Mark status as current" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
-                    data-toggle="modal" data-target="#confirm-popup" 
-                    data-id="' . $row->id . '" data-val="pending" href="#">
-                    <i class="fa fa-hourglass-half text-dark"></i> Current
-                    </a><div class="dropdown-divider"></div>';
+                    <a title="Mark status as current" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status"
+                        data-toggle="modal"
+                        data-target="#confirm-popup"
+                        data-id="' . $row->id . '"
+                        data-val="pending"
+                        href="#">
+                        <i class="fa fa-hourglass-half text-dark"></i> Current
+                    </a>
+                    <div class="dropdown-divider"></div>';
 
                     if ($row->report_status == 'pending') {
+
                         $statusActionHtml = '
-                        <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
-                        data-toggle="modal" data-target="#confirm-popup" 
-                        data-id="' . $row->id . '" data-val="resolved" href="#">
-                        <i class="fa fa-check-circle text-dark"></i> Resolved
+                        <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status"
+                            data-toggle="modal"
+                            data-target="#confirm-popup"
+                            data-id="' . $row->id . '"
+                            data-val="resolved"
+                            href="#">
+                            <i class="fa fa-check-circle text-dark"></i> Resolved
                         </a>
+
                         <div class="dropdown-divider"></div>
-                        <a title="Mark status as In Progress" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
-                        data-toggle="modal" data-target="#confirm-popup" 
-                        data-id="' . $row->id . '" data-val="inprogress" href="#">
-                        <i class="fa fa-sync-alt text-dark"></i> In Progress
-                        </a><div class="dropdown-divider"></div>';
+
+                        <a title="Mark status as In Progress" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status"
+                            data-toggle="modal"
+                            data-target="#confirm-popup"
+                            data-id="' . $row->id . '"
+                            data-val="inprogress"
+                            href="#">
+                            <i class="fa fa-sync-alt text-dark"></i> In Progress
+                        </a>
+
+                        <div class="dropdown-divider"></div>';
                     }
                 }
+
                 return '
                     <div class="dropdown no-arrow ml-3">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        <a class="dropdown-toggle" href="#" role="button"
+                            data-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
+
+                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
                             ' . $statusActionHtml . '
-                            <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center" 
-                            href="#" data-id="' . $row->id . '">
-                            <i class="fa fa-eye text-dark"></i> View
+
+                            <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                                href="#"
+                                data-id="' . $row->id . '">
+                                <i class="fa fa-eye text-dark"></i> View
                             </a>
                         </div>
                     </div>';
             })
-            ->rawColumns(['action','status'])
+
+            ->rawColumns(['action', 'status'])
             ->with([
                 'reports' => $reports,
-	            'server_up_time' => $this->getAppUptime(),
+                'server_up_time' => $this->getAppUptime(),
                 'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
-            ])
-            ->make(true);
+            ])->make(true);
     }
 
     public function getAppUptime()

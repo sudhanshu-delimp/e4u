@@ -84,57 +84,16 @@
                 <table class="table w-100" id="EscortReviewTable">
                     <thead class="table-bg">
                         <tr>
-                            <th >Ref</th>
-                            <th >Date</th>
+                            <th>Profile ID</th>
+                            <th>Business Name</th>
+                            <th>Viewer ID</th>
+                            <th>Date</th>
                             <th>Rating</th>
-                            <th style="width: 100px;">Status</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-
-                        <!-- === Row 1 === -->
-                        <tr>
-                            <td>125</td>
-                            <td>25-05-2025</td>
-                            <td>
-                                <div class="escort-ratings">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="far fa-star"></i></li>
-                                    <li><i class="far fa-star"></i></li>
-                                    <li><i class="far fa-star"></i></li>
-                                </div>
-                            </td>
-                            <td> <span class="badge badge-success">Published </span></td>
-                            <td class="text-center">
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
-                                        
-                                        <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                            data-target="#confirm-popup" href="#">
-                                            <i class="fa fa-check-circle "></i> Published
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                            data-target="#confirm-popup" href="#">
-                                            <i class="fa fa-user-slash"></i> Suspended
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report"
-                                            href="#" data-id="1436">
-                                            <i class="fa fa-eye mr-2"></i> View
-                                        </a>
-                                    </div>
-                                </div>
-                            </td>
-                           
-                        </tr>
+                    <tbody class="table-content">
                     </tbody>
                 </table>
             </div>
@@ -223,7 +182,7 @@
         var escortReviewTable = $('#EscortReviewTable').DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref ID..."
+                searchPlaceholder: "Search by Profile ID..."
             },
             processing: true,
             serverSide: false,
@@ -245,6 +204,8 @@
             },
             columns: [
                 { data: 'ref', name: 'ref' },
+                { data: 'business_name', name: 'business_name' },
+                { data: 'viewer_id', name: 'viewer_id' },
                 { data: 'date', name: 'date' },
                 { data: 'rating', name: 'rating', orderable: false },
                 { 

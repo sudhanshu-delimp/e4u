@@ -132,22 +132,8 @@ class EscortController extends BaseController
         $user = auth()->user();
         if ($user->status == "Suspended") {
             return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
-        }
-        // $today = Carbon::today()->toDateString();        
-        // $excludedEscortIds = DB::table('purchase')
-        //     ->select('escort_id')
-        //     ->groupBy('escort_id')
-        //     ->havingRaw('MAX(end_date) >= ?', [$today])
-        //     ->pluck('escort_id');
-
-        // $escorts = Escort::whereNotIn('id', $excludedEscortIds)
-        //     ->whereNotNull('profile_name')
-        //     ->where('user_id', auth()->id())
-        //     ->get();
-        // if (empty($escorts->toArray())) {
-        //     return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
-        // }
-
+        }   
+        session()->forget('listing_checkout_done');
         return view('escort.dashboard.add_listing');
     }
 
@@ -155,7 +141,10 @@ class EscortController extends BaseController
     // function listing_checkout(UpdateEscortRequest $request) {
     function listing_checkout(Request $request, $type)
     {
-
+        if (session()->has('listing_checkout_done')) {
+            return redirect()->route('escort.account.add-listing');
+        }
+        
         $checkout_type = !empty($request->checkout_type) ? $request->checkout_type : null;
         $refundAmount = 0.00;
         switch ($request->checkout_type) {
@@ -733,6 +722,8 @@ class EscortController extends BaseController
 
         if ($setting) {
             $setting->update($data);
+            $user->available_playmate = (int)$request->features_i_am_available_as_a_playmate ?? 0;
+            $user->save();
         } else {
             $user->escort_settings()->create(array_merge($data, ['user_id' => $user->id]));
         }

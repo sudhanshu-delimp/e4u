@@ -258,7 +258,10 @@
                      <div class="col-md-12">
                         <h4><strong>Select Rating</strong></h4>
                            <div class=" d-flex align-items-center justify-content-start flex-wrap gap-10">
-                           
+                            <div class="form-check">
+                           <input class="form-check-input" type="radio" name="escort_rating" id="not_rate" value="not_rate" checked="">
+                           <label class="form-check-label" for="rate_good">Not Rated</label>
+                        </div>
 
                               <div class="form-check">
                                  <input class="form-check-input" type="radio" name="escort_rating" id="rate_good" value="Good">

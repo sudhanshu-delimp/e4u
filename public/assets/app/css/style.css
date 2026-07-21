@@ -939,7 +939,7 @@ button.short-list.btn.btn-primary:hover {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background: #fbfbfb;
+    background: #f7f7f7;
     padding: 20px;
     border-radius: 5px;
 }
@@ -6004,11 +6004,32 @@ ul.footerbtn-flex li {
 .common_form_design .input-group.custom-fields {
     border: 1px solid #ccc;
     border-radius: 5px;
+    padding: 2px;
 }
 
 .common_form_design .input-group-text {
     background: transparent;
     border: none;
+}
+
+.common_form_design input.parsley-error,
+.common_form_design select.parsley-error,
+.common_form_design textarea.parsley-error {
+    border: none !important;
+}
+
+
+/* Normal focus */
+
+.common_form_design .input-group.custom-fields:focus-within {
+    border: 1px solid #0c223d !important;
+}
+
+
+/* Error state */
+
+.common_form_design .input-group.custom-fields:has(.parsley-error) {
+    border: 1px solid var(--peach) !important;
 }
 
 .common_login_note {
@@ -9086,6 +9107,48 @@ img.twitter-x-logo {
 
 .peach--text {
     color: var(--peach);
+}
+
+.add_to_favrate span.custom-heart-text {
+    background: var(--peach);
+    position: absolute;
+    top: 6px;
+    right: 35px;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.add_to_favrate span.custom-heart-text.list-tool {
+    position: absolute;
+    top: -2px;
+    right: 25px;
+}
+
+.add_to_favrate span.custom-heart-text.remove-tool {
+    position: absolute;
+    top: -2px;
+    right: 25px;
+}
+
+.add_to_favrate span.custom-heart-text::after {
+    content: '';
+    position: absolute;
+    top: 35%;
+    left: 100%;
+    border-width: 5px;
+    transform: rotate(-90deg);
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
+.add_to_favrate:hover span.custom-heart-text {
+    opacity: 1;
+    visibility: visible;
+    text-wrap: nowrap;
 }
 
 .custom--favourite span.custom-heart-text {

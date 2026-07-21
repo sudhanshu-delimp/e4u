@@ -256,7 +256,7 @@ class UserController extends Controller
         $data = [
             'name' => $request->name,
             'gender' => $request->gender,
-            //'contact_type' => $request->contact_type,
+            'contact_type' => $request->contact_type,
             // 'phone' => $request->phone,
             //'city_id'=>$request->city_id,
             //'country_id'=>$request->country_id,
@@ -408,6 +408,16 @@ class UserController extends Controller
         $user = $this->user->find(auth()->user()->id);
         $user->available_playmate = $available_playmate;
         $user->save();
+
+         $setting = $user->escort_settings;
+
+        if ($setting) {
+            $setting->features_i_am_available_as_a_playmate = (string)$available_playmate;
+            if($setting->save()) {
+               //
+            }
+
+        }
         return response()->json(compact('available_playmate'));
     }
     /**
