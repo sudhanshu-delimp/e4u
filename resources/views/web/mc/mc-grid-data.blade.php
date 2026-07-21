@@ -91,6 +91,14 @@
                 <div class="mc_card_content">
                     <div class="items">
                         <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
+                        <span class="decs">
+                            @php
+                               $videoCnt = checkVideoExistInMcProfile($listing->user_id);
+                            @endphp
+                            @if($videoCnt > '0')
+                                <img src="{{ asset('assets/app/img/video_play.svg') }}">                            
+                            @endif
+                        </span>
                         <span class="mc_star">
                             @for($i=1; $i<= 5; $i++)
                                 @if($listing->star_rating && $listing->star_rating > 0 && $i <= $listing->star_rating)
@@ -101,12 +109,8 @@
                             @endfor
                         </span>
                     </div>
-                    <div class="items">
-                        <span class="title">Video: </span>
-                        <span class="decs">
-                            <img src="{{ asset('assets/app/img/video_play.svg') }}">
-                        </span>
-                    </div>
+                    
+                   
                     <div class="items">
                         <span class="title">Hours: </span>
                         <span class="decs">{{get_working_hours($listing)}}</span>

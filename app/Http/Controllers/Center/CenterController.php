@@ -259,17 +259,17 @@ class CenterController extends Controller
     }
     public function update(UpdateMassageRequest $request)
     {
-        //dd($request->all());  // "payID_name" => "5386363869" "paID_no" => "8998"
+        // dd($request->all());  // "payID_name" => "5386363869" "paID_no" => "8998"
         $data = [];
         $data = [
             'name' => $request->name,
             'entity_name' => $request->entity_name,
             'business_address' => $request->business_address,
-            'business_number' => $request->business_number,
-            'phone' => $request->phone,
+            'business_number' => removeSpaceFromString($request->business_number),
+            'phone' => removeSpaceFromString($request->phone),
             'contact_type' => $request->contact_type,
-            'pay_id_name'=>$request->payID_name,
-            'pay_id_no'=>$request->paID_no,
+            'pay_id_name'=> removeSpaceFromString($request->payID_name),
+            'pay_id_no'=> $request->paID_no,
             'social_media_consent' => $request->social_media_consent,
             'subrub_city'=>$request->subrub_city,
 

@@ -80,7 +80,7 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name" class="my-agent">ABN</label>
-                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="abn" data-parsley-maxlength="12" required  placeholder="ABN" data-parsley-required-message="Your ABN is required" value="{{ $user->abn }}" data-parsley-type="integer" data-parsley-type-message="Enter only numbers" >
+                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="abn"  required  placeholder="ABN" data-parsley-required-message="Your ABN is required" value="{{ $user->abn }}" maxlength="14" oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"  data-parsley-type-message="Enter only numbers" >
                                        <span id="abn-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('abn')
@@ -98,7 +98,7 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobile">Business Number</label>
-                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="business_number" data-parsley-maxlength="10" required  placeholder="Business Number" data-parsley-required-message="Your Business Number is required" value="{{ $user->business_number}}" data-parsley-type="digits" data-parsley-type-message="Enter only numbers" >
+                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="business_number" maxlength="12"  required  placeholder="Business Number" data-parsley-required-message="Your Business Number is required" value="{{ $user->business_number}}" oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')" data-parsley-type-message="Enter only numbers" >
                                        <span id="business_number-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('business_number')

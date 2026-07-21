@@ -239,7 +239,7 @@
                                             <label for="mobile" class="mb-1">Mobile</label>
                                             <input type="text" id="mobile" name="mobile" data-ajax="phone"
                                                 class="form-control rounded-0" maxlength="10" minlength="10" placeholder="Enter Mobile"
-                                                value="{{ $masseur->getRawOriginal('mobile') }}" required>
+                                                value="{{ $masseur->mobile }}" required>
                                         </div>
 
 

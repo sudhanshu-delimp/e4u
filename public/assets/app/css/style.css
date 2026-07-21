@@ -6848,7 +6848,7 @@ table {
 
 .mc_profile_img:hover+.mc_card_content,
 .mc_card_content:hover {
-    height: 178px;
+    height: 150px;
 }
 
 .mc_card_footer {
@@ -7180,7 +7180,7 @@ table {
 }
 
 .text_truncate {
-    width: 100px;
+    width: 55px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

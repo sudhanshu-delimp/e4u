@@ -37,6 +37,18 @@ class Num extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+        public function getOffenderMobileAttribute($value)
+    {
+        return formatMobileNumber($value);
+    }
+
+    public function setOffenderMobileAttribute($value)
+    {
+
+        $clean = removeSpaceFromString($value);
+        $this->attributes['offender_mobile'] = $clean;
+    }
+
     // public function setStatusAttribute($value)
     // {
     //     $this->attributes['status'] = $this->normalizeValue($value);
