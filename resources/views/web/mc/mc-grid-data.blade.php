@@ -101,7 +101,12 @@
                             @endfor
                         </span>
                     </div>
-
+                    <div class="items">
+                        <span class="title">Video: </span>
+                        <span class="decs">
+                            <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                        </span>
+                    </div>
                     <div class="items">
                         <span class="title">Hours: </span>
                         <span class="decs">{{get_working_hours($listing)}}</span>
