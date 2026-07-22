@@ -172,6 +172,8 @@ class EscortListingController extends Controller
 
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
 
+        Log::info('Search Params: ' . json_encode($params));
+
         $location = request()->get('location');
 
 
