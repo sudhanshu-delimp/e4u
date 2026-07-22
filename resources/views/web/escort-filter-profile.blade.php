@@ -139,15 +139,9 @@
                                                         <div class="location_radio_filter">
                                                             <div class="d-flex align-items-start"
                                                                 style=" padding-top: 2px;">
-                                                                @php
-                                                                    $searchByRadio = request()->get('search_by_radio');
-                                                                    $locationByRadio = request()->get(
-                                                                        'locationByRadio',
-                                                                    );
-                                                                @endphp
                                                                 <input type="radio" name="locationByRadio"
-                                                                    {{ $locationByRadio != 'australia' ? 'checked' : '' }}
-                                                                    value="your_location" id="yourLocation">
+                                                                    value="your_location" id="yourLocation"
+                                                                    checked="checked">
                                                                 <label for="yourLocation"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                                     Your Location
@@ -156,8 +150,7 @@
 
                                                             <div class="d-flex align-items-start">
                                                                 <input type="radio" name="locationByRadio"
-                                                                    {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}
-                                                                    value="australia" id="australia" checked="checked">
+                                                                    value="australia" id="australia">
                                                                 <label for="australia"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                                     Australia
@@ -178,12 +171,12 @@
                                                             <input type="hidden" name="lng" id="set_lng"
                                                                 value="">
 
-                                                            <input type="search" name="name"
+                                                            <input type="search" name="search_by_member_id_and_name"
                                                                 id="search_by_member_id_and_name"
                                                                 class="form-control remove_border_btm rounded "
                                                                 placeholder="Search by Member ID or Name"
                                                                 aria-label="Search" aria-describedby="search-addon"
-                                                                value="{{ request()->get('name') }}">
+                                                                value="">
 
                                                             <button
                                                                 class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn searchEscort"
@@ -925,7 +918,8 @@
     </div>
 
     @php
-        $listingsPreferencesView = auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
+        $listingsPreferencesView =
+            auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
     @endphp
 @endsection
 @push('scripts')
@@ -1680,15 +1674,18 @@
         });
 
         $(document).ready(function() {
-            let RadioButton = $("#search_by_radio").val();
-            if (RadioButton != '' || RadioButton == '1' || RadioButton == 1) {
+            let checkRadioVal = $('input[name="locationByRadio"]:checked').val();
+            if (checkRadioVal == 'your_location') {
+                $("#search_by_radio").val(1);
                 navigator.geolocation.getCurrentPosition(async function(position) {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
                     $("#set_lat").val(latitude);
                     $("#set_lng").val(longitude);
+                    alert('fine');
                 });
             }
+
 
             $('input[name="locationByRadio"]').on('change', function() {
                 let selectedLocation = {};
