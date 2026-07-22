@@ -4186,6 +4186,37 @@ a.admin-login:hover {
     color: var(--blue--text);
 }
 
+.ec_media_tab {
+    background: #f6f6f6;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+.ec_media_tab li {
+    padding: 0px;
+}
+
+.ec_media_tab li a {
+    color: #0c223d !important;
+    font-size: 16px !important;
+    background: transparent;
+    line-height: 40px !important;
+}
+
+.ec_media_tab li:first-child a.active {
+    color: #fff !important;
+    background: #ff3c5f;
+    border-radius: 5px 0px 0px 5px;
+    line-height: 39px !important;
+}
+
+.ec_media_tab li:last-child a.active {
+    color: #fff !important;
+    background: #ff3c5f;
+    border-radius: 0px 5px 5px 0px;
+    line-height: 39px !important;
+}
+
 .grid_list_part>div,
 .grid_list_part>div * {
     padding: 0;
