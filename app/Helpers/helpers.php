@@ -1326,6 +1326,9 @@ if (!function_exists('getStatusBadgeClass')) {
             'Verified'          => 'badge_accepted',
             'Current'          => 'badge_current',
             'On_hold'          => 'badge_onHold',
+            'Paid'            => 'badge_active',
+            'Query'            => 'badge_available',
+            'Approved'            => 'badge_active',
 
         ];
 

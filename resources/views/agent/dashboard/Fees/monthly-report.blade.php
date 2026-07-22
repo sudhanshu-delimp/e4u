@@ -1,71 +1,81 @@
 @extends('layouts.agent')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-   <!--middle content end here-->
-  
-   <div class="row">
-       {{-- Page Heading   --}}
-      <div class="custom-heading-wrapper col-lg-12">
-         <h1 class="h1">Monthly Report</h1>
-         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
-      </div>
-      <div class="col-md-12 mb-4">
-         <div class="card collapse" id="notes" style="">
-            <div class="card-body">
-               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-               <ol>
-                  <li>
-                     The following definitions are from the Agent Agreement and apply for the purpose of calculating the Fee:
-                     <ol class="level-2">
-                        <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable pursuant to clause 9.1.</li>
-                        <li><b>Monthly Report</b> means the online report summarising all the activities for that
-                           month for Signed Up Advertisers which the calculation of the Fees for that month
-                           will be based on.</li>
-                     </ol>
-                  </li>
-                  <li>
-                     The Fees will be paid to you, by the Operator, within seven Business Days of the
-                        Monthly Report having been approved by you, provided:
-                        <ol class="level-2">
-                           <li>you have confirmed the correctness of the Monthly Report within three days;</li>
-                           <li>where a query is raised in respect of the Monthly Report, the Fee corresponding
-                        to the Query will be separated from the Report and remain in escrow until the query
-                        is resolved (<b>Resolved Query</b>); and</li>
-                        <li>a Resolved Query will be included in the following Monthly Report.</li>
-                        </ol>
-                  </li>
-                  <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank
-                        Account, by the Operator. Fees are inclusive of GST.
-                  </li>
-               </ol>
+    <style>
+        .swal2-title {
+            font-size: 1.145em !important;
+
+        }
+    </style>
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        <!--middle content end here-->
+
+        <div class="row">
+            {{-- Page Heading   --}}
+            <div class="custom-heading-wrapper col-lg-12">
+                <h1 class="h1">Monthly Report</h1>
+                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
+                    aria-expanded="true">Help?</span>
             </div>
-         </div>
-      </div>
-   </div>
-   {{-- end --}}
-  <div class="row">
-      <div class="col-md-12">
-         
-         <div class="table-responsive-xl">
-            <table class="table " id="commissionStatementTable">
-               <thead class="table-bg">
-                  <tr>
-                     <th>Report Date</th>
-                     <th>Billing Period</th>
-                     <th>Agent ID</th>
-                     <th>Territory</th>
-                     <th>Spend</th>
-                     <th>Fees</th>
-                     <th>Status</th>
-                     <th>Report Approved</th>
-                     <th>Action</th>
-                  </tr>
-               </thead>
-               <tbody>
+            <div class="col-md-12 mb-4">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol>
+                            <li>
+                                The following definitions are from the Agent Agreement and apply for the purpose of
+                                calculating the Fee:
+                                <ol class="level-2">
+                                    <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
+                                        pursuant to clause 9.1.</li>
+                                    <li><b>Monthly Report</b> means the online report summarising all the activities for
+                                        that
+                                        month for Signed Up Advertisers which the calculation of the Fees for that month
+                                        will be based on.</li>
+                                </ol>
+                            </li>
+                            <li>
+                                The Fees will be paid to you, by the Operator, within seven Business Days of the
+                                Monthly Report having been approved by you, provided:
+                                <ol class="level-2">
+                                    <li>you have confirmed the correctness of the Monthly Report within three days;</li>
+                                    <li>where a query is raised in respect of the Monthly Report, the Fee corresponding
+                                        to the Query will be separated from the Report and remain in escrow until the query
+                                        is resolved (<b>Resolved Query</b>); and</li>
+                                    <li>a Resolved Query will be included in the following Monthly Report.</li>
+                                </ol>
+                            </li>
+                            <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank
+                                Account, by the Operator. Fees are inclusive of GST.
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end --}}
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-responsive-xl">
+                    <table class="table " id="commissionStatementTable">
+                        <thead class="table-bg">
+                            <tr>
+                                <th>Report Date</th>
+                                <th>Billing Period</th>
+                                {{-- <th>Agent ID</th>
+                     <th>Territory</th> --}}
+                                <th>Spend</th>
+                                <th>Fees</th>
+                                <th>Status</th>
+                                <th>Report Approved</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-content"></tbody>
+                        {{--  <tbody>
                   <tr>
                      <td>01-11-2025</td>
                      <td>01-10-2025 to 31-10-2025 </td>
@@ -92,315 +102,231 @@
                      </td>
                   </tr>
                 
-               </tbody>
-            </table>
-            
-         </div>
-      </div>
-   </div>
-  </div>
-</div>
+               </tbody> --}}
+                    </table>
 
-
-
-{{-- View Report --}}
-
-<div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog"
-    aria-labelledby="commission-reportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-
-
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
-                        class="custompopicon"> Fee Report (Period Ending: 31-10-25)</h5>
-                <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
-                </a>
+                </div>
             </div>
-
-            <div class="modal-body">
-
-                <table class="table table-bordered mb-0 common_accordian_table">
-                    <thead class="table-bg modal-thaed">
-                        <tr>
-                            <th>Member ID</th>
-                            <th>Name</th>
-                            <th>Territory</th>
-                            <th>Type</th>
-                            <th>Days</th>
-                            <th>Spend</th>
-                            <th>Fee</th>
-                        </tr>
-                    </thead>
-
-                    
-                     <tbody id="accordionParent">
-
-                        <!-- ========= MEMBER 1 ========= -->
-                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
-                            aria-expanded="false" aria-controls="details1">
-                            <td class="text-left">E612344</td>
-                            <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
-                            <td>WA</td>
-                            <td></td>
-                            <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</span></div></td>
-                        </tr>
-
-                        <!-- Detail rows -->
-                        <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>P</td>
-                            <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>G</td>
-                            <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>S</td>
-                            <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>PU</td>
-                            <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
-                            </td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                                 <div class="num_value">$<span>34.15</div></td></td>
-                        </tr>
-                        {{-- space --}}
-                        <tr>
-                            <td colspan="7" style="padding:10px"></td>
-                        </tr>
-                        {{-- end --}}
-                        <!-- ========= MEMBER 2 ========= -->
-                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
-                            aria-expanded="false" aria-controls="details2">
-                            <td class="text-left">E612351</td>
-                            <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
-                            <td>WA</td>
-                            <td></td>
-                            <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
-                        </tr>
-
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>P</td>
-                            <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>G</td>
-                            <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>S</td>
-                            <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>PU</td>
-                            <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
-                        </tr>
-
-                        {{-- space --}}
-                        <tr>
-                            <td colspan="7" style="padding:10px"></td>
-                        </tr>
-                        {{-- end --}}
-                        <tr class="detail-row" data-group="details2">
-                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
-                            </td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                               <div class="num_value">$<span>34.15</div> </td>
-                        </tr>
-                        {{-- space --}}
-                        <tr>
-                            <td colspan="7" style="padding:10px"></td>
-                        </tr>
-                        {{-- end --}}
-                        <tr>
-                            <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">70
-                            </td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>1,366.00</div></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>68.30</div></td>
-                        </tr>
-                        {{-- space --}}
-                        <tr>
-                            <td colspan="7" style="padding:10px"></td>
-                        </tr>
-                        {{-- end --}}
-                        <!-- ========= MEMBER 3 ========= -->
-                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details3"
-                            aria-expanded="false" aria-controls="details3">
-                            <td class="text-left">M612380</td>
-                            <td class="opr_expand_arrow">Lin’s Massage</td>
-                            <td>WA</td>
-                            <td></td>
-                            <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
-                        </tr>
-                         {{-- space --}}
-                        <tr>
-                            <td colspan="7" style="padding:10px"></td>
-                        </tr>
-                        {{-- end --}}
-                        <tr>
-                            <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">35
-                            </td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>34.15</div></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                         <!-- ========= total ========= -->
-
-                         {{-- space --}}
-                        <tr>
-                            <td colspan="7" style="padding:10px"></td>
-                        </tr>
-                        {{-- end --}}
-                        <tr>
-                            <td colspan="4" class="text-right"><strong>Total Advertisers:</strong></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">105
-                            </td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>2,049.00</div></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>102.45</div></td>
-                        </tr>
-
-                    </tfoot>
-                </table>
-            </div>
+        </div>
 
 
-            <div class="modal-footer">
-                <button type="button" class="btn-cancel-modal">Print</button>
-                <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
-                <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button>
+
+
+
+        {{-- View Report --}}
+
+        <div class="modal fade upload-modal" id="viewMonthlyReportModel" tabindex="-1" role="dialog"
+            aria-labelledby="viewMonthlyReportModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                                class="custompopicon"> Fee Report (Period Ending: 31-10-25)</h5>
+                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                        </a>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <!-- content area -->
+                        <div id="renderMonthlyViewDetail"></div>
+                        <!-- End content area -->
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-cancel-modal">Print</button>
+                        <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
+                        <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-{{-- end --}}
+    {{-- end --}}
 @endsection
 @push('script')
-<!-- file upload plugin start here -->
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <!-- file upload plugin start here -->
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
 
-<script>
-    
-    document.querySelectorAll('.accordion-toggle').forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const target = toggle.getAttribute('data-target').replace('#', '');
-            const openGroup = document.querySelectorAll(`.detail-row[data-group="${target}"]`);
-            const isOpen = openGroup[0]?.classList.contains('show');
+    <script>
+        document.querySelectorAll('.accordion-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const target = toggle.getAttribute('data-target').replace('#', '');
+                const openGroup = document.querySelectorAll(`.detail-row[data-group="${target}"]`);
+                const isOpen = openGroup[0]?.classList.contains('show');
 
-            // Close all open groups
-            document.querySelectorAll('.detail-row.show').forEach(r => {
-                r.classList.remove('show');
+                // Close all open groups
+                document.querySelectorAll('.detail-row.show').forEach(r => {
+                    r.classList.remove('show');
+                });
+
+                // Open current group if not already open
+                if (!isOpen) {
+                    openGroup.forEach(r => r.classList.add('show'));
+                }
+
+                // Rotate arrow
+                document.querySelectorAll('.accordion-toggle i').forEach(i => i.classList.remove(
+                    'rotated'));
+                if (!isOpen) toggle.querySelector('i').classList.add('rotated');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#commissionStatementTable').DataTable({
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by status",
+                },
+                processing: true,
+                serverSide: true,
+                lengthChange: true,
+                searchable: false,
+                bStateSave: false,
+
+                ajax: {
+                    url: "{{ route('agent.fees.monthly-report-ajax') }}",
+                    data: function(d) {
+                        d.type = 'player';
+                    }
+                },
+                order: [
+                    [0, 'DESC']
+                ],
+                columns: [{
+                        data: 'reportDate',
+                        name: 'reportDate',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'billing_period',
+                        name: 'billing_period',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    /*{ data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+                    { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},*/
+                    {
+                        data: 'total_spend',
+                        name: 'total_spend',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'total_fees',
+                        name: 'total_fees',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'status_name',
+                        name: 'status_name',
+                        searchable: false,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'report_pproved_date',
+                        name: 'report_pproved_date',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        class: 'text-center'
+                    },
+                ],
             });
 
-            // Open current group if not already open
-            if (!isOpen) {
-                openGroup.forEach(r => r.classList.add('show'));
-            }
+            $('#commissionStatementTable_filter input')
+                .off()
+                .on('keyup', function() {
+                    var value = $(this).val();
 
-            // Rotate arrow
-            document.querySelectorAll('.accordion-toggle i').forEach(i => i.classList.remove(
-                'rotated'));
-            if (!isOpen) toggle.querySelector('i').classList.add('rotated');
+                    if (value.length >= 2 || value.length === 0) {
+                        table.search(value).draw();
+                    }
+                });
+
+            /*** call monthly detail */
+            $(document).on('click', '#getMontlyViewReportPage', function() {
+                let id = $(this).data('id');
+                let agent_id = $(this).data('agent_id');
+                var url = "{{ route('agent.fees.view.detail') }}";
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: {
+                        id: id,
+                        agent_id: agent_id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if ($.trim(response) === "") {
+                            swal_error_popup("Monthly fee report data not found.");
+                        } else {
+                            $('#renderMonthlyViewDetail').html(response);
+                            $('#viewMonthlyReportModel').modal('show');
+                        }
+                    },
+                    error: function() {
+                        alert("Error loading form");
+                    }
+                });
+            });
+
+            /*** call monthly detail */
+            $(document).on('click', '#updateMonthlyReportStatus', async function(e) {
+                if (await isConfirm({
+                        'action': 'Update',
+                        'text': 'Are you sure you want to update status?'
+                    })) {
+                    let id = $(this).data('id');
+                    let status = $(this).data('status');
+
+                    var url = "{{ route('agent.fees.update.status.detail') }}";
+                    url = url.replace(':id', id);
+                    url = url.replace(':status', status);
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: {
+                            id: id,
+                            status: status,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            Swal.close();
+                            console.log(response.status);
+                            if (response.status) {
+                                table.ajax.reload(null, false);
+                                swal_success_popup(response.message);
+                            } else {
+                                swal_error_popup(response.message);
+                            }
+                        },
+                        error: function() {
+                            alert("Error occurred while updating the status.");
+                        }
+                    });
+                }
+            });
         });
-    });
-</script>
-<script>
-   $(document).ready(function() {
-       $('#commissionStatementTable').DataTable({
-           language: {
-               search: "_INPUT_",
-               searchPlaceholder: "Search By Agent ID",
-               sSearch: 'Search:'
-           },
-           paging: true,
-           pageLength: 10,
-           lengthMenu: [10, 25, 50, 100],
-           info: true,
-           searching: true,
-           order: [[1, 'asc']],
-            columns: [
-            { data: 'report_date', name: 'report_date', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'billing_period', name: 'billing_period', searchable: true, orderable:false ,defaultContent: 'NA'},
-            { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'spend', name: 'spend', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'fee', name: 'fee', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-            { data: 'report_approved', name: 'report_approved', searchable: false, orderable:true,defaultContent: 'NA' },
-            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-            ],
-       });
-   });
-   </script>
-   
-
-
-
+    </script>
 @endpush

@@ -384,7 +384,6 @@ class PaymentController extends BaseController
             /** Calulate agent commisson and save the commission */
             $agentCommission = (new \App\Models\AgentCommission);
             if ($payment) {
-                Log::info("saveCommissionData fuction calling from payment controller.");
                 $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['sub_total_amount']);
                 
             }      

@@ -27,6 +27,7 @@ use App\Http\Controllers\Agent\ProspectListController;
 use App\Http\Controllers\Agent\DatabaseCentreController;
 use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Agent\FeesSummeryController;
+use App\Http\Controllers\Agent\MonthlyReportController;
 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
@@ -224,11 +225,6 @@ Route::get('forms',function(){
 })->name('agent.forms');
 
 
-
-    Route::get('Fees/monthly-report',function(){
-    return view('agent.dashboard.Fees.monthly-report');
-})->name('Fees.monthly-report');
-
     //     Route::get('Fees/summary',function(){
     //     return view('agent.dashboard.Fees.summary');
     // })->name('Fees.summary');
@@ -349,4 +345,10 @@ Route::get('/dashboard/notifications', [\App\Http\Controllers\Agent\AppointmentC
 Route::get('/dashboard/notifications/datatable', [\App\Http\Controllers\Agent\AppointmentController::class, 'notificationsDatatable'])->name('agent.dashboard.notifications.datatable');
 Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('agent.switch-to-child');
 Route::get('/back-to-parent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
+
+Route::get('fees/monthly-report', [MonthlyReportController::class, 'monthlyReport'])->name('Fees.monthly-report');
+Route::get('fees/monthly-report-list', [MonthlyReportController::class, 'monthlyReportAjax'])->name('agent.fees.monthly-report-ajax');
+Route::post('fees/view-monthly-report', [MonthlyReportController::class, 'viewMonthlyReport'])->name('agent.fees.view.detail');
+Route::post('fees/update-monthly-report', [MonthlyReportController::class, 'updateMonthlyReportStatus'])->name('agent.fees.update.status.detail');
+
 
