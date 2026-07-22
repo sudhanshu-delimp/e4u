@@ -86,12 +86,26 @@ $social_links = $listing->social_links;
                     </span>
 
              </div>
-
-             <div class="mc_list_address">
-                 <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
-                 {{$listing->address}}
-             </div>
              
+             <div class="video_icon_mc custom--available-section">
+                <div class="mc_list_address">
+                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
+                 {{$listing->address}}                  
+                </div>
+               <div class="video_icon">
+                    <a href="#">
+                        @php
+                            $videoCnt = checkVideoExistInMcProfile($listing->user_id);
+                        @endphp
+                        @if($videoCnt > '0')
+                            <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                        @else
+                            
+                        @endif
+                        <span class="custom--tooltip">Massage Centres has video to view</span>
+                    </a>
+                </div>
+             </div>
 
              
              <div>

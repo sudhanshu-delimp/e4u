@@ -77,4 +77,17 @@ class ProductOrder extends Model
   {
     return $this->belongsTo('App\Models\User', 'updated_by');
   }
+
+    public function getAccountNumberAttribute($value)
+    {
+        return formatMobileNumber($value);
+    }
+
+    public function setAccountNumberAttribute($value)
+    {
+
+        $clean = removeSpaceFromString($value);
+        $this->attributes['account_number'] = $clean;
+    }
+
 }

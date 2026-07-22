@@ -521,7 +521,7 @@ class MasseurController extends AppController
 
                         $masseur->name                  = $request->name;
                         $masseur->stage_name            = $request->stage_name;
-                        $masseur->mobile                = $request->mobile;
+                        $masseur->mobile                = removeSpaceFromString($request->mobile);
                     
                         $masseur->nationality           = $request->nationality;
 

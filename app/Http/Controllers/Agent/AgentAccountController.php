@@ -217,9 +217,9 @@ class AgentAccountController extends BaseController
         $data = [];
         $data = [
                 'business_name' => $request->business_name,
-                'abn' => $request->abn,
+                'abn' => removeSpaceFromString($request->abn),
                 'business_address' => $request->business_address,
-                'business_number' => $request->business_number,
+                'business_number' => removeSpaceFromString($request->business_number),
                 'contact_person' => $request->contact_person,
                 'email2' => $request->email2,
                 'contact_type' => $request->contact_type,
@@ -386,9 +386,9 @@ class AgentAccountController extends BaseController
          {
              $data = [
                 'bank_name' => $request->bank_name,
-                'bsb' => $request->bsb,
+                'bsb' => removeSpaceFromString($request->bsb),
                 'account_name' => $request->account_name,
-                'account_number' => $request->account_number,
+                'account_number' => removeSpaceFromString($request->account_number),
                 'state' => $request->state,
                 'user_id' => auth()->user()->id,
                 'replace' => $request->replace,
@@ -399,9 +399,9 @@ class AgentAccountController extends BaseController
         {
              $data = [
                 'bank_name' => $request->bank_name,
-                'bsb' => $request->bsb,
+                'bsb' => removeSpaceFromString($request->bsb),
                 'account_name' => $request->account_name,
-                'account_number' => $request->account_number,
+                'account_number' => removeSpaceFromString($request->account_number),
                 'state' => $request->state,
                 'user_id' => auth()->user()->id,
                 'bankId' => $request->bankId,

@@ -1038,7 +1038,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header d-flex justify-content-between align-items-center">                                       
-                                                    <ul class="nav nav-tabs justify-content-center border-0">
+                                                    <ul class="nav nav-tabs justify-content-center border-0 ec_media_tab">
                                                         <li class="nav-item">
                                                             <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu3">My Photos</a>
                                                         </li>

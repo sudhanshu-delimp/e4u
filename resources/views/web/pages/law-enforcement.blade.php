@@ -69,7 +69,7 @@
             <p class="">Escorts4U is committed to addressing the issues associated with and the fight against
                 human trafficking and will co-operate with law enforcement authorities and agencies in any
                 investigation of suspected abuse of human rights and trafficking (see also <a
-                    href="{{ route('page.terms-conditions')}}" class="termsandconditions_text_color">Terms and
+                    href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and
                     Conditions</a>).</p>
             <p>There are some salient points which will assist you in recognising trafficking, namely:</p>
             <ol>
@@ -101,7 +101,7 @@
                 <h2 class="primery_color normal_heading">Changes to this Policy</h2>
                 <p>We may change or modify this Policy in the future. We will note the date that revisions were last
                     made at the bottom of this page. Any revision will take effect upon its posting. It is your
-                    responsibility to check the <a href="{{ route('page.terms-conditions')}}" style="color:#FF3C5F">Terms and
+                    responsibility to check the <a href="{{ route('pages.terms-conditions')}}" style="color:#FF3C5F">Terms and
                         Conditions</a> and this Policy from time to time to
                     review the most current version.</p>
                 <p>Escorts4U archives all previous versions of this Policy.</p>
@@ -110,7 +110,7 @@
 
         <!-- <h2 class="primery_color normal_heading">Changes to this Policy</h2>
        <p class="text_decoration_for_a">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any
-          revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('page.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
+          revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
           review the most current version.
        </p>
        <p>Escorts4U archives all previous versions of this Policy.</p>

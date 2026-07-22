@@ -140,13 +140,13 @@
                   <div class="col-md-6">
                      <div class="form-group">
                            <label>BSB</label>
-                           <input type="text "  class="form-control" placeholder="BSB" name="bsb" id="bsb" >
+                           <input type="text "  class="form-control" placeholder="BSB" name="bsb" id="bsb" maxlength="12" oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"  >
                      </div>
                   </div>
                   <div class="col-md-6">
                      <div class="form-group">
                            <label>Account Number</label>
-                           <input type="text" class="form-control"  placeholder="Account Number" id="account_number" name="account_number" >
+                           <input type="text" class="form-control" maxlength="12" oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"  placeholder="Account Number" id="account_number" name="account_number" >
                            <div id="account_numberError"></div>
                          
                      </div>
@@ -225,14 +225,14 @@ $(function()
 
             if ($("#bsb").val().trim() === "") {
                 showError("#bsb", "Please enter your BSB number");
-            } else if (!/^\d+$/.test($("#bsb").val().trim())) {
+            } else if (!/^[0-9]+( [0-9]+)*$/.test($("#bsb").val().trim())) {
                 showError("#bsb", "Enter only numbers");
             }
 
             if ($("#account_number").val().trim() === "") {
                 showError("#account_number", "Please enter your account number");
-            } else if (!/^\d+$/.test($("#account_number").val().trim())) {
-                showError("#account_number", "Enter only numbers");
+            } else if (!/^[0-9]+( [0-9]+)*$/.test($("#account_number").val().trim())) {
+                showError("#account_number", "Enter only numbers and single spaces");
             }
 
             if ($("#state").val() === "") {

@@ -66,7 +66,7 @@
                                             the manner described in the Escorts4U Terms and Conditions
                                             (<b>Terms</b>). These Guidelines
                                             are to be read in conjunction with the <a
-                                                href="{{ route('page.terms-conditions')}}">Terms</a>.
+                                                href="{{ route('pages.terms-conditions')}}">Terms</a>.
                                         </p>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                                     <li>
                                                         <p class="mb-0">any and all content that you display, upload,
                                                             download or transmit through the use of the Services (see
-                                                            also <a href="{{ route('page.terms-conditions')}}">Terms</a>)</p>
+                                                            also <a href="{{ route('pages.terms-conditions')}}">Terms</a>)</p>
                                                     </li>
                                                     <li>
                                                         <p class="mb-0">all dealings you have with other Users of the
@@ -125,7 +125,7 @@
                                                 <p class="padding_left_five_px">You may use the Services for lawful
                                                     purposes only. The transmission, distribution, sale, or storage of
                                                     any material in violation of any Local Law, Classification Laws,
-                                                    regulation, the <a href="{{ route('page.terms-conditions')}}">Terms</a>, or
+                                                    regulation, the <a href="{{ route('pages.terms-conditions')}}">Terms</a>, or
                                                     the Guidelines is strictly prohibited.</p>
                                                 <p class="padding_left_five_px">Escorts4U reserves the right, at its
                                                     sole discretion, to restrict or prohibit any and all Uses of the
@@ -319,7 +319,7 @@
                                                             takes seriously the protection of minors. We are serious in
                                                             applying youth protection law and will exclude any
                                                             Advertiser who violates our <a
-                                                                href="{{ route('page.terms-conditions')}}"><span
+                                                                href="{{ route('pages.terms-conditions')}}"><span
                                                                     style="color: #FF3C5F;">Terms</span></a>,
                                                             incorporating this policy, by publishing prohibited content
                                                             or images (see also Law Enforcement &amp; Trafficking Policy).
@@ -365,7 +365,7 @@
                                             We may change or modify this Policy in the future. We will note the date
                                             that revisions were last made at the bottom of this page. Any revision will
                                             take effect upon its posting. It is your responsibility to check the <a
-                                                href="{{ route('page.terms-conditions')}}"> Terms and Conditions</a> and this
+                                                href="{{ route('pages.terms-conditions')}}"> Terms and Conditions</a> and this
                                             Policy from time to time to review the most current version.
                                         </p>
                                         <p>

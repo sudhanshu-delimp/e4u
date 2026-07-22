@@ -2937,7 +2937,7 @@ i.fa.fa-heart-o{
     color: white;
     background-color: rgba(170, 170, 170, 0.7);
     position: absolute;
-    bottom: -100px;
+    bottom: -120px;
     left: 0;
     width: 100%;
     padding: 5px 10px 7px;
@@ -2949,7 +2949,7 @@ i.fa.fa-heart-o{
     color: white;
     background: rgba(170, 170, 170, 0.7);
     position: absolute;
-    bottom: -100px;
+    bottom: -120px;
     left: 0;
     width: 100%;
     padding: 5px 10px 7px;
@@ -2968,7 +2968,7 @@ i.fa.fa-heart-o{
     color: white;
     background: rgba(170, 170, 170, 0.7);
     position: absolute;
-    bottom: -100px;
+    bottom: -120px;
     left: 0;
     width: 100%;
     padding: 5px 10px 7px;
@@ -4184,6 +4184,37 @@ a.admin-login:hover {
 
 .help--filter .nav-tabs .nav-item .nav-link {
     color: var(--blue--text);
+}
+
+.ec_media_tab {
+    background: #f6f6f6;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+.ec_media_tab li {
+    padding: 0px;
+}
+
+.ec_media_tab li a {
+    color: #0c223d !important;
+    font-size: 16px !important;
+    background: transparent;
+    line-height: 40px !important;
+}
+
+.ec_media_tab li:first-child a.active {
+    color: #fff !important;
+    background: #ff3c5f;
+    border-radius: 5px 0px 0px 5px;
+    line-height: 39px !important;
+}
+
+.ec_media_tab li:last-child a.active {
+    color: #fff !important;
+    background: #ff3c5f;
+    border-radius: 0px 5px 5px 0px;
+    line-height: 39px !important;
 }
 
 .grid_list_part>div,
@@ -6188,6 +6219,32 @@ ul.footerbtn-flex li {
     border-color: #0c223d;
 }
 
+.btn_login {
+    background-color: var(--peach) !important;
+}
+
+.btn_login,
+.btn_register {
+    padding: 10px 20px !important;
+    color: #fff;
+    text-decoration: none !important;
+    border-radius: 5px;
+}
+
+.btn_login:hover {
+    color: #fff;
+    background-color: #d82546 !important;
+}
+
+.btn_register {
+    background-color: var(--blue--text) !important;
+}
+
+.btn_register:hover {
+    color: #fff;
+    background-color: var(--peach) !important;
+}
+
 
 /*new login page designe start here*/
 
@@ -6803,6 +6860,15 @@ table {
     color: #fff;
 }
 
+.mc_card_content .decs img {
+    width: 20px;
+    /* filter: invert(0) brightness(129.5) grayscale(1) contrast(13.5); */
+}
+
+.video_icon_ec img {
+    width: 20px;
+}
+
 .mc_card_content .items .title {
     color: #fff;
 }
@@ -7145,7 +7211,7 @@ table {
 }
 
 .text_truncate {
-    width: 100px;
+    width: 55px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -9284,6 +9350,17 @@ h3 {
 
 .custom--alertlist div p:first-child:not(.custom--alertlist div:first-child p:first-child) {
     border-color: #ddd;
+}
+
+.custom--available-section.video_icon_mc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.custom--available-section.video_icon_mc .mc_list_address {
+    width: 100%;
 }
 
 .custom--gender--area,

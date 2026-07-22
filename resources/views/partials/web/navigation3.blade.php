@@ -185,8 +185,8 @@
                 </div>
            </div>
            <div class="modal-footer justify-content-center pt-3">
-            <a href="{{route('viewer.login')}}" class="btn btn_advertiser btn-cancel-modal border-0">Login</a>
-            <a href="{{url('/register')}}" class="btn  btn_become_pin_up btn-success-modal border-0">Register</a>
+            <a href="{{route('viewer.login')}}" class="btn_login">Login</a>
+            <a href="{{url('/register')}}" class="btn_register">Register</a>
             
           </div>
         </div>
