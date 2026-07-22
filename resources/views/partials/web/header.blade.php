@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-site-verification" content="tzqUkr_jX_neI5MlPldK2ai6CErqC0OOKQCvJ85xJeA" />
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
     <title> E4U - Escort Directory</title>
