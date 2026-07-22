@@ -924,12 +924,79 @@
 @endsection
 @push('scripts')
     <script>
-        $(function() {
-            const viewType = "{{ $listingsPreferencesView }}";
-            setProfileView(viewType);
-            loadEscort(getCurrentPage());
+        //This is Global Escort Request for use re-suffling
+        const escortRequest = {
+            page: 1,
+            membership_type: null,
+            view_type: 'null',
 
-        });
+            filter_by_field: {},
+
+            filter_by_location: {
+                locationByRadio: null,
+                lat: null,
+                lng: null,
+                search_by_radio: null,
+                by_name_member: null,
+                limit: null,
+            }
+        };
+
+
+
+        (async function() {
+            try {
+                const location = await setUserLocation();
+                const viewType = "{{ $listingsPreferencesView }}";
+                escortRequest.page = getCurrentPage();
+
+                escortRequest.view_type = viewType;
+
+                escortRequest.filter_by_location = {
+                    locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                    lat: location.latitude,
+                    lng: location.longitude,
+                    search_by_radio: $('#search_by_radio').val(),
+                };
+
+                loadEscort();
+
+
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+
+
+        async function setUserLocation() {
+            let checkRadioVal = $('input[name="locationByRadio"]:checked').val();
+
+            if (checkRadioVal != 'your_location') {
+                return false;
+            }
+
+            $('#search_by_radio').val(1);
+
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        $("#set_lat").val(latitude);
+                        $("#set_lng").val(longitude);
+
+                        resolve({
+                            latitude,
+                            longitude
+                        });
+                    },
+                    function(error) {
+                        reject(error);
+                    }
+                );
+            });
+        }
 
 
         function getCurrentPage() {
@@ -939,28 +1006,30 @@
         //click on grid view
         $(document).on('click', '#grid-modal', function() {
             // Active class
-            action = 'client_action'
+            //action = 'client_action'
             setProfileView('grid');
-            loadEscort(getCurrentPage());
+            escortRequest.view_type = 'grid';
+            loadEscort();
         });
         // when click on list button
         $(document).on('click', '#grid-list', function() {
-            action = 'client_action'
+            //action = 'client_action'
             setProfileView('list');
-            loadEscort(getCurrentPage());
+            escortRequest.view_type = 'list';
+            loadEscort();
         });
 
         //Load Card data with loadEscort function
         let ajaxReq = null;
         let currentPage = getCurrentPage();
 
-        function loadEscort(currentPage = '', filter_by_feild = {}, filter_by_location = {}, membership_type = null) {
+        function loadEscort(request = escortRequest, showLoader = true) {
             let reequestUrl = window.location.pathname;
             let formData = $('#escortFilterForm').serializeArray();
             //push current page number
             formData.push({
                 name: 'page',
-                value: currentPage
+                value: request.page
             });
 
             formData.push({
@@ -970,26 +1039,30 @@
 
             //Member Type
 
-            if (membership_type) {
+            if (request.membership_type) {
                 formData.push({
                     name: 'membership_type',
-                    value: membership_type
+                    value: request.membership_type
                 });
             }
 
 
-            $.each(filter_by_location, function(key, value) {
-                formData.push({
-                    name: key,
-                    value: value
-                });
+            $.each(request.filter_by_location, function(key, value) {
+                if (value !== null && value !== '') {
+                    formData.push({
+                        name: key,
+                        value: value
+                    });
+                }
             });
 
-            $.each(filter_by_feild, function(key, value) {
-                formData.push({
-                    name: key,
-                    value: value
-                });
+            $.each(request.filter_by_feild, function(key, value) {
+                if (value !== null && value !== '') {
+                    formData.push({
+                        name: key,
+                        value: value
+                    });
+                }
             });
 
             if (ajaxReq) {
@@ -1007,10 +1080,12 @@
                 dataType: 'json',
 
                 beforeSend: function() {
-                    $('#page_loader').show();
+                     if (showLoader) {
+                        $('#page_loader').show();
+                    }
                 },
                 success: function(response) {
-                    console.log(response);
+                    console.log('request load');
 
                     if (response.total_count > 0) {
                         const isGrid = response.view_type === 'grid';
@@ -1030,10 +1105,10 @@
                     }
 
                     // for scrolling 
-                    let target = $('#escortListing');
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - 20
-                    }, 200);
+                    // let target = $('#escortListing');
+                    // $('html, body').animate({
+                    //     scrollTop: target.offset().top - 20
+                    // }, 200);
 
 
                 },
@@ -1043,8 +1118,7 @@
                     }
                 },
                 complete: function() {
-
-                    $('#page_loader').hide();
+                      $('#page_loader').hide();
                     ajaxReq = null;
                 }
             });
@@ -1061,7 +1135,9 @@
             if (!page) {
                 page = 1;
             }
-            loadEscort(page);
+            console.log(page, 'page....')
+            escortRequest.page = page;
+            loadEscort();
         });
 
         function getParameterByName(name, url) {
@@ -1092,41 +1168,52 @@
             e.preventDefault();
             let checkRadioVal = $('#search_by_radio').val();
             const radioValue = checkRadioVal == 'australia' ? 0 : 1;
-            const filter_by_location = {
+
+            escortRequest.page = 1;
+            escortRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                 by_name_member: $('#search_by_member_id_and_name').val(),
                 lat: $('#set_lat').val(),
                 lng: $('#set_lng').val(),
                 limit: $('#limit').val(),
-                search_by_radio: radioValue,
-                page: 1,
+                search_by_radio: radioValue
             };
-
-            loadEscort(1, {}, filter_by_location);
+            loadEscort();
         });
         //Filter data for use search by category and service
 
         $(document).on('click', '#applayFilter', function(e) {
             e.preventDefault();
-            let filter_by_feild = {
+            escortRequest.page = 1;
+            escortRequest.filter_by_field = {
                 services: $('input[name="services[]"]').map(function() {
-                    return $(this).val()
+                    return $(this).val();
                 }).get(),
+
                 city: $('#escort_city').val(),
                 gender: $('#escort_gender').val(),
                 age: $('#escort_age').val(),
                 price: $('#escort_price').val(),
                 duration_price: $('#escort_duration_price').val(),
                 playmate_status: $('#escort_playmate_status').val(),
-                varify_list: $('#escort_varify_list').val(),
-            }
+                varify_list: $('#escort_varify_list').val()
+            };
 
-            loadEscort(1, filter_by_feild, {});
+            loadEscort();
+
         });
 
         function getMemberWiseCount(membership_type) {
-            loadEscort(1, {}, {}, membership_type);
+            escortRequest.page = 1;
+            escortRequest.membership_type = membership_type;
+            loadEscort();
         }
+
+        // call every 2 min
+        setInterval(function(){
+            loadEscort(escortRequest, false);
+        },10000 * 3);
+
     </script>
 
 
@@ -1674,17 +1761,17 @@
         });
 
         $(document).ready(function() {
-            let checkRadioVal = $('input[name="locationByRadio"]:checked').val();
-            if (checkRadioVal == 'your_location') {
-                $("#search_by_radio").val(1);
-                navigator.geolocation.getCurrentPosition(async function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    $("#set_lat").val(latitude);
-                    $("#set_lng").val(longitude);
-                    alert('fine');
-                });
-            }
+            // let checkRadioVal = $('input[name="locationByRadio"]:checked').val();
+            // if (checkRadioVal == 'your_location') {
+            //     $("#search_by_radio").val(1);
+            //     navigator.geolocation.getCurrentPosition(async function(position) {
+            //         const latitude = position.coords.latitude;
+            //         const longitude = position.coords.longitude;
+            //         $("#set_lat").val(latitude);
+            //         $("#set_lng").val(longitude);
+            //         alert('fine');
+            //     });
+            // }
 
 
             $('input[name="locationByRadio"]').on('change', function() {
