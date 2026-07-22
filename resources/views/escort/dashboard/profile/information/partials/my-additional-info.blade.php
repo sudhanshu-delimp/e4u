@@ -247,7 +247,7 @@
                                 <h2>Who Am I (Tittle)</h2>
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
                                     data-toggle="tooltip" data-html="true" data-placement="top"
-                                    title="You can create as many Titles as you like." data-boundary="window">
+                                    title="You can create as many Tittle as you like." data-boundary="window">
 
                             </label>
 
@@ -262,7 +262,7 @@
                                 </div>
 
 
-                                <div> <span><b>Note:</b> <i>Save your Titles before you apply the Sort
+                                <div> <span><b>Note:</b> <i>Save your Tittle before you apply the Sort
                                             feature.</i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
