@@ -256,7 +256,7 @@
                                     <div class="input-group-prepend pl-0 emoji-input-wrapper">    
                                         <span class=" emoji-btn" id="emojiBtn">😊</span>  
                                     </div>  
-                                        <input type="text" class="form-control form-control-sm" id="who_title" placeholder="Enter title">
+                                        <input type="text" class="form-control form-control-sm" id="who_title" placeholder="Enter tittle">
                                          <div class="invalid-feedback error-message"></div>
                                         <emoji-picker id="emojiPicker"></emoji-picker>
                                 </div>
