@@ -2937,7 +2937,7 @@ i.fa.fa-heart-o{
     color: white;
     background-color: rgba(170, 170, 170, 0.7);
     position: absolute;
-    bottom: -120px;
+    bottom: -100px;
     left: 0;
     width: 100%;
     padding: 5px 10px 7px;
@@ -2949,7 +2949,7 @@ i.fa.fa-heart-o{
     color: white;
     background: rgba(170, 170, 170, 0.7);
     position: absolute;
-    bottom: -120px;
+    bottom: -100px;
     left: 0;
     width: 100%;
     padding: 5px 10px 7px;
@@ -2968,7 +2968,7 @@ i.fa.fa-heart-o{
     color: white;
     background: rgba(170, 170, 170, 0.7);
     position: absolute;
-    bottom: -120px;
+    bottom: -100px;
     left: 0;
     width: 100%;
     padding: 5px 10px 7px;
@@ -6842,7 +6842,7 @@ table {
     height: 35px;
     overflow: hidden;
     z-index: 1;
-    bottom: 40px;
+    bottom: 43px;
     left: 0;
     right: 0;
     transition: 0.3s linear;
@@ -9503,7 +9503,7 @@ h3 {
     align-items: center;
     justify-content: center;
     border: 1px solid #e5e5e5;
-    padding: 15px;
+    padding: 13px;
     border-radius: 5px;
 }
 

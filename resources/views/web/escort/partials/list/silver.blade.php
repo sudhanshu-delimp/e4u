@@ -114,7 +114,7 @@
                          </div>
 
                          <div
-                             class="d-flex justify-content-between  flex_directiom_warp_but_list_child_not_hundred_present list_gender_area ">
+                             class="d-flex justify-content-between  flex_directiom_warp_but_list_child_not_hundred_present list_gender_area gap-10">
                              <div class="custom--gender--area">
                                  <div class="gender">
                                      <strong>Gender: </strong>
