@@ -948,6 +948,7 @@
             try {
                 const location = await setUserLocation();
                 const viewType = "{{ $listingsPreferencesView }}";
+            
                 escortRequest.page = getCurrentPage();
 
                 escortRequest.view_type = viewType;
@@ -958,7 +959,6 @@
                     lng: location.longitude,
                     search_by_radio: $('#search_by_radio').val(),
                 };
-
                 loadEscort();
 
 
@@ -1034,7 +1034,7 @@
 
             formData.push({
                 name: 'view_type',
-                value: localStorage.getItem('profileViewType') || 'grid',
+                value: request.view_type,
             });
 
             //Member Type
