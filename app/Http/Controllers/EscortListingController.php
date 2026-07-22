@@ -147,7 +147,7 @@ class EscortListingController extends Controller
 
     public function allEscortListing(Request $request, $gender = null)
     {
-        //  dd($request->all());
+         // dd($request->all());
         // $request->merge([
         //     'page' => 1,
         //     'view_type' => 'grid',
@@ -220,6 +220,7 @@ class EscortListingController extends Controller
             'escorts.created_at',
             
         ];
+
 
         // Query without ordering — ordering is handled in-memory by prepareMembership()
         $query = Escort::query()
@@ -627,6 +628,7 @@ class EscortListingController extends Controller
         $minuteBlock = floor($now->minute / 2) * 2;
         $minuteBlock = str_pad($minuteBlock, 2, '0', STR_PAD_LEFT);
         $timeBlock = $now->format('Y-m-d-H-') . $minuteBlock;
+       // dd($timeBlock);
 
         // if % wise reshuffle no need then enable 
         //  return $sortedByNewest->sortBy(function ($escort) use ($timeBlock) {

@@ -141,7 +141,7 @@
                                                                 style=" padding-top: 2px;">
                                                                 <input type="radio" name="locationByRadio"
                                                                     value="your_location" id="yourLocation"
-                                                                    checked="checked">
+                                                                    checked>
                                                                 <label for="yourLocation"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                                     Your Location
@@ -925,7 +925,7 @@
 @push('scripts')
     <script>
         //This is Global Escort Request for use re-suffling
-        const escortRequest = {
+        var escortRequest = {
             page: 1,
             membership_type: null,
             view_type: 'null',
@@ -1056,7 +1056,7 @@
                 }
             });
 
-            $.each(request.filter_by_feild, function(key, value) {
+            $.each(request.filter_by_field, function(key, value) {
                 if (value !== null && value !== '') {
                     formData.push({
                         name: key,
@@ -1184,20 +1184,24 @@
 
         $(document).on('click', '#applayFilter', function(e) {
             e.preventDefault();
-            escortRequest.page = 1;
-            escortRequest.filter_by_field = {
-                services: $('input[name="services[]"]').map(function() {
+            Object.assign(escortRequest, {
+                page: 1
+            });
+
+            Object.assign(escortRequest.filter_by_field, {
+                services: $('input[name="services[]"]:checked').map(function () {
                     return $(this).val();
                 }).get(),
-
                 city: $('#escort_city').val(),
                 gender: $('#escort_gender').val(),
                 age: $('#escort_age').val(),
                 price: $('#escort_price').val(),
                 duration_price: $('#escort_duration_price').val(),
                 playmate_status: $('#escort_playmate_status').val(),
-                varify_list: $('#escort_varify_list').val()
-            };
+                varify_list: $('#escort_varify_list').val(),
+            });
+
+            console.log(escortRequest);
 
             loadEscort();
 
@@ -1616,7 +1620,7 @@
                     $('#page_loader').show();
                 },
                 success: function(response) {
-                    console.log(response);
+                    //console.log(response);
                     if (response.status === true) {
                         response.data.forEach(function(val) {
                             $(`#escort_${val}`).html('Add to Shortlist');
