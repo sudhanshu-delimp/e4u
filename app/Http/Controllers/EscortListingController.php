@@ -164,6 +164,7 @@ class EscortListingController extends Controller
         $count_session = count((array) session('cart'));
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
+        // make sure user alwase same state me hona chaiye tab Backend se jo v gender select kiya hoga tab wo work karega.
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
        // dd($userLocation, $request->all());
@@ -171,8 +172,6 @@ class EscortListingController extends Controller
 
 
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
-
-        Log::info('Search Params: ' . json_encode($params));
 
         $location = request()->get('location');
 
@@ -450,12 +449,9 @@ class EscortListingController extends Controller
 
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
-            Log::info('1 if condition Gender filter applied: ' . json_encode($params['gender']));
         } else {
-            Log::info('2 if condition Gender filter applied: ' . json_encode($params['interest']));
             if (!empty($params['interest'])) {
                 $interests = array_unique($params['interest']);
-                Log::info('3 if condition Gender filter applied: ' . json_encode($interests));
                 if (is_array($interests)) {
                     $query->whereIn('escorts.gender', $interests);
                 }
@@ -654,7 +650,7 @@ class EscortListingController extends Controller
             ->values();
         // if % wise reshuffing you want
     }
-
+    // make sure user alwase same state me hona chaiye tab Backend se jo v gender select kiya hoga tab wo work karega.
     public function getUserInterest(): ?array
     {
         $user = auth()->user();
