@@ -4201,19 +4201,18 @@ a.admin-login:hover {
     font-size: 16px !important;
     background: transparent;
     line-height: 40px !important;
+    border-radius: 5px;
 }
 
 .ec_media_tab li:first-child a.active {
     color: #fff !important;
     background: #ff3c5f;
-    border-radius: 5px 0px 0px 5px;
     line-height: 39px !important;
 }
 
 .ec_media_tab li:last-child a.active {
     color: #fff !important;
     background: #ff3c5f;
-    border-radius: 0px 5px 5px 0px;
     line-height: 39px !important;
 }
 
