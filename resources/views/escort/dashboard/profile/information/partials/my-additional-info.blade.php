@@ -238,13 +238,13 @@
                 {{-- end --}}
 
 
-                {{-- Who Am I (Title) --}}
+                {{-- Who Am I (Tittle) --}}
                 <div class="row">
                     <div class="col-lg-12 ">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
                                 for="exampleFormControlSelect1" style="font-size: 18px;">
-                                <h2>Who Am I (Title)</h2>
+                                <h2>Who Am I (Tittle)</h2>
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
                                     data-toggle="tooltip" data-html="true" data-placement="top"
                                     title="You can create as many Titles as you like." data-boundary="window">

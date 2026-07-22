@@ -331,7 +331,7 @@
                             <p class="  pt-3">There are no fees when your create an Account. Fees only apply when you List
                                 a Profile or create a Tour where you are charged according to the number of days and the
                                 Membership Type you select (Book and pay by the day!). See also <a
-                                    href = "help-for-escorts" class="termsandconditions_text_color">Help for Escorts</a>.
+                                    href= "{{ url('help-for-escorts') }}" class="termsandconditions_text_color">Help for Escorts</a>.
                             </p>
                             <p class="">Massage Centres are also looked after with a uniquely designed Profile just
                                 for them.  A world first, set out your business information and list up to eight Masseurs
