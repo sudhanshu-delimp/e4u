@@ -25,6 +25,7 @@ use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Center\CenterReviewsController;
+use App\Http\Controllers\Center\MassageCenterDashboardController;
 use App\Http\Controllers\Center\WalletController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Escort\Concierge\ProductOrderController;
@@ -309,9 +310,8 @@ Route::get('legbox-viewer', function () {
 })->name('center.dashboard.legbox-viewer');
 
 
-Route::get('our-spend', function () {
-  return view('center.dashboard.our-spend');
-})->name('center.dashboard.our-spend');
+Route::get('our-spend', [MassageCenterDashboardController::class,'dashboard'])->name('center.dashboard.our-spend');
+
 
 Route::get('our-statistics', function () {
   return view('center.dashboard.our-statistics');
