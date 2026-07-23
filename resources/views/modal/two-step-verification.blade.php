@@ -47,6 +47,11 @@
                             @if (isset($inPaymentMode))
                             <input type="hidden" value="1" name="in_payment_mode" id="in_payment_mode">
                             @endif
+
+                            @if (isset($inPinMode))
+                            <input type="hidden" value="1" name="in_pin_mode" id="in_pin_mode">
+                            @endif
+
                             <img src="{{ asset('assets/app/img/circle-loader.gif') }}" class="wait-loader"
                                 style="width: 60px;margin-bottom:18px;display:none;" alt="face-lock verification">
                             <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
@@ -79,9 +84,6 @@
                         </ol>
                     </div>
                 </div>
-
-
-
             </form>
         </div>
     </div>
@@ -102,7 +104,6 @@
     let timer;
 
     let sendOtpForm = $("#SendOtp");
-
 
     sendOtpForm.on('submit', function(e) {
         e.preventDefault();
@@ -149,7 +150,12 @@
                             sendOtpForm.find('input[type="text"]').val('');
                             processPaymentForm();
                         }
+
+                        if (sendOtpForm.find("#in_pin_mode").length > 0) {
+                            $("#SetPinModal").modal('show');
+                        }
                     });
+                    sendOtpForm.find('.otp-input').val('');
                     sendOtpForm.closest('.modal').modal('hide');
                 },
                 error: function(xhr) {
