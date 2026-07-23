@@ -322,14 +322,15 @@ Route::get('/staff-forgot/{token?}', [AdvertiserLoginController::class, 'staffFo
 
 Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login']);
 Route::post('/advertiser-logout', [AdvertiserLoginController::class, 'logout'])->name('advertiser.logout');
+//this url no longer used. 
 Route::get('/all-escorts-list', [App\Http\Controllers\WebController::class, 'allEscortList'])->name('find.all');
 // Route::get('/all-escorts-list/{gender?}', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
 
 //Route::get('/search-filter', [App\Http\Controllers\WebController::class,'searchfilter'])->name('web.search.filter');
 Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'filterLocation'])->name('location.filter');
 
-//this url make desible now we use "all-escorts-listing" url for escort listing page.
-//Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
+
+Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
 
 /****************************************************all-escorts-list**********************************************/
 Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing'); 

@@ -133,7 +133,9 @@
 
                     @endphp
                     <div class="home-btn">
-                        <a class="btn btn_advertiser" id="view_btn_advertiser" href="{{ $url }}"
+
+                        
+                        <a class="btn btn_advertiser" id="view_btn_advertiser" href="{{route('public.web.escort.listing')}}"
                             role="button">View Escorts <br><small style="font-size: 70%">(Australia wide)</small></a>
                         <a class="btn btn_center" href="{{ route('find.massage.centre') }}" role="button">View Massage
                             Centres <br><small style="font-size: 70%">(Australia wide)</small></a>
