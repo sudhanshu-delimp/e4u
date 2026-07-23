@@ -36,6 +36,13 @@
                     }
                     
                     @media(max-width: 425px) {
+                        #WelcomeEscortPopup li {
+                            font-size: 14px;
+                            padding: 10px;
+                        }
+                        #WelcomeViewerPopup ol {
+                            padding: 20px !important;
+                        }
                         .pp-av-wrap {
                             justify-content: center;
                             gap: 20px;

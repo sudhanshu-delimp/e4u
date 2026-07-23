@@ -3,6 +3,7 @@
 <style>
     #WelcomeViewerPopup li {
         padding-left: 20px;
+        font-size: clamp(14px, 4vw, 16px);
     }
 
     #WelcomeViewerPopup .modal-dialog {
@@ -13,7 +14,11 @@
         filter: blur(3px) !important;
         pointer-events: none;
     }
-
+    @media (max-width:425px){
+         #WelcomeViewerPopup li {
+             padding: 20px;
+        }
+    }
 </style>
 <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content start here-->
@@ -201,7 +206,7 @@
             <!-- Header -->
 
 
-           <div class="modal-header gap-20">
+           <div class="modal-header gap-20 modal_custom_header">
                  <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
                         class="custompopicon">
                     Welcome to Escorts4U!! </h5> <span>Member ID: {{auth()->user()->member_id}}</span>
@@ -238,7 +243,7 @@
                         <table>
 
                             <tr>
-                                <td style="padding: 30px; text-align: justify;">
+                                <td class="welcome_common_para">
                                     <p>Hello {{auth()->user()->name ?? auth()->user()->email}},</p>
                                     <p>
                                         Thank you for selecting E4U as your preferred Website for locating companionship. The
