@@ -526,6 +526,9 @@ class UserController extends Controller
                 COUNT(DISTINCT users.id) as total_count
             ", [$authStateId, $authStateId])
             ->first();
-       return view('user.dashboard.favorites-online', compact('result'));
+
+            $totalLegbox = MyLegbox::where('user_id', $authUserId)->count();
+
+       return view('user.dashboard.favorites-online', compact('result','totalLegbox'));
     }
 }
