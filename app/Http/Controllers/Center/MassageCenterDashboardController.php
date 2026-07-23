@@ -68,7 +68,6 @@ class MassageCenterDashboardController extends Controller
 
     // month record
     $advertisingMonth     = $this->calculateSumOfService($advertisingServices, $monthStart, $now, $userId);
-    dd($advertisingMonth, $monthStart, $now);
     $advertisingMonthLast = $this->calculateSumOfService($advertisingServices, $lastMonthStart, $lastMonthEnd, $userId);
 
     // yearly record
