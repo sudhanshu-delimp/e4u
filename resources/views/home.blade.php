@@ -137,7 +137,7 @@
                             role="button">View Escorts <br><small style="font-size: 70%">(Australia wide)</small></a>
                         <a class="btn btn_center" href="{{ route('find.massage.centre') }}" role="button">View Massage
                             Centres <br><small style="font-size: 70%">(Australia wide)</small></a>
-                        <a class="btn  btn_become_pin_up" href="become-a-pin-up" role="button">Become a Pin-Up</a>
+                        <a class="btn  btn_become_pin_up" href="{{route('page.become-pin-up')}}" role="button">Become a Pin-Up</a>
                     </div>
                 </div>
             </div>
@@ -331,7 +331,7 @@
                             <p class="  pt-3">There are no fees when your create an Account. Fees only apply when you List
                                 a Profile or create a Tour where you are charged according to the number of days and the
                                 Membership Type you select (Book and pay by the day!). See also <a
-                                    href = "help-for-escorts" class="termsandconditions_text_color">Help for Escorts</a>.
+                                    href= "{{ url('help-for-escorts') }}" class="termsandconditions_text_color">Help for Escorts</a>.
                             </p>
                             <p class="">Massage Centres are also looked after with a uniquely designed Profile just
                                 for them.  A world first, set out your business information and list up to eight Masseurs

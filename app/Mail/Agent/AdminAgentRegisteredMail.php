@@ -17,11 +17,10 @@ class AdminAgentRegisteredMail extends Mailable
      * @return void
      */
 
-     public $agent;
+    public $agent;
     public function __construct($agent)
     {
         $this->agent = $agent;
-        
     }
 
     /**
@@ -31,8 +30,9 @@ class AdminAgentRegisteredMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.agent.email_for_admin')->with([
-            'agent' => $this->agent
-        ]);
+        return $this->subject('New Registration Agent')
+            ->view('emails.agent.email_for_admin')->with([
+                'agent' => $this->agent
+            ]);
     }
 }

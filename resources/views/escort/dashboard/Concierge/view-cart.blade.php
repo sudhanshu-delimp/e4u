@@ -232,6 +232,7 @@
                                             required data-parsley-type="digits" data-parsley-minlength="10"
                                             data-parsley-required-message="Mobile number is required"
                                             data-parsley-type-message="Only digits allowed"
+                                            maxlength="10" onkeyup="if (/\D/g.test(this.value))  this.value = this.value.replace(/\D/g,'')"
                                             data-parsley-minlength-message="Mobile must be at least 10 digits">
                                     </div>
 

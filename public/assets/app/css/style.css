@@ -4186,6 +4186,36 @@ a.admin-login:hover {
     color: var(--blue--text);
 }
 
+.ec_media_tab {
+    background: #f6f6f6;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+.ec_media_tab li {
+    padding: 0px;
+}
+
+.ec_media_tab li a {
+    color: #0c223d !important;
+    font-size: 16px !important;
+    background: transparent;
+    line-height: 40px !important;
+    border-radius: 5px;
+}
+
+.ec_media_tab li:first-child a.active {
+    color: #fff !important;
+    background: #ff3c5f;
+    line-height: 39px !important;
+}
+
+.ec_media_tab li:last-child a.active {
+    color: #fff !important;
+    background: #ff3c5f;
+    line-height: 39px !important;
+}
+
 .grid_list_part>div,
 .grid_list_part>div * {
     padding: 0;
@@ -6188,6 +6218,32 @@ ul.footerbtn-flex li {
     border-color: #0c223d;
 }
 
+.btn_login {
+    background-color: var(--peach) !important;
+}
+
+.btn_login,
+.btn_register {
+    padding: 10px 20px !important;
+    color: #fff;
+    text-decoration: none !important;
+    border-radius: 5px;
+}
+
+.btn_login:hover {
+    color: #fff;
+    background-color: #d82546 !important;
+}
+
+.btn_register {
+    background-color: var(--blue--text) !important;
+}
+
+.btn_register:hover {
+    color: #fff;
+    background-color: var(--peach) !important;
+}
+
 
 /*new login page designe start here*/
 
@@ -6785,7 +6841,7 @@ table {
     height: 35px;
     overflow: hidden;
     z-index: 1;
-    bottom: 40px;
+    bottom: 43px;
     left: 0;
     right: 0;
     transition: 0.3s linear;
@@ -6801,6 +6857,15 @@ table {
 
 .mc_card_content .decs {
     color: #fff;
+}
+
+.mc_card_content .decs img {
+    width: 20px;
+    /* filter: invert(0) brightness(129.5) grayscale(1) contrast(13.5); */
+}
+
+.video_icon_ec img {
+    width: 20px;
 }
 
 .mc_card_content .items .title {
@@ -7145,7 +7210,7 @@ table {
 }
 
 .text_truncate {
-    width: 100px;
+    width: 55px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -9109,6 +9174,48 @@ img.twitter-x-logo {
     color: var(--peach);
 }
 
+.add_to_favrate span.custom-heart-text {
+    background: var(--peach);
+    position: absolute;
+    top: 6px;
+    right: 35px;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.add_to_favrate span.custom-heart-text.list-tool {
+    position: absolute;
+    top: -2px;
+    right: 25px;
+}
+
+.add_to_favrate span.custom-heart-text.remove-tool {
+    position: absolute;
+    top: -2px;
+    right: 25px;
+}
+
+.add_to_favrate span.custom-heart-text::after {
+    content: '';
+    position: absolute;
+    top: 35%;
+    left: 100%;
+    border-width: 5px;
+    transform: rotate(-90deg);
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
+.add_to_favrate:hover span.custom-heart-text {
+    opacity: 1;
+    visibility: visible;
+    text-wrap: nowrap;
+}
+
 .custom--favourite span.custom-heart-text {
     background: var(--peach);
     position: absolute;
@@ -9242,6 +9349,17 @@ h3 {
 
 .custom--alertlist div p:first-child:not(.custom--alertlist div:first-child p:first-child) {
     border-color: #ddd;
+}
+
+.custom--available-section.video_icon_mc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.custom--available-section.video_icon_mc .mc_list_address {
+    width: 100%;
 }
 
 .custom--gender--area,
@@ -9384,7 +9502,7 @@ h3 {
     align-items: center;
     justify-content: center;
     border: 1px solid #e5e5e5;
-    padding: 15px;
+    padding: 13px;
     border-radius: 5px;
 }
 

@@ -1414,6 +1414,7 @@
 
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
+        console.log(view2, 'view2');
 
         var viewType = 'grid'; // Default
 
@@ -1476,10 +1477,10 @@
                     let newUrl = view1.replace('=list', '=grid');
                     $('.footer_view_type_one').attr('href', newUrl);
                 }
-                if (view2.includes('=list')) {
-                    let newUrl = view2.replace('=list', '=grid');
-                    $('.footer_view_type_two').attr('href', newUrl);
-                }
+                // if (view2.includes('=list')) {
+                //     let newUrl = view2.replace('=list', '=grid');
+                //     $('.footer_view_type_two').attr('href', newUrl);
+                // }
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
                     $('.my-wishlist').css('display', 'none');
@@ -1525,10 +1526,10 @@
                     let newUrl = view1.replace('=grid', '=list');
                     $('.footer_view_type_one').attr('href', newUrl);
                 }
-                if (view2.includes('=grid')) {
-                    let newUrl = view2.replace('=grid', '=list');
-                    $('.footer_view_type_two').attr('href', newUrl);
-                }
+                // if (view2.includes('=grid')) {
+                //     let newUrl = view2.replace('=grid', '=list');
+                //     $('.footer_view_type_two').attr('href', newUrl);
+                // }
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
                     $('.my-wishlist').css('display', 'none');

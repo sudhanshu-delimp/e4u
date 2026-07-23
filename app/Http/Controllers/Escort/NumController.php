@@ -223,7 +223,7 @@ class NumController extends Controller
             'incident_state'    => 'required',
             'incident_date'    => 'required',
             'incident_location' => 'required',
-            'offender_mobile'   => 'required|min:8|max:10',
+            'offender_mobile'   => 'required|min:8|max:12',
             'incident_nature'   => 'required',
             'profile_link'      => 'nullable',
             'what_happened'     => 'required|string',
@@ -243,7 +243,7 @@ class NumController extends Controller
             'incident_date'    => $request->incident_date,
             'incident_location' => $request->incident_location,
             'offender_name'     => $request->offender_name,
-            'offender_mobile'   => $request->offender_mobile,
+            'offender_mobile'   => removeSpaceFromString($request->offender_mobile),
             'offender_email'    => $request->offender_email,
             'incident_nature'   => $request->incident_nature,
             'platform'          => $request->platform ?? null, // remove this field after discussion with wayne

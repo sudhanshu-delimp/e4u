@@ -39,7 +39,7 @@
             </p>
          </li>
          <li>
-            <p class="text_decoration_for_a mb-0">You have breached our <a class="termsandconditions_text_color" href="{{ url('terms-conditions')}}">Terms and Conditions</a> including any of the <a href="{{ url('law-enforcement')}}" class="termsandconditions_text_color">Local Laws</a></p>
+            <p class="text_decoration_for_a mb-0">You have breached our <a class="termsandconditions_text_color" href="{{ route('pages.terms-conditions')}}">Terms and Conditions</a> including any of the <a href="{{ url('law-enforcement')}}" class="termsandconditions_text_color">Local Laws</a></p>
          </li>
          <li>
             <p class="mb-0">Your Profile is not presented in the form you asked for. (Profiles are presented in our
@@ -76,7 +76,7 @@
          your request with us, some one from of support team will contact you to determine
          whether to authorise a refund within five (5) business days from the date of your request.
          Escorts4U reserves the right, at its sole discretion, to authorise refunds, or credits on a
-         case by case basis (see also <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a>).
+         case by case basis (see also <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a>).
       </p>
       <h2 class="primery_color normal_heading">Acknowledgement</h2>
       <p>You acknowledge and agree that you are liable for any Services provided to you by
@@ -85,7 +85,7 @@
       </p>
      <!--  <h2 class="primery_color normal_heading">Changes to this Policy</h2>
       <p class="text_decoration_for_a">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any
-         revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
+         revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
          review the most current version.
       </p>
       <p>Escorts4U archives all previous versions of this Policy.</p>
@@ -93,7 +93,7 @@
 
       <div class="container mt-4 px-0 chagneto-policy">
          <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <<a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <<a href="{{ route('pages.terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                    review the most current version.</p>
            <p>Escorts4U archives all previous versions of this Policy.</p>
            <p><b>This policy was last updated 01-12-18</b></p>

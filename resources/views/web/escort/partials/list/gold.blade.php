@@ -112,7 +112,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between flex_warp list_gender_area">
+                        <div class="d-flex justify-content-between flex_warp list_gender_area gap-10">
                             <div class="custom--gender--area">
                                 <div class="gender">
                                     <strong>Gender :</strong>
@@ -159,7 +159,7 @@
                                 </div>
 
                                 @if ($escort->escort_videos->count() > 0)
-                                    <div class="d-inline video_icon">
+                                    <div class="video_icon">
                                         <a href="#">
                                             <img src="{{ asset('assets/app/img/video_play.svg') }}">
                                             <span class="custom--tooltip">Escort has video to view</span>

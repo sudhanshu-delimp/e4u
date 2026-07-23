@@ -369,7 +369,7 @@
             <div class="content">
                <div class="accodien_manage_padding_content">
                   <p class="pt-4"><b>Q: Do I have to sign a contract to advertise?</b></p>
-                  <p>Save for the Policy statements including the <a class="c-red" href="{{ url('terms-conditions')}}">Terms and Conditions</A> of use, there are
+                  <p>Save for the Policy statements including the <a class="c-red" href="{{ route('pages.terms-conditions')}}">Terms and Conditions</A> of use, there are
                      no other contracts, no obligation to advertise and you can cancel your Membership at
                      any time.</p><br>
                   <p><b>Q: What is the best type of Membership for me?</b></p>
@@ -638,7 +638,7 @@
                                                 We may change or modify these Terms and Conditions in the future. We
                                                 will note the date that revisions were last made at the bottom of this
                                                 page. Any revision will take effect upon its posting. It is your
-                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                responsibility to check the <a href="{{ route('pages.terms-conditions')}}">Terms
                                                     and Conditions</a> from time to time to review the most current
                                                 version.
                                             </p>

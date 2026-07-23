@@ -35,7 +35,7 @@ class UpdateMassageRequest extends FormRequest
 
             'phone' => [
                 'required',
-                'numeric',
+                'regex:/^[0-9 ]+$/',
                 Rule::unique('users', 'phone')->ignore(auth()->id())
             ],
         ];

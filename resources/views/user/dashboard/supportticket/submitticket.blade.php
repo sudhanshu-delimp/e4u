@@ -14,9 +14,19 @@
 <div class="container-fluid pl-3 pl-lg-5 register-pin-up mb-5">
     <!--middle content start here-->
     <div class="row">
-        <div class="custom-heading-wrapper col-md-12">
-            <h1 class="h1">Submit</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></span>
+        <div class="col-md-12 custom-heading-wrapper justify-content-between">
+            <div class="d-flex align-items-center">
+                <h1 class="h1">Submit</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            </div>
+            
+            @if (request('from') == 'dashboard')
+            <div class="back-to-dashboard">
+                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                </a>
+            </div>
+            @endif
         </div>
         <div class="col-md-12 mb-4 mycont">
             <div class="card collapse" id="notes">

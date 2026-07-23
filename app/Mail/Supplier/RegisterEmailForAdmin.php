@@ -16,12 +16,12 @@ class RegisterEmailForAdmin extends Mailable
      *
      * @return void
      */
-     public $user;
-     public function __construct($user)
+    public $user;
+    public function __construct($user)
     {
         $this->user = $user;
     }
-      
+
     /**
      * Build the message.
      *
@@ -29,9 +29,9 @@ class RegisterEmailForAdmin extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.supplier.email_for_admin')->with([
-            'user' => $this->user,
-        ]);;
-        
+        return $this->subject('New Registration Supplier')
+            ->view('emails.supplier.email_for_admin')->with([
+                'user' => $this->user,
+            ]);;
     }
 }

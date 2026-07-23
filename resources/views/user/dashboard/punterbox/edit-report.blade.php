@@ -109,7 +109,7 @@
 
                 <div class="form-group">
                     <label class="required">Escort's Mobile</label>
-                    <input type="text" class="form-control" name="escorts_mobile" value="{{$punterbox ? $punterbox->escorts_mobile : ''}}" required placeholder="No spaces or any other characters - just punterboxbers">
+                    <input type="text" class="form-control" name="escorts_mobile" value="{{$punterbox ? $punterbox->escorts_mobile : ''}}" maxlength="12" oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')" required placeholder="No spaces or any other characters - just punterboxbers">
                 </div>
 
                 <div class="form-group">
@@ -187,12 +187,6 @@
         e.preventDefault();
 
         var form = $(this);
-
-
-
-
-
-
         if (form) {
             $("#submit").hide();
             $(".spinner-border").attr('hidden', false);

@@ -50,11 +50,11 @@
                         About
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url('agents')}}"><img src="{{asset('assets/app/img/male-user.svg')}}">Agents</a>
-                            <a class="dropdown-item" href="{{ url('escorts4U')}}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Escorts4U</a>
-                            <a class="dropdown-item" href="{{ url('e4u-verified')}}"><img src="{{asset('assets/app/img/e4u-verified-shield.png')}}">E4U Verified</a>
-                            <a class="dropdown-item" href="{{ url('centres')}}"><img src="{{asset('assets/app/img/spa.svg')}}">Massage Centres</a>
-                            <a class="dropdown-item" href="{{ url('playbox')}}"><img src="{{asset('assets/app/img/myplay-box.png')}}">My Playbox</a>
+                            <a class="dropdown-item" href="{{ route('page.agents')}}"><img src="{{asset('assets/app/img/male-user.svg')}}">Agents</a>
+                            <a class="dropdown-item" href="{{ route('page.escorts4U')}}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Escorts4U</a>
+                            <a class="dropdown-item" href="{{ route('page.e4u-verified')}}"><img src="{{asset('assets/app/img/e4u-verified-shield.png')}}">E4U Verified</a>
+                            <a class="dropdown-item" href="{{ route('page.centres')}}"><img src="{{asset('assets/app/img/spa.svg')}}">Massage Centres</a>
+                            <a class="dropdown-item" href="{{ route('page.playbox')}}"><img src="{{asset('assets/app/img/myplay-box.png')}}">My Playbox</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -63,12 +63,12 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                            <a class="dropdown-item" href="{{ url('accommodation')}}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Accommodation</a>
-                            <a class="dropdown-item" href="{{ url('email-hosting')}}"><img src="{{asset('assets/app/img/male-user.svg')}}">Email Hosting</a>
-                            <a class="dropdown-item" href="{{ url('mobile-read-sim')}}"><img src="{{asset('assets/app/img/cellphone-text.svg')}}">Mobile SIM</a>
-                            <a class="dropdown-item" href="{{ url('professional-product')}}"><img src="{{asset('assets/app/img/oil 1.svg')}}">Products</a>
-                            <a class="dropdown-item" href="{{ url('travel')}}"><img src="{{asset('assets/app/img/wallet-travel.svg')}}">Travel</a>
-                            <a class="dropdown-item" href="{{ url('visa-migration')}}"><img src="{{asset('assets/app/img/symbols 1.svg')}}">Visa &amp; Migration</a>
+                            <a class="dropdown-item" href="{{ route('page.accommodation')}}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Accommodation</a>
+                            <a class="dropdown-item" href="{{ route('page.email-hosting')}}"><img src="{{asset('assets/app/img/male-user.svg')}}">Email Hosting</a>
+                            <a class="dropdown-item" href="{{ route('page.mobile-read-sim')}}"><img src="{{asset('assets/app/img/cellphone-text.svg')}}">Mobile SIM</a>
+                            <a class="dropdown-item" href="{{ route('page.professional-product')}}"><img src="{{asset('assets/app/img/oil 1.svg')}}">Products</a>
+                            <a class="dropdown-item" href="{{ route('page.travel')}}"><img src="{{asset('assets/app/img/wallet-travel.svg')}}">Travel</a>
+                            <a class="dropdown-item" href="{{ route('page.visa-migration')}}"><img src="{{asset('assets/app/img/symbols 1.svg')}}">Visa &amp; Migration</a>
 
                         </div>
                     </li>
@@ -155,8 +155,8 @@
                 </div>
            </div>
            <div class="modal-footer justify-content-center pt-3">
-            <a href="{{route('viewer.login')}}" class="btn btn_advertiser btn-cancel-modal border-0">Login</a>
-            <a href="{{url('/register')}}" class="btn  btn_become_pin_up btn-success-modal border-0">Register</a>
+            <a href="{{route('viewer.login')}}" class="btn_login">Login</a>
+            <a href="{{url('/register')}}" class="btn_register">Register</a>
           </div>
         </div>
      </div>

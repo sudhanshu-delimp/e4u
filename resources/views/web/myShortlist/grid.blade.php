@@ -52,6 +52,12 @@
             <div class="five_column_bottom_content">
                 <div class="d-flex justify-content-between five_column_fonts">
                    <span>{{ $escort->city ? $escort->city->name : "" }}</span>
+                   
+                    <span class="video_icon_ec">
+                        @if ($escort->escort_videos->isNotEmpty())
+                            <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                        @endif
+                    </span>
                     <span class="give_rating_after_get_servive">
                         @for($i=1; $i<= 5; $i++)
                             @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)

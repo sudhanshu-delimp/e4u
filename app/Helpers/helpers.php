@@ -482,8 +482,9 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
             // Get location details from Google Maps Reverse Geocoding
             $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
+          
             $response = Http::get($geoUrl);
-
+ 
             $state = 'Unknown';
 
             if ($response->successful()) {
@@ -515,7 +516,6 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
         } catch (\Exception $e) {
             $stateCapital = config('escorts.profile.states')[auth()->user()->state_id];
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
-
             $parms = [
                 'geo_state' => $state,
                 'state' => null,
@@ -2579,6 +2579,14 @@ if (!function_exists('formatToFloat'))
         return number_format((float)$value, 2, '.', '');
     }
 }
+if (!function_exists('checkVideoExistInMcProfile'))
+{
+    function checkVideoExistInMcProfile($user_id) {
+        return $count = MassageMedia::where('user_id',$user_id)->where('type', 1)->count(); 
+    }
+}
+
+
 if (!function_exists('getStarRatingForEscort')) {
     function getStarRatingForEscort(int $escortId): int
     {
@@ -2642,5 +2650,13 @@ if (!function_exists('getDashboardUrl')) {
         }
 
         return $url;
+    }
+}
+
+
+if (!function_exists('getFullStateName')) {
+    function getFullStateName($state_id){
+    $stateCapital = config('escorts.profile.states')[$state_id];
+        return $stateCapital['stateName'];
     }
 }

@@ -139,15 +139,9 @@
                                                         <div class="location_radio_filter">
                                                             <div class="d-flex align-items-start"
                                                                 style=" padding-top: 2px;">
-                                                                @php
-                                                                    $searchByRadio = request()->get('search_by_radio');
-                                                                    $locationByRadio = request()->get(
-                                                                        'locationByRadio',
-                                                                    );
-                                                                @endphp
                                                                 <input type="radio" name="locationByRadio"
-                                                                    {{ $locationByRadio != 'australia' ? 'checked' : '' }}
-                                                                    value="your_location" id="yourLocation">
+                                                                    value="your_location" id="yourLocation"
+                                                                    checked>
                                                                 <label for="yourLocation"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                                     Your Location
@@ -156,8 +150,7 @@
 
                                                             <div class="d-flex align-items-start">
                                                                 <input type="radio" name="locationByRadio"
-                                                                    {{ $locationByRadio == 'australia' || $locationByRadio == null ? 'checked' : '' }}
-                                                                    value="australia" id="australia" checked="checked">
+                                                                    value="australia" id="australia">
                                                                 <label for="australia"
                                                                     style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                                     Australia
@@ -178,12 +171,12 @@
                                                             <input type="hidden" name="lng" id="set_lng"
                                                                 value="">
 
-                                                            <input type="search" name="name"
+                                                            <input type="search" name="search_by_member_id_and_name"
                                                                 id="search_by_member_id_and_name"
                                                                 class="form-control remove_border_btm rounded "
                                                                 placeholder="Search by Member ID or Name"
                                                                 aria-label="Search" aria-describedby="search-addon"
-                                                                value="{{ request()->get('name') }}">
+                                                                value="">
 
                                                             <button
                                                                 class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn searchEscort"
@@ -925,17 +918,85 @@
     </div>
 
     @php
-        $listingsPreferencesView = auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
+        $listingsPreferencesView =
+            auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
     @endphp
 @endsection
 @push('scripts')
     <script>
-        $(function() {
-            const viewType = "{{ $listingsPreferencesView }}";
-            setProfileView(viewType);
-            loadEscort(getCurrentPage());
+        //This is Global Escort Request for use re-suffling
+        var escortRequest = {
+            page: 1,
+            membership_type: null,
+            view_type: 'null',
 
-        });
+            filter_by_field: {},
+
+            filter_by_location: {
+                locationByRadio: null,
+                lat: null,
+                lng: null,
+                search_by_radio: null,
+                by_name_member: null,
+                limit: null,
+            }
+        };
+
+
+
+        (async function() {
+            try {
+                const location = await setUserLocation();
+                const viewType = "{{ $listingsPreferencesView }}";
+            
+                escortRequest.page = getCurrentPage();
+
+                escortRequest.view_type = viewType;
+
+                escortRequest.filter_by_location = {
+                    locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                    lat: location.latitude,
+                    lng: location.longitude,
+                    search_by_radio: $('#search_by_radio').val(),
+                };
+                loadEscort();
+
+
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+
+
+        async function setUserLocation() {
+            let checkRadioVal = $('input[name="locationByRadio"]:checked').val();
+
+            if (checkRadioVal != 'your_location') {
+                return false;
+            }
+
+            $('#search_by_radio').val(1);
+
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        $("#set_lat").val(latitude);
+                        $("#set_lng").val(longitude);
+
+                        resolve({
+                            latitude,
+                            longitude
+                        });
+                    },
+                    function(error) {
+                        reject(error);
+                    }
+                );
+            });
+        }
 
 
         function getCurrentPage() {
@@ -945,57 +1006,63 @@
         //click on grid view
         $(document).on('click', '#grid-modal', function() {
             // Active class
-            action = 'client_action'
+            //action = 'client_action'
             setProfileView('grid');
-            loadEscort(getCurrentPage());
+            escortRequest.view_type = 'grid';
+            loadEscort();
         });
         // when click on list button
         $(document).on('click', '#grid-list', function() {
-            action = 'client_action'
+            //action = 'client_action'
             setProfileView('list');
-            loadEscort(getCurrentPage());
+            escortRequest.view_type = 'list';
+            loadEscort();
         });
 
         //Load Card data with loadEscort function
         let ajaxReq = null;
         let currentPage = getCurrentPage();
 
-        function loadEscort(currentPage = '', filter_by_feild = {}, filter_by_location = {}, membership_type = null) {
+        function loadEscort(request = escortRequest, showLoader = true) {
             let reequestUrl = window.location.pathname;
             let formData = $('#escortFilterForm').serializeArray();
             //push current page number
             formData.push({
                 name: 'page',
-                value: currentPage
+                value: request.page
             });
 
             formData.push({
                 name: 'view_type',
-                value: localStorage.getItem('profileViewType') || 'grid',
+                value: request.view_type,
             });
 
             //Member Type
 
-            if (membership_type) {
+            if (request.membership_type) {
                 formData.push({
                     name: 'membership_type',
-                    value: membership_type
+                    value: request.membership_type
                 });
             }
 
 
-            $.each(filter_by_location, function(key, value) {
-                formData.push({
-                    name: key,
-                    value: value
-                });
+            $.each(request.filter_by_location, function(key, value) {
+                if (value !== null && value !== '') {
+                    formData.push({
+                        name: key,
+                        value: value
+                    });
+                }
             });
 
-            $.each(filter_by_feild, function(key, value) {
-                formData.push({
-                    name: key,
-                    value: value
-                });
+            $.each(request.filter_by_field, function(key, value) {
+                if (value !== null && value !== '') {
+                    formData.push({
+                        name: key,
+                        value: value
+                    });
+                }
             });
 
             if (ajaxReq) {
@@ -1013,10 +1080,12 @@
                 dataType: 'json',
 
                 beforeSend: function() {
-                    $('#page_loader').show();
+                     if (showLoader) {
+                        $('#page_loader').show();
+                    }
                 },
                 success: function(response) {
-                    console.log(response);
+                    console.log('request load');
 
                     if (response.total_count > 0) {
                         const isGrid = response.view_type === 'grid';
@@ -1036,10 +1105,10 @@
                     }
 
                     // for scrolling 
-                    let target = $('#escortListing');
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - 20
-                    }, 200);
+                    // let target = $('#escortListing');
+                    // $('html, body').animate({
+                    //     scrollTop: target.offset().top - 20
+                    // }, 200);
 
 
                 },
@@ -1049,8 +1118,7 @@
                     }
                 },
                 complete: function() {
-
-                    $('#page_loader').hide();
+                      $('#page_loader').hide();
                     ajaxReq = null;
                 }
             });
@@ -1067,7 +1135,9 @@
             if (!page) {
                 page = 1;
             }
-            loadEscort(page);
+            console.log(page, 'page....')
+            escortRequest.page = page;
+            loadEscort();
         });
 
         function getParameterByName(name, url) {
@@ -1098,25 +1168,29 @@
             e.preventDefault();
             let checkRadioVal = $('#search_by_radio').val();
             const radioValue = checkRadioVal == 'australia' ? 0 : 1;
-            const filter_by_location = {
+
+            escortRequest.page = 1;
+            escortRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                 by_name_member: $('#search_by_member_id_and_name').val(),
                 lat: $('#set_lat').val(),
                 lng: $('#set_lng').val(),
                 limit: $('#limit').val(),
-                search_by_radio: radioValue,
-                page: 1,
+                search_by_radio: radioValue
             };
-
-            loadEscort(1, {}, filter_by_location);
+            loadEscort();
         });
         //Filter data for use search by category and service
 
         $(document).on('click', '#applayFilter', function(e) {
             e.preventDefault();
-            let filter_by_feild = {
-                services: $('input[name="services[]"]').map(function() {
-                    return $(this).val()
+            Object.assign(escortRequest, {
+                page: 1
+            });
+
+            Object.assign(escortRequest.filter_by_field, {
+                services: $('input[name="services[]"]:checked').map(function () {
+                    return $(this).val();
                 }).get(),
                 city: $('#escort_city').val(),
                 gender: $('#escort_gender').val(),
@@ -1125,14 +1199,25 @@
                 duration_price: $('#escort_duration_price').val(),
                 playmate_status: $('#escort_playmate_status').val(),
                 varify_list: $('#escort_varify_list').val(),
-            }
+            });
 
-            loadEscort(1, filter_by_feild, {});
+            console.log(escortRequest);
+
+            loadEscort();
+
         });
 
         function getMemberWiseCount(membership_type) {
-            loadEscort(1, {}, {}, membership_type);
+            escortRequest.page = 1;
+            escortRequest.membership_type = membership_type;
+            loadEscort();
         }
+
+        // call every 2 min
+        setInterval(function(){
+            loadEscort(escortRequest, false);
+        },10000 * 3);
+
     </script>
 
 
@@ -1535,7 +1620,7 @@
                     $('#page_loader').show();
                 },
                 success: function(response) {
-                    console.log(response);
+                    //console.log(response);
                     if (response.status === true) {
                         response.data.forEach(function(val) {
                             $(`#escort_${val}`).html('Add to Shortlist');
@@ -1680,15 +1765,18 @@
         });
 
         $(document).ready(function() {
-            let RadioButton = $("#search_by_radio").val();
-            if (RadioButton != '' || RadioButton == '1' || RadioButton == 1) {
-                navigator.geolocation.getCurrentPosition(async function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    $("#set_lat").val(latitude);
-                    $("#set_lng").val(longitude);
-                });
-            }
+            // let checkRadioVal = $('input[name="locationByRadio"]:checked').val();
+            // if (checkRadioVal == 'your_location') {
+            //     $("#search_by_radio").val(1);
+            //     navigator.geolocation.getCurrentPosition(async function(position) {
+            //         const latitude = position.coords.latitude;
+            //         const longitude = position.coords.longitude;
+            //         $("#set_lat").val(latitude);
+            //         $("#set_lng").val(longitude);
+            //         alert('fine');
+            //     });
+            // }
+
 
             $('input[name="locationByRadio"]').on('change', function() {
                 let selectedLocation = {};

@@ -41,6 +41,7 @@ use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Viewer\ViewerTaskListController;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\PageController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Models\Pricing;
 use App\Models\User;
@@ -264,7 +265,6 @@ Route::middleware('auth')->group(function () {
     Route::get('back-to-agent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
 });
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');
 
 
@@ -435,9 +435,8 @@ Route::get('/refund-policy', function () {
 Route::get('/spam-policy', function () {
     return view('web.pages.spam-policy');
 });
-Route::get('/terms-conditions', function () {
-    return view('web.pages.terms-conditions');
-})->name('pages.terms-conditions');
+
+Route::get('/terms-conditions', [PageController::class, 'termsConditions'])->name('pages.terms-conditions');
 Route::get('/abbreviations', function () {
     return view('web.pages.abbreviations');
 });
@@ -476,51 +475,30 @@ Route::get('/help-for-viewers', function () {
     return view('web.pages.help-for-viewers');
 });
 
+Route::get('/become-a-pin-up', [PageController::class, 'becomePinUp'])->name('page.become-pin-up');
 
-Route::get('/become-a-pin-up', function () {
-    $advertings = Pricing::with('memberships')->get();
-    return view('web.pages.pinup', compact('advertings'));
-});
+Route::get('/agents', [PageController::class, 'agents'])->name('page.agents');
+
+Route::get('/centres', [PageController::class, 'centres'])->name('page.centres');
+
+Route::get('/playbox', [PageController::class, 'playbox'])->name('page.playbox');
+Route::get('/escorts4U', [PageController::class, 'escorts4U'])->name('page.escorts4U');
 
 
+Route::get('/e4u-verified', [PageController::class, 'e4uVerified'])->name('page.e4u-verified');
 
+Route::get('/accommodation', [PageController::class, 'accommodation'])->name('page.accommodation');
 
-Route::get('/agents', function () {
-    return view('web.pages.agents');
-});
-Route::get('/centres', function () {
-    return view('web.pages.centres');
-});
-Route::get('/playbox', function () {
-    return view('web.pages.playbox');
-});
-Route::get('/escorts4U', function () {
-    return view('web.pages.escorts4u');
-});
-Route::get('/e4u-verified', function () {
-    return view('web.pages.e4u-verified');
-});
+Route::get('/email-hosting', [PageController::class, 'emailHosting'])->name('page.email-hosting');
 
-Route::get('/accommodation', function () {
-    return view('web.pages.accommodation');
-});
-Route::get('/email-hosting', function () {
-    return view('web.pages.email-hosting');
-});
-Route::get('/mobile-read-sim', function () {
-    return view('web.pages.mobile-read-sim');
-});
-Route::get('/professional-product', function () {
-    return view('web.pages.professional-product');
-});
-Route::get('/travel', function () {
-    return view('web.pages.travel');
-});
+Route::get('/mobile-read-sim', [PageController::class, 'mobileReadSim'])->name('page.mobile-read-sim');
 
+Route::get('/professional-product', [PageController::class, 'professionalProduct'])->name('page.professional-product');
+
+Route::get('/travel', [PageController::class, 'travel'])->name('page.travel');
 // Route::get('/blogsingle', function() { return view('web.pages.blogs'); });
-Route::get('/visa-migration', function () {
-    return view('web.pages.visa-migration');
-});
+
+Route::get('/visa-migration', [PageController::class, 'visaMigration'])->name('page.visa-migration');
 Route::get('/cookie-policy', function () {
     return view('web.pages.cookie-policy');
 })->name('web.cookie-policy');

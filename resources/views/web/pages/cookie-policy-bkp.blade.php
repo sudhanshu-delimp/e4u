@@ -38,7 +38,7 @@
 
             <h2 class="primery_color normal_heading">Information about the use of Cookies</h2>
             <p>
-                Subject to the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F;font-size: 16px;">Terms and Conditions</a>, by using the Services, you accept the following conditions in relation to the use of cookies.
+                Subject to the <a href="{{ route('pages.terms-conditions')}}" style="color:#FF3C5F;font-size: 16px;">Terms and Conditions</a>, by using the Services, you accept the following conditions in relation to the use of cookies.
             </p>
             
             <p>
@@ -78,7 +78,7 @@
             <!-- <h3>Changes to this Policy</h3>
             <p>
                 We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any
-                revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                 review the most current version.
             </p>
             <p>
@@ -89,7 +89,7 @@
 
        <div class="container mt-4 px-0 chagneto-policy">
          <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                    review the most current version.</p>
            <p>Escorts4U archives all previous versions of this Policy.</p>
            <p><b>This policy was last updated 01-12-18</b></p>

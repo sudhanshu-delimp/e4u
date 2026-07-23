@@ -179,7 +179,7 @@ class PaymentController extends Controller
     public function processPayment(Request $request)
     {
         try {
-
+            session()->put('listing_checkout_done', true);
             $request->validate([
                 'pin_token' => 'required'
             ]);
@@ -220,7 +220,7 @@ class PaymentController extends Controller
             $insert['net_amount'] = $this->pinService->getNetAmount();
             $insert['gst_amount'] = !in_array($benefit_token['action'], ['wallet']) ? $this->pinService->getGSTAmount() : $this->pinService->getGSTAmount(0);
             $insert['paid_amount'] = $this->pinService->getTotalDue();
-
+            
             if (!$is_bypass) {
                 $payload = [];
                 switch ($benefit_token['action']) {

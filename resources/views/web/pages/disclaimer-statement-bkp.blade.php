@@ -34,7 +34,7 @@ intended for adults only and must not be accessed by anyone under the age of 18 
 age of consent in the jurisdiction from which the Website is being accessed).</p>
 
       <h2 class="primery_color normal_heading">Entry to this Website</h2>
-      <p class="text_decoration_for_a">Subject to the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a>, by using the Services, you accept the following
+      <p class="text_decoration_for_a">Subject to the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a>, by using the Services, you accept the following
 conditions:</p>
 
 
@@ -73,7 +73,7 @@ usage, monitoring and compliance with the <a href="{{ url('law-enforcement')}}" 
    <p>Unauthorised use of any Websites could result in a criminal prosecution.</p>
 <li><p class="mb-0">Jurisdiction</p></li>
 <p>Irrespective of whether the Websites are hosted on web servers in Australia or outside
-Australia. These <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> are governed by the laws in force in the State
+Australia. These <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> are governed by the laws in force in the State
 of Western Australia and the Commonwealth of Australia. Any dispute about these
 Terms and Conditions or the content of any Websites are subject to the exclusive
 jurisdiction of the courts of the State of Western Australia. By your accessing the
@@ -83,7 +83,7 @@ Websites you agree to submit to those Courts.
 </ul>
 <!-- <h2 class="primery_color normal_heading">Changes to this Policy</h2>
       <p class="text_decoration_for_a">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any
-         revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
+         revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
          review the most current version.
       </p>
       <p>Escorts4U archives all previous versions of this Policy.</p>
@@ -91,7 +91,7 @@ Websites you agree to submit to those Courts.
    
 <div class="container mt-4 px-0 chagneto-policy">
          <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
+         <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
                    review the most current version.</p>
            <p>Escorts4U archives all previous versions of this Policy.</p>
            <p><b>This policy was last updated 01-12-18</b></p>
