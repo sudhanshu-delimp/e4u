@@ -946,8 +946,18 @@
 
         (async function() {
             try {
+                
                 const location = await setUserLocation();
                 const viewType = "{{ $listingsPreferencesView }}";
+
+                // take email param and pass using ajax.
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const gender = urlParams.get('gender');
+                if (gender) {
+                    escortRequest.filter_by_field.gender = gender;
+                }
+
             
                 escortRequest.page = getCurrentPage();
 
@@ -1214,9 +1224,10 @@
         }
 
         // call every 2 min
+        const TEN_MINUTES = 10 * 60 * 1000; // 10 min
         setInterval(function(){
             loadEscort(escortRequest, false);
-        },10000 * 3);
+        }, TEN_MINUTES);
 
     </script>
 
