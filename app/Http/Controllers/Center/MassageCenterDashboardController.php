@@ -65,9 +65,10 @@ class MassageCenterDashboardController extends Controller
     // week day record
     $advertisingWeek      = $this->calculateSumOfService($advertisingServices, $weekStart, $now, $userId);
     $advertisingWeekLast  = $this->calculateSumOfService($advertisingServices, $lastWeekStart, $lastWeekEnd, $userId);
-   
+
     // month record
     $advertisingMonth     = $this->calculateSumOfService($advertisingServices, $monthStart, $now, $userId);
+    dd($advertisingMonth, $monthStart, $now);
     $advertisingMonthLast = $this->calculateSumOfService($advertisingServices, $lastMonthStart, $lastMonthEnd, $userId);
 
     // yearly record
