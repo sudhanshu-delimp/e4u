@@ -45,4 +45,9 @@
 
 });
 
+
+$('.video_icon_ec').append(
+    '<div class="video_tooltip">Escort has video to view</div>'
+);
+
 </script>

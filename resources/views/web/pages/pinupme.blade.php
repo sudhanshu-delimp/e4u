@@ -1,5 +1,6 @@
 @extends('layouts.webHome')
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     @php
         $escortName =
@@ -361,69 +362,68 @@
         </div>
     </div>
 
+    
     <section class="one-stop-bg">
         <div class="container-fluid">
+
             <div class="row">
-                <div class="col-md-12">
-                    <div class="one_stop_shop">
-                        <div class="text-center">
-                            <div class="site_second_heading pb-4 ">
-                                <h2 class="text-uppercase color-white">E4U: YOUR ONE-STOP SHOP!</h2>
-                            </div>
+                <div class="col-sm-12">
+                    <div class="home_services">
+
+                        <h2>E4U: <span>Your One-Stop Shop!</span></h2>
+
+                        <p>Everything you need for Travel, Education & Digital Services.</p>
+
+                        <div class="home_card-wrapper">
+
+                            <a href="{{ url('accommodation') }}" class="home_card">
+                                <div class="home_icon">
+                                    <i class="fa-solid fa-hotel"></i>
+                                </div>
+                                <h3>Hotel Booking</h3>
+                                <p>Book hotels and travel packages easily with the best prices.</p>
+                            </a>
+
+                            <a href="{{ url('professional-product') }}" class="home_card">
+                                <div class="home_icon">
+                                    <i class="fa-solid fa-box"></i>
+                                </div>
+                                <h3>Product Delivery</h3>
+                                <p>Fast and secure delivery service for all your products.</p>
+                            </a>
+
+                            <a href="{{ url('mobile-read-sim') }}" class="home_card">
+                                <div class="home_icon">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                </div>
+                                <h3>Telecom</h3>
+                                <p>Mobile SIM, Email Accounts and digital communication services.</p>
+                            </a>
+
+                            <a href="{{ url('visa-migration') }}" class="home_card">
+                                <div class="home_icon">
+                                    <i class="fa-solid fa-passport"></i>
+                                </div>
+                                <h3>Visa Support</h3>
+                                <p>Professional visa guidance and education consultancy.</p>
+                            </a>
+
+                            <a href="javascript:void(0)" class="home_card">
+                                <div class="home_icon">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                                <h3>More Features</h3>
+                                <p>Explore many premium services designed for Advertisers.</p>
+                            </a>
+
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-12 shop-box-col">
-                    <div class="shop-box">
-                        <div class="text-center">
-                            <div class="shops_border lign-items-center">
-                                <a href="{{ url('accommodation') }}" class="termsandconditions_text_color"><img
-                                        src="{{ asset('assets/app/img/home/live-booking.png') }}"></a>
-                                <p>Live booking services for accommodation and travel </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-box">
-                        <div class="text-center">
-                            <div class="shops_border my-auto">
-                                <a href="{{ url('professional-product') }}" class="termsandconditions_text_color"><img
-                                        src="{{ asset('assets/app/img/home/product-delivery.png') }}"></a>
-                                <p>Product delivery</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-box">
-                        <div class="text-center">
-                            <div class="shops_border">
-                                <a href="{{ url('mobile-read-sim') }}" class="termsandconditions_text_color"><img
-                                        src="{{ asset('assets/app/img/home/telecommunication.png') }}"></a>
-                                <p>Telecommunication services - Mobile SIM & Email account</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-box">
-                        <div class="text-center">
-                            <div class="shops_border">
-                                <a href="{{ url('visa-migration') }}" class="termsandconditions_text_color"><img
-                                        src="{{ asset('assets/app/img/home/visa1.png') }}"></a>
-                                <p>Visa & education advice</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-box">
-                        <div class="text-center">
-                            <div class="shops_border">
-                                <img src="{{ asset('assets/app/img/home/extensive.png') }}">
-                                <p>An extensive range of new features for Advertisers and Viewers</p>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <section class="home_reg_bg">
         <div class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly">
             <div class="container">

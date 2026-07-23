@@ -87,7 +87,7 @@
 
                <ul class="navbar-nav">
                     <li class="nav-item esc-tooltip-wrap">
-                        <a href="http://www.nationaluglymugs.com.au" class="nav-link" target="_blank"> 
+                        <a href="https://nationaluglymugs.com.au" class="nav-link" target="_blank"> 
                             <div class="icon_boxs"><img src="{{ asset ('assets/app/img/Logo_NUM.png')}}" style="width: 25px"></div>
                            
                         </a>
@@ -95,7 +95,7 @@
                     </li>
 
                     <li class="nav-item esc-tooltip-wrap">
-                        <a href="http://www.punterbox.com.au/" class="nav-link" target="_blank"> 
+                        <a href="https://punterbox.com.au/" class="nav-link" target="_blank"> 
                             <div class="icon_boxs"><img src="{{ asset ('assets/app/img/Icon_Punterbox.png')}}" style="width: 25px"></div>
                             
                         </a>
