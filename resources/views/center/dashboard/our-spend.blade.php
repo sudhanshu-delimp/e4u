@@ -50,7 +50,7 @@
                                         </div>
                                         <h5>Week to Date</h5>
                                     </div>
-                                    <span class="amount-text">$580.00</span>
+                                    <span class="amount-text">${{$data['advertiseServices']['week_to_date']}}</span>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                         </div>
                                         <h5>Same period last year</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{$data['advertiseServices']['same_week_period_last_year']}}</span>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                         </div>
                                         <h5>Month to Date</h5>
                                     </div>
-                                    <span class="amount-text">$580.00</span>
+                                    <span class="amount-text">${{$data['advertiseServices']['month_to_date']}}</span>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                         </div>
                                         <h5>Same period last year</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{$data['advertiseServices']['same_month_period_last_year']}}</span>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                                         </div>
                                         <h5>Year to date</h5>
                                     </div>
-                                    <span class="amount-text">$580.00</span>
+                                    <span class="amount-text">${{$data['advertiseServices']['year_to_date']}}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -144,7 +144,7 @@
                                         </div>
                                         <h5>Same period last year</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{$data['advertiseServices']['same_year_period_last_year']}}</span>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                                         </div>
                                         <h5>Email account</h5>
                                     </div>
-                                    <span class="amount-text">$100</span>
+                                    <span class="amount-text">${{$data['otherServices']['email_account']}}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -189,7 +189,7 @@
                                         </div>
                                         <h5>Mobile SIM</h5>
                                     </div>
-                                    <span class="amount-text">$10</span>
+                                    <span class="amount-text">${{$data['otherServices']['mobile_sim']}}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -200,7 +200,7 @@
                                         </div>
                                         <h5>Product</h5>
                                     </div>
-                                    <span class="amount-text">$120</span>
+                                    <span class="amount-text">${{$data['otherServices']['product']}}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -211,7 +211,7 @@
                                         </div>
                                         <h5>Support (E4U)</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{$data['otherServices']['support']}}</span>
                                 </div>
                             </div>
                             
@@ -223,7 +223,7 @@
                                         </div>
                                         <h5>Year to date total </h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{$data['otherServices']['year_to_date_total']}}</span>
                                 </div>
                             </div>
                         </div>

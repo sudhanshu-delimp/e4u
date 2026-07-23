@@ -290,7 +290,7 @@ class PaymentController extends Controller
             $insert['currency'] = $is_bypass ? 'AUD' : $response['currency'];
             $insert['transaction_id'] = $is_bypass ? null : $response['token'];
             $insert['status'] = $is_bypass ? 'success' : ($response['success'] ? 'success' : 'failed');
-            $insert['paid_at'] = $is_bypass ? null : $response['created_at'];
+            $insert['paid_at'] = $is_bypass ? now() : $response['created_at'];
             $insert['card'] = $is_bypass ? null : $response['card']['display_number'];
             $insert['meta'] = $is_bypass ? null : json_encode($response);
             $payment = PaymentHistory::create($insert);
