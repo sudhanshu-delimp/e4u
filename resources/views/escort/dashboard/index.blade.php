@@ -3,6 +3,7 @@
 <style>
     #WelcomeEscortPopup li {
         padding-left: 20px;
+        
     }
 
     #WelcomeEscortPopup .modal-dialog {
@@ -559,7 +560,7 @@
             <!-- Header -->
 
 
-           <div class="modal-header gap-20">
+           <div class="modal-header gap-20 modal_custom_header">
                  <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
                         class="custompopicon">
                     Welcome to Escorts4U!! </h5> <span>Member ID: {{auth()->user()->member_id}}</span>
@@ -604,7 +605,7 @@
                         <table>
 
                             <tr>
-                                <td style="padding: 30px; text-align: justify;">
+                                <td class="welcome_common_para">
                                     <p>Hello {{auth()->user()->name}},</p>
                                     <p>
                                         Thank you for selecting E4U to advertise your companionship. The team at E4U is

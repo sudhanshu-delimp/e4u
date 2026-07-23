@@ -7,7 +7,7 @@
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;"
+                        <img src="{{ asset('assets/app/img/face-lock.png') }}" class="custompopicon"
                             alt="face-lock verification"> 2FA Verification
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -49,7 +49,7 @@
                             @endif
                             <img src="{{ asset('assets/app/img/circle-loader.gif') }}" class="wait-loader"
                                 style="width: 60px;margin-bottom:18px;display:none;" alt="face-lock verification">
-                            <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
+                            <button type="submit" class="otp-verify-btn" id="sendOtpSubmit">Verify</button>
                         </div>
 
                         <div class="termsandconditions_text_color">

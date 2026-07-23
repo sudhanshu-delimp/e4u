@@ -856,19 +856,19 @@ return [
   'webhook_secret_key' => env('WEBHOOK_SECRET_KEY'),
   'payment_status' => [
     'paid'      => 'badge_active',
-    'pending'   => 'badge_available',
+    'pending'   => 'badge_pending',
     'cancelled' => 'badge_suspended',
     'failed'    => 'badge_suspended',
   ],
 
   'order_status' => [
-    'pending'   => 'badge_available',
-    'hold'      => 'badge_pending',
-    'shipped'   => 'badge_dispatch',
-    'delivered' => 'badge_active',
+    'pending'   => 'badge_pending',
+    'hold'      => 'badge_onHold',
+    'shipped'   => 'badge_inProgress',
+    'delivered' => 'badge_completed',
     'cancelled' => 'badge_suspended',
     'returned'  => 'badge_suspended',
-    'rejected'  => 'badge-danger',
+    'rejected'  => 'badge_rejected',
   ],
 
   'order_status_labels' => [
