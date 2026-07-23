@@ -57,6 +57,7 @@
 .badge_active {
     background-color: var(--active--status);
 }
+
 .badge_inactive {
     background-color: var(--inactive--status);
 }
@@ -3783,7 +3784,7 @@ i.fa {
 }
 
 img.custompopicon {
-    max-width: clamp(30px, 4vw, 35px);
+    max-width: clamp(35px, 4vw, 45px);
     margin-right: 0.5rem;
 }
 
