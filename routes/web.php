@@ -52,7 +52,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Viewer\ViewerReviewsController;
-
+use App\Http\Controllers\Escort\EscortAccountController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -83,7 +83,7 @@ Route::middleware('guest')->group(function () {
 
 ############## End Put All Guest Url Here ####################
 
-
+Route::post('update-bank-pin', [EscortAccountController::class, 'updateBankPin'])->name('web.update.bank.pin');
 Route::post('/get-pinup-profile', [PinUpsController::class, 'getPinupProfile'])->name('web.get_pinup_profile');
 Route::post('/welcome-popup-closed', [UserController::class, 'welcomePopupClosed'])->name('welcome-popup-closed');
 Route::middleware('auth')->group(function () {
@@ -333,12 +333,12 @@ Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'fil
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
 
 /****************************************************all-escorts-list**********************************************/
-Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing'); 
+Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.web.fecth.services');
 // New route 
- Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
- Route::post('/escort-remove-shortlist', [App\Http\Controllers\EscortListingController::class, 'removeShortList'])->name('web.public.remove.shortlist');
- Route::get('/escort-clear-short-list', [App\Http\Controllers\EscortListingController::class, 'clearShortList'])->name('web.public.shortlist.clear');
+Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
+Route::post('/escort-remove-shortlist', [App\Http\Controllers\EscortListingController::class, 'removeShortList'])->name('web.public.remove.shortlist');
+Route::get('/escort-clear-short-list', [App\Http\Controllers\EscortListingController::class, 'clearShortList'])->name('web.public.shortlist.clear');
 
 
 
