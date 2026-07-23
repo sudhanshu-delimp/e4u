@@ -35,7 +35,7 @@ class MassageCenterDashboardController extends Controller
     $lastFyStart = $fyStart->copy()->subYear();
     $lastFyEnd   = $now->copy()->subYear();
 
-    
+
     // Advertising Services
     $advertisingServices = [
       'Listing',
@@ -61,13 +61,16 @@ class MassageCenterDashboardController extends Controller
     $supporte4u = $this->calculateSumOfService(['Support E4U'], $fyStart, $now, $userId);
     $data['otherServices'] = ['email_account' => $email, 'mobile_sim' => $mobile_sim, 'product' => $productAmount, 'support' => $supporte4u, 'year_to_date_total' => $otherYear];
 
-    // Advertising
+    // Advertising 
+    // week day record
     $advertisingWeek      = $this->calculateSumOfService($advertisingServices, $weekStart, $now, $userId);
     $advertisingWeekLast  = $this->calculateSumOfService($advertisingServices, $lastWeekStart, $lastWeekEnd, $userId);
-
+   
+    // month record
     $advertisingMonth     = $this->calculateSumOfService($advertisingServices, $monthStart, $now, $userId);
     $advertisingMonthLast = $this->calculateSumOfService($advertisingServices, $lastMonthStart, $lastMonthEnd, $userId);
 
+    // yearly record
     $advertisingYear      = $this->calculateSumOfService($advertisingServices, $fyStart, $now, $userId);
     $advertisingYearLast  = $this->calculateSumOfService($advertisingServices, $lastFyStart, $lastFyEnd, $userId);
     $data['advertiseServices'] = ['week_to_date' => $advertisingWeek, 'same_week_period_last_year' => $advertisingWeekLast, 'month_to_date' => $advertisingMonth, 'same_month_period_last_year' => $advertisingMonthLast, 'year_to_date' => $advertisingYear, 'same_year_period_last_year' => $advertisingYearLast];
