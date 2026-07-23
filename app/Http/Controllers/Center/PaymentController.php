@@ -540,7 +540,7 @@ class PaymentController extends BaseController
             if (!empty($payment)) {
                     $purchaseDetail->paymentItems()->create([
                         'payment_history_id' => $payment->id,
-                        'amount' => $purchaseDetail->paid_rate,
+                        'amount' => $purchaseDetail->paid_rate, /// paid amount stored in Massage Purchase table  
                     ]);
             }
 
@@ -553,7 +553,7 @@ class PaymentController extends BaseController
             if (!empty($payment)) {
                     $purchaseDetail->paymentItems()->create([
                         'payment_history_id' => $payment->id,
-                        'amount' => $purchaseDetail->paid_rate,
+                        'amount' => $payment->amount,
                     ]);
             }
             }
