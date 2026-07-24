@@ -18,19 +18,19 @@ class MassageCenterDashboardController extends Controller
 
     $userId = auth()->id();
     $now = now();
-    
+    $nowCopy = $now->copy();
     // current weekday and month 
     $weekStart = $now->copy()->startOfWeek(Carbon::MONDAY);
     $monthStart = $now->copy()->startOfMonth();
 
     // Previous Year Comparison
     $lastWeekStart = $weekStart->copy()->subYear();
-    $lastWeekEnd   = $now->copy()->subYear();
+    $lastWeekEnd   = $nowCopy->subYear();
     $lastMonthStart = $monthStart->copy()->subYear();
-    $lastMonthEnd   = $now->copy()->subYear();
+    $lastMonthEnd   = $nowCopy->subYear();
 
     $lastFyStart = $fyStart->copy()->subYear();
-    $lastFyEnd   = $now->copy()->subYear();
+    $lastFyEnd   = $nowCopy->subYear();
 
     // Advertising Services
     $advertisingServices = collect(config('payment_mail_templates'))->pluck('service_title')->toArray();
@@ -68,12 +68,10 @@ class MassageCenterDashboardController extends Controller
 
   private function calculateSumOfService(array $services, object $from, string $to, int $userId)
   {
-    DB::enableQueryLog();
     $amount = PaymentHistory::where('user_id', $userId)
       ->where('status', 'success')
       ->whereBetween('paid_at', [$from, $to])
       ->whereIn('service', $services)->sum(DB::raw('amount + gst_amount + delivery_charge'));
-      dd(DB::getQueryLog());
     return $amount;
   }
 
@@ -84,19 +82,19 @@ class MassageCenterDashboardController extends Controller
 
   //   $userId = auth()->id();
   //   $now = now();
-  //   $now->copy() = $now->copy();
+  //   $nowCopy = $now->copy();
   //   // current weekday and month 
-  //   $weekStart = $now->copy()->startOfWeek(Carbon::MONDAY);
-  //   $monthStart = $now->copy()->startOfMonth();
+  //   $weekStart = $nowCopy->startOfWeek(Carbon::MONDAY);
+  //   $monthStart = $nowCopy->startOfMonth();
 
   //   // Previous Year Comparison
   //   $lastWeekStart = $weekStart->copy()->subYear();
-  //   $lastWeekEnd   = $now->copy()->subYear();
+  //   $lastWeekEnd   = $nowCopy->subYear();
   //   $lastMonthStart = $monthStart->copy()->subYear();
-  //   $lastMonthEnd   = $now->copy()->subYear();
+  //   $lastMonthEnd   = $nowCopy->subYear();
 
   //   $lastFyStart = $fyStart->copy()->subYear();
-  //   $lastFyEnd   = $now->copy()->subYear();
+  //   $lastFyEnd   = $nowCopy->subYear();
 
 
   //   // Advertising Services
