@@ -18,32 +18,33 @@ class MassageCenterDashboardController extends Controller
 
     $userId = auth()->id();
     $now = now();
-    $nowCopy = $now->copy();
+    
     // current weekday and month 
-    $weekStart = $nowCopy->startOfWeek(Carbon::MONDAY);
-    $monthStart = $nowCopy->startOfMonth();
+    $weekStart = $now->copy()->startOfWeek(Carbon::MONDAY);
+    $monthStart = $now->copy()->startOfMonth();
 
     // Previous Year Comparison
     $lastWeekStart = $weekStart->copy()->subYear();
-    $lastWeekEnd   = $nowCopy->subYear();
+    $lastWeekEnd   = $now->copy()->subYear();
     $lastMonthStart = $monthStart->copy()->subYear();
-    $lastMonthEnd   = $nowCopy->subYear();
+    $lastMonthEnd   = $now->copy()->subYear();
 
     $lastFyStart = $fyStart->copy()->subYear();
-    $lastFyEnd   = $nowCopy->subYear();
+    $lastFyEnd   = $now->copy()->subYear();
 
     // Advertising Services
     $advertisingServices = collect(config('payment_mail_templates'))->pluck('service_title')->toArray();
     $otherServices = ['Email Account', 'Product Purchase',  'Mobile SIM',  'Support E4U'];
-   
+
     // other services
-    $services = ['otherYear' => $otherServices,    'mobile_sim'    => ['Mobile SIM'], 'email' => ['Email Account'], 'supporte4u' => ['Support E4U'],  'productAmount' => ['Product Purchase']];
+    $services = ['otherYear' => $otherServices, 'mobile_sim' => ['Mobile SIM'], 'email' => ['Email Account'], 'supporte4u' => ['Support E4U'], 'productAmount' => ['Product Purchase']];
 
     $totals = [];
 
-    foreach ($services as $key => $service)
+    foreach ($services as $key => $service) {
       $totals[$key] = $this->calculateSumOfService($service, $fyStart, $now, $userId);
-
+    }
+    
     $data['otherServices'] = ['email_account' => $totals['email'], 'mobile_sim' => $totals['mobile_sim'], 'product' => $totals['productAmount'], 'support' => $totals['supporte4u'], 'year_to_date_total' => $totals['otherYear']];
 
     // Advertising 
@@ -81,19 +82,19 @@ class MassageCenterDashboardController extends Controller
 
   //   $userId = auth()->id();
   //   $now = now();
-  //   $nowCopy = $now->copy();
+  //   $now->copy() = $now->copy();
   //   // current weekday and month 
-  //   $weekStart = $nowCopy->startOfWeek(Carbon::MONDAY);
-  //   $monthStart = $nowCopy->startOfMonth();
+  //   $weekStart = $now->copy()->startOfWeek(Carbon::MONDAY);
+  //   $monthStart = $now->copy()->startOfMonth();
 
   //   // Previous Year Comparison
   //   $lastWeekStart = $weekStart->copy()->subYear();
-  //   $lastWeekEnd   = $nowCopy->subYear();
+  //   $lastWeekEnd   = $now->copy()->subYear();
   //   $lastMonthStart = $monthStart->copy()->subYear();
-  //   $lastMonthEnd   = $nowCopy->subYear();
+  //   $lastMonthEnd   = $now->copy()->subYear();
 
   //   $lastFyStart = $fyStart->copy()->subYear();
-  //   $lastFyEnd   = $nowCopy->subYear();
+  //   $lastFyEnd   = $now->copy()->subYear();
 
 
   //   // Advertising Services
