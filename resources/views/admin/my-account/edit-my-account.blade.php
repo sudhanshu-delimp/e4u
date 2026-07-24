@@ -415,7 +415,7 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : '';
     <i class="fas fa-angle-up"></i>
 </a>
 @include('modal.two-step-verification',['action'=>false,'inPinMode'=>true])
-@include('modal.pin-change')
+@include('modal.pin-change',['mode'=>'pinSetup'])
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
