@@ -46,6 +46,8 @@ use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Admin\ImpersonateController;
+use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Escort\Concierge\ProductController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -385,9 +387,11 @@ Route::get('reports-num-ajax', [AdminNumsController::class, 'showReportOnDashboa
 Route::post('reports-num-status', [AdminNumsController::class, 'updateStatus'])->name('admin.num.status.ajax');
 Route::get('reports-num-email', [AdminNumsController::class, 'viewReport'])->name('admin.num.status.email');
 
-Route::get('reports/transaction-summary', function () {
-  return view('admin.reports.transaction-summary');
-})->name('admin.transaction-summary');
+
+Route::get('reports/transaction-summary', [TransactionController::class, 'index'])->name('admin.payment.transaction_summary');
+Route::get('get-transaction-summary', [TransactionController::class, 'transactionSummaryDatatable'])->name('admin.payment.transaction_summary.datatable');
+Route::post('payments/detail', [TransactionController::class, 'paymentDetail'])->name('admin.payment.detail');
+Route::get('payments/{payment}/print', [TransactionController::class, 'printPaymentDetail'])->name('admin.payment.detail.print');
 
 /** Manage Suppliers */
 Route::get('/management/manage-suppliers', [SupplierController::class, 'supplierList'])->name('admin.manage-suppliers');
@@ -753,10 +757,10 @@ Route::get('/Concierge/mobile-sim-request', function () {
 // })->name('product-request');
 
 Route::prefix('reports')->name('admin.')->group(function () {
-Route::get('/product-order-history', [ProductOrderController::class, 'orders'])->name('escort.orders');
-Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
-Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
-Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
+  Route::get('/product-order-history', [ProductOrderController::class, 'orders'])->name('escort.orders');
+  Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
+  Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
+  Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
 });
 Route::get('/Concierge/visa-migration-request', function () {
   return view('admin.Concierge.visa-migration-request');

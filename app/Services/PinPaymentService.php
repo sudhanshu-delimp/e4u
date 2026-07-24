@@ -129,7 +129,13 @@ class PinPaymentService
     if ($search) {
       $query->where(function ($q) use ($searchables, $search) {
         foreach ($searchables as $column) {
-          $q->orWhere($column, 'LIKE', "%{$search}%");
+          if ($column === 'user.member_id') {
+            $q->orWhereHas('user', function ($query) use ($search) {
+              $query->where('member_id', 'LIKE', "%{$search}%");
+            });
+          }  else {
+            $q->orWhere($column, 'LIKE', "%{$search}%");
+          }
         }
       });
     }
@@ -169,7 +175,7 @@ class PinPaymentService
       PaymentHistory::create(
         [
           'user_id'  => $response['metadata']['user_id'],
-          'completed_by'  => $response['metadata']['user_id'],
+          'completed_by'  => $response['metadata']['completed_by'],
           'ref_no'          => now()->format('Ymd') . rand(100, 999),
           'amount'          => $response['metadata']['sub_total_amount'],
           'gst_amount' => $response['metadata']['gst_amount'],
