@@ -1,10 +1,10 @@
 @section('style')
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0)
-        }
-    </style>
+<style type="text/css">
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0)
+    }
+</style>
 @endsection
 <!-- Preloader -->
 <div id="preloader" class="{{ View::hasSection('enable_loader') ? 'pre-active' : '' }}">
@@ -20,57 +20,57 @@
         <div class="row ">
 
             <div class="col-lg-12 my-2">
-                    <div class="footer-logo-wrapper">
-                        <div class="footer-logo">
-                            <img src="{{ asset('assets/app/img/logo.png') }}" alt="logo" class="footer_logo"></a>
-                        </div>
-            
-
-                        <div class="top-actions my-2">
-                            @if (!auth()->user())
-                                    <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
-                                        <li class="dropdown">
-                                            <a style="padding: 5px 15px;width:120px; text-align: center;"
-                                                class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                href="{{ route('register') }}">Register</a>
-                                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                                <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
-                                                <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
-                                                <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
-                                            </div>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a style="padding: 5px 15px; width:120px; text-align: center;"
-                                                class="nav-link dropdown-toggle   footer_login_btn primery_color"
-                                                id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false" href="{{ route('register') }}">Log in</a>
-                                            <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                                <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
-                                                <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
-                                                <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                @endif
-                        </div>
+                <div class="footer-logo-wrapper">
+                    <div class="footer-logo">
+                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="logo" class="footer_logo"></a>
                     </div>
-            </div>    
+
+
+                    <div class="top-actions my-2">
+                        @if (!auth()->user())
+                        <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px;width:120px; border-radius:100px; text-align: center;"
+                                    class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    href="{{ route('register') }}">Register</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
+                                    <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
+                                    <a class="dropdown-item" href="{{ route('agent.register') }}">Agent </a>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a style="padding: 5px 15px; border-radius:100px; width:120px; text-align: center;"
+                                    class="nav-link dropdown-toggle   footer_login_btn primery_color"
+                                    id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" href="{{ route('register') }}">Log in</a>
+                                <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                                    <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
+                                    <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
+                                    <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
+                                </div>
+                            </li>
+                        </ul>
+                        @endif
+                    </div>
+                </div>
+            </div>
 
         </div>
 
         <!-- ADVERTISING STATEMENT -->
 
-      <div class="statement-box">
+        <div class="statement-box">
             <h5>Advertising Statement</h5>
 
             <div id="statementContent" class="statement-content">
                 <p>
                     The primary purpose of this Website is to permit adults to advertise their companionship to other adults.
-                   Escorts4U helps Advertisers and Users find each other, what happens after that connection is made is up to them. We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.
-                    
-                   Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is Private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.
-                 Further details may be found in the Terms and Conditions.</p>
+                    Escorts4U helps Advertisers and Users find each other, what happens after that connection is made is up to them. We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.
+
+                    Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is Private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.
+                    Further details may be found in the Terms and Conditions.</p>
             </div>
         </div>
 
@@ -78,10 +78,10 @@
 
         <div class="row">
             @php
-                $viewType = 'grid';
-                if (request()->get('view_type') === 'list') {
-                    $viewType = 'list';
-                }
+            $viewType = 'grid';
+            if (request()->get('view_type') === 'list') {
+            $viewType = 'list';
+            }
             @endphp
             <!-- Location - AUS -->
             <div class="col-md-6 col-lg-2">
@@ -91,13 +91,13 @@
                 <div class="footer-links location-grid">
 
                     @foreach (config('escorts.profile.cities') as $key => $city)
-                        @php
-                            $query = request()->query();
-                            $query['city'] = $key;
-                            $query['gender'] = '';
-                        @endphp
+                    @php
+                    $query = request()->query();
+                    $query['city'] = $key;
+                    $query['gender'] = '';
+                    @endphp
 
-                        <li><a href="{{ route('find.all', request()->segment(2)) .
+                    <li><a href="{{ route('find.all', request()->segment(2)) .
                             '?' .
                             http_build_query(
                                 array_merge(request()->query(), [
@@ -106,7 +106,7 @@
                                     'view_type' => $viewType,
                                 ]),
                             ) }}"
-                                class="footer_view_type_one" id="{{ $key }}">{{ $city }}</a></li>
+                            class="footer_view_type_one" id="{{ $key }}">{{ $city }}</a></li>
                     @endforeach
                 </div>
 
@@ -115,16 +115,16 @@
                 <div class="footer-links location-grid">
 
                     @foreach (config('escorts.profile.nz_cities') as $key => $city)
-                        @php
-                            $query = request()->query();
-                            $query['city'] = $key;
-                            $query['gender'] = '';
-                        @endphp
+                    @php
+                    $query = request()->query();
+                    $query['city'] = $key;
+                    $query['gender'] = '';
+                    @endphp
 
-                        <li class="footer_view_type_one disabled-link"><a href="javascript:void(0);">{{ $city }}</a></li>
-                        @if ($loop->iteration == 4)
-                            @break
-                        @endif
+                    <li class="footer_view_type_one disabled-link"><a href="javascript:void(0);">{{ $city }}</a></li>
+                    @if ($loop->iteration == 4)
+                    @break
+                    @endif
                     @endforeach
                 </div>
 
@@ -183,15 +183,15 @@
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div>
                             Agency Management
                         </a></li>
-                    <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://nationaluglymugs.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM
                         </a>
                     </li>
-                    <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://peamsaustralia.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
                             Australia
                         </a></li>
-                    <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://punterbox.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div>
                             Punterbox
                         </a>
@@ -214,12 +214,12 @@
                     <div class="bottom-links">
                         <span class="cptby">© E4U 2026.</span>
 
-                       <div class="b-links">
+                        <div class="b-links">
                             <a href="#" class="cook--seting">Cookie Settings</a>
                             <a href="{{ route('notice.dmca') }}">DMCA Notices</a>
 
                             <a href="{{ url('parent-control') }} ">Parent Control</a>
-                       </div>
+                        </div>
 
                     </div>
                 </div>
@@ -232,17 +232,17 @@
                 </div>
                 <div class="col-lg-4">
 
-                   <div class="footer-social">
-                     <span class="last-revision mr-3">
-                        Last Revision: 1 June 2025
-                    </span>
-                    <span class="cptby">Follow Us : </span>
-                    <span class="social-icons">
-                        <a href="https://x.com/Escorts46919U" target="_blank"><img
-                                src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"
-                                alt="logo"></a>
-                    </span>
-                   </div>
+                    <div class="footer-social">
+                        <span class="last-revision mr-3">
+                            Last Revision: 1 June 2025
+                        </span>
+                        <span class="cptby">Follow Us : </span>
+                        <span class="social-icons">
+                            <a href="https://x.com/Escorts46919U" target="_blank"><img
+                                    src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"
+                                    alt="logo"></a>
+                        </span>
+                    </div>
 
                 </div>
 
@@ -376,8 +376,9 @@
                                 <option style="font-weight: 500;" value="" disabled selected>No State Selected
                                 </option>
                                 @foreach (config('escorts.profile.states') as $key => $state)
-                                    <option style="font-weight: 500;" value="{{ $key }}">
-                                        {{ $state['stateName'] }} </option>
+                                <option style="font-weight: 500;" value="{{ $key }}">
+                                    {{ $state['stateName'] }}
+                                </option>
                                 @endforeach
                             </select>
                             <span id="ch_lock"></span>
@@ -542,7 +543,7 @@
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             getPinupProfile(latitude, longitude);
-            const newUrl = "{{ route('find.all') }}" + `/?lat=${latitude}&lng=${longitude}`;
+            const newUrl = "{{ route('public.web.escort.listing') }}" + `/?lat=${latitude}&lng=${longitude}`;
             let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
             document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
         });
@@ -767,18 +768,18 @@
     ////////////
 
 
-    
-// video slider of EC and MC for profile page.
+
+    // video slider of EC and MC for profile page.
     const swipers = [];
 
-    document.querySelectorAll('.mySwiper').forEach(function(el){
+    document.querySelectorAll('.mySwiper').forEach(function(el) {
 
-        const swiper = new Swiper(el,{
-            pagination:{
+        const swiper = new Swiper(el, {
+            pagination: {
                 el: el.querySelector('.swiper-pagination'),
-                type:'fraction'
+                type: 'fraction'
             },
-            navigation:{
+            navigation: {
                 nextEl: el.querySelector('.swiper-button-next'),
                 prevEl: el.querySelector('.swiper-button-prev')
             },
@@ -787,10 +788,10 @@
             resizeObserver: true,
 
             on: {
-                slideChange: function () {
+                slideChange: function() {
 
                     // Stop & Reload all videos of current slider
-                    el.querySelectorAll('video').forEach(function(video){
+                    el.querySelectorAll('video').forEach(function(video) {
                         video.pause();
                         video.currentTime = 0;
                         video.load();
@@ -808,22 +809,22 @@
 
     });
 
-    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function() {
 
-    swipers.forEach(function(swiper){
+        swipers.forEach(function(swiper) {
 
-        swiper.update();
-        swiper.updateSize();
-        swiper.updateSlides();
+            swiper.update();
+            swiper.updateSize();
+            swiper.updateSlides();
 
-        // Reload videos after tab becomes visible
-        swiper.el.querySelectorAll('video').forEach(function(video){
-            video.load();
+            // Reload videos after tab becomes visible
+            swiper.el.querySelectorAll('video').forEach(function(video) {
+                video.load();
+            });
+
         });
 
     });
-
-});
 </script>
 <script>
     $(document).ready(function() {

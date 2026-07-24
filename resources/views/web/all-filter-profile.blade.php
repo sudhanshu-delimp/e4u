@@ -1287,6 +1287,7 @@
     <!-- =============       pagination end here            ====================-->
 @endsection
 @push('scripts')
+
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
         window.authUser = {
@@ -2053,4 +2054,6 @@
         //     $('input[name="locationByRadio"]').prop('disabled', false); 
         // });
     </script>
+
+
 @endpush

@@ -512,8 +512,6 @@ class UserController extends Controller
         $auth = auth()->user();
         $authStateId = $auth->current_state_id ?? $auth->state_id;
         $authUserId  = $auth->id;
-
-
         $result = LoginAttempt::join('users', 'login_attempts.user_id', '=', 'users.id')
             ->join('escorts', 'users.id', '=', 'escorts.user_id')
             ->join('my_legbox', 'escorts.id', '=', 'my_legbox.escort_id')
@@ -521,11 +519,17 @@ class UserController extends Controller
             ->where('login_attempts.type', 1)
             ->where('login_attempts.online', 'yes')
             ->selectRaw("
-                COUNT(DISTINCT CASE WHEN users.state_id = ? THEN users.id END) as same_state_count,
-                COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) as outside_state_count,
-                COUNT(DISTINCT users.id) as total_count
-            ", [$authStateId, $authStateId])
+                COUNT(DISTINCT CASE WHEN users.state_id = ? THEN users.id END) AS same_state_count,
+                COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) AS outside_state_count,
+                COUNT(DISTINCT users.id) AS total_count,
+                (
+                    SELECT COUNT(*)
+                    FROM my_legbox ml
+                    WHERE ml.user_id = ?
+                ) AS total_legbox
+            ", [$authStateId, $authStateId, $authUserId])
             ->first();
+
        return view('user.dashboard.favorites-online', compact('result'));
     }
 }

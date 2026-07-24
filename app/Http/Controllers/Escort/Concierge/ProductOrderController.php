@@ -298,7 +298,7 @@ class ProductOrderController extends Controller
             'transaction_id'  => $customTransactionId,
             'service'  =>  'Product Purchase',
             'status'          =>  'success',
-            'paid_at'         => null,
+            'paid_at'         => now(),
             'card'            =>   null,
             'meta'            => null,
           ]

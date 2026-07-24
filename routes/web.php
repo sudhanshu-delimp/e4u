@@ -52,7 +52,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Viewer\ViewerReviewsController;
-
+use App\Http\Controllers\Escort\EscortAccountController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -83,7 +83,7 @@ Route::middleware('guest')->group(function () {
 
 ############## End Put All Guest Url Here ####################
 
-
+Route::post('update-bank-pin', [EscortAccountController::class, 'updateBankPin'])->name('web.update.bank.pin');
 Route::post('/get-pinup-profile', [PinUpsController::class, 'getPinupProfile'])->name('web.get_pinup_profile');
 Route::post('/welcome-popup-closed', [UserController::class, 'welcomePopupClosed'])->name('welcome-popup-closed');
 Route::middleware('auth')->group(function () {
@@ -206,9 +206,9 @@ Route::middleware('auth')->group(function () {
 
         // Route::get('/logs-and-statistics',function(){ return view('user.dashboard.logs-and-statistics');})->name('user.logs-and-statistics');
 
-        Route::get('/my-statistics', function () {
-            return view('user.dashboard.my-statistics');
-        })->name('user.my-statistics');
+        // Route::get('/my-statistics', function () {
+        //     return view('user.dashboard.my-statistics');
+        // })->name('user.my-statistics');
 
         // Route::get('/task-list',function(){
         //     return view('user.dashboard.task-list');
@@ -322,21 +322,23 @@ Route::get('/staff-forgot/{token?}', [AdvertiserLoginController::class, 'staffFo
 
 Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login']);
 Route::post('/advertiser-logout', [AdvertiserLoginController::class, 'logout'])->name('advertiser.logout');
+//this url no longer used. 
 Route::get('/all-escorts-list', [App\Http\Controllers\WebController::class, 'allEscortList'])->name('find.all');
 // Route::get('/all-escorts-list/{gender?}', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
 
 //Route::get('/search-filter', [App\Http\Controllers\WebController::class,'searchfilter'])->name('web.search.filter');
 Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'filterLocation'])->name('location.filter');
 
+
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
 
 /****************************************************all-escorts-list**********************************************/
-Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing'); 
+Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.web.fecth.services');
 // New route 
- Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
- Route::post('/escort-remove-shortlist', [App\Http\Controllers\EscortListingController::class, 'removeShortList'])->name('web.public.remove.shortlist');
- Route::get('/escort-clear-short-list', [App\Http\Controllers\EscortListingController::class, 'clearShortList'])->name('web.public.shortlist.clear');
+Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
+Route::post('/escort-remove-shortlist', [App\Http\Controllers\EscortListingController::class, 'removeShortList'])->name('web.public.remove.shortlist');
+Route::get('/escort-clear-short-list', [App\Http\Controllers\EscortListingController::class, 'clearShortList'])->name('web.public.shortlist.clear');
 
 
 

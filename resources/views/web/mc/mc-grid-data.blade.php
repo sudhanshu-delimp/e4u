@@ -91,13 +91,15 @@
                 <div class="mc_card_content">
                     <div class="items">
                         <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
-                        <span class="decs">
+                        <span class="video_icon_ec">
                             @php
                                $videoCnt = checkVideoExistInMcProfile($listing->user_id);
                             @endphp
                             @if($videoCnt > '0')
-                                <img src="{{ asset('assets/app/img/video_play.svg') }}">                            
+                                <img src="{{ asset('assets/app/img/video_play.svg') }}">   
+                                <div class="video_tooltip">Massage Centres has video to view</div>                         
                             @endif
+
                         </span>
                         <span class="mc_star">
                             @for($i=1; $i<= 5; $i++)

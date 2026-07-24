@@ -42,10 +42,10 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.02') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.05') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.19') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.04') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.04') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.2') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
@@ -77,7 +77,7 @@
         })(window, document, "clarity", "script", "xpw6cg8o8x");
     </script> --}}
     <!-- Google Tag Manager -->
-{{-- <script>
+    {{-- <script>
 (function(w,d,s,l,i){
     w[l]=w[l]||[];
     w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
@@ -91,19 +91,19 @@
     f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PLBTNLKP');
 </script> --}}
-<!-- End Google Tag Manager -->
+    <!-- End Google Tag Manager -->
 </head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-{{-- <noscript>
+    {{-- <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLBTNLKP&env=2&auth=2Pmbbm1fWE2AQq-trZke8g"
         height="0"
         width="0"
         style="display:none;visibility:hidden">
     </iframe>
 </noscript> --}}
-<!-- End Google Tag Manager (noscript) -->
+    <!-- End Google Tag Manager (noscript) -->
     <a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;"
         role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
     <a id="back-to-bottom-2" href="#" class="btn btn-light btn-lg back-to-bottom" style="display: none;"

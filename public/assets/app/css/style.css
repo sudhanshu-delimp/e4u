@@ -158,8 +158,15 @@ body {
     font-family: Poppins;
 }
 
+.welcome_common_para {
+    padding: clamp(15px, 4vw, 30px);
+    text-align: justify;
+}
 
-/*tool tip start here*/
+.welcome_common_para p {
+    font-size: clamp(14px, 4vw, 16px) !important;
+    text-align: justify;
+}
 
 
 /* blogs */
@@ -637,7 +644,7 @@ p {
     text-decoration: none;
     border: 1px solid #ff3c5f;
     margin: 5px;
-    border-radius: 4px;
+    border-radius: 100px;
     display: block;
 }
 
@@ -649,6 +656,8 @@ p {
     border: 1px solid var(--blue--text);
     margin: 5px;
     display: block;
+    border-radius: 100px !important;
+    border: 1px solid #fff;
 }
 
 .navbar-light .navbar-toggler {
@@ -729,6 +738,7 @@ p {
     border-color: var(--peach);
     border-radius: 0 !important;
     margin-bottom: 0px;
+    font-size: clamp(12px, 4vw, 14px);
 }
 
 .v-list-location h2 {
@@ -846,7 +856,7 @@ button.short-list.btn.btn-primary:hover {
     background: var(--blue--text);
     border-radius: 3px;
     color: var(--white);
-    width: 100%;
+    width: max-content !important;
     margin: 0px !important;
     padding: 25px 40px !important;
 }
@@ -1475,7 +1485,7 @@ form#register_form .form-control {
 
 div.defult-modal .modal-body h3 {
     font-family: Poppins;
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 18px);
     font-style: normal;
     font-weight: 500;
     line-height: 21.69px;
@@ -5261,7 +5271,7 @@ progress.dislike::-webkit-progress-value {
     line-height: 25px;
     color: var(--blue--text);
     text-align: center;
-    padding: 15px 0px;
+    padding: 10px 0px 0px;
 }
 
 .policy_close_btn {
@@ -5674,7 +5684,7 @@ ul.footerbtn-flex li {
 
 .forgot_pass input {
     border: 1px solid #90A0B76E;
-    padding: 24px;
+    padding: clamp(14px, 4vw, 20px);
     border-radius: 4px;
 }
 
@@ -6193,7 +6203,7 @@ ul.footerbtn-flex li {
 
 .welcone_login_page_heading h1 {
     font-family: Poppins;
-    font-size: clamp(18px, 4vw, 24px);
+    font-size: clamp(16px, 2vw, 24px);
     line-height: .9;
     color: var(--peach);
     text-transform: uppercase;
@@ -6866,6 +6876,46 @@ table {
 
 .video_icon_ec img {
     width: 20px;
+}
+
+.video_icon_ec {
+    position: relative;
+}
+
+.video_tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--peach);
+    color: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: .25s;
+    pointer-events: none;
+}
+
+.video_tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--peach);
+}
+
+.video_icon_ec:hover .video_tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mc_card_content:has(.video_icon_ec:hover) {
+    overflow: visible;
 }
 
 .mc_card_content .items .title {
@@ -7836,7 +7886,7 @@ div#onloadpopup .modal-dialog-centered.modal-dialog-bottom-right .modal-content 
 }
 
 .modal-sec {
-    padding: 24px;
+    padding: 15px;
 }
 
 .modal.show#onloadpopup .modal-body h4.modal-title {
