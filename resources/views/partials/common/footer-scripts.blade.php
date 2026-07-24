@@ -80,16 +80,4 @@
         @endif
 
     });
-<<<<<<< HEAD
-
-
-});
-
-
-$('.video_icon_ec').append(
-    '<div class="video_tooltip">Escort has video to view</div>'
-);
-
-=======
->>>>>>> e847eb63846759b55a45c34b895bc0965e0f94cb
 </script>

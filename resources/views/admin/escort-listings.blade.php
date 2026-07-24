@@ -167,6 +167,7 @@
         </div>
     </div>
 </div>
+@include('modal.pin-change')
 <!-- end -->
 <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <script>
@@ -318,17 +319,7 @@
                 },
             ],
             order: [5, 'asc'],
-            columnDefs: [
-                /*  { width: "4%", targets: 0 },  // First column
-                 { width: "12%", targets: 1 },   // Third column
-                 { width: "15%", targets: 2 },   // Third column 
-                 { width: "8%", targets: 4 },   
-                 { width: "11%", targets: 5 },   
-                 { width: "11%", targets: 6 },   
-                 { width: "8%", targets: 8 },   
-                 { width: "5%", targets: 7 },   
-                 { width: "5%", targets: 9 },   */
-                {
+            columnDefs: [{
                     targets: 0
                 }, // First column
                 {
@@ -365,7 +356,9 @@
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="` + row.profileUrl + `" target="_blank"><i class="fa fa-eye "></i> View Listing   
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="` + row.profileUrl + `" target="_blank"><i class="fa fa-eye "></i> View Listing   1
+                                    </a>
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="` + row.profileUrl + `" target="_blank"><i class="fa fa-ban "></i> Suspend  
                                     </a>
                                 </div>
                             </div>
@@ -382,7 +375,7 @@
                                     aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-listing" 
                                     data-toggle="modal" data-target="#view-listing" data-id="` + row.escort.id + `" href="#">
-                                        <i class="fa fa-eye "></i> View Listing 
+                                        <i class="fa fa-eye "></i> View Listing 2
                                         
                                     </a>
                                 </div>

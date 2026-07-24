@@ -370,7 +370,7 @@ var getGeoLocationEscortAccountProfiles = function (state = 0) {
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed || result.isDismissed) {
-                            window.location.href =`${window.App.baseUrl}escort-dashboard/create-profile`;
+                            window.location.href = `${window.App.baseUrl}escort-dashboard/create-profile`;
                         }
                     });
                 }
@@ -381,3 +381,7 @@ var getGeoLocationEscortAccountProfiles = function (state = 0) {
         });
     }
 }
+
+$('.video_icon_ec').append(
+    '<div class="video_tooltip">Escort has video to view</div>'
+);

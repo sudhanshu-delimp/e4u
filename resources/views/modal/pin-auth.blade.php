@@ -96,12 +96,12 @@
                         <button class="key" id="ok">OK</button>
                     </div>
                 </div>
-                @if($mode=='pinSetup')
+
                 <div class="d-flex justify-content-center mb-3">
                     <button type="button" class="btn-cancel-modal mr-3" id="allClearSetPin">Clear</button>
                     <button type="button" class="btn-success-modal" id="okSave">Save</button>
                 </div>
-                @endif
+
             </div>
         </div>
     </div>
@@ -113,7 +113,6 @@
     let isEftClient = false;
     var eftAccountId = 0;
     let isPayIDClicked = false;
-    let inMode = `{{$mode}}`;
 
     // For pinDisplay
     $('.input_value').click(function() {
@@ -138,6 +137,9 @@
     $('.input_value_pin').click(function() {
         const inputValue = $(this).text();
         const el2 = $('#pinDisplaySet');
+
+
+
 
         // Clear default text on first click
         if (fClick2) {
@@ -189,9 +191,9 @@
         const pinDisplay = $('#pinDisplaySet');
         const textEl = document.getElementById("pinDisplaySet");
         let pin = pinDisplay.text().trim();
-        if (inMode == 'pinSetup') {
-            updateBankPinByAjax(`{{route('web.update.bank.pin')}}`, pin);
-        }
+        let url = "{{ route('web.update.bank.pin') }}";
+
+        updateBankPinByAjax(url, pin);
     });
 
     function updateBankPinByAjax(url, payload_data) {
