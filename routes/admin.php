@@ -51,6 +51,7 @@ use App\Http\Controllers\Admin\ImpersonateController;
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
   Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
 });
+
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
 Route::get('/change-password', [DashboardController::class, 'editPassword'])->name('admin.change.password');
@@ -753,10 +754,10 @@ Route::get('/Concierge/mobile-sim-request', function () {
 // })->name('product-request');
 
 Route::prefix('reports')->name('admin.')->group(function () {
-Route::get('/product-order-history', [ProductOrderController::class, 'orders'])->name('escort.orders');
-Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
-Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
-Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
+  Route::get('/product-order-history', [ProductOrderController::class, 'orders'])->name('escort.orders');
+  Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
+  Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
+  Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
 });
 Route::get('/Concierge/visa-migration-request', function () {
   return view('admin.Concierge.visa-migration-request');

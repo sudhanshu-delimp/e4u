@@ -28,19 +28,59 @@
     }
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-    $('.account-toggle').on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-       
-        $('#accountMenu').collapse('toggle');
-        $('.chevron-icon').toggleClass('rotate');
+        $('.account-toggle').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            $('#accountMenu').collapse('toggle');
+            $('.chevron-icon').toggleClass('rotate');
+        });
+
+        $('#accountMenu').on('click', function(e) {
+            e.stopPropagation();
+        });
+
+
     });
 
-    $('#accountMenu').on('click', function (e) {
-        e.stopPropagation();
+    $(document).ready(function() {
+
+        @if(Auth::check())
+        $("#sendOtp_modal").on('show.bs.modal', function() {
+
+            $.ajax({
+                url: "{{ route('send.opt.notification', ['user' => Auth::id()]) }}",
+                type: "POST",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                data: {
+                    action: "payment"
+                },
+                success: function(res) {
+                    console.log(res);
+                },
+                error: function(xhr) {
+                    Swal.close();
+
+                    let option = getStatusOption(xhr);
+
+                    Swal.fire({
+                        icon: option.icon,
+                        title: option.title,
+                        text: option.message
+                    });
+                }
+            });
+
+        });
+        @endif
+
     });
+<<<<<<< HEAD
 
 
 });
@@ -50,4 +90,6 @@ $('.video_icon_ec').append(
     '<div class="video_tooltip">Escort has video to view</div>'
 );
 
+=======
+>>>>>>> e847eb63846759b55a45c34b895bc0965e0f94cb
 </script>

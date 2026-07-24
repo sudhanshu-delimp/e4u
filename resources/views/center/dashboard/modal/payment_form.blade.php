@@ -446,31 +446,31 @@
         });
     }
 
-    $("#sendOtp_modal").on('show.bs.modal', function() {
-        $.ajax({
-            url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
-            method: 'POST',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            data: {
-                action: 'payment'
-            },
-            success: function(res, textStatus, xhr) {
-                console.log(res);
-            },
-            error: function(xhr) {
-                Swal.close();
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message
-                });
-            }
-        });
-    });
+    // $("#sendOtp_modal").on('show.bs.modal', function() {
+    //     $.ajax({
+    //         url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
+    //         method: 'POST',
+    //         dataType: 'json',
+    //         headers: {
+    //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    //         },
+    //         data: {
+    //             action: 'payment'
+    //         },
+    //         success: function(res, textStatus, xhr) {
+    //             console.log(res);
+    //         },
+    //         error: function(xhr) {
+    //             Swal.close();
+    //             let option = getStatusOption(xhr);
+    //             Swal.fire({
+    //                 icon: option.icon,
+    //                 title: option.title,
+    //                 text: option.message
+    //             });
+    //         }
+    //     });
+    // });
 
 
 

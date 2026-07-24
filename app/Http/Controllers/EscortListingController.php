@@ -23,7 +23,8 @@ use Illuminate\Support\Facades\Log;
 class EscortListingController extends Controller
 {
     /**
-     * Fixed state display order for Australia-wide Pin Up sorting.
+     * if you want understand resffling rule then read the README.md file in the project root directory.
+     * 
      * NSW → VIC → QLD → WA → SA → TAS → NT → ACT
      */
     private const PINUP_STATE_ORDER = [3909, 3903, 3905, 3906, 3904, 3908, 3910, 3907];
