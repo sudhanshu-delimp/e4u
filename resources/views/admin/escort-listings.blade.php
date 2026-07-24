@@ -168,20 +168,8 @@
     </div>
 </div>
 @include('modal.pin-change')
-<!-- end -->
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('editor1', {
-        fullPage: true,
-        extraPlugins: 'docprops',
-        // Disable content filtering because if you use full page mode, you probably
-        // want to  freely enter any HTML content in source mode without any limitations.
-        allowedContent: true,
-        height: 320
-    });
-</script>
-
 @endsection
+
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
@@ -205,8 +193,9 @@
             $('#escort_listings').DataTable().search(this.value).draw();
         });
     })
-    let isInitialLoad = true;
 
+    let isInitialLoad = true;
+    //SetPinModal
     function ajaxReload() {
         var table = $('#escort_listings').DataTable({
             language: {
@@ -358,8 +347,7 @@
                                     aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="` + row.profileUrl + `" target="_blank"><i class="fa fa-eye "></i> View Listing   1
                                     </a>
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="` + row.profileUrl + `" target="_blank"><i class="fa fa-ban "></i> Suspend  
-                                    </a>
+                                 
                                 </div>
                             </div>
                         `;

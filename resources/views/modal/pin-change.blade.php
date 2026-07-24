@@ -96,7 +96,7 @@
                         <button class="key" id="ok">OK</button>
                     </div>
                 </div>
-                @if($mode=='pinSetup')
+                @if(!empty($mode) && $mode=='pinSetup')
                 <div class="d-flex justify-content-center mb-3">
                     <button type="button" class="btn-cancel-modal mr-3" id="allClearSetPin">Clear</button>
                     <button type="button" class="btn-success-modal" id="okSave">Save</button>
@@ -113,7 +113,7 @@
     let isEftClient = false;
     var eftAccountId = 0;
     let isPayIDClicked = false;
-    let inMode = `{{$mode}}`;
+    let inMode = `{{!empty($mode) ? $mode : ''}}`;
 
     // For pinDisplay
     $('.input_value').click(function() {
