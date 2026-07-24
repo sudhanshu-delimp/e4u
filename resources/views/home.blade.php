@@ -134,15 +134,10 @@
                         }
 
                     @endphp
-<<<<<<< HEAD
                     <div class="buttons">
-                        <a class="hero-btn btn-light" id="view_btn_advertiser" href="{{ $url }}"
-=======
-                    <div class="home-btn">
 
                         
-                        <a class="btn btn_advertiser" id="view_btn_advertiser" href="{{route('public.web.escort.listing')}}"
->>>>>>> e847eb63846759b55a45c34b895bc0965e0f94cb
+                        <a class="hero-btn btn-light" id="view_btn_advertiser" href="{{route('public.web.escort.listing')}}"
                             role="button">View Escorts <br><small style="font-size: 70%">(Australia wide)</small></a>
                         <a class="hero-btn btn-dark" href="{{ route('find.massage.centre') }}" role="button">View Massage
                             Centres <br><small style="font-size: 70%">(Australia wide)</small></a>
