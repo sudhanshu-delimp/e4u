@@ -30,7 +30,7 @@
                         @if (!auth()->user())
                         <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
                             <li class="dropdown">
-                                <a style="padding: 5px 15px;width:120px; text-align: center;"
+                                <a style="padding: 5px 15px;width:120px; border-radius:100px; text-align: center;"
                                     class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     href="{{ route('register') }}">Register</a>
@@ -41,7 +41,7 @@
                                 </div>
                             </li>
                             <li class="dropdown">
-                                <a style="padding: 5px 15px; width:120px; text-align: center;"
+                                <a style="padding: 5px 15px; border-radius:100px; width:120px; text-align: center;"
                                     class="nav-link dropdown-toggle   footer_login_btn primery_color"
                                     id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" href="{{ route('register') }}">Log in</a>
