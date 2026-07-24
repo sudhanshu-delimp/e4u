@@ -134,12 +134,12 @@
                         }
 
                     @endphp
-                    <div class="home-btn">
-                        <a class="btn btn_advertiser" id="view_btn_advertiser" href="{{ $url }}"
+                    <div class="buttons">
+                        <a class="hero-btn btn-light" id="view_btn_advertiser" href="{{ $url }}"
                             role="button">View Escorts <br><small style="font-size: 70%">(Australia wide)</small></a>
-                        <a class="btn btn_center" href="{{ route('find.massage.centre') }}" role="button">View Massage
+                        <a class="hero-btn btn-dark" href="{{ route('find.massage.centre') }}" role="button">View Massage
                             Centres <br><small style="font-size: 70%">(Australia wide)</small></a>
-                        <a class="btn  btn_become_pin_up" href="{{ route('page.become-pin-up') }}" role="button">Become a
+                        <a class="hero-btn btn-outline" href="{{ route('page.become-pin-up') }}" role="button">Become a
                             Pin-Up</a>
                     </div>
                 </div>
@@ -207,39 +207,39 @@
 
                     <h2>Our Services</h2>
 
-                    <div class="cards">
+                    <div class="why_cards">
 
-                        <div class="card">
+                        <div class="why_card">
                             <div class="icon">🤝</div>
                             <h3>Friendly Service</h3>
                             <p>Accessible support for both Advertisers and Viewers whenever you need assistance.</p>
                         </div>
 
-                        <div class="card">
+                        <div class="why_card">
                             <div class="icon">📍</div>
                             <h3>Accurate Information</h3>
                             <p>Reliable and up-to-date information about available services.</p>
                         </div>
 
-                        <div class="card">
+                        <div class="why_card">
                             <div class="icon">💬</div>
                             <h3>Dedicated Support</h3>
                             <p>Professional support services to ensure the best experience.</p>
                         </div>
 
-                        <div class="card">
+                        <div class="why_card">
                             <div class="icon">⭐</div>
                             <h3>Trusted Reviews</h3>
                             <p>Read and share genuine reviews based on real experiences.</p>
                         </div>
 
-                        <div class="card">
+                        <div class="why_card">
                             <div class="icon">💰</div>
                             <h3>Affordable Advertising</h3>
                             <p>Cost-effective advertising solutions with maximum visibility.</p>
                         </div>
 
-                        <div class="card">
+                        <div class="why_card">
                             <div class="icon">🔒</div>
                             <h3>Privacy Protection</h3>
                             <p>Your privacy and security remain our highest priority.</p>

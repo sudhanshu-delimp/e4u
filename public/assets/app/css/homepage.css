@@ -55,7 +55,7 @@
 }
 
 .reg-content p {
-    font-size: 17px;
+    font-size: clamp(14px, 4vw, 17px);
     line-height: 1.9;
     color: #666;
     margin-bottom: 18px;
@@ -91,6 +91,7 @@
 
 a.home-btn {
     text-decoration: none;
+    line-height: 15px;
 }
 
 .home-btn {
@@ -98,6 +99,28 @@ a.home-btn {
     border-radius: 50px;
     font-weight: 600;
     transition: .35s;
+}
+
+.hero-btn {
+    padding: 16px 34px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: .35s;
+}
+
+a.hero-btn {
+    text-decoration: none;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.home-btn:hover,
+.hero-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .15);
 }
 
 .btn-light {
@@ -159,7 +182,7 @@ a.home-btn {
     margin: auto;
     color: #666;
     line-height: 1.8;
-    font-size: 17px;
+    font-size: clamp(14px, 4vw, 17px);
 }
 
 .wrapper {
@@ -175,13 +198,13 @@ a.home-btn {
     color: #14213d;
 }
 
-.cards {
+.why_cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
 }
 
-.card {
+.why_card {
     background: #fff;
     border-radius: 18px;
     padding: 28px;
@@ -189,7 +212,7 @@ a.home-btn {
     border: 1px solid #eee;
 }
 
-.card:hover {
+.why_card:hover {
     transform: translateY(-8px);
     box-shadow: 0 18px 45px rgba(0, 0, 0, .08);
 }
@@ -206,13 +229,13 @@ a.home-btn {
     margin-bottom: 18px;
 }
 
-.card h3 {
+.why_card h3 {
     font-size: 20px;
     margin-bottom: 10px;
     color: #14213d;
 }
 
-.card p {
+.why_card p {
     color: #666;
     line-height: 1.7;
     font-size: 15px;
@@ -288,8 +311,12 @@ a.btn-why {
     .wrapper {
         grid-template-columns: 1fr;
     }
-    .cards {
-        grid-template-columns: 1fr;
+    .register-section {
+        padding: 100px 3%;
+    }
+    .home_services {
+        text-align: center;
+        padding: 80px 2%;
     }
 }
 
@@ -309,5 +336,8 @@ a.btn-why {
     }
     .left h2 {
         text-align: center;
+    }
+    .why_cards {
+        grid-template-columns: 1fr;
     }
 }

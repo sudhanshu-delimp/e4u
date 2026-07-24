@@ -1,6 +1,7 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css') }}">
 
     @php
         $escortName =
@@ -296,7 +297,8 @@
             </div>
         </div>
     </section>
-    <div class="container custom--contain">
+
+    {{-- <div class="container custom--contain">
         <div class="row justify-content-center text-center">
             <div class="col-md-9">
                 <div class="padding_ninty_top_ninty_px">
@@ -360,8 +362,107 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+    
+    <section class="our-services-sec">
 
+        <div class="container">
+
+            <div class="heading">
+
+                <h2>Everything You Need in One Place</h2>
+
+                <p>
+                    In addition to advertising services, we provide trusted information,
+                    reviews, concierge services, and support for both Advertisers and
+                    Viewers—all designed to deliver a safe and enjoyable experience.
+                </p>
+
+            </div>
+
+            <div class="wrapper">
+
+                <div class="left">
+
+                    <h2>Our Services</h2>
+
+                    <div class="why_cards">
+
+                        <div class="why_card">
+                            <div class="icon">🤝</div>
+                            <h3>Friendly Service</h3>
+                            <p>Accessible support for both Advertisers and Viewers whenever you need assistance.</p>
+                        </div>
+
+                        <div class="why_card">
+                            <div class="icon">📍</div>
+                            <h3>Accurate Information</h3>
+                            <p>Reliable and up-to-date information about available services.</p>
+                        </div>
+
+                        <div class="why_card">
+                            <div class="icon">💬</div>
+                            <h3>Dedicated Support</h3>
+                            <p>Professional support services to ensure the best experience.</p>
+                        </div>
+
+                        <div class="why_card">
+                            <div class="icon">⭐</div>
+                            <h3>Trusted Reviews</h3>
+                            <p>Read and share genuine reviews based on real experiences.</p>
+                        </div>
+
+                        <div class="why_card">
+                            <div class="icon">💰</div>
+                            <h3>Affordable Advertising</h3>
+                            <p>Cost-effective advertising solutions with maximum visibility.</p>
+                        </div>
+
+                        <div class="why_card">
+                            <div class="icon">🔒</div>
+                            <h3>Privacy Protection</h3>
+                            <p>Your privacy and security remain our highest priority.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="right">
+
+                    <h2>Why Choose Us?</h2>
+
+                    <ul class="why-features">
+
+                        <li>Verified Photos</li>
+
+                        <li>Trusted Reviews</li>
+
+                        <li>Industry Information</li>
+
+                        <li>Concierge Services</li>
+
+                        <li>Privacy First</li>
+
+                        <li>Loyalty Program</li>
+
+                    </ul>
+
+                    <p>
+                        Our platform was built after listening to Advertisers and Viewers.
+                        We focus on trust, compliance, quality, and user experience to create
+                        a safer and more enjoyable platform for everyone.
+                    </p>
+
+                    <a href="#" class="home-btn btn-why">Learn More</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
     
     <section class="one-stop-bg">
         <div class="container-fluid">
@@ -424,7 +525,7 @@
         </div>
     </section>
 
-    <section class="home_reg_bg">
+    {{-- <section class="home_reg_bg">
         <div class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly">
             <div class="container">
                 <div class="row">
@@ -461,6 +562,80 @@
                 </div>
             </div>
         </div>
+    </section> --}}
+    
+    <section class="register-section">
+
+        <div class="containers">
+
+            <div class="image-box">
+
+                <img src="https://staging.e4u.host.powerwebhosting.com.au/assets/app/img/shutterstock_338759729.png"
+                    alt="Register">
+
+                <div class="badge">
+                    ⭐ Dedicated Profile
+                </div>
+
+            </div>
+
+            <div class="reg-content">
+
+                <small>JOIN OUR COMMUNITY</small>
+
+                <h2>Register Now</h2>
+
+                <p>
+                    Create your account in just a few minutes. Registration is completely free.
+                    You only pay when you decide to advertise your Profile or Tour according to
+                    your selected membership plan.
+                </p>
+
+                <p>
+                    Massage Centres can create a dedicated profile and manage multiple Masseurs
+                    from a single account, making profile management simple and efficient.
+                </p>
+
+                <div class="features">
+
+                    <div class="feature">
+                        ✔ Free Registration
+                    </div>
+
+                    <div class="feature">
+                        ✔ Flexible Membership
+                    </div>
+
+                    <div class="feature">
+                        ✔ Secure & Private
+                    </div>
+
+                    <div class="feature">
+                        ✔ Trusted Community
+                    </div>
+
+                </div>
+
+                <div class="buttons">
+
+                    <a href="{{ route('advertiser.register') }}" class="home-btn btn-light">
+                        I'm an Advertiser
+                    </a>
+
+                    <a href="{{ route('register') }}" class="home-btn btn-dark">
+                        I'm a Viewer
+                    </a>
+
+                    <a href="{{ route('agent.register') }}" class="home-btn btn-outline">
+                        I'm an Agent
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </section>
 @endsection
 @push('scripts')
