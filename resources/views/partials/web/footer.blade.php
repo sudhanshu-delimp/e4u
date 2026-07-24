@@ -183,15 +183,15 @@
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div>
                             Agency Management
                         </a></li>
-                    <li><a href="{{ 'http://nationaluglymugs.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://nationaluglymugs.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM
                         </a>
                     </li>
-                    <li><a href="{{ 'http://peamsaustralia.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://peamsaustralia.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
                             Australia
                         </a></li>
-                    <li><a href="{{ 'http://punterbox.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://punterbox.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div>
                             Punterbox
                         </a>
