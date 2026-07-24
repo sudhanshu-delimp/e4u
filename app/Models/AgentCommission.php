@@ -30,9 +30,24 @@ class AgentCommission extends Model
         return $this->belongsTo(User::class, 'agent_id');
     }
 
+     public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function commissionable()
     {
         return $this->morphTo();
+    }
+
+    public function paymentHistory()
+    {
+        return $this->belongsTo(PaymentHistory::class, 'commissionable_id');
+    }
+
+    public function items()
+    {
+        return $this->hasOne(PaymentItem::class, 'payment_history_id', 'commissionable_id')->select(['id', 'payment_history_id', 'item_type', 'item_id', 'amount']);
     }
 
     /**
@@ -199,16 +214,5 @@ class AgentCommission extends Model
             $price = number_format($price, 2);
         }
         return $price;
-    }
-
-
-    public function paymentHistory()
-    {
-        return $this->belongsTo(PaymentHistory::class, 'commissionable_id');
-    }
-
-    public function items()
-    {
-        return $this->hasMany(PaymentItem::class, 'payment_history_id', 'commissionable_id');
     }
 }

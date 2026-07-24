@@ -8,6 +8,7 @@ use App\Models\AgentMonthlyReport;
 use App\Models\PaymentHistory;
 use App\Models\PaymentItem;
 use App\Models\User;
+use App\Services\CalculateAgentFeeService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -24,54 +25,18 @@ class MonthlyReportController extends BaseController
    */
   public function monthlyReport()
   {
-    $userId = auth()->user()->id;
-    $reportObj = (new AgentMonthlyReport);
-    try {
-      //$submitedBillingPeriodFrom = [ '2026-06-01'];
-      $billingStartDate = Carbon::now()->startOfMonth()->format('Y-m-d');
-      $billingEndDate = Carbon::now()->endOfMonth()->format('Y-m-d');
 
-      $reports = AgentCommission::select(
-        'agent_id',
-        DB::raw('SUM(total_commission_amount) as total_commission'),
-        DB::raw('SUM(purchase_amount) as total_purchase')
-      )->with('agent', function ($query) {
-        $query->select(['id', 'member_id', 'email', 'business_name', 'state_id'])
-          ->with('state', function ($queryState) {
-            $queryState->select(['id', 'name', 'iso2', 'country_id']);
-          });
-      })
-        ->whereBetween('commission_date', [$billingStartDate, $billingEndDate])
-        ->groupBy('agent_id')
-        ->get();
+    $agentId = auth()->user()->id;
+    $reportId = 1;
 
+    $calculateServiceObj = (new CalculateAgentFeeService);
 
-      if ($reports->count() > 0) {
-        foreach ($reports as $report) {
-          $agentId = $report->agent_id;
-          $exitReport = AgentMonthlyReport::where('agent_id', $agentId)->where('billing_period_from', $billingStartDate)->first();
-          if (!$exitReport) {
-            $reportObj = (new AgentMonthlyReport);
-            $reportObj->report_date = date('Y-m-d H:i:s');
-            $reportObj->billing_period_from = $billingStartDate;
-            $reportObj->billing_period_to = $billingEndDate;
-            $reportObj->agent_id = $agentId;
-            $reportObj->state_id = $report->agent?->state?->id ?? null;
-            $reportObj->spend = $report->total_purchase;
-            $reportObj->fees = $report->total_commission;
-            if ($reportObj->save()) {
-              // Write code for email report
-            }
-          }
-        }
-      }
-    } catch (Exception $e) {
-      Log::info("Agent fee report erro: " . $e->getMessage());
+    $feeData = $calculateServiceObj->calculateFee($reportId);
+    if ($feeData->isNotEmpty()) {
+      //dd($feeData->toArray());
     }
 
-    $reports = AgentMonthlyReport::where('agent_id', $userId)->with('state', 'agent')->get();
-
-    return  view('agent.dashboard.Fees.monthly-report', compact('reports'));
+    return  view('agent.dashboard.Fees.monthly-report');
   }
 
 
@@ -155,8 +120,8 @@ class MonthlyReportController extends BaseController
       $item->billing_period_to =  $item->billing_period_to;
       $item->agent_name =  $item->agent->business_name;
       $item->territory =  $item->state?->iso2 ?? '';
-      $formattedSpend = '<div class="num_value"><span>$</span><span>' . ($item->spend) . '</span></div>';
-      $formattedFees = '<div class="num_value"><span>$</span><span>' . ($item->fees) . '</span></div>';
+      $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2, '.', '') . '</span></div>';
+      $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2, '.', '') . '</span></div>';
       $item->total_spend =  $formattedSpend;
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
@@ -207,15 +172,16 @@ class MonthlyReportController extends BaseController
   public function viewMonthlyReport(Request $request)
   {
     $data = $request->all();
-    if ($data) {
+    if (isset($data['id']) && $data['id'] > 0) {
       $id = $data['id'];
-      $agentId = $data['agent_id'];
-      $report = AgentMonthlyReport::where('id', $id)->first();
-      if ($report) {
-        return view('agent.dashboard.Fees.view_monthly_report', compact('report'));
+      $calculateServiceObj = (new CalculateAgentFeeService);
+      //Prepare the agent monthly fee data for view detail
+      $feeData = $calculateServiceObj->calculateFee($id);
+
+      if ($feeData->isNotEmpty()) {
+        return view('agent.dashboard.Fees.view_monthly_report', compact('feeData'));
       }
     }
-
     return "";
   }
 

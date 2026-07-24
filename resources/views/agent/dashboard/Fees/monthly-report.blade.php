@@ -123,7 +123,7 @@
 
 
                         <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
-                                class="custompopicon"> Fee Report (Period Ending: 31-10-25)</h5>
+                                class="custompopicon"><span id="reportendDate">Fee Report<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
                         </a>
@@ -153,30 +153,6 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
 
-    <script>
-        document.querySelectorAll('.accordion-toggle').forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const target = toggle.getAttribute('data-target').replace('#', '');
-                const openGroup = document.querySelectorAll(`.detail-row[data-group="${target}"]`);
-                const isOpen = openGroup[0]?.classList.contains('show');
-
-                // Close all open groups
-                document.querySelectorAll('.detail-row.show').forEach(r => {
-                    r.classList.remove('show');
-                });
-
-                // Open current group if not already open
-                if (!isOpen) {
-                    openGroup.forEach(r => r.classList.add('show'));
-                }
-
-                // Rotate arrow
-                document.querySelectorAll('.accordion-toggle i').forEach(i => i.classList.remove(
-                    'rotated'));
-                if (!isOpen) toggle.querySelector('i').classList.add('rotated');
-            });
-        });
-    </script>
     <script>
         $(document).ready(function() {
             var table = $('#commissionStatementTable').DataTable({
