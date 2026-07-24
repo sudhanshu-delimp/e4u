@@ -45,6 +45,7 @@ class MassageCenterDashboardController extends Controller
       $totals[$key] = $this->calculateSumOfService($service, $fyStart, $now, $userId);
     }
     
+    dd($totals);
     $data['otherServices'] = ['email_account' => $totals['email'], 'mobile_sim' => $totals['mobile_sim'], 'product' => $totals['productAmount'], 'support' => $totals['supporte4u'], 'year_to_date_total' => $totals['otherYear']];
 
     // Advertising 
