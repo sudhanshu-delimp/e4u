@@ -524,7 +524,7 @@ Route::post('/update-password', [AgentAccountController::class, 'changePassword'
 
 
 //Escort DashBorad Route And Controller
-Route::get('logs-and-status', [EscortDashboardController::class, 'LogAndStatus'])->name('logs.and.status');
+Route::get('logs', [EscortDashboardController::class, 'LogAndStatus'])->name('logs.and.status');
 Route::post('update-password-duration', [EscortDashboardController::class, 'updatePasswordDuration'])->name('update.password.duration');
 
 Route::get('editmyaccount', function () {
