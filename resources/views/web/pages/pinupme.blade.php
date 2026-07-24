@@ -454,7 +454,7 @@
                         a safer and more enjoyable platform for everyone.
                     </p>
 
-                    <a href="#" class="home-btn btn-why">Learn More</a>
+                    <a href="{{ url('escorts4U') }}" class="home-btn btn-why">Learn More</a>
 
                 </div>
 
