@@ -1,14 +1,5 @@
 @extends('layouts.userDashboard')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-<style type="text/css">
-    .parsley-errors-list {
-    list-style: none;
-    color: rgb(248, 0, 0)
-    }
-</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -67,14 +58,14 @@
                 <td class="icon-col"><i class="fas fa-wifi"></i>
                 </td>
                 <td class="text-right font-weight-bold">Online : </td>
-                <td class="text-center font-weight-bold">30</td>
+                <td class="text-center font-weight-bold">{{$result['total_count']}}</td>
                 </tr>
                 <tr>
                 <td class="icon-col"><i class="fas fa-kiss-wink-heart"></i>
 
                 </td>
                 <td class="font-weight-bold">Total Legbox</td>
-                <td class="text-center font-weight-bold">30</td>
+                <td class="text-center font-weight-bold">{{$result['total_legbox']}}</td>
                 </tr>
             </tbody>
             </table>
@@ -84,9 +75,4 @@
 
 @endsection
 @push('script')
-<!-- file upload plugin start here -->
-<!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 @endpush

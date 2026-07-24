@@ -206,9 +206,9 @@ Route::middleware('auth')->group(function () {
 
         // Route::get('/logs-and-statistics',function(){ return view('user.dashboard.logs-and-statistics');})->name('user.logs-and-statistics');
 
-        Route::get('/my-statistics', function () {
-            return view('user.dashboard.my-statistics');
-        })->name('user.my-statistics');
+        // Route::get('/my-statistics', function () {
+        //     return view('user.dashboard.my-statistics');
+        // })->name('user.my-statistics');
 
         // Route::get('/task-list',function(){
         //     return view('user.dashboard.task-list');

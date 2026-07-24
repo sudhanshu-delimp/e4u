@@ -112,9 +112,9 @@
 </div> --}}
 {{-- end --}}
 {{-- box start --}}
-<div class="col-lg-4 box-wrapper">
+<!-- <div class="col-lg-4 box-wrapper">
     <div class="my-custom-box shadow-sm">
-        <a href="{{ route('user.my-statistics') }}">
+        <a href="route('user.my-statistics')">
             <div class="box-icon">
                 <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}"
                     alt="Viewer Statistics">
@@ -125,7 +125,7 @@
         </a>
 
     </div>
-</div>
+</div> -->
 {{-- end --}}
 {{-- box start --}}
 <div class="col-lg-4 box-wrapper">
