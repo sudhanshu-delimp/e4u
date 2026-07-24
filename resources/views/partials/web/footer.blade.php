@@ -183,15 +183,15 @@
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div>
                             Agency Management
                         </a></li>
-                    <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank">
+                    <li><a href="{{ 'http://nationaluglymugs.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM
                         </a>
                     </li>
-                    <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank">
+                    <li><a href="{{ 'http://peamsaustralia.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
                             Australia
                         </a></li>
-                    <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank">
+                    <li><a href="{{ 'http://punterbox.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div>
                             Punterbox
                         </a>
@@ -537,16 +537,16 @@
 
     });
     $(document).ready(function() {
-        @if(View::hasSection('enable_navigator'))
-        navigator.geolocation.getCurrentPosition(async function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            getPinupProfile(latitude, longitude);
-            const newUrl = "{{ route('find.all') }}" + `/?lat=${latitude}&lng=${longitude}`;
-            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-        });
-        @endif
+        // @if(View::hasSection('enable_navigator'))
+        // navigator.geolocation.getCurrentPosition(async function(position) {
+        //     const latitude = position.coords.latitude;
+        //     const longitude = position.coords.longitude;
+        //     getPinupProfile(latitude, longitude);
+        //     const newUrl = "{{ route('public.web.escort.listing') }}" + `/?lat=${latitude}&lng=${longitude}`;
+        //     let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+        //     document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+        // });
+        // @endif
 
         var loginForm = $("#loginForm");
 

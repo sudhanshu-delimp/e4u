@@ -43,6 +43,10 @@
                         #WelcomeViewerPopup ol {
                             padding: 20px !important;
                         }
+                        .home_services {
+                            padding: 25px 0px;
+                            text-align: center;
+                        }
                         .pp-av-wrap {
                             justify-content: center;
                             gap: 20px;

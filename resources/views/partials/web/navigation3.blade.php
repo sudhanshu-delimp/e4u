@@ -27,12 +27,11 @@
                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find Escorts</a>
                     <div class="dropdown-menu addMyLocation" aria-labelledby="navbarDropdown">
 
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>6]) }}?lat"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>1]) }}?lat"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
-                        <a class="dropdown-item saptate_by_border" href="{{ route('find.all',['gender'=>2]) }}?lat"><img src="{{asset('assets/app/img/couple.svg')}}">Couples</a>
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>3]) }}?lat"><img src="{{asset('assets/app/img/Vector.svg')}}">Transgender</a>
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>4]) }}?lat"><img src="{{asset('assets/app/img/male-user.svg')}}">Cross Dresser</a>
-                        {{-- <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}" class="" id="{{$key}}">{{$city}}</a></li> --}}
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['gender'=>6]) }}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['gender'=>1]) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
+                        <a class="dropdown-item saptate_by_border" href="{{ route('public.web.escort.listing',['gender'=>2]) }}?"><img src="{{asset('assets/app/img/couple.svg')}}">Couples</a>
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['gender'=>3]) }}"><img src="{{asset('assets/app/img/Vector.svg')}}">Transgender</a>
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['gender'=>4]) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Cross Dresser</a>
                     </div>
                   </li>
                   <li class="nav-item">
@@ -87,7 +86,7 @@
 
                <ul class="navbar-nav">
                     <li class="nav-item esc-tooltip-wrap">
-                        <a href="http://www.nationaluglymugs.com.au" class="nav-link" target="_blank"> 
+                        <a href="https://nationaluglymugs.com.au" class="nav-link" target="_blank"> 
                             <div class="icon_boxs"><img src="{{ asset ('assets/app/img/Logo_NUM.png')}}" style="width: 25px"></div>
                            
                         </a>
@@ -95,7 +94,7 @@
                     </li>
 
                     <li class="nav-item esc-tooltip-wrap">
-                        <a href="http://www.punterbox.com.au/" class="nav-link" target="_blank"> 
+                        <a href="https://punterbox.com.au/" class="nav-link" target="_blank"> 
                             <div class="icon_boxs"><img src="{{ asset ('assets/app/img/Icon_Punterbox.png')}}" style="width: 25px"></div>
                             
                         </a>
