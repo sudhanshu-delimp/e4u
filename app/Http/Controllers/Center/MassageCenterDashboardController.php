@@ -68,10 +68,12 @@ class MassageCenterDashboardController extends Controller
 
   private function calculateSumOfService(array $services, object $from, string $to, int $userId)
   {
+    DB::enableQueryLog();
     $amount = PaymentHistory::where('user_id', $userId)
       ->where('status', 'success')
       ->whereBetween('paid_at', [$from, $to])
       ->whereIn('service', $services)->sum(DB::raw('amount + gst_amount + delivery_charge'));
+      dd(DB::getQueryLog());
     return $amount;
   }
 
