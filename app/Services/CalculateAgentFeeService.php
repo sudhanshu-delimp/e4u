@@ -65,6 +65,7 @@ class CalculateAgentFeeService
                     ->where('agent_id', $agentId)
                     ->whereBetween('commission_date', [$billingStartDate, $billingEndDate])
                     ->get();
+                   // dd($commissions->toArray());
                 if ($commissions->isNotEmpty()) {
 
                     $result = $commissions->groupBy('user_id')->map(function ($records) {

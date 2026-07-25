@@ -27,7 +27,7 @@ class MonthlyReportController extends BaseController
   {
 
     $agentId = auth()->user()->id;
-    $reportId = 1;
+    $reportId = 4;
 
     $calculateServiceObj = (new CalculateAgentFeeService);
 

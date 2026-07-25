@@ -300,7 +300,7 @@ class PaymentController extends Controller
             if ($payment && !in_array($benefit_token['action'], ['wallet'])) {
                 $agentCommission = (new \App\Models\AgentCommission);
                 Log::info("saveCommissionData fuction calling from payment controller.");
-                $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['total_amount']);
+                $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['sub_total_amount']);
             }
 
             $payment_service = '';
