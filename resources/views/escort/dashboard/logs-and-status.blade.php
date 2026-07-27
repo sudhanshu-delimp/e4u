@@ -3,92 +3,84 @@
 @section('style')
 
 <style>
+    .playmate-total-row {
+        background: #fafafa;
+    }
 
-    .playmate-heading{
-    background:#162b4d;
-    color:#fff;
-    font-size:22px;
-    font-weight:600;
-}
+    .playmate-count {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 38px;
+        padding: 0 12px;
+    }
 
-.playmate-total-row{
-    background:#fafafa;
-}
+    .playmate-list {
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
+    }
 
-.playmate-count{
-    display: inline-flex; 
-    justify-content: center;
-    align-items: center;
-    min-width: 38px;
-    padding: 0 12px;
-}
+    .playmate-icon {
+        margin-right: -12px;
+        transition: .3s;
+    }
 
-.playmate-list{
-    display:flex;
-    align-items:center;
-    padding:5px 0;
-}
+    .playmate-icon:hover {
+        z-index: 10;
+    }
 
-.playmate-icon{
-    margin-right:-12px;
-    transition:.3s;
-}
+    .playmate-icon img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        object-fit: fill;
+        transition: .3s;
+    }
 
-.playmate-icon:hover{
-    z-index:10;
-}
-
-.playmate-icon img{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    border:3px solid #fff;
-    object-fit:cover;
-    transition:.3s;
-}
-
-.playmate-icon img:hover{
-    transform:translateY(-3px) scale(1.01);
-}
+    .playmate-icon img:hover {
+        transform: translateY(-3px) scale(1.01);
+    }
 
 
-.playmate-icon{
-    position: relative;
-    display: inline-block;
-}
+    .playmate-icon {
+        position: relative;
+        display: inline-block;
+    }
 
-.playmate-tooltip{
-    position: absolute;
-    bottom: 115%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ff4d6d;
-    color: #fff;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: .2s ease;
-    z-index: 999;
-}
+    .playmate-tooltip {
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ff4d6d;
+        color: #fff;
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: .2s ease;
+        z-index: 999;
+    }
 
-.playmate-tooltip::after{
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: #ff4d6d;
-}
+    .playmate-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 6px solid transparent;
+        border-top-color: #ff4d6d;
+    }
 
-.playmate-icon:hover .playmate-tooltip{
-    opacity: 1;
-    visibility: visible;
-}
+    .playmate-icon:hover .playmate-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
 </style>
 @endsection
 @section('content')
@@ -221,69 +213,68 @@
         @endif
 
 
-       <div class="col-md-6 mb-4">
-    <div class="table-responsive">
-        <table class="table table-bordered playmate-table mb-0">
-            <thead>
-                <tr>
-                    <th colspan="3" class="text-center playmate-heading">
-                        <i class="fas fa-user-friends mr-2"></i> My Playmates
-                    </th>
-                </tr>
-            </thead>
+        <div class="col-md-6 mb-4">
+            <div class="table-responsive">
+                <table class="table table-bordered playmate-table mb-0">
+                    <thead style="background-color: #0C223D; color: #ffffff;">
+                        <tr>
+                            <th colspan="3" class="text-center ">
+                                My Playmates
+                            </th>
+                        </tr>
+                    </thead>
 
-            <tbody>
+                    <tbody>
 
-                <tr class="playmate-total-row">
-                    <td class="icon-col">
-                        <i class="fas fa-users"></i>
-                    </td>
+                        <tr class="playmate-total-row">
+                            <td class="icon-col">
+                                <i class="fas fa-users"></i>
+                            </td>
 
-                    <td>
-                       Total Playmates
-                    </td>
+                            <td>
+                                Total Playmates
+                            </td>
 
-                    <td class="text-center">
-                        <span class="playmate-count" id="playmate-total-count">
-                            {{ $playmateCount }}
-                        </span>
-                    </td>
-                </tr>
+                            <td class="text-center">
+                                <span class="playmate-count" id="playmate-total-count">
+                                    {{ $playmateCount }}
+                                </span>
+                            </td>
+                        </tr>
 
-                <tr>
-                    <td class="icon-col align-middle">
-                        <i class="fas fa-user-friends"></i>
-                    </td>
+                        <tr>
+                            <td class="icon-col align-middle">
+                                <i class="fas fa-user-friends"></i>
+                            </td>
 
-                    <td colspan="2">
-                        <div class="playmate-list">
+                            <td colspan="2">
+                                <div class="playmate-list">
 
-                            @foreach($user->playmateHistory->unique('playmate_id') as $item)
+                                    @foreach($user->playmateHistory->unique('playmate_id') as $item)
 
-                                <div class="playmate-icon">
+                                    <div class="playmate-icon">
 
-                                    <a href="javascript:void(0)"
-                                       class="remove-playmate"
-                                       data-id="{{ $item->id }}"
-                                       data-escort_id="{{ $item->escort_id }}"
-                                       data-playmate_id="{{ $item->playmate_id }}"
-                                       >
-                                        <span class="playmate-tooltip">{{ $item->playmate->name }}</span>
-                                        <img
-                                            src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
-                                            alt="Playmate">
-                                    </a>
+                                        <a href="javascript:void(0)"
+                                            class="remove-playmate"
+                                            data-id="{{ $item->id }}"
+                                            data-escort_id="{{ $item->escort_id }}"
+                                            data-playmate_id="{{ $item->playmate_id }}">
+                                            <span class="playmate-tooltip">{{ $item->playmate->name }}</span>
+                                            <img
+                                                src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                                alt="Playmate">
+                                        </a>
+                                    </div>
+                                    @endforeach
+
                                 </div>
-                            @endforeach
+                            </td>
+                        </tr>
 
-                        </div>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-</div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -366,60 +357,59 @@
 <script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
 
 <script>
+    $(document).on('click', '.remove-playmate', function(e) {
+        e.preventDefault();
 
-    $(document).on('click', '.remove-playmate', function (e) {
-    e.preventDefault();
+        let $this = $(this);
+        let id = $this.data('id');
+        let url = `/escort-dashboard/remove-playmate/${id}`;
 
-    let $this = $(this);
-    let id = $this.data('id');
-    let url = `/escort-dashboard/remove-playmate/${id}`;
+        Swal.fire({
+            title: 'Remove this Playmate?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Remove',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
 
-    Swal.fire({
-        title: 'Remove this Playmate?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Remove',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
+            if (!result.isConfirmed) return;
 
-        if (!result.isConfirmed) return;
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    dashboard: 1
+                },
+                success: function(data) {
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                dashboard: 1
-            },
-            success: function (data) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: data.message,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
 
-                Swal.fire({
-                    icon: 'success',
-                    text: data.message,
-                    timer: 2000,
-                    showConfirmButton: false
-                });
+                    $this.closest('.playmate-icon').fadeOut(300, function() {
+                        $(this).remove();
+                    });
 
-                $this.closest('.playmate-icon').fadeOut(300, function () {
-                    $(this).remove();
-                });
-
-                let count = parseInt($('#playmate-total-count').text()) || 0;
-                if (count > 0) {
-                    $('#playmate-total-count').text(count - 1);
+                    let count = parseInt($('#playmate-total-count').text()) || 0;
+                    if (count > 0) {
+                        $('#playmate-total-count').text(count - 1);
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Something went wrong.'
+                    });
                 }
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    text: 'Something went wrong.'
-                });
-            }
-        });
+            });
 
+        });
     });
-});
 </script>
 @endsection
