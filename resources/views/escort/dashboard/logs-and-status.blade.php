@@ -144,26 +144,29 @@
                         <tr>
                             <td class="icon-col"><i class="fas fa-users"></i></td>
                             <td>Total</td>
-                            <td class="text-center">1</td>
+                            <td class="text-center" id="playmate-total-count">{{$playmateCount}}</td>
                         </tr>
                         <tr>
                             <td class="icon-col"><i class="fas fa-users"></i></td>
                             <td colspan="2">
                                 <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
-                                    <div>
-                                        <a href="https://e4u_dev.local/escort-profile/412" target="_blank">
-                                            <div class="playmates-pro-container">
-                                                <img alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="https://e4u_dev.local/escorts/images/126/gallery_3a038ea2bdbcad521e8e37101.jpg">
+                                        @foreach($user->playmateHistory->unique('playmate_id') as $item)
+                                            <div class="playmate-icon">
+                                                <a href="javascript:void(0)"
+                                                data-id="{{ $item->id }}"
+                                                data-escort_id="{{ $item->escort_id }}"
+                                                data-playmate_id="{{ $item->playmate_id }}" class="remove-playmate">
+
+                                                    <div class="playmates-pro-container">
+                                                        <img
+                                                            src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                                            class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed"
+                                                            alt="Playmate Avatar">
+                                                    </div>
+
+                                                </a>
                                             </div>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href="https://e4u_dev.local/escort-profile/2059" target="_blank">
-                                            <div class="playmates-pro-container">
-                                                <img alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="https://e4u_dev.local/escorts/images/439/gallery_9a6f9da3927ebef94b115cd28.jpeg">
-                                            </div>
-                                        </a>
-                                    </div>
+                                        @endforeach
                                 </div>
                             </td>
                         </tr>
@@ -245,9 +248,68 @@
     </div>
 </div>
 {{-- end --}}
+
 @endsection
 @section('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 {{-- <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script> --}}
 <script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
+
+<script>
+
+    $(document).on('click', '.remove-playmate', function (e) {
+    e.preventDefault();
+
+    let $this = $(this);
+    let id = $this.data('id');
+    let url = `/escort-dashboard/remove-playmate/${id}`;
+
+    Swal.fire({
+        title: 'Remove this Playmate?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Remove',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+
+        if (!result.isConfirmed) return;
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                dashboard: 1
+            },
+            success: function (data) {
+
+                Swal.fire({
+                    icon: 'success',
+                    text: data.message,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                $this.closest('.playmate-icon').fadeOut(300, function () {
+                    $(this).remove();
+                });
+
+                let count = parseInt($('#playmate-total-count').text()) || 0;
+                if (count > 0) {
+                    $('#playmate-total-count').text(count - 1);
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Something went wrong.'
+                });
+            }
+        });
+
+    });
+});
+</script>
 @endsection
