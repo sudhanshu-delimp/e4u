@@ -35,7 +35,7 @@ class MassageCenterDashboardController extends Controller
     // Advertising Services
     $advertisingServices = collect(config('payment_mail_templates'))->pluck('service_title')->toArray();
     $otherServices = ['Email Account', 'Product Purchase',  'Mobile SIM',  'Support E4U'];
-   
+
     // other services
     $services = ['otherYear' => $otherServices,    'mobile_sim'    => ['Mobile SIM'], 'email' => ['Email Account'], 'supporte4u' => ['Support E4U'],  'productAmount' => ['Product Purchase']];
 
@@ -67,10 +67,13 @@ class MassageCenterDashboardController extends Controller
 
   private function calculateSumOfService(array $services, object $from, string $to, int $userId)
   {
+
+    DB::enableQueryLog();
     $amount = PaymentHistory::where('user_id', $userId)
       ->where('status', 'success')
       ->whereBetween('paid_at', [$from, $to])
       ->whereIn('service', $services)->sum(DB::raw('amount + gst_amount + delivery_charge'));
+    dd(DB::getQueryLog());
     return $amount;
   }
 
