@@ -27,7 +27,8 @@ class CreateAgentMonthlyReportsTable extends Migration
                 'approved',
                 'rejected',
                 'paid',
-                'query'
+                'query',
+                'resolved'
             ])->default('pending');
             $table->dateTime('report_approved')->nullable();
             $table->bigInteger('approved_by')->nullable()->index();

@@ -1,3 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Monthly Report</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+  <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.2') }}" rel="stylesheet">
+    <style>
+
+        .heading {
+            display: block;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1px;
+        }
+
+        @page {
+            size: A4;
+        }
+
+
+        h2 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        h6 {
+            font-size: 16px;
+        }
+        .table td{
+            vertical-align: middle;
+        }
+        
+      
+        table td {  padding: .75rem;   color: #333 !important;
+  font-size: 12px;
+        }
+
+        table th {  padding: .45rem  .75rem .55rem !important;  
+  font-size: 12px;
+            font-weight: 500;
+            vertical-align: middle;
+            font-family: 'Poppins', sans-serif;
+            
+        }
+    </style>
+</head>
+
+<body style="margin:0;width:100%">
 @php
     $reportEndDate = isset($feeData['report_end_date']) ? $feeData['report_end_date'] : '';
     $esortReports = isset($feeData[3]) ? $feeData[3] : collect();
@@ -14,7 +75,18 @@
     $totalEscortAgenFee = 0;
 @endphp
 @if ($esortReports->isNotEmpty() || $massgeReports->isNotEmpty())
-    <table class="table table-bordered mb-0 common_accordian_table">
+    <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
+        <tr>
+            <td style="text-align: left !important;width: 100%;"> <span><img src="https://e4u.local/assets/dashboard/img/admin-report.png" style="width: 25px;"> </span><span style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Fee Report (Period Ending: {{$reportEndDate}})</span></td>
+        </tr>
+    </table>
+    <table class="table"  style="border: 1px solid #ccc;padding: 0;">
+     <tr>
+        <td style="width: 100%;padding: 10px 5px 20px 5px;">
+          
+
+       
+    <table class="table mb-0 common_accordian_table" >
         <thead class="table-bg modal-thaed">
             <tr>
                 <th>Member ID</th>
@@ -39,8 +111,7 @@
                         $totalEscortAgenFee = $totalEscortAgenFee + $esortReport['total_commission_amount'];
                     @endphp
 
-                    <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1" aria-expanded="false"
-                        aria-controls="details1">
+                    <tr>
                         <td class="text-left">{{ $esortReport['user_member_id'] }}</td>
                         <td class="opr_expand_arrow">{{ $esortReport['user_name'] }}<i class="fa fa-chevron-down"></i>
                         </td>
@@ -55,20 +126,21 @@
                         </td>
                     </tr>
                     <!-- Detail rows -->
-                    <tr class="detail-row" data-group="details1">
+                    <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td title="Platinum">P</td>
                         <td>{{ $esortReport['details']['P']['days']?? 0}}</td>
                         <td class="text-left">
-                            <div class="num_value">$<span>{{ number_format($esortReport['details']['P']['purchase'], 2, '.', '')?? 0.00}}</span></div>
+                      
+      <div class="num_value">$<span>{{ number_format($esortReport['details']['P']['purchase'], 2, '.', '')?? 0.00}}</span></div>
                         </td>
                         <td class="text-left">
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['P']['commission'], 2, '.', '')?? 0}}</span></div>
                         </td>
                     </tr>
-                    <tr class="detail-row" data-group="details1">
+                    <tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -81,7 +153,7 @@
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['G']['commission'], 2, '.', '')?? 0}}</span></div>
                         </td>
                     </tr>
-                    <tr class="detail-row" data-group="details1">
+                    <tr >
                         <td></td>
                         <td></td>
                         <td></td>
@@ -94,7 +166,7 @@
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['S']['commission'], 2, '.', '')?? 0}}</span></div>
                         </td>
                     </tr>
-                    <tr class="detail-row" data-group="details1">
+                    <tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -108,7 +180,7 @@
                         </td>
                     </tr>
                     <!-- Bump UP -->
-                    <tr class="detail-row" data-group="details1">
+                    <tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -122,18 +194,20 @@
                         </td>
                     </tr>
                     {{-- Start escort sub-total --}}
-                    <tr class="detail-row" data-group="details1">
+                    <tr >
                         <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                         <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">
                             {{ $esortReport['total_days'] }}
                         </td>
                         <td
                             style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                            <div class="num_value">$<span>{{ number_format($esortReport['total_purchase_amount'], 2, '.', '') }}</span></div>
+                            <div class="num_value">$<span>{{ number_format($esortReport['total_purchase_amount'], 2, '.', '') }}
+                            </span></div>
                         </td>
                         <td
                             style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                            <div class="num_value">$<span>{{ number_format($esortReport['total_commission_amount'], 2, '.', '') }}</span></div>
+                            <div class="num_value">$<span>{{ number_format($esortReport['total_commission_amount'], 2, '.', '') }}
+                            </span></div>
                         </td>
                     </tr>
                     <tr>
@@ -185,8 +259,7 @@
                         <td></td>
                         <td>{{ $massgeReport['total_days'] }}</td>
                         <td class="text-left">
-                            <div class="num_value">$<span>{{ number_format($massgeReport['total_purchase_amount'], 2, '.', '') }}
-                            </span></div>
+                            <div class="num_value">$<span>{{ number_format($massgeReport['total_purchase_amount'], 2, '.', '') }}</span></div>
                         </td>
                         <td class="text-left">
                             <div class="num_value">$<span>{{ number_format($massgeReport['total_commission_amount'], 2, '.', '') }}</span></div>
@@ -247,6 +320,9 @@
 
         </tfoot>
     </table>
+     </td>
+     </tr>
+    </table>
 @endif
 
 <!-- opr_accordian_table JS -->
@@ -277,3 +353,7 @@
         });
     });
 </script>
+</body>
+
+</html>
+

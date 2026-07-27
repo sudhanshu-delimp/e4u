@@ -30,14 +30,26 @@ class AgentMonthlyReport extends Model
         'report_approved' => 'date',
     ];
 
+     /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['updated_at', 'created_by', 'updated_by'];
+
     public function state()
     {
         return $this->belongsTo('App\Models\State', 'state_id');
     }
 
-        public function agent()
+    public function agent()
     {
         return $this->belongsTo('App\Models\User', 'agent_id', 'id');
+    }
+
+     public function AgentMonthlyReportQuery()
+    {
+        return $this->hasMany('App\Models\AgentMonthlyReportQuery', 'fee_report_id', 'id');
     }
 
 

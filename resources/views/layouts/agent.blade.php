@@ -13,6 +13,7 @@
             <div id="content">
 
                 @include('partials.agent.navigation')
+                <div>@include('flash-message')</div>
                 @yield('content')
 
             </div>

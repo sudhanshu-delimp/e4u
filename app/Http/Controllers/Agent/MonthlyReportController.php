@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\BaseController;
 use App\Models\AgentCommission;
 use App\Models\AgentMonthlyReport;
+use App\Models\AgentMonthlyReportQuery;
 use App\Models\PaymentHistory;
 use App\Models\PaymentItem;
 use App\Models\User;
@@ -15,8 +16,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
-
+use PDF;
 class MonthlyReportController extends BaseController
 {
 
@@ -201,6 +201,13 @@ class MonthlyReportController extends BaseController
       if ($report) {
         $report->status = $status;
         if ($report->save()) {
+          $reportQueryObj = (new AgentMonthlyReportQuery);
+          $reportQueryObj->fee_report_id = $id;
+          $reportQueryObj->status = $status;
+          $reportQueryObj->report_date = date('Y-m-d H:i:s');;
+          $reportQueryObj->notes = "";
+          $reportQueryObj->save();
+
           return $this->successResponse('Monthly fee report status successfully updated.');
         }
       } else {
@@ -208,5 +215,25 @@ class MonthlyReportController extends BaseController
       }
     }
     return $this->errorResponse('Error occurred while updating the status.');
+  }
+
+  public function printMonthlyFee(Request $request)
+  {
+
+    $reportId  = $request->fee_print_id;
+    $report = AgentMonthlyReport::where('id', $reportId)->first();
+    if ($report) {
+      $calculateServiceObj = (new CalculateAgentFeeService);
+      $feeData = $calculateServiceObj->calculateFee($reportId);
+//return view('agent.dashboard.Fees.print_monthly_report', compact('feeData'));
+      if ($feeData->isNotEmpty()) {
+        $pdf = PDF::loadView(
+          'agent.dashboard.Fees.print_monthly_report',
+          ['feeData' => $feeData]
+        )->setOption(['isRemoteEnabled' => true]);
+        return $pdf->stream('monthly_agent_fee_report.pdf');
+      }
+    }  
+    return response()->redirectTo('/agent-dashboard/fees/monthly-report')->with('error', 'Monthly fee record not found.');
   }
 }

@@ -138,9 +138,17 @@
 
 
                     <div class="modal-footer">
-                        <button type="button" class="btn-cancel-modal">Print</button>
-                        <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
-                        <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button>
+
+                    <form action="{{ route('agent.print.monthly.fee') }}" method="post" target="_blank">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="fee_print_id" id="fee_print_id"  value="">
+                        <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                        aria-label="Close">Close</button>
+                    </form>
+                       
+                       {{--  <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
+                        <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button> --}}
                     </div>
                 </div>
             </div>
@@ -257,6 +265,7 @@
                         if ($.trim(response) === "") {
                             swal_error_popup("Monthly fee report data not found.");
                         } else {
+                            $("#fee_print_id").val(id);
                             $('#renderMonthlyViewDetail').html(response);
                             $('#viewMonthlyReportModel').modal('show');
                         }
