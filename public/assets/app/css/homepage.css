@@ -461,11 +461,6 @@ a.btn-why {
     font-weight: 500;
 }
 
-.wel_feature_item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, .15);
-}
-
 .wel_feature_icon {
     width: 34px;
     height: 34px;
@@ -497,7 +492,8 @@ a.btn-why {
     backdrop-filter: blur(15px);
 }
 
-.wel_price_card:hover {
+
+/* .wel_price_card:hover {
     transform: translateY(-8px);
     border-color: #ff3c5f;
     box-shadow: 0 20px 45px rgba(0, 0, 0, .25);
@@ -505,11 +501,12 @@ a.btn-why {
 
 .wel_price_card:hover .wel_price_icon {
     background-color: #ff3c5f;
-}
+} */
 
-.wel_price_card:hover .wel_price_icon svg {
+
+/* .wel_price_card:hover .wel_price_icon svg {
     filter: brightness(5) grayscale(1);
-}
+} */
 
 .wel_price_icon {
     width: 50px;
