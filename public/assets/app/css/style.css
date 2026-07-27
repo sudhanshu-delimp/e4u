@@ -7510,6 +7510,15 @@ table {
     font-size: 14px;
 }
 
+.equal-height-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equal-height-row>div {
+    display: flex;
+}
+
 .common_form_note {
     text-align: justify;
     border: 1px solid #ccc;
@@ -7517,6 +7526,9 @@ table {
     padding: 10px;
     background: #f9f9f9;
     margin-top: 15px;
+    /* Same Height */
+    display: flex;
+    flex-direction: column;
 }
 
 .common_form_note p {

@@ -30,9 +30,9 @@
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol class="mb-0">
                   <li>All Advertiser transactions are recorded here.</li>
-                  <li>You can view any historical transaction as well as print or email the transaction
+                  <li>You can view any historical transaction as well as print the transaction
                      summary.</li>
-                  <li class="mb-0">To download the transaction summary, click Download located in the Action options.</li>
+                  <li class="mb-0">To download the transaction summary, click the View located in the Action options, and proceed to Print.</li>
               </ol>
             </div>
          </div>
