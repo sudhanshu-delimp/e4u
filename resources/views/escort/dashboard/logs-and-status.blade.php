@@ -48,7 +48,46 @@
 }
 
 .playmate-icon img:hover{
-    transform:translateY(-4px) scale(1.08);
+    transform:translateY(-3px) scale(1.01);
+}
+
+
+.playmate-icon{
+    position: relative;
+    display: inline-block;
+}
+
+.playmate-tooltip{
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4d6d;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s ease;
+    z-index: 999;
+}
+
+.playmate-tooltip::after{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #ff4d6d;
+}
+
+.playmate-icon:hover .playmate-tooltip{
+    opacity: 1;
+    visibility: visible;
 }
 </style>
 @endsection
@@ -228,8 +267,8 @@
                                        data-id="{{ $item->id }}"
                                        data-escort_id="{{ $item->escort_id }}"
                                        data-playmate_id="{{ $item->playmate_id }}"
-                                       title="{{ $item->playmate->name }}">
-
+                                       >
+                                        <span class="playmate-tooltip">{{ $item->playmate->name }}</span>
                                         <img
                                             src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
                                             alt="Playmate">
