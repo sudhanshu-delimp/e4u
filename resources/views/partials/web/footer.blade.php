@@ -30,7 +30,7 @@
                         @if (!auth()->user())
                         <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
                             <li class="dropdown">
-                                <a style="padding: 5px 15px;width:120px; text-align: center;"
+                                <a style="padding: 5px 15px;width:120px; border-radius:100px; text-align: center;"
                                     class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     href="{{ route('register') }}">Register</a>
@@ -41,7 +41,7 @@
                                 </div>
                             </li>
                             <li class="dropdown">
-                                <a style="padding: 5px 15px; width:120px; text-align: center;"
+                                <a style="padding: 5px 15px; border-radius:100px; width:120px; text-align: center;"
                                     class="nav-link dropdown-toggle   footer_login_btn primery_color"
                                     id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" href="{{ route('register') }}">Log in</a>
@@ -183,15 +183,15 @@
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div>
                             Agency Management
                         </a></li>
-                    <li><a href="{{ 'http://nationaluglymugs.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://nationaluglymugs.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM
                         </a>
                     </li>
-                    <li><a href="{{ 'http://peamsaustralia.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://peamsaustralia.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
                             Australia
                         </a></li>
-                    <li><a href="{{ 'http://punterbox.com.au' }}" target="_blank">
+                    <li><a href="{{ 'https://punterbox.com.au' }}" target="_blank">
                             <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div>
                             Punterbox
                         </a>

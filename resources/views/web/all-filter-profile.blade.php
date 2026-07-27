@@ -1288,13 +1288,6 @@
 @endsection
 @push('scripts')
 
-    <script>
-        $('.video_icon_ec').append(
-            '<div class="video_tooltip">Escort has video to view</div>'
-        );
-    </script>
-
-
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
         window.authUser = {
