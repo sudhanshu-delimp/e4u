@@ -1,6 +1,56 @@
 @extends('layouts.escort')
 
 @section('style')
+
+<style>
+
+    .playmate-heading{
+    background:#162b4d;
+    color:#fff;
+    font-size:22px;
+    font-weight:600;
+}
+
+.playmate-total-row{
+    background:#fafafa;
+}
+
+.playmate-count{
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center;
+    min-width: 38px;
+    padding: 0 12px;
+}
+
+.playmate-list{
+    display:flex;
+    align-items:center;
+    padding:5px 0;
+}
+
+.playmate-icon{
+    margin-right:-12px;
+    transition:.3s;
+}
+
+.playmate-icon:hover{
+    z-index:10;
+}
+
+.playmate-icon img{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:3px solid #fff;
+    object-fit:cover;
+    transition:.3s;
+}
+
+.playmate-icon img:hover{
+    transform:translateY(-4px) scale(1.08);
+}
+</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -132,48 +182,69 @@
         @endif
 
 
-        <div class="col-md-6 mb-4">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead style="background-color: #0C223D; color: #ffffff;">
-                        <tr>
-                            <th colspan="3" class="text-center">My Playmates</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="icon-col"><i class="fas fa-users"></i></td>
-                            <td>Total</td>
-                            <td class="text-center" id="playmate-total-count">{{$playmateCount}}</td>
-                        </tr>
-                        <tr>
-                            <td class="icon-col"><i class="fas fa-users"></i></td>
-                            <td colspan="2">
-                                <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
-                                        @foreach($user->playmateHistory->unique('playmate_id') as $item)
-                                            <div class="playmate-icon">
-                                                <a href="javascript:void(0)"
-                                                data-id="{{ $item->id }}"
-                                                data-escort_id="{{ $item->escort_id }}"
-                                                data-playmate_id="{{ $item->playmate_id }}" class="remove-playmate">
+       <div class="col-md-6 mb-4">
+    <div class="table-responsive">
+        <table class="table table-bordered playmate-table mb-0">
+            <thead>
+                <tr>
+                    <th colspan="3" class="text-center playmate-heading">
+                        <i class="fas fa-user-friends mr-2"></i> My Playmates
+                    </th>
+                </tr>
+            </thead>
 
-                                                    <div class="playmates-pro-container">
-                                                        <img
-                                                            src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
-                                                            class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed"
-                                                            alt="Playmate Avatar">
-                                                    </div>
+            <tbody>
 
-                                                </a>
-                                            </div>
-                                        @endforeach
+                <tr class="playmate-total-row">
+                    <td class="icon-col">
+                        <i class="fas fa-users"></i>
+                    </td>
+
+                    <td>
+                       Total Playmates
+                    </td>
+
+                    <td class="text-center">
+                        <span class="playmate-count" id="playmate-total-count">
+                            {{ $playmateCount }}
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="icon-col align-middle">
+                        <i class="fas fa-user-friends"></i>
+                    </td>
+
+                    <td colspan="2">
+                        <div class="playmate-list">
+
+                            @foreach($user->playmateHistory->unique('playmate_id') as $item)
+
+                                <div class="playmate-icon">
+
+                                    <a href="javascript:void(0)"
+                                       class="remove-playmate"
+                                       data-id="{{ $item->id }}"
+                                       data-escort_id="{{ $item->escort_id }}"
+                                       data-playmate_id="{{ $item->playmate_id }}"
+                                       title="{{ $item->playmate->name }}">
+
+                                        <img
+                                            src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                            alt="Playmate">
+                                    </a>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                            @endforeach
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
 
     </div>
 </div>
