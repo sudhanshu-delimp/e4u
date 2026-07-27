@@ -46,7 +46,7 @@ class MassageCenterDashboardController extends Controller
     }
     
     $data['otherServices'] = ['email_account' => $totals['email'], 'mobile_sim' => $totals['mobile_sim'], 'product' => $totals['productAmount'], 'support' => $totals['supporte4u'], 'year_to_date_total' => $totals['otherYear']];
-
+dd($data['otherServices']);
     // Advertising 
     // week day record
     $periods = [
@@ -69,12 +69,10 @@ class MassageCenterDashboardController extends Controller
   private function calculateSumOfService(array $services, object $from, string $to, int $userId)
   {
 
-    DB::enableQueryLog();
     $amount = PaymentHistory::where('user_id', $userId)
       ->where('status', 'success')
       ->whereBetween('paid_at', [$from, $to])
       ->whereIn('service', $services)->sum(DB::raw('amount + gst_amount + delivery_charge'));
-    dd(DB::getQueryLog());
     return $amount;
   }
 
