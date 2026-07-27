@@ -402,6 +402,175 @@ a.btn-why {
     color: #d5dce5;
 }
 
+.welcome-modern {
+    color: #fff;
+    padding: 90px 20px;
+    text-align: center;
+}
+
+.welcome-tag {
+    display: inline-block;
+    background: #ff3c5f20;
+    color: #ff5c78;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: clamp(14px, 4vw, 18px);
+}
+
+.welcome-modern h2 {
+    font-size: clamp(24px, 4vw, 48px);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.welcome-modern h5 {
+    font-size: clamp(14px, 4vw, 21px);
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+}
+
+.intro {
+    max-width: 900px;
+    margin: auto;
+    color: #d7deea;
+    line-height: 1.8;
+    margin-bottom: 60px;
+}
+
+.wel_features {
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin: 50px auto;
+}
+
+.wel_feature_item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    color: #132847;
+    padding: 10px 15px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    transition: .35s;
+    font-size: clamp(16px, 4vw, 18px);
+    font-weight: 500;
+}
+
+.wel_feature_icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff3c5f;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.wel_pricing {
+    max-width: 700px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.wel_price_card {
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 24px;
+    padding: 25px;
+    text-align: center;
+    transition: .35s;
+    backdrop-filter: blur(15px);
+}
+
+
+/* .wel_price_card:hover {
+    transform: translateY(-8px);
+    border-color: #ff3c5f;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .25);
+}
+
+.wel_price_card:hover .wel_price_icon {
+    background-color: #ff3c5f;
+} */
+
+
+/* .wel_price_card:hover .wel_price_icon svg {
+    filter: brightness(5) grayscale(1);
+} */
+
+.wel_price_icon {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    border-radius: 50%;
+    background: rgba(255, 60, 95, .12);
+    color: #ff3c5f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    margin-bottom: 22px;
+}
+
+.wel_price_icon i {
+    color: #ff3c5f;
+}
+
+.wel_price_card h3 {
+    color: #fff;
+    font-size: clamp(14px, 4vw, 18px);
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.wel_price_badge {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 50px;
+    background: rgba(255, 60, 95, .15);
+    color: #ff3c5f;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.bottom-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bottom-note .text-shine {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    color: #ff4d6d;
+    font-size: clamp(14px, 4vw, 21px);
+    font-weight: 600;
+    padding: 12px 25px;
+    background: linear-gradient(90deg, #ff3c5f 0%, #ffffff 50%, #ff3c5f 100%);
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShine 3s linear infinite;
+}
+
+@keyframes textShine {
+    to {
+        background-position: 250% center;
+    }
+}
+
 @media(max-width:1024px) {
     .containers {
         grid-template-columns: 1fr;
@@ -419,6 +588,17 @@ a.btn-why {
 }
 
 @media(max-width:425px) {
+    .welcome-modern {
+        color: #fff;
+        padding: 45px 0px;
+        text-align: center;
+    }
+    .wel_pricing {
+        grid-template-columns: 1fr;
+    }
+    .wel_features {
+        grid-template-columns: 1fr;
+    }
     .features {
         grid-template-columns: 1fr;
     }
@@ -437,5 +617,14 @@ a.btn-why {
     }
     .why_cards {
         grid-template-columns: 1fr;
+    }
+    .bottom-note .text-shine {
+        padding: 10px 5px;
+    }
+}
+
+@media (min-width: 426px) and (max-width:768px) {
+    .wel_features {
+        grid-template-columns: 1fr 1fr;
     }
 }
