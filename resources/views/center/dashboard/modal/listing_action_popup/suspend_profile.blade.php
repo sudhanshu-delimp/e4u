@@ -57,7 +57,7 @@
                                             {{-- <div class="col-sm-1"></div> --}}
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-3" for=""> Suspension Period:</label>
+                                            <label class="col-sm-3" for=""> Period:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-sm-5">

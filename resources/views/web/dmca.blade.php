@@ -72,11 +72,11 @@ Perth WA 6845 <br> or: <br>
 E: <a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a> </p>
       <h3 class="primery_color normal_heading">Disclaimer
       </h3>
-      <p>Blackbox Tech Pty Ltd (<b>Blackbox Tech</b>) co-operates with copyright holders when called
+      <p>Blackbox Tech Pty Ltd (<b>Blackbox</b>) co-operates with copyright holders when called
 upon and aims to ensure that their Material is not misused by Advertisers. To the full extent
-permitted by law, Blackbox Tech disclaims all and any claims for any Infringement, expressed
+permitted by law, Blackbox disclaims all and any claims for any Infringement, expressed
 or implied, regarding any use of the Material posted by an Advertiser.<p>
-    <p>Blackbox Tech reserves the right to pursue claims against any person who makes a false
+    <p>Blackbox reserves the right to pursue claims against any person who makes a false
 Report about an Advertiser and the Material, and reserves all of its rights to seek
 compensation for any damages or losses suffered as a result of any false Report.</p>
 

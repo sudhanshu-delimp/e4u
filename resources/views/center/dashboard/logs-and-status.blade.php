@@ -61,7 +61,7 @@
                                 </tr>
                                 <tr>
                                     <td class="icon-col"><i class="fas fa-map"></i></td>
-                                    <td>Territory</td>
+                                    <td> Home State</td>
                                     <td class="text-center" colspan="2">{{ $state ?? '' }}
                                     </td>
                                 </tr>

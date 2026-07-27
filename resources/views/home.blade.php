@@ -1,7 +1,7 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.01') }}">
     <style>
         #parsley-id-5 li {
             margin-left: 0 !important;
@@ -200,7 +200,7 @@
                 <p>
                     In addition to advertising services, we provide trusted information,
                     reviews, concierge services, and support for both Advertisers and
-                    Viewers—all designed to deliver a safe and enjoyable experience.
+                    Viewers, all designed to deliver a safe and enjoyable experience.
                 </p>
 
             </div>
@@ -636,7 +636,7 @@
                 </p>
 
                 <p>
-                    Massage Centres can create a dedicated profile and manage multiple Masseurs
+                    Massage Centres can create a dedicated Profile and manage multiple Masseurs
                     from a single account, making profile management simple and efficient.
                 </p>
 
