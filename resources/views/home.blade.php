@@ -49,7 +49,7 @@
                     </h1>
                 </div>
                     <p>
-                        Browse Australia's premium directory featuring verified Independent Escorts and Massage Centres. Direct contact, privacy and premium listings — The only platform where you pay by the day!
+                        Browse Australia's premium directory featuring verified Independent Escorts and Massage Centres. Direct contact, privacy and premium listings. The only platform where you pay by the day!
 
                     </p>
                     

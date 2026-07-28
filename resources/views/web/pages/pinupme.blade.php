@@ -9,7 +9,7 @@
     @endphp
 
 
-    <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg js_pinup_summary">
+    <section class="home-banner homebanner_bg js_pinup_summary">
         <div class="container-fluid banner_width">
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-5 col-sm-12">
