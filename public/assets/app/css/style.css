@@ -413,38 +413,6 @@ body {
     line-height: 18.5px;
 }
 
-.trikon_style {
-    margin-left: 15px;
-    background: #FFFFFF;
-    padding: 20px 40px !important;
-    position: relative;
-    box-shadow: 2px 1px 12px 2px #7878789e;
-}
-
-.trikon_style:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -20px;
-    left: 10%;
-    width: 0;
-    height: 0;
-    border-color: transparent transparent transparent #fff;
-    border-style: solid;
-    border-width: 10px;
-    transform: rotate(270deg);
-}
-
-div.tip div {
-    position: absolute;
-    padding: 0px;
-    display: block;
-    z-index: 100;
-    right: -198px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
 .manage_toolkit_font {
     font-family: Poppins;
     font-style: normal;
@@ -455,14 +423,14 @@ div.tip div {
 }
 
 .manage_toolkit_font a {
-    color: #2C3E50;
+    color: var(--peach);
     text-decoration: none;
 }
 
 .manage_toolkit_font a:hover,
 .manage_toolkit_font a:active,
 .manage_toolkit_font a:focus {
-    color: #ff3c5f;
+    color: var(--blue--text);
 }
 
 

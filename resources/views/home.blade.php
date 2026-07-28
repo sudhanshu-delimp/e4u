@@ -1,36 +1,17 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.03') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.04') }}">
     <style>
         #parsley-id-5 li {
             margin-left: 0 !important;
         }
 
-        .d_custom_home_img {
-            position: relative;
-        }
-
-        .d_custom_home_img .memmber_info {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            color: #fff;
-            background: #ff3c5a;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 12px;
-        }
-
-        .d_custom_home_img .memmber_info i {
-            color: #fff;
-            font-size: 14px;
-        }
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg">
+    <section class="homebanner_bg home-banner">
         <div class="container-fluid banner_width">
             <div class="row align-items-center">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 js_pinup_profile">
@@ -58,30 +39,39 @@
                             </g>
                         </svg>
                         australia's sexiest and most accessible escorts</span>
-                    <h1 class="home_heading_first">ESCORTS4U DIRECTORY OF:</h1>
-                    <div class="pvt_and_msg">
-                        <h2 class="home-head-icon">
-                            <span>
-                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="icon_esc"
-                                    xmlns="http://www.w3.org/2000/svg">
+                    <div class="hero_right">    
+                    <h1>
+
+                        Discover
+
+                        <span>Premium Escorts</span> & Massage Centres
+
+                    </h1>
+                </div>
+                    <p>
+                        Browse Australia's premium directory featuring verified Independent Escorts and Massage Centres. Direct contact, privacy and premium listings — The only platform where you pay by the day!
+
+                    </p>
+                    
+                    <!-- Feature List -->
+
+                    <div class="hero_features">
+
+                        <div class="hero_feature">
+                            <span><svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="icon_esc" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                     <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z"
-                                            stroke="#ff3c5f" stroke-width="2"></path>
-                                        <path
-                                            d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z"
-                                            stroke="#ff3c5f" stroke-width="2"></path>
+                                        <path d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z" stroke="#ff3c5f" stroke-width="2"></path>
+                                        <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#ff3c5f" stroke-width="2"></path>
                                     </g>
-                                </svg>
-                            </span>
-                            Private Escorts
-                        </h2>
-                        <h2 class="home-head-icon">
+                                </svg></span> Private Escorts
+                        </div>
+
+                        <div class="hero_feature">
+
                             <span>
-                                <svg width="25px" height="25px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
-                                    xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                                <svg width="25px" height="25px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                     <g id="SVGRepo_iconCarrier">
@@ -96,32 +86,21 @@
                                                 }
                                             </style>
                                         </defs>
-                                        <path class="cls-1"
-                                            d="M16.41,12.13a3.32,3.32,0,0,0-.9-.13H4.67A3.17,3.17,0,0,0,1.5,15.17v.34a3.17,3.17,0,0,0,3.17,3.17h6.38">
+                                        <path class="cls-1" d="M16.41,12.13a3.32,3.32,0,0,0-.9-.13H4.67A3.17,3.17,0,0,0,1.5,15.17v.34a3.17,3.17,0,0,0,3.17,3.17h6.38">
                                         </path>
                                         <rect class="cls-1" x="3.41" y="6.27" width="13.36" height="5.73" rx="2.86">
                                         </rect>
                                         <rect class="cls-1" x="5.32" y="1.5" width="9.55" height="4.77" rx="2.39">
                                         </rect>
-                                        <path class="cls-1"
-                                            d="M20.59,16.77H22.5a0,0,0,0,1,0,0v1.91a3.82,3.82,0,0,1-3.82,3.82H16.77a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,20.59,16.77Z">
+                                        <path class="cls-1" d="M20.59,16.77H22.5a0,0,0,0,1,0,0v1.91a3.82,3.82,0,0,1-3.82,3.82H16.77a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,20.59,16.77Z">
                                         </path>
-                                        <path class="cls-1"
-                                            d="M19,17.13a3.81,3.81,0,0,0-.89-4l-1.35-1.35-.36.36-1,1a3.79,3.79,0,0,0-.89,4">
+                                        <path class="cls-1" d="M19,17.13a3.81,3.81,0,0,0-.89-4l-1.35-1.35-.36.36-1,1a3.79,3.79,0,0,0-.89,4">
                                         </path>
-                                        <path class="cls-1"
-                                            d="M14.86,16.77h1.91a0,0,0,0,1,0,0v1.91A3.82,3.82,0,0,1,13,22.5H11a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,14.86,16.77Z"
-                                            transform="translate(-5.73 33.55) rotate(-90)"></path>
+                                        <path class="cls-1" d="M14.86,16.77h1.91a0,0,0,0,1,0,0v1.91A3.82,3.82,0,0,1,13,22.5H11a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,14.86,16.77Z" transform="translate(-5.73 33.55) rotate(-90)"></path>
                                     </g>
-                                </svg>
-                            </span>
-                            Massage Centres
-                        </h2>
+                                </svg></span> Massage Centres
+                        </div>
                     </div>
-                    <p>The easiest platform to view Escorts and Massage Centres from, without all the
-                        fuss. Escorts4U prides itself on integrity, honesty and value. The only platform where you pay by
-                        the day!
-                    </p>
                     @php
                         $states = config('escorts.profile.states');
                         $url = route('find.all');
