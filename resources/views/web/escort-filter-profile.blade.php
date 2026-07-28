@@ -748,7 +748,7 @@
                 </div>
 
             </div>
-
+            @include('web.escort.partials.skelton')
             <div id="escortListing">
 
                 {{-- Grid view using ajax --}}
@@ -918,7 +918,7 @@
         <div class="loader"></div>
     </div> --}}
     
-    @include('web.escort.partials.skelton')
+
 
     @php
         $listingsPreferencesView =
@@ -1085,7 +1085,7 @@
             let params = new URLSearchParams($.param(formData));
 
             // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
-            console.log('jahfdbvkasfjbvks');
+            
             ajaxReq = $.ajax({
                 url: reequestUrl,
                 type: 'GET',
@@ -1093,8 +1093,12 @@
                 dataType: 'json',
 
                 beforeSend: function() {
-                    console.log("beforeSend")
-                     if (showLoader) {                        
+                  
+                     if (showLoader) {
+                        $('#appendGridView').hide();  
+                        $('#appendListView').hide();
+                        $('.no--listing').hide();
+
                         $('#skl-preloader').show();
                     }
                 },
@@ -1133,6 +1137,9 @@
                 },
                 complete: function() {
                       $('#skl-preloader').hide();
+                       $('#appendGridView').show();  
+                        $('#appendListView').show();
+                        $('.no--listing').show();
                     ajaxReq = null;
                 }
             });
