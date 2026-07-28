@@ -1,5 +1,6 @@
 @extends('layouts.web')
 @section('style')
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <style>
         .loader {
@@ -913,9 +914,11 @@
 
     <!-----------------  Page Loader  --------------------->
 
-    <div id="page_loader">
+    {{-- <div id="page_loader">
         <div class="loader"></div>
-    </div>
+    </div> --}}
+    
+    @include('web.escort.partials.skelton')
 
     @php
         $listingsPreferencesView =
@@ -1082,7 +1085,7 @@
             let params = new URLSearchParams($.param(formData));
 
             // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
-
+            console.log('jahfdbvkasfjbvks');
             ajaxReq = $.ajax({
                 url: reequestUrl,
                 type: 'GET',
@@ -1090,8 +1093,9 @@
                 dataType: 'json',
 
                 beforeSend: function() {
-                     if (showLoader) {
-                        $('#page_loader').show();
+                    console.log("beforeSend")
+                     if (showLoader) {                        
+                        $('#skl-preloader').show();
                     }
                 },
                 success: function(response) {
@@ -1128,7 +1132,7 @@
                     }
                 },
                 complete: function() {
-                      $('#page_loader').hide();
+                      $('#skl-preloader').hide();
                     ajaxReq = null;
                 }
             });
