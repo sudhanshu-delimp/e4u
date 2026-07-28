@@ -19,6 +19,7 @@
     color: #666;
     line-height: 1.8;
     font-size: clamp(14px, 4vw, 17px);
+    max-width: 685px;
 }
 
 
@@ -112,7 +113,7 @@ a.home-btn {
 }
 
 .hero_right h1 {
-    font-size: clamp(24px, 4vw, 62px);
+    font-size: clamp(24px, 4vw, 48px);
     line-height: 1.1;
     color: #132847;
     margin-bottom: 25px;
@@ -123,8 +124,9 @@ a.home-btn {
 }
 
 .hero_features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     gap: 15px;
     margin-bottom: 40px;
 }
@@ -139,6 +141,7 @@ a.home-btn {
     box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
     font-weight: 600;
     transition: .35s;
+    width: max-content;
 }
 
 .hero_feature:hover {
@@ -706,7 +709,7 @@ a.btn-why {
         text-align: center;
     }
     .hero_features {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
     .wel_pricing {
         grid-template-columns: 1fr;

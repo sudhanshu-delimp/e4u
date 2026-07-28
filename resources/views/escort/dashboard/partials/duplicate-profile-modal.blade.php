@@ -84,11 +84,11 @@
                                         {{-- <div class="form-group row">
                                             <label class="col-sm-4" for="">
                                                 Street Address:
-                                                <span style='color:#ff3c5f'>*</span>
+                                               
                                             </label>
                                             <div class="col-sm-8">
                                                 
-                                                <input type="text" id="stageNameInp" required="required" name=""
+                                                <input type="text" id="stageNameInp"  name=""
                                                     title="(for public display)"
                                                     class="change_default form-control form-control-sm select_tag_remove_box_sadow"
                                                     data-parsley-required-message="Enter stage name"
