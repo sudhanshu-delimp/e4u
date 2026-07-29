@@ -470,7 +470,7 @@
 
         $('#view_grid').on('click', function() {
             activeView = 'grid';
-           
+
             $('#activeView').val('grid');
             $('#page_loader').show();
 
@@ -488,7 +488,7 @@
 
         $('#view_list').on('click', function() {
             activeView = 'list';
-          
+
             $('#activeView').val('list');
             $('#page_loader').show();
             setTimeout(async function() {
@@ -667,7 +667,7 @@
 
         $(document).on('click', '.lower_filter', async function(e) {
             e.preventDefault();
-        
+
             globalMassageRequest.filter_by_feild = {
                 profile_state: $('#profile_state').val(),
                 profile_city: $('#profile_city').val(),
@@ -685,7 +685,7 @@
         //reset the filter
         $(document).on('click', '.reset_form_filter', async function(e) {
             e.preventDefault();
-            let locByRad= $('input[name="locationByRadio"]:checked').val();
+            let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
             $('#filterForm')[0].reset();
@@ -718,8 +718,8 @@
         });
 
         const TWO_MINUTES = 2 * 60 * 1000; // 2 min
-        setInterval(async function(){
-             await loadData(globalMassageRequest, false);
+        setInterval(async function() {
+            await loadData(globalMassageRequest, false);
         }, TWO_MINUTES);
 
 
@@ -735,7 +735,6 @@
         });
 
         $(document).on('click', '.yes_clear_short_list', async function(e) {
-
             $.ajax({
                 url: "{{ route('web.clear-short-list') }}",
                 type: 'POST',
@@ -757,38 +756,6 @@
             });
         })
 
-
-        function getCurrentLocation() {
-            return new Promise((resolve, reject) => {
-                navigator.geolocation.getCurrentPosition(
-                    position => resolve(position),
-                    error => reject(error), {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
-                );
-            });
-        }
-
-        async function getSafeLocation() {
-            try {
-                const position = await getCurrentLocation();
-                return {
-                    latitude: position?.coords?.latitude ?? null,
-                    longitude: position?.coords?.longitude ?? null
-                };
-
-            } catch (error) {
-
-                console.log('error=======');
-                return {
-                    latitude: null,
-                    longitude: null
-                };
-            }
-        }
-
         function getParameterByName(name, url) {
             name = name.replace(/[\[\]]/g, '\\$&');
             let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -798,20 +765,18 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-
         async function updateLocationFields() {
             let selectedLocation = $('input[name="locationByRadio"]:checked').attr('id');
+            
             if (selectedLocation === 'yourLocation') {
                 //make disable all city
                 $('#profile_city').val('').prop('disabled', true);
-                const {
-                    latitude,
-                    longitude
-                } = await getSafeLocation();
-
-                if (latitude && longitude) {
-                    $("#set_lat").val(latitude);
-                    $("#set_lng").val(longitude);
+                //get storage location.
+                const location = await getLocation();
+            
+                if (location) {
+                    $("#set_lat").val(location?.lat || '');
+                    $("#set_lng").val(location?.lng || '');
                 }
 
                 globalMassageRequest.filter_by_location = {
@@ -841,6 +806,8 @@
         // Run on page load (default selected radio)
         (async function() {
             await updateLocationFields();
+            // Save location in background
+            updateLocation();
         })();
 
         // Run when radio changes
@@ -866,7 +833,65 @@
                 localStorage.setItem('collapseSearchState', 'closed');
             });
 
-
         });
+
+        //local manage latitude and longitude.
+        const LOCATION_KEY = 'user_location';
+        const LOCATION_EXPIRE = 30 * 60 * 1000; // 30 Minutes
+
+
+        function getCurrentLocation() {
+            return new Promise((resolve, reject) => {
+
+                if (!navigator.geolocation) {
+                    return reject('Geolocation not supported');
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    position => resolve({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }),
+                    error => reject(error), {
+                        enableHighAccuracy: false,
+                        timeout: 5000,
+                        maximumAge: LOCATION_EXPIRE
+                    }
+                );
+
+            });
+        }
+
+        //update locaiton Background
+        async function updateLocation() {
+            try {
+                const location = await getCurrentLocation();
+
+                localStorage.setItem(LOCATION_KEY, JSON.stringify({
+                    ...location,
+                    updated_at: Date.now()
+                }));
+
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        //Get Stored Location
+        async function getLocation() {
+            let location = JSON.parse(localStorage.getItem(LOCATION_KEY));
+            // No location found
+            if (!location) {
+                updateLocation(); // background
+                return null;
+            }
+            // Expired
+            if ((Date.now() - location.updated_at) > LOCATION_EXPIRE) {
+                updateLocation(); // refresh in background
+            }
+            return location;
+        }
+
+
     </script>
 @endpush
