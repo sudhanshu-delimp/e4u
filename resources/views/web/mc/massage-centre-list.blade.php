@@ -94,13 +94,17 @@
             <div class="row">
 
 
+                 <!-- ////// Include the Skeleton Grid Type ////////// -->
+                 @include('web.mc.mc-grid-skeleton')
 
+                 
+                 <!-- ////// Include the Skeleton List Type ////////// -->
+                 @include('web.mc.mc-list-skeleton')
 
                 <!-- ////// Grid View ///////////////// -->
                 <div class="col-sm-12" id="grid_view">
                     <h2 class="mc_view_title">Grid View</h2>
                     <div class="mc_card_container"></div>
-
 
                 </div>
 
@@ -120,9 +124,9 @@
 
 
 
-                <div id="page_loader">
+                {{-- <div id="page_loader">
                     <div class="loader"></div>
-                </div>
+                </div> --}}
 
             </div>
 
@@ -281,7 +285,6 @@
             view_type: 'null',
         };
 
-        window.is_page_reload = 0;
 
         $(document).on('click', '.add_to_favrate', function() {
             if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
@@ -402,41 +405,14 @@
 
         var activeView = '{{ $listingsPreferencesView }}';
         globalMassageRequest.view_type = activeView;
-        var clickTab = '{{ isset($clickTab) ? $clickTab : 0 }}';
 
-        var storage_view = localStorage.getItem('storage_view');
-        var isClickGridList = localStorage.getItem('isClickGridList');
-
-
-        if (isClickGridList == null || isClickGridList == 0) {
-            localStorage.setItem('isClickGridList', 0);
-            isClickGridList = 0;
-        } else {
-            isClickGridList = localStorage.getItem('isClickGridList');
-        }
-
-        if (!storage_view) {
-            localStorage.setItem('storage_view', activeView);
-        } else {
-            activeView = localStorage.getItem('storage_view');
-        }
-
-        if (clickTab == 1) {
-            isClickGridList = 0;
-        }
-
-        if (isClickGridList == 0) {
-            activeView = '{{ $listingsPreferencesView }}';
-        }
-
-
-        if (activeView == 'list') {
+        if (globalMassageRequest.view_type == 'list') {
             $('#view_grid').removeClass('view-active');
             $('#view_list').addClass('view-active active');
             $('#activeView').val(activeView);
         }
 
-        if (activeView == 'grid') {
+        if (globalMassageRequest.view_type == 'grid') {
             $('#view_list').removeClass('view-active');
             $('#view_grid').addClass('view-active active');
             $('#activeView').val(activeView);
@@ -463,6 +439,25 @@
             }
         }
 
+        function toggleSkeleton(grid = false, list = false) {
+            $('#grid-skeleton').toggle(grid);
+            $('#list-skeleton').toggle(list);
+        }
+
+        function toggleViewTitle(show = true) {
+            $('#grid_view .mc_view_title, #list_view .mc_view_title').toggle(show);
+        }
+
+        function toggleView(grid = true, list = false) {
+            $('#grid_view').toggle(grid);
+            $('#list_view').toggle(list);
+        }
+
+        function toggleContainer(grid = true, list = false) {
+            $('.mc_card_container').toggle(grid);
+            $('.mc_list_container').toggle(list);
+        }
+
 
         /* ===============================
            VIEW SWITCH
@@ -472,35 +467,43 @@
             activeView = 'grid';
 
             $('#activeView').val('grid');
-            $('#page_loader').show();
+            toggleContainer(grid=true, list=false);
+            toggleSkeleton(grid = true, list = false);
+
+            //set view type in global varaiable
+            globalMassageRequest.view_type = 'grid';
 
             setTimeout(async function() {
-                $('#grid_view').show();
-                $('#list_view').hide();
-                $('#page_loader').hide();
+                toggleSkeleton(grid=false, list=false);
+                toggleViewTitle(true);
+                toggleView(grid=true, list=false);
+                
             }, 500);
             $('.view-active').removeClass('view-active');
             $(this).addClass('view-active active');
-            localStorage.setItem('storage_view', activeView);
-            localStorage.setItem('isClickGridList', 1);
-            clickTab = 0;
+      
         });
 
         $('#view_list').on('click', function() {
             activeView = 'list';
-
             $('#activeView').val('list');
-            $('#page_loader').show();
+
+            toggleContainer(grid=false, list=true);
+            //hide show 
+            toggleSkeleton(grid = false, list = true);
+
+            //set view type in global varaiable
+            globalMassageRequest.view_type = 'list';
+            
             setTimeout(async function() {
-                $('#list_view').show();
-                $('#grid_view').hide();
-                $('#page_loader').hide();
+                toggleSkeleton(grid = false, list = false);
+                toggleViewTitle(true);
+                toggleView(grid=false, list=true);
+
             }, 500);
             $('.view-active').removeClass('view-active active');
             $(this).addClass('view-active active');
-            localStorage.setItem('storage_view', activeView);
-            localStorage.setItem('isClickGridList', 1);
-            clickTab = 0;
+
         });
 
 
@@ -539,9 +542,15 @@
                 url: "{{ route('mc-ajax-list') }}",
                 data: requestParam,
                 beforeSend: function() {
-                    if (showLoader) {
-                        $('#page_loader').show();
+                    toggleViewTitle(false);
+                    toggleContainer(grid=false, list=false);
+                    if(requestParam.view_type == 'grid'){
+                        toggleSkeleton(grid = true, list = false);
+                       
+                    }else{
+                        toggleSkeleton(grid = false, list = true);
                     }
+        
                 },
                 success: function(res) {
                     $('.mc_card_container').html(res.grid);
@@ -555,16 +564,20 @@
 
                     $('#common_pagination').html(res.pagination);
 
-                    if ($('#activeView').val() === 'grid') {
-                        $('#list_view').hide();
-                        $('#grid_view').show();
+                    //show heading
+                    toggleViewTitle(true);
+                   
+
+                    if (requestParam.view_type == 'grid') {
+                        toggleContainer(grid=true, list=false);
+                        toggleView(grid = true, list=false);
                     } else {
-                        $('#grid_view').hide();
-                        $('#list_view').show();
+                        toggleContainer(grid=false, list=true);
+                        toggleView(grid = false, list=true);
                     }
                 },
                 complete: function() {
-                    $('#page_loader').hide();
+                     toggleSkeleton(grid = false, list = false);
                 }
             });
         }
