@@ -99,7 +99,6 @@ class HomeController extends Controller
         // ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
         ->whereDoesntHave('activeSuspendProfile')
         ->count();
-        dd($memberTotalCount);
 
         return view('home',compact('state','pricing','memberTotalCount','massageLiveCount'));
     }
