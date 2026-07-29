@@ -62,16 +62,16 @@
                                             your Location.
                                         </p>
                                         <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>Profile section</li>
-                                    <li>Listing period</li>
-                                    <li>Membership Type</li>
-                                    <li>Payment</li>
-                                </ul>
+                                        <ul class="custom-ul">
+                                            <li>Choose Profile</li>
+                                            <li>Start and End dates</li>
+                                            <li>Membership Type</li>
+                                            <li>Payment</li>
+                                        </ul>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/add-listing-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/add-listing-scr.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -79,9 +79,9 @@
 
                                 
 
-                                <h5><b>How is it done</b></h5>
+                                <h5><b>How is it done - New Listing</b></h5>
                                             <p>
-                                                Only 4 steps to complete then Payment. Start by selecting the Profile you want to List from
+                                                Only 4 steps to complete then including Payment. Start by selecting the Profile you want to List from
                                                 the drop down list. You will see all of your available Profiles in the list. Once you have
                                                 selected the Profile to list, then set your Start and End dates. And finally, select the
                                                 Membership Type you want for the Listing. There are three levels of Membership, Platinum,
@@ -93,7 +93,7 @@
                                                 <li>Silver. You appear at the bottom of the Listings.</li>
                                             </ul>
                                             <p>
-                                               The Listings, for each Membership Type, reshuffle every two hours so that all the Profiles are
+                                               The Listings, for each Membership Type, reshuffle every thirty minutes so that all the Profiles are
                                                 at some point in the cycle towards the top of each Membership Type.
                                             </p>
                                             <p>
@@ -122,7 +122,7 @@
                                 <div class="row my-4">
                                     <div class="col-lg-7">
                                         <p>
-                                            All of you Current Listings are summarised here. Important
+                                            All of your Current and Upcoming Listings are summarised here. Important
                                             information about your Listings can be gleamed from the report,
                                             like your start and finish dates, and the Fee you paid E4U for
                                             the Listing.
@@ -138,18 +138,18 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/current-listing-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/current-listing-scr.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
                                 </div>
 
                                
-                                <h5><b>How is it done</b></h5>
+                                <h5><b>How is it done - Current</b></h5>
                                 <p>
                                     After you list a Profile, the key data associated with the Profile and Listing are summarised
                                     in the report. The report is a record only so that you can look back over your Listings
-                                    historically while they are current.
+                                    historically while they are still current or Upcoming.
                                 </p>
                                 <p>
                                     Once the Listing expires, the Listing is removed from the report and relocated to Past.
@@ -196,7 +196,7 @@
 
                                
 
-                                <h5><b>How is it done</b></h5>
+                                <h5><b>How is it done - Past</b></h5>
                                 <p>
                                     Once your Listing has expired the Listing / Profile data summary appears in the report. You
                                     can order the report’s content according to your preference. For example, you may want to
