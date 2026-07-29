@@ -1,7 +1,7 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.04') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.06') }}">
     <style>
         #parsley-id-5 li {
             margin-left: 0 !important;
@@ -48,11 +48,8 @@
 
                     </h1>
                 </div>
-                    <p>
-                        Browse Australia's premium directory featuring verified Independent Escorts and Massage Centres. Direct contact, privacy and premium listings. The only platform where you pay by the day!
 
-                    </p>
-                    
+                
                     <!-- Feature List -->
 
                     <div class="hero_features">
@@ -101,6 +98,12 @@
                                 </svg></span> Massage Centres
                         </div>
                     </div>
+
+                    <p>
+                        Browse Australia's premium directory featuring verified Independent Escorts and Massage Centres. Direct contact, privacy and premium listings. The only platform where you pay by the day!
+
+                    </p>
+                    
                     @php
                         $states = config('escorts.profile.states');
                         $url = route('find.all');

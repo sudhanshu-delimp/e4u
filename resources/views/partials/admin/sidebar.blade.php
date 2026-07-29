@@ -647,7 +647,7 @@
                                     style="{{ request()->is('*advertiser-suspensions*') ? 'color: #FF3C5F;' : '' }}">Suspensions</span>
                             </a>
                             <a class="nav-link collapsed"
-                                href="{{ route('admin.transaction-summary') }}">
+                                href="{{ route('admin.payment.transaction_summary') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/transaction-summary.png') }}">
                                 <span
