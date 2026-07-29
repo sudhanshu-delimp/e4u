@@ -140,7 +140,7 @@
                 {
                     data: 'completed_by_member_id',
                     name: 'completedByUser.member_id',
-                    searchable: true,
+                    searchable: false,
                     orderable: false,
                     defaultContent: 'NA'
                 },
