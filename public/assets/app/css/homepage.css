@@ -19,7 +19,8 @@
     color: #666;
     line-height: 1.8;
     font-size: clamp(14px, 4vw, 17px);
-    max-width: 685px;
+    max-width: 680px;
+    text-align: justify;
 }
 
 
