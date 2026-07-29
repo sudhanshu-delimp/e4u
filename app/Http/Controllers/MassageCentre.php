@@ -145,7 +145,6 @@ class MassageCentre extends Controller
             }
         }
 
-
             $massage_live_ids = MassagePurchase::where('status', 'listed')
             ->whereHas('user', function ($q) {
                 $q->where('status', 1);
