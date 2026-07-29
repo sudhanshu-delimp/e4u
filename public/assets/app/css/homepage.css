@@ -95,9 +95,9 @@
 
 .buttons {
     display: flex;
-    gap: 18px;
+    gap: 25px;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 25px;
 }
 
 a.home-btn {
@@ -127,8 +127,8 @@ a.home-btn {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 40px;
+    gap: 25px;
+    margin-bottom: 25px;
 }
 
 .hero_feature {
