@@ -434,9 +434,6 @@
                                 -webkit-box-orient: vertical;
                                 margin-bottom: 0px;
                             }
-                            .trikon_style {
-                                padding: 10px !important;
-                            }
                             .welcome_sub_login_heading {
                                 line-height: 1.4;
                                 margin-bottom: 0px;
@@ -456,6 +453,15 @@
                             }
                             .all-escort-view-profile-btn .custom-view-profile {
                                 width: 100%;
+                            }
+                            .tip .trikon_style {
+                                bottom: -40px !important;
+                                transform: translate(-50%);
+                                text-decoration: none;
+                            }
+                            .tip .trikon_style .pinup-icon {
+                                width: 15px;
+                                height: 15px;
                             }
                         }
                         
@@ -681,10 +687,6 @@
                         }
                         
                         @media (max-width:1024px) {
-                            div.tip div {
-                                position: absolute;
-                                right: 0;
-                            }
                             .js_pinup_profile {
                                 margin-bottom: 50px;
                             }

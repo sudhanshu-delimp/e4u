@@ -60,7 +60,8 @@
                                         
                                     </div> 
                                      <div class="modal-footer" style="text-align: right; display: block;">
-                                        <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
+                                        <button type="submit" class="btn-success-modal" id="save_brb">Do you want to Post?</button>
+                                        <button type="submit" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                                     </div>                                   
                                 </form>
                             </div>

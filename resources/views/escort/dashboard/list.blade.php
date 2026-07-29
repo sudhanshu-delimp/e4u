@@ -95,8 +95,17 @@
                             function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
                             or
                             View the Profile.</li>
-                        <li>To display your Playmates avatar in any Profile, select Add Playmates from Action. You can add multiple Playmates. Only your Playmates in the Location the Profile is Listed at the time can be added to the Profile. If your Playmate leaves the Location while your Profile is Active, or they Suspend their Profile, they will be automatically removed from the Profile for the suspended period and permanently if they have left the Location.</li>
-
+                            @if($type != 'past')
+                                <li>
+                                    To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong> from Action.
+                                    You can add multiple Playmates. Only your Playmates in the Location the Profile is listed at the time
+                                    can be added to the Profile. If your Playmate leaves the Location while your Profile is active, or
+                                    they suspend their Profile, they will be automatically removed from the Profile for the suspended
+                                    period, and permanently if they have left the Location.
+                                </li>
+                            @endif
+                                
+                            
                     </ol>
                 </div>
             </div>
@@ -131,7 +140,7 @@
 
                                 <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
-                                    Extend Profile
+                                    Extend Listing
                                     <span class="esc-tooltip-2">Extend your Profile to a <br> new end date</span>
                                 </button>
                                 <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
@@ -141,7 +150,7 @@
                                 </button>
                                 <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#suspend_profile"
-                                    id="btn_suspend_profile">Suspend Profile
+                                    id="btn_suspend_profile">Suspend Listing
                                     <span class="esc-tooltip-2">Take down your Profile <br> for a set period</span>
                                 </button>
 
@@ -197,7 +206,7 @@
                 <h5 class="modal-title">
                     <img src="{{ asset('/assets/dashboard/img/extend-profile.png') }}" class="custompopicon"
                         alt="extend">
-                    Extend Profile
+                    Extend Listing
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -314,7 +323,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="">
                             <img src="{{ asset('assets/app/img/deactivate.png') }}" class="custompopicon"
-                                alt="cross"> Suspend Profile
+                                alt="cross"> Suspend Listing
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"><img id="modal_close"
@@ -341,7 +350,7 @@
                                         {{-- <div class="col-sm-1"></div> --}}
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-3" for=""> Suspension Period:</label>
+                                        <label class="col-sm-3" for=""> Period:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-sm-5">

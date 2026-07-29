@@ -87,6 +87,10 @@ class PaymentHistory extends Model
   {
     return $this->belongsTo('App\Models\User', 'updated_by');
   }
+  // public function completedBy()
+  // {
+  //   return $this->belongsTo('App\Models\User', 'completed_by');
+  // }
 
   // Agent Commission
   public function commissions()

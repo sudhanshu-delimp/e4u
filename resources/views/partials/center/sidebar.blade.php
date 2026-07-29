@@ -81,8 +81,7 @@
                  <a class="collapse-item" href="{{ route('center.profile.avatar') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
 
-                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
-                         avatar</span></a>
+                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload Our Avatar</span></a>
                  @endif
 
              </div>
