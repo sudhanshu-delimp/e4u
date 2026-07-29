@@ -185,7 +185,8 @@
                 </div>
 
             </div>
-            @include('web.escort.partials.skelton')
+            @include('web.escort.partials.escort-grid-skeleton')
+            @include('web.escort.partials.escort-list-skeleton')
             <div id="escortListing">
 
                 {{-- Grid view using ajax --}}
@@ -394,7 +395,7 @@
 
             if (selectedLocation === 'yourLocation') {
                 //make disable all city
-                $('#profile_city').val('').prop('disabled', true);
+                $('#escort_city').val('').prop('disabled', true);
                 //get storage location.
                 const location = await getLocation();
                 if (location) {
@@ -411,7 +412,7 @@
                 };
             } else {
                 //make emable all city
-                $('#profile_city').val('').prop('disabled', false);
+                $('#escort_city').val('').prop('disabled', false);
 
                 $("#set_lat").val('');
                 $("#set_lng").val('');
@@ -449,6 +450,7 @@
         $(document).on('click', '#grid-modal', function() {
             // Active class
             //action = 'client_action'
+            toggleSkeleton(grid = true, list = false);
             setProfileView('grid');
             escortRequest.view_type = 'grid';
             loadEscort();
@@ -456,6 +458,7 @@
         // when click on list button
         $(document).on('click', '#grid-list', function() {
             //action = 'client_action'
+            toggleSkeleton(grid = false, list = true);
             setProfileView('list');
             escortRequest.view_type = 'list';
             loadEscort();
@@ -502,6 +505,11 @@
 
             await loadEscort();
         });
+
+        function toggleSkeleton(grid = false, list = false) {
+            $('#grid-skeleton').toggle(grid);
+            $('#list-skeleton').toggle(list);
+        }
 
         //Load Card data with loadEscort function
 
@@ -557,7 +565,7 @@
             let params = new URLSearchParams($.param(formData));
 
             // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
-            console.log(reequestParam, 'reequestParam......');
+
             ajaxReq = $.ajax({
                 url: reequestUrl,
                 type: 'GET',
@@ -565,17 +573,30 @@
                 dataType: 'json',
 
                 beforeSend: function() {
+                    if(reequestParam.view_type == 'grid'){
+                        toggleSkeleton(grid = true, list = false);
+                       
+                    }else{
+                        toggleSkeleton(grid = false, list = true);
+                    }
 
                     if (showLoader) {
                         $('#appendGridView').hide();
                         $('#appendListView').hide();
                         $('.no--listing').hide();
-
-                        $('#skl-preloader').show();
                     }
                 },
                 success: function(response) {
-                    console.log('request load');
+
+                         // Update membership counts from AJAX response
+                        const memberCounts = response.memberTotalCount || {1: 0, 2: 0, 3: 0, 4: 0};
+                        const totalMemberCount = Object.values(memberCounts).reduce((sum, count) => sum + (Number(count) || 0), 0);
+
+                        $('.totalEscortListingCount').text(totalMemberCount || 0);
+                        $('#totalEscortListingCount').text(totalMemberCount || 0);
+                        $('#p1_escort_count').text(memberCounts[1] || 0);
+                        $('#g2_escort_count').text(memberCounts[2] || 0);
+                        $('#s3_escort_count').text(memberCounts[3] || 0);
 
                     if (response.total_count > 0) {
                         const isGrid = response.view_type === 'grid';
@@ -583,6 +604,9 @@
                         $('#appendListView').html(!isGrid ? response.data : '').toggle(!isGrid);
                         $('#custom_pagenation').html(response.pagination);
                         $('.no--listing').hide();
+
+
+
                         //update page number
                         localStorage.setItem('page', response.page);
                         //update selected shortlist count
@@ -594,12 +618,7 @@
                         $('.no--listing').show();
                     }
 
-                    // for scrolling 
-                    // let target = $('#escortListing');
-                    // $('html, body').animate({
-                    //     scrollTop: target.offset().top - 20
-                    // }, 200);
-
+            
 
                 },
                 error: function(xhr, status) {
@@ -608,10 +627,10 @@
                     }
                 },
                 complete: function() {
-                    $('#skl-preloader').hide();
+                    toggleSkeleton(grid = false, list = false);
                     $('#appendGridView').show();
                     $('#appendListView').show();
-                    $('.no--listing').show();
+                    
                     ajaxReq = null;
                 }
             });
@@ -685,7 +704,7 @@
                 page: 1
             });
 
-            Object.assign(escortRequest.filter_by_field, {
+           escortRequest.filter_by_field = {
                 services: $('input[name="services[]"]:checked').map(function() {
                     return $(this).val();
                 }).get(),
@@ -696,9 +715,8 @@
                 duration_price: $('#escort_duration_price').val(),
                 playmate_status: $('#escort_playmate_status').val(),
                 varify_list: $('#escort_varify_list').val(),
-            });
+            };
 
-            console.log(escortRequest);
 
             loadEscort();
 

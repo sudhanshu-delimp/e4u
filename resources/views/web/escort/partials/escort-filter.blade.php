@@ -397,7 +397,7 @@
                                                                             {{ $memberTitle }} :
 
                                                                         </span>
-                                                                        <span>
+                                                                        <span class="totalEscortListingCount">
 
                                                                             {{ $memberTotalCountSum }}
 
@@ -417,7 +417,7 @@
                                                                             onclick="getMemberWiseCount('all')">
                                                                             <span class="firts-text">Total Listings
                                                                                 :</span>
-                                                                            <span class="firts-text"
+                                                                            <span class="firts-text" class="totalEscortListingCount"
                                                                                 id="totalEscortListingCount">{{ array_sum($memberTotalCount) }}</span>
                                                                         </a>
                                                                     </li>

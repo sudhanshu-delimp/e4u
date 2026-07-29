@@ -276,8 +276,7 @@ class EscortListingController extends Controller
             3 => $silver->count(),
             4 => $free->count(),
         ];
-
-
+       
         // Apply position rules: Pin Up → Bump Up → Upgrade → General (per membership group)
         $filterStateId = $params['state_id'];
         $result = collect();
@@ -319,7 +318,8 @@ class EscortListingController extends Controller
                 'view_type' => $viewType,
                 'total_count' => count($currentItems ?? 0),
                 'page' => $page,
-                'pagination' => view('web.escort.partials.pagination', compact('paginator'))->render()
+                'pagination' => view('web.escort.partials.pagination', compact('paginator'))->render(),
+                'memberTotalCount' => $memberTotalCount
 
             ]);
         }
