@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Escort;
+use App\Models\MassagePurchase;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Repositories\State\StateInterface;
@@ -64,7 +66,20 @@ class HomeController extends Controller
                 ->where('payment_status', 'Success')->get()->toArray();
         }
         $state = $this->state->allByCountryId();
-        return view('home',compact('state','pricing'));
+        $memberTotalCount = Escort::where('enabled', 1)
+        ->select('membership')
+        ->distinct()
+        ->count('membership');
+
+        $massageLiveCount = MassagePurchase::where('status', 'listed')
+        ->whereHas('user', function ($q) {
+            $q->where('status', 1);
+        })
+        // ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
+        ->whereDoesntHave('activeSuspendProfile')
+        ->count();
+
+        return view('home',compact('state','pricing','memberTotalCount','massageLiveCount'));
     }
     // public function ipTrack(Request $request)
     // {
