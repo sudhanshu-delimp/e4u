@@ -66,10 +66,31 @@ class HomeController extends Controller
                 ->where('payment_status', 'Success')->get()->toArray();
         }
         $state = $this->state->allByCountryId();
-        $memberTotalCount = Escort::where('enabled', 1)
-        ->select('membership')
-        ->distinct()
-        ->count('membership');
+        $query = Escort::query()
+            ->where('enabled', 1)
+            ->with([
+                'currentActivePinup',
+                'activeBumpup',
+                'latestActiveBrb:id,profile_id,selected_time',
+                'gallary' => function ($q) {
+                    $q->wherePivot('position', 1)
+                    ->select('escorts_medias.id', 'path');
+                },
+                'escort_videos',
+                'city:id,name',
+                'oneHourDuration',
+                'user:id,profile_creator',
+                'durations:id,name',
+                'purchase' => function ($q) {
+                    $q->where('status', 'listed');
+                },
+            ]);
+
+        // Membership categories count (Result: 4)
+        $memberTotalCount = (clone $query)
+            ->select('membership')
+            ->distinct()
+            ->count('membership');
 
         $massageLiveCount = MassagePurchase::where('status', 'listed')
         ->whereHas('user', function ($q) {
@@ -78,6 +99,7 @@ class HomeController extends Controller
         // ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
         ->whereDoesntHave('activeSuspendProfile')
         ->count();
+        dd($memberTotalCount);
 
         return view('home',compact('state','pricing','memberTotalCount','massageLiveCount'));
     }
