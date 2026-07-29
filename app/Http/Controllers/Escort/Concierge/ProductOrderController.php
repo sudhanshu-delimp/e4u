@@ -52,7 +52,9 @@ class ProductOrderController extends Controller
   public function makeOrderPayment(Request $request, PinPaymentService $pinPaymentService)
   {
     try {
+            $completedBy =  $request->isImpersonated ? $request->impersonatedId : $this->account->id;
 
+ 
       DB::beginTransaction();
 
       $data = $request->all();
@@ -248,12 +250,15 @@ class ProductOrderController extends Controller
       }
       $total_payable_amount = $gst_amount + $subtotal + $deliveryCharges;
       $paidAmount = $total_payable_amount - $walletAmount;
-      
+
+      $completedBy =  $request->isImpersonated ? $request->impersonatedId : $this->account->id;
+
       $metadata = [
         'console' => 'Escort Console (E20189)',
         'type' => 'product-purchase',
         'order_id' => $order->id,
         'user_id' => Auth::user()->id,
+        'completed_by' => $completedBy,
         'net_amount' => $netAmount,
         'sub_total_amount' => $subtotal,
         'delivery_charge' => $deliveryCharges,
