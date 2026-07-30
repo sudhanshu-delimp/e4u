@@ -68,19 +68,8 @@ class HomeController extends Controller
         $state = $this->state->allByCountryId();
         $query = Escort::query()
             ->where('enabled', 1)
-            ->with([
-                'currentActivePinup',
-                'activeBumpup',
-                'latestActiveBrb:id,profile_id,selected_time',
-                'gallary' => function ($q) {
-                    $q->wherePivot('position', 1)
-                    ->select('escorts_medias.id', 'path');
-                },
-                'escort_videos',
-                'city:id,name',
-                'oneHourDuration',
-                'user:id,profile_creator',
-                'durations:id,name',
+           
+               ->with([
                 'purchase' => function ($q) {
                     $q->where('status', 'listed');
                 },
@@ -91,7 +80,7 @@ class HomeController extends Controller
             ->select('membership')
             ->distinct()
             ->count('membership');
-
+// dd($memberTotalCount);
         $massageLiveCount = MassagePurchase::where('status', 'listed')
         ->whereHas('user', function ($q) {
             $q->where('status', 1);
