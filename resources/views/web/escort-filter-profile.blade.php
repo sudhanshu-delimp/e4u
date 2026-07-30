@@ -744,6 +744,23 @@
 
         });
 
+
+        $(document).on('change', '#limit', function(e) {
+             e.preventDefault();
+            let limitVal = $(this).val();
+
+            escortRequest.page = 1;
+            escortRequest.filter_by_location = {
+                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                lat: $('#set_lat').val(),
+                lng: $('#set_lng').val(),
+                limit: $('#limit').val(),
+                search_by_radio: getSearchByRadioValue
+            };
+            loadEscort();
+            
+        });
+
         function getMemberWiseCount(membership_type) {
             escortRequest.page = 1;
             escortRequest.membership_type = membership_type;

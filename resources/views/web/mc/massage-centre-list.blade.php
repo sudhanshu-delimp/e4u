@@ -518,6 +518,8 @@
 
 
 
+
+
         /* ===============================
            AJAX LOAD FUNCTION
         =============================== */
@@ -664,6 +666,21 @@
                 set_lat: $('#set_lat').val(),
                 set_lng: $('#set_lng').val(),
                 per_page: $('#per_page').val()
+            }
+
+            await loadData();
+        });
+
+
+        /////// Per Page ///////////////
+        $(document).on('change', '#per_page', async function(e) {
+            e.preventDefault();
+            let val = $(this).val();
+            globalMassageRequest.filter_by_location = {
+                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                set_lat: $('#set_lat').val(),
+                set_lng: $('#set_lng').val(),
+                per_page: val,
             }
 
             await loadData();
