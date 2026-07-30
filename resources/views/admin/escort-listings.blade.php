@@ -167,7 +167,7 @@
         </div>
     </div>
 </div>
-@include('modal.pin-change')
+@include('modal.pin-change',['mode'=>'pinAuth'])
 @endsection
 
 @push('script')
@@ -347,6 +347,8 @@
                                     aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="` + row.profileUrl + `" target="_blank"><i class="fa fa-eye "></i> View Listing
                                     </a>
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SetPinModal" data-purchase-id=${row.id}><i class="fa fa-ban "></i> Suspend 
+                                    </a>
                                 </div>
                             </div>
                         `;
@@ -363,7 +365,6 @@
                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-listing" 
                                     data-toggle="modal" data-target="#view-listing" data-id="` + row.escort.id + `" href="#">
                                         <i class="fa fa-eye "></i> View Listing
-                                        
                                     </a>
                                 </div>
                             </div>
@@ -415,6 +416,38 @@
             checkAndApplyResponsive();
         });
     });
+
+    var purchaseId = 0;
+    $("#SetPinModal").on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let modalObject = $(this);
+        purchaseId = button.data('purchase-id');
+
+        modalObject.find('input[name="action"]').val('suspendListedProfile');
+    });
+
+    var suspendListedProfile = function() {
+        $.ajax({
+            url: `{{route('admin.suspend_listed_profile', '_PURCHASE_')}}`.replace('_PURCHASE_', purchaseId),
+            method: 'GET',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            beforeSend: function() {
+                showLoadingPopup('Processing Payment', 'Do not refresh or close this page.');
+            },
+            success: function(response, textStatus, xhr) {
+                Swal.close();
+                displaySwal(xhr);
+
+            },
+            error: function(xhr) {
+                Swal.close();
+                displaySwal(xhr);
+            }
+        });
+    }
 </script>
 
 @endpush

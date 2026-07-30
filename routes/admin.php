@@ -139,6 +139,7 @@ Route::post('/massage-center-listing/{type?}', [GlobalMonitoringController::clas
 Route::get('escort-listings', [GlobalMonitoringController::class, 'escortListing'])->name('admin.escort-listings');
 Route::get('/data-table-escort-listing/{type?}', [GlobalMonitoringController::class, 'dataTableEscortListingAjax'])->name('escort.current.list.escort-dataTableListing');
 Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableEscortSingleListingAjax'])->name('escort.current.single-list.escort-dataTableListing');
+Route::get('/suspend-purchase/{purchase}', [GlobalMonitoringController::class, 'suspendListedProfile'])->name('admin.suspend_listed_profile');
 
 # Logged in users monitoring routes
 Route::get('logged-in-users', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
