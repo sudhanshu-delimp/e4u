@@ -942,10 +942,8 @@
                 type: 'GET',
                 dataType: 'json',
                 beforeSend: function() {
-                    $('#page_loader').show();
-                    $('#service_id_one').html("");
-                    $('#service_id_two').html("");
-                    $('#service_id_three').html("");
+                        $('#page_loader').show();
+                           
                 },
                 success: function(response) {
                     if (response.status == true) {
@@ -972,7 +970,6 @@
         $('body').on('change', '#service_id_one', function() {
             const selectedIdOne = $('#service_id_one').val();
             const getNameOne = $(this).children(':selected').attr('id');
-
             if (selectedIdOne) {
                 $('#selectedService').append(`
                     <li class="seleceted_service_text_and_icon" id="hideenclassOne_${selectedIdOne}">
