@@ -244,6 +244,9 @@
                                 top: -90px;
                                 z-index: 9;
                             }
+                            .hero-btn:last-child {
+                                margin-left: 0px !important;
+                            }
                             .next-preview-fixed>div>div.previous_btn_profile {
                                 left: 15px;
                                 width: auto;
