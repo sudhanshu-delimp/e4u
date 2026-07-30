@@ -368,7 +368,16 @@
             membership_type: null,
             view_type: 'null',
 
-            filter_by_field: {},
+            filter_by_field: {
+                services: [],
+                city: null,
+                gender:null,
+                age: null,
+                price: null,
+                duration_price:null,
+                playmate_status: null,
+                varify_list: null,
+            },
 
             filter_by_location: {
                 locationByRadio: null,
@@ -704,10 +713,12 @@
                 page: 1
             });
 
-           escortRequest.filter_by_field = {
-                services: $('input[name="services[]"]:checked').map(function() {
+            let service = $('#selectedService input[name="services[]"]').map(function() {
                     return $(this).val();
-                }).get(),
+                }).get();
+
+           escortRequest.filter_by_field = {
+                services:service,
                 city: $('#escort_city').val(),
                 gender: $('#escort_gender').val(),
                 age: $('#escort_age').val(),
@@ -716,7 +727,6 @@
                 playmate_status: $('#escort_playmate_status').val(),
                 varify_list: $('#escort_varify_list').val(),
             };
-
 
             loadEscort();
 
