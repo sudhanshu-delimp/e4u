@@ -146,6 +146,18 @@ a.home-btn {
     width: max-content;
 }
 
+.hero_feature p {
+    margin-bottom: 0px;
+    line-height: 20px;
+    font-weight: bold;
+    color: #0c223d;
+}
+
+.hero_feature p small {
+    font-weight: 400;
+    font-size: 70%;
+}
+
 .hero_feature:hover {
     transform: translateY(-5px);
 }
