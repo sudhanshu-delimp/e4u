@@ -3751,7 +3751,7 @@ i.fa {
 }
 
 img.custompopicon {
-    max-width: clamp(35px, 4vw, 45px);
+    max-width: clamp(25px, 4vw, 32px);
     margin-right: 0.5rem;
 }
 
@@ -10064,6 +10064,11 @@ p.blog-link {
 .my-play-box-profile-icon a img {
     width: 25px;
     filter: brightness(10);
+}
+
+.pin-location-pinup img {
+    width: clamp(35px, 4vw, 45px);
+    margin-right: .5rem;
 }
 
 .my-play-box-profile-icon,

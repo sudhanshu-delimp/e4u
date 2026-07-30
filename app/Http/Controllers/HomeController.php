@@ -75,21 +75,15 @@ class HomeController extends Controller
                     $q->where('status', 'listed');
                 },
             ]);
-
         $query->whereHas('user', function ($q) {
             $q->where('status', 1);                                 
         });
         $query->whereDoesntHave('activeSuspendProfile');
-        $query->where('escorts.enabled', $params['enabled'] ?? 1);
-
         $query->join('profile_verification_status as pvs', function ($join) {
         $join->on('pvs.profile_id', '=', 'escorts.id')
             ->where('pvs.type', '3');
         });
-        $query->addSelect(DB::raw('COALESCE(pvs.status, 0) as verification_status'));
-
         $memberTotalCount = $query->count();
-    
         $massageLiveCount = MassagePurchase::where('status', 'listed')
         ->whereHas('user', function ($q) {
             $q->where('status', 1);
