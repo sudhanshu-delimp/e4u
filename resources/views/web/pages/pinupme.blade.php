@@ -248,7 +248,7 @@
                                         target="_blank"
                                         rel="noopener noreferrer">
                                                 <span class="pin-location-pinup">
-                                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="location" class="custompopicon">
+                                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="location" class="">
                                                     <div class="custom-tooltip">Open Maps</div>
                                                 </span>
                                                 {{ $escort->address }}
