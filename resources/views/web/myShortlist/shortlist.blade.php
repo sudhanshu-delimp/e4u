@@ -105,7 +105,7 @@
                                                     </div>
 
 
-                                                    <div class="col-lg-4 search_items mb-1">
+                                                    <div class="col-lg-5 search_items mb-1">
                                                         <div
                                                             class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
@@ -121,7 +121,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-6 display_items mb-1">
+                                                    <div class="col-lg-5 display_items mb-1">
                                                         <div class="item_dis">
                                                             <span class="item-head">Display item</span>
                                                             <select class="custome_form_control_border_radus padding_five_px" name="limit">
@@ -132,7 +132,7 @@
                                                             </select>
                                                         </div>
                                                     
-                                                        <div class="custom-refreshbuton">
+                                                        {{-- <div class="custom-refreshbuton">
                                                             <div>
                                                                 <a type="reset" class="btn reset_filter filter-tooltip-wrap"
                                                                     href="{{ route('find.all') }}" data-toggle="tooltip" title="">
@@ -140,7 +140,7 @@
                                                                     <i class="fa fa-repeat" aria-hidden="true"></i>
                                                                 </a>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
                                                         <div class="">
                                                             <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
@@ -271,9 +271,19 @@
                                                     <option value="verified" {{ request()->get('verify_list') == 'verified' ? 'selected' : '' }}>Verified</option>
                                                 </select>
                                             </div>
-                                            <div class="display_inline_block mb-1">
+                                            <div class="display_inline_block mb-1 mr-2">
                                                 <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="">
-                                                    Apply Filters
+                                                    Search
+                                                </button>
+                                            </div>
+                                            
+                                            <div class="display_inline_block mb-1 ">
+                                                <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule"
+                                                    value="0">
+                                                <button type="submit"
+                                                    class="btn reset_filter apply_pagination_button   reset_form_filter"
+                                                    id="applayChange">
+                                                    Reset
                                                 </button>
                                             </div>
                                         </div>
