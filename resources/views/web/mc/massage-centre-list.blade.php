@@ -300,13 +300,9 @@
             var cidcl = $(this).attr('class');
             var cid = cidcl.split(' ');
 
-            //console.log(cid, cid.includes('fill'), Eid, ' he');
-
-
             if (cid.includes('fill')) {
                 $(this).removeClass('fill');
                 $(this).addClass('null');
-                //console.log('legboxId_' + Eid, ' hello', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
                     "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
                 );
@@ -330,7 +326,6 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
 
                     }
                 });
@@ -339,8 +334,6 @@
                 $(this).removeClass('null');
                 $(this).addClass('fill');
 
-                // <i class="fa fa-heart-o" aria-hidden="true"></i>
-                // console.log('legboxId_' + Eid, ' hello null', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
                     "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
                 );
@@ -363,7 +356,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
+                       // console.log(data);
 
                     }
                 });
@@ -386,7 +379,7 @@
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
-                console.log(loginurl2);
+               
 
 
                 var regurl = "{{ route('register', ':id') }}";
@@ -396,8 +389,7 @@
                 $('#regUrl').attr('href', regurl)
             }
 
-            console.log(cid[1] + "-" + Eid);
-            console.log(cidcl);
+           
         });
 
 
