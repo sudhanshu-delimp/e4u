@@ -753,7 +753,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title">
                         <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon" alt="View Centre">
-                        Centre Summary
+                        Associated Centre Summary
                     </h5>
 
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -881,8 +881,7 @@
             { data: 'business_number', name: 'business_number', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'mobile', name: 'mobile', searchable: false, orderable:true ,defaultContent: 'NA'},
            // { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-            
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },            
     ],
     createdRow: function(row, data, dataIndex) {
 

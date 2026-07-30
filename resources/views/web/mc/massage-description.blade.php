@@ -2219,7 +2219,7 @@ margin-right: 5px;
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content border-0">
                 <div class="modal-header d-flex justify-content-between align-items-center">                                       
-                    <ul class="nav nav-tabs justify-content-center border-0 ec_media_tab">
+                    <ul class="nav nav-tabs justify-content-center border-0">
                         <li class="nav-item">
                             <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Our Photos</a>
                         </li>
