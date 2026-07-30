@@ -627,8 +627,10 @@ class EscortListingController extends Controller
 
         $now = now();
         // Har 2 minute ka block banayega (0, 2, 4... 58)
-        $minuteBlock = floor($now->minute / 2) * 2;
-        $minuteBlock = str_pad($minuteBlock, 2, '0', STR_PAD_LEFT);
+        // $minuteBlock = floor($now->minute / 2) * 2;
+        // $minuteBlock = str_pad($minuteBlock, 2, '0', STR_PAD_LEFT);
+
+        $minuteBlock = $now->minute < 30 ? '00' : '30';
         $timeBlock = $now->format('Y-m-d-H-') . $minuteBlock;
        // dd($timeBlock);
 

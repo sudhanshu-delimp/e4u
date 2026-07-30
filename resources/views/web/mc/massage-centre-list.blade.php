@@ -730,10 +730,10 @@
             await loadData();
         });
 
-        const TWO_MINUTES = 2 * 60 * 1000; // 2 min
+        const TEN_MINUTES = 10 * 60 * 1000; // 2 min
         setInterval(async function() {
             await loadData(globalMassageRequest, false);
-        }, TWO_MINUTES);
+        }, TEN_MINUTES);
 
 
         //////// Clear Short List /////////

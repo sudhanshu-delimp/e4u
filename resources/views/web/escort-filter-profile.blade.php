@@ -670,7 +670,6 @@
             if (!page) {
                 page = 1;
             }
-            console.log(page, 'page....')
             escortRequest.page = page;
             loadEscort();
         });
