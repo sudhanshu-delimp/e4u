@@ -9,6 +9,7 @@ use App\Models\Pricing;
 use App\Repositories\State\StateInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -66,26 +67,33 @@ class HomeController extends Controller
                 ->where('payment_status', 'Success')->get()->toArray();
         }
         $state = $this->state->allByCountryId();
+
         $query = Escort::query()
             ->where('enabled', 1)
-           
-               ->with([
+            ->with([
                 'purchase' => function ($q) {
                     $q->where('status', 'listed');
                 },
             ]);
 
-        // Membership categories count (Result: 4)
-        $memberTotalCount = (clone $query)
-            ->select('membership')
-            ->distinct()
-            ->count('membership');
-// dd($memberTotalCount);
+        $query->whereHas('user', function ($q) {
+            $q->where('status', 1);                                 
+        });
+        $query->whereDoesntHave('activeSuspendProfile');
+        $query->where('escorts.enabled', $params['enabled'] ?? 1);
+
+        $query->join('profile_verification_status as pvs', function ($join) {
+        $join->on('pvs.profile_id', '=', 'escorts.id')
+            ->where('pvs.type', '3');
+        });
+        $query->addSelect(DB::raw('COALESCE(pvs.status, 0) as verification_status'));
+
+        $memberTotalCount = $query->count();
+    
         $massageLiveCount = MassagePurchase::where('status', 'listed')
         ->whereHas('user', function ($q) {
             $q->where('status', 1);
         })
-        // ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
         ->whereDoesntHave('activeSuspendProfile')
         ->count();
 
