@@ -461,11 +461,8 @@ class PaymentController extends Controller
                     $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
                 }
 
-                $escortDetail->start_date = $item['start_date'];
-                $escortDetail->end_date = $item['end_date'];
-                $escortDetail->utc_start_time = $utcSartTime;
-                $escortDetail->utc_end_time = $utcEndTime;
-                $escortDetail->membership = $item['membership'];
+
+
 
                 if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
                     $escortDetail->enabled = 1;
@@ -474,7 +471,16 @@ class PaymentController extends Controller
                     $purchaseDetail->save();
                 }
 
-                $escortDetail->save();
+                if (!in_array($action, ['extend'])) {
+                    $escortDetail->start_date = $item['start_date'];
+                    $escortDetail->end_date = $item['end_date'];
+                    $escortDetail->utc_start_time = $utcSartTime;
+                    $escortDetail->utc_end_time = $utcEndTime;
+                    $escortDetail->membership = $item['membership'];
+                    $escortDetail->save();
+                }
+
+
 
                 if ($action === 'extend') {
                     $response['extend_days'] = Carbon::parse($item['start_date'])->diffInDays(Carbon::parse($item['end_date'])) + 1;

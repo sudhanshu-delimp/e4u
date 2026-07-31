@@ -86,7 +86,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     protected function getOrderEscort($order_key)
     {
-        $columns = ['id', 'profile_name', 'state_name', 'name', 'membership', 'start_date', 'created_at', 'status'];
+        $columns = ['id', 'profile_name', 'state_name', 'name', 'membership', 'start_date', 'created_at', 'status', 'start_date'];
         return $columns[$order_key];
     }
 
@@ -305,6 +305,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
             $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
             $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
+            $item->statusText = $listingStatus;
             $i++;
         }
 

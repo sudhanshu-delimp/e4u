@@ -178,7 +178,7 @@
                                     <!-- <th class="w-auto">Competitor</th>-->
                                     <th class="w-auto">Date Created</th>
                                     <th>Status</th>
-                                    <!--<th>Joined E4U</th>-->
+                                    <th>Start Date</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -502,7 +502,7 @@
 
                     $select.append('<option value="">-- Select Profile --</option>');
                     $.each(records.data, function(i, item) {
-                        if (!item.is_extended && !item.tour) {
+                        if (!item.is_extended && item.statusText != 'Upcoming' && !item.tour) {
                             $select.append(
                                 $('<option>', {
                                     value: item.id,
@@ -662,15 +662,23 @@
                     defaultContent: 'NA'
                 },
                 {
+                    data: 'start_date',
+                    name: 'start_date',
+                    searchable: false,
+                    orderable: true,
+                    visible: false,
+                    defaultContent: 'NA'
+                },
+                {
                     data: 'action',
-                    name: 'edit',
+                    name: 'start_date',
                     searchable: false,
                     orderable: false,
                     defaultContent: 'NA',
                     class: 'text-center'
                 },
             ],
-            order: [1, 'asc'],
+            order: [8, 'asc'],
             pageLength: 25,
         });
         //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');

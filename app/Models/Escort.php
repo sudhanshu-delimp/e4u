@@ -209,7 +209,7 @@ class Escort extends Model
 
     public function isListingExtended()
     {
-        $extendedPurchase = $this->purchase()->where('escort_id', $this->escort_id)
+        $extendedPurchase = $this->purchase()->where('escort_id', $this->id)
             ->where('start_date', Carbon::parse($this->end_date)->addDay())
             ->first();
 
