@@ -15,7 +15,7 @@
                  <div class="card-body">
                      <div class="search_filters">
                          <div class="search_filters_inside">
-                             <form method="" action="">
+                             <form method="" action="" id="filterForm">
                                  <div class="row">
                                      <div
                                          class="col-lg-12 mb-2 d-flex align-items-center justify-content-between flex-wrap ">
@@ -37,7 +37,7 @@
                                                  <div class="location_radio_filter">
                                                      <div class="d-flex align-items-start" style="padding-top: 2px;">
                                                          <input type="radio" name="locationByRadio"
-                                                             value="your_location" id="yourLocation">
+                                                             value="your_location" id="yourLocation" class="location-radio" >
                                                          <label for="yourLocation"
                                                              style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                              Your Location
@@ -45,8 +45,8 @@
                                                      </div>
 
                                                      <div class="d-flex align-items-start">
-                                                         <input type="radio" name="locationByRadio" value="australia"
-                                                             checked="checked" id="australia">
+                                                         <input type="radio" name="locationByRadio" value="australia" class="location-radio" checked
+                                                              id="australia">
                                                          <label for="australia"
                                                              style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                              Australia
@@ -55,7 +55,7 @@
                                                  </div>
                                              </div>
                                              {{-- search --}}
-                                             <div class="col-lg-4 search_items mb-1">
+                                             <div class="col-lg-5 search_items mb-1">
                                                  <div class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
 
                                                      <!-- Hidden input to hold selected search type -->
@@ -81,7 +81,7 @@
                                              </div>
 
 
-                                             <div class="col-lg-6 display_items mb-1">
+                                             <div class="col-lg-5 display_items mb-1">
                                                  <div class="item_dis">
                                                      <span class="item-head">Display item</span>
                                                      <select class="custome_form_control_border_radus padding_five_px"
@@ -93,18 +93,7 @@
                                                      </select>
                                                  </div>
 
-                                                 <div class="custom-refreshbuton">
-                                                     <div>
-                                                         <input type="hidden" name="apply_pagination_rule"
-                                                             id="apply_pagination_rule" value="0">
-                                                         <button type="button"
-                                                             class="btn reset_filter filter-tooltip-wrap apply_pagination_button upper_filter"
-                                                             data-toggle="tooltip" title="" id="">
-                                                             <span class="filter-tooltip">Apply Change</span>
-                                                             <i class="fa fa-repeat" aria-hidden="true"></i>
-                                                         </button>
-                                                     </div>
-                                                 </div>
+                                                 
                                                  <div>
                                                      <button type="button"
                                                          class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
@@ -162,30 +151,7 @@
                                              @endforeach
                                          </select>
                                      </div>
-                                     <!-- <div class="display_inline_block mb-1 mr-2">
-                                            <select class="custome_form_control_border_radus padding_five_px"
-                                                id="profile_state"  name="profile_state">
-                                                @foreach (@config('escorts.profile.premises') as $key => $value)
-<option value="{{ $key }}"
-                                                    {{ request()->get('premises') == $key ? 'selected' : '' }}>
-                                                    {{ $value }}
-                                                </option>
-@endforeach
-                                            </select>
-                                        </div> -->
-
-                                     <!-- <div class="display_inline_block mb-1 mr-2">
-                                            <select class="custome_form_control_border_radus padding_five_px"
-                                                id="masseur_types" name="masseur_types">
-                                                @foreach (@config('escorts.profile.masseur-types') as $key => $value)
-<option value="{{ $key }}"
-                                                    {{ request()->get('masseur_types') == $key ? 'selected' : '' }}>
-                                                    {{ $value }}
-                                                </option>
-@endforeach
-                                            </select>
-                                        </div> -->
-
+                                     
 
                                      <div class="display_inline_block mb-1 mr-2">
                                          <select class="custome_form_control_border_radus padding_five_px"
@@ -210,18 +176,6 @@
                                          </select>
                                      </div>
 
-                                     <!-- <div class="display_inline_block mb-1 mr-2">
-                                            <select class="custome_form_control_border_radus padding_five_px"
-                                                id="profile_price" name="profile_price"
-                                                value="{{ request()->get('prices') }}">
-                                                @foreach (@config('escorts.profile.prices') as $key => $value)
-<option value="{{ $key }}"
-                                                    {{ request()->get('prices') == $key ? 'selected' : '' }}>
-                                                    {{ $value }}
-                                                </option>
-@endforeach
-                                            </select>
-                                        </div> -->
 
                                      <div class="display_inline_block mb-1 mr-2">
                                          <select
@@ -258,9 +212,16 @@
                                              <option value="verified">Verified</option>
                                          </select>
                                      </div>
-                                     <div class="display_inline_block mb-1">
+                                     <div class="display_inline_block mb-1 mr-2">
                                          <button type="button" class="btn reset_filter lower_filter">
-                                             Apply Filters
+                                            Search
+                                         </button>
+                                     </div>
+                                      <div class="display_inline_block mb-1">
+                                        <input type="hidden" name="apply_pagination_rule"
+                                                             id="apply_pagination_rule" value="0">
+                                         <button type="button" class="btn reset_filter lower_filter reset_form_filter">
+                                             Reset
                                          </button>
                                      </div>
                                  </div>

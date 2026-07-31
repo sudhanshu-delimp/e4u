@@ -46,6 +46,8 @@ use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Admin\ImpersonateController;
+use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Escort\Concierge\ProductController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -137,6 +139,7 @@ Route::post('/massage-center-listing/{type?}', [GlobalMonitoringController::clas
 Route::get('escort-listings', [GlobalMonitoringController::class, 'escortListing'])->name('admin.escort-listings');
 Route::get('/data-table-escort-listing/{type?}', [GlobalMonitoringController::class, 'dataTableEscortListingAjax'])->name('escort.current.list.escort-dataTableListing');
 Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableEscortSingleListingAjax'])->name('escort.current.single-list.escort-dataTableListing');
+Route::get('/suspend-purchase/{purchase}', [GlobalMonitoringController::class, 'suspendListedProfile'])->name('admin.suspend_listed_profile');
 
 # Logged in users monitoring routes
 Route::get('logged-in-users', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
@@ -386,9 +389,11 @@ Route::get('reports-num-ajax', [AdminNumsController::class, 'showReportOnDashboa
 Route::post('reports-num-status', [AdminNumsController::class, 'updateStatus'])->name('admin.num.status.ajax');
 Route::get('reports-num-email', [AdminNumsController::class, 'viewReport'])->name('admin.num.status.email');
 
-Route::get('reports/transaction-summary', function () {
-  return view('admin.reports.transaction-summary');
-})->name('admin.transaction-summary');
+
+Route::get('reports/transaction-summary', [TransactionController::class, 'index'])->name('admin.payment.transaction_summary');
+Route::get('get-transaction-summary', [TransactionController::class, 'transactionSummaryDatatable'])->name('admin.payment.transaction_summary.datatable');
+Route::post('payments/detail', [TransactionController::class, 'paymentDetail'])->name('admin.payment.detail');
+Route::get('payments/{payment}/print', [TransactionController::class, 'printPaymentDetail'])->name('admin.payment.detail.print');
 
 /** Manage Suppliers */
 Route::get('/management/manage-suppliers', [SupplierController::class, 'supplierList'])->name('admin.manage-suppliers');

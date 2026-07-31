@@ -53,7 +53,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-lg-4 search_items mb-1">
+                                                <div class="col-lg-5 search_items mb-1">
                                                     <div
                                                         class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
 
@@ -78,7 +78,7 @@
                                                             <input type="hidden" name="lng" id="set_lng" value="">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 display_items mb-1">                                                        
+                                                <div class="col-lg-5 display_items mb-1">                                                        
                                                     <div class="item_dis">
                                                         <span class="item-head">Display item</span>
                                                         <select class="custome_form_control_border_radus padding_five_px" name="per_page" id="per_page"
@@ -90,7 +90,7 @@
                                                         </select>
                                                     </div>
                                                     
-                                                    <div class="custom-refreshbuton">
+                                                    {{-- <div class="custom-refreshbuton">
                                                         <div>
                                                             <input type="hidden" name="apply_pagination_rule"
                                                                 id="apply_pagination_rule" value="0">
@@ -101,7 +101,7 @@
                                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
                                                             </button>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     
                                                     <div>
                                                         <button type="button" class="btn reset_filter filter-tooltip-wrap"
@@ -247,11 +247,18 @@
                                                 <option value="verified">Verified</option>
                                             </select>
                                         </div>
-                                        <div class="display_inline_block mb-1">
+                                        <div class="display_inline_block mb-1 mr-2">
                                             <button type="button" class="btn reset_filter lower_filter">
-                                                Apply Filters
+                                                Search
                                             </button>
                                         </div>
+                                        <div class="display_inline_block mb-1">
+                                        <input type="hidden" name="apply_pagination_rule"
+                                                             id="apply_pagination_rule" value="0">
+                                         <button type="button" class="btn reset_filter lower_filter reset_form_filter">
+                                             Reset
+                                         </button>
+                                     </div>
                                     </div>
                                 </form>
                                 <div class="row grid_list_part p-0 m-0">

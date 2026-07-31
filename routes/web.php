@@ -84,6 +84,7 @@ Route::middleware('guest')->group(function () {
 ############## End Put All Guest Url Here ####################
 
 Route::post('update-bank-pin', [EscortAccountController::class, 'updateBankPin'])->name('web.update.bank.pin');
+Route::post('validate-bank-pin', [EscortAccountController::class, 'validateBankPin'])->name('web.validate.bank.pin');
 Route::post('/get-pinup-profile', [PinUpsController::class, 'getPinupProfile'])->name('web.get_pinup_profile');
 Route::post('/welcome-popup-closed', [UserController::class, 'welcomePopupClosed'])->name('welcome-popup-closed');
 Route::middleware('auth')->group(function () {
@@ -579,12 +580,6 @@ Route::get('/escort-dashboard/viewers-messages', function () {
 Route::get('/user-dashboard/viewer-messages', function () {
     return view('user.dashboard.communication.viewer-messages');
 })->name('user.viewer-messages');
-
-
-
-Route::get('/escort-dashboard/my-spend', function () {
-    return view('escort.dashboard.my-spend');
-})->name('escort.dashboard.my-spend');
 
 Route::get('/escort-dashboard/tour-schedule', [EscortTourScheduleContoller::class, 'index'])->name('escort.dashboard.tour-schedule');
 Route::get('/escort-dashboard/tour-schedule-ajax', [EscortTourScheduleContoller::class, 'tourScheduleAjax'])->name('escort.dashboard.tour-schedule-ajax');

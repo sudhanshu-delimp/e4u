@@ -1,7 +1,7 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.03') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.05') }}">
 
     @php
         $escortName =
@@ -9,7 +9,7 @@
     @endphp
 
 
-    <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg js_pinup_summary">
+    <section class="home-banner homebanner_bg js_pinup_summary">
         <div class="container-fluid banner_width">
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-5 col-sm-12">
@@ -248,7 +248,7 @@
                                         target="_blank"
                                         rel="noopener noreferrer">
                                                 <span class="pin-location-pinup">
-                                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="location" class="custompopicon">
+                                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="location" class="">
                                                     <div class="custom-tooltip">Open Maps</div>
                                                 </span>
                                                 {{ $escort->address }}
@@ -629,7 +629,7 @@
 
                         <h2>E4U: <span>Your One-Stop Shop!</span></h2>
 
-                        <p>Everything you need for Travel, Education & Digital Services.</p>
+                        <p>Everything Advertisers need for Travel, Education & Digital Services.</p>
 
                         <div class="home_card-wrapper">
 

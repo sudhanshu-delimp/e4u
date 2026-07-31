@@ -101,6 +101,8 @@
                     <button type="button" class="btn-cancel-modal mr-3" id="allClearSetPin">Clear</button>
                     <button type="button" class="btn-success-modal" id="okSave">Save</button>
                 </div>
+                @else
+                <input type="hidden" name="action">
                 @endif
             </div>
         </div>
@@ -190,16 +192,18 @@
         const textEl = document.getElementById("pinDisplaySet");
         let pin = pinDisplay.text().trim();
         if (inMode == 'pinSetup') {
-            updateBankPinByAjax(`{{route('web.update.bank.pin')}}`, pin);
+            updateBankPinByAjax(pin);
+        } else if (inMode == 'pinAuth') {
+            validateBankPin(pin);
         }
     });
 
-    function updateBankPinByAjax(url, payload_data) {
+    function updateBankPinByAjax(pin) {
         $.ajax({
             method: "POST",
-            url: url,
+            url: `{{route('web.update.bank.pin')}}`,
             data: {
-                'user_bank_pin': payload_data
+                'user_bank_pin': pin
             },
             dataType: "JSON",
             headers: {
@@ -223,6 +227,37 @@
                 console.log(data.responseJSON.errors);
                 console.log(data.responseJSON.errors.account_number);
                 $('#account_numberError').text(data.responseJSON.errors.account_number);
+            }
+
+        })
+    }
+
+    function validateBankPin(pin) {
+        $.ajax({
+            method: "POST",
+            url: `{{route('web.validate.bank.pin')}}`,
+            data: {
+                pin
+            },
+            dataType: "JSON",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            beforeSend: function() {
+                showLoadingPopup('Processing Payment', 'Do not refresh or close this page.');
+            },
+            success: function(response, textStatus, xhr) {
+                Swal.close();
+                displaySwal(xhr).then((result) => {
+                    if (result.isConfirmed) {
+                        let nextAction = $("#SetPinModal").find('input[name="action"]').val();
+                        window[nextAction]();
+                    }
+                });
+            },
+            error: function(xhr) {
+                Swal.close();
+                displaySwal(xhr);
             }
 
         })

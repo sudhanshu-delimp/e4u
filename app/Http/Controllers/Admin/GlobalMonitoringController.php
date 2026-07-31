@@ -971,4 +971,19 @@ class GlobalMonitoringController extends Controller
             ], 500);
         }
     }
+
+    public function suspendListedProfile(Purchase $purchase)
+    {
+        try {
+            return response()->json([
+                'success' => true,
+                'message' => $purchase
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.05') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.07') }}" rel="stylesheet">
     <!-- jquery ui cdn -->
 
     <!-- google fonts -->
@@ -42,9 +42,9 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.05') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.05') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.3') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.07') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.07') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.5') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
@@ -54,7 +54,7 @@
     @section('style')
     @show
     <!-- Google tag (gtag.js) -->
-    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P7DMPWFYZ"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P7DMPWFYZ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -63,8 +63,8 @@
         }
         gtag('js', new Date());
         gtag('config', 'G-9P7DMPWFYZ');
-    </script> --}}
-    {{-- <script type="text/javascript">
+    </script> 
+     <script type="text/javascript">
         (function(c, l, a, r, i, t, y) {
             c[a] = c[a] || function() {
                 (c[a].q = c[a].q || []).push(arguments)
@@ -75,9 +75,9 @@
             y = l.getElementsByTagName(r)[0];
             y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "xpw6cg8o8x");
-    </script> --}}
+    </script> 
     <!-- Google Tag Manager -->
-    {{-- <script>
+     <script>
 (function(w,d,s,l,i){
     w[l]=w[l]||[];
     w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
@@ -90,19 +90,19 @@
 
     f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PLBTNLKP');
-</script> --}}
+</script> 
     <!-- End Google Tag Manager -->
 </head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-    {{-- <noscript>
+     <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLBTNLKP&env=2&auth=2Pmbbm1fWE2AQq-trZke8g"
         height="0"
         width="0"
         style="display:none;visibility:hidden">
     </iframe>
-</noscript> --}}
+</noscript> 
     <!-- End Google Tag Manager (noscript) -->
     <a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;"
         role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>

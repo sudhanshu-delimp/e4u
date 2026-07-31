@@ -151,7 +151,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.transaction-summary') }}?from=dashboard">
+                <a href="{{ route('admin.payment.transaction_summary') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/transaction-summary.png') }}" alt="Transaction Summary">
                     </div>
