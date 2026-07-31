@@ -342,6 +342,8 @@ Route::get('get-transaction-summary', [PaymentController::class, 'transactionSum
 Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
 Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('escort.payment.detail.print');
 Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('payment.adjustment');
+Route::get('my-spend', [PaymentController::class, 'mySpend'])->name('escort.dashboard.my-spend');
+
 // Route::post('apply/wallet',[PaymentController::class, 'applyWallet'])->name('apply.wallet');
 # Escort profile reviews
 Route::get('view-reviews', [EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
