@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDF;
+
 class MonthlyReportController extends BaseController
 {
 
@@ -28,14 +29,18 @@ class MonthlyReportController extends BaseController
 
     $agentId = auth()->user()->id;
     $reportId = 4;
+    $agentData = auth()->user();
+    $agent['name'] = $agentData->contact_person ?? $agentData->business_name;
+    $agent['member_id'] = $agentData->member_id ?? "";
+    $agent['report_date'] = '07-2026';
 
-    $calculateServiceObj = (new CalculateAgentFeeService);
+    /* $calculateServiceObj = (new CalculateAgentFeeService);
 
     $feeData = $calculateServiceObj->calculateFee($reportId);
     if ($feeData->isNotEmpty()) {
       //dd($feeData->toArray());
-    }
-
+    } */
+    // return  view('emails.agent.agent_monthly_fee', compact('agent'));
     return  view('agent.dashboard.Fees.monthly-report');
   }
 
@@ -84,7 +89,7 @@ class MonthlyReportController extends BaseController
   {
     $userId = auth()->user()->id;
     $reports = AgentMonthlyReport::where('agent_id', $userId)
-      ->with('state', 'agent');
+      ->with('state', 'agent', 'agentMonthlyReportQuery');
 
     $search = request()->input('search.value');
 
@@ -110,6 +115,8 @@ class MonthlyReportController extends BaseController
     $reports = $reports->offset($start)->limit($limit)->get();
 
     foreach ($reports as $item) {
+
+      $queryCount = $item->agentMonthlyReportQuery->where('status', 'query')->where('notes', '!=', "")->count();
       $item->reportDate = Carbon::parse($item->report_date)->format('d-m-Y');
       $fromDate = Carbon::parse($item->billing_period_from)->format('d-m-Y');
       $toDate = Carbon::parse($item->billing_period_to)->format('d-m-Y');
@@ -125,7 +132,8 @@ class MonthlyReportController extends BaseController
       $item->total_spend =  $formattedSpend;
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
-      $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($status) . '">' . $status . ' </span>';
+      $statusName = str_replace('_', " ", $status);
+      $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date =  $approvedDate;
       $item->approved_by =  $item->approved_by;
@@ -138,23 +146,40 @@ class MonthlyReportController extends BaseController
         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
         $divider = '<div class="dropdown-divider"></div>';
         //Query
-        $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
+        $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
         $divider = '<div class="dropdown-divider"></div>';
       } else if ($item->status == 'approved') {
         //Query
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
         $divider = '<div class="dropdown-divider"></div>';
       } else if ($item->status == 'paid') {
         //Query
         //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
       } else if ($item->status == 'query') {
         //Approve
+        //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a>';
+        $divider = '<div class="dropdown-divider"></div>';
+      } else if ($item->status == 'query_resolved') {
+        //Approve
         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+        
+        $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
         $divider = '<div class="dropdown-divider"></div>';
       }
 
-      //View
+      //View Query
+      if ($queryCount > 0) {
+        $divider2 = "";
+        if(empty( $divider)) {
+           $divider2 = '<div class="dropdown-divider"></div>';
+        }
+        $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 getSubmittedQuery" href="javascript:void(0)" data-id="' . $item->id . '" > <i class="fa fa-eye"></i> View Query</a>'.$divider2;
+      }
+
+      //  View Detail
       $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-agent_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
+
 
       $dropDown .= '</div></div>';
 
@@ -197,16 +222,19 @@ class MonthlyReportController extends BaseController
     if ($data) {
       $id = $data['id'];
       $status = $data['status'];
+      $note = $data['note'] ?? "";
       $report = AgentMonthlyReport::where('id', $id)->first();
       if ($report) {
         $report->status = $status;
         if ($report->save()) {
-          $reportQueryObj = (new AgentMonthlyReportQuery);
-          $reportQueryObj->fee_report_id = $id;
-          $reportQueryObj->status = $status;
-          $reportQueryObj->report_date = date('Y-m-d H:i:s');;
-          $reportQueryObj->notes = "";
-          $reportQueryObj->save();
+          if ($status == 'query' || $status == 'query_resolved') {
+            $reportQueryObj = (new AgentMonthlyReportQuery);
+            $reportQueryObj->fee_report_id = $id;
+            $reportQueryObj->status = $status;
+            $reportQueryObj->report_date = date('Y-m-d H:i:s');;
+            $reportQueryObj->notes = $note;
+            $reportQueryObj->save();
+          }
 
           return $this->successResponse('Monthly fee report status successfully updated.');
         }
@@ -225,7 +253,7 @@ class MonthlyReportController extends BaseController
     if ($report) {
       $calculateServiceObj = (new CalculateAgentFeeService);
       $feeData = $calculateServiceObj->calculateFee($reportId);
-//return view('agent.dashboard.Fees.print_monthly_report', compact('feeData'));
+      //return view('agent.dashboard.Fees.print_monthly_report', compact('feeData'));
       if ($feeData->isNotEmpty()) {
         $pdf = PDF::loadView(
           'agent.dashboard.Fees.print_monthly_report',
@@ -233,7 +261,28 @@ class MonthlyReportController extends BaseController
         )->setOption(['isRemoteEnabled' => true]);
         return $pdf->stream('monthly_agent_fee_report.pdf');
       }
-    }  
+    }
     return response()->redirectTo('/agent-dashboard/fees/monthly-report')->with('error', 'Monthly fee record not found.');
+  }
+
+  /**
+   * View the monthly fee detail
+   * 
+   * @param \Illuminate\Http\Request $request
+   */
+  public function viewQuery(Request $request)
+  {
+    $data = $request->all();
+    if (isset($data['id']) && $data['id'] > 0) {
+      $id = $data['id'];
+      $queryObj = (new AgentMonthlyReportQuery);
+
+      $queryData = $queryObj->where('fee_report_id', $id)->where('status', 'query')->where('notes', '!=', "")->get();
+
+      if ($queryData->isNotEmpty()) {
+        return view('agent.dashboard.Fees.view_query', compact('queryData'));
+      }
+    }
+    return "";
   }
 }

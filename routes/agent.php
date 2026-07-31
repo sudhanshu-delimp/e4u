@@ -351,5 +351,6 @@ Route::get('fees/monthly-report-list', [MonthlyReportController::class, 'monthly
 Route::post('fees/view-monthly-report', [MonthlyReportController::class, 'viewMonthlyReport'])->name('agent.fees.view.detail');
 Route::post('fees/update-monthly-report', [MonthlyReportController::class, 'updateMonthlyReportStatus'])->name('agent.fees.update.status.detail');
 Route::post('fees/print-monthly-report', [MonthlyReportController::class, 'printMonthlyFee'])->name('agent.print.monthly.fee');
+Route::post('fees/query', [MonthlyReportController::class, 'viewQuery'])->name('agent.fees.view.query');
 
 

@@ -75,216 +75,282 @@
                             </tr>
                         </thead>
                         <tbody class="table-content"></tbody>
-                        {{--  <tbody>
-                  <tr>
-                     <td>01-11-2025</td>
-                     <td>01-10-2025 to 31-10-2025 </td>
-                     <td>A600025</td>
-                     <td>WA</td>
-                     <td class="text-left"><div class="num_value"><x-curFormat/><span>4,749.00</span></div></td>
-                     <td class="text-left"><div class="num_value"><x-curFormat/><span>237.45</span></div></td>
-                     <td><span class="custom_badge badge_accepted">Approved</span></td>
-                     <td>01-11-2025</td>
-                     <td>
-                        <div class="dropdown no-arrow">
-                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                           </a>
-                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"><i class="fa fa-check-circle"></i> Approve</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"><i class="fa fa-search-minus"></i>
-                                    Query</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#commission-report"> <i class="fa fa-eye"></i> View Report</a>
-                           </div>
-                        </div>
-                     </td>
-                  </tr>
-                
-               </tbody> --}}
+
                     </table>
 
                 </div>
             </div>
         </div>
 
-
-
-
-
         {{-- View Report --}}
-
         <div class="modal fade upload-modal" id="viewMonthlyReportModel" tabindex="-1" role="dialog"
             aria-labelledby="viewMonthlyReportModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-
-
                         <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Fee Report<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
                         </a>
                     </div>
-
                     <div class="modal-body">
-
                         <!-- content area -->
                         <div id="renderMonthlyViewDetail"></div>
                         <!-- End content area -->
                     </div>
-
-
                     <div class="modal-footer">
-
-                    <form action="{{ route('agent.print.monthly.fee') }}" method="post" target="_blank">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="fee_print_id" id="fee_print_id"  value="">
-                        <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                        aria-label="Close">Close</button>
-                    </form>
-                       
-                       {{--  <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
+                        <form action="{{ route('agent.print.monthly.fee') }}" method="post" target="_blank">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="fee_print_id" id="fee_print_id" value="">
+                            <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
+                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                                aria-label="Close">Close</button>
+                        </form>
+                        {{--  <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
                         <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button> --}}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{-- end --}}
-@endsection
-@push('script')
-    <!-- file upload plugin start here -->
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
+        {{-- Raise query --}}
+        <div class="modal fade upload-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
+            aria-labelledby="raiseQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                                class="custompopicon"><span id="reportendDate">Query<span></h5>
+                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <form name="queryForm" id="queryForm">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="fee_id" id="fee_id" value="">
+                            <input type="hidden" name="fee_status" id="fee_status" value="">
+                            <label class="form-check-label" for="query_note">Query</label>
+                            <textarea name="query_note" id="query_note" class="form-control" cols="4" rows="4"></textarea>
 
-    <script>
-        $(document).ready(function() {
-            var table = $('#commissionStatementTable').DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by status",
-                },
-                processing: true,
-                serverSide: true,
-                lengthChange: true,
-                searchable: false,
-                bStateSave: false,
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="print-btn m-0" id="submitQuery">Submit</button>
+                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                                aria-label="Close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         {{-- view query --}}
+        <div class="modal fade upload-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
+            aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                                class="custompopicon"><span id="reportendDate">Query<span></h5>
+                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <!-- content area -->
+                        <div id="renderMonthlyRaiseQuery"></div>
+                        <!-- End content area -->
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                ajax: {
-                    url: "{{ route('agent.fees.monthly-report-ajax') }}",
-                    data: function(d) {
-                        d.type = 'player';
-                    }
-                },
-                order: [
-                    [0, 'DESC']
-                ],
-                columns: [{
-                        data: 'reportDate',
-                        name: 'reportDate',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'billing_period',
-                        name: 'billing_period',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    /*{ data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-                    { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},*/
-                    {
-                        data: 'total_spend',
-                        name: 'total_spend',
-                        searchable: true,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'total_fees',
-                        name: 'total_fees',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'status_name',
-                        name: 'status_name',
-                        searchable: false,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'report_pproved_date',
-                        name: 'report_pproved_date',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA',
-                        class: 'text-center'
-                    },
-                ],
-            });
+    @endsection
+    @push('script')
+        <!-- file upload plugin start here -->
+        <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+        </script>
 
-            $('#commissionStatementTable_filter input')
-                .off()
-                .on('keyup', function() {
-                    var value = $(this).val();
-
-                    if (value.length >= 2 || value.length === 0) {
-                        table.search(value).draw();
-                    }
-                });
-
-            /*** call monthly detail */
-            $(document).on('click', '#getMontlyViewReportPage', function() {
-                let id = $(this).data('id');
-                let agent_id = $(this).data('agent_id');
-                var url = "{{ route('agent.fees.view.detail') }}";
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    data: {
-                        id: id,
-                        agent_id: agent_id,
-                        _token: '{{ csrf_token() }}'
+        <script>
+            $(document).ready(function() {
+                var table = $('#commissionStatementTable').DataTable({
+                    language: {
+                        search: "Search: _INPUT_",
+                        searchPlaceholder: "Search by status",
                     },
-                    success: function(response) {
-                        if ($.trim(response) === "") {
-                            swal_error_popup("Monthly fee report data not found.");
-                        } else {
-                            $("#fee_print_id").val(id);
-                            $('#renderMonthlyViewDetail').html(response);
-                            $('#viewMonthlyReportModel').modal('show');
+                    processing: true,
+                    serverSide: true,
+                    lengthChange: true,
+                    searchable: false,
+                    bStateSave: false,
+
+                    ajax: {
+                        url: "{{ route('agent.fees.monthly-report-ajax') }}",
+                        data: function(d) {
+                            d.type = 'player';
                         }
                     },
-                    error: function() {
-                        alert("Error loading form");
-                    }
+                    order: [
+                        [0, 'DESC']
+                    ],
+                    columns: [{
+                            data: 'reportDate',
+                            name: 'reportDate',
+                            searchable: true,
+                            orderable: true,
+                            defaultContent: 'NA'
+                        },
+                        {
+                            data: 'billing_period',
+                            name: 'billing_period',
+                            searchable: true,
+                            orderable: false,
+                            defaultContent: 'NA'
+                        },
+                        /*{ data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+                        { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},*/
+                        {
+                            data: 'total_spend',
+                            name: 'total_spend',
+                            searchable: true,
+                            orderable: false,
+                            defaultContent: 'NA'
+                        },
+                        {
+                            data: 'total_fees',
+                            name: 'total_fees',
+                            searchable: false,
+                            orderable: false,
+                            defaultContent: 'NA'
+                        },
+                        {
+                            data: 'status_name',
+                            name: 'status_name',
+                            searchable: false,
+                            orderable: true,
+                            defaultContent: 'NA'
+                        },
+                        {
+                            data: 'report_pproved_date',
+                            name: 'report_pproved_date',
+                            searchable: false,
+                            orderable: false,
+                            defaultContent: 'NA'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            searchable: false,
+                            orderable: false,
+                            defaultContent: 'NA',
+                            class: 'text-center'
+                        },
+                    ],
+                });
+
+                $('#commissionStatementTable_filter input')
+                    .off()
+                    .on('keyup', function() {
+                        var value = $(this).val();
+
+                        if (value.length >= 2 || value.length === 0) {
+                            table.search(value).draw();
+                        }
+                    });
+
+                /*** call monthly detail */
+                $(document).on('click', '#getMontlyViewReportPage', function() {
+                    let id = $(this).data('id');
+                    let agent_id = $(this).data('agent_id');
+                    var url = "{{ route('agent.fees.view.detail') }}";
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: {
+                            id: id,
+                            agent_id: agent_id,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if ($.trim(response) === "") {
+                                swal_error_popup("Monthly fee report data not found.");
+                            } else {
+                                $("#fee_print_id").val(id);
+                                $('#renderMonthlyViewDetail').html(response);
+                                $('#viewMonthlyReportModel').modal('show');
+                            }
+                        },
+                        error: function() {
+                            alert("Error loading form");
+                        }
+                    });
+                });
+
+                 $(document).on('click', '#openQueryModel', function() {
+                    $('#queryForm')[0].reset();
+                    let id = $(this).data('id');
+                    let status = $(this).data('status');
+                    $('#fee_id').val(id);
+                    $('#fee_status').val(status);
+                    $('#raiseQueryModel').modal('show');
+                });
+
+                /*** call monthly detail */
+                $(document).on('click', '#updateMonthlyReportStatus', async function(e) {
+
+                    let id = $(this).data('id');
+                    let status = $(this).data('status');
+                    note = "";
+                    submitStatus(table, id, status, note);
+
+                });
+
+                /*** call monthly detail */
+                $(document).on('click', '#submitQuery', async function(e) {
+
+                    let id = $('#fee_id').val();
+                    let status = $('#fee_status').val();
+                    let note = $('#query_note').val();
+                    submitStatus(table, id, status, note);
+
+                });
+
+                /*** Query detail */
+                $(document).on('click', '.getSubmittedQuery', function() {
+                    let id = $(this).data('id');
+                    let agent_id = $(this).data('agent_id');
+                    var url = "{{ route('agent.fees.view.query') }}";
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: {
+                            id: id,
+                            agent_id: agent_id,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if ($.trim(response) === "") {
+                                swal_error_popup("Query not found.");
+                            } else {
+                          
+                                $('#renderMonthlyRaiseQuery').html(response);
+                                $('#viewMonthlyQueryModel').modal('show');
+                            }
+                        },
+                        error: function() {
+                            alert("Error loading form");
+                        }
+                    });
                 });
             });
 
-            /*** call monthly detail */
-            $(document).on('click', '#updateMonthlyReportStatus', async function(e) {
+            async function submitStatus(table, id, status, note) {
                 if (await isConfirm({
                         'action': 'Update',
                         'text': 'Are you sure you want to update status?'
                     })) {
-                    let id = $(this).data('id');
-                    let status = $(this).data('status');
-
                     var url = "{{ route('agent.fees.update.status.detail') }}";
                     url = url.replace(':id', id);
                     url = url.replace(':status', status);
@@ -294,11 +360,12 @@
                         data: {
                             id: id,
                             status: status,
+                            note: note,
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
                             Swal.close();
-                            console.log(response.status);
+                            $('#raiseQueryModel').modal('hide');
                             if (response.status) {
                                 table.ajax.reload(null, false);
                                 swal_success_popup(response.message);
@@ -311,7 +378,7 @@
                         }
                     });
                 }
-            });
-        });
-    </script>
-@endpush
+            }
+
+        </script>
+    @endpush

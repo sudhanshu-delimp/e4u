@@ -47,7 +47,7 @@ class AgentMonthlyReport extends Model
         return $this->belongsTo('App\Models\User', 'agent_id', 'id');
     }
 
-     public function AgentMonthlyReportQuery()
+    public function agentMonthlyReportQuery()
     {
         return $this->hasMany('App\Models\AgentMonthlyReportQuery', 'fee_report_id', 'id');
     }

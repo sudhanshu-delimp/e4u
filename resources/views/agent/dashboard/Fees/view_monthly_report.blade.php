@@ -30,8 +30,6 @@
             {{-- Start escort listing --}}
             @if ($esortReports->isNotEmpty())
 
-
-
                 @foreach ($esortReports as $esortReport)
                     @php
                         $totalEscortDays = $totalEscortDays + $esortReport['total_days'];

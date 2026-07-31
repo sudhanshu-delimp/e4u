@@ -1324,11 +1324,12 @@ if (!function_exists('getStatusBadgeClass')) {
             'Upcoming'          => 'badge_upcoming',
             'Withdrawn'         => 'badge_withdraw',
             'Verified'          => 'badge_accepted',
-            'Current'          => 'badge_current',
-            'On_hold'          => 'badge_onHold',
-            'Paid'            => 'badge_active',
-            'Query'            => 'badge_available',
-            'Approved'            => 'badge_active',
+            'Current'           => 'badge_current',
+            'On_hold'           => 'badge_onHold',
+            'Paid'              => 'badge_active',
+            'Query'             => 'badge_available',
+            'Approved'          => 'badge_active',
+            'Query_resolved'     => 'badge_resolved',
 
         ];
 

@@ -21,7 +21,7 @@ class CreateAgentMonthlyReportQueriesTable extends Migration
                 'rejected',
                 'paid',
                 'query',
-                'resolved'
+                'query_resolved'
             ])->default('pending')->index();
             $table->text('notes')->nullable();
             $table->timestamps();
