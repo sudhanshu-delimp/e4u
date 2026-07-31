@@ -69,7 +69,7 @@
                                         </div>
                                         <h5>Week to Date</h5>
                                     </div>
-                                    <span class="amount-text">$580.00</span>
+                                    <span class="amount-text">${{ number_format($data['advertising_week'], 2) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                                         </div>
                                         <h5>Same period last year</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{ number_format($data['advertising_week_last'], 2) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                         </div>
                                         <h5>Month to Date</h5>
                                     </div>
-                                    <span class="amount-text">$580.00</span>
+                                    <span class="amount-text">${{ number_format($data['advertising_month'], 2) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                         </div>
                                         <h5>Same period last year</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{ number_format($data['advertising_month_last'], 2) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                                         </div>
                                         <h5>Year to date</h5>
                                     </div>
-                                    <span class="amount-text">$580.00</span>
+                                    <span class="amount-text">${{ number_format($data['advertising_year'], 2) }}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -163,7 +163,7 @@
                                         </div>
                                         <h5>Same period last year</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{ number_format($data['advertising_year_last'], 2) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +197,7 @@
                                         </div>
                                         <h5>Email account</h5>
                                     </div>
-                                    <span class="amount-text">$100</span>
+                                    <span class="amount-text">${{ number_format($data['email'], 2) }}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -208,7 +208,7 @@
                                         </div>
                                         <h5>Mobile SIM</h5>
                                     </div>
-                                    <span class="amount-text">$10</span>
+                                    <span class="amount-text">${{ number_format($data['mobile'], 2) }}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -219,7 +219,7 @@
                                         </div>
                                         <h5>Product</h5>
                                     </div>
-                                    <span class="amount-text">$120</span>
+                                    <span class="amount-text">${{ number_format($data['product'], 2) }}</span>
                                 </div>
                             </div>
                             <div class="card shadow-sm border-1 my-spend-box">
@@ -230,7 +230,7 @@
                                         </div>
                                         <h5>Support (E4U)</h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{ number_format($data['support'], 2) }}</span>
                                 </div>
                             </div>
                             
@@ -242,7 +242,7 @@
                                         </div>
                                         <h5>Year to date total </h5>
                                     </div>
-                                    <span class="amount-text">$1,280.00</span>
+                                    <span class="amount-text">${{ number_format($data['other_total'], 2) }}</span>
                                 </div>
                             </div>
                         </div>

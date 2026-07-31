@@ -591,12 +591,6 @@ Route::get('/user-dashboard/viewer-messages', function () {
     return view('user.dashboard.communication.viewer-messages');
 })->name('user.viewer-messages');
 
-
-
-Route::get('/escort-dashboard/my-spend', function () {
-    return view('escort.dashboard.my-spend');
-})->name('escort.dashboard.my-spend');
-
 Route::get('/escort-dashboard/tour-schedule', [EscortTourScheduleContoller::class, 'index'])->name('escort.dashboard.tour-schedule');
 Route::get('/escort-dashboard/tour-schedule-ajax', [EscortTourScheduleContoller::class, 'tourScheduleAjax'])->name('escort.dashboard.tour-schedule-ajax');
 
