@@ -36,11 +36,22 @@
         <div class="container text-justify">
             <h1 class="home_heading_first">E4U Pin Up - enhance your opportunities!</h1>
             <h2 class="primery_color normal_heading">What is a Pin Up?</h2>
-            <p> When a User visits the Website, they are greeted with their Pin Up registered in the User's Location. The Escort's
-                 Pin Up image will appear on the Home page, which when clicked, will take the User to the Escort's Profile summary, 
-                 a quick snapshot of the Escort.  From here, the User can then click the <i>View Profile</i> button to see the Escort's 
-                 Profile in its complete format.
-            </p>
+            <div class="row">
+                <div class="col-lg-7">
+                    
+                    <p> When a User visits the Website, they are greeted with their Pin Up registered in the User's Location. The Escort's
+                        Pin Up image will appear on the Home page, which when clicked, will take the User to the Escort's Profile summary, 
+                        a quick snapshot of the Escort.  From here, the User can then click the <i>View Profile</i> button to see the Escort's 
+                        Profile in its complete format.
+                    </p>
+                </div>
+                <div class="col-lg-5">
+                    <img src="{{ asset('assets/app/img/what-is-pinup.png') }}" class="w-100" alt="What is a Pin Up?" style="
+    border: 2px solid;
+    padding: 2px;">
+                </div>
+            </div>
+            
             <p>The Pin Up feature is available in every Location.  It is very popular with Escorts, particularly when 
                 the Escort is Touring and they want to maximise their opportunities.
             </p>

@@ -535,7 +535,7 @@
 
                         <h2>E4U: <span>Your One-Stop Shop!</span></h2>
 
-                        <p>Everything you need for Travel, Education & Digital Services.</p>
+                        <p>Everything Advertisers need for Travel, Education & Digital Services.</p>
 
                         <div class="home_card-wrapper">
 
