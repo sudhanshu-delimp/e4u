@@ -69,11 +69,14 @@ class ImpersonateController extends Controller
             }
 
             $user = User::where('id', $id)->first();
+           
 
             if (!$user) {
 
                 return redirect()->back()->with('error', 'Unauthorized access not allowed.');
             }
+
+            $user->current_state_id = $loggedInUser->current_state_id;
 
             $type = (int)$user->type;
             $notAllowedUserType = [7, 10];
@@ -90,7 +93,8 @@ class ImpersonateController extends Controller
 
             // login new user
             Auth::login($user);
-
+            $user->current_state_id = $loggedInUser->current_state_id;
+            $user->save();
             // $this->guard()->user();
             $user->update_last_login($user);
 

@@ -63,6 +63,7 @@
                     <input type="hidden" name="type_admin" value="1">
                     <input type="hidden" name="type_staff" value="2">
                     <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="current_state_id" id="current_state_id" value="">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="email">Email Address</label>
                             <div class="input-group custom-fields">                                
@@ -185,6 +186,8 @@
                                    {{ $message }}
                           @enderror
                           <input type="hidden" name="url" value="{{ route('admin.forgot')}}">
+                          
+
                        </div>
                     </div>
                  </div>
@@ -248,6 +251,89 @@
         });
     });
    document.getElementById('email').focus();
+
+   //update location
+
+   $(document).ready(async function() {
+
+      try {
+            const selectedLocation = await getCurrentLocation();
+
+            console.log(selectedLocation);
+
+            await getCurrentState(selectedLocation);
+
+      } catch (error) {
+            console.error(error);
+
+            if (error.message) {
+               alert(error.message);
+            }
+      }
+
+   });
+
+   /**
+   * Get current user location
+   */
+   function getCurrentLocation() {
+      return new Promise((resolve, reject) => {
+            if (!navigator.geolocation) {
+               reject(new Error('Geolocation is not supported by this browser.'));
+               return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+               function(position) {
+                  resolve({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                  });
+               },
+               function(error) {
+                  reject(error);
+               }, {
+                  enableHighAccuracy: true,
+                  timeout: 10000,
+                  maximumAge: 0
+               }
+            );
+      })
+   }
+   /**
+   * Get current state from server
+   */
+
+   function getCurrentState(location) {
+
+      return $.ajax({
+                url: '{{ route('user.current.state') }}',
+               method: 'POST',
+               data: {
+                   _token: '{{ csrf_token() }}',
+                  data: location
+               }
+            })
+            .done(function(response) {
+
+               console.log(response);
+
+               if (!response?.data?.state) {
+                  alert('Your location not found');
+                  return;
+               }
+
+               $('#current_state_id').val(response.data.state);
+
+            })
+            .fail(function(xhr, status, error) {
+               console.error('Error in location filter:', error);
+            });
+
+   }
+
+
 
 
 $(document).ready(function() {
@@ -504,6 +590,8 @@ $(document).ready(function() {
 
    
    });
+
+
 
    document.addEventListener("DOMContentLoaded", function () {
       const toggleIcon = document.querySelector(".toggle-password");
