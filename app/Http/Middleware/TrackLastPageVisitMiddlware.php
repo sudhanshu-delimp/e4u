@@ -24,13 +24,14 @@ class TrackLastPageVisitMiddlware
      */
     public function handle(Request $request, Closure $next)
     {
+       
         if ($request->is('logout') || Str::contains($request->path(), 'logout')) {
             return $next($request);
         }
 
         $path = $request->path();
-
-        if (Str::contains($path, 'get-notification') || Str::contains($path, 'get-geolocation-data') || Str::contains($path, 'state-name') || Str::contains($path, 'web.state.name') ) {
+ 
+        if (Str::contains(explode('/', $request->path())[0], 'massage-description') || Str::contains($path, 'get-notification') || Str::contains($path, 'get-geolocation-data') || Str::contains($path, 'state-name') || Str::contains($path, 'web.state.name')  ) {
             return $next($request);
         }
 
@@ -245,6 +246,10 @@ class TrackLastPageVisitMiddlware
 
         return $next($request);
     }
+
+
+
+
 
     public function getUserIp() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

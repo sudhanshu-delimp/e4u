@@ -775,7 +775,7 @@ margin-right: 5px;
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
+                                <div class="modal fade product_view upload-modal masseur-modal" data-massure_id="{{$masseur->id}}" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
@@ -2478,10 +2478,10 @@ margin-right: 5px;
  <script>
 
  window.authUser = {
-        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
-        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
-        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+        isLoggedIn: "{{ auth()->check() ? 'true' : 'false' }}",
+        auth_user_type: "{{ auth()->check() ? auth()->user()->type : 'false' }}" ,
+        myLegboxDisabled: "{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}}" ,
+        write_reviews_disable: "{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }}" ,
    };
 
 
@@ -3075,9 +3075,25 @@ function getStars(rating) {
         console.log(cid[1] + "-" + Eid);
         console.log(cidcl);
     });
-
+    
+$('.masseur-modal').on('shown.bs.modal', function () {
+    let massure_id = $(this).data('massure_id');
+ alert(massure_id);
+ return false;
+    // $.ajax({
+    //     url: "{{route('web.generate.log')}}"
+    //     data: {
+    //         massure_id: massure_id
+    //     },
+    //     success: function (response) {
+    //         console.log(response);
+    //     }
+    // });
+});
 
 
 window.initMap = initMap;
 </script>
 @endpush
+
+
