@@ -298,7 +298,7 @@
                                     </div>
                                 </div>
                                  <div class="row">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-12">
                                         <h5><b>How is it done - Video</b></h5>
                                         <p>
                                             You can upload up to six videos to your repository and
@@ -325,11 +325,13 @@
                                             for viewing.
                                         </p>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-6">
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/upload-video-banner.png') }}" alt=""
                                                 class="w-100 rounded-sm">
                                         </div>
+                                    </div>
+                                    <div class="col-lg-6">
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/video-banner.png') }}" alt=""
                                                 class="w-100 rounded-sm">
