@@ -21,10 +21,10 @@
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
                             <li>Use these help pages for explanations and guidance on creating, editing and
-                                duplicating a Profile.</li>
+                                duplicating a Profile or Tour.</li>
                             <li>You can create as many Profiles as you want across any Location.</li>
-                            <li>Before you can List a Profile, you must have created and saved a Profile for the
-                                Location you wish to complete the Listing in.</li>
+                            <li>Before you can List a Profile, or create a Tour, you must have created and saved a
+                                Profile/s for the Location you wish to complete the Listings in.</li>
                         </ol>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                     <li>Playmates</li>
                                 </ul>
 
-                                <h5><b>How is it done</b></h5>
+                                <h5><b>How is it done - New</b></h5>
                                 <p>
                                     The Profile Creator completes your information in four steps. You can change any
                                     pre-loaded
@@ -90,44 +90,49 @@
                                     complete.</p>
 
                                 <p>About Me is divided into four parts:</p>
-                                
-                                <p class="mt-4"><i>Location Information</i></p>
-                                <p>Some of these fields are pre-loaded with your data. You will need to complete the
-                                    following:</p>
+
+                                <p class="mt-4"><i>Part A - Location Information</i></p>
+                               
 
                                 <div class="row">
                                     <div class="col-lg-7">
-
+                                         <p>
+                                    If you have completed your data in My
+                                    Information, then those fields will be pre-
+                                    loaded with your data.
+                                </p>
+                                <p>They can be edited while you are creating
+                                    Profiles. You will need to complete the
+                                    following:</p>
                                         <ul class="custom-ul">
                                             <li>Profile Name.
 
-                                                <p>It would be helpful if you are consistent
-                                                    when naming your Profiles. We
-                                                    recommend you adapt a protocol that
-                                                    relates to the Location. For example, if
-                                                    you are creating a Profile for the Location
-                                                    NSW, then you could name the Profile
-                                                    Sydney01 and the second Profile, if you
-                                                    create a second for the Location NSW, Sydney02, and so on.
+                                                <p>It would be helpful if you are consistent when naming your Profiles. We
+                                                    recommend you adopt a protocol that relates to the Location. For
+                                                    example, if you are creating a Profile for the Location NSW, then you
+                                                    could name the Profile NSW01 and the second Profile, if you create a
+                                                    second for the Location NSW, NSW02, and so on.
                                                 </p>
 
                                             </li>
 
                                             <li>Stage Name.
                                                 <p>This is your name you will use for your Profile. You can select a Stage
-                                                    Name from your existing list or create a new Stage Name. Any new
-                                                    Stage Name you create will be added to your list of Stage Names. Any
-                                                    Stage Names that are currently in use, for the Location, will not appear
-                                                    in the list.
+                                                    Name from your existing list, if your default Stage Name has not loaded,
+                                                    or create a new Stage Name. Any new Stage Name you create will be
+                                                    added to your list of Stage Names. Any Stage Names that are currently
+                                                    in use, for the Location, will not appear in the list. If you have
+                                                    nominated
+                                                    one of your Stage Names as the Default, that will automatically load.
                                                 </p>
                                             </li>
 
                                         </ul>
                                     </div>
-                                    <div class="col-lg-5 my-3">
+                                    <div class="col-lg-5 mb-2">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/profile-location.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/location-information.png') }}"
+                                                alt="" class="w-100">
                                         </div>
                                     </div>
                                 </div>
@@ -139,19 +144,21 @@
                                             in another Location, and that is where you want to list your Profile, then
                                             change the Location to where you are, like Victoria for example. Always
                                             remember, to List a Profile, you must have a Profile/s saved for the
-                                            Location you intent to create a Listing for.
+                                            Location you intend to create a Listing for.
                                         </p>
                                     </li>
                                     <li>City.
                                         <p>The city name will load by default according to the Location you have
-                                            selected.
+                                            selected, and will update if you change the Location.
                                         </p>
                                     </li>
                                     <li>Street Address.
                                         <p>This is optional. We recommend you include the address you are
                                             staying at but without the street number. This is particularly helpful to
                                             your clients so that they have an idea about where in the city you are
-                                            staying, which helps them with timing and importantly where to park.
+                                            staying, which helps them with timing and importantly where to park. If
+                                            you have nominated one of your Street Addresses as the Default, that
+                                            will automatically load.
                                         </p>
                                     </li>
                                     <li>Mobile.
@@ -160,45 +167,44 @@
                                     </li>
                                 </ul>
 
-                                <p class="mt-4"><i>Media - Photos</i></p>
-                                <p>
-                                    There are two mandatory sets of photos required for your Profile, your Banner image,
-                                    which
-                                    appears across the top of your Profile, and your Thumbnail and supporting images. If you
-                                    have set up your <a href="{{ route('escort.archive-view-photos') }}"
-                                        class="custom_links_design">Media</a>, it will pre-load. If you have not set up your
-                                    default
-                                    Media, you can do so from the Creator, and you will be asked if you want to update your
-                                    default Media. The Creator will also permit you to clip images.
+                                <p class="mt-4"><i>Part B - Media Photos</i></p>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-lg-7">
+                                        <p>
+                                    There are two mandatory sets of photos
+                                    required for your Profile, your Banner image,
+                                    which appears across the top of your Profile,
+                                    and your Thumbnail and supporting images.
+                                    If you have set up your <a href="{{ route('escort.archive-view-photos') }}"
+                                        class="custom_links_design">Media</a>, it will pre-load. If you have not set up
+                                    your default Media, you can do so from the
+                                    Profile Creator, and you will be asked if you
+                                    want to update your default Media.
                                 </p>
 
 
-                                <div class="row mb-3">
-                                    <div class="col-lg-7">
-
                                         <ul class="custom-ul">
                                             <li>Thumbnail.
-                                                <p>You can change any of your images from
-                                                    your default images. The Creator will ask
-                                                    you if you want to update your default
-                                                    images if you have made any changes. If
-                                                    you answer Yes, your default images will
-                                                    update. If you answer NO, your default
-                                                    images will remain unchanged, but the
-                                                    new image/s you selected will be attached
-                                                    to the Profile you are creating.
+                                                <p>You can change any of your images from your default images. The
+                                                    Profile Creator will ask you if you want to update your default images
+                                                    if
+                                                    you have made any changes. If you answer Yes, your default images
+                                                    will update. If you answer NO, your default images will remain
+                                                    unchanged, but the new image/s you have selected will be attached to
+                                                    the Profile you are creating.
                                                 </p>
                                                 <p>
                                                     Your Thumbnail image is what will appear in the Listings and is the
-                                                    default image on your Profile. Viewers can scroll through your images,
-                                                    as well as click and view from a pop up.
+                                                    default image on your Profile page. Viewers can scroll through your
+                                                    images, as well as click and view from a pop up.
                                                 </p>
                                             </li>
                                             <li>Banner.
-                                                <p>Your Banner image sits across the top of your Profile. We recommend
-                                                    you select an image that is landscape in nature. If you do not have an
-                                                    image, your can select from our template images. The images represent
-                                                    a range of erotic lingerie.
+                                                <p>Your Banner image sits across the top of your Profile page. We
+                                                    recommend you select an image that is landscape in nature. If you do
+                                                    not have an image, your can select from our template images. The
+                                                    images include: BDSM, Lingerie, Passive, Sheets and Subtle.
                                                 </p>
                                             </li>
 
@@ -206,46 +212,56 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/media-photo.png') }}" alt=""
-                                                class="w-100 rounded-sm">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/media.png') }}" alt=""
+                                                class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                                 <p class="mt-4"><i>Part B - Media Video</i></p>
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <p>
+                                            You can load up to six videos into your Media.
+                                            The default video, three in total, will pre-load in
+                                            the Profile Creator. You can change any of
+                                            your videos within the Profile Creator. Where
+                                            you change a video the Profile Creator will ask
+                                            you if you want to update your default video.
+                                            If you say Yes the data is updated, if you say
+                                            No, your settings remain the same and the
+                                            change/s you made are only applied to the
+                                            Profile you are creating.
+
+                                        </p>
+                                        <p>Your video is displayed in the Media pop up on
+                                            your profile. If you have video available to
+                                            Viewers, your Profile will also display a camera indicating that video is available for
+                                            viewing.</p>
+
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/media-video.png') }}" alt=""
+                                                class="w-100">
                                         </div>
                                     </div>
                                 </div>
 
-
-
-
-                                <p class="mt-4"><i>Media - Video</i></p>
-                                <p>
-
-                                    You can load up to six videos into your Media. The default video, three in total, will
-                                    pre-load
-                                    in the Creator. You can change any of your videos within the Creator. Where you change
-                                    a video the Creator will ask you if you want to update your default video. If you say
-                                    Yes the
-                                    data is updated, if you say No, your settings remain the same and the change/s you made
-                                    are
-                                    only applied to the Profile you are creating.
-
-                                </p>
-                                <p>Your video is displayed in the Media pop up on your profile. If you have video available
-                                    to
-                                    Viewers, your Profile will also display a camera indicating that video is available for
-                                    viewing.</p>
-
-
-                                <p class="mt-4"><i>About Me</i></p>
-                                <p>
-                                    If you have completed all of your data in<a
-                                        href="{{ route('escort.profile.information') }}" class="custom_links_design"> My
-                                        Information</a>,
-                                    then there is no need to complete any settings here. You can make changes if you want.
-                                </p>
-
+                               
+                                
+                                <p class="mt-4"><i>Part C - About Me</i></p>
 
 
                                 <div class="row mb-3">
                                     <div class="col-lg-7">
+                                        
+                                        <p>
+                                            If you have completed all of your data in<a
+                                                href="{{ route('escort.profile.information') }}" class="custom_links_design"> My
+                                                Information</a>,
+                                            then there is no need to complete any settings here. You can make changes if you want.
+                                        </p>
+
                                         <ul class="custom-ul">
                                             <li>About Me.
                                                 <p>Here, you can describe your background
@@ -261,64 +277,98 @@
                                                 </p>
                                             </li>
                                         </ul>
+                                        <p>Although not all of this information is mandatory, we encourage you to include it
+                                            in your Profile
+                                            as it goes a long way to assisting Viewers to better understand who you are.</p>
 
 
-
-                                        <p class="mt-4"><i>Read More</i></p>
-                                        <p>Additional information about you that is more detailed. This data does not appear
-                                            openly
-                                            in
-                                            your Profile. For a Viewer to see this data, they must click the ‘Read more’
-                                            link to
-                                            open the
-                                            information up to see it.
-                                        </p>
-
-
-                                        <p class="mt-4"><i>Covid 19</i></p>
-
-                                        <p>What is your current Covid status.</p>
-
-                                        <p class="mt-4"><i>Who Am I</i></p>
-                                <p>
-
-                                    This is where you get to tell everyone about yourself. Two parts to complete:
-
-                                </p>
+                                        
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-additional-info-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/about-me.png') }}"
+                                                alt="" class="w-100 rounded-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                                 <p class="mt-4"><i>Part C - Read More</i></p>
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                       
+                                        <p>Additional information about you that is more
+                                            detailed. If you have completed this
+                                            information then there is no need to complete
+                                            any settings here. This data does not appear
+                                            openly on your Profile page. For a Viewer to
+                                            see this data, they must click the ‘Read more’
+                                            link to open the information up to see it. You can change the data and the
+                                            Profile Creator will
+                                            ask you if you want to update your settings.
+                                        </p>
+                                        <p>We encourage you to include this information in your Profile as it goes a long
+                                            way to assisting
+                                            Viewers to better understand who you are.</p>
+
+                                        <p class="mt-4"><i>Part C - Covid 19</i></p>
+
+                                        <p>What is your current Covid status.</p>
+
+                                       
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/read-more.png') }}"
+                                                alt="" class="w-100 rounded-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                                 <p class="mt-4"><i>Part D - Who Am I</i></p>
+                                <p>
+
+                                    This is where you get to tell everyone about yourself. There are two parts to
+                                    complete:
+
+                                </p>
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <ul class="custom-ul">
+                                            <li>Tittle
+                                                <p>Insert a tittle that you would
+                                                    like to appear on your
+                                                    Profile page to catch
+                                                    everyone’s attention. If you
+                                                    have a default Tittle, it will
+                                                    automatically load, which
+                                                    you can change.</p>
+                                            </li>
+                                            <li>Narration.
+                                                <p>
+                                                    Talk about yourself and who you are. Remember, there is no need to insert
+                                                    any information about Rates, your Statistics, Availability or Playmates, as
+                                                    all of that information is already pre-loaded elsewhere in the Profile. If you
+                                                    have a default narration, it will automatically load, which you can change.
+
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/who.png') }}"
                                                 alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
                                 </div>
 
-                                
-                                <ul class="custom-ul">
-                                    <li>Heading.
-                                        <p>Insert a heading that you would like to appear on your Profile to catch
-                                            everyone’s attention.</p>
-                                    </li>
-                                    <li>About me.
-                                        <p>
-                                            Talk about yourself and who you are. Remember, there is no need to
-                                            insert any information about Rates, your Statistics, Availability or
-                                            Playmates, as all of that information is already pre-loaded.
-
-                                        </p>
-                                    </li>
-                                </ul>
-
                                 <h5 class="sec-head">Step 2 - My Services & Rates</h5>
                                 <p>All of the data for this section should be pre-loaded. There are two parts which can be
                                     edited.</p>
 
-                                <p class="mt-4"><i>My Services</i></p>
+                                <p class="mt-4"><i>Part A - My Services</i></p>
                                 <div class="row mb-3">
                                     <div class="col-lg-7">
                                         <p>
-                                            Any Service Tags that you have selected from <a
+                                            Your default Service Tags that you have selected in <a
                                                 href="{{ route('escort.profile.information') }}"
                                                 class="custom_links_design">My
                                                 Information</a>, will have pre-loaded here.
@@ -329,7 +379,8 @@
                                             in the Profile, but your default Service Tags will update. You
                                             can change the tag back to default by clicking the status again.
                                         </p>
-                                        <p>If you add any more Service Tags, the Creator will ask you if you want to update
+                                        <p>If you add any more Service Tags, the Profile Creator will ask you if you want to
+                                            update
                                             your default
                                             Service Tags. If you click Yes, the Service Tag will be added to your default
                                             Service Tags,
@@ -343,7 +394,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-services-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/services.png') }}"
                                                 alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -351,7 +402,7 @@
 
 
 
-                                <p class="mt-4"><i>Rates</i></p>
+                                <p class="mt-4"><i>Part B - Rates</i></p>
                                 <div class="row mb-3">
                                     <div class="col-lg-7">
                                         <p>
@@ -359,7 +410,7 @@
                                                 href="{{ route('escort.profile.information') }}"
                                                 class="custom_links_design">My
                                                 Information</a> then all of your preferred Rates will pre-load. If you
-                                            change or add a Rate, the Creator will ask you if you want to update
+                                            change or add a Rate, the Profile Creator will ask you if you want to update
                                             your default Rate settings. If you answer Yes your default settings will
                                             update, if you answer No, your default settings for Rates will remain
                                             the same, but the change will attach to the Profile you are creating.
@@ -370,174 +421,139 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/rate-scr.png') }}" alt=""
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/rate.png') }}" alt=""
                                                 class="w-75">
                                         </div>
                                     </div>
-                                </div>
 
-
-
-                                <h5 class="sec-head">Step 3 - My Availability</h5>
-                                <div class="row">
-                                    <div class="col-lg-7">
-                                        <p>Essentially there are two forms of Availability, the physical start and finish
-                                            times
-                                            according to
-                                            the clock, and a specific method, such as ‘By Appointment’.</p>
-
-
-                                        <p>
-                                            If you have set your Availability up in <a
-                                                href="{{ route('escort.profile.information') }}"
-                                                class="custom_links_design">My
-                                                Information</a> then all of your Availability settings
-                                            will pre-load. If you change any of your Availability preferences,
-                                            the Creator will ask you if you want to update your default
-                                            Availability settings. If you answer Yes your default settings will
-                                            update, if you answer No, your default settings for your
-                                            preferred Availability will remain the same, but the change will apply to the
-                                            Profile
-                                            you are
-                                            creating.
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-availability-scr.png') }}"
-                                                alt="" class="w-100">
+                                    <p class="mt-4"><i>Part C - Deposit</i></p>
+                                    <div class="row mb-3">
+                                        <div class="col-lg-7">
+                                            <p>
+                                                If you have set your conditions for Deposit in <a
+                                                    href="{{ route('escort.profile.information') }}"
+                                                    class="custom_links_design">My
+                                                    Information</a> then they will pre-load. You can
+                                                change the settings and a pop up will ask you
+                                                if you want to update your default settings. If
+                                                you say No, then the settings you have in the
+                                                Profile Creator will be attached to that Profile.
+                                                If you say Yes, the default settings will
+                                                update.
+                                            </p>
+                                            <p>The field to enter the Deposit value will appear when you select ‘Yes’.
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="doc-img">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/deposit.png') }}"
+                                                    alt="" class="w-75">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
 
-                                {{-- step-4 --}}
 
-                                <h5 class="sec-head">Step 4 - My Playmates</h5>
-
-                                <p class="mt-4"><i>Enable Feature</i></p>
-
-
-                                <div class="row mb-3">
-                                    <div class="col-lg-7">
-                                        <p>To have a Playmate included in a Profile, you
-                                            first have to make sure you have enabled the
-                                            feature in <a href="{{ route('escort.profile.information') }}"
-                                                class="custom_links_design"> My
-                                                Information</a>. Once you have
-                                            enabled the feature, you can then select as
-                                            many Playmates as you want to be
-                                            associated with any Listed Profile.</p>
+                                    <h5 class="sec-head">Step 3 - My Availability</h5>
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <p>Essentially there are two forms of Availability, the physical start and
+                                                finish
+                                                times
+                                                according to
+                                                the clock, and a specific method, such as ‘By Appointment’.</p>
 
 
-                                        <p>Any Playmates that you include in a Listed Profile will be added to your My
-                                            Active
-                                            Playmates list.
-
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-playmates-scr.png') }}"
-                                                alt="" class="w-100">
+                                            <p>
+                                                If you have set your Availability up in <a
+                                                    href="{{ route('escort.profile.information') }}"
+                                                    class="custom_links_design">My
+                                                    Information</a> then all of your Availability settings
+                                                will pre-load. If you change any of your Availability preferences,
+                                                the Profile Creator will ask you if you want to update your default
+                                                Availability settings. If you answer Yes your default settings will
+                                                update, if you answer No, your default settings for your
+                                                preferred Availability will remain the same, but the change will apply to
+                                                the
+                                                Profile
+                                                you are
+                                                creating.
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="doc-img">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/my-time.png') }}"
+                                                    alt="" class="w-100">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <p><i>Adding a Playmate</i></p>
-                                <p>To add a Playmate to a Profile, go to <a href="{{ route('escort.list', 'current') }}"
-                                        class="custom_links_design">Listed Profile</a> and select from the Action options,
-                                    ‘Include Playmates’. From the Update Profile page, select the Playmates you want to be
-                                    included in your Profile. Remember, you can only select other Escorts who have also
-                                    enabled the feature. Only Playmates that are in the same Location will be available to
-                                    be
-                                    included in a Profile. If a Playmate you have added to a Listed Profile leaves your
-                                    Location
-                                    during the Listed period, that Playmate will be automatically removed from the Listed
-                                    Profile.</p>
 
-                                <div class="row mb-3">
-                                    <div class="col-lg-7">
-                                        <p>When selecting a Playmate, there are two
-                                            choices, Playmates you have already added
-                                            to other Profiles, and new Playmates you
-                                            want to add to your ‘My Active Playmates’ list.
-                                            To add a new Playmate, search their
-                                            Membership ID, remembering that they:</p>
-                                        <ul class="custom-ul">
-                                            <li>must have enabled the feature;</li>
-                                            <li>be in your Location; and</li>
-                                            <li>have a Listed Profile.</li>
-                                        </ul>
-                                        <p>If the search you undertake has all of the requirements included in the Escort’s
-                                            settings
-                                            that
-                                            you are searching, then their card will appear and you simply tick the box to
-                                            add them
-                                            to your
-                                            Profile. You can also tick any of the other Playmates that are listed here from
-                                            your My
-                                            Active
-                                            Playmates list. That is to say, you can have more than one Playmate.</p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-playmates-scr-2.png') }}"
-                                                alt="" class="w-100">
+                                    {{-- step-4 --}}
+
+                                    <h5 class="sec-head">Step 4 - My Playmates</h5>
+
+
+
+                                    <div class="row mb-3">
+                                        <div class="col-lg-7">
+                                            <p>To have a Playmate included in a Profile, you
+                                                first have to make sure you have enabled the
+                                                feature in <a href="{{ route('escort.profile.information') }}"
+                                                    class="custom_links_design"> My
+                                                    Information</a>. Once you have
+                                                enabled the feature, you can then select as
+                                                many Playmates as you want to be
+                                                associated with any Listed Profile.</p>
+
+
+                                            <p>If you have Playmates set up, they will appear
+                                                in your Profile Creator (last tab). Select the
+                                                Playmate/s you want attached to your Profile.
+
+                                            </p>
+                                            <p>
+                                                The Website will automatically list the
+                                                Playmate/s available to you according to the
+                                                Location you have assigned to the Profile.
+                                                When you create a Profile and you go to
+                                                attach a Playmate, only Playmates in the
+                                                same Location will be available from your list
+                                                to attach to that Profile.
+                                            </p>
+                                            <p>
+                                                If your nominated Playmate leaves the Location, while the Profile is Listed,
+                                                the Playmate will
+                                                automatically be removed from your Profile, and you will be notified of the
+                                                change. You can
+                                                edit the Profile to attach another Playmate if you have one available in the
+                                                Location.
+                                            </p>
+
+                                            <p>
+                                                When you create the Profile, you can select more than one Playmate for that
+                                                Profile. Only
+                                                Playmates nominated in the same Location can be added to a Profile nominated
+                                                for the
+                                                Location.
+                                            </p>
+                                            <p>
+                                                You can edit your Listed Profile any time to update Playmates, including
+                                                when you are in the
+                                                Profile Creator.
+                                            </p>
                                         </div>
-                                    </div>
-                                </div>
-
-
-
-                                <p class="mt-4"><i>Editing your Playmates</i></p>
-                                <p>Lastly, you can edit your Listed Profile any time to update Playmates, including when you
-                                    are
-                                    in the Profile Creator. Don’t forget, if a Playmate leaves your Location, or their
-                                    Listed Profile
-                                    expires, then they will be automatically removed from your Listed Profile.</p>
-                                <p>
-                                    If the Playmate removes you from their Listed Profile, then they will be removed from
-                                    your
-                                    Listed Profile as well.
-
-                                </p>
-
-
-                                <p class="mt-4"><i>Profile View</i></p>
-
-
-
-                                <div class="row">
-                                    <div class="col-lg-7">
-                                        <p>
-                                            When a Playmate has been added to a Listed
-                                            Profile, their avatar will appear on your Listed
-                                            Profile. Your avatar will also appear on their
-                                            Listed Profile. When a User looks at your
-                                            Profile, and they are interested in a Playmate
-                                            that appears on your Profile, the User can
-                                            click the Playmate and their Profile will open
-                                            for the User to view. The Avatar will also
-                                            disclose their name.
-                                        </p>
-
-                                        <p>
-                                            If you do not have any Playmates, the Listed
-                                            Profile will say so.
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-playmates-scr-3.png') }}"
-                                                alt="" class="w-100">
+                                        <div class="col-lg-5">
+                                            <div class="doc-img">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates.png') }}"
+                                                    alt="" class="w-100">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Listed -->
                     <div class="card">
                         <div class="card-header" id="headingCurrent">
@@ -555,23 +571,29 @@
                                 <div class="row">
                                     <div class="col-lg-7">
                                         <p>
-                                            All of your current Profiles that are Listed on the Website are
-                                            summarised here. You can edit your Listed Profiles as well as
-                                            apply other features such as BRB, Suspend and List Pin Up.The report also
-                                            summarises salient information about your
-                                            Profiles that are Listed.
+                                            All of your current Profiles that are Listed on
+                                            the Website are summarised here. You can
+                                            edit your Listed Profiles as well as apply
+                                            other features such as List Pin Up, Upgrade,
+                                            Extend Profile, Bump Up, Suspend Profile
+                                            and Add BRB.
                                         </p>
+                                        <p>The report also summarises salient information about your Profiles that are
+                                            Listed.</p>
                                         <h5><b>Features</b></h5>
                                         <ul class="custom-ul">
-                                            <li>Add BRB</li>
-                                            <li>Suspend (Listing or part thereof)</li>
                                             <li>List Pin Up</li>
-                                            <li>Current Profiles Listed</li>
+                                            <li>Upgrade</li>
+                                            <li>Extend Profile</li>
+                                            <li>Bump Up</li>
+                                            <li>Suspend Profile (Listing or part thereof)</li>
+                                            <li>Add BRB</li>
+                                            <li>Listed Profiles (Current)</li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img mb-3">
-                                            <img src="{{ asset('assets/dashboard/img/listed-profile.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/listed-profile.png') }}"
                                                 alt="" class="w-100">
                                         </div>
                                     </div>
@@ -580,106 +602,34 @@
 
 
 
-                                <h5><b>How is it done</b></h5>
+                                <h5><b>How is it done - Listed Profiles</b></h5>
                                 <p>
                                     After you list a Profile, the Listed Profile appears in this report. It is from this
                                     feature you
                                     manage your Profiles while they are currently Listed. Management includes:
                                 </p>
-
-                                <h5 class="sec-head">
-                                    BRB
-                                </h5>
-                                <div class="row">
-                                    <div class="col-lg-7">
-                                        <p>If you wish not to be disturbed for a period of time, because you may be out to
-                                            dinner for
-                                            example, you can use this feature to let Viewers know that you are not available
-                                            until the time
-                                            you set in the BRB.
-                                            <br>
-                                            Simply click the BRB button and enter the details to record your
-                                            BRB and Save. Your BRB will be displayed on your Profile as
-                                            well as the report updating to reflect the Profile has a BRB.</p>
-
-                                            <p>
-                                            The BRB will automatically be removed from your Profile when
-                                            the time setting expires. Viewers will understand that you are
-                                            still available except for the time the BRB is active.
-                                        </p>
-                                        <p>You can also cancel the BRB after it has been posted. This is helpful if you
-                                            happen to return early and you want to return to work.
-                                        </p>
-                                        <p>
-                                            If your Profile is also registered as the current Pin Up in your Location, and
-                                            you apply a BRB, the BRB banner will also display on your Pin Up image on
-                                            the Home Page.
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img mb-2">
-                                            <img src="{{ asset('assets/dashboard/img/add-brb-src.png') }}" alt=""
-                                                class="w-100">
-                                        </div>
-                                        <div class="d-flex justify-content-end align-items-end">
-                                            <img src="{{ asset('assets/dashboard/img/profile-pic-scr.png') }}"
-                                                alt="" class="w-50 doc-img">
-                                        </div>
-                                    </div>
-                                </div>
+                                <p>Listed Profiles is divided into two parts:</p>
 
 
-
-
-                                <h5 class="sec-head">
-                                    Suspend
-                                </h5>
-
-                                <div class="row">
-                                    <div class="col-lg-7">
-                                        <p>Use this feature if you want to remove your Listed Profile for a
-                                            short period of time (2 or more days). This feature is typically
-                                            used where the Escort has to stop work due to an emergency,
-                                            like having to return to their Home State to attend to something,
-                                            and then return to the Location. Where this happens, the
-                                            Listed Profile will be removed from the Website, and reinstated
-                                            according to your settings.
-                                        </p>
-
-                                        <p>
-                                            Click the Suspend button and enter the details for the
-                                            suspension period. You will see the Credit being calculated live. Once the
-                                            details are
-                                            entered, Save. The affected Profile will display a ‘SUS’ indicator.
-                                        </p>
-                                        <p>
-                                            You will receive a full Credit for the number of days the Listed Profile in not
-                                            active. You can
-                                            apply the Credit toward future Listings.
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/susspend-profile-src.png') }}"
-                                                alt="" class="w-100">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
+                                <p class="mt-4">
+                                    <i> Part A - Badges</i>
+                                </p>
 
                                 <h5 class="sec-head">
                                     List Pin Up
                                 </h5>
+
                                 <div class="row mb-3">
                                     <div class="col-lg-7">
                                         <p>
-                                            This feature is designed to give the Escort front end exposure on the Website.
+                                            This feature is designed to give the Escort front end exposure on the
+                                            Website.
                                             The Website
-                                            does not, unlike others platforms, display Profiles for Viewers to look at from
+                                            does not, unlike others platforms, display Profiles for Viewers to look at
+                                            from
                                             the Home page.
-                                            Profile Listings are one click away. What does appear on the Home page is the
+                                            Profile Listings are one click away. What does appear on the Home page is
+                                            the
                                             Pin Up
                                             feature.
                                         </p>
@@ -690,36 +640,38 @@
                                             <li>The Fee is fixed at $475.00 per week (excl GST)</li>
                                             <li>You can only list for one week at a time, but re-apply for the Pin Up
                                                 Listing any time.</li>
-                                            <li>You must have a current Profile Listing wherein the start and end dates are
-                                                either side of the Pin Up week.</li>
-                                            
+                                            <li>You must have a current Profile Listing where the start and end dates are
+                                                either side of
+                                                the Pin Up week.</li>
+
                                         </ul>
 
-                                            <p>To apply to become a Pin Up, click the List Pin Up button. From the pop up,
-                                                select the Profile
-                                                you wish to use for the Pin Up and the week. Make sure you have uploaded
-                                                your Pin Up
-                                                image to <a href="{{ route('escort.archive-view-photos') }}"
-                                                    class="custom_links_design">Media</a>, otherwise you will be
-                                                rejected. Once you have completed the settings, proceed to
-                                                Payment.
-                                            </p>
-                                            <p>
-                                                If the week you wish to be displayed as the Pin Up is not
-                                                available that is because another Escort has already reserved
-                                                the dates. If another week is available within the start and end
-                                                dates for the Listed Profile, they will be displayed for you to
-                                                select. If there are no available weeks within the Start and End
-                                                dates, the pop up will indicate that to you.
-                                            </p>
-                                            <p>
-                                                Once the process is completed, and payment has been made
-                                                the receipt details will appear in the <a
-                                                    href="{{ url('escort-dashboard/transaction-summary') }}"
-                                                    class="custom_links_design">Transaction Summary</a> which you will find
-                                                in the
-                                                Bookkeeping menu group.
-                                            </p>
+                                        <p>To apply to become a Pin Up, click the List Pin Up button. From the pop up,
+                                            select the Profile
+                                            you wish to use for the Pin Up and the week. Make sure you have uploaded
+                                            your Pin Up
+                                            image to <a href="{{ route('escort.archive-view-photos') }}"
+                                                class="custom_links_design">Media</a>, otherwise you will be
+                                            rejected. Once you have completed the settings, proceed to
+                                            Payment.The affected Profile will display a ‘Pin Up’ tag in the
+                                            table once the process has been completed.
+                                        </p>
+                                        <p>
+                                            If the week you wish to be displayed as the Pin Up is not
+                                            available that is because another Escort has already reserved
+                                            the dates. If another week is available within the start and end
+                                            dates for the Listed Profile, they will be displayed for you to
+                                            select. If there are no available weeks within the Start and End
+                                            dates, the pop up will indicate that to you.
+                                        </p>
+                                        <p>
+                                            Once the process is completed, and payment has been made
+                                            the receipt details will appear in the <a
+                                                href="{{ url('escort-dashboard/transaction-summary') }}"
+                                                class="custom_links_design">Transaction Summary</a> which you will find
+                                            in the
+                                            Bookkeeping menu group.
+                                        </p>
                                     </div>
                                     <div class="col-lg-5">
 
@@ -735,25 +687,278 @@
 
                                 </div>
 
+                                <h5 class="sec-head">
+                                    Upgrade
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <p>Use this feature to Upgrade a Listing to a higher
+                                            Membership Type. This feature only applies to current
+                                            Listings that are either Silver or Gold.
+                                        </p>
+
+                                        <p>
+                                            To Upgrade a Listing, simply click the button and a pop
+                                            up will appear. Select the Profile you want to Upgrade,
+                                            then select the Membership Type you want to upgrade to.
+                                        </p>
+                                        <p>Once you have selected your Upgrade options, click the
+                                            Proceed to Payment button for payment. Once payment
+                                            is completed, your Profile will be immediately upgraded
+                                            to the Membership Type you selected, appearing at the
+                                            beginning of the Membership Type. The affected Profile
+                                            will display an ‘Upgraded’ tag in the table once the process has been completed.
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img mb-3">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/upgrade.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5 class="sec-head">
+                                    Extend Profile
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <p>Use this feature to Extend a Listing for a set period of
+                                            time, like another 10 days for example. This feature only
+                                            applies to current Listings and for any Membership Type.
+                                        </p>
+
+                                        <p>
+                                            To Extend a Listing, simply click the button and a pop up
+                                            will appear. Select the Profile you want to Extend, then
+                                            select the period you want to apply the extension to.
+                                        </p>
+                                        <p>Once you have selected your Extension options, click the
+                                            Proceed to Payment button for payment. Once payment
+                                            is completed, your Profile will be immediately extended to
+                                            the new date. The affected Profile will display an
+                                            ‘Extended’ tag in the table once the process has been completed.
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img mb-3">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/extend.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <h5 class="sec-head">
+                                    Bump Up
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <p>Use this feature to Bump Up your Listing to the top of the
+                                            Membership Type. This feature applies to any current
+                                            Listing you have.
+                                        </p>
+
+                                        <p>
+                                            To Bump Up a Listing, simply click the button and a pop
+                                            up will appear. Select the Profile you want to Bump Up.
+                                        </p>
+                                        <p>Once you have selected the Profile you want to Bump
+                                            Up, click the Proceed to Payment button for payment.
+                                            Once payment is completed, your Profile will be
+                                            immediately Bumped Up to the beginning of the
+                                            Membership Type. The affected Profile will display a
+                                            ‘Bumped Up’ tag in the table once the process has been
+                                            completed.
+                                        </p>
+                                        <p>Your Profile will remain in the Bump Up position for 24 hours, after which it
+                                            will rejoin the
+                                            mainstream listings for the Membership Type.</p>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img mb-3">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/bump-up.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <h5 class="sec-head">
+                                    Suspend
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <p>Use this feature if you want to remove your Listed Profile
+                                            for a short period of time (2 or more days). This feature
+                                            is typically used where the Escort has to stop work due to
+                                            an emergency, like having to return to their Home State
+                                            to attend to something, and then return to the Location.
+                                            Where this happens, the Listed Profile will be removed
+                                            from the Website, and reinstated according to your
+                                            settings
+                                        </p>
+
+                                        <p>
+                                            Click the Suspend button and enter the details for the
+                                            suspension period. You will see the Credit being
+                                            calculated live. Once the details are entered click the
+                                            Suspend button. The affected Profile will display a
+                                            ‘Suspended’ tag in the table once the process has been completed.
+                                        </p>
+                                        <p>
+                                            You will receive a full Credit for the number of days the Listed Profile is not
+                                            active. You can
+                                            apply the Credit toward future Listings.
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img mb-3">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/suspend-listing.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
 
 
 
 
 
                                 <h5 class="sec-head">
-                                    Edit Profile
+                                    Add BRB
                                 </h5>
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <p>
+                                            If you wish not to be disturbed for a period of
+                                            time, because you may be out to dinner for
+                                            example, you can use this feature to let
+                                            Viewers know that you are not available until
+                                            the time you set in the BRB notification.
+                                        </p>
+                                        <p>
+                                            Simply click the BRB button and enter the
+                                            details to for your BRB. Once the details are
+                                            entered click the Do you want to Post button.
+                                            Your BRB will be displayed on the Listing
+                                            page, your Profile and Pin Up (is applicable).
+                                            The affected Profile will display a ‘BRB’ tag in the table once the process has
+                                            been
+                                            completed.
+                                        </p>
+                                        <p>
+                                            The BRB notice will automatically be removed from your Profile when the
+                                            time setting expires. Viewers will understand that you are still available
+                                            except for the time the BRB notice is active.
+                                        </p>
+                                        <p>
+                                            You can also cancel the BRB after it has been posted. This is helpful if you
+                                            happen to return early and you want to return to work. Simply go the Action
+                                            options for the affected Profile and select ‘Cancel BRB’.
+                                        </p>
+                                        <p>
+                                            If your Profile is also registered as the current Pin Up in your Location, and
+                                            you apply a BRB, the BRB banner will also display on your Pin Up image
+                                            on the Home Page.
+                                        </p>
 
-                                <p>
-                                    To edit a Profile, select Edit from the Action list. The Profile will open up in the
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img mt-2">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/add-brb.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                        <div class="doc-img mt-2 mb-2">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/profile-notice.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div>
+                                <p><i>Part B - Profile Management (Action)</i></p>
+                                <h5 class="sec-head">
+                                    Cancel BRB
+                                </h5>
+                                <p>Use this Action item to cancel you BRB notification. Once the BRB is cancelled, the BRB
+                                    tag
+                                    will automatically be removed from the Listing and the report page.</p>
+                            </div>
+
+
+                            <div>
+                                <h5 class="sec-head">
+                                    Edit
+                                </h5>
+                                <p>To edit a Profile, select Edit from the Action list. The Profile will open up in the
                                     Profile Creator
-                                    where you can edit any part of the Profile. The editing is undertaken in sections, which
-                                    you
-                                    must save when completed.
-                                </p>
-                                <p>Any changes you make to a Listed Profile, once saved, are applied immediately.</p>
+                                    where you can edit any part of the Profile. The editing is undertaken in parts, just
+                                    like the
+                                    Profile was first created, which you must save when completed.</p>
 
+                                <p>Any changes you make to a Listed Profile, once saved, are applied immediately. You will
+                                    be
+                                    asked with any changes you make if you want the change to be applied to your default
+                                    settings.</p>
+                            </div>
 
+                            <div>
+                                <h5 class="sec-head">
+                                    Delete
+                                </h5>
+                                <p>Use this Action item to delete a Listed Profile. Using the Delete Action will permanently
+                                    delete
+                                    the Listing and the Profile from your Account. If you want to cancel the Listing, but
+                                    retain the
+                                    Profile, use the Cancel Listing option.</p>
+                            </div>
+
+                            <div>
+                                <h5 class="sec-head">
+                                    Add Playmates
+                                </h5>
+                                <p>If you haven’t already included your Playmate/s in a Profile when you created the
+                                    Profile, you
+                                    can add a Playmate/s using this Action Item. After clicking the Action item, the Profile
+                                    will
+                                    open in Edit mode. You will be taken the My Playmates tab. Any Playmates that you have
+                                    listed in My Information will appear here.</p>
+
+                                <p>Simply select the Playmate/s you want to add to the Profile. Or alternatively, you can
+                                    enter
+                                    the Escort’s Member ID in the search field to locate the Escort and then add the Escort
+                                    to
+                                    your My Playmates list and the Profile. Remember, you can only search for Escorts that
+                                    have
+                                    enabled this feature to be a Playmate (like yourself).</p>
+                            </div>
+
+                            <div>
+                                <h5 class="sec-head">
+                                    Pin Up Summary
+                                </h5>
+                                <p>The Pin Up summary pop up is a snap shot of the salient elements to the Pin In listing.
+                                    Importantly, it summarises the start and end dates, and the Prof ile name.</p>
+                            </div>
+
+                            <div>
+                                <h5 class="sec-head">
+                                    View Profile
+                                </h5>
+                                <p>If you want to see how a Profile looks in the Listings, click View Profile for a pop up
+                                    of the
+                                    Profile. You can view all the components to the Profile.</p>
                             </div>
                         </div>
                     </div>
@@ -771,8 +976,11 @@
                         <div id="collapsePast" class="collapse" aria-labelledby="headingPast" data-parent="#accordion">
                             <div class="card-body">
                                 <h5><b>Overview</b></h5>
-                                <p>
-                                    All Listed Profiles which have expired are listed in this report. Archived Profiles can
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                          <p>
+                                    All Listed Profiles which have expired are listed in this report. Archived Profiles
+                                    can
                                     be used for New Listings as well as for creating New Profiles with the ‘Duplicate’
                                     feature.
                                 </p>
@@ -781,22 +989,30 @@
 
                                 <h5><b>Features</b></h5>
                                 <ul class="custom-ul">
-                                    <li>Search</li>
                                     <li>Duplicate</li>
                                     <li>Edit</li>
-                                    <li>View</li>
+                                    <li>View Profile</li>
                                     <li>Delete</li>
-                                    <li>Comprehensive data summary</li>
-                                    <li>Historical records</li>
                                 </ul>
+                                    </div>
+                                    
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/archive-list.png') }}"
+                                                alt="profile-duplicate" class=" w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                              
 
-                                <h5><b>How is it done</b></h5>
+                                <h5><b>How is it done - Archives</b></h5>
                                 <p>
-                                    Any expired Listed Profile, or new Profile you have created but are not Listed appear
+                                    Any expired Listed Profiles, or new Profiles you have created but are not Listed appear
                                     in this
                                     report. This feature enables you to manage your Profiles across all Locations. There are
                                     a
-                                    number of Actions you can perform.
+                                    number of Actions you can perform. When creating a Tour, you should build all of your
+                                    Profiles you intend to use in the Tour here.
                                 </p>
 
 
@@ -806,14 +1022,26 @@
                                 <div class="row">
                                     <div class="col-lg-7">
                                         <p>
-                                            A very useful tool, a selected Profile can be duplicated. Simply
-                                            select the Profile you want to duplicate. In the pop up,
-                                            complete the information required to establish the duplicate,
-                                            Save. Remember to follow your naming protocol for Profiles if
-                                            you have established one.
+                                            A very useful tool, a selected Profile can be
+                                            duplicated by simply selecting the Profile you
+                                            want to duplicate. In the pop up, complete
+                                            the information required to establish the
+                                            duplicate Profile, and then Save.
                                         </p>
                                         <p>
-                                            You can duplicate as many Profiles as you like.
+                                            Remember to follow your naming protocol for
+                                            Profiles if you have established one, like
+                                            WA01 for Profiles created for Western
+                                            Australia, and NSW01 for Profiles created for
+                                            NSW. You can duplicate as many Profiles
+                                            as you like.
+                                        </p>
+                                        <p>
+                                            When duplicating your Profiles, especially for when you are building your
+                                            Profiles to attach
+                                            to a Tour, remember the change the Stage Name and Street Address to match the
+                                            Location
+                                            you are creating the Profile for.
                                         </p>
                                     </div>
                                     <div class="col-lg-5">
@@ -828,21 +1056,31 @@
                                 <h5 class="sec-head">
                                     Edit
                                 </h5>
-                                <p>Use this tool to make changes to any Profile that you want to List. When you make a
-                                    change
-                                    to any part of the Profile, you will be asked if you want to update your My Information
-                                    for
+                                <p>Use this tool to make changes to any Profile before you List. When you make a change to
+                                    any part of the Profile, you will be asked if you want to update your My Information for
                                     future Profiles. If you answer Yes, My Information is updated. If you answer No, My
-                                    Information remains unchanged, but the change you made for the Profile is applied.</p>
+                                    Information
+                                    remains unchanged, but the change you made for the Profile is applied.
+                                </p>
                                 <p>
                                     Once you have finished making your changes, click Update.
                                 </p>
                                 <h5 class="sec-head">
-                                    View
+                                    View Profile
                                 </h5>
-                                <p>If you want to see the Profile to remind yourself what the Profile looks like before you
+                                <p>If you want to see the Profile to remind yourself what the Profile looks like before
+                                    you
                                     List it,
                                     click View Profile from the Action list.
+                                </p>
+                                <p>
+                                    This is particularly helpful for Profiles you have created and intend to use in a Tour.
+                                    Always
+                                    best to check the information in each Profile is correct before you create the Tour,
+                                    especially
+                                    if there are subtle differences in the Profiles, like the Stage Name, Rates and the
+                                    Street
+                                    Address.
                                 </p>
 
                                 <h5 class="sec-head">
