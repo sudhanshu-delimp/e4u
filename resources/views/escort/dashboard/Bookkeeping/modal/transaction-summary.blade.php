@@ -1,7 +1,7 @@
 @if (empty($payment))
     <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="view-listing"><img
@@ -39,7 +39,7 @@
             {{-- <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
                 {{ $payment?->completedByUser->member_id ?? '---' }}</td> --}}
 
-                <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
+            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
                 {{ $payment?->createdBy->member_id ?? '---' }}</td>
         </tr>
         <tr>
@@ -85,7 +85,7 @@
             <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
                 {{ formatCurrency($payment?->paid_amount ?? 0) }}</td>
         </tr>
-        
+
         <tr>
             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Card</strong></td>
             <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ $payment?->card ?? '---' }}</td>
@@ -98,7 +98,7 @@
     </div>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white">🖨️ Print Summary</a>
+        <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print Summary</a>
         <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
     </div>
     </div>

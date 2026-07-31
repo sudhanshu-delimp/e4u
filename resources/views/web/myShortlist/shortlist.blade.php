@@ -105,7 +105,7 @@
                                                     </div>
 
 
-                                                    <div class="col-lg-4 search_items mb-1">
+                                                    <div class="col-lg-5 search_items mb-1">
                                                         <div
                                                             class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
@@ -121,7 +121,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-6 display_items mb-1">
+                                                    <div class="col-lg-5 display_items mb-1">
                                                         <div class="item_dis">
                                                             <span class="item-head">Display item</span>
                                                             <select class="custome_form_control_border_radus padding_five_px" name="limit">
@@ -132,7 +132,7 @@
                                                             </select>
                                                         </div>
                                                     
-                                                        <div class="custom-refreshbuton">
+                                                        {{-- <div class="custom-refreshbuton">
                                                             <div>
                                                                 <a type="reset" class="btn reset_filter filter-tooltip-wrap"
                                                                     href="{{ route('find.all') }}" data-toggle="tooltip" title="">
@@ -140,7 +140,7 @@
                                                                     <i class="fa fa-repeat" aria-hidden="true"></i>
                                                                 </a>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
                                                         <div class="">
                                                             <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
@@ -271,9 +271,19 @@
                                                     <option value="verified" {{ request()->get('verify_list') == 'verified' ? 'selected' : '' }}>Verified</option>
                                                 </select>
                                             </div>
-                                            <div class="display_inline_block mb-1">
+                                            <div class="display_inline_block mb-1 mr-2">
                                                 <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="">
-                                                    Apply Filters
+                                                    Search
+                                                </button>
+                                            </div>
+                                            
+                                            <div class="display_inline_block mb-1 ">
+                                                <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule"
+                                                    value="0">
+                                                <button type="submit"
+                                                    class="btn reset_filter apply_pagination_button   reset_form_filter"
+                                                    id="applayChange">
+                                                    Reset
                                                 </button>
                                             </div>
                                         </div>
@@ -516,7 +526,7 @@
                 <div class="col-12 align-items-left">
                     <div class="my-shortlist">
                         <h3>My Shortlist</h3>
-                        @php
+                        {{-- @php
 
                             if (str_contains($backToListing, 'view=')) {
                                 $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToListing);
@@ -526,10 +536,10 @@
                                 $finalUrl = $backToListing . $separator . 'view=' . $viewType;
                             }
 
-                        @endphp
+                        @endphp --}}
                         <button class="back_to_list_btn">
                             
-                            <a type="submit" href="{{ $finalUrl }}" data-toggle="tooltip">
+                            <a type="submit" href="{{route('public.web.escort.listing')}}" data-toggle="tooltip">
                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
                 
                                 <span class="hide-on-sm"> Back To Listings</span>

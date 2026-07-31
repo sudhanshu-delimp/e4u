@@ -20,15 +20,15 @@
                                 <div class="col-md-12">
                                     <div class="container p-0">
                                         <div class="form-group row">
-                                            <label class="col-sm-3" for="">
+                                            <label class="col-sm-4" for="">
                                                 Profile Name:
                                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
                                                     data-toggle="tooltip" data-html="true" data-placement="top"
                                                     title="Be consistent when naming your Profiles, like Sydney01, Sydney 02, Perth01, Perth02 etc."
                                                     data-boundary="window">
-                                                <span style='color:red'>*</span>
+                                                <span style='color:#ff3c5f'>*</span>
                                             </label>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-8">
                                                 <input type="text" required class="form-control form-control-sm removebox_shdow" name="profile_name"
                                                 required
                                                 data-parsley-group="group_one" 
@@ -44,11 +44,11 @@
                                             <div class="col-sm-1"></div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-3" for="">
+                                            <label class="col-sm-4" for="">
                                                 Stage Name:
-                                                <span style='color:red'>*</span>
+                                                <span style='color:#ff3c5f'>*</span>
                                             </label>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-8">
                                                 <select onclick="stageNameInput(this)" style="display: block"
                                                     class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
                                                     title="(for public display)" id="stageName" name="name"
@@ -77,17 +77,39 @@
                                                         My Information page for future Profiles</label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-1"></div>
                                         </div>
+
+
+                                        
+                                        {{-- <div class="form-group row">
+                                            <label class="col-sm-4" for="">
+                                                Street Address:
+                                               
+                                            </label>
+                                            <div class="col-sm-8">
+                                                
+                                                <input type="text" id="stageNameInp"  name=""
+                                                    title="(for public display)"
+                                                    class="change_default form-control form-control-sm select_tag_remove_box_sadow"
+                                                    data-parsley-required-message="Enter stage name"
+                                                    data-parsley-group="goup_one"
+                                                    placeholder="Enter Street Address"
+                                                    data-parsley-errors-container="#stageName-errors">
+                                                
+                                            </div>
+                                        </div> --}}
+
+
+
                                         <div class="form-group row">
-                                            <label class="col-sm-3" for="">
+                                            <label class="col-sm-4" for="">
                                                 Location:
                                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
                                                     data-toggle="tooltip" data-html="true" data-placement="top"
                                                     title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up."
                                                     data-boundary="window">
                                             </label>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-8">
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                                     id="profile_state_id" name="state_id"

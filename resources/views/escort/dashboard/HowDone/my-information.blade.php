@@ -21,18 +21,18 @@
                     
                     <div class="d-flex gap-20 justify-content-between">
                        <div class="text-justify">
-                        <li>
-                         Use these help pages for explanations and
-                        guidance on completing data and activating
-                        features.
-                       </li>
-                        <li>Where a feature has default data, we recommend
-                            you complete the default data before commencing
-                            any activity with the feature.
+                            <li>
+                            Use these help pages for explanations and
+                            guidance on completing data and activating
+                            features.
                         </li>
-                    </div>
+                            <li>Where a feature has default data, we recommend
+                                you complete the default data before commencing
+                                any activity with the feature.
+                            </li>
+                        </div>
                         <div class="doc-img">
-                            <img src="{{ asset('assets/dashboard/img/my-info-scr.png') }}" alt=""
+                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-info.png') }}" alt=""
                                 class="w-100">
                         </div>
                       </div>
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-additional-info-scr-2.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-add-info.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-availability-scr-2.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-time.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -226,7 +226,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-playmates-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -312,7 +312,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/rate-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-rate.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -370,7 +370,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-service-tag-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-services.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -428,7 +428,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-social-profile-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-social-media.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>

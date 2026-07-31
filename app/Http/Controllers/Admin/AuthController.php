@@ -63,6 +63,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+      
         try {
             //print_r($request->all());die;
 
@@ -110,6 +111,7 @@ class AuthController extends Controller
                     ], 401);
                 }
 
+
                 if ($user->status == 'Pending') {
                     return response()->json([
                         'status' => false,
@@ -155,6 +157,8 @@ class AuthController extends Controller
                 $error = 0;
 
                 session()->forget(['parent_user_id','is_impersonated','switch_for']);
+
+                $user->current_state_id = $request->current_state_id;
 
                 //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
                 if (true) {

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Escort;
+use App\Models\MassagePurchase;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Repositories\State\StateInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -64,7 +67,31 @@ class HomeController extends Controller
                 ->where('payment_status', 'Success')->get()->toArray();
         }
         $state = $this->state->allByCountryId();
-        return view('home',compact('state','pricing'));
+
+        $query = Escort::query()
+            ->where('enabled', 1)
+            ->with([
+                'purchase' => function ($q) {
+                    $q->where('status', 'listed');
+                },
+            ]);
+        $query->whereHas('user', function ($q) {
+            $q->where('status', 1);                                 
+        });
+        $query->whereDoesntHave('activeSuspendProfile');
+        $query->join('profile_verification_status as pvs', function ($join) {
+        $join->on('pvs.profile_id', '=', 'escorts.id')
+            ->where('pvs.type', '3');
+        });
+        $memberTotalCount = $query->count();
+        $massageLiveCount = MassagePurchase::where('status', 'listed')
+        ->whereHas('user', function ($q) {
+            $q->where('status', 1);
+        })
+        ->whereDoesntHave('activeSuspendProfile')
+        ->count();
+
+        return view('home',compact('state','pricing','memberTotalCount','massageLiveCount'));
     }
     // public function ipTrack(Request $request)
     // {

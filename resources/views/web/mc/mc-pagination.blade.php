@@ -1,99 +1,80 @@
-@if ($listings->hasPages())
-<div class="row mt-5">
-    <div class="col-lg-12">
-        <nav aria-label="Page navigation" class="custom-pagination">
+     <nav aria-label="Page navigation" class="custom-pagination mt-4">
+         <ul class="list-unstyled">
 
-            <ul class="list-unstyled d-flex justify-content-center align-items-center">
+             {{-- First Page --}}
+             <li class="mx-1 {{ $listings->onFirstPage() ? 'disabled' : '' }}">
+                 <a href="{{ $listings->onFirstPage() ? '#' : $listings->url(1) }}"
+                     style="{{ $listings->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                     <i class="fa fa-angle-double-left"></i> First
+                 </a>
+             </li>
 
-                {{-- First --}}
-                <li class="mx-1 {{ $listings->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $listings->onFirstPage() ? 'javascript:void(0)' : $listings->url(1) }}"
-                       class="page-link-custom">
-                        <i class="fa fa-angle-double-left"></i> First
-                    </a>
-                </li>
+             {{-- Previous Page --}}
+             <li class="mx-1 {{ $listings->onFirstPage() ? 'disabled' : '' }}">
+                 <a href="{{ $listings->onFirstPage() ? '#' : $listings->previousPageUrl() }}"
+                     style="{{ $listings->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                     <i class="fa fa-angle-left"></i> Previous
+                 </a>
+             </li>
 
-                {{-- Previous --}}
-                <li class="mx-1 {{ $listings->onFirstPage() ? 'disabled' : '' }}">
-                    <a href="{{ $listings->previousPageUrl() ?? 'javascript:void(0)' }}"
-                       class="page-link-custom">
-                        <i class="fa fa-angle-left"></i> Previous
-                    </a>
-                </li>
+             {{-- Page Number Logic --}}
+             @php
+                 $total = $listings->lastPage();
+                 $current = $listings->currentPage();
 
-                {{-- Custom Page Numbers With Ellipsis --}}
-                @php
-                    $current = $listings->currentPage();
-                    $last = $listings->lastPage();
+                 // Show up to 3 pages before and after current
+                 $start = max(1, $current - 2);
+                 $end = min($total, $current + 2);
+             @endphp
 
-                    $start = max($current - 1, 1);
-                    $end = min($current + 1, $last);
-                @endphp
+             {{-- Left Ellipsis (jump back 5 pages) --}}
+             @if ($start > 1)
+                 @php $jumpBack = max(1, $current - 5); @endphp
+                 <li class="mx-1">
+                     <a href="{{ $listings->url($jumpBack) }}" title="Jump back 5 pages">...</a>
+                 </li>
+             @endif
 
-                {{-- Show first page if needed --}}
-                @if($start > 1)
-                    <li class="mx-1">
-                        <a href="{{ $listings->url(1) }}" class="page-link-custom">1</a>
-                    </li>
+             {{-- Page Numbers --}}
+             @for ($i = $start; $i <= $end; $i++)
+                 <li>
+                     <a href="{{ $listings->url($i) }}"
+                         style="background-color: {{ $i == $listings->currentPage() ? '#F2F2F2' : '#0C223d' }}; font-weight: {{ $i == $listings->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $listings->currentPage() ? '#ff3c5f' : '#fff' }};">
+                         {{ $i }}
+                     </a>
+                 </li>
+             @endfor
 
-                    @if($start > 2)
-                        <li class="mx-1 disabled">
-                            <a href="javascript:void(0)" class="page-link-custom">...</a>
-                        </li>
-                    @endif
-                @endif
+             {{-- Right Ellipsis (jump forward 5 pages) --}}
+             @if ($end < $total)
+                 @php $jumpForward = min($total, $current + 5); @endphp
+                 <li class="mx-1">
+                     <a href="{{ $listings->url($jumpForward) }}" title="Jump forward 5 pages">...</a>
+                 </li>
+             @endif
 
-                {{-- Page Loop --}}
-                @for($page = $start; $page <= $end; $page++)
-                    <li class="mx-1">
-                        <a href="{{ $listings->url($page) }}"
-                           class="page-link-custom {{ $page == $current ? 'active-page' : '' }}">
-                            {{ $page }}
-                        </a>
-                    </li>
-                @endfor
+             {{-- Next Page --}}
+             <li class="mx-1 {{ !$listings->hasMorePages() ? 'disabled' : '' }}">
+                 <a href="{{ $listings->hasMorePages() ? $listings->nextPageUrl() : '#' }}"
+                     style="{{ !$listings->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                     Next <i class="fa fa-angle-right"></i>
+                 </a>
+             </li>
 
-                {{-- Show last page if needed --}}
-                @if($end < $last)
-                    @if($end < $last - 1)
-                        <li class="mx-1 disabled">
-                            <a href="javascript:void(0)" class="page-link-custom">...</a>
-                        </li>
-                    @endif
+             {{-- Last Page --}}
+             <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
+                 <a href="{{ $current == $total ? '#' : $listings->url($total) }}"
+                     style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                     Last <i class="fa fa-angle-double-right"></i>
+                 </a>
+             </li>
 
-                    <li class="mx-1">
-                        <a href="{{ $listings->url($last) }}" class="page-link-custom">
-                            {{ $last }}
-                        </a>
-                    </li>
-                @endif
+         </ul>
+         {{-- Page Info Below --}}
+         <div class="text-center mt-2 mb-5 col-sm-12" style="color: #ff3c5f; font-weight: 400;">
+             Page {{ $listings->currentPage() }} of {{ $listings->lastPage() }} |
+             Showing {{ $listings->firstItem() ?? 0 }} to {{ $listings->lastItem() ?? 0 }} of
+             {{ $listings->total() }} Listings
+         </div>
 
-                {{-- Next --}}
-                <li class="mx-1 {{ !$listings->hasMorePages() ? 'disabled' : '' }}">
-                    <a href="{{ $listings->nextPageUrl() ?? 'javascript:void(0)' }}"
-                       class="page-link-custom">
-                        Next <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-
-                {{-- Last --}}
-                <li class="mx-1 {{ !$listings->hasMorePages() ? 'disabled' : '' }}">
-                    <a href="{{ $listings->hasMorePages() ? $listings->url($last) : 'javascript:void(0)' }}"
-                       class="page-link-custom">
-                        Last <i class="fa fa-angle-double-right"></i>
-                    </a>
-                </li>
-
-            </ul>
-
-            {{-- Page Info --}}
-            <div class="text-center mt-2 mb-5 col-sm-12 page-info">
-                Page {{ $current }} of {{ $last }} |
-                Showing {{ $listings->firstItem() }} to {{ $listings->lastItem() }}
-                of {{ $listings->total() }} Listings
-            </div>
-
-        </nav>
-    </div>
-</div>
-@endif
+     </nav>

@@ -1,7 +1,7 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.05') }}">
 
     @php
         $escortName =
@@ -9,7 +9,7 @@
     @endphp
 
 
-    <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg js_pinup_summary">
+    <section class="home-banner homebanner_bg js_pinup_summary">
         <div class="container-fluid banner_width">
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-5 col-sm-12">
@@ -248,7 +248,7 @@
                                         target="_blank"
                                         rel="noopener noreferrer">
                                                 <span class="pin-location-pinup">
-                                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="location" class="custompopicon">
+                                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="location" class="">
                                                     <div class="custom-tooltip">Open Maps</div>
                                                 </span>
                                                 {{ $escort->address }}
@@ -274,7 +274,7 @@
 
 
 
-    <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly angle_bg_image">
+    {{-- <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly angle_bg_image">
         <div class="container">
             <div class="home_welcome text-center">
                 <div class="site_second_heading">
@@ -296,74 +296,80 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    {{-- <div class="container custom--contain">
-        <div class="row justify-content-center text-center">
-            <div class="col-md-9">
-                <div class="padding_ninty_top_ninty_px">
-                    <div class="text-center">
-                        <div class="site_second_heading">
-                            <h2 class="text-uppercase our">Our services to you</h2>
-                        </div>
-                        <div class="our_service_peragraph">
-                            <p>In addition to providing advertising services, we also assist with industry information for
-                                Advertisers and Viewers,<br> located in the footer, together with our My Playbox and
-                                Concierge Services.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h5 class="normal_heading primery_color">Our aim is to provide:</h5>
-                <div class="our_aim">
-                    <ul id="our_aim_list">
-                        <li>
-                            <img src="{{ asset('assets/app/img/home/high-five.png') }}">
-                            <p>A friendly and accessible service for Advertisers and Viewers</p>
-                        </li>
-                        <li>
-                            <img src="{{ asset('assets/app/img/home/accuracy1.png') }}">
-                            <p>Viewers with accurate information about the Services on offer</p>
-                        </li>
-                        <li>
-                            <img src="{{ asset('assets/app/img/home/customer-service.png') }}">
-                            <p>Good "Support" services for both Advertisers and Viewers</p>
-                        </li>
-                        <li>
-                            <img src="{{ asset('assets/app/img/home/rating.png') }}">
-                            <p>The opportunity for Viewers to post “Reviews” about their experiences</p>
-                        </li>
-                        <li>
-                            <img src="{{ asset('assets/app/img/home/profits.png') }}">
-                            <p>A cost effective service for Advertisers</p>
-                        </li>
-                        <li>
-                            <img src="{{ asset('assets/app/img/home/encrypted.png') }}">
-                            <p>Assurance about privacy for both Advertisers and Viewers</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="point_of_diff">
-                    <h3 class="text-white">What is our point of difference?</h3>
-                    <div class="point_of_diff_peragrapg">
-                        <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that
-                            there were a number of concerns about the quality and integrity of the services and offerings
-                            websites brought to Private Escorts and Massage Centres.</p>
-                        <p class="text-white">Those discussions helped bring about this Website, ensuring also that it
-                            complies with the Local Laws. Features such as verified photos, reviews, guides, concierge
-                            services, notes and Alerts are designed to make your experience a pleasant one.</p>
-                        <p class="text-white"> We also offer a loyalty program.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    </section> --}}
     
+    <section class="welcome-modern angle_bg_image">
+        
+        <div class="container">
+
+            <span class="welcome-tag">
+                Australia's Trusted Platform
+            </span>
+
+            <h2>
+                Welcome to Escorts4U
+            </h2>
+
+            <h5>
+                IT IS ALL ABOUT THE COMPANIONSHIP
+            </h5>
+
+            <p class="intro">
+
+                Welcome to the preferred website where Private Escorts and Massage Centres advertise their companionship and services to Viewers looking for company.
+
+            </p>
+
+            <div class="wel_features">
+
+                <div class="wel_feature_item">
+                    <span class="wel_feature_icon">
+                        <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34px" height="34px" viewBox="0 0 166.964 166.964" xml:space="preserve" stroke="#ff3c5f"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <polygon points="75.1,159.95 75.115,159.938 75.088,159.938 "></polygon> <path d="M71.791,96.415h-0.179l-6.848-7.849c3.31,1.188,6.759,1.906,10.336,1.906c3.581,0,7.024-0.706,10.328-1.9l-6.848,7.843 h-0.167l16.779,40.578l15.332-20.361l17.001,12.787l10.669-16.027c-10.078-12.787-25.952-24.198-44.658-28.938 c13.518-9.097,22.834-27.033,22.834-43.181C116.369,18.478,97.883,0,75.1,0S33.837,18.478,33.837,41.272 c0,16.148,9.307,34.084,22.828,43.181c-32.324,8.199-56.282,36.258-56.282,57.059c0,12.288,37.351,18.426,74.705,18.413 l-20.919-20.91L71.791,96.415z"></path> <path d="M75.115,159.938c10.924-0.013,21.848-0.523,31.828-1.583l-17.269-12.982L75.115,159.938z"></path> <polygon points="152.605,108.63 129.826,142.845 112.381,129.724 102.279,143.138 133.967,166.964 166.58,117.94 "></polygon> </g> </g> </g></svg>
+                    </span>
+                    <span>Verified Profiles</span>
+                </div>
+
+                <div class="wel_feature_item">
+                    <span class="wel_feature_icon">
+                        <svg width="34px" height="34px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.25 10.0546V8C5.25 4.27208 8.27208 1.25 12 1.25C15.7279 1.25 18.75 4.27208 18.75 8V10.0546C19.8648 10.1379 20.5907 10.348 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.40931 10.348 4.13525 10.1379 5.25 10.0546ZM6.75 8C6.75 5.10051 9.10051 2.75 12 2.75C14.8995 2.75 17.25 5.10051 17.25 8V10.0036C16.867 10 16.4515 10 16 10H8C7.54849 10 7.13301 10 6.75 10.0036V8ZM8 17C8.55228 17 9 16.5523 9 16C9 15.4477 8.55228 15 8 15C7.44772 15 7 15.4477 7 16C7 16.5523 7.44772 17 8 17ZM12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17ZM17 16C17 16.5523 16.5523 17 16 17C15.4477 17 15 16.5523 15 16C15 15.4477 15.4477 15 16 15C16.5523 15 17 15.4477 17 16Z" fill="#ff3c5f"></path> </g></svg>
+                    </span>
+                    <span>Private Contact</span>
+                </div>
+
+                <div class="wel_feature_item">
+                    <span class="wel_feature_icon">
+                        <svg width="34px" height="34px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.2501 3C21.4925 3 21.7176 3.11688 21.8574 3.30983L21.9119 3.39706L25.9186 10.9098L25.9615 11.0122L25.9731 11.05L25.9901 11.1273L25.9994 11.2153L25.9973 11.3147L26.0001 11.25C26.0001 11.3551 25.9785 11.4552 25.9394 11.5461L25.9106 11.6057L25.87 11.6723L25.8173 11.7408L14.6 24.7047C14.4999 24.8391 14.3628 24.9277 14.2139 24.9703L14.1559 24.9844L14.0585 24.9979L13.9999 25L13.8993 24.9932L13.8142 24.9771L13.7109 24.9432L13.6852 24.931C13.5949 24.8911 13.5119 24.8316 13.4425 24.7535L2.17081 11.7263L2.1087 11.6387L2.06079 11.5456L2.02611 11.4463L2.00297 11.3152L2.00269 11.1878L2.01755 11.0891L2.02714 11.0499L2.06104 10.9538L2.08838 10.8971L6.08838 3.39706C6.20243 3.18321 6.41149 3.0396 6.64753 3.00704L6.75014 3H21.2501ZM17.9061 12H10.0911L14.0011 22.16L17.9061 12ZM8.48514 12H4.38914L11.7621 20.518L8.48514 12ZM23.6081 12H19.5151L16.2421 20.511L23.6081 12ZM10.0241 4.499H7.19914L3.99814 10.5H8.42314L10.0241 4.499ZM16.4231 4.499H11.5761L9.97514 10.5H18.0231L16.4231 4.499ZM20.8001 4.499H17.9751L19.5761 10.5H23.9991L20.8001 4.499Z" fill="#ff3c5f"></path> </g></svg>
+                    </span>
+                    <span>Premium Listings</span>
+                </div>
+
+                <div class="wel_feature_item">
+                    <span class="wel_feature_icon">
+                        <svg fill="#ff3c5f" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34px" height="34px" viewBox="0 0 260 240" enable-background="new 0 0 260 240" xml:space="preserve" stroke="#ff3c5f">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M257.229,117.41l-4.888-11.82L239.54,90.716l-5.631-17.505l-13.546-8.606l-5.605-31.236l-8.844-3.081l-7.49-28.262 l-8.234,12.616l-7.437,35.434l-5.844,1.567l-31.05-20.904l3.107-11.794l7.65-7.012L134.037,7.02l-22.949,5.631l-10.97,18.141 l-16.362-7.039L66.6,33.976l-1.263,10.743l-9.338,2.914l-9.084,21.462L2.663,91.034L2,110.478l6.959,9.376l-3.533,5.525 l16.379,33.043l-1.195,19.124l12.36,4.223l18.859-10.518l21.01-1.966l3.054-6.135l12.06-7.224l30.227-6.694l16.229,5.313 l8.181,11.846l19.31,6.136l6.853,18.3l21.063,13.494l8.818-6.269l10.305,6.428l18.621-6.162l15.405-31.714l4.675-2.365L258,139.987 L257.229,117.41z M199.777,237.973l11.98-1.939l3.48-13.52l-18.912-3.931L199.777,237.973z">
+                                </path>
+                            </g>
+                        </svg>
+                    </span>
+                    <span>Australia Wide</span>
+                </div>
+
+            </div>
+
+
+            <div class="bottom-note">
+
+                <span><svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm6.32-5.094A8 8 0 0 0 7.094 5.68L18.32 16.905zm-1.414 1.414L5.68 7.094A8 8 0 0 0 16.906 18.32z" fill="#ff3c5f"></path></g></svg> </span>
+                <span class="text-shine">Absolutely no banner advertising, third-party marketing or spam.</span>
+
+            </div>
+
+        </div>
+
+    </section>
     
     <section class="our-services-sec">
 
@@ -376,7 +382,7 @@
                 <p>
                     In addition to advertising services, we provide trusted information,
                     reviews, concierge services, and support for both Advertisers and
-                    Viewers—all designed to deliver a safe and enjoyable experience.
+                    Viewers, all designed to deliver a safe and enjoyable experience.
                 </p>
 
             </div>
@@ -623,7 +629,7 @@
 
                         <h2>E4U: <span>Your One-Stop Shop!</span></h2>
 
-                        <p>Everything you need for Travel, Education & Digital Services.</p>
+                        <p>Everything Advertisers need for Travel, Education & Digital Services.</p>
 
                         <div class="home_card-wrapper">
 
@@ -674,45 +680,6 @@
             </div>
         </div>
     </section>
-
-    {{-- <section class="home_reg_bg">
-        <div class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="register-img">
-                            <img src="{{ asset('assets/app/img/shutterstock_338759729.png') }}">
-                        </div>
-                    </div>
-                    <div class="col-md-7 d-flex flex-column justify-content-center">
-                        <div class="normal_heading pt-5">
-                            <p class="primery-color">NOT A MEMBER YET?</p>
-                        </div>
-                        <div class="site_second_heading">
-                            <h2 class="primery-color" style="line-height: 30px;">REGISTER NOW!</h2>
-                        </div>
-                        <div class="reg_now_pera">
-                            <p class="  pt-3">There are no fees when your create an Account. Fees only apply when you post
-                                a Profile or Tour where you are charged according to the number of days and the Membership
-                                Type you select (Book by the day!). See also <a href="{{ url('help-for-escorts') }}"
-                                    class="termsandconditions_text_color">Help for Escorts</a></p>
-                            <p class="">Massage Centres are also looked after with a uniquely designed Profile just
-                                for them.  List up to eight Masseurs on the one Profile.</p>
-                        </div>
-                        </br>
-                        <div class="home-btn">
-                            <a class="btn home-btn-common" 
-                                href="{{ route('advertiser.register') }}" role="button">I am an Advertiser</a>
-                            <a class="btn home-btn-common"  href="{{ route('register') }}"
-                                role="button">I am a Viewer</a>
-                            <a class="btn home-btn-common" 
-                                href="{{ route('agent.register') }}" role="button">I am an Agent</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
     
     <section class="register-section">
 
@@ -742,7 +709,7 @@
                 </p>
 
                 <p>
-                    Massage Centres can create a dedicated profile and manage multiple Masseurs
+                    Massage Centres can create a dedicated Profile and manage multiple Masseurs
                     from a single account, making profile management simple and efficient.
                 </p>
 

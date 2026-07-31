@@ -413,38 +413,6 @@ body {
     line-height: 18.5px;
 }
 
-.trikon_style {
-    margin-left: 15px;
-    background: #FFFFFF;
-    padding: 20px 40px !important;
-    position: relative;
-    box-shadow: 2px 1px 12px 2px #7878789e;
-}
-
-.trikon_style:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -20px;
-    left: 10%;
-    width: 0;
-    height: 0;
-    border-color: transparent transparent transparent #fff;
-    border-style: solid;
-    border-width: 10px;
-    transform: rotate(270deg);
-}
-
-div.tip div {
-    position: absolute;
-    padding: 0px;
-    display: block;
-    z-index: 100;
-    right: -198px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
 .manage_toolkit_font {
     font-family: Poppins;
     font-style: normal;
@@ -455,14 +423,14 @@ div.tip div {
 }
 
 .manage_toolkit_font a {
-    color: #2C3E50;
+    color: var(--peach);
     text-decoration: none;
 }
 
 .manage_toolkit_font a:hover,
 .manage_toolkit_font a:active,
 .manage_toolkit_font a:focus {
-    color: #ff3c5f;
+    color: var(--blue--text);
 }
 
 
@@ -3783,7 +3751,7 @@ i.fa {
 }
 
 img.custompopicon {
-    max-width: clamp(35px, 4vw, 45px);
+    max-width: clamp(25px, 4vw, 32px);
     margin-right: 0.5rem;
 }
 
@@ -6441,8 +6409,8 @@ table {
     top: 10px;
     color: #fff;
     background: #ff3c5a;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 5px 10px;
+    border-radius: 100px;
     font-size: 12px;
 }
 
@@ -7510,6 +7478,15 @@ table {
     font-size: 14px;
 }
 
+.equal-height-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equal-height-row>div {
+    display: flex;
+}
+
 .common_form_note {
     text-align: justify;
     border: 1px solid #ccc;
@@ -7517,6 +7494,9 @@ table {
     padding: 10px;
     background: #f9f9f9;
     margin-top: 15px;
+    /* Same Height */
+    display: flex;
+    flex-direction: column;
 }
 
 .common_form_note p {
@@ -8221,7 +8201,7 @@ h2.custom--review img {
 }
 
 .no--listing {
-    padding: 100px 15px !important;
+    padding: 50px 15px !important;
     text-align: center;
 }
 
@@ -10084,6 +10064,11 @@ p.blog-link {
 .my-play-box-profile-icon a img {
     width: 25px;
     filter: brightness(10);
+}
+
+.pin-location-pinup img {
+    width: clamp(35px, 4vw, 45px);
+    margin-right: .5rem;
 }
 
 .my-play-box-profile-icon,
