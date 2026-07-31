@@ -445,7 +445,7 @@
                     set_lng: '',
                     locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                     limit: $('#limit').val(),
-                    search_by_radio : $('#search_by_radio').val(),
+                    search_by_radio : getSearchByRadioValue(),
                 };
             }
 
@@ -494,6 +494,7 @@
             let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
+            let perPage = $('#per_page').val();
             $('#filterForm')[0].reset();
             //again set the location radio button to previous value
             $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
@@ -510,10 +511,11 @@
                 },
                 filter_by_location: {
                     locationByRadio: locByRad,
-                    by_name_member: $('#search_by_member_id_and_name').val(),
-                    set_lat: letVal,
-                    set_lng: lngVal,
-                    per_page: $('#per_page').val()
+                    by_name_member: '',
+                    lat: letVal,
+                    lng: lngVal,
+                    per_page: perPage,
+                    search_by_radio : getSearchByRadioValue(),
                 },
                 view_type: escortRequest.view_type,
                 page: 1
@@ -706,6 +708,8 @@
             // let checkRadioVal = $('#search_by_radio').val();
             // const radioValue = checkRadioVal == 'australia' ? 0 : 1;
 
+
+
             escortRequest.page = 1;
             escortRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
@@ -713,7 +717,7 @@
                 lat: $('#set_lat').val(),
                 lng: $('#set_lng').val(),
                 limit: $('#limit').val(),
-                search_by_radio: getSearchByRadioValue
+                search_by_radio: getSearchByRadioValue(),
             };
             loadEscort();
         });
@@ -755,7 +759,7 @@
                 lat: $('#set_lat').val(),
                 lng: $('#set_lng').val(),
                 limit: $('#limit').val(),
-                search_by_radio: getSearchByRadioValue
+                search_by_radio: getSearchByRadioValue(),
             };
             loadEscort();
             
