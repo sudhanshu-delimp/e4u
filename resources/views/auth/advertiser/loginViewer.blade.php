@@ -1,74 +1,74 @@
 @extends('layouts.web')
 @section('content')
-<style>
-   .otp-verify-btn{
-          padding: 20px 20px 23px !important;
-   }
-   #email-error{
-      color: red;
-      font-size: 14px;
-      padding: 10px;
-   }
-</style>
-<div class="container">
-         <section class="common_login_page">
-            <div class="row">
-               <div class="col-md-6 order-md-0 order-sm-1 order-1">
-                  <div class="welcone_login_page_heading">
-                     <h1>WELCOME TO E4U </h1>
-                  </div>
-                  <h2 class="welcome_sub_login_heading">Viewer Login</h2>
+    <style>
+        .otp-verify-btn {
+            padding: 20px 20px 23px !important;
+        }
 
-                  <form id="loginFormViewer" action="{{ route('login')}}" method="post">
-                      @csrf
+        #email-error {
+            color: red;
+            font-size: 14px;
+            padding: 10px;
+        }
+    </style>
+    <div class="container">
+        <section class="common_login_page">
+            <div class="row">
+                <div class="col-md-6 order-md-0 order-sm-1 order-1">
+                    <div class="welcone_login_page_heading">
+                        <h1>WELCOME TO E4U </h1>
+                    </div>
+                    <h2 class="welcome_sub_login_heading">Viewer Login</h2>
+
+                    <form id="loginFormViewer" action="{{ route('login') }}" method="post">
+                        @csrf
                         <input type="hidden" name="type" value="0">
 
-                        @if( request()->get('legboxId') != null)
-                        <input type="hidden" name="escort_id" value="{{ request()->get('legboxId')}}">
-                        <input type="hidden" name="path" value="{{ request()->get('path') }}">
+                        @if (request()->get('legboxId') != null)
+                            <input type="hidden" name="escort_id" value="{{ request()->get('legboxId') }}">
+                            <input type="hidden" name="path" value="{{ request()->get('path') }}">
                         @else
-                        <input type="hidden" name="massage_id" value="{{ request()->get('MclegboxId') }}">
-                        <input type="hidden" name="path" value="{{ request()->get('path') }}">
+                            <input type="hidden" name="massage_id" value="{{ request()->get('MclegboxId') }}">
+                            <input type="hidden" name="path" value="{{ request()->get('path') }}">
                         @endif
                         <div class="form-group label_margin_zero_for_login">
-                           <label for="exampleInputmobilenumber">Email Address</label> 
-                            <div class="input-group custom-fields">                                
+                            <label for="exampleInputmobilenumber">Email Address</label>
+                            <div class="input-group custom-fields">
                                 <span class="input-group-text ">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                    stroke-linejoin="round"></g>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <path
-                                                        d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
-                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                    <rect x="3" y="5" width="18" height="14" rx="2"
-                                                        stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
-                                                </g>
-                                            </svg>
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                                                stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                            <rect x="3" y="5" width="18" height="14" rx="2" stroke="#495057"
+                                                stroke-width="2" stroke-linecap="round"></rect>
+                                        </g>
+                                    </svg>
                                 </span>
-                                <input type="email" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-errors-container="#email-errors" data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
+                                <input type="email" required class="form-control" name="email" id="email"
+                                    aria-describedby="emailHelp" placeholder="Email Address"
+                                    data-parsley-errors-container="#email-errors"
+                                    data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
                                 <div class="termsandconditions_text_color">
                                     @error('email')
-
-                                            {{ $message }}
+                                        {{ $message }}
                                     @enderror
                                 </div>
-                        </div>
-                        <div id="email-errors"></div>
+                            </div>
+                            <div id="email-errors"></div>
                         </div>
                         <div class="form-group label_margin_zero_for_login position-relative custom--password login--eye">
                             <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                           <div class="input-group custom-fields">
-                                
+                            <div class="input-group custom-fields">
+
                                 <span class="input-group-text">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                            stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                         <g id="SVGRepo_iconCarrier">
                                             <path
                                                 d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
@@ -77,10 +77,11 @@
                                         </g>
                                     </svg>
                                 </span>
-                                <input type="password" placeholder="Please Enter Your Password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                                    name="password" required autocomplete="new-password" 
-                                    data-parsley-required-message="@lang('errors/validation/required.password')"
-                                    data-parsley-pattern-message="@lang('errors/validation/valid.password')" data-parsley-errors-container="#password-errors">
+                                <input type="password" placeholder="Please Enter Your Password" class="form-control"
+                                    id="exampleInputPassword1" placeholder="Password" name="password" required
+                                    autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')"
+                                    data-parsley-pattern-message="@lang('errors/validation/valid.password')"
+                                    data-parsley-errors-container="#password-errors">
 
                                 <span class="input-group-text custom--eye" id="togglePassword" style="cursor: pointer;">
                                     <i class="fa fa-eye" id="passwordEyeIcon"></i>
@@ -98,494 +99,569 @@
                         </div>
 
                         <div class="row login-bottom-des">
-                           <div class="col-md-7 align-self-center">
-                               <a href="#" id="forgotpassword"> Forgot Password?</a>
-                           </div>
-                           <div class="col-md-5 align-self-center text-left text-md-right">
-                                <button type="submit" id="submit_button" class="btn site_btn_primary">Login 
+                            <div class="col-md-7 align-self-center">
+                                <a href="#" id="forgotpassword"> Forgot Password?</a>
+                            </div>
+                            <div class="col-md-5 align-self-center text-left text-md-right">
+                                <button type="submit" id="submit_button" class="btn site_btn_primary">Login
                                 </button>
-                           </div>
-                       </div>
-                       <input type="hidden" name="current_state_id" id="current_state_id">
-                       <div class="common_login_note">
+                            </div>
+                        </div>
+                        <input type="hidden" name="current_state_id" id="current_state_id">
+                        <div class="common_login_note">
                             <x-login-notes />
-                       </div>
+                        </div>
                     </form>
-               </div>
-               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
+                </div>
+                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
 
-                @if(config('constants.app_env')!='local')
-                <img src="{{ asset('assets/app/img/login-profile/viver-login.png')}}" class="img-fluid">
-                @else
-                <img src="{{ asset('assets/app/img/local_img/viver-login.png') }}" class="img-fluid">
-                @endif
-                      
-               </div>
+                    @if (config('constants.app_env') != 'local')
+                        <img src="{{ asset('assets/app/img/login-profile/viver-login.png') }}" class="img-fluid">
+                    @else
+                        <img src="{{ asset('assets/app/img/local_img/viver-login.png') }}" class="img-fluid">
+                    @endif
+
+                </div>
             </div>
-         </section>
+        </section>
 
         <div class="modal upload-modal fade" id="comman_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <input type="hidden" value="0" id="forgot_password">
-                    <form id="forgotPasswordSend" method="post" action="" >
+                    <form id="forgotPasswordSend" method="post" action="">
                         @csrf
                         <div class="modal-header">
-                          <h5 class="modal-title"> <img src="{{asset('assets/app/img/2fa.png')}}" class="custompopicon" alt="logo">Reset Password</h5>
+                            <h5 class="modal-title"> <img src="{{ asset('assets/app/img/2fa.png') }}"
+                                    class="custompopicon" alt="logo">Reset Password</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                            </span>
+                                <span aria-hidden="true">
+                                    <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                        class="img-fluid img_resize_in_smscreen">
+                                </span>
                             </button>
                         </div>
                         <div class="modal-body forgot_pass pb-1">
                             <div class="form-group label_margin_zero_for_login">
                                 <div class="row text-center" style="">
                                     <div class="col-md-12">
-                                        <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }} " class="img-fluid" alt="logo"></a>
+                                        <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }} "
+                                                class="img-fluid" alt="logo"></a>
                                     </div>
                                 </div>
-                          <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset Password</strong></h4>
+                                <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset Password</strong>
+                                </h4>
                                 <p class="text-center pb-2">We’ll send you a reset password link on your email.</p>
-                                <input type="txt" required class="form-control email-val" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
+                                <input type="txt" required class="form-control email-val" name="email"
+                                    id="email" aria-describedby="emailHelp" placeholder="Email Address"
+                                    data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
                                 <div id="email-error"></div>
                                 <div class="termsandconditions_text_color">
                                     @error('email')
-
-                                            {{ $message }}
+                                        {{ $message }}
                                     @enderror
-                                    <input type="hidden" name="url" value="{{ route('viewer.forgot')}}">
+                                    <input type="hidden" name="url" value="{{ route('viewer.forgot') }}">
                                 </div>
-                             </div>
+                            </div>
                         </div>
                         <div class="modal-footer forgot_pass pt-0 pb-4">
                             <button type="submit" class="btn-success-modal" id="sendSubmit">Send</button>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
         </div>
 
 
-       <div class="modal fade upload-modal" id="recovery_modal" style="display: none">
-         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title "> <img src="{{asset('assets/img/account-recovery.png')}}" class="custompopicon" alt="Account Recovery">Account Recovery</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                  </button>
-               </div>
-
-               <div class="modal-body pt-5">
-                  <div class="row text-center" style="">
-                     <div class="col-md-12">
-                        <a href="#"><img src="{{ asset('assets/app/img/tick.png')}}" class="img-fluid" alt="logo"></a>
-                     </div>
-                  </div>
-                  
-                   <div class="col-12 my-2 text-center">
-                        <h5 id="task_desc" class="custom_modal_text">Your password has been reset. We have sent a password link to your nominated email account:</h5>           
-                        <p class="comman_msg text-center font-weight-bold"></p>
+        <div class="modal fade upload-modal" id="recovery_modal" style="display: none">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title "> <img src="{{ asset('assets/img/account-recovery.png') }}"
+                                class="custompopicon" alt="Account Recovery">Account Recovery</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                    class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
                     </div>
-              </div>
-              <div class="modal-footer" style="justify-content: center;">
-                  <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-              </div>
+
+                    <div class="modal-body pt-5">
+                        <div class="row text-center" style="">
+                            <div class="col-md-12">
+                                <a href="#"><img src="{{ asset('assets/app/img/tick.png') }}" class="img-fluid"
+                                        alt="logo"></a>
+                            </div>
+                        </div>
+
+                        <div class="col-12 my-2 text-center">
+                            <h5 id="task_desc" class="custom_modal_text">Your password has been reset. We have sent a
+                                password link to your nominated email account:</h5>
+                            <p class="comman_msg text-center font-weight-bold"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                            id="close">Ok</button>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
+        </div>
 
-         @include('modal.two-step-verification')
+        @include('modal.two-step-verification')
     </div>
-
 @endsection
 @section('script')
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#loginFormViewer').parsley({
 
-<script>
-
-    $(function() {
-        $('#loginFormViewer').parsley({
-
+            });
         });
-    });
-    $(function() {
-        $('#forgotPasswordSend').parsley({
+        $(function() {
+            $('#forgotPasswordSend').parsley({
 
+            });
         });
-    });
 
 
-    document.getElementById('email').focus();
+        document.getElementById('email').focus();
 
 
-    $(document).ready(function() {
-        $("body").on("click","#forgotpassword",function(e){
+        $(document).ready(function() {
+            $("body").on("click", "#forgotpassword", function(e) {
 
-            e.preventDefault();
-            $("#comman_modal").modal('show');
-        
-                $("body").on("submit","#forgotPasswordSend",function(e){
+                e.preventDefault();
+                $("#comman_modal").modal('show');
+
+                $("body").on("submit", "#forgotPasswordSend", function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+                    $('#forgot_password').val('1');
+                    send2FAotp($('.email-val').val());
+                });
+                // });
+
+            });
+
+
+            var loginFormViewer = $("#loginFormViewer");
+
+            loginFormViewer.submit(function(e) {
+                swal_waiting_popup({});
                 e.preventDefault();
                 var form = $(this);
-                $('#forgot_password').val('1');
-                send2FAotp($('.email-val').val()); 
-            });
-            // });
+                var url = form.attr('action');
+                var formData = new FormData($("#loginFormViewer")[0]);
+                //console.log(formData);
+                var token = $('input[name="_token"]').attr('value');
 
-        });
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    dataType: "JSON",
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-Token': token
+                    },
+                    success: function(data) {
+                        $('#formerror').html('');
+                        Swal.close();
+                        if (data.escort_id != null) {
 
-
-    var loginFormViewer = $("#loginFormViewer");
-
-    loginFormViewer.submit(function(e) {
-      swal_waiting_popup({}); 
-      e.preventDefault();
-      var form = $(this);
-      var url = form.attr('action');
-      var formData = new FormData($("#loginFormViewer")[0]);
-      //console.log(formData);
-      var token = $('input[name="_token"]').attr('value');
-
-        $.ajax({
-         url: url,
-         type: 'POST',
-         data: formData,
-         dataType: "JSON",
-         contentType: false,
-         processData: false,
-         headers: {
-               'X-CSRF-Token': token
-         },
-            success: function(data) {
-                $('#formerror').html('');
-                 Swal.close();
-                if(data.escort_id != null) {
-
-                }
-                var path = null;
-                if(data.path != null) {
-                   var path = data.path;
-                }
-                var show_id = null;
-                if(data.show_id != null) {
-                   var show_id = data.show_id;
-                }
-                //console.log('path=='+ path);
-                var ph = data.phone;
-                $("#phoneId").attr('value',ph);
-                if(data.error == 1) 
-                {
-                    $('body').on("click","#resendOtpSubmit",function(){
-                        $("#loginFormViewer").submit();
-                        var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
-                        $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
-                    });
+                        }
+                        var path = null;
+                        if (data.path != null) {
+                            var path = data.path;
+                        }
+                        var show_id = null;
+                        if (data.show_id != null) {
+                            var show_id = data.show_id;
+                        }
+                        //console.log('path=='+ path);
+                        var ph = data.phone;
+                        $("#phoneId").attr('value', ph);
+                        if (data.error == 1) {
+                            $('body').on("click", "#resendOtpSubmit", function() {
+                                $("#loginFormViewer").submit();
+                                var message =
+                                    "{{ config('common.resend_2fa_verification_code_msg') }}";
+                                $('#senderror').html(
+                                    "<p class='text-center text-success'>" +
+                                    message + "</p>");
+                            });
 
 
-                    setTimeout(() => {
-                    $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
-                    }, 300); 
+                            setTimeout(() => {
+                                $("#sendOtp_modal").modal({
+                                    backdrop: 'static',
+                                    keyboard: false
+                                });
+                            }, 300);
 
-                    $("body").on("submit","#SendOtp",function(e){
-                        e.preventDefault();
-                        var form = $(this);
-                        $('#sendOtpSubmit').attr('disabled', true);
-                        $('.wait-loader').css({'display':'block'});
-                        //console.log(ph);
-                        var url = "{{ route('web.checkOTP')}}";
-                        var data = new FormData($('#SendOtp')[0]);
-                        var phone = data.phone;
-                        // var escort_id = data.escort_id;
-                        //data.append("phone",phone );
-                        //data.append("escort_id",escort_id );
-                        //console.log("url="+url);
-                        var token = $('input[name="_token"]').attr('value');
+                            $("body").on("submit", "#SendOtp", function(e) {
+                                e.preventDefault();
+                                var form = $(this);
+                                $('#sendOtpSubmit').attr('disabled', true);
+                                $('.wait-loader').css({
+                                    'display': 'block'
+                                });
+                                //console.log(ph);
+                                var url = "{{ route('web.checkOTP') }}";
+                                var data = new FormData($('#SendOtp')[0]);
+                                var phone = data.phone;
+                                // var escort_id = data.escort_id;
+                                //data.append("phone",phone );
+                                //data.append("escort_id",escort_id );
+                                //console.log("url="+url);
+                                var token = $('input[name="_token"]').attr('value');
 
-                        $.ajax({
-                           url: url,
-                           type: 'POST',
-                           data: data,
-                           dataType: "JSON",
-                           contentType: false,
-                           processData: false,
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           success: function(data) 
-                           {
-                                if(data.error == true) 
-                                {
-                                        if(path != null && path == '/massage-centres-list') {
-                                            window.location.href = "{{ route('find.massage.centre') }}";
-                                        } else if(path == '/all-escorts-list'){
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    data: data,
+                                    dataType: "JSON",
+                                    contentType: false,
+                                    processData: false,
+                                    headers: {
+                                        'X-CSRF-Token': token
+                                    },
+                                    success: function(data) {
+                                        if (data.error == true) {
+                                            if (path != null && path ==
+                                                '/massage-centres-list') {
+                                                window.location.href =
+                                                    "{{ route('find.massage.centre') }}";
+                                            } else if (path ==
+                                                '/all-escorts-list') {
 
-                                            window.location.href = "{{ route('find.all') }}";
-                                        } else if(path == 'center-profile'){
-                                            var my_url = "{{ route('center.profile.description',':show_id')}}";
-                                            my_url = my_url.replace(':show_id', show_id);
-                                            window.location.href = my_url;
-                                        } else if(path == 'escort-profile'){
-                                            var my_url = "{{ route('profile.description',':show_id')}}";
-                                            my_url = my_url.replace(':show_id', show_id);
-                                            window.location.href = my_url;
-                                        } else {
-                                            window.location.href = "{{ route('find.all') }}";
+                                                window.location.href =
+                                                    "{{ route('find.all') }}";
+                                            } else if (path ==
+                                                'center-profile') {
+                                                var my_url =
+                                                    "{{ route('center.profile.description', ':show_id') }}";
+                                                my_url = my_url.replace(
+                                                    ':show_id', show_id);
+                                                window.location.href =
+                                                    my_url;
+                                            } else if (path ==
+                                                'escort-profile') {
+                                                var my_url =
+                                                    "{{ route('profile.description', ':show_id') }}";
+                                                my_url = my_url.replace(
+                                                    ':show_id', show_id);
+                                                window.location.href =
+                                                    my_url;
+                                            } else {
+                                                window.location.href =
+                                                    "{{ route('find.all') }}";
+                                            }
+
                                         }
+                                    },
+                                    error: function(data) {
+                                        $('#sendOtpSubmit').attr('disabled',
+                                            false);
+                                        $('.wait-loader').css({
+                                            'display': 'none'
+                                        });
+                                        //console.log("error otp: ", data.responseJSON.errors);
+                                        $.each(data.responseJSON.errors,
+                                            function(key, value) {
+                                                errorsHtml =
+                                                    '<div class="alert alert-danger"><ul>';
+                                                errorsHtml += '<li>' +
+                                                    value +
+                                                    '</li>'; //showing only the first error.
+                                            });
 
-                                }
-                           },
-                           error: function(data) {
-                                 $('#sendOtpSubmit').attr('disabled', false);
-                                 $('.wait-loader').css({'display':'none'});
-                                //console.log("error otp: ", data.responseJSON.errors);
-                                $.each(data.responseJSON.errors, function(key, value) {
-                                errorsHtml = '<div class="alert alert-danger"><ul>';
-                                errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                                        errorsHtml += '</ul></di>';
+                                        $('#senderror').html(errorsHtml);
+
+                                    }
                                 });
 
-                                errorsHtml += '</ul></di>';
-                                $('#senderror').html(errorsHtml);
+                            });
+                        }
 
-                           }
+                    },
+                    error: function(data) {
+                        Swal.close();
+                        $.each(data.responseJSON.errors, function(key, value) {
+                            errorsHtml = '<div class="alert alert-danger"><ul>';
+                            errorsHtml += '<li>' + value + '</li>';
                         });
 
-                  });
+                        errorsHtml += '</ul></di>';
+                        $('#formerror').html(errorsHtml);
+                    }
+                });
+            });
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            function togglePasswordVisibility(inputId, iconId) {
+                const input = document.getElementById(inputId);
+                const icon = document.getElementById(iconId);
+                const type = input.getAttribute("type") === "password" ? "text" : "password";
+                input.setAttribute("type", type);
+                icon.classList.toggle("fa-eye");
+                icon.classList.toggle("fa-eye-slash");
+            }
+
+            // Password field
+            const togglePassword = document.getElementById("togglePassword");
+            if (togglePassword) {
+                togglePassword.addEventListener("click", function() {
+                    togglePasswordVisibility("exampleInputPassword1", "passwordEyeIcon");
+                });
+            }
+
+            // Confirm Password field
+            const toggleConfirm = document.getElementById("toggleConfirmPassword");
+            if (toggleConfirm) {
+                toggleConfirm.addEventListener("click", function() {
+                    togglePasswordVisibility("conformPassword", "confirmEyeIcon");
+                });
+            }
+        });
+
+        $(document).ready(async function() {
+
+            try {
+                const selectedLocation = await getCurrentLocation();
+
+                console.log(selectedLocation);
+
+                await getCurrentState(selectedLocation);
+
+            } catch (error) {
+                console.error(error);
+
+                if (error.message) {
+                    alert(error.message);
+                }
+            }
+
+        });
+
+
+        /**
+         * Get current user location
+         */
+        function getCurrentLocation() {
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject(new Error('Geolocation is not supported by this browser.'));
+                    return;
                 }
 
-         },
-         error: function(data) {
-               Swal.close();
-               $.each(data.responseJSON.errors, function(key, value) {
-                errorsHtml = '<div class="alert alert-danger"><ul>';
-                errorsHtml += '<li>' + value + '</li>'; 
-               });
-
-               errorsHtml += '</ul></di>';
-               $('#formerror').html(errorsHtml);
-         }
-      });
-    });
-
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        function togglePasswordVisibility(inputId, iconId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            const type = input.getAttribute("type") === "password" ? "text" : "password";
-            input.setAttribute("type", type);
-            icon.classList.toggle("fa-eye");
-            icon.classList.toggle("fa-eye-slash");
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        resolve({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                        });
+                    },
+                    function(error) {
+                        reject(error);
+                    }, {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            })
         }
 
-        // Password field
-        const togglePassword = document.getElementById("togglePassword");
-        if (togglePassword) {
-            togglePassword.addEventListener("click", function () {
-                togglePasswordVisibility("exampleInputPassword1", "passwordEyeIcon");
-            });
-        }
 
-        // Confirm Password field
-        const toggleConfirm = document.getElementById("toggleConfirmPassword");
-        if (toggleConfirm) {
-            toggleConfirm.addEventListener("click", function () {
-                togglePasswordVisibility("conformPassword", "confirmEyeIcon");
-            });
-        }
-    });
+        /**
+         * Get current state from server
+         */
 
+        function getCurrentState(location) {
 
-    $(document).ready(function () {
-        var selectedLocation = {
-            lat : '',
-            lng : '',
-            tiemzone : ''
-        }
+            return $.ajax({
+                    url: '{{ route('user.current.state') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        data: location
+                    }
+                })
+                .done(function(response) {
 
-        navigator.geolocation.getCurrentPosition(async function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            selectedLocation.lat = latitude;
-            selectedLocation.lng = longitude;
-            getCurrentState(selectedLocation);
-            });
+                    console.log(response);
 
-
-            function getCurrentState(data) {
-            $.ajax({
-                url: '{{ route("user.current.state") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    data: data
-                },
-                success: function (response) {
-
-                    if (response?.data?.state == null) {
+                    if (!response?.data?.state) {
                         alert('Your location not found');
+                        return;
                     }
-                    else
-                    {
-                            //console.log('response.data.state',response.data.state);
-                            $('#current_state_id').val(response.data.state);
-                        
-                    }
-                },
-                error: function (xhr, status, error) {
+
+                    $('#current_state_id').val(response.data.state);
+
+                })
+                .fail(function(xhr, status, error) {
                     console.error('Error in location filter:', error);
-                }
-            });
+                });
+
         }
 
-    })
-       
-    
-    $("body").on("click", "#sendOtpSubmit", function(e) {
-        e.preventDefault();
-        let form = $("#SendOtp")[0];
-        let data = new FormData(form);
-        var url = "{{ route('web.checkOTP')}}";
-        data.append('forget_password' , $('#forgot_password').val());
-        data.append('email' , $('.email-val').val());
-        var token = $('input[name="_token"]').attr('value');
 
-        $.ajax({
-        url: url,
-        type: 'POST',
-        data: data,
-        dataType: "JSON",
-        contentType: false,
-        processData: false,
-        headers: {
-            'X-CSRF-Token': token
-        },
-        beforeSend: function () {
-            $('#sendOtpSubmit').prop('disabled', true);
-            $('#sendOtpSubmit').html('Verifying...');
-        }, 
-        success: function(data) {
-            if(data.error ==  false){
-                var form = $(this);
-                var url = "{{ route('web.sendMail.viewer')}}";
-                var data = new FormData($('#forgotPasswordSend')[0]);
-                var token = $('input[name="_token"]').attr('value');
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: data,
-                        dataType: "JSON",
-                        contentType: false,
-                        processData: false,
-                        headers: {
-                            'X-CSRF-Token': token
-                        },
-                        beforeSend: function () {
-                            $('#sendSubmit').prop('disabled', true);
-                            $('#sendSubmit').html('<div class="spinner-border spinner-border-sm"></div> Sending...');
-                        },
-                        success: function(data) {
-                            if(data.error == true) {
-                                $("#comman_modal").modal('hide');
-                                $(".comman_msg").text(data.email);
-                                $("#recovery_modal").modal('show');
-                                $('#sendSubmit').prop('disabled', false);
-                                $('#sendSubmit').html('Send');
-                                $('.email-val').val('');
-                                $('#sendOtp_modal').modal('hide');
-                                $('#sendOtpSubmit').prop('disabled', false);
-                                $('#sendOtpSubmit').html('Verify');
-                                $('#otp').val('');
+
+
+        $("body").on("click", "#sendOtpSubmit", function(e) {
+            e.preventDefault();
+            let form = $("#SendOtp")[0];
+            let data = new FormData(form);
+            var url = "{{ route('web.checkOTP') }}";
+            data.append('forget_password', $('#forgot_password').val());
+            data.append('email', $('.email-val').val());
+            var token = $('input[name="_token"]').attr('value');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                dataType: "JSON",
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-Token': token
+                },
+                beforeSend: function() {
+                    $('#sendOtpSubmit').prop('disabled', true);
+                    $('#sendOtpSubmit').html('Verifying...');
+                },
+                success: function(data) {
+                    if (data.error == false) {
+                        var form = $(this);
+                        var url = "{{ route('web.sendMail.viewer') }}";
+                        var data = new FormData($('#forgotPasswordSend')[0]);
+                        var token = $('input[name="_token"]').attr('value');
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: data,
+                            dataType: "JSON",
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-Token': token
+                            },
+                            beforeSend: function() {
+                                $('#sendSubmit').prop('disabled', true);
+                                $('#sendSubmit').html(
+                                    '<div class="spinner-border spinner-border-sm"></div> Sending...'
+                                );
+                            },
+                            success: function(data) {
+                                if (data.error == true) {
+                                    $("#comman_modal").modal('hide');
+                                    $(".comman_msg").text(data.email);
+                                    $("#recovery_modal").modal('show');
+                                    $('#sendSubmit').prop('disabled', false);
+                                    $('#sendSubmit').html('Send');
+                                    $('.email-val').val('');
+                                    $('#sendOtp_modal').modal('hide');
+                                    $('#sendOtpSubmit').prop('disabled', false);
+                                    $('#sendOtpSubmit').html('Verify');
+                                    $('#otp').val('');
+                                }
+                                if (data.error == false) {
+                                    $("#errorNew ul").remove();
+                                    $("#errorNew").append(
+                                        "<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>"
+                                    );
+                                    $('#sendSubmit').prop('disabled', false);
+                                    $('#sendSubmit').html('Send');
+                                }
+                            },
+                            error: function(data) {
+                                //console.log("error: ", data.responseJSON.errors);
                             }
-                            if(data.error == false) { 
-                                $("#errorNew ul").remove();
-                                $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
-                                $('#sendSubmit').prop('disabled', false);
-                                $('#sendSubmit').html('Send');
-                            }
-                        },
-                        error: function(data) {
-                            //console.log("error: ", data.responseJSON.errors);
+                        });
+                    } else if (data.error === true && !('type' in data)) {
+                        $('.otp-input').val('');
+                        $('.first_input').val('').focus().select();
+                        $("#senderror").html('');
+                        $("#senderror").append(
+                            "<ul class='parsley-errors-list filled'>" +
+                            "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
+                            "</ul>"
+                        );
+
+                        $('#otp').val('');
+                        $('#sendOtpSubmit').prop('disabled', false);
+                        $('#sendOtpSubmit').html('Verify');
+                    } else {
+                        if (data.type == 0) {
+                            window.location.href = "{{ route('find.all') }}";
                         }
-                    }); 
-            }else if (data.error === true && !('type' in data)) {
-                    $('.otp-input').val('');
-                    $('.first_input').val('').focus().select();
-                    $("#senderror").html('');
-                    $("#senderror").append(
-                    "<ul class='parsley-errors-list filled'>" +
-                        "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
-                    "</ul>"
-                    );
+                    }
+                },
+                error: function(data) {
 
-                    $('#otp').val('');
+                    //console.log("error otp: ", data.responseJSON.errors);
+                    $.each(data.responseJSON.errors, function(key, value) {
+                        errorsHtml = '<div class="alert alert-danger"><ul>';
+                        errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                    });
                     $('#sendOtpSubmit').prop('disabled', false);
                     $('#sendOtpSubmit').html('Verify');
-            }else{
-                if(data.type == 0) {
-                    window.location.href = "{{ route('find.all') }}";
-                } 
-            }
-        },
-        error: function(data) {
-
-            //console.log("error otp: ", data.responseJSON.errors);
-            $.each(data.responseJSON.errors, function(key, value) {
-                errorsHtml = '<div class="alert alert-danger"><ul>';
-                errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                    errorsHtml += '</ul></di>';
+                    $('#senderror').html(errorsHtml);
+                    $('.otp-input').val('');
+                    $('.first_input').val('').focus().select();
+                }
             });
-            $('#sendOtpSubmit').prop('disabled', false);
-                    $('#sendOtpSubmit').html('Verify');
-            errorsHtml += '</ul></di>';
-            $('#senderror').html(errorsHtml);
-            $('.otp-input').val('');
-            $('.first_input').val('').focus().select();
-        }
         });
-    }); 
 
-    $(document).off('click' , '#resendOtpSubmit');
-    $(document).on('click' , '#resendOtpSubmit' , function(){
-        send2FAotp($('.email-val').val());
-    });
-
-    $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
-      $('#forgot_password').val(0);
-      $("#senderror").html('');
-   });
-
-   function send2FAotp(email)
-    {
-        $('#email-error').html('');
-        var token = $('input[name="_token"]').attr('value');
-        $.ajax({
-        url: "{{route('send-otp-for-pin-change')}}",
-        type: 'POST',
-        data: {email:email},
-        dataType: "JSON",
-        
-        headers: {
-            'X-CSRF-Token': token
-        },
-        success: function(data) {
-            if(data.status == true){
-                $('#sendOtp_modal').modal('show');
-                $('#comman_modal').modal('hide');
-            }else{
-                $('#email-error').html(data.message);
-            }
-        },
-        error: function(data) {
-
-            //console.log("error otp: ", data.responseJSON.errors);
-            
-        }
+        $(document).off('click', '#resendOtpSubmit');
+        $(document).on('click', '#resendOtpSubmit', function() {
+            send2FAotp($('.email-val').val());
         });
-    }
-</script>
 
+        $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function() {
+            $('#forgot_password').val(0);
+            $("#senderror").html('');
+        });
+
+        function send2FAotp(email) {
+            $('#email-error').html('');
+            var token = $('input[name="_token"]').attr('value');
+            $.ajax({
+                url: "{{ route('send-otp-for-pin-change') }}",
+                type: 'POST',
+                data: {
+                    email: email
+                },
+                dataType: "JSON",
+
+                headers: {
+                    'X-CSRF-Token': token
+                },
+                success: function(data) {
+                    if (data.status == true) {
+                        $('#sendOtp_modal').modal('show');
+                        $('#comman_modal').modal('hide');
+                    } else {
+                        $('#email-error').html(data.message);
+                    }
+                },
+                error: function(data) {
+
+                    //console.log("error otp: ", data.responseJSON.errors);
+
+                }
+            });
+        }
+    </script>
 @endsection
