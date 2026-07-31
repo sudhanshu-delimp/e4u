@@ -193,16 +193,29 @@ class Escort extends Model
         return $this->belongsTo(Purchase::class, 'purchase_id');
     }
 
+    // public function isListingExtended()
+    // {
+    //     $purchases = $this->purchase()
+    //         ->where('utc_end_time', '>=', Carbon::now('UTC'))
+    //         ->where('parent_id', 0)
+    //         ->where('status', 'pending')
+    //         ->orderBy('utc_end_time', 'desc')
+    //         ->get();
+    //     return (object)[
+    //         'count' => $purchases->count() > 1,
+    //         'data' => $purchases->first()
+    //     ];
+    // }
+
     public function isListingExtended()
     {
-        $purchases = $this->purchase()
-            ->where('utc_end_time', '>=', Carbon::now('UTC'))
-            ->where('parent_id', 0)
-            ->orderBy('utc_end_time', 'desc')
-            ->get();
-        return (object)[
-            'count' => $purchases->count() > 1,
-            'data' => $purchases->first()
+        $extendedPurchase = $this->purchase()->where('escort_id', $this->escort_id)
+            ->where('start_date', Carbon::parse($this->end_date)->addDay())
+            ->first();
+
+        return (object) [
+            'count' => !is_null($extendedPurchase),
+            'data'  => $extendedPurchase,
         ];
     }
 

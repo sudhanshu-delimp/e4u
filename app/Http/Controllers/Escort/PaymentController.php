@@ -220,7 +220,7 @@ class PaymentController extends Controller
             $insert['net_amount'] = $this->pinService->getNetAmount();
             $insert['gst_amount'] = !in_array($benefit_token['action'], ['wallet']) ? $this->pinService->getGSTAmount() : $this->pinService->getGSTAmount(0);
             $insert['paid_amount'] = $this->pinService->getTotalDue();
-            
+
             if (!$is_bypass) {
                 $payload = [];
                 switch ($benefit_token['action']) {
@@ -461,19 +461,20 @@ class PaymentController extends Controller
                     $this->account->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
                 }
 
+                $escortDetail->start_date = $item['start_date'];
+                $escortDetail->end_date = $item['end_date'];
+                $escortDetail->utc_start_time = $utcSartTime;
+                $escortDetail->utc_end_time = $utcEndTime;
+                $escortDetail->membership = $item['membership'];
+
                 if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
-                    $escortDetail->start_date = $item['start_date'];
-                    $escortDetail->end_date = $item['end_date'];
-                    $escortDetail->utc_start_time = $utcSartTime;
-                    $escortDetail->utc_end_time = $utcEndTime;
-                    $escortDetail->membership = $item['membership'];
                     $escortDetail->enabled = 1;
                     $escortDetail->purchase_id = $purchaseDetail->id;
-                    $escortDetail->save();
-
                     $purchaseDetail->status = 'listed';
                     $purchaseDetail->save();
                 }
+
+                $escortDetail->save();
 
                 if ($action === 'extend') {
                     $response['extend_days'] = Carbon::parse($item['start_date'])->diffInDays(Carbon::parse($item['end_date'])) + 1;

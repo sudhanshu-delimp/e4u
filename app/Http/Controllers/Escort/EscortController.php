@@ -132,7 +132,7 @@ class EscortController extends BaseController
         $user = auth()->user();
         if ($user->status == "Suspended") {
             return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
-        }   
+        }
         session()->forget('listing_checkout_done');
         return view('escort.dashboard.add_listing');
     }
@@ -144,7 +144,7 @@ class EscortController extends BaseController
         if (session()->has('listing_checkout_done')) {
             return redirect()->route('escort.account.add-listing');
         }
-        
+
         $checkout_type = !empty($request->checkout_type) ? $request->checkout_type : null;
         $refundAmount = 0.00;
         switch ($request->checkout_type) {
@@ -263,9 +263,11 @@ class EscortController extends BaseController
     {
         $conditions = [];
         if ($type == 'current') {
-            $conditions[] = ['enabled', 1];
+            //$conditions[] = ['enabled', 1];
+            $conditions[] = ['utc_end_time', '>=', now()];
         } elseif ($type == 'past') {
             $conditions[] = ['enabled', 0];
+            $conditions[] = ['utc_end_time', NULL];
         }
         list($result, $count) = $this->escort->paginatedList(
             request()->get('start'),
@@ -295,8 +297,9 @@ class EscortController extends BaseController
         $conditionsIn = [];
         if ($type == 'current') {
             $conditions[] = ['end_date', '>=', date('Y-m-d')];
+            $conditions[] = ['status', '=', 'listed'];
             $conditionsIn['column'] = 'status';
-            $conditionsIn['condition'] = ['listed', 'pending'];
+            $conditionsIn['condition'] = ['listed'];
         } elseif ($type == 'past') {
             $conditions[] = ['end_date', '<', date('Y-m-d')];
         }
@@ -741,9 +744,10 @@ class EscortController extends BaseController
             $state_id = $request->state;
             $profiles = Escort::where(['user_id' => auth()->user()->id, 'state_id' => $state_id])
                 ->whereNotNull('profile_name')
-                ->whereDoesntHave('purchase', function ($query) {
-                    $query->where('utc_end_time', '>=', Carbon::now());
-                })
+                // ->whereDoesntHave('purchase', function ($query) {
+                //     $query->where('utc_end_time', '>=', Carbon::now());
+                // })
+                ->whereNull('utc_end_time')
                 ->get(['id', 'name', 'profile_name', 'state_id']);
             if ($profiles->isNotEmpty()) {
                 $response['success'] = true;

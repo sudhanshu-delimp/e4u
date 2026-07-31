@@ -171,6 +171,10 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->enabled = "Draft";
             }
 
+            $listingStatus = ((!empty($item->utc_start_time)) && $item->utc_start_time > now()) ? 'Upcoming' : (((!empty($item->utc_start_time)) && $item->utc_end_time > now()) ? 'Active' : 'Inactive');
+
+
+
             if ($item->gender == 'Transgender')
                 $item->stage_name = 'TS-' . $item->name;
             else
@@ -189,13 +193,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->joined = $item->joined ? "<span class='times_circle_icon'><i class='far fa-check-circle'></i>
             </span>" : "<span class='check_circle_icon'><i class='far fa-times-circle'></i></span>";
             $item->action = '<div class="dropdown no-arrow text-center"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
-            if ($item->enabled == 'Inactive') {
+            if ($listingStatus == 'Inactive') {
                 $item->action .= '<a class="dropdown-item dropdown-item d-flex align-items-center justify-content-start gap-10" data-toggle="modal" data-target="#duplicate-profile-modal" href="#" data-id="' . $item->id . '" data-state="' . $item->state_id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Duplicate</a><div class="dropdown-divider"></div>';
             }
 
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Edit</a><div class="dropdown-divider"></div>';
-            if ($item->enabled == 'Active') {
+            if ($listingStatus == 'Active') {
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Add Playmates</a><div class="dropdown-divider"></div>';
             }
 
@@ -270,7 +274,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 brb-inactivate" href="' . route('escort.brb.inactive', $itemArray['brb'][0]['id']) . '" data-id="' . $itemArray['brb'][0]['id'] . '" data-category="' . ($itemArray['brb'][0]['id']) . '"><i class="fa fa-ban" aria-hidden="true"></i>Cancel BRB</a><div class="dropdown-divider"></div>';
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Edit</a><div class="dropdown-divider"></div>';
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
-                if ($item->enabled == 'Active') {
+                if ($listingStatus == 'Active') {
                     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
                 }
                 if ($item->latestActivePinup) {
@@ -299,6 +303,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $badgeClass = getStatusBadgeClass(strtolower($item->enabled));
             $item->enabled = "<span class='custom_badge {$badgeClass}'>{$item->enabled}</span>";
 
+            $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
+            $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
             $i++;
         }
 
@@ -416,7 +422,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->orderBy('id', 'asc')
             ->paginate($count);
         // ->paginate($count ?? 25);
-       // dd($plan_type);
+        // dd($plan_type);
         $collection = $plan_type->getCollection();
 
         $collection = $collection->map(function ($item, $key) {
@@ -456,7 +462,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         $collection = $collection->groupBy(['user' => function ($item) {
             return $item->membership;
         }], $preserveKeys = true)->sortKeys();
-        
+
 
         if ($profileDetails) {
             return  $collection->flatten(1);

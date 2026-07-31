@@ -95,17 +95,17 @@
                             function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
                             or
                             View the Profile.</li>
-                            @if($type != 'past')
-                                <li>
-                                    To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong> from Action.
-                                    You can add multiple Playmates. Only your Playmates in the Location the Profile is listed at the time
-                                    can be added to the Profile. If your Playmate leaves the Location while your Profile is active, or
-                                    they suspend their Profile, they will be automatically removed from the Profile for the suspended
-                                    period, and permanently if they have left the Location.
-                                </li>
-                            @endif
-                                
-                            
+                        @if($type != 'past')
+                        <li>
+                            To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong> from Action.
+                            You can add multiple Playmates. Only your Playmates in the Location the Profile is listed at the time
+                            can be added to the Profile. If your Playmate leaves the Location while your Profile is active, or
+                            they suspend their Profile, they will be automatically removed from the Profile for the suspended
+                            period, and permanently if they have left the Location.
+                        </li>
+                        @endif
+
+
                     </ol>
                 </div>
             </div>
@@ -655,8 +655,8 @@
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'enabled',
-                    name: 'enabled',
+                    data: 'statusBtn',
+                    name: 'statusBtn',
                     searchable: false,
                     orderable: false,
                     defaultContent: 'NA'
