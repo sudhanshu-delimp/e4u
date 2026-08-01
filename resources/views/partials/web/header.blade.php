@@ -64,6 +64,7 @@
         gtag('js', new Date());
         gtag('config', 'G-9P7DMPWFYZ');
     </script> 
+    @if(isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] != '127.0.0.1')
      <script type="text/javascript">
         (function(c, l, a, r, i, t, y) {
             c[a] = c[a] || function() {
@@ -76,6 +77,7 @@
             y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "xpw6cg8o8x");
     </script> 
+    @endif
     <!-- Google Tag Manager -->
      <script>
 (function(w,d,s,l,i){

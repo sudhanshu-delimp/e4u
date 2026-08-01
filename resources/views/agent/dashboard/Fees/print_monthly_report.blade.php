@@ -66,12 +66,18 @@
         $totalEscortDays = 0;
         $totalEscortSpent = 0;
         $totalEscortAgenFee = 0;
+
+        $path = public_path('/assets/dashboard/img/admin-report.png');
+		$type = pathinfo($path, PATHINFO_EXTENSION);
+		$data = file_get_contents($path);
+		$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
     @endphp
     @if ($esortReports->isNotEmpty() || $massgeReports->isNotEmpty())
         <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
             <tr>
-                <td style="text-align: left !important;width: 100%;"> <span><img
-                            src="https://e4u.local/assets/dashboard/img/admin-report.png" style="width: 25px;">
+                <td style="text-align: left !important;width: 100%;"> <span>
+                    <img src="{{ $base64}}" style="width: 25px;">
                     </span><span
                         style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Agent
                         Montly Fee Report (Period Ending: {{ $reportEndDate }})</span></td>
