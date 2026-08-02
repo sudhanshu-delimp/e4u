@@ -12,6 +12,7 @@
     $totalEscortDays = 0;
     $totalEscortSpent = 0;
     $totalEscortAgenFee = 0;
+    $cnt = 0;
 @endphp
 @if ($esortReports->isNotEmpty() || $massgeReports->isNotEmpty())
     <table class="table table-bordered mb-0 common_accordian_table">
@@ -35,10 +36,11 @@
                         $totalEscortDays = $totalEscortDays + $esortReport['total_days'];
                         $totalEscortSpent = $totalEscortSpent + $esortReport['total_purchase_amount'];
                         $totalEscortAgenFee = $totalEscortAgenFee + $esortReport['total_commission_amount'];
+                        $cnt++;
                     @endphp
 
-                    <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1" aria-expanded="false"
-                        aria-controls="details1">
+                    <tr class="accordion-toggle" data-toggle="collapse" data-target="#details{{$cnt}}" aria-expanded="false"
+                        aria-controls="details{{$cnt}}">
                         <td class="text-left">{{ $esortReport['user_member_id'] }}</td>
                         <td class="opr_expand_arrow">{{ $esortReport['user_name'] }}<i class="fa fa-chevron-down"></i>
                         </td>
@@ -53,7 +55,7 @@
                         </td>
                     </tr>
                     <!-- Detail rows -->
-                    <tr class="detail-row" data-group="details1">
+                    <tr class="detail-row" data-group="details{{$cnt}}">
                         <td></td>
                         <td></td>
                         <td></td>
@@ -66,7 +68,7 @@
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['P']['commission'], 2, '.', '')?? 0}}</span></div>
                         </td>
                     </tr>
-                    <tr class="detail-row" data-group="details1">
+                    <tr class="detail-row" data-group="details{{$cnt}}">
                         <td></td>
                         <td></td>
                         <td></td>
@@ -79,7 +81,7 @@
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['G']['commission'], 2, '.', '')?? 0}}</span></div>
                         </td>
                     </tr>
-                    <tr class="detail-row" data-group="details1">
+                    <tr class="detail-row" data-group="details{{$cnt}}">
                         <td></td>
                         <td></td>
                         <td></td>
@@ -92,7 +94,7 @@
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['S']['commission'], 2, '.', '')?? 0}}</span></div>
                         </td>
                     </tr>
-                    <tr class="detail-row" data-group="details1">
+                    <tr class="detail-row" data-group="details{{$cnt}}">
                         <td></td>
                         <td></td>
                         <td></td>
@@ -106,7 +108,7 @@
                         </td>
                     </tr>
                     <!-- Bump UP -->
-                    <tr class="detail-row" data-group="details1">
+                    <tr class="detail-row" data-group="details{{$cnt}}">
                         <td></td>
                         <td></td>
                         <td></td>
@@ -120,7 +122,7 @@
                         </td>
                     </tr>
                     {{-- Start escort sub-total --}}
-                    <tr class="detail-row" data-group="details1">
+                    <tr class="detail-row" data-group="details{{$cnt}}">
                         <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                         <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">
                             {{ $esortReport['total_days'] }}
