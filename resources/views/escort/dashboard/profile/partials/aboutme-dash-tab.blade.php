@@ -411,7 +411,7 @@
                             </div> --}}
 
                             @php
-                                $currentAddress = additional_information(Auth::id(), 'address');
+                                $currentAddress = $escort->address ?? additional_information(Auth::id(), 'address');
                                 $savedAddresses = $loginAccount->additionalInfo->where('type', 'address');
                                 $hasAddresses = $savedAddresses->isNotEmpty();
                             @endphp
@@ -436,7 +436,7 @@
                                             <option value="">— Choose a Street Address —</option>
                                             @foreach ($savedAddresses as $addr)
                                                 <option value="{{ $addr->value }}"
-                                                    {{ $currentAddress == $addr->short_desc ? 'selected' : '' }}>
+                                                    {{ $currentAddress == $addr->value ? 'selected' : '' }}>
                                                     {{ $addr->value }}
                                                 </option>
                                             @endforeach
