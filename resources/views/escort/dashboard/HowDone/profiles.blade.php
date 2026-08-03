@@ -116,16 +116,7 @@
 
                                             </li>
 
-                                            <li>Stage Name.
-                                                <p>This is your name you will use for your Profile. You can select a Stage
-                                                    Name from your existing list, if your default Stage Name has not loaded,
-                                                    or create a new Stage Name. Any new Stage Name you create will be
-                                                    added to your list of Stage Names. Any Stage Names that are currently
-                                                    in use, for the Location, will not appear in the list. If you have
-                                                    nominated
-                                                    one of your Stage Names as the Default, that will automatically load.
-                                                </p>
-                                            </li>
+                                            
 
                                         </ul>
                                     </div>
@@ -139,6 +130,16 @@
 
 
                                 <ul class="custom-ul">
+                                    <li>Stage Name.
+                                                <p>This is your name you will use for your Profile. You can select a Stage
+                                                    Name from your existing list, if your default Stage Name has not loaded,
+                                                    or create a new Stage Name. Any new Stage Name you create will be
+                                                    added to your list of Stage Names. Any Stage Names that are currently
+                                                    in use, for the Location, will not appear in the list. If you have
+                                                    nominated
+                                                    one of your Stage Names as the Default, that will automatically load.
+                                                </p>
+                                            </li>
                                     <li>Location.
                                         <p>The Location, by default, will be your Home State. If you are presently
                                             in another Location, and that is where you want to list your Profile, then
