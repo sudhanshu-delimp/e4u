@@ -55,6 +55,7 @@ class NotificationController extends BaseController
                 $alert_notifications = [];
                 $support_notifications = [];
                 $other_centre_notifications = [];
+                $fee_report_notifications = [];
 
                 $notifications = $this->notification->where([
                     'to_user' => $userId,
@@ -80,6 +81,13 @@ class NotificationController extends BaseController
                         $alert_notifications['data'][] = $notification;
                         if($notification->is_seen=='0')
                         $alert_notifications['is_new'] = 1;
+                        }
+
+                        if($notification->notification_listing_type=='3')
+                        {
+                        $fee_report_notifications['data'][] = $notification;
+                        if($notification->is_seen=='0')
+                        $fee_report_notifications['is_new'] = 1;
                         }
                     }
     
@@ -116,14 +124,12 @@ class NotificationController extends BaseController
                     }
                 }
 
-                
-
-
                 return response()->json([
                     'success' => true, 
                     'support_notifications' => $support_notifications, 
                     'alert_notifications' => $alert_notifications,
-                    'other_centre_notifications' => $other_centre_notifications,  
+                    'other_centre_notifications' => $other_centre_notifications, 
+                    'fee_report_notifications' => $fee_report_notifications,   
                     'message' => 'Notification List'
                 ]);
         } 

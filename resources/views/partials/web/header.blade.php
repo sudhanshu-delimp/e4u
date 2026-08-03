@@ -53,6 +53,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
     @section('style')
     @show
+     @if(isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] != '127.0.0.1')
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P7DMPWFYZ"></script>
     <script>
@@ -64,6 +65,7 @@
         gtag('js', new Date());
         gtag('config', 'G-9P7DMPWFYZ');
     </script> 
+   
      <script type="text/javascript">
         (function(c, l, a, r, i, t, y) {
             c[a] = c[a] || function() {
@@ -76,6 +78,7 @@
             y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "xpw6cg8o8x");
     </script> 
+   
     <!-- Google Tag Manager -->
      <script>
 (function(w,d,s,l,i){
@@ -92,6 +95,7 @@
 })(window,document,'script','dataLayer','GTM-PLBTNLKP');
 </script> 
     <!-- End Google Tag Manager -->
+     @endif
 </head>
 
 <body>

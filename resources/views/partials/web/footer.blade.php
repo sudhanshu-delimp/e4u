@@ -544,8 +544,11 @@
             const longitude = position.coords.longitude;
             getPinupProfile(latitude, longitude);
             const newUrl = "{{ route('public.web.escort.listing') }}" + `/?lat=${latitude}&lng=${longitude}`;
-            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+            const advertiserBtn = document.querySelector(".btn_advertiser");
+            if (advertiserBtn) {
+                let currentHref = advertiserBtn.getAttribute("href");
+                advertiserBtn.setAttribute("href", newUrl);
+            }
         });
         @endif
 

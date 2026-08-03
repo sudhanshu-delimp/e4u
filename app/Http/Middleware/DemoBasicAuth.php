@@ -18,14 +18,14 @@ class DemoBasicAuth
     {
         $username = 'meetwithme';
         $password = 'currentYear@2025';
-
-        if (
-            $request->getUser() !== $username ||
-            $request->getPassword() !== $password
-        ) {
+        if(isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+            return $next($request);
+        }
+        if ($request->getUser() !== $username || $request->getPassword() !== $password) {
             return response('Unauthorized', 401)
                 ->header('WWW-Authenticate', 'Basic realm="Demo Area"');
         }
+    
         return $next($request);
     }
 }

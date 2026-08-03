@@ -604,7 +604,7 @@ class MessageRepository extends BaseRepository implements MessageInterface
 
 
         if (!empty($str['string'])) {
-            $play_type = $play_type->where('name', 'LIKE', "%$str[string]%");
+            $play_type = $play_type->where('name', 'LIKE', "%".$str['string']."%");
             //->orWhere('name','LIKE','%'.$str)
         }
 

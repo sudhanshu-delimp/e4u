@@ -92,11 +92,12 @@ class WebhookController extends Controller
             }
             break;
           case 'escort-listing': {
+              Log::warning('event', ['event' => $event,  'type' => $type]);
               ProcessListingFeaturesPostPayment::dispatch($paymentObject);
             }
+            break;
 
-
-            ############ Massage Centre ##############################
+          ############ Massage Centre ##############################
           case 'massage-listing':
             app(MassagePaymentWebhookService::class)->process($paymentObject);
             break;

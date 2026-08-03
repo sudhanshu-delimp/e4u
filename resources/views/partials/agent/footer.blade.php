@@ -86,8 +86,10 @@
 
                         let alert_notifications = response.alert_notifications;
                         let support_notifications = response.support_notifications;
+                        let fee_report_notifications = response.fee_report_notifications;
                         let alert_notifications_html = "";
                         let support_notify_html = "";
+                        let fee_report_html = "";
 
                             /////////// Alert Notification List ///////////////////////
                             if (alert_notifications?.data?.length > 0)
@@ -113,6 +115,28 @@
 
                                 alert_notifications_html+=`<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
                                 $('.alert_notify_html').html(alert_notifications_html);
+                            } else if (fee_report_notifications?.data?.length > 0) {   
+                                if(fee_report_notifications.is_new)
+                                {
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> '+fee_report_notifications?.data?.length+' </span>');
+                                }
+                            
+                                fee_report_notifications.data.forEach((notification) => {
+                                    fee_report_html+= `<span class="dropdown-item d-flex align-items-center alert_notify_li" id="${notification.id}">
+                                                <div class="mr-3">
+                                                    <div class="icon-circle bg-success">
+                                                    ${notification.notification_icon}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="small text-gray-800"> ${notification.created_at}</div>
+                                                    ${notification.title}
+                                                </div>
+                                            </span>`;
+                                });
+
+                               
+                                $('.alert_notify_html').html(fee_report_html);
                             }
                             else
                             {   $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');

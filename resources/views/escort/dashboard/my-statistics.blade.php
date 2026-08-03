@@ -195,8 +195,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
                         </div>
                     </div>
-              
-                
+                 </div>
+                 <div class="col-lg-12 card-list-wrapper">
               
                     <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
@@ -325,6 +325,9 @@ h5 {
                         </div>
                     </div>
                
+                    
+                 </div>
+                 <div class="col-lg-12 card-list-wrapper">
                     <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations Today
@@ -335,8 +338,6 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
                         </div>
                     </div>
-                
-               
                     <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations This Week

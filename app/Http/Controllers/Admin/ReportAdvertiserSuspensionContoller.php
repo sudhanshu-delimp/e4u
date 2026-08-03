@@ -37,7 +37,8 @@ class ReportAdvertiserSuspensionContoller extends Controller
             return $next($request);
         });
     }
-    public function index(){
+    public function index()
+    {
         return view('admin.reports.advertiser-suspensions');
     }
 
@@ -46,18 +47,17 @@ class ReportAdvertiserSuspensionContoller extends Controller
 
         $search = request()->get('search')['value'];
         $today = Carbon::now();
-        
         $escorts = SuspendProfile::where('status', 1)
-            ->where('utc_end_date','>=',$today)
-            ->whereIn('id', function ($query) {
-                $query->selectRaw('MIN(id)')
-                    ->from('suspend_profiles')
-                    ->where('status', 1)
-                    ->groupBy('escort_profile_id');
-            })
+            ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
+            // ->whereIn('id', function ($query) {
+            //     $query->selectRaw('MIN(id)')
+            //         ->from('suspend_profiles')
+            //         ->where('status', 1)
+            //         ->groupBy('escort_profile_id');
+            // })
             ->with(['escort', 'user', 'escort.city'])
             ->get();
-            
+
         if ($search) {
             $escorts = $escorts->filter(function ($item) use ($search) {
                 // Match user->member_id (check if user relation exists)
@@ -72,17 +72,17 @@ class ReportAdvertiserSuspensionContoller extends Controller
             ->addColumn('member_id', fn($row) => $row->user->member_id)
             ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))
             ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row->end_date)))
-            ->addColumn('days', function($row){
+            ->addColumn('days', function ($row) {
                 $startDate = Carbon::parse($row->utc_start_date);
                 $endDate   = Carbon::parse($row->utc_end_date);
                 return $startDate->diffInDays($endDate) + 1; // inclusive of first day
             })
-            ->addColumn('location', function($row){
-                $state = isset($row->escort->city->country_code) ? $row->escort->city->country_code : '-' ;
+            ->addColumn('location', function ($row) {
+                $state = isset($row->escort->city->country_code) ? $row->escort->city->country_code : '-';
                 return $state;
             })
-            
-            ->addColumn('action', function($row){
+
+            ->addColumn('action', function ($row) {
                 $actionBtn = '
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,7 +91,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
                             <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                 
                                 
-                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id='.$row->escort_profile_id.' data-toggle="modal" data-target="#view-profile" > <i class="fa fa-eye"></i> View</a>
+                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id=' . $row->escort_profile_id . ' data-toggle="modal" data-target="#view-profile" > <i class="fa fa-eye"></i> View</a>
                                 
                             </div>
                             </div>
@@ -100,7 +100,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
                 return $actionBtn;
             })
             ->rawColumns(['action']) // if you're returning HTML
-             ->with([
+            ->with([
                 'server_up_time' => $this->getAppUptime(),
                 'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
             ])
