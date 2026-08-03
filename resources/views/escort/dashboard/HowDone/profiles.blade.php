@@ -545,7 +545,11 @@
                                         </div>
                                         <div class="col-lg-5">
                                             <div class="doc-img">
-                                                <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates.png') }}"
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates-new.png') }}"
+                                                    alt="" class="w-100">
+                                            </div>
+                                            <div class="doc-img">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/playmates.png') }}"
                                                     alt="" class="w-100">
                                             </div>
                                         </div>
@@ -838,7 +842,7 @@
                                     Add BRB
                                 </h5>
                                 <div class="row">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-12">
                                         <p>
                                             If you wish not to be disturbed for a period of
                                             time, because you may be out to dinner for
@@ -873,14 +877,16 @@
                                         </p>
 
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-6">
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/add-brb.png') }}"
                                                 alt="" class="w-100">
                                         </div>
+                                    </div>
+                                    <div class="col-lg-6">
                                         <div class="doc-img mt-2 mb-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/profile-notice.png') }}"
-                                                alt="" class="w-100">
+                                                alt="" class="w-50">
                                         </div>
                                     </div>
                                 </div>

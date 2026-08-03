@@ -192,7 +192,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/overview-my-info.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-additional-info.png') }}"
                                                 alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -406,7 +406,7 @@
                     </div>
 
                     <!-- My Playmates-->
-                    <div class="card">
+                    <div class="card">  
                         <div class="card-header" id="headingPlaymates">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapsePlaymates"
@@ -437,7 +437,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates-1.png') }}"
                                                 alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -447,7 +447,7 @@
 
                                 <h5><b>How is it done - Playmates</b></h5>
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             You must enable ‘I am available as a Playmate’ for this feature to be available.
                                             Inform the
@@ -491,6 +491,12 @@
                                             You can edit your Listed Profile any time including when you are in the Profile
                                             Creator.
                                         </p>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates-new.png') }}"
+                                                alt="" class="w-100 rounded-sm">
+                                        </div>
                                     </div>
                                 </div>
 
