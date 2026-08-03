@@ -127,13 +127,14 @@
             }
         }
         
-        @media (max-width: 768px) {
+        
+        @media (min-width: 426px) and (max-width: 768px) {
             .skl_wrapper {
-                justify-content: center;
+                justify-content: flex-start;
             }
             .skl-card {
                 width: 100%;
-                max-width: 300px;
+                max-width: 235px;
             }
         }
 </style>
