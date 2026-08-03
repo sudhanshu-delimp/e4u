@@ -117,6 +117,26 @@
         background: #c9c9c9;
 
     }
+    
+        @media (max-width: 425px) {
+            .skl_wrapper {
+                justify-content: center;
+            }
+            .skl-card {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .skl_wrapper {
+                justify-content: center;
+            }
+            .skl-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
 </style>
 
 <div class="container">
