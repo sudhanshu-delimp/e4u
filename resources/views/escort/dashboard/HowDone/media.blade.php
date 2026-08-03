@@ -46,7 +46,7 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-10">
                                         <p>
                                             Use this feature to store, set up your default photos, and to verify
                                             them. Verification is important as your photos, if they are
@@ -78,7 +78,7 @@
                                                 rejected.</span>
                                         </p>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-2">
                                         <div class="doc-img">
                                             <img src="{{ asset('assets/app/img/e4u_verified_media.png') }}" alt=""
                                                 class="w-100 rounded-sm">
@@ -169,22 +169,22 @@
                                     <div class="col-lg-5">
                                         <div class="doc-img mb-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/media-photo-scr.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                                alt="" class="w-50 w-sm-100 rounded-sm">
                                         </div>
 
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/media-photo-video-scr.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                                alt="" class="w-50 w-sm-100 rounded-sm">
                                         </div>
 
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/gallery-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                                alt="" class="w-50 w-sm-100 rounded-sm">
                                         </div>
 
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/template-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                                alt="" class="w-50 w-sm-100 rounded-sm">
                                         </div>
                                     </div>
                                     <div class="col-lg-7">
@@ -246,16 +246,16 @@
                                     <div class="col-lg-5">
                                         <div class="doc-img my-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/gallery-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                                alt="" class="w-50 w-sm-100 rounded-sm">
                                         </div>
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/media-verify-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                                alt="" class="w-50 w-sm-100 rounded-sm">
                                         </div>
 
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/profile-image.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                                alt="" class="w-50 w-sm-100 rounded-sm">
                                         </div>
                                     </div>
                                 </div>

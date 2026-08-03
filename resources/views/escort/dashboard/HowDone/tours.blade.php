@@ -114,10 +114,11 @@
                                     the
                                     dates manually, or use the calendar pop up.
                                 </p>
+                                 <h5 class="sec-head">Add Profile</h5>
                                 <div class="row">
                                     <div class="col-lg-7">
 
-                                        <h5 class="sec-head">Add Profile</h5>
+                                       
 
                                         <p>
                                             Next, add the Profile you have created for
@@ -178,10 +179,10 @@
                                 <p>
                                     When you have completed the Tour, click Save, and proceed to payment.
                                 </p>
-
+                                <h5 class="sec-head">Pin Up</h5>
                                 <div class="row">
                                     <div class="col-lg-7">
-                                        <h5 class="sec-head">Pin Up</h5>
+                                       
                                         <p>
                                             If you want to add the Pin Up feature to any
                                             of your Profiles across the Locations, go to
