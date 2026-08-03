@@ -15,9 +15,9 @@
         <table class="table w-100 ">
             <tr>
                 <th><strong>Profile:</strong> </th>
-                <td style="border:none"><span>{{!empty($escort->profile_name)?$escort->state->name:''}}</span></td>
-                <th><strong>Location:</strong> </th>
                 <td style="border:none"><span>{{!empty($escort->profile_name)?$escort->profile_name:''}}</span></td>
+                <th><strong>Location:</strong> </th>
+                <td style="border:none"><span>{{!empty($escort->profile_name)?$escort->state->name:''}}</span></td>
             </tr>
 
             <tr>
@@ -28,16 +28,16 @@
             </tr>
         </table>
     </div>
-        <div class="text-center my-2">
-            <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close">Close</button> 
-        </div>
-        <div class="px-4">
-            <hr style="background-color: #0C223D" class="mt-4">
-            <p class="mb-1"><b>Notes:</b></p>
-            <ol class="pl-4">
-                <li>The standard Fee for a Pin Up has been applied.</li>
-                <li>Your Pin Up listing will be automatically removed if you Suspend or Cancel the
-                    Profile listing.</li>
-            </ol>
-        </div>
+    <div class="text-center my-2">
+        <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close">Close</button>
+    </div>
+    <div class="px-4">
+        <hr style="background-color: #0C223D" class="mt-4">
+        <p class="mb-1"><b>Notes:</b></p>
+        <ol class="pl-4">
+            <li>The standard Fee for a Pin Up has been applied.</li>
+            <li>Your Pin Up listing will be automatically removed if you Suspend or Cancel the
+                Profile listing.</li>
+        </ol>
+    </div>
 </div>
