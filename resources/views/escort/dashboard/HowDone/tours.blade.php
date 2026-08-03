@@ -248,20 +248,22 @@
 
 
                                     <p>
-                                        A comprehensive report summarising your Current Tours. You can create short or long
-                                        Tours. It is entirely up to you, but you must have a minimum of two Locations in the
-                                        Tour.
-                                        You can manage your Tours from the Dashboard <a
-                                            href="{{ route('escort.dashboard.tour-schedule') }}" class="custom_links_design">My
-                                            Tour Schedule</a> as well as from your <a
-                                            href="{{ url('escort-dashboard/list-tour/current') }}"
-                                            class="custom_links_design">Current Tours</a> report.
+                                        A comprehensive report summarising your
+                                        Current Tours. Remember, you can create
+                                        short or long Tours, it is entirely up to you,
+                                        but you must have a minimum of two
+                                        Locations in the Tour. You can manage your
+                                        Tours from the Dashboard <a
+                                        href="{{ route('escort.dashboard.tour-schedule') }}" class="custom_links_design">My
+                                        Tour Schedule</a> as well as from your <a
+                                        href="{{ url('escort-dashboard/list-tour/current') }}"
+                                        class="custom_links_design">Current Tours</a> report.
                                     </p>
                                      <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>Manage your current Tour/s from the one location</li>
-                                    <li>Comprehensive summary of your Tour schedule</li>
-                                </ul>
+                                    <ul class="custom-ul">
+                                        <li>Manage your current Tour/s from the one location</li>
+                                        <li>Comprehensive summary of your Tour schedule</li>
+                                    </ul>
                                   </div>
                                   <div class="col-lg-5">
                                         <div class="doc-img">
