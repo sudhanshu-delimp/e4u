@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white">🖨️ Print Summary</a>
+                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print Summary</a>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
             </div>
         </div>
