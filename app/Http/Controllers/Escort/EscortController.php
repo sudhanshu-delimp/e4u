@@ -202,7 +202,7 @@ class EscortController extends BaseController
     public function listing_success(Request $request)
     {
         $redirect_url = null;
-
+        session()->forget('listing_checkout_done');
         $sessionRoutes = [
             'checkout' => route('escort.dashboard.listings', 'current'),
             'tour_checkout' => route('escort.view.tour.list', 'current'),

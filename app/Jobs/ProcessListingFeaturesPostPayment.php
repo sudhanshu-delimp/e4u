@@ -241,18 +241,21 @@ class ProcessListingFeaturesPostPayment implements ShouldQueue
                 $escortDetail->user->activeFeeDiscount()->increment('spend_amount', $appiedDiscountAmount);
             }
 
+
             if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
+                $escortDetail->enabled = 1;
+                $escortDetail->purchase_id = $purchaseDetail->id;
+                $purchaseDetail->status = 'listed';
+                $purchaseDetail->save();
+            }
+
+            if (!in_array($action, ['extend'])) {
                 $escortDetail->start_date = $item['start_date'];
                 $escortDetail->end_date = $item['end_date'];
                 $escortDetail->utc_start_time = $utcSartTime;
                 $escortDetail->utc_end_time = $utcEndTime;
                 $escortDetail->membership = $item['membership'];
-                $escortDetail->enabled = 1;
-                $escortDetail->purchase_id = $purchaseDetail->id;
                 $escortDetail->save();
-
-                $purchaseDetail->status = 'listed';
-                $purchaseDetail->save();
             }
 
             if ($action === 'extend') {
