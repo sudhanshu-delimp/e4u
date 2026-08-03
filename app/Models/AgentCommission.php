@@ -30,9 +30,24 @@ class AgentCommission extends Model
         return $this->belongsTo(User::class, 'agent_id');
     }
 
+     public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function commissionable()
     {
         return $this->morphTo();
+    }
+
+    public function paymentHistory()
+    {
+        return $this->belongsTo(PaymentHistory::class, 'commissionable_id');
+    }
+
+    public function items()
+    {
+        return $this->hasOne(PaymentItem::class, 'payment_history_id', 'commissionable_id')->select(['id', 'payment_history_id', 'item_type', 'item_id', 'amount']);
     }
 
     /**
@@ -110,7 +125,7 @@ class AgentCommission extends Model
             $user = $this->getAssignedAgent($userId);
             if ($user && $user->assignedAgent) {
                 $assignedAgent = $user->assignedAgent;
-               // Log::info("Agent_details:" . json_encode($assignedAgent));
+                // Log::info("Agent_details:" . json_encode($assignedAgent));
                 $agentCommission['user_type'] = $user->type;
                 $agentCommission['agent_id'] = $assignedAgent->agent_id;
                 //$commission = (is_null($assignedAgent->commission_advertising_percent)) ? 0 : $assignedAgent->commission_advertising_percent;
@@ -131,8 +146,8 @@ class AgentCommission extends Model
                     } else {
                         $totalCommission = $commission;
                     }
-                    if($totalCommission > $total){
-                       $totalCommission = $total;
+                    if ($totalCommission > $total) {
+                        $totalCommission = $total;
                     }
 
                     $totalCommission = number_format($totalCommission, 2, '.', '');
@@ -159,7 +174,7 @@ class AgentCommission extends Model
     public function saveCommissionData($massageEscortPurchase, $userId, $total, $feeFor = 'advertising')
     {
         try {
-           // Log::info("saveCommissionData function triggered");
+            // Log::info("saveCommissionData function triggered");
             $agentCommission = $this->calculateCommission($userId, $total);
             //Log::info("agentCommission:" . json_encode($agentCommission));
             if ($agentCommission['commission'] > 0 && !empty($agentCommission['amount_type']) && $agentCommission['agent_id'] > 0) {
@@ -195,9 +210,9 @@ class AgentCommission extends Model
     {
         $price = self::where('user_id', $userId)
             ->sum('total_commission_amount');
-        if($isFormatted == 1)   {
-             $price = number_format($price, 2);
-        } 
+        if ($isFormatted == 1) {
+            $price = number_format($price, 2);
+        }
         return $price;
     }
 }

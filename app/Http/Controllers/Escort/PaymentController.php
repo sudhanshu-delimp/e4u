@@ -300,7 +300,7 @@ class PaymentController extends Controller
             if ($payment && !in_array($benefit_token['action'], ['wallet'])) {
                 $agentCommission = (new \App\Models\AgentCommission);
                 Log::info("saveCommissionData fuction calling from payment controller.");
-                $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['total_amount']);
+                $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['sub_total_amount']);
             }
 
             $payment_service = '';
@@ -551,7 +551,6 @@ class PaymentController extends Controller
         return $pdf->stream($payment->user->member_id . '_Payment_Summary_' . $payment->ref_no . '.pdf');
     }
 
-
     public function mySpend(Request $request)
     {
         $userId = auth()->id();
@@ -588,7 +587,7 @@ class PaymentController extends Controller
             'Profile Upgrade',
         ];
 
-        // Helper Function
+        // Helper Function - ab amount + gst_amount ka sum karega
         $sum = function ($services, $from, $to) use ($userId) {
 
             $query = PaymentHistory::where('user_id', $userId)
@@ -601,7 +600,8 @@ class PaymentController extends Controller
                 $query->where('service', $services);
             }
 
-            return $query->sum('paid_amount');
+            return (float) $query->selectRaw('COALESCE(SUM(COALESCE(amount, 0) + COALESCE(gst_amount, 0)), 0) as total')
+                ->value('total');
         };
 
         // Advertising
@@ -615,11 +615,13 @@ class PaymentController extends Controller
         $advertisingYearLast  = $sum($advertisingServices, $lastFyStart, $lastFyEnd);
 
         // Other Services
-        $product = PaymentHistory::where('status', 'success')
+        $product = (float) PaymentHistory::where('status', 'success')
             ->where('service', 'Product Purchase')
             ->where('user_id', auth()->id())
             ->whereBetween(DB::raw('COALESCE(paid_at, created_at)'), [$fyStart, now()])
-            ->sum('paid_amount');
+            ->selectRaw('COALESCE(SUM(COALESCE(amount, 0) + COALESCE(gst_amount, 0)), 0) as total')
+            ->value('total');
+
         $email   = $sum('Email Account', $fyStart, $now);
         $mobile  = $sum('Mobile SIM', $fyStart, $now);
         $support = $sum('Support', $fyStart, $now);
@@ -650,9 +652,10 @@ class PaymentController extends Controller
                     [$fyStart, now()]
                 )
                 ->orderByDesc('paid_at')
-                ->get(['service', 'paid_amount', 'paid_at']),
+                ->selectRaw('service, paid_at, (COALESCE(amount, 0) + COALESCE(gst_amount, 0)) as paid_amount')
+                ->get(),
         ];
-       
+
         return view('escort.dashboard.my-spend', compact('data'));
     }
 }

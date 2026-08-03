@@ -52,14 +52,19 @@ class TrackLastPageVisitMiddlware
             $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
             // ->where('email', '!=', 'admin@e4u.com.au')
             ->value('updated_at');
-
-
+            $defaultIdleTime = 0;
+            if($request->isImpersonated) {
+               $defaultIdleTime = 99999999;
+            }
             
             # logout user if their idle time is more than their preference time
             if(auth()->user()->type == 5)
             {
 
                 $idle_preference_time = (auth()->user()->agent_settings && auth()->user()->agent_settings->idle_preference_time) ? auth()->user()->agent_settings->idle_preference_time : '60';
+                if($defaultIdleTime > 0) {
+                    $idle_preference_time = $defaultIdleTime;
+                }
 
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
@@ -72,6 +77,9 @@ class TrackLastPageVisitMiddlware
             {
 
                 $idle_preference_time = (auth()->user()->massage_settings && auth()->user()->massage_settings->idle_preference_time) ? auth()->user()->massage_settings->idle_preference_time : '60';
+                if($defaultIdleTime > 0) {
+                    $idle_preference_time = $defaultIdleTime;
+                }
 
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
@@ -85,6 +93,9 @@ class TrackLastPageVisitMiddlware
             {
 
                 $idle_preference_time = (auth()->user()->escort_settings && auth()->user()->escort_settings->idle_preference_time) ? auth()->user()->escort_settings->idle_preference_time : '60';
+                if($defaultIdleTime > 0) {
+                    $idle_preference_time = $defaultIdleTime;
+                }
 
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
@@ -98,6 +109,9 @@ class TrackLastPageVisitMiddlware
             {
 
                 $idle_preference_time = (auth()->user()->viewer_settings && auth()->user()->viewer_settings->idle_preference_time) ? auth()->user()->viewer_settings->idle_preference_time : '60';
+                if($defaultIdleTime > 0) {
+                    $idle_preference_time = $defaultIdleTime;
+                }
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
                 //Route: viewer.login
@@ -110,6 +124,9 @@ class TrackLastPageVisitMiddlware
                 if(auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time!==null)
                 {
                     $idle_preference_time =  (auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time) ? auth()->user()->staff_setting->idle_preference_time : '60';
+                    if($defaultIdleTime > 0) {
+                    $idle_preference_time = $defaultIdleTime;
+                }
                     
                     if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                          auth()->logout();
@@ -125,6 +142,9 @@ class TrackLastPageVisitMiddlware
                    return redirect()->route('operator.index');
             }
                 $idle_preference_time = (auth()->user()->operator_staff_setting && auth()->user()->operator_staff_setting->idle_preference_time) ? auth()->user()->operator_staff_setting->idle_preference_time : '60';
+                if($defaultIdleTime > 0) {
+                    $idle_preference_time = $defaultIdleTime;
+                }
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
                 //Route: operator-login
@@ -137,6 +157,9 @@ class TrackLastPageVisitMiddlware
                    return redirect()->route('shareholder.index');
             }
                 $idle_preference_time = (auth()->user()->shareholder_settings && auth()->user()->shareholder_settings->idle_preference_time) ? auth()->user()->shareholder_settings->idle_preference_time : '60';
+                if($defaultIdleTime > 0) {
+                    $idle_preference_time = $defaultIdleTime;
+                }
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
                 //Route: shareholder-login

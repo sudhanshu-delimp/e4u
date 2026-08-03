@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
         Commands\MasseurMediaExpireCron::class,  
         Commands\EscortsMediaExpireCron::class,
         Commands\CleanPdfBatches::class,
+        Commands\CalculateAgentMonthlyFee::class,
     ];
 
     /**
@@ -48,6 +49,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('massage_media:expire')->everyMinute();
         $schedule->command('masseur-media:expire')->everyMinute();
         $schedule->command('pdf:clean')->everySixHours();
+        //To run the command at 8:00 AM on the first day of every month
+        $schedule->command('agent:calculate-fee')->monthlyOn(1, '08:00');
     }
 
     /**
