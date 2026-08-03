@@ -106,13 +106,12 @@ class UpdateController extends AppController
         $user = auth()->user();
         $escortDefault = $this->escort->findDefault($user->id, 1);
         $users = $this->user->find($user->id);
-        if($request->gender!="" && $user->gender=="")
-        {
-             $users->gender =  $request->gender;
-             $users->save();
-             $error = false;
-             return response()->json(compact('error'));
-        }   
+        if ($request->gender != "" && $user->gender == "") {
+            $users->gender =  $request->gender;
+            $users->save();
+            $error = false;
+            return response()->json(compact('error'));
+        }
         if (!empty(trim($request->name))) {
 
             $escortNames = $users->escorts_names;
@@ -125,7 +124,7 @@ class UpdateController extends AppController
         //start store Street Address
         $address = trim($request->address);
         if (!empty($address)) {
-             EscortAdditionalInformation::firstOrCreate(
+            EscortAdditionalInformation::firstOrCreate(
                 [
                     'user_id' => $user->id,
                     'type'    => 'address',
@@ -138,7 +137,7 @@ class UpdateController extends AppController
         //start store Title
         $title = trim($request->about_title);
         if (!empty($title)) {
-             EscortAdditionalInformation::firstOrCreate(
+            EscortAdditionalInformation::firstOrCreate(
                 [
                     'user_id' => $user->id,
                     'type'    => 'title',
@@ -151,7 +150,7 @@ class UpdateController extends AppController
         //start store Street Address
         $address = trim($request->address);
         if (!empty($address)) {
-             EscortAdditionalInformation::firstOrCreate(
+            EscortAdditionalInformation::firstOrCreate(
                 [
                     'user_id' => $user->id,
                     'type'    => 'address',
@@ -297,8 +296,8 @@ class UpdateController extends AppController
                 ]);
             }
         }
-        
-        if(isset($request->remove_service)){
+
+        if (isset($request->remove_service)) {
             if ($request->remove_service > 0) {
                 $escort = Escort::with('services')->find($escortId);
                 $escort->services()->detach($request->remove_service);
@@ -451,8 +450,8 @@ class UpdateController extends AppController
             'about_title' => $request->about_title ? $request->about_title : ($escortDefault->about_title ?: null),
             'incall_enabled' => $request->incall_enabled,
             'outcall_enabled' => $request->outcall_enabled,
-            'incall_amount' => $request->incall_amount?: null,
-            'outcall_amount' => $request->outcall_amount?: null,
+            'incall_amount' => $request->incall_amount ?: null,
+            'outcall_amount' => $request->outcall_amount ?: null,
         ];
         //        $errors = [];
         $errors = '';
@@ -487,7 +486,7 @@ class UpdateController extends AppController
                 }
             }
 
-            
+
             if ($data_durations  = $escort->durations()->sync($arr)) {
                 $error = 1;
             }
@@ -496,16 +495,16 @@ class UpdateController extends AppController
              * Start:- Store Rates to My Information , if does not eixst there
              */
             $existDefaultRate = $escortDefault->durations()
-            ->get()
-            ->filter(function ($duration) {
-                return $duration->pivot->massage_price > 0 ||
-                       $duration->pivot->incall_price > 0 ||
-                       $duration->pivot->outcall_price > 0;
-            })
-            ->values()
-            ->toArray();
+                ->get()
+                ->filter(function ($duration) {
+                    return $duration->pivot->massage_price > 0 ||
+                        $duration->pivot->incall_price > 0 ||
+                        $duration->pivot->outcall_price > 0;
+                })
+                ->values()
+                ->toArray();
 
-            if(empty($existDefaultRate)){
+            if (empty($existDefaultRate)) {
                 $escortDefault->durations()->sync($arr);
             }
 
@@ -548,7 +547,7 @@ class UpdateController extends AppController
              * Start:- Store Availability to My Information , if does not eixst there
              */
             $existDefaultAvailability = $escortDefault->availability()->exists();
-            if(empty($existDefaultAvailability)){
+            if (empty($existDefaultAvailability)) {
                 $data["escort_id"] = $escortDefault->id;
                 $defaultAvailability = $escortDefault->availability;
                 $this->availability->store($data, $defaultAvailability ? $defaultAvailability->id : null);
@@ -558,7 +557,7 @@ class UpdateController extends AppController
              * End:- Store Availability to My Information , if does not eixst there
              */
             $service_arr = [];
-            
+
             if (!empty($request->service_id)) {
                 foreach ($request->service_id as $key => $value) {
                     $service_arr  += [$value => ["price" => $request->price[$key]]];
@@ -572,9 +571,9 @@ class UpdateController extends AppController
 
             /**
              * Start:- Store Service Tags to My Information , if does not eixst there
-            */
+             */
             $existDefaultService = $escortDefault->services()->exists();
-            if(empty($existDefaultService)){
+            if (empty($existDefaultService)) {
                 $escortDefault->services()->sync($service_arr);
             }
 
@@ -648,7 +647,7 @@ class UpdateController extends AppController
             //********FILE UPLOAD AREA CLOSE**********//
 
 
-            $escortImages = EscortGallery::where(['escort_id'=>$id,'type'=>'0'])->get();
+            $escortImages = EscortGallery::where(['escort_id' => $id, 'type' => '0'])->get();
             foreach ($escortImages as $escortImage) {
                 if (isset($media_arr[$escortImage->position])) {
                     $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
@@ -668,11 +667,11 @@ class UpdateController extends AppController
             /**
              *  Store Video Gallery
              */
-            $escortVideos = EscortGallery::where(['escort_id'=>$id,'type'=>'1'])->get();
+            $escortVideos = EscortGallery::where(['escort_id' => $id, 'type' => '1'])->get();
             $videoGalleryArray = $request->video_position;
-            if($escortVideos->count() > 0){
-                foreach($escortVideos as $key=>$video){
-                    if(isset($videoGalleryArray[$video->position])){
+            if ($escortVideos->count() > 0) {
+                foreach ($escortVideos as $key => $video) {
+                    if (isset($videoGalleryArray[$video->position])) {
                         $video->escort_media_id = $videoGalleryArray[$video->position];
                         $video->type = '1';
                         $video->updated_at = date('Y-m-d H:i:s');
@@ -682,8 +681,8 @@ class UpdateController extends AppController
                 }
             }
 
-            if(count($videoGalleryArray) > 0){
-                foreach($videoGalleryArray as $key=>$video){
+            if (count($videoGalleryArray) > 0) {
+                foreach ($videoGalleryArray as $key => $video) {
                     $gallery = new EscortGallery;
                     $gallery->escort_id = $id;
                     $gallery->escort_media_id = $video;
@@ -695,7 +694,7 @@ class UpdateController extends AppController
             }
 
 
-            if(!empty($request->playmate)){
+            if (!empty($request->playmate)) {
                 $escort = Escort::find($id);
                 $escort->playmates()->sync($request->playmate);
             }
@@ -780,9 +779,9 @@ class UpdateController extends AppController
         }
         //********FILE UPLOAD AREA CLOSE**********//
 
-        if($request->position){
-            foreach($request->position as $position=>$media_id){
-                if(!empty($media_id)){
+        if ($request->position) {
+            foreach ($request->position as $position => $media_id) {
+                if (!empty($media_id)) {
                     $media_arr[$position]  = [
                         'escort_id' => $id,
                         'escort_media_id' => $media_id,
@@ -793,8 +792,8 @@ class UpdateController extends AppController
             }
         }
 
-        $escortImages = EscortGallery::where(['escort_id'=>$id,'type'=>'0'])->get();
-        if($escortImages->count() > 0){
+        $escortImages = EscortGallery::where(['escort_id' => $id, 'type' => '0'])->get();
+        if ($escortImages->count() > 0) {
             foreach ($escortImages as $escortImage) {
                 if (isset($media_arr[$escortImage->position])) {
                     $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
@@ -803,24 +802,24 @@ class UpdateController extends AppController
                     unset($media_arr[$escortImage->position]);
                 }
             }
-            if(count($media_arr) > 0){
+            if (count($media_arr) > 0) {
                 EscortGallery::insert($media_arr);
             }
-        }
-        else{
+        } else {
             EscortGallery::insert($media_arr);
         }
         Artisan::queue('profile:sync-status'); // update profile verification status
         return response()->json(compact('media_arr'));
     }
 
-    public function saveProfileVideo(Request $request, $id = null){
+    public function saveProfileVideo(Request $request, $id = null)
+    {
         $error = false;
-        $escortVideos = EscortGallery::where(['escort_id'=>$id,'type'=>'1'])->get();
+        $escortVideos = EscortGallery::where(['escort_id' => $id, 'type' => '1'])->get();
         $videoGalleryArray = $request->video_position;
-        if($escortVideos->count() > 0){
-            foreach($escortVideos as $key=>$video){
-                if(isset($videoGalleryArray[$video->position])){
+        if ($escortVideos->count() > 0) {
+            foreach ($escortVideos as $key => $video) {
+                if (isset($videoGalleryArray[$video->position])) {
                     $video->escort_media_id = $videoGalleryArray[$video->position];
                     $video->type = '1';
                     $video->updated_at = date('Y-m-d H:i:s');
@@ -830,8 +829,8 @@ class UpdateController extends AppController
             }
         }
 
-        if(count($videoGalleryArray) > 0){
-            foreach($videoGalleryArray as $key=>$video){
+        if (count($videoGalleryArray) > 0) {
+            foreach ($videoGalleryArray as $key => $video) {
                 $gallery = new EscortGallery;
                 $gallery->escort_id = $id;
                 $gallery->escort_media_id = $video;
@@ -868,7 +867,7 @@ class UpdateController extends AppController
     public function updateProfile($id)
     {
         $escort = $this->escort->find($id);
-        
+
         if ($escort->user_id != auth()->user()->id) {
             return redirect()->route('escort.list', 'current')->with('error', "This profile doesn't belongs to you");
         } else {
@@ -884,7 +883,7 @@ class UpdateController extends AppController
             $defaultImages = $this->media->findDefaultMedia($user->id, 0);
             $escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
-            return view('escort.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'users_for_available_playmate', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'user'));
+            return view('escort.dashboard.profile.update', compact('defaultServiceIds', 'defaultImages', 'media', 'users_for_available_playmate', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'user'));
         }
     }
     public function agentUpdateProfile($id, $uid)
@@ -1286,7 +1285,7 @@ class UpdateController extends AppController
             'hair_style' => $request->hair_style,
             'weight' => $request->weight,
             'dress_size' => $request->dress_size,
-           // 'membership' => $request->membership,
+            // 'membership' => $request->membership,
             'shaved' => $request->shaved,
             'endowment' => $request->endowment,
             'thickness' => $request->thickness,
@@ -1490,7 +1489,7 @@ class UpdateController extends AppController
         $escort->images()->delete();
         $escort->videos()->delete();
         $escort->messages()->delete();
-        $escort->pinup()->update(['start_date'=>null,'end_date'=>null]);
+        $escort->pinup()->update(['start_date' => null, 'end_date' => null]);
         $this->escort->destroy($id);
         $error = 1;
 
@@ -1553,17 +1552,18 @@ class UpdateController extends AppController
         $user = auth()->user();
         $stage_name = $request->duplicate_profile ? $request->name : ($escortDefault->name ?: null);
         $error = '';
-        if(isset($request->duplicate_profile) && $request->duplicate_profile == "duplicate"){
-          $existWithStageName = Escort::where(['user_id' => $user->id, 'profile_name' => $request->profile_name])->first();
-          if (!empty($existWithStageName)) {
-            $error = 'Profilename already exist';
-        }
+        if (isset($request->duplicate_profile) && $request->duplicate_profile == "duplicate") {
+            $existWithStageName = Escort::where(['user_id' => $user->id, 'profile_name' => $request->profile_name])->first();
+            if (!empty($existWithStageName)) {
+                $error = 'Profilename already exist';
+            }
         } else {
-        $existWithStageName = Escort::where(['user_id' => $user->id, 'name' => $stage_name, 'city_id' => $request->city_id])->first();
-        if (!empty($existWithStageName)) {
-            $error = 'Profile with same stage name and with same location already exist';
+            $existWithStageName = Escort::where(['user_id' => $user->id, 'name' => $stage_name, 'city_id' => $request->city_id])->first();
+            if (!empty($existWithStageName)) {
+                $error = 'Profile with same stage name and with same location already exist';
+            }
         }
-    }
+
         if (empty($error)) {
             $input = [
                 'name' => $stage_name,
@@ -1712,18 +1712,18 @@ class UpdateController extends AppController
         return  $exists ? response()->json(false, 422) : response()->json(true, 200);
     }
 
-    public function getNarration(Request $request){
+    public function getNarration(Request $request)
+    {
 
-        try{
-            
+        try {
+
             $narration = EscortAdditionalInformation::where('short_desc', $request->short_desc)->pluck('value');
-            if($narration){
-              return  success_response($narration, 'Ok', 200, []);
+            if ($narration) {
+                return  success_response($narration, 'Ok', 200, []);
             }
-           return error_response('No data found', 404, []);
-        } catch(Exception $e){
+            return error_response('No data found', 404, []);
+        } catch (Exception $e) {
             return error_response($e->getMessage(), 500, []);
         }
-
     }
 }

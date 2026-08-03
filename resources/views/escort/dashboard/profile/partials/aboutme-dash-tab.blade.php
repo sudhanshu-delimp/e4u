@@ -411,7 +411,7 @@
                             </div> --}}
 
                             @php
-                                $currentAddress = $escort->address ?? additional_information(Auth::id(), 'address');
+                                $currentAddress = additional_information(Auth::id(), 'address');
                                 $savedAddresses = $loginAccount->additionalInfo->where('type', 'address');
                                 $hasAddresses = $savedAddresses->isNotEmpty();
                             @endphp
