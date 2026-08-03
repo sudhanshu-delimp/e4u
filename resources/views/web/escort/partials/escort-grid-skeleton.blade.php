@@ -135,7 +135,7 @@
             }
             .skl-card {
                 width: 100%;
-                max-width: 235px;
+                max-width: 205px;
             }
         }
 </style>
