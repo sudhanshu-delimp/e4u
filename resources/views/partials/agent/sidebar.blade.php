@@ -157,49 +157,7 @@
                 </div>
                 {{-- end --}}
 
-                {{-- fee --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Fees">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/commision.png') }}">
-
-                    <span>Fees</span>
-                </a>
-                <div id="Fees" class="collapse @if (request()->segment(3) == 'monthly-report' ||
-                        request()->segment(3) == 'summary' ||
-                        request()->segment(3) == 'my-income') show @endif;"
-                    data-parent="#Management">
-
-                    <div class="py-0 collapse-inner rounded mb-2">
-
-                        <a class="collapse-item" href="{{ route('agent.fees.summary') }}">
-                            <img
-                                src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                            <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Fees
-                                Summary</span>
-                        </a>
-
-                        <a class="collapse-item" href="{{ route('Fees.monthly-report') }}">
-                            <img
-                                src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                            <span
-                                style="{{ request()->segment(3) == 'monthly-report' ? 'color: #e5365a;' : '' }}">Monthly
-                                Report</span>
-                        </a>
-
-
-                        <a class="collapse-item" href="{{ route('Fees.my-income') }}">
-                            <img
-                                src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                            <span style="{{ request()->segment(3) == 'my-income' ? 'color: #e5365a;' : '' }}">My
-                                Income</span>
-                        </a>
-
-
-
-
-
-                    </div>
-                </div>
-                {{-- end --}}
+                
                 {{-- Marketing --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#marketing">
                     <img src="{{ asset('assets/app/img/folded-booklet.png') }}">
@@ -236,6 +194,50 @@
                                 style="{{ request()->segment(3) == 'save-report' ? 'color: #e5365a;' : '' }}">Saved
                                 Reports</span>
                         </a>
+
+                    </div>
+                </div>
+                {{-- end --}}
+
+                {{-- Reports --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/commision.png') }}">
+
+                    <span>Reports</span>
+                </a>
+                <div id="Reports" class="collapse @if (request()->segment(3) == 'monthly-report' ||
+                        request()->segment(3) == 'summary' ||
+                        request()->segment(3) == 'my-income') show @endif;"
+                    data-parent="#Management">
+
+                    <div class="py-0 collapse-inner rounded mb-2">
+
+                        <a class="collapse-item" href="{{ route('agent.fees.summary') }}">
+                            <img
+                                src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                            <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Fees
+                                Summary</span>
+                        </a>
+
+                        <a class="collapse-item" href="{{ route('Fees.monthly-report') }}">
+                            <img
+                                src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                            <span
+                                style="{{ request()->segment(3) == 'monthly-report' ? 'color: #e5365a;' : '' }}">Monthly
+                                Report</span>
+                        </a>
+
+
+                        <a class="collapse-item" href="{{ route('Fees.my-income') }}">
+                            <img
+                                src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                            <span style="{{ request()->segment(3) == 'my-income' ? 'color: #e5365a;' : '' }}">My
+                                Income</span>
+                        </a>
+
+
+
+
 
                     </div>
                 </div>
