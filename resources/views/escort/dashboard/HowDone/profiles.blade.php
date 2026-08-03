@@ -545,11 +545,11 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-5">
-                                            <div class="doc-img">
+                                            <div class="doc-img mt-2">
                                                 <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates-new.png') }}"
                                                     alt="" class="w-100">
                                             </div>
-                                            <div class="doc-img">
+                                            <div class="doc-img mt-2">
                                                 <img src="{{ asset('assets/dashboard/img/how-is-done/playmates.png') }}"
                                                     alt="" class="w-100">
                                             </div>
@@ -843,7 +843,7 @@
                                     Add BRB
                                 </h5>
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             If you wish not to be disturbed for a period of
                                             time, because you may be out to dinner for
@@ -876,15 +876,19 @@
                                             you apply a BRB, the BRB banner will also display on your Pin Up image
                                             on the Home Page.
                                         </p>
-
+                                        <p><i>Part B - Profile Management (Action)</i></p>
+                                <h5 class="sec-head">
+                                    Cancel BRB
+                                </h5>
+                                <p>Use this Action item to cancel you BRB notification. Once the BRB is cancelled, the BRB
+                                    tag
+                                    will automatically be removed from the Listing and the report page.</p>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-5">
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/add-brb.png') }}"
                                                 alt="" class="w-100">
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6">
                                         <div class="doc-img mt-2 mb-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/profile-notice.png') }}"
                                                 alt="" class="w-50">
@@ -893,17 +897,6 @@
                                 </div>
 
                             </div>
-                            <div>
-                                <p><i>Part B - Profile Management (Action)</i></p>
-                                <h5 class="sec-head">
-                                    Cancel BRB
-                                </h5>
-                                <p>Use this Action item to cancel you BRB notification. Once the BRB is cancelled, the BRB
-                                    tag
-                                    will automatically be removed from the Listing and the report page.</p>
-                            </div>
-
-
                             <div>
                                 <h5 class="sec-head">
                                     Edit
@@ -1005,7 +998,7 @@
                                     
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/archive-list.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/archive-profile.png') }}"
                                                 alt="profile-duplicate" class=" w-100">
                                         </div>
                                     </div>
@@ -1053,7 +1046,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/profile-duplicate-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/dupplicate.png') }}"
                                                 alt="profile-duplicate" class=" w-100">
                                         </div>
                                     </div>
