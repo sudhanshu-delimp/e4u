@@ -141,9 +141,9 @@ class EscortController extends BaseController
     // function listing_checkout(UpdateEscortRequest $request) {
     function listing_checkout(Request $request, $type)
     {
-        if (session()->has('listing_checkout_done')) {
-            return redirect()->route('escort.account.add-listing');
-        }
+        // if (session()->has('listing_checkout_done')) {
+        //     return redirect()->route('escort.account.add-listing');
+        // }
 
         $checkout_type = !empty($request->checkout_type) ? $request->checkout_type : null;
         $refundAmount = 0.00;
