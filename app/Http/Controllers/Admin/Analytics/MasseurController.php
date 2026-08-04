@@ -39,11 +39,15 @@ class MasseurController extends Controller
     $startOfWeek = Carbon::now()->startOfWeek();
     $startOfYear = Carbon::now()->startOfYear();
 
+       $latestVisitor = Visitor::select('date')
+        ->whereColumn('visitors.masseur_id', 'masseurs.id')
+        ->latest('date')
+        ->limit(1);
+
     $masseurs = Masseur::query()
-      ->leftJoin('visitors', 'visitors.masseur_id', '=', 'masseurs.id')
-      ->select('masseurs.*',   DB::raw('MAX(visitors.date) as latest_visitor_date'))
-      ->groupBy('masseurs.id')
-      ->orderByDesc('latest_visitor_date');
+        ->select('masseurs.*')
+        ->selectSub($latestVisitor, 'latest_visitor_date')
+        ->orderByDesc('latest_visitor_date');
 
     return DataTables::of($masseurs)
 
