@@ -62,7 +62,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead style="background-color: #0C223D; color: #ffffff;">
-                    <tr><th colspan="3" class="text-center">Finance</th></tr>
+                    <tr><th colspan="3" class="text-center">My Wallet</th></tr>
                   </thead>
                   <tbody>
                     <tr>
@@ -118,6 +118,9 @@
             </div>
         </div>
     </div> 
+
+
+    
      {{--reset password expiry date modal  --}}
     <div class="modal fade upload-modal" id="resetPasswordDate" tabindex="-1" role="dialog" aria-labelledby="resetPasswordDatelabel"
         aria-hidden="true" data-backdrop="static">

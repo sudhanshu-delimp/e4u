@@ -207,9 +207,9 @@ Route::middleware('auth')->group(function () {
 
         // Route::get('/logs-and-statistics',function(){ return view('user.dashboard.logs-and-statistics');})->name('user.logs-and-statistics');
 
-        // Route::get('/my-statistics', function () {
-        //     return view('user.dashboard.my-statistics');
-        // })->name('user.my-statistics');
+        Route::get('/my-statistics', function () {
+            return view('user.dashboard.my-statistics');
+        })->name('user.my-statistics');
 
         // Route::get('/task-list',function(){
         //     return view('user.dashboard.task-list');
@@ -561,16 +561,6 @@ Route::get('agent-dashboard/submitticket', function () {
 Route::get('/agent-dashboard/abbreviations', function () {
     return view('agent.dashboard.Community.abbreviations');
 })->name('agent.abbreviations');
-
-
-
-
-
-
-
-Route::get('/escort-dashboard/escorts-statistics', function () {
-    return view('escort.dashboard.escorts-statistics');
-})->name('escort.dashboard.escorts-statistics');
 
 
 Route::get('/escort-dashboard/my-playbox', function () {
