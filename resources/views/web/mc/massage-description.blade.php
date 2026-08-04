@@ -782,8 +782,8 @@ margin-right: 5px;
                                             <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
                                             
                                             <div class="navigation_button">
-                                                <button class="btn-prev"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
-                                                <button class="btn-next">Next <i class="fa fa-chevron-right text-white"></i> </button>
+                                                <button class="btn-prev"  data-massure_id="{{$masseur->id}}"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
+                                                <button class="btn-next"  data-massure_id="{{$masseur->id}}">Next <i class="fa fa-chevron-right text-white"></i> </button>
                                             </div>
                                             <button type="button" class="close_btn" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
@@ -3155,6 +3155,9 @@ $(document).ready(function () {
         let index = parseInt(currentModal.data('index'));
 
         showModal(currentModal, index + 1);
+        let massure_id = $(this).data('massure_id');
+    let page = "massure media";
+   generateLog(massure_id,page);
     });
 
     
@@ -3163,6 +3166,10 @@ $(document).ready(function () {
         let index = parseInt(currentModal.data('index'));
 
         showModal(currentModal, index - 1);
+         let massure_id = $(this).data('massure_id');
+    let page = "massure media";
+   generateLog(massure_id,page);
+        
     });
 
 });
