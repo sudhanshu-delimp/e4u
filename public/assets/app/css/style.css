@@ -6938,6 +6938,7 @@ table {
 
 .screenshot-image {
     width: 100%;
+    height: 150px !important;
     display: block;
     border-radius: 5px;
 }
@@ -7395,7 +7396,7 @@ table {
 .swiper-slide img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: 150px;
     object-fit: cover;
 }
 
