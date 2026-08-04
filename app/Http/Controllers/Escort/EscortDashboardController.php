@@ -28,11 +28,7 @@ class EscortDashboardController extends Controller
         $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)
             ->pluck('user_id')
             ->unique();
-           
-        $playmateCount = DB::table('escort_playmate')
-          ->whereIn('escort_id', $escortIds)
-            ->count();
-           
+        
         $result = LoginAttempt::join('users', 'login_attempts.user_id', '=', 'users.id')
             ->whereIn('users.id', $legboxEscortUserIds)
             ->where('login_attempts.type', 1)
@@ -42,7 +38,7 @@ class EscortDashboardController extends Controller
                 COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) AS outside_state_count
             ", [$authStateId, $authStateId])
             ->first();
-        return view('escort.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime','result','user','playmateCount'));
+        return view('escort.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime','result','user'));
     }
 
 
